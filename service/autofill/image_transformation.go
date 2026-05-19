@@ -89,8 +89,8 @@ func (m *ImageTransformation) WriteToParcel(arg0 *jni.Object, arg1 int32) error 
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsImageTransformation)),
 			midImageTransformationWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

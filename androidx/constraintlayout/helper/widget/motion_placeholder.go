@@ -32,6 +32,12 @@ func NewMotionPlaceholder(vm *jni.VM, arg0 *jni.Object) (*MotionPlaceholder, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMotionPlaceholder == nil {
+			return fmt.Errorf("androidx.constraintlayout.helper.widget.MotionPlaceholder is not available on this device")
+		}
+		if midMotionPlaceholderCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.helper.widget.MotionPlaceholder constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMotionPlaceholder)), midMotionPlaceholderCtor, jni.ObjectValue(arg0))
 		if err != nil {

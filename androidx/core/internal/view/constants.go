@@ -5,15 +5,15 @@ package view
 import "github.com/AndroidGoLab/jni/androidx/core/internal/view/consts"
 
 const (
+	ShowAsActionNever              = consts.ShowAsActionNever
+	ShowAsActionIfRoom             = consts.ShowAsActionIfRoom
+	ShowAsActionAlways             = consts.ShowAsActionAlways
+	ShowAsActionWithText           = consts.ShowAsActionWithText
+	ShowAsActionCollapseActionView = consts.ShowAsActionCollapseActionView
 	UserMask                       = consts.UserMask
 	UserShift                      = consts.UserShift
 	CategoryMask                   = consts.CategoryMask
 	CategoryShift                  = consts.CategoryShift
 	SupportedModifiersMask         = consts.SupportedModifiersMask
 	FlagKeepOpenOnSubmenuOpened    = consts.FlagKeepOpenOnSubmenuOpened
-	ShowAsActionNever              = consts.ShowAsActionNever
-	ShowAsActionIfRoom             = consts.ShowAsActionIfRoom
-	ShowAsActionAlways             = consts.ShowAsActionAlways
-	ShowAsActionWithText           = consts.ShowAsActionWithText
-	ShowAsActionCollapseActionView = consts.ShowAsActionCollapseActionView
 )

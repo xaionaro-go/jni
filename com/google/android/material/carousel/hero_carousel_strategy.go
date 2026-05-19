@@ -32,6 +32,12 @@ func NewHeroCarouselStrategy(vm *jni.VM) (*HeroCarouselStrategy, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsHeroCarouselStrategy == nil {
+			return fmt.Errorf("com.google.android.material.carousel.HeroCarouselStrategy is not available on this device")
+		}
+		if midHeroCarouselStrategyCtor == nil {
+			return fmt.Errorf("com.google.android.material.carousel.HeroCarouselStrategy constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHeroCarouselStrategy)), midHeroCarouselStrategyCtor)
 		if err != nil {
 			return err

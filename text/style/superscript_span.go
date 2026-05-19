@@ -32,6 +32,12 @@ func NewSuperscriptSpan(vm *jni.VM) (*SuperscriptSpan, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSuperscriptSpan == nil {
+			return fmt.Errorf("android.text.style.SuperscriptSpan is not available on this device")
+		}
+		if midSuperscriptSpanCtor == nil {
+			return fmt.Errorf("android.text.style.SuperscriptSpan constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSuperscriptSpan)), midSuperscriptSpanCtor)
 		if err != nil {
 			return err

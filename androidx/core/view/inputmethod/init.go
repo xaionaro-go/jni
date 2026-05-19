@@ -23,6 +23,17 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsInputConnectionCompat                 *jni.GlobalRef
+	midInputConnectionCompatCtor             jni.MethodID
+	midInputConnectionCompatToString         jni.MethodID
+	midInputConnectionCompatCommitContent    jni.MethodID
+	midInputConnectionCompatCreateWrapper3   jni.MethodID
+	midInputConnectionCompatCreateWrapper3_1 jni.MethodID
+
+	clsInputConnectionCompatOnCommitContentListener                *jni.GlobalRef
+	midInputConnectionCompatOnCommitContentListenerOnCommitContent jni.MethodID
+	midInputConnectionCompatOnCommitContentListenerToString        jni.MethodID
+
 	clsEditorInfoCompat                             *jni.GlobalRef
 	midEditorInfoCompatCtor                         jni.MethodID
 	midEditorInfoCompatToString                     jni.MethodID
@@ -35,17 +46,6 @@ var (
 	midEditorInfoCompatGetInitialTextBeforeCursor   jni.MethodID
 	midEditorInfoCompatGetInitialSelectedText       jni.MethodID
 	midEditorInfoCompatGetInitialTextAfterCursor    jni.MethodID
-
-	clsInputConnectionCompat                 *jni.GlobalRef
-	midInputConnectionCompatCtor             jni.MethodID
-	midInputConnectionCompatToString         jni.MethodID
-	midInputConnectionCompatCommitContent    jni.MethodID
-	midInputConnectionCompatCreateWrapper3   jni.MethodID
-	midInputConnectionCompatCreateWrapper3_1 jni.MethodID
-
-	clsInputConnectionCompatOnCommitContentListener                *jni.GlobalRef
-	midInputConnectionCompatOnCommitContentListenerOnCommitContent jni.MethodID
-	midInputConnectionCompatOnCommitContentListenerToString        jni.MethodID
 
 	clsInputContentInfoCompat                  *jni.GlobalRef
 	midInputContentInfoCompatCtor              jni.MethodID
@@ -76,6 +76,72 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("androidx/core/view/inputmethod/InputConnectionCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInputConnectionCompat = env.NewGlobalRef(&c.Object)
+		midInputConnectionCompatCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConnectionCompat)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midInputConnectionCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConnectionCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputConnectionCompatCommitContent, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsInputConnectionCompat)), "commitContent", "(Landroid/view/inputmethod/InputConnection;Landroid/view/inputmethod/EditorInfo;Landroidx/core/view/inputmethod/InputContentInfoCompat;ILandroid/os/Bundle;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputConnectionCompatCreateWrapper3, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsInputConnectionCompat)), "createWrapper", "(Landroid/view/inputmethod/InputConnection;Landroid/view/inputmethod/EditorInfo;Landroidx/core/view/inputmethod/InputConnectionCompat$OnCommitContentListener;)Landroid/view/inputmethod/InputConnection;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputConnectionCompatCreateWrapper3_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsInputConnectionCompat)), "createWrapper", "(Landroid/view/View;Landroid/view/inputmethod/InputConnection;Landroid/view/inputmethod/EditorInfo;)Landroid/view/inputmethod/InputConnection;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/view/inputmethod/InputConnectionCompat$OnCommitContentListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInputConnectionCompatOnCommitContentListener = env.NewGlobalRef(&c.Object)
+
+		midInputConnectionCompatOnCommitContentListenerOnCommitContent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConnectionCompatOnCommitContentListener)), "onCommitContent", "(Landroidx/core/view/inputmethod/InputContentInfoCompat;ILandroid/os/Bundle;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputConnectionCompatOnCommitContentListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConnectionCompatOnCommitContentListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("androidx/core/view/inputmethod/EditorInfoCompat")
 	if err != nil {
@@ -153,72 +219,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midEditorInfoCompatGetInitialTextAfterCursor, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEditorInfoCompat)), "getInitialTextAfterCursor", "(Landroid/view/inputmethod/EditorInfo;II)Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/view/inputmethod/InputConnectionCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsInputConnectionCompat = env.NewGlobalRef(&c.Object)
-		midInputConnectionCompatCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConnectionCompat)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midInputConnectionCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConnectionCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInputConnectionCompatCommitContent, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsInputConnectionCompat)), "commitContent", "(Landroid/view/inputmethod/InputConnection;Landroid/view/inputmethod/EditorInfo;Landroidx/core/view/inputmethod/InputContentInfoCompat;ILandroid/os/Bundle;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInputConnectionCompatCreateWrapper3, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsInputConnectionCompat)), "createWrapper", "(Landroid/view/inputmethod/InputConnection;Landroid/view/inputmethod/EditorInfo;Landroidx/core/view/inputmethod/InputConnectionCompat$OnCommitContentListener;)Landroid/view/inputmethod/InputConnection;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInputConnectionCompatCreateWrapper3_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsInputConnectionCompat)), "createWrapper", "(Landroid/view/View;Landroid/view/inputmethod/InputConnection;Landroid/view/inputmethod/EditorInfo;)Landroid/view/inputmethod/InputConnection;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/view/inputmethod/InputConnectionCompat$OnCommitContentListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsInputConnectionCompatOnCommitContentListener = env.NewGlobalRef(&c.Object)
-
-		midInputConnectionCompatOnCommitContentListenerOnCommitContent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConnectionCompatOnCommitContentListener)), "onCommitContent", "(Landroidx/core/view/inputmethod/InputContentInfoCompat;ILandroid/os/Bundle;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInputConnectionCompatOnCommitContentListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConnectionCompatOnCommitContentListener)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

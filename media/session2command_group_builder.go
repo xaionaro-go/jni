@@ -23,6 +23,34 @@ type Session2CommandGroupBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSession2CommandGroupBuilder creates a new android.media.Session2CommandGroup$Builder instance.
+func NewSession2CommandGroupBuilder(vm *jni.VM) (*Session2CommandGroupBuilder, error) {
+	var t Session2CommandGroupBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSession2CommandGroupBuilder == nil {
+			return fmt.Errorf("android.media.Session2CommandGroup$Builder is not available on this device")
+		}
+		if midSession2CommandGroupBuilderCtor == nil {
+			return fmt.Errorf("android.media.Session2CommandGroup$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSession2CommandGroupBuilder)), midSession2CommandGroupBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddCommand calls android.media.Session2CommandGroup$Builder.addCommand.
 func (m *Session2CommandGroupBuilder) AddCommand(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

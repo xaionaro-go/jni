@@ -32,6 +32,12 @@ func NewActionBarContainer(vm *jni.VM, arg0 *jni.Object) (*ActionBarContainer, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsActionBarContainer == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ActionBarContainer is not available on this device")
+		}
+		if midActionBarContainerCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ActionBarContainer constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), midActionBarContainerCtor, jni.ObjectValue(arg0))
 		if err != nil {

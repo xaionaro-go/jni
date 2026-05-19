@@ -21,6 +21,35 @@ type VoiceInteractorPickOptionRequest struct {
 	Obj *jni.GlobalRef
 }
 
+// NewVoiceInteractorPickOptionRequest creates a new android.app.VoiceInteractor$PickOptionRequest instance.
+func NewVoiceInteractorPickOptionRequest(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.Object) (*VoiceInteractorPickOptionRequest, error) {
+	var t VoiceInteractorPickOptionRequest
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsVoiceInteractorPickOptionRequest == nil {
+			return fmt.Errorf("android.app.VoiceInteractor$PickOptionRequest is not available on this device")
+		}
+		if midVoiceInteractorPickOptionRequestCtor == nil {
+			return fmt.Errorf("android.app.VoiceInteractor$PickOptionRequest constructor (Landroid/app/VoiceInteractor$Prompt;[Landroid/app/VoiceInteractor$PickOptionRequest$Option;Landroid/os/Bundle;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVoiceInteractorPickOptionRequest)), midVoiceInteractorPickOptionRequestCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnPickOptionResult calls android.app.VoiceInteractor$PickOptionRequest.onPickOptionResult.
 func (m *VoiceInteractorPickOptionRequest) OnPickOptionResult(
 	arg0 bool,

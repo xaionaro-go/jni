@@ -32,6 +32,12 @@ func NewDrawableMarginSpan(vm *jni.VM, arg0 *jni.Object) (*DrawableMarginSpan, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDrawableMarginSpan == nil {
+			return fmt.Errorf("android.text.style.DrawableMarginSpan is not available on this device")
+		}
+		if midDrawableMarginSpanCtor == nil {
+			return fmt.Errorf("android.text.style.DrawableMarginSpan constructor (Landroid/graphics/drawable/Drawable;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDrawableMarginSpan)), midDrawableMarginSpanCtor, jni.ObjectValue(arg0))
 		if err != nil {

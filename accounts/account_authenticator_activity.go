@@ -32,6 +32,12 @@ func NewAccountAuthenticatorActivity(vm *jni.VM) (*AccountAuthenticatorActivity,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAccountAuthenticatorActivity == nil {
+			return fmt.Errorf("android.accounts.AccountAuthenticatorActivity is not available on this device")
+		}
+		if midAccountAuthenticatorActivityCtor == nil {
+			return fmt.Errorf("android.accounts.AccountAuthenticatorActivity constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAccountAuthenticatorActivity)), midAccountAuthenticatorActivityCtor)
 		if err != nil {
 			return err

@@ -23,6 +23,34 @@ type SoftApConfigurationBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSoftApConfigurationBuilder creates a new android.net.wifi.SoftApConfiguration$Builder instance.
+func NewSoftApConfigurationBuilder(vm *jni.VM) (*SoftApConfigurationBuilder, error) {
+	var t SoftApConfigurationBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSoftApConfigurationBuilder == nil {
+			return fmt.Errorf("android.net.wifi.SoftApConfiguration$Builder is not available on this device")
+		}
+		if midSoftApConfigurationBuilderCtor == nil {
+			return fmt.Errorf("android.net.wifi.SoftApConfiguration$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSoftApConfigurationBuilder)), midSoftApConfigurationBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.wifi.SoftApConfiguration$Builder.build.
 func (m *SoftApConfigurationBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

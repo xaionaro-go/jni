@@ -23,33 +23,6 @@ type MessagePatternArgType struct {
 	Obj *jni.GlobalRef
 }
 
-// HasPluralStyle calls android.icu.text.MessagePattern$ArgType.hasPluralStyle.
-func (m *MessagePatternArgType) HasPluralStyle() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMessagePatternArgTypeHasPluralStyle == nil {
-			callErr = fmt.Errorf("android.icu.text.MessagePattern$ArgType.hasPluralStyle is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midMessagePatternArgTypeHasPluralStyle,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.icu.text.MessagePattern$ArgType.toString.
 func (m *MessagePatternArgType) ToString() (string, error) {
 	var result string
@@ -142,6 +115,33 @@ func (m *MessagePatternArgType) ValueOf(arg0 string) (*jni.Object, error) {
 			result = env.NewGlobalRef(localRef)
 			env.DeleteLocalRef(localRef)
 		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// HasPluralStyle calls android.icu.text.MessagePattern$ArgType.hasPluralStyle.
+func (m *MessagePatternArgType) HasPluralStyle() (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midMessagePatternArgTypeHasPluralStyle == nil {
+			callErr = fmt.Errorf("android.icu.text.MessagePattern$ArgType.hasPluralStyle is not available on this device")
+			return callErr
+		}
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsMessagePatternArgType)),
+			midMessagePatternArgTypeHasPluralStyle,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

@@ -23,6 +23,35 @@ type RecreatorCompanion struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRecreatorCompanion creates a new androidx.savedstate.Recreator$Companion instance.
+func NewRecreatorCompanion(vm *jni.VM, arg0 *jni.Object) (*RecreatorCompanion, error) {
+	var t RecreatorCompanion
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRecreatorCompanion == nil {
+			return fmt.Errorf("androidx.savedstate.Recreator$Companion is not available on this device")
+		}
+		if midRecreatorCompanionCtor == nil {
+			return fmt.Errorf("androidx.savedstate.Recreator$Companion constructor (Lkotlin/jvm/internal/DefaultConstructorMarker;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRecreatorCompanion)), midRecreatorCompanionCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.savedstate.Recreator$Companion.toString.
 func (m *RecreatorCompanion) ToString() (string, error) {
 	var result string

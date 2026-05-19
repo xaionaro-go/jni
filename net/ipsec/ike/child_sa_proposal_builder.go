@@ -23,6 +23,34 @@ type ChildSaProposalBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewChildSaProposalBuilder creates a new android.net.ipsec.ike.ChildSaProposal$Builder instance.
+func NewChildSaProposalBuilder(vm *jni.VM) (*ChildSaProposalBuilder, error) {
+	var t ChildSaProposalBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsChildSaProposalBuilder == nil {
+			return fmt.Errorf("android.net.ipsec.ike.ChildSaProposal$Builder is not available on this device")
+		}
+		if midChildSaProposalBuilderCtor == nil {
+			return fmt.Errorf("android.net.ipsec.ike.ChildSaProposal$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsChildSaProposalBuilder)), midChildSaProposalBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddDhGroup calls android.net.ipsec.ike.ChildSaProposal$Builder.addDhGroup.
 func (m *ChildSaProposalBuilder) AddDhGroup(arg0 int32) (*jni.Object, error) {
 	var result *jni.Object

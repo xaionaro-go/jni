@@ -23,6 +23,35 @@ type Vo2MaxRecordBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewVo2MaxRecordBuilder creates a new android.health.connect.datatypes.Vo2MaxRecord$Builder instance.
+func NewVo2MaxRecordBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 int32, arg3 float64) (*Vo2MaxRecordBuilder, error) {
+	var t Vo2MaxRecordBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsVo2MaxRecordBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.Vo2MaxRecord$Builder is not available on this device")
+		}
+		if midVo2MaxRecordBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.Vo2MaxRecord$Builder constructor (Landroid/health/connect/datatypes/Metadata;Ljava/time/Instant;ID)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVo2MaxRecordBuilder)), midVo2MaxRecordBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2), jni.DoubleValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.datatypes.Vo2MaxRecord$Builder.build.
 func (m *Vo2MaxRecordBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

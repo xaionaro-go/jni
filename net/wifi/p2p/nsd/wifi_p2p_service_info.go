@@ -32,6 +32,12 @@ func NewWifiP2pServiceInfo(vm *jni.VM, arg0 *jni.Object) (*WifiP2pServiceInfo, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWifiP2pServiceInfo == nil {
+			return fmt.Errorf("android.net.wifi.p2p.nsd.WifiP2pServiceInfo is not available on this device")
+		}
+		if midWifiP2pServiceInfoCtor == nil {
+			return fmt.Errorf("android.net.wifi.p2p.nsd.WifiP2pServiceInfo constructor (Landroid/net/wifi/p2p/nsd/WifiP2pUsdBasedServiceConfig;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWifiP2pServiceInfo)), midWifiP2pServiceInfoCtor, jni.ObjectValue(arg0))
 		if err != nil {

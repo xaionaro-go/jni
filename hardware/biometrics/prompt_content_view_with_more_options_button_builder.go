@@ -23,6 +23,34 @@ type PromptContentViewWithMoreOptionsButtonBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPromptContentViewWithMoreOptionsButtonBuilder creates a new android.hardware.biometrics.PromptContentViewWithMoreOptionsButton$Builder instance.
+func NewPromptContentViewWithMoreOptionsButtonBuilder(vm *jni.VM) (*PromptContentViewWithMoreOptionsButtonBuilder, error) {
+	var t PromptContentViewWithMoreOptionsButtonBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPromptContentViewWithMoreOptionsButtonBuilder == nil {
+			return fmt.Errorf("android.hardware.biometrics.PromptContentViewWithMoreOptionsButton$Builder is not available on this device")
+		}
+		if midPromptContentViewWithMoreOptionsButtonBuilderCtor == nil {
+			return fmt.Errorf("android.hardware.biometrics.PromptContentViewWithMoreOptionsButton$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPromptContentViewWithMoreOptionsButtonBuilder)), midPromptContentViewWithMoreOptionsButtonBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.hardware.biometrics.PromptContentViewWithMoreOptionsButton$Builder.build.
 func (m *PromptContentViewWithMoreOptionsButtonBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

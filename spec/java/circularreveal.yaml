@@ -5,20 +5,13 @@
 package: circularreveal
 go_import: github.com/AndroidGoLab/jni/com/google/android/material/circularreveal
 classes:
-    - java_class: com.google.android.material.circularreveal.CircularRevealWidget
-      go_type: CircularRevealWidget
+    - java_class: com.google.android.material.circularreveal.CircularRevealHelper
+      go_type: CircularRevealHelper
+      obtain: constructor
+      constructor_params:
+        - java_type: com.google.android.material.circularreveal.CircularRevealHelper$Delegate
+          go_name: arg0
       methods:
-        - java_method: draw
-          go_name: Draw
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isOpaque
-          go_name: IsOpaque
-          returns: boolean
-          error: true
         - java_method: buildCircularRevealCache
           go_name: BuildCircularRevealCache
           returns: void
@@ -27,10 +20,6 @@ classes:
           go_name: DestroyCircularRevealCache
           returns: void
           error: true
-        - java_method: getRevealInfo
-          go_name: GetRevealInfo
-          returns: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
-          error: true
         - java_method: setRevealInfo
           go_name: SetRevealInfo
           params:
@@ -38,9 +27,9 @@ classes:
               go_name: arg0
           returns: void
           error: true
-        - java_method: getCircularRevealScrimColor
-          go_name: GetCircularRevealScrimColor
-          returns: int
+        - java_method: getRevealInfo
+          go_name: GetRevealInfo
+          returns: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
           error: true
         - java_method: setCircularRevealScrimColor
           go_name: SetCircularRevealScrimColor
@@ -48,6 +37,10 @@ classes:
             - java_type: int
               go_name: arg0
           returns: void
+          error: true
+        - java_method: getCircularRevealScrimColor
+          go_name: GetCircularRevealScrimColor
+          returns: int
           error: true
         - java_method: getCircularRevealOverlayDrawable
           go_name: GetCircularRevealOverlayDrawable
@@ -60,126 +53,34 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealEvaluator
-      go_type: CircularRevealWidgetCircularRevealEvaluator
-      methods:
-        - java_method: evaluate
-          go_name: Evaluate3
+        - java_method: draw
+          go_name: Draw
           params:
-            - java_type: float
-              go_name: arg0
-            - java_type: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
-              go_name: arg1
-            - java_type: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
-              go_name: arg2
-          returns: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
-          error: true
-        - java_method: evaluate
-          go_name: Evaluate3_1
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-            - java_type: java.lang.Object
-              go_name: arg2
-          returns: java.lang.Object
-          error: true
-    - java_class: com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealProperty
-      go_type: CircularRevealWidgetCircularRevealProperty
-      methods:
-        - java_method: get
-          go_name: Get1
-          params:
-            - java_type: com.google.android.material.circularreveal.CircularRevealWidget
-              go_name: arg0
-          returns: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
-          error: true
-        - java_method: set
-          go_name: Set2
-          params:
-            - java_type: com.google.android.material.circularreveal.CircularRevealWidget
-              go_name: arg0
-            - java_type: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: get
-          go_name: Get1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: java.lang.Object
-          error: true
-        - java_method: set
-          go_name: Set2_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealScrimColorProperty
-      go_type: CircularRevealWidgetCircularRevealScrimColorProperty
-      methods:
-        - java_method: get
-          go_name: Get1
-          params:
-            - java_type: com.google.android.material.circularreveal.CircularRevealWidget
-              go_name: arg0
-          returns: java.lang.Integer
-          error: true
-        - java_method: set
-          go_name: Set2
-          params:
-            - java_type: com.google.android.material.circularreveal.CircularRevealWidget
-              go_name: arg0
-            - java_type: java.lang.Integer
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: get
-          go_name: Get1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: java.lang.Object
-          error: true
-        - java_method: set
-          go_name: Set2_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
-      go_type: CircularRevealWidgetRevealInfo
-      methods:
-        - java_method: set
-          go_name: Set3
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: set
-          go_name: Set1_1
-          params:
-            - java_type: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
+            - java_type: android.graphics.Canvas
               go_name: arg0
           returns: void
           error: true
-        - java_method: isInvalid
-          go_name: IsInvalid
+      static_methods:
+        - java_method: isOpaque
+          go_name: IsOpaque
           returns: boolean
           error: true
+    - java_class: com.google.android.material.circularreveal.CircularRevealHelper$Delegate
+      go_type: CircularRevealHelperDelegate
+      methods:
+        - java_method: actualDraw
+          go_name: ActualDraw
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: actualIsOpaque
+          go_name: ActualIsOpaque
+          returns: boolean
+          error: true
+    - java_class: com.google.android.material.circularreveal.CircularRevealHelper$Strategy
+      go_type: CircularRevealHelperStrategy
     - java_class: com.google.android.material.circularreveal.CircularRevealCompat
       go_type: CircularRevealCompat
       static_methods:
@@ -217,146 +118,6 @@ classes:
             - java_type: com.google.android.material.circularreveal.CircularRevealWidget
               go_name: arg0
           returns: android.animation.Animator$AnimatorListener
-          error: true
-    - java_class: com.google.android.material.circularreveal.CircularRevealFrameLayout
-      go_type: CircularRevealFrameLayout
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: buildCircularRevealCache
-          go_name: BuildCircularRevealCache
-          returns: void
-          error: true
-        - java_method: destroyCircularRevealCache
-          go_name: DestroyCircularRevealCache
-          returns: void
-          error: true
-        - java_method: getRevealInfo
-          go_name: GetRevealInfo
-          returns: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
-          error: true
-        - java_method: setRevealInfo
-          go_name: SetRevealInfo
-          params:
-            - java_type: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getCircularRevealScrimColor
-          go_name: GetCircularRevealScrimColor
-          returns: int
-          error: true
-        - java_method: setCircularRevealScrimColor
-          go_name: SetCircularRevealScrimColor
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getCircularRevealOverlayDrawable
-          go_name: GetCircularRevealOverlayDrawable
-          returns: android.graphics.drawable.Drawable
-          error: true
-        - java_method: setCircularRevealOverlayDrawable
-          go_name: SetCircularRevealOverlayDrawable
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: draw
-          go_name: Draw
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: actualDraw
-          go_name: ActualDraw
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isOpaque
-          go_name: IsOpaque
-          returns: boolean
-          error: true
-        - java_method: actualIsOpaque
-          go_name: ActualIsOpaque
-          returns: boolean
-          error: true
-    - java_class: com.google.android.material.circularreveal.CircularRevealGridLayout
-      go_type: CircularRevealGridLayout
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: buildCircularRevealCache
-          go_name: BuildCircularRevealCache
-          returns: void
-          error: true
-        - java_method: destroyCircularRevealCache
-          go_name: DestroyCircularRevealCache
-          returns: void
-          error: true
-        - java_method: getRevealInfo
-          go_name: GetRevealInfo
-          returns: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
-          error: true
-        - java_method: setRevealInfo
-          go_name: SetRevealInfo
-          params:
-            - java_type: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getCircularRevealScrimColor
-          go_name: GetCircularRevealScrimColor
-          returns: int
-          error: true
-        - java_method: setCircularRevealScrimColor
-          go_name: SetCircularRevealScrimColor
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getCircularRevealOverlayDrawable
-          go_name: GetCircularRevealOverlayDrawable
-          returns: android.graphics.drawable.Drawable
-          error: true
-        - java_method: setCircularRevealOverlayDrawable
-          go_name: SetCircularRevealOverlayDrawable
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: draw
-          go_name: Draw
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: actualDraw
-          go_name: ActualDraw
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isOpaque
-          go_name: IsOpaque
-          returns: boolean
-          error: true
-        - java_method: actualIsOpaque
-          go_name: ActualIsOpaque
-          returns: boolean
           error: true
     - java_class: com.google.android.material.circularreveal.CircularRevealRelativeLayout
       go_type: CircularRevealRelativeLayout
@@ -428,11 +189,148 @@ classes:
           go_name: ActualIsOpaque
           returns: boolean
           error: true
-    - java_class: com.google.android.material.circularreveal.CircularRevealHelper
-      go_type: CircularRevealHelper
+    - java_class: com.google.android.material.circularreveal.CircularRevealWidget
+      go_type: CircularRevealWidget
+      methods:
+        - java_method: draw
+          go_name: Draw
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isOpaque
+          go_name: IsOpaque
+          returns: boolean
+          error: true
+        - java_method: buildCircularRevealCache
+          go_name: BuildCircularRevealCache
+          returns: void
+          error: true
+        - java_method: destroyCircularRevealCache
+          go_name: DestroyCircularRevealCache
+          returns: void
+          error: true
+        - java_method: getRevealInfo
+          go_name: GetRevealInfo
+          returns: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
+          error: true
+        - java_method: setRevealInfo
+          go_name: SetRevealInfo
+          params:
+            - java_type: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getCircularRevealScrimColor
+          go_name: GetCircularRevealScrimColor
+          returns: int
+          error: true
+        - java_method: setCircularRevealScrimColor
+          go_name: SetCircularRevealScrimColor
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getCircularRevealOverlayDrawable
+          go_name: GetCircularRevealOverlayDrawable
+          returns: android.graphics.drawable.Drawable
+          error: true
+        - java_method: setCircularRevealOverlayDrawable
+          go_name: SetCircularRevealOverlayDrawable
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealEvaluator
+      go_type: CircularRevealWidgetCircularRevealEvaluator
+      obtain: constructor
+      methods:
+        - java_method: evaluate
+          go_name: Evaluate
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
+              go_name: arg1
+            - java_type: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
+              go_name: arg2
+          returns: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
+          error: true
+    - java_class: com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealProperty
+      go_type: CircularRevealWidgetCircularRevealProperty
+      methods:
+        - java_method: get
+          go_name: Get
+          params:
+            - java_type: com.google.android.material.circularreveal.CircularRevealWidget
+              go_name: arg0
+          returns: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
+          error: true
+        - java_method: set
+          go_name: Set
+          params:
+            - java_type: com.google.android.material.circularreveal.CircularRevealWidget
+              go_name: arg0
+            - java_type: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealScrimColorProperty
+      go_type: CircularRevealWidgetCircularRevealScrimColorProperty
+      methods:
+        - java_method: get
+          go_name: Get
+          params:
+            - java_type: com.google.android.material.circularreveal.CircularRevealWidget
+              go_name: arg0
+          returns: java.lang.Integer
+          error: true
+        - java_method: set
+          go_name: Set
+          params:
+            - java_type: com.google.android.material.circularreveal.CircularRevealWidget
+              go_name: arg0
+            - java_type: java.lang.Integer
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
+      go_type: CircularRevealWidgetRevealInfo
       obtain: constructor
       constructor_params:
-        - java_type: com.google.android.material.circularreveal.CircularRevealHelper$Delegate
+        - java_type: float
+          go_name: arg0
+        - java_type: float
+          go_name: arg1
+        - java_type: float
+          go_name: arg2
+      methods:
+        - java_method: set
+          go_name: Set3
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: set
+          go_name: Set1_1
+          params:
+            - java_type: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: com.google.android.material.circularreveal.CircularRevealGridLayout
+      go_type: CircularRevealGridLayout
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
           go_name: arg0
       methods:
         - java_method: buildCircularRevealCache
@@ -443,6 +341,10 @@ classes:
           go_name: DestroyCircularRevealCache
           returns: void
           error: true
+        - java_method: getRevealInfo
+          go_name: GetRevealInfo
+          returns: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
+          error: true
         - java_method: setRevealInfo
           go_name: SetRevealInfo
           params:
@@ -450,9 +352,9 @@ classes:
               go_name: arg0
           returns: void
           error: true
-        - java_method: getRevealInfo
-          go_name: GetRevealInfo
-          returns: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
+        - java_method: getCircularRevealScrimColor
+          go_name: GetCircularRevealScrimColor
+          returns: int
           error: true
         - java_method: setCircularRevealScrimColor
           go_name: SetCircularRevealScrimColor
@@ -460,10 +362,6 @@ classes:
             - java_type: int
               go_name: arg0
           returns: void
-          error: true
-        - java_method: getCircularRevealScrimColor
-          go_name: GetCircularRevealScrimColor
-          returns: int
           error: true
         - java_method: getCircularRevealOverlayDrawable
           go_name: GetCircularRevealOverlayDrawable
@@ -483,13 +381,6 @@ classes:
               go_name: arg0
           returns: void
           error: true
-        - java_method: isOpaque
-          go_name: IsOpaque
-          returns: boolean
-          error: true
-    - java_class: com.google.android.material.circularreveal.CircularRevealHelper$Delegate
-      go_type: CircularRevealHelperDelegate
-      methods:
         - java_method: actualDraw
           go_name: ActualDraw
           params:
@@ -497,12 +388,84 @@ classes:
               go_name: arg0
           returns: void
           error: true
+        - java_method: isOpaque
+          go_name: IsOpaque
+          returns: boolean
+          error: true
         - java_method: actualIsOpaque
           go_name: ActualIsOpaque
           returns: boolean
           error: true
-    - java_class: com.google.android.material.circularreveal.CircularRevealHelper$Strategy
-      go_type: CircularRevealHelperStrategy
+    - java_class: com.google.android.material.circularreveal.CircularRevealFrameLayout
+      go_type: CircularRevealFrameLayout
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: buildCircularRevealCache
+          go_name: BuildCircularRevealCache
+          returns: void
+          error: true
+        - java_method: destroyCircularRevealCache
+          go_name: DestroyCircularRevealCache
+          returns: void
+          error: true
+        - java_method: getRevealInfo
+          go_name: GetRevealInfo
+          returns: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
+          error: true
+        - java_method: setRevealInfo
+          go_name: SetRevealInfo
+          params:
+            - java_type: com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getCircularRevealScrimColor
+          go_name: GetCircularRevealScrimColor
+          returns: int
+          error: true
+        - java_method: setCircularRevealScrimColor
+          go_name: SetCircularRevealScrimColor
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getCircularRevealOverlayDrawable
+          go_name: GetCircularRevealOverlayDrawable
+          returns: android.graphics.drawable.Drawable
+          error: true
+        - java_method: setCircularRevealOverlayDrawable
+          go_name: SetCircularRevealOverlayDrawable
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: draw
+          go_name: Draw
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: actualDraw
+          go_name: ActualDraw
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isOpaque
+          go_name: IsOpaque
+          returns: boolean
+          error: true
+        - java_method: actualIsOpaque
+          go_name: ActualIsOpaque
+          returns: boolean
+          error: true
     - java_class: com.google.android.material.circularreveal.CircularRevealLinearLayout
       go_type: CircularRevealLinearLayout
       obtain: constructor
@@ -574,12 +537,6 @@ classes:
           returns: boolean
           error: true
 constants:
-    - go_name: CircularReveal
-      value: "0"
-      go_type: int
-    - go_name: InvalidRadius
-      value: "3.4028235E38"
-      go_type: float32
     - go_name: BitmapShader
       value: "0"
       go_type: int
@@ -592,3 +549,9 @@ constants:
     - go_name: Strategy
       value: "0"
       go_type: int
+    - go_name: CircularReveal
+      value: "0"
+      go_type: int
+    - go_name: InvalidRadius
+      value: "3.4028235E38"
+      go_type: float32

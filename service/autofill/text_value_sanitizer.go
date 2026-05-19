@@ -32,6 +32,12 @@ func NewTextValueSanitizer(vm *jni.VM, arg0 *jni.Object, arg1 string) (*TextValu
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTextValueSanitizer == nil {
+			return fmt.Errorf("android.service.autofill.TextValueSanitizer is not available on this device")
+		}
+		if midTextValueSanitizerCtor == nil {
+			return fmt.Errorf("android.service.autofill.TextValueSanitizer constructor (Ljava/util/regex/Pattern;Ljava/lang/String;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {
@@ -118,8 +124,8 @@ func (m *TextValueSanitizer) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsTextValueSanitizer)),
 			midTextValueSanitizerWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

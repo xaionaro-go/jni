@@ -32,6 +32,12 @@ func NewLocalSocket(vm *jni.VM) (*LocalSocket, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLocalSocket == nil {
+			return fmt.Errorf("android.net.LocalSocket is not available on this device")
+		}
+		if midLocalSocketCtor == nil {
+			return fmt.Errorf("android.net.LocalSocket constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLocalSocket)), midLocalSocketCtor)
 		if err != nil {
 			return err

@@ -23,6 +23,35 @@ type BaseTransientBottomBarBehaviorDelegate struct {
 	Obj *jni.GlobalRef
 }
 
+// NewBaseTransientBottomBarBehaviorDelegate creates a new com.google.android.material.snackbar.BaseTransientBottomBar$BehaviorDelegate instance.
+func NewBaseTransientBottomBarBehaviorDelegate(vm *jni.VM, arg0 *jni.Object) (*BaseTransientBottomBarBehaviorDelegate, error) {
+	var t BaseTransientBottomBarBehaviorDelegate
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsBaseTransientBottomBarBehaviorDelegate == nil {
+			return fmt.Errorf("com.google.android.material.snackbar.BaseTransientBottomBar$BehaviorDelegate is not available on this device")
+		}
+		if midBaseTransientBottomBarBehaviorDelegateCtor == nil {
+			return fmt.Errorf("com.google.android.material.snackbar.BaseTransientBottomBar$BehaviorDelegate constructor (Lcom/google/android/material/behavior/SwipeDismissBehavior;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBaseTransientBottomBarBehaviorDelegate)), midBaseTransientBottomBarBehaviorDelegateCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // CanSwipeDismissView calls com.google.android.material.snackbar.BaseTransientBottomBar$BehaviorDelegate.canSwipeDismissView.
 func (m *BaseTransientBottomBarBehaviorDelegate) CanSwipeDismissView(arg0 *jni.Object) (bool, error) {
 	var result bool

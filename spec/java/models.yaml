@@ -75,6 +75,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -86,6 +87,18 @@ classes:
           error: true
     - java_class: android.graphics.pdf.models.FormWidgetInfo$Builder
       go_type: FormWidgetInfoBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: android.graphics.Rect
+          go_name: arg2
+        - java_type: String
+          go_name: arg3
+        - java_type: String
+          go_name: arg4
       methods:
         - java_method: build
           go_name: Build
@@ -169,36 +182,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.graphics.pdf.models.PageMatchBounds
-      go_type: PageMatchBounds
-      obtain: constructor
-      constructor_params:
-        - java_type: java.util.List<android.graphics.RectF>
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getBounds
-          go_name: GetBounds
-          returns: java.util.List<android.graphics.RectF>
-          error: true
-        - java_method: getTextStartIndex
-          go_name: GetTextStartIndex
-          returns: int
-          error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -250,6 +234,7 @@ classes:
           go_name: HashCode
           returns: int
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -261,6 +246,14 @@ classes:
           error: true
     - java_class: android.graphics.pdf.models.FormEditRecord$Builder
       go_type: FormEditRecordBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
       methods:
         - java_method: build
           go_name: Build
@@ -286,6 +279,37 @@ classes:
             - java_type: String
               go_name: arg0
           returns: android.graphics.pdf.models.FormEditRecord$Builder
+          error: true
+    - java_class: android.graphics.pdf.models.PageMatchBounds
+      go_type: PageMatchBounds
+      obtain: constructor
+      constructor_params:
+        - java_type: java.util.List<android.graphics.RectF>
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getBounds
+          go_name: GetBounds
+          returns: java.util.List<android.graphics.RectF>
+          error: true
+        - java_method: getTextStartIndex
+          go_name: GetTextStartIndex
+          returns: int
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
           error: true
 constants:
     - go_name: Creator

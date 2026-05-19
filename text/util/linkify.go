@@ -32,6 +32,12 @@ func NewLinkify(vm *jni.VM) (*Linkify, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLinkify == nil {
+			return fmt.Errorf("android.text.util.Linkify is not available on this device")
+		}
+		if midLinkifyCtor == nil {
+			return fmt.Errorf("android.text.util.Linkify constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLinkify)), midLinkifyCtor)
 		if err != nil {
 			return err

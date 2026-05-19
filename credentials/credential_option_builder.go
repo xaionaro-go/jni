@@ -23,6 +23,40 @@ type CredentialOptionBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCredentialOptionBuilder creates a new android.credentials.CredentialOption$Builder instance.
+func NewCredentialOptionBuilder(vm *jni.VM, arg0 string, arg1 *jni.Object, arg2 *jni.Object) (*CredentialOptionBuilder, error) {
+	var t CredentialOptionBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCredentialOptionBuilder == nil {
+			return fmt.Errorf("android.credentials.CredentialOption$Builder is not available on this device")
+		}
+		if midCredentialOptionBuilderCtor == nil {
+			return fmt.Errorf("android.credentials.CredentialOption$Builder constructor (Ljava/lang/String;Landroid/os/Bundle;Landroid/os/Bundle;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCredentialOptionBuilder)), midCredentialOptionBuilderCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddAllowedProvider calls android.credentials.CredentialOption$Builder.addAllowedProvider.
 func (m *CredentialOptionBuilder) AddAllowedProvider(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

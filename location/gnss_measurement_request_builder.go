@@ -23,6 +23,34 @@ type GnssMeasurementRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGnssMeasurementRequestBuilder creates a new android.location.GnssMeasurementRequest$Builder instance.
+func NewGnssMeasurementRequestBuilder(vm *jni.VM) (*GnssMeasurementRequestBuilder, error) {
+	var t GnssMeasurementRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGnssMeasurementRequestBuilder == nil {
+			return fmt.Errorf("android.location.GnssMeasurementRequest$Builder is not available on this device")
+		}
+		if midGnssMeasurementRequestBuilderCtor == nil {
+			return fmt.Errorf("android.location.GnssMeasurementRequest$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGnssMeasurementRequestBuilder)), midGnssMeasurementRequestBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.location.GnssMeasurementRequest$Builder.build.
 func (m *GnssMeasurementRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -6,24 +6,6 @@ import "github.com/AndroidGoLab/jni/app/usage/consts"
 
 const (
 	Creator                             = consts.Creator
-	ActivityPaused                      = consts.ActivityPaused
-	ActivityResumed                     = consts.ActivityResumed
-	ActivityStopped                     = consts.ActivityStopped
-	ConfigurationChange                 = consts.ConfigurationChange
-	DeviceShutdown                      = consts.DeviceShutdown
-	DeviceStartup                       = consts.DeviceStartup
-	ForegroundServiceStart              = consts.ForegroundServiceStart
-	ForegroundServiceStop               = consts.ForegroundServiceStop
-	KeyguardHidden                      = consts.KeyguardHidden
-	KeyguardShown                       = consts.KeyguardShown
-	MoveToBackground                    = consts.MoveToBackground
-	MoveToForeground                    = consts.MoveToForeground
-	None                                = consts.None
-	ScreenInteractive                   = consts.ScreenInteractive
-	ScreenNonInteractive                = consts.ScreenNonInteractive
-	ShortcutInvocation                  = consts.ShortcutInvocation
-	StandbyBucketChanged                = consts.StandbyBucketChanged
-	UserInteraction                     = consts.UserInteraction
 	AppDataTypeFileTypeApk              = consts.AppDataTypeFileTypeApk
 	AppDataTypeFileTypeCurrentProfile   = consts.AppDataTypeFileTypeCurrentProfile
 	AppDataTypeFileTypeDexoptArtifact   = consts.AppDataTypeFileTypeDexoptArtifact
@@ -56,6 +38,24 @@ const (
 	StandbyBucketRare                   = consts.StandbyBucketRare
 	StandbyBucketRestricted             = consts.StandbyBucketRestricted
 	StandbyBucketWorkingSet             = consts.StandbyBucketWorkingSet
+	ActivityPaused                      = consts.ActivityPaused
+	ActivityResumed                     = consts.ActivityResumed
+	ActivityStopped                     = consts.ActivityStopped
+	ConfigurationChange                 = consts.ConfigurationChange
+	DeviceShutdown                      = consts.DeviceShutdown
+	DeviceStartup                       = consts.DeviceStartup
+	ForegroundServiceStart              = consts.ForegroundServiceStart
+	ForegroundServiceStop               = consts.ForegroundServiceStop
+	KeyguardHidden                      = consts.KeyguardHidden
+	KeyguardShown                       = consts.KeyguardShown
+	MoveToBackground                    = consts.MoveToBackground
+	MoveToForeground                    = consts.MoveToForeground
+	None                                = consts.None
+	ScreenInteractive                   = consts.ScreenInteractive
+	ScreenNonInteractive                = consts.ScreenNonInteractive
+	ShortcutInvocation                  = consts.ShortcutInvocation
+	StandbyBucketChanged                = consts.StandbyBucketChanged
+	UserInteraction                     = consts.UserInteraction
 )
 
 const (

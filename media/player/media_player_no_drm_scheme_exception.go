@@ -23,6 +23,40 @@ type MediaPlayerNoDrmSchemeException struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMediaPlayerNoDrmSchemeException creates a new android.media.MediaPlayer$NoDrmSchemeException instance.
+func NewMediaPlayerNoDrmSchemeException(vm *jni.VM, arg0 string) (*MediaPlayerNoDrmSchemeException, error) {
+	var t MediaPlayerNoDrmSchemeException
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMediaPlayerNoDrmSchemeException == nil {
+			return fmt.Errorf("android.media.MediaPlayer$NoDrmSchemeException is not available on this device")
+		}
+		if midMediaPlayerNoDrmSchemeExceptionCtor == nil {
+			return fmt.Errorf("android.media.MediaPlayer$NoDrmSchemeException constructor (Ljava/lang/String;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMediaPlayerNoDrmSchemeException)), midMediaPlayerNoDrmSchemeExceptionCtor, jni.ObjectValue(&jArg0.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.media.MediaPlayer$NoDrmSchemeException.toString.
 func (m *MediaPlayerNoDrmSchemeException) ToString() (string, error) {
 	var result string

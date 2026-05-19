@@ -23,6 +23,35 @@ type erCapabilitiesInfoBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewerCapabilitiesInfoBuilder creates a new android.print.PrinterCapabilitiesInfo$Builder instance.
+func NewerCapabilitiesInfoBuilder(vm *jni.VM, arg0 *jni.Object) (*erCapabilitiesInfoBuilder, error) {
+	var t erCapabilitiesInfoBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clserCapabilitiesInfoBuilder == nil {
+			return fmt.Errorf("android.print.PrinterCapabilitiesInfo$Builder is not available on this device")
+		}
+		if miderCapabilitiesInfoBuilderCtor == nil {
+			return fmt.Errorf("android.print.PrinterCapabilitiesInfo$Builder constructor (Landroid/print/PrinterId;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clserCapabilitiesInfoBuilder)), miderCapabilitiesInfoBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddMediaSize calls android.print.PrinterCapabilitiesInfo$Builder.addMediaSize.
 func (m *erCapabilitiesInfoBuilder) AddMediaSize(arg0 *jni.Object, arg1 bool) (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewMaterialDivider(vm *jni.VM, arg0 *jni.Object) (*MaterialDivider, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialDivider == nil {
+			return fmt.Errorf("com.google.android.material.divider.MaterialDivider is not available on this device")
+		}
+		if midMaterialDividerCtor == nil {
+			return fmt.Errorf("com.google.android.material.divider.MaterialDivider constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialDivider)), midMaterialDividerCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -305,31 +311,6 @@ func (m *MaterialDivider) SetDividerColorResource(arg0 int32) error {
 	return callErr
 }
 
-// GetDividerColor calls com.google.android.material.divider.MaterialDivider.getDividerColor.
-func (m *MaterialDivider) GetDividerColor() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialDividerGetDividerColor == nil {
-			callErr = fmt.Errorf("com.google.android.material.divider.MaterialDivider.getDividerColor is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midMaterialDividerGetDividerColor,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.divider.MaterialDivider.toString.
 func (m *MaterialDivider) ToString() (string, error) {
 	var result string
@@ -352,6 +333,31 @@ func (m *MaterialDivider) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetDividerColor calls com.google.android.material.divider.MaterialDivider.getDividerColor.
+func (m *MaterialDivider) GetDividerColor() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midMaterialDividerGetDividerColor == nil {
+			callErr = fmt.Errorf("com.google.android.material.divider.MaterialDivider.getDividerColor is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsMaterialDivider)),
+			midMaterialDividerGetDividerColor,
+		)
+		if callErr != nil {
+			return callErr
+		}
 		return callErr
 	})
 	return result, callErr

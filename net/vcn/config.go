@@ -165,29 +165,6 @@ func (m *Config) HashCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.net.vcn.VcnConfig.writeToParcel.
-func (m *Config) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midConfigWriteToParcel == nil {
-			callErr = fmt.Errorf("android.net.vcn.VcnConfig.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midConfigWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.net.vcn.VcnConfig.toString.
 func (m *Config) ToString() (string, error) {
 	var result string
@@ -213,4 +190,27 @@ func (m *Config) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.net.vcn.VcnConfig.writeToParcel.
+func (m *Config) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midConfigWriteToParcel == nil {
+			callErr = fmt.Errorf("android.net.vcn.VcnConfig.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsConfig)),
+			midConfigWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

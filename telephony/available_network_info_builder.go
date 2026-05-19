@@ -23,6 +23,35 @@ type AvailableNetworkInfoBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAvailableNetworkInfoBuilder creates a new android.telephony.AvailableNetworkInfo$Builder instance.
+func NewAvailableNetworkInfoBuilder(vm *jni.VM, arg0 int32) (*AvailableNetworkInfoBuilder, error) {
+	var t AvailableNetworkInfoBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAvailableNetworkInfoBuilder == nil {
+			return fmt.Errorf("android.telephony.AvailableNetworkInfo$Builder is not available on this device")
+		}
+		if midAvailableNetworkInfoBuilderCtor == nil {
+			return fmt.Errorf("android.telephony.AvailableNetworkInfo$Builder constructor (I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAvailableNetworkInfoBuilder)), midAvailableNetworkInfoBuilderCtor, jni.IntValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.telephony.AvailableNetworkInfo$Builder.build.
 func (m *AvailableNetworkInfoBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

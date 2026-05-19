@@ -23,6 +23,34 @@ type ManagerDeviceCallback struct {
 	Obj *jni.GlobalRef
 }
 
+// NewManagerDeviceCallback creates a new android.media.midi.MidiManager$DeviceCallback instance.
+func NewManagerDeviceCallback(vm *jni.VM) (*ManagerDeviceCallback, error) {
+	var t ManagerDeviceCallback
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsManagerDeviceCallback == nil {
+			return fmt.Errorf("android.media.midi.MidiManager$DeviceCallback is not available on this device")
+		}
+		if midManagerDeviceCallbackCtor == nil {
+			return fmt.Errorf("android.media.midi.MidiManager$DeviceCallback constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsManagerDeviceCallback)), midManagerDeviceCallbackCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnDeviceAdded calls android.media.midi.MidiManager$DeviceCallback.onDeviceAdded.
 func (m *ManagerDeviceCallback) OnDeviceAdded(arg0 *jni.Object) error {
 

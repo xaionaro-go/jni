@@ -23,6 +23,40 @@ type ViewSplineCustomSet struct {
 	Obj *jni.GlobalRef
 }
 
+// NewViewSplineCustomSet creates a new androidx.constraintlayout.motion.utils.ViewSpline$CustomSet instance.
+func NewViewSplineCustomSet(vm *jni.VM, arg0 string, arg1 *jni.Object) (*ViewSplineCustomSet, error) {
+	var t ViewSplineCustomSet
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsViewSplineCustomSet == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.utils.ViewSpline$CustomSet is not available on this device")
+		}
+		if midViewSplineCustomSetCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.utils.ViewSpline$CustomSet constructor (Ljava/lang/String;Landroid/util/SparseArray;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewSplineCustomSet)), midViewSplineCustomSetCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Setup calls androidx.constraintlayout.motion.utils.ViewSpline$CustomSet.setup.
 func (m *ViewSplineCustomSet) Setup(arg0 int32) error {
 

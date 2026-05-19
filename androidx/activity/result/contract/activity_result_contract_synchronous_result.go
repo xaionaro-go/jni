@@ -23,6 +23,35 @@ type ActivityResultContractSynchronousResult struct {
 	Obj *jni.GlobalRef
 }
 
+// NewActivityResultContractSynchronousResult creates a new androidx.activity.result.contract.ActivityResultContract$SynchronousResult instance.
+func NewActivityResultContractSynchronousResult(vm *jni.VM, arg0 *jni.Object) (*ActivityResultContractSynchronousResult, error) {
+	var t ActivityResultContractSynchronousResult
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsActivityResultContractSynchronousResult == nil {
+			return fmt.Errorf("androidx.activity.result.contract.ActivityResultContract$SynchronousResult is not available on this device")
+		}
+		if midActivityResultContractSynchronousResultCtor == nil {
+			return fmt.Errorf("androidx.activity.result.contract.ActivityResultContract$SynchronousResult constructor (Ljava/lang/T;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivityResultContractSynchronousResult)), midActivityResultContractSynchronousResultCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.activity.result.contract.ActivityResultContract$SynchronousResult.toString.
 func (m *ActivityResultContractSynchronousResult) ToString() (string, error) {
 	var result string

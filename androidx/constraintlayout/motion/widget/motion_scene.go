@@ -32,6 +32,12 @@ func NewMotionScene(vm *jni.VM, arg0 *jni.Object) (*MotionScene, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMotionScene == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.MotionScene is not available on this device")
+		}
+		if midMotionSceneCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.MotionScene constructor (Landroidx/constraintlayout/motion/widget/MotionLayout;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMotionScene)), midMotionSceneCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -800,33 +806,6 @@ func (m *MotionScene) LookUpConstraintName(arg0 int32) (string, error) {
 		return callErr
 	})
 	return result, callErr
-}
-
-// DisableAutoTransition calls androidx.constraintlayout.motion.widget.MotionScene.disableAutoTransition.
-func (m *MotionScene) DisableAutoTransition(arg0 bool) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMotionSceneDisableAutoTransition == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.motion.widget.MotionScene.disableAutoTransition is not available on this device")
-			return callErr
-		}
-		var jArg0 uint8
-		if arg0 {
-			jArg0 = jniTrue
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMotionSceneDisableAutoTransition, jni.BooleanValue(jArg0),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // ToString calls androidx.constraintlayout.motion.widget.MotionScene.toString.

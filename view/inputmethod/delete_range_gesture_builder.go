@@ -23,6 +23,34 @@ type DeleteRangeGestureBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDeleteRangeGestureBuilder creates a new android.view.inputmethod.DeleteRangeGesture$Builder instance.
+func NewDeleteRangeGestureBuilder(vm *jni.VM) (*DeleteRangeGestureBuilder, error) {
+	var t DeleteRangeGestureBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDeleteRangeGestureBuilder == nil {
+			return fmt.Errorf("android.view.inputmethod.DeleteRangeGesture$Builder is not available on this device")
+		}
+		if midDeleteRangeGestureBuilderCtor == nil {
+			return fmt.Errorf("android.view.inputmethod.DeleteRangeGesture$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDeleteRangeGestureBuilder)), midDeleteRangeGestureBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.view.inputmethod.DeleteRangeGesture$Builder.build.
 func (m *DeleteRangeGestureBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

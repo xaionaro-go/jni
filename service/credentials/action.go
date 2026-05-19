@@ -32,6 +32,12 @@ func NewAction(vm *jni.VM, arg0 *jni.Object) (*Action, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAction == nil {
+			return fmt.Errorf("android.service.credentials.Action is not available on this device")
+		}
+		if midActionCtor == nil {
+			return fmt.Errorf("android.service.credentials.Action constructor (Landroid/app/slice/Slice;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAction)), midActionCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -103,29 +109,6 @@ func (m *Action) GetSlice() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.service.credentials.Action.writeToParcel.
-func (m *Action) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActionWriteToParcel == nil {
-			callErr = fmt.Errorf("android.service.credentials.Action.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midActionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.service.credentials.Action.toString.
 func (m *Action) ToString() (string, error) {
 	var result string
@@ -151,4 +134,27 @@ func (m *Action) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.service.credentials.Action.writeToParcel.
+func (m *Action) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midActionWriteToParcel == nil {
+			callErr = fmt.Errorf("android.service.credentials.Action.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAction)),
+			midActionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

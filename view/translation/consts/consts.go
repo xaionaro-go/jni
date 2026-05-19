@@ -4,23 +4,23 @@ package consts
 
 const (
 	Creator                             int = 0
-	DataFormatText                      int = 1
 	FlagDictionaryResult                int = 2
 	FlagPartialResponses                int = 8
 	FlagTranslationResult               int = 1
 	FlagTransliterationResult           int = 4
+	FlagDefinitions                     int = 4
+	FlagLowLatency                      int = 1
+	FlagTransliteration                 int = 2
 	StateAvailableToDownload            int = 1
 	StateDownloading                    int = 2
 	StateNotAvailable                   int = 4
 	StateOnDevice                       int = 3
+	StatusError                         int = 1
+	StatusSuccess                       int = 0
 	TranslationStatusContextUnsupported int = 2
 	TranslationStatusSuccess            int = 0
 	TranslationStatusUnknownError       int = 1
-	FlagDefinitions                     int = 4
-	FlagLowLatency                      int = 1
-	FlagTransliteration                 int = 2
-	StatusError                         int = 1
-	StatusSuccess                       int = 0
+	DataFormatText                      int = 1
 )
 
 const (

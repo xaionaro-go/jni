@@ -23,6 +23,34 @@ type ExecuteOutputBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewExecuteOutputBuilder creates a new android.adservices.ondevicepersonalization.ExecuteOutput$Builder instance.
+func NewExecuteOutputBuilder(vm *jni.VM) (*ExecuteOutputBuilder, error) {
+	var t ExecuteOutputBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsExecuteOutputBuilder == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.ExecuteOutput$Builder is not available on this device")
+		}
+		if midExecuteOutputBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.ExecuteOutput$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExecuteOutputBuilder)), midExecuteOutputBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddEventLogRecord calls android.adservices.ondevicepersonalization.ExecuteOutput$Builder.addEventLogRecord.
 func (m *ExecuteOutputBuilder) AddEventLogRecord(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

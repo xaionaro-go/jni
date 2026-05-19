@@ -23,6 +23,35 @@ type RegistryCompanion struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRegistryCompanion creates a new androidx.lifecycle.LifecycleRegistry$Companion instance.
+func NewRegistryCompanion(vm *jni.VM, arg0 *jni.Object) (*RegistryCompanion, error) {
+	var t RegistryCompanion
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRegistryCompanion == nil {
+			return fmt.Errorf("androidx.lifecycle.LifecycleRegistry$Companion is not available on this device")
+		}
+		if midRegistryCompanionCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.LifecycleRegistry$Companion constructor (Lkotlin/jvm/internal/DefaultConstructorMarker;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRegistryCompanion)), midRegistryCompanionCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // CreateUnsafe calls androidx.lifecycle.LifecycleRegistry$Companion.createUnsafe.
 func (m *RegistryCompanion) CreateUnsafe(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
@@ -40,6 +69,39 @@ func (m *RegistryCompanion) CreateUnsafe(arg0 *jni.Object) (*jni.Object, error) 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
 			midRegistryCompanionCreateUnsafe, jni.ObjectValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// MinLifecycleRuntimeRelease calls androidx.lifecycle.LifecycleRegistry$Companion.min$lifecycle_runtime_release.
+func (m *RegistryCompanion) MinLifecycleRuntimeRelease(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRegistryCompanionMinLifecycleRuntimeRelease == nil {
+			callErr = fmt.Errorf("androidx.lifecycle.LifecycleRegistry$Companion.min$lifecycle_runtime_release is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallObjectMethod(
+			m.Obj,
+			midRegistryCompanionMinLifecycleRuntimeRelease, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr

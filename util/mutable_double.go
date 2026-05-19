@@ -32,6 +32,12 @@ func NewMutableDouble(vm *jni.VM, arg0 float64) (*MutableDouble, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMutableDouble == nil {
+			return fmt.Errorf("android.util.MutableDouble is not available on this device")
+		}
+		if midMutableDoubleCtor == nil {
+			return fmt.Errorf("android.util.MutableDouble constructor (D)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMutableDouble)), midMutableDoubleCtor, jni.DoubleValue(arg0))
 		if err != nil {

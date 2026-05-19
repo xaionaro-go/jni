@@ -23,6 +23,40 @@ type CaptureRequestKey struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCaptureRequestKey creates a new android.hardware.camera2.CaptureRequest$Key instance.
+func NewCaptureRequestKey(vm *jni.VM, arg0 string, arg1 *jni.Object) (*CaptureRequestKey, error) {
+	var t CaptureRequestKey
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCaptureRequestKey == nil {
+			return fmt.Errorf("android.hardware.camera2.CaptureRequest$Key is not available on this device")
+		}
+		if midCaptureRequestKeyCtor == nil {
+			return fmt.Errorf("android.hardware.camera2.CaptureRequest$Key constructor (Ljava/lang/String;Ljava/lang/Class;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCaptureRequestKey)), midCaptureRequestKeyCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.hardware.camera2.CaptureRequest$Key.equals.
 func (m *CaptureRequestKey) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

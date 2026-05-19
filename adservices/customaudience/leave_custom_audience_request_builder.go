@@ -23,6 +23,34 @@ type LeaveCustomAudienceRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewLeaveCustomAudienceRequestBuilder creates a new android.adservices.customaudience.LeaveCustomAudienceRequest$Builder instance.
+func NewLeaveCustomAudienceRequestBuilder(vm *jni.VM) (*LeaveCustomAudienceRequestBuilder, error) {
+	var t LeaveCustomAudienceRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsLeaveCustomAudienceRequestBuilder == nil {
+			return fmt.Errorf("android.adservices.customaudience.LeaveCustomAudienceRequest$Builder is not available on this device")
+		}
+		if midLeaveCustomAudienceRequestBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.customaudience.LeaveCustomAudienceRequest$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLeaveCustomAudienceRequestBuilder)), midLeaveCustomAudienceRequestBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.customaudience.LeaveCustomAudienceRequest$Builder.build.
 func (m *LeaveCustomAudienceRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

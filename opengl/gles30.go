@@ -32,6 +32,12 @@ func NewGLES30(vm *jni.VM) (*GLES30, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGLES30 == nil {
+			return fmt.Errorf("android.opengl.GLES30 is not available on this device")
+		}
+		if midGLES30Ctor == nil {
+			return fmt.Errorf("android.opengl.GLES30 constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGLES30)), midGLES30Ctor)
 		if err != nil {
 			return err
@@ -1768,8 +1774,8 @@ func (m *GLES30) GlGetFragDataLocation(arg0 int32, arg1 string) (int32, error) {
 	return result, callErr
 }
 
-// GlGetInteger64i_v3 calls android.opengl.GLES30.glGetInteger64i_v.
-func (m *GLES30) GlGetInteger64i_v3(
+// GlGetInteger64iV3 calls android.opengl.GLES30.glGetInteger64i_v.
+func (m *GLES30) GlGetInteger64iV3(
 	arg0 int32,
 	arg1 int32,
 	arg2 *jni.Object,
@@ -1781,22 +1787,22 @@ func (m *GLES30) GlGetInteger64i_v3(
 			callErr = err
 			return err
 		}
-		if midGLES30GlGetInteger64i_v3 == nil {
+		if midGLES30GlGetInteger64iV3 == nil {
 			callErr = fmt.Errorf("android.opengl.GLES30.glGetInteger64i_v is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallStaticVoidMethod(
 			(*jni.Class)(unsafe.Pointer(clsGLES30)),
-			midGLES30GlGetInteger64i_v3, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2),
+			midGLES30GlGetInteger64iV3, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2),
 		)
 		return callErr
 	})
 	return callErr
 }
 
-// GlGetInteger64i_v4_1 calls android.opengl.GLES30.glGetInteger64i_v.
-func (m *GLES30) GlGetInteger64i_v4_1(
+// GlGetInteger64iV4_1 calls android.opengl.GLES30.glGetInteger64i_v.
+func (m *GLES30) GlGetInteger64iV4_1(
 	arg0 int32,
 	arg1 int32,
 	arg2 *jni.Object,
@@ -1809,14 +1815,14 @@ func (m *GLES30) GlGetInteger64i_v4_1(
 			callErr = err
 			return err
 		}
-		if midGLES30GlGetInteger64i_v4_1 == nil {
+		if midGLES30GlGetInteger64iV4_1 == nil {
 			callErr = fmt.Errorf("android.opengl.GLES30.glGetInteger64i_v is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallStaticVoidMethod(
 			(*jni.Class)(unsafe.Pointer(clsGLES30)),
-			midGLES30GlGetInteger64i_v4_1, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2), jni.IntValue(arg3),
+			midGLES30GlGetInteger64iV4_1, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2), jni.IntValue(arg3),
 		)
 		return callErr
 	})
@@ -1873,8 +1879,8 @@ func (m *GLES30) GlGetInteger64v3_1(
 	return callErr
 }
 
-// GlGetIntegeri_v4 calls android.opengl.GLES30.glGetIntegeri_v.
-func (m *GLES30) GlGetIntegeri_v4(
+// GlGetIntegeriV4 calls android.opengl.GLES30.glGetIntegeri_v.
+func (m *GLES30) GlGetIntegeriV4(
 	arg0 int32,
 	arg1 int32,
 	arg2 *jni.Object,
@@ -1887,22 +1893,22 @@ func (m *GLES30) GlGetIntegeri_v4(
 			callErr = err
 			return err
 		}
-		if midGLES30GlGetIntegeri_v4 == nil {
+		if midGLES30GlGetIntegeriV4 == nil {
 			callErr = fmt.Errorf("android.opengl.GLES30.glGetIntegeri_v is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallStaticVoidMethod(
 			(*jni.Class)(unsafe.Pointer(clsGLES30)),
-			midGLES30GlGetIntegeri_v4, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2), jni.IntValue(arg3),
+			midGLES30GlGetIntegeriV4, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2), jni.IntValue(arg3),
 		)
 		return callErr
 	})
 	return callErr
 }
 
-// GlGetIntegeri_v3_1 calls android.opengl.GLES30.glGetIntegeri_v.
-func (m *GLES30) GlGetIntegeri_v3_1(
+// GlGetIntegeriV3_1 calls android.opengl.GLES30.glGetIntegeri_v.
+func (m *GLES30) GlGetIntegeriV3_1(
 	arg0 int32,
 	arg1 int32,
 	arg2 *jni.Object,
@@ -1914,14 +1920,14 @@ func (m *GLES30) GlGetIntegeri_v3_1(
 			callErr = err
 			return err
 		}
-		if midGLES30GlGetIntegeri_v3_1 == nil {
+		if midGLES30GlGetIntegeriV3_1 == nil {
 			callErr = fmt.Errorf("android.opengl.GLES30.glGetIntegeri_v is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallStaticVoidMethod(
 			(*jni.Class)(unsafe.Pointer(clsGLES30)),
-			midGLES30GlGetIntegeri_v3_1, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2),
+			midGLES30GlGetIntegeriV3_1, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2),
 		)
 		return callErr
 	})

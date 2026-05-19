@@ -32,6 +32,12 @@ func NewSavedDatasetsInfo(vm *jni.VM, arg0 string, arg1 int32) (*SavedDatasetsIn
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSavedDatasetsInfo == nil {
+			return fmt.Errorf("android.service.autofill.SavedDatasetsInfo is not available on this device")
+		}
+		if midSavedDatasetsInfoCtor == nil {
+			return fmt.Errorf("android.service.autofill.SavedDatasetsInfo constructor (Ljava/lang/String;I)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

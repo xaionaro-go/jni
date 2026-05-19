@@ -32,6 +32,12 @@ func NewMatrix2f(vm *jni.VM) (*Matrix2f, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMatrix2f == nil {
+			return fmt.Errorf("android.renderscript.Matrix2f is not available on this device")
+		}
+		if midMatrix2fCtor == nil {
+			return fmt.Errorf("android.renderscript.Matrix2f constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMatrix2f)), midMatrix2fCtor)
 		if err != nil {
 			return err

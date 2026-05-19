@@ -21,6 +21,34 @@ type ActivityManagerTaskDescription struct {
 	Obj *jni.GlobalRef
 }
 
+// NewActivityManagerTaskDescription creates a new android.app.ActivityManager$TaskDescription instance.
+func NewActivityManagerTaskDescription(vm *jni.VM) (*ActivityManagerTaskDescription, error) {
+	var t ActivityManagerTaskDescription
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsActivityManagerTaskDescription == nil {
+			return fmt.Errorf("android.app.ActivityManager$TaskDescription is not available on this device")
+		}
+		if midActivityManagerTaskDescriptionCtor == nil {
+			return fmt.Errorf("android.app.ActivityManager$TaskDescription constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivityManagerTaskDescription)), midActivityManagerTaskDescriptionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.app.ActivityManager$TaskDescription.describeContents.
 func (m *ActivityManagerTaskDescription) DescribeContents() (int32, error) {
 	var result int32
@@ -322,8 +350,8 @@ func (m *ActivityManagerTaskDescription) WriteToParcel(arg0 *jni.Object, arg1 in
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsActivityManagerTaskDescription)),
 			midActivityManagerTaskDescriptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

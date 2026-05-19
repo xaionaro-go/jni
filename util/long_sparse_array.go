@@ -32,6 +32,12 @@ func NewLongSparseArray(vm *jni.VM) (*LongSparseArray, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLongSparseArray == nil {
+			return fmt.Errorf("android.util.LongSparseArray is not available on this device")
+		}
+		if midLongSparseArrayCtor == nil {
+			return fmt.Errorf("android.util.LongSparseArray constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLongSparseArray)), midLongSparseArrayCtor)
 		if err != nil {
 			return err
@@ -67,8 +73,8 @@ func (m *LongSparseArray) Clear() error {
 	return callErr
 }
 
-// Clone0 calls android.util.LongSparseArray.clone.
-func (m *LongSparseArray) Clone0() (*jni.Object, error) {
+// Clone calls android.util.LongSparseArray.clone.
+func (m *LongSparseArray) Clone() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -76,13 +82,13 @@ func (m *LongSparseArray) Clone0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midLongSparseArrayClone0 == nil {
+		if midLongSparseArrayClone == nil {
 			callErr = fmt.Errorf("android.util.LongSparseArray.clone is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midLongSparseArrayClone0,
+			midLongSparseArrayClone,
 		)
 		if callErr != nil {
 			return callErr
@@ -267,38 +273,6 @@ func (m *LongSparseArray) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
-		return callErr
-	})
-	return result, callErr
-}
-
-// Clone0_1 calls android.util.LongSparseArray.clone.
-func (m *LongSparseArray) Clone0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midLongSparseArrayClone0_1 == nil {
-			callErr = fmt.Errorf("android.util.LongSparseArray.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midLongSparseArrayClone0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
 		return callErr
 	})
 	return result, callErr

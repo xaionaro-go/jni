@@ -27,157 +27,132 @@ var (
 	midActivityResultContractToString jni.MethodID
 
 	clsActivityResultContractSynchronousResult         *jni.GlobalRef
+	midActivityResultContractSynchronousResultCtor     jni.MethodID
 	midActivityResultContractSynchronousResultToString jni.MethodID
 
 	clsActivityResultContracts         *jni.GlobalRef
 	midActivityResultContractsToString jni.MethodID
 
-	clsActivityResultContractsCaptureVideo                        *jni.GlobalRef
-	midActivityResultContractsCaptureVideoCreateIntent2           jni.MethodID
-	midActivityResultContractsCaptureVideoGetSynchronousResult2   jni.MethodID
-	midActivityResultContractsCaptureVideoParseResult2            jni.MethodID
-	midActivityResultContractsCaptureVideoCreateIntent2_1         jni.MethodID
-	midActivityResultContractsCaptureVideoGetSynchronousResult2_1 jni.MethodID
-	midActivityResultContractsCaptureVideoParseResult2_1          jni.MethodID
-	midActivityResultContractsCaptureVideoToString                jni.MethodID
+	clsActivityResultContractsCaptureVideo                     *jni.GlobalRef
+	midActivityResultContractsCaptureVideoCtor                 jni.MethodID
+	midActivityResultContractsCaptureVideoCreateIntent         jni.MethodID
+	midActivityResultContractsCaptureVideoGetSynchronousResult jni.MethodID
+	midActivityResultContractsCaptureVideoParseResult          jni.MethodID
+	midActivityResultContractsCaptureVideoToString             jni.MethodID
 
-	clsActivityResultContractsCreateDocument                        *jni.GlobalRef
-	midActivityResultContractsCreateDocumentCreateIntent2           jni.MethodID
-	midActivityResultContractsCreateDocumentGetSynchronousResult2   jni.MethodID
-	midActivityResultContractsCreateDocumentParseResult2            jni.MethodID
-	midActivityResultContractsCreateDocumentCreateIntent2_1         jni.MethodID
-	midActivityResultContractsCreateDocumentGetSynchronousResult2_1 jni.MethodID
-	midActivityResultContractsCreateDocumentParseResult2_1          jni.MethodID
-	midActivityResultContractsCreateDocumentToString                jni.MethodID
+	clsActivityResultContractsCreateDocument                     *jni.GlobalRef
+	midActivityResultContractsCreateDocumentCtor                 jni.MethodID
+	midActivityResultContractsCreateDocumentCreateIntent         jni.MethodID
+	midActivityResultContractsCreateDocumentGetSynchronousResult jni.MethodID
+	midActivityResultContractsCreateDocumentParseResult          jni.MethodID
+	midActivityResultContractsCreateDocumentToString             jni.MethodID
 
-	clsActivityResultContractsGetContent                        *jni.GlobalRef
-	midActivityResultContractsGetContentCreateIntent2           jni.MethodID
-	midActivityResultContractsGetContentGetSynchronousResult2   jni.MethodID
-	midActivityResultContractsGetContentParseResult2            jni.MethodID
-	midActivityResultContractsGetContentCreateIntent2_1         jni.MethodID
-	midActivityResultContractsGetContentGetSynchronousResult2_1 jni.MethodID
-	midActivityResultContractsGetContentParseResult2_1          jni.MethodID
-	midActivityResultContractsGetContentToString                jni.MethodID
+	clsActivityResultContractsGetContent                     *jni.GlobalRef
+	midActivityResultContractsGetContentCtor                 jni.MethodID
+	midActivityResultContractsGetContentCreateIntent         jni.MethodID
+	midActivityResultContractsGetContentGetSynchronousResult jni.MethodID
+	midActivityResultContractsGetContentParseResult          jni.MethodID
+	midActivityResultContractsGetContentToString             jni.MethodID
 
-	clsActivityResultContractsGetMultipleContents                        *jni.GlobalRef
-	midActivityResultContractsGetMultipleContentsCreateIntent2           jni.MethodID
-	midActivityResultContractsGetMultipleContentsGetSynchronousResult2   jni.MethodID
-	midActivityResultContractsGetMultipleContentsParseResult2            jni.MethodID
-	midActivityResultContractsGetMultipleContentsCreateIntent2_1         jni.MethodID
-	midActivityResultContractsGetMultipleContentsGetSynchronousResult2_1 jni.MethodID
-	midActivityResultContractsGetMultipleContentsParseResult2_1          jni.MethodID
-	midActivityResultContractsGetMultipleContentsToString                jni.MethodID
+	clsActivityResultContractsGetMultipleContents                     *jni.GlobalRef
+	midActivityResultContractsGetMultipleContentsCtor                 jni.MethodID
+	midActivityResultContractsGetMultipleContentsCreateIntent         jni.MethodID
+	midActivityResultContractsGetMultipleContentsGetSynchronousResult jni.MethodID
+	midActivityResultContractsGetMultipleContentsParseResult          jni.MethodID
+	midActivityResultContractsGetMultipleContentsToString             jni.MethodID
 
-	clsActivityResultContractsOpenDocument                        *jni.GlobalRef
-	midActivityResultContractsOpenDocumentCreateIntent2           jni.MethodID
-	midActivityResultContractsOpenDocumentGetSynchronousResult2   jni.MethodID
-	midActivityResultContractsOpenDocumentParseResult2            jni.MethodID
-	midActivityResultContractsOpenDocumentCreateIntent2_1         jni.MethodID
-	midActivityResultContractsOpenDocumentGetSynchronousResult2_1 jni.MethodID
-	midActivityResultContractsOpenDocumentParseResult2_1          jni.MethodID
-	midActivityResultContractsOpenDocumentToString                jni.MethodID
+	clsActivityResultContractsOpenDocument                     *jni.GlobalRef
+	midActivityResultContractsOpenDocumentCtor                 jni.MethodID
+	midActivityResultContractsOpenDocumentCreateIntent         jni.MethodID
+	midActivityResultContractsOpenDocumentGetSynchronousResult jni.MethodID
+	midActivityResultContractsOpenDocumentParseResult          jni.MethodID
+	midActivityResultContractsOpenDocumentToString             jni.MethodID
 
-	clsActivityResultContractsOpenDocumentTree                        *jni.GlobalRef
-	midActivityResultContractsOpenDocumentTreeCreateIntent2           jni.MethodID
-	midActivityResultContractsOpenDocumentTreeGetSynchronousResult2   jni.MethodID
-	midActivityResultContractsOpenDocumentTreeParseResult2            jni.MethodID
-	midActivityResultContractsOpenDocumentTreeCreateIntent2_1         jni.MethodID
-	midActivityResultContractsOpenDocumentTreeGetSynchronousResult2_1 jni.MethodID
-	midActivityResultContractsOpenDocumentTreeParseResult2_1          jni.MethodID
-	midActivityResultContractsOpenDocumentTreeToString                jni.MethodID
+	clsActivityResultContractsOpenDocumentTree                     *jni.GlobalRef
+	midActivityResultContractsOpenDocumentTreeCtor                 jni.MethodID
+	midActivityResultContractsOpenDocumentTreeCreateIntent         jni.MethodID
+	midActivityResultContractsOpenDocumentTreeGetSynchronousResult jni.MethodID
+	midActivityResultContractsOpenDocumentTreeParseResult          jni.MethodID
+	midActivityResultContractsOpenDocumentTreeToString             jni.MethodID
 
-	clsActivityResultContractsOpenMultipleDocuments                        *jni.GlobalRef
-	midActivityResultContractsOpenMultipleDocumentsCreateIntent2           jni.MethodID
-	midActivityResultContractsOpenMultipleDocumentsGetSynchronousResult2   jni.MethodID
-	midActivityResultContractsOpenMultipleDocumentsParseResult2            jni.MethodID
-	midActivityResultContractsOpenMultipleDocumentsCreateIntent2_1         jni.MethodID
-	midActivityResultContractsOpenMultipleDocumentsGetSynchronousResult2_1 jni.MethodID
-	midActivityResultContractsOpenMultipleDocumentsParseResult2_1          jni.MethodID
-	midActivityResultContractsOpenMultipleDocumentsToString                jni.MethodID
+	clsActivityResultContractsOpenMultipleDocuments                     *jni.GlobalRef
+	midActivityResultContractsOpenMultipleDocumentsCtor                 jni.MethodID
+	midActivityResultContractsOpenMultipleDocumentsCreateIntent         jni.MethodID
+	midActivityResultContractsOpenMultipleDocumentsGetSynchronousResult jni.MethodID
+	midActivityResultContractsOpenMultipleDocumentsParseResult          jni.MethodID
+	midActivityResultContractsOpenMultipleDocumentsToString             jni.MethodID
 
-	clsActivityResultContractsPickContact                *jni.GlobalRef
-	midActivityResultContractsPickContactCreateIntent2   jni.MethodID
-	midActivityResultContractsPickContactParseResult2    jni.MethodID
-	midActivityResultContractsPickContactCreateIntent2_1 jni.MethodID
-	midActivityResultContractsPickContactParseResult2_1  jni.MethodID
-	midActivityResultContractsPickContactToString        jni.MethodID
+	clsActivityResultContractsPickContact             *jni.GlobalRef
+	midActivityResultContractsPickContactCtor         jni.MethodID
+	midActivityResultContractsPickContactCreateIntent jni.MethodID
+	midActivityResultContractsPickContactParseResult  jni.MethodID
+	midActivityResultContractsPickContactToString     jni.MethodID
 
-	clsActivityResultContractsPickMultipleVisualMedia                        *jni.GlobalRef
-	midActivityResultContractsPickMultipleVisualMediaCreateIntent2           jni.MethodID
-	midActivityResultContractsPickMultipleVisualMediaGetSynchronousResult2   jni.MethodID
-	midActivityResultContractsPickMultipleVisualMediaParseResult2            jni.MethodID
-	midActivityResultContractsPickMultipleVisualMediaCreateIntent2_1         jni.MethodID
-	midActivityResultContractsPickMultipleVisualMediaGetSynchronousResult2_1 jni.MethodID
-	midActivityResultContractsPickMultipleVisualMediaParseResult2_1          jni.MethodID
-	midActivityResultContractsPickMultipleVisualMediaToString                jni.MethodID
+	clsActivityResultContractsPickMultipleVisualMedia                     *jni.GlobalRef
+	midActivityResultContractsPickMultipleVisualMediaCtor                 jni.MethodID
+	midActivityResultContractsPickMultipleVisualMediaCreateIntent         jni.MethodID
+	midActivityResultContractsPickMultipleVisualMediaGetSynchronousResult jni.MethodID
+	midActivityResultContractsPickMultipleVisualMediaParseResult          jni.MethodID
+	midActivityResultContractsPickMultipleVisualMediaToString             jni.MethodID
 
-	clsActivityResultContractsPickVisualMedia                          *jni.GlobalRef
-	midActivityResultContractsPickVisualMediaCreateIntent2             jni.MethodID
-	midActivityResultContractsPickVisualMediaGetSynchronousResult2     jni.MethodID
-	midActivityResultContractsPickVisualMediaParseResult2              jni.MethodID
-	midActivityResultContractsPickVisualMediaCreateIntent2_1           jni.MethodID
-	midActivityResultContractsPickVisualMediaGetSynchronousResult2_1   jni.MethodID
-	midActivityResultContractsPickVisualMediaParseResult2_1            jni.MethodID
-	midActivityResultContractsPickVisualMediaToString                  jni.MethodID
-	midActivityResultContractsPickVisualMediaIsPhotoPickerAvailable0   jni.MethodID
-	midActivityResultContractsPickVisualMediaIsPhotoPickerAvailable1_1 jni.MethodID
+	clsActivityResultContractsPickVisualMedia                                               *jni.GlobalRef
+	midActivityResultContractsPickVisualMediaCtor                                           jni.MethodID
+	midActivityResultContractsPickVisualMediaCreateIntent                                   jni.MethodID
+	midActivityResultContractsPickVisualMediaGetSynchronousResult                           jni.MethodID
+	midActivityResultContractsPickVisualMediaParseResult                                    jni.MethodID
+	midActivityResultContractsPickVisualMediaToString                                       jni.MethodID
+	midActivityResultContractsPickVisualMediaIsPhotoPickerAvailable0                        jni.MethodID
+	midActivityResultContractsPickVisualMediaIsPhotoPickerAvailable1_1                      jni.MethodID
+	midActivityResultContractsPickVisualMediaIsSystemPickerAvailableActivityRelease         jni.MethodID
+	midActivityResultContractsPickVisualMediaIsSystemFallbackPickerAvailableActivityRelease jni.MethodID
+	midActivityResultContractsPickVisualMediaGetSystemFallbackPickerActivityRelease         jni.MethodID
+	midActivityResultContractsPickVisualMediaIsGmsPickerAvailableActivityRelease            jni.MethodID
+	midActivityResultContractsPickVisualMediaGetGmsPickerActivityRelease                    jni.MethodID
 
-	clsActivityResultContractsRequestMultiplePermissions                     *jni.GlobalRef
-	midActivityResultContractsRequestMultiplePermissionsCreateIntent2        jni.MethodID
-	midActivityResultContractsRequestMultiplePermissionsCreateIntent2_1      jni.MethodID
-	midActivityResultContractsRequestMultiplePermissionsGetSynchronousResult jni.MethodID
-	midActivityResultContractsRequestMultiplePermissionsParseResult          jni.MethodID
-	midActivityResultContractsRequestMultiplePermissionsToString             jni.MethodID
+	clsActivityResultContractsRequestMultiplePermissions             *jni.GlobalRef
+	midActivityResultContractsRequestMultiplePermissionsCtor         jni.MethodID
+	midActivityResultContractsRequestMultiplePermissionsCreateIntent jni.MethodID
+	midActivityResultContractsRequestMultiplePermissionsToString     jni.MethodID
 
-	clsActivityResultContractsRequestPermission                        *jni.GlobalRef
-	midActivityResultContractsRequestPermissionCreateIntent2           jni.MethodID
-	midActivityResultContractsRequestPermissionParseResult2            jni.MethodID
-	midActivityResultContractsRequestPermissionGetSynchronousResult2   jni.MethodID
-	midActivityResultContractsRequestPermissionCreateIntent2_1         jni.MethodID
-	midActivityResultContractsRequestPermissionParseResult2_1          jni.MethodID
-	midActivityResultContractsRequestPermissionGetSynchronousResult2_1 jni.MethodID
-	midActivityResultContractsRequestPermissionToString                jni.MethodID
+	clsActivityResultContractsRequestPermission                     *jni.GlobalRef
+	midActivityResultContractsRequestPermissionCtor                 jni.MethodID
+	midActivityResultContractsRequestPermissionCreateIntent         jni.MethodID
+	midActivityResultContractsRequestPermissionParseResult          jni.MethodID
+	midActivityResultContractsRequestPermissionGetSynchronousResult jni.MethodID
+	midActivityResultContractsRequestPermissionToString             jni.MethodID
 
-	clsActivityResultContractsStartActivityForResult                *jni.GlobalRef
-	midActivityResultContractsStartActivityForResultCreateIntent2   jni.MethodID
-	midActivityResultContractsStartActivityForResultParseResult2    jni.MethodID
-	midActivityResultContractsStartActivityForResultCreateIntent2_1 jni.MethodID
-	midActivityResultContractsStartActivityForResultParseResult2_1  jni.MethodID
-	midActivityResultContractsStartActivityForResultToString        jni.MethodID
+	clsActivityResultContractsStartActivityForResult             *jni.GlobalRef
+	midActivityResultContractsStartActivityForResultCtor         jni.MethodID
+	midActivityResultContractsStartActivityForResultCreateIntent jni.MethodID
+	midActivityResultContractsStartActivityForResultParseResult  jni.MethodID
+	midActivityResultContractsStartActivityForResultToString     jni.MethodID
 
-	clsActivityResultContractsStartIntentSenderForResult                *jni.GlobalRef
-	midActivityResultContractsStartIntentSenderForResultCreateIntent2   jni.MethodID
-	midActivityResultContractsStartIntentSenderForResultParseResult2    jni.MethodID
-	midActivityResultContractsStartIntentSenderForResultCreateIntent2_1 jni.MethodID
-	midActivityResultContractsStartIntentSenderForResultParseResult2_1  jni.MethodID
-	midActivityResultContractsStartIntentSenderForResultToString        jni.MethodID
+	clsActivityResultContractsStartIntentSenderForResult             *jni.GlobalRef
+	midActivityResultContractsStartIntentSenderForResultCtor         jni.MethodID
+	midActivityResultContractsStartIntentSenderForResultCreateIntent jni.MethodID
+	midActivityResultContractsStartIntentSenderForResultParseResult  jni.MethodID
+	midActivityResultContractsStartIntentSenderForResultToString     jni.MethodID
 
-	clsActivityResultContractsTakePicture                        *jni.GlobalRef
-	midActivityResultContractsTakePictureCreateIntent2           jni.MethodID
-	midActivityResultContractsTakePictureGetSynchronousResult2   jni.MethodID
-	midActivityResultContractsTakePictureParseResult2            jni.MethodID
-	midActivityResultContractsTakePictureCreateIntent2_1         jni.MethodID
-	midActivityResultContractsTakePictureGetSynchronousResult2_1 jni.MethodID
-	midActivityResultContractsTakePictureParseResult2_1          jni.MethodID
-	midActivityResultContractsTakePictureToString                jni.MethodID
+	clsActivityResultContractsTakePicture                     *jni.GlobalRef
+	midActivityResultContractsTakePictureCtor                 jni.MethodID
+	midActivityResultContractsTakePictureCreateIntent         jni.MethodID
+	midActivityResultContractsTakePictureGetSynchronousResult jni.MethodID
+	midActivityResultContractsTakePictureParseResult          jni.MethodID
+	midActivityResultContractsTakePictureToString             jni.MethodID
 
-	clsActivityResultContractsTakePicturePreview                        *jni.GlobalRef
-	midActivityResultContractsTakePicturePreviewCreateIntent2           jni.MethodID
-	midActivityResultContractsTakePicturePreviewGetSynchronousResult2   jni.MethodID
-	midActivityResultContractsTakePicturePreviewParseResult2            jni.MethodID
-	midActivityResultContractsTakePicturePreviewCreateIntent2_1         jni.MethodID
-	midActivityResultContractsTakePicturePreviewGetSynchronousResult2_1 jni.MethodID
-	midActivityResultContractsTakePicturePreviewParseResult2_1          jni.MethodID
-	midActivityResultContractsTakePicturePreviewToString                jni.MethodID
+	clsActivityResultContractsTakePicturePreview                     *jni.GlobalRef
+	midActivityResultContractsTakePicturePreviewCtor                 jni.MethodID
+	midActivityResultContractsTakePicturePreviewCreateIntent         jni.MethodID
+	midActivityResultContractsTakePicturePreviewGetSynchronousResult jni.MethodID
+	midActivityResultContractsTakePicturePreviewParseResult          jni.MethodID
+	midActivityResultContractsTakePicturePreviewToString             jni.MethodID
 
-	clsActivityResultContractsTakeVideo                        *jni.GlobalRef
-	midActivityResultContractsTakeVideoCreateIntent2           jni.MethodID
-	midActivityResultContractsTakeVideoGetSynchronousResult2   jni.MethodID
-	midActivityResultContractsTakeVideoParseResult2            jni.MethodID
-	midActivityResultContractsTakeVideoCreateIntent2_1         jni.MethodID
-	midActivityResultContractsTakeVideoGetSynchronousResult2_1 jni.MethodID
-	midActivityResultContractsTakeVideoParseResult2_1          jni.MethodID
-	midActivityResultContractsTakeVideoToString                jni.MethodID
+	clsActivityResultContractsTakeVideo                     *jni.GlobalRef
+	midActivityResultContractsTakeVideoCtor                 jni.MethodID
+	midActivityResultContractsTakeVideoCreateIntent         jni.MethodID
+	midActivityResultContractsTakeVideoGetSynchronousResult jni.MethodID
+	midActivityResultContractsTakeVideoParseResult          jni.MethodID
+	midActivityResultContractsTakeVideoToString             jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -222,6 +197,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsActivityResultContractSynchronousResult = env.NewGlobalRef(&c.Object)
+		midActivityResultContractSynchronousResultCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractSynchronousResult)), "<init>", "(Ljava/lang/T;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midActivityResultContractSynchronousResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractSynchronousResult)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -256,43 +235,26 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsActivityResultContractsCaptureVideo = env.NewGlobalRef(&c.Object)
+		midActivityResultContractsCaptureVideoCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsCaptureVideo)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midActivityResultContractsCaptureVideoCreateIntent2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsCaptureVideo)), "createIntent", "(Landroid/content/Context;Landroid/net/Uri;)Landroid/content/Intent;")
+		midActivityResultContractsCaptureVideoCreateIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsCaptureVideo)), "createIntent", "(Landroid/content/Context;Landroid/net/Uri;)Landroid/content/Intent;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsCaptureVideoGetSynchronousResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsCaptureVideo)), "getSynchronousResult", "(Landroid/content/Context;Landroid/net/Uri;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
+		midActivityResultContractsCaptureVideoGetSynchronousResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsCaptureVideo)), "getSynchronousResult", "(Landroid/content/Context;Landroid/net/Uri;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsCaptureVideoParseResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsCaptureVideo)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Boolean;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsCaptureVideoCreateIntent2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsCaptureVideo)), "createIntent", "(Landroid/content/Context;Ljava/lang/Object;)Landroid/content/Intent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsCaptureVideoGetSynchronousResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsCaptureVideo)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/Object;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsCaptureVideoParseResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsCaptureVideo)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Object;")
+		midActivityResultContractsCaptureVideoParseResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsCaptureVideo)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Boolean;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -315,43 +277,26 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsActivityResultContractsCreateDocument = env.NewGlobalRef(&c.Object)
+		midActivityResultContractsCreateDocumentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsCreateDocument)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midActivityResultContractsCreateDocumentCreateIntent2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsCreateDocument)), "createIntent", "(Landroid/content/Context;Ljava/lang/String;)Landroid/content/Intent;")
+		midActivityResultContractsCreateDocumentCreateIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsCreateDocument)), "createIntent", "(Landroid/content/Context;Ljava/lang/String;)Landroid/content/Intent;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsCreateDocumentGetSynchronousResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsCreateDocument)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/String;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
+		midActivityResultContractsCreateDocumentGetSynchronousResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsCreateDocument)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/String;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsCreateDocumentParseResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsCreateDocument)), "parseResult", "(ILandroid/content/Intent;)Landroid/net/Uri;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsCreateDocumentCreateIntent2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsCreateDocument)), "createIntent", "(Landroid/content/Context;Ljava/lang/Object;)Landroid/content/Intent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsCreateDocumentGetSynchronousResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsCreateDocument)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/Object;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsCreateDocumentParseResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsCreateDocument)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Object;")
+		midActivityResultContractsCreateDocumentParseResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsCreateDocument)), "parseResult", "(ILandroid/content/Intent;)Landroid/net/Uri;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -374,43 +319,26 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsActivityResultContractsGetContent = env.NewGlobalRef(&c.Object)
+		midActivityResultContractsGetContentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsGetContent)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midActivityResultContractsGetContentCreateIntent2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsGetContent)), "createIntent", "(Landroid/content/Context;Ljava/lang/String;)Landroid/content/Intent;")
+		midActivityResultContractsGetContentCreateIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsGetContent)), "createIntent", "(Landroid/content/Context;Ljava/lang/String;)Landroid/content/Intent;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsGetContentGetSynchronousResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsGetContent)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/String;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
+		midActivityResultContractsGetContentGetSynchronousResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsGetContent)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/String;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsGetContentParseResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsGetContent)), "parseResult", "(ILandroid/content/Intent;)Landroid/net/Uri;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsGetContentCreateIntent2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsGetContent)), "createIntent", "(Landroid/content/Context;Ljava/lang/Object;)Landroid/content/Intent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsGetContentGetSynchronousResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsGetContent)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/Object;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsGetContentParseResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsGetContent)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Object;")
+		midActivityResultContractsGetContentParseResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsGetContent)), "parseResult", "(ILandroid/content/Intent;)Landroid/net/Uri;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -433,43 +361,26 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsActivityResultContractsGetMultipleContents = env.NewGlobalRef(&c.Object)
+		midActivityResultContractsGetMultipleContentsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsGetMultipleContents)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midActivityResultContractsGetMultipleContentsCreateIntent2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsGetMultipleContents)), "createIntent", "(Landroid/content/Context;Ljava/lang/String;)Landroid/content/Intent;")
+		midActivityResultContractsGetMultipleContentsCreateIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsGetMultipleContents)), "createIntent", "(Landroid/content/Context;Ljava/lang/String;)Landroid/content/Intent;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsGetMultipleContentsGetSynchronousResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsGetMultipleContents)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/String;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
+		midActivityResultContractsGetMultipleContentsGetSynchronousResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsGetMultipleContents)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/String;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsGetMultipleContentsParseResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsGetMultipleContents)), "parseResult", "(ILandroid/content/Intent;)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsGetMultipleContentsCreateIntent2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsGetMultipleContents)), "createIntent", "(Landroid/content/Context;Ljava/lang/Object;)Landroid/content/Intent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsGetMultipleContentsGetSynchronousResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsGetMultipleContents)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/Object;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsGetMultipleContentsParseResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsGetMultipleContents)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Object;")
+		midActivityResultContractsGetMultipleContentsParseResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsGetMultipleContents)), "parseResult", "(ILandroid/content/Intent;)Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -492,43 +403,26 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsActivityResultContractsOpenDocument = env.NewGlobalRef(&c.Object)
+		midActivityResultContractsOpenDocumentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenDocument)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midActivityResultContractsOpenDocumentCreateIntent2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenDocument)), "createIntent", "(Landroid/content/Context;[Ljava/lang/String;)Landroid/content/Intent;")
+		midActivityResultContractsOpenDocumentCreateIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenDocument)), "createIntent", "(Landroid/content/Context;[Ljava/lang/String;)Landroid/content/Intent;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsOpenDocumentGetSynchronousResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenDocument)), "getSynchronousResult", "(Landroid/content/Context;[Ljava/lang/String;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
+		midActivityResultContractsOpenDocumentGetSynchronousResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenDocument)), "getSynchronousResult", "(Landroid/content/Context;[Ljava/lang/String;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsOpenDocumentParseResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenDocument)), "parseResult", "(ILandroid/content/Intent;)Landroid/net/Uri;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsOpenDocumentCreateIntent2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenDocument)), "createIntent", "(Landroid/content/Context;Ljava/lang/Object;)Landroid/content/Intent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsOpenDocumentGetSynchronousResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenDocument)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/Object;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsOpenDocumentParseResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenDocument)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Object;")
+		midActivityResultContractsOpenDocumentParseResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenDocument)), "parseResult", "(ILandroid/content/Intent;)Landroid/net/Uri;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -551,43 +445,26 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsActivityResultContractsOpenDocumentTree = env.NewGlobalRef(&c.Object)
+		midActivityResultContractsOpenDocumentTreeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenDocumentTree)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midActivityResultContractsOpenDocumentTreeCreateIntent2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenDocumentTree)), "createIntent", "(Landroid/content/Context;Landroid/net/Uri;)Landroid/content/Intent;")
+		midActivityResultContractsOpenDocumentTreeCreateIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenDocumentTree)), "createIntent", "(Landroid/content/Context;Landroid/net/Uri;)Landroid/content/Intent;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsOpenDocumentTreeGetSynchronousResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenDocumentTree)), "getSynchronousResult", "(Landroid/content/Context;Landroid/net/Uri;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
+		midActivityResultContractsOpenDocumentTreeGetSynchronousResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenDocumentTree)), "getSynchronousResult", "(Landroid/content/Context;Landroid/net/Uri;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsOpenDocumentTreeParseResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenDocumentTree)), "parseResult", "(ILandroid/content/Intent;)Landroid/net/Uri;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsOpenDocumentTreeCreateIntent2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenDocumentTree)), "createIntent", "(Landroid/content/Context;Ljava/lang/Object;)Landroid/content/Intent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsOpenDocumentTreeGetSynchronousResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenDocumentTree)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/Object;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsOpenDocumentTreeParseResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenDocumentTree)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Object;")
+		midActivityResultContractsOpenDocumentTreeParseResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenDocumentTree)), "parseResult", "(ILandroid/content/Intent;)Landroid/net/Uri;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -610,43 +487,26 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsActivityResultContractsOpenMultipleDocuments = env.NewGlobalRef(&c.Object)
+		midActivityResultContractsOpenMultipleDocumentsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenMultipleDocuments)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midActivityResultContractsOpenMultipleDocumentsCreateIntent2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenMultipleDocuments)), "createIntent", "(Landroid/content/Context;[Ljava/lang/String;)Landroid/content/Intent;")
+		midActivityResultContractsOpenMultipleDocumentsCreateIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenMultipleDocuments)), "createIntent", "(Landroid/content/Context;[Ljava/lang/String;)Landroid/content/Intent;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsOpenMultipleDocumentsGetSynchronousResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenMultipleDocuments)), "getSynchronousResult", "(Landroid/content/Context;[Ljava/lang/String;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
+		midActivityResultContractsOpenMultipleDocumentsGetSynchronousResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenMultipleDocuments)), "getSynchronousResult", "(Landroid/content/Context;[Ljava/lang/String;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsOpenMultipleDocumentsParseResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenMultipleDocuments)), "parseResult", "(ILandroid/content/Intent;)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsOpenMultipleDocumentsCreateIntent2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenMultipleDocuments)), "createIntent", "(Landroid/content/Context;Ljava/lang/Object;)Landroid/content/Intent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsOpenMultipleDocumentsGetSynchronousResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenMultipleDocuments)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/Object;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsOpenMultipleDocumentsParseResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenMultipleDocuments)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Object;")
+		midActivityResultContractsOpenMultipleDocumentsParseResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenMultipleDocuments)), "parseResult", "(ILandroid/content/Intent;)Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -669,29 +529,19 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsActivityResultContractsPickContact = env.NewGlobalRef(&c.Object)
+		midActivityResultContractsPickContactCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickContact)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midActivityResultContractsPickContactCreateIntent2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickContact)), "createIntent", "(Landroid/content/Context;Ljava/lang/Void;)Landroid/content/Intent;")
+		midActivityResultContractsPickContactCreateIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickContact)), "createIntent", "(Landroid/content/Context;Ljava/lang/Void;)Landroid/content/Intent;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsPickContactParseResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickContact)), "parseResult", "(ILandroid/content/Intent;)Landroid/net/Uri;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsPickContactCreateIntent2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickContact)), "createIntent", "(Landroid/content/Context;Ljava/lang/Object;)Landroid/content/Intent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsPickContactParseResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickContact)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Object;")
+		midActivityResultContractsPickContactParseResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickContact)), "parseResult", "(ILandroid/content/Intent;)Landroid/net/Uri;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -714,43 +564,26 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsActivityResultContractsPickMultipleVisualMedia = env.NewGlobalRef(&c.Object)
+		midActivityResultContractsPickMultipleVisualMediaCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickMultipleVisualMedia)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midActivityResultContractsPickMultipleVisualMediaCreateIntent2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickMultipleVisualMedia)), "createIntent", "(Landroid/content/Context;Landroidx/activity/result/PickVisualMediaRequest;)Landroid/content/Intent;")
+		midActivityResultContractsPickMultipleVisualMediaCreateIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickMultipleVisualMedia)), "createIntent", "(Landroid/content/Context;Landroidx/activity/result/PickVisualMediaRequest;)Landroid/content/Intent;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsPickMultipleVisualMediaGetSynchronousResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickMultipleVisualMedia)), "getSynchronousResult", "(Landroid/content/Context;Landroidx/activity/result/PickVisualMediaRequest;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
+		midActivityResultContractsPickMultipleVisualMediaGetSynchronousResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickMultipleVisualMedia)), "getSynchronousResult", "(Landroid/content/Context;Landroidx/activity/result/PickVisualMediaRequest;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsPickMultipleVisualMediaParseResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickMultipleVisualMedia)), "parseResult", "(ILandroid/content/Intent;)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsPickMultipleVisualMediaCreateIntent2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickMultipleVisualMedia)), "createIntent", "(Landroid/content/Context;Ljava/lang/Object;)Landroid/content/Intent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsPickMultipleVisualMediaGetSynchronousResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickMultipleVisualMedia)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/Object;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsPickMultipleVisualMediaParseResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickMultipleVisualMedia)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Object;")
+		midActivityResultContractsPickMultipleVisualMediaParseResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickMultipleVisualMedia)), "parseResult", "(ILandroid/content/Intent;)Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -773,43 +606,26 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsActivityResultContractsPickVisualMedia = env.NewGlobalRef(&c.Object)
+		midActivityResultContractsPickVisualMediaCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickVisualMedia)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midActivityResultContractsPickVisualMediaCreateIntent2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickVisualMedia)), "createIntent", "(Landroid/content/Context;Landroidx/activity/result/PickVisualMediaRequest;)Landroid/content/Intent;")
+		midActivityResultContractsPickVisualMediaCreateIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickVisualMedia)), "createIntent", "(Landroid/content/Context;Landroidx/activity/result/PickVisualMediaRequest;)Landroid/content/Intent;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsPickVisualMediaGetSynchronousResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickVisualMedia)), "getSynchronousResult", "(Landroid/content/Context;Landroidx/activity/result/PickVisualMediaRequest;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
+		midActivityResultContractsPickVisualMediaGetSynchronousResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickVisualMedia)), "getSynchronousResult", "(Landroid/content/Context;Landroidx/activity/result/PickVisualMediaRequest;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsPickVisualMediaParseResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickVisualMedia)), "parseResult", "(ILandroid/content/Intent;)Landroid/net/Uri;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsPickVisualMediaCreateIntent2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickVisualMedia)), "createIntent", "(Landroid/content/Context;Ljava/lang/Object;)Landroid/content/Intent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsPickVisualMediaGetSynchronousResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickVisualMedia)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/Object;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsPickVisualMediaParseResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickVisualMedia)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Object;")
+		midActivityResultContractsPickVisualMediaParseResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickVisualMedia)), "parseResult", "(ILandroid/content/Intent;)Landroid/net/Uri;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -837,6 +653,41 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
+		midActivityResultContractsPickVisualMediaIsSystemPickerAvailableActivityRelease, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickVisualMedia)), "isSystemPickerAvailable$activity_release", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActivityResultContractsPickVisualMediaIsSystemFallbackPickerAvailableActivityRelease, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickVisualMedia)), "isSystemFallbackPickerAvailable$activity_release", "(Landroid/content/Context;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActivityResultContractsPickVisualMediaGetSystemFallbackPickerActivityRelease, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickVisualMedia)), "getSystemFallbackPicker$activity_release", "(Landroid/content/Context;)Landroid/content/pm/ResolveInfo;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActivityResultContractsPickVisualMediaIsGmsPickerAvailableActivityRelease, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickVisualMedia)), "isGmsPickerAvailable$activity_release", "(Landroid/content/Context;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActivityResultContractsPickVisualMediaGetGmsPickerActivityRelease, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickVisualMedia)), "getGmsPicker$activity_release", "(Landroid/content/Context;)Landroid/content/pm/ResolveInfo;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
 	}
 
 	c, err = env.FindClass("androidx/activity/result/contract/ActivityResultContracts$RequestMultiplePermissions")
@@ -846,29 +697,12 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsActivityResultContractsRequestMultiplePermissions = env.NewGlobalRef(&c.Object)
-
-		midActivityResultContractsRequestMultiplePermissionsCreateIntent2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsRequestMultiplePermissions)), "createIntent", "(Landroid/content/Context;[Ljava/lang/String;)Landroid/content/Intent;")
+		midActivityResultContractsRequestMultiplePermissionsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsRequestMultiplePermissions)), "<init>", "()V")
 		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsRequestMultiplePermissionsCreateIntent2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsRequestMultiplePermissions)), "createIntent", "(Landroid/content/Context;Ljava/lang/Object;)Landroid/content/Intent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsRequestMultiplePermissionsGetSynchronousResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsRequestMultiplePermissions)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/Object;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsRequestMultiplePermissionsParseResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsRequestMultiplePermissions)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Object;")
+		midActivityResultContractsRequestMultiplePermissionsCreateIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsRequestMultiplePermissions)), "createIntent", "(Landroid/content/Context;[Ljava/lang/String;)Landroid/content/Intent;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -891,43 +725,26 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsActivityResultContractsRequestPermission = env.NewGlobalRef(&c.Object)
+		midActivityResultContractsRequestPermissionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsRequestPermission)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midActivityResultContractsRequestPermissionCreateIntent2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsRequestPermission)), "createIntent", "(Landroid/content/Context;Ljava/lang/String;)Landroid/content/Intent;")
+		midActivityResultContractsRequestPermissionCreateIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsRequestPermission)), "createIntent", "(Landroid/content/Context;Ljava/lang/String;)Landroid/content/Intent;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsRequestPermissionParseResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsRequestPermission)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Boolean;")
+		midActivityResultContractsRequestPermissionParseResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsRequestPermission)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Boolean;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsRequestPermissionGetSynchronousResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsRequestPermission)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/String;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsRequestPermissionCreateIntent2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsRequestPermission)), "createIntent", "(Landroid/content/Context;Ljava/lang/Object;)Landroid/content/Intent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsRequestPermissionParseResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsRequestPermission)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsRequestPermissionGetSynchronousResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsRequestPermission)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/Object;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
+		midActivityResultContractsRequestPermissionGetSynchronousResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsRequestPermission)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/String;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -950,29 +767,19 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsActivityResultContractsStartActivityForResult = env.NewGlobalRef(&c.Object)
+		midActivityResultContractsStartActivityForResultCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsStartActivityForResult)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midActivityResultContractsStartActivityForResultCreateIntent2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsStartActivityForResult)), "createIntent", "(Landroid/content/Context;Landroid/content/Intent;)Landroid/content/Intent;")
+		midActivityResultContractsStartActivityForResultCreateIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsStartActivityForResult)), "createIntent", "(Landroid/content/Context;Landroid/content/Intent;)Landroid/content/Intent;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsStartActivityForResultParseResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsStartActivityForResult)), "parseResult", "(ILandroid/content/Intent;)Landroidx/activity/result/ActivityResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsStartActivityForResultCreateIntent2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsStartActivityForResult)), "createIntent", "(Landroid/content/Context;Ljava/lang/Object;)Landroid/content/Intent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsStartActivityForResultParseResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsStartActivityForResult)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Object;")
+		midActivityResultContractsStartActivityForResultParseResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsStartActivityForResult)), "parseResult", "(ILandroid/content/Intent;)Landroidx/activity/result/ActivityResult;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -995,29 +802,19 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsActivityResultContractsStartIntentSenderForResult = env.NewGlobalRef(&c.Object)
+		midActivityResultContractsStartIntentSenderForResultCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsStartIntentSenderForResult)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midActivityResultContractsStartIntentSenderForResultCreateIntent2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsStartIntentSenderForResult)), "createIntent", "(Landroid/content/Context;Landroidx/activity/result/IntentSenderRequest;)Landroid/content/Intent;")
+		midActivityResultContractsStartIntentSenderForResultCreateIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsStartIntentSenderForResult)), "createIntent", "(Landroid/content/Context;Landroidx/activity/result/IntentSenderRequest;)Landroid/content/Intent;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsStartIntentSenderForResultParseResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsStartIntentSenderForResult)), "parseResult", "(ILandroid/content/Intent;)Landroidx/activity/result/ActivityResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsStartIntentSenderForResultCreateIntent2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsStartIntentSenderForResult)), "createIntent", "(Landroid/content/Context;Ljava/lang/Object;)Landroid/content/Intent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsStartIntentSenderForResultParseResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsStartIntentSenderForResult)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Object;")
+		midActivityResultContractsStartIntentSenderForResultParseResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsStartIntentSenderForResult)), "parseResult", "(ILandroid/content/Intent;)Landroidx/activity/result/ActivityResult;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1040,43 +837,26 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsActivityResultContractsTakePicture = env.NewGlobalRef(&c.Object)
+		midActivityResultContractsTakePictureCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakePicture)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midActivityResultContractsTakePictureCreateIntent2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakePicture)), "createIntent", "(Landroid/content/Context;Landroid/net/Uri;)Landroid/content/Intent;")
+		midActivityResultContractsTakePictureCreateIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakePicture)), "createIntent", "(Landroid/content/Context;Landroid/net/Uri;)Landroid/content/Intent;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsTakePictureGetSynchronousResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakePicture)), "getSynchronousResult", "(Landroid/content/Context;Landroid/net/Uri;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
+		midActivityResultContractsTakePictureGetSynchronousResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakePicture)), "getSynchronousResult", "(Landroid/content/Context;Landroid/net/Uri;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsTakePictureParseResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakePicture)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Boolean;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsTakePictureCreateIntent2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakePicture)), "createIntent", "(Landroid/content/Context;Ljava/lang/Object;)Landroid/content/Intent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsTakePictureGetSynchronousResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakePicture)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/Object;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsTakePictureParseResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakePicture)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Object;")
+		midActivityResultContractsTakePictureParseResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakePicture)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Boolean;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1099,43 +879,26 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsActivityResultContractsTakePicturePreview = env.NewGlobalRef(&c.Object)
+		midActivityResultContractsTakePicturePreviewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakePicturePreview)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midActivityResultContractsTakePicturePreviewCreateIntent2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakePicturePreview)), "createIntent", "(Landroid/content/Context;Ljava/lang/Void;)Landroid/content/Intent;")
+		midActivityResultContractsTakePicturePreviewCreateIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakePicturePreview)), "createIntent", "(Landroid/content/Context;Ljava/lang/Void;)Landroid/content/Intent;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsTakePicturePreviewGetSynchronousResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakePicturePreview)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/Void;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
+		midActivityResultContractsTakePicturePreviewGetSynchronousResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakePicturePreview)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/Void;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsTakePicturePreviewParseResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakePicturePreview)), "parseResult", "(ILandroid/content/Intent;)Landroid/graphics/Bitmap;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsTakePicturePreviewCreateIntent2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakePicturePreview)), "createIntent", "(Landroid/content/Context;Ljava/lang/Object;)Landroid/content/Intent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsTakePicturePreviewGetSynchronousResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakePicturePreview)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/Object;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsTakePicturePreviewParseResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakePicturePreview)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Object;")
+		midActivityResultContractsTakePicturePreviewParseResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakePicturePreview)), "parseResult", "(ILandroid/content/Intent;)Landroid/graphics/Bitmap;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1158,43 +921,26 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsActivityResultContractsTakeVideo = env.NewGlobalRef(&c.Object)
+		midActivityResultContractsTakeVideoCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakeVideo)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midActivityResultContractsTakeVideoCreateIntent2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakeVideo)), "createIntent", "(Landroid/content/Context;Landroid/net/Uri;)Landroid/content/Intent;")
+		midActivityResultContractsTakeVideoCreateIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakeVideo)), "createIntent", "(Landroid/content/Context;Landroid/net/Uri;)Landroid/content/Intent;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsTakeVideoGetSynchronousResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakeVideo)), "getSynchronousResult", "(Landroid/content/Context;Landroid/net/Uri;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
+		midActivityResultContractsTakeVideoGetSynchronousResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakeVideo)), "getSynchronousResult", "(Landroid/content/Context;Landroid/net/Uri;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityResultContractsTakeVideoParseResult2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakeVideo)), "parseResult", "(ILandroid/content/Intent;)Landroid/graphics/Bitmap;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsTakeVideoCreateIntent2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakeVideo)), "createIntent", "(Landroid/content/Context;Ljava/lang/Object;)Landroid/content/Intent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsTakeVideoGetSynchronousResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakeVideo)), "getSynchronousResult", "(Landroid/content/Context;Ljava/lang/Object;)Landroidx/activity/result/contract/ActivityResultContract$SynchronousResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityResultContractsTakeVideoParseResult2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakeVideo)), "parseResult", "(ILandroid/content/Intent;)Ljava/lang/Object;")
+		midActivityResultContractsTakeVideoParseResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakeVideo)), "parseResult", "(ILandroid/content/Intent;)Landroid/graphics/Bitmap;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

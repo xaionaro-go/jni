@@ -12,8 +12,8 @@ const (
 	TypePasswordCredential = consts.TypePasswordCredential
 	SupportedElementKeys   = consts.SupportedElementKeys
 	TypeInterrupted        = consts.TypeInterrupted
-	TypeNoCredential       = consts.TypeNoCredential
+	TypeNoCreateOptions    = consts.TypeNoCreateOptions
 	TypeUnknown            = consts.TypeUnknown
 	TypeUserCanceled       = consts.TypeUserCanceled
-	TypeNoCreateOptions    = consts.TypeNoCreateOptions
+	TypeNoCredential       = consts.TypeNoCredential
 )

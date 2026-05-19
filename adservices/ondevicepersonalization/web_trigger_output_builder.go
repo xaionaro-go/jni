@@ -23,6 +23,34 @@ type WebTriggerOutputBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWebTriggerOutputBuilder creates a new android.adservices.ondevicepersonalization.WebTriggerOutput$Builder instance.
+func NewWebTriggerOutputBuilder(vm *jni.VM) (*WebTriggerOutputBuilder, error) {
+	var t WebTriggerOutputBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWebTriggerOutputBuilder == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.WebTriggerOutput$Builder is not available on this device")
+		}
+		if midWebTriggerOutputBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.WebTriggerOutput$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWebTriggerOutputBuilder)), midWebTriggerOutputBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddEventLogRecord calls android.adservices.ondevicepersonalization.WebTriggerOutput$Builder.addEventLogRecord.
 func (m *WebTriggerOutputBuilder) AddEventLogRecord(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

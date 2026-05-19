@@ -32,6 +32,12 @@ func NewActivityNotFoundException(vm *jni.VM) (*ActivityNotFoundException, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsActivityNotFoundException == nil {
+			return fmt.Errorf("android.content.ActivityNotFoundException is not available on this device")
+		}
+		if midActivityNotFoundExceptionCtor == nil {
+			return fmt.Errorf("android.content.ActivityNotFoundException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivityNotFoundException)), midActivityNotFoundExceptionCtor)
 		if err != nil {
 			return err

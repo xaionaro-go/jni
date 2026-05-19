@@ -32,6 +32,12 @@ func NewInvalidSelectorsException(vm *jni.VM, arg0 int32, arg1 *jni.Object) (*In
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInvalidSelectorsException == nil {
+			return fmt.Errorf("android.net.ipsec.ike.exceptions.InvalidSelectorsException is not available on this device")
+		}
+		if midInvalidSelectorsExceptionCtor == nil {
+			return fmt.Errorf("android.net.ipsec.ike.exceptions.InvalidSelectorsException constructor (I[B)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInvalidSelectorsException)), midInvalidSelectorsExceptionCtor, jni.IntValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

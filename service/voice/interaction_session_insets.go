@@ -23,6 +23,34 @@ type InteractionSessionInsets struct {
 	Obj *jni.GlobalRef
 }
 
+// NewInteractionSessionInsets creates a new android.service.voice.VoiceInteractionSession$Insets instance.
+func NewInteractionSessionInsets(vm *jni.VM) (*InteractionSessionInsets, error) {
+	var t InteractionSessionInsets
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsInteractionSessionInsets == nil {
+			return fmt.Errorf("android.service.voice.VoiceInteractionSession$Insets is not available on this device")
+		}
+		if midInteractionSessionInsetsCtor == nil {
+			return fmt.Errorf("android.service.voice.VoiceInteractionSession$Insets constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInteractionSessionInsets)), midInteractionSessionInsetsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.service.voice.VoiceInteractionSession$Insets.toString.
 func (m *InteractionSessionInsets) ToString() (string, error) {
 	var result string

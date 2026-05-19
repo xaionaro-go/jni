@@ -32,6 +32,12 @@ func NewPaint(vm *jni.VM) (*Paint, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPaint == nil {
+			return fmt.Errorf("android.graphics.Paint is not available on this device")
+		}
+		if midPaintCtor == nil {
+			return fmt.Errorf("android.graphics.Paint constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPaint)), midPaintCtor)
 		if err != nil {
 			return err

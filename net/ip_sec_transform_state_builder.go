@@ -23,6 +23,34 @@ type IpSecTransformStateBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewIpSecTransformStateBuilder creates a new android.net.IpSecTransformState$Builder instance.
+func NewIpSecTransformStateBuilder(vm *jni.VM) (*IpSecTransformStateBuilder, error) {
+	var t IpSecTransformStateBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsIpSecTransformStateBuilder == nil {
+			return fmt.Errorf("android.net.IpSecTransformState$Builder is not available on this device")
+		}
+		if midIpSecTransformStateBuilderCtor == nil {
+			return fmt.Errorf("android.net.IpSecTransformState$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIpSecTransformStateBuilder)), midIpSecTransformStateBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.IpSecTransformState$Builder.build.
 func (m *IpSecTransformStateBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

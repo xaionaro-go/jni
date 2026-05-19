@@ -32,6 +32,12 @@ func NewVisibilityAwareImageButton(vm *jni.VM, arg0 *jni.Object) (*VisibilityAwa
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsVisibilityAwareImageButton == nil {
+			return fmt.Errorf("com.google.android.material.internal.VisibilityAwareImageButton is not available on this device")
+		}
+		if midVisibilityAwareImageButtonCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.VisibilityAwareImageButton constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVisibilityAwareImageButton)), midVisibilityAwareImageButtonCtor, jni.ObjectValue(arg0))
 		if err != nil {

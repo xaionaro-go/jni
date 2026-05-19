@@ -32,6 +32,12 @@ func Newter(vm *jni.VM) (*ter, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clster == nil {
+			return fmt.Errorf("android.text.format.Formatter is not available on this device")
+		}
+		if midterCtor == nil {
+			return fmt.Errorf("android.text.format.Formatter constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clster)), midterCtor)
 		if err != nil {
 			return err

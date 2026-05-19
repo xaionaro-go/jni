@@ -5,6 +5,1283 @@
 package: app
 go_import: github.com/AndroidGoLab/jni/androidx/appcompat/app
 classes:
+    - java_class: androidx.appcompat.app.AlertDialog
+      go_type: AlertDialog
+      methods:
+        - java_method: getButton
+          go_name: GetButton
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.widget.Button
+          error: true
+        - java_method: getListView
+          go_name: GetListView
+          returns: android.widget.ListView
+          error: true
+        - java_method: setTitle
+          go_name: SetTitle
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCustomTitle
+          go_name: SetCustomTitle
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setMessage
+          go_name: SetMessage
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setView
+          go_name: SetView1
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setView
+          go_name: SetView5_1
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+          returns: void
+          error: true
+        - java_method: setButton
+          go_name: SetButton3
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: java.lang.CharSequence
+              go_name: arg1
+            - java_type: android.os.Message
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: setButton
+          go_name: SetButton3_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: java.lang.CharSequence
+              go_name: arg1
+            - java_type: android.content.DialogInterface$OnClickListener
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: setButton
+          go_name: SetButton4_2
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: java.lang.CharSequence
+              go_name: arg1
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg2
+            - java_type: android.content.DialogInterface$OnClickListener
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: setIcon
+          go_name: SetIcon1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setIcon
+          go_name: SetIcon1_1
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setIconAttribute
+          go_name: SetIconAttribute
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onKeyDown
+          go_name: OnKeyDown
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.view.KeyEvent
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: onKeyUp
+          go_name: OnKeyUp
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.view.KeyEvent
+              go_name: arg1
+          returns: boolean
+          error: true
+    - java_class: androidx.appcompat.app.AlertDialog$Builder
+      go_type: AlertDialogBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: getContext
+          go_name: GetContext
+          returns: android.content.Context
+          error: true
+        - java_method: setTitle
+          go_name: SetTitle1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setTitle
+          go_name: SetTitle1_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setCustomTitle
+          go_name: SetCustomTitle
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setMessage
+          go_name: SetMessage1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setMessage
+          go_name: SetMessage1_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setIcon
+          go_name: SetIcon1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setIcon
+          go_name: SetIcon1_1
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setIconAttribute
+          go_name: SetIconAttribute
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setPositiveButton
+          go_name: SetPositiveButton2
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.content.DialogInterface$OnClickListener
+              go_name: arg1
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setPositiveButton
+          go_name: SetPositiveButton2_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: android.content.DialogInterface$OnClickListener
+              go_name: arg1
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setPositiveButtonIcon
+          go_name: SetPositiveButtonIcon
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setNegativeButton
+          go_name: SetNegativeButton2
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.content.DialogInterface$OnClickListener
+              go_name: arg1
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setNegativeButton
+          go_name: SetNegativeButton2_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: android.content.DialogInterface$OnClickListener
+              go_name: arg1
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setNegativeButtonIcon
+          go_name: SetNegativeButtonIcon
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setNeutralButton
+          go_name: SetNeutralButton2
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.content.DialogInterface$OnClickListener
+              go_name: arg1
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setNeutralButton
+          go_name: SetNeutralButton2_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: android.content.DialogInterface$OnClickListener
+              go_name: arg1
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setNeutralButtonIcon
+          go_name: SetNeutralButtonIcon
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setCancelable
+          go_name: SetCancelable
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setOnCancelListener
+          go_name: SetOnCancelListener
+          params:
+            - java_type: android.content.DialogInterface$OnCancelListener
+              go_name: arg0
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setOnDismissListener
+          go_name: SetOnDismissListener
+          params:
+            - java_type: android.content.DialogInterface$OnDismissListener
+              go_name: arg0
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setOnKeyListener
+          go_name: SetOnKeyListener
+          params:
+            - java_type: android.content.DialogInterface$OnKeyListener
+              go_name: arg0
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setItems
+          go_name: SetItems2
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.content.DialogInterface$OnClickListener
+              go_name: arg1
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setItems
+          go_name: SetItems2_1
+          params:
+            - java_type: java.lang.CharSequence[]
+              go_name: arg0
+            - java_type: android.content.DialogInterface$OnClickListener
+              go_name: arg1
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setAdapter
+          go_name: SetAdapter
+          params:
+            - java_type: android.widget.ListAdapter
+              go_name: arg0
+            - java_type: android.content.DialogInterface$OnClickListener
+              go_name: arg1
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setCursor
+          go_name: SetCursor
+          params:
+            - java_type: android.database.Cursor
+              go_name: arg0
+            - java_type: android.content.DialogInterface$OnClickListener
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setMultiChoiceItems
+          go_name: SetMultiChoiceItems3
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: boolean[]
+              go_name: arg1
+            - java_type: android.content.DialogInterface$OnMultiChoiceClickListener
+              go_name: arg2
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setMultiChoiceItems
+          go_name: SetMultiChoiceItems3_1
+          params:
+            - java_type: java.lang.CharSequence[]
+              go_name: arg0
+            - java_type: boolean[]
+              go_name: arg1
+            - java_type: android.content.DialogInterface$OnMultiChoiceClickListener
+              go_name: arg2
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setMultiChoiceItems
+          go_name: SetMultiChoiceItems4_2
+          params:
+            - java_type: android.database.Cursor
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+            - java_type: android.content.DialogInterface$OnMultiChoiceClickListener
+              go_name: arg3
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setSingleChoiceItems
+          go_name: SetSingleChoiceItems3
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.content.DialogInterface$OnClickListener
+              go_name: arg2
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setSingleChoiceItems
+          go_name: SetSingleChoiceItems4_1
+          params:
+            - java_type: android.database.Cursor
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+            - java_type: android.content.DialogInterface$OnClickListener
+              go_name: arg3
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setSingleChoiceItems
+          go_name: SetSingleChoiceItems3_2
+          params:
+            - java_type: java.lang.CharSequence[]
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.content.DialogInterface$OnClickListener
+              go_name: arg2
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setSingleChoiceItems
+          go_name: SetSingleChoiceItems3_3
+          params:
+            - java_type: android.widget.ListAdapter
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.content.DialogInterface$OnClickListener
+              go_name: arg2
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setOnItemSelectedListener
+          go_name: SetOnItemSelectedListener
+          params:
+            - java_type: android.widget.AdapterView$OnItemSelectedListener
+              go_name: arg0
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setView
+          go_name: SetView1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setView
+          go_name: SetView1_1
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setView
+          go_name: SetView5_2
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setInverseBackgroundForced
+          go_name: SetInverseBackgroundForced
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: setRecycleOnMeasureEnabled
+          go_name: SetRecycleOnMeasureEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: androidx.appcompat.app.AlertDialog$Builder
+          error: true
+        - java_method: create
+          go_name: Create
+          returns: androidx.appcompat.app.AlertDialog
+          error: true
+        - java_method: show
+          go_name: Show
+          returns: androidx.appcompat.app.AlertDialog
+          error: true
+    - java_class: androidx.appcompat.app.WindowDecorActionBar
+      go_type: WindowDecorActionBar
+      obtain: constructor
+      constructor_params:
+        - java_type: android.app.Activity
+          go_name: arg0
+        - java_type: boolean
+          go_name: arg1
+      methods:
+        - java_method: setElevation
+          go_name: SetElevation
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getElevation
+          go_name: GetElevation
+          returns: float
+          error: true
+        - java_method: onConfigurationChanged
+          go_name: OnConfigurationChanged
+          params:
+            - java_type: android.content.res.Configuration
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onWindowVisibilityChanged
+          go_name: OnWindowVisibilityChanged
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setShowHideAnimationEnabled
+          go_name: SetShowHideAnimationEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: addOnMenuVisibilityListener
+          go_name: AddOnMenuVisibilityListener
+          params:
+            - java_type: androidx.appcompat.app.ActionBar$OnMenuVisibilityListener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: removeOnMenuVisibilityListener
+          go_name: RemoveOnMenuVisibilityListener
+          params:
+            - java_type: androidx.appcompat.app.ActionBar$OnMenuVisibilityListener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: dispatchMenuVisibilityChanged
+          go_name: DispatchMenuVisibilityChanged
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCustomView
+          go_name: SetCustomView1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDisplayUseLogoEnabled
+          go_name: SetDisplayUseLogoEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDisplayShowHomeEnabled
+          go_name: SetDisplayShowHomeEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDisplayHomeAsUpEnabled
+          go_name: SetDisplayHomeAsUpEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDisplayShowTitleEnabled
+          go_name: SetDisplayShowTitleEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDisplayShowCustomEnabled
+          go_name: SetDisplayShowCustomEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setHomeButtonEnabled
+          go_name: SetHomeButtonEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTitle
+          go_name: SetTitle1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSubtitle
+          go_name: SetSubtitle1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSelectedNavigationItem
+          go_name: SetSelectedNavigationItem
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: removeAllTabs
+          go_name: RemoveAllTabs
+          returns: void
+          error: true
+        - java_method: setTitle
+          go_name: SetTitle1_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setWindowTitle
+          go_name: SetWindowTitle
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: requestFocus
+          go_name: RequestFocus
+          returns: boolean
+          error: true
+        - java_method: setSubtitle
+          go_name: SetSubtitle1_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDisplayOptions
+          go_name: SetDisplayOptions1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDisplayOptions
+          go_name: SetDisplayOptions2_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setBackgroundDrawable
+          go_name: SetBackgroundDrawable
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setStackedBackgroundDrawable
+          go_name: SetStackedBackgroundDrawable
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSplitBackgroundDrawable
+          go_name: SetSplitBackgroundDrawable
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getCustomView
+          go_name: GetCustomView
+          returns: android.view.View
+          error: true
+        - java_method: getTitle
+          go_name: GetTitle
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getSubtitle
+          go_name: GetSubtitle
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getNavigationMode
+          go_name: GetNavigationMode
+          returns: int
+          error: true
+        - java_method: getDisplayOptions
+          go_name: GetDisplayOptions
+          returns: int
+          error: true
+        - java_method: startActionMode
+          go_name: StartActionMode
+          params:
+            - java_type: androidx.appcompat.view.ActionMode$Callback
+              go_name: arg0
+          returns: androidx.appcompat.view.ActionMode
+          error: true
+        - java_method: addTab
+          go_name: AddTab1
+          params:
+            - java_type: androidx.appcompat.app.ActionBar$Tab
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: addTab
+          go_name: AddTab2_1
+          params:
+            - java_type: androidx.appcompat.app.ActionBar$Tab
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: addTab
+          go_name: AddTab2_2
+          params:
+            - java_type: androidx.appcompat.app.ActionBar$Tab
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: addTab
+          go_name: AddTab3_3
+          params:
+            - java_type: androidx.appcompat.app.ActionBar$Tab
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: boolean
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: newTab
+          go_name: NewTab
+          returns: androidx.appcompat.app.ActionBar$Tab
+          error: true
+        - java_method: removeTab
+          go_name: RemoveTab
+          params:
+            - java_type: androidx.appcompat.app.ActionBar$Tab
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: removeTabAt
+          go_name: RemoveTabAt
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: selectTab
+          go_name: SelectTab
+          params:
+            - java_type: androidx.appcompat.app.ActionBar$Tab
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getSelectedTab
+          go_name: GetSelectedTab
+          returns: androidx.appcompat.app.ActionBar$Tab
+          error: true
+        - java_method: getHeight
+          go_name: GetHeight
+          returns: int
+          error: true
+        - java_method: enableContentAnimations
+          go_name: EnableContentAnimations
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: show
+          go_name: Show
+          returns: void
+          error: true
+        - java_method: showForSystem
+          go_name: ShowForSystem
+          returns: void
+          error: true
+        - java_method: hide
+          go_name: Hide
+          returns: void
+          error: true
+        - java_method: hideForSystem
+          go_name: HideForSystem
+          returns: void
+          error: true
+        - java_method: setHideOnContentScrollEnabled
+          go_name: SetHideOnContentScrollEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isHideOnContentScrollEnabled
+          go_name: IsHideOnContentScrollEnabled
+          returns: boolean
+          error: true
+        - java_method: getHideOffset
+          go_name: GetHideOffset
+          returns: int
+          error: true
+        - java_method: doShow
+          go_name: DoShow
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: doHide
+          go_name: DoHide
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isShowing
+          go_name: IsShowing
+          returns: boolean
+          error: true
+        - java_method: animateToMode
+          go_name: AnimateToMode
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getThemedContext
+          go_name: GetThemedContext
+          returns: android.content.Context
+          error: true
+        - java_method: isTitleTruncated
+          go_name: IsTitleTruncated
+          returns: boolean
+          error: true
+        - java_method: setHomeAsUpIndicator
+          go_name: SetHomeAsUpIndicator1
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setHomeAsUpIndicator
+          go_name: SetHomeAsUpIndicator1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setHomeActionContentDescription
+          go_name: SetHomeActionContentDescription1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setHomeActionContentDescription
+          go_name: SetHomeActionContentDescription1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onContentScrollStarted
+          go_name: OnContentScrollStarted
+          returns: void
+          error: true
+        - java_method: onContentScrollStopped
+          go_name: OnContentScrollStopped
+          returns: void
+          error: true
+        - java_method: collapseActionView
+          go_name: CollapseActionView
+          returns: boolean
+          error: true
+        - java_method: setCustomView
+          go_name: SetCustomView1_1
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCustomView
+          go_name: SetCustomView2_2
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: androidx.appcompat.app.ActionBar$LayoutParams
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setListNavigationCallbacks
+          go_name: SetListNavigationCallbacks
+          params:
+            - java_type: android.widget.SpinnerAdapter
+              go_name: arg0
+            - java_type: androidx.appcompat.app.ActionBar$OnNavigationListener
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getSelectedNavigationIndex
+          go_name: GetSelectedNavigationIndex
+          returns: int
+          error: true
+        - java_method: getNavigationItemCount
+          go_name: GetNavigationItemCount
+          returns: int
+          error: true
+        - java_method: getTabCount
+          go_name: GetTabCount
+          returns: int
+          error: true
+        - java_method: setNavigationMode
+          go_name: SetNavigationMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getTabAt
+          go_name: GetTabAt
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.appcompat.app.ActionBar$Tab
+          error: true
+        - java_method: setIcon
+          go_name: SetIcon1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setIcon
+          go_name: SetIcon1_1
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: hasIcon
+          go_name: HasIcon
+          returns: boolean
+          error: true
+        - java_method: setLogo
+          go_name: SetLogo1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setLogo
+          go_name: SetLogo1_1
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: hasLogo
+          go_name: HasLogo
+          returns: boolean
+          error: true
+        - java_method: setDefaultDisplayHomeAsUpEnabled
+          go_name: SetDefaultDisplayHomeAsUpEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
+        - java_method: setHideOffset
+          go_name: SetHideOffset
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onKeyShortcut
+          go_name: OnKeyShortcut
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.view.KeyEvent
+              go_name: arg1
+          returns: boolean
+          error: true
+    - java_class: androidx.appcompat.app.WindowDecorActionBar$ActionModeImpl
+      go_type: WindowDecorActionBarActionModeImpl
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.appcompat.app.WindowDecorActionBar
+          go_name: arg0
+        - java_type: android.content.Context
+          go_name: arg1
+        - java_type: androidx.appcompat.view.ActionMode$Callback
+          go_name: arg2
+      methods:
+        - java_method: getMenuInflater
+          go_name: GetMenuInflater
+          returns: android.view.MenuInflater
+          error: true
+        - java_method: getMenu
+          go_name: GetMenu
+          returns: android.view.Menu
+          error: true
+        - java_method: finish
+          go_name: Finish
+          returns: void
+          error: true
+        - java_method: invalidate
+          go_name: Invalidate
+          returns: void
+          error: true
+        - java_method: dispatchOnCreate
+          go_name: DispatchOnCreate
+          returns: boolean
+          error: true
+        - java_method: setCustomView
+          go_name: SetCustomView
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSubtitle
+          go_name: SetSubtitle1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTitle
+          go_name: SetTitle1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTitle
+          go_name: SetTitle1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSubtitle
+          go_name: SetSubtitle1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getTitle
+          go_name: GetTitle
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getSubtitle
+          go_name: GetSubtitle
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: setTitleOptionalHint
+          go_name: SetTitleOptionalHint
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isTitleOptional
+          go_name: IsTitleOptional
+          returns: boolean
+          error: true
+        - java_method: getCustomView
+          go_name: GetCustomView
+          returns: android.view.View
+          error: true
+        - java_method: onMenuItemSelected
+          go_name: OnMenuItemSelected
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg0
+            - java_type: android.view.MenuItem
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: onCloseMenu
+          go_name: OnCloseMenu
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onSubMenuSelected
+          go_name: OnSubMenuSelected
+          params:
+            - java_type: androidx.appcompat.view.menu.SubMenuBuilder
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onCloseSubMenu
+          go_name: OnCloseSubMenu
+          params:
+            - java_type: androidx.appcompat.view.menu.SubMenuBuilder
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onMenuModeChange
+          go_name: OnMenuModeChange
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: androidx.appcompat.app.WindowDecorActionBar$TabImpl
+      go_type: WindowDecorActionBarTabImpl
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.appcompat.app.WindowDecorActionBar
+          go_name: arg0
+      methods:
+        - java_method: getTag
+          go_name: GetTag
+          returns: java.lang.Object
+          error: true
+        - java_method: setTag
+          go_name: SetTag
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: androidx.appcompat.app.ActionBar$Tab
+          error: true
+        - java_method: getCallback
+          go_name: GetCallback
+          returns: androidx.appcompat.app.ActionBar$TabListener
+          error: true
+        - java_method: setTabListener
+          go_name: SetTabListener
+          params:
+            - java_type: androidx.appcompat.app.ActionBar$TabListener
+              go_name: arg0
+          returns: androidx.appcompat.app.ActionBar$Tab
+          error: true
+        - java_method: getCustomView
+          go_name: GetCustomView
+          returns: android.view.View
+          error: true
+        - java_method: setCustomView
+          go_name: SetCustomView1
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: androidx.appcompat.app.ActionBar$Tab
+          error: true
+        - java_method: setCustomView
+          go_name: SetCustomView1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.appcompat.app.ActionBar$Tab
+          error: true
+        - java_method: getIcon
+          go_name: GetIcon
+          returns: android.graphics.drawable.Drawable
+          error: true
+        - java_method: getPosition
+          go_name: GetPosition
+          returns: int
+          error: true
+        - java_method: setPosition
+          go_name: SetPosition
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getText
+          go_name: GetText
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: setIcon
+          go_name: SetIcon1
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: androidx.appcompat.app.ActionBar$Tab
+          error: true
+        - java_method: setIcon
+          go_name: SetIcon1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.appcompat.app.ActionBar$Tab
+          error: true
+        - java_method: setText
+          go_name: SetText1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: androidx.appcompat.app.ActionBar$Tab
+          error: true
+        - java_method: setText
+          go_name: SetText1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.appcompat.app.ActionBar$Tab
+          error: true
+        - java_method: select
+          go_name: Select
+          returns: void
+          error: true
+        - java_method: setContentDescription
+          go_name: SetContentDescription1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.appcompat.app.ActionBar$Tab
+          error: true
+        - java_method: setContentDescription
+          go_name: SetContentDescription1_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: androidx.appcompat.app.ActionBar$Tab
+          error: true
+        - java_method: getContentDescription
+          go_name: GetContentDescription
+          returns: java.lang.CharSequence
+          error: true
+    - java_class: androidx.appcompat.app.AppLocalesMetadataHolderService
+      go_type: LocalesMetadataHolderService
+      obtain: constructor
+      methods:
+        - java_method: onBind
+          go_name: OnBind
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: android.os.IBinder
+          error: true
+      static_methods:
+        - java_method: getServiceInfo
+          go_name: GetServiceInfo
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: android.content.pm.ServiceInfo
+          error: true
+    - java_class: androidx.appcompat.app.AppCompatDialogFragment
+      go_type: CompatDialogFragment
+      obtain: constructor
+      methods:
+        - java_method: onCreateDialog
+          go_name: OnCreateDialog
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: android.app.Dialog
+          error: true
+        - java_method: setupDialog
+          go_name: SetupDialog
+          params:
+            - java_type: android.app.Dialog
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
     - java_class: androidx.appcompat.app.AppCompatActivity
       go_type: CompatActivity
       obtain: constructor
@@ -68,6 +1345,10 @@ classes:
           params:
             - java_type: android.content.res.Configuration
               go_name: arg0
+          returns: void
+          error: true
+        - java_method: onStop
+          go_name: OnStop
           returns: void
           error: true
         - java_method: onMenuItemSelected
@@ -246,26 +1527,6 @@ classes:
           error: true
         - java_method: closeOptionsMenu
           go_name: CloseOptionsMenu
-          returns: void
-          error: true
-    - java_class: androidx.appcompat.app.AppCompatDialogFragment
-      go_type: CompatDialogFragment
-      obtain: constructor
-      methods:
-        - java_method: onCreateDialog
-          go_name: OnCreateDialog
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: android.app.Dialog
-          error: true
-        - java_method: setupDialog
-          go_name: SetupDialog
-          params:
-            - java_type: android.app.Dialog
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
           returns: void
           error: true
     - java_class: androidx.appcompat.app.ActionBar
@@ -737,6 +1998,12 @@ classes:
       go_type: ActionBarDisplayOptions
     - java_class: androidx.appcompat.app.ActionBar$LayoutParams
       go_type: ActionBarLayoutParams
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.util.AttributeSet
+          go_name: arg1
     - java_class: androidx.appcompat.app.ActionBar$NavigationMode
       go_type: ActionBarNavigationMode
     - java_class: androidx.appcompat.app.ActionBar$OnMenuVisibilityListener
@@ -891,6 +2158,159 @@ classes:
             - java_type: androidx.fragment.app.FragmentTransaction
               go_name: arg1
           returns: void
+          error: true
+    - java_class: androidx.appcompat.app.AppCompatViewInflater
+      go_type: CompatViewInflater
+      obtain: constructor
+      methods:
+        - java_method: createView
+          go_name: CreateView
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: android.content.Context
+              go_name: arg2
+            - java_type: android.util.AttributeSet
+              go_name: arg3
+            - java_type: boolean
+              go_name: arg4
+            - java_type: boolean
+              go_name: arg5
+            - java_type: boolean
+              go_name: arg6
+            - java_type: boolean
+              go_name: arg7
+          returns: android.view.View
+          error: true
+    - java_class: androidx.appcompat.app.AppCompatCallback
+      go_type: CompatCallback
+      methods:
+        - java_method: onSupportActionModeStarted
+          go_name: OnSupportActionModeStarted
+          params:
+            - java_type: androidx.appcompat.view.ActionMode
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onSupportActionModeFinished
+          go_name: OnSupportActionModeFinished
+          params:
+            - java_type: androidx.appcompat.view.ActionMode
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onWindowStartingSupportActionMode
+          go_name: OnWindowStartingSupportActionMode
+          params:
+            - java_type: androidx.appcompat.view.ActionMode$Callback
+              go_name: arg0
+          returns: androidx.appcompat.view.ActionMode
+          error: true
+    - java_class: androidx.appcompat.app.AppCompatDialog
+      go_type: CompatDialog
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: getSupportActionBar
+          go_name: GetSupportActionBar
+          returns: androidx.appcompat.app.ActionBar
+          error: true
+        - java_method: setContentView
+          go_name: SetContentView1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setContentView
+          go_name: SetContentView1_1
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setContentView
+          go_name: SetContentView2_2
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.view.ViewGroup$LayoutParams
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setTitle
+          go_name: SetTitle1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTitle
+          go_name: SetTitle1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: addContentView
+          go_name: AddContentView
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.view.ViewGroup$LayoutParams
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: dismiss
+          go_name: Dismiss
+          returns: void
+          error: true
+        - java_method: supportRequestWindowFeature
+          go_name: SupportRequestWindowFeature
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: invalidateOptionsMenu
+          go_name: InvalidateOptionsMenu
+          returns: void
+          error: true
+        - java_method: getDelegate
+          go_name: GetDelegate
+          returns: androidx.appcompat.app.AppCompatDelegate
+          error: true
+        - java_method: onSupportActionModeStarted
+          go_name: OnSupportActionModeStarted
+          params:
+            - java_type: androidx.appcompat.view.ActionMode
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onSupportActionModeFinished
+          go_name: OnSupportActionModeFinished
+          params:
+            - java_type: androidx.appcompat.view.ActionMode
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onWindowStartingSupportActionMode
+          go_name: OnWindowStartingSupportActionMode
+          params:
+            - java_type: androidx.appcompat.view.ActionMode$Callback
+              go_name: arg0
+          returns: androidx.appcompat.view.ActionMode
+          error: true
+        - java_method: dispatchKeyEvent
+          go_name: DispatchKeyEvent
+          params:
+            - java_type: android.view.KeyEvent
+              go_name: arg0
+          returns: boolean
           error: true
     - java_class: androidx.appcompat.app.ActionBarDrawerToggle
       go_type: ActionBarDrawerToggle
@@ -1048,504 +2468,6 @@ classes:
         - java_method: getDrawerToggleDelegate
           go_name: GetDrawerToggleDelegate
           returns: androidx.appcompat.app.ActionBarDrawerToggle$Delegate
-          error: true
-    - java_class: androidx.appcompat.app.AlertDialog
-      go_type: AlertDialog
-      methods:
-        - java_method: getButton
-          go_name: GetButton
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.widget.Button
-          error: true
-        - java_method: getListView
-          go_name: GetListView
-          returns: android.widget.ListView
-          error: true
-        - java_method: setTitle
-          go_name: SetTitle
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCustomTitle
-          go_name: SetCustomTitle
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setMessage
-          go_name: SetMessage
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setView
-          go_name: SetView1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setView
-          go_name: SetView5_1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-          returns: void
-          error: true
-        - java_method: setButton
-          go_name: SetButton3
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: java.lang.CharSequence
-              go_name: arg1
-            - java_type: android.os.Message
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: setButton
-          go_name: SetButton3_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: java.lang.CharSequence
-              go_name: arg1
-            - java_type: android.content.DialogInterface$OnClickListener
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: setButton
-          go_name: SetButton4_2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: java.lang.CharSequence
-              go_name: arg1
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg2
-            - java_type: android.content.DialogInterface$OnClickListener
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: setIcon
-          go_name: SetIcon1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setIcon
-          go_name: SetIcon1_1
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setIconAttribute
-          go_name: SetIconAttribute
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onKeyDown
-          go_name: OnKeyDown
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.view.KeyEvent
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: onKeyUp
-          go_name: OnKeyUp
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.view.KeyEvent
-              go_name: arg1
-          returns: boolean
-          error: true
-    - java_class: androidx.appcompat.app.AlertDialog$Builder
-      go_type: AlertDialogBuilder
-      methods:
-        - java_method: getContext
-          go_name: GetContext
-          returns: android.content.Context
-          error: true
-        - java_method: setTitle
-          go_name: SetTitle1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setTitle
-          go_name: SetTitle1_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setCustomTitle
-          go_name: SetCustomTitle
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setMessage
-          go_name: SetMessage1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setMessage
-          go_name: SetMessage1_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setIcon
-          go_name: SetIcon1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setIcon
-          go_name: SetIcon1_1
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setIconAttribute
-          go_name: SetIconAttribute
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setPositiveButton
-          go_name: SetPositiveButton2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.DialogInterface$OnClickListener
-              go_name: arg1
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setPositiveButton
-          go_name: SetPositiveButton2_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: android.content.DialogInterface$OnClickListener
-              go_name: arg1
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setPositiveButtonIcon
-          go_name: SetPositiveButtonIcon
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setNegativeButton
-          go_name: SetNegativeButton2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.DialogInterface$OnClickListener
-              go_name: arg1
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setNegativeButton
-          go_name: SetNegativeButton2_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: android.content.DialogInterface$OnClickListener
-              go_name: arg1
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setNegativeButtonIcon
-          go_name: SetNegativeButtonIcon
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setNeutralButton
-          go_name: SetNeutralButton2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.DialogInterface$OnClickListener
-              go_name: arg1
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setNeutralButton
-          go_name: SetNeutralButton2_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: android.content.DialogInterface$OnClickListener
-              go_name: arg1
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setNeutralButtonIcon
-          go_name: SetNeutralButtonIcon
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setCancelable
-          go_name: SetCancelable
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setOnCancelListener
-          go_name: SetOnCancelListener
-          params:
-            - java_type: android.content.DialogInterface$OnCancelListener
-              go_name: arg0
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setOnDismissListener
-          go_name: SetOnDismissListener
-          params:
-            - java_type: android.content.DialogInterface$OnDismissListener
-              go_name: arg0
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setOnKeyListener
-          go_name: SetOnKeyListener
-          params:
-            - java_type: android.content.DialogInterface$OnKeyListener
-              go_name: arg0
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setItems
-          go_name: SetItems2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.DialogInterface$OnClickListener
-              go_name: arg1
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setItems
-          go_name: SetItems2_1
-          params:
-            - java_type: java.lang.CharSequence[]
-              go_name: arg0
-            - java_type: android.content.DialogInterface$OnClickListener
-              go_name: arg1
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setAdapter
-          go_name: SetAdapter
-          params:
-            - java_type: android.widget.ListAdapter
-              go_name: arg0
-            - java_type: android.content.DialogInterface$OnClickListener
-              go_name: arg1
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setCursor
-          go_name: SetCursor
-          params:
-            - java_type: android.database.Cursor
-              go_name: arg0
-            - java_type: android.content.DialogInterface$OnClickListener
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setMultiChoiceItems
-          go_name: SetMultiChoiceItems3
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: boolean[]
-              go_name: arg1
-            - java_type: android.content.DialogInterface$OnMultiChoiceClickListener
-              go_name: arg2
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setMultiChoiceItems
-          go_name: SetMultiChoiceItems3_1
-          params:
-            - java_type: java.lang.CharSequence[]
-              go_name: arg0
-            - java_type: boolean[]
-              go_name: arg1
-            - java_type: android.content.DialogInterface$OnMultiChoiceClickListener
-              go_name: arg2
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setMultiChoiceItems
-          go_name: SetMultiChoiceItems4_2
-          params:
-            - java_type: android.database.Cursor
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: android.content.DialogInterface$OnMultiChoiceClickListener
-              go_name: arg3
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setSingleChoiceItems
-          go_name: SetSingleChoiceItems3
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.content.DialogInterface$OnClickListener
-              go_name: arg2
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setSingleChoiceItems
-          go_name: SetSingleChoiceItems4_1
-          params:
-            - java_type: android.database.Cursor
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: android.content.DialogInterface$OnClickListener
-              go_name: arg3
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setSingleChoiceItems
-          go_name: SetSingleChoiceItems3_2
-          params:
-            - java_type: java.lang.CharSequence[]
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.content.DialogInterface$OnClickListener
-              go_name: arg2
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setSingleChoiceItems
-          go_name: SetSingleChoiceItems3_3
-          params:
-            - java_type: android.widget.ListAdapter
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.content.DialogInterface$OnClickListener
-              go_name: arg2
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setOnItemSelectedListener
-          go_name: SetOnItemSelectedListener
-          params:
-            - java_type: android.widget.AdapterView$OnItemSelectedListener
-              go_name: arg0
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setView
-          go_name: SetView1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setView
-          go_name: SetView1_1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setView
-          go_name: SetView5_2
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setInverseBackgroundForced
-          go_name: SetInverseBackgroundForced
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: setRecycleOnMeasureEnabled
-          go_name: SetRecycleOnMeasureEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: androidx.appcompat.app.AlertDialog$Builder
-          error: true
-        - java_method: create
-          go_name: Create
-          returns: androidx.appcompat.app.AlertDialog
-          error: true
-        - java_method: show
-          go_name: Show
-          returns: androidx.appcompat.app.AlertDialog
-          error: true
-    - java_class: androidx.appcompat.app.AppCompatCallback
-      go_type: CompatCallback
-      methods:
-        - java_method: onSupportActionModeStarted
-          go_name: OnSupportActionModeStarted
-          params:
-            - java_type: androidx.appcompat.view.ActionMode
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onSupportActionModeFinished
-          go_name: OnSupportActionModeFinished
-          params:
-            - java_type: androidx.appcompat.view.ActionMode
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onWindowStartingSupportActionMode
-          go_name: OnWindowStartingSupportActionMode
-          params:
-            - java_type: androidx.appcompat.view.ActionMode$Callback
-              go_name: arg0
-          returns: androidx.appcompat.view.ActionMode
           error: true
     - java_class: androidx.appcompat.app.AppCompatDelegate
       go_type: CompatDelegate
@@ -1828,901 +2750,6 @@ classes:
           error: true
     - java_class: androidx.appcompat.app.AppCompatDelegate$NightMode
       go_type: CompatDelegateNightMode
-    - java_class: androidx.appcompat.app.AppCompatDialog
-      go_type: CompatDialog
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: getSupportActionBar
-          go_name: GetSupportActionBar
-          returns: androidx.appcompat.app.ActionBar
-          error: true
-        - java_method: setContentView
-          go_name: SetContentView1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setContentView
-          go_name: SetContentView1_1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setContentView
-          go_name: SetContentView2_2
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.view.ViewGroup$LayoutParams
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setTitle
-          go_name: SetTitle1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTitle
-          go_name: SetTitle1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: addContentView
-          go_name: AddContentView
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.view.ViewGroup$LayoutParams
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: dismiss
-          go_name: Dismiss
-          returns: void
-          error: true
-        - java_method: supportRequestWindowFeature
-          go_name: SupportRequestWindowFeature
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: invalidateOptionsMenu
-          go_name: InvalidateOptionsMenu
-          returns: void
-          error: true
-        - java_method: getDelegate
-          go_name: GetDelegate
-          returns: androidx.appcompat.app.AppCompatDelegate
-          error: true
-        - java_method: onSupportActionModeStarted
-          go_name: OnSupportActionModeStarted
-          params:
-            - java_type: androidx.appcompat.view.ActionMode
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onSupportActionModeFinished
-          go_name: OnSupportActionModeFinished
-          params:
-            - java_type: androidx.appcompat.view.ActionMode
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onWindowStartingSupportActionMode
-          go_name: OnWindowStartingSupportActionMode
-          params:
-            - java_type: androidx.appcompat.view.ActionMode$Callback
-              go_name: arg0
-          returns: androidx.appcompat.view.ActionMode
-          error: true
-        - java_method: dispatchKeyEvent
-          go_name: DispatchKeyEvent
-          params:
-            - java_type: android.view.KeyEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-    - java_class: androidx.appcompat.app.AppLocalesMetadataHolderService
-      go_type: LocalesMetadataHolderService
-      obtain: constructor
-      methods:
-        - java_method: onBind
-          go_name: OnBind
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
-          returns: android.os.IBinder
-          error: true
-      static_methods:
-        - java_method: getServiceInfo
-          go_name: GetServiceInfo
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: android.content.pm.ServiceInfo
-          error: true
-    - java_class: androidx.appcompat.app.WindowDecorActionBar
-      go_type: WindowDecorActionBar
-      obtain: constructor
-      constructor_params:
-        - java_type: android.app.Activity
-          go_name: arg0
-        - java_type: boolean
-          go_name: arg1
-      methods:
-        - java_method: setElevation
-          go_name: SetElevation
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getElevation
-          go_name: GetElevation
-          returns: float
-          error: true
-        - java_method: onConfigurationChanged
-          go_name: OnConfigurationChanged
-          params:
-            - java_type: android.content.res.Configuration
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onWindowVisibilityChanged
-          go_name: OnWindowVisibilityChanged
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setShowHideAnimationEnabled
-          go_name: SetShowHideAnimationEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: addOnMenuVisibilityListener
-          go_name: AddOnMenuVisibilityListener
-          params:
-            - java_type: androidx.appcompat.app.ActionBar$OnMenuVisibilityListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeOnMenuVisibilityListener
-          go_name: RemoveOnMenuVisibilityListener
-          params:
-            - java_type: androidx.appcompat.app.ActionBar$OnMenuVisibilityListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: dispatchMenuVisibilityChanged
-          go_name: DispatchMenuVisibilityChanged
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCustomView
-          go_name: SetCustomView1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDisplayUseLogoEnabled
-          go_name: SetDisplayUseLogoEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDisplayShowHomeEnabled
-          go_name: SetDisplayShowHomeEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDisplayHomeAsUpEnabled
-          go_name: SetDisplayHomeAsUpEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDisplayShowTitleEnabled
-          go_name: SetDisplayShowTitleEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDisplayShowCustomEnabled
-          go_name: SetDisplayShowCustomEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setHomeButtonEnabled
-          go_name: SetHomeButtonEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTitle
-          go_name: SetTitle1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSubtitle
-          go_name: SetSubtitle1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSelectedNavigationItem
-          go_name: SetSelectedNavigationItem
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeAllTabs
-          go_name: RemoveAllTabs
-          returns: void
-          error: true
-        - java_method: setTitle
-          go_name: SetTitle1_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setWindowTitle
-          go_name: SetWindowTitle
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: requestFocus
-          go_name: RequestFocus
-          returns: boolean
-          error: true
-        - java_method: setSubtitle
-          go_name: SetSubtitle1_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDisplayOptions
-          go_name: SetDisplayOptions1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDisplayOptions
-          go_name: SetDisplayOptions2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setBackgroundDrawable
-          go_name: SetBackgroundDrawable
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setStackedBackgroundDrawable
-          go_name: SetStackedBackgroundDrawable
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSplitBackgroundDrawable
-          go_name: SetSplitBackgroundDrawable
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getCustomView
-          go_name: GetCustomView
-          returns: android.view.View
-          error: true
-        - java_method: getTitle
-          go_name: GetTitle
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getSubtitle
-          go_name: GetSubtitle
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getNavigationMode
-          go_name: GetNavigationMode
-          returns: int
-          error: true
-        - java_method: getDisplayOptions
-          go_name: GetDisplayOptions
-          returns: int
-          error: true
-        - java_method: startActionMode
-          go_name: StartActionMode
-          params:
-            - java_type: androidx.appcompat.view.ActionMode$Callback
-              go_name: arg0
-          returns: androidx.appcompat.view.ActionMode
-          error: true
-        - java_method: addTab
-          go_name: AddTab1
-          params:
-            - java_type: androidx.appcompat.app.ActionBar$Tab
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: addTab
-          go_name: AddTab2_1
-          params:
-            - java_type: androidx.appcompat.app.ActionBar$Tab
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: addTab
-          go_name: AddTab2_2
-          params:
-            - java_type: androidx.appcompat.app.ActionBar$Tab
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: addTab
-          go_name: AddTab3_3
-          params:
-            - java_type: androidx.appcompat.app.ActionBar$Tab
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: boolean
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: newTab
-          go_name: NewTab
-          returns: androidx.appcompat.app.ActionBar$Tab
-          error: true
-        - java_method: removeTab
-          go_name: RemoveTab
-          params:
-            - java_type: androidx.appcompat.app.ActionBar$Tab
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeTabAt
-          go_name: RemoveTabAt
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: selectTab
-          go_name: SelectTab
-          params:
-            - java_type: androidx.appcompat.app.ActionBar$Tab
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getSelectedTab
-          go_name: GetSelectedTab
-          returns: androidx.appcompat.app.ActionBar$Tab
-          error: true
-        - java_method: getHeight
-          go_name: GetHeight
-          returns: int
-          error: true
-        - java_method: enableContentAnimations
-          go_name: EnableContentAnimations
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: show
-          go_name: Show
-          returns: void
-          error: true
-        - java_method: showForSystem
-          go_name: ShowForSystem
-          returns: void
-          error: true
-        - java_method: hide
-          go_name: Hide
-          returns: void
-          error: true
-        - java_method: hideForSystem
-          go_name: HideForSystem
-          returns: void
-          error: true
-        - java_method: setHideOnContentScrollEnabled
-          go_name: SetHideOnContentScrollEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isHideOnContentScrollEnabled
-          go_name: IsHideOnContentScrollEnabled
-          returns: boolean
-          error: true
-        - java_method: getHideOffset
-          go_name: GetHideOffset
-          returns: int
-          error: true
-        - java_method: setHideOffset
-          go_name: SetHideOffset
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: doShow
-          go_name: DoShow
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: doHide
-          go_name: DoHide
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isShowing
-          go_name: IsShowing
-          returns: boolean
-          error: true
-        - java_method: animateToMode
-          go_name: AnimateToMode
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getThemedContext
-          go_name: GetThemedContext
-          returns: android.content.Context
-          error: true
-        - java_method: isTitleTruncated
-          go_name: IsTitleTruncated
-          returns: boolean
-          error: true
-        - java_method: setHomeAsUpIndicator
-          go_name: SetHomeAsUpIndicator1
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setHomeAsUpIndicator
-          go_name: SetHomeAsUpIndicator1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setHomeActionContentDescription
-          go_name: SetHomeActionContentDescription1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setHomeActionContentDescription
-          go_name: SetHomeActionContentDescription1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onContentScrollStarted
-          go_name: OnContentScrollStarted
-          returns: void
-          error: true
-        - java_method: onContentScrollStopped
-          go_name: OnContentScrollStopped
-          returns: void
-          error: true
-        - java_method: collapseActionView
-          go_name: CollapseActionView
-          returns: boolean
-          error: true
-        - java_method: setCustomView
-          go_name: SetCustomView1_1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCustomView
-          go_name: SetCustomView2_2
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: androidx.appcompat.app.ActionBar$LayoutParams
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setListNavigationCallbacks
-          go_name: SetListNavigationCallbacks
-          params:
-            - java_type: android.widget.SpinnerAdapter
-              go_name: arg0
-            - java_type: androidx.appcompat.app.ActionBar$OnNavigationListener
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getSelectedNavigationIndex
-          go_name: GetSelectedNavigationIndex
-          returns: int
-          error: true
-        - java_method: getNavigationItemCount
-          go_name: GetNavigationItemCount
-          returns: int
-          error: true
-        - java_method: getTabCount
-          go_name: GetTabCount
-          returns: int
-          error: true
-        - java_method: setNavigationMode
-          go_name: SetNavigationMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getTabAt
-          go_name: GetTabAt
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.appcompat.app.ActionBar$Tab
-          error: true
-        - java_method: setIcon
-          go_name: SetIcon1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setIcon
-          go_name: SetIcon1_1
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: hasIcon
-          go_name: HasIcon
-          returns: boolean
-          error: true
-        - java_method: setLogo
-          go_name: SetLogo1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLogo
-          go_name: SetLogo1_1
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: hasLogo
-          go_name: HasLogo
-          returns: boolean
-          error: true
-        - java_method: setDefaultDisplayHomeAsUpEnabled
-          go_name: SetDefaultDisplayHomeAsUpEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onKeyShortcut
-          go_name: OnKeyShortcut
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.view.KeyEvent
-              go_name: arg1
-          returns: boolean
-          error: true
-    - java_class: androidx.appcompat.app.WindowDecorActionBar$ActionModeImpl
-      go_type: WindowDecorActionBarActionModeImpl
-      methods:
-        - java_method: getMenuInflater
-          go_name: GetMenuInflater
-          returns: android.view.MenuInflater
-          error: true
-        - java_method: getMenu
-          go_name: GetMenu
-          returns: android.view.Menu
-          error: true
-        - java_method: finish
-          go_name: Finish
-          returns: void
-          error: true
-        - java_method: invalidate
-          go_name: Invalidate
-          returns: void
-          error: true
-        - java_method: dispatchOnCreate
-          go_name: DispatchOnCreate
-          returns: boolean
-          error: true
-        - java_method: setCustomView
-          go_name: SetCustomView
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSubtitle
-          go_name: SetSubtitle1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTitle
-          go_name: SetTitle1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTitle
-          go_name: SetTitle1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSubtitle
-          go_name: SetSubtitle1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getTitle
-          go_name: GetTitle
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getSubtitle
-          go_name: GetSubtitle
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: setTitleOptionalHint
-          go_name: SetTitleOptionalHint
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isTitleOptional
-          go_name: IsTitleOptional
-          returns: boolean
-          error: true
-        - java_method: getCustomView
-          go_name: GetCustomView
-          returns: android.view.View
-          error: true
-        - java_method: onMenuItemSelected
-          go_name: OnMenuItemSelected
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg0
-            - java_type: android.view.MenuItem
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: onCloseMenu
-          go_name: OnCloseMenu
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onSubMenuSelected
-          go_name: OnSubMenuSelected
-          params:
-            - java_type: androidx.appcompat.view.menu.SubMenuBuilder
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onCloseSubMenu
-          go_name: OnCloseSubMenu
-          params:
-            - java_type: androidx.appcompat.view.menu.SubMenuBuilder
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onMenuModeChange
-          go_name: OnMenuModeChange
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.appcompat.app.WindowDecorActionBar$TabImpl
-      go_type: WindowDecorActionBarTabImpl
-      methods:
-        - java_method: getTag
-          go_name: GetTag
-          returns: java.lang.Object
-          error: true
-        - java_method: setTag
-          go_name: SetTag
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: androidx.appcompat.app.ActionBar$Tab
-          error: true
-        - java_method: getCallback
-          go_name: GetCallback
-          returns: androidx.appcompat.app.ActionBar$TabListener
-          error: true
-        - java_method: setTabListener
-          go_name: SetTabListener
-          params:
-            - java_type: androidx.appcompat.app.ActionBar$TabListener
-              go_name: arg0
-          returns: androidx.appcompat.app.ActionBar$Tab
-          error: true
-        - java_method: getCustomView
-          go_name: GetCustomView
-          returns: android.view.View
-          error: true
-        - java_method: setCustomView
-          go_name: SetCustomView1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: androidx.appcompat.app.ActionBar$Tab
-          error: true
-        - java_method: setCustomView
-          go_name: SetCustomView1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.appcompat.app.ActionBar$Tab
-          error: true
-        - java_method: getIcon
-          go_name: GetIcon
-          returns: android.graphics.drawable.Drawable
-          error: true
-        - java_method: getPosition
-          go_name: GetPosition
-          returns: int
-          error: true
-        - java_method: setPosition
-          go_name: SetPosition
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getText
-          go_name: GetText
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: setIcon
-          go_name: SetIcon1
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: androidx.appcompat.app.ActionBar$Tab
-          error: true
-        - java_method: setIcon
-          go_name: SetIcon1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.appcompat.app.ActionBar$Tab
-          error: true
-        - java_method: setText
-          go_name: SetText1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: androidx.appcompat.app.ActionBar$Tab
-          error: true
-        - java_method: setText
-          go_name: SetText1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.appcompat.app.ActionBar$Tab
-          error: true
-        - java_method: select
-          go_name: Select
-          returns: void
-          error: true
-        - java_method: setContentDescription
-          go_name: SetContentDescription1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.appcompat.app.ActionBar$Tab
-          error: true
-        - java_method: setContentDescription
-          go_name: SetContentDescription1_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: androidx.appcompat.app.ActionBar$Tab
-          error: true
-        - java_method: getContentDescription
-          go_name: GetContentDescription
-          returns: java.lang.CharSequence
-          error: true
-    - java_class: androidx.appcompat.app.AppCompatViewInflater
-      go_type: CompatViewInflater
-      obtain: constructor
-      methods:
-        - java_method: createView
-          go_name: CreateView
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: android.content.Context
-              go_name: arg2
-            - java_type: android.util.AttributeSet
-              go_name: arg3
-            - java_type: boolean
-              go_name: arg4
-            - java_type: boolean
-              go_name: arg5
-            - java_type: boolean
-              go_name: arg6
-            - java_type: boolean
-              go_name: arg7
-          returns: android.view.View
-          error: true
 abstract_callbacks:
     - java_class: androidx.appcompat.app.ActionBar
       go_type: ActionBarCallback
@@ -3162,166 +3189,16 @@ abstract_callbacks:
           params: []
           returns: java.lang.CharSequence
           go_field: GetContentDescription
+abstract_callback_eligibility:
+    - java_class: androidx.appcompat.app.ActionBar
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: androidx.appcompat.app.ActionBar$Tab
+      generated: true
+      reason: supported_no_arg_constructor
     - java_class: androidx.appcompat.app.AppCompatDelegate
-      go_type: CompatDelegateCallback
-      methods:
-        - java_method: getSupportActionBar
-          params: []
-          returns: androidx.appcompat.app.ActionBar
-          go_field: GetSupportActionBar
-        - java_method: setSupportActionBar
-          params:
-            - androidx.appcompat.widget.Toolbar
-          returns: void
-          go_field: SetSupportActionBar
-        - java_method: getMenuInflater
-          params: []
-          returns: android.view.MenuInflater
-          go_field: GetMenuInflater
-        - java_method: onCreate
-          params:
-            - android.os.Bundle
-          returns: void
-          go_field: OnCreate
-        - java_method: onPostCreate
-          params:
-            - android.os.Bundle
-          returns: void
-          go_field: OnPostCreate
-        - java_method: onConfigurationChanged
-          params:
-            - android.content.res.Configuration
-          returns: void
-          go_field: OnConfigurationChanged
-        - java_method: onStart
-          params: []
-          returns: void
-          go_field: OnStart
-        - java_method: onStop
-          params: []
-          returns: void
-          go_field: OnStop
-        - java_method: onPostResume
-          params: []
-          returns: void
-          go_field: OnPostResume
-        - java_method: setTheme
-          params:
-            - int
-          returns: void
-          go_field: SetTheme
-        - java_method: setContentView
-          params:
-            - android.view.View
-          returns: void
-          go_field: SetContentView
-        - java_method: setContentView
-          params:
-            - int
-          returns: void
-          go_field: SetContentView
-        - java_method: setContentView
-          params:
-            - android.view.View
-            - android.view.ViewGroup$LayoutParams
-          returns: void
-          go_field: SetContentView
-        - java_method: addContentView
-          params:
-            - android.view.View
-            - android.view.ViewGroup$LayoutParams
-          returns: void
-          go_field: AddContentView
-        - java_method: attachBaseContext
-          params:
-            - android.content.Context
-          returns: void
-          go_field: AttachBaseContext
-        - java_method: attachBaseContext2
-          params:
-            - android.content.Context
-          returns: android.content.Context
-          go_field: AttachBaseContext2
-        - java_method: setTitle
-          params:
-            - java.lang.CharSequence
-          returns: void
-          go_field: SetTitle
-        - java_method: invalidateOptionsMenu
-          params: []
-          returns: void
-          go_field: InvalidateOptionsMenu
-        - java_method: onDestroy
-          params: []
-          returns: void
-          go_field: OnDestroy
-        - java_method: getDrawerToggleDelegate
-          params: []
-          returns: androidx.appcompat.app.ActionBarDrawerToggle$Delegate
-          go_field: GetDrawerToggleDelegate
-        - java_method: requestWindowFeature
-          params:
-            - int
-          returns: boolean
-          go_field: RequestWindowFeature
-        - java_method: hasWindowFeature
-          params:
-            - int
-          returns: boolean
-          go_field: HasWindowFeature
-        - java_method: startSupportActionMode
-          params:
-            - androidx.appcompat.view.ActionMode$Callback
-          returns: androidx.appcompat.view.ActionMode
-          go_field: StartSupportActionMode
-        - java_method: installViewFactory
-          params: []
-          returns: void
-          go_field: InstallViewFactory
-        - java_method: createView
-          params:
-            - android.view.View
-            - String
-            - android.content.Context
-            - android.util.AttributeSet
-          returns: android.view.View
-          go_field: CreateView
-        - java_method: setHandleNativeActionModesEnabled
-          params:
-            - boolean
-          returns: void
-          go_field: SetHandleNativeActionModesEnabled
-        - java_method: isHandleNativeActionModesEnabled
-          params: []
-          returns: boolean
-          go_field: IsHandleNativeActionModesEnabled
-        - java_method: onSaveInstanceState
-          params:
-            - android.os.Bundle
-          returns: void
-          go_field: OnSaveInstanceState
-        - java_method: applyDayNight
-          params: []
-          returns: boolean
-          go_field: ApplyDayNight
-        - java_method: setOnBackInvokedDispatcher
-          params:
-            - android.window.OnBackInvokedDispatcher
-          returns: void
-          go_field: SetOnBackInvokedDispatcher
-        - java_method: getContextForDelegate
-          params: []
-          returns: android.content.Context
-          go_field: GetContextForDelegate
-        - java_method: setLocalNightMode
-          params:
-            - int
-          returns: void
-          go_field: SetLocalNightMode
-        - java_method: getLocalNightMode
-          params: []
-          returns: int
-          go_field: GetLocalNightMode
+      generated: false
+      reason: unsupported_constructor
 constants:
     - go_name: NavigationModeStandard
       value: "0"

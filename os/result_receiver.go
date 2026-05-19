@@ -32,6 +32,12 @@ func NewResultReceiver(vm *jni.VM, arg0 *jni.Object) (*ResultReceiver, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsResultReceiver == nil {
+			return fmt.Errorf("android.os.ResultReceiver is not available on this device")
+		}
+		if midResultReceiverCtor == nil {
+			return fmt.Errorf("android.os.ResultReceiver constructor (Landroid/os/Handler;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsResultReceiver)), midResultReceiverCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -94,29 +100,6 @@ func (m *ResultReceiver) Send(arg0 int32, arg1 *jni.Object) error {
 	return callErr
 }
 
-// WriteToParcel calls android.os.ResultReceiver.writeToParcel.
-func (m *ResultReceiver) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midResultReceiverWriteToParcel == nil {
-			callErr = fmt.Errorf("android.os.ResultReceiver.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midResultReceiverWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.os.ResultReceiver.toString.
 func (m *ResultReceiver) ToString() (string, error) {
 	var result string
@@ -142,4 +125,27 @@ func (m *ResultReceiver) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.os.ResultReceiver.writeToParcel.
+func (m *ResultReceiver) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midResultReceiverWriteToParcel == nil {
+			callErr = fmt.Errorf("android.os.ResultReceiver.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsResultReceiver)),
+			midResultReceiverWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

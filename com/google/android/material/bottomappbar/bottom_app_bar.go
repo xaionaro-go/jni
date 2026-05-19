@@ -32,6 +32,12 @@ func NewBottomAppBar(vm *jni.VM, arg0 *jni.Object) (*BottomAppBar, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBottomAppBar == nil {
+			return fmt.Errorf("com.google.android.material.bottomappbar.BottomAppBar is not available on this device")
+		}
+		if midBottomAppBarCtor == nil {
+			return fmt.Errorf("com.google.android.material.bottomappbar.BottomAppBar constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBottomAppBar)), midBottomAppBarCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -930,8 +936,8 @@ func (m *BottomAppBar) SetSubtitle(arg0 string) error {
 	return callErr
 }
 
-// GetBehavior0 calls com.google.android.material.bottomappbar.BottomAppBar.getBehavior.
-func (m *BottomAppBar) GetBehavior0() (*jni.Object, error) {
+// GetBehavior calls com.google.android.material.bottomappbar.BottomAppBar.getBehavior.
+func (m *BottomAppBar) GetBehavior() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -939,45 +945,13 @@ func (m *BottomAppBar) GetBehavior0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midBottomAppBarGetBehavior0 == nil {
+		if midBottomAppBarGetBehavior == nil {
 			callErr = fmt.Errorf("com.google.android.material.bottomappbar.BottomAppBar.getBehavior is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midBottomAppBarGetBehavior0,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetBehavior0_1 calls com.google.android.material.bottomappbar.BottomAppBar.getBehavior.
-func (m *BottomAppBar) GetBehavior0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBottomAppBarGetBehavior0_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.bottomappbar.BottomAppBar.getBehavior is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midBottomAppBarGetBehavior0_1,
+			midBottomAppBarGetBehavior,
 		)
 		if callErr != nil {
 			return callErr

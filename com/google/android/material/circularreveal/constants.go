@@ -5,11 +5,11 @@ package circularreveal
 import "github.com/AndroidGoLab/jni/com/google/android/material/circularreveal/consts"
 
 const (
-	CircularReveal = consts.CircularReveal
 	BitmapShader   = consts.BitmapShader
 	ClipPath       = consts.ClipPath
 	RevealAnimator = consts.RevealAnimator
 	Strategy       = consts.Strategy
+	CircularReveal = consts.CircularReveal
 )
 
 const (

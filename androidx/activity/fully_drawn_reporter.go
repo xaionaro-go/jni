@@ -32,6 +32,12 @@ func NewFullyDrawnReporter(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Ful
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFullyDrawnReporter == nil {
+			return fmt.Errorf("androidx.activity.FullyDrawnReporter is not available on this device")
+		}
+		if midFullyDrawnReporterCtor == nil {
+			return fmt.Errorf("androidx.activity.FullyDrawnReporter constructor (Ljava/util/concurrent/Executor;Lkotlin/jvm/functions/Function0;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFullyDrawnReporter)), midFullyDrawnReporterCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

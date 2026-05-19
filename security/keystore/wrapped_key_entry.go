@@ -32,6 +32,12 @@ func NewWrappedKeyEntry(vm *jni.VM, arg0 *jni.Object, arg1 string, arg2 string, 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWrappedKeyEntry == nil {
+			return fmt.Errorf("android.security.keystore.WrappedKeyEntry is not available on this device")
+		}
+		if midWrappedKeyEntryCtor == nil {
+			return fmt.Errorf("android.security.keystore.WrappedKeyEntry constructor ([BLjava/lang/String;Ljava/lang/String;Ljava/security/spec/AlgorithmParameterSpec;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {

@@ -32,6 +32,12 @@ func NewClampedCornerSize(vm *jni.VM, arg0 float32) (*ClampedCornerSize, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsClampedCornerSize == nil {
+			return fmt.Errorf("com.google.android.material.shape.ClampedCornerSize is not available on this device")
+		}
+		if midClampedCornerSizeCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.ClampedCornerSize constructor (F)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsClampedCornerSize)), midClampedCornerSizeCtor, jni.FloatValue(arg0))
 		if err != nil {

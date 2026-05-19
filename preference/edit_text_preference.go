@@ -32,6 +32,12 @@ func NewEditTextPreference(vm *jni.VM, arg0 *jni.Object) (*EditTextPreference, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEditTextPreference == nil {
+			return fmt.Errorf("android.preference.EditTextPreference is not available on this device")
+		}
+		if midEditTextPreferenceCtor == nil {
+			return fmt.Errorf("android.preference.EditTextPreference constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEditTextPreference)), midEditTextPreferenceCtor, jni.ObjectValue(arg0))
 		if err != nil {

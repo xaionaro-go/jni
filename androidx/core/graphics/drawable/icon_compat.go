@@ -32,6 +32,12 @@ func NewIconCompat(vm *jni.VM) (*IconCompat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsIconCompat == nil {
+			return fmt.Errorf("androidx.core.graphics.drawable.IconCompat is not available on this device")
+		}
+		if midIconCompatCtor == nil {
+			return fmt.Errorf("androidx.core.graphics.drawable.IconCompat constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIconCompat)), midIconCompatCtor)
 		if err != nil {
 			return err
@@ -390,39 +396,6 @@ func (m *IconCompat) LoadDrawable(arg0 *jni.Object) (*jni.Object, error) {
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
 			midIconCompatLoadDrawable, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetUriInputStream calls androidx.core.graphics.drawable.IconCompat.getUriInputStream.
-func (m *IconCompat) GetUriInputStream(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midIconCompatGetUriInputStream == nil {
-			callErr = fmt.Errorf("androidx.core.graphics.drawable.IconCompat.getUriInputStream is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midIconCompatGetUriInputStream, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -879,6 +852,39 @@ func (m *IconCompat) CreateWithAdaptiveBitmapContentUri1_1(arg0 *jni.Object) (*j
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsIconCompat)),
 			midIconCompatCreateWithAdaptiveBitmapContentUri1_1, jni.ObjectValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetUriInputStream calls androidx.core.graphics.drawable.IconCompat.getUriInputStream.
+func (m *IconCompat) GetUriInputStream(arg0 *jni.Object) (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midIconCompatGetUriInputStream == nil {
+			callErr = fmt.Errorf("androidx.core.graphics.drawable.IconCompat.getUriInputStream is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsIconCompat)),
+			midIconCompatGetUriInputStream, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr

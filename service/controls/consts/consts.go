@@ -3,14 +3,14 @@
 package consts
 
 const (
-	ControlsSurfaceActivityPanel int = 0
-	ControlsSurfaceDream         int = 1
 	Creator                      int = 0
 	StatusDisabled               int = 4
 	StatusError                  int = 3
 	StatusNotFound               int = 2
 	StatusOk                     int = 1
 	StatusUnknown                int = 0
+	ControlsSurfaceActivityPanel int = 0
+	ControlsSurfaceDream         int = 1
 	TypeAcHeater                 int = 1
 	TypeAcUnit                   int = 2
 	TypeAirFreshener             int = 3

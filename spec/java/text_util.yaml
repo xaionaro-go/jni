@@ -5,6 +5,43 @@
 package: util
 go_import: github.com/AndroidGoLab/jni/text/util
 classes:
+    - java_class: android.text.util.Rfc822Tokenizer
+      go_type: Rfc822Tokenizer
+      obtain: constructor
+      methods:
+        - java_method: findTokenEnd
+          go_name: FindTokenEnd
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: findTokenStart
+          go_name: FindTokenStart
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: terminateToken
+          go_name: TerminateToken
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: java.lang.CharSequence
+          error: true
+      static_methods:
+        - java_method: tokenize
+          go_name: Tokenize
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.text.util.Rfc822Token[]
+          error: true
     - java_class: android.text.util.Linkify
       go_type: Linkify
       obtain: constructor
@@ -219,43 +256,6 @@ classes:
             - java_type: String
               go_name: arg0
           returns: String
-          error: true
-    - java_class: android.text.util.Rfc822Tokenizer
-      go_type: Rfc822Tokenizer
-      obtain: constructor
-      methods:
-        - java_method: findTokenEnd
-          go_name: FindTokenEnd
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: findTokenStart
-          go_name: FindTokenStart
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: terminateToken
-          go_name: TerminateToken
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: java.lang.CharSequence
-          error: true
-      static_methods:
-        - java_method: tokenize
-          go_name: Tokenize
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.text.util.Rfc822Token[]
           error: true
 constants:
     - go_name: All

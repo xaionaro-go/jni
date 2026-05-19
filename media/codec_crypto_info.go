@@ -23,6 +23,34 @@ type CodecCryptoInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCodecCryptoInfo creates a new android.media.MediaCodec$CryptoInfo instance.
+func NewCodecCryptoInfo(vm *jni.VM) (*CodecCryptoInfo, error) {
+	var t CodecCryptoInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCodecCryptoInfo == nil {
+			return fmt.Errorf("android.media.MediaCodec$CryptoInfo is not available on this device")
+		}
+		if midCodecCryptoInfoCtor == nil {
+			return fmt.Errorf("android.media.MediaCodec$CryptoInfo constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCodecCryptoInfo)), midCodecCryptoInfoCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetPattern calls android.media.MediaCodec$CryptoInfo.getPattern.
 func (m *CodecCryptoInfo) GetPattern() (*jni.Object, error) {
 	var result *jni.Object

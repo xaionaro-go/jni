@@ -32,6 +32,12 @@ func NewLinearCurveFit(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*LinearC
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLinearCurveFit == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.LinearCurveFit is not available on this device")
+		}
+		if midLinearCurveFitCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.LinearCurveFit constructor ([D[[D)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLinearCurveFit)), midLinearCurveFitCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

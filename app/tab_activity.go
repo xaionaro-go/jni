@@ -30,6 +30,12 @@ func NewTabActivity(vm *jni.VM) (*TabActivity, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTabActivity == nil {
+			return fmt.Errorf("android.app.TabActivity is not available on this device")
+		}
+		if midTabActivityCtor == nil {
+			return fmt.Errorf("android.app.TabActivity constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTabActivity)), midTabActivityCtor)
 		if err != nil {
 			return err

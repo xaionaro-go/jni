@@ -32,6 +32,12 @@ func NewExtractor(vm *jni.VM) (*Extractor, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsExtractor == nil {
+			return fmt.Errorf("android.media.MediaExtractor is not available on this device")
+		}
+		if midExtractorCtor == nil {
+			return fmt.Errorf("android.media.MediaExtractor constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExtractor)), midExtractorCtor)
 		if err != nil {
 			return err

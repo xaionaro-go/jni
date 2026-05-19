@@ -32,6 +32,12 @@ func NewTimestamp(vm *jni.VM, arg0 int64, arg1 int64, arg2 float32) (*Timestamp,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTimestamp == nil {
+			return fmt.Errorf("android.media.MediaTimestamp is not available on this device")
+		}
+		if midTimestampCtor == nil {
+			return fmt.Errorf("android.media.MediaTimestamp constructor (JJF)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTimestamp)), midTimestampCtor, jni.LongValue(arg0), jni.LongValue(arg1), jni.FloatValue(arg2))
 		if err != nil {
@@ -188,8 +194,8 @@ func (m *Timestamp) ToString() (string, error) {
 			return callErr
 		}
 		var resultObj *jni.Object
-		resultObj, callErr = env.CallObjectMethod(
-			m.Obj,
+		resultObj, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsTimestamp)),
 			midTimestampToString,
 		)
 		if callErr != nil {

@@ -32,6 +32,12 @@ func NewWebMessage(vm *jni.VM, arg0 string) (*WebMessage, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWebMessage == nil {
+			return fmt.Errorf("android.webkit.WebMessage is not available on this device")
+		}
+		if midWebMessageCtor == nil {
+			return fmt.Errorf("android.webkit.WebMessage constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

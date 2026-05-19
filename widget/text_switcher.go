@@ -32,6 +32,12 @@ func NewTextSwitcher(vm *jni.VM, arg0 *jni.Object) (*TextSwitcher, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTextSwitcher == nil {
+			return fmt.Errorf("android.widget.TextSwitcher is not available on this device")
+		}
+		if midTextSwitcherCtor == nil {
+			return fmt.Errorf("android.widget.TextSwitcher constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextSwitcher)), midTextSwitcherCtor, jni.ObjectValue(arg0))
 		if err != nil {

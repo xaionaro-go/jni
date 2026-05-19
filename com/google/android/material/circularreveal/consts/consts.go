@@ -3,11 +3,11 @@
 package consts
 
 const (
-	CircularReveal int = 0
 	BitmapShader   int = 0
 	ClipPath       int = 1
 	RevealAnimator int = 2
 	Strategy       int = 0
+	CircularReveal int = 0
 )
 
 const (

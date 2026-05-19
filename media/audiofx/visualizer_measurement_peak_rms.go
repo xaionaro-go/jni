@@ -23,6 +23,34 @@ type VisualizerMeasurementPeakRms struct {
 	Obj *jni.GlobalRef
 }
 
+// NewVisualizerMeasurementPeakRms creates a new android.media.audiofx.Visualizer$MeasurementPeakRms instance.
+func NewVisualizerMeasurementPeakRms(vm *jni.VM) (*VisualizerMeasurementPeakRms, error) {
+	var t VisualizerMeasurementPeakRms
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsVisualizerMeasurementPeakRms == nil {
+			return fmt.Errorf("android.media.audiofx.Visualizer$MeasurementPeakRms is not available on this device")
+		}
+		if midVisualizerMeasurementPeakRmsCtor == nil {
+			return fmt.Errorf("android.media.audiofx.Visualizer$MeasurementPeakRms constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVisualizerMeasurementPeakRms)), midVisualizerMeasurementPeakRmsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.media.audiofx.Visualizer$MeasurementPeakRms.toString.
 func (m *VisualizerMeasurementPeakRms) ToString() (string, error) {
 	var result string

@@ -32,6 +32,12 @@ func NewSQLiteOutOfMemoryException(vm *jni.VM) (*SQLiteOutOfMemoryException, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSQLiteOutOfMemoryException == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteOutOfMemoryException is not available on this device")
+		}
+		if midSQLiteOutOfMemoryExceptionCtor == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteOutOfMemoryException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSQLiteOutOfMemoryException)), midSQLiteOutOfMemoryExceptionCtor)
 		if err != nil {
 			return err

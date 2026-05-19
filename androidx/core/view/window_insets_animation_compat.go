@@ -32,6 +32,12 @@ func NewWindowInsetsAnimationCompat(vm *jni.VM, arg0 int32, arg1 *jni.Object, ar
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWindowInsetsAnimationCompat == nil {
+			return fmt.Errorf("androidx.core.view.WindowInsetsAnimationCompat is not available on this device")
+		}
+		if midWindowInsetsAnimationCompatCtor == nil {
+			return fmt.Errorf("androidx.core.view.WindowInsetsAnimationCompat constructor (ILandroid/view/animation/Interpolator;J)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWindowInsetsAnimationCompat)), midWindowInsetsAnimationCompatCtor, jni.IntValue(arg0), jni.ObjectValue(arg1), jni.LongValue(arg2))
 		if err != nil {
@@ -226,29 +232,6 @@ func (m *WindowInsetsAnimationCompat) GetAlpha() (float32, error) {
 	return result, callErr
 }
 
-// SetAlpha calls androidx.core.view.WindowInsetsAnimationCompat.setAlpha.
-func (m *WindowInsetsAnimationCompat) SetAlpha(arg0 float32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midWindowInsetsAnimationCompatSetAlpha == nil {
-			callErr = fmt.Errorf("androidx.core.view.WindowInsetsAnimationCompat.setAlpha is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midWindowInsetsAnimationCompatSetAlpha, jni.FloatValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.core.view.WindowInsetsAnimationCompat.toString.
 func (m *WindowInsetsAnimationCompat) ToString() (string, error) {
 	var result string
@@ -274,4 +257,27 @@ func (m *WindowInsetsAnimationCompat) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// SetAlpha calls androidx.core.view.WindowInsetsAnimationCompat.setAlpha.
+func (m *WindowInsetsAnimationCompat) SetAlpha(arg0 float32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midWindowInsetsAnimationCompatSetAlpha == nil {
+			callErr = fmt.Errorf("androidx.core.view.WindowInsetsAnimationCompat.setAlpha is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsWindowInsetsAnimationCompat)),
+			midWindowInsetsAnimationCompatSetAlpha, jni.FloatValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

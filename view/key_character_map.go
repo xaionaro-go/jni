@@ -349,29 +349,6 @@ func (m *KeyCharacterMap) IsPrintingKey(arg0 int32) (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.KeyCharacterMap.writeToParcel.
-func (m *KeyCharacterMap) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midKeyCharacterMapWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.KeyCharacterMap.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midKeyCharacterMapWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.view.KeyCharacterMap.toString.
 func (m *KeyCharacterMap) ToString() (string, error) {
 	var result string
@@ -517,4 +494,27 @@ func (m *KeyCharacterMap) Load(arg0 int32) (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.KeyCharacterMap.writeToParcel.
+func (m *KeyCharacterMap) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midKeyCharacterMapWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.KeyCharacterMap.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsKeyCharacterMap)),
+			midKeyCharacterMapWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

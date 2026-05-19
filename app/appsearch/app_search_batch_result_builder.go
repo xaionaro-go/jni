@@ -23,6 +23,34 @@ type AppSearchBatchResultBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAppSearchBatchResultBuilder creates a new android.app.appsearch.AppSearchBatchResult$Builder instance.
+func NewAppSearchBatchResultBuilder(vm *jni.VM) (*AppSearchBatchResultBuilder, error) {
+	var t AppSearchBatchResultBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAppSearchBatchResultBuilder == nil {
+			return fmt.Errorf("android.app.appsearch.AppSearchBatchResult$Builder is not available on this device")
+		}
+		if midAppSearchBatchResultBuilderCtor == nil {
+			return fmt.Errorf("android.app.appsearch.AppSearchBatchResult$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppSearchBatchResultBuilder)), midAppSearchBatchResultBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.app.appsearch.AppSearchBatchResult$Builder.toString.
 func (m *AppSearchBatchResultBuilder) ToString() (string, error) {
 	var result string

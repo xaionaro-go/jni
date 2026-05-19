@@ -23,6 +23,35 @@ type ETC1UtilETC1Texture struct {
 	Obj *jni.GlobalRef
 }
 
+// NewETC1UtilETC1Texture creates a new android.opengl.ETC1Util$ETC1Texture instance.
+func NewETC1UtilETC1Texture(vm *jni.VM, arg0 int32, arg1 int32, arg2 *jni.Object) (*ETC1UtilETC1Texture, error) {
+	var t ETC1UtilETC1Texture
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsETC1UtilETC1Texture == nil {
+			return fmt.Errorf("android.opengl.ETC1Util$ETC1Texture is not available on this device")
+		}
+		if midETC1UtilETC1TextureCtor == nil {
+			return fmt.Errorf("android.opengl.ETC1Util$ETC1Texture constructor (IILjava/nio/ByteBuffer;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsETC1UtilETC1Texture)), midETC1UtilETC1TextureCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetData calls android.opengl.ETC1Util$ETC1Texture.getData.
 func (m *ETC1UtilETC1Texture) GetData() (*jni.Object, error) {
 	var result *jni.Object

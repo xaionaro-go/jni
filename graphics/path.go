@@ -32,6 +32,12 @@ func NewPath(vm *jni.VM) (*Path, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPath == nil {
+			return fmt.Errorf("android.graphics.Path is not available on this device")
+		}
+		if midPathCtor == nil {
+			return fmt.Errorf("android.graphics.Path constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPath)), midPathCtor)
 		if err != nil {
 			return err

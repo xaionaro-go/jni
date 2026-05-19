@@ -32,6 +32,12 @@ func NewScrollView(vm *jni.VM, arg0 *jni.Object) (*ScrollView, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsScrollView == nil {
+			return fmt.Errorf("android.widget.ScrollView is not available on this device")
+		}
+		if midScrollViewCtor == nil {
+			return fmt.Errorf("android.widget.ScrollView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScrollView)), midScrollViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

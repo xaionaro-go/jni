@@ -202,36 +202,6 @@ func (m *AudioEffect) SetEnableStatusListener(arg0 *jni.Object) error {
 	return callErr
 }
 
-// SetEnabled calls android.media.audiofx.AudioEffect.setEnabled.
-func (m *AudioEffect) SetEnabled(arg0 bool) (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAudioEffectSetEnabled == nil {
-			callErr = fmt.Errorf("android.media.audiofx.AudioEffect.setEnabled is not available on this device")
-			return callErr
-		}
-		var jArg0 uint8
-		if arg0 {
-			jArg0 = jniTrue
-		}
-
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midAudioEffectSetEnabled, jni.BooleanValue(jArg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.media.audiofx.AudioEffect.toString.
 func (m *AudioEffect) ToString() (string, error) {
 	var result string
@@ -285,6 +255,36 @@ func (m *AudioEffect) QueryEffects() (*jni.Object, error) {
 			localRef := result
 			result = env.NewGlobalRef(localRef)
 			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// SetEnabled calls android.media.audiofx.AudioEffect.setEnabled.
+func (m *AudioEffect) SetEnabled(arg0 bool) (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midAudioEffectSetEnabled == nil {
+			callErr = fmt.Errorf("android.media.audiofx.AudioEffect.setEnabled is not available on this device")
+			return callErr
+		}
+		var jArg0 uint8
+		if arg0 {
+			jArg0 = jniTrue
+		}
+
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsAudioEffect)),
+			midAudioEffectSetEnabled, jni.BooleanValue(jArg0),
+		)
+		if callErr != nil {
+			return callErr
 		}
 		return callErr
 	})

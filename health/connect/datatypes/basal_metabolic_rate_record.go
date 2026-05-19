@@ -83,31 +83,6 @@ func (m *BasalMetabolicRateRecord) GetBasalMetabolicRate() (*jni.Object, error) 
 	return result, callErr
 }
 
-// HashCode calls android.health.connect.datatypes.BasalMetabolicRateRecord.hashCode.
-func (m *BasalMetabolicRateRecord) HashCode() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBasalMetabolicRateRecordHashCode == nil {
-			callErr = fmt.Errorf("android.health.connect.datatypes.BasalMetabolicRateRecord.hashCode is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midBasalMetabolicRateRecordHashCode,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.health.connect.datatypes.BasalMetabolicRateRecord.toString.
 func (m *BasalMetabolicRateRecord) ToString() (string, error) {
 	var result string
@@ -130,6 +105,31 @@ func (m *BasalMetabolicRateRecord) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// HashCode calls android.health.connect.datatypes.BasalMetabolicRateRecord.hashCode.
+func (m *BasalMetabolicRateRecord) HashCode() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midBasalMetabolicRateRecordHashCode == nil {
+			callErr = fmt.Errorf("android.health.connect.datatypes.BasalMetabolicRateRecord.hashCode is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsBasalMetabolicRateRecord)),
+			midBasalMetabolicRateRecordHashCode,
+		)
+		if callErr != nil {
+			return callErr
+		}
 		return callErr
 	})
 	return result, callErr

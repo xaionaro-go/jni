@@ -63,8 +63,10 @@ classes:
           error: true
     - java_class: android.os.Build$VERSION
       go_type: VERSION
+      obtain: constructor
     - java_class: android.os.Build$VERSION_CODES
       go_type: VERSION_CODES
+      obtain: constructor
     - java_class: android.os.Build$VERSION_CODES_FULL
       go_type: VERSION_CODES_FULL
 constants:

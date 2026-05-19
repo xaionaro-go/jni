@@ -32,6 +32,12 @@ func NewKeyNotYetValidException(vm *jni.VM) (*KeyNotYetValidException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsKeyNotYetValidException == nil {
+			return fmt.Errorf("android.security.keystore.KeyNotYetValidException is not available on this device")
+		}
+		if midKeyNotYetValidExceptionCtor == nil {
+			return fmt.Errorf("android.security.keystore.KeyNotYetValidException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyNotYetValidException)), midKeyNotYetValidExceptionCtor)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewListItem(vm *jni.VM, arg0 string, arg1 bool) (*ListItem, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsListItem == nil {
+			return fmt.Errorf("android.graphics.pdf.models.ListItem is not available on this device")
+		}
+		if midListItemCtor == nil {
+			return fmt.Errorf("android.graphics.pdf.models.ListItem constructor (Ljava/lang/String;Z)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -229,8 +235,8 @@ func (m *ListItem) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsListItem)),
 			midListItemWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

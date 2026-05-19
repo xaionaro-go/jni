@@ -32,6 +32,12 @@ func NewRange(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Range, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRange == nil {
+			return fmt.Errorf("android.util.Range is not available on this device")
+		}
+		if midRangeCtor == nil {
+			return fmt.Errorf("android.util.Range constructor (Ljava/lang/T;Ljava/lang/T;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRange)), midRangeCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

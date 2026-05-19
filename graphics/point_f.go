@@ -32,6 +32,12 @@ func NewPointF(vm *jni.VM) (*PointF, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPointF == nil {
+			return fmt.Errorf("android.graphics.PointF is not available on this device")
+		}
+		if midPointFCtor == nil {
+			return fmt.Errorf("android.graphics.PointF constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPointF)), midPointFCtor)
 		if err != nil {
 			return err
@@ -317,29 +323,6 @@ func (m *PointF) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.graphics.PointF.writeToParcel.
-func (m *PointF) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midPointFWriteToParcel == nil {
-			callErr = fmt.Errorf("android.graphics.PointF.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midPointFWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // Length2_1 calls android.graphics.PointF.length.
 func (m *PointF) Length2_1(arg0 float32, arg1 float32) (float32, error) {
 	var result float32
@@ -364,4 +347,27 @@ func (m *PointF) Length2_1(arg0 float32, arg1 float32) (float32, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.graphics.PointF.writeToParcel.
+func (m *PointF) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midPointFWriteToParcel == nil {
+			callErr = fmt.Errorf("android.graphics.PointF.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsPointF)),
+			midPointFWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

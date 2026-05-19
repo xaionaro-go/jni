@@ -50,38 +50,6 @@ func (m *SafeIterableMapIteratorWithAdditions) HasNext() (bool, error) {
 	return result, callErr
 }
 
-// Next calls androidx.arch.core.internal.SafeIterableMap$IteratorWithAdditions.next.
-func (m *SafeIterableMapIteratorWithAdditions) Next() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSafeIterableMapIteratorWithAdditionsNext == nil {
-			callErr = fmt.Errorf("androidx.arch.core.internal.SafeIterableMap$IteratorWithAdditions.next is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midSafeIterableMapIteratorWithAdditionsNext,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.arch.core.internal.SafeIterableMap$IteratorWithAdditions.toString.
 func (m *SafeIterableMapIteratorWithAdditions) ToString() (string, error) {
 	var result string

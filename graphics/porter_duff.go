@@ -32,6 +32,12 @@ func NewPorterDuff(vm *jni.VM) (*PorterDuff, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPorterDuff == nil {
+			return fmt.Errorf("android.graphics.PorterDuff is not available on this device")
+		}
+		if midPorterDuffCtor == nil {
+			return fmt.Errorf("android.graphics.PorterDuff constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPorterDuff)), midPorterDuffCtor)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewInt2(vm *jni.VM) (*Int2, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInt2 == nil {
+			return fmt.Errorf("android.renderscript.Int2 is not available on this device")
+		}
+		if midInt2Ctor == nil {
+			return fmt.Errorf("android.renderscript.Int2 constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInt2)), midInt2Ctor)
 		if err != nil {
 			return err

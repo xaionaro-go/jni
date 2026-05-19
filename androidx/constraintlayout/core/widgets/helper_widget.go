@@ -32,6 +32,12 @@ func NewHelperWidget(vm *jni.VM) (*HelperWidget, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsHelperWidget == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.HelperWidget is not available on this device")
+		}
+		if midHelperWidgetCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.HelperWidget constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHelperWidget)), midHelperWidgetCtor)
 		if err != nil {
 			return err

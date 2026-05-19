@@ -23,6 +23,34 @@ type ContrastOptionsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewContrastOptionsBuilder creates a new com.google.android.material.color.ColorContrastOptions$Builder instance.
+func NewContrastOptionsBuilder(vm *jni.VM) (*ContrastOptionsBuilder, error) {
+	var t ContrastOptionsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsContrastOptionsBuilder == nil {
+			return fmt.Errorf("com.google.android.material.color.ColorContrastOptions$Builder is not available on this device")
+		}
+		if midContrastOptionsBuilderCtor == nil {
+			return fmt.Errorf("com.google.android.material.color.ColorContrastOptions$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContrastOptionsBuilder)), midContrastOptionsBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetMediumContrastThemeOverlay calls com.google.android.material.color.ColorContrastOptions$Builder.setMediumContrastThemeOverlay.
 func (m *ContrastOptionsBuilder) SetMediumContrastThemeOverlay(arg0 int32) (*jni.Object, error) {
 	var result *jni.Object
@@ -73,38 +101,6 @@ func (m *ContrastOptionsBuilder) SetHighContrastThemeOverlay(arg0 int32) (*jni.O
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
 			midContrastOptionsBuilderSetHighContrastThemeOverlay, jni.IntValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Build calls com.google.android.material.color.ColorContrastOptions$Builder.build.
-func (m *ContrastOptionsBuilder) Build() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midContrastOptionsBuilderBuild == nil {
-			callErr = fmt.Errorf("com.google.android.material.color.ColorContrastOptions$Builder.build is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midContrastOptionsBuilderBuild,
 		)
 		if callErr != nil {
 			return callErr

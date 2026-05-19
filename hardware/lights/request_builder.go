@@ -23,6 +23,34 @@ type RequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRequestBuilder creates a new android.hardware.lights.LightsRequest$Builder instance.
+func NewRequestBuilder(vm *jni.VM) (*RequestBuilder, error) {
+	var t RequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRequestBuilder == nil {
+			return fmt.Errorf("android.hardware.lights.LightsRequest$Builder is not available on this device")
+		}
+		if midRequestBuilderCtor == nil {
+			return fmt.Errorf("android.hardware.lights.LightsRequest$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRequestBuilder)), midRequestBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddLight calls android.hardware.lights.LightsRequest$Builder.addLight.
 func (m *RequestBuilder) AddLight(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

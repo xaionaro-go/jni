@@ -4,14 +4,6 @@ package consts
 
 const (
 	KeyType                           int = 1
-	TypeScreen                        int = 2
-	TypePath                          int = 1
-	TypeCartesian                     int = 0
-	RotateNone                        int = 0
-	RotatePortrateOfRight             int = 1
-	RotatePortrateOfLeft              int = 2
-	RotateRightOfPortrate             int = 3
-	RotateLeftOfPortrate              int = 4
 	ShapeSinWave                      int = 0
 	ShapeSquareWave                   int = 1
 	ShapeTriangleWave                 int = 2
@@ -19,6 +11,11 @@ const (
 	ShapeReverseSawWave               int = 4
 	ShapeCosWave                      int = 5
 	ShapeBounce                       int = 6
+	RotateNone                        int = 0
+	RotatePortrateOfRight             int = 1
+	RotatePortrateOfLeft              int = 2
+	RotateRightOfPortrate             int = 3
+	RotateLeftOfPortrate              int = 4
 	TypeViewTransitionOnCross         int = 301
 	TypeViewTransitionOnPositiveCross int = 302
 	TypeViewTransitionOnNegativeCross int = 303
@@ -31,6 +28,9 @@ const (
 	TypeNegativeCross                 int = 310
 	TypeTriggerReceiver               int = 311
 	TypeCross                         int = 312
+	TypeScreen                        int = 2
+	TypePath                          int = 1
+	TypeCartesian                     int = 0
 )
 
 const (

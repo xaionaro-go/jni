@@ -32,6 +32,12 @@ func NewReceiverCallNotAllowedException(vm *jni.VM, arg0 string) (*ReceiverCallN
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsReceiverCallNotAllowedException == nil {
+			return fmt.Errorf("android.content.ReceiverCallNotAllowedException is not available on this device")
+		}
+		if midReceiverCallNotAllowedExceptionCtor == nil {
+			return fmt.Errorf("android.content.ReceiverCallNotAllowedException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

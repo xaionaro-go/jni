@@ -32,6 +32,12 @@ func NewCornerPathEffect(vm *jni.VM, arg0 float32) (*CornerPathEffect, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCornerPathEffect == nil {
+			return fmt.Errorf("android.graphics.CornerPathEffect is not available on this device")
+		}
+		if midCornerPathEffectCtor == nil {
+			return fmt.Errorf("android.graphics.CornerPathEffect constructor (F)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCornerPathEffect)), midCornerPathEffectCtor, jni.FloatValue(arg0))
 		if err != nil {

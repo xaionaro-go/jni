@@ -390,8 +390,8 @@ func (m *Element) ALLOCATION(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// A_8 calls android.renderscript.Element.A_8.
-func (m *Element) A_8(arg0 *jni.Object) (*jni.Object, error) {
+// A8 calls android.renderscript.Element.A_8.
+func (m *Element) A8(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -399,14 +399,14 @@ func (m *Element) A_8(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementA_8 == nil {
+		if midElementA8 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.A_8 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementA_8, jni.ObjectValue(arg0),
+			midElementA8, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -522,8 +522,8 @@ func (m *Element) F16(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// F16_2 calls android.renderscript.Element.F16_2.
-func (m *Element) F16_2(arg0 *jni.Object) (*jni.Object, error) {
+// F162 calls android.renderscript.Element.F16_2.
+func (m *Element) F162(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -531,14 +531,14 @@ func (m *Element) F16_2(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementF16_2 == nil {
+		if midElementF162 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.F16_2 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementF16_2, jni.ObjectValue(arg0),
+			midElementF162, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -555,8 +555,8 @@ func (m *Element) F16_2(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// F16_3 calls android.renderscript.Element.F16_3.
-func (m *Element) F16_3(arg0 *jni.Object) (*jni.Object, error) {
+// F163 calls android.renderscript.Element.F16_3.
+func (m *Element) F163(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -564,14 +564,14 @@ func (m *Element) F16_3(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementF16_3 == nil {
+		if midElementF163 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.F16_3 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementF16_3, jni.ObjectValue(arg0),
+			midElementF163, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -588,8 +588,8 @@ func (m *Element) F16_3(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// F16_4 calls android.renderscript.Element.F16_4.
-func (m *Element) F16_4(arg0 *jni.Object) (*jni.Object, error) {
+// F164 calls android.renderscript.Element.F16_4.
+func (m *Element) F164(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -597,14 +597,14 @@ func (m *Element) F16_4(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementF16_4 == nil {
+		if midElementF164 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.F16_4 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementF16_4, jni.ObjectValue(arg0),
+			midElementF164, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -654,8 +654,8 @@ func (m *Element) F32(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// F32_2 calls android.renderscript.Element.F32_2.
-func (m *Element) F32_2(arg0 *jni.Object) (*jni.Object, error) {
+// F322 calls android.renderscript.Element.F32_2.
+func (m *Element) F322(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -663,14 +663,14 @@ func (m *Element) F32_2(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementF32_2 == nil {
+		if midElementF322 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.F32_2 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementF32_2, jni.ObjectValue(arg0),
+			midElementF322, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -687,8 +687,8 @@ func (m *Element) F32_2(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// F32_3 calls android.renderscript.Element.F32_3.
-func (m *Element) F32_3(arg0 *jni.Object) (*jni.Object, error) {
+// F323 calls android.renderscript.Element.F32_3.
+func (m *Element) F323(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -696,14 +696,14 @@ func (m *Element) F32_3(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementF32_3 == nil {
+		if midElementF323 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.F32_3 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementF32_3, jni.ObjectValue(arg0),
+			midElementF323, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -720,8 +720,8 @@ func (m *Element) F32_3(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// F32_4 calls android.renderscript.Element.F32_4.
-func (m *Element) F32_4(arg0 *jni.Object) (*jni.Object, error) {
+// F324 calls android.renderscript.Element.F32_4.
+func (m *Element) F324(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -729,14 +729,14 @@ func (m *Element) F32_4(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementF32_4 == nil {
+		if midElementF324 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.F32_4 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementF32_4, jni.ObjectValue(arg0),
+			midElementF324, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -786,8 +786,8 @@ func (m *Element) F64(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// F64_2 calls android.renderscript.Element.F64_2.
-func (m *Element) F64_2(arg0 *jni.Object) (*jni.Object, error) {
+// F642 calls android.renderscript.Element.F64_2.
+func (m *Element) F642(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -795,14 +795,14 @@ func (m *Element) F64_2(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementF64_2 == nil {
+		if midElementF642 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.F64_2 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementF64_2, jni.ObjectValue(arg0),
+			midElementF642, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -819,8 +819,8 @@ func (m *Element) F64_2(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// F64_3 calls android.renderscript.Element.F64_3.
-func (m *Element) F64_3(arg0 *jni.Object) (*jni.Object, error) {
+// F643 calls android.renderscript.Element.F64_3.
+func (m *Element) F643(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -828,14 +828,14 @@ func (m *Element) F64_3(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementF64_3 == nil {
+		if midElementF643 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.F64_3 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementF64_3, jni.ObjectValue(arg0),
+			midElementF643, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -852,8 +852,8 @@ func (m *Element) F64_3(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// F64_4 calls android.renderscript.Element.F64_4.
-func (m *Element) F64_4(arg0 *jni.Object) (*jni.Object, error) {
+// F644 calls android.renderscript.Element.F64_4.
+func (m *Element) F644(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -861,14 +861,14 @@ func (m *Element) F64_4(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementF64_4 == nil {
+		if midElementF644 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.F64_4 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementF64_4, jni.ObjectValue(arg0),
+			midElementF644, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -951,8 +951,8 @@ func (m *Element) I16(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// I16_2 calls android.renderscript.Element.I16_2.
-func (m *Element) I16_2(arg0 *jni.Object) (*jni.Object, error) {
+// I162 calls android.renderscript.Element.I16_2.
+func (m *Element) I162(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -960,14 +960,14 @@ func (m *Element) I16_2(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementI16_2 == nil {
+		if midElementI162 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.I16_2 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementI16_2, jni.ObjectValue(arg0),
+			midElementI162, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -984,8 +984,8 @@ func (m *Element) I16_2(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// I16_3 calls android.renderscript.Element.I16_3.
-func (m *Element) I16_3(arg0 *jni.Object) (*jni.Object, error) {
+// I163 calls android.renderscript.Element.I16_3.
+func (m *Element) I163(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -993,14 +993,14 @@ func (m *Element) I16_3(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementI16_3 == nil {
+		if midElementI163 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.I16_3 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementI16_3, jni.ObjectValue(arg0),
+			midElementI163, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1017,8 +1017,8 @@ func (m *Element) I16_3(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// I16_4 calls android.renderscript.Element.I16_4.
-func (m *Element) I16_4(arg0 *jni.Object) (*jni.Object, error) {
+// I164 calls android.renderscript.Element.I16_4.
+func (m *Element) I164(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1026,14 +1026,14 @@ func (m *Element) I16_4(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementI16_4 == nil {
+		if midElementI164 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.I16_4 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementI16_4, jni.ObjectValue(arg0),
+			midElementI164, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1083,8 +1083,8 @@ func (m *Element) I32(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// I32_2 calls android.renderscript.Element.I32_2.
-func (m *Element) I32_2(arg0 *jni.Object) (*jni.Object, error) {
+// I322 calls android.renderscript.Element.I32_2.
+func (m *Element) I322(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1092,14 +1092,14 @@ func (m *Element) I32_2(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementI32_2 == nil {
+		if midElementI322 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.I32_2 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementI32_2, jni.ObjectValue(arg0),
+			midElementI322, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1116,8 +1116,8 @@ func (m *Element) I32_2(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// I32_3 calls android.renderscript.Element.I32_3.
-func (m *Element) I32_3(arg0 *jni.Object) (*jni.Object, error) {
+// I323 calls android.renderscript.Element.I32_3.
+func (m *Element) I323(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1125,14 +1125,14 @@ func (m *Element) I32_3(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementI32_3 == nil {
+		if midElementI323 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.I32_3 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementI32_3, jni.ObjectValue(arg0),
+			midElementI323, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1149,8 +1149,8 @@ func (m *Element) I32_3(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// I32_4 calls android.renderscript.Element.I32_4.
-func (m *Element) I32_4(arg0 *jni.Object) (*jni.Object, error) {
+// I324 calls android.renderscript.Element.I32_4.
+func (m *Element) I324(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1158,14 +1158,14 @@ func (m *Element) I32_4(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementI32_4 == nil {
+		if midElementI324 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.I32_4 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementI32_4, jni.ObjectValue(arg0),
+			midElementI324, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1215,8 +1215,8 @@ func (m *Element) I64(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// I64_2 calls android.renderscript.Element.I64_2.
-func (m *Element) I64_2(arg0 *jni.Object) (*jni.Object, error) {
+// I642 calls android.renderscript.Element.I64_2.
+func (m *Element) I642(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1224,14 +1224,14 @@ func (m *Element) I64_2(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementI64_2 == nil {
+		if midElementI642 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.I64_2 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementI64_2, jni.ObjectValue(arg0),
+			midElementI642, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1248,8 +1248,8 @@ func (m *Element) I64_2(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// I64_3 calls android.renderscript.Element.I64_3.
-func (m *Element) I64_3(arg0 *jni.Object) (*jni.Object, error) {
+// I643 calls android.renderscript.Element.I64_3.
+func (m *Element) I643(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1257,14 +1257,14 @@ func (m *Element) I64_3(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementI64_3 == nil {
+		if midElementI643 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.I64_3 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementI64_3, jni.ObjectValue(arg0),
+			midElementI643, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1281,8 +1281,8 @@ func (m *Element) I64_3(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// I64_4 calls android.renderscript.Element.I64_4.
-func (m *Element) I64_4(arg0 *jni.Object) (*jni.Object, error) {
+// I644 calls android.renderscript.Element.I64_4.
+func (m *Element) I644(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1290,14 +1290,14 @@ func (m *Element) I64_4(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementI64_4 == nil {
+		if midElementI644 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.I64_4 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementI64_4, jni.ObjectValue(arg0),
+			midElementI644, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1347,8 +1347,8 @@ func (m *Element) I8(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// I8_2 calls android.renderscript.Element.I8_2.
-func (m *Element) I8_2(arg0 *jni.Object) (*jni.Object, error) {
+// I82 calls android.renderscript.Element.I8_2.
+func (m *Element) I82(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1356,14 +1356,14 @@ func (m *Element) I8_2(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementI8_2 == nil {
+		if midElementI82 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.I8_2 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementI8_2, jni.ObjectValue(arg0),
+			midElementI82, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1380,8 +1380,8 @@ func (m *Element) I8_2(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// I8_3 calls android.renderscript.Element.I8_3.
-func (m *Element) I8_3(arg0 *jni.Object) (*jni.Object, error) {
+// I83 calls android.renderscript.Element.I8_3.
+func (m *Element) I83(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1389,14 +1389,14 @@ func (m *Element) I8_3(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementI8_3 == nil {
+		if midElementI83 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.I8_3 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementI8_3, jni.ObjectValue(arg0),
+			midElementI83, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1413,8 +1413,8 @@ func (m *Element) I8_3(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// I8_4 calls android.renderscript.Element.I8_4.
-func (m *Element) I8_4(arg0 *jni.Object) (*jni.Object, error) {
+// I84 calls android.renderscript.Element.I8_4.
+func (m *Element) I84(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1422,14 +1422,14 @@ func (m *Element) I8_4(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementI8_4 == nil {
+		if midElementI84 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.I8_4 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementI8_4, jni.ObjectValue(arg0),
+			midElementI84, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1446,8 +1446,8 @@ func (m *Element) I8_4(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// MATRIX4X4 calls android.renderscript.Element.MATRIX4X4.
-func (m *Element) MATRIX4X4(arg0 *jni.Object) (*jni.Object, error) {
+// MATRIX4X41 calls android.renderscript.Element.MATRIX4X4.
+func (m *Element) MATRIX4X41(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1455,14 +1455,14 @@ func (m *Element) MATRIX4X4(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementMATRIX4X4 == nil {
+		if midElementMATRIX4X41 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.MATRIX4X4 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementMATRIX4X4, jni.ObjectValue(arg0),
+			midElementMATRIX4X41, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1479,8 +1479,8 @@ func (m *Element) MATRIX4X4(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// MATRIX_2X2 calls android.renderscript.Element.MATRIX_2X2.
-func (m *Element) MATRIX_2X2(arg0 *jni.Object) (*jni.Object, error) {
+// MATRIX2X2 calls android.renderscript.Element.MATRIX_2X2.
+func (m *Element) MATRIX2X2(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1488,14 +1488,14 @@ func (m *Element) MATRIX_2X2(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementMATRIX_2X2 == nil {
+		if midElementMATRIX2X2 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.MATRIX_2X2 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementMATRIX_2X2, jni.ObjectValue(arg0),
+			midElementMATRIX2X2, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1512,8 +1512,8 @@ func (m *Element) MATRIX_2X2(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// MATRIX_3X3 calls android.renderscript.Element.MATRIX_3X3.
-func (m *Element) MATRIX_3X3(arg0 *jni.Object) (*jni.Object, error) {
+// MATRIX3X3 calls android.renderscript.Element.MATRIX_3X3.
+func (m *Element) MATRIX3X3(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1521,14 +1521,14 @@ func (m *Element) MATRIX_3X3(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementMATRIX_3X3 == nil {
+		if midElementMATRIX3X3 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.MATRIX_3X3 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementMATRIX_3X3, jni.ObjectValue(arg0),
+			midElementMATRIX3X3, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1545,8 +1545,8 @@ func (m *Element) MATRIX_3X3(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// MATRIX_4X4 calls android.renderscript.Element.MATRIX_4X4.
-func (m *Element) MATRIX_4X4(arg0 *jni.Object) (*jni.Object, error) {
+// MATRIX4X41_1 calls android.renderscript.Element.MATRIX_4X4.
+func (m *Element) MATRIX4X41_1(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1554,14 +1554,14 @@ func (m *Element) MATRIX_4X4(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementMATRIX_4X4 == nil {
+		if midElementMATRIX4X41_1 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.MATRIX_4X4 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementMATRIX_4X4, jni.ObjectValue(arg0),
+			midElementMATRIX4X41_1, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1611,8 +1611,8 @@ func (m *Element) MESH(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// PROGRAM_FRAGMENT calls android.renderscript.Element.PROGRAM_FRAGMENT.
-func (m *Element) PROGRAM_FRAGMENT(arg0 *jni.Object) (*jni.Object, error) {
+// PROGRAMFRAGMENT calls android.renderscript.Element.PROGRAM_FRAGMENT.
+func (m *Element) PROGRAMFRAGMENT(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1620,14 +1620,14 @@ func (m *Element) PROGRAM_FRAGMENT(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementPROGRAM_FRAGMENT == nil {
+		if midElementPROGRAMFRAGMENT == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.PROGRAM_FRAGMENT is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementPROGRAM_FRAGMENT, jni.ObjectValue(arg0),
+			midElementPROGRAMFRAGMENT, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1644,8 +1644,8 @@ func (m *Element) PROGRAM_FRAGMENT(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// PROGRAM_RASTER calls android.renderscript.Element.PROGRAM_RASTER.
-func (m *Element) PROGRAM_RASTER(arg0 *jni.Object) (*jni.Object, error) {
+// PROGRAMRASTER calls android.renderscript.Element.PROGRAM_RASTER.
+func (m *Element) PROGRAMRASTER(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1653,14 +1653,14 @@ func (m *Element) PROGRAM_RASTER(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementPROGRAM_RASTER == nil {
+		if midElementPROGRAMRASTER == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.PROGRAM_RASTER is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementPROGRAM_RASTER, jni.ObjectValue(arg0),
+			midElementPROGRAMRASTER, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1677,8 +1677,8 @@ func (m *Element) PROGRAM_RASTER(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// PROGRAM_STORE calls android.renderscript.Element.PROGRAM_STORE.
-func (m *Element) PROGRAM_STORE(arg0 *jni.Object) (*jni.Object, error) {
+// PROGRAMSTORE calls android.renderscript.Element.PROGRAM_STORE.
+func (m *Element) PROGRAMSTORE(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1686,14 +1686,14 @@ func (m *Element) PROGRAM_STORE(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementPROGRAM_STORE == nil {
+		if midElementPROGRAMSTORE == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.PROGRAM_STORE is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementPROGRAM_STORE, jni.ObjectValue(arg0),
+			midElementPROGRAMSTORE, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1710,8 +1710,8 @@ func (m *Element) PROGRAM_STORE(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// PROGRAM_VERTEX calls android.renderscript.Element.PROGRAM_VERTEX.
-func (m *Element) PROGRAM_VERTEX(arg0 *jni.Object) (*jni.Object, error) {
+// PROGRAMVERTEX calls android.renderscript.Element.PROGRAM_VERTEX.
+func (m *Element) PROGRAMVERTEX(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1719,14 +1719,14 @@ func (m *Element) PROGRAM_VERTEX(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementPROGRAM_VERTEX == nil {
+		if midElementPROGRAMVERTEX == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.PROGRAM_VERTEX is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementPROGRAM_VERTEX, jni.ObjectValue(arg0),
+			midElementPROGRAMVERTEX, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1743,8 +1743,8 @@ func (m *Element) PROGRAM_VERTEX(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// RGBA_4444 calls android.renderscript.Element.RGBA_4444.
-func (m *Element) RGBA_4444(arg0 *jni.Object) (*jni.Object, error) {
+// RGBA4444 calls android.renderscript.Element.RGBA_4444.
+func (m *Element) RGBA4444(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1752,14 +1752,14 @@ func (m *Element) RGBA_4444(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementRGBA_4444 == nil {
+		if midElementRGBA4444 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.RGBA_4444 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementRGBA_4444, jni.ObjectValue(arg0),
+			midElementRGBA4444, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1776,8 +1776,8 @@ func (m *Element) RGBA_4444(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// RGBA_5551 calls android.renderscript.Element.RGBA_5551.
-func (m *Element) RGBA_5551(arg0 *jni.Object) (*jni.Object, error) {
+// RGBA5551 calls android.renderscript.Element.RGBA_5551.
+func (m *Element) RGBA5551(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1785,14 +1785,14 @@ func (m *Element) RGBA_5551(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementRGBA_5551 == nil {
+		if midElementRGBA5551 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.RGBA_5551 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementRGBA_5551, jni.ObjectValue(arg0),
+			midElementRGBA5551, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1809,8 +1809,8 @@ func (m *Element) RGBA_5551(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// RGBA_8888 calls android.renderscript.Element.RGBA_8888.
-func (m *Element) RGBA_8888(arg0 *jni.Object) (*jni.Object, error) {
+// RGBA8888 calls android.renderscript.Element.RGBA_8888.
+func (m *Element) RGBA8888(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1818,14 +1818,14 @@ func (m *Element) RGBA_8888(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementRGBA_8888 == nil {
+		if midElementRGBA8888 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.RGBA_8888 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementRGBA_8888, jni.ObjectValue(arg0),
+			midElementRGBA8888, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1842,8 +1842,8 @@ func (m *Element) RGBA_8888(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// RGB_565 calls android.renderscript.Element.RGB_565.
-func (m *Element) RGB_565(arg0 *jni.Object) (*jni.Object, error) {
+// RGB565 calls android.renderscript.Element.RGB_565.
+func (m *Element) RGB565(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1851,14 +1851,14 @@ func (m *Element) RGB_565(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementRGB_565 == nil {
+		if midElementRGB565 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.RGB_565 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementRGB_565, jni.ObjectValue(arg0),
+			midElementRGB565, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1875,8 +1875,8 @@ func (m *Element) RGB_565(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// RGB_888 calls android.renderscript.Element.RGB_888.
-func (m *Element) RGB_888(arg0 *jni.Object) (*jni.Object, error) {
+// RGB888 calls android.renderscript.Element.RGB_888.
+func (m *Element) RGB888(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1884,14 +1884,14 @@ func (m *Element) RGB_888(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementRGB_888 == nil {
+		if midElementRGB888 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.RGB_888 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementRGB_888, jni.ObjectValue(arg0),
+			midElementRGB888, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -2040,8 +2040,8 @@ func (m *Element) U16(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// U16_2 calls android.renderscript.Element.U16_2.
-func (m *Element) U16_2(arg0 *jni.Object) (*jni.Object, error) {
+// U162 calls android.renderscript.Element.U16_2.
+func (m *Element) U162(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -2049,14 +2049,14 @@ func (m *Element) U16_2(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementU16_2 == nil {
+		if midElementU162 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.U16_2 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementU16_2, jni.ObjectValue(arg0),
+			midElementU162, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -2073,8 +2073,8 @@ func (m *Element) U16_2(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// U16_3 calls android.renderscript.Element.U16_3.
-func (m *Element) U16_3(arg0 *jni.Object) (*jni.Object, error) {
+// U163 calls android.renderscript.Element.U16_3.
+func (m *Element) U163(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -2082,14 +2082,14 @@ func (m *Element) U16_3(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementU16_3 == nil {
+		if midElementU163 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.U16_3 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementU16_3, jni.ObjectValue(arg0),
+			midElementU163, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -2106,8 +2106,8 @@ func (m *Element) U16_3(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// U16_4 calls android.renderscript.Element.U16_4.
-func (m *Element) U16_4(arg0 *jni.Object) (*jni.Object, error) {
+// U164 calls android.renderscript.Element.U16_4.
+func (m *Element) U164(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -2115,14 +2115,14 @@ func (m *Element) U16_4(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementU16_4 == nil {
+		if midElementU164 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.U16_4 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementU16_4, jni.ObjectValue(arg0),
+			midElementU164, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -2172,8 +2172,8 @@ func (m *Element) U32(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// U32_2 calls android.renderscript.Element.U32_2.
-func (m *Element) U32_2(arg0 *jni.Object) (*jni.Object, error) {
+// U322 calls android.renderscript.Element.U32_2.
+func (m *Element) U322(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -2181,14 +2181,14 @@ func (m *Element) U32_2(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementU32_2 == nil {
+		if midElementU322 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.U32_2 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementU32_2, jni.ObjectValue(arg0),
+			midElementU322, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -2205,8 +2205,8 @@ func (m *Element) U32_2(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// U32_3 calls android.renderscript.Element.U32_3.
-func (m *Element) U32_3(arg0 *jni.Object) (*jni.Object, error) {
+// U323 calls android.renderscript.Element.U32_3.
+func (m *Element) U323(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -2214,14 +2214,14 @@ func (m *Element) U32_3(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementU32_3 == nil {
+		if midElementU323 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.U32_3 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementU32_3, jni.ObjectValue(arg0),
+			midElementU323, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -2238,8 +2238,8 @@ func (m *Element) U32_3(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// U32_4 calls android.renderscript.Element.U32_4.
-func (m *Element) U32_4(arg0 *jni.Object) (*jni.Object, error) {
+// U324 calls android.renderscript.Element.U32_4.
+func (m *Element) U324(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -2247,14 +2247,14 @@ func (m *Element) U32_4(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementU32_4 == nil {
+		if midElementU324 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.U32_4 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementU32_4, jni.ObjectValue(arg0),
+			midElementU324, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -2304,8 +2304,8 @@ func (m *Element) U64(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// U64_2 calls android.renderscript.Element.U64_2.
-func (m *Element) U64_2(arg0 *jni.Object) (*jni.Object, error) {
+// U642 calls android.renderscript.Element.U64_2.
+func (m *Element) U642(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -2313,14 +2313,14 @@ func (m *Element) U64_2(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementU64_2 == nil {
+		if midElementU642 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.U64_2 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementU64_2, jni.ObjectValue(arg0),
+			midElementU642, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -2337,8 +2337,8 @@ func (m *Element) U64_2(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// U64_3 calls android.renderscript.Element.U64_3.
-func (m *Element) U64_3(arg0 *jni.Object) (*jni.Object, error) {
+// U643 calls android.renderscript.Element.U64_3.
+func (m *Element) U643(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -2346,14 +2346,14 @@ func (m *Element) U64_3(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementU64_3 == nil {
+		if midElementU643 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.U64_3 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementU64_3, jni.ObjectValue(arg0),
+			midElementU643, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -2370,8 +2370,8 @@ func (m *Element) U64_3(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// U64_4 calls android.renderscript.Element.U64_4.
-func (m *Element) U64_4(arg0 *jni.Object) (*jni.Object, error) {
+// U644 calls android.renderscript.Element.U64_4.
+func (m *Element) U644(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -2379,14 +2379,14 @@ func (m *Element) U64_4(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementU64_4 == nil {
+		if midElementU644 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.U64_4 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementU64_4, jni.ObjectValue(arg0),
+			midElementU644, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -2436,8 +2436,8 @@ func (m *Element) U8(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// U8_2 calls android.renderscript.Element.U8_2.
-func (m *Element) U8_2(arg0 *jni.Object) (*jni.Object, error) {
+// U82 calls android.renderscript.Element.U8_2.
+func (m *Element) U82(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -2445,14 +2445,14 @@ func (m *Element) U8_2(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementU8_2 == nil {
+		if midElementU82 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.U8_2 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementU8_2, jni.ObjectValue(arg0),
+			midElementU82, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -2469,8 +2469,8 @@ func (m *Element) U8_2(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// U8_3 calls android.renderscript.Element.U8_3.
-func (m *Element) U8_3(arg0 *jni.Object) (*jni.Object, error) {
+// U83 calls android.renderscript.Element.U8_3.
+func (m *Element) U83(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -2478,14 +2478,14 @@ func (m *Element) U8_3(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementU8_3 == nil {
+		if midElementU83 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.U8_3 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementU8_3, jni.ObjectValue(arg0),
+			midElementU83, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -2502,8 +2502,8 @@ func (m *Element) U8_3(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// U8_4 calls android.renderscript.Element.U8_4.
-func (m *Element) U8_4(arg0 *jni.Object) (*jni.Object, error) {
+// U84 calls android.renderscript.Element.U8_4.
+func (m *Element) U84(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -2511,14 +2511,14 @@ func (m *Element) U8_4(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midElementU8_4 == nil {
+		if midElementU84 == nil {
 			callErr = fmt.Errorf("android.renderscript.Element.U8_4 is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsElement)),
-			midElementU8_4, jni.ObjectValue(arg0),
+			midElementU84, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr

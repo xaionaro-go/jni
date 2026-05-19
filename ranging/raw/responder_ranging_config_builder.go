@@ -23,6 +23,34 @@ type ResponderRangingConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewResponderRangingConfigBuilder creates a new android.ranging.raw.RawResponderRangingConfig$Builder instance.
+func NewResponderRangingConfigBuilder(vm *jni.VM) (*ResponderRangingConfigBuilder, error) {
+	var t ResponderRangingConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsResponderRangingConfigBuilder == nil {
+			return fmt.Errorf("android.ranging.raw.RawResponderRangingConfig$Builder is not available on this device")
+		}
+		if midResponderRangingConfigBuilderCtor == nil {
+			return fmt.Errorf("android.ranging.raw.RawResponderRangingConfig$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsResponderRangingConfigBuilder)), midResponderRangingConfigBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.ranging.raw.RawResponderRangingConfig$Builder.build.
 func (m *ResponderRangingConfigBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewAsyncListUtil(vm *jni.VM, arg0 *jni.Object, arg1 int32, arg2 *jni.Object
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAsyncListUtil == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.AsyncListUtil is not available on this device")
+		}
+		if midAsyncListUtilCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.AsyncListUtil constructor (Ljava/lang/Class;ILandroidx/recyclerview/widget/AsyncListUtil$DataCallback;Landroidx/recyclerview/widget/AsyncListUtil$ViewCallback;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAsyncListUtil)), midAsyncListUtilCtor, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3))
 		if err != nil {

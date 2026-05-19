@@ -75,29 +75,6 @@ func (m *MediaQualityManagerProfileQueryParams) DescribeContents() (int32, error
 	return result, callErr
 }
 
-// WriteToParcel calls android.media.quality.MediaQualityManager$ProfileQueryParams.writeToParcel.
-func (m *MediaQualityManagerProfileQueryParams) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMediaQualityManagerProfileQueryParamsWriteToParcel == nil {
-			callErr = fmt.Errorf("android.media.quality.MediaQualityManager$ProfileQueryParams.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMediaQualityManagerProfileQueryParamsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.media.quality.MediaQualityManager$ProfileQueryParams.toString.
 func (m *MediaQualityManagerProfileQueryParams) ToString() (string, error) {
 	var result string
@@ -123,4 +100,27 @@ func (m *MediaQualityManagerProfileQueryParams) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.media.quality.MediaQualityManager$ProfileQueryParams.writeToParcel.
+func (m *MediaQualityManagerProfileQueryParams) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midMediaQualityManagerProfileQueryParamsWriteToParcel == nil {
+			callErr = fmt.Errorf("android.media.quality.MediaQualityManager$ProfileQueryParams.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsMediaQualityManagerProfileQueryParams)),
+			midMediaQualityManagerProfileQueryParamsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

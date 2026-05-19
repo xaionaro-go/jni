@@ -32,6 +32,12 @@ func NewTemperatureControlTemplate(vm *jni.VM, arg0 string, arg1 *jni.Object, ar
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTemperatureControlTemplate == nil {
+			return fmt.Errorf("android.service.controls.templates.TemperatureControlTemplate is not available on this device")
+		}
+		if midTemperatureControlTemplateCtor == nil {
+			return fmt.Errorf("android.service.controls.templates.TemperatureControlTemplate constructor (Ljava/lang/String;Landroid/service/controls/templates/ControlTemplate;III)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

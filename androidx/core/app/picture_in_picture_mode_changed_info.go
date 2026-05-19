@@ -30,6 +30,12 @@ func NewPictureInPictureModeChangedInfo(vm *jni.VM, arg0 bool) (*PictureInPictur
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPictureInPictureModeChangedInfo == nil {
+			return fmt.Errorf("androidx.core.app.PictureInPictureModeChangedInfo is not available on this device")
+		}
+		if midPictureInPictureModeChangedInfoCtor == nil {
+			return fmt.Errorf("androidx.core.app.PictureInPictureModeChangedInfo constructor (Z)V is not available on this device")
+		}
 		var jArg0 uint8
 		if arg0 {
 			jArg0 = jniTrue

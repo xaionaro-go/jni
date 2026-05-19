@@ -32,6 +32,12 @@ func NewDividerItemDecoration(vm *jni.VM, arg0 *jni.Object, arg1 int32) (*Divide
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDividerItemDecoration == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.DividerItemDecoration is not available on this device")
+		}
+		if midDividerItemDecorationCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.DividerItemDecoration constructor (Landroid/content/Context;I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDividerItemDecoration)), midDividerItemDecorationCtor, jni.ObjectValue(arg0), jni.IntValue(arg1))
 		if err != nil {
@@ -151,34 +157,6 @@ func (m *DividerItemDecoration) OnDraw(
 	return callErr
 }
 
-// GetItemOffsets calls androidx.recyclerview.widget.DividerItemDecoration.getItemOffsets.
-func (m *DividerItemDecoration) GetItemOffsets(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-	arg3 *jni.Object,
-) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDividerItemDecorationGetItemOffsets == nil {
-			callErr = fmt.Errorf("androidx.recyclerview.widget.DividerItemDecoration.getItemOffsets is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midDividerItemDecorationGetItemOffsets, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.recyclerview.widget.DividerItemDecoration.toString.
 func (m *DividerItemDecoration) ToString() (string, error) {
 	var result string
@@ -204,4 +182,32 @@ func (m *DividerItemDecoration) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// GetItemOffsets calls androidx.recyclerview.widget.DividerItemDecoration.getItemOffsets.
+func (m *DividerItemDecoration) GetItemOffsets(
+	arg0 *jni.Object,
+	arg1 *jni.Object,
+	arg2 *jni.Object,
+	arg3 *jni.Object,
+) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDividerItemDecorationGetItemOffsets == nil {
+			callErr = fmt.Errorf("androidx.recyclerview.widget.DividerItemDecoration.getItemOffsets is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsDividerItemDecoration)),
+			midDividerItemDecorationGetItemOffsets, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3),
+		)
+		return callErr
+	})
+	return callErr
 }

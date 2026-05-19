@@ -32,6 +32,12 @@ func NewSignalingDataRequest(vm *jni.VM, arg0 int32, arg1 int32, arg2 int32, arg
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSignalingDataRequest == nil {
+			return fmt.Errorf("android.media.tv.SignalingDataRequest is not available on this device")
+		}
+		if midSignalingDataRequestCtor == nil {
+			return fmt.Errorf("android.media.tv.SignalingDataRequest constructor (IIILjava/util/List;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSignalingDataRequest)), midSignalingDataRequestCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2), jni.ObjectValue(arg3))
 		if err != nil {
@@ -128,29 +134,6 @@ func (m *SignalingDataRequest) GetSignalingDataTypes() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.media.tv.SignalingDataRequest.writeToParcel.
-func (m *SignalingDataRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSignalingDataRequestWriteToParcel == nil {
-			callErr = fmt.Errorf("android.media.tv.SignalingDataRequest.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSignalingDataRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.media.tv.SignalingDataRequest.toString.
 func (m *SignalingDataRequest) ToString() (string, error) {
 	var result string
@@ -176,4 +159,27 @@ func (m *SignalingDataRequest) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.media.tv.SignalingDataRequest.writeToParcel.
+func (m *SignalingDataRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSignalingDataRequestWriteToParcel == nil {
+			callErr = fmt.Errorf("android.media.tv.SignalingDataRequest.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSignalingDataRequest)),
+			midSignalingDataRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -32,6 +32,12 @@ func NewSQLiteDatabaseLockedException(vm *jni.VM) (*SQLiteDatabaseLockedExceptio
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSQLiteDatabaseLockedException == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteDatabaseLockedException is not available on this device")
+		}
+		if midSQLiteDatabaseLockedExceptionCtor == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteDatabaseLockedException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSQLiteDatabaseLockedException)), midSQLiteDatabaseLockedExceptionCtor)
 		if err != nil {
 			return err

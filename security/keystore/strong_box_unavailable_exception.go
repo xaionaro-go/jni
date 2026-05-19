@@ -32,6 +32,12 @@ func NewStrongBoxUnavailableException(vm *jni.VM) (*StrongBoxUnavailableExceptio
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStrongBoxUnavailableException == nil {
+			return fmt.Errorf("android.security.keystore.StrongBoxUnavailableException is not available on this device")
+		}
+		if midStrongBoxUnavailableExceptionCtor == nil {
+			return fmt.Errorf("android.security.keystore.StrongBoxUnavailableException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStrongBoxUnavailableException)), midStrongBoxUnavailableExceptionCtor)
 		if err != nil {
 			return err

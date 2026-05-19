@@ -32,6 +32,12 @@ func NewWidgetHelper(vm *jni.VM, arg0 *jni.Object) (*WidgetHelper, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWidgetHelper == nil {
+			return fmt.Errorf("com.google.android.material.expandable.ExpandableWidgetHelper is not available on this device")
+		}
+		if midWidgetHelperCtor == nil {
+			return fmt.Errorf("com.google.android.material.expandable.ExpandableWidgetHelper constructor (Lcom/google/android/material/expandable/ExpandableWidget;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWidgetHelper)), midWidgetHelperCtor, jni.ObjectValue(arg0))
 		if err != nil {

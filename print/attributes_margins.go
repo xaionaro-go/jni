@@ -23,6 +23,35 @@ type AttributesMargins struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAttributesMargins creates a new android.print.PrintAttributes$Margins instance.
+func NewAttributesMargins(vm *jni.VM, arg0 int32, arg1 int32, arg2 int32, arg3 int32) (*AttributesMargins, error) {
+	var t AttributesMargins
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAttributesMargins == nil {
+			return fmt.Errorf("android.print.PrintAttributes$Margins is not available on this device")
+		}
+		if midAttributesMarginsCtor == nil {
+			return fmt.Errorf("android.print.PrintAttributes$Margins constructor (IIII)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAttributesMargins)), midAttributesMarginsCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.print.PrintAttributes$Margins.equals.
 func (m *AttributesMargins) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool
@@ -190,8 +219,8 @@ func (m *AttributesMargins) ToString() (string, error) {
 			return callErr
 		}
 		var resultObj *jni.Object
-		resultObj, callErr = env.CallObjectMethod(
-			m.Obj,
+		resultObj, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsAttributesMargins)),
 			midAttributesMarginsToString,
 		)
 		if callErr != nil {

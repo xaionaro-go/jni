@@ -32,6 +32,12 @@ func NewBidi(vm *jni.VM) (*Bidi, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBidi == nil {
+			return fmt.Errorf("android.icu.text.Bidi is not available on this device")
+		}
+		if midBidiCtor == nil {
+			return fmt.Errorf("android.icu.text.Bidi constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBidi)), midBidiCtor)
 		if err != nil {
 			return err

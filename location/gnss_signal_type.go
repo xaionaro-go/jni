@@ -205,29 +205,6 @@ func (m *GnssSignalType) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.location.GnssSignalType.writeToParcel.
-func (m *GnssSignalType) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midGnssSignalTypeWriteToParcel == nil {
-			callErr = fmt.Errorf("android.location.GnssSignalType.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midGnssSignalTypeWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // Create calls android.location.GnssSignalType.create.
 func (m *GnssSignalType) Create(
 	arg0 int32,
@@ -269,4 +246,27 @@ func (m *GnssSignalType) Create(
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.location.GnssSignalType.writeToParcel.
+func (m *GnssSignalType) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midGnssSignalTypeWriteToParcel == nil {
+			callErr = fmt.Errorf("android.location.GnssSignalType.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsGnssSignalType)),
+			midGnssSignalTypeWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

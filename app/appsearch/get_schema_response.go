@@ -137,29 +137,6 @@ func (m *GetSchemaResponse) GetVersion() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.appsearch.GetSchemaResponse.writeToParcel.
-func (m *GetSchemaResponse) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midGetSchemaResponseWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.appsearch.GetSchemaResponse.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midGetSchemaResponseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.appsearch.GetSchemaResponse.toString.
 func (m *GetSchemaResponse) ToString() (string, error) {
 	var result string
@@ -185,4 +162,27 @@ func (m *GetSchemaResponse) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.appsearch.GetSchemaResponse.writeToParcel.
+func (m *GetSchemaResponse) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midGetSchemaResponseWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.appsearch.GetSchemaResponse.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsGetSchemaResponse)),
+			midGetSchemaResponseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -32,6 +32,12 @@ func NewMaterialTextView(vm *jni.VM, arg0 *jni.Object) (*MaterialTextView, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialTextView == nil {
+			return fmt.Errorf("com.google.android.material.textview.MaterialTextView is not available on this device")
+		}
+		if midMaterialTextViewCtor == nil {
+			return fmt.Errorf("com.google.android.material.textview.MaterialTextView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialTextView)), midMaterialTextViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

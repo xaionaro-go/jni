@@ -23,6 +23,34 @@ type RenderScriptRSMessageHandler struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRenderScriptRSMessageHandler creates a new android.renderscript.RenderScript$RSMessageHandler instance.
+func NewRenderScriptRSMessageHandler(vm *jni.VM) (*RenderScriptRSMessageHandler, error) {
+	var t RenderScriptRSMessageHandler
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRenderScriptRSMessageHandler == nil {
+			return fmt.Errorf("android.renderscript.RenderScript$RSMessageHandler is not available on this device")
+		}
+		if midRenderScriptRSMessageHandlerCtor == nil {
+			return fmt.Errorf("android.renderscript.RenderScript$RSMessageHandler constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRenderScriptRSMessageHandler)), midRenderScriptRSMessageHandlerCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Run calls android.renderscript.RenderScript$RSMessageHandler.run.
 func (m *RenderScriptRSMessageHandler) Run() error {
 

@@ -32,6 +32,12 @@ func NewRelativeFrameTimeHistogram(vm *jni.VM) (*RelativeFrameTimeHistogram, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRelativeFrameTimeHistogram == nil {
+			return fmt.Errorf("android.app.jank.RelativeFrameTimeHistogram is not available on this device")
+		}
+		if midRelativeFrameTimeHistogramCtor == nil {
+			return fmt.Errorf("android.app.jank.RelativeFrameTimeHistogram constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRelativeFrameTimeHistogram)), midRelativeFrameTimeHistogramCtor)
 		if err != nil {
 			return err

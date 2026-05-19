@@ -21,6 +21,34 @@ type ActivityManagerProcessErrorStateInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewActivityManagerProcessErrorStateInfo creates a new android.app.ActivityManager$ProcessErrorStateInfo instance.
+func NewActivityManagerProcessErrorStateInfo(vm *jni.VM) (*ActivityManagerProcessErrorStateInfo, error) {
+	var t ActivityManagerProcessErrorStateInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsActivityManagerProcessErrorStateInfo == nil {
+			return fmt.Errorf("android.app.ActivityManager$ProcessErrorStateInfo is not available on this device")
+		}
+		if midActivityManagerProcessErrorStateInfoCtor == nil {
+			return fmt.Errorf("android.app.ActivityManager$ProcessErrorStateInfo constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivityManagerProcessErrorStateInfo)), midActivityManagerProcessErrorStateInfoCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.app.ActivityManager$ProcessErrorStateInfo.describeContents.
 func (m *ActivityManagerProcessErrorStateInfo) DescribeContents() (int32, error) {
 	var result int32
@@ -69,29 +97,6 @@ func (m *ActivityManagerProcessErrorStateInfo) ReadFromParcel(arg0 *jni.Object) 
 	return callErr
 }
 
-// WriteToParcel calls android.app.ActivityManager$ProcessErrorStateInfo.writeToParcel.
-func (m *ActivityManagerProcessErrorStateInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityManagerProcessErrorStateInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.ActivityManager$ProcessErrorStateInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midActivityManagerProcessErrorStateInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.ActivityManager$ProcessErrorStateInfo.toString.
 func (m *ActivityManagerProcessErrorStateInfo) ToString() (string, error) {
 	var result string
@@ -117,4 +122,27 @@ func (m *ActivityManagerProcessErrorStateInfo) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.ActivityManager$ProcessErrorStateInfo.writeToParcel.
+func (m *ActivityManagerProcessErrorStateInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midActivityManagerProcessErrorStateInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.ActivityManager$ProcessErrorStateInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsActivityManagerProcessErrorStateInfo)),
+			midActivityManagerProcessErrorStateInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

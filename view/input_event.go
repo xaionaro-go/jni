@@ -155,34 +155,6 @@ func (m *InputEvent) GetSource() (int32, error) {
 	return result, callErr
 }
 
-// IsFromSource calls android.view.InputEvent.isFromSource.
-func (m *InputEvent) IsFromSource(arg0 int32) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midInputEventIsFromSource == nil {
-			callErr = fmt.Errorf("android.view.InputEvent.isFromSource is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midInputEventIsFromSource, jni.IntValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.view.InputEvent.toString.
 func (m *InputEvent) ToString() (string, error) {
 	var result string
@@ -205,6 +177,34 @@ func (m *InputEvent) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// IsFromSource calls android.view.InputEvent.isFromSource.
+func (m *InputEvent) IsFromSource(arg0 int32) (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midInputEventIsFromSource == nil {
+			callErr = fmt.Errorf("android.view.InputEvent.isFromSource is not available on this device")
+			return callErr
+		}
+
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsInputEvent)),
+			midInputEventIsFromSource, jni.IntValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

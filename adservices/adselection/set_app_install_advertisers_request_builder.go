@@ -23,6 +23,34 @@ type SetAppInstallAdvertisersRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSetAppInstallAdvertisersRequestBuilder creates a new android.adservices.adselection.SetAppInstallAdvertisersRequest$Builder instance.
+func NewSetAppInstallAdvertisersRequestBuilder(vm *jni.VM) (*SetAppInstallAdvertisersRequestBuilder, error) {
+	var t SetAppInstallAdvertisersRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSetAppInstallAdvertisersRequestBuilder == nil {
+			return fmt.Errorf("android.adservices.adselection.SetAppInstallAdvertisersRequest$Builder is not available on this device")
+		}
+		if midSetAppInstallAdvertisersRequestBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.adselection.SetAppInstallAdvertisersRequest$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSetAppInstallAdvertisersRequestBuilder)), midSetAppInstallAdvertisersRequestBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.adselection.SetAppInstallAdvertisersRequest$Builder.build.
 func (m *SetAppInstallAdvertisersRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

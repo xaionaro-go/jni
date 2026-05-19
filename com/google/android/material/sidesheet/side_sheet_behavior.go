@@ -32,6 +32,12 @@ func NewSideSheetBehavior(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Side
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSideSheetBehavior == nil {
+			return fmt.Errorf("com.google.android.material.sidesheet.SideSheetBehavior is not available on this device")
+		}
+		if midSideSheetBehaviorCtor == nil {
+			return fmt.Errorf("com.google.android.material.sidesheet.SideSheetBehavior constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSideSheetBehavior)), midSideSheetBehaviorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -262,8 +268,8 @@ func (m *SideSheetBehavior) GetHideFriction() (float32, error) {
 	return result, callErr
 }
 
-// AddCallback1 calls com.google.android.material.sidesheet.SideSheetBehavior.addCallback.
-func (m *SideSheetBehavior) AddCallback1(arg0 *jni.Object) error {
+// AddCallback calls com.google.android.material.sidesheet.SideSheetBehavior.addCallback.
+func (m *SideSheetBehavior) AddCallback(arg0 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -271,22 +277,22 @@ func (m *SideSheetBehavior) AddCallback1(arg0 *jni.Object) error {
 			callErr = err
 			return err
 		}
-		if midSideSheetBehaviorAddCallback1 == nil {
+		if midSideSheetBehaviorAddCallback == nil {
 			callErr = fmt.Errorf("com.google.android.material.sidesheet.SideSheetBehavior.addCallback is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midSideSheetBehaviorAddCallback1, jni.ObjectValue(arg0),
+			midSideSheetBehaviorAddCallback, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})
 	return callErr
 }
 
-// RemoveCallback1 calls com.google.android.material.sidesheet.SideSheetBehavior.removeCallback.
-func (m *SideSheetBehavior) RemoveCallback1(arg0 *jni.Object) error {
+// RemoveCallback calls com.google.android.material.sidesheet.SideSheetBehavior.removeCallback.
+func (m *SideSheetBehavior) RemoveCallback(arg0 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -294,14 +300,14 @@ func (m *SideSheetBehavior) RemoveCallback1(arg0 *jni.Object) error {
 			callErr = err
 			return err
 		}
-		if midSideSheetBehaviorRemoveCallback1 == nil {
+		if midSideSheetBehaviorRemoveCallback == nil {
 			callErr = fmt.Errorf("com.google.android.material.sidesheet.SideSheetBehavior.removeCallback is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midSideSheetBehaviorRemoveCallback1, jni.ObjectValue(arg0),
+			midSideSheetBehaviorRemoveCallback, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})
@@ -554,74 +560,6 @@ func (m *SideSheetBehavior) HandleBackInvoked() error {
 	return callErr
 }
 
-// CancelBackProgress calls com.google.android.material.sidesheet.SideSheetBehavior.cancelBackProgress.
-func (m *SideSheetBehavior) CancelBackProgress() error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSideSheetBehaviorCancelBackProgress == nil {
-			callErr = fmt.Errorf("com.google.android.material.sidesheet.SideSheetBehavior.cancelBackProgress is not available on this device")
-			return callErr
-		}
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSideSheetBehaviorCancelBackProgress,
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// RemoveCallback1_1 calls com.google.android.material.sidesheet.SideSheetBehavior.removeCallback.
-func (m *SideSheetBehavior) RemoveCallback1_1(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSideSheetBehaviorRemoveCallback1_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.sidesheet.SideSheetBehavior.removeCallback is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSideSheetBehaviorRemoveCallback1_1, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// AddCallback1_1 calls com.google.android.material.sidesheet.SideSheetBehavior.addCallback.
-func (m *SideSheetBehavior) AddCallback1_1(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSideSheetBehaviorAddCallback1_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.sidesheet.SideSheetBehavior.addCallback is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSideSheetBehaviorAddCallback1_1, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls com.google.android.material.sidesheet.SideSheetBehavior.toString.
 func (m *SideSheetBehavior) ToString() (string, error) {
 	var result string
@@ -647,4 +585,26 @@ func (m *SideSheetBehavior) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// CancelBackProgress calls com.google.android.material.sidesheet.SideSheetBehavior.cancelBackProgress.
+func (m *SideSheetBehavior) CancelBackProgress() error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSideSheetBehaviorCancelBackProgress == nil {
+			callErr = fmt.Errorf("com.google.android.material.sidesheet.SideSheetBehavior.cancelBackProgress is not available on this device")
+			return callErr
+		}
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSideSheetBehavior)),
+			midSideSheetBehaviorCancelBackProgress,
+		)
+		return callErr
+	})
+	return callErr
 }

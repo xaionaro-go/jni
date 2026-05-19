@@ -32,6 +32,12 @@ func NewRippleDrawable(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRippleDrawable == nil {
+			return fmt.Errorf("android.graphics.drawable.RippleDrawable is not available on this device")
+		}
+		if midRippleDrawableCtor == nil {
+			return fmt.Errorf("android.graphics.drawable.RippleDrawable constructor (Landroid/content/res/ColorStateList;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRippleDrawable)), midRippleDrawableCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
 		if err != nil {

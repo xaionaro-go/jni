@@ -3,6 +3,12 @@
 package consts
 
 const (
+	FullDebug bool = false
+	Debug     bool = false
+	Measure   bool = false
+)
+
+const (
 	StrengthNone      int = 0
 	StrengthLow       int = 1
 	StrengthMedium    int = 2
@@ -17,10 +23,4 @@ const (
 	Slack             int = 0
 	Error             int = 0
 	Unknown           int = 0
-)
-
-const (
-	FullDebug bool = false
-	Debug     bool = false
-	Measure   bool = false
 )

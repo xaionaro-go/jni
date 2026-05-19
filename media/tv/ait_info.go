@@ -32,6 +32,12 @@ func NewAitInfo(vm *jni.VM, arg0 int32, arg1 int32) (*AitInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAitInfo == nil {
+			return fmt.Errorf("android.media.tv.AitInfo is not available on this device")
+		}
+		if midAitInfoCtor == nil {
+			return fmt.Errorf("android.media.tv.AitInfo constructor (II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAitInfo)), midAitInfoCtor, jni.IntValue(arg0), jni.IntValue(arg1))
 		if err != nil {
@@ -162,8 +168,8 @@ func (m *AitInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAitInfo)),
 			midAitInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

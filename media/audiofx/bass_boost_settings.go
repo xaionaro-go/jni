@@ -23,6 +23,34 @@ type BassBoostSettings struct {
 	Obj *jni.GlobalRef
 }
 
+// NewBassBoostSettings creates a new android.media.audiofx.BassBoost$Settings instance.
+func NewBassBoostSettings(vm *jni.VM) (*BassBoostSettings, error) {
+	var t BassBoostSettings
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsBassBoostSettings == nil {
+			return fmt.Errorf("android.media.audiofx.BassBoost$Settings is not available on this device")
+		}
+		if midBassBoostSettingsCtor == nil {
+			return fmt.Errorf("android.media.audiofx.BassBoost$Settings constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBassBoostSettings)), midBassBoostSettingsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.media.audiofx.BassBoost$Settings.toString.
 func (m *BassBoostSettings) ToString() (string, error) {
 	var result string

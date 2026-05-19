@@ -5,12 +5,6 @@ package annotation
 import "github.com/AndroidGoLab/jni/androidx/annotation/consts"
 
 const (
-	Library            = consts.Library
-	LibraryGroup       = consts.LibraryGroup
-	LibraryGroupPrefix = consts.LibraryGroupPrefix
-	GroupId            = consts.GroupId
-	Tests              = consts.Tests
-	Subclasses         = consts.Subclasses
 	None               = consts.None
 	Inferred           = consts.Inferred
 	IntEnum            = consts.IntEnum
@@ -21,6 +15,12 @@ const (
 	Dp                 = consts.Dp
 	PxConst            = consts.PxConst
 	Sp                 = consts.Sp
+	Library            = consts.Library
+	LibraryGroup       = consts.LibraryGroup
+	LibraryGroupPrefix = consts.LibraryGroupPrefix
+	GroupId            = consts.GroupId
+	Tests              = consts.Tests
+	Subclasses         = consts.Subclasses
 	Private            = consts.Private
 	PackagePrivate     = consts.PackagePrivate
 	Protected          = consts.Protected

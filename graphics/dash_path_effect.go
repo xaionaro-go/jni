@@ -32,6 +32,12 @@ func NewDashPathEffect(vm *jni.VM, arg0 *jni.Object, arg1 float32) (*DashPathEff
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDashPathEffect == nil {
+			return fmt.Errorf("android.graphics.DashPathEffect is not available on this device")
+		}
+		if midDashPathEffectCtor == nil {
+			return fmt.Errorf("android.graphics.DashPathEffect constructor ([FF)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDashPathEffect)), midDashPathEffectCtor, jni.ObjectValue(arg0), jni.FloatValue(arg1))
 		if err != nil {

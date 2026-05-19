@@ -23,6 +23,35 @@ type MaterialContainerTransformProgressThresholds struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMaterialContainerTransformProgressThresholds creates a new com.google.android.material.transition.platform.MaterialContainerTransform$ProgressThresholds instance.
+func NewMaterialContainerTransformProgressThresholds(vm *jni.VM, arg0 float32, arg1 float32) (*MaterialContainerTransformProgressThresholds, error) {
+	var t MaterialContainerTransformProgressThresholds
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMaterialContainerTransformProgressThresholds == nil {
+			return fmt.Errorf("com.google.android.material.transition.platform.MaterialContainerTransform$ProgressThresholds is not available on this device")
+		}
+		if midMaterialContainerTransformProgressThresholdsCtor == nil {
+			return fmt.Errorf("com.google.android.material.transition.platform.MaterialContainerTransform$ProgressThresholds constructor (FF)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformProgressThresholds)), midMaterialContainerTransformProgressThresholdsCtor, jni.FloatValue(arg0), jni.FloatValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetStart calls com.google.android.material.transition.platform.MaterialContainerTransform$ProgressThresholds.getStart.
 func (m *MaterialContainerTransformProgressThresholds) GetStart() (float32, error) {
 	var result float32
@@ -39,31 +68,6 @@ func (m *MaterialContainerTransformProgressThresholds) GetStart() (float32, erro
 		result, callErr = env.CallFloatMethod(
 			m.Obj,
 			midMaterialContainerTransformProgressThresholdsGetStart,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetEnd calls com.google.android.material.transition.platform.MaterialContainerTransform$ProgressThresholds.getEnd.
-func (m *MaterialContainerTransformProgressThresholds) GetEnd() (float32, error) {
-	var result float32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialContainerTransformProgressThresholdsGetEnd == nil {
-			callErr = fmt.Errorf("com.google.android.material.transition.platform.MaterialContainerTransform$ProgressThresholds.getEnd is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallFloatMethod(
-			m.Obj,
-			midMaterialContainerTransformProgressThresholdsGetEnd,
 		)
 		if callErr != nil {
 			return callErr

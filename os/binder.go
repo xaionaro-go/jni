@@ -32,6 +32,12 @@ func NewBinder(vm *jni.VM) (*Binder, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBinder == nil {
+			return fmt.Errorf("android.os.Binder is not available on this device")
+		}
+		if midBinderCtor == nil {
+			return fmt.Errorf("android.os.Binder constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBinder)), midBinderCtor)
 		if err != nil {
 			return err

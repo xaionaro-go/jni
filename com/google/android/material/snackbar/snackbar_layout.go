@@ -23,142 +23,33 @@ type SnackbarLayout struct {
 	Obj *jni.GlobalRef
 }
 
-// SetLayoutParams calls com.google.android.material.snackbar.Snackbar$SnackbarLayout.setLayoutParams.
-func (m *SnackbarLayout) SetLayoutParams(arg0 *jni.Object) error {
+// NewSnackbarLayout creates a new com.google.android.material.snackbar.Snackbar$SnackbarLayout instance.
+func NewSnackbarLayout(vm *jni.VM, arg0 *jni.Object) (*SnackbarLayout, error) {
+	var t SnackbarLayout
+	t.VM = vm
 
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
+	err := vm.Do(func(env *jni.Env) error {
 		if err := ensureInit(env); err != nil {
-			callErr = err
 			return err
 		}
-		if midSnackbarLayoutSetLayoutParams == nil {
-			callErr = fmt.Errorf("com.google.android.material.snackbar.Snackbar$SnackbarLayout.setLayoutParams is not available on this device")
-			return callErr
+		if clsSnackbarLayout == nil {
+			return fmt.Errorf("com.google.android.material.snackbar.Snackbar$SnackbarLayout is not available on this device")
+		}
+		if midSnackbarLayoutCtor == nil {
+			return fmt.Errorf("com.google.android.material.snackbar.Snackbar$SnackbarLayout constructor (Landroid/content/Context;)V is not available on this device")
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSnackbarLayoutSetLayoutParams, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// SetOnClickListener calls com.google.android.material.snackbar.Snackbar$SnackbarLayout.setOnClickListener.
-func (m *SnackbarLayout) SetOnClickListener(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSnackbarLayout)), midSnackbarLayoutCtor, jni.ObjectValue(arg0))
+		if err != nil {
 			return err
 		}
-		if midSnackbarLayoutSetOnClickListener == nil {
-			callErr = fmt.Errorf("com.google.android.material.snackbar.Snackbar$SnackbarLayout.setOnClickListener is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSnackbarLayoutSetOnClickListener, jni.ObjectValue(arg0),
-		)
-		return callErr
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
 	})
-	return callErr
-}
-
-// SetBackgroundTintMode calls com.google.android.material.snackbar.Snackbar$SnackbarLayout.setBackgroundTintMode.
-func (m *SnackbarLayout) SetBackgroundTintMode(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSnackbarLayoutSetBackgroundTintMode == nil {
-			callErr = fmt.Errorf("com.google.android.material.snackbar.Snackbar$SnackbarLayout.setBackgroundTintMode is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSnackbarLayoutSetBackgroundTintMode, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// SetBackgroundTintList calls com.google.android.material.snackbar.Snackbar$SnackbarLayout.setBackgroundTintList.
-func (m *SnackbarLayout) SetBackgroundTintList(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSnackbarLayoutSetBackgroundTintList == nil {
-			callErr = fmt.Errorf("com.google.android.material.snackbar.Snackbar$SnackbarLayout.setBackgroundTintList is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSnackbarLayoutSetBackgroundTintList, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// SetBackgroundDrawable calls com.google.android.material.snackbar.Snackbar$SnackbarLayout.setBackgroundDrawable.
-func (m *SnackbarLayout) SetBackgroundDrawable(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSnackbarLayoutSetBackgroundDrawable == nil {
-			callErr = fmt.Errorf("com.google.android.material.snackbar.Snackbar$SnackbarLayout.setBackgroundDrawable is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSnackbarLayoutSetBackgroundDrawable, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// SetBackground calls com.google.android.material.snackbar.Snackbar$SnackbarLayout.setBackground.
-func (m *SnackbarLayout) SetBackground(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSnackbarLayoutSetBackground == nil {
-			callErr = fmt.Errorf("com.google.android.material.snackbar.Snackbar$SnackbarLayout.setBackground is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSnackbarLayoutSetBackground, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
 }
 
 // ToString calls com.google.android.material.snackbar.Snackbar$SnackbarLayout.toString.

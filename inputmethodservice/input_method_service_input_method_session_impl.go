@@ -23,6 +23,35 @@ type InputMethodServiceInputMethodSessionImpl struct {
 	Obj *jni.GlobalRef
 }
 
+// NewInputMethodServiceInputMethodSessionImpl creates a new android.inputmethodservice.InputMethodService$InputMethodSessionImpl instance.
+func NewInputMethodServiceInputMethodSessionImpl(vm *jni.VM, arg0 *jni.Object) (*InputMethodServiceInputMethodSessionImpl, error) {
+	var t InputMethodServiceInputMethodSessionImpl
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsInputMethodServiceInputMethodSessionImpl == nil {
+			return fmt.Errorf("android.inputmethodservice.InputMethodService$InputMethodSessionImpl is not available on this device")
+		}
+		if midInputMethodServiceInputMethodSessionImplCtor == nil {
+			return fmt.Errorf("android.inputmethodservice.InputMethodService$InputMethodSessionImpl constructor (Landroid/inputmethodservice/InputMethodService;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInputMethodServiceInputMethodSessionImpl)), midInputMethodServiceInputMethodSessionImplCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AppPrivateCommand calls android.inputmethodservice.InputMethodService$InputMethodSessionImpl.appPrivateCommand.
 func (m *InputMethodServiceInputMethodSessionImpl) AppPrivateCommand(arg0 string, arg1 *jni.Object) error {
 

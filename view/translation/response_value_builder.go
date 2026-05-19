@@ -23,6 +23,35 @@ type ResponseValueBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewResponseValueBuilder creates a new android.view.translation.TranslationResponseValue$Builder instance.
+func NewResponseValueBuilder(vm *jni.VM, arg0 int32) (*ResponseValueBuilder, error) {
+	var t ResponseValueBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsResponseValueBuilder == nil {
+			return fmt.Errorf("android.view.translation.TranslationResponseValue$Builder is not available on this device")
+		}
+		if midResponseValueBuilderCtor == nil {
+			return fmt.Errorf("android.view.translation.TranslationResponseValue$Builder constructor (I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsResponseValueBuilder)), midResponseValueBuilderCtor, jni.IntValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.view.translation.TranslationResponseValue$Builder.build.
 func (m *ResponseValueBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

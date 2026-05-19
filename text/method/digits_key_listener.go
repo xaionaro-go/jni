@@ -32,6 +32,12 @@ func NewDigitsKeyListener(vm *jni.VM) (*DigitsKeyListener, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDigitsKeyListener == nil {
+			return fmt.Errorf("android.text.method.DigitsKeyListener is not available on this device")
+		}
+		if midDigitsKeyListenerCtor == nil {
+			return fmt.Errorf("android.text.method.DigitsKeyListener constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDigitsKeyListener)), midDigitsKeyListenerCtor)
 		if err != nil {
 			return err

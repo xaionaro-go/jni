@@ -23,6 +23,34 @@ type ConstraintSetLayout struct {
 	Obj *jni.GlobalRef
 }
 
+// NewConstraintSetLayout creates a new androidx.constraintlayout.widget.ConstraintSet$Layout instance.
+func NewConstraintSetLayout(vm *jni.VM) (*ConstraintSetLayout, error) {
+	var t ConstraintSetLayout
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsConstraintSetLayout == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet$Layout is not available on this device")
+		}
+		if midConstraintSetLayoutCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet$Layout constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConstraintSetLayout)), midConstraintSetLayoutCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // CopyFrom calls androidx.constraintlayout.widget.ConstraintSet$Layout.copyFrom.
 func (m *ConstraintSetLayout) CopyFrom(arg0 *jni.Object) error {
 
@@ -40,29 +68,6 @@ func (m *ConstraintSetLayout) CopyFrom(arg0 *jni.Object) error {
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midConstraintSetLayoutCopyFrom, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// Dump calls androidx.constraintlayout.widget.ConstraintSet$Layout.dump.
-func (m *ConstraintSetLayout) Dump(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midConstraintSetLayoutDump == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet$Layout.dump is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midConstraintSetLayoutDump, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		return callErr
 	})
@@ -94,4 +99,27 @@ func (m *ConstraintSetLayout) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// Dump calls androidx.constraintlayout.widget.ConstraintSet$Layout.dump.
+func (m *ConstraintSetLayout) Dump(arg0 *jni.Object, arg1 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midConstraintSetLayoutDump == nil {
+			callErr = fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet$Layout.dump is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsConstraintSetLayout)),
+			midConstraintSetLayoutDump, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

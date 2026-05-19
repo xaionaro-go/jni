@@ -32,6 +32,12 @@ func NewHandler(vm *jni.VM) (*Handler, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsHandler == nil {
+			return fmt.Errorf("android.os.Handler is not available on this device")
+		}
+		if midHandlerCtor == nil {
+			return fmt.Errorf("android.os.Handler constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHandler)), midHandlerCtor)
 		if err != nil {
 			return err

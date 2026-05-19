@@ -32,6 +32,12 @@ func NewInfo(vm *jni.VM, arg0 int32, arg1 *jni.Object, arg2 string) (*Info, erro
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInfo == nil {
+			return fmt.Errorf("android.drm.DrmInfo is not available on this device")
+		}
+		if midInfoCtor == nil {
+			return fmt.Errorf("android.drm.DrmInfo constructor (I[BLjava/lang/String;)V is not available on this device")
+		}
 
 		jArg2, err := env.NewStringUTF(arg2)
 		if err != nil {

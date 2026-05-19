@@ -23,8 +23,8 @@ type ChildrenAlphaProperty struct {
 	Obj *jni.GlobalRef
 }
 
-// Get1 calls com.google.android.material.animation.ChildrenAlphaProperty.get.
-func (m *ChildrenAlphaProperty) Get1(arg0 *jni.Object) (*jni.Object, error) {
+// Get calls com.google.android.material.animation.ChildrenAlphaProperty.get.
+func (m *ChildrenAlphaProperty) Get(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -32,14 +32,14 @@ func (m *ChildrenAlphaProperty) Get1(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midChildrenAlphaPropertyGet1 == nil {
+		if midChildrenAlphaPropertyGet == nil {
 			callErr = fmt.Errorf("com.google.android.material.animation.ChildrenAlphaProperty.get is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midChildrenAlphaPropertyGet1, jni.ObjectValue(arg0),
+			midChildrenAlphaPropertyGet, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -56,8 +56,8 @@ func (m *ChildrenAlphaProperty) Get1(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// Set2 calls com.google.android.material.animation.ChildrenAlphaProperty.set.
-func (m *ChildrenAlphaProperty) Set2(arg0 *jni.Object, arg1 *jni.Object) error {
+// Set calls com.google.android.material.animation.ChildrenAlphaProperty.set.
+func (m *ChildrenAlphaProperty) Set(arg0 *jni.Object, arg1 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -65,70 +65,14 @@ func (m *ChildrenAlphaProperty) Set2(arg0 *jni.Object, arg1 *jni.Object) error {
 			callErr = err
 			return err
 		}
-		if midChildrenAlphaPropertySet2 == nil {
+		if midChildrenAlphaPropertySet == nil {
 			callErr = fmt.Errorf("com.google.android.material.animation.ChildrenAlphaProperty.set is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midChildrenAlphaPropertySet2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// Get1_1 calls com.google.android.material.animation.ChildrenAlphaProperty.get.
-func (m *ChildrenAlphaProperty) Get1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midChildrenAlphaPropertyGet1_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.animation.ChildrenAlphaProperty.get is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midChildrenAlphaPropertyGet1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Set2_1 calls com.google.android.material.animation.ChildrenAlphaProperty.set.
-func (m *ChildrenAlphaProperty) Set2_1(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midChildrenAlphaPropertySet2_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.animation.ChildrenAlphaProperty.set is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midChildrenAlphaPropertySet2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midChildrenAlphaPropertySet, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		return callErr
 	})

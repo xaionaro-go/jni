@@ -23,6 +23,34 @@ type TrainingExamplesOutputBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTrainingExamplesOutputBuilder creates a new android.adservices.ondevicepersonalization.TrainingExamplesOutput$Builder instance.
+func NewTrainingExamplesOutputBuilder(vm *jni.VM) (*TrainingExamplesOutputBuilder, error) {
+	var t TrainingExamplesOutputBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTrainingExamplesOutputBuilder == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.TrainingExamplesOutput$Builder is not available on this device")
+		}
+		if midTrainingExamplesOutputBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.TrainingExamplesOutput$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTrainingExamplesOutputBuilder)), midTrainingExamplesOutputBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddTrainingExampleRecord calls android.adservices.ondevicepersonalization.TrainingExamplesOutput$Builder.addTrainingExampleRecord.
 func (m *TrainingExamplesOutputBuilder) AddTrainingExampleRecord(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

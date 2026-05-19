@@ -32,6 +32,12 @@ func NewKeyFrameArray(vm *jni.VM) (*KeyFrameArray, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsKeyFrameArray == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.KeyFrameArray is not available on this device")
+		}
+		if midKeyFrameArrayCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.KeyFrameArray constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyFrameArray)), midKeyFrameArrayCtor)
 		if err != nil {
 			return err

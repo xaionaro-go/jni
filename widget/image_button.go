@@ -32,6 +32,12 @@ func NewImageButton(vm *jni.VM, arg0 *jni.Object) (*ImageButton, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsImageButton == nil {
+			return fmt.Errorf("android.widget.ImageButton is not available on this device")
+		}
+		if midImageButtonCtor == nil {
+			return fmt.Errorf("android.widget.ImageButton constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsImageButton)), midImageButtonCtor, jni.ObjectValue(arg0))
 		if err != nil {

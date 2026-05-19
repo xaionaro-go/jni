@@ -32,6 +32,12 @@ func NewDevice(vm *jni.VM, arg0 *jni.Object) (*Device, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDevice == nil {
+			return fmt.Errorf("android.mtp.MtpDevice is not available on this device")
+		}
+		if midDeviceCtor == nil {
+			return fmt.Errorf("android.mtp.MtpDevice constructor (Landroid/hardware/usb/UsbDevice;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDevice)), midDeviceCtor, jni.ObjectValue(arg0))
 		if err != nil {

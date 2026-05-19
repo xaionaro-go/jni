@@ -12,6 +12,76 @@ classes:
           go_name: GetActivityResultRegistry
           returns: androidx.activity.result.ActivityResultRegistry
           error: true
+    - java_class: androidx.activity.result.ActivityResult
+      go_type: ActivityResult
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: android.content.Intent
+          go_name: arg1
+      methods:
+        - java_method: getResultCode
+          go_name: GetResultCode
+          returns: int
+          error: true
+        - java_method: getData
+          go_name: GetData
+          returns: android.content.Intent
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+      static_methods:
+        - java_method: resultCodeToString
+          go_name: ResultCodeToString
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+    - java_class: androidx.activity.result.ActivityResultRegistry
+      go_type: ActivityResultRegistry
+      methods:
+        - java_method: onSaveInstanceState
+          go_name: OnSaveInstanceState
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onRestoreInstanceState
+          go_name: OnRestoreInstanceState
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: dispatchResult
+          go_name: DispatchResult
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.content.Intent
+              go_name: arg2
+          returns: boolean
+          error: true
     - java_class: androidx.activity.result.IntentSenderRequest
       go_type: IntentSenderRequest
       obtain: constructor
@@ -45,6 +115,7 @@ classes:
           go_name: DescribeContents
           returns: int
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -56,6 +127,10 @@ classes:
           error: true
     - java_class: androidx.activity.result.IntentSenderRequest$Builder
       go_type: IntentSenderRequestBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.IntentSender
+          go_name: arg0
       methods:
         - java_method: setFillInIntent
           go_name: SetFillInIntent
@@ -79,6 +154,12 @@ classes:
           error: true
     - java_class: androidx.activity.result.IntentSenderRequest$Companion
       go_type: IntentSenderRequestCompanion
+      obtain: constructor
+      constructor_params:
+        - java_type: kotlin.jvm.internal.DefaultConstructorMarker
+          go_name: arg0
+    - java_class: androidx.activity.result.ActivityResultCaller
+      go_type: ActivityResultCaller
     - java_class: androidx.activity.result.PickVisualMediaRequestKt
       go_type: PickVisualMediaRequestKt
       static_methods:
@@ -96,78 +177,6 @@ classes:
           go_name: Unregister
           returns: void
           error: true
-    - java_class: androidx.activity.result.ActivityResult
-      go_type: ActivityResult
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: android.content.Intent
-          go_name: arg1
-      methods:
-        - java_method: getResultCode
-          go_name: GetResultCode
-          returns: int
-          error: true
-        - java_method: getData
-          go_name: GetData
-          returns: android.content.Intent
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-      static_methods:
-        - java_method: resultCodeToString
-          go_name: ResultCodeToString
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-    - java_class: androidx.activity.result.ActivityResultRegistry
-      go_type: ActivityResultRegistry
-      methods:
-        - java_method: onSaveInstanceState
-          go_name: OnSaveInstanceState
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onRestoreInstanceState
-          go_name: OnRestoreInstanceState
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: dispatchResult
-          go_name: DispatchResult
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.content.Intent
-              go_name: arg2
-          returns: boolean
-          error: true
-    - java_class: androidx.activity.result.ActivityResultCaller
-      go_type: ActivityResultCaller
     - java_class: androidx.activity.result.ActivityResultCallback
       go_type: ActivityResultCallback
     - java_class: androidx.activity.result.PickVisualMediaRequest
@@ -178,8 +187,16 @@ classes:
           go_name: GetMediaType
           returns: androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia$VisualMediaType
           error: true
+        - java_method: setMediaType$activity_release
+          go_name: SetMediaTypeActivityRelease
+          params:
+            - java_type: androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia$VisualMediaType
+              go_name: arg0
+          returns: void
+          error: true
     - java_class: androidx.activity.result.PickVisualMediaRequest$Builder
       go_type: PickVisualMediaRequestBuilder
+      obtain: constructor
       methods:
         - java_method: setMediaType
           go_name: SetMediaType
@@ -192,38 +209,17 @@ classes:
           go_name: Build
           returns: androidx.activity.result.PickVisualMediaRequest
           error: true
-abstract_callbacks:
-    - java_class: androidx.activity.result.ActivityResultLauncher
-      go_type: ActivityResultLauncherCallback
-      methods:
-        - java_method: unregister
-          params: []
-          returns: void
-          go_field: Unregister
+abstract_callback_eligibility:
     - java_class: androidx.activity.result.ActivityResultRegistry
-      go_type: ActivityResultRegistryCallback
-      methods:
-        - java_method: onSaveInstanceState
-          params:
-            - android.os.Bundle
-          returns: void
-          go_field: OnSaveInstanceState
-        - java_method: onRestoreInstanceState
-          params:
-            - android.os.Bundle
-          returns: void
-          go_field: OnRestoreInstanceState
-        - java_method: dispatchResult
-          params:
-            - int
-            - int
-            - android.content.Intent
-          returns: boolean
-          go_field: DispatchResult
+      generated: false
+      reason: unparsed_abstract_method_signature
+    - java_class: androidx.activity.result.ActivityResultLauncher
+      generated: false
+      reason: unparsed_abstract_method_signature
 constants:
-    - go_name: Companion
+    - go_name: Creator
       value: "0"
       go_type: int
-    - go_name: Creator
+    - go_name: Companion
       value: "0"
       go_type: int

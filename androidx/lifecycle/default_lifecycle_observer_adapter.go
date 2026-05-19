@@ -32,6 +32,12 @@ func NewDefaultLifecycleObserverAdapter(vm *jni.VM, arg0 *jni.Object, arg1 *jni.
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDefaultLifecycleObserverAdapter == nil {
+			return fmt.Errorf("androidx.lifecycle.DefaultLifecycleObserverAdapter is not available on this device")
+		}
+		if midDefaultLifecycleObserverAdapterCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.DefaultLifecycleObserverAdapter constructor (Landroidx/lifecycle/DefaultLifecycleObserver;Landroidx/lifecycle/LifecycleEventObserver;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDefaultLifecycleObserverAdapter)), midDefaultLifecycleObserverAdapterCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

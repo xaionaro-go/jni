@@ -32,6 +32,12 @@ func NewBassBoost(vm *jni.VM, arg0 int32, arg1 int32) (*BassBoost, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBassBoost == nil {
+			return fmt.Errorf("android.media.audiofx.BassBoost is not available on this device")
+		}
+		if midBassBoostCtor == nil {
+			return fmt.Errorf("android.media.audiofx.BassBoost constructor (II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBassBoost)), midBassBoostCtor, jni.IntValue(arg0), jni.IntValue(arg1))
 		if err != nil {

@@ -5,8 +5,8 @@ package timepicker
 import "github.com/AndroidGoLab/jni/com/google/android/material/timepicker/consts"
 
 const (
-	Clock12h          = consts.Clock12h
-	Clock24h          = consts.Clock24h
 	InputModeClock    = consts.InputModeClock
 	InputModeKeyboard = consts.InputModeKeyboard
+	Clock12h          = consts.Clock12h
+	Clock24h          = consts.Clock24h
 )

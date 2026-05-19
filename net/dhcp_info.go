@@ -32,6 +32,12 @@ func NewDhcpInfo(vm *jni.VM) (*DhcpInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDhcpInfo == nil {
+			return fmt.Errorf("android.net.DhcpInfo is not available on this device")
+		}
+		if midDhcpInfoCtor == nil {
+			return fmt.Errorf("android.net.DhcpInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDhcpInfo)), midDhcpInfoCtor)
 		if err != nil {
 			return err
@@ -111,8 +117,8 @@ func (m *DhcpInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsDhcpInfo)),
 			midDhcpInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

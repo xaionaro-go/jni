@@ -32,6 +32,12 @@ func NewSSLCertificateSocketFactory(vm *jni.VM, arg0 int32) (*SSLCertificateSock
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSSLCertificateSocketFactory == nil {
+			return fmt.Errorf("android.net.SSLCertificateSocketFactory is not available on this device")
+		}
+		if midSSLCertificateSocketFactoryCtor == nil {
+			return fmt.Errorf("android.net.SSLCertificateSocketFactory constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSSLCertificateSocketFactory)), midSSLCertificateSocketFactoryCtor, jni.IntValue(arg0))
 		if err != nil {

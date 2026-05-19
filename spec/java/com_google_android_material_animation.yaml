@@ -5,6 +5,76 @@
 package: animation
 go_import: github.com/AndroidGoLab/jni/com/google/android/material/animation
 classes:
+    - java_class: com.google.android.material.animation.AnimatorSetCompat
+      go_type: AnimatorSetCompat
+      obtain: constructor
+    - java_class: com.google.android.material.animation.MatrixEvaluator
+      go_type: MatrixEvaluator
+      obtain: constructor
+      methods:
+        - java_method: evaluate
+          go_name: Evaluate
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: android.graphics.Matrix
+              go_name: arg1
+            - java_type: android.graphics.Matrix
+              go_name: arg2
+          returns: android.graphics.Matrix
+          error: true
+    - java_class: com.google.android.material.animation.MotionTiming
+      go_type: MotionTiming
+      obtain: constructor
+      constructor_params:
+        - java_type: long
+          go_name: arg0
+        - java_type: long
+          go_name: arg1
+      methods:
+        - java_method: apply
+          go_name: Apply
+          params:
+            - java_type: android.animation.Animator
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getDelay
+          go_name: GetDelay
+          returns: long
+          error: true
+        - java_method: getDuration
+          go_name: GetDuration
+          returns: long
+          error: true
+        - java_method: getInterpolator
+          go_name: GetInterpolator
+          returns: android.animation.TimeInterpolator
+          error: true
+        - java_method: getRepeatCount
+          go_name: GetRepeatCount
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: getRepeatMode
+          go_name: GetRepeatMode
+          returns: int
+          error: true
     - java_class: com.google.android.material.animation.MotionSpec
       go_type: MotionSpec
       obtain: constructor
@@ -95,6 +165,26 @@ classes:
               go_name: arg1
           returns: com.google.android.material.animation.MotionSpec
           error: true
+    - java_class: com.google.android.material.animation.ArgbEvaluatorCompat
+      go_type: ArgbEvaluatorCompat
+      obtain: constructor
+      methods:
+        - java_method: evaluate
+          go_name: Evaluate
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: java.lang.Integer
+              go_name: arg1
+            - java_type: java.lang.Integer
+              go_name: arg2
+          returns: java.lang.Integer
+          error: true
+      static_methods:
+        - java_method: getInstance
+          go_name: GetInstance
+          returns: com.google.android.material.animation.ArgbEvaluatorCompat
+          error: true
     - java_class: com.google.android.material.animation.AnimatableView
       go_type: AnimatableView
       methods:
@@ -116,212 +206,37 @@ classes:
           go_name: OnAnimationEnd
           returns: void
           error: true
-    - java_class: com.google.android.material.animation.Positioning
-      go_type: Positioning
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: float
-          go_name: arg1
-        - java_type: float
-          go_name: arg2
-    - java_class: com.google.android.material.animation.TransformationCallback
-      go_type: TransformationCallback
-    - java_class: com.google.android.material.animation.AnimatorSetCompat
-      go_type: AnimatorSetCompat
-      obtain: constructor
-    - java_class: com.google.android.material.animation.ArgbEvaluatorCompat
-      go_type: ArgbEvaluatorCompat
-      obtain: constructor
-      methods:
-        - java_method: evaluate
-          go_name: Evaluate3
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: java.lang.Integer
-              go_name: arg1
-            - java_type: java.lang.Integer
-              go_name: arg2
-          returns: java.lang.Integer
-          error: true
-        - java_method: evaluate
-          go_name: Evaluate3_1
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-            - java_type: java.lang.Object
-              go_name: arg2
-          returns: java.lang.Object
-          error: true
-      static_methods:
-        - java_method: getInstance
-          go_name: GetInstance
-          returns: com.google.android.material.animation.ArgbEvaluatorCompat
-          error: true
-    - java_class: com.google.android.material.animation.MotionTiming
-      go_type: MotionTiming
-      obtain: constructor
-      constructor_params:
-        - java_type: long
-          go_name: arg0
-        - java_type: long
-          go_name: arg1
-      methods:
-        - java_method: apply
-          go_name: Apply
-          params:
-            - java_type: android.animation.Animator
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getDelay
-          go_name: GetDelay
-          returns: long
-          error: true
-        - java_method: getDuration
-          go_name: GetDuration
-          returns: long
-          error: true
-        - java_method: getInterpolator
-          go_name: GetInterpolator
-          returns: android.animation.TimeInterpolator
-          error: true
-        - java_method: getRepeatCount
-          go_name: GetRepeatCount
-          returns: int
-          error: true
-        - java_method: getRepeatMode
-          go_name: GetRepeatMode
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: com.google.android.material.animation.ImageMatrixProperty
-      go_type: ImageMatrixProperty
-      obtain: constructor
-      methods:
-        - java_method: set
-          go_name: Set2
-          params:
-            - java_type: android.widget.ImageView
-              go_name: arg0
-            - java_type: android.graphics.Matrix
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: get
-          go_name: Get1
-          params:
-            - java_type: android.widget.ImageView
-              go_name: arg0
-          returns: android.graphics.Matrix
-          error: true
-        - java_method: get
-          go_name: Get1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: java.lang.Object
-          error: true
-        - java_method: set
-          go_name: Set2_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: void
-          error: true
     - java_class: com.google.android.material.animation.DrawableAlphaProperty
       go_type: DrawableAlphaProperty
       methods:
         - java_method: get
-          go_name: Get1
+          go_name: Get
           params:
             - java_type: android.graphics.drawable.Drawable
               go_name: arg0
           returns: java.lang.Integer
           error: true
         - java_method: set
-          go_name: Set2
+          go_name: Set
           params:
             - java_type: android.graphics.drawable.Drawable
               go_name: arg0
             - java_type: java.lang.Integer
               go_name: arg1
           returns: void
-          error: true
-        - java_method: get
-          go_name: Get1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: java.lang.Object
-          error: true
-        - java_method: set
-          go_name: Set2_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: com.google.android.material.animation.MatrixEvaluator
-      go_type: MatrixEvaluator
-      obtain: constructor
-      methods:
-        - java_method: evaluate
-          go_name: Evaluate3
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: android.graphics.Matrix
-              go_name: arg1
-            - java_type: android.graphics.Matrix
-              go_name: arg2
-          returns: android.graphics.Matrix
-          error: true
-        - java_method: evaluate
-          go_name: Evaluate3_1
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-            - java_type: java.lang.Object
-              go_name: arg2
-          returns: java.lang.Object
           error: true
     - java_class: com.google.android.material.animation.ChildrenAlphaProperty
       go_type: ChildrenAlphaProperty
       methods:
         - java_method: get
-          go_name: Get1
+          go_name: Get
           params:
             - java_type: android.view.ViewGroup
               go_name: arg0
           returns: java.lang.Float
           error: true
         - java_method: set
-          go_name: Set2
+          go_name: Set
           params:
             - java_type: android.view.ViewGroup
               go_name: arg0
@@ -329,22 +244,28 @@ classes:
               go_name: arg1
           returns: void
           error: true
-        - java_method: get
-          go_name: Get1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: java.lang.Object
-          error: true
+    - java_class: com.google.android.material.animation.ImageMatrixProperty
+      go_type: ImageMatrixProperty
+      obtain: constructor
+      methods:
         - java_method: set
-          go_name: Set2_1
+          go_name: Set
           params:
-            - java_type: java.lang.Object
+            - java_type: android.widget.ImageView
               go_name: arg0
-            - java_type: java.lang.Object
+            - java_type: android.graphics.Matrix
               go_name: arg1
           returns: void
           error: true
+        - java_method: get
+          go_name: Get
+          params:
+            - java_type: android.widget.ImageView
+              go_name: arg0
+          returns: android.graphics.Matrix
+          error: true
+    - java_class: com.google.android.material.animation.TransformationCallback
+      go_type: TransformationCallback
     - java_class: com.google.android.material.animation.AnimationUtils
       go_type: Utils
       obtain: constructor
@@ -386,6 +307,16 @@ classes:
               go_name: arg4
           returns: float
           error: true
+    - java_class: com.google.android.material.animation.Positioning
+      go_type: Positioning
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: float
+          go_name: arg1
+        - java_type: float
+          go_name: arg2
 constants:
     - go_name: LinearInterpolator
       value: "0"

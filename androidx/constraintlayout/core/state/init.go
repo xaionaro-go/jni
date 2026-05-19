@@ -23,104 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsState                          *jni.GlobalRef
-	midStateCtor                      jni.MethodID
-	midStateReset                     jni.MethodID
-	midStateConvertDimension          jni.MethodID
-	midStateCreateConstraintReference jni.MethodID
-	midStateSameFixedWidth            jni.MethodID
-	midStateSameFixedHeight           jni.MethodID
-	midStateWidth                     jni.MethodID
-	midStateHeight                    jni.MethodID
-	midStateSetWidth                  jni.MethodID
-	midStateSetHeight                 jni.MethodID
-	midStateConstraints               jni.MethodID
-	midStateHelper                    jni.MethodID
-	midStateHorizontalGuideline       jni.MethodID
-	midStateVerticalGuideline         jni.MethodID
-	midStateGuideline                 jni.MethodID
-	midStateBarrier                   jni.MethodID
-	midStateVerticalChain0            jni.MethodID
-	midStateVerticalChain1_1          jni.MethodID
-	midStateHorizontalChain0          jni.MethodID
-	midStateHorizontalChain1_1        jni.MethodID
-	midStateCenterHorizontally        jni.MethodID
-	midStateCenterVertically          jni.MethodID
-	midStateDirectMapping             jni.MethodID
-	midStateMap                       jni.MethodID
-	midStateSetTag                    jni.MethodID
-	midStateGetIdsForTag              jni.MethodID
-	midStateApply                     jni.MethodID
-	midStateToString                  jni.MethodID
-
-	clsConstraint         *jni.GlobalRef
-	midConstraintToString jni.MethodID
-	midConstraintValues   jni.MethodID
-	midConstraintValueOf  jni.MethodID
-
-	clsDirection         *jni.GlobalRef
-	midDirectionToString jni.MethodID
-	midDirectionValues   jni.MethodID
-	midDirectionValueOf  jni.MethodID
-
-	clsHelper         *jni.GlobalRef
-	midHelperToString jni.MethodID
-	midHelperValues   jni.MethodID
-	midHelperValueOf  jni.MethodID
-
-	clsChain         *jni.GlobalRef
-	midChainToString jni.MethodID
-	midChainValues   jni.MethodID
-	midChainValueOf  jni.MethodID
-
-	clsReference                    *jni.GlobalRef
-	midReferenceGetConstraintWidget jni.MethodID
-	midReferenceSetConstraintWidget jni.MethodID
-	midReferenceSetKey              jni.MethodID
-	midReferenceGetKey              jni.MethodID
-	midReferenceApply               jni.MethodID
-	midReferenceGetFacade           jni.MethodID
-	midReferenceToString            jni.MethodID
-
-	clsWidgetFrame                        *jni.GlobalRef
-	midWidgetFrameCtor                    jni.MethodID
-	midWidgetFrameWidth                   jni.MethodID
-	midWidgetFrameHeight                  jni.MethodID
-	midWidgetFrameUpdateAttributes        jni.MethodID
-	midWidgetFrameIsDefaultTransform      jni.MethodID
-	midWidgetFrameCenterX                 jni.MethodID
-	midWidgetFrameCenterY                 jni.MethodID
-	midWidgetFrameUpdate0                 jni.MethodID
-	midWidgetFrameUpdate1_1               jni.MethodID
-	midWidgetFrameAddCustomColor          jni.MethodID
-	midWidgetFrameGetCustomColor          jni.MethodID
-	midWidgetFrameAddCustomFloat          jni.MethodID
-	midWidgetFrameGetCustomFloat          jni.MethodID
-	midWidgetFrameSetCustomAttribute3     jni.MethodID
-	midWidgetFrameSetCustomAttribute3_1   jni.MethodID
-	midWidgetFrameSetCustomAttribute3_2   jni.MethodID
-	midWidgetFrameSetCustomAttribute3_3   jni.MethodID
-	midWidgetFrameGetCustomAttribute      jni.MethodID
-	midWidgetFrameGetCustomAttributeNames jni.MethodID
-	midWidgetFrameSetValue                jni.MethodID
-	midWidgetFrameGetId                   jni.MethodID
-	midWidgetFrameSerialize1              jni.MethodID
-	midWidgetFrameSerialize2_1            jni.MethodID
-	midWidgetFrameSetCustomValue          jni.MethodID
-	midWidgetFrameToString                jni.MethodID
-	midWidgetFrameInterpolate             jni.MethodID
-
-	clsRegistryCallback                         *jni.GlobalRef
-	midRegistryCallbackOnNewMotionScene         jni.MethodID
-	midRegistryCallbackOnProgress               jni.MethodID
-	midRegistryCallbackOnDimensions             jni.MethodID
-	midRegistryCallbackCurrentMotionScene       jni.MethodID
-	midRegistryCallbackSetDrawDebug             jni.MethodID
-	midRegistryCallbackCurrentLayoutInformation jni.MethodID
-	midRegistryCallbackSetLayoutInformationMode jni.MethodID
-	midRegistryCallbackGetLastModified          jni.MethodID
-	midRegistryCallbackToString                 jni.MethodID
-
 	clsTransition                        *jni.GlobalRef
 	midTransitionCtor                    jni.MethodID
 	midTransitionFindPreviousPosition    jni.MethodID
@@ -159,6 +61,34 @@ var (
 	midTransitionToString                jni.MethodID
 	midTransitionGetInterpolator2        jni.MethodID
 
+	clsWidgetFrame                        *jni.GlobalRef
+	midWidgetFrameCtor                    jni.MethodID
+	midWidgetFrameWidth                   jni.MethodID
+	midWidgetFrameHeight                  jni.MethodID
+	midWidgetFrameUpdateAttributes        jni.MethodID
+	midWidgetFrameIsDefaultTransform      jni.MethodID
+	midWidgetFrameCenterX                 jni.MethodID
+	midWidgetFrameCenterY                 jni.MethodID
+	midWidgetFrameUpdate0                 jni.MethodID
+	midWidgetFrameUpdate1_1               jni.MethodID
+	midWidgetFrameAddCustomColor          jni.MethodID
+	midWidgetFrameGetCustomColor          jni.MethodID
+	midWidgetFrameAddCustomFloat          jni.MethodID
+	midWidgetFrameGetCustomFloat          jni.MethodID
+	midWidgetFrameSetCustomAttribute3     jni.MethodID
+	midWidgetFrameSetCustomAttribute3_1   jni.MethodID
+	midWidgetFrameSetCustomAttribute3_2   jni.MethodID
+	midWidgetFrameSetCustomAttribute3_3   jni.MethodID
+	midWidgetFrameGetCustomAttribute      jni.MethodID
+	midWidgetFrameGetCustomAttributeNames jni.MethodID
+	midWidgetFrameSetValue                jni.MethodID
+	midWidgetFrameGetId                   jni.MethodID
+	midWidgetFrameSerialize1              jni.MethodID
+	midWidgetFrameSerialize2_1            jni.MethodID
+	midWidgetFrameToString                jni.MethodID
+	midWidgetFrameInterpolate             jni.MethodID
+	midWidgetFrameSetCustomValue          jni.MethodID
+
 	clsRegistry                         *jni.GlobalRef
 	midRegistryCtor                     jni.MethodID
 	midRegistryRegister                 jni.MethodID
@@ -171,13 +101,9 @@ var (
 	midRegistrySetLayoutInformationMode jni.MethodID
 	midRegistryGetLayoutList            jni.MethodID
 	midRegistryGetLastModified          jni.MethodID
-	midRegistryUpdateDimensions         jni.MethodID
 	midRegistryToString                 jni.MethodID
 	midRegistryGetInstance              jni.MethodID
-
-	clsInterpolator                 *jni.GlobalRef
-	midInterpolatorGetInterpolation jni.MethodID
-	midInterpolatorToString         jni.MethodID
+	midRegistryUpdateDimensions         jni.MethodID
 
 	clsConstraintReference                         *jni.GlobalRef
 	midConstraintReferenceCtor                     jni.MethodID
@@ -274,6 +200,10 @@ var (
 	midConstraintReferenceConstraintReferenceFactoryCreate   jni.MethodID
 	midConstraintReferenceConstraintReferenceFactoryToString jni.MethodID
 
+	clsInterpolator                 *jni.GlobalRef
+	midInterpolatorGetInterpolation jni.MethodID
+	midInterpolatorToString         jni.MethodID
+
 	clsHelperReference                    *jni.GlobalRef
 	midHelperReferenceCtor                jni.MethodID
 	midHelperReferenceGetType             jni.MethodID
@@ -283,6 +213,41 @@ var (
 	midHelperReferenceGetConstraintWidget jni.MethodID
 	midHelperReferenceApply               jni.MethodID
 	midHelperReferenceToString            jni.MethodID
+
+	clsState                          *jni.GlobalRef
+	midStateCtor                      jni.MethodID
+	midStateReset                     jni.MethodID
+	midStateConvertDimension          jni.MethodID
+	midStateCreateConstraintReference jni.MethodID
+	midStateSameFixedWidth            jni.MethodID
+	midStateSameFixedHeight           jni.MethodID
+	midStateWidth                     jni.MethodID
+	midStateHeight                    jni.MethodID
+	midStateSetWidth                  jni.MethodID
+	midStateSetHeight                 jni.MethodID
+	midStateConstraints               jni.MethodID
+	midStateHelper                    jni.MethodID
+	midStateHorizontalGuideline       jni.MethodID
+	midStateVerticalGuideline         jni.MethodID
+	midStateGuideline                 jni.MethodID
+	midStateBarrier                   jni.MethodID
+	midStateVerticalChain0            jni.MethodID
+	midStateVerticalChain1_1          jni.MethodID
+	midStateHorizontalChain0          jni.MethodID
+	midStateHorizontalChain1_1        jni.MethodID
+	midStateCenterHorizontally        jni.MethodID
+	midStateCenterVertically          jni.MethodID
+	midStateDirectMapping             jni.MethodID
+	midStateMap                       jni.MethodID
+	midStateSetTag                    jni.MethodID
+	midStateGetIdsForTag              jni.MethodID
+	midStateToString                  jni.MethodID
+	midStateApply                     jni.MethodID
+
+	clsConstraint         *jni.GlobalRef
+	midConstraintToString jni.MethodID
+	midConstraintValues   jni.MethodID
+	midConstraintValueOf  jni.MethodID
 
 	clsDimension                 *jni.GlobalRef
 	midDimensionEqualsFixedValue jni.MethodID
@@ -296,7 +261,6 @@ var (
 	midDimensionFixed1_2         jni.MethodID
 	midDimensionFixed1_3         jni.MethodID
 	midDimensionRatio1_1         jni.MethodID
-	midDimensionApply            jni.MethodID
 	midDimensionToString         jni.MethodID
 	midDimensionSuggested1       jni.MethodID
 	midDimensionSuggested1_1     jni.MethodID
@@ -307,11 +271,47 @@ var (
 	midDimensionWrap             jni.MethodID
 	midDimensionSpread           jni.MethodID
 	midDimensionRatio1           jni.MethodID
+	midDimensionApply            jni.MethodID
+
+	clsDirection         *jni.GlobalRef
+	midDirectionToString jni.MethodID
+	midDirectionValues   jni.MethodID
+	midDirectionValueOf  jni.MethodID
 
 	clsDimensionType         *jni.GlobalRef
 	midDimensionTypeToString jni.MethodID
 	midDimensionTypeValues   jni.MethodID
 	midDimensionTypeValueOf  jni.MethodID
+
+	clsHelper         *jni.GlobalRef
+	midHelperToString jni.MethodID
+	midHelperValues   jni.MethodID
+	midHelperValueOf  jni.MethodID
+
+	clsChain         *jni.GlobalRef
+	midChainToString jni.MethodID
+	midChainValues   jni.MethodID
+	midChainValueOf  jni.MethodID
+
+	clsRegistryCallback                         *jni.GlobalRef
+	midRegistryCallbackOnNewMotionScene         jni.MethodID
+	midRegistryCallbackOnProgress               jni.MethodID
+	midRegistryCallbackOnDimensions             jni.MethodID
+	midRegistryCallbackCurrentMotionScene       jni.MethodID
+	midRegistryCallbackSetDrawDebug             jni.MethodID
+	midRegistryCallbackCurrentLayoutInformation jni.MethodID
+	midRegistryCallbackSetLayoutInformationMode jni.MethodID
+	midRegistryCallbackGetLastModified          jni.MethodID
+	midRegistryCallbackToString                 jni.MethodID
+
+	clsReference                    *jni.GlobalRef
+	midReferenceGetConstraintWidget jni.MethodID
+	midReferenceSetConstraintWidget jni.MethodID
+	midReferenceSetKey              jni.MethodID
+	midReferenceGetKey              jni.MethodID
+	midReferenceApply               jni.MethodID
+	midReferenceGetFacade           jni.MethodID
+	midReferenceToString            jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -331,654 +331,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("androidx/constraintlayout/core/state/State")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsState = env.NewGlobalRef(&c.Object)
-		midStateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midStateReset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "reset", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateConvertDimension, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "convertDimension", "(Ljava/lang/Object;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateCreateConstraintReference, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "createConstraintReference", "(Ljava/lang/Object;)Landroidx/constraintlayout/core/state/ConstraintReference;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateSameFixedWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "sameFixedWidth", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateSameFixedHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "sameFixedHeight", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "width", "(Landroidx/constraintlayout/core/state/Dimension;)Landroidx/constraintlayout/core/state/State;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "height", "(Landroidx/constraintlayout/core/state/Dimension;)Landroidx/constraintlayout/core/state/State;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateSetWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "setWidth", "(Landroidx/constraintlayout/core/state/Dimension;)Landroidx/constraintlayout/core/state/State;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateSetHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "setHeight", "(Landroidx/constraintlayout/core/state/Dimension;)Landroidx/constraintlayout/core/state/State;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateConstraints, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "constraints", "(Ljava/lang/Object;)Landroidx/constraintlayout/core/state/ConstraintReference;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateHelper, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "helper", "(Ljava/lang/Object;Landroidx/constraintlayout/core/state/State$Helper;)Landroidx/constraintlayout/core/state/HelperReference;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateHorizontalGuideline, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "horizontalGuideline", "(Ljava/lang/Object;)Landroidx/constraintlayout/core/state/helpers/GuidelineReference;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateVerticalGuideline, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "verticalGuideline", "(Ljava/lang/Object;)Landroidx/constraintlayout/core/state/helpers/GuidelineReference;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateGuideline, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "guideline", "(Ljava/lang/Object;I)Landroidx/constraintlayout/core/state/helpers/GuidelineReference;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateBarrier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "barrier", "(Ljava/lang/Object;Landroidx/constraintlayout/core/state/State$Direction;)Landroidx/constraintlayout/core/state/helpers/BarrierReference;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateVerticalChain0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "verticalChain", "()Landroidx/constraintlayout/core/state/helpers/VerticalChainReference;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateVerticalChain1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "verticalChain", "([Ljava/lang/Object;)Landroidx/constraintlayout/core/state/helpers/VerticalChainReference;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateHorizontalChain0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "horizontalChain", "()Landroidx/constraintlayout/core/state/helpers/HorizontalChainReference;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateHorizontalChain1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "horizontalChain", "([Ljava/lang/Object;)Landroidx/constraintlayout/core/state/helpers/HorizontalChainReference;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateCenterHorizontally, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "centerHorizontally", "([Ljava/lang/Object;)Landroidx/constraintlayout/core/state/helpers/AlignHorizontallyReference;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateCenterVertically, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "centerVertically", "([Ljava/lang/Object;)Landroidx/constraintlayout/core/state/helpers/AlignVerticallyReference;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateDirectMapping, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "directMapping", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateMap, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "map", "(Ljava/lang/Object;Ljava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateSetTag, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "setTag", "(Ljava/lang/String;Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateGetIdsForTag, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "getIdsForTag", "(Ljava/lang/String;)Ljava/util/ArrayList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateApply, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "apply", "(Landroidx/constraintlayout/core/widgets/ConstraintWidgetContainer;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/core/state/State$Constraint")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsConstraint = env.NewGlobalRef(&c.Object)
-
-		midConstraintToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConstraint)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConstraintValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsConstraint)), "values", "()[Landroidx/constraintlayout/core/state/State$Constraint;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConstraintValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsConstraint)), "valueOf", "(Ljava/lang/String;)Landroidx/constraintlayout/core/state/State$Constraint;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/core/state/State$Direction")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDirection = env.NewGlobalRef(&c.Object)
-
-		midDirectionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDirection)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDirectionValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDirection)), "values", "()[Landroidx/constraintlayout/core/state/State$Direction;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDirectionValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDirection)), "valueOf", "(Ljava/lang/String;)Landroidx/constraintlayout/core/state/State$Direction;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/core/state/State$Helper")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsHelper = env.NewGlobalRef(&c.Object)
-
-		midHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHelper)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHelperValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHelper)), "values", "()[Landroidx/constraintlayout/core/state/State$Helper;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHelperValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHelper)), "valueOf", "(Ljava/lang/String;)Landroidx/constraintlayout/core/state/State$Helper;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/core/state/State$Chain")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsChain = env.NewGlobalRef(&c.Object)
-
-		midChainToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChain)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChainValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsChain)), "values", "()[Landroidx/constraintlayout/core/state/State$Chain;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChainValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsChain)), "valueOf", "(Ljava/lang/String;)Landroidx/constraintlayout/core/state/State$Chain;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/core/state/Reference")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsReference = env.NewGlobalRef(&c.Object)
-
-		midReferenceGetConstraintWidget, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "getConstraintWidget", "()Landroidx/constraintlayout/core/widgets/ConstraintWidget;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReferenceSetConstraintWidget, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "setConstraintWidget", "(Landroidx/constraintlayout/core/widgets/ConstraintWidget;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReferenceSetKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "setKey", "(Ljava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReferenceGetKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "getKey", "()Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReferenceApply, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "apply", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReferenceGetFacade, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "getFacade", "()Landroidx/constraintlayout/core/state/helpers/Facade;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReferenceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/core/state/WidgetFrame")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsWidgetFrame = env.NewGlobalRef(&c.Object)
-		midWidgetFrameCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "width", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "height", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameUpdateAttributes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "updateAttributes", "(Landroidx/constraintlayout/core/state/WidgetFrame;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameIsDefaultTransform, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "isDefaultTransform", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameCenterX, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "centerX", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameCenterY, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "centerY", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameUpdate0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "update", "()Landroidx/constraintlayout/core/state/WidgetFrame;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameUpdate1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "update", "(Landroidx/constraintlayout/core/widgets/ConstraintWidget;)Landroidx/constraintlayout/core/state/WidgetFrame;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameAddCustomColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "addCustomColor", "(Ljava/lang/String;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameGetCustomColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "getCustomColor", "(Ljava/lang/String;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameAddCustomFloat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "addCustomFloat", "(Ljava/lang/String;F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameGetCustomFloat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "getCustomFloat", "(Ljava/lang/String;)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameSetCustomAttribute3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "setCustomAttribute", "(Ljava/lang/String;IF)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameSetCustomAttribute3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "setCustomAttribute", "(Ljava/lang/String;II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameSetCustomAttribute3_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "setCustomAttribute", "(Ljava/lang/String;IZ)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameSetCustomAttribute3_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "setCustomAttribute", "(Ljava/lang/String;ILjava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameGetCustomAttribute, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "getCustomAttribute", "(Ljava/lang/String;)Landroidx/constraintlayout/core/motion/CustomVariable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameGetCustomAttributeNames, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "getCustomAttributeNames", "()Ljava/util/Set;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameSetValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "setValue", "(Ljava/lang/String;Landroidx/constraintlayout/core/parser/CLElement;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "getId", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameSerialize1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "serialize", "(Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameSerialize2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "serialize", "(Ljava/lang/StringBuilder;Z)Ljava/lang/StringBuilder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameSetCustomValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "setCustomValue", "(Landroidx/constraintlayout/core/motion/CustomAttribute;[F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWidgetFrameInterpolate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "interpolate", "(IILandroidx/constraintlayout/core/state/WidgetFrame;Landroidx/constraintlayout/core/state/WidgetFrame;Landroidx/constraintlayout/core/state/WidgetFrame;Landroidx/constraintlayout/core/state/Transition;F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/core/state/RegistryCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRegistryCallback = env.NewGlobalRef(&c.Object)
-
-		midRegistryCallbackOnNewMotionScene, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCallback)), "onNewMotionScene", "(Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryCallbackOnProgress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCallback)), "onProgress", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryCallbackOnDimensions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCallback)), "onDimensions", "(II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryCallbackCurrentMotionScene, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCallback)), "currentMotionScene", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryCallbackSetDrawDebug, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCallback)), "setDrawDebug", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryCallbackCurrentLayoutInformation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCallback)), "currentLayoutInformation", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryCallbackSetLayoutInformationMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCallback)), "setLayoutInformationMode", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryCallbackGetLastModified, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCallback)), "getLastModified", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("androidx/constraintlayout/core/state/Transition")
 	if err != nil {
@@ -1239,6 +591,195 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("androidx/constraintlayout/core/state/WidgetFrame")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsWidgetFrame = env.NewGlobalRef(&c.Object)
+		midWidgetFrameCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "width", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "height", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameUpdateAttributes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "updateAttributes", "(Landroidx/constraintlayout/core/state/WidgetFrame;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameIsDefaultTransform, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "isDefaultTransform", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameCenterX, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "centerX", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameCenterY, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "centerY", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameUpdate0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "update", "()Landroidx/constraintlayout/core/state/WidgetFrame;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameUpdate1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "update", "(Landroidx/constraintlayout/core/widgets/ConstraintWidget;)Landroidx/constraintlayout/core/state/WidgetFrame;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameAddCustomColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "addCustomColor", "(Ljava/lang/String;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameGetCustomColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "getCustomColor", "(Ljava/lang/String;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameAddCustomFloat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "addCustomFloat", "(Ljava/lang/String;F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameGetCustomFloat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "getCustomFloat", "(Ljava/lang/String;)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameSetCustomAttribute3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "setCustomAttribute", "(Ljava/lang/String;IF)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameSetCustomAttribute3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "setCustomAttribute", "(Ljava/lang/String;II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameSetCustomAttribute3_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "setCustomAttribute", "(Ljava/lang/String;IZ)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameSetCustomAttribute3_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "setCustomAttribute", "(Ljava/lang/String;ILjava/lang/String;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameGetCustomAttribute, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "getCustomAttribute", "(Ljava/lang/String;)Landroidx/constraintlayout/core/motion/CustomVariable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameGetCustomAttributeNames, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "getCustomAttributeNames", "()Ljava/util/Set;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameSetValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "setValue", "(Ljava/lang/String;Landroidx/constraintlayout/core/parser/CLElement;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "getId", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameSerialize1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "serialize", "(Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameSerialize2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "serialize", "(Ljava/lang/StringBuilder;Z)Ljava/lang/StringBuilder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameInterpolate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "interpolate", "(IILandroidx/constraintlayout/core/state/WidgetFrame;Landroidx/constraintlayout/core/state/WidgetFrame;Landroidx/constraintlayout/core/state/WidgetFrame;Landroidx/constraintlayout/core/state/Transition;F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWidgetFrameSetCustomValue, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), "setCustomValue", "(Landroidx/constraintlayout/core/motion/CustomAttribute;[F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("androidx/constraintlayout/core/state/Registry")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -1321,13 +862,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midRegistryUpdateDimensions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "updateDimensions", "(Ljava/lang/String;II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midRegistryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -1342,24 +876,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/core/state/Interpolator")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsInterpolator = env.NewGlobalRef(&c.Object)
-
-		midInterpolatorGetInterpolation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInterpolator)), "getInterpolation", "(F)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInterpolatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInterpolator)), "toString", "()Ljava/lang/String;")
+		midRegistryUpdateDimensions, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "updateDimensions", "(Ljava/lang/String;II)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2022,6 +1539,30 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("androidx/constraintlayout/core/state/Interpolator")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInterpolator = env.NewGlobalRef(&c.Object)
+
+		midInterpolatorGetInterpolation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInterpolator)), "getInterpolation", "(F)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInterpolatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInterpolator)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("androidx/constraintlayout/core/state/HelperReference")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -2077,6 +1618,240 @@ func doInit(env *jni.Env) error {
 		}
 
 		midHelperReferenceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHelperReference)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/core/state/State")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsState = env.NewGlobalRef(&c.Object)
+		midStateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midStateReset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "reset", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateConvertDimension, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "convertDimension", "(Ljava/lang/Object;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateCreateConstraintReference, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "createConstraintReference", "(Ljava/lang/Object;)Landroidx/constraintlayout/core/state/ConstraintReference;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateSameFixedWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "sameFixedWidth", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateSameFixedHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "sameFixedHeight", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "width", "(Landroidx/constraintlayout/core/state/Dimension;)Landroidx/constraintlayout/core/state/State;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "height", "(Landroidx/constraintlayout/core/state/Dimension;)Landroidx/constraintlayout/core/state/State;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateSetWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "setWidth", "(Landroidx/constraintlayout/core/state/Dimension;)Landroidx/constraintlayout/core/state/State;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateSetHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "setHeight", "(Landroidx/constraintlayout/core/state/Dimension;)Landroidx/constraintlayout/core/state/State;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateConstraints, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "constraints", "(Ljava/lang/Object;)Landroidx/constraintlayout/core/state/ConstraintReference;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateHelper, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "helper", "(Ljava/lang/Object;Landroidx/constraintlayout/core/state/State$Helper;)Landroidx/constraintlayout/core/state/HelperReference;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateHorizontalGuideline, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "horizontalGuideline", "(Ljava/lang/Object;)Landroidx/constraintlayout/core/state/helpers/GuidelineReference;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateVerticalGuideline, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "verticalGuideline", "(Ljava/lang/Object;)Landroidx/constraintlayout/core/state/helpers/GuidelineReference;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateGuideline, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "guideline", "(Ljava/lang/Object;I)Landroidx/constraintlayout/core/state/helpers/GuidelineReference;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateBarrier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "barrier", "(Ljava/lang/Object;Landroidx/constraintlayout/core/state/State$Direction;)Landroidx/constraintlayout/core/state/helpers/BarrierReference;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateVerticalChain0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "verticalChain", "()Landroidx/constraintlayout/core/state/helpers/VerticalChainReference;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateVerticalChain1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "verticalChain", "([Ljava/lang/Object;)Landroidx/constraintlayout/core/state/helpers/VerticalChainReference;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateHorizontalChain0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "horizontalChain", "()Landroidx/constraintlayout/core/state/helpers/HorizontalChainReference;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateHorizontalChain1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "horizontalChain", "([Ljava/lang/Object;)Landroidx/constraintlayout/core/state/helpers/HorizontalChainReference;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateCenterHorizontally, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "centerHorizontally", "([Ljava/lang/Object;)Landroidx/constraintlayout/core/state/helpers/AlignHorizontallyReference;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateCenterVertically, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "centerVertically", "([Ljava/lang/Object;)Landroidx/constraintlayout/core/state/helpers/AlignVerticallyReference;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateDirectMapping, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "directMapping", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateMap, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "map", "(Ljava/lang/Object;Ljava/lang/Object;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateSetTag, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "setTag", "(Ljava/lang/String;Ljava/lang/String;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateGetIdsForTag, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "getIdsForTag", "(Ljava/lang/String;)Ljava/util/ArrayList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateApply, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsState)), "apply", "(Landroidx/constraintlayout/core/widgets/ConstraintWidgetContainer;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/core/state/State$Constraint")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsConstraint = env.NewGlobalRef(&c.Object)
+
+		midConstraintToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConstraint)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConstraintValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsConstraint)), "values", "()[Landroidx/constraintlayout/core/state/State$Constraint;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConstraintValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsConstraint)), "valueOf", "(Ljava/lang/String;)Landroidx/constraintlayout/core/state/State$Constraint;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2170,13 +1945,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midDimensionApply, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "apply", "(Landroidx/constraintlayout/core/state/State;Landroidx/constraintlayout/core/widgets/ConstraintWidget;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midDimensionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -2247,6 +2015,44 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
+		midDimensionApply, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "apply", "(Landroidx/constraintlayout/core/state/State;Landroidx/constraintlayout/core/widgets/ConstraintWidget;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/core/state/State$Direction")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDirection = env.NewGlobalRef(&c.Object)
+
+		midDirectionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDirection)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDirectionValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDirection)), "values", "()[Landroidx/constraintlayout/core/state/State$Direction;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDirectionValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDirection)), "valueOf", "(Ljava/lang/String;)Landroidx/constraintlayout/core/state/State$Direction;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
 	}
 
 	c, err = env.FindClass("androidx/constraintlayout/core/state/Dimension$Type")
@@ -2272,6 +2078,200 @@ func doInit(env *jni.Env) error {
 		}
 
 		midDimensionTypeValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimensionType)), "valueOf", "(Ljava/lang/String;)Landroidx/constraintlayout/core/state/Dimension$Type;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/core/state/State$Helper")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsHelper = env.NewGlobalRef(&c.Object)
+
+		midHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHelper)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHelperValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHelper)), "values", "()[Landroidx/constraintlayout/core/state/State$Helper;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHelperValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHelper)), "valueOf", "(Ljava/lang/String;)Landroidx/constraintlayout/core/state/State$Helper;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/core/state/State$Chain")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsChain = env.NewGlobalRef(&c.Object)
+
+		midChainToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChain)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChainValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsChain)), "values", "()[Landroidx/constraintlayout/core/state/State$Chain;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChainValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsChain)), "valueOf", "(Ljava/lang/String;)Landroidx/constraintlayout/core/state/State$Chain;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/core/state/RegistryCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRegistryCallback = env.NewGlobalRef(&c.Object)
+
+		midRegistryCallbackOnNewMotionScene, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCallback)), "onNewMotionScene", "(Ljava/lang/String;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryCallbackOnProgress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCallback)), "onProgress", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryCallbackOnDimensions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCallback)), "onDimensions", "(II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryCallbackCurrentMotionScene, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCallback)), "currentMotionScene", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryCallbackSetDrawDebug, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCallback)), "setDrawDebug", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryCallbackCurrentLayoutInformation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCallback)), "currentLayoutInformation", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryCallbackSetLayoutInformationMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCallback)), "setLayoutInformationMode", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryCallbackGetLastModified, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCallback)), "getLastModified", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/core/state/Reference")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsReference = env.NewGlobalRef(&c.Object)
+
+		midReferenceGetConstraintWidget, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "getConstraintWidget", "()Landroidx/constraintlayout/core/widgets/ConstraintWidget;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midReferenceSetConstraintWidget, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "setConstraintWidget", "(Landroidx/constraintlayout/core/widgets/ConstraintWidget;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midReferenceSetKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "setKey", "(Ljava/lang/Object;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midReferenceGetKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "getKey", "()Ljava/lang/Object;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midReferenceApply, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "apply", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midReferenceGetFacade, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "getFacade", "()Landroidx/constraintlayout/core/state/helpers/Facade;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midReferenceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

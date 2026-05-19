@@ -32,6 +32,12 @@ func NewMagnifier(vm *jni.VM, arg0 *jni.Object) (*Magnifier, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMagnifier == nil {
+			return fmt.Errorf("android.widget.Magnifier is not available on this device")
+		}
+		if midMagnifierCtor == nil {
+			return fmt.Errorf("android.widget.Magnifier constructor (Landroid/view/View;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMagnifier)), midMagnifierCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -59,6 +59,7 @@ var (
 	midContractDocumentToString jni.MethodID
 
 	clsContractPath                 *jni.GlobalRef
+	midContractPathCtor             jni.MethodID
 	midContractPathDescribeContents jni.MethodID
 	midContractPathEquals           jni.MethodID
 	midContractPathGetPath          jni.MethodID
@@ -333,6 +334,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsContractPath = env.NewGlobalRef(&c.Object)
+		midContractPathCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContractPath)), "<init>", "(Ljava/lang/String;Ljava/util/List;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midContractPathDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContractPath)), "describeContents", "()I")
 		if err != nil {
@@ -376,7 +381,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midContractPathWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContractPath)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midContractPathWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContractPath)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

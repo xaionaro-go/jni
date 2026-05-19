@@ -23,6 +23,34 @@ type ContractQuickContact struct {
 	Obj *jni.GlobalRef
 }
 
+// NewContractQuickContact creates a new android.provider.ContactsContract$QuickContact instance.
+func NewContractQuickContact(vm *jni.VM) (*ContractQuickContact, error) {
+	var t ContractQuickContact
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsContractQuickContact == nil {
+			return fmt.Errorf("android.provider.ContactsContract$QuickContact is not available on this device")
+		}
+		if midContractQuickContactCtor == nil {
+			return fmt.Errorf("android.provider.ContactsContract$QuickContact constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContractQuickContact)), midContractQuickContactCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.provider.ContactsContract$QuickContact.toString.
 func (m *ContractQuickContact) ToString() (string, error) {
 	var result string

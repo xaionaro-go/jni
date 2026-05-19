@@ -23,41 +23,17 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsProfileVerifier                          *jni.GlobalRef
-	midProfileVerifierToString                  jni.MethodID
-	midProfileVerifierWriteProfileVerification  jni.MethodID
-	midProfileVerifierGetCompilationStatusAsync jni.MethodID
-
-	clsProfileVerifierCompilationStatus                                 *jni.GlobalRef
-	midProfileVerifierCompilationStatusGetProfileInstallResultCode      jni.MethodID
-	midProfileVerifierCompilationStatusIsCompiledWithProfile            jni.MethodID
-	midProfileVerifierCompilationStatusHasProfileEnqueuedForCompilation jni.MethodID
-	midProfileVerifierCompilationStatusToString                         jni.MethodID
-
-	clsProfileInstallReceiver          *jni.GlobalRef
-	midProfileInstallReceiverCtor      jni.MethodID
-	midProfileInstallReceiverOnReceive jni.MethodID
-	midProfileInstallReceiverToString  jni.MethodID
-
 	clsProfileVersion         *jni.GlobalRef
 	midProfileVersionToString jni.MethodID
 
-	clsProfileInstallerInitializer          *jni.GlobalRef
-	midProfileInstallerInitializerCtor      jni.MethodID
-	midProfileInstallerInitializerCreate1   jni.MethodID
-	midProfileInstallerInitializerCreate1_1 jni.MethodID
-	midProfileInstallerInitializerToString  jni.MethodID
+	clsProfileInstallerInitializer         *jni.GlobalRef
+	midProfileInstallerInitializerCtor     jni.MethodID
+	midProfileInstallerInitializerCreate   jni.MethodID
+	midProfileInstallerInitializerToString jni.MethodID
 
 	clsProfileInstallerInitializerResult         *jni.GlobalRef
+	midProfileInstallerInitializerResultCtor     jni.MethodID
 	midProfileInstallerInitializerResultToString jni.MethodID
-
-	clsDeviceProfileWriter                                      *jni.GlobalRef
-	midDeviceProfileWriterCtor                                  jni.MethodID
-	midDeviceProfileWriterDeviceAllowsProfileInstallerAotWrites jni.MethodID
-	midDeviceProfileWriterRead                                  jni.MethodID
-	midDeviceProfileWriterTranscodeIfNeeded                     jni.MethodID
-	midDeviceProfileWriterWrite                                 jni.MethodID
-	midDeviceProfileWriterToString                              jni.MethodID
 
 	clsProfileInstaller                *jni.GlobalRef
 	midProfileInstallerToString        jni.MethodID
@@ -74,6 +50,30 @@ var (
 
 	clsProfileInstallerResultCode         *jni.GlobalRef
 	midProfileInstallerResultCodeToString jni.MethodID
+
+	clsProfileInstallReceiver          *jni.GlobalRef
+	midProfileInstallReceiverCtor      jni.MethodID
+	midProfileInstallReceiverToString  jni.MethodID
+	midProfileInstallReceiverOnReceive jni.MethodID
+
+	clsDeviceProfileWriter                                      *jni.GlobalRef
+	midDeviceProfileWriterCtor                                  jni.MethodID
+	midDeviceProfileWriterDeviceAllowsProfileInstallerAotWrites jni.MethodID
+	midDeviceProfileWriterRead                                  jni.MethodID
+	midDeviceProfileWriterTranscodeIfNeeded                     jni.MethodID
+	midDeviceProfileWriterWrite                                 jni.MethodID
+	midDeviceProfileWriterToString                              jni.MethodID
+
+	clsProfileVerifier                          *jni.GlobalRef
+	midProfileVerifierToString                  jni.MethodID
+	midProfileVerifierWriteProfileVerification  jni.MethodID
+	midProfileVerifierGetCompilationStatusAsync jni.MethodID
+
+	clsProfileVerifierCompilationStatus                                 *jni.GlobalRef
+	midProfileVerifierCompilationStatusGetProfileInstallResultCode      jni.MethodID
+	midProfileVerifierCompilationStatusIsCompiledWithProfile            jni.MethodID
+	midProfileVerifierCompilationStatusHasProfileEnqueuedForCompilation jni.MethodID
+	midProfileVerifierCompilationStatusToString                         jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -93,103 +93,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("androidx/profileinstaller/ProfileVerifier")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsProfileVerifier = env.NewGlobalRef(&c.Object)
-
-		midProfileVerifierToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileVerifier)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileVerifierWriteProfileVerification, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsProfileVerifier)), "writeProfileVerification", "(Landroid/content/Context;)Landroidx/profileinstaller/ProfileVerifier$CompilationStatus;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileVerifierGetCompilationStatusAsync, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsProfileVerifier)), "getCompilationStatusAsync", "()Lcom/google/common/util/concurrent/ListenableFuture;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/profileinstaller/ProfileVerifier$CompilationStatus")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsProfileVerifierCompilationStatus = env.NewGlobalRef(&c.Object)
-
-		midProfileVerifierCompilationStatusGetProfileInstallResultCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileVerifierCompilationStatus)), "getProfileInstallResultCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileVerifierCompilationStatusIsCompiledWithProfile, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileVerifierCompilationStatus)), "isCompiledWithProfile", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileVerifierCompilationStatusHasProfileEnqueuedForCompilation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileVerifierCompilationStatus)), "hasProfileEnqueuedForCompilation", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileVerifierCompilationStatusToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileVerifierCompilationStatus)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/profileinstaller/ProfileInstallReceiver")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsProfileInstallReceiver = env.NewGlobalRef(&c.Object)
-		midProfileInstallReceiverCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileInstallReceiver)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midProfileInstallReceiverOnReceive, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileInstallReceiver)), "onReceive", "(Landroid/content/Context;Landroid/content/Intent;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileInstallReceiverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileInstallReceiver)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("androidx/profileinstaller/ProfileVersion")
 	if err != nil {
@@ -220,14 +123,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midProfileInstallerInitializerCreate1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileInstallerInitializer)), "create", "(Landroid/content/Context;)Landroidx/profileinstaller/ProfileInstallerInitializer$Result;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileInstallerInitializerCreate1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileInstallerInitializer)), "create", "(Landroid/content/Context;)Ljava/lang/Object;")
+		midProfileInstallerInitializerCreate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileInstallerInitializer)), "create", "(Landroid/content/Context;)Landroidx/profileinstaller/ProfileInstallerInitializer$Result;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -250,57 +146,12 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsProfileInstallerInitializerResult = env.NewGlobalRef(&c.Object)
+		midProfileInstallerInitializerResultCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileInstallerInitializerResult)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midProfileInstallerInitializerResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileInstallerInitializerResult)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/profileinstaller/DeviceProfileWriter")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDeviceProfileWriter = env.NewGlobalRef(&c.Object)
-		midDeviceProfileWriterCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceProfileWriter)), "<init>", "(Landroid/content/res/AssetManager;Ljava/util/concurrent/Executor;Landroidx/profileinstaller/ProfileInstaller$DiagnosticsCallback;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midDeviceProfileWriterDeviceAllowsProfileInstallerAotWrites, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceProfileWriter)), "deviceAllowsProfileInstallerAotWrites", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeviceProfileWriterRead, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceProfileWriter)), "read", "()Landroidx/profileinstaller/DeviceProfileWriter;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeviceProfileWriterTranscodeIfNeeded, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceProfileWriter)), "transcodeIfNeeded", "()Landroidx/profileinstaller/DeviceProfileWriter;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeviceProfileWriterWrite, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceProfileWriter)), "write", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeviceProfileWriterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceProfileWriter)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -397,6 +248,152 @@ func doInit(env *jni.Env) error {
 		clsProfileInstallerResultCode = env.NewGlobalRef(&c.Object)
 
 		midProfileInstallerResultCodeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileInstallerResultCode)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/profileinstaller/ProfileInstallReceiver")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsProfileInstallReceiver = env.NewGlobalRef(&c.Object)
+		midProfileInstallReceiverCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileInstallReceiver)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midProfileInstallReceiverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileInstallReceiver)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileInstallReceiverOnReceive, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsProfileInstallReceiver)), "onReceive", "(Landroid/content/Context;Landroid/content/Intent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/profileinstaller/DeviceProfileWriter")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDeviceProfileWriter = env.NewGlobalRef(&c.Object)
+		midDeviceProfileWriterCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceProfileWriter)), "<init>", "(Landroid/content/res/AssetManager;Ljava/util/concurrent/Executor;Landroidx/profileinstaller/ProfileInstaller$DiagnosticsCallback;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midDeviceProfileWriterDeviceAllowsProfileInstallerAotWrites, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceProfileWriter)), "deviceAllowsProfileInstallerAotWrites", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDeviceProfileWriterRead, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceProfileWriter)), "read", "()Landroidx/profileinstaller/DeviceProfileWriter;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDeviceProfileWriterTranscodeIfNeeded, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceProfileWriter)), "transcodeIfNeeded", "()Landroidx/profileinstaller/DeviceProfileWriter;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDeviceProfileWriterWrite, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceProfileWriter)), "write", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDeviceProfileWriterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceProfileWriter)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/profileinstaller/ProfileVerifier")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsProfileVerifier = env.NewGlobalRef(&c.Object)
+
+		midProfileVerifierToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileVerifier)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileVerifierWriteProfileVerification, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsProfileVerifier)), "writeProfileVerification", "(Landroid/content/Context;)Landroidx/profileinstaller/ProfileVerifier$CompilationStatus;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileVerifierGetCompilationStatusAsync, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsProfileVerifier)), "getCompilationStatusAsync", "()Lcom/google/common/util/concurrent/ListenableFuture;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/profileinstaller/ProfileVerifier$CompilationStatus")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsProfileVerifierCompilationStatus = env.NewGlobalRef(&c.Object)
+
+		midProfileVerifierCompilationStatusGetProfileInstallResultCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileVerifierCompilationStatus)), "getProfileInstallResultCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileVerifierCompilationStatusIsCompiledWithProfile, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileVerifierCompilationStatus)), "isCompiledWithProfile", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileVerifierCompilationStatusHasProfileEnqueuedForCompilation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileVerifierCompilationStatus)), "hasProfileEnqueuedForCompilation", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileVerifierCompilationStatusToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileVerifierCompilationStatus)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

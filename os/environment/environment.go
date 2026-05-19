@@ -32,6 +32,12 @@ func NewEnvironment(vm *jni.VM) (*Environment, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEnvironment == nil {
+			return fmt.Errorf("android.os.Environment is not available on this device")
+		}
+		if midEnvironmentCtor == nil {
+			return fmt.Errorf("android.os.Environment constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEnvironment)), midEnvironmentCtor)
 		if err != nil {
 			return err

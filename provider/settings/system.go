@@ -23,6 +23,34 @@ type System struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSystem creates a new android.provider.Settings$System instance.
+func NewSystem(vm *jni.VM) (*System, error) {
+	var t System
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSystem == nil {
+			return fmt.Errorf("android.provider.Settings$System is not available on this device")
+		}
+		if midSystemCtor == nil {
+			return fmt.Errorf("android.provider.Settings$System constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSystem)), midSystemCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.provider.Settings$System.toString.
 func (m *System) ToString() (string, error) {
 	var result string

@@ -764,29 +764,6 @@ func (m *InputDevice) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.InputDevice.writeToParcel.
-func (m *InputDevice) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midInputDeviceWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.InputDevice.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midInputDeviceWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // GetDevice calls android.view.InputDevice.getDevice.
 func (m *InputDevice) GetDevice(arg0 int32) (*jni.Object, error) {
 	var result *jni.Object
@@ -850,4 +827,27 @@ func (m *InputDevice) GetDeviceIds() (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.InputDevice.writeToParcel.
+func (m *InputDevice) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midInputDeviceWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.InputDevice.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsInputDevice)),
+			midInputDeviceWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

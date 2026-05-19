@@ -5,6 +5,22 @@ package appwidget
 import "github.com/AndroidGoLab/jni/appwidget/consts"
 
 const (
+	Creator                            = consts.Creator
+	ResizeBoth                         = consts.ResizeBoth
+	ResizeHorizontal                   = consts.ResizeHorizontal
+	ResizeNone                         = consts.ResizeNone
+	ResizeVertical                     = consts.ResizeVertical
+	WidgetCategoryHomeScreen           = consts.WidgetCategoryHomeScreen
+	WidgetCategoryKeyguard             = consts.WidgetCategoryKeyguard
+	WidgetCategoryNotKeyguard          = consts.WidgetCategoryNotKeyguard
+	WidgetCategorySearchbox            = consts.WidgetCategorySearchbox
+	WidgetFeatureConfigurationOptional = consts.WidgetFeatureConfigurationOptional
+	WidgetFeatureHideFromPicker        = consts.WidgetFeatureHideFromPicker
+	WidgetFeatureReconfigurable        = consts.WidgetFeatureReconfigurable
+	InvalidAppwidgetId                 = consts.InvalidAppwidgetId
+)
+
+const (
 	ActionAppwidgetBind             = consts.ActionAppwidgetBind
 	ActionAppwidgetConfigure        = consts.ActionAppwidgetConfigure
 	ActionAppwidgetDeleted          = consts.ActionAppwidgetDeleted
@@ -33,20 +49,4 @@ const (
 	OptionAppwidgetMinWidth         = consts.OptionAppwidgetMinWidth
 	OptionAppwidgetRestoreCompleted = consts.OptionAppwidgetRestoreCompleted
 	OptionAppwidgetSizes            = consts.OptionAppwidgetSizes
-)
-
-const (
-	InvalidAppwidgetId                 = consts.InvalidAppwidgetId
-	Creator                            = consts.Creator
-	ResizeBoth                         = consts.ResizeBoth
-	ResizeHorizontal                   = consts.ResizeHorizontal
-	ResizeNone                         = consts.ResizeNone
-	ResizeVertical                     = consts.ResizeVertical
-	WidgetCategoryHomeScreen           = consts.WidgetCategoryHomeScreen
-	WidgetCategoryKeyguard             = consts.WidgetCategoryKeyguard
-	WidgetCategoryNotKeyguard          = consts.WidgetCategoryNotKeyguard
-	WidgetCategorySearchbox            = consts.WidgetCategorySearchbox
-	WidgetFeatureConfigurationOptional = consts.WidgetFeatureConfigurationOptional
-	WidgetFeatureHideFromPicker        = consts.WidgetFeatureHideFromPicker
-	WidgetFeatureReconfigurable        = consts.WidgetFeatureReconfigurable
 )

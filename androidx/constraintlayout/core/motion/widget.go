@@ -32,6 +32,12 @@ func NewWidget(vm *jni.VM) (*Widget, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWidget == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.MotionWidget is not available on this device")
+		}
+		if midWidgetCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.MotionWidget constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWidget)), midWidgetCtor)
 		if err != nil {
 			return err

@@ -69,8 +69,8 @@ func (m *ScriptIntrinsicConvolve3x3) ForEach2_1(arg0 *jni.Object, arg1 *jni.Obje
 	return callErr
 }
 
-// GetFieldID_Input calls android.renderscript.ScriptIntrinsicConvolve3x3.getFieldID_Input.
-func (m *ScriptIntrinsicConvolve3x3) GetFieldID_Input() (*jni.Object, error) {
+// GetFieldIDInput calls android.renderscript.ScriptIntrinsicConvolve3x3.getFieldID_Input.
+func (m *ScriptIntrinsicConvolve3x3) GetFieldIDInput() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -78,13 +78,13 @@ func (m *ScriptIntrinsicConvolve3x3) GetFieldID_Input() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midScriptIntrinsicConvolve3x3GetFieldID_Input == nil {
+		if midScriptIntrinsicConvolve3x3GetFieldIDInput == nil {
 			callErr = fmt.Errorf("android.renderscript.ScriptIntrinsicConvolve3x3.getFieldID_Input is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midScriptIntrinsicConvolve3x3GetFieldID_Input,
+			midScriptIntrinsicConvolve3x3GetFieldIDInput,
 		)
 		if callErr != nil {
 			return callErr

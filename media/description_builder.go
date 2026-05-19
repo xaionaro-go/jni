@@ -23,6 +23,34 @@ type DescriptionBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDescriptionBuilder creates a new android.media.MediaDescription$Builder instance.
+func NewDescriptionBuilder(vm *jni.VM) (*DescriptionBuilder, error) {
+	var t DescriptionBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDescriptionBuilder == nil {
+			return fmt.Errorf("android.media.MediaDescription$Builder is not available on this device")
+		}
+		if midDescriptionBuilderCtor == nil {
+			return fmt.Errorf("android.media.MediaDescription$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDescriptionBuilder)), midDescriptionBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.media.MediaDescription$Builder.build.
 func (m *DescriptionBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

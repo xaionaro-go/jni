@@ -32,6 +32,12 @@ func NewCameraProfile(vm *jni.VM) (*CameraProfile, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCameraProfile == nil {
+			return fmt.Errorf("android.media.CameraProfile is not available on this device")
+		}
+		if midCameraProfileCtor == nil {
+			return fmt.Errorf("android.media.CameraProfile constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCameraProfile)), midCameraProfileCtor)
 		if err != nil {
 			return err

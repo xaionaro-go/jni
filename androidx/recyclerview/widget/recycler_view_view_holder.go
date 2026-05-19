@@ -291,8 +291,8 @@ func (m *RecyclerViewViewHolder) IsRecyclable() (bool, error) {
 			return callErr
 		}
 		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsRecyclerViewViewHolder)),
 			midRecyclerViewViewHolderIsRecyclable,
 		)
 		if callErr != nil {

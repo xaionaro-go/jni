@@ -32,6 +32,12 @@ func NewSoundPool(vm *jni.VM, arg0 int32, arg1 int32, arg2 int32) (*SoundPool, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSoundPool == nil {
+			return fmt.Errorf("android.media.SoundPool is not available on this device")
+		}
+		if midSoundPoolCtor == nil {
+			return fmt.Errorf("android.media.SoundPool constructor (III)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSoundPool)), midSoundPoolCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2))
 		if err != nil {

@@ -66,6 +66,10 @@ classes:
           error: true
     - java_class: android.net.VpnService$Builder
       go_type: ServiceBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.net.VpnService
+          go_name: arg0
       methods:
         - java_method: addAddress
           go_name: AddAddress2

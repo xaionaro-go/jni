@@ -3,6 +3,27 @@
 package consts
 
 const (
+	DnsOptionDisabled           int = 2
+	DnsOptionEnabled            int = 1
+	DnsOptionUnspecified        int = 0
+	SslDateInvalid              int = 4
+	SslExpired                  int = 1
+	SslIdmismatch               int = 2
+	SslInvalid                  int = 5
+	SslMaxError                 int = 6
+	SslNotyetvalid              int = 0
+	SslUntrusted                int = 3
+	ErrorAddressUnreachable     int = 9
+	ErrorConnectionClosed       int = 5
+	ErrorConnectionRefused      int = 7
+	ErrorConnectionReset        int = 8
+	ErrorConnectionTimedOut     int = 6
+	ErrorHostnameNotResolved    int = 1
+	ErrorInternetDisconnected   int = 2
+	ErrorNetworkChanged         int = 3
+	ErrorOther                  int = 11
+	ErrorQuicProtocolFailed     int = 10
+	ErrorTimedOut               int = 4
 	MigrationOptionDisabled     int = 2
 	MigrationOptionEnabled      int = 1
 	MigrationOptionUnspecified  int = 0
@@ -32,27 +53,6 @@ const (
 	StreamPriorityLow           int = 2
 	StreamPriorityLowest        int = 1
 	StreamPriorityMedium        int = 3
-	DnsOptionDisabled           int = 2
-	DnsOptionEnabled            int = 1
-	DnsOptionUnspecified        int = 0
-	ErrorAddressUnreachable     int = 9
-	ErrorConnectionClosed       int = 5
-	ErrorConnectionRefused      int = 7
-	ErrorConnectionReset        int = 8
-	ErrorConnectionTimedOut     int = 6
-	ErrorHostnameNotResolved    int = 1
-	ErrorInternetDisconnected   int = 2
-	ErrorNetworkChanged         int = 3
-	ErrorOther                  int = 11
-	ErrorQuicProtocolFailed     int = 10
-	ErrorTimedOut               int = 4
-	SslDateInvalid              int = 4
-	SslExpired                  int = 1
-	SslIdmismatch               int = 2
-	SslInvalid                  int = 5
-	SslMaxError                 int = 6
-	SslNotyetvalid              int = 0
-	SslUntrusted                int = 3
 	HttpCacheDisabled           int = 0
 	HttpCacheDisk               int = 3
 	HttpCacheDiskNoHttp         int = 2

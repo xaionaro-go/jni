@@ -32,6 +32,12 @@ func NewDrawableCompat(vm *jni.VM, arg0 *jni.Object) (*DrawableCompat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDrawableCompat == nil {
+			return fmt.Errorf("com.google.android.material.ripple.RippleDrawableCompat is not available on this device")
+		}
+		if midDrawableCompatCtor == nil {
+			return fmt.Errorf("com.google.android.material.ripple.RippleDrawableCompat constructor (Lcom/google/android/material/shape/ShapeAppearanceModel;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDrawableCompat)), midDrawableCompatCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -252,8 +258,8 @@ func (m *DrawableCompat) GetConstantState() (*jni.Object, error) {
 	return result, callErr
 }
 
-// Mutate0 calls com.google.android.material.ripple.RippleDrawableCompat.mutate.
-func (m *DrawableCompat) Mutate0() (*jni.Object, error) {
+// Mutate calls com.google.android.material.ripple.RippleDrawableCompat.mutate.
+func (m *DrawableCompat) Mutate() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -261,13 +267,13 @@ func (m *DrawableCompat) Mutate0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midDrawableCompatMutate0 == nil {
+		if midDrawableCompatMutate == nil {
 			callErr = fmt.Errorf("com.google.android.material.ripple.RippleDrawableCompat.mutate is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midDrawableCompatMutate0,
+			midDrawableCompatMutate,
 		)
 		if callErr != nil {
 			return callErr
@@ -349,38 +355,6 @@ func (m *DrawableCompat) GetOpacity() (int32, error) {
 		)
 		if callErr != nil {
 			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Mutate0_1 calls com.google.android.material.ripple.RippleDrawableCompat.mutate.
-func (m *DrawableCompat) Mutate0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDrawableCompatMutate0_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.ripple.RippleDrawableCompat.mutate is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midDrawableCompatMutate0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
 		}
 		return callErr
 	})

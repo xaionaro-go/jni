@@ -3,19 +3,6 @@
 package consts
 
 const (
-	RendererPriorityBound              int = 1
-	RendererPriorityImportant          int = 2
-	RendererPriorityWaived             int = 0
-	AnchorType                         int = 1
-	EditTextType                       int = 9
-	EmailType                          int = 4
-	GeoType                            int = 3
-	ImageAnchorType                    int = 6
-	ImageType                          int = 5
-	PhoneType                          int = 2
-	SrcAnchorType                      int = 7
-	SrcImageAnchorType                 int = 8
-	UnknownType                        int = 0
 	CategoriesAll                      int = 1
 	CategoriesAndroidWebview           int = 2
 	CategoriesFrameViewer              int = 64
@@ -26,33 +13,7 @@ const (
 	CategoriesWebDeveloper             int = 4
 	RecordContinuously                 int = 1
 	RecordUntilFull                    int = 0
-	ErrorAuthentication                int = -4
-	ErrorBadUrl                        int = -12
-	ErrorConnect                       int = -6
-	ErrorFailedSslHandshake            int = -11
-	ErrorFile                          int = -13
-	ErrorFileNotFound                  int = -14
-	ErrorHostLookup                    int = -2
-	ErrorIo                            int = -7
-	ErrorProxyAuthentication           int = -5
-	ErrorRedirectLoop                  int = -9
-	ErrorTimeout                       int = -8
-	ErrorTooManyRequests               int = -15
-	ErrorUnknown                       int = -1
-	ErrorUnsafeResource                int = -16
-	ErrorUnsupportedAuthScheme         int = -3
-	ErrorUnsupportedScheme             int = -10
-	SafeBrowsingThreatBilling          int = 4
-	SafeBrowsingThreatMalware          int = 1
-	SafeBrowsingThreatPhishing         int = 2
-	SafeBrowsingThreatUnknown          int = 0
-	SafeBrowsingThreatUnwantedSoftware int = 3
 	DayCount                           int = 5
-	Debug                              int = 0
-	Error                              int = 0
-	Log                                int = 0
-	Tip                                int = 0
-	Warning                            int = 0
 	ForceDarkAuto                      int = 1
 	ForceDarkOff                       int = 0
 	ForceDarkOn                        int = 2
@@ -84,17 +45,56 @@ const (
 	Close                              int = 0
 	Far                                int = 0
 	Medium                             int = 0
+	Debug                              int = 0
+	Error                              int = 0
+	Log                                int = 0
+	Tip                                int = 0
+	Warning                            int = 0
+	ErrorAuthentication                int = -4
+	ErrorBadUrl                        int = -12
+	ErrorConnect                       int = -6
+	ErrorFailedSslHandshake            int = -11
+	ErrorFile                          int = -13
+	ErrorFileNotFound                  int = -14
+	ErrorHostLookup                    int = -2
+	ErrorIo                            int = -7
+	ErrorProxyAuthentication           int = -5
+	ErrorRedirectLoop                  int = -9
+	ErrorTimeout                       int = -8
+	ErrorTooManyRequests               int = -15
+	ErrorUnknown                       int = -1
+	ErrorUnsafeResource                int = -16
+	ErrorUnsupportedAuthScheme         int = -3
+	ErrorUnsupportedScheme             int = -10
+	SafeBrowsingThreatBilling          int = 4
+	SafeBrowsingThreatMalware          int = 1
+	SafeBrowsingThreatPhishing         int = 2
+	SafeBrowsingThreatUnknown          int = 0
+	SafeBrowsingThreatUnwantedSoftware int = 3
 	ModeOpen                           int = 0
 	ModeOpenMultiple                   int = 1
 	ModeSave                           int = 3
+	RendererPriorityBound              int = 1
+	RendererPriorityImportant          int = 2
+	RendererPriorityWaived             int = 0
+	AnchorType                         int = 1
+	EditTextType                       int = 9
+	EmailType                          int = 4
+	GeoType                            int = 3
+	ImageAnchorType                    int = 6
+	ImageType                          int = 5
+	PhoneType                          int = 2
+	SrcAnchorType                      int = 7
+	SrcImageAnchorType                 int = 8
+	UnknownType                        int = 0
 )
 
 const (
-	SchemeGeo                string = "geo:0,0?q="
-	SchemeMailto             string = "mailto:"
-	SchemeTel                string = "tel:"
 	ResourceAudioCapture     string = "android.webkit.resource.AUDIO_CAPTURE"
 	ResourceMidiSysex        string = "android.webkit.resource.MIDI_SYSEX"
 	ResourceProtectedMediaId string = "android.webkit.resource.PROTECTED_MEDIA_ID"
 	ResourceVideoCapture     string = "android.webkit.resource.VIDEO_CAPTURE"
+	SchemeGeo                string = "geo:0,0?q="
+	SchemeMailto             string = "mailto:"
+	SchemeTel                string = "tel:"
 )

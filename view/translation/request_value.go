@@ -160,29 +160,6 @@ func (m *RequestValue) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.translation.TranslationRequestValue.writeToParcel.
-func (m *RequestValue) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRequestValueWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.translation.TranslationRequestValue.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midRequestValueWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ForText calls android.view.translation.TranslationRequestValue.forText.
 func (m *RequestValue) ForText(arg0 string) (*jni.Object, error) {
 	var result *jni.Object
@@ -219,4 +196,27 @@ func (m *RequestValue) ForText(arg0 string) (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.translation.TranslationRequestValue.writeToParcel.
+func (m *RequestValue) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRequestValueWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.translation.TranslationRequestValue.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsRequestValue)),
+			midRequestValueWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

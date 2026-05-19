@@ -176,29 +176,6 @@ func (m *ConversationActionsMessage) GetText() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.textclassifier.ConversationActions$Message.writeToParcel.
-func (m *ConversationActionsMessage) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midConversationActionsMessageWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.textclassifier.ConversationActions$Message.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midConversationActionsMessageWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.view.textclassifier.ConversationActions$Message.toString.
 func (m *ConversationActionsMessage) ToString() (string, error) {
 	var result string
@@ -224,4 +201,27 @@ func (m *ConversationActionsMessage) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.textclassifier.ConversationActions$Message.writeToParcel.
+func (m *ConversationActionsMessage) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midConversationActionsMessageWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.textclassifier.ConversationActions$Message.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsConversationActionsMessage)),
+			midConversationActionsMessageWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

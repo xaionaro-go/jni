@@ -32,6 +32,12 @@ func NewUrlQuerySanitizer(vm *jni.VM) (*UrlQuerySanitizer, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsUrlQuerySanitizer == nil {
+			return fmt.Errorf("android.net.UrlQuerySanitizer is not available on this device")
+		}
+		if midUrlQuerySanitizerCtor == nil {
+			return fmt.Errorf("android.net.UrlQuerySanitizer constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUrlQuerySanitizer)), midUrlQuerySanitizerCtor)
 		if err != nil {
 			return err

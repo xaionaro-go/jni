@@ -32,6 +32,12 @@ func NewListMenuItemView(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ListM
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsListMenuItemView == nil {
+			return fmt.Errorf("androidx.appcompat.view.menu.ListMenuItemView is not available on this device")
+		}
+		if midListMenuItemViewCtor == nil {
+			return fmt.Errorf("androidx.appcompat.view.menu.ListMenuItemView constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsListMenuItemView)), midListMenuItemViewCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

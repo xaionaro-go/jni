@@ -23,8 +23,8 @@ type CircularRevealWidgetCircularRevealScrimColorProperty struct {
 	Obj *jni.GlobalRef
 }
 
-// Get1 calls com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealScrimColorProperty.get.
-func (m *CircularRevealWidgetCircularRevealScrimColorProperty) Get1(arg0 *jni.Object) (*jni.Object, error) {
+// Get calls com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealScrimColorProperty.get.
+func (m *CircularRevealWidgetCircularRevealScrimColorProperty) Get(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -32,14 +32,14 @@ func (m *CircularRevealWidgetCircularRevealScrimColorProperty) Get1(arg0 *jni.Ob
 			callErr = err
 			return err
 		}
-		if midCircularRevealWidgetCircularRevealScrimColorPropertyGet1 == nil {
+		if midCircularRevealWidgetCircularRevealScrimColorPropertyGet == nil {
 			callErr = fmt.Errorf("com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealScrimColorProperty.get is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midCircularRevealWidgetCircularRevealScrimColorPropertyGet1, jni.ObjectValue(arg0),
+			midCircularRevealWidgetCircularRevealScrimColorPropertyGet, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -56,8 +56,8 @@ func (m *CircularRevealWidgetCircularRevealScrimColorProperty) Get1(arg0 *jni.Ob
 	return result, callErr
 }
 
-// Set2 calls com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealScrimColorProperty.set.
-func (m *CircularRevealWidgetCircularRevealScrimColorProperty) Set2(arg0 *jni.Object, arg1 *jni.Object) error {
+// Set calls com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealScrimColorProperty.set.
+func (m *CircularRevealWidgetCircularRevealScrimColorProperty) Set(arg0 *jni.Object, arg1 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -65,70 +65,14 @@ func (m *CircularRevealWidgetCircularRevealScrimColorProperty) Set2(arg0 *jni.Ob
 			callErr = err
 			return err
 		}
-		if midCircularRevealWidgetCircularRevealScrimColorPropertySet2 == nil {
+		if midCircularRevealWidgetCircularRevealScrimColorPropertySet == nil {
 			callErr = fmt.Errorf("com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealScrimColorProperty.set is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midCircularRevealWidgetCircularRevealScrimColorPropertySet2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// Get1_1 calls com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealScrimColorProperty.get.
-func (m *CircularRevealWidgetCircularRevealScrimColorProperty) Get1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCircularRevealWidgetCircularRevealScrimColorPropertyGet1_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealScrimColorProperty.get is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCircularRevealWidgetCircularRevealScrimColorPropertyGet1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Set2_1 calls com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealScrimColorProperty.set.
-func (m *CircularRevealWidgetCircularRevealScrimColorProperty) Set2_1(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCircularRevealWidgetCircularRevealScrimColorPropertySet2_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealScrimColorProperty.set is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midCircularRevealWidgetCircularRevealScrimColorPropertySet2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midCircularRevealWidgetCircularRevealScrimColorPropertySet, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		return callErr
 	})

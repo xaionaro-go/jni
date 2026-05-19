@@ -23,6 +23,35 @@ type ConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewConfigBuilder creates a new android.net.vcn.VcnConfig$Builder instance.
+func NewConfigBuilder(vm *jni.VM, arg0 *jni.Object) (*ConfigBuilder, error) {
+	var t ConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsConfigBuilder == nil {
+			return fmt.Errorf("android.net.vcn.VcnConfig$Builder is not available on this device")
+		}
+		if midConfigBuilderCtor == nil {
+			return fmt.Errorf("android.net.vcn.VcnConfig$Builder constructor (Landroid/content/Context;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConfigBuilder)), midConfigBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddGatewayConnectionConfig calls android.net.vcn.VcnConfig$Builder.addGatewayConnectionConfig.
 func (m *ConfigBuilder) AddGatewayConnectionConfig(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

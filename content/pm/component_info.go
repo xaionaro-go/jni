@@ -32,6 +32,12 @@ func NewComponentInfo(vm *jni.VM) (*ComponentInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsComponentInfo == nil {
+			return fmt.Errorf("android.content.pm.ComponentInfo is not available on this device")
+		}
+		if midComponentInfoCtor == nil {
+			return fmt.Errorf("android.content.pm.ComponentInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsComponentInfo)), midComponentInfoCtor)
 		if err != nil {
 			return err

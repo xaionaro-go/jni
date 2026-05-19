@@ -82,33 +82,6 @@ func (m *Property) GetType() (*jni.Object, error) {
 	return result, callErr
 }
 
-// IsReadOnly calls android.util.Property.isReadOnly.
-func (m *Property) IsReadOnly() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midPropertyIsReadOnly == nil {
-			callErr = fmt.Errorf("android.util.Property.isReadOnly is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midPropertyIsReadOnly,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.util.Property.toString.
 func (m *Property) ToString() (string, error) {
 	var result string
@@ -131,6 +104,33 @@ func (m *Property) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// IsReadOnly calls android.util.Property.isReadOnly.
+func (m *Property) IsReadOnly() (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midPropertyIsReadOnly == nil {
+			callErr = fmt.Errorf("android.util.Property.isReadOnly is not available on this device")
+			return callErr
+		}
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsProperty)),
+			midPropertyIsReadOnly,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

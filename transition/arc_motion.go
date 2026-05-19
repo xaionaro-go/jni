@@ -32,6 +32,12 @@ func NewArcMotion(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ArcMotion, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsArcMotion == nil {
+			return fmt.Errorf("android.transition.ArcMotion is not available on this device")
+		}
+		if midArcMotionCtor == nil {
+			return fmt.Errorf("android.transition.ArcMotion constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsArcMotion)), midArcMotionCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

@@ -76,8 +76,8 @@ func (m *CellInfoCdma) Equals(arg0 *jni.Object) (bool, error) {
 	return result, callErr
 }
 
-// GetCellIdentity0 calls android.telephony.CellInfoCdma.getCellIdentity.
-func (m *CellInfoCdma) GetCellIdentity0() (*jni.Object, error) {
+// GetCellIdentity calls android.telephony.CellInfoCdma.getCellIdentity.
+func (m *CellInfoCdma) GetCellIdentity() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -85,13 +85,13 @@ func (m *CellInfoCdma) GetCellIdentity0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midCellInfoCdmaGetCellIdentity0 == nil {
+		if midCellInfoCdmaGetCellIdentity == nil {
 			callErr = fmt.Errorf("android.telephony.CellInfoCdma.getCellIdentity is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midCellInfoCdmaGetCellIdentity0,
+			midCellInfoCdmaGetCellIdentity,
 		)
 		if callErr != nil {
 			return callErr
@@ -108,8 +108,8 @@ func (m *CellInfoCdma) GetCellIdentity0() (*jni.Object, error) {
 	return result, callErr
 }
 
-// GetCellSignalStrength0 calls android.telephony.CellInfoCdma.getCellSignalStrength.
-func (m *CellInfoCdma) GetCellSignalStrength0() (*jni.Object, error) {
+// GetCellSignalStrength calls android.telephony.CellInfoCdma.getCellSignalStrength.
+func (m *CellInfoCdma) GetCellSignalStrength() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -117,13 +117,13 @@ func (m *CellInfoCdma) GetCellSignalStrength0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midCellInfoCdmaGetCellSignalStrength0 == nil {
+		if midCellInfoCdmaGetCellSignalStrength == nil {
 			callErr = fmt.Errorf("android.telephony.CellInfoCdma.getCellSignalStrength is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midCellInfoCdmaGetCellSignalStrength0,
+			midCellInfoCdmaGetCellSignalStrength,
 		)
 		if callErr != nil {
 			return callErr
@@ -213,68 +213,4 @@ func (m *CellInfoCdma) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 		return callErr
 	})
 	return callErr
-}
-
-// GetCellSignalStrength0_1 calls android.telephony.CellInfoCdma.getCellSignalStrength.
-func (m *CellInfoCdma) GetCellSignalStrength0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCellInfoCdmaGetCellSignalStrength0_1 == nil {
-			callErr = fmt.Errorf("android.telephony.CellInfoCdma.getCellSignalStrength is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCellInfoCdmaGetCellSignalStrength0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetCellIdentity0_1 calls android.telephony.CellInfoCdma.getCellIdentity.
-func (m *CellInfoCdma) GetCellIdentity0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCellInfoCdmaGetCellIdentity0_1 == nil {
-			callErr = fmt.Errorf("android.telephony.CellInfoCdma.getCellIdentity is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCellInfoCdmaGetCellIdentity0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }

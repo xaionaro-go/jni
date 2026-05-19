@@ -32,6 +32,12 @@ func NewSQLiteMisuseException(vm *jni.VM) (*SQLiteMisuseException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSQLiteMisuseException == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteMisuseException is not available on this device")
+		}
+		if midSQLiteMisuseExceptionCtor == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteMisuseException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSQLiteMisuseException)), midSQLiteMisuseExceptionCtor)
 		if err != nil {
 			return err

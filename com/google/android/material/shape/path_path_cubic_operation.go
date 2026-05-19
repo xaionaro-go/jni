@@ -23,6 +23,35 @@ type PathPathCubicOperation struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPathPathCubicOperation creates a new com.google.android.material.shape.ShapePath$PathCubicOperation instance.
+func NewPathPathCubicOperation(vm *jni.VM, arg0 float32, arg1 float32, arg2 float32, arg3 float32, arg4 float32, arg5 float32) (*PathPathCubicOperation, error) {
+	var t PathPathCubicOperation
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPathPathCubicOperation == nil {
+			return fmt.Errorf("com.google.android.material.shape.ShapePath$PathCubicOperation is not available on this device")
+		}
+		if midPathPathCubicOperationCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.ShapePath$PathCubicOperation constructor (FFFFFF)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPathPathCubicOperation)), midPathPathCubicOperationCtor, jni.FloatValue(arg0), jni.FloatValue(arg1), jni.FloatValue(arg2), jni.FloatValue(arg3), jni.FloatValue(arg4), jni.FloatValue(arg5))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ApplyToPath calls com.google.android.material.shape.ShapePath$PathCubicOperation.applyToPath.
 func (m *PathPathCubicOperation) ApplyToPath(arg0 *jni.Object, arg1 *jni.Object) error {
 

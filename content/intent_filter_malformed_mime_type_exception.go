@@ -23,6 +23,34 @@ type IntentFilterMalformedMimeTypeException struct {
 	Obj *jni.GlobalRef
 }
 
+// NewIntentFilterMalformedMimeTypeException creates a new android.content.IntentFilter$MalformedMimeTypeException instance.
+func NewIntentFilterMalformedMimeTypeException(vm *jni.VM) (*IntentFilterMalformedMimeTypeException, error) {
+	var t IntentFilterMalformedMimeTypeException
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsIntentFilterMalformedMimeTypeException == nil {
+			return fmt.Errorf("android.content.IntentFilter$MalformedMimeTypeException is not available on this device")
+		}
+		if midIntentFilterMalformedMimeTypeExceptionCtor == nil {
+			return fmt.Errorf("android.content.IntentFilter$MalformedMimeTypeException constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIntentFilterMalformedMimeTypeException)), midIntentFilterMalformedMimeTypeExceptionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.content.IntentFilter$MalformedMimeTypeException.toString.
 func (m *IntentFilterMalformedMimeTypeException) ToString() (string, error) {
 	var result string

@@ -32,6 +32,12 @@ func NewSpringForce(vm *jni.VM) (*SpringForce, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSpringForce == nil {
+			return fmt.Errorf("androidx.dynamicanimation.animation.SpringForce is not available on this device")
+		}
+		if midSpringForceCtor == nil {
+			return fmt.Errorf("androidx.dynamicanimation.animation.SpringForce constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSpringForce)), midSpringForceCtor)
 		if err != nil {
 			return err

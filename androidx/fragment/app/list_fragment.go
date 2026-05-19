@@ -30,6 +30,12 @@ func NewListFragment(vm *jni.VM) (*ListFragment, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsListFragment == nil {
+			return fmt.Errorf("androidx.fragment.app.ListFragment is not available on this device")
+		}
+		if midListFragmentCtor == nil {
+			return fmt.Errorf("androidx.fragment.app.ListFragment constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsListFragment)), midListFragmentCtor)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewPositioning(vm *jni.VM, arg0 int32, arg1 float32, arg2 float32) (*Positi
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPositioning == nil {
+			return fmt.Errorf("com.google.android.material.animation.Positioning is not available on this device")
+		}
+		if midPositioningCtor == nil {
+			return fmt.Errorf("com.google.android.material.animation.Positioning constructor (IFF)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPositioning)), midPositioningCtor, jni.IntValue(arg0), jni.FloatValue(arg1), jni.FloatValue(arg2))
 		if err != nil {

@@ -32,6 +32,12 @@ func NewForegroundColorSpan(vm *jni.VM, arg0 *jni.Object) (*ForegroundColorSpan,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsForegroundColorSpan == nil {
+			return fmt.Errorf("android.text.style.ForegroundColorSpan is not available on this device")
+		}
+		if midForegroundColorSpanCtor == nil {
+			return fmt.Errorf("android.text.style.ForegroundColorSpan constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsForegroundColorSpan)), midForegroundColorSpanCtor, jni.ObjectValue(arg0))
 		if err != nil {

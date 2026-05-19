@@ -5,149 +5,30 @@
 package: wifi
 go_import: github.com/AndroidGoLab/jni/net/wifi
 classes:
-    - java_class: android.net.wifi.WifiAvailableChannel
-      go_type: AvailableChannel
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getChannelWidth
-          go_name: GetChannelWidth
-          returns: int
-          error: true
-        - java_method: getFrequencyMhz
-          go_name: GetFrequencyMhz
-          returns: int
-          error: true
-        - java_method: getOperationalModes
-          go_name: GetOperationalModes
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.wifi.EasyConnectStatusCallback
-      go_type: EasyConnectStatusCallback
-    - java_class: android.net.wifi.ScanResult
-      go_type: ScanResult
+    - java_class: android.net.wifi.WpsInfo
+      go_type: WpsInfo
       obtain: constructor
       methods:
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
-        - java_method: getAffiliatedMloLinks
-          go_name: GetAffiliatedMloLinks
-          returns: java.util.List<android.net.wifi.MloLink>
-          error: true
-        - java_method: getApMldMacAddress
-          go_name: GetApMldMacAddress
-          returns: android.net.MacAddress
-          error: true
-        - java_method: getApMloLinkId
-          go_name: GetApMloLinkId
-          returns: int
-          error: true
-        - java_method: getInformationElements
-          go_name: GetInformationElements
-          returns: java.util.List<android.net.wifi.ScanResult$InformationElement>
-          error: true
-        - java_method: getSecurityTypes
-          go_name: GetSecurityTypes
-          returns: '[I'
-          error: true
-        - java_method: getWifiSsid
-          go_name: GetWifiSsid
-          returns: android.net.wifi.WifiSsid
-          error: true
-        - java_method: getWifiStandard
-          go_name: GetWifiStandard
-          returns: int
-          error: true
-        - java_method: is80211azNtbResponder
-          go_name: Is80211azNtbResponder
-          returns: boolean
-          error: true
-        - java_method: is80211mcResponder
-          go_name: Is80211mcResponder
-          returns: boolean
-          error: true
-        - java_method: isPasspointNetwork
-          go_name: IsPasspointNetwork
-          returns: boolean
-          error: true
-        - java_method: isRangingFrameProtectionRequired
-          go_name: IsRangingFrameProtectionRequired
-          returns: boolean
-          error: true
-        - java_method: isSecureHeLtfSupported
-          go_name: IsSecureHeLtfSupported
-          returns: boolean
-          error: true
-        - java_method: isTwtResponder
-          go_name: IsTwtResponder
-          returns: boolean
-          error: true
         - java_method: toString
           go_name: ToString
           returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
           error: true
       static_methods:
-        - java_method: convertChannelToFrequencyMhzIfSupported
-          go_name: ConvertChannelToFrequencyMhzIfSupported
+        - java_method: writeToParcel
+          go_name: WriteToParcel
           params:
-            - java_type: int
+            - java_type: android.os.Parcel
               go_name: arg0
             - java_type: int
               go_name: arg1
-          returns: int
+          returns: void
           error: true
-        - java_method: convertFrequencyMhzToChannelIfSupported
-          go_name: ConvertFrequencyMhzToChannelIfSupported
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-    - java_class: android.net.wifi.ScanResult$InformationElement
-      go_type: ScanResultInformationElement
+    - java_class: android.net.wifi.WifiSsid
+      go_type: Ssid
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -162,19 +43,23 @@ classes:
           error: true
         - java_method: getBytes
           go_name: GetBytes
-          returns: java.nio.ByteBuffer
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: int
-          error: true
-        - java_method: getIdExt
-          go_name: GetIdExt
-          returns: int
+          returns: '[B'
           error: true
         - java_method: hashCode
           go_name: HashCode
           returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: fromBytes
+          go_name: FromBytes
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: android.net.wifi.WifiSsid
           error: true
         - java_method: writeToParcel
           go_name: WriteToParcel
@@ -235,6 +120,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -246,6 +132,7 @@ classes:
           error: true
     - java_class: android.net.wifi.SoftApConfiguration$Builder
       go_type: SoftApConfigurationBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
@@ -258,16 +145,9 @@ classes:
               go_name: arg0
           returns: android.net.wifi.SoftApConfiguration$Builder
           error: true
-    - java_class: android.net.wifi.WifiNetworkSpecifier
-      go_type: NetworkSpecifier
+    - java_class: android.net.wifi.WifiInfo
+      go_type: Info
       methods:
-        - java_method: canBeSatisfiedBy
-          go_name: CanBeSatisfiedBy
-          params:
-            - java_type: android.net.NetworkSpecifier
-              go_name: arg0
-          returns: boolean
-          error: true
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
@@ -279,21 +159,124 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getBand
-          go_name: GetBand
+        - java_method: getAffiliatedMloLinks
+          go_name: GetAffiliatedMloLinks
+          returns: java.util.List<android.net.wifi.MloLink>
+          error: true
+        - java_method: getApMldMacAddress
+          go_name: GetApMldMacAddress
+          returns: android.net.MacAddress
+          error: true
+        - java_method: getApMloLinkId
+          go_name: GetApMloLinkId
           returns: int
           error: true
-        - java_method: getPreferredChannelFrequenciesMhz
-          go_name: GetPreferredChannelFrequenciesMhz
-          returns: '[I'
+        - java_method: getApplicableRedactions
+          go_name: GetApplicableRedactions
+          returns: long
+          error: true
+        - java_method: getAssociatedMloLinks
+          go_name: GetAssociatedMloLinks
+          returns: java.util.List<android.net.wifi.MloLink>
+          error: true
+        - java_method: getBSSID
+          go_name: GetBSSID
+          returns: String
+          error: true
+        - java_method: getCurrentSecurityType
+          go_name: GetCurrentSecurityType
+          returns: int
+          error: true
+        - java_method: getFrequency
+          go_name: GetFrequency
+          returns: int
+          error: true
+        - java_method: getHiddenSSID
+          go_name: GetHiddenSSID
+          returns: boolean
+          error: true
+        - java_method: getInformationElements
+          go_name: GetInformationElements
+          returns: java.util.List<android.net.wifi.ScanResult$InformationElement>
+          error: true
+        - java_method: getIpAddress
+          go_name: GetIpAddress
+          returns: int
+          error: true
+        - java_method: getLinkSpeed
+          go_name: GetLinkSpeed
+          returns: int
+          error: true
+        - java_method: getMacAddress
+          go_name: GetMacAddress
+          returns: String
+          error: true
+        - java_method: getMaxSupportedRxLinkSpeedMbps
+          go_name: GetMaxSupportedRxLinkSpeedMbps
+          returns: int
+          error: true
+        - java_method: getMaxSupportedTxLinkSpeedMbps
+          go_name: GetMaxSupportedTxLinkSpeedMbps
+          returns: int
+          error: true
+        - java_method: getNetworkId
+          go_name: GetNetworkId
+          returns: int
+          error: true
+        - java_method: getPasspointFqdn
+          go_name: GetPasspointFqdn
+          returns: String
+          error: true
+        - java_method: getPasspointProviderFriendlyName
+          go_name: GetPasspointProviderFriendlyName
+          returns: String
+          error: true
+        - java_method: getPasspointUniqueId
+          go_name: GetPasspointUniqueId
+          returns: String
+          error: true
+        - java_method: getRssi
+          go_name: GetRssi
+          returns: int
+          error: true
+        - java_method: getRxLinkSpeedMbps
+          go_name: GetRxLinkSpeedMbps
+          returns: int
+          error: true
+        - java_method: getSSID
+          go_name: GetSSID
+          returns: String
+          error: true
+        - java_method: getSubscriptionId
+          go_name: GetSubscriptionId
+          returns: int
+          error: true
+        - java_method: getSupplicantState
+          go_name: GetSupplicantState
+          returns: android.net.wifi.SupplicantState
+          error: true
+        - java_method: getTxLinkSpeedMbps
+          go_name: GetTxLinkSpeedMbps
+          returns: int
+          error: true
+        - java_method: getWifiStandard
+          go_name: GetWifiStandard
+          returns: int
           error: true
         - java_method: hashCode
           go_name: HashCode
           returns: int
           error: true
-        - java_method: redact
-          go_name: Redact
-          returns: android.net.NetworkSpecifier
+        - java_method: isRestricted
+          go_name: IsRestricted
+          returns: boolean
+          error: true
+        - java_method: makeCopy
+          go_name: MakeCopy
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.net.wifi.WifiInfo
           error: true
         - java_method: toString
           go_name: ToString
@@ -308,120 +291,124 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.net.wifi.WifiNetworkSpecifier$Builder
-      go_type: NetworkSpecifierBuilder
+      static_methods:
+        - java_method: getDetailedStateOf
+          go_name: GetDetailedStateOf
+          params:
+            - java_type: android.net.wifi.SupplicantState
+              go_name: arg0
+          returns: android.net.NetworkInfo$DetailedState
+          error: true
+    - java_class: android.net.wifi.WifiInfo$Builder
+      go_type: InfoBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
-          returns: android.net.wifi.WifiNetworkSpecifier
-          error: true
-        - java_method: setBand
-          go_name: SetBand
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.wifi.WifiNetworkSpecifier$Builder
+          returns: android.net.wifi.WifiInfo
           error: true
         - java_method: setBssid
           go_name: SetBssid
           params:
-            - java_type: android.net.MacAddress
+            - java_type: String
               go_name: arg0
-          returns: android.net.wifi.WifiNetworkSpecifier$Builder
+          returns: android.net.wifi.WifiInfo$Builder
           error: true
-        - java_method: setBssidPattern
-          go_name: SetBssidPattern
+        - java_method: setCurrentSecurityType
+          go_name: SetCurrentSecurityType
           params:
-            - java_type: android.net.MacAddress
+            - java_type: int
               go_name: arg0
-            - java_type: android.net.MacAddress
-              go_name: arg1
-          returns: android.net.wifi.WifiNetworkSpecifier$Builder
+          returns: android.net.wifi.WifiInfo$Builder
           error: true
-        - java_method: setIsEnhancedOpen
-          go_name: SetIsEnhancedOpen
+        - java_method: setNetworkId
+          go_name: SetNetworkId
           params:
-            - java_type: boolean
+            - java_type: int
               go_name: arg0
-          returns: android.net.wifi.WifiNetworkSpecifier$Builder
+          returns: android.net.wifi.WifiInfo$Builder
           error: true
-        - java_method: setIsHiddenSsid
-          go_name: SetIsHiddenSsid
+        - java_method: setRssi
+          go_name: SetRssi
           params:
-            - java_type: boolean
+            - java_type: int
               go_name: arg0
-          returns: android.net.wifi.WifiNetworkSpecifier$Builder
-          error: true
-        - java_method: setPreferredChannelsFrequenciesMhz
-          go_name: SetPreferredChannelsFrequenciesMhz
-          params:
-            - java_type: '[I'
-              go_name: arg0
-          returns: android.net.wifi.WifiNetworkSpecifier$Builder
+          returns: android.net.wifi.WifiInfo$Builder
           error: true
         - java_method: setSsid
           go_name: SetSsid
           params:
-            - java_type: String
+            - java_type: '[B'
               go_name: arg0
-          returns: android.net.wifi.WifiNetworkSpecifier$Builder
+          returns: android.net.wifi.WifiInfo$Builder
           error: true
-        - java_method: setSsidPattern
-          go_name: SetSsidPattern
+        - java_method: setSubscriptionId
+          go_name: SetSubscriptionId
           params:
-            - java_type: android.os.PatternMatcher
+            - java_type: int
               go_name: arg0
-          returns: android.net.wifi.WifiNetworkSpecifier$Builder
+          returns: android.net.wifi.WifiInfo$Builder
           error: true
-        - java_method: setWpa2EnterpriseConfig
-          go_name: SetWpa2EnterpriseConfig
-          params:
-            - java_type: android.net.wifi.WifiEnterpriseConfig
-              go_name: arg0
-          returns: android.net.wifi.WifiNetworkSpecifier$Builder
-          error: true
-        - java_method: setWpa2Passphrase
-          go_name: SetWpa2Passphrase
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.wifi.WifiNetworkSpecifier$Builder
-          error: true
-        - java_method: setWpa3Enterprise192BitModeConfig
-          go_name: SetWpa3Enterprise192BitModeConfig
-          params:
-            - java_type: android.net.wifi.WifiEnterpriseConfig
-              go_name: arg0
-          returns: android.net.wifi.WifiNetworkSpecifier$Builder
-          error: true
-        - java_method: setWpa3EnterpriseConfig
-          go_name: SetWpa3EnterpriseConfig
-          params:
-            - java_type: android.net.wifi.WifiEnterpriseConfig
-              go_name: arg0
-          returns: android.net.wifi.WifiNetworkSpecifier$Builder
-          error: true
-        - java_method: setWpa3EnterpriseStandardModeConfig
-          go_name: SetWpa3EnterpriseStandardModeConfig
-          params:
-            - java_type: android.net.wifi.WifiEnterpriseConfig
-              go_name: arg0
-          returns: android.net.wifi.WifiNetworkSpecifier$Builder
-          error: true
-        - java_method: setWpa3Passphrase
-          go_name: SetWpa3Passphrase
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.wifi.WifiNetworkSpecifier$Builder
-          error: true
-    - java_class: android.net.wifi.SupplicantState
-      go_type: SupplicantState
+    - java_class: android.net.wifi.MloLink
+      go_type: MloLink
+      obtain: constructor
       methods:
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getApMacAddress
+          go_name: GetApMacAddress
+          returns: android.net.MacAddress
+          error: true
+        - java_method: getBand
+          go_name: GetBand
+          returns: int
+          error: true
+        - java_method: getChannel
+          go_name: GetChannel
+          returns: int
+          error: true
+        - java_method: getLinkId
+          go_name: GetLinkId
+          returns: int
+          error: true
+        - java_method: getRssi
+          go_name: GetRssi
+          returns: int
+          error: true
+        - java_method: getRxLinkSpeedMbps
+          go_name: GetRxLinkSpeedMbps
+          returns: int
+          error: true
+        - java_method: getStaMacAddress
+          go_name: GetStaMacAddress
+          returns: android.net.MacAddress
+          error: true
+        - java_method: getState
+          go_name: GetState
+          returns: int
+          error: true
+        - java_method: getTxLinkSpeedMbps
+          go_name: GetTxLinkSpeedMbps
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -431,25 +418,8 @@ classes:
               go_name: arg1
           returns: void
           error: true
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.net.wifi.SupplicantState[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.wifi.SupplicantState
-          error: true
-        - java_method: isValidState
-          go_name: IsValidState
-          params:
-            - java_type: android.net.wifi.SupplicantState
-              go_name: arg0
-          returns: boolean
-          error: true
+    - java_class: android.net.wifi.EasyConnectStatusCallback
+      go_type: EasyConnectStatusCallback
     - java_class: android.net.wifi.WifiManager
       go_type: Manager
       obtain: system_service
@@ -1044,11 +1014,18 @@ classes:
           error: true
     - java_class: android.net.wifi.WifiManager$AddNetworkResult
       go_type: ManagerAddNetworkResult
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
       methods:
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -1060,6 +1037,12 @@ classes:
           error: true
     - java_class: android.net.wifi.WifiManager$InterfaceCreationImpact
       go_type: ManagerInterfaceCreationImpact
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: java.util.Set<java.lang.String>
+          go_name: arg1
       methods:
         - java_method: equals
           go_name: Equals
@@ -1094,6 +1077,7 @@ classes:
           error: true
     - java_class: android.net.wifi.WifiManager$LocalOnlyHotspotCallback
       go_type: ManagerLocalOnlyHotspotCallback
+      obtain: constructor
       methods:
         - java_method: onFailed
           go_name: OnFailed
@@ -1254,59 +1238,6 @@ classes:
         - java_method: onSucceeded
           go_name: OnSucceeded
           returns: void
-          error: true
-    - java_class: android.net.wifi.BlockingOption
-      go_type: BlockingOption
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getBlockingTimeSeconds
-          go_name: GetBlockingTimeSeconds
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: isBlockingBssidOnly
-          go_name: IsBlockingBssidOnly
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.wifi.BlockingOption$Builder
-      go_type: BlockingOptionBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.net.wifi.BlockingOption
-          error: true
-        - java_method: setBlockingBssidOnly
-          go_name: SetBlockingBssidOnly
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.net.wifi.BlockingOption$Builder
           error: true
     - java_class: android.net.wifi.WifiEnterpriseConfig
       go_type: EnterpriseConfig
@@ -1542,6 +1473,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -1555,17 +1487,139 @@ classes:
       go_type: EnterpriseConfigEap
     - java_class: android.net.wifi.WifiEnterpriseConfig$Phase2
       go_type: EnterpriseConfigPhase2
-    - java_class: android.net.wifi.WpsInfo
-      go_type: WpsInfo
-      obtain: constructor
+    - java_class: android.net.wifi.BlockingOption
+      go_type: BlockingOption
       methods:
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getBlockingTimeSeconds
+          go_name: GetBlockingTimeSeconds
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: isBlockingBssidOnly
+          go_name: IsBlockingBssidOnly
+          returns: boolean
+          error: true
         - java_method: toString
           go_name: ToString
           returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.wifi.BlockingOption$Builder
+      go_type: BlockingOptionBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.net.wifi.BlockingOption
+          error: true
+        - java_method: setBlockingBssidOnly
+          go_name: SetBlockingBssidOnly
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.net.wifi.BlockingOption$Builder
+          error: true
+    - java_class: android.net.wifi.WifiAvailableChannel
+      go_type: AvailableChannel
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getChannelWidth
+          go_name: GetChannelWidth
+          returns: int
+          error: true
+        - java_method: getFrequencyMhz
+          go_name: GetFrequencyMhz
+          returns: int
+          error: true
+        - java_method: getOperationalModes
+          go_name: GetOperationalModes
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.wifi.SupplicantState
+      go_type: SupplicantState
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.net.wifi.SupplicantState[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.wifi.SupplicantState
+          error: true
+        - java_method: isValidState
+          go_name: IsValidState
+          params:
+            - java_type: android.net.wifi.SupplicantState
+              go_name: arg0
+          returns: boolean
           error: true
         - java_method: writeToParcel
           go_name: WriteToParcel
@@ -1575,6 +1629,165 @@ classes:
             - java_type: int
               go_name: arg1
           returns: void
+          error: true
+    - java_class: android.net.wifi.WifiNetworkSpecifier
+      go_type: NetworkSpecifier
+      methods:
+        - java_method: canBeSatisfiedBy
+          go_name: CanBeSatisfiedBy
+          params:
+            - java_type: android.net.NetworkSpecifier
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getBand
+          go_name: GetBand
+          returns: int
+          error: true
+        - java_method: getPreferredChannelFrequenciesMhz
+          go_name: GetPreferredChannelFrequenciesMhz
+          returns: '[I'
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: redact
+          go_name: Redact
+          returns: android.net.NetworkSpecifier
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.wifi.WifiNetworkSpecifier$Builder
+      go_type: NetworkSpecifierBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.net.wifi.WifiNetworkSpecifier
+          error: true
+        - java_method: setBand
+          go_name: SetBand
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.wifi.WifiNetworkSpecifier$Builder
+          error: true
+        - java_method: setBssid
+          go_name: SetBssid
+          params:
+            - java_type: android.net.MacAddress
+              go_name: arg0
+          returns: android.net.wifi.WifiNetworkSpecifier$Builder
+          error: true
+        - java_method: setBssidPattern
+          go_name: SetBssidPattern
+          params:
+            - java_type: android.net.MacAddress
+              go_name: arg0
+            - java_type: android.net.MacAddress
+              go_name: arg1
+          returns: android.net.wifi.WifiNetworkSpecifier$Builder
+          error: true
+        - java_method: setIsEnhancedOpen
+          go_name: SetIsEnhancedOpen
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.net.wifi.WifiNetworkSpecifier$Builder
+          error: true
+        - java_method: setIsHiddenSsid
+          go_name: SetIsHiddenSsid
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.net.wifi.WifiNetworkSpecifier$Builder
+          error: true
+        - java_method: setPreferredChannelsFrequenciesMhz
+          go_name: SetPreferredChannelsFrequenciesMhz
+          params:
+            - java_type: '[I'
+              go_name: arg0
+          returns: android.net.wifi.WifiNetworkSpecifier$Builder
+          error: true
+        - java_method: setSsid
+          go_name: SetSsid
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.wifi.WifiNetworkSpecifier$Builder
+          error: true
+        - java_method: setSsidPattern
+          go_name: SetSsidPattern
+          params:
+            - java_type: android.os.PatternMatcher
+              go_name: arg0
+          returns: android.net.wifi.WifiNetworkSpecifier$Builder
+          error: true
+        - java_method: setWpa2EnterpriseConfig
+          go_name: SetWpa2EnterpriseConfig
+          params:
+            - java_type: android.net.wifi.WifiEnterpriseConfig
+              go_name: arg0
+          returns: android.net.wifi.WifiNetworkSpecifier$Builder
+          error: true
+        - java_method: setWpa2Passphrase
+          go_name: SetWpa2Passphrase
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.wifi.WifiNetworkSpecifier$Builder
+          error: true
+        - java_method: setWpa3Enterprise192BitModeConfig
+          go_name: SetWpa3Enterprise192BitModeConfig
+          params:
+            - java_type: android.net.wifi.WifiEnterpriseConfig
+              go_name: arg0
+          returns: android.net.wifi.WifiNetworkSpecifier$Builder
+          error: true
+        - java_method: setWpa3EnterpriseConfig
+          go_name: SetWpa3EnterpriseConfig
+          params:
+            - java_type: android.net.wifi.WifiEnterpriseConfig
+              go_name: arg0
+          returns: android.net.wifi.WifiNetworkSpecifier$Builder
+          error: true
+        - java_method: setWpa3EnterpriseStandardModeConfig
+          go_name: SetWpa3EnterpriseStandardModeConfig
+          params:
+            - java_type: android.net.wifi.WifiEnterpriseConfig
+              go_name: arg0
+          returns: android.net.wifi.WifiNetworkSpecifier$Builder
+          error: true
+        - java_method: setWpa3Passphrase
+          go_name: SetWpa3Passphrase
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.wifi.WifiNetworkSpecifier$Builder
           error: true
     - java_class: android.net.wifi.WifiNetworkSuggestion
       go_type: NetworkSuggestion
@@ -1686,6 +1899,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -1697,6 +1911,7 @@ classes:
           error: true
     - java_class: android.net.wifi.WifiNetworkSuggestion$Builder
       go_type: NetworkSuggestionBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
@@ -1905,6 +2120,140 @@ classes:
               go_name: arg0
           returns: android.net.wifi.WifiNetworkSuggestion$Builder
           error: true
+    - java_class: android.net.wifi.ScanResult
+      go_type: ScanResult
+      obtain: constructor
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getAffiliatedMloLinks
+          go_name: GetAffiliatedMloLinks
+          returns: java.util.List<android.net.wifi.MloLink>
+          error: true
+        - java_method: getApMldMacAddress
+          go_name: GetApMldMacAddress
+          returns: android.net.MacAddress
+          error: true
+        - java_method: getApMloLinkId
+          go_name: GetApMloLinkId
+          returns: int
+          error: true
+        - java_method: getInformationElements
+          go_name: GetInformationElements
+          returns: java.util.List<android.net.wifi.ScanResult$InformationElement>
+          error: true
+        - java_method: getSecurityTypes
+          go_name: GetSecurityTypes
+          returns: '[I'
+          error: true
+        - java_method: getWifiSsid
+          go_name: GetWifiSsid
+          returns: android.net.wifi.WifiSsid
+          error: true
+        - java_method: getWifiStandard
+          go_name: GetWifiStandard
+          returns: int
+          error: true
+        - java_method: is80211azNtbResponder
+          go_name: Is80211azNtbResponder
+          returns: boolean
+          error: true
+        - java_method: is80211mcResponder
+          go_name: Is80211mcResponder
+          returns: boolean
+          error: true
+        - java_method: isPasspointNetwork
+          go_name: IsPasspointNetwork
+          returns: boolean
+          error: true
+        - java_method: isRangingFrameProtectionRequired
+          go_name: IsRangingFrameProtectionRequired
+          returns: boolean
+          error: true
+        - java_method: isSecureHeLtfSupported
+          go_name: IsSecureHeLtfSupported
+          returns: boolean
+          error: true
+        - java_method: isTwtResponder
+          go_name: IsTwtResponder
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: convertChannelToFrequencyMhzIfSupported
+          go_name: ConvertChannelToFrequencyMhzIfSupported
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: convertFrequencyMhzToChannelIfSupported
+          go_name: ConvertFrequencyMhzToChannelIfSupported
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.wifi.ScanResult$InformationElement
+      go_type: ScanResultInformationElement
+      obtain: constructor
+      constructor_params:
+        - java_type: android.net.wifi.ScanResult$InformationElement
+          go_name: arg0
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getBytes
+          go_name: GetBytes
+          returns: java.nio.ByteBuffer
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: int
+          error: true
+        - java_method: getIdExt
+          go_name: GetIdExt
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
     - java_class: android.net.wifi.WifiConfiguration
       go_type: Configuration
       obtain: constructor
@@ -1986,326 +2335,12 @@ classes:
       go_type: ConfigurationGroupMgmtCipher
     - java_class: android.net.wifi.WifiConfiguration$KeyMgmt
       go_type: ConfigurationKeyMgmt
-    - java_class: android.net.wifi.WifiSsid
-      go_type: Ssid
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getBytes
-          go_name: GetBytes
-          returns: '[B'
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: fromBytes
-          go_name: FromBytes
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: android.net.wifi.WifiSsid
-          error: true
     - java_class: android.net.wifi.WifiConfiguration$PairwiseCipher
       go_type: ConfigurationPairwiseCipher
     - java_class: android.net.wifi.WifiConfiguration$Protocol
       go_type: ConfigurationProtocol
     - java_class: android.net.wifi.WifiConfiguration$Status
       go_type: ConfigurationStatus
-    - java_class: android.net.wifi.MloLink
-      go_type: MloLink
-      obtain: constructor
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getApMacAddress
-          go_name: GetApMacAddress
-          returns: android.net.MacAddress
-          error: true
-        - java_method: getBand
-          go_name: GetBand
-          returns: int
-          error: true
-        - java_method: getChannel
-          go_name: GetChannel
-          returns: int
-          error: true
-        - java_method: getLinkId
-          go_name: GetLinkId
-          returns: int
-          error: true
-        - java_method: getRssi
-          go_name: GetRssi
-          returns: int
-          error: true
-        - java_method: getRxLinkSpeedMbps
-          go_name: GetRxLinkSpeedMbps
-          returns: int
-          error: true
-        - java_method: getStaMacAddress
-          go_name: GetStaMacAddress
-          returns: android.net.MacAddress
-          error: true
-        - java_method: getState
-          go_name: GetState
-          returns: int
-          error: true
-        - java_method: getTxLinkSpeedMbps
-          go_name: GetTxLinkSpeedMbps
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.wifi.WifiInfo
-      go_type: Info
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getAffiliatedMloLinks
-          go_name: GetAffiliatedMloLinks
-          returns: java.util.List<android.net.wifi.MloLink>
-          error: true
-        - java_method: getApMldMacAddress
-          go_name: GetApMldMacAddress
-          returns: android.net.MacAddress
-          error: true
-        - java_method: getApMloLinkId
-          go_name: GetApMloLinkId
-          returns: int
-          error: true
-        - java_method: getApplicableRedactions
-          go_name: GetApplicableRedactions
-          returns: long
-          error: true
-        - java_method: getAssociatedMloLinks
-          go_name: GetAssociatedMloLinks
-          returns: java.util.List<android.net.wifi.MloLink>
-          error: true
-        - java_method: getBSSID
-          go_name: GetBSSID
-          returns: String
-          error: true
-        - java_method: getCurrentSecurityType
-          go_name: GetCurrentSecurityType
-          returns: int
-          error: true
-        - java_method: getFrequency
-          go_name: GetFrequency
-          returns: int
-          error: true
-        - java_method: getHiddenSSID
-          go_name: GetHiddenSSID
-          returns: boolean
-          error: true
-        - java_method: getInformationElements
-          go_name: GetInformationElements
-          returns: java.util.List<android.net.wifi.ScanResult$InformationElement>
-          error: true
-        - java_method: getIpAddress
-          go_name: GetIpAddress
-          returns: int
-          error: true
-        - java_method: getLinkSpeed
-          go_name: GetLinkSpeed
-          returns: int
-          error: true
-        - java_method: getMacAddress
-          go_name: GetMacAddress
-          returns: String
-          error: true
-        - java_method: getMaxSupportedRxLinkSpeedMbps
-          go_name: GetMaxSupportedRxLinkSpeedMbps
-          returns: int
-          error: true
-        - java_method: getMaxSupportedTxLinkSpeedMbps
-          go_name: GetMaxSupportedTxLinkSpeedMbps
-          returns: int
-          error: true
-        - java_method: getNetworkId
-          go_name: GetNetworkId
-          returns: int
-          error: true
-        - java_method: getPasspointFqdn
-          go_name: GetPasspointFqdn
-          returns: String
-          error: true
-        - java_method: getPasspointProviderFriendlyName
-          go_name: GetPasspointProviderFriendlyName
-          returns: String
-          error: true
-        - java_method: getPasspointUniqueId
-          go_name: GetPasspointUniqueId
-          returns: String
-          error: true
-        - java_method: getRssi
-          go_name: GetRssi
-          returns: int
-          error: true
-        - java_method: getRxLinkSpeedMbps
-          go_name: GetRxLinkSpeedMbps
-          returns: int
-          error: true
-        - java_method: getSSID
-          go_name: GetSSID
-          returns: String
-          error: true
-        - java_method: getSubscriptionId
-          go_name: GetSubscriptionId
-          returns: int
-          error: true
-        - java_method: getSupplicantState
-          go_name: GetSupplicantState
-          returns: android.net.wifi.SupplicantState
-          error: true
-        - java_method: getTxLinkSpeedMbps
-          go_name: GetTxLinkSpeedMbps
-          returns: int
-          error: true
-        - java_method: getWifiStandard
-          go_name: GetWifiStandard
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: isRestricted
-          go_name: IsRestricted
-          returns: boolean
-          error: true
-        - java_method: makeCopy
-          go_name: MakeCopy
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.net.wifi.WifiInfo
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: getDetailedStateOf
-          go_name: GetDetailedStateOf
-          params:
-            - java_type: android.net.wifi.SupplicantState
-              go_name: arg0
-          returns: android.net.NetworkInfo$DetailedState
-          error: true
-    - java_class: android.net.wifi.WifiInfo$Builder
-      go_type: InfoBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.net.wifi.WifiInfo
-          error: true
-        - java_method: setBssid
-          go_name: SetBssid
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.wifi.WifiInfo$Builder
-          error: true
-        - java_method: setCurrentSecurityType
-          go_name: SetCurrentSecurityType
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.wifi.WifiInfo$Builder
-          error: true
-        - java_method: setNetworkId
-          go_name: SetNetworkId
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.wifi.WifiInfo$Builder
-          error: true
-        - java_method: setRssi
-          go_name: SetRssi
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.wifi.WifiInfo$Builder
-          error: true
-        - java_method: setSsid
-          go_name: SetSsid
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: android.net.wifi.WifiInfo$Builder
-          error: true
-        - java_method: setSubscriptionId
-          go_name: SetSubscriptionId
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.wifi.WifiInfo$Builder
-          error: true
 abstract_callbacks:
     - java_class: android.net.wifi.WifiManager$ScanResultsCallback
       go_type: ManagerScanResultsCallbackCallback
@@ -2342,27 +2377,133 @@ abstract_callbacks:
           params: []
           returns: void
           go_field: OnSucceeded
+abstract_callback_eligibility:
+    - java_class: android.net.wifi.EasyConnectStatusCallback
+      generated: false
+      reason: unsupported_constructor
+    - java_class: android.net.wifi.WifiManager$ScanResultsCallback
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.net.wifi.WifiManager$SubsystemRestartTrackingCallback
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.net.wifi.WifiManager$WpsCallback
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
     - go_name: Creator
       value: "0"
       go_type: int
-    - go_name: OpModeSap
-      value: "2"
-      go_type: int
-    - go_name: OpModeSta
+    - go_name: Display
       value: "1"
       go_type: int
-    - go_name: OpModeTdls
-      value: "32"
-      go_type: int
-    - go_name: OpModeWifiAware
-      value: "16"
-      go_type: int
-    - go_name: OpModeWifiDirectCli
+    - go_name: Invalid
       value: "4"
       go_type: int
-    - go_name: OpModeWifiDirectGo
+    - go_name: Keypad
+      value: "2"
+      go_type: int
+    - go_name: Label
+      value: "3"
+      go_type: int
+    - go_name: Pbc
+      value: "0"
+      go_type: int
+    - go_name: Band2ghz
+      value: "1"
+      go_type: int
+    - go_name: Band5ghz
+      value: "2"
+      go_type: int
+    - go_name: Band60ghz
       value: "8"
+      go_type: int
+    - go_name: Band6ghz
+      value: "4"
+      go_type: int
+    - go_name: SecurityTypeOpen
+      value: "0"
+      go_type: int
+    - go_name: SecurityTypeWpa2Psk
+      value: "1"
+      go_type: int
+    - go_name: SecurityTypeWpa3Owe
+      value: "5"
+      go_type: int
+    - go_name: SecurityTypeWpa3OweTransition
+      value: "4"
+      go_type: int
+    - go_name: SecurityTypeWpa3Sae
+      value: "3"
+      go_type: int
+    - go_name: SecurityTypeWpa3SaeTransition
+      value: "2"
+      go_type: int
+    - go_name: FrequencyUnits
+      value: '"MHz"'
+      go_type: string
+    - go_name: LinkSpeedUnits
+      value: '"Mbps"'
+      go_type: string
+    - go_name: LinkSpeedUnknown
+      value: "-1"
+      go_type: int
+    - go_name: SecurityTypeDpp
+      value: "13"
+      go_type: int
+    - go_name: SecurityTypeEap
+      value: "3"
+      go_type: int
+    - go_name: SecurityTypeEapWpa3Enterprise
+      value: "9"
+      go_type: int
+    - go_name: SecurityTypeEapWpa3Enterprise192Bit
+      value: "5"
+      go_type: int
+    - go_name: SecurityTypeOsen
+      value: "10"
+      go_type: int
+    - go_name: SecurityTypeOwe
+      value: "6"
+      go_type: int
+    - go_name: SecurityTypePasspointR1R2
+      value: "11"
+      go_type: int
+    - go_name: SecurityTypePasspointR3
+      value: "12"
+      go_type: int
+    - go_name: SecurityTypePsk
+      value: "2"
+      go_type: int
+    - go_name: SecurityTypeSae
+      value: "4"
+      go_type: int
+    - go_name: SecurityTypeUnknown
+      value: "-1"
+      go_type: int
+    - go_name: SecurityTypeWapiCert
+      value: "8"
+      go_type: int
+    - go_name: SecurityTypeWapiPsk
+      value: "7"
+      go_type: int
+    - go_name: SecurityTypeWep
+      value: "1"
+      go_type: int
+    - go_name: InvalidMloLinkId
+      value: "-1"
+      go_type: int
+    - go_name: MloLinkStateActive
+      value: "3"
+      go_type: int
+    - go_name: MloLinkStateIdle
+      value: "2"
+      go_type: int
+    - go_name: MloLinkStateInvalid
+      value: "0"
+      go_type: int
+    - go_name: MloLinkStateUnassociated
+      value: "1"
       go_type: int
     - go_name: EasyConnectEventFailureAuthentication
       value: "-2"
@@ -2405,144 +2546,6 @@ constants:
       go_type: int
     - go_name: EasyConnectEventFailureUriGeneration
       value: "-13"
-      go_type: int
-    - go_name: ChannelWidth160mhz
-      value: "3"
-      go_type: int
-    - go_name: ChannelWidth20mhz
-      value: "0"
-      go_type: int
-    - go_name: ChannelWidth320mhz
-      value: "5"
-      go_type: int
-    - go_name: ChannelWidth40mhz
-      value: "1"
-      go_type: int
-    - go_name: ChannelWidth80mhz
-      value: "2"
-      go_type: int
-    - go_name: ChannelWidth80mhzPlusMhz
-      value: "4"
-      go_type: int
-    - go_name: PreambleEht
-      value: "4"
-      go_type: int
-    - go_name: PreambleHe
-      value: "3"
-      go_type: int
-    - go_name: PreambleHt
-      value: "1"
-      go_type: int
-    - go_name: PreambleLegacy
-      value: "0"
-      go_type: int
-    - go_name: PreambleVht
-      value: "2"
-      go_type: int
-    - go_name: Unspecified
-      value: "-1"
-      go_type: int
-    - go_name: WifiBand24Ghz
-      value: "1"
-      go_type: int
-    - go_name: WifiBand5Ghz
-      value: "2"
-      go_type: int
-    - go_name: WifiBand60Ghz
-      value: "16"
-      go_type: int
-    - go_name: WifiBand6Ghz
-      value: "8"
-      go_type: int
-    - go_name: WifiStandard11ac
-      value: "5"
-      go_type: int
-    - go_name: WifiStandard11ad
-      value: "7"
-      go_type: int
-    - go_name: WifiStandard11ax
-      value: "6"
-      go_type: int
-    - go_name: WifiStandard11be
-      value: "8"
-      go_type: int
-    - go_name: WifiStandard11n
-      value: "4"
-      go_type: int
-    - go_name: WifiStandardLegacy
-      value: "1"
-      go_type: int
-    - go_name: WifiStandardUnknown
-      value: "0"
-      go_type: int
-    - go_name: Band2ghz
-      value: "1"
-      go_type: int
-    - go_name: Band5ghz
-      value: "2"
-      go_type: int
-    - go_name: Band60ghz
-      value: "8"
-      go_type: int
-    - go_name: Band6ghz
-      value: "4"
-      go_type: int
-    - go_name: SecurityTypeOpen
-      value: "0"
-      go_type: int
-    - go_name: SecurityTypeWpa2Psk
-      value: "1"
-      go_type: int
-    - go_name: SecurityTypeWpa3Owe
-      value: "5"
-      go_type: int
-    - go_name: SecurityTypeWpa3OweTransition
-      value: "4"
-      go_type: int
-    - go_name: SecurityTypeWpa3Sae
-      value: "3"
-      go_type: int
-    - go_name: SecurityTypeWpa3SaeTransition
-      value: "2"
-      go_type: int
-    - go_name: Associated
-      value: "0"
-      go_type: int
-    - go_name: Associating
-      value: "0"
-      go_type: int
-    - go_name: Authenticating
-      value: "0"
-      go_type: int
-    - go_name: Completed
-      value: "0"
-      go_type: int
-    - go_name: Disconnected
-      value: "0"
-      go_type: int
-    - go_name: Dormant
-      value: "0"
-      go_type: int
-    - go_name: FourWayHandshake
-      value: "0"
-      go_type: int
-    - go_name: GroupHandshake
-      value: "0"
-      go_type: int
-    - go_name: Inactive
-      value: "0"
-      go_type: int
-    - go_name: InterfaceDisabled
-      value: "0"
-      go_type: int
-    - go_name: Invalid
-      value: "0"
-      go_type: int
-    - go_name: Scanning
-      value: "0"
-      go_type: int
-    - go_name: Uninitialized
-      value: "0"
       go_type: int
     - go_name: ActionPickWifiNetwork
       value: '"android.net.wifi.PICK_WIFI_NETWORK"'
@@ -2901,16 +2904,58 @@ constants:
     - go_name: Pap
       value: "1"
       go_type: int
-    - go_name: Display
-      value: "1"
-      go_type: int
-    - go_name: Keypad
+    - go_name: OpModeSap
       value: "2"
       go_type: int
-    - go_name: Label
-      value: "3"
+    - go_name: OpModeSta
+      value: "1"
       go_type: int
-    - go_name: Pbc
+    - go_name: OpModeTdls
+      value: "32"
+      go_type: int
+    - go_name: OpModeWifiAware
+      value: "16"
+      go_type: int
+    - go_name: OpModeWifiDirectCli
+      value: "4"
+      go_type: int
+    - go_name: OpModeWifiDirectGo
+      value: "8"
+      go_type: int
+    - go_name: Associated
+      value: "0"
+      go_type: int
+    - go_name: Associating
+      value: "0"
+      go_type: int
+    - go_name: Authenticating
+      value: "0"
+      go_type: int
+    - go_name: Completed
+      value: "0"
+      go_type: int
+    - go_name: Disconnected
+      value: "0"
+      go_type: int
+    - go_name: Dormant
+      value: "0"
+      go_type: int
+    - go_name: FourWayHandshake
+      value: "0"
+      go_type: int
+    - go_name: GroupHandshake
+      value: "0"
+      go_type: int
+    - go_name: Inactive
+      value: "0"
+      go_type: int
+    - go_name: InterfaceDisabled
+      value: "0"
+      go_type: int
+    - go_name: Scanning
+      value: "0"
+      go_type: int
+    - go_name: Uninitialized
       value: "0"
       go_type: int
     - go_name: RandomizationNonPersistent
@@ -2919,44 +2964,83 @@ constants:
     - go_name: RandomizationPersistent
       value: "0"
       go_type: int
+    - go_name: ChannelWidth160mhz
+      value: "3"
+      go_type: int
+    - go_name: ChannelWidth20mhz
+      value: "0"
+      go_type: int
+    - go_name: ChannelWidth320mhz
+      value: "5"
+      go_type: int
+    - go_name: ChannelWidth40mhz
+      value: "1"
+      go_type: int
+    - go_name: ChannelWidth80mhz
+      value: "2"
+      go_type: int
+    - go_name: ChannelWidth80mhzPlusMhz
+      value: "4"
+      go_type: int
+    - go_name: PreambleEht
+      value: "4"
+      go_type: int
+    - go_name: PreambleHe
+      value: "3"
+      go_type: int
+    - go_name: PreambleHt
+      value: "1"
+      go_type: int
+    - go_name: PreambleLegacy
+      value: "0"
+      go_type: int
+    - go_name: PreambleVht
+      value: "2"
+      go_type: int
+    - go_name: Unspecified
+      value: "-1"
+      go_type: int
+    - go_name: WifiBand24Ghz
+      value: "1"
+      go_type: int
+    - go_name: WifiBand5Ghz
+      value: "2"
+      go_type: int
+    - go_name: WifiBand60Ghz
+      value: "16"
+      go_type: int
+    - go_name: WifiBand6Ghz
+      value: "8"
+      go_type: int
+    - go_name: WifiStandard11ac
+      value: "5"
+      go_type: int
+    - go_name: WifiStandard11ad
+      value: "7"
+      go_type: int
+    - go_name: WifiStandard11ax
+      value: "6"
+      go_type: int
+    - go_name: WifiStandard11be
+      value: "8"
+      go_type: int
+    - go_name: WifiStandard11n
+      value: "4"
+      go_type: int
+    - go_name: WifiStandardLegacy
+      value: "1"
+      go_type: int
+    - go_name: WifiStandardUnknown
+      value: "0"
+      go_type: int
     - go_name: RandomizationAuto
       value: "3"
       go_type: int
     - go_name: RandomizationNone
       value: "0"
       go_type: int
-    - go_name: SecurityTypeDpp
-      value: "13"
-      go_type: int
-    - go_name: SecurityTypeEap
-      value: "3"
-      go_type: int
     - go_name: SecurityTypeEapSuiteB
       value: "5"
-      go_type: int
-    - go_name: SecurityTypeEapWpa3Enterprise
-      value: "9"
-      go_type: int
-    - go_name: SecurityTypeEapWpa3Enterprise192Bit
-      value: "5"
-      go_type: int
-    - go_name: SecurityTypeOwe
-      value: "6"
-      go_type: int
-    - go_name: SecurityTypePsk
-      value: "2"
-      go_type: int
-    - go_name: SecurityTypeSae
-      value: "4"
-      go_type: int
-    - go_name: SecurityTypeWapiCert
-      value: "8"
-      go_type: int
-    - go_name: SecurityTypeWapiPsk
-      value: "7"
-      go_type: int
-    - go_name: SecurityTypeWep
-      value: "1"
       go_type: int
     - go_name: Leap
       value: "2"
@@ -3068,40 +3152,4 @@ constants:
       go_type: int
     - go_name: Enabled
       value: "2"
-      go_type: int
-    - go_name: InvalidMloLinkId
-      value: "-1"
-      go_type: int
-    - go_name: MloLinkStateActive
-      value: "3"
-      go_type: int
-    - go_name: MloLinkStateIdle
-      value: "2"
-      go_type: int
-    - go_name: MloLinkStateInvalid
-      value: "0"
-      go_type: int
-    - go_name: MloLinkStateUnassociated
-      value: "1"
-      go_type: int
-    - go_name: FrequencyUnits
-      value: '"MHz"'
-      go_type: string
-    - go_name: LinkSpeedUnits
-      value: '"Mbps"'
-      go_type: string
-    - go_name: LinkSpeedUnknown
-      value: "-1"
-      go_type: int
-    - go_name: SecurityTypeOsen
-      value: "10"
-      go_type: int
-    - go_name: SecurityTypePasspointR1R2
-      value: "11"
-      go_type: int
-    - go_name: SecurityTypePasspointR3
-      value: "12"
-      go_type: int
-    - go_name: SecurityTypeUnknown
-      value: "-1"
       go_type: int

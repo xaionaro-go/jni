@@ -32,6 +32,12 @@ func NewButtonBarLayout(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Button
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsButtonBarLayout == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ButtonBarLayout is not available on this device")
+		}
+		if midButtonBarLayoutCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ButtonBarLayout constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsButtonBarLayout)), midButtonBarLayoutCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

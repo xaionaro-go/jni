@@ -32,6 +32,12 @@ func NewContextThemeWrapper(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Co
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsContextThemeWrapper == nil {
+			return fmt.Errorf("android.view.ContextThemeWrapper is not available on this device")
+		}
+		if midContextThemeWrapperCtor == nil {
+			return fmt.Errorf("android.view.ContextThemeWrapper constructor (Landroid/content/Context;Landroid/content/res/Resources$Theme;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContextThemeWrapper)), midContextThemeWrapperCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

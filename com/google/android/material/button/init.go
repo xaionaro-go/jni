@@ -23,31 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsMaterialButtonToggleGroup                                  *jni.GlobalRef
-	midMaterialButtonToggleGroupCtor                              jni.MethodID
-	midMaterialButtonToggleGroupAddView                           jni.MethodID
-	midMaterialButtonToggleGroupOnViewRemoved                     jni.MethodID
-	midMaterialButtonToggleGroupOnInitializeAccessibilityNodeInfo jni.MethodID
-	midMaterialButtonToggleGroupCheck                             jni.MethodID
-	midMaterialButtonToggleGroupUncheck                           jni.MethodID
-	midMaterialButtonToggleGroupClearChecked                      jni.MethodID
-	midMaterialButtonToggleGroupGetCheckedButtonId                jni.MethodID
-	midMaterialButtonToggleGroupGetCheckedButtonIds               jni.MethodID
-	midMaterialButtonToggleGroupAddOnButtonCheckedListener        jni.MethodID
-	midMaterialButtonToggleGroupRemoveOnButtonCheckedListener     jni.MethodID
-	midMaterialButtonToggleGroupClearOnButtonCheckedListeners     jni.MethodID
-	midMaterialButtonToggleGroupIsSingleSelection                 jni.MethodID
-	midMaterialButtonToggleGroupSetSingleSelection1               jni.MethodID
-	midMaterialButtonToggleGroupSetSelectionRequired              jni.MethodID
-	midMaterialButtonToggleGroupIsSelectionRequired               jni.MethodID
-	midMaterialButtonToggleGroupSetSingleSelection1_1             jni.MethodID
-	midMaterialButtonToggleGroupSetEnabled                        jni.MethodID
-	midMaterialButtonToggleGroupToString                          jni.MethodID
-
-	clsMaterialButtonToggleGroupOnButtonCheckedListener                *jni.GlobalRef
-	midMaterialButtonToggleGroupOnButtonCheckedListenerOnButtonChecked jni.MethodID
-	midMaterialButtonToggleGroupOnButtonCheckedListenerToString        jni.MethodID
-
 	clsMaterialButton                                  *jni.GlobalRef
 	midMaterialButtonCtor                              jni.MethodID
 	midMaterialButtonOnInitializeAccessibilityNodeInfo jni.MethodID
@@ -112,21 +87,45 @@ var (
 	midMaterialButtonSetCheckable                      jni.MethodID
 	midMaterialButtonSetShapeAppearanceModel           jni.MethodID
 	midMaterialButtonGetShapeAppearanceModel           jni.MethodID
-	midMaterialButtonSetPressed                        jni.MethodID
 	midMaterialButtonToString                          jni.MethodID
+	midMaterialButtonSetPressed                        jni.MethodID
 
 	clsMaterialButtonIconGravity         *jni.GlobalRef
 	midMaterialButtonIconGravityToString jni.MethodID
 
-	clsMaterialButtonInspectionCompanion                  *jni.GlobalRef
-	midMaterialButtonInspectionCompanionMapProperties     jni.MethodID
-	midMaterialButtonInspectionCompanionReadProperties2   jni.MethodID
-	midMaterialButtonInspectionCompanionReadProperties2_1 jni.MethodID
-	midMaterialButtonInspectionCompanionToString          jni.MethodID
+	clsMaterialButtonInspectionCompanion               *jni.GlobalRef
+	midMaterialButtonInspectionCompanionCtor           jni.MethodID
+	midMaterialButtonInspectionCompanionMapProperties  jni.MethodID
+	midMaterialButtonInspectionCompanionReadProperties jni.MethodID
+	midMaterialButtonInspectionCompanionToString       jni.MethodID
 
 	clsMaterialButtonOnCheckedChangeListener                 *jni.GlobalRef
 	midMaterialButtonOnCheckedChangeListenerOnCheckedChanged jni.MethodID
 	midMaterialButtonOnCheckedChangeListenerToString         jni.MethodID
+
+	clsMaterialButtonToggleGroup                                  *jni.GlobalRef
+	midMaterialButtonToggleGroupCtor                              jni.MethodID
+	midMaterialButtonToggleGroupAddView                           jni.MethodID
+	midMaterialButtonToggleGroupOnViewRemoved                     jni.MethodID
+	midMaterialButtonToggleGroupOnInitializeAccessibilityNodeInfo jni.MethodID
+	midMaterialButtonToggleGroupCheck                             jni.MethodID
+	midMaterialButtonToggleGroupUncheck                           jni.MethodID
+	midMaterialButtonToggleGroupClearChecked                      jni.MethodID
+	midMaterialButtonToggleGroupGetCheckedButtonId                jni.MethodID
+	midMaterialButtonToggleGroupGetCheckedButtonIds               jni.MethodID
+	midMaterialButtonToggleGroupAddOnButtonCheckedListener        jni.MethodID
+	midMaterialButtonToggleGroupRemoveOnButtonCheckedListener     jni.MethodID
+	midMaterialButtonToggleGroupClearOnButtonCheckedListeners     jni.MethodID
+	midMaterialButtonToggleGroupIsSingleSelection                 jni.MethodID
+	midMaterialButtonToggleGroupSetSingleSelection1               jni.MethodID
+	midMaterialButtonToggleGroupSetSelectionRequired              jni.MethodID
+	midMaterialButtonToggleGroupIsSelectionRequired               jni.MethodID
+	midMaterialButtonToggleGroupSetSingleSelection1_1             jni.MethodID
+	midMaterialButtonToggleGroupToString                          jni.MethodID
+
+	clsMaterialButtonToggleGroupOnButtonCheckedListener                *jni.GlobalRef
+	midMaterialButtonToggleGroupOnButtonCheckedListenerOnButtonChecked jni.MethodID
+	midMaterialButtonToggleGroupOnButtonCheckedListenerToString        jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -146,170 +145,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("com/google/android/material/button/MaterialButtonToggleGroup")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMaterialButtonToggleGroup = env.NewGlobalRef(&c.Object)
-		midMaterialButtonToggleGroupCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMaterialButtonToggleGroupAddView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "addView", "(Landroid/view/View;ILandroid/view/ViewGroup$LayoutParams;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialButtonToggleGroupOnViewRemoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "onViewRemoved", "(Landroid/view/View;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialButtonToggleGroupOnInitializeAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "onInitializeAccessibilityNodeInfo", "(Landroid/view/accessibility/AccessibilityNodeInfo;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialButtonToggleGroupCheck, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "check", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialButtonToggleGroupUncheck, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "uncheck", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialButtonToggleGroupClearChecked, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "clearChecked", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialButtonToggleGroupGetCheckedButtonId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "getCheckedButtonId", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialButtonToggleGroupGetCheckedButtonIds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "getCheckedButtonIds", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialButtonToggleGroupAddOnButtonCheckedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "addOnButtonCheckedListener", "(Lcom/google/android/material/button/MaterialButtonToggleGroup$OnButtonCheckedListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialButtonToggleGroupRemoveOnButtonCheckedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "removeOnButtonCheckedListener", "(Lcom/google/android/material/button/MaterialButtonToggleGroup$OnButtonCheckedListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialButtonToggleGroupClearOnButtonCheckedListeners, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "clearOnButtonCheckedListeners", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialButtonToggleGroupIsSingleSelection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "isSingleSelection", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialButtonToggleGroupSetSingleSelection1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "setSingleSelection", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialButtonToggleGroupSetSelectionRequired, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "setSelectionRequired", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialButtonToggleGroupIsSelectionRequired, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "isSelectionRequired", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialButtonToggleGroupSetSingleSelection1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "setSingleSelection", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialButtonToggleGroupSetEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "setEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialButtonToggleGroupToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/button/MaterialButtonToggleGroup$OnButtonCheckedListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMaterialButtonToggleGroupOnButtonCheckedListener = env.NewGlobalRef(&c.Object)
-
-		midMaterialButtonToggleGroupOnButtonCheckedListenerOnButtonChecked, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroupOnButtonCheckedListener)), "onButtonChecked", "(Lcom/google/android/material/button/MaterialButtonToggleGroup;IZ)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialButtonToggleGroupOnButtonCheckedListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroupOnButtonCheckedListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("com/google/android/material/button/MaterialButton")
 	if err != nil {
@@ -757,14 +592,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMaterialButtonSetPressed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButton)), "setPressed", "(Z)V")
+		midMaterialButtonToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButton)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialButtonToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButton)), "toString", "()Ljava/lang/String;")
+		midMaterialButtonSetPressed, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButton)), "setPressed", "(Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -797,6 +632,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsMaterialButtonInspectionCompanion = env.NewGlobalRef(&c.Object)
+		midMaterialButtonInspectionCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonInspectionCompanion)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midMaterialButtonInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
 		if err != nil {
@@ -805,14 +644,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMaterialButtonInspectionCompanionReadProperties2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonInspectionCompanion)), "readProperties", "(Lcom/google/android/material/button/MaterialButton;Landroid/view/inspector/PropertyReader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialButtonInspectionCompanionReadProperties2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonInspectionCompanion)), "readProperties", "(Ljava/lang/Object;Landroid/view/inspector/PropertyReader;)V")
+		midMaterialButtonInspectionCompanionReadProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonInspectionCompanion)), "readProperties", "(Lcom/google/android/material/button/MaterialButton;Landroid/view/inspector/PropertyReader;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -844,6 +676,163 @@ func doInit(env *jni.Env) error {
 		}
 
 		midMaterialButtonOnCheckedChangeListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonOnCheckedChangeListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/button/MaterialButtonToggleGroup")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMaterialButtonToggleGroup = env.NewGlobalRef(&c.Object)
+		midMaterialButtonToggleGroupCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMaterialButtonToggleGroupAddView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "addView", "(Landroid/view/View;ILandroid/view/ViewGroup$LayoutParams;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialButtonToggleGroupOnViewRemoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "onViewRemoved", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialButtonToggleGroupOnInitializeAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "onInitializeAccessibilityNodeInfo", "(Landroid/view/accessibility/AccessibilityNodeInfo;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialButtonToggleGroupCheck, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "check", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialButtonToggleGroupUncheck, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "uncheck", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialButtonToggleGroupClearChecked, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "clearChecked", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialButtonToggleGroupGetCheckedButtonId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "getCheckedButtonId", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialButtonToggleGroupGetCheckedButtonIds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "getCheckedButtonIds", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialButtonToggleGroupAddOnButtonCheckedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "addOnButtonCheckedListener", "(Lcom/google/android/material/button/MaterialButtonToggleGroup$OnButtonCheckedListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialButtonToggleGroupRemoveOnButtonCheckedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "removeOnButtonCheckedListener", "(Lcom/google/android/material/button/MaterialButtonToggleGroup$OnButtonCheckedListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialButtonToggleGroupClearOnButtonCheckedListeners, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "clearOnButtonCheckedListeners", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialButtonToggleGroupIsSingleSelection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "isSingleSelection", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialButtonToggleGroupSetSingleSelection1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "setSingleSelection", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialButtonToggleGroupSetSelectionRequired, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "setSelectionRequired", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialButtonToggleGroupIsSelectionRequired, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "isSelectionRequired", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialButtonToggleGroupSetSingleSelection1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "setSingleSelection", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialButtonToggleGroupToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/button/MaterialButtonToggleGroup$OnButtonCheckedListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMaterialButtonToggleGroupOnButtonCheckedListener = env.NewGlobalRef(&c.Object)
+
+		midMaterialButtonToggleGroupOnButtonCheckedListenerOnButtonChecked, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroupOnButtonCheckedListener)), "onButtonChecked", "(Lcom/google/android/material/button/MaterialButtonToggleGroup;IZ)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialButtonToggleGroupOnButtonCheckedListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroupOnButtonCheckedListener)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

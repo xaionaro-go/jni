@@ -23,6 +23,35 @@ type DnsResolverDnsException struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDnsResolverDnsException creates a new android.net.DnsResolver$DnsException instance.
+func NewDnsResolverDnsException(vm *jni.VM, arg0 int32, arg1 *jni.Object) (*DnsResolverDnsException, error) {
+	var t DnsResolverDnsException
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDnsResolverDnsException == nil {
+			return fmt.Errorf("android.net.DnsResolver$DnsException is not available on this device")
+		}
+		if midDnsResolverDnsExceptionCtor == nil {
+			return fmt.Errorf("android.net.DnsResolver$DnsException constructor (ILjava/lang/Throwable;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDnsResolverDnsException)), midDnsResolverDnsExceptionCtor, jni.IntValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.net.DnsResolver$DnsException.toString.
 func (m *DnsResolverDnsException) ToString() (string, error) {
 	var result string

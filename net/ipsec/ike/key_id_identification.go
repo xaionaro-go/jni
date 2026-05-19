@@ -32,6 +32,12 @@ func NewKeyIdIdentification(vm *jni.VM, arg0 *jni.Object) (*KeyIdIdentification,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsKeyIdIdentification == nil {
+			return fmt.Errorf("android.net.ipsec.ike.IkeKeyIdIdentification is not available on this device")
+		}
+		if midKeyIdIdentificationCtor == nil {
+			return fmt.Errorf("android.net.ipsec.ike.IkeKeyIdIdentification constructor ([B)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyIdIdentification)), midKeyIdIdentificationCtor, jni.ObjectValue(arg0))
 		if err != nil {

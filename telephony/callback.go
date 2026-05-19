@@ -32,6 +32,12 @@ func NewCallback(vm *jni.VM) (*Callback, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCallback == nil {
+			return fmt.Errorf("android.telephony.TelephonyCallback is not available on this device")
+		}
+		if midCallbackCtor == nil {
+			return fmt.Errorf("android.telephony.TelephonyCallback constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCallback)), midCallbackCtor)
 		if err != nil {
 			return err

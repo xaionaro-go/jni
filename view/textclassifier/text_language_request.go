@@ -139,29 +139,6 @@ func (m *TextLanguageRequest) GetText() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.textclassifier.TextLanguage$Request.writeToParcel.
-func (m *TextLanguageRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTextLanguageRequestWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.textclassifier.TextLanguage$Request.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midTextLanguageRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.view.textclassifier.TextLanguage$Request.toString.
 func (m *TextLanguageRequest) ToString() (string, error) {
 	var result string
@@ -187,4 +164,27 @@ func (m *TextLanguageRequest) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.textclassifier.TextLanguage$Request.writeToParcel.
+func (m *TextLanguageRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midTextLanguageRequestWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.textclassifier.TextLanguage$Request.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsTextLanguageRequest)),
+			midTextLanguageRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

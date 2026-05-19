@@ -23,6 +23,34 @@ type EventOutputBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewEventOutputBuilder creates a new android.adservices.ondevicepersonalization.EventOutput$Builder instance.
+func NewEventOutputBuilder(vm *jni.VM) (*EventOutputBuilder, error) {
+	var t EventOutputBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsEventOutputBuilder == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.EventOutput$Builder is not available on this device")
+		}
+		if midEventOutputBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.EventOutput$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEventOutputBuilder)), midEventOutputBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.ondevicepersonalization.EventOutput$Builder.build.
 func (m *EventOutputBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

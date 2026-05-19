@@ -32,6 +32,12 @@ func NewSyncAdapterType(vm *jni.VM, arg0 *jni.Object) (*SyncAdapterType, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSyncAdapterType == nil {
+			return fmt.Errorf("android.content.SyncAdapterType is not available on this device")
+		}
+		if midSyncAdapterTypeCtor == nil {
+			return fmt.Errorf("android.content.SyncAdapterType constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSyncAdapterType)), midSyncAdapterTypeCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -286,29 +292,6 @@ func (m *SyncAdapterType) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.content.SyncAdapterType.writeToParcel.
-func (m *SyncAdapterType) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSyncAdapterTypeWriteToParcel == nil {
-			callErr = fmt.Errorf("android.content.SyncAdapterType.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSyncAdapterTypeWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // NewKey calls android.content.SyncAdapterType.newKey.
 func (m *SyncAdapterType) NewKey(arg0 string, arg1 string) (*jni.Object, error) {
 	var result *jni.Object
@@ -351,4 +334,27 @@ func (m *SyncAdapterType) NewKey(arg0 string, arg1 string) (*jni.Object, error) 
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.content.SyncAdapterType.writeToParcel.
+func (m *SyncAdapterType) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSyncAdapterTypeWriteToParcel == nil {
+			callErr = fmt.Errorf("android.content.SyncAdapterType.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSyncAdapterType)),
+			midSyncAdapterTypeWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

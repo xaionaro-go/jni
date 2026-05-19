@@ -32,6 +32,12 @@ func NewRelativeCornerSize(vm *jni.VM, arg0 float32) (*RelativeCornerSize, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRelativeCornerSize == nil {
+			return fmt.Errorf("com.google.android.material.shape.RelativeCornerSize is not available on this device")
+		}
+		if midRelativeCornerSizeCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.RelativeCornerSize constructor (F)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRelativeCornerSize)), midRelativeCornerSizeCtor, jni.FloatValue(arg0))
 		if err != nil {

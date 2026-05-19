@@ -32,6 +32,12 @@ func NewContextAwareHelper(vm *jni.VM) (*ContextAwareHelper, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsContextAwareHelper == nil {
+			return fmt.Errorf("androidx.activity.contextaware.ContextAwareHelper is not available on this device")
+		}
+		if midContextAwareHelperCtor == nil {
+			return fmt.Errorf("androidx.activity.contextaware.ContextAwareHelper constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContextAwareHelper)), midContextAwareHelperCtor)
 		if err != nil {
 			return err

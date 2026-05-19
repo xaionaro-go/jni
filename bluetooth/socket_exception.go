@@ -32,6 +32,12 @@ func NewSocketException(vm *jni.VM, arg0 int32) (*SocketException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSocketException == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothSocketException is not available on this device")
+		}
+		if midSocketExceptionCtor == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothSocketException constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSocketException)), midSocketExceptionCtor, jni.IntValue(arg0))
 		if err != nil {

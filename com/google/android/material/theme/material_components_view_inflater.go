@@ -32,6 +32,12 @@ func NewMaterialComponentsViewInflater(vm *jni.VM) (*MaterialComponentsViewInfla
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialComponentsViewInflater == nil {
+			return fmt.Errorf("com.google.android.material.theme.MaterialComponentsViewInflater is not available on this device")
+		}
+		if midMaterialComponentsViewInflaterCtor == nil {
+			return fmt.Errorf("com.google.android.material.theme.MaterialComponentsViewInflater constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialComponentsViewInflater)), midMaterialComponentsViewInflaterCtor)
 		if err != nil {
 			return err

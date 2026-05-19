@@ -32,6 +32,12 @@ func NewInterpolator(vm *jni.VM, arg0 int32) (*Interpolator, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInterpolator == nil {
+			return fmt.Errorf("android.graphics.Interpolator is not available on this device")
+		}
+		if midInterpolatorCtor == nil {
+			return fmt.Errorf("android.graphics.Interpolator constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInterpolator)), midInterpolatorCtor, jni.IntValue(arg0))
 		if err != nil {

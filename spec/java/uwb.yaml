@@ -5,8 +5,8 @@
 package: uwb
 go_import: github.com/AndroidGoLab/jni/ranging/uwb
 classes:
-    - java_class: android.ranging.uwb.UwbAddress
-      go_type: Address
+    - java_class: android.ranging.uwb.UwbComplexChannel
+      go_type: ComplexChannel
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -19,9 +19,13 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getAddressBytes
-          go_name: GetAddressBytes
-          returns: '[B'
+        - java_method: getChannel
+          go_name: GetChannel
+          returns: int
+          error: true
+        - java_method: getPreambleIndex
+          go_name: GetPreambleIndex
+          returns: int
           error: true
         - java_method: hashCode
           go_name: HashCode
@@ -31,6 +35,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -40,17 +45,96 @@ classes:
               go_name: arg1
           returns: void
           error: true
-      static_methods:
-        - java_method: createRandomShortAddress
-          go_name: CreateRandomShortAddress
-          returns: android.ranging.uwb.UwbAddress
+    - java_class: android.ranging.uwb.UwbComplexChannel$Builder
+      go_type: ComplexChannelBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.ranging.uwb.UwbComplexChannel
           error: true
-        - java_method: fromBytes
-          go_name: FromBytes
+        - java_method: setChannel
+          go_name: SetChannel
           params:
-            - java_type: '[B'
+            - java_type: int
               go_name: arg0
-          returns: android.ranging.uwb.UwbAddress
+          returns: android.ranging.uwb.UwbComplexChannel$Builder
+          error: true
+        - java_method: setPreambleIndex
+          go_name: SetPreambleIndex
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.ranging.uwb.UwbComplexChannel$Builder
+          error: true
+    - java_class: android.ranging.uwb.UwbRangingCapabilities
+      go_type: RangingCapabilities
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getMinimumRangingInterval
+          go_name: GetMinimumRangingInterval
+          returns: java.time.Duration
+          error: true
+        - java_method: getSupportedChannels
+          go_name: GetSupportedChannels
+          returns: java.util.List<java.lang.Integer>
+          error: true
+        - java_method: getSupportedConfigIds
+          go_name: GetSupportedConfigIds
+          returns: java.util.List<java.lang.Integer>
+          error: true
+        - java_method: getSupportedNotificationConfigurations
+          go_name: GetSupportedNotificationConfigurations
+          returns: java.util.List<java.lang.Integer>
+          error: true
+        - java_method: getSupportedPreambleIndexes
+          go_name: GetSupportedPreambleIndexes
+          returns: java.util.List<java.lang.Integer>
+          error: true
+        - java_method: getSupportedRangingUpdateRates
+          go_name: GetSupportedRangingUpdateRates
+          returns: java.util.List<java.lang.Integer>
+          error: true
+        - java_method: getSupportedSlotDurations
+          go_name: GetSupportedSlotDurations
+          returns: java.util.List<java.lang.Integer>
+          error: true
+        - java_method: isAzimuthalAngleSupported
+          go_name: IsAzimuthalAngleSupported
+          returns: boolean
+          error: true
+        - java_method: isBackgroundRangingSupported
+          go_name: IsBackgroundRangingSupported
+          returns: boolean
+          error: true
+        - java_method: isDistanceMeasurementSupported
+          go_name: IsDistanceMeasurementSupported
+          returns: boolean
+          error: true
+        - java_method: isElevationAngleSupported
+          go_name: IsElevationAngleSupported
+          returns: boolean
+          error: true
+        - java_method: isRangingIntervalReconfigurationSupported
+          go_name: IsRangingIntervalReconfigurationSupported
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
           error: true
     - java_class: android.ranging.uwb.UwbRangingParams
       go_type: RangingParams
@@ -114,6 +198,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -125,6 +210,16 @@ classes:
           error: true
     - java_class: android.ranging.uwb.UwbRangingParams$Builder
       go_type: RangingParamsBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: android.ranging.uwb.UwbAddress
+          go_name: arg2
+        - java_type: android.ranging.uwb.UwbAddress
+          go_name: arg3
       methods:
         - java_method: build
           go_name: Build
@@ -172,76 +267,8 @@ classes:
               go_name: arg0
           returns: android.ranging.uwb.UwbRangingParams$Builder
           error: true
-    - java_class: android.ranging.uwb.UwbRangingCapabilities
-      go_type: RangingCapabilities
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getMinimumRangingInterval
-          go_name: GetMinimumRangingInterval
-          returns: java.time.Duration
-          error: true
-        - java_method: getSupportedChannels
-          go_name: GetSupportedChannels
-          returns: java.util.List<java.lang.Integer>
-          error: true
-        - java_method: getSupportedConfigIds
-          go_name: GetSupportedConfigIds
-          returns: java.util.List<java.lang.Integer>
-          error: true
-        - java_method: getSupportedNotificationConfigurations
-          go_name: GetSupportedNotificationConfigurations
-          returns: java.util.List<java.lang.Integer>
-          error: true
-        - java_method: getSupportedPreambleIndexes
-          go_name: GetSupportedPreambleIndexes
-          returns: java.util.List<java.lang.Integer>
-          error: true
-        - java_method: getSupportedRangingUpdateRates
-          go_name: GetSupportedRangingUpdateRates
-          returns: java.util.List<java.lang.Integer>
-          error: true
-        - java_method: getSupportedSlotDurations
-          go_name: GetSupportedSlotDurations
-          returns: java.util.List<java.lang.Integer>
-          error: true
-        - java_method: isAzimuthalAngleSupported
-          go_name: IsAzimuthalAngleSupported
-          returns: boolean
-          error: true
-        - java_method: isBackgroundRangingSupported
-          go_name: IsBackgroundRangingSupported
-          returns: boolean
-          error: true
-        - java_method: isDistanceMeasurementSupported
-          go_name: IsDistanceMeasurementSupported
-          returns: boolean
-          error: true
-        - java_method: isElevationAngleSupported
-          go_name: IsElevationAngleSupported
-          returns: boolean
-          error: true
-        - java_method: isRangingIntervalReconfigurationSupported
-          go_name: IsRangingIntervalReconfigurationSupported
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.ranging.uwb.UwbComplexChannel
-      go_type: ComplexChannel
+    - java_class: android.ranging.uwb.UwbAddress
+      go_type: Address
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -254,13 +281,9 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getChannel
-          go_name: GetChannel
-          returns: int
-          error: true
-        - java_method: getPreambleIndex
-          go_name: GetPreambleIndex
-          returns: int
+        - java_method: getAddressBytes
+          go_name: GetAddressBytes
+          returns: '[B'
           error: true
         - java_method: hashCode
           go_name: HashCode
@@ -269,6 +292,18 @@ classes:
         - java_method: toString
           go_name: ToString
           returns: String
+          error: true
+      static_methods:
+        - java_method: createRandomShortAddress
+          go_name: CreateRandomShortAddress
+          returns: android.ranging.uwb.UwbAddress
+          error: true
+        - java_method: fromBytes
+          go_name: FromBytes
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: android.ranging.uwb.UwbAddress
           error: true
         - java_method: writeToParcel
           go_name: WriteToParcel
@@ -279,63 +314,9 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.ranging.uwb.UwbComplexChannel$Builder
-      go_type: ComplexChannelBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.ranging.uwb.UwbComplexChannel
-          error: true
-        - java_method: setChannel
-          go_name: SetChannel
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.ranging.uwb.UwbComplexChannel$Builder
-          error: true
-        - java_method: setPreambleIndex
-          go_name: SetPreambleIndex
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.ranging.uwb.UwbComplexChannel$Builder
-          error: true
 constants:
     - go_name: Creator
       value: "0"
-      go_type: int
-    - go_name: ExtendedAddressByteLength
-      value: "8"
-      go_type: int
-    - go_name: ShortAddressByteLength
-      value: "2"
-      go_type: int
-    - go_name: ConfigMulticastDsTwr
-      value: "2"
-      go_type: int
-    - go_name: ConfigProvisionedIndividualMulticastDsTwr
-      value: "5"
-      go_type: int
-    - go_name: ConfigProvisionedMulticastDsTwr
-      value: "4"
-      go_type: int
-    - go_name: ConfigProvisionedUnicastDsTwr
-      value: "3"
-      go_type: int
-    - go_name: ConfigProvisionedUnicastDsTwrVeryFast
-      value: "6"
-      go_type: int
-    - go_name: ConfigUnicastDsTwr
-      value: "1"
-      go_type: int
-    - go_name: Duration1Ms
-      value: "1"
-      go_type: int
-    - go_name: Duration2Ms
-      value: "2"
-      go_type: int
-    - go_name: SubSessionUndefined
-      value: "-1"
       go_type: int
     - go_name: UwbChannel10
       value: "10"
@@ -396,4 +377,37 @@ constants:
       go_type: int
     - go_name: UwbPreambleCodeIndex9
       value: "9"
+      go_type: int
+    - go_name: ConfigMulticastDsTwr
+      value: "2"
+      go_type: int
+    - go_name: ConfigProvisionedIndividualMulticastDsTwr
+      value: "5"
+      go_type: int
+    - go_name: ConfigProvisionedMulticastDsTwr
+      value: "4"
+      go_type: int
+    - go_name: ConfigProvisionedUnicastDsTwr
+      value: "3"
+      go_type: int
+    - go_name: ConfigProvisionedUnicastDsTwrVeryFast
+      value: "6"
+      go_type: int
+    - go_name: ConfigUnicastDsTwr
+      value: "1"
+      go_type: int
+    - go_name: Duration1Ms
+      value: "1"
+      go_type: int
+    - go_name: Duration2Ms
+      value: "2"
+      go_type: int
+    - go_name: SubSessionUndefined
+      value: "-1"
+      go_type: int
+    - go_name: ExtendedAddressByteLength
+      value: "8"
+      go_type: int
+    - go_name: ShortAddressByteLength
+      value: "2"
       go_type: int

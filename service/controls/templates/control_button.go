@@ -32,6 +32,12 @@ func NewControlButton(vm *jni.VM, arg0 bool, arg1 string) (*ControlButton, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsControlButton == nil {
+			return fmt.Errorf("android.service.controls.templates.ControlButton is not available on this device")
+		}
+		if midControlButtonCtor == nil {
+			return fmt.Errorf("android.service.controls.templates.ControlButton constructor (ZLjava/lang/CharSequence;)V is not available on this device")
+		}
 		var jArg0 uint8
 		if arg0 {
 			jArg0 = jniTrue
@@ -140,29 +146,6 @@ func (m *ControlButton) IsChecked() (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.service.controls.templates.ControlButton.writeToParcel.
-func (m *ControlButton) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midControlButtonWriteToParcel == nil {
-			callErr = fmt.Errorf("android.service.controls.templates.ControlButton.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midControlButtonWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.service.controls.templates.ControlButton.toString.
 func (m *ControlButton) ToString() (string, error) {
 	var result string
@@ -188,4 +171,27 @@ func (m *ControlButton) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.service.controls.templates.ControlButton.writeToParcel.
+func (m *ControlButton) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midControlButtonWriteToParcel == nil {
+			callErr = fmt.Errorf("android.service.controls.templates.ControlButton.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsControlButton)),
+			midControlButtonWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

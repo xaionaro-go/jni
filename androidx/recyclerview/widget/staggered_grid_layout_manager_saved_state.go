@@ -23,6 +23,34 @@ type StaggeredGridLayoutManagerSavedState struct {
 	Obj *jni.GlobalRef
 }
 
+// NewStaggeredGridLayoutManagerSavedState creates a new androidx.recyclerview.widget.StaggeredGridLayoutManager$SavedState instance.
+func NewStaggeredGridLayoutManagerSavedState(vm *jni.VM) (*StaggeredGridLayoutManagerSavedState, error) {
+	var t StaggeredGridLayoutManagerSavedState
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsStaggeredGridLayoutManagerSavedState == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.StaggeredGridLayoutManager$SavedState is not available on this device")
+		}
+		if midStaggeredGridLayoutManagerSavedStateCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.StaggeredGridLayoutManager$SavedState constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManagerSavedState)), midStaggeredGridLayoutManagerSavedStateCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls androidx.recyclerview.widget.StaggeredGridLayoutManager$SavedState.describeContents.
 func (m *StaggeredGridLayoutManagerSavedState) DescribeContents() (int32, error) {
 	var result int32
@@ -46,29 +74,6 @@ func (m *StaggeredGridLayoutManagerSavedState) DescribeContents() (int32, error)
 		return callErr
 	})
 	return result, callErr
-}
-
-// WriteToParcel calls androidx.recyclerview.widget.StaggeredGridLayoutManager$SavedState.writeToParcel.
-func (m *StaggeredGridLayoutManagerSavedState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midStaggeredGridLayoutManagerSavedStateWriteToParcel == nil {
-			callErr = fmt.Errorf("androidx.recyclerview.widget.StaggeredGridLayoutManager$SavedState.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midStaggeredGridLayoutManagerSavedStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // ToString calls androidx.recyclerview.widget.StaggeredGridLayoutManager$SavedState.toString.
@@ -96,4 +101,27 @@ func (m *StaggeredGridLayoutManagerSavedState) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls androidx.recyclerview.widget.StaggeredGridLayoutManager$SavedState.writeToParcel.
+func (m *StaggeredGridLayoutManagerSavedState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midStaggeredGridLayoutManagerSavedStateWriteToParcel == nil {
+			callErr = fmt.Errorf("androidx.recyclerview.widget.StaggeredGridLayoutManager$SavedState.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManagerSavedState)),
+			midStaggeredGridLayoutManagerSavedStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

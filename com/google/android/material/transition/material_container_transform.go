@@ -32,6 +32,12 @@ func NewMaterialContainerTransform(vm *jni.VM, arg0 *jni.Object, arg1 bool) (*Ma
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialContainerTransform == nil {
+			return fmt.Errorf("com.google.android.material.transition.MaterialContainerTransform is not available on this device")
+		}
+		if midMaterialContainerTransformCtor == nil {
+			return fmt.Errorf("com.google.android.material.transition.MaterialContainerTransform constructor (Landroid/content/Context;Z)V is not available on this device")
+		}
 
 		var jArg1 uint8
 		if arg1 {
@@ -1351,43 +1357,6 @@ func (m *MaterialContainerTransform) CaptureEndValues(arg0 *jni.Object) error {
 		return callErr
 	})
 	return callErr
-}
-
-// CreateAnimator calls com.google.android.material.transition.MaterialContainerTransform.createAnimator.
-func (m *MaterialContainerTransform) CreateAnimator(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialContainerTransformCreateAnimator == nil {
-			callErr = fmt.Errorf("com.google.android.material.transition.MaterialContainerTransform.createAnimator is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialContainerTransformCreateAnimator, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls com.google.android.material.transition.MaterialContainerTransform.toString.

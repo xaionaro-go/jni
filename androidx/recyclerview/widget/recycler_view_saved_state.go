@@ -23,29 +23,6 @@ type RecyclerViewSavedState struct {
 	Obj *jni.GlobalRef
 }
 
-// WriteToParcel calls androidx.recyclerview.widget.RecyclerView$SavedState.writeToParcel.
-func (m *RecyclerViewSavedState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRecyclerViewSavedStateWriteToParcel == nil {
-			callErr = fmt.Errorf("androidx.recyclerview.widget.RecyclerView$SavedState.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midRecyclerViewSavedStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.recyclerview.widget.RecyclerView$SavedState.toString.
 func (m *RecyclerViewSavedState) ToString() (string, error) {
 	var result string
@@ -71,4 +48,27 @@ func (m *RecyclerViewSavedState) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls androidx.recyclerview.widget.RecyclerView$SavedState.writeToParcel.
+func (m *RecyclerViewSavedState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRecyclerViewSavedStateWriteToParcel == nil {
+			callErr = fmt.Errorf("androidx.recyclerview.widget.RecyclerView$SavedState.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsRecyclerViewSavedState)),
+			midRecyclerViewSavedStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

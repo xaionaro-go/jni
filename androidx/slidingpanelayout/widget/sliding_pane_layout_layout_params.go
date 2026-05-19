@@ -23,6 +23,35 @@ type SlidingPaneLayoutLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSlidingPaneLayoutLayoutParams creates a new androidx.slidingpanelayout.widget.SlidingPaneLayout$LayoutParams instance.
+func NewSlidingPaneLayoutLayoutParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*SlidingPaneLayoutLayoutParams, error) {
+	var t SlidingPaneLayoutLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSlidingPaneLayoutLayoutParams == nil {
+			return fmt.Errorf("androidx.slidingpanelayout.widget.SlidingPaneLayout$LayoutParams is not available on this device")
+		}
+		if midSlidingPaneLayoutLayoutParamsCtor == nil {
+			return fmt.Errorf("androidx.slidingpanelayout.widget.SlidingPaneLayout$LayoutParams constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSlidingPaneLayoutLayoutParams)), midSlidingPaneLayoutLayoutParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.slidingpanelayout.widget.SlidingPaneLayout$LayoutParams.toString.
 func (m *SlidingPaneLayoutLayoutParams) ToString() (string, error) {
 	var result string

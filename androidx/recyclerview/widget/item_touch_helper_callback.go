@@ -525,38 +525,6 @@ func (m *ItemTouchHelperCallback) GetAnimationDuration(
 	return result, callErr
 }
 
-// InterpolateOutOfBoundsScroll calls androidx.recyclerview.widget.ItemTouchHelper$Callback.interpolateOutOfBoundsScroll.
-func (m *ItemTouchHelperCallback) InterpolateOutOfBoundsScroll(
-	arg0 *jni.Object,
-	arg1 int32,
-	arg2 int32,
-	arg3 int32,
-	arg4 int64,
-) (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midItemTouchHelperCallbackInterpolateOutOfBoundsScroll == nil {
-			callErr = fmt.Errorf("androidx.recyclerview.widget.ItemTouchHelper$Callback.interpolateOutOfBoundsScroll is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midItemTouchHelperCallbackInterpolateOutOfBoundsScroll, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3), jni.LongValue(arg4),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.recyclerview.widget.ItemTouchHelper$Callback.toString.
 func (m *ItemTouchHelperCallback) ToString() (string, error) {
 	var result string
@@ -685,6 +653,38 @@ func (m *ItemTouchHelperCallback) MakeFlag(arg0 int32, arg1 int32) (int32, error
 		result, callErr = env.CallStaticIntMethod(
 			(*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)),
 			midItemTouchHelperCallbackMakeFlag, jni.IntValue(arg0), jni.IntValue(arg1),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// InterpolateOutOfBoundsScroll calls androidx.recyclerview.widget.ItemTouchHelper$Callback.interpolateOutOfBoundsScroll.
+func (m *ItemTouchHelperCallback) InterpolateOutOfBoundsScroll(
+	arg0 *jni.Object,
+	arg1 int32,
+	arg2 int32,
+	arg3 int32,
+	arg4 int64,
+) (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midItemTouchHelperCallbackInterpolateOutOfBoundsScroll == nil {
+			callErr = fmt.Errorf("androidx.recyclerview.widget.ItemTouchHelper$Callback.interpolateOutOfBoundsScroll is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)),
+			midItemTouchHelperCallbackInterpolateOutOfBoundsScroll, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3), jni.LongValue(arg4),
 		)
 		if callErr != nil {
 			return callErr

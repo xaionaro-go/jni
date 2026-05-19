@@ -23,6 +23,41 @@ type erInfoBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewerInfoBuilder creates a new android.print.PrinterInfo$Builder instance.
+func NewerInfoBuilder(vm *jni.VM, arg0 *jni.Object, arg1 string, arg2 int32) (*erInfoBuilder, error) {
+	var t erInfoBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clserInfoBuilder == nil {
+			return fmt.Errorf("android.print.PrinterInfo$Builder is not available on this device")
+		}
+		if miderInfoBuilderCtor == nil {
+			return fmt.Errorf("android.print.PrinterInfo$Builder constructor (Landroid/print/PrinterId;Ljava/lang/String;I)V is not available on this device")
+		}
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clserInfoBuilder)), miderInfoBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(&jArg1.Object), jni.IntValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.print.PrinterInfo$Builder.build.
 func (m *erInfoBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewSyncStateContract(vm *jni.VM) (*SyncStateContract, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSyncStateContract == nil {
+			return fmt.Errorf("android.provider.SyncStateContract is not available on this device")
+		}
+		if midSyncStateContractCtor == nil {
+			return fmt.Errorf("android.provider.SyncStateContract constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSyncStateContract)), midSyncStateContractCtor)
 		if err != nil {
 			return err

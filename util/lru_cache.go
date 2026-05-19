@@ -32,6 +32,12 @@ func NewLruCache(vm *jni.VM, arg0 int32) (*LruCache, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLruCache == nil {
+			return fmt.Errorf("android.util.LruCache is not available on this device")
+		}
+		if midLruCacheCtor == nil {
+			return fmt.Errorf("android.util.LruCache constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLruCache)), midLruCacheCtor, jni.IntValue(arg0))
 		if err != nil {

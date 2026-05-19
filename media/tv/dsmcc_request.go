@@ -32,6 +32,12 @@ func NewDsmccRequest(vm *jni.VM, arg0 int32, arg1 int32, arg2 *jni.Object) (*Dsm
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDsmccRequest == nil {
+			return fmt.Errorf("android.media.tv.DsmccRequest is not available on this device")
+		}
+		if midDsmccRequestCtor == nil {
+			return fmt.Errorf("android.media.tv.DsmccRequest constructor (IILandroid/net/Uri;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDsmccRequest)), midDsmccRequestCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2))
 		if err != nil {
@@ -103,29 +109,6 @@ func (m *DsmccRequest) GetUri() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.media.tv.DsmccRequest.writeToParcel.
-func (m *DsmccRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDsmccRequestWriteToParcel == nil {
-			callErr = fmt.Errorf("android.media.tv.DsmccRequest.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midDsmccRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.media.tv.DsmccRequest.toString.
 func (m *DsmccRequest) ToString() (string, error) {
 	var result string
@@ -151,4 +134,27 @@ func (m *DsmccRequest) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.media.tv.DsmccRequest.writeToParcel.
+func (m *DsmccRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDsmccRequestWriteToParcel == nil {
+			callErr = fmt.Errorf("android.media.tv.DsmccRequest.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsDsmccRequest)),
+			midDsmccRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

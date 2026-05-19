@@ -32,6 +32,12 @@ func NewAppCompatSeekBar(vm *jni.VM, arg0 *jni.Object) (*AppCompatSeekBar, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppCompatSeekBar == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatSeekBar is not available on this device")
+		}
+		if midAppCompatSeekBarCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatSeekBar constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppCompatSeekBar)), midAppCompatSeekBarCtor, jni.ObjectValue(arg0))
 		if err != nil {

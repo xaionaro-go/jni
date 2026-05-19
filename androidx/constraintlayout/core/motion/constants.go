@@ -5,26 +5,6 @@ package motion
 import "github.com/AndroidGoLab/jni/androidx/constraintlayout/core/motion/consts"
 
 const (
-	Tag = consts.Tag
-)
-
-const (
-	Debug  = consts.Debug
-	OldWay = consts.OldWay
-)
-
-const (
-	Perpendicular         = consts.Perpendicular
-	Cartesian             = consts.Cartesian
-	Screen                = consts.Screen
-	IntType               = consts.IntType
-	FloatType             = consts.FloatType
-	ColorType             = consts.ColorType
-	ColorDrawableType     = consts.ColorDrawableType
-	StringType            = consts.StringType
-	BooleanType           = consts.BooleanType
-	DimensionType         = consts.DimensionType
-	ReferenceType         = consts.ReferenceType
 	PathPercent           = consts.PathPercent
 	PathPerpendicular     = consts.PathPerpendicular
 	HorizontalPathX       = consts.HorizontalPathX
@@ -57,4 +37,24 @@ const (
 	WrapContent           = consts.WrapContent
 	GoneUnset             = consts.GoneUnset
 	MatchConstraintWrap   = consts.MatchConstraintWrap
+	Perpendicular         = consts.Perpendicular
+	Cartesian             = consts.Cartesian
+	Screen                = consts.Screen
+	IntType               = consts.IntType
+	FloatType             = consts.FloatType
+	ColorType             = consts.ColorType
+	ColorDrawableType     = consts.ColorDrawableType
+	StringType            = consts.StringType
+	BooleanType           = consts.BooleanType
+	DimensionType         = consts.DimensionType
+	ReferenceType         = consts.ReferenceType
+)
+
+const (
+	Tag = consts.Tag
+)
+
+const (
+	Debug  = consts.Debug
+	OldWay = consts.OldWay
 )

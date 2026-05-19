@@ -32,6 +32,12 @@ func NewEventStats(vm *jni.VM, arg0 *jni.Object) (*EventStats, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEventStats == nil {
+			return fmt.Errorf("android.app.usage.EventStats is not available on this device")
+		}
+		if midEventStatsCtor == nil {
+			return fmt.Errorf("android.app.usage.EventStats constructor (Landroid/app/usage/EventStats;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEventStats)), midEventStatsCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -244,29 +250,6 @@ func (m *EventStats) GetTotalTime() (int64, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.usage.EventStats.writeToParcel.
-func (m *EventStats) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midEventStatsWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.usage.EventStats.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midEventStatsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.usage.EventStats.toString.
 func (m *EventStats) ToString() (string, error) {
 	var result string
@@ -292,4 +275,27 @@ func (m *EventStats) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.usage.EventStats.writeToParcel.
+func (m *EventStats) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midEventStatsWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.usage.EventStats.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsEventStats)),
+			midEventStatsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

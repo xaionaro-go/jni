@@ -30,6 +30,7 @@ var (
 	midConsumerIrManagerToString              jni.MethodID
 
 	clsConsumerIrManagerCarrierFrequencyRange                *jni.GlobalRef
+	midConsumerIrManagerCarrierFrequencyRangeCtor            jni.MethodID
 	midConsumerIrManagerCarrierFrequencyRangeGetMaxFrequency jni.MethodID
 	midConsumerIrManagerCarrierFrequencyRangeGetMinFrequency jni.MethodID
 	midConsumerIrManagerCarrierFrequencyRangeToString        jni.MethodID
@@ -98,6 +99,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsConsumerIrManagerCarrierFrequencyRange = env.NewGlobalRef(&c.Object)
+		midConsumerIrManagerCarrierFrequencyRangeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConsumerIrManagerCarrierFrequencyRange)), "<init>", "(Landroid/hardware/ConsumerIrManager;II)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midConsumerIrManagerCarrierFrequencyRangeGetMaxFrequency, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConsumerIrManagerCarrierFrequencyRange)), "getMaxFrequency", "()I")
 		if err != nil {

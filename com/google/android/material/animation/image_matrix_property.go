@@ -32,6 +32,12 @@ func NewImageMatrixProperty(vm *jni.VM) (*ImageMatrixProperty, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsImageMatrixProperty == nil {
+			return fmt.Errorf("com.google.android.material.animation.ImageMatrixProperty is not available on this device")
+		}
+		if midImageMatrixPropertyCtor == nil {
+			return fmt.Errorf("com.google.android.material.animation.ImageMatrixProperty constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsImageMatrixProperty)), midImageMatrixPropertyCtor)
 		if err != nil {
 			return err
@@ -45,8 +51,8 @@ func NewImageMatrixProperty(vm *jni.VM) (*ImageMatrixProperty, error) {
 	return &t, nil
 }
 
-// Set2 calls com.google.android.material.animation.ImageMatrixProperty.set.
-func (m *ImageMatrixProperty) Set2(arg0 *jni.Object, arg1 *jni.Object) error {
+// Set calls com.google.android.material.animation.ImageMatrixProperty.set.
+func (m *ImageMatrixProperty) Set(arg0 *jni.Object, arg1 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -54,22 +60,22 @@ func (m *ImageMatrixProperty) Set2(arg0 *jni.Object, arg1 *jni.Object) error {
 			callErr = err
 			return err
 		}
-		if midImageMatrixPropertySet2 == nil {
+		if midImageMatrixPropertySet == nil {
 			callErr = fmt.Errorf("com.google.android.material.animation.ImageMatrixProperty.set is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midImageMatrixPropertySet2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midImageMatrixPropertySet, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		return callErr
 	})
 	return callErr
 }
 
-// Get1 calls com.google.android.material.animation.ImageMatrixProperty.get.
-func (m *ImageMatrixProperty) Get1(arg0 *jni.Object) (*jni.Object, error) {
+// Get calls com.google.android.material.animation.ImageMatrixProperty.get.
+func (m *ImageMatrixProperty) Get(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -77,14 +83,14 @@ func (m *ImageMatrixProperty) Get1(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midImageMatrixPropertyGet1 == nil {
+		if midImageMatrixPropertyGet == nil {
 			callErr = fmt.Errorf("com.google.android.material.animation.ImageMatrixProperty.get is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midImageMatrixPropertyGet1, jni.ObjectValue(arg0),
+			midImageMatrixPropertyGet, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -99,62 +105,6 @@ func (m *ImageMatrixProperty) Get1(arg0 *jni.Object) (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
-}
-
-// Get1_1 calls com.google.android.material.animation.ImageMatrixProperty.get.
-func (m *ImageMatrixProperty) Get1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midImageMatrixPropertyGet1_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.animation.ImageMatrixProperty.get is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midImageMatrixPropertyGet1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Set2_1 calls com.google.android.material.animation.ImageMatrixProperty.set.
-func (m *ImageMatrixProperty) Set2_1(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midImageMatrixPropertySet2_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.animation.ImageMatrixProperty.set is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midImageMatrixPropertySet2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // ToString calls com.google.android.material.animation.ImageMatrixProperty.toString.

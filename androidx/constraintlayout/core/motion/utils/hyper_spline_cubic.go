@@ -23,6 +23,35 @@ type HyperSplineCubic struct {
 	Obj *jni.GlobalRef
 }
 
+// NewHyperSplineCubic creates a new androidx.constraintlayout.core.motion.utils.HyperSpline$Cubic instance.
+func NewHyperSplineCubic(vm *jni.VM, arg0 float64, arg1 float64, arg2 float64, arg3 float64) (*HyperSplineCubic, error) {
+	var t HyperSplineCubic
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsHyperSplineCubic == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.HyperSpline$Cubic is not available on this device")
+		}
+		if midHyperSplineCubicCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.HyperSpline$Cubic constructor (DDDD)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHyperSplineCubic)), midHyperSplineCubicCtor, jni.DoubleValue(arg0), jni.DoubleValue(arg1), jni.DoubleValue(arg2), jni.DoubleValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Eval calls androidx.constraintlayout.core.motion.utils.HyperSpline$Cubic.eval.
 func (m *HyperSplineCubic) Eval(arg0 float64) (float64, error) {
 	var result float64

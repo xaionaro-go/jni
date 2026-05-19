@@ -4,25 +4,6 @@ package consts
 
 const (
 	Creator                                            int = 0
-	GroupClientIpProvisioningModeIpv4Dhcp              int = 0
-	GroupClientIpProvisioningModeIpv6LinkLocal         int = 1
-	GroupOwnerBand2ghz                                 int = 1
-	GroupOwnerBand5ghz                                 int = 2
-	GroupOwnerBand6ghz                                 int = 3
-	GroupOwnerBandAuto                                 int = 0
-	GroupOwnerIntentAuto                               int = -1
-	GroupOwnerIntentMax                                int = 15
-	GroupOwnerIntentMin                                int = 0
-	P2pVersion1                                        int = 0
-	P2pVersion2                                        int = 1
-	PccModeConnectionTypeLegacyOnly                    int = 0
-	PccModeConnectionTypeLegacyOrR2                    int = 1
-	PccModeConnectionTypeR2Only                        int = 2
-	Available                                          int = 3
-	Connected                                          int = 0
-	Failed                                             int = 2
-	Invited                                            int = 1
-	Unavailable                                        int = 4
 	DeviceInfoAudioOnlySupportAtSource                 int = 2048
 	DeviceInfoAudioUnsupportedAtPrimarySink            int = 1024
 	DeviceInfoContentProtectionSupport                 int = 256
@@ -41,12 +22,6 @@ const (
 	DeviceTypeWfdSource                                int = 0
 	PreferredConnectivityP2p                           int = 0
 	PreferredConnectivityTdls                          int = 1
-	NetworkIdPersistent                                int = -2
-	NetworkIdTemporary                                 int = -1
-	SecurityTypeUnknown                                int = -1
-	SecurityTypeWpa2Psk                                int = 0
-	SecurityTypeWpa3Compatibility                      int = 1
-	SecurityTypeWpa3Sae                                int = 2
 	Busy                                               int = 2
 	ConnectionRequestAccept                            int = 0
 	ConnectionRequestDeferShowPinToService             int = 3
@@ -84,6 +59,31 @@ const (
 	PairingBootstrappingMethodKeypadPincode            int = 8
 	PairingBootstrappingMethodOpportunistic            int = 1
 	PairingBootstrappingMethodOutOfBand                int = 32
+	Available                                          int = 3
+	Connected                                          int = 0
+	Failed                                             int = 2
+	Invited                                            int = 1
+	Unavailable                                        int = 4
+	NetworkIdPersistent                                int = -2
+	NetworkIdTemporary                                 int = -1
+	SecurityTypeUnknown                                int = -1
+	SecurityTypeWpa2Psk                                int = 0
+	SecurityTypeWpa3Compatibility                      int = 1
+	SecurityTypeWpa3Sae                                int = 2
+	GroupClientIpProvisioningModeIpv4Dhcp              int = 0
+	GroupClientIpProvisioningModeIpv6LinkLocal         int = 1
+	GroupOwnerBand2ghz                                 int = 1
+	GroupOwnerBand5ghz                                 int = 2
+	GroupOwnerBand6ghz                                 int = 3
+	GroupOwnerBandAuto                                 int = 0
+	GroupOwnerIntentAuto                               int = -1
+	GroupOwnerIntentMax                                int = 15
+	GroupOwnerIntentMin                                int = 0
+	P2pVersion1                                        int = 0
+	P2pVersion2                                        int = 1
+	PccModeConnectionTypeLegacyOnly                    int = 0
+	PccModeConnectionTypeLegacyOrR2                    int = 1
+	PccModeConnectionTypeR2Only                        int = 2
 )
 
 const (

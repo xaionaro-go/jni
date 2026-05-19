@@ -23,6 +23,34 @@ type NameValueTable struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNameValueTable creates a new android.provider.Settings$NameValueTable instance.
+func NewNameValueTable(vm *jni.VM) (*NameValueTable, error) {
+	var t NameValueTable
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNameValueTable == nil {
+			return fmt.Errorf("android.provider.Settings$NameValueTable is not available on this device")
+		}
+		if midNameValueTableCtor == nil {
+			return fmt.Errorf("android.provider.Settings$NameValueTable constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNameValueTable)), midNameValueTableCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.provider.Settings$NameValueTable.toString.
 func (m *NameValueTable) ToString() (string, error) {
 	var result string

@@ -18,6 +18,7 @@ classes:
           error: true
     - java_class: android.provider.Settings$Global
       go_type: Global
+      obtain: constructor
       static_methods:
         - java_method: getFloat
           go_name: GetFloat2
@@ -141,6 +142,7 @@ classes:
           error: true
     - java_class: android.provider.Settings$NameValueTable
       go_type: NameValueTable
+      obtain: constructor
       static_methods:
         - java_method: getUriFor
           go_name: GetUriFor
@@ -155,6 +157,7 @@ classes:
       go_type: Panel
     - java_class: android.provider.Settings$Secure
       go_type: Secure
+      obtain: constructor
       static_methods:
         - java_method: getFloat
           go_name: GetFloat2
@@ -298,8 +301,13 @@ classes:
           error: true
     - java_class: android.provider.Settings$SettingNotFoundException
       go_type: SettingNotFoundException
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
     - java_class: android.provider.Settings$System
       go_type: System
+      obtain: constructor
       static_methods:
         - java_method: canWrite
           go_name: CanWrite

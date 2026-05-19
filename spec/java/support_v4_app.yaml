@@ -52,6 +52,7 @@ classes:
               go_name: arg2
           returns: void
           error: true
+      static_methods:
         - java_method: cancelAll
           go_name: CancelAll
           params:
@@ -61,6 +62,7 @@ classes:
           error: true
     - java_class: android.support.v4.app.INotificationSideChannel$Default
       go_type: INotificationSideChannelDefault
+      obtain: constructor
       methods:
         - java_method: notify
           go_name: Notify
@@ -127,22 +129,11 @@ classes:
           error: true
     - java_class: android.support.v4.app.INotificationSideChannel$_Parcel
       go_type: INotificationSideChannel_Parcel
-abstract_callbacks:
+      obtain: constructor
+abstract_callback_eligibility:
     - java_class: android.support.v4.app.INotificationSideChannel$Stub
-      go_type: INotificationSideChannelStubCallback
-      methods:
-        - java_method: asBinder
-          params: []
-          returns: android.os.IBinder
-          go_field: AsBinder
-        - java_method: onTransact
-          params:
-            - int
-            - android.os.Parcel
-            - android.os.Parcel
-            - int
-          returns: boolean
-          go_field: OnTransact
+      generated: false
+      reason: implements_interface
 constants:
     - go_name: Descriptor
       value: '""'

@@ -23,6 +23,35 @@ type SecureRangingConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSecureRangingConfigBuilder creates a new android.net.wifi.rtt.SecureRangingConfig$Builder instance.
+func NewSecureRangingConfigBuilder(vm *jni.VM, arg0 *jni.Object) (*SecureRangingConfigBuilder, error) {
+	var t SecureRangingConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSecureRangingConfigBuilder == nil {
+			return fmt.Errorf("android.net.wifi.rtt.SecureRangingConfig$Builder is not available on this device")
+		}
+		if midSecureRangingConfigBuilderCtor == nil {
+			return fmt.Errorf("android.net.wifi.rtt.SecureRangingConfig$Builder constructor (Landroid/net/wifi/rtt/PasnConfig;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSecureRangingConfigBuilder)), midSecureRangingConfigBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.wifi.rtt.SecureRangingConfig$Builder.build.
 func (m *SecureRangingConfigBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

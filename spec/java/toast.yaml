@@ -156,6 +156,10 @@ abstract_callbacks:
           params: []
           returns: void
           go_field: OnToastShown
+abstract_callback_eligibility:
+    - java_class: android.widget.Toast$Callback
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
     - go_name: LengthLong
       value: "1"

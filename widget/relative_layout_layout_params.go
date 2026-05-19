@@ -23,6 +23,35 @@ type RelativeLayoutLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRelativeLayoutLayoutParams creates a new android.widget.RelativeLayout$LayoutParams instance.
+func NewRelativeLayoutLayoutParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*RelativeLayoutLayoutParams, error) {
+	var t RelativeLayoutLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRelativeLayoutLayoutParams == nil {
+			return fmt.Errorf("android.widget.RelativeLayout$LayoutParams is not available on this device")
+		}
+		if midRelativeLayoutLayoutParamsCtor == nil {
+			return fmt.Errorf("android.widget.RelativeLayout$LayoutParams constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRelativeLayoutLayoutParams)), midRelativeLayoutLayoutParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddRule1 calls android.widget.RelativeLayout$LayoutParams.addRule.
 func (m *RelativeLayoutLayoutParams) AddRule1(arg0 int32) error {
 

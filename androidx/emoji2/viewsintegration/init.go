@@ -23,6 +23,16 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsEmojiTextViewHelper                           *jni.GlobalRef
+	midEmojiTextViewHelperCtor                       jni.MethodID
+	midEmojiTextViewHelperUpdateTransformationMethod jni.MethodID
+	midEmojiTextViewHelperGetFilters                 jni.MethodID
+	midEmojiTextViewHelperWrapTransformationMethod   jni.MethodID
+	midEmojiTextViewHelperSetEnabled                 jni.MethodID
+	midEmojiTextViewHelperSetAllCaps                 jni.MethodID
+	midEmojiTextViewHelperIsEnabled                  jni.MethodID
+	midEmojiTextViewHelperToString                   jni.MethodID
+
 	clsEmojiEditTextHelper                        *jni.GlobalRef
 	midEmojiEditTextHelperCtor                    jni.MethodID
 	midEmojiEditTextHelperSetMaxEmojiCount        jni.MethodID
@@ -34,16 +44,6 @@ var (
 	midEmojiEditTextHelperIsEnabled               jni.MethodID
 	midEmojiEditTextHelperSetEnabled              jni.MethodID
 	midEmojiEditTextHelperToString                jni.MethodID
-
-	clsEmojiTextViewHelper                           *jni.GlobalRef
-	midEmojiTextViewHelperCtor                       jni.MethodID
-	midEmojiTextViewHelperUpdateTransformationMethod jni.MethodID
-	midEmojiTextViewHelperGetFilters                 jni.MethodID
-	midEmojiTextViewHelperWrapTransformationMethod   jni.MethodID
-	midEmojiTextViewHelperSetEnabled                 jni.MethodID
-	midEmojiTextViewHelperSetAllCaps                 jni.MethodID
-	midEmojiTextViewHelperIsEnabled                  jni.MethodID
-	midEmojiTextViewHelperToString                   jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -63,6 +63,69 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("androidx/emoji2/viewsintegration/EmojiTextViewHelper")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsEmojiTextViewHelper = env.NewGlobalRef(&c.Object)
+		midEmojiTextViewHelperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiTextViewHelper)), "<init>", "(Landroid/widget/TextView;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midEmojiTextViewHelperUpdateTransformationMethod, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiTextViewHelper)), "updateTransformationMethod", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEmojiTextViewHelperGetFilters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiTextViewHelper)), "getFilters", "([Landroid/text/InputFilter;)[Landroid/text/InputFilter;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEmojiTextViewHelperWrapTransformationMethod, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiTextViewHelper)), "wrapTransformationMethod", "(Landroid/text/method/TransformationMethod;)Landroid/text/method/TransformationMethod;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEmojiTextViewHelperSetEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiTextViewHelper)), "setEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEmojiTextViewHelperSetAllCaps, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiTextViewHelper)), "setAllCaps", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEmojiTextViewHelperIsEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiTextViewHelper)), "isEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEmojiTextViewHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiTextViewHelper)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("androidx/emoji2/viewsintegration/EmojiEditTextHelper")
 	if err != nil {
@@ -133,69 +196,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midEmojiEditTextHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiEditTextHelper)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/emoji2/viewsintegration/EmojiTextViewHelper")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsEmojiTextViewHelper = env.NewGlobalRef(&c.Object)
-		midEmojiTextViewHelperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiTextViewHelper)), "<init>", "(Landroid/widget/TextView;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midEmojiTextViewHelperUpdateTransformationMethod, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiTextViewHelper)), "updateTransformationMethod", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmojiTextViewHelperGetFilters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiTextViewHelper)), "getFilters", "([Landroid/text/InputFilter;)[Landroid/text/InputFilter;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmojiTextViewHelperWrapTransformationMethod, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiTextViewHelper)), "wrapTransformationMethod", "(Landroid/text/method/TransformationMethod;)Landroid/text/method/TransformationMethod;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmojiTextViewHelperSetEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiTextViewHelper)), "setEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmojiTextViewHelperSetAllCaps, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiTextViewHelper)), "setAllCaps", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmojiTextViewHelperIsEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiTextViewHelper)), "isEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmojiTextViewHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiTextViewHelper)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

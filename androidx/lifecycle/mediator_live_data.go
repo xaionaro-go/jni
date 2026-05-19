@@ -32,6 +32,12 @@ func NewMediatorLiveData(vm *jni.VM) (*MediatorLiveData, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMediatorLiveData == nil {
+			return fmt.Errorf("androidx.lifecycle.MediatorLiveData is not available on this device")
+		}
+		if midMediatorLiveDataCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.MediatorLiveData constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMediatorLiveData)), midMediatorLiveDataCtor)
 		if err != nil {
 			return err

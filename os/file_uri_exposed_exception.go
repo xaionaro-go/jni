@@ -32,6 +32,12 @@ func NewFileUriExposedException(vm *jni.VM, arg0 string) (*FileUriExposedExcepti
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFileUriExposedException == nil {
+			return fmt.Errorf("android.os.FileUriExposedException is not available on this device")
+		}
+		if midFileUriExposedExceptionCtor == nil {
+			return fmt.Errorf("android.os.FileUriExposedException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

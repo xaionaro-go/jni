@@ -23,6 +23,35 @@ type SexualActivityRecordBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSexualActivityRecordBuilder creates a new android.health.connect.datatypes.SexualActivityRecord$Builder instance.
+func NewSexualActivityRecordBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 int32) (*SexualActivityRecordBuilder, error) {
+	var t SexualActivityRecordBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSexualActivityRecordBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.SexualActivityRecord$Builder is not available on this device")
+		}
+		if midSexualActivityRecordBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.SexualActivityRecord$Builder constructor (Landroid/health/connect/datatypes/Metadata;Ljava/time/Instant;I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSexualActivityRecordBuilder)), midSexualActivityRecordBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.datatypes.SexualActivityRecord$Builder.build.
 func (m *SexualActivityRecordBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

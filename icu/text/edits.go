@@ -32,6 +32,12 @@ func NewEdits(vm *jni.VM) (*Edits, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEdits == nil {
+			return fmt.Errorf("android.icu.text.Edits is not available on this device")
+		}
+		if midEditsCtor == nil {
+			return fmt.Errorf("android.icu.text.Edits constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEdits)), midEditsCtor)
 		if err != nil {
 			return err

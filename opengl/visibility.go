@@ -32,6 +32,12 @@ func NewVisibility(vm *jni.VM) (*Visibility, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsVisibility == nil {
+			return fmt.Errorf("android.opengl.Visibility is not available on this device")
+		}
+		if midVisibilityCtor == nil {
+			return fmt.Errorf("android.opengl.Visibility constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVisibility)), midVisibilityCtor)
 		if err != nil {
 			return err

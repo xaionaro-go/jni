@@ -23,6 +23,34 @@ type ManagerLocalOnlyHotspotCallback struct {
 	Obj *jni.GlobalRef
 }
 
+// NewManagerLocalOnlyHotspotCallback creates a new android.net.wifi.WifiManager$LocalOnlyHotspotCallback instance.
+func NewManagerLocalOnlyHotspotCallback(vm *jni.VM) (*ManagerLocalOnlyHotspotCallback, error) {
+	var t ManagerLocalOnlyHotspotCallback
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsManagerLocalOnlyHotspotCallback == nil {
+			return fmt.Errorf("android.net.wifi.WifiManager$LocalOnlyHotspotCallback is not available on this device")
+		}
+		if midManagerLocalOnlyHotspotCallbackCtor == nil {
+			return fmt.Errorf("android.net.wifi.WifiManager$LocalOnlyHotspotCallback constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsManagerLocalOnlyHotspotCallback)), midManagerLocalOnlyHotspotCallbackCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnFailed calls android.net.wifi.WifiManager$LocalOnlyHotspotCallback.onFailed.
 func (m *ManagerLocalOnlyHotspotCallback) OnFailed(arg0 int32) error {
 

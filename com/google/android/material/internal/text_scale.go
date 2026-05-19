@@ -32,6 +32,12 @@ func NewTextScale(vm *jni.VM) (*TextScale, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTextScale == nil {
+			return fmt.Errorf("com.google.android.material.internal.TextScale is not available on this device")
+		}
+		if midTextScaleCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.TextScale constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextScale)), midTextScaleCtor)
 		if err != nil {
 			return err

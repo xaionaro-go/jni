@@ -23,6 +23,35 @@ type MindfulnessSessionRecordBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMindfulnessSessionRecordBuilder creates a new android.health.connect.datatypes.MindfulnessSessionRecord$Builder instance.
+func NewMindfulnessSessionRecordBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.Object, arg3 int32) (*MindfulnessSessionRecordBuilder, error) {
+	var t MindfulnessSessionRecordBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMindfulnessSessionRecordBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.MindfulnessSessionRecord$Builder is not available on this device")
+		}
+		if midMindfulnessSessionRecordBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.MindfulnessSessionRecord$Builder constructor (Landroid/health/connect/datatypes/Metadata;Ljava/time/Instant;Ljava/time/Instant;I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMindfulnessSessionRecordBuilder)), midMindfulnessSessionRecordBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.IntValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.datatypes.MindfulnessSessionRecord$Builder.build.
 func (m *MindfulnessSessionRecordBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

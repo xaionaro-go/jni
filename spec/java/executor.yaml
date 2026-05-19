@@ -5,34 +5,6 @@
 package: executor
 go_import: github.com/AndroidGoLab/jni/androidx/arch/core/executor
 classes:
-    - java_class: androidx.arch.core.executor.TaskExecutor
-      go_type: TaskExecutor
-      methods:
-        - java_method: executeOnDiskIO
-          go_name: ExecuteOnDiskIO
-          params:
-            - java_type: java.lang.Runnable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: postToMainThread
-          go_name: PostToMainThread
-          params:
-            - java_type: java.lang.Runnable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: executeOnMainThread
-          go_name: ExecuteOnMainThread
-          params:
-            - java_type: java.lang.Runnable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isMainThread
-          go_name: IsMainThread
-          returns: boolean
-          error: true
     - java_class: androidx.arch.core.executor.DefaultTaskExecutor
       go_type: DefaultTaskExecutor
       obtain: constructor
@@ -79,10 +51,6 @@ classes:
               go_name: arg0
           returns: void
           error: true
-        - java_method: isMainThread
-          go_name: IsMainThread
-          returns: boolean
-          error: true
       static_methods:
         - java_method: getInstance
           go_name: GetInstance
@@ -95,6 +63,38 @@ classes:
         - java_method: getIOThreadExecutor
           go_name: GetIOThreadExecutor
           returns: java.util.concurrent.Executor
+          error: true
+        - java_method: isMainThread
+          go_name: IsMainThread
+          returns: boolean
+          error: true
+    - java_class: androidx.arch.core.executor.TaskExecutor
+      go_type: TaskExecutor
+      methods:
+        - java_method: executeOnDiskIO
+          go_name: ExecuteOnDiskIO
+          params:
+            - java_type: java.lang.Runnable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: postToMainThread
+          go_name: PostToMainThread
+          params:
+            - java_type: java.lang.Runnable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: executeOnMainThread
+          go_name: ExecuteOnMainThread
+          params:
+            - java_type: java.lang.Runnable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isMainThread
+          go_name: IsMainThread
+          returns: boolean
           error: true
 abstract_callbacks:
     - java_class: androidx.arch.core.executor.TaskExecutor
@@ -119,3 +119,7 @@ abstract_callbacks:
           params: []
           returns: boolean
           go_field: IsMainThread
+abstract_callback_eligibility:
+    - java_class: androidx.arch.core.executor.TaskExecutor
+      generated: true
+      reason: supported_no_arg_constructor

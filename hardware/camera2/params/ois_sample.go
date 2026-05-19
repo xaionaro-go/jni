@@ -32,6 +32,12 @@ func NewOisSample(vm *jni.VM, arg0 int64, arg1 float32, arg2 float32) (*OisSampl
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsOisSample == nil {
+			return fmt.Errorf("android.hardware.camera2.params.OisSample is not available on this device")
+		}
+		if midOisSampleCtor == nil {
+			return fmt.Errorf("android.hardware.camera2.params.OisSample constructor (JFF)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsOisSample)), midOisSampleCtor, jni.LongValue(arg0), jni.FloatValue(arg1), jni.FloatValue(arg2))
 		if err != nil {

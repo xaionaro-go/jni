@@ -23,6 +23,35 @@ type ViewPagerSavedState struct {
 	Obj *jni.GlobalRef
 }
 
+// NewViewPagerSavedState creates a new androidx.viewpager.widget.ViewPager$SavedState instance.
+func NewViewPagerSavedState(vm *jni.VM, arg0 *jni.Object) (*ViewPagerSavedState, error) {
+	var t ViewPagerSavedState
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsViewPagerSavedState == nil {
+			return fmt.Errorf("androidx.viewpager.widget.ViewPager$SavedState is not available on this device")
+		}
+		if midViewPagerSavedStateCtor == nil {
+			return fmt.Errorf("androidx.viewpager.widget.ViewPager$SavedState constructor (Landroid/os/Parcelable;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewPagerSavedState)), midViewPagerSavedStateCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // WriteToParcel calls androidx.viewpager.widget.ViewPager$SavedState.writeToParcel.
 func (m *ViewPagerSavedState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 
@@ -60,8 +89,8 @@ func (m *ViewPagerSavedState) ToString() (string, error) {
 			return callErr
 		}
 		var resultObj *jni.Object
-		resultObj, callErr = env.CallObjectMethod(
-			m.Obj,
+		resultObj, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsViewPagerSavedState)),
 			midViewPagerSavedStateToString,
 		)
 		if callErr != nil {

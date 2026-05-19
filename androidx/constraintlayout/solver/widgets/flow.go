@@ -32,6 +32,12 @@ func NewFlow(vm *jni.VM) (*Flow, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFlow == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.widgets.Flow is not available on this device")
+		}
+		if midFlowCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.widgets.Flow constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFlow)), midFlowCtor)
 		if err != nil {
 			return err
@@ -504,29 +510,6 @@ func (m *Flow) Measure(
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midFlowMeasure, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// AddToSolver calls androidx.constraintlayout.solver.widgets.Flow.addToSolver.
-func (m *Flow) AddToSolver(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFlowAddToSolver == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.solver.widgets.Flow.addToSolver is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midFlowAddToSolver, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})

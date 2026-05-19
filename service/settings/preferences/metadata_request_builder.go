@@ -23,6 +23,34 @@ type MetadataRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMetadataRequestBuilder creates a new android.service.settings.preferences.MetadataRequest$Builder instance.
+func NewMetadataRequestBuilder(vm *jni.VM) (*MetadataRequestBuilder, error) {
+	var t MetadataRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMetadataRequestBuilder == nil {
+			return fmt.Errorf("android.service.settings.preferences.MetadataRequest$Builder is not available on this device")
+		}
+		if midMetadataRequestBuilderCtor == nil {
+			return fmt.Errorf("android.service.settings.preferences.MetadataRequest$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMetadataRequestBuilder)), midMetadataRequestBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.service.settings.preferences.MetadataRequest$Builder.build.
 func (m *MetadataRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

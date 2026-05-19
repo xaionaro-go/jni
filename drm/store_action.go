@@ -23,6 +23,34 @@ type StoreAction struct {
 	Obj *jni.GlobalRef
 }
 
+// NewStoreAction creates a new android.drm.DrmStore$Action instance.
+func NewStoreAction(vm *jni.VM) (*StoreAction, error) {
+	var t StoreAction
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsStoreAction == nil {
+			return fmt.Errorf("android.drm.DrmStore$Action is not available on this device")
+		}
+		if midStoreActionCtor == nil {
+			return fmt.Errorf("android.drm.DrmStore$Action constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStoreAction)), midStoreActionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.drm.DrmStore$Action.toString.
 func (m *StoreAction) ToString() (string, error) {
 	var result string

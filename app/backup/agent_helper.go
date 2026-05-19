@@ -32,6 +32,12 @@ func NewAgentHelper(vm *jni.VM) (*AgentHelper, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAgentHelper == nil {
+			return fmt.Errorf("android.app.backup.BackupAgentHelper is not available on this device")
+		}
+		if midAgentHelperCtor == nil {
+			return fmt.Errorf("android.app.backup.BackupAgentHelper constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAgentHelper)), midAgentHelperCtor)
 		if err != nil {
 			return err

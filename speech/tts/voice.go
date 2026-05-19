@@ -32,6 +32,12 @@ func NewVoice(vm *jni.VM, arg0 string, arg1 *jni.Object, arg2 int32, arg3 int32,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsVoice == nil {
+			return fmt.Errorf("android.speech.tts.Voice is not available on this device")
+		}
+		if midVoiceCtor == nil {
+			return fmt.Errorf("android.speech.tts.Voice constructor (Ljava/lang/String;Ljava/util/Locale;IIZLjava/util/Set;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -343,8 +349,8 @@ func (m *Voice) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsVoice)),
 			midVoiceWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

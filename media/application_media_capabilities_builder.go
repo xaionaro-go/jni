@@ -23,6 +23,34 @@ type ApplicationMediaCapabilitiesBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewApplicationMediaCapabilitiesBuilder creates a new android.media.ApplicationMediaCapabilities$Builder instance.
+func NewApplicationMediaCapabilitiesBuilder(vm *jni.VM) (*ApplicationMediaCapabilitiesBuilder, error) {
+	var t ApplicationMediaCapabilitiesBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsApplicationMediaCapabilitiesBuilder == nil {
+			return fmt.Errorf("android.media.ApplicationMediaCapabilities$Builder is not available on this device")
+		}
+		if midApplicationMediaCapabilitiesBuilderCtor == nil {
+			return fmt.Errorf("android.media.ApplicationMediaCapabilities$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsApplicationMediaCapabilitiesBuilder)), midApplicationMediaCapabilitiesBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddSupportedHdrType calls android.media.ApplicationMediaCapabilities$Builder.addSupportedHdrType.
 func (m *ApplicationMediaCapabilitiesBuilder) AddSupportedHdrType(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

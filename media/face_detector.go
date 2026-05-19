@@ -32,6 +32,12 @@ func NewFaceDetector(vm *jni.VM, arg0 int32, arg1 int32, arg2 int32) (*FaceDetec
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFaceDetector == nil {
+			return fmt.Errorf("android.media.FaceDetector is not available on this device")
+		}
+		if midFaceDetectorCtor == nil {
+			return fmt.Errorf("android.media.FaceDetector constructor (III)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFaceDetector)), midFaceDetectorCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2))
 		if err != nil {

@@ -32,6 +32,12 @@ func NewCanvas(vm *jni.VM, arg0 *jni.Object) (*Canvas, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCanvas == nil {
+			return fmt.Errorf("android.graphics.Canvas is not available on this device")
+		}
+		if midCanvasCtor == nil {
+			return fmt.Errorf("android.graphics.Canvas constructor (Landroid/graphics/Bitmap;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCanvas)), midCanvasCtor, jni.ObjectValue(arg0))
 		if err != nil {

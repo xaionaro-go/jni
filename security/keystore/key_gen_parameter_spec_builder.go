@@ -23,6 +23,40 @@ type KeyGenParameterSpecBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewKeyGenParameterSpecBuilder creates a new android.security.keystore.KeyGenParameterSpec$Builder instance.
+func NewKeyGenParameterSpecBuilder(vm *jni.VM, arg0 string, arg1 int32) (*KeyGenParameterSpecBuilder, error) {
+	var t KeyGenParameterSpecBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsKeyGenParameterSpecBuilder == nil {
+			return fmt.Errorf("android.security.keystore.KeyGenParameterSpec$Builder is not available on this device")
+		}
+		if midKeyGenParameterSpecBuilderCtor == nil {
+			return fmt.Errorf("android.security.keystore.KeyGenParameterSpec$Builder constructor (Ljava/lang/String;I)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyGenParameterSpecBuilder)), midKeyGenParameterSpecBuilderCtor, jni.ObjectValue(&jArg0.Object), jni.IntValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.security.keystore.KeyGenParameterSpec$Builder.build.
 func (m *KeyGenParameterSpecBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

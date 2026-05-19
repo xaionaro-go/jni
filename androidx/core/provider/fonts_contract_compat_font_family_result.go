@@ -23,6 +23,35 @@ type FontsContractCompatFontFamilyResult struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFontsContractCompatFontFamilyResult creates a new androidx.core.provider.FontsContractCompat$FontFamilyResult instance.
+func NewFontsContractCompatFontFamilyResult(vm *jni.VM, arg0 int32, arg1 *jni.Object) (*FontsContractCompatFontFamilyResult, error) {
+	var t FontsContractCompatFontFamilyResult
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFontsContractCompatFontFamilyResult == nil {
+			return fmt.Errorf("androidx.core.provider.FontsContractCompat$FontFamilyResult is not available on this device")
+		}
+		if midFontsContractCompatFontFamilyResultCtor == nil {
+			return fmt.Errorf("androidx.core.provider.FontsContractCompat$FontFamilyResult constructor (I[Landroidx/core/provider/FontsContractCompat$FontInfo;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFontsContractCompatFontFamilyResult)), midFontsContractCompatFontFamilyResultCtor, jni.IntValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetStatusCode calls androidx.core.provider.FontsContractCompat$FontFamilyResult.getStatusCode.
 func (m *FontsContractCompatFontFamilyResult) GetStatusCode() (int32, error) {
 	var result int32
@@ -42,38 +71,6 @@ func (m *FontsContractCompatFontFamilyResult) GetStatusCode() (int32, error) {
 		)
 		if callErr != nil {
 			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetFonts calls androidx.core.provider.FontsContractCompat$FontFamilyResult.getFonts.
-func (m *FontsContractCompatFontFamilyResult) GetFonts() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFontsContractCompatFontFamilyResultGetFonts == nil {
-			callErr = fmt.Errorf("androidx.core.provider.FontsContractCompat$FontFamilyResult.getFonts is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midFontsContractCompatFontFamilyResultGetFonts,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
 		}
 		return callErr
 	})
@@ -102,6 +99,38 @@ func (m *FontsContractCompatFontFamilyResult) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetFonts calls androidx.core.provider.FontsContractCompat$FontFamilyResult.getFonts.
+func (m *FontsContractCompatFontFamilyResult) GetFonts() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midFontsContractCompatFontFamilyResultGetFonts == nil {
+			callErr = fmt.Errorf("androidx.core.provider.FontsContractCompat$FontFamilyResult.getFonts is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsFontsContractCompatFontFamilyResult)),
+			midFontsContractCompatFontFamilyResultGetFonts,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
 		return callErr
 	})
 	return result, callErr

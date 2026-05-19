@@ -23,6 +23,40 @@ type SplineSetCustomSpline struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSplineSetCustomSpline creates a new androidx.constraintlayout.core.motion.utils.SplineSet$CustomSpline instance.
+func NewSplineSetCustomSpline(vm *jni.VM, arg0 string, arg1 *jni.Object) (*SplineSetCustomSpline, error) {
+	var t SplineSetCustomSpline
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSplineSetCustomSpline == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.SplineSet$CustomSpline is not available on this device")
+		}
+		if midSplineSetCustomSplineCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.SplineSet$CustomSpline constructor (Ljava/lang/String;Landroidx/constraintlayout/core/motion/utils/KeyFrameArray$CustomVar;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSplineSetCustomSpline)), midSplineSetCustomSplineCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Setup calls androidx.constraintlayout.core.motion.utils.SplineSet$CustomSpline.setup.
 func (m *SplineSetCustomSpline) Setup(arg0 int32) error {
 

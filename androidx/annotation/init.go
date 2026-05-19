@@ -23,28 +23,14 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsUiThread         *jni.GlobalRef
-	midUiThreadToString jni.MethodID
+	clsLayoutRes         *jni.GlobalRef
+	midLayoutResToString jni.MethodID
 
-	clsRestrictTo         *jni.GlobalRef
-	midRestrictToValue    jni.MethodID
-	midRestrictToToString jni.MethodID
+	clsNavigationRes         *jni.GlobalRef
+	midNavigationResToString jni.MethodID
 
-	clsRestrictToScope         *jni.GlobalRef
-	midRestrictToScopeToString jni.MethodID
-	midRestrictToScopeValues   jni.MethodID
-	midRestrictToScopeValueOf  jni.MethodID
-
-	clsFractionRes         *jni.GlobalRef
-	midFractionResToString jni.MethodID
-
-	clsColorRes         *jni.GlobalRef
-	midColorResToString jni.MethodID
-
-	clsStringDef         *jni.GlobalRef
-	midStringDefValue    jni.MethodID
-	midStringDefOpen     jni.MethodID
-	midStringDefToString jni.MethodID
+	clsBoolRes         *jni.GlobalRef
+	midBoolResToString jni.MethodID
 
 	clsInspectableProperty               *jni.GlobalRef
 	midInspectablePropertyName           jni.MethodID
@@ -71,63 +57,18 @@ var (
 	midInspectablePropertyValueTypeValues   jni.MethodID
 	midInspectablePropertyValueTypeValueOf  jni.MethodID
 
-	clsNullable         *jni.GlobalRef
-	midNullableToString jni.MethodID
+	clsIdRes         *jni.GlobalRef
+	midIdResToString jni.MethodID
 
 	clsAnimatorRes         *jni.GlobalRef
 	midAnimatorResToString jni.MethodID
 
-	clsAttrRes         *jni.GlobalRef
-	midAttrResToString jni.MethodID
-
 	clsPx         *jni.GlobalRef
 	midPxToString jni.MethodID
 
-	clsUiContext         *jni.GlobalRef
-	midUiContextToString jni.MethodID
-
-	clsFontRes         *jni.GlobalRef
-	midFontResToString jni.MethodID
-
-	clsIntRange         *jni.GlobalRef
-	midIntRangeFrom     jni.MethodID
-	midIntRangeTo       jni.MethodID
-	midIntRangeToString jni.MethodID
-
-	clsIdRes         *jni.GlobalRef
-	midIdResToString jni.MethodID
-
-	clsDiscouraged         *jni.GlobalRef
-	midDiscouragedMessage  jni.MethodID
-	midDiscouragedToString jni.MethodID
-
-	clsCallSuper         *jni.GlobalRef
-	midCallSuperToString jni.MethodID
-
-	clsBoolRes         *jni.GlobalRef
-	midBoolResToString jni.MethodID
-
-	clsDimension         *jni.GlobalRef
-	midDimensionUnit     jni.MethodID
-	midDimensionToString jni.MethodID
-
-	clsStyleRes         *jni.GlobalRef
-	midStyleResToString jni.MethodID
-
-	clsRawRes         *jni.GlobalRef
-	midRawResToString jni.MethodID
-
-	clsBinderThread         *jni.GlobalRef
-	midBinderThreadToString jni.MethodID
-
-	clsLongDef         *jni.GlobalRef
-	midLongDefValue    jni.MethodID
-	midLongDefFlag     jni.MethodID
-	midLongDefOpen     jni.MethodID
-	midLongDefToString jni.MethodID
-
-	clsAnyRes         *jni.GlobalRef
-	midAnyResToString jni.MethodID
+	clsCheckResult         *jni.GlobalRef
+	midCheckResultSuggest  jni.MethodID
+	midCheckResultToString jni.MethodID
 
 	clsXmlRes         *jni.GlobalRef
 	midXmlResToString jni.MethodID
@@ -137,29 +78,32 @@ var (
 	midRequiresApiApi      jni.MethodID
 	midRequiresApiToString jni.MethodID
 
-	clsHalfFloat         *jni.GlobalRef
-	midHalfFloatToString jni.MethodID
+	clsNonNull         *jni.GlobalRef
+	midNonNullToString jni.MethodID
 
-	clsMenuRes         *jni.GlobalRef
-	midMenuResToString jni.MethodID
+	clsAttrRes         *jni.GlobalRef
+	midAttrResToString jni.MethodID
 
-	clsLayoutRes         *jni.GlobalRef
-	midLayoutResToString jni.MethodID
+	clsArrayRes         *jni.GlobalRef
+	midArrayResToString jni.MethodID
 
-	clsDrawableRes         *jni.GlobalRef
-	midDrawableResToString jni.MethodID
-
-	clsTransitionRes         *jni.GlobalRef
-	midTransitionResToString jni.MethodID
+	clsColorLong         *jni.GlobalRef
+	midColorLongToString jni.MethodID
 
 	clsNonUiContext         *jni.GlobalRef
 	midNonUiContextToString jni.MethodID
 
-	clsAnyThread         *jni.GlobalRef
-	midAnyThreadToString jni.MethodID
+	clsHalfFloat         *jni.GlobalRef
+	midHalfFloatToString jni.MethodID
 
-	clsColorInt         *jni.GlobalRef
-	midColorIntToString jni.MethodID
+	clsMainThread         *jni.GlobalRef
+	midMainThreadToString jni.MethodID
+
+	clsPluralsRes         *jni.GlobalRef
+	midPluralsResToString jni.MethodID
+
+	clsBinderThread         *jni.GlobalRef
+	midBinderThreadToString jni.MethodID
 
 	clsFloatRange              *jni.GlobalRef
 	midFloatRangeFrom          jni.MethodID
@@ -168,27 +112,133 @@ var (
 	midFloatRangeToInclusive   jni.MethodID
 	midFloatRangeToString      jni.MethodID
 
-	clsContentView         *jni.GlobalRef
-	midContentViewToString jni.MethodID
+	clsKeep         *jni.GlobalRef
+	midKeepToString jni.MethodID
 
-	clsAnimRes         *jni.GlobalRef
-	midAnimResToString jni.MethodID
-
-	clsNavigationRes         *jni.GlobalRef
-	midNavigationResToString jni.MethodID
-
-	clsStringRes         *jni.GlobalRef
-	midStringResToString jni.MethodID
-
-	clsDisplayContext         *jni.GlobalRef
-	midDisplayContextToString jni.MethodID
-
-	clsMainThread         *jni.GlobalRef
-	midMainThreadToString jni.MethodID
+	clsWorkerThread         *jni.GlobalRef
+	midWorkerThreadToString jni.MethodID
 
 	clsGuardedBy         *jni.GlobalRef
 	midGuardedByValue    jni.MethodID
 	midGuardedByToString jni.MethodID
+
+	clsMenuRes         *jni.GlobalRef
+	midMenuResToString jni.MethodID
+
+	clsStringRes         *jni.GlobalRef
+	midStringResToString jni.MethodID
+
+	clsNullable         *jni.GlobalRef
+	midNullableToString jni.MethodID
+
+	clsChecksSdkIntAtLeast          *jni.GlobalRef
+	midChecksSdkIntAtLeastApi       jni.MethodID
+	midChecksSdkIntAtLeastCodename  jni.MethodID
+	midChecksSdkIntAtLeastParameter jni.MethodID
+	midChecksSdkIntAtLeastLambda    jni.MethodID
+	midChecksSdkIntAtLeastToString  jni.MethodID
+
+	clsIntDef         *jni.GlobalRef
+	midIntDefValue    jni.MethodID
+	midIntDefFlag     jni.MethodID
+	midIntDefOpen     jni.MethodID
+	midIntDefToString jni.MethodID
+
+	clsIntegerRes         *jni.GlobalRef
+	midIntegerResToString jni.MethodID
+
+	clsInterpolatorRes         *jni.GlobalRef
+	midInterpolatorResToString jni.MethodID
+
+	clsDisplayContext         *jni.GlobalRef
+	midDisplayContextToString jni.MethodID
+
+	clsStringDef         *jni.GlobalRef
+	midStringDefValue    jni.MethodID
+	midStringDefOpen     jni.MethodID
+	midStringDefToString jni.MethodID
+
+	clsDoNotInline         *jni.GlobalRef
+	midDoNotInlineToString jni.MethodID
+
+	clsColorInt         *jni.GlobalRef
+	midColorIntToString jni.MethodID
+
+	clsDimension         *jni.GlobalRef
+	midDimensionUnit     jni.MethodID
+	midDimensionToString jni.MethodID
+
+	clsSize         *jni.GlobalRef
+	midSizeValue    jni.MethodID
+	midSizeMin      jni.MethodID
+	midSizeMax      jni.MethodID
+	midSizeMultiple jni.MethodID
+	midSizeToString jni.MethodID
+
+	clsStyleRes         *jni.GlobalRef
+	midStyleResToString jni.MethodID
+
+	clsTransitionRes         *jni.GlobalRef
+	midTransitionResToString jni.MethodID
+
+	clsFractionRes         *jni.GlobalRef
+	midFractionResToString jni.MethodID
+
+	clsUiContext         *jni.GlobalRef
+	midUiContextToString jni.MethodID
+
+	clsRestrictTo         *jni.GlobalRef
+	midRestrictToValue    jni.MethodID
+	midRestrictToToString jni.MethodID
+
+	clsRestrictToScope         *jni.GlobalRef
+	midRestrictToScopeToString jni.MethodID
+	midRestrictToScopeValues   jni.MethodID
+	midRestrictToScopeValueOf  jni.MethodID
+
+	clsUiThread         *jni.GlobalRef
+	midUiThreadToString jni.MethodID
+
+	clsCallSuper         *jni.GlobalRef
+	midCallSuperToString jni.MethodID
+
+	clsDrawableRes         *jni.GlobalRef
+	midDrawableResToString jni.MethodID
+
+	clsRawRes         *jni.GlobalRef
+	midRawResToString jni.MethodID
+
+	clsLongDef         *jni.GlobalRef
+	midLongDefValue    jni.MethodID
+	midLongDefFlag     jni.MethodID
+	midLongDefOpen     jni.MethodID
+	midLongDefToString jni.MethodID
+
+	clsAnimRes         *jni.GlobalRef
+	midAnimResToString jni.MethodID
+
+	clsColorRes         *jni.GlobalRef
+	midColorResToString jni.MethodID
+
+	clsRequiresFeature            *jni.GlobalRef
+	midRequiresFeatureName        jni.MethodID
+	midRequiresFeatureEnforcement jni.MethodID
+	midRequiresFeatureToString    jni.MethodID
+
+	clsVisibleForTesting          *jni.GlobalRef
+	midVisibleForTestingOtherwise jni.MethodID
+	midVisibleForTestingToString  jni.MethodID
+
+	clsContentView         *jni.GlobalRef
+	midContentViewToString jni.MethodID
+
+	clsDimenRes         *jni.GlobalRef
+	midDimenResToString jni.MethodID
+
+	clsIntRange         *jni.GlobalRef
+	midIntRangeFrom     jni.MethodID
+	midIntRangeTo       jni.MethodID
+	midIntRangeToString jni.MethodID
 
 	clsRequiresPermission            *jni.GlobalRef
 	midRequiresPermissionValue       jni.MethodID
@@ -205,74 +255,24 @@ var (
 	midRequiresPermissionWriteValue    jni.MethodID
 	midRequiresPermissionWriteToString jni.MethodID
 
-	clsColorLong         *jni.GlobalRef
-	midColorLongToString jni.MethodID
-
-	clsVisibleForTesting          *jni.GlobalRef
-	midVisibleForTestingOtherwise jni.MethodID
-	midVisibleForTestingToString  jni.MethodID
-
-	clsIntegerRes         *jni.GlobalRef
-	midIntegerResToString jni.MethodID
-
-	clsPluralsRes         *jni.GlobalRef
-	midPluralsResToString jni.MethodID
-
-	clsRequiresFeature            *jni.GlobalRef
-	midRequiresFeatureName        jni.MethodID
-	midRequiresFeatureEnforcement jni.MethodID
-	midRequiresFeatureToString    jni.MethodID
-
-	clsChecksSdkIntAtLeast          *jni.GlobalRef
-	midChecksSdkIntAtLeastApi       jni.MethodID
-	midChecksSdkIntAtLeastCodename  jni.MethodID
-	midChecksSdkIntAtLeastParameter jni.MethodID
-	midChecksSdkIntAtLeastLambda    jni.MethodID
-	midChecksSdkIntAtLeastToString  jni.MethodID
-
-	clsIntDef         *jni.GlobalRef
-	midIntDefValue    jni.MethodID
-	midIntDefFlag     jni.MethodID
-	midIntDefOpen     jni.MethodID
-	midIntDefToString jni.MethodID
-
-	clsDoNotInline         *jni.GlobalRef
-	midDoNotInlineToString jni.MethodID
-
-	clsSize         *jni.GlobalRef
-	midSizeValue    jni.MethodID
-	midSizeMin      jni.MethodID
-	midSizeMax      jni.MethodID
-	midSizeMultiple jni.MethodID
-	midSizeToString jni.MethodID
-
-	clsInterpolatorRes         *jni.GlobalRef
-	midInterpolatorResToString jni.MethodID
-
 	clsStyleableRes         *jni.GlobalRef
 	midStyleableResToString jni.MethodID
 
-	clsArrayRes         *jni.GlobalRef
-	midArrayResToString jni.MethodID
+	clsFontRes         *jni.GlobalRef
+	midFontResToString jni.MethodID
 
-	clsCheckResult         *jni.GlobalRef
-	midCheckResultSuggest  jni.MethodID
-	midCheckResultToString jni.MethodID
+	clsAnyRes         *jni.GlobalRef
+	midAnyResToString jni.MethodID
 
 	clsGravityInt         *jni.GlobalRef
 	midGravityIntToString jni.MethodID
 
-	clsKeep         *jni.GlobalRef
-	midKeepToString jni.MethodID
+	clsDiscouraged         *jni.GlobalRef
+	midDiscouragedMessage  jni.MethodID
+	midDiscouragedToString jni.MethodID
 
-	clsWorkerThread         *jni.GlobalRef
-	midWorkerThreadToString jni.MethodID
-
-	clsDimenRes         *jni.GlobalRef
-	midDimenResToString jni.MethodID
-
-	clsNonNull         *jni.GlobalRef
-	midNonNullToString jni.MethodID
+	clsAnyThread         *jni.GlobalRef
+	midAnyThreadToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -293,15 +293,15 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("androidx/annotation/UiThread")
+	c, err = env.FindClass("androidx/annotation/LayoutRes")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsUiThread = env.NewGlobalRef(&c.Object)
+		clsLayoutRes = env.NewGlobalRef(&c.Object)
 
-		midUiThreadToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUiThread)), "toString", "()Ljava/lang/String;")
+		midLayoutResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLayoutRes)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -310,22 +310,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/annotation/RestrictTo")
+	c, err = env.FindClass("androidx/annotation/NavigationRes")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsRestrictTo = env.NewGlobalRef(&c.Object)
+		clsNavigationRes = env.NewGlobalRef(&c.Object)
 
-		midRestrictToValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRestrictTo)), "value", "()[Landroidx/annotation/RestrictTo$Scope;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRestrictToToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRestrictTo)), "toString", "()Ljava/lang/String;")
+		midNavigationResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNavigationRes)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -334,94 +327,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/annotation/RestrictTo$Scope")
+	c, err = env.FindClass("androidx/annotation/BoolRes")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsRestrictToScope = env.NewGlobalRef(&c.Object)
+		clsBoolRes = env.NewGlobalRef(&c.Object)
 
-		midRestrictToScopeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRestrictToScope)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRestrictToScopeValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRestrictToScope)), "values", "()[Landroidx/annotation/RestrictTo$Scope;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRestrictToScopeValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRestrictToScope)), "valueOf", "(Ljava/lang/String;)Landroidx/annotation/RestrictTo$Scope;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/FractionRes")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFractionRes = env.NewGlobalRef(&c.Object)
-
-		midFractionResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFractionRes)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/ColorRes")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsColorRes = env.NewGlobalRef(&c.Object)
-
-		midColorResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsColorRes)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/StringDef")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStringDef = env.NewGlobalRef(&c.Object)
-
-		midStringDefValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStringDef)), "value", "()[Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStringDefOpen, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStringDef)), "open", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStringDefToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStringDef)), "toString", "()Ljava/lang/String;")
+		midBoolResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBoolRes)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -589,15 +503,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/annotation/Nullable")
+	c, err = env.FindClass("androidx/annotation/IdRes")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsNullable = env.NewGlobalRef(&c.Object)
+		clsIdRes = env.NewGlobalRef(&c.Object)
 
-		midNullableToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNullable)), "toString", "()Ljava/lang/String;")
+		midIdResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIdRes)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -623,23 +537,6 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/annotation/AttrRes")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAttrRes = env.NewGlobalRef(&c.Object)
-
-		midAttrResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAttrRes)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("androidx/annotation/Px")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -657,268 +554,22 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/annotation/UiContext")
+	c, err = env.FindClass("androidx/annotation/CheckResult")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsUiContext = env.NewGlobalRef(&c.Object)
+		clsCheckResult = env.NewGlobalRef(&c.Object)
 
-		midUiContextToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUiContext)), "toString", "()Ljava/lang/String;")
+		midCheckResultSuggest, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCheckResult)), "suggest", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("androidx/annotation/FontRes")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFontRes = env.NewGlobalRef(&c.Object)
-
-		midFontResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRes)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/IntRange")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsIntRange = env.NewGlobalRef(&c.Object)
-
-		midIntRangeFrom, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIntRange)), "from", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIntRangeTo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIntRange)), "to", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIntRangeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIntRange)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/IdRes")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsIdRes = env.NewGlobalRef(&c.Object)
-
-		midIdResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIdRes)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/Discouraged")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDiscouraged = env.NewGlobalRef(&c.Object)
-
-		midDiscouragedMessage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscouraged)), "message", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDiscouragedToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscouraged)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/CallSuper")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCallSuper = env.NewGlobalRef(&c.Object)
-
-		midCallSuperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCallSuper)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/BoolRes")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBoolRes = env.NewGlobalRef(&c.Object)
-
-		midBoolResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBoolRes)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/Dimension")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDimension = env.NewGlobalRef(&c.Object)
-
-		midDimensionUnit, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "unit", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDimensionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/StyleRes")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStyleRes = env.NewGlobalRef(&c.Object)
-
-		midStyleResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStyleRes)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/RawRes")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRawRes = env.NewGlobalRef(&c.Object)
-
-		midRawResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRawRes)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/BinderThread")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBinderThread = env.NewGlobalRef(&c.Object)
-
-		midBinderThreadToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBinderThread)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/LongDef")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLongDef = env.NewGlobalRef(&c.Object)
-
-		midLongDefValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLongDef)), "value", "()[J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLongDefFlag, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLongDef)), "flag", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLongDefOpen, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLongDef)), "open", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLongDefToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLongDef)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/AnyRes")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAnyRes = env.NewGlobalRef(&c.Object)
-
-		midAnyResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnyRes)), "toString", "()Ljava/lang/String;")
+		midCheckResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCheckResult)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -975,15 +626,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/annotation/HalfFloat")
+	c, err = env.FindClass("androidx/annotation/NonNull")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsHalfFloat = env.NewGlobalRef(&c.Object)
+		clsNonNull = env.NewGlobalRef(&c.Object)
 
-		midHalfFloatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHalfFloat)), "toString", "()Ljava/lang/String;")
+		midNonNullToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNonNull)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -992,15 +643,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/annotation/MenuRes")
+	c, err = env.FindClass("androidx/annotation/AttrRes")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsMenuRes = env.NewGlobalRef(&c.Object)
+		clsAttrRes = env.NewGlobalRef(&c.Object)
 
-		midMenuResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuRes)), "toString", "()Ljava/lang/String;")
+		midAttrResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAttrRes)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1009,15 +660,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/annotation/LayoutRes")
+	c, err = env.FindClass("androidx/annotation/ArrayRes")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsLayoutRes = env.NewGlobalRef(&c.Object)
+		clsArrayRes = env.NewGlobalRef(&c.Object)
 
-		midLayoutResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLayoutRes)), "toString", "()Ljava/lang/String;")
+		midArrayResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayRes)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1026,32 +677,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/annotation/DrawableRes")
+	c, err = env.FindClass("androidx/annotation/ColorLong")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsDrawableRes = env.NewGlobalRef(&c.Object)
+		clsColorLong = env.NewGlobalRef(&c.Object)
 
-		midDrawableResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawableRes)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/TransitionRes")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTransitionRes = env.NewGlobalRef(&c.Object)
-
-		midTransitionResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTransitionRes)), "toString", "()Ljava/lang/String;")
+		midColorLongToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsColorLong)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1077,15 +711,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/annotation/AnyThread")
+	c, err = env.FindClass("androidx/annotation/HalfFloat")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAnyThread = env.NewGlobalRef(&c.Object)
+		clsHalfFloat = env.NewGlobalRef(&c.Object)
 
-		midAnyThreadToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnyThread)), "toString", "()Ljava/lang/String;")
+		midHalfFloatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHalfFloat)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1094,15 +728,49 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/annotation/ColorInt")
+	c, err = env.FindClass("androidx/annotation/MainThread")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsColorInt = env.NewGlobalRef(&c.Object)
+		clsMainThread = env.NewGlobalRef(&c.Object)
 
-		midColorIntToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsColorInt)), "toString", "()Ljava/lang/String;")
+		midMainThreadToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMainThread)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/PluralsRes")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPluralsRes = env.NewGlobalRef(&c.Object)
+
+		midPluralsResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPluralsRes)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/BinderThread")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBinderThread = env.NewGlobalRef(&c.Object)
+
+		midBinderThreadToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBinderThread)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1156,15 +824,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/annotation/ContentView")
+	c, err = env.FindClass("androidx/annotation/Keep")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsContentView = env.NewGlobalRef(&c.Object)
+		clsKeep = env.NewGlobalRef(&c.Object)
 
-		midContentViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentView)), "toString", "()Ljava/lang/String;")
+		midKeepToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsKeep)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1173,15 +841,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/annotation/AnimRes")
+	c, err = env.FindClass("androidx/annotation/WorkerThread")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAnimRes = env.NewGlobalRef(&c.Object)
+		clsWorkerThread = env.NewGlobalRef(&c.Object)
 
-		midAnimResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimRes)), "toString", "()Ljava/lang/String;")
+		midWorkerThreadToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWorkerThread)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1190,15 +858,39 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/annotation/NavigationRes")
+	c, err = env.FindClass("androidx/annotation/GuardedBy")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsNavigationRes = env.NewGlobalRef(&c.Object)
+		clsGuardedBy = env.NewGlobalRef(&c.Object)
 
-		midNavigationResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNavigationRes)), "toString", "()Ljava/lang/String;")
+		midGuardedByValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGuardedBy)), "value", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGuardedByToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGuardedBy)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/MenuRes")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMenuRes = env.NewGlobalRef(&c.Object)
+
+		midMenuResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuRes)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1224,6 +916,140 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("androidx/annotation/Nullable")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsNullable = env.NewGlobalRef(&c.Object)
+
+		midNullableToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNullable)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/ChecksSdkIntAtLeast")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsChecksSdkIntAtLeast = env.NewGlobalRef(&c.Object)
+
+		midChecksSdkIntAtLeastApi, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChecksSdkIntAtLeast)), "api", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChecksSdkIntAtLeastCodename, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChecksSdkIntAtLeast)), "codename", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChecksSdkIntAtLeastParameter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChecksSdkIntAtLeast)), "parameter", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChecksSdkIntAtLeastLambda, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChecksSdkIntAtLeast)), "lambda", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChecksSdkIntAtLeastToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChecksSdkIntAtLeast)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/IntDef")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsIntDef = env.NewGlobalRef(&c.Object)
+
+		midIntDefValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIntDef)), "value", "()[I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midIntDefFlag, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIntDef)), "flag", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midIntDefOpen, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIntDef)), "open", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midIntDefToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIntDef)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/IntegerRes")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsIntegerRes = env.NewGlobalRef(&c.Object)
+
+		midIntegerResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIntegerRes)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/InterpolatorRes")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInterpolatorRes = env.NewGlobalRef(&c.Object)
+
+		midInterpolatorResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInterpolatorRes)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("androidx/annotation/DisplayContext")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -1241,15 +1067,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/annotation/MainThread")
+	c, err = env.FindClass("androidx/annotation/StringDef")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsMainThread = env.NewGlobalRef(&c.Object)
+		clsStringDef = env.NewGlobalRef(&c.Object)
 
-		midMainThreadToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMainThread)), "toString", "()Ljava/lang/String;")
+		midStringDefValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStringDef)), "value", "()[Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStringDefOpen, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStringDef)), "open", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStringDefToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStringDef)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1258,22 +1098,484 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/annotation/GuardedBy")
+	c, err = env.FindClass("androidx/annotation/DoNotInline")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsGuardedBy = env.NewGlobalRef(&c.Object)
+		clsDoNotInline = env.NewGlobalRef(&c.Object)
 
-		midGuardedByValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGuardedBy)), "value", "()Ljava/lang/String;")
+		midDoNotInlineToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDoNotInline)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGuardedByToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGuardedBy)), "toString", "()Ljava/lang/String;")
+	}
+
+	c, err = env.FindClass("androidx/annotation/ColorInt")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsColorInt = env.NewGlobalRef(&c.Object)
+
+		midColorIntToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsColorInt)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/Dimension")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDimension = env.NewGlobalRef(&c.Object)
+
+		midDimensionUnit, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "unit", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/Size")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSize = env.NewGlobalRef(&c.Object)
+
+		midSizeValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSize)), "value", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSizeMin, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSize)), "min", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSizeMax, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSize)), "max", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSizeMultiple, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSize)), "multiple", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSizeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSize)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/StyleRes")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStyleRes = env.NewGlobalRef(&c.Object)
+
+		midStyleResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStyleRes)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/TransitionRes")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTransitionRes = env.NewGlobalRef(&c.Object)
+
+		midTransitionResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTransitionRes)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/FractionRes")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFractionRes = env.NewGlobalRef(&c.Object)
+
+		midFractionResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFractionRes)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/UiContext")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsUiContext = env.NewGlobalRef(&c.Object)
+
+		midUiContextToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUiContext)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/RestrictTo")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRestrictTo = env.NewGlobalRef(&c.Object)
+
+		midRestrictToValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRestrictTo)), "value", "()[Landroidx/annotation/RestrictTo$Scope;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRestrictToToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRestrictTo)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/RestrictTo$Scope")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRestrictToScope = env.NewGlobalRef(&c.Object)
+
+		midRestrictToScopeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRestrictToScope)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRestrictToScopeValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRestrictToScope)), "values", "()[Landroidx/annotation/RestrictTo$Scope;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRestrictToScopeValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRestrictToScope)), "valueOf", "(Ljava/lang/String;)Landroidx/annotation/RestrictTo$Scope;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/UiThread")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsUiThread = env.NewGlobalRef(&c.Object)
+
+		midUiThreadToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUiThread)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/CallSuper")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCallSuper = env.NewGlobalRef(&c.Object)
+
+		midCallSuperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCallSuper)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/DrawableRes")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDrawableRes = env.NewGlobalRef(&c.Object)
+
+		midDrawableResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawableRes)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/RawRes")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRawRes = env.NewGlobalRef(&c.Object)
+
+		midRawResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRawRes)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/LongDef")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLongDef = env.NewGlobalRef(&c.Object)
+
+		midLongDefValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLongDef)), "value", "()[J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLongDefFlag, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLongDef)), "flag", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLongDefOpen, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLongDef)), "open", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLongDefToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLongDef)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/AnimRes")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAnimRes = env.NewGlobalRef(&c.Object)
+
+		midAnimResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimRes)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/ColorRes")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsColorRes = env.NewGlobalRef(&c.Object)
+
+		midColorResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsColorRes)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/RequiresFeature")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRequiresFeature = env.NewGlobalRef(&c.Object)
+
+		midRequiresFeatureName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRequiresFeature)), "name", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRequiresFeatureEnforcement, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRequiresFeature)), "enforcement", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRequiresFeatureToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRequiresFeature)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/VisibleForTesting")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsVisibleForTesting = env.NewGlobalRef(&c.Object)
+
+		midVisibleForTestingOtherwise, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibleForTesting)), "otherwise", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVisibleForTestingToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibleForTesting)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/ContentView")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsContentView = env.NewGlobalRef(&c.Object)
+
+		midContentViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentView)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/DimenRes")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDimenRes = env.NewGlobalRef(&c.Object)
+
+		midDimenResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimenRes)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/annotation/IntRange")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsIntRange = env.NewGlobalRef(&c.Object)
+
+		midIntRangeFrom, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIntRange)), "from", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midIntRangeTo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIntRange)), "to", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midIntRangeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIntRange)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1375,274 +1677,6 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/annotation/ColorLong")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsColorLong = env.NewGlobalRef(&c.Object)
-
-		midColorLongToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsColorLong)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/VisibleForTesting")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsVisibleForTesting = env.NewGlobalRef(&c.Object)
-
-		midVisibleForTestingOtherwise, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibleForTesting)), "otherwise", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVisibleForTestingToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibleForTesting)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/IntegerRes")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsIntegerRes = env.NewGlobalRef(&c.Object)
-
-		midIntegerResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIntegerRes)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/PluralsRes")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPluralsRes = env.NewGlobalRef(&c.Object)
-
-		midPluralsResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPluralsRes)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/RequiresFeature")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRequiresFeature = env.NewGlobalRef(&c.Object)
-
-		midRequiresFeatureName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRequiresFeature)), "name", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRequiresFeatureEnforcement, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRequiresFeature)), "enforcement", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRequiresFeatureToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRequiresFeature)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/ChecksSdkIntAtLeast")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsChecksSdkIntAtLeast = env.NewGlobalRef(&c.Object)
-
-		midChecksSdkIntAtLeastApi, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChecksSdkIntAtLeast)), "api", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChecksSdkIntAtLeastCodename, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChecksSdkIntAtLeast)), "codename", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChecksSdkIntAtLeastParameter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChecksSdkIntAtLeast)), "parameter", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChecksSdkIntAtLeastLambda, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChecksSdkIntAtLeast)), "lambda", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChecksSdkIntAtLeastToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChecksSdkIntAtLeast)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/IntDef")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsIntDef = env.NewGlobalRef(&c.Object)
-
-		midIntDefValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIntDef)), "value", "()[I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIntDefFlag, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIntDef)), "flag", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIntDefOpen, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIntDef)), "open", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIntDefToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIntDef)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/DoNotInline")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDoNotInline = env.NewGlobalRef(&c.Object)
-
-		midDoNotInlineToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDoNotInline)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/Size")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSize = env.NewGlobalRef(&c.Object)
-
-		midSizeValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSize)), "value", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSizeMin, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSize)), "min", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSizeMax, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSize)), "max", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSizeMultiple, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSize)), "multiple", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSizeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSize)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/InterpolatorRes")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsInterpolatorRes = env.NewGlobalRef(&c.Object)
-
-		midInterpolatorResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInterpolatorRes)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("androidx/annotation/StyleableRes")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -1660,15 +1694,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/annotation/ArrayRes")
+	c, err = env.FindClass("androidx/annotation/FontRes")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsArrayRes = env.NewGlobalRef(&c.Object)
+		clsFontRes = env.NewGlobalRef(&c.Object)
 
-		midArrayResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayRes)), "toString", "()Ljava/lang/String;")
+		midFontResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRes)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1677,22 +1711,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/annotation/CheckResult")
+	c, err = env.FindClass("androidx/annotation/AnyRes")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCheckResult = env.NewGlobalRef(&c.Object)
+		clsAnyRes = env.NewGlobalRef(&c.Object)
 
-		midCheckResultSuggest, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCheckResult)), "suggest", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCheckResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCheckResult)), "toString", "()Ljava/lang/String;")
+		midAnyResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnyRes)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1718,15 +1745,22 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/annotation/Keep")
+	c, err = env.FindClass("androidx/annotation/Discouraged")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsKeep = env.NewGlobalRef(&c.Object)
+		clsDiscouraged = env.NewGlobalRef(&c.Object)
 
-		midKeepToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsKeep)), "toString", "()Ljava/lang/String;")
+		midDiscouragedMessage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscouraged)), "message", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDiscouragedToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscouraged)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1735,49 +1769,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/annotation/WorkerThread")
+	c, err = env.FindClass("androidx/annotation/AnyThread")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsWorkerThread = env.NewGlobalRef(&c.Object)
+		clsAnyThread = env.NewGlobalRef(&c.Object)
 
-		midWorkerThreadToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWorkerThread)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/DimenRes")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDimenRes = env.NewGlobalRef(&c.Object)
-
-		midDimenResToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimenRes)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/annotation/NonNull")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsNonNull = env.NewGlobalRef(&c.Object)
-
-		midNonNullToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNonNull)), "toString", "()Ljava/lang/String;")
+		midAnyThreadToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnyThread)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

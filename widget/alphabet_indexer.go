@@ -32,6 +32,12 @@ func NewAlphabetIndexer(vm *jni.VM, arg0 *jni.Object, arg1 int32, arg2 string) (
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAlphabetIndexer == nil {
+			return fmt.Errorf("android.widget.AlphabetIndexer is not available on this device")
+		}
+		if midAlphabetIndexerCtor == nil {
+			return fmt.Errorf("android.widget.AlphabetIndexer constructor (Landroid/database/Cursor;ILjava/lang/CharSequence;)V is not available on this device")
+		}
 
 		jArg2, err := env.NewStringUTF(arg2)
 		if err != nil {

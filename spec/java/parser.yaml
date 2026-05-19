@@ -5,43 +5,18 @@
 package: parser
 go_import: github.com/AndroidGoLab/jni/androidx/constraintlayout/core/parser
 classes:
-    - java_class: androidx.constraintlayout.core.parser.CLKey
-      go_type: CLKey
+    - java_class: androidx.constraintlayout.core.parser.CLString
+      go_type: CLString
       obtain: constructor
       constructor_params:
         - java_type: char[]
           go_name: arg0
-      methods:
-        - java_method: getName
-          go_name: GetName
-          returns: String
-          error: true
-        - java_method: set
-          go_name: Set
-          params:
-            - java_type: androidx.constraintlayout.core.parser.CLElement
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getValue
-          go_name: GetValue
-          returns: androidx.constraintlayout.core.parser.CLElement
-          error: true
       static_methods:
         - java_method: allocate
-          go_name: Allocate1
+          go_name: Allocate
           params:
             - java_type: char[]
               go_name: arg0
-          returns: androidx.constraintlayout.core.parser.CLElement
-          error: true
-        - java_method: allocate
-          go_name: Allocate2_1
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: androidx.constraintlayout.core.parser.CLElement
-              go_name: arg1
           returns: androidx.constraintlayout.core.parser.CLElement
           error: true
     - java_class: androidx.constraintlayout.core.parser.CLNumber
@@ -78,6 +53,24 @@ classes:
               go_name: arg0
           returns: androidx.constraintlayout.core.parser.CLElement
           error: true
+    - java_class: androidx.constraintlayout.core.parser.CLParser
+      go_type: CLParser
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+      static_methods:
+        - java_method: parse
+          go_name: Parse1
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: androidx.constraintlayout.core.parser.CLObject
+          error: true
+        - java_method: parse
+          go_name: Parse0_1
+          returns: androidx.constraintlayout.core.parser.CLObject
+          error: true
     - java_class: androidx.constraintlayout.core.parser.CLToken
       go_type: CLToken
       obtain: constructor
@@ -106,6 +99,192 @@ classes:
               go_name: arg1
           returns: boolean
           error: true
+      static_methods:
+        - java_method: allocate
+          go_name: Allocate
+          params:
+            - java_type: char[]
+              go_name: arg0
+          returns: androidx.constraintlayout.core.parser.CLElement
+          error: true
+    - java_class: androidx.constraintlayout.core.parser.CLParsingException
+      go_type: CLParsingException
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: androidx.constraintlayout.core.parser.CLElement
+          go_name: arg1
+      methods:
+        - java_method: reason
+          go_name: Reason
+          returns: String
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: androidx.constraintlayout.core.parser.CLKey
+      go_type: CLKey
+      obtain: constructor
+      constructor_params:
+        - java_type: char[]
+          go_name: arg0
+      methods:
+        - java_method: getName
+          go_name: GetName
+          returns: String
+          error: true
+        - java_method: set
+          go_name: Set
+          params:
+            - java_type: androidx.constraintlayout.core.parser.CLElement
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
+        - java_method: allocate
+          go_name: Allocate1
+          params:
+            - java_type: char[]
+              go_name: arg0
+          returns: androidx.constraintlayout.core.parser.CLElement
+          error: true
+        - java_method: allocate
+          go_name: Allocate2_1
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: androidx.constraintlayout.core.parser.CLElement
+              go_name: arg1
+          returns: androidx.constraintlayout.core.parser.CLElement
+          error: true
+        - java_method: getValue
+          go_name: GetValue
+          returns: androidx.constraintlayout.core.parser.CLElement
+          error: true
+    - java_class: androidx.constraintlayout.core.parser.CLElement
+      go_type: CLElement
+      obtain: constructor
+      constructor_params:
+        - java_type: char[]
+          go_name: arg0
+      methods:
+        - java_method: notStarted
+          go_name: NotStarted
+          returns: boolean
+          error: true
+        - java_method: setLine
+          go_name: SetLine
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getLine
+          go_name: GetLine
+          returns: int
+          error: true
+        - java_method: setStart
+          go_name: SetStart
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getStart
+          go_name: GetStart
+          returns: long
+          error: true
+        - java_method: getEnd
+          go_name: GetEnd
+          returns: long
+          error: true
+        - java_method: setEnd
+          go_name: SetEnd
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: content
+          go_name: Content
+          returns: String
+          error: true
+        - java_method: isDone
+          go_name: IsDone
+          returns: boolean
+          error: true
+        - java_method: setContainer
+          go_name: SetContainer
+          params:
+            - java_type: androidx.constraintlayout.core.parser.CLContainer
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getContainer
+          go_name: GetContainer
+          returns: androidx.constraintlayout.core.parser.CLElement
+          error: true
+        - java_method: isStarted
+          go_name: IsStarted
+          returns: boolean
+          error: true
+        - java_method: getInt
+          go_name: GetInt
+          returns: int
+          error: true
+      static_methods:
+        - java_method: getFloat
+          go_name: GetFloat
+          returns: float
+          error: true
+    - java_class: androidx.constraintlayout.core.parser.CLObject
+      go_type: CLObject
+      obtain: constructor
+      constructor_params:
+        - java_type: char[]
+          go_name: arg0
+      methods:
+        - java_method: toJSON
+          go_name: ToJSON
+          returns: String
+          error: true
+        - java_method: toFormattedJSON
+          go_name: ToFormattedJSON0
+          returns: String
+          error: true
+        - java_method: toFormattedJSON
+          go_name: ToFormattedJSON2_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: String
+          error: true
+        - java_method: iterator
+          go_name: Iterator
+          returns: java.util.Iterator
+          error: true
+      static_methods:
+        - java_method: allocate
+          go_name: Allocate
+          params:
+            - java_type: char[]
+              go_name: arg0
+          returns: androidx.constraintlayout.core.parser.CLObject
+          error: true
+    - java_class: androidx.constraintlayout.core.parser.CLArray
+      go_type: CLArray
+      obtain: constructor
+      constructor_params:
+        - java_type: char[]
+          go_name: arg0
       static_methods:
         - java_method: allocate
           go_name: Allocate
@@ -326,183 +505,4 @@ classes:
             - java_type: char[]
               go_name: arg0
           returns: androidx.constraintlayout.core.parser.CLElement
-          error: true
-    - java_class: androidx.constraintlayout.core.parser.CLElement
-      go_type: CLElement
-      obtain: constructor
-      constructor_params:
-        - java_type: char[]
-          go_name: arg0
-      methods:
-        - java_method: notStarted
-          go_name: NotStarted
-          returns: boolean
-          error: true
-        - java_method: setLine
-          go_name: SetLine
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getLine
-          go_name: GetLine
-          returns: int
-          error: true
-        - java_method: setStart
-          go_name: SetStart
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getStart
-          go_name: GetStart
-          returns: long
-          error: true
-        - java_method: getEnd
-          go_name: GetEnd
-          returns: long
-          error: true
-        - java_method: setEnd
-          go_name: SetEnd
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: content
-          go_name: Content
-          returns: String
-          error: true
-        - java_method: isDone
-          go_name: IsDone
-          returns: boolean
-          error: true
-        - java_method: setContainer
-          go_name: SetContainer
-          params:
-            - java_type: androidx.constraintlayout.core.parser.CLContainer
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getContainer
-          go_name: GetContainer
-          returns: androidx.constraintlayout.core.parser.CLElement
-          error: true
-        - java_method: isStarted
-          go_name: IsStarted
-          returns: boolean
-          error: true
-        - java_method: getInt
-          go_name: GetInt
-          returns: int
-          error: true
-        - java_method: getFloat
-          go_name: GetFloat
-          returns: float
-          error: true
-    - java_class: androidx.constraintlayout.core.parser.CLArray
-      go_type: CLArray
-      obtain: constructor
-      constructor_params:
-        - java_type: char[]
-          go_name: arg0
-      static_methods:
-        - java_method: allocate
-          go_name: Allocate
-          params:
-            - java_type: char[]
-              go_name: arg0
-          returns: androidx.constraintlayout.core.parser.CLElement
-          error: true
-    - java_class: androidx.constraintlayout.core.parser.CLString
-      go_type: CLString
-      obtain: constructor
-      constructor_params:
-        - java_type: char[]
-          go_name: arg0
-      static_methods:
-        - java_method: allocate
-          go_name: Allocate
-          params:
-            - java_type: char[]
-              go_name: arg0
-          returns: androidx.constraintlayout.core.parser.CLElement
-          error: true
-    - java_class: androidx.constraintlayout.core.parser.CLObject
-      go_type: CLObject
-      obtain: constructor
-      constructor_params:
-        - java_type: char[]
-          go_name: arg0
-      methods:
-        - java_method: toJSON
-          go_name: ToJSON
-          returns: String
-          error: true
-        - java_method: toFormattedJSON
-          go_name: ToFormattedJSON0
-          returns: String
-          error: true
-        - java_method: toFormattedJSON
-          go_name: ToFormattedJSON2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: String
-          error: true
-        - java_method: iterator
-          go_name: Iterator
-          returns: java.util.Iterator
-          error: true
-      static_methods:
-        - java_method: allocate
-          go_name: Allocate
-          params:
-            - java_type: char[]
-              go_name: arg0
-          returns: androidx.constraintlayout.core.parser.CLObject
-          error: true
-    - java_class: androidx.constraintlayout.core.parser.CLParser
-      go_type: CLParser
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-      methods:
-        - java_method: parse
-          go_name: Parse0_1
-          returns: androidx.constraintlayout.core.parser.CLObject
-          error: true
-      static_methods:
-        - java_method: parse
-          go_name: Parse1
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: androidx.constraintlayout.core.parser.CLObject
-          error: true
-    - java_class: androidx.constraintlayout.core.parser.CLParsingException
-      go_type: CLParsingException
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: androidx.constraintlayout.core.parser.CLElement
-          go_name: arg1
-      methods:
-        - java_method: reason
-          go_name: Reason
-          returns: String
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
           error: true

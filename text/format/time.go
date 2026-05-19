@@ -32,6 +32,12 @@ func NewTime(vm *jni.VM) (*Time, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTime == nil {
+			return fmt.Errorf("android.text.format.Time is not available on this device")
+		}
+		if midTimeCtor == nil {
+			return fmt.Errorf("android.text.format.Time constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTime)), midTimeCtor)
 		if err != nil {
 			return err

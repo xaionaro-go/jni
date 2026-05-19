@@ -23,6 +23,34 @@ type TextAppearanceInfoBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTextAppearanceInfoBuilder creates a new android.view.inputmethod.TextAppearanceInfo$Builder instance.
+func NewTextAppearanceInfoBuilder(vm *jni.VM) (*TextAppearanceInfoBuilder, error) {
+	var t TextAppearanceInfoBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTextAppearanceInfoBuilder == nil {
+			return fmt.Errorf("android.view.inputmethod.TextAppearanceInfo$Builder is not available on this device")
+		}
+		if midTextAppearanceInfoBuilderCtor == nil {
+			return fmt.Errorf("android.view.inputmethod.TextAppearanceInfo$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextAppearanceInfoBuilder)), midTextAppearanceInfoBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.view.inputmethod.TextAppearanceInfo$Builder.build.
 func (m *TextAppearanceInfoBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

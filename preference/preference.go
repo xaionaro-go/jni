@@ -32,6 +32,12 @@ func NewPreference(vm *jni.VM, arg0 *jni.Object) (*Preference, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPreference == nil {
+			return fmt.Errorf("android.preference.Preference is not available on this device")
+		}
+		if midPreferenceCtor == nil {
+			return fmt.Errorf("android.preference.Preference constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPreference)), midPreferenceCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -46,8 +52,8 @@ func NewPreference(vm *jni.VM, arg0 *jni.Object) (*Preference, error) {
 	return &t, nil
 }
 
-// CompareTo1 calls android.preference.Preference.compareTo.
-func (m *Preference) CompareTo1(arg0 *jni.Object) (int32, error) {
+// CompareTo calls android.preference.Preference.compareTo.
+func (m *Preference) CompareTo(arg0 *jni.Object) (int32, error) {
 	var result int32
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,14 +61,14 @@ func (m *Preference) CompareTo1(arg0 *jni.Object) (int32, error) {
 			callErr = err
 			return err
 		}
-		if midPreferenceCompareTo1 == nil {
+		if midPreferenceCompareTo == nil {
 			callErr = fmt.Errorf("android.preference.Preference.compareTo is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallIntMethod(
 			m.Obj,
-			midPreferenceCompareTo1, jni.ObjectValue(arg0),
+			midPreferenceCompareTo, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1760,32 +1766,6 @@ func (m *Preference) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
-		return callErr
-	})
-	return result, callErr
-}
-
-// CompareTo1_1 calls android.preference.Preference.compareTo.
-func (m *Preference) CompareTo1_1(arg0 *jni.Object) (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midPreferenceCompareTo1_1 == nil {
-			callErr = fmt.Errorf("android.preference.Preference.compareTo is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midPreferenceCompareTo1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
 		return callErr
 	})
 	return result, callErr

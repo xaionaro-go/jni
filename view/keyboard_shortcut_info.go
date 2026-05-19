@@ -32,6 +32,12 @@ func NewKeyboardShortcutInfo(vm *jni.VM, arg0 string, arg1 uint16, arg2 int32) (
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsKeyboardShortcutInfo == nil {
+			return fmt.Errorf("android.view.KeyboardShortcutInfo is not available on this device")
+		}
+		if midKeyboardShortcutInfoCtor == nil {
+			return fmt.Errorf("android.view.KeyboardShortcutInfo constructor (Ljava/lang/CharSequence;CI)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -183,29 +189,6 @@ func (m *KeyboardShortcutInfo) GetModifiers() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.KeyboardShortcutInfo.writeToParcel.
-func (m *KeyboardShortcutInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midKeyboardShortcutInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.KeyboardShortcutInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midKeyboardShortcutInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.view.KeyboardShortcutInfo.toString.
 func (m *KeyboardShortcutInfo) ToString() (string, error) {
 	var result string
@@ -231,4 +214,27 @@ func (m *KeyboardShortcutInfo) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.KeyboardShortcutInfo.writeToParcel.
+func (m *KeyboardShortcutInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midKeyboardShortcutInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.KeyboardShortcutInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsKeyboardShortcutInfo)),
+			midKeyboardShortcutInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

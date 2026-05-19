@@ -30,6 +30,12 @@ func NewMediaRouteActionProvider(vm *jni.VM, arg0 *jni.Object) (*MediaRouteActio
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMediaRouteActionProvider == nil {
+			return fmt.Errorf("android.app.MediaRouteActionProvider is not available on this device")
+		}
+		if midMediaRouteActionProviderCtor == nil {
+			return fmt.Errorf("android.app.MediaRouteActionProvider constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMediaRouteActionProvider)), midMediaRouteActionProviderCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -5,6 +5,15 @@ package state
 import "github.com/AndroidGoLab/jni/androidx/constraintlayout/solver/state/consts"
 
 const (
+	FixedDimension     = consts.FixedDimension
+	WrapDimension      = consts.WrapDimension
+	SpreadDimension    = consts.SpreadDimension
+	ParentDimension    = consts.ParentDimension
+	PercentDimension   = consts.PercentDimension
+	Fixed              = consts.Fixed
+	Wrap               = consts.Wrap
+	MatchParent        = consts.MatchParent
+	MatchConstraint    = consts.MatchConstraint
 	Parent             = consts.Parent
 	Left               = consts.Left
 	Right              = consts.Right
@@ -37,13 +46,4 @@ const (
 	Spread             = consts.Spread
 	SpreadInside       = consts.SpreadInside
 	Packed             = consts.Packed
-	FixedDimension     = consts.FixedDimension
-	WrapDimension      = consts.WrapDimension
-	SpreadDimension    = consts.SpreadDimension
-	ParentDimension    = consts.ParentDimension
-	PercentDimension   = consts.PercentDimension
-	Fixed              = consts.Fixed
-	Wrap               = consts.Wrap
-	MatchParent        = consts.MatchParent
-	MatchConstraint    = consts.MatchConstraint
 )

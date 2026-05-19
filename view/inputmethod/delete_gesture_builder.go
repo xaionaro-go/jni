@@ -23,6 +23,34 @@ type DeleteGestureBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDeleteGestureBuilder creates a new android.view.inputmethod.DeleteGesture$Builder instance.
+func NewDeleteGestureBuilder(vm *jni.VM) (*DeleteGestureBuilder, error) {
+	var t DeleteGestureBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDeleteGestureBuilder == nil {
+			return fmt.Errorf("android.view.inputmethod.DeleteGesture$Builder is not available on this device")
+		}
+		if midDeleteGestureBuilderCtor == nil {
+			return fmt.Errorf("android.view.inputmethod.DeleteGesture$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDeleteGestureBuilder)), midDeleteGestureBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.view.inputmethod.DeleteGesture$Builder.build.
 func (m *DeleteGestureBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

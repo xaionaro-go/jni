@@ -59,8 +59,16 @@ var (
 	midContainerCompatApplyTheme                jni.MethodID
 	midContainerCompatCanApplyTheme             jni.MethodID
 	midContainerCompatGetConstantState          jni.MethodID
-	midContainerCompatMutate                    jni.MethodID
 	midContainerCompatToString                  jni.MethodID
+	midContainerCompatMutate                    jni.MethodID
+
+	clsStateListDrawableCompat           *jni.GlobalRef
+	midStateListDrawableCompatCtor       jni.MethodID
+	midStateListDrawableCompatAddState   jni.MethodID
+	midStateListDrawableCompatIsStateful jni.MethodID
+	midStateListDrawableCompatInflate    jni.MethodID
+	midStateListDrawableCompatMutate     jni.MethodID
+	midStateListDrawableCompatToString   jni.MethodID
 
 	clsDrawerArrowDrawable                    *jni.GlobalRef
 	midDrawerArrowDrawableCtor                jni.MethodID
@@ -89,11 +97,22 @@ var (
 	midDrawerArrowDrawableGetOpacity          jni.MethodID
 	midDrawerArrowDrawableGetProgress         jni.MethodID
 	midDrawerArrowDrawableSetProgress         jni.MethodID
-	midDrawerArrowDrawableGetPaint            jni.MethodID
 	midDrawerArrowDrawableToString            jni.MethodID
+	midDrawerArrowDrawableGetPaint            jni.MethodID
 
 	clsDrawerArrowDrawableArrowDirection         *jni.GlobalRef
 	midDrawerArrowDrawableArrowDirectionToString jni.MethodID
+
+	clsAnimatedStateListDrawableCompat                   *jni.GlobalRef
+	midAnimatedStateListDrawableCompatCtor               jni.MethodID
+	midAnimatedStateListDrawableCompatInflate            jni.MethodID
+	midAnimatedStateListDrawableCompatSetVisible         jni.MethodID
+	midAnimatedStateListDrawableCompatAddState           jni.MethodID
+	midAnimatedStateListDrawableCompatIsStateful         jni.MethodID
+	midAnimatedStateListDrawableCompatJumpToCurrentState jni.MethodID
+	midAnimatedStateListDrawableCompatToString           jni.MethodID
+	midAnimatedStateListDrawableCompatCreate             jni.MethodID
+	midAnimatedStateListDrawableCompatCreateFromXmlInner jni.MethodID
 
 	clsWrapperCompat                          *jni.GlobalRef
 	midWrapperCompatCtor                      jni.MethodID
@@ -130,27 +149,6 @@ var (
 	midWrapperCompatGetDrawable               jni.MethodID
 	midWrapperCompatSetDrawable               jni.MethodID
 	midWrapperCompatToString                  jni.MethodID
-
-	clsAnimatedStateListDrawableCompat                   *jni.GlobalRef
-	midAnimatedStateListDrawableCompatCtor               jni.MethodID
-	midAnimatedStateListDrawableCompatInflate            jni.MethodID
-	midAnimatedStateListDrawableCompatSetVisible         jni.MethodID
-	midAnimatedStateListDrawableCompatAddState           jni.MethodID
-	midAnimatedStateListDrawableCompatIsStateful         jni.MethodID
-	midAnimatedStateListDrawableCompatJumpToCurrentState jni.MethodID
-	midAnimatedStateListDrawableCompatMutate             jni.MethodID
-	midAnimatedStateListDrawableCompatToString           jni.MethodID
-	midAnimatedStateListDrawableCompatCreate             jni.MethodID
-	midAnimatedStateListDrawableCompatCreateFromXmlInner jni.MethodID
-
-	clsStateListDrawableCompat           *jni.GlobalRef
-	midStateListDrawableCompatCtor       jni.MethodID
-	midStateListDrawableCompatAddState   jni.MethodID
-	midStateListDrawableCompatIsStateful jni.MethodID
-	midStateListDrawableCompatInflate    jni.MethodID
-	midStateListDrawableCompatMutate     jni.MethodID
-	midStateListDrawableCompatApplyTheme jni.MethodID
-	midStateListDrawableCompatToString   jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -421,14 +419,63 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midContainerCompatMutate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContainerCompat)), "mutate", "()Landroid/graphics/drawable/Drawable;")
+		midContainerCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContainerCompat)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midContainerCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContainerCompat)), "toString", "()Ljava/lang/String;")
+		midContainerCompatMutate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContainerCompat)), "mutate", "()Landroid/graphics/drawable/Drawable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/graphics/drawable/StateListDrawableCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStateListDrawableCompat = env.NewGlobalRef(&c.Object)
+		midStateListDrawableCompatCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStateListDrawableCompat)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midStateListDrawableCompatAddState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStateListDrawableCompat)), "addState", "([ILandroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateListDrawableCompatIsStateful, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStateListDrawableCompat)), "isStateful", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateListDrawableCompatInflate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStateListDrawableCompat)), "inflate", "(Landroid/content/Context;Landroid/content/res/Resources;Lorg/xmlpull/v1/XmlPullParser;Landroid/util/AttributeSet;Landroid/content/res/Resources$Theme;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateListDrawableCompatMutate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStateListDrawableCompat)), "mutate", "()Landroid/graphics/drawable/Drawable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateListDrawableCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStateListDrawableCompat)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -624,14 +671,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midDrawerArrowDrawableGetPaint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawerArrowDrawable)), "getPaint", "()Landroid/graphics/Paint;")
+		midDrawerArrowDrawableToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawerArrowDrawable)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDrawerArrowDrawableToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawerArrowDrawable)), "toString", "()Ljava/lang/String;")
+		midDrawerArrowDrawableGetPaint, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDrawerArrowDrawable)), "getPaint", "()Landroid/graphics/Paint;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -649,6 +696,76 @@ func doInit(env *jni.Env) error {
 		clsDrawerArrowDrawableArrowDirection = env.NewGlobalRef(&c.Object)
 
 		midDrawerArrowDrawableArrowDirectionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawerArrowDrawableArrowDirection)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/graphics/drawable/AnimatedStateListDrawableCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAnimatedStateListDrawableCompat = env.NewGlobalRef(&c.Object)
+		midAnimatedStateListDrawableCompatCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimatedStateListDrawableCompat)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAnimatedStateListDrawableCompatInflate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimatedStateListDrawableCompat)), "inflate", "(Landroid/content/Context;Landroid/content/res/Resources;Lorg/xmlpull/v1/XmlPullParser;Landroid/util/AttributeSet;Landroid/content/res/Resources$Theme;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAnimatedStateListDrawableCompatSetVisible, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimatedStateListDrawableCompat)), "setVisible", "(ZZ)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAnimatedStateListDrawableCompatAddState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimatedStateListDrawableCompat)), "addState", "([ILandroid/graphics/drawable/Drawable;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAnimatedStateListDrawableCompatIsStateful, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimatedStateListDrawableCompat)), "isStateful", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAnimatedStateListDrawableCompatJumpToCurrentState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimatedStateListDrawableCompat)), "jumpToCurrentState", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAnimatedStateListDrawableCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimatedStateListDrawableCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAnimatedStateListDrawableCompatCreate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAnimatedStateListDrawableCompat)), "create", "(Landroid/content/Context;ILandroid/content/res/Resources$Theme;)Landroidx/appcompat/graphics/drawable/AnimatedStateListDrawableCompat;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAnimatedStateListDrawableCompatCreateFromXmlInner, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAnimatedStateListDrawableCompat)), "createFromXmlInner", "(Landroid/content/Context;Landroid/content/res/Resources;Lorg/xmlpull/v1/XmlPullParser;Landroid/util/AttributeSet;Landroid/content/res/Resources$Theme;)Landroidx/appcompat/graphics/drawable/AnimatedStateListDrawableCompat;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -894,139 +1011,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midWrapperCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWrapperCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/graphics/drawable/AnimatedStateListDrawableCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAnimatedStateListDrawableCompat = env.NewGlobalRef(&c.Object)
-		midAnimatedStateListDrawableCompatCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimatedStateListDrawableCompat)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAnimatedStateListDrawableCompatInflate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimatedStateListDrawableCompat)), "inflate", "(Landroid/content/Context;Landroid/content/res/Resources;Lorg/xmlpull/v1/XmlPullParser;Landroid/util/AttributeSet;Landroid/content/res/Resources$Theme;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAnimatedStateListDrawableCompatSetVisible, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimatedStateListDrawableCompat)), "setVisible", "(ZZ)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAnimatedStateListDrawableCompatAddState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimatedStateListDrawableCompat)), "addState", "([ILandroid/graphics/drawable/Drawable;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAnimatedStateListDrawableCompatIsStateful, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimatedStateListDrawableCompat)), "isStateful", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAnimatedStateListDrawableCompatJumpToCurrentState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimatedStateListDrawableCompat)), "jumpToCurrentState", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAnimatedStateListDrawableCompatMutate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimatedStateListDrawableCompat)), "mutate", "()Landroid/graphics/drawable/Drawable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAnimatedStateListDrawableCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimatedStateListDrawableCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAnimatedStateListDrawableCompatCreate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAnimatedStateListDrawableCompat)), "create", "(Landroid/content/Context;ILandroid/content/res/Resources$Theme;)Landroidx/appcompat/graphics/drawable/AnimatedStateListDrawableCompat;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAnimatedStateListDrawableCompatCreateFromXmlInner, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAnimatedStateListDrawableCompat)), "createFromXmlInner", "(Landroid/content/Context;Landroid/content/res/Resources;Lorg/xmlpull/v1/XmlPullParser;Landroid/util/AttributeSet;Landroid/content/res/Resources$Theme;)Landroidx/appcompat/graphics/drawable/AnimatedStateListDrawableCompat;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/graphics/drawable/StateListDrawableCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStateListDrawableCompat = env.NewGlobalRef(&c.Object)
-		midStateListDrawableCompatCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStateListDrawableCompat)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midStateListDrawableCompatAddState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStateListDrawableCompat)), "addState", "([ILandroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateListDrawableCompatIsStateful, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStateListDrawableCompat)), "isStateful", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateListDrawableCompatInflate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStateListDrawableCompat)), "inflate", "(Landroid/content/Context;Landroid/content/res/Resources;Lorg/xmlpull/v1/XmlPullParser;Landroid/util/AttributeSet;Landroid/content/res/Resources$Theme;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateListDrawableCompatMutate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStateListDrawableCompat)), "mutate", "()Landroid/graphics/drawable/Drawable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateListDrawableCompatApplyTheme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStateListDrawableCompat)), "applyTheme", "(Landroid/content/res/Resources$Theme;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateListDrawableCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStateListDrawableCompat)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

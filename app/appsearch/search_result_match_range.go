@@ -23,6 +23,35 @@ type SearchResultMatchRange struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSearchResultMatchRange creates a new android.app.appsearch.SearchResult$MatchRange instance.
+func NewSearchResultMatchRange(vm *jni.VM, arg0 int32, arg1 int32) (*SearchResultMatchRange, error) {
+	var t SearchResultMatchRange
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSearchResultMatchRange == nil {
+			return fmt.Errorf("android.app.appsearch.SearchResult$MatchRange is not available on this device")
+		}
+		if midSearchResultMatchRangeCtor == nil {
+			return fmt.Errorf("android.app.appsearch.SearchResult$MatchRange constructor (II)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSearchResultMatchRange)), midSearchResultMatchRangeCtor, jni.IntValue(arg0), jni.IntValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.app.appsearch.SearchResult$MatchRange.equals.
 func (m *SearchResultMatchRange) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

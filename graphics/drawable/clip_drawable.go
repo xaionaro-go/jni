@@ -32,6 +32,12 @@ func NewClipDrawable(vm *jni.VM, arg0 *jni.Object, arg1 int32, arg2 int32) (*Cli
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsClipDrawable == nil {
+			return fmt.Errorf("android.graphics.drawable.ClipDrawable is not available on this device")
+		}
+		if midClipDrawableCtor == nil {
+			return fmt.Errorf("android.graphics.drawable.ClipDrawable constructor (Landroid/graphics/drawable/Drawable;II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsClipDrawable)), midClipDrawableCtor, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2))
 		if err != nil {

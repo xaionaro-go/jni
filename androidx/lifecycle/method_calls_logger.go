@@ -32,6 +32,12 @@ func NewMethodCallsLogger(vm *jni.VM) (*MethodCallsLogger, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMethodCallsLogger == nil {
+			return fmt.Errorf("androidx.lifecycle.MethodCallsLogger is not available on this device")
+		}
+		if midMethodCallsLoggerCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.MethodCallsLogger constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMethodCallsLogger)), midMethodCallsLoggerCtor)
 		if err != nil {
 			return err

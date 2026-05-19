@@ -32,6 +32,12 @@ func NewFrameLayout(vm *jni.VM, arg0 *jni.Object) (*FrameLayout, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFrameLayout == nil {
+			return fmt.Errorf("android.widget.FrameLayout is not available on this device")
+		}
+		if midFrameLayoutCtor == nil {
+			return fmt.Errorf("android.widget.FrameLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFrameLayout)), midFrameLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -46,8 +52,8 @@ func NewFrameLayout(vm *jni.VM, arg0 *jni.Object) (*FrameLayout, error) {
 	return &t, nil
 }
 
-// GenerateLayoutParams1 calls android.widget.FrameLayout.generateLayoutParams.
-func (m *FrameLayout) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, error) {
+// GenerateLayoutParams calls android.widget.FrameLayout.generateLayoutParams.
+func (m *FrameLayout) GenerateLayoutParams(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,14 +61,14 @@ func (m *FrameLayout) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, erro
 			callErr = err
 			return err
 		}
-		if midFrameLayoutGenerateLayoutParams1 == nil {
+		if midFrameLayoutGenerateLayoutParams == nil {
 			callErr = fmt.Errorf("android.widget.FrameLayout.generateLayoutParams is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midFrameLayoutGenerateLayoutParams1, jni.ObjectValue(arg0),
+			midFrameLayoutGenerateLayoutParams, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -237,39 +243,6 @@ func (m *FrameLayout) ShouldDelayChildPressedState() (bool, error) {
 			return callErr
 		}
 		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// GenerateLayoutParams1_1 calls android.widget.FrameLayout.generateLayoutParams.
-func (m *FrameLayout) GenerateLayoutParams1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFrameLayoutGenerateLayoutParams1_1 == nil {
-			callErr = fmt.Errorf("android.widget.FrameLayout.generateLayoutParams is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midFrameLayoutGenerateLayoutParams1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
 		return callErr
 	})
 	return result, callErr

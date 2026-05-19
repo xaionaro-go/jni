@@ -32,6 +32,12 @@ func NewConstraintReference(vm *jni.VM, arg0 *jni.Object) (*ConstraintReference,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsConstraintReference == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.state.ConstraintReference is not available on this device")
+		}
+		if midConstraintReferenceCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.state.ConstraintReference constructor (Landroidx/constraintlayout/core/state/State;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConstraintReference)), midConstraintReferenceCtor, jni.ObjectValue(arg0))
 		if err != nil {

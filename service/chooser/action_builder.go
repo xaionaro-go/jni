@@ -23,6 +23,41 @@ type ActionBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewActionBuilder creates a new android.service.chooser.ChooserAction$Builder instance.
+func NewActionBuilder(vm *jni.VM, arg0 *jni.Object, arg1 string, arg2 *jni.Object) (*ActionBuilder, error) {
+	var t ActionBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsActionBuilder == nil {
+			return fmt.Errorf("android.service.chooser.ChooserAction$Builder is not available on this device")
+		}
+		if midActionBuilderCtor == nil {
+			return fmt.Errorf("android.service.chooser.ChooserAction$Builder constructor (Landroid/graphics/drawable/Icon;Ljava/lang/CharSequence;Landroid/app/PendingIntent;)V is not available on this device")
+		}
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActionBuilder)), midActionBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(&jArg1.Object), jni.ObjectValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.service.chooser.ChooserAction$Builder.build.
 func (m *ActionBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

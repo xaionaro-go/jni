@@ -23,6 +23,35 @@ type ContentInfoBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewContentInfoBuilder creates a new android.view.ContentInfo$Builder instance.
+func NewContentInfoBuilder(vm *jni.VM, arg0 *jni.Object, arg1 int32) (*ContentInfoBuilder, error) {
+	var t ContentInfoBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsContentInfoBuilder == nil {
+			return fmt.Errorf("android.view.ContentInfo$Builder is not available on this device")
+		}
+		if midContentInfoBuilderCtor == nil {
+			return fmt.Errorf("android.view.ContentInfo$Builder constructor (Landroid/content/ClipData;I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContentInfoBuilder)), midContentInfoBuilderCtor, jni.ObjectValue(arg0), jni.IntValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.view.ContentInfo$Builder.build.
 func (m *ContentInfoBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

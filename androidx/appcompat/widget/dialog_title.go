@@ -32,6 +32,12 @@ func NewDialogTitle(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 int32) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDialogTitle == nil {
+			return fmt.Errorf("androidx.appcompat.widget.DialogTitle is not available on this device")
+		}
+		if midDialogTitleCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.DialogTitle constructor (Landroid/content/Context;Landroid/util/AttributeSet;I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDialogTitle)), midDialogTitleCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2))
 		if err != nil {

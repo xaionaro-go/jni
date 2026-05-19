@@ -23,29 +23,6 @@ type IUnusedAppRestrictionsBackportService struct {
 	Obj *jni.GlobalRef
 }
 
-// IsPermissionRevocationEnabledForApp calls androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportService.isPermissionRevocationEnabledForApp.
-func (m *IUnusedAppRestrictionsBackportService) IsPermissionRevocationEnabledForApp(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midIUnusedAppRestrictionsBackportServiceIsPermissionRevocationEnabledForApp == nil {
-			callErr = fmt.Errorf("androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportService.isPermissionRevocationEnabledForApp is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midIUnusedAppRestrictionsBackportServiceIsPermissionRevocationEnabledForApp, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportService.toString.
 func (m *IUnusedAppRestrictionsBackportService) ToString() (string, error) {
 	var result string
@@ -71,4 +48,27 @@ func (m *IUnusedAppRestrictionsBackportService) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// IsPermissionRevocationEnabledForApp calls androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportService.isPermissionRevocationEnabledForApp.
+func (m *IUnusedAppRestrictionsBackportService) IsPermissionRevocationEnabledForApp(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midIUnusedAppRestrictionsBackportServiceIsPermissionRevocationEnabledForApp == nil {
+			callErr = fmt.Errorf("androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportService.isPermissionRevocationEnabledForApp is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsIUnusedAppRestrictionsBackportService)),
+			midIUnusedAppRestrictionsBackportServiceIsPermissionRevocationEnabledForApp, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

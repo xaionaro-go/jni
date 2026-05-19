@@ -32,6 +32,12 @@ func NewInputMethodSubtype(vm *jni.VM, arg0 int32, arg1 int32, arg2 string, arg3
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInputMethodSubtype == nil {
+			return fmt.Errorf("android.view.inputmethod.InputMethodSubtype is not available on this device")
+		}
+		if midInputMethodSubtypeCtor == nil {
+			return fmt.Errorf("android.view.inputmethod.InputMethodSubtype constructor (IILjava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZ)V is not available on this device")
+		}
 
 		jArg2, err := env.NewStringUTF(arg2)
 		if err != nil {
@@ -681,29 +687,6 @@ func (m *InputMethodSubtype) OverridesImplicitlyEnabledSubtype() (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.inputmethod.InputMethodSubtype.writeToParcel.
-func (m *InputMethodSubtype) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midInputMethodSubtypeWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.inputmethod.InputMethodSubtype.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midInputMethodSubtypeWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.view.inputmethod.InputMethodSubtype.toString.
 func (m *InputMethodSubtype) ToString() (string, error) {
 	var result string
@@ -729,4 +712,27 @@ func (m *InputMethodSubtype) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.inputmethod.InputMethodSubtype.writeToParcel.
+func (m *InputMethodSubtype) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midInputMethodSubtypeWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.inputmethod.InputMethodSubtype.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsInputMethodSubtype)),
+			midInputMethodSubtypeWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

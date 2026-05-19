@@ -23,6 +23,35 @@ type ListViewFixedViewInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewListViewFixedViewInfo creates a new android.widget.ListView$FixedViewInfo instance.
+func NewListViewFixedViewInfo(vm *jni.VM, arg0 *jni.Object) (*ListViewFixedViewInfo, error) {
+	var t ListViewFixedViewInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsListViewFixedViewInfo == nil {
+			return fmt.Errorf("android.widget.ListView$FixedViewInfo is not available on this device")
+		}
+		if midListViewFixedViewInfoCtor == nil {
+			return fmt.Errorf("android.widget.ListView$FixedViewInfo constructor (Landroid/widget/ListView;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsListViewFixedViewInfo)), midListViewFixedViewInfoCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.widget.ListView$FixedViewInfo.toString.
 func (m *ListViewFixedViewInfo) ToString() (string, error) {
 	var result string

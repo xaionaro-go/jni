@@ -32,6 +32,12 @@ func NewLocalSocketAddress(vm *jni.VM, arg0 string) (*LocalSocketAddress, error)
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLocalSocketAddress == nil {
+			return fmt.Errorf("android.net.LocalSocketAddress is not available on this device")
+		}
+		if midLocalSocketAddressCtor == nil {
+			return fmt.Errorf("android.net.LocalSocketAddress constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

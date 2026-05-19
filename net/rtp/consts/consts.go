@@ -3,15 +3,15 @@
 package consts
 
 const (
+	ModeEchoSuppression int = 3
+	ModeMuted           int = 1
+	ModeNormal          int = 2
+	ModeOnHold          int = 0
 	Amr                 int = 0
 	Gsm                 int = 0
 	GsmEfr              int = 0
 	Pcma                int = 0
 	Pcmu                int = 0
-	ModeEchoSuppression int = 3
-	ModeMuted           int = 1
-	ModeNormal          int = 2
-	ModeOnHold          int = 0
 	ModeReceiveOnly     int = 2
 	ModeSendOnly        int = 1
 )

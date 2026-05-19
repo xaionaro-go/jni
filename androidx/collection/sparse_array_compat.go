@@ -32,6 +32,12 @@ func NewSparseArrayCompat(vm *jni.VM) (*SparseArrayCompat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSparseArrayCompat == nil {
+			return fmt.Errorf("androidx.collection.SparseArrayCompat is not available on this device")
+		}
+		if midSparseArrayCompatCtor == nil {
+			return fmt.Errorf("androidx.collection.SparseArrayCompat constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSparseArrayCompat)), midSparseArrayCompatCtor)
 		if err != nil {
 			return err
@@ -45,8 +51,8 @@ func NewSparseArrayCompat(vm *jni.VM) (*SparseArrayCompat, error) {
 	return &t, nil
 }
 
-// Clone0 calls androidx.collection.SparseArrayCompat.clone.
-func (m *SparseArrayCompat) Clone0() (*jni.Object, error) {
+// Clone calls androidx.collection.SparseArrayCompat.clone.
+func (m *SparseArrayCompat) Clone() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -54,13 +60,13 @@ func (m *SparseArrayCompat) Clone0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midSparseArrayCompatClone0 == nil {
+		if midSparseArrayCompatClone == nil {
 			callErr = fmt.Errorf("androidx.collection.SparseArrayCompat.clone is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midSparseArrayCompatClone0,
+			midSparseArrayCompatClone,
 		)
 		if callErr != nil {
 			return callErr
@@ -345,38 +351,6 @@ func (m *SparseArrayCompat) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
-		return callErr
-	})
-	return result, callErr
-}
-
-// Clone0_1 calls androidx.collection.SparseArrayCompat.clone.
-func (m *SparseArrayCompat) Clone0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSparseArrayCompatClone0_1 == nil {
-			callErr = fmt.Errorf("androidx.collection.SparseArrayCompat.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midSparseArrayCompatClone0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
 		return callErr
 	})
 	return result, callErr

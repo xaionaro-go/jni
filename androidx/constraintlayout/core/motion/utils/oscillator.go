@@ -32,6 +32,12 @@ func NewOscillator(vm *jni.VM) (*Oscillator, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsOscillator == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.Oscillator is not available on this device")
+		}
+		if midOscillatorCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.Oscillator constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsOscillator)), midOscillatorCtor)
 		if err != nil {
 			return err
@@ -190,8 +196,8 @@ func (m *Oscillator) GetSlope(
 			return callErr
 		}
 
-		result, callErr = env.CallDoubleMethod(
-			m.Obj,
+		result, callErr = env.CallStaticDoubleMethod(
+			(*jni.Class)(unsafe.Pointer(clsOscillator)),
 			midOscillatorGetSlope, jni.DoubleValue(arg0), jni.DoubleValue(arg1), jni.DoubleValue(arg2),
 		)
 		if callErr != nil {

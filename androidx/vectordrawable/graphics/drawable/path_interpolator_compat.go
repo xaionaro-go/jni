@@ -32,6 +32,12 @@ func NewPathInterpolatorCompat(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, a
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPathInterpolatorCompat == nil {
+			return fmt.Errorf("androidx.vectordrawable.graphics.drawable.PathInterpolatorCompat is not available on this device")
+		}
+		if midPathInterpolatorCompatCtor == nil {
+			return fmt.Errorf("androidx.vectordrawable.graphics.drawable.PathInterpolatorCompat constructor (Landroid/content/Context;Landroid/util/AttributeSet;Lorg/xmlpull/v1/XmlPullParser;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPathInterpolatorCompat)), midPathInterpolatorCompatCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
 		if err != nil {

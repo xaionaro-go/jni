@@ -23,6 +23,40 @@ type KeyCycleOscillatorPathRotateSet struct {
 	Obj *jni.GlobalRef
 }
 
+// NewKeyCycleOscillatorPathRotateSet creates a new androidx.constraintlayout.core.motion.utils.KeyCycleOscillator$PathRotateSet instance.
+func NewKeyCycleOscillatorPathRotateSet(vm *jni.VM, arg0 string) (*KeyCycleOscillatorPathRotateSet, error) {
+	var t KeyCycleOscillatorPathRotateSet
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsKeyCycleOscillatorPathRotateSet == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.KeyCycleOscillator$PathRotateSet is not available on this device")
+		}
+		if midKeyCycleOscillatorPathRotateSetCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.KeyCycleOscillator$PathRotateSet constructor (Ljava/lang/String;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyCycleOscillatorPathRotateSet)), midKeyCycleOscillatorPathRotateSetCtor, jni.ObjectValue(&jArg0.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetProperty calls androidx.constraintlayout.core.motion.utils.KeyCycleOscillator$PathRotateSet.setProperty.
 func (m *KeyCycleOscillatorPathRotateSet) SetProperty(arg0 *jni.Object, arg1 float32) error {
 

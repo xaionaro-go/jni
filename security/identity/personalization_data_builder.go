@@ -23,6 +23,34 @@ type PersonalizationDataBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPersonalizationDataBuilder creates a new android.security.identity.PersonalizationData$Builder instance.
+func NewPersonalizationDataBuilder(vm *jni.VM) (*PersonalizationDataBuilder, error) {
+	var t PersonalizationDataBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPersonalizationDataBuilder == nil {
+			return fmt.Errorf("android.security.identity.PersonalizationData$Builder is not available on this device")
+		}
+		if midPersonalizationDataBuilderCtor == nil {
+			return fmt.Errorf("android.security.identity.PersonalizationData$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPersonalizationDataBuilder)), midPersonalizationDataBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddAccessControlProfile calls android.security.identity.PersonalizationData$Builder.addAccessControlProfile.
 func (m *PersonalizationDataBuilder) AddAccessControlProfile(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

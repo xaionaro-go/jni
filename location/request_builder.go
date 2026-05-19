@@ -23,6 +23,35 @@ type RequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRequestBuilder creates a new android.location.LocationRequest$Builder instance.
+func NewRequestBuilder(vm *jni.VM, arg0 *jni.Object) (*RequestBuilder, error) {
+	var t RequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRequestBuilder == nil {
+			return fmt.Errorf("android.location.LocationRequest$Builder is not available on this device")
+		}
+		if midRequestBuilderCtor == nil {
+			return fmt.Errorf("android.location.LocationRequest$Builder constructor (Landroid/location/LocationRequest;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRequestBuilder)), midRequestBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.location.LocationRequest$Builder.build.
 func (m *RequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

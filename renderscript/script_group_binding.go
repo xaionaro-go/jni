@@ -23,6 +23,35 @@ type ScriptGroupBinding struct {
 	Obj *jni.GlobalRef
 }
 
+// NewScriptGroupBinding creates a new android.renderscript.ScriptGroup$Binding instance.
+func NewScriptGroupBinding(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ScriptGroupBinding, error) {
+	var t ScriptGroupBinding
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsScriptGroupBinding == nil {
+			return fmt.Errorf("android.renderscript.ScriptGroup$Binding is not available on this device")
+		}
+		if midScriptGroupBindingCtor == nil {
+			return fmt.Errorf("android.renderscript.ScriptGroup$Binding constructor (Landroid/renderscript/Script$FieldID;Ljava/lang/Object;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScriptGroupBinding)), midScriptGroupBindingCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.renderscript.ScriptGroup$Binding.toString.
 func (m *ScriptGroupBinding) ToString() (string, error) {
 	var result string

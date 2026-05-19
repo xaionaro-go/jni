@@ -23,8 +23,36 @@ type ActivityResultContractsPickContact struct {
 	Obj *jni.GlobalRef
 }
 
-// CreateIntent2 calls androidx.activity.result.contract.ActivityResultContracts$PickContact.createIntent.
-func (m *ActivityResultContractsPickContact) CreateIntent2(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
+// NewActivityResultContractsPickContact creates a new androidx.activity.result.contract.ActivityResultContracts$PickContact instance.
+func NewActivityResultContractsPickContact(vm *jni.VM) (*ActivityResultContractsPickContact, error) {
+	var t ActivityResultContractsPickContact
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsActivityResultContractsPickContact == nil {
+			return fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$PickContact is not available on this device")
+		}
+		if midActivityResultContractsPickContactCtor == nil {
+			return fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$PickContact constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickContact)), midActivityResultContractsPickContactCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
+// CreateIntent calls androidx.activity.result.contract.ActivityResultContracts$PickContact.createIntent.
+func (m *ActivityResultContractsPickContact) CreateIntent(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -32,14 +60,14 @@ func (m *ActivityResultContractsPickContact) CreateIntent2(arg0 *jni.Object, arg
 			callErr = err
 			return err
 		}
-		if midActivityResultContractsPickContactCreateIntent2 == nil {
+		if midActivityResultContractsPickContactCreateIntent == nil {
 			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$PickContact.createIntent is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActivityResultContractsPickContactCreateIntent2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midActivityResultContractsPickContactCreateIntent, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr
@@ -56,8 +84,8 @@ func (m *ActivityResultContractsPickContact) CreateIntent2(arg0 *jni.Object, arg
 	return result, callErr
 }
 
-// ParseResult2 calls androidx.activity.result.contract.ActivityResultContracts$PickContact.parseResult.
-func (m *ActivityResultContractsPickContact) ParseResult2(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
+// ParseResult calls androidx.activity.result.contract.ActivityResultContracts$PickContact.parseResult.
+func (m *ActivityResultContractsPickContact) ParseResult(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -65,80 +93,14 @@ func (m *ActivityResultContractsPickContact) ParseResult2(arg0 int32, arg1 *jni.
 			callErr = err
 			return err
 		}
-		if midActivityResultContractsPickContactParseResult2 == nil {
+		if midActivityResultContractsPickContactParseResult == nil {
 			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$PickContact.parseResult is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActivityResultContractsPickContactParseResult2, jni.IntValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// CreateIntent2_1 calls androidx.activity.result.contract.ActivityResultContracts$PickContact.createIntent.
-func (m *ActivityResultContractsPickContact) CreateIntent2_1(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsPickContactCreateIntent2_1 == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$PickContact.createIntent is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsPickContactCreateIntent2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// ParseResult2_1 calls androidx.activity.result.contract.ActivityResultContracts$PickContact.parseResult.
-func (m *ActivityResultContractsPickContact) ParseResult2_1(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsPickContactParseResult2_1 == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$PickContact.parseResult is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsPickContactParseResult2_1, jni.IntValue(arg0), jni.ObjectValue(arg1),
+			midActivityResultContractsPickContactParseResult, jni.IntValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr

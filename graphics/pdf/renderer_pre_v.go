@@ -32,6 +32,12 @@ func NewRendererPreV(vm *jni.VM, arg0 *jni.Object) (*RendererPreV, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRendererPreV == nil {
+			return fmt.Errorf("android.graphics.pdf.PdfRendererPreV is not available on this device")
+		}
+		if midRendererPreVCtor == nil {
+			return fmt.Errorf("android.graphics.pdf.PdfRendererPreV constructor (Landroid/os/ParcelFileDescriptor;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRendererPreV)), midRendererPreVCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -23,6 +23,34 @@ type BluetoothDeviceFilterBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewBluetoothDeviceFilterBuilder creates a new android.companion.BluetoothDeviceFilter$Builder instance.
+func NewBluetoothDeviceFilterBuilder(vm *jni.VM) (*BluetoothDeviceFilterBuilder, error) {
+	var t BluetoothDeviceFilterBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsBluetoothDeviceFilterBuilder == nil {
+			return fmt.Errorf("android.companion.BluetoothDeviceFilter$Builder is not available on this device")
+		}
+		if midBluetoothDeviceFilterBuilderCtor == nil {
+			return fmt.Errorf("android.companion.BluetoothDeviceFilter$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBluetoothDeviceFilterBuilder)), midBluetoothDeviceFilterBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddServiceUuid calls android.companion.BluetoothDeviceFilter$Builder.addServiceUuid.
 func (m *BluetoothDeviceFilterBuilder) AddServiceUuid(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

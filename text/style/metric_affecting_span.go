@@ -23,8 +23,8 @@ type MetricAffectingSpan struct {
 	Obj *jni.GlobalRef
 }
 
-// GetUnderlying0 calls android.text.style.MetricAffectingSpan.getUnderlying.
-func (m *MetricAffectingSpan) GetUnderlying0() (*jni.Object, error) {
+// GetUnderlying calls android.text.style.MetricAffectingSpan.getUnderlying.
+func (m *MetricAffectingSpan) GetUnderlying() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -32,13 +32,13 @@ func (m *MetricAffectingSpan) GetUnderlying0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midMetricAffectingSpanGetUnderlying0 == nil {
+		if midMetricAffectingSpanGetUnderlying == nil {
 			callErr = fmt.Errorf("android.text.style.MetricAffectingSpan.getUnderlying is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midMetricAffectingSpanGetUnderlying0,
+			midMetricAffectingSpanGetUnderlying,
 		)
 		if callErr != nil {
 			return callErr
@@ -76,38 +76,6 @@ func (m *MetricAffectingSpan) UpdateMeasureState(arg0 *jni.Object) error {
 		return callErr
 	})
 	return callErr
-}
-
-// GetUnderlying0_1 calls android.text.style.MetricAffectingSpan.getUnderlying.
-func (m *MetricAffectingSpan) GetUnderlying0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMetricAffectingSpanGetUnderlying0_1 == nil {
-			callErr = fmt.Errorf("android.text.style.MetricAffectingSpan.getUnderlying is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMetricAffectingSpanGetUnderlying0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls android.text.style.MetricAffectingSpan.toString.

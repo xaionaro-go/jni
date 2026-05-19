@@ -23,6 +23,35 @@ type ExerciseSessionRecordBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewExerciseSessionRecordBuilder creates a new android.health.connect.datatypes.ExerciseSessionRecord$Builder instance.
+func NewExerciseSessionRecordBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.Object, arg3 int32) (*ExerciseSessionRecordBuilder, error) {
+	var t ExerciseSessionRecordBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsExerciseSessionRecordBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.ExerciseSessionRecord$Builder is not available on this device")
+		}
+		if midExerciseSessionRecordBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.ExerciseSessionRecord$Builder constructor (Landroid/health/connect/datatypes/Metadata;Ljava/time/Instant;Ljava/time/Instant;I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExerciseSessionRecordBuilder)), midExerciseSessionRecordBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.IntValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.datatypes.ExerciseSessionRecord$Builder.build.
 func (m *ExerciseSessionRecordBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

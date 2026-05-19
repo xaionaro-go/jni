@@ -5,9 +5,6 @@ package platform
 import "github.com/AndroidGoLab/jni/com/google/android/material/transition/platform/consts"
 
 const (
-	X                         = consts.X
-	Y                         = consts.Y
-	Z                         = consts.Z
 	TransitionDirectionAuto   = consts.TransitionDirectionAuto
 	TransitionDirectionEnter  = consts.TransitionDirectionEnter
 	TransitionDirectionReturn = consts.TransitionDirectionReturn
@@ -18,4 +15,7 @@ const (
 	FitModeAuto               = consts.FitModeAuto
 	FitModeWidth              = consts.FitModeWidth
 	FitModeHeight             = consts.FitModeHeight
+	X                         = consts.X
+	Y                         = consts.Y
+	Z                         = consts.Z
 )

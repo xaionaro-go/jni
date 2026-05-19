@@ -21,6 +21,34 @@ type NotificationCompatTvExtender struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNotificationCompatTvExtender creates a new androidx.core.app.NotificationCompat$TvExtender instance.
+func NewNotificationCompatTvExtender(vm *jni.VM) (*NotificationCompatTvExtender, error) {
+	var t NotificationCompatTvExtender
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNotificationCompatTvExtender == nil {
+			return fmt.Errorf("androidx.core.app.NotificationCompat$TvExtender is not available on this device")
+		}
+		if midNotificationCompatTvExtenderCtor == nil {
+			return fmt.Errorf("androidx.core.app.NotificationCompat$TvExtender constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNotificationCompatTvExtender)), midNotificationCompatTvExtenderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Extend calls androidx.core.app.NotificationCompat$TvExtender.extend.
 func (m *NotificationCompatTvExtender) Extend(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

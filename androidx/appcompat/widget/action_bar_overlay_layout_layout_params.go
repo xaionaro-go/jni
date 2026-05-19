@@ -23,6 +23,35 @@ type ActionBarOverlayLayoutLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewActionBarOverlayLayoutLayoutParams creates a new androidx.appcompat.widget.ActionBarOverlayLayout$LayoutParams instance.
+func NewActionBarOverlayLayoutLayoutParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ActionBarOverlayLayoutLayoutParams, error) {
+	var t ActionBarOverlayLayoutLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsActionBarOverlayLayoutLayoutParams == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ActionBarOverlayLayout$LayoutParams is not available on this device")
+		}
+		if midActionBarOverlayLayoutLayoutParamsCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ActionBarOverlayLayout$LayoutParams constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActionBarOverlayLayoutLayoutParams)), midActionBarOverlayLayoutLayoutParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.appcompat.widget.ActionBarOverlayLayout$LayoutParams.toString.
 func (m *ActionBarOverlayLayoutLayoutParams) ToString() (string, error) {
 	var result string

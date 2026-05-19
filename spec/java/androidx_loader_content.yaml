@@ -5,121 +5,6 @@
 package: content
 go_import: github.com/AndroidGoLab/jni/androidx/loader/content
 classes:
-    - java_class: androidx.loader.content.CursorLoader
-      go_type: CursorLoader
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: loadInBackground
-          go_name: LoadInBackground0
-          returns: android.database.Cursor
-          error: true
-        - java_method: cancelLoadInBackground
-          go_name: CancelLoadInBackground
-          returns: void
-          error: true
-        - java_method: deliverResult
-          go_name: DeliverResult1
-          params:
-            - java_type: android.database.Cursor
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onCanceled
-          go_name: OnCanceled1
-          params:
-            - java_type: android.database.Cursor
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getUri
-          go_name: GetUri
-          returns: android.net.Uri
-          error: true
-        - java_method: setUri
-          go_name: SetUri
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getProjection
-          go_name: GetProjection
-          returns: java.lang.String[]
-          error: true
-        - java_method: setProjection
-          go_name: SetProjection
-          params:
-            - java_type: java.lang.String[]
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getSelection
-          go_name: GetSelection
-          returns: String
-          error: true
-        - java_method: setSelection
-          go_name: SetSelection
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getSelectionArgs
-          go_name: GetSelectionArgs
-          returns: java.lang.String[]
-          error: true
-        - java_method: setSelectionArgs
-          go_name: SetSelectionArgs
-          params:
-            - java_type: java.lang.String[]
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getSortOrder
-          go_name: GetSortOrder
-          returns: String
-          error: true
-        - java_method: setSortOrder
-          go_name: SetSortOrder
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: dump
-          go_name: Dump
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: java.io.FileDescriptor
-              go_name: arg1
-            - java_type: java.io.PrintWriter
-              go_name: arg2
-            - java_type: java.lang.String[]
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: loadInBackground
-          go_name: LoadInBackground0_1
-          returns: java.lang.Object
-          error: true
-        - java_method: onCanceled
-          go_name: OnCanceled1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: deliverResult
-          go_name: DeliverResult1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
     - java_class: androidx.loader.content.AsyncTaskLoader
       go_type: AsyncTaskLoader
       methods:
@@ -245,6 +130,10 @@ classes:
           error: true
     - java_class: androidx.loader.content.Loader$ForceLoadContentObserver
       go_type: LoaderForceLoadContentObserver
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.loader.content.Loader
+          go_name: arg0
       methods:
         - java_method: deliverSelfNotifications
           go_name: DeliverSelfNotifications
@@ -261,32 +150,104 @@ classes:
       go_type: LoaderOnLoadCanceledListener
     - java_class: androidx.loader.content.Loader$OnLoadCompleteListener
       go_type: LoaderOnLoadCompleteListener
-abstract_callbacks:
-    - java_class: androidx.loader.content.AsyncTaskLoader
-      go_type: AsyncTaskLoaderCallback
+    - java_class: androidx.loader.content.CursorLoader
+      go_type: CursorLoader
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
       methods:
-        - java_method: setUpdateThrottle
-          params:
-            - long
-          returns: void
-          go_field: SetUpdateThrottle
+        - java_method: loadInBackground
+          go_name: LoadInBackground
+          returns: android.database.Cursor
+          error: true
         - java_method: cancelLoadInBackground
-          params: []
+          go_name: CancelLoadInBackground
           returns: void
-          go_field: CancelLoadInBackground
-        - java_method: isLoadInBackgroundCanceled
-          params: []
-          returns: boolean
-          go_field: IsLoadInBackgroundCanceled
-        - java_method: waitForLoader
-          params: []
-          returns: void
-          go_field: WaitForLoader
-        - java_method: dump
+          error: true
+        - java_method: deliverResult
+          go_name: DeliverResult
           params:
-            - String
-            - java.io.FileDescriptor
-            - java.io.PrintWriter
-            - java.lang.String[]
+            - java_type: android.database.Cursor
+              go_name: arg0
           returns: void
-          go_field: Dump
+          error: true
+        - java_method: onCanceled
+          go_name: OnCanceled
+          params:
+            - java_type: android.database.Cursor
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getUri
+          go_name: GetUri
+          returns: android.net.Uri
+          error: true
+        - java_method: setUri
+          go_name: SetUri
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getProjection
+          go_name: GetProjection
+          returns: java.lang.String[]
+          error: true
+        - java_method: setProjection
+          go_name: SetProjection
+          params:
+            - java_type: java.lang.String[]
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getSelection
+          go_name: GetSelection
+          returns: String
+          error: true
+        - java_method: setSelection
+          go_name: SetSelection
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getSelectionArgs
+          go_name: GetSelectionArgs
+          returns: java.lang.String[]
+          error: true
+        - java_method: setSelectionArgs
+          go_name: SetSelectionArgs
+          params:
+            - java_type: java.lang.String[]
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getSortOrder
+          go_name: GetSortOrder
+          returns: String
+          error: true
+        - java_method: setSortOrder
+          go_name: SetSortOrder
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: dump
+          go_name: Dump
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: java.io.FileDescriptor
+              go_name: arg1
+            - java_type: java.io.PrintWriter
+              go_name: arg2
+            - java_type: java.lang.String[]
+              go_name: arg3
+          returns: void
+          error: true
+abstract_callback_eligibility:
+    - java_class: androidx.loader.content.AsyncTaskLoader
+      generated: false
+      reason: unsupported_constructor

@@ -32,6 +32,12 @@ func NewMultiTapKeyListener(vm *jni.VM, arg0 *jni.Object, arg1 bool) (*MultiTapK
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMultiTapKeyListener == nil {
+			return fmt.Errorf("android.text.method.MultiTapKeyListener is not available on this device")
+		}
+		if midMultiTapKeyListenerCtor == nil {
+			return fmt.Errorf("android.text.method.MultiTapKeyListener constructor (Landroid/text/method/TextKeyListener$Capitalize;Z)V is not available on this device")
+		}
 
 		var jArg1 uint8
 		if arg1 {

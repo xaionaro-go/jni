@@ -32,6 +32,12 @@ func NewEditorInfoCompat(vm *jni.VM) (*EditorInfoCompat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEditorInfoCompat == nil {
+			return fmt.Errorf("androidx.core.view.inputmethod.EditorInfoCompat is not available on this device")
+		}
+		if midEditorInfoCompatCtor == nil {
+			return fmt.Errorf("androidx.core.view.inputmethod.EditorInfoCompat constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEditorInfoCompat)), midEditorInfoCompatCtor)
 		if err != nil {
 			return err

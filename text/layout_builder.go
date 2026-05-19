@@ -23,6 +23,40 @@ type LayoutBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewLayoutBuilder creates a new android.text.Layout$Builder instance.
+func NewLayoutBuilder(vm *jni.VM, arg0 string, arg1 int32, arg2 int32, arg3 *jni.Object, arg4 int32) (*LayoutBuilder, error) {
+	var t LayoutBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsLayoutBuilder == nil {
+			return fmt.Errorf("android.text.Layout$Builder is not available on this device")
+		}
+		if midLayoutBuilderCtor == nil {
+			return fmt.Errorf("android.text.Layout$Builder constructor (Ljava/lang/CharSequence;IILandroid/text/TextPaint;I)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLayoutBuilder)), midLayoutBuilderCtor, jni.ObjectValue(&jArg0.Object), jni.IntValue(arg1), jni.IntValue(arg2), jni.ObjectValue(arg3), jni.IntValue(arg4))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.text.Layout$Builder.build.
 func (m *LayoutBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

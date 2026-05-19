@@ -32,6 +32,12 @@ func NewSavedStateHandleAttacher(vm *jni.VM, arg0 *jni.Object) (*SavedStateHandl
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSavedStateHandleAttacher == nil {
+			return fmt.Errorf("androidx.lifecycle.SavedStateHandleAttacher is not available on this device")
+		}
+		if midSavedStateHandleAttacherCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.SavedStateHandleAttacher constructor (Landroidx/lifecycle/SavedStateHandlesProvider;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSavedStateHandleAttacher)), midSavedStateHandleAttacherCtor, jni.ObjectValue(arg0))
 		if err != nil {

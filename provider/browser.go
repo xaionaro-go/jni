@@ -32,6 +32,12 @@ func NewBrowser(vm *jni.VM) (*Browser, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBrowser == nil {
+			return fmt.Errorf("android.provider.Browser is not available on this device")
+		}
+		if midBrowserCtor == nil {
+			return fmt.Errorf("android.provider.Browser constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBrowser)), midBrowserCtor)
 		if err != nil {
 			return err

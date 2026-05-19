@@ -23,6 +23,34 @@ type TextLanguageBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTextLanguageBuilder creates a new android.view.textclassifier.TextLanguage$Builder instance.
+func NewTextLanguageBuilder(vm *jni.VM) (*TextLanguageBuilder, error) {
+	var t TextLanguageBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTextLanguageBuilder == nil {
+			return fmt.Errorf("android.view.textclassifier.TextLanguage$Builder is not available on this device")
+		}
+		if midTextLanguageBuilderCtor == nil {
+			return fmt.Errorf("android.view.textclassifier.TextLanguage$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextLanguageBuilder)), midTextLanguageBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.view.textclassifier.TextLanguage$Builder.build.
 func (m *TextLanguageBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

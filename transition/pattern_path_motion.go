@@ -32,6 +32,12 @@ func NewPatternPathMotion(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Patt
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPatternPathMotion == nil {
+			return fmt.Errorf("android.transition.PatternPathMotion is not available on this device")
+		}
+		if midPatternPathMotionCtor == nil {
+			return fmt.Errorf("android.transition.PatternPathMotion constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPatternPathMotion)), midPatternPathMotionCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

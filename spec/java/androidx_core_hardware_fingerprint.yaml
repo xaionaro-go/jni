@@ -58,6 +58,10 @@ classes:
           error: true
     - java_class: androidx.core.hardware.fingerprint.FingerprintManagerCompat$AuthenticationResult
       go_type: ManagerCompatAuthenticationResult
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.core.hardware.fingerprint.FingerprintManagerCompat$CryptoObject
+          go_name: arg0
       methods:
         - java_method: getCryptoObject
           go_name: GetCryptoObject
@@ -65,6 +69,10 @@ classes:
           error: true
     - java_class: androidx.core.hardware.fingerprint.FingerprintManagerCompat$CryptoObject
       go_type: ManagerCompatCryptoObject
+      obtain: constructor
+      constructor_params:
+        - java_type: java.security.Signature
+          go_name: arg0
       methods:
         - java_method: getSignature
           go_name: GetSignature
@@ -103,3 +111,7 @@ abstract_callbacks:
           params: []
           returns: void
           go_field: OnAuthenticationFailed
+abstract_callback_eligibility:
+    - java_class: androidx.core.hardware.fingerprint.FingerprintManagerCompat$AuthenticationCallback
+      generated: true
+      reason: supported_no_arg_constructor

@@ -32,6 +32,12 @@ func NewMessageDecryptionException(vm *jni.VM, arg0 string) (*MessageDecryptionE
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMessageDecryptionException == nil {
+			return fmt.Errorf("android.security.identity.MessageDecryptionException is not available on this device")
+		}
+		if midMessageDecryptionExceptionCtor == nil {
+			return fmt.Errorf("android.security.identity.MessageDecryptionException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

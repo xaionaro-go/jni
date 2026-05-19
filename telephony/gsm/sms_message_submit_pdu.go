@@ -23,6 +23,34 @@ type SmsMessageSubmitPdu struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSmsMessageSubmitPdu creates a new android.telephony.gsm.SmsMessage$SubmitPdu instance.
+func NewSmsMessageSubmitPdu(vm *jni.VM) (*SmsMessageSubmitPdu, error) {
+	var t SmsMessageSubmitPdu
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSmsMessageSubmitPdu == nil {
+			return fmt.Errorf("android.telephony.gsm.SmsMessage$SubmitPdu is not available on this device")
+		}
+		if midSmsMessageSubmitPduCtor == nil {
+			return fmt.Errorf("android.telephony.gsm.SmsMessage$SubmitPdu constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSmsMessageSubmitPdu)), midSmsMessageSubmitPduCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.telephony.gsm.SmsMessage$SubmitPdu.toString.
 func (m *SmsMessageSubmitPdu) ToString() (string, error) {
 	var result string

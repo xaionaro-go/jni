@@ -26,8 +26,8 @@ var (
 	clsMaterialRadioButton                          *jni.GlobalRef
 	midMaterialRadioButtonCtor                      jni.MethodID
 	midMaterialRadioButtonSetUseMaterialThemeColors jni.MethodID
-	midMaterialRadioButtonIsUseMaterialThemeColors  jni.MethodID
 	midMaterialRadioButtonToString                  jni.MethodID
+	midMaterialRadioButtonIsUseMaterialThemeColors  jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -67,14 +67,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMaterialRadioButtonIsUseMaterialThemeColors, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialRadioButton)), "isUseMaterialThemeColors", "()Z")
+		midMaterialRadioButtonToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialRadioButton)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialRadioButtonToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialRadioButton)), "toString", "()Ljava/lang/String;")
+		midMaterialRadioButtonIsUseMaterialThemeColors, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialRadioButton)), "isUseMaterialThemeColors", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

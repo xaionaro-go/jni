@@ -1,0 +1,20 @@
+title = "xaionaro-go/jni gitleaks config"
+
+# Inherit the built-in default ruleset; we only add an allowlist below.
+[extend]
+useDefault = true
+
+# False positive: Android Bluetooth L2CAP status-code constant identifier
+# (mirrors BluetoothStatusCodes.L2CAP_INSUFFICIENT_ENCRYPT_KEY_SIZE). The
+# mixed-case mash "L2capInsufficientEncryptKeySize" trips the generic-api-key
+# entropy heuristic on bluetooth/constants.go:390 (a generated re-export from
+# bluetooth/consts/consts.go). This is an identifier, not a secret.
+#
+# .gitleaksignore would suffice for `gitleaks detect`, but `gitleaks protect`
+# in 8.16 does not honor it, so we suppress at the config-allowlist level.
+[allowlist]
+description = "Android Bluetooth status-code constant identifier (false positive)"
+regexTarget = "line"
+regexes = [
+  '''L2capInsufficientEncryptKeySize''',
+]

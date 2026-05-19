@@ -32,6 +32,12 @@ func NewParcelablePeerHandle(vm *jni.VM, arg0 *jni.Object) (*ParcelablePeerHandl
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsParcelablePeerHandle == nil {
+			return fmt.Errorf("android.net.wifi.aware.ParcelablePeerHandle is not available on this device")
+		}
+		if midParcelablePeerHandleCtor == nil {
+			return fmt.Errorf("android.net.wifi.aware.ParcelablePeerHandle constructor (Landroid/net/wifi/aware/PeerHandle;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsParcelablePeerHandle)), midParcelablePeerHandleCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -71,29 +77,6 @@ func (m *ParcelablePeerHandle) DescribeContents() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.net.wifi.aware.ParcelablePeerHandle.writeToParcel.
-func (m *ParcelablePeerHandle) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midParcelablePeerHandleWriteToParcel == nil {
-			callErr = fmt.Errorf("android.net.wifi.aware.ParcelablePeerHandle.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midParcelablePeerHandleWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.net.wifi.aware.ParcelablePeerHandle.toString.
 func (m *ParcelablePeerHandle) ToString() (string, error) {
 	var result string
@@ -119,4 +102,27 @@ func (m *ParcelablePeerHandle) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.net.wifi.aware.ParcelablePeerHandle.writeToParcel.
+func (m *ParcelablePeerHandle) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midParcelablePeerHandleWriteToParcel == nil {
+			callErr = fmt.Errorf("android.net.wifi.aware.ParcelablePeerHandle.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsParcelablePeerHandle)),
+			midParcelablePeerHandleWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

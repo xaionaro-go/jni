@@ -23,6 +23,34 @@ type BluetoothLeDeviceFilterBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewBluetoothLeDeviceFilterBuilder creates a new android.companion.BluetoothLeDeviceFilter$Builder instance.
+func NewBluetoothLeDeviceFilterBuilder(vm *jni.VM) (*BluetoothLeDeviceFilterBuilder, error) {
+	var t BluetoothLeDeviceFilterBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsBluetoothLeDeviceFilterBuilder == nil {
+			return fmt.Errorf("android.companion.BluetoothLeDeviceFilter$Builder is not available on this device")
+		}
+		if midBluetoothLeDeviceFilterBuilderCtor == nil {
+			return fmt.Errorf("android.companion.BluetoothLeDeviceFilter$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBluetoothLeDeviceFilterBuilder)), midBluetoothLeDeviceFilterBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.companion.BluetoothLeDeviceFilter$Builder.build.
 func (m *BluetoothLeDeviceFilterBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewAppearancePathProvider(vm *jni.VM) (*AppearancePathProvider, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppearancePathProvider == nil {
+			return fmt.Errorf("com.google.android.material.shape.ShapeAppearancePathProvider is not available on this device")
+		}
+		if midAppearancePathProviderCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.ShapeAppearancePathProvider constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppearancePathProvider)), midAppearancePathProviderCtor)
 		if err != nil {
 			return err

@@ -23,6 +23,35 @@ type Builder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewBuilder creates a new android.app.slice.Slice$Builder instance.
+func NewBuilder(vm *jni.VM, arg0 *jni.Object) (*Builder, error) {
+	var t Builder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsBuilder == nil {
+			return fmt.Errorf("android.app.slice.Slice$Builder is not available on this device")
+		}
+		if midBuilderCtor == nil {
+			return fmt.Errorf("android.app.slice.Slice$Builder constructor (Landroid/app/slice/Slice$Builder;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBuilder)), midBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddAction calls android.app.slice.Slice$Builder.addAction.
 func (m *Builder) AddAction(
 	arg0 *jni.Object,

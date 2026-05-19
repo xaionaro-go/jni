@@ -32,6 +32,12 @@ func NewSpellCheckerSubtype(vm *jni.VM, arg0 int32, arg1 string, arg2 string) (*
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSpellCheckerSubtype == nil {
+			return fmt.Errorf("android.view.textservice.SpellCheckerSubtype is not available on this device")
+		}
+		if midSpellCheckerSubtypeCtor == nil {
+			return fmt.Errorf("android.view.textservice.SpellCheckerSubtype constructor (ILjava/lang/String;Ljava/lang/String;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {
@@ -351,29 +357,6 @@ func (m *SpellCheckerSubtype) HashCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.textservice.SpellCheckerSubtype.writeToParcel.
-func (m *SpellCheckerSubtype) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSpellCheckerSubtypeWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.textservice.SpellCheckerSubtype.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSpellCheckerSubtypeWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.view.textservice.SpellCheckerSubtype.toString.
 func (m *SpellCheckerSubtype) ToString() (string, error) {
 	var result string
@@ -399,4 +382,27 @@ func (m *SpellCheckerSubtype) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.textservice.SpellCheckerSubtype.writeToParcel.
+func (m *SpellCheckerSubtype) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSpellCheckerSubtypeWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.textservice.SpellCheckerSubtype.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSpellCheckerSubtype)),
+			midSpellCheckerSubtypeWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

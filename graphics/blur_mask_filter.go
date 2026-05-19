@@ -32,6 +32,12 @@ func NewBlurMaskFilter(vm *jni.VM, arg0 float32, arg1 *jni.Object) (*BlurMaskFil
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBlurMaskFilter == nil {
+			return fmt.Errorf("android.graphics.BlurMaskFilter is not available on this device")
+		}
+		if midBlurMaskFilterCtor == nil {
+			return fmt.Errorf("android.graphics.BlurMaskFilter constructor (FLandroid/graphics/BlurMaskFilter$Blur;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBlurMaskFilter)), midBlurMaskFilterCtor, jni.FloatValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

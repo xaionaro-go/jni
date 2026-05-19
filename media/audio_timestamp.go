@@ -32,6 +32,12 @@ func NewAudioTimestamp(vm *jni.VM) (*AudioTimestamp, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAudioTimestamp == nil {
+			return fmt.Errorf("android.media.AudioTimestamp is not available on this device")
+		}
+		if midAudioTimestampCtor == nil {
+			return fmt.Errorf("android.media.AudioTimestamp constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAudioTimestamp)), midAudioTimestampCtor)
 		if err != nil {
 			return err
@@ -111,8 +117,8 @@ func (m *AudioTimestamp) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAudioTimestamp)),
 			midAudioTimestampWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

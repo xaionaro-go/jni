@@ -6,11 +6,6 @@ import "github.com/AndroidGoLab/jni/adservices/ondevicepersonalization/consts"
 
 const (
 	Creator                                   = consts.Creator
-	Default                                   = consts.Default
-	OutputTypeBestValue                       = consts.OutputTypeBestValue
-	OutputTypeNull                            = consts.OutputTypeNull
-	SchedulingModeOneTime                     = consts.SchedulingModeOneTime
-	SchedulingModeRecurrent                   = consts.SchedulingModeRecurrent
 	ErrorInferenceFailed                      = consts.ErrorInferenceFailed
 	ErrorInferenceModelNotFound               = consts.ErrorInferenceModelNotFound
 	ErrorInvalidTrainingManifest              = consts.ErrorInvalidTrainingManifest
@@ -20,7 +15,12 @@ const (
 	ErrorIsolatedServiceTimeout               = consts.ErrorIsolatedServiceTimeout
 	ErrorPersonalizationDisabled              = consts.ErrorPersonalizationDisabled
 	ErrorScheduleTrainingFailed               = consts.ErrorScheduleTrainingFailed
+	DefaultBestValue                          = consts.DefaultBestValue
+	SchedulingModeOneTime                     = consts.SchedulingModeOneTime
+	SchedulingModeRecurrent                   = consts.SchedulingModeRecurrent
 	DelegateCpu                               = consts.DelegateCpu
 	ModelTypeTensorflowLite                   = consts.ModelTypeTensorflowLite
-	DefaultBestValue                          = consts.DefaultBestValue
+	Default                                   = consts.Default
+	OutputTypeBestValue                       = consts.OutputTypeBestValue
+	OutputTypeNull                            = consts.OutputTypeNull
 )

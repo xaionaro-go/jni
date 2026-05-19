@@ -32,6 +32,12 @@ func NewIkeIOException(vm *jni.VM, arg0 *jni.Object) (*IkeIOException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsIkeIOException == nil {
+			return fmt.Errorf("android.net.ipsec.ike.exceptions.IkeIOException is not available on this device")
+		}
+		if midIkeIOExceptionCtor == nil {
+			return fmt.Errorf("android.net.ipsec.ike.exceptions.IkeIOException constructor (Ljava/io/IOException;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIkeIOException)), midIkeIOExceptionCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -46,8 +52,8 @@ func NewIkeIOException(vm *jni.VM, arg0 *jni.Object) (*IkeIOException, error) {
 	return &t, nil
 }
 
-// GetCause0 calls android.net.ipsec.ike.exceptions.IkeIOException.getCause.
-func (m *IkeIOException) GetCause0() (*jni.Object, error) {
+// GetCause calls android.net.ipsec.ike.exceptions.IkeIOException.getCause.
+func (m *IkeIOException) GetCause() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,45 +61,13 @@ func (m *IkeIOException) GetCause0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midIkeIOExceptionGetCause0 == nil {
+		if midIkeIOExceptionGetCause == nil {
 			callErr = fmt.Errorf("android.net.ipsec.ike.exceptions.IkeIOException.getCause is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midIkeIOExceptionGetCause0,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetCause0_1 calls android.net.ipsec.ike.exceptions.IkeIOException.getCause.
-func (m *IkeIOException) GetCause0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midIkeIOExceptionGetCause0_1 == nil {
-			callErr = fmt.Errorf("android.net.ipsec.ike.exceptions.IkeIOException.getCause is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midIkeIOExceptionGetCause0_1,
+			midIkeIOExceptionGetCause,
 		)
 		if callErr != nil {
 			return callErr

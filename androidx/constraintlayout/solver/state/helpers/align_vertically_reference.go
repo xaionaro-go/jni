@@ -32,6 +32,12 @@ func NewAlignVerticallyReference(vm *jni.VM, arg0 *jni.Object) (*AlignVertically
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAlignVerticallyReference == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.state.helpers.AlignVerticallyReference is not available on this device")
+		}
+		if midAlignVerticallyReferenceCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.state.helpers.AlignVerticallyReference constructor (Landroidx/constraintlayout/solver/state/State;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAlignVerticallyReference)), midAlignVerticallyReferenceCtor, jni.ObjectValue(arg0))
 		if err != nil {

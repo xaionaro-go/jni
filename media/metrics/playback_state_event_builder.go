@@ -23,6 +23,34 @@ type PlaybackStateEventBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPlaybackStateEventBuilder creates a new android.media.metrics.PlaybackStateEvent$Builder instance.
+func NewPlaybackStateEventBuilder(vm *jni.VM) (*PlaybackStateEventBuilder, error) {
+	var t PlaybackStateEventBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPlaybackStateEventBuilder == nil {
+			return fmt.Errorf("android.media.metrics.PlaybackStateEvent$Builder is not available on this device")
+		}
+		if midPlaybackStateEventBuilderCtor == nil {
+			return fmt.Errorf("android.media.metrics.PlaybackStateEvent$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPlaybackStateEventBuilder)), midPlaybackStateEventBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.media.metrics.PlaybackStateEvent$Builder.build.
 func (m *PlaybackStateEventBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

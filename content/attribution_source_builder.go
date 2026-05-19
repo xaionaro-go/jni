@@ -23,6 +23,35 @@ type AttributionSourceBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAttributionSourceBuilder creates a new android.content.AttributionSource$Builder instance.
+func NewAttributionSourceBuilder(vm *jni.VM, arg0 *jni.Object) (*AttributionSourceBuilder, error) {
+	var t AttributionSourceBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAttributionSourceBuilder == nil {
+			return fmt.Errorf("android.content.AttributionSource$Builder is not available on this device")
+		}
+		if midAttributionSourceBuilderCtor == nil {
+			return fmt.Errorf("android.content.AttributionSource$Builder constructor (Landroid/content/AttributionSource;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAttributionSourceBuilder)), midAttributionSourceBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.content.AttributionSource$Builder.build.
 func (m *AttributionSourceBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

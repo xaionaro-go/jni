@@ -23,6 +23,35 @@ type MedicalDataSourceBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMedicalDataSourceBuilder creates a new android.health.connect.datatypes.MedicalDataSource$Builder instance.
+func NewMedicalDataSourceBuilder(vm *jni.VM, arg0 *jni.Object) (*MedicalDataSourceBuilder, error) {
+	var t MedicalDataSourceBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMedicalDataSourceBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.MedicalDataSource$Builder is not available on this device")
+		}
+		if midMedicalDataSourceBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.MedicalDataSource$Builder constructor (Landroid/health/connect/datatypes/MedicalDataSource;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMedicalDataSourceBuilder)), midMedicalDataSourceBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.datatypes.MedicalDataSource$Builder.build.
 func (m *MedicalDataSourceBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

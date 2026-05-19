@@ -32,6 +32,12 @@ func NewBase64OutputStream(vm *jni.VM, arg0 *jni.Object, arg1 int32) (*Base64Out
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBase64OutputStream == nil {
+			return fmt.Errorf("android.util.Base64OutputStream is not available on this device")
+		}
+		if midBase64OutputStreamCtor == nil {
+			return fmt.Errorf("android.util.Base64OutputStream constructor (Ljava/io/OutputStream;I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBase64OutputStream)), midBase64OutputStreamCtor, jni.ObjectValue(arg0), jni.IntValue(arg1))
 		if err != nil {

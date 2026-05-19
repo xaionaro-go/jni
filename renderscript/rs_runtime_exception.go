@@ -32,6 +32,12 @@ func NewRSRuntimeException(vm *jni.VM, arg0 string) (*RSRuntimeException, error)
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRSRuntimeException == nil {
+			return fmt.Errorf("android.renderscript.RSRuntimeException is not available on this device")
+		}
+		if midRSRuntimeExceptionCtor == nil {
+			return fmt.Errorf("android.renderscript.RSRuntimeException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

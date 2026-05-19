@@ -23,6 +23,35 @@ type RemoteCallbackListBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRemoteCallbackListBuilder creates a new android.os.RemoteCallbackList$Builder instance.
+func NewRemoteCallbackListBuilder(vm *jni.VM, arg0 int32) (*RemoteCallbackListBuilder, error) {
+	var t RemoteCallbackListBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRemoteCallbackListBuilder == nil {
+			return fmt.Errorf("android.os.RemoteCallbackList$Builder is not available on this device")
+		}
+		if midRemoteCallbackListBuilderCtor == nil {
+			return fmt.Errorf("android.os.RemoteCallbackList$Builder constructor (I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRemoteCallbackListBuilder)), midRemoteCallbackListBuilderCtor, jni.IntValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.os.RemoteCallbackList$Builder.build.
 func (m *RemoteCallbackListBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

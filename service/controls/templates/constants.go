@@ -5,15 +5,6 @@ package templates
 import "github.com/AndroidGoLab/jni/service/controls/templates/consts"
 
 const (
-	TypeError        = consts.TypeError
-	TypeNoTemplate   = consts.TypeNoTemplate
-	TypeRange        = consts.TypeRange
-	TypeStateless    = consts.TypeStateless
-	TypeTemperature  = consts.TypeTemperature
-	TypeThumbnail    = consts.TypeThumbnail
-	TypeToggle       = consts.TypeToggle
-	TypeToggleRange  = consts.TypeToggleRange
-	Creator          = consts.Creator
 	FlagModeCool     = consts.FlagModeCool
 	FlagModeEco      = consts.FlagModeEco
 	FlagModeHeat     = consts.FlagModeHeat
@@ -25,4 +16,13 @@ const (
 	ModeHeatCool     = consts.ModeHeatCool
 	ModeOff          = consts.ModeOff
 	ModeUnknown      = consts.ModeUnknown
+	TypeError        = consts.TypeError
+	TypeNoTemplate   = consts.TypeNoTemplate
+	TypeRange        = consts.TypeRange
+	TypeStateless    = consts.TypeStateless
+	TypeTemperature  = consts.TypeTemperature
+	TypeThumbnail    = consts.TypeThumbnail
+	TypeToggle       = consts.TypeToggle
+	TypeToggleRange  = consts.TypeToggleRange
+	Creator          = consts.Creator
 )

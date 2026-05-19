@@ -32,6 +32,12 @@ func NewInputMethodService(vm *jni.VM) (*InputMethodService, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInputMethodService == nil {
+			return fmt.Errorf("android.inputmethodservice.InputMethodService is not available on this device")
+		}
+		if midInputMethodServiceCtor == nil {
+			return fmt.Errorf("android.inputmethodservice.InputMethodService constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInputMethodService)), midInputMethodServiceCtor)
 		if err != nil {
 			return err

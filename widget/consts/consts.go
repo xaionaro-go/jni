@@ -3,48 +3,6 @@
 package consts
 
 const (
-	AlignBounds                  int = 0
-	AlignMargins                 int = 1
-	Baseline                     int = 0
-	Bottom                       int = 0
-	Center                       int = 0
-	End                          int = 0
-	Fill                         int = 0
-	Horizontal                   int = 0
-	Left                         int = 0
-	Right                        int = 0
-	Start                        int = 0
-	Top                          int = 0
-	Undefined                    int = -2147483648
-	Vertical                     int = 1
-	CenterCrop                   int = 0
-	CenterInside                 int = 0
-	FitCenter                    int = 0
-	FitEnd                       int = 0
-	FitStart                     int = 0
-	FitXy                        int = 0
-	Matrix                       int = 0
-	InputMethodFromFocusable     int = 0
-	InputMethodNeeded            int = 1
-	InputMethodNotNeeded         int = 2
-	MatchParent                  int = -1
-	PositionPromptAbove          int = 0
-	PositionPromptBelow          int = 1
-	WrapContent                  int = -2
-	DefaultBlendMode             int = 0
-	DigitsAndLetters             int = 1
-	DigitsAndLettersNoDigits     int = 2
-	DigitsAndLettersNoLetters    int = 3
-	DigitsOnly                   int = 4
-	LettersOnly                  int = 5
-	ShowDividerBeginning         int = 1
-	ShowDividerEnd               int = 4
-	ShowDividerMiddle            int = 2
-	ShowDividerNone              int = 0
-	FlagAutoRequery              int = 1
-	FlagRegisterContentObserver  int = 2
-	IgnoreItemViewType           int = -1
-	NoSelection                  int = -2147483648
 	ChoiceModeMultiple           int = 2
 	ChoiceModeMultipleModal      int = 3
 	ChoiceModeNone               int = 0
@@ -55,6 +13,12 @@ const (
 	ScrollStateFling             int = 2
 	ScrollStateIdle              int = 0
 	ScrollStateTouchScroll       int = 1
+	Horizontal                   int = 0
+	ShowDividerBeginning         int = 1
+	ShowDividerEnd               int = 4
+	ShowDividerMiddle            int = 2
+	ShowDividerNone              int = 0
+	Vertical                     int = 1
 	AutoSizeTextTypeNone         int = 0
 	AutoSizeTextTypeUniform      int = 1
 	FocusedSearchResultIndexNone int = -1
@@ -62,16 +26,65 @@ const (
 	Normal                       int = 0
 	Spannable                    int = 0
 	Creator                      int = 0
-	ModeDialog                   int = 0
-	ModeDropdown                 int = 1
-	UnspecifiedGravity           int = -1
-	OrientationHorizontal        int = 0
-	OrientationVertical          int = 1
+	InputMethodFromFocusable     int = 0
+	InputMethodNeeded            int = 1
+	InputMethodNotNeeded         int = 2
+	MatchParent                  int = -1
+	PositionPromptAbove          int = 0
+	PositionPromptBelow          int = 1
+	WrapContent                  int = -2
+	ChildIndicatorInherit        int = -1
+	PackedPositionTypeChild      int = 1
+	PackedPositionTypeGroup      int = 0
+	PackedPositionTypeNull       int = 2
+	InvalidPosition              int = -1
+	ItemViewTypeHeaderOrFooter   int = -2
+	ItemViewTypeIgnore           int = -1
+	MarginBottom                 int = 3
+	MarginEnd                    int = 5
+	MarginLeft                   int = 0
+	MarginRight                  int = 2
+	MarginStart                  int = 4
+	MarginTop                    int = 1
+	DigitsAndLetters             int = 1
+	DigitsAndLettersNoDigits     int = 2
+	DigitsAndLettersNoLetters    int = 3
+	DigitsOnly                   int = 4
+	LettersOnly                  int = 5
 	AutoFit                      int = -1
 	NoStretch                    int = 0
 	StretchColumnWidth           int = 2
 	StretchSpacing               int = 1
 	StretchSpacingUniform        int = 3
+	DefaultBlendMode             int = 0
+	SourceBoundMaxInSurface      int = 0
+	SourceBoundMaxVisible        int = 1
+	Center                       int = 0
+	CenterCrop                   int = 0
+	CenterInside                 int = 0
+	FitCenter                    int = 0
+	FitEnd                       int = 0
+	FitStart                     int = 0
+	FitXy                        int = 0
+	Matrix                       int = 0
+	ModeDialog                   int = 0
+	ModeDropdown                 int = 1
+	UnspecifiedGravity           int = -1
+	OrientationHorizontal        int = 0
+	OrientationVertical          int = 1
+	AlignBounds                  int = 0
+	AlignMargins                 int = 1
+	Baseline                     int = 0
+	Bottom                       int = 0
+	End                          int = 0
+	Fill                         int = 0
+	Left                         int = 0
+	Right                        int = 0
+	Start                        int = 0
+	Top                          int = 0
+	Undefined                    int = -2147483648
+	DefaultFormat12Hour          int = 0
+	DefaultFormat24Hour          int = 0
 	Above                        int = 2
 	AlignBaseline                int = 4
 	AlignBottom                  int = 8
@@ -95,32 +108,19 @@ const (
 	RightOf                      int = 1
 	StartOf                      int = 16
 	True                         int = -1
-	MarginBottom                 int = 3
-	MarginEnd                    int = 5
-	MarginLeft                   int = 0
-	MarginRight                  int = 2
-	MarginStart                  int = 4
-	MarginTop                    int = 1
-	DefaultFormat12Hour          int = 0
-	DefaultFormat24Hour          int = 0
-	SourceBoundMaxInSurface      int = 0
-	SourceBoundMaxVisible        int = 1
-	InvalidPosition              int = -1
-	ItemViewTypeHeaderOrFooter   int = -2
-	ItemViewTypeIgnore           int = -1
-	ChildIndicatorInherit        int = -1
-	PackedPositionTypeChild      int = 1
-	PackedPositionTypeGroup      int = 0
-	PackedPositionTypeNull       int = 2
+	IgnoreItemViewType           int = -1
+	NoSelection                  int = -2147483648
+	FlagAutoRequery              int = 1
+	FlagRegisterContentObserver  int = 2
+)
+
+const (
+	PackedPositionValueNull int64 = 4294967295
+	InvalidRowId            int64 = -9223372036854775808
 )
 
 const (
 	DefaultShareHistoryFileName string = "share_history.xml"
 	ExtraChecked                string = "android.widget.extra.CHECKED"
 	ExtraSharedElementBounds    string = "android.widget.extra.SHARED_ELEMENT_BOUNDS"
-)
-
-const (
-	InvalidRowId            int64 = -9223372036854775808
-	PackedPositionValueNull int64 = 4294967295
 )

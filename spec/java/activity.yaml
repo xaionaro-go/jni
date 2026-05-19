@@ -5,90 +5,48 @@
 package: activity
 go_import: github.com/AndroidGoLab/jni/androidx/activity
 classes:
-    - java_class: androidx.activity.OnBackPressedDispatcher
-      go_type: OnBackPressedDispatcher
-      obtain: constructor
+    - java_class: androidx.activity.OnBackPressedCallback
+      go_type: OnBackPressedCallback
       methods:
-        - java_method: setOnBackInvokedDispatcher
-          go_name: SetOnBackInvokedDispatcher
-          params:
-            - java_type: android.window.OnBackInvokedDispatcher
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: addCallback
-          go_name: AddCallback1
-          params:
-            - java_type: androidx.activity.OnBackPressedCallback
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: addCallback
-          go_name: AddCallback2_1
-          params:
-            - java_type: androidx.lifecycle.LifecycleOwner
-              go_name: arg0
-            - java_type: androidx.activity.OnBackPressedCallback
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: hasEnabledCallbacks
-          go_name: HasEnabledCallbacks
+        - java_method: isEnabled
+          go_name: IsEnabled
           returns: boolean
           error: true
-        - java_method: onBackPressed
-          go_name: OnBackPressed
+        - java_method: setEnabled
+          go_name: SetEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
           returns: void
           error: true
-    - java_class: androidx.activity.OnBackPressedDispatcher$Api33Impl
-      go_type: OnBackPressedDispatcherApi33Impl
-      methods:
-        - java_method: registerOnBackInvokedCallback
-          go_name: RegisterOnBackInvokedCallback
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: java.lang.Object
-              go_name: arg2
+        - java_method: getEnabledChangedCallback$activity_release
+          go_name: GetEnabledChangedCallbackActivityRelease
+          returns: kotlin.jvm.functions.Function0<kotlin.Unit>
+          error: true
+        - java_method: remove
+          go_name: Remove
           returns: void
           error: true
-        - java_method: unregisterOnBackInvokedCallback
-          go_name: UnregisterOnBackInvokedCallback
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
+        - java_method: handleOnBackPressed
+          go_name: HandleOnBackPressed
           returns: void
           error: true
-    - java_class: androidx.activity.ViewTreeOnBackPressedDispatcherOwner
-      go_type: ViewTreeOnBackPressedDispatcherOwner
-      static_methods:
-        - java_method: set
-          go_name: Set
+        - java_method: addCancellable
+          go_name: AddCancellable
           params:
-            - java_type: android.view.View
+            - java_type: androidx.activity.Cancellable
               go_name: arg0
-            - java_type: androidx.activity.OnBackPressedDispatcherOwner
-              go_name: arg1
           returns: void
           error: true
-        - java_method: get
-          go_name: Get
+        - java_method: removeCancellable
+          go_name: RemoveCancellable
           params:
-            - java_type: android.view.View
+            - java_type: androidx.activity.Cancellable
               go_name: arg0
-          returns: androidx.activity.OnBackPressedDispatcherOwner
+          returns: void
           error: true
-    - java_class: androidx.activity.FullyDrawnReporterOwner
-      go_type: FullyDrawnReporterOwner
-      methods:
-        - java_method: getFullyDrawnReporter
-          go_name: GetFullyDrawnReporter
-          returns: androidx.activity.FullyDrawnReporter
-          error: true
+    - java_class: androidx.activity.OnBackPressedDispatcherKt
+      go_type: OnBackPressedDispatcherKt
     - java_class: androidx.activity.ViewTreeFullyDrawnReporterOwner
       go_type: ViewTreeFullyDrawnReporterOwner
       static_methods:
@@ -110,6 +68,57 @@ classes:
           error: true
     - java_class: androidx.activity.FullyDrawnReporterKt
       go_type: FullyDrawnReporterKt
+    - java_class: androidx.activity.Cancellable
+      go_type: Cancellable
+      methods:
+        - java_method: cancel
+          go_name: Cancel
+          returns: void
+          error: true
+    - java_class: androidx.activity.ViewTreeOnBackPressedDispatcherOwner
+      go_type: ViewTreeOnBackPressedDispatcherOwner
+      static_methods:
+        - java_method: set
+          go_name: Set
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: androidx.activity.OnBackPressedDispatcherOwner
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: get
+          go_name: Get
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: androidx.activity.OnBackPressedDispatcherOwner
+          error: true
+    - java_class: androidx.activity.FullyDrawnReporter
+      go_type: FullyDrawnReporter
+      obtain: constructor
+      constructor_params:
+        - java_type: java.util.concurrent.Executor
+          go_name: arg0
+        - java_type: kotlin.jvm.functions.Function0<kotlin.Unit>
+          go_name: arg1
+      methods:
+        - java_method: isFullyDrawnReported
+          go_name: IsFullyDrawnReported
+          returns: boolean
+          error: true
+        - java_method: addReporter
+          go_name: AddReporter
+          returns: void
+          error: true
+        - java_method: removeReporter
+          go_name: RemoveReporter
+          returns: void
+          error: true
+        - java_method: fullyDrawnReported
+          go_name: FullyDrawnReported
+          returns: void
+          error: true
     - java_class: androidx.activity.ComponentDialog
       go_type: ComponentDialog
       obtain: constructor
@@ -169,83 +178,6 @@ classes:
               go_name: arg0
             - java_type: android.view.ViewGroup$LayoutParams
               go_name: arg1
-          returns: void
-          error: true
-    - java_class: androidx.activity.FullyDrawnReporter
-      go_type: FullyDrawnReporter
-      obtain: constructor
-      constructor_params:
-        - java_type: java.util.concurrent.Executor
-          go_name: arg0
-        - java_type: kotlin.jvm.functions.Function0<kotlin.Unit>
-          go_name: arg1
-      methods:
-        - java_method: isFullyDrawnReported
-          go_name: IsFullyDrawnReported
-          returns: boolean
-          error: true
-        - java_method: addReporter
-          go_name: AddReporter
-          returns: void
-          error: true
-        - java_method: removeReporter
-          go_name: RemoveReporter
-          returns: void
-          error: true
-        - java_method: fullyDrawnReported
-          go_name: FullyDrawnReported
-          returns: void
-          error: true
-    - java_class: androidx.activity.Cancellable
-      go_type: Cancellable
-      methods:
-        - java_method: cancel
-          go_name: Cancel
-          returns: void
-          error: true
-    - java_class: androidx.activity.OnBackPressedDispatcherOwner
-      go_type: OnBackPressedDispatcherOwner
-      methods:
-        - java_method: getOnBackPressedDispatcher
-          go_name: GetOnBackPressedDispatcher
-          returns: androidx.activity.OnBackPressedDispatcher
-          error: true
-    - java_class: androidx.activity.OnBackPressedDispatcherKt
-      go_type: OnBackPressedDispatcherKt
-    - java_class: androidx.activity.OnBackPressedCallback
-      go_type: OnBackPressedCallback
-      methods:
-        - java_method: isEnabled
-          go_name: IsEnabled
-          returns: boolean
-          error: true
-        - java_method: setEnabled
-          go_name: SetEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: remove
-          go_name: Remove
-          returns: void
-          error: true
-        - java_method: handleOnBackPressed
-          go_name: HandleOnBackPressed
-          returns: void
-          error: true
-        - java_method: addCancellable
-          go_name: AddCancellable
-          params:
-            - java_type: androidx.activity.Cancellable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeCancellable
-          go_name: RemoveCancellable
-          params:
-            - java_type: androidx.activity.Cancellable
-              go_name: arg0
           returns: void
           error: true
     - java_class: androidx.activity.ComponentActivity
@@ -539,41 +471,93 @@ classes:
               go_name: arg1
           returns: void
           error: true
-        - java_method: reportFullyDrawn
-          go_name: ReportFullyDrawn
+    - java_class: androidx.activity.FullyDrawnReporterOwner
+      go_type: FullyDrawnReporterOwner
+      methods:
+        - java_method: getFullyDrawnReporter
+          go_name: GetFullyDrawnReporter
+          returns: androidx.activity.FullyDrawnReporter
+          error: true
+    - java_class: androidx.activity.OnBackPressedDispatcher
+      go_type: OnBackPressedDispatcher
+      obtain: constructor
+      methods:
+        - java_method: setOnBackInvokedDispatcher
+          go_name: SetOnBackInvokedDispatcher
+          params:
+            - java_type: android.window.OnBackInvokedDispatcher
+              go_name: arg0
           returns: void
           error: true
-abstract_callbacks:
-    - java_class: androidx.activity.OnBackPressedCallback
-      go_type: OnBackPressedCallbackCallback
-      methods:
-        - java_method: isEnabled
-          params: []
+        - java_method: updateBackInvokedCallbackState$activity_release
+          go_name: UpdateBackInvokedCallbackStateActivityRelease
+          returns: void
+          error: true
+        - java_method: addCallback
+          go_name: AddCallback1
+          params:
+            - java_type: androidx.activity.OnBackPressedCallback
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: addCancellableCallback$activity_release
+          go_name: AddCancellableCallbackActivityRelease
+          params:
+            - java_type: androidx.activity.OnBackPressedCallback
+              go_name: arg0
+          returns: androidx.activity.Cancellable
+          error: true
+        - java_method: addCallback
+          go_name: AddCallback2_1
+          params:
+            - java_type: androidx.lifecycle.LifecycleOwner
+              go_name: arg0
+            - java_type: androidx.activity.OnBackPressedCallback
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: hasEnabledCallbacks
+          go_name: HasEnabledCallbacks
           returns: boolean
-          go_field: IsEnabled
-        - java_method: setEnabled
+          error: true
+        - java_method: onBackPressed
+          go_name: OnBackPressed
+          returns: void
+          error: true
+    - java_class: androidx.activity.OnBackPressedDispatcher$Api33Impl
+      go_type: OnBackPressedDispatcherApi33Impl
+      methods:
+        - java_method: registerOnBackInvokedCallback
+          go_name: RegisterOnBackInvokedCallback
           params:
-            - boolean
+            - java_type: java.lang.Object
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: java.lang.Object
+              go_name: arg2
           returns: void
-          go_field: SetEnabled
-        - java_method: remove
-          params: []
-          returns: void
-          go_field: Remove
-        - java_method: handleOnBackPressed
-          params: []
-          returns: void
-          go_field: HandleOnBackPressed
-        - java_method: addCancellable
+          error: true
+        - java_method: unregisterOnBackInvokedCallback
+          go_name: UnregisterOnBackInvokedCallback
           params:
-            - androidx.activity.Cancellable
+            - java_type: java.lang.Object
+              go_name: arg0
+            - java_type: java.lang.Object
+              go_name: arg1
           returns: void
-          go_field: AddCancellable
-        - java_method: removeCancellable
-          params:
-            - androidx.activity.Cancellable
-          returns: void
-          go_field: RemoveCancellable
+          error: true
+    - java_class: androidx.activity.OnBackPressedDispatcherOwner
+      go_type: OnBackPressedDispatcherOwner
+      methods:
+        - java_method: getOnBackPressedDispatcher
+          go_name: GetOnBackPressedDispatcher
+          returns: androidx.activity.OnBackPressedDispatcher
+          error: true
+abstract_callback_eligibility:
+    - java_class: androidx.activity.OnBackPressedCallback
+      generated: false
+      reason: unsupported_constructor
 constants:
     - go_name: Instance
       value: "0"

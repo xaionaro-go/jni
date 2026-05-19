@@ -23,6 +23,35 @@ type FontRequestEmojiCompatConfigExponentialBackoffRetryPolicy struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFontRequestEmojiCompatConfigExponentialBackoffRetryPolicy creates a new androidx.emoji2.text.FontRequestEmojiCompatConfig$ExponentialBackoffRetryPolicy instance.
+func NewFontRequestEmojiCompatConfigExponentialBackoffRetryPolicy(vm *jni.VM, arg0 int64) (*FontRequestEmojiCompatConfigExponentialBackoffRetryPolicy, error) {
+	var t FontRequestEmojiCompatConfigExponentialBackoffRetryPolicy
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFontRequestEmojiCompatConfigExponentialBackoffRetryPolicy == nil {
+			return fmt.Errorf("androidx.emoji2.text.FontRequestEmojiCompatConfig$ExponentialBackoffRetryPolicy is not available on this device")
+		}
+		if midFontRequestEmojiCompatConfigExponentialBackoffRetryPolicyCtor == nil {
+			return fmt.Errorf("androidx.emoji2.text.FontRequestEmojiCompatConfig$ExponentialBackoffRetryPolicy constructor (J)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigExponentialBackoffRetryPolicy)), midFontRequestEmojiCompatConfigExponentialBackoffRetryPolicyCtor, jni.LongValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetRetryDelay calls androidx.emoji2.text.FontRequestEmojiCompatConfig$ExponentialBackoffRetryPolicy.getRetryDelay.
 func (m *FontRequestEmojiCompatConfigExponentialBackoffRetryPolicy) GetRetryDelay() (int64, error) {
 	var result int64

@@ -32,6 +32,12 @@ func NewListView(vm *jni.VM, arg0 *jni.Object) (*ListView, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsListView == nil {
+			return fmt.Errorf("android.widget.ListView is not available on this device")
+		}
+		if midListViewCtor == nil {
+			return fmt.Errorf("android.widget.ListView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsListView)), midListViewCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -270,8 +276,8 @@ func (m *ListView) GetAccessibilityClassName() (*jni.Object, error) {
 	return result, callErr
 }
 
-// GetAdapter0 calls android.widget.ListView.getAdapter.
-func (m *ListView) GetAdapter0() (*jni.Object, error) {
+// GetAdapter calls android.widget.ListView.getAdapter.
+func (m *ListView) GetAdapter() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -279,13 +285,13 @@ func (m *ListView) GetAdapter0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midListViewGetAdapter0 == nil {
+		if midListViewGetAdapter == nil {
 			callErr = fmt.Errorf("android.widget.ListView.getAdapter is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midListViewGetAdapter0,
+			midListViewGetAdapter,
 		)
 		if callErr != nil {
 			return callErr
@@ -792,8 +798,8 @@ func (m *ListView) RequestChildRectangleOnScreen(
 	return result, callErr
 }
 
-// SetAdapter1 calls android.widget.ListView.setAdapter.
-func (m *ListView) SetAdapter1(arg0 *jni.Object) error {
+// SetAdapter calls android.widget.ListView.setAdapter.
+func (m *ListView) SetAdapter(arg0 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -801,14 +807,14 @@ func (m *ListView) SetAdapter1(arg0 *jni.Object) error {
 			callErr = err
 			return err
 		}
-		if midListViewSetAdapter1 == nil {
+		if midListViewSetAdapter == nil {
 			callErr = fmt.Errorf("android.widget.ListView.setAdapter is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midListViewSetAdapter1, jni.ObjectValue(arg0),
+			midListViewSetAdapter, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})
@@ -1123,61 +1129,6 @@ func (m *ListView) SmoothScrollToPosition(arg0 int32) error {
 		return callErr
 	})
 	return callErr
-}
-
-// SetAdapter1_1 calls android.widget.ListView.setAdapter.
-func (m *ListView) SetAdapter1_1(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midListViewSetAdapter1_1 == nil {
-			callErr = fmt.Errorf("android.widget.ListView.setAdapter is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midListViewSetAdapter1_1, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// GetAdapter0_1 calls android.widget.ListView.getAdapter.
-func (m *ListView) GetAdapter0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midListViewGetAdapter0_1 == nil {
-			callErr = fmt.Errorf("android.widget.ListView.getAdapter is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midListViewGetAdapter0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls android.widget.ListView.toString.

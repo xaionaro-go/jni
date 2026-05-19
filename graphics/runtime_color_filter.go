@@ -32,6 +32,12 @@ func NewRuntimeColorFilter(vm *jni.VM, arg0 string) (*RuntimeColorFilter, error)
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRuntimeColorFilter == nil {
+			return fmt.Errorf("android.graphics.RuntimeColorFilter is not available on this device")
+		}
+		if midRuntimeColorFilterCtor == nil {
+			return fmt.Errorf("android.graphics.RuntimeColorFilter constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

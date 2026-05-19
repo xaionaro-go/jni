@@ -32,6 +32,12 @@ func NewUnicodeSetSpanner(vm *jni.VM, arg0 *jni.Object) (*UnicodeSetSpanner, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsUnicodeSetSpanner == nil {
+			return fmt.Errorf("android.icu.text.UnicodeSetSpanner is not available on this device")
+		}
+		if midUnicodeSetSpannerCtor == nil {
+			return fmt.Errorf("android.icu.text.UnicodeSetSpanner constructor (Landroid/icu/text/UnicodeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUnicodeSetSpanner)), midUnicodeSetSpannerCtor, jni.ObjectValue(arg0))
 		if err != nil {

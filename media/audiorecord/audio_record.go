@@ -32,6 +32,12 @@ func NewAudioRecord(vm *jni.VM, arg0 int32, arg1 int32, arg2 int32, arg3 int32, 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAudioRecord == nil {
+			return fmt.Errorf("android.media.AudioRecord is not available on this device")
+		}
+		if midAudioRecordCtor == nil {
+			return fmt.Errorf("android.media.AudioRecord constructor (IIIII)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAudioRecord)), midAudioRecordCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3), jni.IntValue(arg4))
 		if err != nil {

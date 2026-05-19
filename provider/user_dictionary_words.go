@@ -23,6 +23,34 @@ type UserDictionaryWords struct {
 	Obj *jni.GlobalRef
 }
 
+// NewUserDictionaryWords creates a new android.provider.UserDictionary$Words instance.
+func NewUserDictionaryWords(vm *jni.VM) (*UserDictionaryWords, error) {
+	var t UserDictionaryWords
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsUserDictionaryWords == nil {
+			return fmt.Errorf("android.provider.UserDictionary$Words is not available on this device")
+		}
+		if midUserDictionaryWordsCtor == nil {
+			return fmt.Errorf("android.provider.UserDictionary$Words constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUserDictionaryWords)), midUserDictionaryWordsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.provider.UserDictionary$Words.toString.
 func (m *UserDictionaryWords) ToString() (string, error) {
 	var result string

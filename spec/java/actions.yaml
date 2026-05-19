@@ -5,51 +5,6 @@
 package: actions
 go_import: github.com/AndroidGoLab/jni/service/controls/actions
 classes:
-    - java_class: android.service.controls.actions.ModeAction
-      go_type: ModeAction
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-      methods:
-        - java_method: getActionType
-          go_name: GetActionType
-          returns: int
-          error: true
-        - java_method: getNewMode
-          go_name: GetNewMode
-          returns: int
-          error: true
-    - java_class: android.service.controls.actions.BooleanAction
-      go_type: BooleanAction
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: boolean
-          go_name: arg1
-      methods:
-        - java_method: getActionType
-          go_name: GetActionType
-          returns: int
-          error: true
-        - java_method: getNewState
-          go_name: GetNewState
-          returns: boolean
-          error: true
-    - java_class: android.service.controls.actions.CommandAction
-      go_type: CommandAction
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-      methods:
-        - java_method: getActionType
-          go_name: GetActionType
-          returns: int
-          error: true
     - java_class: android.service.controls.actions.ControlAction
       go_type: ControlAction
       methods:
@@ -77,6 +32,51 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
+    - java_class: android.service.controls.actions.BooleanAction
+      go_type: BooleanAction
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: boolean
+          go_name: arg1
+      methods:
+        - java_method: getActionType
+          go_name: GetActionType
+          returns: int
+          error: true
+        - java_method: getNewState
+          go_name: GetNewState
+          returns: boolean
+          error: true
+    - java_class: android.service.controls.actions.ModeAction
+      go_type: ModeAction
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: getActionType
+          go_name: GetActionType
+          returns: int
+          error: true
+        - java_method: getNewMode
+          go_name: GetNewMode
+          returns: int
+          error: true
+    - java_class: android.service.controls.actions.CommandAction
+      go_type: CommandAction
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+      methods:
+        - java_method: getActionType
+          go_name: GetActionType
+          returns: int
+          error: true
     - java_class: android.service.controls.actions.FloatAction
       go_type: FloatAction
       obtain: constructor
@@ -94,22 +94,10 @@ classes:
           go_name: GetNewValue
           returns: float
           error: true
-abstract_callbacks:
+abstract_callback_eligibility:
     - java_class: android.service.controls.actions.ControlAction
-      go_type: ControlActionCallback
-      methods:
-        - java_method: getActionType
-          params: []
-          returns: int
-          go_field: GetActionType
-        - java_method: getChallengeValue
-          params: []
-          returns: String
-          go_field: GetChallengeValue
-        - java_method: getTemplateId
-          params: []
-          returns: String
-          go_field: GetTemplateId
+      generated: false
+      reason: unsupported_constructor
 constants:
     - go_name: ResponseChallengeAck
       value: "3"

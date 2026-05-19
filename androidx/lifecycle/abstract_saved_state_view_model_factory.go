@@ -23,29 +23,6 @@ type AbstractSavedStateViewModelFactory struct {
 	Obj *jni.GlobalRef
 }
 
-// OnRequery calls androidx.lifecycle.AbstractSavedStateViewModelFactory.onRequery.
-func (m *AbstractSavedStateViewModelFactory) OnRequery(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAbstractSavedStateViewModelFactoryOnRequery == nil {
-			callErr = fmt.Errorf("androidx.lifecycle.AbstractSavedStateViewModelFactory.onRequery is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAbstractSavedStateViewModelFactoryOnRequery, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.lifecycle.AbstractSavedStateViewModelFactory.toString.
 func (m *AbstractSavedStateViewModelFactory) ToString() (string, error) {
 	var result string
@@ -71,4 +48,27 @@ func (m *AbstractSavedStateViewModelFactory) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// OnRequery calls androidx.lifecycle.AbstractSavedStateViewModelFactory.onRequery.
+func (m *AbstractSavedStateViewModelFactory) OnRequery(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midAbstractSavedStateViewModelFactoryOnRequery == nil {
+			callErr = fmt.Errorf("androidx.lifecycle.AbstractSavedStateViewModelFactory.onRequery is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAbstractSavedStateViewModelFactory)),
+			midAbstractSavedStateViewModelFactoryOnRequery, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

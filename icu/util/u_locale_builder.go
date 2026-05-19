@@ -23,6 +23,34 @@ type ULocaleBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewULocaleBuilder creates a new android.icu.util.ULocale$Builder instance.
+func NewULocaleBuilder(vm *jni.VM) (*ULocaleBuilder, error) {
+	var t ULocaleBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsULocaleBuilder == nil {
+			return fmt.Errorf("android.icu.util.ULocale$Builder is not available on this device")
+		}
+		if midULocaleBuilderCtor == nil {
+			return fmt.Errorf("android.icu.util.ULocale$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsULocaleBuilder)), midULocaleBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddUnicodeLocaleAttribute calls android.icu.util.ULocale$Builder.addUnicodeLocaleAttribute.
 func (m *ULocaleBuilder) AddUnicodeLocaleAttribute(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

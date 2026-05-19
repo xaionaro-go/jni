@@ -74,6 +74,11 @@ classes:
               go_name: arg1
           returns: void
           error: true
+      static_methods:
+        - java_method: systemSupportsPrint
+          go_name: SystemSupportsPrint
+          returns: boolean
+          error: true
         - java_method: printBitmap
           go_name: PrintBitmap3_3
           params:
@@ -84,11 +89,6 @@ classes:
             - java_type: androidx.print.PrintHelper$OnPrintFinishCallback
               go_name: arg2
           returns: void
-          error: true
-      static_methods:
-        - java_method: systemSupportsPrint
-          go_name: SystemSupportsPrint
-          returns: boolean
           error: true
     - java_class: androidx.print.PrintHelper$OnPrintFinishCallback
       go_type: HelperOnPrintFinishCallback

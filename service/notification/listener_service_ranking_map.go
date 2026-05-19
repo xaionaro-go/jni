@@ -141,29 +141,6 @@ func (m *ListenerServiceRankingMap) GetRanking(arg0 string, arg1 *jni.Object) (b
 	return result, callErr
 }
 
-// WriteToParcel calls android.service.notification.NotificationListenerService$RankingMap.writeToParcel.
-func (m *ListenerServiceRankingMap) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midListenerServiceRankingMapWriteToParcel == nil {
-			callErr = fmt.Errorf("android.service.notification.NotificationListenerService$RankingMap.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midListenerServiceRankingMapWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.service.notification.NotificationListenerService$RankingMap.toString.
 func (m *ListenerServiceRankingMap) ToString() (string, error) {
 	var result string
@@ -189,4 +166,27 @@ func (m *ListenerServiceRankingMap) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.service.notification.NotificationListenerService$RankingMap.writeToParcel.
+func (m *ListenerServiceRankingMap) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midListenerServiceRankingMapWriteToParcel == nil {
+			callErr = fmt.Errorf("android.service.notification.NotificationListenerService$RankingMap.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsListenerServiceRankingMap)),
+			midListenerServiceRankingMapWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

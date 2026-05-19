@@ -31,6 +31,7 @@ classes:
           go_name: HashCode
           returns: int
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -42,6 +43,10 @@ classes:
           error: true
     - java_class: android.ranging.ble.rssi.BleRssiRangingParams$Builder
       go_type: BleRssiRangingParamsBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
       methods:
         - java_method: build
           go_name: Build

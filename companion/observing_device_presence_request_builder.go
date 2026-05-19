@@ -23,6 +23,34 @@ type ObservingDevicePresenceRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewObservingDevicePresenceRequestBuilder creates a new android.companion.ObservingDevicePresenceRequest$Builder instance.
+func NewObservingDevicePresenceRequestBuilder(vm *jni.VM) (*ObservingDevicePresenceRequestBuilder, error) {
+	var t ObservingDevicePresenceRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsObservingDevicePresenceRequestBuilder == nil {
+			return fmt.Errorf("android.companion.ObservingDevicePresenceRequest$Builder is not available on this device")
+		}
+		if midObservingDevicePresenceRequestBuilderCtor == nil {
+			return fmt.Errorf("android.companion.ObservingDevicePresenceRequest$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsObservingDevicePresenceRequestBuilder)), midObservingDevicePresenceRequestBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.companion.ObservingDevicePresenceRequest$Builder.build.
 func (m *ObservingDevicePresenceRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

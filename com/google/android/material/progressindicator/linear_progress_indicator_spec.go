@@ -32,6 +32,12 @@ func NewLinearProgressIndicatorSpec(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Obje
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLinearProgressIndicatorSpec == nil {
+			return fmt.Errorf("com.google.android.material.progressindicator.LinearProgressIndicatorSpec is not available on this device")
+		}
+		if midLinearProgressIndicatorSpecCtor == nil {
+			return fmt.Errorf("com.google.android.material.progressindicator.LinearProgressIndicatorSpec constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicatorSpec)), midLinearProgressIndicatorSpecCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

@@ -23,6 +23,40 @@ type VirtualDisplayConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewVirtualDisplayConfigBuilder creates a new android.hardware.display.VirtualDisplayConfig$Builder instance.
+func NewVirtualDisplayConfigBuilder(vm *jni.VM, arg0 string, arg1 int32, arg2 int32, arg3 int32) (*VirtualDisplayConfigBuilder, error) {
+	var t VirtualDisplayConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsVirtualDisplayConfigBuilder == nil {
+			return fmt.Errorf("android.hardware.display.VirtualDisplayConfig$Builder is not available on this device")
+		}
+		if midVirtualDisplayConfigBuilderCtor == nil {
+			return fmt.Errorf("android.hardware.display.VirtualDisplayConfig$Builder constructor (Ljava/lang/String;III)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVirtualDisplayConfigBuilder)), midVirtualDisplayConfigBuilderCtor, jni.ObjectValue(&jArg0.Object), jni.IntValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddDisplayCategory calls android.hardware.display.VirtualDisplayConfig$Builder.addDisplayCategory.
 func (m *VirtualDisplayConfigBuilder) AddDisplayCategory(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

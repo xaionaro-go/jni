@@ -32,6 +32,12 @@ func NewBarrierReference(vm *jni.VM, arg0 *jni.Object) (*BarrierReference, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBarrierReference == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.state.helpers.BarrierReference is not available on this device")
+		}
+		if midBarrierReferenceCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.state.helpers.BarrierReference constructor (Landroidx/constraintlayout/core/state/State;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBarrierReference)), midBarrierReferenceCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -32,6 +32,12 @@ func NewMediaBrowser(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.O
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMediaBrowser == nil {
+			return fmt.Errorf("android.media.browse.MediaBrowser is not available on this device")
+		}
+		if midMediaBrowserCtor == nil {
+			return fmt.Errorf("android.media.browse.MediaBrowser constructor (Landroid/content/Context;Landroid/content/ComponentName;Landroid/media/browse/MediaBrowser$ConnectionCallback;Landroid/os/Bundle;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMediaBrowser)), midMediaBrowserCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3))
 		if err != nil {

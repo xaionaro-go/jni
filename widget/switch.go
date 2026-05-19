@@ -32,6 +32,12 @@ func NewSwitch(vm *jni.VM, arg0 *jni.Object) (*Switch, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSwitch == nil {
+			return fmt.Errorf("android.widget.Switch is not available on this device")
+		}
+		if midSwitchCtor == nil {
+			return fmt.Errorf("android.widget.Switch constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSwitch)), midSwitchCtor, jni.ObjectValue(arg0))
 		if err != nil {

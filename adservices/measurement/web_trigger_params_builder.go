@@ -23,6 +23,35 @@ type WebTriggerParamsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWebTriggerParamsBuilder creates a new android.adservices.measurement.WebTriggerParams$Builder instance.
+func NewWebTriggerParamsBuilder(vm *jni.VM, arg0 *jni.Object) (*WebTriggerParamsBuilder, error) {
+	var t WebTriggerParamsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWebTriggerParamsBuilder == nil {
+			return fmt.Errorf("android.adservices.measurement.WebTriggerParams$Builder is not available on this device")
+		}
+		if midWebTriggerParamsBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.measurement.WebTriggerParams$Builder constructor (Landroid/net/Uri;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWebTriggerParamsBuilder)), midWebTriggerParamsBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.measurement.WebTriggerParams$Builder.build.
 func (m *WebTriggerParamsBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

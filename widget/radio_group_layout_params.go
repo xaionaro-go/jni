@@ -23,6 +23,35 @@ type RadioGroupLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRadioGroupLayoutParams creates a new android.widget.RadioGroup$LayoutParams instance.
+func NewRadioGroupLayoutParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*RadioGroupLayoutParams, error) {
+	var t RadioGroupLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRadioGroupLayoutParams == nil {
+			return fmt.Errorf("android.widget.RadioGroup$LayoutParams is not available on this device")
+		}
+		if midRadioGroupLayoutParamsCtor == nil {
+			return fmt.Errorf("android.widget.RadioGroup$LayoutParams constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRadioGroupLayoutParams)), midRadioGroupLayoutParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.widget.RadioGroup$LayoutParams.toString.
 func (m *RadioGroupLayoutParams) ToString() (string, error) {
 	var result string

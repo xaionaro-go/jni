@@ -23,10 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsSupportMenu                       *jni.GlobalRef
-	midSupportMenuSetGroupDividerEnabled jni.MethodID
-	midSupportMenuToString               jni.MethodID
-
 	clsSupportSubMenu         *jni.GlobalRef
 	midSupportSubMenuToString jni.MethodID
 
@@ -55,8 +51,11 @@ var (
 	midSupportMenuItemSetIconTintMode          jni.MethodID
 	midSupportMenuItemGetIconTintMode          jni.MethodID
 	midSupportMenuItemRequiresActionButton     jni.MethodID
-	midSupportMenuItemRequiresOverflow         jni.MethodID
 	midSupportMenuItemToString                 jni.MethodID
+
+	clsSupportMenu                       *jni.GlobalRef
+	midSupportMenuSetGroupDividerEnabled jni.MethodID
+	midSupportMenuToString               jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -76,30 +75,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("androidx/core/internal/view/SupportMenu")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSupportMenu = env.NewGlobalRef(&c.Object)
-
-		midSupportMenuSetGroupDividerEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportMenu)), "setGroupDividerEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSupportMenuToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportMenu)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("androidx/core/internal/view/SupportSubMenu")
 	if err != nil {
@@ -294,14 +269,31 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midSupportMenuItemRequiresOverflow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportMenuItem)), "requiresOverflow", "()Z")
+		midSupportMenuItemToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportMenuItem)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSupportMenuItemToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportMenuItem)), "toString", "()Ljava/lang/String;")
+	}
+
+	c, err = env.FindClass("androidx/core/internal/view/SupportMenu")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSupportMenu = env.NewGlobalRef(&c.Object)
+
+		midSupportMenuSetGroupDividerEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportMenu)), "setGroupDividerEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportMenuToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportMenu)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

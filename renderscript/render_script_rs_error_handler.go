@@ -23,6 +23,34 @@ type RenderScriptRSErrorHandler struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRenderScriptRSErrorHandler creates a new android.renderscript.RenderScript$RSErrorHandler instance.
+func NewRenderScriptRSErrorHandler(vm *jni.VM) (*RenderScriptRSErrorHandler, error) {
+	var t RenderScriptRSErrorHandler
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRenderScriptRSErrorHandler == nil {
+			return fmt.Errorf("android.renderscript.RenderScript$RSErrorHandler is not available on this device")
+		}
+		if midRenderScriptRSErrorHandlerCtor == nil {
+			return fmt.Errorf("android.renderscript.RenderScript$RSErrorHandler constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRenderScriptRSErrorHandler)), midRenderScriptRSErrorHandlerCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Run calls android.renderscript.RenderScript$RSErrorHandler.run.
 func (m *RenderScriptRSErrorHandler) Run() error {
 

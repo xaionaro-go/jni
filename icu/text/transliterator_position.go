@@ -23,6 +23,34 @@ type TransliteratorPosition struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTransliteratorPosition creates a new android.icu.text.Transliterator$Position instance.
+func NewTransliteratorPosition(vm *jni.VM) (*TransliteratorPosition, error) {
+	var t TransliteratorPosition
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTransliteratorPosition == nil {
+			return fmt.Errorf("android.icu.text.Transliterator$Position is not available on this device")
+		}
+		if midTransliteratorPositionCtor == nil {
+			return fmt.Errorf("android.icu.text.Transliterator$Position constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTransliteratorPosition)), midTransliteratorPositionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.icu.text.Transliterator$Position.equals.
 func (m *TransliteratorPosition) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

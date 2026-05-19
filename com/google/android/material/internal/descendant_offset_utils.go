@@ -32,6 +32,12 @@ func NewDescendantOffsetUtils(vm *jni.VM) (*DescendantOffsetUtils, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDescendantOffsetUtils == nil {
+			return fmt.Errorf("com.google.android.material.internal.DescendantOffsetUtils is not available on this device")
+		}
+		if midDescendantOffsetUtilsCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.DescendantOffsetUtils constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDescendantOffsetUtils)), midDescendantOffsetUtilsCtor)
 		if err != nil {
 			return err

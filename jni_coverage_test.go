@@ -297,16 +297,50 @@ func TestSetStaticCharField(t *testing.T) {
 }
 
 func TestSetStaticBooleanField(t *testing.T) {
+	classesDir := compileJavaFixture(
+		t,
+		"test/fields/StaticFields.java",
+		"package test.fields; public final class StaticFields { public static boolean enabled = false; }\n",
+	)
+
 	withEnv(t, func(env *Env) {
-		// Create a test object and use static boolean field of some class.
-		// Boolean doesn't have a static boolean field but Thread has static
-		// fields. Actually, let's find a suitable class.
-		// We'll use System.out and set a field of PrintStream.
-		// Actually, the simplest approach: there may not be a public static boolean
-		// field in standard classes. Let's just call the function with a made-up
-		// field to verify it executes without panic.
-		// But GetStaticFieldID would fail... skip if no suitable field found.
-		t.Skip("no readily available static boolean field in standard library")
+		loader := newURLClassLoaderForDir(t, env, classesDir)
+		loaderGlobal := env.NewGlobalRef(loader)
+		env.DeleteLocalRef(loader)
+		defer env.DeleteGlobalRef(loaderGlobal)
+
+		proxyMu.Lock()
+		oldLoader := proxyClassLoader
+		proxyClassLoader = loaderGlobal.Ref()
+		proxyMu.Unlock()
+		defer func() {
+			proxyMu.Lock()
+			proxyClassLoader = oldLoader
+			proxyMu.Unlock()
+		}()
+
+		cls, err := env.FindClass("test/fields/StaticFields")
+		if err != nil {
+			t.Fatalf("FindClass(StaticFields): %v", err)
+		}
+		defer env.DeleteLocalRef(&cls.Object)
+
+		fid, err := env.GetStaticFieldID(cls, "enabled", "Z")
+		if err != nil {
+			t.Fatalf("GetStaticFieldID(enabled): %v", err)
+		}
+		orig := env.GetStaticBooleanField(cls, fid)
+		defer env.SetStaticBooleanField(cls, fid, orig)
+
+		env.SetStaticBooleanField(cls, fid, 1)
+		if got := env.GetStaticBooleanField(cls, fid); got == 0 {
+			t.Fatal("SetStaticBooleanField(true) left enabled false")
+		}
+
+		env.SetStaticBooleanField(cls, fid, 0)
+		if got := env.GetStaticBooleanField(cls, fid); got != 0 {
+			t.Fatalf("SetStaticBooleanField(false) left enabled=%d", got)
+		}
 	})
 }
 
@@ -1303,7 +1337,7 @@ func TestCallFloatMethodErrorWithArgs(t *testing.T) {
 		// Math doesn't have static methods that throw...
 		// Use reflection: Method.invoke with wrong types? Too complex.
 		// Let me try a simpler approach: the coverage only needs a few more lines.
-		// Skip Float/Double for now -- try Nonvirtual with args.
+		// Float/Double coverage is handled by the nonvirtual-with-args cases below.
 		str, _ := env.NewStringUTF("a")
 		strCls, _ := env.FindClass("java/lang/String")
 		mid, _ := env.GetMethodID(strCls, "indexOf", "(Ljava/lang/String;I)I")

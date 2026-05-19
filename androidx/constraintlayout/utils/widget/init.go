@@ -23,6 +23,54 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsMotionButton                *jni.GlobalRef
+	midMotionButtonCtor            jni.MethodID
+	midMotionButtonSetRoundPercent jni.MethodID
+	midMotionButtonSetRound        jni.MethodID
+	midMotionButtonGetRoundPercent jni.MethodID
+	midMotionButtonGetRound        jni.MethodID
+	midMotionButtonToString        jni.MethodID
+
+	clsMockView         *jni.GlobalRef
+	midMockViewCtor     jni.MethodID
+	midMockViewOnDraw   jni.MethodID
+	midMockViewToString jni.MethodID
+
+	clsMotionTelltales         *jni.GlobalRef
+	midMotionTelltalesCtor     jni.MethodID
+	midMotionTelltalesSetText  jni.MethodID
+	midMotionTelltalesOnDraw   jni.MethodID
+	midMotionTelltalesToString jni.MethodID
+
+	clsImageFilterButton                    *jni.GlobalRef
+	midImageFilterButtonCtor                jni.MethodID
+	midImageFilterButtonGetImagePanX        jni.MethodID
+	midImageFilterButtonGetImagePanY        jni.MethodID
+	midImageFilterButtonGetImageZoom        jni.MethodID
+	midImageFilterButtonGetImageRotate      jni.MethodID
+	midImageFilterButtonSetImagePanX        jni.MethodID
+	midImageFilterButtonSetImagePanY        jni.MethodID
+	midImageFilterButtonSetImageZoom        jni.MethodID
+	midImageFilterButtonSetImageRotate      jni.MethodID
+	midImageFilterButtonSetImageDrawable    jni.MethodID
+	midImageFilterButtonSetImageResource    jni.MethodID
+	midImageFilterButtonSetAltImageResource jni.MethodID
+	midImageFilterButtonSetSaturation       jni.MethodID
+	midImageFilterButtonGetSaturation       jni.MethodID
+	midImageFilterButtonSetContrast         jni.MethodID
+	midImageFilterButtonGetContrast         jni.MethodID
+	midImageFilterButtonSetWarmth           jni.MethodID
+	midImageFilterButtonGetWarmth           jni.MethodID
+	midImageFilterButtonSetCrossfade        jni.MethodID
+	midImageFilterButtonGetCrossfade        jni.MethodID
+	midImageFilterButtonSetBrightness       jni.MethodID
+	midImageFilterButtonSetRoundPercent     jni.MethodID
+	midImageFilterButtonSetRound            jni.MethodID
+	midImageFilterButtonGetRoundPercent     jni.MethodID
+	midImageFilterButtonGetRound            jni.MethodID
+	midImageFilterButtonDraw                jni.MethodID
+	midImageFilterButtonToString            jni.MethodID
+
 	clsMotionLabel                        *jni.GlobalRef
 	midMotionLabelCtor                    jni.MethodID
 	midMotionLabelSetGravity              jni.MethodID
@@ -57,7 +105,6 @@ var (
 	midMotionLabelGetTextureWidth         jni.MethodID
 	midMotionLabelSetTextureWidth         jni.MethodID
 	midMotionLabelGetScaleFromTextSize    jni.MethodID
-	midMotionLabelSetScaleFromTextSize    jni.MethodID
 	midMotionLabelToString                jni.MethodID
 
 	clsImageFilterView                    *jni.GlobalRef
@@ -88,58 +135,7 @@ var (
 	midImageFilterViewGetRoundPercent     jni.MethodID
 	midImageFilterViewGetRound            jni.MethodID
 	midImageFilterViewDraw                jni.MethodID
-	midImageFilterViewLayout              jni.MethodID
 	midImageFilterViewToString            jni.MethodID
-
-	clsImageFilterButton                    *jni.GlobalRef
-	midImageFilterButtonCtor                jni.MethodID
-	midImageFilterButtonGetImagePanX        jni.MethodID
-	midImageFilterButtonGetImagePanY        jni.MethodID
-	midImageFilterButtonGetImageZoom        jni.MethodID
-	midImageFilterButtonGetImageRotate      jni.MethodID
-	midImageFilterButtonSetImagePanX        jni.MethodID
-	midImageFilterButtonSetImagePanY        jni.MethodID
-	midImageFilterButtonSetImageZoom        jni.MethodID
-	midImageFilterButtonSetImageRotate      jni.MethodID
-	midImageFilterButtonSetImageDrawable    jni.MethodID
-	midImageFilterButtonSetImageResource    jni.MethodID
-	midImageFilterButtonSetAltImageResource jni.MethodID
-	midImageFilterButtonSetSaturation       jni.MethodID
-	midImageFilterButtonGetSaturation       jni.MethodID
-	midImageFilterButtonSetContrast         jni.MethodID
-	midImageFilterButtonGetContrast         jni.MethodID
-	midImageFilterButtonSetWarmth           jni.MethodID
-	midImageFilterButtonGetWarmth           jni.MethodID
-	midImageFilterButtonSetCrossfade        jni.MethodID
-	midImageFilterButtonGetCrossfade        jni.MethodID
-	midImageFilterButtonSetBrightness       jni.MethodID
-	midImageFilterButtonSetRoundPercent     jni.MethodID
-	midImageFilterButtonSetRound            jni.MethodID
-	midImageFilterButtonGetRoundPercent     jni.MethodID
-	midImageFilterButtonGetRound            jni.MethodID
-	midImageFilterButtonDraw                jni.MethodID
-	midImageFilterButtonLayout              jni.MethodID
-	midImageFilterButtonToString            jni.MethodID
-
-	clsMotionTelltales         *jni.GlobalRef
-	midMotionTelltalesCtor     jni.MethodID
-	midMotionTelltalesSetText  jni.MethodID
-	midMotionTelltalesOnDraw   jni.MethodID
-	midMotionTelltalesToString jni.MethodID
-
-	clsMotionButton                *jni.GlobalRef
-	midMotionButtonCtor            jni.MethodID
-	midMotionButtonSetRoundPercent jni.MethodID
-	midMotionButtonSetRound        jni.MethodID
-	midMotionButtonGetRoundPercent jni.MethodID
-	midMotionButtonGetRound        jni.MethodID
-	midMotionButtonDraw            jni.MethodID
-	midMotionButtonToString        jni.MethodID
-
-	clsMockView         *jni.GlobalRef
-	midMockViewCtor     jni.MethodID
-	midMockViewOnDraw   jni.MethodID
-	midMockViewToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -159,6 +155,314 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("androidx/constraintlayout/utils/widget/MotionButton")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMotionButton = env.NewGlobalRef(&c.Object)
+		midMotionButtonCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionButton)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMotionButtonSetRoundPercent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionButton)), "setRoundPercent", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMotionButtonSetRound, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionButton)), "setRound", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMotionButtonGetRoundPercent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionButton)), "getRoundPercent", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMotionButtonGetRound, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionButton)), "getRound", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMotionButtonToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionButton)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/utils/widget/MockView")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMockView = env.NewGlobalRef(&c.Object)
+		midMockViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMockView)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMockViewOnDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMockView)), "onDraw", "(Landroid/graphics/Canvas;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMockViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMockView)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/utils/widget/MotionTelltales")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMotionTelltales = env.NewGlobalRef(&c.Object)
+		midMotionTelltalesCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionTelltales)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMotionTelltalesSetText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionTelltales)), "setText", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMotionTelltalesOnDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionTelltales)), "onDraw", "(Landroid/graphics/Canvas;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMotionTelltalesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionTelltales)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/utils/widget/ImageFilterButton")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsImageFilterButton = env.NewGlobalRef(&c.Object)
+		midImageFilterButtonCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonGetImagePanX, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "getImagePanX", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonGetImagePanY, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "getImagePanY", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonGetImageZoom, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "getImageZoom", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonGetImageRotate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "getImageRotate", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonSetImagePanX, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setImagePanX", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonSetImagePanY, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setImagePanY", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonSetImageZoom, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setImageZoom", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonSetImageRotate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setImageRotate", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonSetImageDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setImageDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonSetImageResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setImageResource", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonSetAltImageResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setAltImageResource", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonSetSaturation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setSaturation", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonGetSaturation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "getSaturation", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonSetContrast, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setContrast", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonGetContrast, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "getContrast", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonSetWarmth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setWarmth", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonGetWarmth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "getWarmth", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonSetCrossfade, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setCrossfade", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonGetCrossfade, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "getCrossfade", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonSetBrightness, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setBrightness", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonSetRoundPercent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setRoundPercent", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonSetRound, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setRound", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonGetRoundPercent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "getRoundPercent", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonGetRound, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "getRound", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "draw", "(Landroid/graphics/Canvas;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midImageFilterButtonToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("androidx/constraintlayout/utils/widget/MotionLabel")
 	if err != nil {
@@ -396,13 +700,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMotionLabelSetScaleFromTextSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionLabel)), "setScaleFromTextSize", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midMotionLabelToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionLabel)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -606,336 +903,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midImageFilterViewLayout, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterView)), "layout", "(IIII)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midImageFilterViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterView)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/utils/widget/ImageFilterButton")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsImageFilterButton = env.NewGlobalRef(&c.Object)
-		midImageFilterButtonCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonGetImagePanX, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "getImagePanX", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonGetImagePanY, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "getImagePanY", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonGetImageZoom, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "getImageZoom", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonGetImageRotate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "getImageRotate", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonSetImagePanX, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setImagePanX", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonSetImagePanY, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setImagePanY", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonSetImageZoom, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setImageZoom", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonSetImageRotate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setImageRotate", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonSetImageDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setImageDrawable", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonSetImageResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setImageResource", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonSetAltImageResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setAltImageResource", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonSetSaturation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setSaturation", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonGetSaturation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "getSaturation", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonSetContrast, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setContrast", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonGetContrast, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "getContrast", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonSetWarmth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setWarmth", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonGetWarmth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "getWarmth", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonSetCrossfade, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setCrossfade", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonGetCrossfade, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "getCrossfade", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonSetBrightness, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setBrightness", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonSetRoundPercent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setRoundPercent", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonSetRound, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "setRound", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonGetRoundPercent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "getRoundPercent", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonGetRound, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "getRound", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "draw", "(Landroid/graphics/Canvas;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonLayout, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "layout", "(IIII)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midImageFilterButtonToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageFilterButton)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/utils/widget/MotionTelltales")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMotionTelltales = env.NewGlobalRef(&c.Object)
-		midMotionTelltalesCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionTelltales)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMotionTelltalesSetText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionTelltales)), "setText", "(Ljava/lang/CharSequence;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMotionTelltalesOnDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionTelltales)), "onDraw", "(Landroid/graphics/Canvas;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMotionTelltalesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionTelltales)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/utils/widget/MotionButton")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMotionButton = env.NewGlobalRef(&c.Object)
-		midMotionButtonCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionButton)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMotionButtonSetRoundPercent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionButton)), "setRoundPercent", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMotionButtonSetRound, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionButton)), "setRound", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMotionButtonGetRoundPercent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionButton)), "getRoundPercent", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMotionButtonGetRound, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionButton)), "getRound", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMotionButtonDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionButton)), "draw", "(Landroid/graphics/Canvas;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMotionButtonToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionButton)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/utils/widget/MockView")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMockView = env.NewGlobalRef(&c.Object)
-		midMockViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMockView)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMockViewOnDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMockView)), "onDraw", "(Landroid/graphics/Canvas;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMockViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMockView)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

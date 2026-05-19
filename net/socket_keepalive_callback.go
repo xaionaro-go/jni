@@ -23,6 +23,34 @@ type SocketKeepaliveCallback struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSocketKeepaliveCallback creates a new android.net.SocketKeepalive$Callback instance.
+func NewSocketKeepaliveCallback(vm *jni.VM) (*SocketKeepaliveCallback, error) {
+	var t SocketKeepaliveCallback
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSocketKeepaliveCallback == nil {
+			return fmt.Errorf("android.net.SocketKeepalive$Callback is not available on this device")
+		}
+		if midSocketKeepaliveCallbackCtor == nil {
+			return fmt.Errorf("android.net.SocketKeepalive$Callback constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSocketKeepaliveCallback)), midSocketKeepaliveCallbackCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnDataReceived calls android.net.SocketKeepalive$Callback.onDataReceived.
 func (m *SocketKeepaliveCallback) OnDataReceived() error {
 

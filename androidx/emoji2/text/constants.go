@@ -5,11 +5,7 @@ package text
 import "github.com/AndroidGoLab/jni/androidx/emoji2/text/consts"
 
 const (
-	EditorInfoMetaversionKey = consts.EditorInfoMetaversionKey
-	EditorInfoReplaceAllKey  = consts.EditorInfoReplaceAllKey
-)
-
-const (
+	MaxEmojiCount              = consts.MaxEmojiCount
 	LoadStateDefault           = consts.LoadStateDefault
 	LoadStateLoading           = consts.LoadStateLoading
 	LoadStateSucceeded         = consts.LoadStateSucceeded
@@ -22,5 +18,9 @@ const (
 	EmojiUnsupported           = consts.EmojiUnsupported
 	EmojiSupported             = consts.EmojiSupported
 	EmojiFallback              = consts.EmojiFallback
-	MaxEmojiCount              = consts.MaxEmojiCount
+)
+
+const (
+	EditorInfoMetaversionKey = consts.EditorInfoMetaversionKey
+	EditorInfoReplaceAllKey  = consts.EditorInfoReplaceAllKey
 )

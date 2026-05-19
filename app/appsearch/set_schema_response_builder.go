@@ -23,6 +23,34 @@ type SetSchemaResponseBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSetSchemaResponseBuilder creates a new android.app.appsearch.SetSchemaResponse$Builder instance.
+func NewSetSchemaResponseBuilder(vm *jni.VM) (*SetSchemaResponseBuilder, error) {
+	var t SetSchemaResponseBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSetSchemaResponseBuilder == nil {
+			return fmt.Errorf("android.app.appsearch.SetSchemaResponse$Builder is not available on this device")
+		}
+		if midSetSchemaResponseBuilderCtor == nil {
+			return fmt.Errorf("android.app.appsearch.SetSchemaResponse$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseBuilder)), midSetSchemaResponseBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddDeletedType calls android.app.appsearch.SetSchemaResponse$Builder.addDeletedType.
 func (m *SetSchemaResponseBuilder) AddDeletedType(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

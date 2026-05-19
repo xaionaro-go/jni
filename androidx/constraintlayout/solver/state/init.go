@@ -23,6 +23,41 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsDimension             *jni.GlobalRef
+	midDimensionPercent2_1   jni.MethodID
+	midDimensionMin1         jni.MethodID
+	midDimensionMin1_1       jni.MethodID
+	midDimensionMax1         jni.MethodID
+	midDimensionMax1_1       jni.MethodID
+	midDimensionSuggested1_2 jni.MethodID
+	midDimensionSuggested1_3 jni.MethodID
+	midDimensionFixed1_2     jni.MethodID
+	midDimensionFixed1_3     jni.MethodID
+	midDimensionRatio        jni.MethodID
+	midDimensionToString     jni.MethodID
+	midDimensionSuggested1   jni.MethodID
+	midDimensionSuggested1_1 jni.MethodID
+	midDimensionFixed1       jni.MethodID
+	midDimensionFixed1_1     jni.MethodID
+	midDimensionPercent2     jni.MethodID
+	midDimensionParent       jni.MethodID
+	midDimensionWrap         jni.MethodID
+	midDimensionSpread       jni.MethodID
+	midDimensionApply        jni.MethodID
+
+	clsDimensionType         *jni.GlobalRef
+	midDimensionTypeToString jni.MethodID
+	midDimensionTypeValues   jni.MethodID
+	midDimensionTypeValueOf  jni.MethodID
+
+	clsReference                    *jni.GlobalRef
+	midReferenceGetConstraintWidget jni.MethodID
+	midReferenceSetConstraintWidget jni.MethodID
+	midReferenceSetKey              jni.MethodID
+	midReferenceGetKey              jni.MethodID
+	midReferenceApply               jni.MethodID
+	midReferenceToString            jni.MethodID
+
 	clsState                          *jni.GlobalRef
 	midStateCtor                      jni.MethodID
 	midStateReset                     jni.MethodID
@@ -44,8 +79,8 @@ var (
 	midStateCenterVertically          jni.MethodID
 	midStateDirectMapping             jni.MethodID
 	midStateMap                       jni.MethodID
-	midStateApply                     jni.MethodID
 	midStateToString                  jni.MethodID
+	midStateApply                     jni.MethodID
 
 	clsDirection         *jni.GlobalRef
 	midDirectionToString jni.MethodID
@@ -62,11 +97,6 @@ var (
 	midConstraintValues   jni.MethodID
 	midConstraintValueOf  jni.MethodID
 
-	clsChain         *jni.GlobalRef
-	midChainToString jni.MethodID
-	midChainValues   jni.MethodID
-	midChainValueOf  jni.MethodID
-
 	clsHelperReference                *jni.GlobalRef
 	midHelperReferenceCtor            jni.MethodID
 	midHelperReferenceGetType         jni.MethodID
@@ -76,32 +106,10 @@ var (
 	midHelperReferenceApply           jni.MethodID
 	midHelperReferenceToString        jni.MethodID
 
-	clsDimension             *jni.GlobalRef
-	midDimensionPercent2_1   jni.MethodID
-	midDimensionMin1         jni.MethodID
-	midDimensionMin1_1       jni.MethodID
-	midDimensionMax1         jni.MethodID
-	midDimensionMax1_1       jni.MethodID
-	midDimensionSuggested1_2 jni.MethodID
-	midDimensionSuggested1_3 jni.MethodID
-	midDimensionFixed1_2     jni.MethodID
-	midDimensionFixed1_3     jni.MethodID
-	midDimensionRatio        jni.MethodID
-	midDimensionApply        jni.MethodID
-	midDimensionToString     jni.MethodID
-	midDimensionSuggested1   jni.MethodID
-	midDimensionSuggested1_1 jni.MethodID
-	midDimensionFixed1       jni.MethodID
-	midDimensionFixed1_1     jni.MethodID
-	midDimensionPercent2     jni.MethodID
-	midDimensionParent       jni.MethodID
-	midDimensionWrap         jni.MethodID
-	midDimensionSpread       jni.MethodID
-
-	clsDimensionType         *jni.GlobalRef
-	midDimensionTypeToString jni.MethodID
-	midDimensionTypeValues   jni.MethodID
-	midDimensionTypeValueOf  jni.MethodID
+	clsChain         *jni.GlobalRef
+	midChainToString jni.MethodID
+	midChainValues   jni.MethodID
+	midChainValueOf  jni.MethodID
 
 	clsConstraintReference                        *jni.GlobalRef
 	midConstraintReferenceCtor                    jni.MethodID
@@ -160,14 +168,6 @@ var (
 	clsConstraintReferenceConstraintReferenceFactory         *jni.GlobalRef
 	midConstraintReferenceConstraintReferenceFactoryCreate   jni.MethodID
 	midConstraintReferenceConstraintReferenceFactoryToString jni.MethodID
-
-	clsReference                    *jni.GlobalRef
-	midReferenceGetConstraintWidget jni.MethodID
-	midReferenceSetConstraintWidget jni.MethodID
-	midReferenceSetKey              jni.MethodID
-	midReferenceGetKey              jni.MethodID
-	midReferenceApply               jni.MethodID
-	midReferenceToString            jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -187,6 +187,239 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("androidx/constraintlayout/solver/state/Dimension")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDimension = env.NewGlobalRef(&c.Object)
+
+		midDimensionPercent2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "percent", "(Ljava/lang/Object;F)Landroidx/constraintlayout/solver/state/Dimension;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionMin1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "min", "(I)Landroidx/constraintlayout/solver/state/Dimension;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionMin1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "min", "(Ljava/lang/Object;)Landroidx/constraintlayout/solver/state/Dimension;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionMax1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "max", "(I)Landroidx/constraintlayout/solver/state/Dimension;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionMax1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "max", "(Ljava/lang/Object;)Landroidx/constraintlayout/solver/state/Dimension;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionSuggested1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "suggested", "(I)Landroidx/constraintlayout/solver/state/Dimension;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionSuggested1_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "suggested", "(Ljava/lang/Object;)Landroidx/constraintlayout/solver/state/Dimension;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionFixed1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "fixed", "(Ljava/lang/Object;)Landroidx/constraintlayout/solver/state/Dimension;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionFixed1_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "fixed", "(I)Landroidx/constraintlayout/solver/state/Dimension;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionRatio, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "ratio", "(F)Landroidx/constraintlayout/solver/state/Dimension;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionSuggested1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "Suggested", "(I)Landroidx/constraintlayout/solver/state/Dimension;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionSuggested1_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "Suggested", "(Ljava/lang/Object;)Landroidx/constraintlayout/solver/state/Dimension;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionFixed1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "Fixed", "(I)Landroidx/constraintlayout/solver/state/Dimension;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionFixed1_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "Fixed", "(Ljava/lang/Object;)Landroidx/constraintlayout/solver/state/Dimension;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionPercent2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "Percent", "(Ljava/lang/Object;F)Landroidx/constraintlayout/solver/state/Dimension;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionParent, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "Parent", "()Landroidx/constraintlayout/solver/state/Dimension;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionWrap, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "Wrap", "()Landroidx/constraintlayout/solver/state/Dimension;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionSpread, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "Spread", "()Landroidx/constraintlayout/solver/state/Dimension;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionApply, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "apply", "(Landroidx/constraintlayout/solver/state/State;Landroidx/constraintlayout/solver/widgets/ConstraintWidget;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/solver/state/Dimension$Type")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDimensionType = env.NewGlobalRef(&c.Object)
+
+		midDimensionTypeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimensionType)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionTypeValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimensionType)), "values", "()[Landroidx/constraintlayout/solver/state/Dimension$Type;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDimensionTypeValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimensionType)), "valueOf", "(Ljava/lang/String;)Landroidx/constraintlayout/solver/state/Dimension$Type;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/solver/state/Reference")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsReference = env.NewGlobalRef(&c.Object)
+
+		midReferenceGetConstraintWidget, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "getConstraintWidget", "()Landroidx/constraintlayout/solver/widgets/ConstraintWidget;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midReferenceSetConstraintWidget, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "setConstraintWidget", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidget;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midReferenceSetKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "setKey", "(Ljava/lang/Object;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midReferenceGetKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "getKey", "()Ljava/lang/Object;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midReferenceApply, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "apply", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midReferenceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("androidx/constraintlayout/solver/state/State")
 	if err != nil {
@@ -333,14 +566,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midStateApply, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "apply", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidgetContainer;)V")
+		midStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "toString", "()Ljava/lang/String;")
+		midStateApply, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsState)), "apply", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidgetContainer;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -442,37 +675,6 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/constraintlayout/solver/state/State$Chain")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsChain = env.NewGlobalRef(&c.Object)
-
-		midChainToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChain)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChainValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsChain)), "values", "()[Landroidx/constraintlayout/solver/state/State$Chain;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChainValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsChain)), "valueOf", "(Ljava/lang/String;)Landroidx/constraintlayout/solver/state/State$Chain;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("androidx/constraintlayout/solver/state/HelperReference")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -529,179 +731,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/constraintlayout/solver/state/Dimension")
+	c, err = env.FindClass("androidx/constraintlayout/solver/state/State$Chain")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsDimension = env.NewGlobalRef(&c.Object)
+		clsChain = env.NewGlobalRef(&c.Object)
 
-		midDimensionPercent2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "percent", "(Ljava/lang/Object;F)Landroidx/constraintlayout/solver/state/Dimension;")
+		midChainToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChain)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDimensionMin1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "min", "(I)Landroidx/constraintlayout/solver/state/Dimension;")
+		midChainValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsChain)), "values", "()[Landroidx/constraintlayout/solver/state/State$Chain;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDimensionMin1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "min", "(Ljava/lang/Object;)Landroidx/constraintlayout/solver/state/Dimension;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDimensionMax1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "max", "(I)Landroidx/constraintlayout/solver/state/Dimension;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDimensionMax1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "max", "(Ljava/lang/Object;)Landroidx/constraintlayout/solver/state/Dimension;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDimensionSuggested1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "suggested", "(I)Landroidx/constraintlayout/solver/state/Dimension;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDimensionSuggested1_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "suggested", "(Ljava/lang/Object;)Landroidx/constraintlayout/solver/state/Dimension;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDimensionFixed1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "fixed", "(Ljava/lang/Object;)Landroidx/constraintlayout/solver/state/Dimension;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDimensionFixed1_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "fixed", "(I)Landroidx/constraintlayout/solver/state/Dimension;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDimensionRatio, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "ratio", "(F)Landroidx/constraintlayout/solver/state/Dimension;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDimensionApply, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "apply", "(Landroidx/constraintlayout/solver/state/State;Landroidx/constraintlayout/solver/widgets/ConstraintWidget;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDimensionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDimensionSuggested1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "Suggested", "(I)Landroidx/constraintlayout/solver/state/Dimension;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDimensionSuggested1_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "Suggested", "(Ljava/lang/Object;)Landroidx/constraintlayout/solver/state/Dimension;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDimensionFixed1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "Fixed", "(I)Landroidx/constraintlayout/solver/state/Dimension;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDimensionFixed1_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "Fixed", "(Ljava/lang/Object;)Landroidx/constraintlayout/solver/state/Dimension;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDimensionPercent2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "Percent", "(Ljava/lang/Object;F)Landroidx/constraintlayout/solver/state/Dimension;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDimensionParent, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "Parent", "()Landroidx/constraintlayout/solver/state/Dimension;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDimensionWrap, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "Wrap", "()Landroidx/constraintlayout/solver/state/Dimension;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDimensionSpread, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimension)), "Spread", "()Landroidx/constraintlayout/solver/state/Dimension;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/solver/state/Dimension$Type")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDimensionType = env.NewGlobalRef(&c.Object)
-
-		midDimensionTypeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDimensionType)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDimensionTypeValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimensionType)), "values", "()[Landroidx/constraintlayout/solver/state/Dimension$Type;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDimensionTypeValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDimensionType)), "valueOf", "(Ljava/lang/String;)Landroidx/constraintlayout/solver/state/Dimension$Type;")
+		midChainValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsChain)), "valueOf", "(Ljava/lang/String;)Landroidx/constraintlayout/solver/state/State$Chain;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1097,58 +1149,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midConstraintReferenceConstraintReferenceFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConstraintReferenceConstraintReferenceFactory)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/solver/state/Reference")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsReference = env.NewGlobalRef(&c.Object)
-
-		midReferenceGetConstraintWidget, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "getConstraintWidget", "()Landroidx/constraintlayout/solver/widgets/ConstraintWidget;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReferenceSetConstraintWidget, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "setConstraintWidget", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidget;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReferenceSetKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "setKey", "(Ljava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReferenceGetKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "getKey", "()Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReferenceApply, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "apply", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReferenceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReference)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

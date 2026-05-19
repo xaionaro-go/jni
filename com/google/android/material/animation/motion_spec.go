@@ -32,6 +32,12 @@ func NewMotionSpec(vm *jni.VM) (*MotionSpec, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMotionSpec == nil {
+			return fmt.Errorf("com.google.android.material.animation.MotionSpec is not available on this device")
+		}
+		if midMotionSpecCtor == nil {
+			return fmt.Errorf("com.google.android.material.animation.MotionSpec constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMotionSpec)), midMotionSpecCtor)
 		if err != nil {
 			return err

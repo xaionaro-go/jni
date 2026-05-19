@@ -32,6 +32,12 @@ func NewInterpolateOnScrollPositionChangeHelper(vm *jni.VM, arg0 *jni.Object, ar
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInterpolateOnScrollPositionChangeHelper == nil {
+			return fmt.Errorf("com.google.android.material.shape.InterpolateOnScrollPositionChangeHelper is not available on this device")
+		}
+		if midInterpolateOnScrollPositionChangeHelperCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.InterpolateOnScrollPositionChangeHelper constructor (Landroid/view/View;Lcom/google/android/material/shape/MaterialShapeDrawable;Landroid/widget/ScrollView;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInterpolateOnScrollPositionChangeHelper)), midInterpolateOnScrollPositionChangeHelperCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
 		if err != nil {

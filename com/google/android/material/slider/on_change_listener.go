@@ -23,38 +23,6 @@ type OnChangeListener struct {
 	Obj *jni.GlobalRef
 }
 
-// OnValueChange calls com.google.android.material.slider.Slider$OnChangeListener.onValueChange.
-func (m *OnChangeListener) OnValueChange(
-	arg0 *jni.Object,
-	arg1 float32,
-	arg2 bool,
-) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midOnChangeListenerOnValueChange == nil {
-			callErr = fmt.Errorf("com.google.android.material.slider.Slider$OnChangeListener.onValueChange is not available on this device")
-			return callErr
-		}
-
-		var jArg2 uint8
-		if arg2 {
-			jArg2 = jniTrue
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midOnChangeListenerOnValueChange, jni.ObjectValue(arg0), jni.FloatValue(arg1), jni.BooleanValue(jArg2),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls com.google.android.material.slider.Slider$OnChangeListener.toString.
 func (m *OnChangeListener) ToString() (string, error) {
 	var result string

@@ -23,6 +23,34 @@ type FontsContractCompatColumns struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFontsContractCompatColumns creates a new androidx.core.provider.FontsContractCompat$Columns instance.
+func NewFontsContractCompatColumns(vm *jni.VM) (*FontsContractCompatColumns, error) {
+	var t FontsContractCompatColumns
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFontsContractCompatColumns == nil {
+			return fmt.Errorf("androidx.core.provider.FontsContractCompat$Columns is not available on this device")
+		}
+		if midFontsContractCompatColumnsCtor == nil {
+			return fmt.Errorf("androidx.core.provider.FontsContractCompat$Columns constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFontsContractCompatColumns)), midFontsContractCompatColumnsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.core.provider.FontsContractCompat$Columns.toString.
 func (m *FontsContractCompatColumns) ToString() (string, error) {
 	var result string

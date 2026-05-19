@@ -32,6 +32,12 @@ func NewDirectionHeuristics(vm *jni.VM) (*DirectionHeuristics, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDirectionHeuristics == nil {
+			return fmt.Errorf("android.text.TextDirectionHeuristics is not available on this device")
+		}
+		if midDirectionHeuristicsCtor == nil {
+			return fmt.Errorf("android.text.TextDirectionHeuristics constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDirectionHeuristics)), midDirectionHeuristicsCtor)
 		if err != nil {
 			return err

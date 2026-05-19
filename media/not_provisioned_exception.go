@@ -32,6 +32,12 @@ func NewNotProvisionedException(vm *jni.VM, arg0 string) (*NotProvisionedExcepti
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNotProvisionedException == nil {
+			return fmt.Errorf("android.media.NotProvisionedException is not available on this device")
+		}
+		if midNotProvisionedExceptionCtor == nil {
+			return fmt.Errorf("android.media.NotProvisionedException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

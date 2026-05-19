@@ -32,6 +32,12 @@ func NewPriorityGoalRow(vm *jni.VM, arg0 *jni.Object) (*PriorityGoalRow, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPriorityGoalRow == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.PriorityGoalRow is not available on this device")
+		}
+		if midPriorityGoalRowCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.PriorityGoalRow constructor (Landroidx/constraintlayout/solver/Cache;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPriorityGoalRow)), midPriorityGoalRowCtor, jni.ObjectValue(arg0))
 		if err != nil {

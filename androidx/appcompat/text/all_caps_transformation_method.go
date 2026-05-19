@@ -32,6 +32,12 @@ func NewAllCapsTransformationMethod(vm *jni.VM, arg0 *jni.Object) (*AllCapsTrans
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAllCapsTransformationMethod == nil {
+			return fmt.Errorf("androidx.appcompat.text.AllCapsTransformationMethod is not available on this device")
+		}
+		if midAllCapsTransformationMethodCtor == nil {
+			return fmt.Errorf("androidx.appcompat.text.AllCapsTransformationMethod constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAllCapsTransformationMethod)), midAllCapsTransformationMethodCtor, jni.ObjectValue(arg0))
 		if err != nil {

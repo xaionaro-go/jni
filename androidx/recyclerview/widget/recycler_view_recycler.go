@@ -23,6 +23,35 @@ type RecyclerViewRecycler struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRecyclerViewRecycler creates a new androidx.recyclerview.widget.RecyclerView$Recycler instance.
+func NewRecyclerViewRecycler(vm *jni.VM, arg0 *jni.Object) (*RecyclerViewRecycler, error) {
+	var t RecyclerViewRecycler
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRecyclerViewRecycler == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.RecyclerView$Recycler is not available on this device")
+		}
+		if midRecyclerViewRecyclerCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.RecyclerView$Recycler constructor (Landroidx/recyclerview/widget/RecyclerView;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRecyclerViewRecycler)), midRecyclerViewRecyclerCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Clear calls androidx.recyclerview.widget.RecyclerView$Recycler.clear.
 func (m *RecyclerViewRecycler) Clear() error {
 

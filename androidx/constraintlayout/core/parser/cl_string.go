@@ -32,6 +32,12 @@ func NewCLString(vm *jni.VM, arg0 *jni.Object) (*CLString, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCLString == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.parser.CLString is not available on this device")
+		}
+		if midCLStringCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.parser.CLString constructor ([C)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCLString)), midCLStringCtor, jni.ObjectValue(arg0))
 		if err != nil {

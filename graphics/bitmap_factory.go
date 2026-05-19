@@ -32,6 +32,12 @@ func NewBitmapFactory(vm *jni.VM) (*BitmapFactory, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBitmapFactory == nil {
+			return fmt.Errorf("android.graphics.BitmapFactory is not available on this device")
+		}
+		if midBitmapFactoryCtor == nil {
+			return fmt.Errorf("android.graphics.BitmapFactory constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBitmapFactory)), midBitmapFactoryCtor)
 		if err != nil {
 			return err

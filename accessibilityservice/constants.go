@@ -5,6 +5,11 @@ package accessibilityservice
 import "github.com/AndroidGoLab/jni/accessibilityservice/consts"
 
 const (
+	StateClear                                     = consts.StateClear
+	StateDelegating                                = consts.StateDelegating
+	StateDragging                                  = consts.StateDragging
+	StateTouchExploring                            = consts.StateTouchExploring
+	StateTouchInteracting                          = consts.StateTouchInteracting
 	CapabilityCanControlMagnification              = consts.CapabilityCanControlMagnification
 	CapabilityCanPerformGestures                   = consts.CapabilityCanPerformGestures
 	CapabilityCanRequestEnhancedWebAccessibility   = consts.CapabilityCanRequestEnhancedWebAccessibility
@@ -37,6 +42,12 @@ const (
 	FlagRetrieveInteractiveWindows                 = consts.FlagRetrieveInteractiveWindows
 	FlagSendMotionEvents                           = consts.FlagSendMotionEvents
 	FlagServiceHandlesDoubleTap                    = consts.FlagServiceHandlesDoubleTap
+	FingerprintGestureSwipeDown                    = consts.FingerprintGestureSwipeDown
+	FingerprintGestureSwipeLeft                    = consts.FingerprintGestureSwipeLeft
+	FingerprintGestureSwipeRight                   = consts.FingerprintGestureSwipeRight
+	FingerprintGestureSwipeUp                      = consts.FingerprintGestureSwipeUp
+	FlagErrorBrailleDisplayNotFound                = consts.FlagErrorBrailleDisplayNotFound
+	FlagErrorCannotAccess                          = consts.FlagErrorCannotAccess
 	MagnificationModeDefault                       = consts.MagnificationModeDefault
 	MagnificationModeFullscreen                    = consts.MagnificationModeFullscreen
 	MagnificationModeWindow                        = consts.MagnificationModeWindow
@@ -120,17 +131,6 @@ const (
 	EnableImeFailByAdmin                           = consts.EnableImeFailByAdmin
 	EnableImeFailUnknown                           = consts.EnableImeFailUnknown
 	EnableImeSuccess                               = consts.EnableImeSuccess
-	StateClear                                     = consts.StateClear
-	StateDelegating                                = consts.StateDelegating
-	StateDragging                                  = consts.StateDragging
-	StateTouchExploring                            = consts.StateTouchExploring
-	StateTouchInteracting                          = consts.StateTouchInteracting
-	FlagErrorBrailleDisplayNotFound                = consts.FlagErrorBrailleDisplayNotFound
-	FlagErrorCannotAccess                          = consts.FlagErrorCannotAccess
-	FingerprintGestureSwipeDown                    = consts.FingerprintGestureSwipeDown
-	FingerprintGestureSwipeLeft                    = consts.FingerprintGestureSwipeLeft
-	FingerprintGestureSwipeRight                   = consts.FingerprintGestureSwipeRight
-	FingerprintGestureSwipeUp                      = consts.FingerprintGestureSwipeUp
 )
 
 const (

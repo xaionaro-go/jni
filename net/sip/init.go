@@ -23,29 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsManager                           *jni.GlobalRef
-	midManagerClose                      jni.MethodID
-	midManagerCreateSipSession           jni.MethodID
-	midManagerGetSessionFor              jni.MethodID
-	midManagerIsOpened                   jni.MethodID
-	midManagerIsRegistered               jni.MethodID
-	midManagerMakeAudioCall4             jni.MethodID
-	midManagerMakeAudioCall4_1           jni.MethodID
-	midManagerOpen1                      jni.MethodID
-	midManagerOpen3_1                    jni.MethodID
-	midManagerRegister                   jni.MethodID
-	midManagerSetRegistrationListener    jni.MethodID
-	midManagerTakeAudioCall              jni.MethodID
-	midManagerUnregister                 jni.MethodID
-	midManagerToString                   jni.MethodID
-	midManagerGetCallId                  jni.MethodID
-	midManagerGetOfferSessionDescription jni.MethodID
-	midManagerIsApiSupported             jni.MethodID
-	midManagerIsIncomingCallIntent       jni.MethodID
-	midManagerIsSipWifiOnly              jni.MethodID
-	midManagerIsVoipSupported            jni.MethodID
-	midManagerNewInstance                jni.MethodID
-
 	clsException         *jni.GlobalRef
 	midExceptionCtor     jni.MethodID
 	midExceptionToString jni.MethodID
@@ -75,6 +52,7 @@ var (
 	midAudioCallToString        jni.MethodID
 
 	clsAudioCallListener                  *jni.GlobalRef
+	midAudioCallListenerCtor              jni.MethodID
 	midAudioCallListenerOnCallBusy        jni.MethodID
 	midAudioCallListenerOnCallEnded       jni.MethodID
 	midAudioCallListenerOnCallEstablished jni.MethodID
@@ -86,37 +64,6 @@ var (
 	midAudioCallListenerOnRinging         jni.MethodID
 	midAudioCallListenerOnRingingBack     jni.MethodID
 	midAudioCallListenerToString          jni.MethodID
-
-	clsProfile                    *jni.GlobalRef
-	midProfileDescribeContents    jni.MethodID
-	midProfileGetAuthUserName     jni.MethodID
-	midProfileGetAutoRegistration jni.MethodID
-	midProfileGetDisplayName      jni.MethodID
-	midProfileGetPassword         jni.MethodID
-	midProfileGetPort             jni.MethodID
-	midProfileGetProfileName      jni.MethodID
-	midProfileGetProtocol         jni.MethodID
-	midProfileGetProxyAddress     jni.MethodID
-	midProfileGetSendKeepAlive    jni.MethodID
-	midProfileGetSipDomain        jni.MethodID
-	midProfileGetUriString        jni.MethodID
-	midProfileGetUserName         jni.MethodID
-	midProfileSetCallingUid       jni.MethodID
-	midProfileWriteToParcel       jni.MethodID
-	midProfileToString            jni.MethodID
-
-	clsProfileBuilder                    *jni.GlobalRef
-	midProfileBuilderBuild               jni.MethodID
-	midProfileBuilderSetAuthUserName     jni.MethodID
-	midProfileBuilderSetAutoRegistration jni.MethodID
-	midProfileBuilderSetDisplayName      jni.MethodID
-	midProfileBuilderSetOutboundProxy    jni.MethodID
-	midProfileBuilderSetPassword         jni.MethodID
-	midProfileBuilderSetPort             jni.MethodID
-	midProfileBuilderSetProfileName      jni.MethodID
-	midProfileBuilderSetProtocol         jni.MethodID
-	midProfileBuilderSetSendKeepAlive    jni.MethodID
-	midProfileBuilderToString            jni.MethodID
 
 	clsSession                *jni.GlobalRef
 	midSessionAnswerCall      jni.MethodID
@@ -135,6 +82,7 @@ var (
 	midSessionToString        jni.MethodID
 
 	clsSessionListener                      *jni.GlobalRef
+	midSessionListenerCtor                  jni.MethodID
 	midSessionListenerOnCallBusy            jni.MethodID
 	midSessionListenerOnCallChangeFailed    jni.MethodID
 	midSessionListenerOnCallEnded           jni.MethodID
@@ -152,14 +100,69 @@ var (
 	clsSessionState         *jni.GlobalRef
 	midSessionStateToString jni.MethodID
 
+	clsErrorCode         *jni.GlobalRef
+	midErrorCodeToString jni.MethodID
+
+	clsProfile                    *jni.GlobalRef
+	midProfileDescribeContents    jni.MethodID
+	midProfileGetAuthUserName     jni.MethodID
+	midProfileGetAutoRegistration jni.MethodID
+	midProfileGetDisplayName      jni.MethodID
+	midProfileGetPassword         jni.MethodID
+	midProfileGetPort             jni.MethodID
+	midProfileGetProfileName      jni.MethodID
+	midProfileGetProtocol         jni.MethodID
+	midProfileGetProxyAddress     jni.MethodID
+	midProfileGetSendKeepAlive    jni.MethodID
+	midProfileGetSipDomain        jni.MethodID
+	midProfileGetUriString        jni.MethodID
+	midProfileGetUserName         jni.MethodID
+	midProfileSetCallingUid       jni.MethodID
+	midProfileToString            jni.MethodID
+	midProfileWriteToParcel       jni.MethodID
+
+	clsProfileBuilder                    *jni.GlobalRef
+	midProfileBuilderCtor                jni.MethodID
+	midProfileBuilderBuild               jni.MethodID
+	midProfileBuilderSetAuthUserName     jni.MethodID
+	midProfileBuilderSetAutoRegistration jni.MethodID
+	midProfileBuilderSetDisplayName      jni.MethodID
+	midProfileBuilderSetOutboundProxy    jni.MethodID
+	midProfileBuilderSetPassword         jni.MethodID
+	midProfileBuilderSetPort             jni.MethodID
+	midProfileBuilderSetProfileName      jni.MethodID
+	midProfileBuilderSetProtocol         jni.MethodID
+	midProfileBuilderSetSendKeepAlive    jni.MethodID
+	midProfileBuilderToString            jni.MethodID
+
 	clsRegistrationListener                     *jni.GlobalRef
 	midRegistrationListenerOnRegistering        jni.MethodID
 	midRegistrationListenerOnRegistrationDone   jni.MethodID
 	midRegistrationListenerOnRegistrationFailed jni.MethodID
 	midRegistrationListenerToString             jni.MethodID
 
-	clsErrorCode         *jni.GlobalRef
-	midErrorCodeToString jni.MethodID
+	clsManager                           *jni.GlobalRef
+	midManagerClose                      jni.MethodID
+	midManagerCreateSipSession           jni.MethodID
+	midManagerGetSessionFor              jni.MethodID
+	midManagerIsOpened                   jni.MethodID
+	midManagerIsRegistered               jni.MethodID
+	midManagerMakeAudioCall4             jni.MethodID
+	midManagerMakeAudioCall4_1           jni.MethodID
+	midManagerOpen1                      jni.MethodID
+	midManagerOpen3_1                    jni.MethodID
+	midManagerRegister                   jni.MethodID
+	midManagerSetRegistrationListener    jni.MethodID
+	midManagerTakeAudioCall              jni.MethodID
+	midManagerUnregister                 jni.MethodID
+	midManagerToString                   jni.MethodID
+	midManagerGetCallId                  jni.MethodID
+	midManagerGetOfferSessionDescription jni.MethodID
+	midManagerIsApiSupported             jni.MethodID
+	midManagerIsIncomingCallIntent       jni.MethodID
+	midManagerIsSipWifiOnly              jni.MethodID
+	midManagerIsVoipSupported            jni.MethodID
+	midManagerNewInstance                jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -179,163 +182,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("android/net/sip/SipManager")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsManager = env.NewGlobalRef(&c.Object)
-
-		midManagerClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "close", "(Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerCreateSipSession, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "createSipSession", "(Landroid/net/sip/SipProfile;Landroid/net/sip/SipSession$Listener;)Landroid/net/sip/SipSession;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerGetSessionFor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getSessionFor", "(Landroid/content/Intent;)Landroid/net/sip/SipSession;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerIsOpened, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isOpened", "(Ljava/lang/String;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerIsRegistered, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isRegistered", "(Ljava/lang/String;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerMakeAudioCall4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "makeAudioCall", "(Landroid/net/sip/SipProfile;Landroid/net/sip/SipProfile;Landroid/net/sip/SipAudioCall$Listener;I)Landroid/net/sip/SipAudioCall;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerMakeAudioCall4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "makeAudioCall", "(Ljava/lang/String;Ljava/lang/String;Landroid/net/sip/SipAudioCall$Listener;I)Landroid/net/sip/SipAudioCall;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerOpen1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "open", "(Landroid/net/sip/SipProfile;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerOpen3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "open", "(Landroid/net/sip/SipProfile;Landroid/app/PendingIntent;Landroid/net/sip/SipRegistrationListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerRegister, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "register", "(Landroid/net/sip/SipProfile;ILandroid/net/sip/SipRegistrationListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerSetRegistrationListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "setRegistrationListener", "(Ljava/lang/String;Landroid/net/sip/SipRegistrationListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerTakeAudioCall, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "takeAudioCall", "(Landroid/content/Intent;Landroid/net/sip/SipAudioCall$Listener;)Landroid/net/sip/SipAudioCall;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerUnregister, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "unregister", "(Landroid/net/sip/SipProfile;Landroid/net/sip/SipRegistrationListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerGetCallId, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getCallId", "(Landroid/content/Intent;)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerGetOfferSessionDescription, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getOfferSessionDescription", "(Landroid/content/Intent;)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerIsApiSupported, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isApiSupported", "(Landroid/content/Context;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerIsIncomingCallIntent, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isIncomingCallIntent", "(Landroid/content/Intent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerIsSipWifiOnly, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isSipWifiOnly", "(Landroid/content/Context;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerIsVoipSupported, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isVoipSupported", "(Landroid/content/Context;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerNewInstance, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "newInstance", "(Landroid/content/Context;)Landroid/net/sip/SipManager;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("android/net/sip/SipException")
 	if err != nil {
@@ -526,6 +372,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsAudioCallListener = env.NewGlobalRef(&c.Object)
+		midAudioCallListenerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAudioCallListener)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midAudioCallListenerOnCallBusy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAudioCallListener)), "onCallBusy", "(Landroid/net/sip/SipAudioCall;)V")
 		if err != nil {
@@ -598,215 +448,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midAudioCallListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAudioCallListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/net/sip/SipProfile")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsProfile = env.NewGlobalRef(&c.Object)
-
-		midProfileDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileGetAuthUserName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getAuthUserName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileGetAutoRegistration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getAutoRegistration", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileGetDisplayName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getDisplayName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileGetPassword, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getPassword", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileGetPort, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getPort", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileGetProfileName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getProfileName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileGetProtocol, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getProtocol", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileGetProxyAddress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getProxyAddress", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileGetSendKeepAlive, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getSendKeepAlive", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileGetSipDomain, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getSipDomain", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileGetUriString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getUriString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileGetUserName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getUserName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileSetCallingUid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "setCallingUid", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/net/sip/SipProfile$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsProfileBuilder = env.NewGlobalRef(&c.Object)
-
-		midProfileBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "build", "()Landroid/net/sip/SipProfile;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileBuilderSetAuthUserName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "setAuthUserName", "(Ljava/lang/String;)Landroid/net/sip/SipProfile$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileBuilderSetAutoRegistration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "setAutoRegistration", "(Z)Landroid/net/sip/SipProfile$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileBuilderSetDisplayName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "setDisplayName", "(Ljava/lang/String;)Landroid/net/sip/SipProfile$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileBuilderSetOutboundProxy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "setOutboundProxy", "(Ljava/lang/String;)Landroid/net/sip/SipProfile$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileBuilderSetPassword, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "setPassword", "(Ljava/lang/String;)Landroid/net/sip/SipProfile$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileBuilderSetPort, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "setPort", "(I)Landroid/net/sip/SipProfile$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileBuilderSetProfileName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "setProfileName", "(Ljava/lang/String;)Landroid/net/sip/SipProfile$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileBuilderSetProtocol, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "setProtocol", "(Ljava/lang/String;)Landroid/net/sip/SipProfile$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileBuilderSetSendKeepAlive, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "setSendKeepAlive", "(Z)Landroid/net/sip/SipProfile$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -930,6 +571,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsSessionListener = env.NewGlobalRef(&c.Object)
+		midSessionListenerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionListener)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midSessionListenerOnCallBusy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionListener)), "onCallBusy", "(Landroid/net/sip/SipSession;)V")
 		if err != nil {
@@ -1041,6 +686,236 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("android/net/sip/SipErrorCode")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsErrorCode = env.NewGlobalRef(&c.Object)
+
+		midErrorCodeToString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsErrorCode)), "toString", "(I)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/sip/SipProfile")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsProfile = env.NewGlobalRef(&c.Object)
+
+		midProfileDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileGetAuthUserName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getAuthUserName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileGetAutoRegistration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getAutoRegistration", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileGetDisplayName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getDisplayName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileGetPassword, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getPassword", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileGetPort, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getPort", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileGetProfileName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getProfileName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileGetProtocol, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getProtocol", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileGetProxyAddress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getProxyAddress", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileGetSendKeepAlive, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getSendKeepAlive", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileGetSipDomain, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getSipDomain", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileGetUriString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getUriString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileGetUserName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getUserName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileSetCallingUid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "setCallingUid", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/sip/SipProfile$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsProfileBuilder = env.NewGlobalRef(&c.Object)
+		midProfileBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "<init>", "(Landroid/net/sip/SipProfile;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midProfileBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "build", "()Landroid/net/sip/SipProfile;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileBuilderSetAuthUserName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "setAuthUserName", "(Ljava/lang/String;)Landroid/net/sip/SipProfile$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileBuilderSetAutoRegistration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "setAutoRegistration", "(Z)Landroid/net/sip/SipProfile$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileBuilderSetDisplayName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "setDisplayName", "(Ljava/lang/String;)Landroid/net/sip/SipProfile$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileBuilderSetOutboundProxy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "setOutboundProxy", "(Ljava/lang/String;)Landroid/net/sip/SipProfile$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileBuilderSetPassword, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "setPassword", "(Ljava/lang/String;)Landroid/net/sip/SipProfile$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileBuilderSetPort, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "setPort", "(I)Landroid/net/sip/SipProfile$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileBuilderSetProfileName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "setProfileName", "(Ljava/lang/String;)Landroid/net/sip/SipProfile$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileBuilderSetProtocol, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "setProtocol", "(Ljava/lang/String;)Landroid/net/sip/SipProfile$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileBuilderSetSendKeepAlive, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "setSendKeepAlive", "(Z)Landroid/net/sip/SipProfile$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProfileBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("android/net/sip/SipRegistrationListener")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -1079,15 +954,155 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/net/sip/SipErrorCode")
+	c, err = env.FindClass("android/net/sip/SipManager")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsErrorCode = env.NewGlobalRef(&c.Object)
+		clsManager = env.NewGlobalRef(&c.Object)
 
-		midErrorCodeToString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsErrorCode)), "toString", "(I)Ljava/lang/String;")
+		midManagerClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "close", "(Ljava/lang/String;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerCreateSipSession, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "createSipSession", "(Landroid/net/sip/SipProfile;Landroid/net/sip/SipSession$Listener;)Landroid/net/sip/SipSession;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerGetSessionFor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getSessionFor", "(Landroid/content/Intent;)Landroid/net/sip/SipSession;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerIsOpened, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isOpened", "(Ljava/lang/String;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerIsRegistered, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isRegistered", "(Ljava/lang/String;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerMakeAudioCall4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "makeAudioCall", "(Landroid/net/sip/SipProfile;Landroid/net/sip/SipProfile;Landroid/net/sip/SipAudioCall$Listener;I)Landroid/net/sip/SipAudioCall;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerMakeAudioCall4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "makeAudioCall", "(Ljava/lang/String;Ljava/lang/String;Landroid/net/sip/SipAudioCall$Listener;I)Landroid/net/sip/SipAudioCall;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerOpen1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "open", "(Landroid/net/sip/SipProfile;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerOpen3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "open", "(Landroid/net/sip/SipProfile;Landroid/app/PendingIntent;Landroid/net/sip/SipRegistrationListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerRegister, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "register", "(Landroid/net/sip/SipProfile;ILandroid/net/sip/SipRegistrationListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerSetRegistrationListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "setRegistrationListener", "(Ljava/lang/String;Landroid/net/sip/SipRegistrationListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerTakeAudioCall, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "takeAudioCall", "(Landroid/content/Intent;Landroid/net/sip/SipAudioCall$Listener;)Landroid/net/sip/SipAudioCall;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerUnregister, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "unregister", "(Landroid/net/sip/SipProfile;Landroid/net/sip/SipRegistrationListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerGetCallId, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getCallId", "(Landroid/content/Intent;)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerGetOfferSessionDescription, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getOfferSessionDescription", "(Landroid/content/Intent;)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerIsApiSupported, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isApiSupported", "(Landroid/content/Context;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerIsIncomingCallIntent, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isIncomingCallIntent", "(Landroid/content/Intent;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerIsSipWifiOnly, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isSipWifiOnly", "(Landroid/content/Context;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerIsVoipSupported, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isVoipSupported", "(Landroid/content/Context;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerNewInstance, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "newInstance", "(Landroid/content/Context;)Landroid/net/sip/SipManager;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

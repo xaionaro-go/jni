@@ -32,6 +32,12 @@ func NewDebug(vm *jni.VM) (*Debug, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDebug == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.Debug is not available on this device")
+		}
+		if midDebugCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.Debug constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDebug)), midDebugCtor)
 		if err != nil {
 			return err

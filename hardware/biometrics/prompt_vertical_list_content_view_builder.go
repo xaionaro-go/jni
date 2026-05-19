@@ -23,6 +23,34 @@ type PromptVerticalListContentViewBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPromptVerticalListContentViewBuilder creates a new android.hardware.biometrics.PromptVerticalListContentView$Builder instance.
+func NewPromptVerticalListContentViewBuilder(vm *jni.VM) (*PromptVerticalListContentViewBuilder, error) {
+	var t PromptVerticalListContentViewBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPromptVerticalListContentViewBuilder == nil {
+			return fmt.Errorf("android.hardware.biometrics.PromptVerticalListContentView$Builder is not available on this device")
+		}
+		if midPromptVerticalListContentViewBuilderCtor == nil {
+			return fmt.Errorf("android.hardware.biometrics.PromptVerticalListContentView$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPromptVerticalListContentViewBuilder)), midPromptVerticalListContentViewBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddListItem1 calls android.hardware.biometrics.PromptVerticalListContentView$Builder.addListItem.
 func (m *PromptVerticalListContentViewBuilder) AddListItem1(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

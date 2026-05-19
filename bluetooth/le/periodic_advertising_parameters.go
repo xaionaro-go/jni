@@ -100,29 +100,6 @@ func (m *PeriodicAdvertisingParameters) GetInterval() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.bluetooth.le.PeriodicAdvertisingParameters.writeToParcel.
-func (m *PeriodicAdvertisingParameters) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midPeriodicAdvertisingParametersWriteToParcel == nil {
-			callErr = fmt.Errorf("android.bluetooth.le.PeriodicAdvertisingParameters.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midPeriodicAdvertisingParametersWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.bluetooth.le.PeriodicAdvertisingParameters.toString.
 func (m *PeriodicAdvertisingParameters) ToString() (string, error) {
 	var result string
@@ -148,4 +125,27 @@ func (m *PeriodicAdvertisingParameters) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.bluetooth.le.PeriodicAdvertisingParameters.writeToParcel.
+func (m *PeriodicAdvertisingParameters) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midPeriodicAdvertisingParametersWriteToParcel == nil {
+			callErr = fmt.Errorf("android.bluetooth.le.PeriodicAdvertisingParameters.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsPeriodicAdvertisingParameters)),
+			midPeriodicAdvertisingParametersWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

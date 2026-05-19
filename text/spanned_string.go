@@ -32,6 +32,12 @@ func NewSpannedString(vm *jni.VM, arg0 string) (*SpannedString, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSpannedString == nil {
+			return fmt.Errorf("android.text.SpannedString is not available on this device")
+		}
+		if midSpannedStringCtor == nil {
+			return fmt.Errorf("android.text.SpannedString constructor (Ljava/lang/CharSequence;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

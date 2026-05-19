@@ -23,6 +23,35 @@ type ToolbarLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewToolbarLayoutParams creates a new android.widget.Toolbar$LayoutParams instance.
+func NewToolbarLayoutParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ToolbarLayoutParams, error) {
+	var t ToolbarLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsToolbarLayoutParams == nil {
+			return fmt.Errorf("android.widget.Toolbar$LayoutParams is not available on this device")
+		}
+		if midToolbarLayoutParamsCtor == nil {
+			return fmt.Errorf("android.widget.Toolbar$LayoutParams constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsToolbarLayoutParams)), midToolbarLayoutParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.widget.Toolbar$LayoutParams.toString.
 func (m *ToolbarLayoutParams) ToString() (string, error) {
 	var result string

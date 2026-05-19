@@ -32,6 +32,12 @@ func NewContentLoadingProgressBar(vm *jni.VM, arg0 *jni.Object) (*ContentLoading
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsContentLoadingProgressBar == nil {
+			return fmt.Errorf("androidx.core.widget.ContentLoadingProgressBar is not available on this device")
+		}
+		if midContentLoadingProgressBarCtor == nil {
+			return fmt.Errorf("androidx.core.widget.ContentLoadingProgressBar constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContentLoadingProgressBar)), midContentLoadingProgressBarCtor, jni.ObjectValue(arg0))
 		if err != nil {

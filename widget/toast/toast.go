@@ -32,6 +32,12 @@ func NewToast(vm *jni.VM, arg0 *jni.Object) (*Toast, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsToast == nil {
+			return fmt.Errorf("android.widget.Toast is not available on this device")
+		}
+		if midToastCtor == nil {
+			return fmt.Errorf("android.widget.Toast constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsToast)), midToastCtor, jni.ObjectValue(arg0))
 		if err != nil {

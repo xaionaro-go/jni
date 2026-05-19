@@ -30,6 +30,12 @@ func NewLaunchChecker(vm *jni.VM) (*LaunchChecker, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLaunchChecker == nil {
+			return fmt.Errorf("androidx.core.app.AppLaunchChecker is not available on this device")
+		}
+		if midLaunchCheckerCtor == nil {
+			return fmt.Errorf("androidx.core.app.AppLaunchChecker constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLaunchChecker)), midLaunchCheckerCtor)
 		if err != nil {
 			return err

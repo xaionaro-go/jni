@@ -23,6 +23,34 @@ type SyncRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSyncRequestBuilder creates a new android.content.SyncRequest$Builder instance.
+func NewSyncRequestBuilder(vm *jni.VM) (*SyncRequestBuilder, error) {
+	var t SyncRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSyncRequestBuilder == nil {
+			return fmt.Errorf("android.content.SyncRequest$Builder is not available on this device")
+		}
+		if midSyncRequestBuilderCtor == nil {
+			return fmt.Errorf("android.content.SyncRequest$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSyncRequestBuilder)), midSyncRequestBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.content.SyncRequest$Builder.build.
 func (m *SyncRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

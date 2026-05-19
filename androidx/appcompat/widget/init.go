@@ -23,59 +23,46 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsAppCompatMultiAutoCompleteTextView                                    *jni.GlobalRef
-	midAppCompatMultiAutoCompleteTextViewCtor                                jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewSetDropDownBackgroundResource       jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewSetBackgroundResource               jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewSetBackgroundDrawable               jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewSetSupportBackgroundTintList        jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewGetSupportBackgroundTintList        jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewSetSupportBackgroundTintMode        jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewGetSupportBackgroundTintMode        jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewSetTextAppearance                   jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewOnCreateInputConnection             jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewSetKeyListener                      jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewSetEmojiCompatEnabled               jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewIsEmojiCompatEnabled                jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewSetCompoundDrawables                jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewSetCompoundDrawablesRelative        jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewGetSupportCompoundDrawablesTintList jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewSetSupportCompoundDrawablesTintList jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewGetSupportCompoundDrawablesTintMode jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewSetSupportCompoundDrawablesTintMode jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewToString                            jni.MethodID
+	clsResourceManagerInternal         *jni.GlobalRef
+	midResourceManagerInternalCtor     jni.MethodID
+	midResourceManagerInternalToString jni.MethodID
 
-	clsAppCompatMultiAutoCompleteTextViewInspectionCompanion                  *jni.GlobalRef
-	midAppCompatMultiAutoCompleteTextViewInspectionCompanionMapProperties     jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewInspectionCompanionReadProperties2   jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewInspectionCompanionReadProperties2_1 jni.MethodID
-	midAppCompatMultiAutoCompleteTextViewInspectionCompanionToString          jni.MethodID
+	clsAppCompatImageHelper                   *jni.GlobalRef
+	midAppCompatImageHelperCtor               jni.MethodID
+	midAppCompatImageHelperLoadFromAttributes jni.MethodID
+	midAppCompatImageHelperSetImageResource   jni.MethodID
+	midAppCompatImageHelperToString           jni.MethodID
 
-	clsMenuPopupWindow                   *jni.GlobalRef
-	midMenuPopupWindowCtor               jni.MethodID
-	midMenuPopupWindowSetEnterTransition jni.MethodID
-	midMenuPopupWindowSetExitTransition  jni.MethodID
-	midMenuPopupWindowSetHoverListener   jni.MethodID
-	midMenuPopupWindowSetTouchModal      jni.MethodID
-	midMenuPopupWindowOnItemHoverEnter   jni.MethodID
-	midMenuPopupWindowOnItemHoverExit    jni.MethodID
-	midMenuPopupWindowToString           jni.MethodID
+	clsResourceManagerInternalResourceManagerHooks                             *jni.GlobalRef
+	midResourceManagerInternalResourceManagerHooksCreateDrawableFor            jni.MethodID
+	midResourceManagerInternalResourceManagerHooksTintDrawable                 jni.MethodID
+	midResourceManagerInternalResourceManagerHooksGetTintListForDrawableRes    jni.MethodID
+	midResourceManagerInternalResourceManagerHooksTintDrawableUsingColorFilter jni.MethodID
+	midResourceManagerInternalResourceManagerHooksGetTintModeForDrawableRes    jni.MethodID
+	midResourceManagerInternalResourceManagerHooksToString                     jni.MethodID
 
-	clsMenuPopupWindowMenuDropDownListView                              *jni.GlobalRef
-	midMenuPopupWindowMenuDropDownListViewSetHoverListener              jni.MethodID
-	midMenuPopupWindowMenuDropDownListViewClearSelection                jni.MethodID
-	midMenuPopupWindowMenuDropDownListViewOnKeyDown                     jni.MethodID
-	midMenuPopupWindowMenuDropDownListViewOnHoverEvent                  jni.MethodID
-	midMenuPopupWindowMenuDropDownListViewOnForwardedEvent              jni.MethodID
-	midMenuPopupWindowMenuDropDownListViewMeasureHeightOfChildrenCompat jni.MethodID
-	midMenuPopupWindowMenuDropDownListViewLookForSelectablePosition     jni.MethodID
-	midMenuPopupWindowMenuDropDownListViewOnTouchEvent                  jni.MethodID
-	midMenuPopupWindowMenuDropDownListViewSetSelector                   jni.MethodID
-	midMenuPopupWindowMenuDropDownListViewHasFocus                      jni.MethodID
-	midMenuPopupWindowMenuDropDownListViewIsFocused                     jni.MethodID
-	midMenuPopupWindowMenuDropDownListViewHasWindowFocus                jni.MethodID
-	midMenuPopupWindowMenuDropDownListViewIsInTouchMode                 jni.MethodID
-	midMenuPopupWindowMenuDropDownListViewToString                      jni.MethodID
+	clsThemedSpinnerAdapter                     *jni.GlobalRef
+	midThemedSpinnerAdapterSetDropDownViewTheme jni.MethodID
+	midThemedSpinnerAdapterGetDropDownViewTheme jni.MethodID
+	midThemedSpinnerAdapterToString             jni.MethodID
+
+	clsThemedSpinnerAdapterHelper                        *jni.GlobalRef
+	midThemedSpinnerAdapterHelperCtor                    jni.MethodID
+	midThemedSpinnerAdapterHelperSetDropDownViewTheme    jni.MethodID
+	midThemedSpinnerAdapterHelperGetDropDownViewTheme    jni.MethodID
+	midThemedSpinnerAdapterHelperGetDropDownViewInflater jni.MethodID
+	midThemedSpinnerAdapterHelperToString                jni.MethodID
+
+	clsViewUtils                              *jni.GlobalRef
+	midViewUtilsToString                      jni.MethodID
+	midViewUtilsIsLayoutRtl                   jni.MethodID
+	midViewUtilsComputeFitSystemWindows       jni.MethodID
+	midViewUtilsMakeOptionalFitsSystemWindows jni.MethodID
+
+	clsFitWindowsFrameLayout                              *jni.GlobalRef
+	midFitWindowsFrameLayoutCtor                          jni.MethodID
+	midFitWindowsFrameLayoutSetOnFitSystemWindowsListener jni.MethodID
+	midFitWindowsFrameLayoutToString                      jni.MethodID
 
 	clsPopupMenu                           *jni.GlobalRef
 	midPopupMenuCtor                       jni.MethodID
@@ -92,88 +79,9 @@ var (
 	midPopupMenuSetForceShowIcon           jni.MethodID
 	midPopupMenuToString                   jni.MethodID
 
-	clsThemeUtils                           *jni.GlobalRef
-	midThemeUtilsToString                   jni.MethodID
-	midThemeUtilsCreateDisabledStateList    jni.MethodID
-	midThemeUtilsGetThemeAttrColor          jni.MethodID
-	midThemeUtilsGetThemeAttrColorStateList jni.MethodID
-	midThemeUtilsGetDisabledThemeAttrColor  jni.MethodID
-	midThemeUtilsCheckAppCompatTheme        jni.MethodID
-
 	clsPopupMenuOnDismissListener          *jni.GlobalRef
 	midPopupMenuOnDismissListenerOnDismiss jni.MethodID
 	midPopupMenuOnDismissListenerToString  jni.MethodID
-
-	clsPopupMenuOnMenuItemClickListener                *jni.GlobalRef
-	midPopupMenuOnMenuItemClickListenerOnMenuItemClick jni.MethodID
-	midPopupMenuOnMenuItemClickListenerToString        jni.MethodID
-
-	clsAppCompatSpinner                             *jni.GlobalRef
-	midAppCompatSpinnerCtor                         jni.MethodID
-	midAppCompatSpinnerGetPopupContext              jni.MethodID
-	midAppCompatSpinnerSetPopupBackgroundDrawable   jni.MethodID
-	midAppCompatSpinnerSetPopupBackgroundResource   jni.MethodID
-	midAppCompatSpinnerGetPopupBackground           jni.MethodID
-	midAppCompatSpinnerSetDropDownVerticalOffset    jni.MethodID
-	midAppCompatSpinnerGetDropDownVerticalOffset    jni.MethodID
-	midAppCompatSpinnerSetDropDownHorizontalOffset  jni.MethodID
-	midAppCompatSpinnerGetDropDownHorizontalOffset  jni.MethodID
-	midAppCompatSpinnerSetDropDownWidth             jni.MethodID
-	midAppCompatSpinnerGetDropDownWidth             jni.MethodID
-	midAppCompatSpinnerSetAdapter1                  jni.MethodID
-	midAppCompatSpinnerOnTouchEvent                 jni.MethodID
-	midAppCompatSpinnerPerformClick                 jni.MethodID
-	midAppCompatSpinnerSetPrompt                    jni.MethodID
-	midAppCompatSpinnerGetPrompt                    jni.MethodID
-	midAppCompatSpinnerSetBackgroundResource        jni.MethodID
-	midAppCompatSpinnerSetBackgroundDrawable        jni.MethodID
-	midAppCompatSpinnerSetSupportBackgroundTintList jni.MethodID
-	midAppCompatSpinnerGetSupportBackgroundTintList jni.MethodID
-	midAppCompatSpinnerSetSupportBackgroundTintMode jni.MethodID
-	midAppCompatSpinnerGetSupportBackgroundTintMode jni.MethodID
-	midAppCompatSpinnerOnSaveInstanceState          jni.MethodID
-	midAppCompatSpinnerOnRestoreInstanceState       jni.MethodID
-	midAppCompatSpinnerSetAdapter1_1                jni.MethodID
-	midAppCompatSpinnerToString                     jni.MethodID
-
-	clsAppCompatImageView                             *jni.GlobalRef
-	midAppCompatImageViewCtor                         jni.MethodID
-	midAppCompatImageViewSetImageResource             jni.MethodID
-	midAppCompatImageViewSetImageDrawable             jni.MethodID
-	midAppCompatImageViewSetImageBitmap               jni.MethodID
-	midAppCompatImageViewSetImageURI                  jni.MethodID
-	midAppCompatImageViewSetBackgroundResource        jni.MethodID
-	midAppCompatImageViewSetBackgroundDrawable        jni.MethodID
-	midAppCompatImageViewSetSupportBackgroundTintList jni.MethodID
-	midAppCompatImageViewGetSupportBackgroundTintList jni.MethodID
-	midAppCompatImageViewSetSupportBackgroundTintMode jni.MethodID
-	midAppCompatImageViewGetSupportBackgroundTintMode jni.MethodID
-	midAppCompatImageViewSetSupportImageTintList      jni.MethodID
-	midAppCompatImageViewGetSupportImageTintList      jni.MethodID
-	midAppCompatImageViewSetSupportImageTintMode      jni.MethodID
-	midAppCompatImageViewGetSupportImageTintMode      jni.MethodID
-	midAppCompatImageViewHasOverlappingRendering      jni.MethodID
-	midAppCompatImageViewSetImageLevel                jni.MethodID
-	midAppCompatImageViewToString                     jni.MethodID
-
-	clsAppCompatImageViewInspectionCompanion                  *jni.GlobalRef
-	midAppCompatImageViewInspectionCompanionMapProperties     jni.MethodID
-	midAppCompatImageViewInspectionCompanionReadProperties2   jni.MethodID
-	midAppCompatImageViewInspectionCompanionReadProperties2_1 jni.MethodID
-	midAppCompatImageViewInspectionCompanionToString          jni.MethodID
-
-	clsForwardingListener                         *jni.GlobalRef
-	midForwardingListenerGetPopup                 jni.MethodID
-	midForwardingListenerOnTouch                  jni.MethodID
-	midForwardingListenerOnViewAttachedToWindow   jni.MethodID
-	midForwardingListenerOnViewDetachedFromWindow jni.MethodID
-	midForwardingListenerToString                 jni.MethodID
-
-	clsAppCompatSpinnerInspectionCompanion                  *jni.GlobalRef
-	midAppCompatSpinnerInspectionCompanionMapProperties     jni.MethodID
-	midAppCompatSpinnerInspectionCompanionReadProperties2   jni.MethodID
-	midAppCompatSpinnerInspectionCompanionReadProperties2_1 jni.MethodID
-	midAppCompatSpinnerInspectionCompanionToString          jni.MethodID
 
 	clsSearchView                                  *jni.GlobalRef
 	midSearchViewCtor                              jni.MethodID
@@ -211,11 +119,73 @@ var (
 	midSearchViewOnActionViewExpanded              jni.MethodID
 	midSearchViewToString                          jni.MethodID
 
-	clsSearchViewInspectionCompanion                  *jni.GlobalRef
-	midSearchViewInspectionCompanionMapProperties     jni.MethodID
-	midSearchViewInspectionCompanionReadProperties2   jni.MethodID
-	midSearchViewInspectionCompanionReadProperties2_1 jni.MethodID
-	midSearchViewInspectionCompanionToString          jni.MethodID
+	clsPopupMenuOnMenuItemClickListener                *jni.GlobalRef
+	midPopupMenuOnMenuItemClickListenerOnMenuItemClick jni.MethodID
+	midPopupMenuOnMenuItemClickListenerToString        jni.MethodID
+
+	clsDecorToolbar                                       *jni.GlobalRef
+	midDecorToolbarGetViewGroup                           jni.MethodID
+	midDecorToolbarGetContext                             jni.MethodID
+	midDecorToolbarHasExpandedActionView                  jni.MethodID
+	midDecorToolbarCollapseActionView                     jni.MethodID
+	midDecorToolbarSetWindowCallback                      jni.MethodID
+	midDecorToolbarSetWindowTitle                         jni.MethodID
+	midDecorToolbarGetTitle                               jni.MethodID
+	midDecorToolbarSetTitle                               jni.MethodID
+	midDecorToolbarGetSubtitle                            jni.MethodID
+	midDecorToolbarSetSubtitle                            jni.MethodID
+	midDecorToolbarInitProgress                           jni.MethodID
+	midDecorToolbarInitIndeterminateProgress              jni.MethodID
+	midDecorToolbarHasIcon                                jni.MethodID
+	midDecorToolbarHasLogo                                jni.MethodID
+	midDecorToolbarSetIcon1                               jni.MethodID
+	midDecorToolbarSetIcon1_1                             jni.MethodID
+	midDecorToolbarSetLogo1                               jni.MethodID
+	midDecorToolbarSetLogo1_1                             jni.MethodID
+	midDecorToolbarCanShowOverflowMenu                    jni.MethodID
+	midDecorToolbarIsOverflowMenuShowing                  jni.MethodID
+	midDecorToolbarIsOverflowMenuShowPending              jni.MethodID
+	midDecorToolbarShowOverflowMenu                       jni.MethodID
+	midDecorToolbarHideOverflowMenu                       jni.MethodID
+	midDecorToolbarSetMenuPrepared                        jni.MethodID
+	midDecorToolbarSetMenu                                jni.MethodID
+	midDecorToolbarDismissPopupMenus                      jni.MethodID
+	midDecorToolbarGetDisplayOptions                      jni.MethodID
+	midDecorToolbarSetDisplayOptions                      jni.MethodID
+	midDecorToolbarSetEmbeddedTabView                     jni.MethodID
+	midDecorToolbarHasEmbeddedTabs                        jni.MethodID
+	midDecorToolbarIsTitleTruncated                       jni.MethodID
+	midDecorToolbarSetCollapsible                         jni.MethodID
+	midDecorToolbarSetHomeButtonEnabled                   jni.MethodID
+	midDecorToolbarGetNavigationMode                      jni.MethodID
+	midDecorToolbarSetNavigationMode                      jni.MethodID
+	midDecorToolbarSetDropdownParams                      jni.MethodID
+	midDecorToolbarSetDropdownSelectedPosition            jni.MethodID
+	midDecorToolbarGetDropdownSelectedPosition            jni.MethodID
+	midDecorToolbarGetDropdownItemCount                   jni.MethodID
+	midDecorToolbarSetCustomView                          jni.MethodID
+	midDecorToolbarGetCustomView                          jni.MethodID
+	midDecorToolbarAnimateToVisibility                    jni.MethodID
+	midDecorToolbarSetupAnimatorToVisibility              jni.MethodID
+	midDecorToolbarSetNavigationIcon1                     jni.MethodID
+	midDecorToolbarSetNavigationIcon1_1                   jni.MethodID
+	midDecorToolbarSetNavigationContentDescription1       jni.MethodID
+	midDecorToolbarSetNavigationContentDescription1_1     jni.MethodID
+	midDecorToolbarSetDefaultNavigationContentDescription jni.MethodID
+	midDecorToolbarSetDefaultNavigationIcon               jni.MethodID
+	midDecorToolbarSetBackgroundDrawable                  jni.MethodID
+	midDecorToolbarGetHeight                              jni.MethodID
+	midDecorToolbarSetVisibility                          jni.MethodID
+	midDecorToolbarGetVisibility                          jni.MethodID
+	midDecorToolbarSetMenuCallbacks                       jni.MethodID
+	midDecorToolbarGetMenu                                jni.MethodID
+	midDecorToolbarToString                               jni.MethodID
+
+	clsSearchViewInspectionCompanion               *jni.GlobalRef
+	midSearchViewInspectionCompanionCtor           jni.MethodID
+	midSearchViewInspectionCompanionMapProperties  jni.MethodID
+	midSearchViewInspectionCompanionReadProperties jni.MethodID
+	midSearchViewInspectionCompanionToString       jni.MethodID
 
 	clsSearchViewOnCloseListener         *jni.GlobalRef
 	midSearchViewOnCloseListenerOnClose  jni.MethodID
@@ -232,6 +202,7 @@ var (
 	midSearchViewOnSuggestionListenerToString           jni.MethodID
 
 	clsSearchViewSearchAutoComplete                        *jni.GlobalRef
+	midSearchViewSearchAutoCompleteCtor                    jni.MethodID
 	midSearchViewSearchAutoCompleteSetThreshold            jni.MethodID
 	midSearchViewSearchAutoCompletePerformCompletion       jni.MethodID
 	midSearchViewSearchAutoCompleteOnWindowFocusChanged    jni.MethodID
@@ -239,29 +210,6 @@ var (
 	midSearchViewSearchAutoCompleteOnKeyPreIme             jni.MethodID
 	midSearchViewSearchAutoCompleteOnCreateInputConnection jni.MethodID
 	midSearchViewSearchAutoCompleteToString                jni.MethodID
-
-	clsViewUtils                              *jni.GlobalRef
-	midViewUtilsToString                      jni.MethodID
-	midViewUtilsIsLayoutRtl                   jni.MethodID
-	midViewUtilsComputeFitSystemWindows       jni.MethodID
-	midViewUtilsMakeOptionalFitsSystemWindows jni.MethodID
-
-	clsMenuItemHoverListener                 *jni.GlobalRef
-	midMenuItemHoverListenerOnItemHoverExit  jni.MethodID
-	midMenuItemHoverListenerOnItemHoverEnter jni.MethodID
-	midMenuItemHoverListenerToString         jni.MethodID
-
-	clsAppCompatDrawableManager         *jni.GlobalRef
-	midAppCompatDrawableManagerCtor     jni.MethodID
-	midAppCompatDrawableManagerToString jni.MethodID
-
-	clsDialogTitle         *jni.GlobalRef
-	midDialogTitleCtor     jni.MethodID
-	midDialogTitleToString jni.MethodID
-
-	clsResourceManagerInternal         *jni.GlobalRef
-	midResourceManagerInternalCtor     jni.MethodID
-	midResourceManagerInternalToString jni.MethodID
 
 	clsSwitchCompat                                     *jni.GlobalRef
 	midSwitchCompatCtor                                 jni.MethodID
@@ -313,57 +261,118 @@ var (
 	midSwitchCompatSetAllCaps                           jni.MethodID
 	midSwitchCompatSetFilters                           jni.MethodID
 	midSwitchCompatSetEmojiCompatEnabled                jni.MethodID
-	midSwitchCompatIsEmojiCompatEnabled                 jni.MethodID
 	midSwitchCompatToString                             jni.MethodID
+	midSwitchCompatIsEmojiCompatEnabled                 jni.MethodID
 
-	clsTooltipCompat               *jni.GlobalRef
-	midTooltipCompatToString       jni.MethodID
-	midTooltipCompatSetTooltipText jni.MethodID
+	clsSwitchCompatInspectionCompanion               *jni.GlobalRef
+	midSwitchCompatInspectionCompanionCtor           jni.MethodID
+	midSwitchCompatInspectionCompanionMapProperties  jni.MethodID
+	midSwitchCompatInspectionCompanionReadProperties jni.MethodID
+	midSwitchCompatInspectionCompanionToString       jni.MethodID
 
-	clsFitWindowsLinearLayout                              *jni.GlobalRef
-	midFitWindowsLinearLayoutCtor                          jni.MethodID
-	midFitWindowsLinearLayoutSetOnFitSystemWindowsListener jni.MethodID
-	midFitWindowsLinearLayoutToString                      jni.MethodID
+	clsAppCompatMultiAutoCompleteTextView                                    *jni.GlobalRef
+	midAppCompatMultiAutoCompleteTextViewCtor                                jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewSetDropDownBackgroundResource       jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewSetBackgroundResource               jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewSetBackgroundDrawable               jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewSetSupportBackgroundTintList        jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewGetSupportBackgroundTintList        jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewSetSupportBackgroundTintMode        jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewGetSupportBackgroundTintMode        jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewSetTextAppearance                   jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewOnCreateInputConnection             jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewSetKeyListener                      jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewSetEmojiCompatEnabled               jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewIsEmojiCompatEnabled                jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewSetCompoundDrawables                jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewSetCompoundDrawablesRelative        jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewGetSupportCompoundDrawablesTintList jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewSetSupportCompoundDrawablesTintList jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewGetSupportCompoundDrawablesTintMode jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewToString                            jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewSetSupportCompoundDrawablesTintMode jni.MethodID
 
-	clsSwitchCompatInspectionCompanion                  *jni.GlobalRef
-	midSwitchCompatInspectionCompanionMapProperties     jni.MethodID
-	midSwitchCompatInspectionCompanionReadProperties2   jni.MethodID
-	midSwitchCompatInspectionCompanionReadProperties2_1 jni.MethodID
-	midSwitchCompatInspectionCompanionToString          jni.MethodID
+	clsAppCompatMultiAutoCompleteTextViewInspectionCompanion               *jni.GlobalRef
+	midAppCompatMultiAutoCompleteTextViewInspectionCompanionCtor           jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewInspectionCompanionMapProperties  jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewInspectionCompanionReadProperties jni.MethodID
+	midAppCompatMultiAutoCompleteTextViewInspectionCompanionToString       jni.MethodID
 
-	clsAppCompatCheckBox                                    *jni.GlobalRef
-	midAppCompatCheckBoxCtor                                jni.MethodID
-	midAppCompatCheckBoxSetButtonDrawable1                  jni.MethodID
-	midAppCompatCheckBoxSetButtonDrawable1_1                jni.MethodID
-	midAppCompatCheckBoxSetSupportButtonTintList            jni.MethodID
-	midAppCompatCheckBoxGetSupportButtonTintList            jni.MethodID
-	midAppCompatCheckBoxSetSupportButtonTintMode            jni.MethodID
-	midAppCompatCheckBoxGetSupportButtonTintMode            jni.MethodID
-	midAppCompatCheckBoxSetSupportBackgroundTintList        jni.MethodID
-	midAppCompatCheckBoxGetSupportBackgroundTintList        jni.MethodID
-	midAppCompatCheckBoxSetSupportBackgroundTintMode        jni.MethodID
-	midAppCompatCheckBoxGetSupportBackgroundTintMode        jni.MethodID
-	midAppCompatCheckBoxSetBackgroundDrawable               jni.MethodID
-	midAppCompatCheckBoxSetBackgroundResource               jni.MethodID
-	midAppCompatCheckBoxSetFilters                          jni.MethodID
-	midAppCompatCheckBoxSetAllCaps                          jni.MethodID
-	midAppCompatCheckBoxSetEmojiCompatEnabled               jni.MethodID
-	midAppCompatCheckBoxIsEmojiCompatEnabled                jni.MethodID
-	midAppCompatCheckBoxSetCompoundDrawables                jni.MethodID
-	midAppCompatCheckBoxSetCompoundDrawablesRelative        jni.MethodID
-	midAppCompatCheckBoxGetSupportCompoundDrawablesTintList jni.MethodID
-	midAppCompatCheckBoxSetSupportCompoundDrawablesTintList jni.MethodID
-	midAppCompatCheckBoxGetSupportCompoundDrawablesTintMode jni.MethodID
-	midAppCompatCheckBoxSetSupportCompoundDrawablesTintMode jni.MethodID
-	midAppCompatCheckBoxToString                            jni.MethodID
+	clsThemeUtils                           *jni.GlobalRef
+	midThemeUtilsToString                   jni.MethodID
+	midThemeUtilsCreateDisabledStateList    jni.MethodID
+	midThemeUtilsGetThemeAttrColor          jni.MethodID
+	midThemeUtilsGetThemeAttrColorStateList jni.MethodID
+	midThemeUtilsGetDisabledThemeAttrColor  jni.MethodID
+	midThemeUtilsCheckAppCompatTheme        jni.MethodID
 
-	clsResourceManagerInternalResourceManagerHooks                             *jni.GlobalRef
-	midResourceManagerInternalResourceManagerHooksCreateDrawableFor            jni.MethodID
-	midResourceManagerInternalResourceManagerHooksTintDrawable                 jni.MethodID
-	midResourceManagerInternalResourceManagerHooksGetTintListForDrawableRes    jni.MethodID
-	midResourceManagerInternalResourceManagerHooksTintDrawableUsingColorFilter jni.MethodID
-	midResourceManagerInternalResourceManagerHooksGetTintModeForDrawableRes    jni.MethodID
-	midResourceManagerInternalResourceManagerHooksToString                     jni.MethodID
+	clsWithHint         *jni.GlobalRef
+	midWithHintGetHint  jni.MethodID
+	midWithHintToString jni.MethodID
+
+	clsAppCompatImageButton                             *jni.GlobalRef
+	midAppCompatImageButtonCtor                         jni.MethodID
+	midAppCompatImageButtonSetImageResource             jni.MethodID
+	midAppCompatImageButtonSetImageDrawable             jni.MethodID
+	midAppCompatImageButtonSetImageBitmap               jni.MethodID
+	midAppCompatImageButtonSetImageURI                  jni.MethodID
+	midAppCompatImageButtonSetBackgroundResource        jni.MethodID
+	midAppCompatImageButtonSetBackgroundDrawable        jni.MethodID
+	midAppCompatImageButtonSetSupportBackgroundTintList jni.MethodID
+	midAppCompatImageButtonGetSupportBackgroundTintList jni.MethodID
+	midAppCompatImageButtonSetSupportBackgroundTintMode jni.MethodID
+	midAppCompatImageButtonGetSupportBackgroundTintMode jni.MethodID
+	midAppCompatImageButtonSetSupportImageTintList      jni.MethodID
+	midAppCompatImageButtonGetSupportImageTintList      jni.MethodID
+	midAppCompatImageButtonSetSupportImageTintMode      jni.MethodID
+	midAppCompatImageButtonGetSupportImageTintMode      jni.MethodID
+	midAppCompatImageButtonHasOverlappingRendering      jni.MethodID
+	midAppCompatImageButtonSetImageLevel                jni.MethodID
+	midAppCompatImageButtonToString                     jni.MethodID
+
+	clsMenuItemHoverListener                 *jni.GlobalRef
+	midMenuItemHoverListenerOnItemHoverExit  jni.MethodID
+	midMenuItemHoverListenerOnItemHoverEnter jni.MethodID
+	midMenuItemHoverListenerToString         jni.MethodID
+
+	clsAppCompatImageButtonInspectionCompanion               *jni.GlobalRef
+	midAppCompatImageButtonInspectionCompanionCtor           jni.MethodID
+	midAppCompatImageButtonInspectionCompanionMapProperties  jni.MethodID
+	midAppCompatImageButtonInspectionCompanionReadProperties jni.MethodID
+	midAppCompatImageButtonInspectionCompanionToString       jni.MethodID
+
+	clsFitWindowsViewGroup                              *jni.GlobalRef
+	midFitWindowsViewGroupSetOnFitSystemWindowsListener jni.MethodID
+	midFitWindowsViewGroupToString                      jni.MethodID
+
+	clsFitWindowsViewGroupOnFitSystemWindowsListener                   *jni.GlobalRef
+	midFitWindowsViewGroupOnFitSystemWindowsListenerOnFitSystemWindows jni.MethodID
+	midFitWindowsViewGroupOnFitSystemWindowsListenerToString           jni.MethodID
+
+	clsDecorContentParent                          *jni.GlobalRef
+	midDecorContentParentSetWindowCallback         jni.MethodID
+	midDecorContentParentSetWindowTitle            jni.MethodID
+	midDecorContentParentGetTitle                  jni.MethodID
+	midDecorContentParentInitFeature               jni.MethodID
+	midDecorContentParentSetUiOptions              jni.MethodID
+	midDecorContentParentHasIcon                   jni.MethodID
+	midDecorContentParentHasLogo                   jni.MethodID
+	midDecorContentParentSetIcon1                  jni.MethodID
+	midDecorContentParentSetIcon1_1                jni.MethodID
+	midDecorContentParentSetLogo                   jni.MethodID
+	midDecorContentParentCanShowOverflowMenu       jni.MethodID
+	midDecorContentParentIsOverflowMenuShowing     jni.MethodID
+	midDecorContentParentIsOverflowMenuShowPending jni.MethodID
+	midDecorContentParentShowOverflowMenu          jni.MethodID
+	midDecorContentParentHideOverflowMenu          jni.MethodID
+	midDecorContentParentSetMenuPrepared           jni.MethodID
+	midDecorContentParentSetMenu                   jni.MethodID
+	midDecorContentParentDismissPopups             jni.MethodID
+	midDecorContentParentToString                  jni.MethodID
+
+	clsAlertDialogLayout         *jni.GlobalRef
+	midAlertDialogLayoutCtor     jni.MethodID
+	midAlertDialogLayoutToString jni.MethodID
 
 	clsActionBarOverlayLayout                                  *jni.GlobalRef
 	midActionBarOverlayLayoutCtor                              jni.MethodID
@@ -374,7 +383,7 @@ var (
 	midActionBarOverlayLayoutSetShowingForActionMode           jni.MethodID
 	midActionBarOverlayLayoutOnWindowSystemUiVisibilityChanged jni.MethodID
 	midActionBarOverlayLayoutOnApplyWindowInsets               jni.MethodID
-	midActionBarOverlayLayoutGenerateLayoutParams1             jni.MethodID
+	midActionBarOverlayLayoutGenerateLayoutParams              jni.MethodID
 	midActionBarOverlayLayoutDraw                              jni.MethodID
 	midActionBarOverlayLayoutShouldDelayChildPressedState      jni.MethodID
 	midActionBarOverlayLayoutOnNestedScroll7                   jni.MethodID
@@ -413,35 +422,35 @@ var (
 	midActionBarOverlayLayoutSetMenuPrepared                   jni.MethodID
 	midActionBarOverlayLayoutSetMenu                           jni.MethodID
 	midActionBarOverlayLayoutDismissPopups                     jni.MethodID
-	midActionBarOverlayLayoutGenerateLayoutParams1_1           jni.MethodID
 	midActionBarOverlayLayoutToString                          jni.MethodID
 
-	clsAppCompatCheckBoxInspectionCompanion                  *jni.GlobalRef
-	midAppCompatCheckBoxInspectionCompanionMapProperties     jni.MethodID
-	midAppCompatCheckBoxInspectionCompanionReadProperties2   jni.MethodID
-	midAppCompatCheckBoxInspectionCompanionReadProperties2_1 jni.MethodID
-	midAppCompatCheckBoxInspectionCompanionToString          jni.MethodID
+	clsDialogTitle         *jni.GlobalRef
+	midDialogTitleCtor     jni.MethodID
+	midDialogTitleToString jni.MethodID
 
-	clsDecorContentParent                          *jni.GlobalRef
-	midDecorContentParentSetWindowCallback         jni.MethodID
-	midDecorContentParentSetWindowTitle            jni.MethodID
-	midDecorContentParentGetTitle                  jni.MethodID
-	midDecorContentParentInitFeature               jni.MethodID
-	midDecorContentParentSetUiOptions              jni.MethodID
-	midDecorContentParentHasIcon                   jni.MethodID
-	midDecorContentParentHasLogo                   jni.MethodID
-	midDecorContentParentSetIcon1                  jni.MethodID
-	midDecorContentParentSetIcon1_1                jni.MethodID
-	midDecorContentParentSetLogo                   jni.MethodID
-	midDecorContentParentCanShowOverflowMenu       jni.MethodID
-	midDecorContentParentIsOverflowMenuShowing     jni.MethodID
-	midDecorContentParentIsOverflowMenuShowPending jni.MethodID
-	midDecorContentParentShowOverflowMenu          jni.MethodID
-	midDecorContentParentHideOverflowMenu          jni.MethodID
-	midDecorContentParentSetMenuPrepared           jni.MethodID
-	midDecorContentParentSetMenu                   jni.MethodID
-	midDecorContentParentDismissPopups             jni.MethodID
-	midDecorContentParentToString                  jni.MethodID
+	clsAppCompatAutoCompleteTextView                                     *jni.GlobalRef
+	midAppCompatAutoCompleteTextViewCtor                                 jni.MethodID
+	midAppCompatAutoCompleteTextViewSetDropDownBackgroundResource        jni.MethodID
+	midAppCompatAutoCompleteTextViewSetBackgroundResource                jni.MethodID
+	midAppCompatAutoCompleteTextViewSetBackgroundDrawable                jni.MethodID
+	midAppCompatAutoCompleteTextViewSetSupportBackgroundTintList         jni.MethodID
+	midAppCompatAutoCompleteTextViewGetSupportBackgroundTintList         jni.MethodID
+	midAppCompatAutoCompleteTextViewSetSupportBackgroundTintMode         jni.MethodID
+	midAppCompatAutoCompleteTextViewGetSupportBackgroundTintMode         jni.MethodID
+	midAppCompatAutoCompleteTextViewSetTextAppearance                    jni.MethodID
+	midAppCompatAutoCompleteTextViewOnCreateInputConnection              jni.MethodID
+	midAppCompatAutoCompleteTextViewSetCustomSelectionActionModeCallback jni.MethodID
+	midAppCompatAutoCompleteTextViewGetCustomSelectionActionModeCallback jni.MethodID
+	midAppCompatAutoCompleteTextViewSetKeyListener                       jni.MethodID
+	midAppCompatAutoCompleteTextViewSetEmojiCompatEnabled                jni.MethodID
+	midAppCompatAutoCompleteTextViewIsEmojiCompatEnabled                 jni.MethodID
+	midAppCompatAutoCompleteTextViewSetCompoundDrawables                 jni.MethodID
+	midAppCompatAutoCompleteTextViewSetCompoundDrawablesRelative         jni.MethodID
+	midAppCompatAutoCompleteTextViewGetSupportCompoundDrawablesTintList  jni.MethodID
+	midAppCompatAutoCompleteTextViewSetSupportCompoundDrawablesTintList  jni.MethodID
+	midAppCompatAutoCompleteTextViewGetSupportCompoundDrawablesTintMode  jni.MethodID
+	midAppCompatAutoCompleteTextViewToString                             jni.MethodID
+	midAppCompatAutoCompleteTextViewSetSupportCompoundDrawablesTintMode  jni.MethodID
 
 	clsActionBarOverlayLayoutActionBarVisibilityCallback                          *jni.GlobalRef
 	midActionBarOverlayLayoutActionBarVisibilityCallbackOnWindowVisibilityChanged jni.MethodID
@@ -452,78 +461,49 @@ var (
 	midActionBarOverlayLayoutActionBarVisibilityCallbackOnContentScrollStopped    jni.MethodID
 	midActionBarOverlayLayoutActionBarVisibilityCallbackToString                  jni.MethodID
 
+	clsAppCompatAutoCompleteTextViewInspectionCompanion               *jni.GlobalRef
+	midAppCompatAutoCompleteTextViewInspectionCompanionCtor           jni.MethodID
+	midAppCompatAutoCompleteTextViewInspectionCompanionMapProperties  jni.MethodID
+	midAppCompatAutoCompleteTextViewInspectionCompanionReadProperties jni.MethodID
+	midAppCompatAutoCompleteTextViewInspectionCompanionToString       jni.MethodID
+
 	clsActionBarOverlayLayoutLayoutParams         *jni.GlobalRef
+	midActionBarOverlayLayoutLayoutParamsCtor     jni.MethodID
 	midActionBarOverlayLayoutLayoutParamsToString jni.MethodID
 
-	clsActionBarContainer                            *jni.GlobalRef
-	midActionBarContainerCtor                        jni.MethodID
-	midActionBarContainerOnFinishInflate             jni.MethodID
-	midActionBarContainerSetPrimaryBackground        jni.MethodID
-	midActionBarContainerSetStackedBackground        jni.MethodID
-	midActionBarContainerSetSplitBackground          jni.MethodID
-	midActionBarContainerSetVisibility               jni.MethodID
-	midActionBarContainerJumpDrawablesToCurrentState jni.MethodID
-	midActionBarContainerSetTransitioning            jni.MethodID
-	midActionBarContainerOnInterceptTouchEvent       jni.MethodID
-	midActionBarContainerOnTouchEvent                jni.MethodID
-	midActionBarContainerOnHoverEvent                jni.MethodID
-	midActionBarContainerSetTabContainer             jni.MethodID
-	midActionBarContainerGetTabContainer             jni.MethodID
-	midActionBarContainerStartActionModeForChild2    jni.MethodID
-	midActionBarContainerStartActionModeForChild3_1  jni.MethodID
-	midActionBarContainerOnMeasure                   jni.MethodID
-	midActionBarContainerOnLayout                    jni.MethodID
-	midActionBarContainerToString                    jni.MethodID
+	clsAppCompatImageView                             *jni.GlobalRef
+	midAppCompatImageViewCtor                         jni.MethodID
+	midAppCompatImageViewSetImageResource             jni.MethodID
+	midAppCompatImageViewSetImageDrawable             jni.MethodID
+	midAppCompatImageViewSetImageBitmap               jni.MethodID
+	midAppCompatImageViewSetImageURI                  jni.MethodID
+	midAppCompatImageViewSetBackgroundResource        jni.MethodID
+	midAppCompatImageViewSetBackgroundDrawable        jni.MethodID
+	midAppCompatImageViewSetSupportBackgroundTintList jni.MethodID
+	midAppCompatImageViewGetSupportBackgroundTintList jni.MethodID
+	midAppCompatImageViewSetSupportBackgroundTintMode jni.MethodID
+	midAppCompatImageViewGetSupportBackgroundTintMode jni.MethodID
+	midAppCompatImageViewSetSupportImageTintList      jni.MethodID
+	midAppCompatImageViewGetSupportImageTintList      jni.MethodID
+	midAppCompatImageViewSetSupportImageTintMode      jni.MethodID
+	midAppCompatImageViewGetSupportImageTintMode      jni.MethodID
+	midAppCompatImageViewHasOverlappingRendering      jni.MethodID
+	midAppCompatImageViewSetImageLevel                jni.MethodID
+	midAppCompatImageViewToString                     jni.MethodID
 
-	clsFitWindowsViewGroup                              *jni.GlobalRef
-	midFitWindowsViewGroupSetOnFitSystemWindowsListener jni.MethodID
-	midFitWindowsViewGroupToString                      jni.MethodID
+	clsAppCompatImageViewInspectionCompanion               *jni.GlobalRef
+	midAppCompatImageViewInspectionCompanionCtor           jni.MethodID
+	midAppCompatImageViewInspectionCompanionMapProperties  jni.MethodID
+	midAppCompatImageViewInspectionCompanionReadProperties jni.MethodID
+	midAppCompatImageViewInspectionCompanionToString       jni.MethodID
 
-	clsFitWindowsViewGroupOnFitSystemWindowsListener                   *jni.GlobalRef
-	midFitWindowsViewGroupOnFitSystemWindowsListenerOnFitSystemWindows jni.MethodID
-	midFitWindowsViewGroupOnFitSystemWindowsListenerToString           jni.MethodID
-
-	clsEmojiCompatConfigurationView                      *jni.GlobalRef
-	midEmojiCompatConfigurationViewSetEmojiCompatEnabled jni.MethodID
-	midEmojiCompatConfigurationViewIsEmojiCompatEnabled  jni.MethodID
-	midEmojiCompatConfigurationViewToString              jni.MethodID
-
-	clsTintInfo         *jni.GlobalRef
-	midTintInfoCtor     jni.MethodID
-	midTintInfoToString jni.MethodID
-
-	clsAppCompatButton                                            *jni.GlobalRef
-	midAppCompatButtonCtor                                        jni.MethodID
-	midAppCompatButtonSetBackgroundResource                       jni.MethodID
-	midAppCompatButtonSetBackgroundDrawable                       jni.MethodID
-	midAppCompatButtonSetSupportBackgroundTintList                jni.MethodID
-	midAppCompatButtonGetSupportBackgroundTintList                jni.MethodID
-	midAppCompatButtonSetSupportBackgroundTintMode                jni.MethodID
-	midAppCompatButtonGetSupportBackgroundTintMode                jni.MethodID
-	midAppCompatButtonSetTextAppearance                           jni.MethodID
-	midAppCompatButtonOnInitializeAccessibilityEvent              jni.MethodID
-	midAppCompatButtonOnInitializeAccessibilityNodeInfo           jni.MethodID
-	midAppCompatButtonSetTextSize                                 jni.MethodID
-	midAppCompatButtonSetAutoSizeTextTypeWithDefaults             jni.MethodID
-	midAppCompatButtonSetAutoSizeTextTypeUniformWithConfiguration jni.MethodID
-	midAppCompatButtonSetAutoSizeTextTypeUniformWithPresetSizes   jni.MethodID
-	midAppCompatButtonGetAutoSizeTextType                         jni.MethodID
-	midAppCompatButtonGetAutoSizeStepGranularity                  jni.MethodID
-	midAppCompatButtonGetAutoSizeMinTextSize                      jni.MethodID
-	midAppCompatButtonGetAutoSizeMaxTextSize                      jni.MethodID
-	midAppCompatButtonGetAutoSizeTextAvailableSizes               jni.MethodID
-	midAppCompatButtonSetSupportAllCaps                           jni.MethodID
-	midAppCompatButtonSetCustomSelectionActionModeCallback        jni.MethodID
-	midAppCompatButtonGetCustomSelectionActionModeCallback        jni.MethodID
-	midAppCompatButtonSetSupportCompoundDrawablesTintList         jni.MethodID
-	midAppCompatButtonGetSupportCompoundDrawablesTintList         jni.MethodID
-	midAppCompatButtonSetSupportCompoundDrawablesTintMode         jni.MethodID
-	midAppCompatButtonGetSupportCompoundDrawablesTintMode         jni.MethodID
-	midAppCompatButtonSetFilters                                  jni.MethodID
-	midAppCompatButtonSetAllCaps                                  jni.MethodID
-	midAppCompatButtonSetEmojiCompatEnabled                       jni.MethodID
-	midAppCompatButtonIsEmojiCompatEnabled                        jni.MethodID
-	midAppCompatButtonToString                                    jni.MethodID
+	clsVectorEnabledTintResources                                    *jni.GlobalRef
+	midVectorEnabledTintResourcesCtor                                jni.MethodID
+	midVectorEnabledTintResourcesGetDrawable                         jni.MethodID
+	midVectorEnabledTintResourcesToString                            jni.MethodID
+	midVectorEnabledTintResourcesShouldBeUsed                        jni.MethodID
+	midVectorEnabledTintResourcesSetCompatVectorFromResourcesEnabled jni.MethodID
+	midVectorEnabledTintResourcesIsCompatVectorFromResourcesEnabled  jni.MethodID
 
 	clsScrollingTabContainerView                     *jni.GlobalRef
 	midScrollingTabContainerViewCtor                 jni.MethodID
@@ -542,12 +522,6 @@ var (
 	midScrollingTabContainerViewRemoveAllTabs        jni.MethodID
 	midScrollingTabContainerViewToString             jni.MethodID
 
-	clsAppCompatButtonInspectionCompanion                  *jni.GlobalRef
-	midAppCompatButtonInspectionCompanionMapProperties     jni.MethodID
-	midAppCompatButtonInspectionCompanionReadProperties2   jni.MethodID
-	midAppCompatButtonInspectionCompanionReadProperties2_1 jni.MethodID
-	midAppCompatButtonInspectionCompanionToString          jni.MethodID
-
 	clsScrollingTabContainerViewVisibilityAnimListener                    *jni.GlobalRef
 	midScrollingTabContainerViewVisibilityAnimListenerWithFinalVisibility jni.MethodID
 	midScrollingTabContainerViewVisibilityAnimListenerOnAnimationStart    jni.MethodID
@@ -555,192 +529,9 @@ var (
 	midScrollingTabContainerViewVisibilityAnimListenerOnAnimationCancel   jni.MethodID
 	midScrollingTabContainerViewVisibilityAnimListenerToString            jni.MethodID
 
-	clsAlertDialogLayout         *jni.GlobalRef
-	midAlertDialogLayoutCtor     jni.MethodID
-	midAlertDialogLayoutToString jni.MethodID
-
-	clsFitWindowsFrameLayout                              *jni.GlobalRef
-	midFitWindowsFrameLayoutCtor                          jni.MethodID
-	midFitWindowsFrameLayoutSetOnFitSystemWindowsListener jni.MethodID
-	midFitWindowsFrameLayoutToString                      jni.MethodID
-
-	clsShareActionProvider                                 *jni.GlobalRef
-	midShareActionProviderCtor                             jni.MethodID
-	midShareActionProviderSetOnShareTargetSelectedListener jni.MethodID
-	midShareActionProviderOnCreateActionView               jni.MethodID
-	midShareActionProviderHasSubMenu                       jni.MethodID
-	midShareActionProviderOnPrepareSubMenu                 jni.MethodID
-	midShareActionProviderSetShareHistoryFileName          jni.MethodID
-	midShareActionProviderSetShareIntent                   jni.MethodID
-	midShareActionProviderToString                         jni.MethodID
-
-	clsShareActionProviderOnShareTargetSelectedListener                      *jni.GlobalRef
-	midShareActionProviderOnShareTargetSelectedListenerOnShareTargetSelected jni.MethodID
-	midShareActionProviderOnShareTargetSelectedListenerToString              jni.MethodID
-
-	clsAppCompatSeekBar                            *jni.GlobalRef
-	midAppCompatSeekBarCtor                        jni.MethodID
-	midAppCompatSeekBarJumpDrawablesToCurrentState jni.MethodID
-	midAppCompatSeekBarToString                    jni.MethodID
-
-	clsTintContextWrapper             *jni.GlobalRef
-	midTintContextWrapperGetTheme     jni.MethodID
-	midTintContextWrapperSetTheme     jni.MethodID
-	midTintContextWrapperGetResources jni.MethodID
-	midTintContextWrapperGetAssets    jni.MethodID
-	midTintContextWrapperToString     jni.MethodID
-	midTintContextWrapperWrap         jni.MethodID
-
-	clsLinearLayoutCompat                                  *jni.GlobalRef
-	midLinearLayoutCompatCtor                              jni.MethodID
-	midLinearLayoutCompatSetShowDividers                   jni.MethodID
-	midLinearLayoutCompatShouldDelayChildPressedState      jni.MethodID
-	midLinearLayoutCompatGetShowDividers                   jni.MethodID
-	midLinearLayoutCompatGetDividerDrawable                jni.MethodID
-	midLinearLayoutCompatSetDividerDrawable                jni.MethodID
-	midLinearLayoutCompatSetDividerPadding                 jni.MethodID
-	midLinearLayoutCompatGetDividerPadding                 jni.MethodID
-	midLinearLayoutCompatGetDividerWidth                   jni.MethodID
-	midLinearLayoutCompatIsBaselineAligned                 jni.MethodID
-	midLinearLayoutCompatSetBaselineAligned                jni.MethodID
-	midLinearLayoutCompatIsMeasureWithLargestChildEnabled  jni.MethodID
-	midLinearLayoutCompatSetMeasureWithLargestChildEnabled jni.MethodID
-	midLinearLayoutCompatGetBaseline                       jni.MethodID
-	midLinearLayoutCompatGetBaselineAlignedChildIndex      jni.MethodID
-	midLinearLayoutCompatSetBaselineAlignedChildIndex      jni.MethodID
-	midLinearLayoutCompatGetWeightSum                      jni.MethodID
-	midLinearLayoutCompatSetWeightSum                      jni.MethodID
-	midLinearLayoutCompatSetOrientation                    jni.MethodID
-	midLinearLayoutCompatGetOrientation                    jni.MethodID
-	midLinearLayoutCompatSetGravity                        jni.MethodID
-	midLinearLayoutCompatGetGravity                        jni.MethodID
-	midLinearLayoutCompatSetHorizontalGravity              jni.MethodID
-	midLinearLayoutCompatSetVerticalGravity                jni.MethodID
-	midLinearLayoutCompatGenerateLayoutParams1             jni.MethodID
-	midLinearLayoutCompatOnInitializeAccessibilityEvent    jni.MethodID
-	midLinearLayoutCompatOnInitializeAccessibilityNodeInfo jni.MethodID
-	midLinearLayoutCompatGenerateLayoutParams1_1           jni.MethodID
-	midLinearLayoutCompatToString                          jni.MethodID
-
-	clsLinearLayoutCompatDividerMode         *jni.GlobalRef
-	midLinearLayoutCompatDividerModeToString jni.MethodID
-
-	clsLinearLayoutCompatInspectionCompanion                  *jni.GlobalRef
-	midLinearLayoutCompatInspectionCompanionMapProperties     jni.MethodID
-	midLinearLayoutCompatInspectionCompanionReadProperties2   jni.MethodID
-	midLinearLayoutCompatInspectionCompanionReadProperties2_1 jni.MethodID
-	midLinearLayoutCompatInspectionCompanionToString          jni.MethodID
-
-	clsTintTypedArray                          *jni.GlobalRef
-	midTintTypedArrayGetWrappedTypeArray       jni.MethodID
-	midTintTypedArrayGetDrawable               jni.MethodID
-	midTintTypedArrayGetDrawableIfKnown        jni.MethodID
-	midTintTypedArrayGetFont                   jni.MethodID
-	midTintTypedArrayLength                    jni.MethodID
-	midTintTypedArrayGetIndexCount             jni.MethodID
-	midTintTypedArrayGetIndex                  jni.MethodID
-	midTintTypedArrayGetResources              jni.MethodID
-	midTintTypedArrayGetText                   jni.MethodID
-	midTintTypedArrayGetString                 jni.MethodID
-	midTintTypedArrayGetNonResourceString      jni.MethodID
-	midTintTypedArrayGetBoolean                jni.MethodID
-	midTintTypedArrayGetInt                    jni.MethodID
-	midTintTypedArrayGetFloat                  jni.MethodID
-	midTintTypedArrayGetColor                  jni.MethodID
-	midTintTypedArrayGetColorStateList         jni.MethodID
-	midTintTypedArrayGetInteger                jni.MethodID
-	midTintTypedArrayGetDimension              jni.MethodID
-	midTintTypedArrayGetDimensionPixelOffset   jni.MethodID
-	midTintTypedArrayGetDimensionPixelSize     jni.MethodID
-	midTintTypedArrayGetLayoutDimension2       jni.MethodID
-	midTintTypedArrayGetLayoutDimension2_1     jni.MethodID
-	midTintTypedArrayGetFraction               jni.MethodID
-	midTintTypedArrayGetResourceId             jni.MethodID
-	midTintTypedArrayGetTextArray              jni.MethodID
-	midTintTypedArrayGetValue                  jni.MethodID
-	midTintTypedArrayGetType                   jni.MethodID
-	midTintTypedArrayHasValue                  jni.MethodID
-	midTintTypedArrayPeekValue                 jni.MethodID
-	midTintTypedArrayGetPositionDescription    jni.MethodID
-	midTintTypedArrayRecycle                   jni.MethodID
-	midTintTypedArrayGetChangingConfigurations jni.MethodID
-	midTintTypedArrayToString                  jni.MethodID
-	midTintTypedArrayObtainStyledAttributes3   jni.MethodID
-	midTintTypedArrayObtainStyledAttributes5_1 jni.MethodID
-	midTintTypedArrayObtainStyledAttributes3_2 jni.MethodID
-
-	clsLinearLayoutCompatLayoutParams         *jni.GlobalRef
-	midLinearLayoutCompatLayoutParamsToString jni.MethodID
-
-	clsActionMenuView                                   *jni.GlobalRef
-	midActionMenuViewCtor                               jni.MethodID
-	midActionMenuViewSetPopupTheme                      jni.MethodID
-	midActionMenuViewGetPopupTheme                      jni.MethodID
-	midActionMenuViewSetPresenter                       jni.MethodID
-	midActionMenuViewOnConfigurationChanged             jni.MethodID
-	midActionMenuViewSetOnMenuItemClickListener         jni.MethodID
-	midActionMenuViewOnDetachedFromWindow               jni.MethodID
-	midActionMenuViewSetOverflowIcon                    jni.MethodID
-	midActionMenuViewGetOverflowIcon                    jni.MethodID
-	midActionMenuViewIsOverflowReserved                 jni.MethodID
-	midActionMenuViewSetOverflowReserved                jni.MethodID
-	midActionMenuViewGenerateLayoutParams1              jni.MethodID
-	midActionMenuViewGenerateOverflowButtonLayoutParams jni.MethodID
-	midActionMenuViewInvokeItem                         jni.MethodID
-	midActionMenuViewGetWindowAnimations                jni.MethodID
-	midActionMenuViewInitialize                         jni.MethodID
-	midActionMenuViewGetMenu                            jni.MethodID
-	midActionMenuViewSetMenuCallbacks                   jni.MethodID
-	midActionMenuViewPeekMenu                           jni.MethodID
-	midActionMenuViewShowOverflowMenu                   jni.MethodID
-	midActionMenuViewHideOverflowMenu                   jni.MethodID
-	midActionMenuViewIsOverflowMenuShowing              jni.MethodID
-	midActionMenuViewIsOverflowMenuShowPending          jni.MethodID
-	midActionMenuViewDismissPopupMenus                  jni.MethodID
-	midActionMenuViewDispatchPopulateAccessibilityEvent jni.MethodID
-	midActionMenuViewSetExpandedActionViewsExclusive    jni.MethodID
-	midActionMenuViewGenerateLayoutParams1_1            jni.MethodID
-	midActionMenuViewGenerateLayoutParams1_2            jni.MethodID
-	midActionMenuViewToString                           jni.MethodID
-
-	clsLinearLayoutCompatOrientationMode         *jni.GlobalRef
-	midLinearLayoutCompatOrientationModeToString jni.MethodID
-
-	clsActionMenuViewActionMenuChildView                   *jni.GlobalRef
-	midActionMenuViewActionMenuChildViewNeedsDividerBefore jni.MethodID
-	midActionMenuViewActionMenuChildViewNeedsDividerAfter  jni.MethodID
-	midActionMenuViewActionMenuChildViewToString           jni.MethodID
-
-	clsActionMenuViewLayoutParams         *jni.GlobalRef
-	midActionMenuViewLayoutParamsToString jni.MethodID
-
-	clsActionMenuViewOnMenuItemClickListener                *jni.GlobalRef
-	midActionMenuViewOnMenuItemClickListenerOnMenuItemClick jni.MethodID
-	midActionMenuViewOnMenuItemClickListenerToString        jni.MethodID
-
-	clsWithHint         *jni.GlobalRef
-	midWithHintGetHint  jni.MethodID
-	midWithHintToString jni.MethodID
-
-	clsAppCompatToggleButton                                    *jni.GlobalRef
-	midAppCompatToggleButtonCtor                                jni.MethodID
-	midAppCompatToggleButtonSetBackgroundResource               jni.MethodID
-	midAppCompatToggleButtonSetBackgroundDrawable               jni.MethodID
-	midAppCompatToggleButtonSetSupportBackgroundTintList        jni.MethodID
-	midAppCompatToggleButtonGetSupportBackgroundTintList        jni.MethodID
-	midAppCompatToggleButtonSetSupportBackgroundTintMode        jni.MethodID
-	midAppCompatToggleButtonGetSupportBackgroundTintMode        jni.MethodID
-	midAppCompatToggleButtonSetFilters                          jni.MethodID
-	midAppCompatToggleButtonSetAllCaps                          jni.MethodID
-	midAppCompatToggleButtonSetEmojiCompatEnabled               jni.MethodID
-	midAppCompatToggleButtonIsEmojiCompatEnabled                jni.MethodID
-	midAppCompatToggleButtonSetCompoundDrawables                jni.MethodID
-	midAppCompatToggleButtonSetCompoundDrawablesRelative        jni.MethodID
-	midAppCompatToggleButtonGetSupportCompoundDrawablesTintList jni.MethodID
-	midAppCompatToggleButtonSetSupportCompoundDrawablesTintList jni.MethodID
-	midAppCompatToggleButtonGetSupportCompoundDrawablesTintMode jni.MethodID
-	midAppCompatToggleButtonSetSupportCompoundDrawablesTintMode jni.MethodID
-	midAppCompatToggleButtonToString                            jni.MethodID
+	clsTooltipCompat               *jni.GlobalRef
+	midTooltipCompatToString       jni.MethodID
+	midTooltipCompatSetTooltipText jni.MethodID
 
 	clsToolbar                                   *jni.GlobalRef
 	midToolbarCtor                               jni.MethodID
@@ -820,7 +611,7 @@ var (
 	midToolbarGetCurrentContentInsetRight        jni.MethodID
 	midToolbarOnTouchEvent                       jni.MethodID
 	midToolbarOnHoverEvent                       jni.MethodID
-	midToolbarGenerateLayoutParams1              jni.MethodID
+	midToolbarGenerateLayoutParams               jni.MethodID
 	midToolbarGetWrapper                         jni.MethodID
 	midToolbarSetCollapsible                     jni.MethodID
 	midToolbarSetMenuCallbacks                   jni.MethodID
@@ -829,60 +620,326 @@ var (
 	midToolbarAddMenuProvider3_2                 jni.MethodID
 	midToolbarRemoveMenuProvider                 jni.MethodID
 	midToolbarInvalidateMenu                     jni.MethodID
-	midToolbarGenerateLayoutParams1_1            jni.MethodID
 	midToolbarToString                           jni.MethodID
 
-	clsAppCompatToggleButtonInspectionCompanion                  *jni.GlobalRef
-	midAppCompatToggleButtonInspectionCompanionMapProperties     jni.MethodID
-	midAppCompatToggleButtonInspectionCompanionReadProperties2   jni.MethodID
-	midAppCompatToggleButtonInspectionCompanionReadProperties2_1 jni.MethodID
-	midAppCompatToggleButtonInspectionCompanionToString          jni.MethodID
+	clsAppCompatSeekBar                            *jni.GlobalRef
+	midAppCompatSeekBarCtor                        jni.MethodID
+	midAppCompatSeekBarJumpDrawablesToCurrentState jni.MethodID
+	midAppCompatSeekBarToString                    jni.MethodID
 
-	clsToolbarInspectionCompanion                  *jni.GlobalRef
-	midToolbarInspectionCompanionMapProperties     jni.MethodID
-	midToolbarInspectionCompanionReadProperties2   jni.MethodID
-	midToolbarInspectionCompanionReadProperties2_1 jni.MethodID
-	midToolbarInspectionCompanionToString          jni.MethodID
+	clsLinearLayoutCompat                                  *jni.GlobalRef
+	midLinearLayoutCompatCtor                              jni.MethodID
+	midLinearLayoutCompatSetShowDividers                   jni.MethodID
+	midLinearLayoutCompatShouldDelayChildPressedState      jni.MethodID
+	midLinearLayoutCompatGetShowDividers                   jni.MethodID
+	midLinearLayoutCompatGetDividerDrawable                jni.MethodID
+	midLinearLayoutCompatSetDividerDrawable                jni.MethodID
+	midLinearLayoutCompatSetDividerPadding                 jni.MethodID
+	midLinearLayoutCompatGetDividerPadding                 jni.MethodID
+	midLinearLayoutCompatGetDividerWidth                   jni.MethodID
+	midLinearLayoutCompatIsBaselineAligned                 jni.MethodID
+	midLinearLayoutCompatSetBaselineAligned                jni.MethodID
+	midLinearLayoutCompatIsMeasureWithLargestChildEnabled  jni.MethodID
+	midLinearLayoutCompatSetMeasureWithLargestChildEnabled jni.MethodID
+	midLinearLayoutCompatGetBaseline                       jni.MethodID
+	midLinearLayoutCompatGetBaselineAlignedChildIndex      jni.MethodID
+	midLinearLayoutCompatSetBaselineAlignedChildIndex      jni.MethodID
+	midLinearLayoutCompatGetWeightSum                      jni.MethodID
+	midLinearLayoutCompatSetWeightSum                      jni.MethodID
+	midLinearLayoutCompatSetOrientation                    jni.MethodID
+	midLinearLayoutCompatGetOrientation                    jni.MethodID
+	midLinearLayoutCompatSetGravity                        jni.MethodID
+	midLinearLayoutCompatGetGravity                        jni.MethodID
+	midLinearLayoutCompatSetHorizontalGravity              jni.MethodID
+	midLinearLayoutCompatSetVerticalGravity                jni.MethodID
+	midLinearLayoutCompatGenerateLayoutParams              jni.MethodID
+	midLinearLayoutCompatOnInitializeAccessibilityEvent    jni.MethodID
+	midLinearLayoutCompatOnInitializeAccessibilityNodeInfo jni.MethodID
+	midLinearLayoutCompatToString                          jni.MethodID
+
+	clsAppCompatRatingBar         *jni.GlobalRef
+	midAppCompatRatingBarCtor     jni.MethodID
+	midAppCompatRatingBarToString jni.MethodID
+
+	clsLinearLayoutCompatDividerMode         *jni.GlobalRef
+	midLinearLayoutCompatDividerModeToString jni.MethodID
+
+	clsToolbarInspectionCompanion               *jni.GlobalRef
+	midToolbarInspectionCompanionCtor           jni.MethodID
+	midToolbarInspectionCompanionMapProperties  jni.MethodID
+	midToolbarInspectionCompanionReadProperties jni.MethodID
+	midToolbarInspectionCompanionToString       jni.MethodID
+
+	clsLinearLayoutCompatInspectionCompanion               *jni.GlobalRef
+	midLinearLayoutCompatInspectionCompanionCtor           jni.MethodID
+	midLinearLayoutCompatInspectionCompanionMapProperties  jni.MethodID
+	midLinearLayoutCompatInspectionCompanionReadProperties jni.MethodID
+	midLinearLayoutCompatInspectionCompanionToString       jni.MethodID
 
 	clsToolbarLayoutParams         *jni.GlobalRef
+	midToolbarLayoutParamsCtor     jni.MethodID
 	midToolbarLayoutParamsToString jni.MethodID
 
-	clsActionBarContextView                             *jni.GlobalRef
-	midActionBarContextViewCtor                         jni.MethodID
-	midActionBarContextViewOnDetachedFromWindow         jni.MethodID
-	midActionBarContextViewSetContentHeight             jni.MethodID
-	midActionBarContextViewSetCustomView                jni.MethodID
-	midActionBarContextViewSetTitle                     jni.MethodID
-	midActionBarContextViewSetSubtitle                  jni.MethodID
-	midActionBarContextViewGetTitle                     jni.MethodID
-	midActionBarContextViewGetSubtitle                  jni.MethodID
-	midActionBarContextViewInitForMode                  jni.MethodID
-	midActionBarContextViewCloseMode                    jni.MethodID
-	midActionBarContextViewKillMode                     jni.MethodID
-	midActionBarContextViewShowOverflowMenu             jni.MethodID
-	midActionBarContextViewHideOverflowMenu             jni.MethodID
-	midActionBarContextViewIsOverflowMenuShowing        jni.MethodID
-	midActionBarContextViewGenerateLayoutParams         jni.MethodID
-	midActionBarContextViewShouldDelayChildPressedState jni.MethodID
-	midActionBarContextViewSetTitleOptional             jni.MethodID
-	midActionBarContextViewIsTitleOptional              jni.MethodID
-	midActionBarContextViewDismissPopupMenus            jni.MethodID
-	midActionBarContextViewCanShowOverflowMenu          jni.MethodID
-	midActionBarContextViewIsOverflowReserved           jni.MethodID
-	midActionBarContextViewIsOverflowMenuShowPending    jni.MethodID
-	midActionBarContextViewPostShowOverflowMenu         jni.MethodID
-	midActionBarContextViewSetVisibility                jni.MethodID
-	midActionBarContextViewAnimateToVisibility          jni.MethodID
-	midActionBarContextViewSetupAnimatorToVisibility    jni.MethodID
-	midActionBarContextViewGetAnimatedVisibility        jni.MethodID
-	midActionBarContextViewGetContentHeight             jni.MethodID
-	midActionBarContextViewOnHoverEvent                 jni.MethodID
-	midActionBarContextViewOnTouchEvent                 jni.MethodID
-	midActionBarContextViewToString                     jni.MethodID
+	clsLinearLayoutCompatLayoutParams         *jni.GlobalRef
+	midLinearLayoutCompatLayoutParamsCtor     jni.MethodID
+	midLinearLayoutCompatLayoutParamsToString jni.MethodID
+
+	clsLinearLayoutCompatOrientationMode         *jni.GlobalRef
+	midLinearLayoutCompatOrientationModeToString jni.MethodID
+
+	clsToolbarOnMenuItemClickListener                *jni.GlobalRef
+	midToolbarOnMenuItemClickListenerOnMenuItemClick jni.MethodID
+	midToolbarOnMenuItemClickListenerToString        jni.MethodID
+
+	clsToolbarSavedState              *jni.GlobalRef
+	midToolbarSavedStateCtor          jni.MethodID
+	midToolbarSavedStateToString      jni.MethodID
+	midToolbarSavedStateWriteToParcel jni.MethodID
+
+	clsViewStubCompat                     *jni.GlobalRef
+	midViewStubCompatCtor                 jni.MethodID
+	midViewStubCompatGetInflatedId        jni.MethodID
+	midViewStubCompatSetInflatedId        jni.MethodID
+	midViewStubCompatGetLayoutResource    jni.MethodID
+	midViewStubCompatSetLayoutResource    jni.MethodID
+	midViewStubCompatSetLayoutInflater    jni.MethodID
+	midViewStubCompatGetLayoutInflater    jni.MethodID
+	midViewStubCompatDraw                 jni.MethodID
+	midViewStubCompatSetVisibility        jni.MethodID
+	midViewStubCompatInflate              jni.MethodID
+	midViewStubCompatSetOnInflateListener jni.MethodID
+	midViewStubCompatToString             jni.MethodID
+
+	clsViewStubCompatOnInflateListener          *jni.GlobalRef
+	midViewStubCompatOnInflateListenerOnInflate jni.MethodID
+	midViewStubCompatOnInflateListenerToString  jni.MethodID
+
+	clsContentFrameLayout                         *jni.GlobalRef
+	midContentFrameLayoutCtor                     jni.MethodID
+	midContentFrameLayoutDispatchFitSystemWindows jni.MethodID
+	midContentFrameLayoutSetAttachListener        jni.MethodID
+	midContentFrameLayoutSetDecorPadding          jni.MethodID
+	midContentFrameLayoutGetMinWidthMajor         jni.MethodID
+	midContentFrameLayoutGetMinWidthMinor         jni.MethodID
+	midContentFrameLayoutGetFixedWidthMajor       jni.MethodID
+	midContentFrameLayoutGetFixedWidthMinor       jni.MethodID
+	midContentFrameLayoutGetFixedHeightMajor      jni.MethodID
+	midContentFrameLayoutGetFixedHeightMinor      jni.MethodID
+	midContentFrameLayoutToString                 jni.MethodID
+
+	clsContentFrameLayoutOnAttachListener                     *jni.GlobalRef
+	midContentFrameLayoutOnAttachListenerOnDetachedFromWindow jni.MethodID
+	midContentFrameLayoutOnAttachListenerOnAttachedFromWindow jni.MethodID
+	midContentFrameLayoutOnAttachListenerToString             jni.MethodID
+
+	clsAppCompatTextView                                                   *jni.GlobalRef
+	midAppCompatTextViewCtor                                               jni.MethodID
+	midAppCompatTextViewSetBackgroundResource                              jni.MethodID
+	midAppCompatTextViewSetBackgroundDrawable                              jni.MethodID
+	midAppCompatTextViewSetSupportBackgroundTintList                       jni.MethodID
+	midAppCompatTextViewGetSupportBackgroundTintList                       jni.MethodID
+	midAppCompatTextViewSetSupportBackgroundTintMode                       jni.MethodID
+	midAppCompatTextViewGetSupportBackgroundTintMode                       jni.MethodID
+	midAppCompatTextViewSetTextAppearance                                  jni.MethodID
+	midAppCompatTextViewSetFilters                                         jni.MethodID
+	midAppCompatTextViewSetAllCaps                                         jni.MethodID
+	midAppCompatTextViewSetEmojiCompatEnabled                              jni.MethodID
+	midAppCompatTextViewIsEmojiCompatEnabled                               jni.MethodID
+	midAppCompatTextViewSetTextSize                                        jni.MethodID
+	midAppCompatTextViewSetAutoSizeTextTypeWithDefaults                    jni.MethodID
+	midAppCompatTextViewSetAutoSizeTextTypeUniformWithConfiguration        jni.MethodID
+	midAppCompatTextViewSetAutoSizeTextTypeUniformWithPresetSizes          jni.MethodID
+	midAppCompatTextViewGetAutoSizeTextType                                jni.MethodID
+	midAppCompatTextViewGetAutoSizeStepGranularity                         jni.MethodID
+	midAppCompatTextViewGetAutoSizeMinTextSize                             jni.MethodID
+	midAppCompatTextViewGetAutoSizeMaxTextSize                             jni.MethodID
+	midAppCompatTextViewGetAutoSizeTextAvailableSizes                      jni.MethodID
+	midAppCompatTextViewOnCreateInputConnection                            jni.MethodID
+	midAppCompatTextViewSetFirstBaselineToTopHeight                        jni.MethodID
+	midAppCompatTextViewSetLastBaselineToBottomHeight                      jni.MethodID
+	midAppCompatTextViewGetFirstBaselineToTopHeight                        jni.MethodID
+	midAppCompatTextViewGetLastBaselineToBottomHeight                      jni.MethodID
+	midAppCompatTextViewSetLineHeight1                                     jni.MethodID
+	midAppCompatTextViewSetLineHeight2_1                                   jni.MethodID
+	midAppCompatTextViewSetCustomSelectionActionModeCallback               jni.MethodID
+	midAppCompatTextViewGetCustomSelectionActionModeCallback               jni.MethodID
+	midAppCompatTextViewGetTextMetricsParamsCompat                         jni.MethodID
+	midAppCompatTextViewSetTextMetricsParamsCompat                         jni.MethodID
+	midAppCompatTextViewSetPrecomputedText                                 jni.MethodID
+	midAppCompatTextViewGetText                                            jni.MethodID
+	midAppCompatTextViewSetTextClassifier                                  jni.MethodID
+	midAppCompatTextViewGetTextClassifier                                  jni.MethodID
+	midAppCompatTextViewSetCompoundDrawables                               jni.MethodID
+	midAppCompatTextViewSetCompoundDrawablesRelative                       jni.MethodID
+	midAppCompatTextViewSetCompoundDrawablesWithIntrinsicBounds4           jni.MethodID
+	midAppCompatTextViewSetCompoundDrawablesWithIntrinsicBounds4_1         jni.MethodID
+	midAppCompatTextViewSetCompoundDrawablesRelativeWithIntrinsicBounds4   jni.MethodID
+	midAppCompatTextViewSetCompoundDrawablesRelativeWithIntrinsicBounds4_1 jni.MethodID
+	midAppCompatTextViewGetSupportCompoundDrawablesTintList                jni.MethodID
+	midAppCompatTextViewSetSupportCompoundDrawablesTintList                jni.MethodID
+	midAppCompatTextViewGetSupportCompoundDrawablesTintMode                jni.MethodID
+	midAppCompatTextViewSetSupportCompoundDrawablesTintMode                jni.MethodID
+	midAppCompatTextViewSetTypeface                                        jni.MethodID
+	midAppCompatTextViewToString                                           jni.MethodID
+
+	clsAppCompatTextViewInspectionCompanion               *jni.GlobalRef
+	midAppCompatTextViewInspectionCompanionCtor           jni.MethodID
+	midAppCompatTextViewInspectionCompanionMapProperties  jni.MethodID
+	midAppCompatTextViewInspectionCompanionReadProperties jni.MethodID
+	midAppCompatTextViewInspectionCompanionToString       jni.MethodID
+
+	clsAppCompatDrawableManager         *jni.GlobalRef
+	midAppCompatDrawableManagerCtor     jni.MethodID
+	midAppCompatDrawableManagerToString jni.MethodID
+
+	clsListPopupWindow                           *jni.GlobalRef
+	midListPopupWindowCtor                       jni.MethodID
+	midListPopupWindowSetAdapter                 jni.MethodID
+	midListPopupWindowSetPromptPosition          jni.MethodID
+	midListPopupWindowGetPromptPosition          jni.MethodID
+	midListPopupWindowSetModal                   jni.MethodID
+	midListPopupWindowIsModal                    jni.MethodID
+	midListPopupWindowSetForceIgnoreOutsideTouch jni.MethodID
+	midListPopupWindowSetDropDownAlwaysVisible   jni.MethodID
+	midListPopupWindowIsDropDownAlwaysVisible    jni.MethodID
+	midListPopupWindowSetSoftInputMode           jni.MethodID
+	midListPopupWindowGetSoftInputMode           jni.MethodID
+	midListPopupWindowSetListSelector            jni.MethodID
+	midListPopupWindowGetBackground              jni.MethodID
+	midListPopupWindowSetBackgroundDrawable      jni.MethodID
+	midListPopupWindowSetAnimationStyle          jni.MethodID
+	midListPopupWindowGetAnimationStyle          jni.MethodID
+	midListPopupWindowGetAnchorView              jni.MethodID
+	midListPopupWindowSetAnchorView              jni.MethodID
+	midListPopupWindowGetHorizontalOffset        jni.MethodID
+	midListPopupWindowSetHorizontalOffset        jni.MethodID
+	midListPopupWindowGetVerticalOffset          jni.MethodID
+	midListPopupWindowSetVerticalOffset          jni.MethodID
+	midListPopupWindowSetEpicenterBounds         jni.MethodID
+	midListPopupWindowGetEpicenterBounds         jni.MethodID
+	midListPopupWindowSetDropDownGravity         jni.MethodID
+	midListPopupWindowGetWidth                   jni.MethodID
+	midListPopupWindowSetWidth                   jni.MethodID
+	midListPopupWindowSetContentWidth            jni.MethodID
+	midListPopupWindowGetHeight                  jni.MethodID
+	midListPopupWindowSetHeight                  jni.MethodID
+	midListPopupWindowSetWindowLayoutType        jni.MethodID
+	midListPopupWindowSetOnItemClickListener     jni.MethodID
+	midListPopupWindowSetOnItemSelectedListener  jni.MethodID
+	midListPopupWindowSetPromptView              jni.MethodID
+	midListPopupWindowPostShow                   jni.MethodID
+	midListPopupWindowShow                       jni.MethodID
+	midListPopupWindowDismiss                    jni.MethodID
+	midListPopupWindowSetOnDismissListener       jni.MethodID
+	midListPopupWindowSetInputMethodMode         jni.MethodID
+	midListPopupWindowGetInputMethodMode         jni.MethodID
+	midListPopupWindowSetSelection               jni.MethodID
+	midListPopupWindowClearListSelection         jni.MethodID
+	midListPopupWindowIsShowing                  jni.MethodID
+	midListPopupWindowIsInputMethodNotNeeded     jni.MethodID
+	midListPopupWindowPerformItemClick           jni.MethodID
+	midListPopupWindowGetSelectedItem            jni.MethodID
+	midListPopupWindowGetSelectedItemPosition    jni.MethodID
+	midListPopupWindowGetSelectedItemId          jni.MethodID
+	midListPopupWindowGetSelectedView            jni.MethodID
+	midListPopupWindowGetListView                jni.MethodID
+	midListPopupWindowOnKeyDown                  jni.MethodID
+	midListPopupWindowOnKeyUp                    jni.MethodID
+	midListPopupWindowOnKeyPreIme                jni.MethodID
+	midListPopupWindowCreateDragToOpenListener   jni.MethodID
+	midListPopupWindowToString                   jni.MethodID
+	midListPopupWindowSetOverlapAnchor           jni.MethodID
+
+	clsFitWindowsLinearLayout                              *jni.GlobalRef
+	midFitWindowsLinearLayoutCtor                          jni.MethodID
+	midFitWindowsLinearLayoutSetOnFitSystemWindowsListener jni.MethodID
+	midFitWindowsLinearLayoutToString                      jni.MethodID
+
+	clsTintInfo         *jni.GlobalRef
+	midTintInfoCtor     jni.MethodID
+	midTintInfoToString jni.MethodID
+
+	clsButtonBarLayout                 *jni.GlobalRef
+	midButtonBarLayoutCtor             jni.MethodID
+	midButtonBarLayoutSetAllowStacking jni.MethodID
+	midButtonBarLayoutToString         jni.MethodID
+
+	clsAppCompatRadioButton                                    *jni.GlobalRef
+	midAppCompatRadioButtonCtor                                jni.MethodID
+	midAppCompatRadioButtonSetButtonDrawable1                  jni.MethodID
+	midAppCompatRadioButtonSetButtonDrawable1_1                jni.MethodID
+	midAppCompatRadioButtonSetSupportButtonTintList            jni.MethodID
+	midAppCompatRadioButtonGetSupportButtonTintList            jni.MethodID
+	midAppCompatRadioButtonSetSupportButtonTintMode            jni.MethodID
+	midAppCompatRadioButtonGetSupportButtonTintMode            jni.MethodID
+	midAppCompatRadioButtonSetSupportBackgroundTintList        jni.MethodID
+	midAppCompatRadioButtonGetSupportBackgroundTintList        jni.MethodID
+	midAppCompatRadioButtonSetSupportBackgroundTintMode        jni.MethodID
+	midAppCompatRadioButtonGetSupportBackgroundTintMode        jni.MethodID
+	midAppCompatRadioButtonSetBackgroundDrawable               jni.MethodID
+	midAppCompatRadioButtonSetBackgroundResource               jni.MethodID
+	midAppCompatRadioButtonSetFilters                          jni.MethodID
+	midAppCompatRadioButtonSetAllCaps                          jni.MethodID
+	midAppCompatRadioButtonSetEmojiCompatEnabled               jni.MethodID
+	midAppCompatRadioButtonIsEmojiCompatEnabled                jni.MethodID
+	midAppCompatRadioButtonSetCompoundDrawables                jni.MethodID
+	midAppCompatRadioButtonSetCompoundDrawablesRelative        jni.MethodID
+	midAppCompatRadioButtonGetSupportCompoundDrawablesTintList jni.MethodID
+	midAppCompatRadioButtonSetSupportCompoundDrawablesTintList jni.MethodID
+	midAppCompatRadioButtonGetSupportCompoundDrawablesTintMode jni.MethodID
+	midAppCompatRadioButtonSetSupportCompoundDrawablesTintMode jni.MethodID
+	midAppCompatRadioButtonToString                            jni.MethodID
+
+	clsAppCompatRadioButtonInspectionCompanion               *jni.GlobalRef
+	midAppCompatRadioButtonInspectionCompanionCtor           jni.MethodID
+	midAppCompatRadioButtonInspectionCompanionMapProperties  jni.MethodID
+	midAppCompatRadioButtonInspectionCompanionReadProperties jni.MethodID
+	midAppCompatRadioButtonInspectionCompanionToString       jni.MethodID
+
+	clsForwardingListener                         *jni.GlobalRef
+	midForwardingListenerGetPopup                 jni.MethodID
+	midForwardingListenerOnTouch                  jni.MethodID
+	midForwardingListenerOnViewAttachedToWindow   jni.MethodID
+	midForwardingListenerOnViewDetachedFromWindow jni.MethodID
+	midForwardingListenerToString                 jni.MethodID
+
+	clsActionMenuView                                   *jni.GlobalRef
+	midActionMenuViewCtor                               jni.MethodID
+	midActionMenuViewSetPopupTheme                      jni.MethodID
+	midActionMenuViewGetPopupTheme                      jni.MethodID
+	midActionMenuViewSetPresenter                       jni.MethodID
+	midActionMenuViewOnConfigurationChanged             jni.MethodID
+	midActionMenuViewSetOnMenuItemClickListener         jni.MethodID
+	midActionMenuViewOnDetachedFromWindow               jni.MethodID
+	midActionMenuViewSetOverflowIcon                    jni.MethodID
+	midActionMenuViewGetOverflowIcon                    jni.MethodID
+	midActionMenuViewIsOverflowReserved                 jni.MethodID
+	midActionMenuViewSetOverflowReserved                jni.MethodID
+	midActionMenuViewGenerateLayoutParams               jni.MethodID
+	midActionMenuViewGenerateOverflowButtonLayoutParams jni.MethodID
+	midActionMenuViewInvokeItem                         jni.MethodID
+	midActionMenuViewGetWindowAnimations                jni.MethodID
+	midActionMenuViewInitialize                         jni.MethodID
+	midActionMenuViewGetMenu                            jni.MethodID
+	midActionMenuViewSetMenuCallbacks                   jni.MethodID
+	midActionMenuViewPeekMenu                           jni.MethodID
+	midActionMenuViewShowOverflowMenu                   jni.MethodID
+	midActionMenuViewHideOverflowMenu                   jni.MethodID
+	midActionMenuViewIsOverflowMenuShowing              jni.MethodID
+	midActionMenuViewIsOverflowMenuShowPending          jni.MethodID
+	midActionMenuViewDismissPopupMenus                  jni.MethodID
+	midActionMenuViewDispatchPopulateAccessibilityEvent jni.MethodID
+	midActionMenuViewSetExpandedActionViewsExclusive    jni.MethodID
+	midActionMenuViewToString                           jni.MethodID
+
+	clsActionMenuViewActionMenuChildView                   *jni.GlobalRef
+	midActionMenuViewActionMenuChildViewNeedsDividerBefore jni.MethodID
+	midActionMenuViewActionMenuChildViewNeedsDividerAfter  jni.MethodID
+	midActionMenuViewActionMenuChildViewToString           jni.MethodID
 
 	clsAppCompatEditText                                     *jni.GlobalRef
 	midAppCompatEditTextCtor                                 jni.MethodID
-	midAppCompatEditTextGetText0                             jni.MethodID
+	midAppCompatEditTextGetText                              jni.MethodID
 	midAppCompatEditTextSetBackgroundResource                jni.MethodID
 	midAppCompatEditTextSetBackgroundDrawable                jni.MethodID
 	midAppCompatEditTextSetSupportBackgroundTintList         jni.MethodID
@@ -907,112 +964,96 @@ var (
 	midAppCompatEditTextSetSupportCompoundDrawablesTintList  jni.MethodID
 	midAppCompatEditTextGetSupportCompoundDrawablesTintMode  jni.MethodID
 	midAppCompatEditTextSetSupportCompoundDrawablesTintMode  jni.MethodID
-	midAppCompatEditTextGetText0_1                           jni.MethodID
 	midAppCompatEditTextToString                             jni.MethodID
 
-	clsToolbarOnMenuItemClickListener                *jni.GlobalRef
-	midToolbarOnMenuItemClickListenerOnMenuItemClick jni.MethodID
-	midToolbarOnMenuItemClickListenerToString        jni.MethodID
+	clsAppCompatEditTextInspectionCompanion               *jni.GlobalRef
+	midAppCompatEditTextInspectionCompanionCtor           jni.MethodID
+	midAppCompatEditTextInspectionCompanionMapProperties  jni.MethodID
+	midAppCompatEditTextInspectionCompanionReadProperties jni.MethodID
+	midAppCompatEditTextInspectionCompanionToString       jni.MethodID
 
-	clsAppCompatEditTextInspectionCompanion                  *jni.GlobalRef
-	midAppCompatEditTextInspectionCompanionMapProperties     jni.MethodID
-	midAppCompatEditTextInspectionCompanionReadProperties2   jni.MethodID
-	midAppCompatEditTextInspectionCompanionReadProperties2_1 jni.MethodID
-	midAppCompatEditTextInspectionCompanionToString          jni.MethodID
+	clsTintTypedArray                          *jni.GlobalRef
+	midTintTypedArrayGetWrappedTypeArray       jni.MethodID
+	midTintTypedArrayGetDrawable               jni.MethodID
+	midTintTypedArrayGetDrawableIfKnown        jni.MethodID
+	midTintTypedArrayGetFont                   jni.MethodID
+	midTintTypedArrayLength                    jni.MethodID
+	midTintTypedArrayGetIndexCount             jni.MethodID
+	midTintTypedArrayGetIndex                  jni.MethodID
+	midTintTypedArrayGetResources              jni.MethodID
+	midTintTypedArrayGetText                   jni.MethodID
+	midTintTypedArrayGetString                 jni.MethodID
+	midTintTypedArrayGetNonResourceString      jni.MethodID
+	midTintTypedArrayGetBoolean                jni.MethodID
+	midTintTypedArrayGetInt                    jni.MethodID
+	midTintTypedArrayGetFloat                  jni.MethodID
+	midTintTypedArrayGetColor                  jni.MethodID
+	midTintTypedArrayGetColorStateList         jni.MethodID
+	midTintTypedArrayGetInteger                jni.MethodID
+	midTintTypedArrayGetDimension              jni.MethodID
+	midTintTypedArrayGetDimensionPixelOffset   jni.MethodID
+	midTintTypedArrayGetDimensionPixelSize     jni.MethodID
+	midTintTypedArrayGetLayoutDimension2       jni.MethodID
+	midTintTypedArrayGetLayoutDimension2_1     jni.MethodID
+	midTintTypedArrayGetFraction               jni.MethodID
+	midTintTypedArrayGetResourceId             jni.MethodID
+	midTintTypedArrayGetTextArray              jni.MethodID
+	midTintTypedArrayGetValue                  jni.MethodID
+	midTintTypedArrayGetType                   jni.MethodID
+	midTintTypedArrayHasValue                  jni.MethodID
+	midTintTypedArrayPeekValue                 jni.MethodID
+	midTintTypedArrayGetPositionDescription    jni.MethodID
+	midTintTypedArrayRecycle                   jni.MethodID
+	midTintTypedArrayGetChangingConfigurations jni.MethodID
+	midTintTypedArrayToString                  jni.MethodID
+	midTintTypedArrayObtainStyledAttributes3   jni.MethodID
+	midTintTypedArrayObtainStyledAttributes5_1 jni.MethodID
+	midTintTypedArrayObtainStyledAttributes3_2 jni.MethodID
 
-	clsToolbarSavedState              *jni.GlobalRef
-	midToolbarSavedStateWriteToParcel jni.MethodID
-	midToolbarSavedStateToString      jni.MethodID
+	clsActionMenuViewLayoutParams         *jni.GlobalRef
+	midActionMenuViewLayoutParamsCtor     jni.MethodID
+	midActionMenuViewLayoutParamsToString jni.MethodID
 
-	clsVectorEnabledTintResources                                    *jni.GlobalRef
-	midVectorEnabledTintResourcesCtor                                jni.MethodID
-	midVectorEnabledTintResourcesGetDrawable1                        jni.MethodID
-	midVectorEnabledTintResourcesParseBundleExtra                    jni.MethodID
-	midVectorEnabledTintResourcesParseBundleExtras                   jni.MethodID
-	midVectorEnabledTintResourcesGetResourceEntryName                jni.MethodID
-	midVectorEnabledTintResourcesGetResourceTypeName                 jni.MethodID
-	midVectorEnabledTintResourcesGetResourcePackageName              jni.MethodID
-	midVectorEnabledTintResourcesGetResourceName                     jni.MethodID
-	midVectorEnabledTintResourcesGetIdentifier                       jni.MethodID
-	midVectorEnabledTintResourcesGetConfiguration                    jni.MethodID
-	midVectorEnabledTintResourcesGetDisplayMetrics                   jni.MethodID
-	midVectorEnabledTintResourcesUpdateConfiguration                 jni.MethodID
-	midVectorEnabledTintResourcesObtainAttributes                    jni.MethodID
-	midVectorEnabledTintResourcesGetValue3                           jni.MethodID
-	midVectorEnabledTintResourcesGetValueForDensity                  jni.MethodID
-	midVectorEnabledTintResourcesGetValue3_1                         jni.MethodID
-	midVectorEnabledTintResourcesOpenRawResourceFd                   jni.MethodID
-	midVectorEnabledTintResourcesOpenRawResource2                    jni.MethodID
-	midVectorEnabledTintResourcesOpenRawResource1_1                  jni.MethodID
-	midVectorEnabledTintResourcesGetXml                              jni.MethodID
-	midVectorEnabledTintResourcesGetAnimation                        jni.MethodID
-	midVectorEnabledTintResourcesGetLayout                           jni.MethodID
-	midVectorEnabledTintResourcesGetInteger                          jni.MethodID
-	midVectorEnabledTintResourcesGetBoolean                          jni.MethodID
-	midVectorEnabledTintResourcesGetColorStateList                   jni.MethodID
-	midVectorEnabledTintResourcesGetColor                            jni.MethodID
-	midVectorEnabledTintResourcesGetMovie                            jni.MethodID
-	midVectorEnabledTintResourcesGetDrawableForDensity3              jni.MethodID
-	midVectorEnabledTintResourcesGetDrawableForDensity2_1            jni.MethodID
-	midVectorEnabledTintResourcesGetDrawable2_1                      jni.MethodID
-	midVectorEnabledTintResourcesGetFraction                         jni.MethodID
-	midVectorEnabledTintResourcesGetDimensionPixelSize               jni.MethodID
-	midVectorEnabledTintResourcesGetDimensionPixelOffset             jni.MethodID
-	midVectorEnabledTintResourcesGetDimension                        jni.MethodID
-	midVectorEnabledTintResourcesObtainTypedArray                    jni.MethodID
-	midVectorEnabledTintResourcesGetIntArray                         jni.MethodID
-	midVectorEnabledTintResourcesGetStringArray                      jni.MethodID
-	midVectorEnabledTintResourcesGetTextArray                        jni.MethodID
-	midVectorEnabledTintResourcesGetText2                            jni.MethodID
-	midVectorEnabledTintResourcesGetQuantityString2                  jni.MethodID
-	midVectorEnabledTintResourcesGetQuantityString3_1                jni.MethodID
-	midVectorEnabledTintResourcesGetString2                          jni.MethodID
-	midVectorEnabledTintResourcesGetString1_1                        jni.MethodID
-	midVectorEnabledTintResourcesGetQuantityText                     jni.MethodID
-	midVectorEnabledTintResourcesGetText1_1                          jni.MethodID
-	midVectorEnabledTintResourcesToString                            jni.MethodID
-	midVectorEnabledTintResourcesShouldBeUsed                        jni.MethodID
-	midVectorEnabledTintResourcesSetCompatVectorFromResourcesEnabled jni.MethodID
-	midVectorEnabledTintResourcesIsCompatVectorFromResourcesEnabled  jni.MethodID
+	clsAppCompatCheckBox                                    *jni.GlobalRef
+	midAppCompatCheckBoxCtor                                jni.MethodID
+	midAppCompatCheckBoxSetButtonDrawable1                  jni.MethodID
+	midAppCompatCheckBoxSetButtonDrawable1_1                jni.MethodID
+	midAppCompatCheckBoxSetSupportButtonTintList            jni.MethodID
+	midAppCompatCheckBoxGetSupportButtonTintList            jni.MethodID
+	midAppCompatCheckBoxSetSupportButtonTintMode            jni.MethodID
+	midAppCompatCheckBoxGetSupportButtonTintMode            jni.MethodID
+	midAppCompatCheckBoxSetSupportBackgroundTintList        jni.MethodID
+	midAppCompatCheckBoxGetSupportBackgroundTintList        jni.MethodID
+	midAppCompatCheckBoxSetSupportBackgroundTintMode        jni.MethodID
+	midAppCompatCheckBoxGetSupportBackgroundTintMode        jni.MethodID
+	midAppCompatCheckBoxSetBackgroundDrawable               jni.MethodID
+	midAppCompatCheckBoxSetBackgroundResource               jni.MethodID
+	midAppCompatCheckBoxSetFilters                          jni.MethodID
+	midAppCompatCheckBoxSetAllCaps                          jni.MethodID
+	midAppCompatCheckBoxSetEmojiCompatEnabled               jni.MethodID
+	midAppCompatCheckBoxIsEmojiCompatEnabled                jni.MethodID
+	midAppCompatCheckBoxSetCompoundDrawables                jni.MethodID
+	midAppCompatCheckBoxSetCompoundDrawablesRelative        jni.MethodID
+	midAppCompatCheckBoxGetSupportCompoundDrawablesTintList jni.MethodID
+	midAppCompatCheckBoxSetSupportCompoundDrawablesTintList jni.MethodID
+	midAppCompatCheckBoxGetSupportCompoundDrawablesTintMode jni.MethodID
+	midAppCompatCheckBoxSetSupportCompoundDrawablesTintMode jni.MethodID
+	midAppCompatCheckBoxToString                            jni.MethodID
 
-	clsDrawableUtils                        *jni.GlobalRef
-	midDrawableUtilsToString                jni.MethodID
-	midDrawableUtilsGetOpticalBounds        jni.MethodID
-	midDrawableUtilsCanSafelyMutateDrawable jni.MethodID
-	midDrawableUtilsParseTintMode           jni.MethodID
-
-	clsAppCompatRatingBar         *jni.GlobalRef
-	midAppCompatRatingBarCtor     jni.MethodID
-	midAppCompatRatingBarToString jni.MethodID
-
-	clsContentFrameLayout                         *jni.GlobalRef
-	midContentFrameLayoutCtor                     jni.MethodID
-	midContentFrameLayoutDispatchFitSystemWindows jni.MethodID
-	midContentFrameLayoutSetAttachListener        jni.MethodID
-	midContentFrameLayoutSetDecorPadding          jni.MethodID
-	midContentFrameLayoutGetMinWidthMajor         jni.MethodID
-	midContentFrameLayoutGetMinWidthMinor         jni.MethodID
-	midContentFrameLayoutGetFixedWidthMajor       jni.MethodID
-	midContentFrameLayoutGetFixedWidthMinor       jni.MethodID
-	midContentFrameLayoutGetFixedHeightMajor      jni.MethodID
-	midContentFrameLayoutGetFixedHeightMinor      jni.MethodID
-	midContentFrameLayoutToString                 jni.MethodID
-
-	clsContentFrameLayoutOnAttachListener                     *jni.GlobalRef
-	midContentFrameLayoutOnAttachListenerOnDetachedFromWindow jni.MethodID
-	midContentFrameLayoutOnAttachListenerOnAttachedFromWindow jni.MethodID
-	midContentFrameLayoutOnAttachListenerToString             jni.MethodID
-
-	clsThemedSpinnerAdapter                     *jni.GlobalRef
-	midThemedSpinnerAdapterSetDropDownViewTheme jni.MethodID
-	midThemedSpinnerAdapterGetDropDownViewTheme jni.MethodID
-	midThemedSpinnerAdapterToString             jni.MethodID
-
-	clsThemedSpinnerAdapterHelper                        *jni.GlobalRef
-	midThemedSpinnerAdapterHelperSetDropDownViewTheme    jni.MethodID
-	midThemedSpinnerAdapterHelperGetDropDownViewTheme    jni.MethodID
-	midThemedSpinnerAdapterHelperGetDropDownViewInflater jni.MethodID
-	midThemedSpinnerAdapterHelperToString                jni.MethodID
+	clsActivityChooserView                                                  *jni.GlobalRef
+	midActivityChooserViewCtor                                              jni.MethodID
+	midActivityChooserViewSetActivityChooserModel                           jni.MethodID
+	midActivityChooserViewSetExpandActivityOverflowButtonDrawable           jni.MethodID
+	midActivityChooserViewSetExpandActivityOverflowButtonContentDescription jni.MethodID
+	midActivityChooserViewSetProvider                                       jni.MethodID
+	midActivityChooserViewShowPopup                                         jni.MethodID
+	midActivityChooserViewDismissPopup                                      jni.MethodID
+	midActivityChooserViewIsShowingPopup                                    jni.MethodID
+	midActivityChooserViewGetDataModel                                      jni.MethodID
+	midActivityChooserViewSetOnDismissListener                              jni.MethodID
+	midActivityChooserViewSetInitialActivityCount                           jni.MethodID
+	midActivityChooserViewSetDefaultActionButtonContentDescription          jni.MethodID
+	midActivityChooserViewToString                                          jni.MethodID
 
 	clsToolbarWidgetWrapper                                       *jni.GlobalRef
 	midToolbarWidgetWrapperCtor                                   jni.MethodID
@@ -1073,114 +1114,72 @@ var (
 	midToolbarWidgetWrapperGetMenu                                jni.MethodID
 	midToolbarWidgetWrapperToString                               jni.MethodID
 
-	clsViewStubCompat                     *jni.GlobalRef
-	midViewStubCompatCtor                 jni.MethodID
-	midViewStubCompatGetInflatedId        jni.MethodID
-	midViewStubCompatSetInflatedId        jni.MethodID
-	midViewStubCompatGetLayoutResource    jni.MethodID
-	midViewStubCompatSetLayoutResource    jni.MethodID
-	midViewStubCompatSetLayoutInflater    jni.MethodID
-	midViewStubCompatGetLayoutInflater    jni.MethodID
-	midViewStubCompatDraw                 jni.MethodID
-	midViewStubCompatSetVisibility        jni.MethodID
-	midViewStubCompatInflate              jni.MethodID
-	midViewStubCompatSetOnInflateListener jni.MethodID
-	midViewStubCompatToString             jni.MethodID
+	clsAppCompatCheckBoxInspectionCompanion               *jni.GlobalRef
+	midAppCompatCheckBoxInspectionCompanionCtor           jni.MethodID
+	midAppCompatCheckBoxInspectionCompanionMapProperties  jni.MethodID
+	midAppCompatCheckBoxInspectionCompanionReadProperties jni.MethodID
+	midAppCompatCheckBoxInspectionCompanionToString       jni.MethodID
 
-	clsViewStubCompatOnInflateListener          *jni.GlobalRef
-	midViewStubCompatOnInflateListenerOnInflate jni.MethodID
-	midViewStubCompatOnInflateListenerToString  jni.MethodID
+	clsActionMenuViewOnMenuItemClickListener                *jni.GlobalRef
+	midActionMenuViewOnMenuItemClickListenerOnMenuItemClick jni.MethodID
+	midActionMenuViewOnMenuItemClickListenerToString        jni.MethodID
 
-	clsAppCompatImageHelper                   *jni.GlobalRef
-	midAppCompatImageHelperCtor               jni.MethodID
-	midAppCompatImageHelperLoadFromAttributes jni.MethodID
-	midAppCompatImageHelperSetImageResource   jni.MethodID
-	midAppCompatImageHelperToString           jni.MethodID
+	clsShareActionProvider                                 *jni.GlobalRef
+	midShareActionProviderCtor                             jni.MethodID
+	midShareActionProviderSetOnShareTargetSelectedListener jni.MethodID
+	midShareActionProviderOnCreateActionView               jni.MethodID
+	midShareActionProviderHasSubMenu                       jni.MethodID
+	midShareActionProviderOnPrepareSubMenu                 jni.MethodID
+	midShareActionProviderSetShareHistoryFileName          jni.MethodID
+	midShareActionProviderSetShareIntent                   jni.MethodID
+	midShareActionProviderToString                         jni.MethodID
 
-	clsAppCompatTextView                                                   *jni.GlobalRef
-	midAppCompatTextViewCtor                                               jni.MethodID
-	midAppCompatTextViewSetBackgroundResource                              jni.MethodID
-	midAppCompatTextViewSetBackgroundDrawable                              jni.MethodID
-	midAppCompatTextViewSetSupportBackgroundTintList                       jni.MethodID
-	midAppCompatTextViewGetSupportBackgroundTintList                       jni.MethodID
-	midAppCompatTextViewSetSupportBackgroundTintMode                       jni.MethodID
-	midAppCompatTextViewGetSupportBackgroundTintMode                       jni.MethodID
-	midAppCompatTextViewSetTextAppearance                                  jni.MethodID
-	midAppCompatTextViewSetFilters                                         jni.MethodID
-	midAppCompatTextViewSetAllCaps                                         jni.MethodID
-	midAppCompatTextViewSetEmojiCompatEnabled                              jni.MethodID
-	midAppCompatTextViewIsEmojiCompatEnabled                               jni.MethodID
-	midAppCompatTextViewSetTextSize                                        jni.MethodID
-	midAppCompatTextViewSetAutoSizeTextTypeWithDefaults                    jni.MethodID
-	midAppCompatTextViewSetAutoSizeTextTypeUniformWithConfiguration        jni.MethodID
-	midAppCompatTextViewSetAutoSizeTextTypeUniformWithPresetSizes          jni.MethodID
-	midAppCompatTextViewGetAutoSizeTextType                                jni.MethodID
-	midAppCompatTextViewGetAutoSizeStepGranularity                         jni.MethodID
-	midAppCompatTextViewGetAutoSizeMinTextSize                             jni.MethodID
-	midAppCompatTextViewGetAutoSizeMaxTextSize                             jni.MethodID
-	midAppCompatTextViewGetAutoSizeTextAvailableSizes                      jni.MethodID
-	midAppCompatTextViewOnCreateInputConnection                            jni.MethodID
-	midAppCompatTextViewSetFirstBaselineToTopHeight                        jni.MethodID
-	midAppCompatTextViewSetLastBaselineToBottomHeight                      jni.MethodID
-	midAppCompatTextViewGetFirstBaselineToTopHeight                        jni.MethodID
-	midAppCompatTextViewGetLastBaselineToBottomHeight                      jni.MethodID
-	midAppCompatTextViewSetLineHeight1                                     jni.MethodID
-	midAppCompatTextViewSetLineHeight2_1                                   jni.MethodID
-	midAppCompatTextViewSetCustomSelectionActionModeCallback               jni.MethodID
-	midAppCompatTextViewGetCustomSelectionActionModeCallback               jni.MethodID
-	midAppCompatTextViewGetTextMetricsParamsCompat                         jni.MethodID
-	midAppCompatTextViewSetTextMetricsParamsCompat                         jni.MethodID
-	midAppCompatTextViewSetPrecomputedText                                 jni.MethodID
-	midAppCompatTextViewGetText                                            jni.MethodID
-	midAppCompatTextViewSetTextClassifier                                  jni.MethodID
-	midAppCompatTextViewGetTextClassifier                                  jni.MethodID
-	midAppCompatTextViewSetCompoundDrawables                               jni.MethodID
-	midAppCompatTextViewSetCompoundDrawablesRelative                       jni.MethodID
-	midAppCompatTextViewSetCompoundDrawablesWithIntrinsicBounds4           jni.MethodID
-	midAppCompatTextViewSetCompoundDrawablesWithIntrinsicBounds4_1         jni.MethodID
-	midAppCompatTextViewSetCompoundDrawablesRelativeWithIntrinsicBounds4   jni.MethodID
-	midAppCompatTextViewSetCompoundDrawablesRelativeWithIntrinsicBounds4_1 jni.MethodID
-	midAppCompatTextViewGetSupportCompoundDrawablesTintList                jni.MethodID
-	midAppCompatTextViewSetSupportCompoundDrawablesTintList                jni.MethodID
-	midAppCompatTextViewGetSupportCompoundDrawablesTintMode                jni.MethodID
-	midAppCompatTextViewSetSupportCompoundDrawablesTintMode                jni.MethodID
-	midAppCompatTextViewSetTypeface                                        jni.MethodID
-	midAppCompatTextViewToString                                           jni.MethodID
+	clsShareActionProviderOnShareTargetSelectedListener                      *jni.GlobalRef
+	midShareActionProviderOnShareTargetSelectedListenerOnShareTargetSelected jni.MethodID
+	midShareActionProviderOnShareTargetSelectedListenerToString              jni.MethodID
 
-	clsAppCompatTextViewInspectionCompanion                  *jni.GlobalRef
-	midAppCompatTextViewInspectionCompanionMapProperties     jni.MethodID
-	midAppCompatTextViewInspectionCompanionReadProperties2   jni.MethodID
-	midAppCompatTextViewInspectionCompanionReadProperties2_1 jni.MethodID
-	midAppCompatTextViewInspectionCompanionToString          jni.MethodID
+	clsActivityChooserViewInnerLayout         *jni.GlobalRef
+	midActivityChooserViewInnerLayoutCtor     jni.MethodID
+	midActivityChooserViewInnerLayoutToString jni.MethodID
 
-	clsButtonBarLayout                 *jni.GlobalRef
-	midButtonBarLayoutCtor             jni.MethodID
-	midButtonBarLayoutSetAllowStacking jni.MethodID
-	midButtonBarLayoutToString         jni.MethodID
+	clsActionBarContextView                             *jni.GlobalRef
+	midActionBarContextViewCtor                         jni.MethodID
+	midActionBarContextViewOnDetachedFromWindow         jni.MethodID
+	midActionBarContextViewSetContentHeight             jni.MethodID
+	midActionBarContextViewSetCustomView                jni.MethodID
+	midActionBarContextViewSetTitle                     jni.MethodID
+	midActionBarContextViewSetSubtitle                  jni.MethodID
+	midActionBarContextViewGetTitle                     jni.MethodID
+	midActionBarContextViewGetSubtitle                  jni.MethodID
+	midActionBarContextViewInitForMode                  jni.MethodID
+	midActionBarContextViewCloseMode                    jni.MethodID
+	midActionBarContextViewKillMode                     jni.MethodID
+	midActionBarContextViewShowOverflowMenu             jni.MethodID
+	midActionBarContextViewHideOverflowMenu             jni.MethodID
+	midActionBarContextViewIsOverflowMenuShowing        jni.MethodID
+	midActionBarContextViewGenerateLayoutParams         jni.MethodID
+	midActionBarContextViewShouldDelayChildPressedState jni.MethodID
+	midActionBarContextViewSetTitleOptional             jni.MethodID
+	midActionBarContextViewIsTitleOptional              jni.MethodID
+	midActionBarContextViewToString                     jni.MethodID
 
-	clsAppCompatAutoCompleteTextView                                     *jni.GlobalRef
-	midAppCompatAutoCompleteTextViewCtor                                 jni.MethodID
-	midAppCompatAutoCompleteTextViewSetDropDownBackgroundResource        jni.MethodID
-	midAppCompatAutoCompleteTextViewSetBackgroundResource                jni.MethodID
-	midAppCompatAutoCompleteTextViewSetBackgroundDrawable                jni.MethodID
-	midAppCompatAutoCompleteTextViewSetSupportBackgroundTintList         jni.MethodID
-	midAppCompatAutoCompleteTextViewGetSupportBackgroundTintList         jni.MethodID
-	midAppCompatAutoCompleteTextViewSetSupportBackgroundTintMode         jni.MethodID
-	midAppCompatAutoCompleteTextViewGetSupportBackgroundTintMode         jni.MethodID
-	midAppCompatAutoCompleteTextViewSetTextAppearance                    jni.MethodID
-	midAppCompatAutoCompleteTextViewOnCreateInputConnection              jni.MethodID
-	midAppCompatAutoCompleteTextViewSetCustomSelectionActionModeCallback jni.MethodID
-	midAppCompatAutoCompleteTextViewGetCustomSelectionActionModeCallback jni.MethodID
-	midAppCompatAutoCompleteTextViewSetKeyListener                       jni.MethodID
-	midAppCompatAutoCompleteTextViewSetEmojiCompatEnabled                jni.MethodID
-	midAppCompatAutoCompleteTextViewIsEmojiCompatEnabled                 jni.MethodID
-	midAppCompatAutoCompleteTextViewSetCompoundDrawables                 jni.MethodID
-	midAppCompatAutoCompleteTextViewSetCompoundDrawablesRelative         jni.MethodID
-	midAppCompatAutoCompleteTextViewGetSupportCompoundDrawablesTintList  jni.MethodID
-	midAppCompatAutoCompleteTextViewSetSupportCompoundDrawablesTintList  jni.MethodID
-	midAppCompatAutoCompleteTextViewGetSupportCompoundDrawablesTintMode  jni.MethodID
-	midAppCompatAutoCompleteTextViewSetSupportCompoundDrawablesTintMode  jni.MethodID
-	midAppCompatAutoCompleteTextViewToString                             jni.MethodID
+	clsTintContextWrapper             *jni.GlobalRef
+	midTintContextWrapperGetTheme     jni.MethodID
+	midTintContextWrapperSetTheme     jni.MethodID
+	midTintContextWrapperGetResources jni.MethodID
+	midTintContextWrapperToString     jni.MethodID
+	midTintContextWrapperWrap         jni.MethodID
+	midTintContextWrapperGetAssets    jni.MethodID
+
+	clsMenuPopupWindow                   *jni.GlobalRef
+	midMenuPopupWindowCtor               jni.MethodID
+	midMenuPopupWindowSetEnterTransition jni.MethodID
+	midMenuPopupWindowSetExitTransition  jni.MethodID
+	midMenuPopupWindowSetHoverListener   jni.MethodID
+	midMenuPopupWindowSetTouchModal      jni.MethodID
+	midMenuPopupWindowOnItemHoverEnter   jni.MethodID
+	midMenuPopupWindowToString           jni.MethodID
+	midMenuPopupWindowOnItemHoverExit    jni.MethodID
 
 	clsAppCompatCheckedTextView                                     *jni.GlobalRef
 	midAppCompatCheckedTextViewCtor                                 jni.MethodID
@@ -1211,209 +1210,148 @@ var (
 	midAppCompatCheckedTextViewSetSupportCompoundDrawablesTintMode  jni.MethodID
 	midAppCompatCheckedTextViewToString                             jni.MethodID
 
-	clsAppCompatCheckedTextViewInspectionCompanion                  *jni.GlobalRef
-	midAppCompatCheckedTextViewInspectionCompanionMapProperties     jni.MethodID
-	midAppCompatCheckedTextViewInspectionCompanionReadProperties2   jni.MethodID
-	midAppCompatCheckedTextViewInspectionCompanionReadProperties2_1 jni.MethodID
-	midAppCompatCheckedTextViewInspectionCompanionToString          jni.MethodID
+	clsDrawableUtils                        *jni.GlobalRef
+	midDrawableUtilsToString                jni.MethodID
+	midDrawableUtilsGetOpticalBounds        jni.MethodID
+	midDrawableUtilsCanSafelyMutateDrawable jni.MethodID
+	midDrawableUtilsParseTintMode           jni.MethodID
 
-	clsAppCompatAutoCompleteTextViewInspectionCompanion                  *jni.GlobalRef
-	midAppCompatAutoCompleteTextViewInspectionCompanionMapProperties     jni.MethodID
-	midAppCompatAutoCompleteTextViewInspectionCompanionReadProperties2   jni.MethodID
-	midAppCompatAutoCompleteTextViewInspectionCompanionReadProperties2_1 jni.MethodID
-	midAppCompatAutoCompleteTextViewInspectionCompanionToString          jni.MethodID
+	clsAppCompatCheckedTextViewInspectionCompanion               *jni.GlobalRef
+	midAppCompatCheckedTextViewInspectionCompanionCtor           jni.MethodID
+	midAppCompatCheckedTextViewInspectionCompanionMapProperties  jni.MethodID
+	midAppCompatCheckedTextViewInspectionCompanionReadProperties jni.MethodID
+	midAppCompatCheckedTextViewInspectionCompanionToString       jni.MethodID
 
-	clsActivityChooserView                                                  *jni.GlobalRef
-	midActivityChooserViewCtor                                              jni.MethodID
-	midActivityChooserViewSetActivityChooserModel                           jni.MethodID
-	midActivityChooserViewSetExpandActivityOverflowButtonDrawable           jni.MethodID
-	midActivityChooserViewSetExpandActivityOverflowButtonContentDescription jni.MethodID
-	midActivityChooserViewSetProvider                                       jni.MethodID
-	midActivityChooserViewShowPopup                                         jni.MethodID
-	midActivityChooserViewDismissPopup                                      jni.MethodID
-	midActivityChooserViewIsShowingPopup                                    jni.MethodID
-	midActivityChooserViewGetDataModel                                      jni.MethodID
-	midActivityChooserViewSetOnDismissListener                              jni.MethodID
-	midActivityChooserViewSetInitialActivityCount                           jni.MethodID
-	midActivityChooserViewSetDefaultActionButtonContentDescription          jni.MethodID
-	midActivityChooserViewToString                                          jni.MethodID
+	clsAppCompatSpinner                             *jni.GlobalRef
+	midAppCompatSpinnerCtor                         jni.MethodID
+	midAppCompatSpinnerGetPopupContext              jni.MethodID
+	midAppCompatSpinnerSetPopupBackgroundDrawable   jni.MethodID
+	midAppCompatSpinnerSetPopupBackgroundResource   jni.MethodID
+	midAppCompatSpinnerGetPopupBackground           jni.MethodID
+	midAppCompatSpinnerSetDropDownVerticalOffset    jni.MethodID
+	midAppCompatSpinnerGetDropDownVerticalOffset    jni.MethodID
+	midAppCompatSpinnerSetDropDownHorizontalOffset  jni.MethodID
+	midAppCompatSpinnerGetDropDownHorizontalOffset  jni.MethodID
+	midAppCompatSpinnerSetDropDownWidth             jni.MethodID
+	midAppCompatSpinnerGetDropDownWidth             jni.MethodID
+	midAppCompatSpinnerSetAdapter                   jni.MethodID
+	midAppCompatSpinnerOnTouchEvent                 jni.MethodID
+	midAppCompatSpinnerPerformClick                 jni.MethodID
+	midAppCompatSpinnerSetPrompt                    jni.MethodID
+	midAppCompatSpinnerGetPrompt                    jni.MethodID
+	midAppCompatSpinnerSetBackgroundResource        jni.MethodID
+	midAppCompatSpinnerSetBackgroundDrawable        jni.MethodID
+	midAppCompatSpinnerSetSupportBackgroundTintList jni.MethodID
+	midAppCompatSpinnerGetSupportBackgroundTintList jni.MethodID
+	midAppCompatSpinnerSetSupportBackgroundTintMode jni.MethodID
+	midAppCompatSpinnerGetSupportBackgroundTintMode jni.MethodID
+	midAppCompatSpinnerOnSaveInstanceState          jni.MethodID
+	midAppCompatSpinnerOnRestoreInstanceState       jni.MethodID
+	midAppCompatSpinnerToString                     jni.MethodID
 
-	clsActivityChooserViewInnerLayout         *jni.GlobalRef
-	midActivityChooserViewInnerLayoutToString jni.MethodID
+	clsMenuPopupWindowMenuDropDownListView                 *jni.GlobalRef
+	midMenuPopupWindowMenuDropDownListViewCtor             jni.MethodID
+	midMenuPopupWindowMenuDropDownListViewSetHoverListener jni.MethodID
+	midMenuPopupWindowMenuDropDownListViewClearSelection   jni.MethodID
+	midMenuPopupWindowMenuDropDownListViewOnKeyDown        jni.MethodID
+	midMenuPopupWindowMenuDropDownListViewOnHoverEvent     jni.MethodID
+	midMenuPopupWindowMenuDropDownListViewToString         jni.MethodID
 
-	clsListPopupWindow                           *jni.GlobalRef
-	midListPopupWindowCtor                       jni.MethodID
-	midListPopupWindowSetAdapter                 jni.MethodID
-	midListPopupWindowSetPromptPosition          jni.MethodID
-	midListPopupWindowGetPromptPosition          jni.MethodID
-	midListPopupWindowSetModal                   jni.MethodID
-	midListPopupWindowIsModal                    jni.MethodID
-	midListPopupWindowSetForceIgnoreOutsideTouch jni.MethodID
-	midListPopupWindowSetDropDownAlwaysVisible   jni.MethodID
-	midListPopupWindowIsDropDownAlwaysVisible    jni.MethodID
-	midListPopupWindowSetSoftInputMode           jni.MethodID
-	midListPopupWindowGetSoftInputMode           jni.MethodID
-	midListPopupWindowSetListSelector            jni.MethodID
-	midListPopupWindowGetBackground              jni.MethodID
-	midListPopupWindowSetBackgroundDrawable      jni.MethodID
-	midListPopupWindowSetAnimationStyle          jni.MethodID
-	midListPopupWindowGetAnimationStyle          jni.MethodID
-	midListPopupWindowGetAnchorView              jni.MethodID
-	midListPopupWindowSetAnchorView              jni.MethodID
-	midListPopupWindowGetHorizontalOffset        jni.MethodID
-	midListPopupWindowSetHorizontalOffset        jni.MethodID
-	midListPopupWindowGetVerticalOffset          jni.MethodID
-	midListPopupWindowSetVerticalOffset          jni.MethodID
-	midListPopupWindowSetEpicenterBounds         jni.MethodID
-	midListPopupWindowGetEpicenterBounds         jni.MethodID
-	midListPopupWindowSetDropDownGravity         jni.MethodID
-	midListPopupWindowGetWidth                   jni.MethodID
-	midListPopupWindowSetWidth                   jni.MethodID
-	midListPopupWindowSetContentWidth            jni.MethodID
-	midListPopupWindowGetHeight                  jni.MethodID
-	midListPopupWindowSetHeight                  jni.MethodID
-	midListPopupWindowSetWindowLayoutType        jni.MethodID
-	midListPopupWindowSetOnItemClickListener     jni.MethodID
-	midListPopupWindowSetOnItemSelectedListener  jni.MethodID
-	midListPopupWindowSetPromptView              jni.MethodID
-	midListPopupWindowPostShow                   jni.MethodID
-	midListPopupWindowShow                       jni.MethodID
-	midListPopupWindowDismiss                    jni.MethodID
-	midListPopupWindowSetOnDismissListener       jni.MethodID
-	midListPopupWindowSetInputMethodMode         jni.MethodID
-	midListPopupWindowGetInputMethodMode         jni.MethodID
-	midListPopupWindowSetSelection               jni.MethodID
-	midListPopupWindowClearListSelection         jni.MethodID
-	midListPopupWindowIsShowing                  jni.MethodID
-	midListPopupWindowIsInputMethodNotNeeded     jni.MethodID
-	midListPopupWindowPerformItemClick           jni.MethodID
-	midListPopupWindowGetSelectedItem            jni.MethodID
-	midListPopupWindowGetSelectedItemPosition    jni.MethodID
-	midListPopupWindowGetSelectedItemId          jni.MethodID
-	midListPopupWindowGetSelectedView            jni.MethodID
-	midListPopupWindowGetListView                jni.MethodID
-	midListPopupWindowOnKeyDown                  jni.MethodID
-	midListPopupWindowOnKeyUp                    jni.MethodID
-	midListPopupWindowOnKeyPreIme                jni.MethodID
-	midListPopupWindowCreateDragToOpenListener   jni.MethodID
-	midListPopupWindowSetOverlapAnchor           jni.MethodID
-	midListPopupWindowToString                   jni.MethodID
+	clsAppCompatSpinnerInspectionCompanion               *jni.GlobalRef
+	midAppCompatSpinnerInspectionCompanionCtor           jni.MethodID
+	midAppCompatSpinnerInspectionCompanionMapProperties  jni.MethodID
+	midAppCompatSpinnerInspectionCompanionReadProperties jni.MethodID
+	midAppCompatSpinnerInspectionCompanionToString       jni.MethodID
 
-	clsAppCompatImageButton                             *jni.GlobalRef
-	midAppCompatImageButtonCtor                         jni.MethodID
-	midAppCompatImageButtonSetImageResource             jni.MethodID
-	midAppCompatImageButtonSetImageDrawable             jni.MethodID
-	midAppCompatImageButtonSetImageBitmap               jni.MethodID
-	midAppCompatImageButtonSetImageURI                  jni.MethodID
-	midAppCompatImageButtonSetBackgroundResource        jni.MethodID
-	midAppCompatImageButtonSetBackgroundDrawable        jni.MethodID
-	midAppCompatImageButtonSetSupportBackgroundTintList jni.MethodID
-	midAppCompatImageButtonGetSupportBackgroundTintList jni.MethodID
-	midAppCompatImageButtonSetSupportBackgroundTintMode jni.MethodID
-	midAppCompatImageButtonGetSupportBackgroundTintMode jni.MethodID
-	midAppCompatImageButtonSetSupportImageTintList      jni.MethodID
-	midAppCompatImageButtonGetSupportImageTintList      jni.MethodID
-	midAppCompatImageButtonSetSupportImageTintMode      jni.MethodID
-	midAppCompatImageButtonGetSupportImageTintMode      jni.MethodID
-	midAppCompatImageButtonHasOverlappingRendering      jni.MethodID
-	midAppCompatImageButtonSetImageLevel                jni.MethodID
-	midAppCompatImageButtonToString                     jni.MethodID
+	clsActionBarContainer                            *jni.GlobalRef
+	midActionBarContainerCtor                        jni.MethodID
+	midActionBarContainerOnFinishInflate             jni.MethodID
+	midActionBarContainerSetPrimaryBackground        jni.MethodID
+	midActionBarContainerSetStackedBackground        jni.MethodID
+	midActionBarContainerSetSplitBackground          jni.MethodID
+	midActionBarContainerSetVisibility               jni.MethodID
+	midActionBarContainerJumpDrawablesToCurrentState jni.MethodID
+	midActionBarContainerSetTransitioning            jni.MethodID
+	midActionBarContainerOnInterceptTouchEvent       jni.MethodID
+	midActionBarContainerOnTouchEvent                jni.MethodID
+	midActionBarContainerOnHoverEvent                jni.MethodID
+	midActionBarContainerSetTabContainer             jni.MethodID
+	midActionBarContainerGetTabContainer             jni.MethodID
+	midActionBarContainerStartActionModeForChild2    jni.MethodID
+	midActionBarContainerStartActionModeForChild3_1  jni.MethodID
+	midActionBarContainerOnMeasure                   jni.MethodID
+	midActionBarContainerOnLayout                    jni.MethodID
+	midActionBarContainerToString                    jni.MethodID
 
-	clsAppCompatImageButtonInspectionCompanion                  *jni.GlobalRef
-	midAppCompatImageButtonInspectionCompanionMapProperties     jni.MethodID
-	midAppCompatImageButtonInspectionCompanionReadProperties2   jni.MethodID
-	midAppCompatImageButtonInspectionCompanionReadProperties2_1 jni.MethodID
-	midAppCompatImageButtonInspectionCompanionToString          jni.MethodID
+	clsAppCompatToggleButton                                    *jni.GlobalRef
+	midAppCompatToggleButtonCtor                                jni.MethodID
+	midAppCompatToggleButtonSetBackgroundResource               jni.MethodID
+	midAppCompatToggleButtonSetBackgroundDrawable               jni.MethodID
+	midAppCompatToggleButtonSetSupportBackgroundTintList        jni.MethodID
+	midAppCompatToggleButtonGetSupportBackgroundTintList        jni.MethodID
+	midAppCompatToggleButtonSetSupportBackgroundTintMode        jni.MethodID
+	midAppCompatToggleButtonGetSupportBackgroundTintMode        jni.MethodID
+	midAppCompatToggleButtonSetFilters                          jni.MethodID
+	midAppCompatToggleButtonSetAllCaps                          jni.MethodID
+	midAppCompatToggleButtonSetEmojiCompatEnabled               jni.MethodID
+	midAppCompatToggleButtonIsEmojiCompatEnabled                jni.MethodID
+	midAppCompatToggleButtonSetCompoundDrawables                jni.MethodID
+	midAppCompatToggleButtonSetCompoundDrawablesRelative        jni.MethodID
+	midAppCompatToggleButtonGetSupportCompoundDrawablesTintList jni.MethodID
+	midAppCompatToggleButtonSetSupportCompoundDrawablesTintList jni.MethodID
+	midAppCompatToggleButtonGetSupportCompoundDrawablesTintMode jni.MethodID
+	midAppCompatToggleButtonSetSupportCompoundDrawablesTintMode jni.MethodID
+	midAppCompatToggleButtonToString                            jni.MethodID
 
-	clsDecorToolbar                                       *jni.GlobalRef
-	midDecorToolbarGetViewGroup                           jni.MethodID
-	midDecorToolbarGetContext                             jni.MethodID
-	midDecorToolbarHasExpandedActionView                  jni.MethodID
-	midDecorToolbarCollapseActionView                     jni.MethodID
-	midDecorToolbarSetWindowCallback                      jni.MethodID
-	midDecorToolbarSetWindowTitle                         jni.MethodID
-	midDecorToolbarGetTitle                               jni.MethodID
-	midDecorToolbarSetTitle                               jni.MethodID
-	midDecorToolbarGetSubtitle                            jni.MethodID
-	midDecorToolbarSetSubtitle                            jni.MethodID
-	midDecorToolbarInitProgress                           jni.MethodID
-	midDecorToolbarInitIndeterminateProgress              jni.MethodID
-	midDecorToolbarHasIcon                                jni.MethodID
-	midDecorToolbarHasLogo                                jni.MethodID
-	midDecorToolbarSetIcon1                               jni.MethodID
-	midDecorToolbarSetIcon1_1                             jni.MethodID
-	midDecorToolbarSetLogo1                               jni.MethodID
-	midDecorToolbarSetLogo1_1                             jni.MethodID
-	midDecorToolbarCanShowOverflowMenu                    jni.MethodID
-	midDecorToolbarIsOverflowMenuShowing                  jni.MethodID
-	midDecorToolbarIsOverflowMenuShowPending              jni.MethodID
-	midDecorToolbarShowOverflowMenu                       jni.MethodID
-	midDecorToolbarHideOverflowMenu                       jni.MethodID
-	midDecorToolbarSetMenuPrepared                        jni.MethodID
-	midDecorToolbarSetMenu                                jni.MethodID
-	midDecorToolbarDismissPopupMenus                      jni.MethodID
-	midDecorToolbarGetDisplayOptions                      jni.MethodID
-	midDecorToolbarSetDisplayOptions                      jni.MethodID
-	midDecorToolbarSetEmbeddedTabView                     jni.MethodID
-	midDecorToolbarHasEmbeddedTabs                        jni.MethodID
-	midDecorToolbarIsTitleTruncated                       jni.MethodID
-	midDecorToolbarSetCollapsible                         jni.MethodID
-	midDecorToolbarSetHomeButtonEnabled                   jni.MethodID
-	midDecorToolbarGetNavigationMode                      jni.MethodID
-	midDecorToolbarSetNavigationMode                      jni.MethodID
-	midDecorToolbarSetDropdownParams                      jni.MethodID
-	midDecorToolbarSetDropdownSelectedPosition            jni.MethodID
-	midDecorToolbarGetDropdownSelectedPosition            jni.MethodID
-	midDecorToolbarGetDropdownItemCount                   jni.MethodID
-	midDecorToolbarSetCustomView                          jni.MethodID
-	midDecorToolbarGetCustomView                          jni.MethodID
-	midDecorToolbarAnimateToVisibility                    jni.MethodID
-	midDecorToolbarSetupAnimatorToVisibility              jni.MethodID
-	midDecorToolbarSetNavigationIcon1                     jni.MethodID
-	midDecorToolbarSetNavigationIcon1_1                   jni.MethodID
-	midDecorToolbarSetNavigationContentDescription1       jni.MethodID
-	midDecorToolbarSetNavigationContentDescription1_1     jni.MethodID
-	midDecorToolbarSetDefaultNavigationContentDescription jni.MethodID
-	midDecorToolbarSetDefaultNavigationIcon               jni.MethodID
-	midDecorToolbarSetBackgroundDrawable                  jni.MethodID
-	midDecorToolbarGetHeight                              jni.MethodID
-	midDecorToolbarSetVisibility                          jni.MethodID
-	midDecorToolbarGetVisibility                          jni.MethodID
-	midDecorToolbarSetMenuCallbacks                       jni.MethodID
-	midDecorToolbarGetMenu                                jni.MethodID
-	midDecorToolbarToString                               jni.MethodID
+	clsAppCompatToggleButtonInspectionCompanion               *jni.GlobalRef
+	midAppCompatToggleButtonInspectionCompanionCtor           jni.MethodID
+	midAppCompatToggleButtonInspectionCompanionMapProperties  jni.MethodID
+	midAppCompatToggleButtonInspectionCompanionReadProperties jni.MethodID
+	midAppCompatToggleButtonInspectionCompanionToString       jni.MethodID
 
-	clsAppCompatRadioButton                                    *jni.GlobalRef
-	midAppCompatRadioButtonCtor                                jni.MethodID
-	midAppCompatRadioButtonSetButtonDrawable1                  jni.MethodID
-	midAppCompatRadioButtonSetButtonDrawable1_1                jni.MethodID
-	midAppCompatRadioButtonSetSupportButtonTintList            jni.MethodID
-	midAppCompatRadioButtonGetSupportButtonTintList            jni.MethodID
-	midAppCompatRadioButtonSetSupportButtonTintMode            jni.MethodID
-	midAppCompatRadioButtonGetSupportButtonTintMode            jni.MethodID
-	midAppCompatRadioButtonSetSupportBackgroundTintList        jni.MethodID
-	midAppCompatRadioButtonGetSupportBackgroundTintList        jni.MethodID
-	midAppCompatRadioButtonSetSupportBackgroundTintMode        jni.MethodID
-	midAppCompatRadioButtonGetSupportBackgroundTintMode        jni.MethodID
-	midAppCompatRadioButtonSetBackgroundDrawable               jni.MethodID
-	midAppCompatRadioButtonSetBackgroundResource               jni.MethodID
-	midAppCompatRadioButtonSetFilters                          jni.MethodID
-	midAppCompatRadioButtonSetAllCaps                          jni.MethodID
-	midAppCompatRadioButtonSetEmojiCompatEnabled               jni.MethodID
-	midAppCompatRadioButtonIsEmojiCompatEnabled                jni.MethodID
-	midAppCompatRadioButtonSetCompoundDrawables                jni.MethodID
-	midAppCompatRadioButtonSetCompoundDrawablesRelative        jni.MethodID
-	midAppCompatRadioButtonGetSupportCompoundDrawablesTintList jni.MethodID
-	midAppCompatRadioButtonSetSupportCompoundDrawablesTintList jni.MethodID
-	midAppCompatRadioButtonGetSupportCompoundDrawablesTintMode jni.MethodID
-	midAppCompatRadioButtonSetSupportCompoundDrawablesTintMode jni.MethodID
-	midAppCompatRadioButtonToString                            jni.MethodID
+	clsAppCompatButton                                            *jni.GlobalRef
+	midAppCompatButtonCtor                                        jni.MethodID
+	midAppCompatButtonSetBackgroundResource                       jni.MethodID
+	midAppCompatButtonSetBackgroundDrawable                       jni.MethodID
+	midAppCompatButtonSetSupportBackgroundTintList                jni.MethodID
+	midAppCompatButtonGetSupportBackgroundTintList                jni.MethodID
+	midAppCompatButtonSetSupportBackgroundTintMode                jni.MethodID
+	midAppCompatButtonGetSupportBackgroundTintMode                jni.MethodID
+	midAppCompatButtonSetTextAppearance                           jni.MethodID
+	midAppCompatButtonOnInitializeAccessibilityEvent              jni.MethodID
+	midAppCompatButtonOnInitializeAccessibilityNodeInfo           jni.MethodID
+	midAppCompatButtonSetTextSize                                 jni.MethodID
+	midAppCompatButtonSetAutoSizeTextTypeWithDefaults             jni.MethodID
+	midAppCompatButtonSetAutoSizeTextTypeUniformWithConfiguration jni.MethodID
+	midAppCompatButtonSetAutoSizeTextTypeUniformWithPresetSizes   jni.MethodID
+	midAppCompatButtonGetAutoSizeTextType                         jni.MethodID
+	midAppCompatButtonGetAutoSizeStepGranularity                  jni.MethodID
+	midAppCompatButtonGetAutoSizeMinTextSize                      jni.MethodID
+	midAppCompatButtonGetAutoSizeMaxTextSize                      jni.MethodID
+	midAppCompatButtonGetAutoSizeTextAvailableSizes               jni.MethodID
+	midAppCompatButtonSetSupportAllCaps                           jni.MethodID
+	midAppCompatButtonSetCustomSelectionActionModeCallback        jni.MethodID
+	midAppCompatButtonGetCustomSelectionActionModeCallback        jni.MethodID
+	midAppCompatButtonSetSupportCompoundDrawablesTintList         jni.MethodID
+	midAppCompatButtonGetSupportCompoundDrawablesTintList         jni.MethodID
+	midAppCompatButtonSetSupportCompoundDrawablesTintMode         jni.MethodID
+	midAppCompatButtonGetSupportCompoundDrawablesTintMode         jni.MethodID
+	midAppCompatButtonSetFilters                                  jni.MethodID
+	midAppCompatButtonSetAllCaps                                  jni.MethodID
+	midAppCompatButtonSetEmojiCompatEnabled                       jni.MethodID
+	midAppCompatButtonIsEmojiCompatEnabled                        jni.MethodID
+	midAppCompatButtonToString                                    jni.MethodID
 
-	clsAppCompatRadioButtonInspectionCompanion                  *jni.GlobalRef
-	midAppCompatRadioButtonInspectionCompanionMapProperties     jni.MethodID
-	midAppCompatRadioButtonInspectionCompanionReadProperties2   jni.MethodID
-	midAppCompatRadioButtonInspectionCompanionReadProperties2_1 jni.MethodID
-	midAppCompatRadioButtonInspectionCompanionToString          jni.MethodID
+	clsAppCompatButtonInspectionCompanion               *jni.GlobalRef
+	midAppCompatButtonInspectionCompanionCtor           jni.MethodID
+	midAppCompatButtonInspectionCompanionMapProperties  jni.MethodID
+	midAppCompatButtonInspectionCompanionReadProperties jni.MethodID
+	midAppCompatButtonInspectionCompanionToString       jni.MethodID
+
+	clsEmojiCompatConfigurationView                      *jni.GlobalRef
+	midEmojiCompatConfigurationViewSetEmojiCompatEnabled jni.MethodID
+	midEmojiCompatConfigurationViewIsEmojiCompatEnabled  jni.MethodID
+	midEmojiCompatConfigurationViewToString              jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -1434,145 +1372,19 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatMultiAutoCompleteTextView")
+	c, err = env.FindClass("androidx/appcompat/widget/ResourceManagerInternal")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAppCompatMultiAutoCompleteTextView = env.NewGlobalRef(&c.Object)
-		midAppCompatMultiAutoCompleteTextViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "<init>", "(Landroid/content/Context;)V")
+		clsResourceManagerInternal = env.NewGlobalRef(&c.Object)
+		midResourceManagerInternalCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourceManagerInternal)), "<init>", "()V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midAppCompatMultiAutoCompleteTextViewSetDropDownBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setDropDownBackgroundResource", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatMultiAutoCompleteTextViewSetBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setBackgroundResource", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatMultiAutoCompleteTextViewSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatMultiAutoCompleteTextViewSetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setSupportBackgroundTintList", "(Landroid/content/res/ColorStateList;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatMultiAutoCompleteTextViewGetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "getSupportBackgroundTintList", "()Landroid/content/res/ColorStateList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatMultiAutoCompleteTextViewSetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setSupportBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatMultiAutoCompleteTextViewGetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "getSupportBackgroundTintMode", "()Landroid/graphics/PorterDuff$Mode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatMultiAutoCompleteTextViewSetTextAppearance, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setTextAppearance", "(Landroid/content/Context;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatMultiAutoCompleteTextViewOnCreateInputConnection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "onCreateInputConnection", "(Landroid/view/inputmethod/EditorInfo;)Landroid/view/inputmethod/InputConnection;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatMultiAutoCompleteTextViewSetKeyListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setKeyListener", "(Landroid/text/method/KeyListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatMultiAutoCompleteTextViewSetEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setEmojiCompatEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatMultiAutoCompleteTextViewIsEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "isEmojiCompatEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatMultiAutoCompleteTextViewSetCompoundDrawables, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setCompoundDrawables", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatMultiAutoCompleteTextViewSetCompoundDrawablesRelative, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setCompoundDrawablesRelative", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatMultiAutoCompleteTextViewGetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "getSupportCompoundDrawablesTintList", "()Landroid/content/res/ColorStateList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatMultiAutoCompleteTextViewSetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setSupportCompoundDrawablesTintList", "(Landroid/content/res/ColorStateList;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatMultiAutoCompleteTextViewGetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "getSupportCompoundDrawablesTintMode", "()Landroid/graphics/PorterDuff$Mode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatMultiAutoCompleteTextViewSetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setSupportCompoundDrawablesTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatMultiAutoCompleteTextViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "toString", "()Ljava/lang/String;")
+		midResourceManagerInternalToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourceManagerInternal)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1581,36 +1393,33 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatMultiAutoCompleteTextView$InspectionCompanion")
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatImageHelper")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAppCompatMultiAutoCompleteTextViewInspectionCompanion = env.NewGlobalRef(&c.Object)
+		clsAppCompatImageHelper = env.NewGlobalRef(&c.Object)
+		midAppCompatImageHelperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageHelper)), "<init>", "(Landroid/widget/ImageView;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midAppCompatMultiAutoCompleteTextViewInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextViewInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
+		midAppCompatImageHelperLoadFromAttributes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageHelper)), "loadFromAttributes", "(Landroid/util/AttributeSet;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatMultiAutoCompleteTextViewInspectionCompanionReadProperties2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextViewInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatMultiAutoCompleteTextView;Landroid/view/inspector/PropertyReader;)V")
+		midAppCompatImageHelperSetImageResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageHelper)), "setImageResource", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatMultiAutoCompleteTextViewInspectionCompanionReadProperties2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextViewInspectionCompanion)), "readProperties", "(Ljava/lang/Object;Landroid/view/inspector/PropertyReader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatMultiAutoCompleteTextViewInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextViewInspectionCompanion)), "toString", "()Ljava/lang/String;")
+		midAppCompatImageHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageHelper)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1619,61 +1428,50 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/MenuPopupWindow")
+	c, err = env.FindClass("androidx/appcompat/widget/ResourceManagerInternal$ResourceManagerHooks")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsMenuPopupWindow = env.NewGlobalRef(&c.Object)
-		midMenuPopupWindowCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindow)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;II)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsResourceManagerInternalResourceManagerHooks = env.NewGlobalRef(&c.Object)
 
-		midMenuPopupWindowSetEnterTransition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindow)), "setEnterTransition", "(Ljava/lang/Object;)V")
+		midResourceManagerInternalResourceManagerHooksCreateDrawableFor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourceManagerInternalResourceManagerHooks)), "createDrawableFor", "(Landroidx/appcompat/widget/ResourceManagerInternal;Landroid/content/Context;I)Landroid/graphics/drawable/Drawable;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMenuPopupWindowSetExitTransition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindow)), "setExitTransition", "(Ljava/lang/Object;)V")
+		midResourceManagerInternalResourceManagerHooksTintDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourceManagerInternalResourceManagerHooks)), "tintDrawable", "(Landroid/content/Context;ILandroid/graphics/drawable/Drawable;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMenuPopupWindowSetHoverListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindow)), "setHoverListener", "(Landroidx/appcompat/widget/MenuItemHoverListener;)V")
+		midResourceManagerInternalResourceManagerHooksGetTintListForDrawableRes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourceManagerInternalResourceManagerHooks)), "getTintListForDrawableRes", "(Landroid/content/Context;I)Landroid/content/res/ColorStateList;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMenuPopupWindowSetTouchModal, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindow)), "setTouchModal", "(Z)V")
+		midResourceManagerInternalResourceManagerHooksTintDrawableUsingColorFilter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourceManagerInternalResourceManagerHooks)), "tintDrawableUsingColorFilter", "(Landroid/content/Context;ILandroid/graphics/drawable/Drawable;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMenuPopupWindowOnItemHoverEnter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindow)), "onItemHoverEnter", "(Landroidx/appcompat/view/menu/MenuBuilder;Landroid/view/MenuItem;)V")
+		midResourceManagerInternalResourceManagerHooksGetTintModeForDrawableRes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourceManagerInternalResourceManagerHooks)), "getTintModeForDrawableRes", "(I)Landroid/graphics/PorterDuff$Mode;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMenuPopupWindowOnItemHoverExit, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindow)), "onItemHoverExit", "(Landroidx/appcompat/view/menu/MenuBuilder;Landroid/view/MenuItem;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMenuPopupWindowToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindow)), "toString", "()Ljava/lang/String;")
+		midResourceManagerInternalResourceManagerHooksToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourceManagerInternalResourceManagerHooks)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1682,106 +1480,137 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/MenuPopupWindow$MenuDropDownListView")
+	c, err = env.FindClass("androidx/appcompat/widget/ThemedSpinnerAdapter")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsMenuPopupWindowMenuDropDownListView = env.NewGlobalRef(&c.Object)
+		clsThemedSpinnerAdapter = env.NewGlobalRef(&c.Object)
 
-		midMenuPopupWindowMenuDropDownListViewSetHoverListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindowMenuDropDownListView)), "setHoverListener", "(Landroidx/appcompat/widget/MenuItemHoverListener;)V")
+		midThemedSpinnerAdapterSetDropDownViewTheme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsThemedSpinnerAdapter)), "setDropDownViewTheme", "(Landroid/content/res/Resources$Theme;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMenuPopupWindowMenuDropDownListViewClearSelection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindowMenuDropDownListView)), "clearSelection", "()V")
+		midThemedSpinnerAdapterGetDropDownViewTheme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsThemedSpinnerAdapter)), "getDropDownViewTheme", "()Landroid/content/res/Resources$Theme;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMenuPopupWindowMenuDropDownListViewOnKeyDown, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindowMenuDropDownListView)), "onKeyDown", "(ILandroid/view/KeyEvent;)Z")
+		midThemedSpinnerAdapterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsThemedSpinnerAdapter)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMenuPopupWindowMenuDropDownListViewOnHoverEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindowMenuDropDownListView)), "onHoverEvent", "(Landroid/view/MotionEvent;)Z")
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/ThemedSpinnerAdapter$Helper")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsThemedSpinnerAdapterHelper = env.NewGlobalRef(&c.Object)
+		midThemedSpinnerAdapterHelperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsThemedSpinnerAdapterHelper)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midThemedSpinnerAdapterHelperSetDropDownViewTheme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsThemedSpinnerAdapterHelper)), "setDropDownViewTheme", "(Landroid/content/res/Resources$Theme;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMenuPopupWindowMenuDropDownListViewOnForwardedEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindowMenuDropDownListView)), "onForwardedEvent", "(Landroid/view/MotionEvent;I)Z")
+		midThemedSpinnerAdapterHelperGetDropDownViewTheme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsThemedSpinnerAdapterHelper)), "getDropDownViewTheme", "()Landroid/content/res/Resources$Theme;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMenuPopupWindowMenuDropDownListViewMeasureHeightOfChildrenCompat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindowMenuDropDownListView)), "measureHeightOfChildrenCompat", "(IIIII)I")
+		midThemedSpinnerAdapterHelperGetDropDownViewInflater, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsThemedSpinnerAdapterHelper)), "getDropDownViewInflater", "()Landroid/view/LayoutInflater;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMenuPopupWindowMenuDropDownListViewLookForSelectablePosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindowMenuDropDownListView)), "lookForSelectablePosition", "(IZ)I")
+		midThemedSpinnerAdapterHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsThemedSpinnerAdapterHelper)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMenuPopupWindowMenuDropDownListViewOnTouchEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindowMenuDropDownListView)), "onTouchEvent", "(Landroid/view/MotionEvent;)Z")
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/ViewUtils")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewUtils = env.NewGlobalRef(&c.Object)
+
+		midViewUtilsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewUtils)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMenuPopupWindowMenuDropDownListViewSetSelector, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindowMenuDropDownListView)), "setSelector", "(Landroid/graphics/drawable/Drawable;)V")
+		midViewUtilsIsLayoutRtl, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewUtils)), "isLayoutRtl", "(Landroid/view/View;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMenuPopupWindowMenuDropDownListViewHasFocus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindowMenuDropDownListView)), "hasFocus", "()Z")
+		midViewUtilsComputeFitSystemWindows, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewUtils)), "computeFitSystemWindows", "(Landroid/view/View;Landroid/graphics/Rect;Landroid/graphics/Rect;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMenuPopupWindowMenuDropDownListViewIsFocused, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindowMenuDropDownListView)), "isFocused", "()Z")
+		midViewUtilsMakeOptionalFitsSystemWindows, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewUtils)), "makeOptionalFitsSystemWindows", "(Landroid/view/View;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMenuPopupWindowMenuDropDownListViewHasWindowFocus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindowMenuDropDownListView)), "hasWindowFocus", "()Z")
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/FitWindowsFrameLayout")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFitWindowsFrameLayout = env.NewGlobalRef(&c.Object)
+		midFitWindowsFrameLayoutCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFitWindowsFrameLayout)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midFitWindowsFrameLayoutSetOnFitSystemWindowsListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFitWindowsFrameLayout)), "setOnFitSystemWindowsListener", "(Landroidx/appcompat/widget/FitWindowsViewGroup$OnFitSystemWindowsListener;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMenuPopupWindowMenuDropDownListViewIsInTouchMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindowMenuDropDownListView)), "isInTouchMode", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMenuPopupWindowMenuDropDownListViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindowMenuDropDownListView)), "toString", "()Ljava/lang/String;")
+		midFitWindowsFrameLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFitWindowsFrameLayout)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1888,58 +1717,6 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/ThemeUtils")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsThemeUtils = env.NewGlobalRef(&c.Object)
-
-		midThemeUtilsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsThemeUtils)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midThemeUtilsCreateDisabledStateList, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsThemeUtils)), "createDisabledStateList", "(II)Landroid/content/res/ColorStateList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midThemeUtilsGetThemeAttrColor, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsThemeUtils)), "getThemeAttrColor", "(Landroid/content/Context;I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midThemeUtilsGetThemeAttrColorStateList, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsThemeUtils)), "getThemeAttrColorStateList", "(Landroid/content/Context;I)Landroid/content/res/ColorStateList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midThemeUtilsGetDisabledThemeAttrColor, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsThemeUtils)), "getDisabledThemeAttrColor", "(Landroid/content/Context;I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midThemeUtilsCheckAppCompatTheme, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsThemeUtils)), "checkAppCompatTheme", "(Landroid/view/View;Landroid/content/Context;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("androidx/appcompat/widget/PopupMenu$OnDismissListener")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -1956,473 +1733,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midPopupMenuOnDismissListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPopupMenuOnDismissListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/PopupMenu$OnMenuItemClickListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPopupMenuOnMenuItemClickListener = env.NewGlobalRef(&c.Object)
-
-		midPopupMenuOnMenuItemClickListenerOnMenuItemClick, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPopupMenuOnMenuItemClickListener)), "onMenuItemClick", "(Landroid/view/MenuItem;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPopupMenuOnMenuItemClickListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPopupMenuOnMenuItemClickListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatSpinner")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAppCompatSpinner = env.NewGlobalRef(&c.Object)
-		midAppCompatSpinnerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerGetPopupContext, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "getPopupContext", "()Landroid/content/Context;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerSetPopupBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setPopupBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerSetPopupBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setPopupBackgroundResource", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerGetPopupBackground, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "getPopupBackground", "()Landroid/graphics/drawable/Drawable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerSetDropDownVerticalOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setDropDownVerticalOffset", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerGetDropDownVerticalOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "getDropDownVerticalOffset", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerSetDropDownHorizontalOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setDropDownHorizontalOffset", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerGetDropDownHorizontalOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "getDropDownHorizontalOffset", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerSetDropDownWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setDropDownWidth", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerGetDropDownWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "getDropDownWidth", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerSetAdapter1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setAdapter", "(Landroid/widget/SpinnerAdapter;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerOnTouchEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "onTouchEvent", "(Landroid/view/MotionEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerPerformClick, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "performClick", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerSetPrompt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setPrompt", "(Ljava/lang/CharSequence;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerGetPrompt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "getPrompt", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerSetBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setBackgroundResource", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerSetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setSupportBackgroundTintList", "(Landroid/content/res/ColorStateList;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerGetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "getSupportBackgroundTintList", "()Landroid/content/res/ColorStateList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerSetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setSupportBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerGetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "getSupportBackgroundTintMode", "()Landroid/graphics/PorterDuff$Mode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerOnSaveInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "onSaveInstanceState", "()Landroid/os/Parcelable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerOnRestoreInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "onRestoreInstanceState", "(Landroid/os/Parcelable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerSetAdapter1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setAdapter", "(Landroid/widget/Adapter;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatImageView")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAppCompatImageView = env.NewGlobalRef(&c.Object)
-		midAppCompatImageViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageViewSetImageResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setImageResource", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageViewSetImageDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setImageDrawable", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageViewSetImageBitmap, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setImageBitmap", "(Landroid/graphics/Bitmap;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageViewSetImageURI, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setImageURI", "(Landroid/net/Uri;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageViewSetBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setBackgroundResource", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageViewSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageViewSetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setSupportBackgroundTintList", "(Landroid/content/res/ColorStateList;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageViewGetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "getSupportBackgroundTintList", "()Landroid/content/res/ColorStateList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageViewSetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setSupportBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageViewGetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "getSupportBackgroundTintMode", "()Landroid/graphics/PorterDuff$Mode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageViewSetSupportImageTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setSupportImageTintList", "(Landroid/content/res/ColorStateList;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageViewGetSupportImageTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "getSupportImageTintList", "()Landroid/content/res/ColorStateList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageViewSetSupportImageTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setSupportImageTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageViewGetSupportImageTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "getSupportImageTintMode", "()Landroid/graphics/PorterDuff$Mode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageViewHasOverlappingRendering, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "hasOverlappingRendering", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageViewSetImageLevel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setImageLevel", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatImageView$InspectionCompanion")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAppCompatImageViewInspectionCompanion = env.NewGlobalRef(&c.Object)
-
-		midAppCompatImageViewInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageViewInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageViewInspectionCompanionReadProperties2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageViewInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatImageView;Landroid/view/inspector/PropertyReader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageViewInspectionCompanionReadProperties2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageViewInspectionCompanion)), "readProperties", "(Ljava/lang/Object;Landroid/view/inspector/PropertyReader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageViewInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageViewInspectionCompanion)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/ForwardingListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsForwardingListener = env.NewGlobalRef(&c.Object)
-
-		midForwardingListenerGetPopup, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsForwardingListener)), "getPopup", "()Landroidx/appcompat/view/menu/ShowableListMenu;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midForwardingListenerOnTouch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsForwardingListener)), "onTouch", "(Landroid/view/View;Landroid/view/MotionEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midForwardingListenerOnViewAttachedToWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsForwardingListener)), "onViewAttachedToWindow", "(Landroid/view/View;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midForwardingListenerOnViewDetachedFromWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsForwardingListener)), "onViewDetachedFromWindow", "(Landroid/view/View;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midForwardingListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsForwardingListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatSpinner$InspectionCompanion")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAppCompatSpinnerInspectionCompanion = env.NewGlobalRef(&c.Object)
-
-		midAppCompatSpinnerInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinnerInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerInspectionCompanionReadProperties2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinnerInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatSpinner;Landroid/view/inspector/PropertyReader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerInspectionCompanionReadProperties2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinnerInspectionCompanion)), "readProperties", "(Ljava/lang/Object;Landroid/view/inspector/PropertyReader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSpinnerInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinnerInspectionCompanion)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2676,6 +1986,432 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("androidx/appcompat/widget/PopupMenu$OnMenuItemClickListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPopupMenuOnMenuItemClickListener = env.NewGlobalRef(&c.Object)
+
+		midPopupMenuOnMenuItemClickListenerOnMenuItemClick, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPopupMenuOnMenuItemClickListener)), "onMenuItemClick", "(Landroid/view/MenuItem;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPopupMenuOnMenuItemClickListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPopupMenuOnMenuItemClickListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/DecorToolbar")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDecorToolbar = env.NewGlobalRef(&c.Object)
+
+		midDecorToolbarGetViewGroup, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getViewGroup", "()Landroid/view/ViewGroup;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarGetContext, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getContext", "()Landroid/content/Context;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarHasExpandedActionView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "hasExpandedActionView", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarCollapseActionView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "collapseActionView", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetWindowCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setWindowCallback", "(Landroid/view/Window$Callback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetWindowTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setWindowTitle", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarGetTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getTitle", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setTitle", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarGetSubtitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getSubtitle", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetSubtitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setSubtitle", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarInitProgress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "initProgress", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarInitIndeterminateProgress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "initIndeterminateProgress", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarHasIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "hasIcon", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarHasLogo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "hasLogo", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetIcon1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setIcon", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetIcon1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setIcon", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetLogo1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setLogo", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetLogo1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setLogo", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarCanShowOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "canShowOverflowMenu", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarIsOverflowMenuShowing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "isOverflowMenuShowing", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarIsOverflowMenuShowPending, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "isOverflowMenuShowPending", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarShowOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "showOverflowMenu", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarHideOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "hideOverflowMenu", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetMenuPrepared, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setMenuPrepared", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setMenu", "(Landroid/view/Menu;Landroidx/appcompat/view/menu/MenuPresenter$Callback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarDismissPopupMenus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "dismissPopupMenus", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarGetDisplayOptions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getDisplayOptions", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetDisplayOptions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setDisplayOptions", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetEmbeddedTabView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setEmbeddedTabView", "(Landroidx/appcompat/widget/ScrollingTabContainerView;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarHasEmbeddedTabs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "hasEmbeddedTabs", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarIsTitleTruncated, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "isTitleTruncated", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetCollapsible, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setCollapsible", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetHomeButtonEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setHomeButtonEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarGetNavigationMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getNavigationMode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetNavigationMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setNavigationMode", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetDropdownParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setDropdownParams", "(Landroid/widget/SpinnerAdapter;Landroid/widget/AdapterView$OnItemSelectedListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetDropdownSelectedPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setDropdownSelectedPosition", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarGetDropdownSelectedPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getDropdownSelectedPosition", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarGetDropdownItemCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getDropdownItemCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetCustomView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setCustomView", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarGetCustomView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getCustomView", "()Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarAnimateToVisibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "animateToVisibility", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetupAnimatorToVisibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setupAnimatorToVisibility", "(IJ)Landroidx/core/view/ViewPropertyAnimatorCompat;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetNavigationIcon1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setNavigationIcon", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetNavigationIcon1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setNavigationIcon", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetNavigationContentDescription1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setNavigationContentDescription", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetNavigationContentDescription1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setNavigationContentDescription", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetDefaultNavigationContentDescription, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setDefaultNavigationContentDescription", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetDefaultNavigationIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setDefaultNavigationIcon", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarGetHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getHeight", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetVisibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setVisibility", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarGetVisibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getVisibility", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarSetMenuCallbacks, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setMenuCallbacks", "(Landroidx/appcompat/view/menu/MenuPresenter$Callback;Landroidx/appcompat/view/menu/MenuBuilder$Callback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarGetMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getMenu", "()Landroid/view/Menu;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorToolbarToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("androidx/appcompat/widget/SearchView$InspectionCompanion")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -2683,6 +2419,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsSearchViewInspectionCompanion = env.NewGlobalRef(&c.Object)
+		midSearchViewInspectionCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchViewInspectionCompanion)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midSearchViewInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchViewInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
 		if err != nil {
@@ -2691,14 +2431,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midSearchViewInspectionCompanionReadProperties2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchViewInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/SearchView;Landroid/view/inspector/PropertyReader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchViewInspectionCompanionReadProperties2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchViewInspectionCompanion)), "readProperties", "(Ljava/lang/Object;Landroid/view/inspector/PropertyReader;)V")
+		midSearchViewInspectionCompanionReadProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchViewInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/SearchView;Landroid/view/inspector/PropertyReader;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2807,6 +2540,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsSearchViewSearchAutoComplete = env.NewGlobalRef(&c.Object)
+		midSearchViewSearchAutoCompleteCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchViewSearchAutoComplete)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midSearchViewSearchAutoCompleteSetThreshold, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchViewSearchAutoComplete)), "setThreshold", "(I)V")
 		if err != nil {
@@ -2851,138 +2588,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midSearchViewSearchAutoCompleteToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchViewSearchAutoComplete)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/ViewUtils")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewUtils = env.NewGlobalRef(&c.Object)
-
-		midViewUtilsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewUtils)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewUtilsIsLayoutRtl, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewUtils)), "isLayoutRtl", "(Landroid/view/View;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewUtilsComputeFitSystemWindows, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewUtils)), "computeFitSystemWindows", "(Landroid/view/View;Landroid/graphics/Rect;Landroid/graphics/Rect;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewUtilsMakeOptionalFitsSystemWindows, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewUtils)), "makeOptionalFitsSystemWindows", "(Landroid/view/View;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/MenuItemHoverListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMenuItemHoverListener = env.NewGlobalRef(&c.Object)
-
-		midMenuItemHoverListenerOnItemHoverExit, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuItemHoverListener)), "onItemHoverExit", "(Landroidx/appcompat/view/menu/MenuBuilder;Landroid/view/MenuItem;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMenuItemHoverListenerOnItemHoverEnter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuItemHoverListener)), "onItemHoverEnter", "(Landroidx/appcompat/view/menu/MenuBuilder;Landroid/view/MenuItem;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMenuItemHoverListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuItemHoverListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatDrawableManager")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAppCompatDrawableManager = env.NewGlobalRef(&c.Object)
-		midAppCompatDrawableManagerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatDrawableManager)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAppCompatDrawableManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatDrawableManager)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/DialogTitle")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDialogTitle = env.NewGlobalRef(&c.Object)
-		midDialogTitleCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDialogTitle)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;I)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midDialogTitleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDialogTitle)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/ResourceManagerInternal")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsResourceManagerInternal = env.NewGlobalRef(&c.Object)
-		midResourceManagerInternalCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourceManagerInternal)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midResourceManagerInternalToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourceManagerInternal)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -3339,13 +2944,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midSwitchCompatIsEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSwitchCompat)), "isEmojiCompatEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midSwitchCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSwitchCompat)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -3353,52 +2951,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/TooltipCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTooltipCompat = env.NewGlobalRef(&c.Object)
-
-		midTooltipCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTooltipCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTooltipCompatSetTooltipText, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTooltipCompat)), "setTooltipText", "(Landroid/view/View;Ljava/lang/CharSequence;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/FitWindowsLinearLayout")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFitWindowsLinearLayout = env.NewGlobalRef(&c.Object)
-		midFitWindowsLinearLayoutCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFitWindowsLinearLayout)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midFitWindowsLinearLayoutSetOnFitSystemWindowsListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFitWindowsLinearLayout)), "setOnFitSystemWindowsListener", "(Landroidx/appcompat/widget/FitWindowsViewGroup$OnFitSystemWindowsListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFitWindowsLinearLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFitWindowsLinearLayout)), "toString", "()Ljava/lang/String;")
+		midSwitchCompatIsEmojiCompatEnabled, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSwitchCompat)), "isEmojiCompatEnabled", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -3414,6 +2967,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsSwitchCompatInspectionCompanion = env.NewGlobalRef(&c.Object)
+		midSwitchCompatInspectionCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSwitchCompatInspectionCompanion)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midSwitchCompatInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSwitchCompatInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
 		if err != nil {
@@ -3422,14 +2979,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midSwitchCompatInspectionCompanionReadProperties2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSwitchCompatInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/SwitchCompat;Landroid/view/inspector/PropertyReader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSwitchCompatInspectionCompanionReadProperties2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSwitchCompatInspectionCompanion)), "readProperties", "(Ljava/lang/Object;Landroid/view/inspector/PropertyReader;)V")
+		midSwitchCompatInspectionCompanionReadProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSwitchCompatInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/SwitchCompat;Landroid/view/inspector/PropertyReader;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -3445,173 +2995,145 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatCheckBox")
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatMultiAutoCompleteTextView")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAppCompatCheckBox = env.NewGlobalRef(&c.Object)
-		midAppCompatCheckBoxCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "<init>", "(Landroid/content/Context;)V")
+		clsAppCompatMultiAutoCompleteTextView = env.NewGlobalRef(&c.Object)
+		midAppCompatMultiAutoCompleteTextViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "<init>", "(Landroid/content/Context;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midAppCompatCheckBoxSetButtonDrawable1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setButtonDrawable", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatCheckBoxSetButtonDrawable1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setButtonDrawable", "(I)V")
+		midAppCompatMultiAutoCompleteTextViewSetDropDownBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setDropDownBackgroundResource", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatCheckBoxSetSupportButtonTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setSupportButtonTintList", "(Landroid/content/res/ColorStateList;)V")
+		midAppCompatMultiAutoCompleteTextViewSetBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setBackgroundResource", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatCheckBoxGetSupportButtonTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "getSupportButtonTintList", "()Landroid/content/res/ColorStateList;")
+		midAppCompatMultiAutoCompleteTextViewSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatCheckBoxSetSupportButtonTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setSupportButtonTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
+		midAppCompatMultiAutoCompleteTextViewSetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setSupportBackgroundTintList", "(Landroid/content/res/ColorStateList;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatCheckBoxGetSupportButtonTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "getSupportButtonTintMode", "()Landroid/graphics/PorterDuff$Mode;")
+		midAppCompatMultiAutoCompleteTextViewGetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "getSupportBackgroundTintList", "()Landroid/content/res/ColorStateList;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatCheckBoxSetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setSupportBackgroundTintList", "(Landroid/content/res/ColorStateList;)V")
+		midAppCompatMultiAutoCompleteTextViewSetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setSupportBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatCheckBoxGetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "getSupportBackgroundTintList", "()Landroid/content/res/ColorStateList;")
+		midAppCompatMultiAutoCompleteTextViewGetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "getSupportBackgroundTintMode", "()Landroid/graphics/PorterDuff$Mode;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatCheckBoxSetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setSupportBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
+		midAppCompatMultiAutoCompleteTextViewSetTextAppearance, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setTextAppearance", "(Landroid/content/Context;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatCheckBoxGetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "getSupportBackgroundTintMode", "()Landroid/graphics/PorterDuff$Mode;")
+		midAppCompatMultiAutoCompleteTextViewOnCreateInputConnection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "onCreateInputConnection", "(Landroid/view/inputmethod/EditorInfo;)Landroid/view/inputmethod/InputConnection;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatCheckBoxSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		midAppCompatMultiAutoCompleteTextViewSetKeyListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setKeyListener", "(Landroid/text/method/KeyListener;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatCheckBoxSetBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setBackgroundResource", "(I)V")
+		midAppCompatMultiAutoCompleteTextViewSetEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setEmojiCompatEnabled", "(Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatCheckBoxSetFilters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setFilters", "([Landroid/text/InputFilter;)V")
+		midAppCompatMultiAutoCompleteTextViewIsEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "isEmojiCompatEnabled", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatCheckBoxSetAllCaps, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setAllCaps", "(Z)V")
+		midAppCompatMultiAutoCompleteTextViewSetCompoundDrawables, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setCompoundDrawables", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatCheckBoxSetEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setEmojiCompatEnabled", "(Z)V")
+		midAppCompatMultiAutoCompleteTextViewSetCompoundDrawablesRelative, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setCompoundDrawablesRelative", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatCheckBoxIsEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "isEmojiCompatEnabled", "()Z")
+		midAppCompatMultiAutoCompleteTextViewGetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "getSupportCompoundDrawablesTintList", "()Landroid/content/res/ColorStateList;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatCheckBoxSetCompoundDrawables, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setCompoundDrawables", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
+		midAppCompatMultiAutoCompleteTextViewSetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setSupportCompoundDrawablesTintList", "(Landroid/content/res/ColorStateList;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatCheckBoxSetCompoundDrawablesRelative, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setCompoundDrawablesRelative", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
+		midAppCompatMultiAutoCompleteTextViewGetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "getSupportCompoundDrawablesTintMode", "()Landroid/graphics/PorterDuff$Mode;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatCheckBoxGetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "getSupportCompoundDrawablesTintList", "()Landroid/content/res/ColorStateList;")
+		midAppCompatMultiAutoCompleteTextViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatCheckBoxSetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setSupportCompoundDrawablesTintList", "(Landroid/content/res/ColorStateList;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatCheckBoxGetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "getSupportCompoundDrawablesTintMode", "()Landroid/graphics/PorterDuff$Mode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatCheckBoxSetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setSupportCompoundDrawablesTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatCheckBoxToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "toString", "()Ljava/lang/String;")
+		midAppCompatMultiAutoCompleteTextViewSetSupportCompoundDrawablesTintMode, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), "setSupportCompoundDrawablesTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -3620,50 +3142,520 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/ResourceManagerInternal$ResourceManagerHooks")
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatMultiAutoCompleteTextView$InspectionCompanion")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsResourceManagerInternalResourceManagerHooks = env.NewGlobalRef(&c.Object)
+		clsAppCompatMultiAutoCompleteTextViewInspectionCompanion = env.NewGlobalRef(&c.Object)
+		midAppCompatMultiAutoCompleteTextViewInspectionCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextViewInspectionCompanion)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midResourceManagerInternalResourceManagerHooksCreateDrawableFor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourceManagerInternalResourceManagerHooks)), "createDrawableFor", "(Landroidx/appcompat/widget/ResourceManagerInternal;Landroid/content/Context;I)Landroid/graphics/drawable/Drawable;")
+		midAppCompatMultiAutoCompleteTextViewInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextViewInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midResourceManagerInternalResourceManagerHooksTintDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourceManagerInternalResourceManagerHooks)), "tintDrawable", "(Landroid/content/Context;ILandroid/graphics/drawable/Drawable;)Z")
+		midAppCompatMultiAutoCompleteTextViewInspectionCompanionReadProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextViewInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatMultiAutoCompleteTextView;Landroid/view/inspector/PropertyReader;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midResourceManagerInternalResourceManagerHooksGetTintListForDrawableRes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourceManagerInternalResourceManagerHooks)), "getTintListForDrawableRes", "(Landroid/content/Context;I)Landroid/content/res/ColorStateList;")
+		midAppCompatMultiAutoCompleteTextViewInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextViewInspectionCompanion)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midResourceManagerInternalResourceManagerHooksTintDrawableUsingColorFilter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourceManagerInternalResourceManagerHooks)), "tintDrawableUsingColorFilter", "(Landroid/content/Context;ILandroid/graphics/drawable/Drawable;)Z")
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/ThemeUtils")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsThemeUtils = env.NewGlobalRef(&c.Object)
+
+		midThemeUtilsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsThemeUtils)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midResourceManagerInternalResourceManagerHooksGetTintModeForDrawableRes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourceManagerInternalResourceManagerHooks)), "getTintModeForDrawableRes", "(I)Landroid/graphics/PorterDuff$Mode;")
+		midThemeUtilsCreateDisabledStateList, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsThemeUtils)), "createDisabledStateList", "(II)Landroid/content/res/ColorStateList;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midResourceManagerInternalResourceManagerHooksToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourceManagerInternalResourceManagerHooks)), "toString", "()Ljava/lang/String;")
+		midThemeUtilsGetThemeAttrColor, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsThemeUtils)), "getThemeAttrColor", "(Landroid/content/Context;I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midThemeUtilsGetThemeAttrColorStateList, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsThemeUtils)), "getThemeAttrColorStateList", "(Landroid/content/Context;I)Landroid/content/res/ColorStateList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midThemeUtilsGetDisabledThemeAttrColor, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsThemeUtils)), "getDisabledThemeAttrColor", "(Landroid/content/Context;I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midThemeUtilsCheckAppCompatTheme, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsThemeUtils)), "checkAppCompatTheme", "(Landroid/view/View;Landroid/content/Context;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/WithHint")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsWithHint = env.NewGlobalRef(&c.Object)
+
+		midWithHintGetHint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWithHint)), "getHint", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWithHintToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWithHint)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatImageButton")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppCompatImageButton = env.NewGlobalRef(&c.Object)
+		midAppCompatImageButtonCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageButtonSetImageResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setImageResource", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageButtonSetImageDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setImageDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageButtonSetImageBitmap, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setImageBitmap", "(Landroid/graphics/Bitmap;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageButtonSetImageURI, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setImageURI", "(Landroid/net/Uri;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageButtonSetBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setBackgroundResource", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageButtonSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageButtonSetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setSupportBackgroundTintList", "(Landroid/content/res/ColorStateList;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageButtonGetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "getSupportBackgroundTintList", "()Landroid/content/res/ColorStateList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageButtonSetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setSupportBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageButtonGetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "getSupportBackgroundTintMode", "()Landroid/graphics/PorterDuff$Mode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageButtonSetSupportImageTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setSupportImageTintList", "(Landroid/content/res/ColorStateList;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageButtonGetSupportImageTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "getSupportImageTintList", "()Landroid/content/res/ColorStateList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageButtonSetSupportImageTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setSupportImageTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageButtonGetSupportImageTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "getSupportImageTintMode", "()Landroid/graphics/PorterDuff$Mode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageButtonHasOverlappingRendering, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "hasOverlappingRendering", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageButtonSetImageLevel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setImageLevel", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageButtonToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/MenuItemHoverListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMenuItemHoverListener = env.NewGlobalRef(&c.Object)
+
+		midMenuItemHoverListenerOnItemHoverExit, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuItemHoverListener)), "onItemHoverExit", "(Landroidx/appcompat/view/menu/MenuBuilder;Landroid/view/MenuItem;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMenuItemHoverListenerOnItemHoverEnter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuItemHoverListener)), "onItemHoverEnter", "(Landroidx/appcompat/view/menu/MenuBuilder;Landroid/view/MenuItem;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMenuItemHoverListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuItemHoverListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatImageButton$InspectionCompanion")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppCompatImageButtonInspectionCompanion = env.NewGlobalRef(&c.Object)
+		midAppCompatImageButtonInspectionCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButtonInspectionCompanion)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageButtonInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButtonInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageButtonInspectionCompanionReadProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButtonInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatImageButton;Landroid/view/inspector/PropertyReader;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageButtonInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButtonInspectionCompanion)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/FitWindowsViewGroup")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFitWindowsViewGroup = env.NewGlobalRef(&c.Object)
+
+		midFitWindowsViewGroupSetOnFitSystemWindowsListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFitWindowsViewGroup)), "setOnFitSystemWindowsListener", "(Landroidx/appcompat/widget/FitWindowsViewGroup$OnFitSystemWindowsListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFitWindowsViewGroupToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFitWindowsViewGroup)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/FitWindowsViewGroup$OnFitSystemWindowsListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFitWindowsViewGroupOnFitSystemWindowsListener = env.NewGlobalRef(&c.Object)
+
+		midFitWindowsViewGroupOnFitSystemWindowsListenerOnFitSystemWindows, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFitWindowsViewGroupOnFitSystemWindowsListener)), "onFitSystemWindows", "(Landroid/graphics/Rect;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFitWindowsViewGroupOnFitSystemWindowsListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFitWindowsViewGroupOnFitSystemWindowsListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/DecorContentParent")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDecorContentParent = env.NewGlobalRef(&c.Object)
+
+		midDecorContentParentSetWindowCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "setWindowCallback", "(Landroid/view/Window$Callback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorContentParentSetWindowTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "setWindowTitle", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorContentParentGetTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "getTitle", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorContentParentInitFeature, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "initFeature", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorContentParentSetUiOptions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "setUiOptions", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorContentParentHasIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "hasIcon", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorContentParentHasLogo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "hasLogo", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorContentParentSetIcon1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "setIcon", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorContentParentSetIcon1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "setIcon", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorContentParentSetLogo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "setLogo", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorContentParentCanShowOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "canShowOverflowMenu", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorContentParentIsOverflowMenuShowing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "isOverflowMenuShowing", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorContentParentIsOverflowMenuShowPending, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "isOverflowMenuShowPending", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorContentParentShowOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "showOverflowMenu", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorContentParentHideOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "hideOverflowMenu", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorContentParentSetMenuPrepared, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "setMenuPrepared", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorContentParentSetMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "setMenu", "(Landroid/view/Menu;Landroidx/appcompat/view/menu/MenuPresenter$Callback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorContentParentDismissPopups, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "dismissPopups", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDecorContentParentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/AlertDialogLayout")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAlertDialogLayout = env.NewGlobalRef(&c.Object)
+		midAlertDialogLayoutCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogLayout)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAlertDialogLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogLayout)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -3733,7 +3725,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midActionBarOverlayLayoutGenerateLayoutParams1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarOverlayLayout)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroidx/appcompat/widget/ActionBarOverlayLayout$LayoutParams;")
+		midActionBarOverlayLayoutGenerateLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarOverlayLayout)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroidx/appcompat/widget/ActionBarOverlayLayout$LayoutParams;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -4006,13 +3998,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midActionBarOverlayLayoutGenerateLayoutParams1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarOverlayLayout)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroid/view/ViewGroup$LayoutParams;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midActionBarOverlayLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarOverlayLayout)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -4022,36 +4007,19 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatCheckBox$InspectionCompanion")
+	c, err = env.FindClass("androidx/appcompat/widget/DialogTitle")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAppCompatCheckBoxInspectionCompanion = env.NewGlobalRef(&c.Object)
-
-		midAppCompatCheckBoxInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBoxInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
+		clsDialogTitle = env.NewGlobalRef(&c.Object)
+		midDialogTitleCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDialogTitle)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;I)V")
 		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatCheckBoxInspectionCompanionReadProperties2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBoxInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatCheckBox;Landroid/view/inspector/PropertyReader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatCheckBoxInspectionCompanionReadProperties2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBoxInspectionCompanion)), "readProperties", "(Ljava/lang/Object;Landroid/view/inspector/PropertyReader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatCheckBoxInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBoxInspectionCompanion)), "toString", "()Ljava/lang/String;")
+		midDialogTitleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDialogTitle)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -4060,141 +4028,159 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/DecorContentParent")
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatAutoCompleteTextView")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsDecorContentParent = env.NewGlobalRef(&c.Object)
+		clsAppCompatAutoCompleteTextView = env.NewGlobalRef(&c.Object)
+		midAppCompatAutoCompleteTextViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midDecorContentParentSetWindowCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "setWindowCallback", "(Landroid/view/Window$Callback;)V")
+		midAppCompatAutoCompleteTextViewSetDropDownBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setDropDownBackgroundResource", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorContentParentSetWindowTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "setWindowTitle", "(Ljava/lang/CharSequence;)V")
+		midAppCompatAutoCompleteTextViewSetBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setBackgroundResource", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorContentParentGetTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "getTitle", "()Ljava/lang/CharSequence;")
+		midAppCompatAutoCompleteTextViewSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorContentParentInitFeature, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "initFeature", "(I)V")
+		midAppCompatAutoCompleteTextViewSetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setSupportBackgroundTintList", "(Landroid/content/res/ColorStateList;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorContentParentSetUiOptions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "setUiOptions", "(I)V")
+		midAppCompatAutoCompleteTextViewGetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "getSupportBackgroundTintList", "()Landroid/content/res/ColorStateList;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorContentParentHasIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "hasIcon", "()Z")
+		midAppCompatAutoCompleteTextViewSetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setSupportBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorContentParentHasLogo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "hasLogo", "()Z")
+		midAppCompatAutoCompleteTextViewGetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "getSupportBackgroundTintMode", "()Landroid/graphics/PorterDuff$Mode;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorContentParentSetIcon1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "setIcon", "(I)V")
+		midAppCompatAutoCompleteTextViewSetTextAppearance, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setTextAppearance", "(Landroid/content/Context;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorContentParentSetIcon1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "setIcon", "(Landroid/graphics/drawable/Drawable;)V")
+		midAppCompatAutoCompleteTextViewOnCreateInputConnection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "onCreateInputConnection", "(Landroid/view/inputmethod/EditorInfo;)Landroid/view/inputmethod/InputConnection;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorContentParentSetLogo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "setLogo", "(I)V")
+		midAppCompatAutoCompleteTextViewSetCustomSelectionActionModeCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setCustomSelectionActionModeCallback", "(Landroid/view/ActionMode$Callback;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorContentParentCanShowOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "canShowOverflowMenu", "()Z")
+		midAppCompatAutoCompleteTextViewGetCustomSelectionActionModeCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "getCustomSelectionActionModeCallback", "()Landroid/view/ActionMode$Callback;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorContentParentIsOverflowMenuShowing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "isOverflowMenuShowing", "()Z")
+		midAppCompatAutoCompleteTextViewSetKeyListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setKeyListener", "(Landroid/text/method/KeyListener;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorContentParentIsOverflowMenuShowPending, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "isOverflowMenuShowPending", "()Z")
+		midAppCompatAutoCompleteTextViewSetEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setEmojiCompatEnabled", "(Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorContentParentShowOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "showOverflowMenu", "()Z")
+		midAppCompatAutoCompleteTextViewIsEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "isEmojiCompatEnabled", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorContentParentHideOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "hideOverflowMenu", "()Z")
+		midAppCompatAutoCompleteTextViewSetCompoundDrawables, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setCompoundDrawables", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorContentParentSetMenuPrepared, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "setMenuPrepared", "()V")
+		midAppCompatAutoCompleteTextViewSetCompoundDrawablesRelative, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setCompoundDrawablesRelative", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorContentParentSetMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "setMenu", "(Landroid/view/Menu;Landroidx/appcompat/view/menu/MenuPresenter$Callback;)V")
+		midAppCompatAutoCompleteTextViewGetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "getSupportCompoundDrawablesTintList", "()Landroid/content/res/ColorStateList;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorContentParentDismissPopups, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "dismissPopups", "()V")
+		midAppCompatAutoCompleteTextViewSetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setSupportCompoundDrawablesTintList", "(Landroid/content/res/ColorStateList;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorContentParentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorContentParent)), "toString", "()Ljava/lang/String;")
+		midAppCompatAutoCompleteTextViewGetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "getSupportCompoundDrawablesTintMode", "()Landroid/graphics/PorterDuff$Mode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatAutoCompleteTextViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatAutoCompleteTextViewSetSupportCompoundDrawablesTintMode, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setSupportCompoundDrawablesTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -4262,6 +4248,41 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatAutoCompleteTextView$InspectionCompanion")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppCompatAutoCompleteTextViewInspectionCompanion = env.NewGlobalRef(&c.Object)
+		midAppCompatAutoCompleteTextViewInspectionCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextViewInspectionCompanion)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAppCompatAutoCompleteTextViewInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextViewInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatAutoCompleteTextViewInspectionCompanionReadProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextViewInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatAutoCompleteTextView;Landroid/view/inspector/PropertyReader;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatAutoCompleteTextViewInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextViewInspectionCompanion)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("androidx/appcompat/widget/ActionBarOverlayLayout$LayoutParams")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -4269,6 +4290,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsActionBarOverlayLayoutLayoutParams = env.NewGlobalRef(&c.Object)
+		midActionBarOverlayLayoutLayoutParamsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarOverlayLayoutLayoutParams)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midActionBarOverlayLayoutLayoutParamsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarOverlayLayoutLayoutParams)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -4279,131 +4304,131 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/ActionBarContainer")
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatImageView")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsActionBarContainer = env.NewGlobalRef(&c.Object)
-		midActionBarContainerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "<init>", "(Landroid/content/Context;)V")
+		clsAppCompatImageView = env.NewGlobalRef(&c.Object)
+		midAppCompatImageViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "<init>", "(Landroid/content/Context;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midActionBarContainerOnFinishInflate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "onFinishInflate", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionBarContainerSetPrimaryBackground, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "setPrimaryBackground", "(Landroid/graphics/drawable/Drawable;)V")
+		midAppCompatImageViewSetImageResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setImageResource", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContainerSetStackedBackground, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "setStackedBackground", "(Landroid/graphics/drawable/Drawable;)V")
+		midAppCompatImageViewSetImageDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setImageDrawable", "(Landroid/graphics/drawable/Drawable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContainerSetSplitBackground, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "setSplitBackground", "(Landroid/graphics/drawable/Drawable;)V")
+		midAppCompatImageViewSetImageBitmap, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setImageBitmap", "(Landroid/graphics/Bitmap;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContainerSetVisibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "setVisibility", "(I)V")
+		midAppCompatImageViewSetImageURI, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setImageURI", "(Landroid/net/Uri;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContainerJumpDrawablesToCurrentState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "jumpDrawablesToCurrentState", "()V")
+		midAppCompatImageViewSetBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setBackgroundResource", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContainerSetTransitioning, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "setTransitioning", "(Z)V")
+		midAppCompatImageViewSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContainerOnInterceptTouchEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "onInterceptTouchEvent", "(Landroid/view/MotionEvent;)Z")
+		midAppCompatImageViewSetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setSupportBackgroundTintList", "(Landroid/content/res/ColorStateList;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContainerOnTouchEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "onTouchEvent", "(Landroid/view/MotionEvent;)Z")
+		midAppCompatImageViewGetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "getSupportBackgroundTintList", "()Landroid/content/res/ColorStateList;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContainerOnHoverEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "onHoverEvent", "(Landroid/view/MotionEvent;)Z")
+		midAppCompatImageViewSetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setSupportBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContainerSetTabContainer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "setTabContainer", "(Landroidx/appcompat/widget/ScrollingTabContainerView;)V")
+		midAppCompatImageViewGetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "getSupportBackgroundTintMode", "()Landroid/graphics/PorterDuff$Mode;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContainerGetTabContainer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "getTabContainer", "()Landroid/view/View;")
+		midAppCompatImageViewSetSupportImageTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setSupportImageTintList", "(Landroid/content/res/ColorStateList;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContainerStartActionModeForChild2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "startActionModeForChild", "(Landroid/view/View;Landroid/view/ActionMode$Callback;)Landroid/view/ActionMode;")
+		midAppCompatImageViewGetSupportImageTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "getSupportImageTintList", "()Landroid/content/res/ColorStateList;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContainerStartActionModeForChild3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "startActionModeForChild", "(Landroid/view/View;Landroid/view/ActionMode$Callback;I)Landroid/view/ActionMode;")
+		midAppCompatImageViewSetSupportImageTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setSupportImageTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContainerOnMeasure, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "onMeasure", "(II)V")
+		midAppCompatImageViewGetSupportImageTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "getSupportImageTintMode", "()Landroid/graphics/PorterDuff$Mode;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContainerOnLayout, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "onLayout", "(ZIIII)V")
+		midAppCompatImageViewHasOverlappingRendering, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "hasOverlappingRendering", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContainerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "toString", "()Ljava/lang/String;")
+		midAppCompatImageViewSetImageLevel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "setImageLevel", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageView)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -4412,22 +4437,33 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/FitWindowsViewGroup")
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatImageView$InspectionCompanion")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsFitWindowsViewGroup = env.NewGlobalRef(&c.Object)
+		clsAppCompatImageViewInspectionCompanion = env.NewGlobalRef(&c.Object)
+		midAppCompatImageViewInspectionCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageViewInspectionCompanion)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midFitWindowsViewGroupSetOnFitSystemWindowsListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFitWindowsViewGroup)), "setOnFitSystemWindowsListener", "(Landroidx/appcompat/widget/FitWindowsViewGroup$OnFitSystemWindowsListener;)V")
+		midAppCompatImageViewInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageViewInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midFitWindowsViewGroupToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFitWindowsViewGroup)), "toString", "()Ljava/lang/String;")
+		midAppCompatImageViewInspectionCompanionReadProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageViewInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatImageView;Landroid/view/inspector/PropertyReader;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatImageViewInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageViewInspectionCompanion)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -4436,298 +4472,47 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/FitWindowsViewGroup$OnFitSystemWindowsListener")
+	c, err = env.FindClass("androidx/appcompat/widget/VectorEnabledTintResources")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsFitWindowsViewGroupOnFitSystemWindowsListener = env.NewGlobalRef(&c.Object)
+		clsVectorEnabledTintResources = env.NewGlobalRef(&c.Object)
+		midVectorEnabledTintResourcesCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "<init>", "(Landroid/content/Context;Landroid/content/res/Resources;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midFitWindowsViewGroupOnFitSystemWindowsListenerOnFitSystemWindows, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFitWindowsViewGroupOnFitSystemWindowsListener)), "onFitSystemWindows", "(Landroid/graphics/Rect;)V")
+		midVectorEnabledTintResourcesGetDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getDrawable", "(I)Landroid/graphics/drawable/Drawable;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midFitWindowsViewGroupOnFitSystemWindowsListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFitWindowsViewGroupOnFitSystemWindowsListener)), "toString", "()Ljava/lang/String;")
+		midVectorEnabledTintResourcesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/EmojiCompatConfigurationView")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsEmojiCompatConfigurationView = env.NewGlobalRef(&c.Object)
-
-		midEmojiCompatConfigurationViewSetEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiCompatConfigurationView)), "setEmojiCompatEnabled", "(Z)V")
+		midVectorEnabledTintResourcesShouldBeUsed, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "shouldBeUsed", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midEmojiCompatConfigurationViewIsEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiCompatConfigurationView)), "isEmojiCompatEnabled", "()Z")
+		midVectorEnabledTintResourcesSetCompatVectorFromResourcesEnabled, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "setCompatVectorFromResourcesEnabled", "(Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midEmojiCompatConfigurationViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiCompatConfigurationView)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/TintInfo")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTintInfo = env.NewGlobalRef(&c.Object)
-		midTintInfoCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintInfo)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midTintInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintInfo)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatButton")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAppCompatButton = env.NewGlobalRef(&c.Object)
-		midAppCompatButtonCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonSetBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setBackgroundResource", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonSetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setSupportBackgroundTintList", "(Landroid/content/res/ColorStateList;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonGetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "getSupportBackgroundTintList", "()Landroid/content/res/ColorStateList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonSetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setSupportBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonGetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "getSupportBackgroundTintMode", "()Landroid/graphics/PorterDuff$Mode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonSetTextAppearance, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setTextAppearance", "(Landroid/content/Context;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonOnInitializeAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "onInitializeAccessibilityEvent", "(Landroid/view/accessibility/AccessibilityEvent;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonOnInitializeAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "onInitializeAccessibilityNodeInfo", "(Landroid/view/accessibility/AccessibilityNodeInfo;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonSetTextSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setTextSize", "(IF)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonSetAutoSizeTextTypeWithDefaults, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setAutoSizeTextTypeWithDefaults", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonSetAutoSizeTextTypeUniformWithConfiguration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setAutoSizeTextTypeUniformWithConfiguration", "(IIII)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonSetAutoSizeTextTypeUniformWithPresetSizes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setAutoSizeTextTypeUniformWithPresetSizes", "([II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonGetAutoSizeTextType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "getAutoSizeTextType", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonGetAutoSizeStepGranularity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "getAutoSizeStepGranularity", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonGetAutoSizeMinTextSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "getAutoSizeMinTextSize", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonGetAutoSizeMaxTextSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "getAutoSizeMaxTextSize", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonGetAutoSizeTextAvailableSizes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "getAutoSizeTextAvailableSizes", "()[I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonSetSupportAllCaps, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setSupportAllCaps", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonSetCustomSelectionActionModeCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setCustomSelectionActionModeCallback", "(Landroid/view/ActionMode$Callback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonGetCustomSelectionActionModeCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "getCustomSelectionActionModeCallback", "()Landroid/view/ActionMode$Callback;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonSetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setSupportCompoundDrawablesTintList", "(Landroid/content/res/ColorStateList;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonGetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "getSupportCompoundDrawablesTintList", "()Landroid/content/res/ColorStateList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonSetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setSupportCompoundDrawablesTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonGetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "getSupportCompoundDrawablesTintMode", "()Landroid/graphics/PorterDuff$Mode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonSetFilters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setFilters", "([Landroid/text/InputFilter;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonSetAllCaps, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setAllCaps", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonSetEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setEmojiCompatEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonIsEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "isEmojiCompatEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "toString", "()Ljava/lang/String;")
+		midVectorEnabledTintResourcesIsCompatVectorFromResourcesEnabled, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "isCompatVectorFromResourcesEnabled", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -4848,44 +4633,6 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatButton$InspectionCompanion")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAppCompatButtonInspectionCompanion = env.NewGlobalRef(&c.Object)
-
-		midAppCompatButtonInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButtonInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonInspectionCompanionReadProperties2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButtonInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatButton;Landroid/view/inspector/PropertyReader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonInspectionCompanionReadProperties2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButtonInspectionCompanion)), "readProperties", "(Ljava/lang/Object;Landroid/view/inspector/PropertyReader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatButtonInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButtonInspectionCompanion)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("androidx/appcompat/widget/ScrollingTabContainerView$VisibilityAnimListener")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -4931,1214 +4678,22 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/AlertDialogLayout")
+	c, err = env.FindClass("androidx/appcompat/widget/TooltipCompat")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAlertDialogLayout = env.NewGlobalRef(&c.Object)
-		midAlertDialogLayoutCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogLayout)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAlertDialogLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogLayout)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/FitWindowsFrameLayout")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFitWindowsFrameLayout = env.NewGlobalRef(&c.Object)
-		midFitWindowsFrameLayoutCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFitWindowsFrameLayout)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midFitWindowsFrameLayoutSetOnFitSystemWindowsListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFitWindowsFrameLayout)), "setOnFitSystemWindowsListener", "(Landroidx/appcompat/widget/FitWindowsViewGroup$OnFitSystemWindowsListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFitWindowsFrameLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFitWindowsFrameLayout)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/ShareActionProvider")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsShareActionProvider = env.NewGlobalRef(&c.Object)
-		midShareActionProviderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShareActionProvider)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midShareActionProviderSetOnShareTargetSelectedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShareActionProvider)), "setOnShareTargetSelectedListener", "(Landroidx/appcompat/widget/ShareActionProvider$OnShareTargetSelectedListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midShareActionProviderOnCreateActionView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShareActionProvider)), "onCreateActionView", "()Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midShareActionProviderHasSubMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShareActionProvider)), "hasSubMenu", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midShareActionProviderOnPrepareSubMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShareActionProvider)), "onPrepareSubMenu", "(Landroid/view/SubMenu;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midShareActionProviderSetShareHistoryFileName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShareActionProvider)), "setShareHistoryFileName", "(Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midShareActionProviderSetShareIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShareActionProvider)), "setShareIntent", "(Landroid/content/Intent;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midShareActionProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShareActionProvider)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/ShareActionProvider$OnShareTargetSelectedListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsShareActionProviderOnShareTargetSelectedListener = env.NewGlobalRef(&c.Object)
-
-		midShareActionProviderOnShareTargetSelectedListenerOnShareTargetSelected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShareActionProviderOnShareTargetSelectedListener)), "onShareTargetSelected", "(Landroidx/appcompat/widget/ShareActionProvider;Landroid/content/Intent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midShareActionProviderOnShareTargetSelectedListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShareActionProviderOnShareTargetSelectedListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatSeekBar")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAppCompatSeekBar = env.NewGlobalRef(&c.Object)
-		midAppCompatSeekBarCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSeekBar)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAppCompatSeekBarJumpDrawablesToCurrentState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSeekBar)), "jumpDrawablesToCurrentState", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatSeekBarToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSeekBar)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/TintContextWrapper")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTintContextWrapper = env.NewGlobalRef(&c.Object)
-
-		midTintContextWrapperGetTheme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintContextWrapper)), "getTheme", "()Landroid/content/res/Resources$Theme;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintContextWrapperSetTheme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintContextWrapper)), "setTheme", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintContextWrapperGetResources, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintContextWrapper)), "getResources", "()Landroid/content/res/Resources;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintContextWrapperGetAssets, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintContextWrapper)), "getAssets", "()Landroid/content/res/AssetManager;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintContextWrapperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintContextWrapper)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintContextWrapperWrap, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTintContextWrapper)), "wrap", "(Landroid/content/Context;)Landroid/content/Context;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/LinearLayoutCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLinearLayoutCompat = env.NewGlobalRef(&c.Object)
-		midLinearLayoutCompatCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatSetShowDividers, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setShowDividers", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatShouldDelayChildPressedState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "shouldDelayChildPressedState", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatGetShowDividers, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "getShowDividers", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatGetDividerDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "getDividerDrawable", "()Landroid/graphics/drawable/Drawable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatSetDividerDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setDividerDrawable", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatSetDividerPadding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setDividerPadding", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatGetDividerPadding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "getDividerPadding", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatGetDividerWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "getDividerWidth", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatIsBaselineAligned, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "isBaselineAligned", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatSetBaselineAligned, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setBaselineAligned", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatIsMeasureWithLargestChildEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "isMeasureWithLargestChildEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatSetMeasureWithLargestChildEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setMeasureWithLargestChildEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatGetBaseline, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "getBaseline", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatGetBaselineAlignedChildIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "getBaselineAlignedChildIndex", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatSetBaselineAlignedChildIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setBaselineAlignedChildIndex", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatGetWeightSum, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "getWeightSum", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatSetWeightSum, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setWeightSum", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatSetOrientation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setOrientation", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatGetOrientation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "getOrientation", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatSetGravity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setGravity", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatGetGravity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "getGravity", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatSetHorizontalGravity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setHorizontalGravity", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatSetVerticalGravity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setVerticalGravity", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatGenerateLayoutParams1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroidx/appcompat/widget/LinearLayoutCompat$LayoutParams;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatOnInitializeAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "onInitializeAccessibilityEvent", "(Landroid/view/accessibility/AccessibilityEvent;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatOnInitializeAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "onInitializeAccessibilityNodeInfo", "(Landroid/view/accessibility/AccessibilityNodeInfo;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatGenerateLayoutParams1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroid/view/ViewGroup$LayoutParams;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/LinearLayoutCompat$DividerMode")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLinearLayoutCompatDividerMode = env.NewGlobalRef(&c.Object)
-
-		midLinearLayoutCompatDividerModeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompatDividerMode)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/LinearLayoutCompat$InspectionCompanion")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLinearLayoutCompatInspectionCompanion = env.NewGlobalRef(&c.Object)
-
-		midLinearLayoutCompatInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompatInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatInspectionCompanionReadProperties2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompatInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/LinearLayoutCompat;Landroid/view/inspector/PropertyReader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatInspectionCompanionReadProperties2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompatInspectionCompanion)), "readProperties", "(Ljava/lang/Object;Landroid/view/inspector/PropertyReader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutCompatInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompatInspectionCompanion)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/TintTypedArray")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTintTypedArray = env.NewGlobalRef(&c.Object)
-
-		midTintTypedArrayGetWrappedTypeArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getWrappedTypeArray", "()Landroid/content/res/TypedArray;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getDrawable", "(I)Landroid/graphics/drawable/Drawable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetDrawableIfKnown, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getDrawableIfKnown", "(I)Landroid/graphics/drawable/Drawable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetFont, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getFont", "(IILandroidx/core/content/res/ResourcesCompat$FontCallback;)Landroid/graphics/Typeface;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayLength, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "length", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetIndexCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getIndexCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getIndex", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetResources, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getResources", "()Landroid/content/res/Resources;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getText", "(I)Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getString", "(I)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetNonResourceString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getNonResourceString", "(I)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetBoolean, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getBoolean", "(IZ)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetInt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getInt", "(II)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetFloat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getFloat", "(IF)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getColor", "(II)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetColorStateList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getColorStateList", "(I)Landroid/content/res/ColorStateList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetInteger, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getInteger", "(II)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetDimension, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getDimension", "(IF)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetDimensionPixelOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getDimensionPixelOffset", "(II)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetDimensionPixelSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getDimensionPixelSize", "(II)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetLayoutDimension2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getLayoutDimension", "(ILjava/lang/String;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetLayoutDimension2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getLayoutDimension", "(II)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetFraction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getFraction", "(IIIF)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetResourceId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getResourceId", "(II)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetTextArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getTextArray", "(I)[Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getValue", "(ILandroid/util/TypedValue;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getType", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayHasValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "hasValue", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayPeekValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "peekValue", "(I)Landroid/util/TypedValue;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetPositionDescription, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getPositionDescription", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayRecycle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "recycle", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayGetChangingConfigurations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getChangingConfigurations", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayObtainStyledAttributes3, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "obtainStyledAttributes", "(Landroid/content/Context;Landroid/util/AttributeSet;[I)Landroidx/appcompat/widget/TintTypedArray;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayObtainStyledAttributes5_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "obtainStyledAttributes", "(Landroid/content/Context;Landroid/util/AttributeSet;[III)Landroidx/appcompat/widget/TintTypedArray;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTintTypedArrayObtainStyledAttributes3_2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "obtainStyledAttributes", "(Landroid/content/Context;I[I)Landroidx/appcompat/widget/TintTypedArray;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/LinearLayoutCompat$LayoutParams")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLinearLayoutCompatLayoutParams = env.NewGlobalRef(&c.Object)
-
-		midLinearLayoutCompatLayoutParamsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompatLayoutParams)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/ActionMenuView")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsActionMenuView = env.NewGlobalRef(&c.Object)
-		midActionMenuViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewSetPopupTheme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "setPopupTheme", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewGetPopupTheme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "getPopupTheme", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewSetPresenter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "setPresenter", "(Landroidx/appcompat/widget/ActionMenuPresenter;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewOnConfigurationChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "onConfigurationChanged", "(Landroid/content/res/Configuration;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewSetOnMenuItemClickListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "setOnMenuItemClickListener", "(Landroidx/appcompat/widget/ActionMenuView$OnMenuItemClickListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewOnDetachedFromWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "onDetachedFromWindow", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewSetOverflowIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "setOverflowIcon", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewGetOverflowIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "getOverflowIcon", "()Landroid/graphics/drawable/Drawable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewIsOverflowReserved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "isOverflowReserved", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewSetOverflowReserved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "setOverflowReserved", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewGenerateLayoutParams1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroidx/appcompat/widget/ActionMenuView$LayoutParams;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewGenerateOverflowButtonLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "generateOverflowButtonLayoutParams", "()Landroidx/appcompat/widget/ActionMenuView$LayoutParams;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewInvokeItem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "invokeItem", "(Landroidx/appcompat/view/menu/MenuItemImpl;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewGetWindowAnimations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "getWindowAnimations", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewInitialize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "initialize", "(Landroidx/appcompat/view/menu/MenuBuilder;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewGetMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "getMenu", "()Landroid/view/Menu;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewSetMenuCallbacks, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "setMenuCallbacks", "(Landroidx/appcompat/view/menu/MenuPresenter$Callback;Landroidx/appcompat/view/menu/MenuBuilder$Callback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewPeekMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "peekMenu", "()Landroidx/appcompat/view/menu/MenuBuilder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewShowOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "showOverflowMenu", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewHideOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "hideOverflowMenu", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewIsOverflowMenuShowing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "isOverflowMenuShowing", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewIsOverflowMenuShowPending, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "isOverflowMenuShowPending", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewDismissPopupMenus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "dismissPopupMenus", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewDispatchPopulateAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "dispatchPopulateAccessibilityEvent", "(Landroid/view/accessibility/AccessibilityEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewSetExpandedActionViewsExclusive, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "setExpandedActionViewsExclusive", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewGenerateLayoutParams1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroidx/appcompat/widget/LinearLayoutCompat$LayoutParams;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewGenerateLayoutParams1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroid/view/ViewGroup$LayoutParams;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/LinearLayoutCompat$OrientationMode")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLinearLayoutCompatOrientationMode = env.NewGlobalRef(&c.Object)
-
-		midLinearLayoutCompatOrientationModeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompatOrientationMode)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/ActionMenuView$ActionMenuChildView")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsActionMenuViewActionMenuChildView = env.NewGlobalRef(&c.Object)
-
-		midActionMenuViewActionMenuChildViewNeedsDividerBefore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuViewActionMenuChildView)), "needsDividerBefore", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewActionMenuChildViewNeedsDividerAfter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuViewActionMenuChildView)), "needsDividerAfter", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewActionMenuChildViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuViewActionMenuChildView)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/ActionMenuView$LayoutParams")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsActionMenuViewLayoutParams = env.NewGlobalRef(&c.Object)
-
-		midActionMenuViewLayoutParamsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuViewLayoutParams)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/ActionMenuView$OnMenuItemClickListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsActionMenuViewOnMenuItemClickListener = env.NewGlobalRef(&c.Object)
-
-		midActionMenuViewOnMenuItemClickListenerOnMenuItemClick, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuViewOnMenuItemClickListener)), "onMenuItemClick", "(Landroid/view/MenuItem;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionMenuViewOnMenuItemClickListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuViewOnMenuItemClickListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/WithHint")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsWithHint = env.NewGlobalRef(&c.Object)
-
-		midWithHintGetHint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWithHint)), "getHint", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWithHintToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWithHint)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatToggleButton")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAppCompatToggleButton = env.NewGlobalRef(&c.Object)
-		midAppCompatToggleButtonCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAppCompatToggleButtonSetBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setBackgroundResource", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatToggleButtonSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatToggleButtonSetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setSupportBackgroundTintList", "(Landroid/content/res/ColorStateList;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatToggleButtonGetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "getSupportBackgroundTintList", "()Landroid/content/res/ColorStateList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatToggleButtonSetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setSupportBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatToggleButtonGetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "getSupportBackgroundTintMode", "()Landroid/graphics/PorterDuff$Mode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatToggleButtonSetFilters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setFilters", "([Landroid/text/InputFilter;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatToggleButtonSetAllCaps, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setAllCaps", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatToggleButtonSetEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setEmojiCompatEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatToggleButtonIsEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "isEmojiCompatEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatToggleButtonSetCompoundDrawables, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setCompoundDrawables", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatToggleButtonSetCompoundDrawablesRelative, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setCompoundDrawablesRelative", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatToggleButtonGetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "getSupportCompoundDrawablesTintList", "()Landroid/content/res/ColorStateList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatToggleButtonSetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setSupportCompoundDrawablesTintList", "(Landroid/content/res/ColorStateList;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatToggleButtonGetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "getSupportCompoundDrawablesTintMode", "()Landroid/graphics/PorterDuff$Mode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
+		clsTooltipCompat = env.NewGlobalRef(&c.Object)
 
-		midAppCompatToggleButtonSetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setSupportCompoundDrawablesTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
+		midTooltipCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTooltipCompat)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatToggleButtonToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "toString", "()Ljava/lang/String;")
+		midTooltipCompatSetTooltipText, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTooltipCompat)), "setTooltipText", "(Landroid/view/View;Ljava/lang/CharSequence;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -6691,7 +5246,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midToolbarGenerateLayoutParams1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToolbar)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroidx/appcompat/widget/Toolbar$LayoutParams;")
+		midToolbarGenerateLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToolbar)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroidx/appcompat/widget/Toolbar$LayoutParams;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -6754,13 +5309,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midToolbarGenerateLayoutParams1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToolbar)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroid/view/ViewGroup$LayoutParams;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midToolbarToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToolbar)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -6770,36 +5318,267 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatToggleButton$InspectionCompanion")
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatSeekBar")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAppCompatToggleButtonInspectionCompanion = env.NewGlobalRef(&c.Object)
+		clsAppCompatSeekBar = env.NewGlobalRef(&c.Object)
+		midAppCompatSeekBarCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSeekBar)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midAppCompatToggleButtonInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButtonInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
+		midAppCompatSeekBarJumpDrawablesToCurrentState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSeekBar)), "jumpDrawablesToCurrentState", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatToggleButtonInspectionCompanionReadProperties2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButtonInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatToggleButton;Landroid/view/inspector/PropertyReader;)V")
+		midAppCompatSeekBarToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSeekBar)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatToggleButtonInspectionCompanionReadProperties2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButtonInspectionCompanion)), "readProperties", "(Ljava/lang/Object;Landroid/view/inspector/PropertyReader;)V")
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/LinearLayoutCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLinearLayoutCompat = env.NewGlobalRef(&c.Object)
+		midLinearLayoutCompatCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatSetShowDividers, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setShowDividers", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatToggleButtonInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButtonInspectionCompanion)), "toString", "()Ljava/lang/String;")
+		midLinearLayoutCompatShouldDelayChildPressedState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "shouldDelayChildPressedState", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatGetShowDividers, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "getShowDividers", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatGetDividerDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "getDividerDrawable", "()Landroid/graphics/drawable/Drawable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatSetDividerDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setDividerDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatSetDividerPadding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setDividerPadding", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatGetDividerPadding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "getDividerPadding", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatGetDividerWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "getDividerWidth", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatIsBaselineAligned, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "isBaselineAligned", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatSetBaselineAligned, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setBaselineAligned", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatIsMeasureWithLargestChildEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "isMeasureWithLargestChildEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatSetMeasureWithLargestChildEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setMeasureWithLargestChildEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatGetBaseline, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "getBaseline", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatGetBaselineAlignedChildIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "getBaselineAlignedChildIndex", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatSetBaselineAlignedChildIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setBaselineAlignedChildIndex", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatGetWeightSum, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "getWeightSum", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatSetWeightSum, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setWeightSum", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatSetOrientation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setOrientation", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatGetOrientation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "getOrientation", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatSetGravity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setGravity", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatGetGravity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "getGravity", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatSetHorizontalGravity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setHorizontalGravity", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatSetVerticalGravity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "setVerticalGravity", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatGenerateLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroidx/appcompat/widget/LinearLayoutCompat$LayoutParams;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatOnInitializeAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "onInitializeAccessibilityEvent", "(Landroid/view/accessibility/AccessibilityEvent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatOnInitializeAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "onInitializeAccessibilityNodeInfo", "(Landroid/view/accessibility/AccessibilityNodeInfo;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatRatingBar")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppCompatRatingBar = env.NewGlobalRef(&c.Object)
+		midAppCompatRatingBarCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRatingBar)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAppCompatRatingBarToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRatingBar)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/LinearLayoutCompat$DividerMode")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLinearLayoutCompatDividerMode = env.NewGlobalRef(&c.Object)
+
+		midLinearLayoutCompatDividerModeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompatDividerMode)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -6815,6 +5594,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsToolbarInspectionCompanion = env.NewGlobalRef(&c.Object)
+		midToolbarInspectionCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToolbarInspectionCompanion)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midToolbarInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToolbarInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
 		if err != nil {
@@ -6823,14 +5606,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midToolbarInspectionCompanionReadProperties2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToolbarInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/Toolbar;Landroid/view/inspector/PropertyReader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midToolbarInspectionCompanionReadProperties2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToolbarInspectionCompanion)), "readProperties", "(Ljava/lang/Object;Landroid/view/inspector/PropertyReader;)V")
+		midToolbarInspectionCompanionReadProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToolbarInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/Toolbar;Landroid/view/inspector/PropertyReader;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -6846,6 +5622,41 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("androidx/appcompat/widget/LinearLayoutCompat$InspectionCompanion")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLinearLayoutCompatInspectionCompanion = env.NewGlobalRef(&c.Object)
+		midLinearLayoutCompatInspectionCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompatInspectionCompanion)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompatInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatInspectionCompanionReadProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompatInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/LinearLayoutCompat;Landroid/view/inspector/PropertyReader;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutCompatInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompatInspectionCompanion)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("androidx/appcompat/widget/Toolbar$LayoutParams")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -6853,6 +5664,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsToolbarLayoutParams = env.NewGlobalRef(&c.Object)
+		midToolbarLayoutParamsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToolbarLayoutParams)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midToolbarLayoutParamsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToolbarLayoutParams)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -6863,222 +5678,1675 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/ActionBarContextView")
+	c, err = env.FindClass("androidx/appcompat/widget/LinearLayoutCompat$LayoutParams")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsActionBarContextView = env.NewGlobalRef(&c.Object)
-		midActionBarContextViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "<init>", "(Landroid/content/Context;)V")
+		clsLinearLayoutCompatLayoutParams = env.NewGlobalRef(&c.Object)
+		midLinearLayoutCompatLayoutParamsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompatLayoutParams)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewOnDetachedFromWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "onDetachedFromWindow", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionBarContextViewSetContentHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "setContentHeight", "(I)V")
+		midLinearLayoutCompatLayoutParamsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompatLayoutParams)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewSetCustomView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "setCustomView", "(Landroid/view/View;)V")
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/LinearLayoutCompat$OrientationMode")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLinearLayoutCompatOrientationMode = env.NewGlobalRef(&c.Object)
+
+		midLinearLayoutCompatOrientationModeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompatOrientationMode)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewSetTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "setTitle", "(Ljava/lang/CharSequence;)V")
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/Toolbar$OnMenuItemClickListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsToolbarOnMenuItemClickListener = env.NewGlobalRef(&c.Object)
+
+		midToolbarOnMenuItemClickListenerOnMenuItemClick, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToolbarOnMenuItemClickListener)), "onMenuItemClick", "(Landroid/view/MenuItem;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewSetSubtitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "setSubtitle", "(Ljava/lang/CharSequence;)V")
+		midToolbarOnMenuItemClickListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToolbarOnMenuItemClickListener)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewGetTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "getTitle", "()Ljava/lang/CharSequence;")
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/Toolbar$SavedState")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsToolbarSavedState = env.NewGlobalRef(&c.Object)
+		midToolbarSavedStateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToolbarSavedState)), "<init>", "(Landroid/os/Parcel;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midToolbarSavedStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToolbarSavedState)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewGetSubtitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "getSubtitle", "()Ljava/lang/CharSequence;")
+		midToolbarSavedStateWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsToolbarSavedState)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewInitForMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "initForMode", "(Landroidx/appcompat/view/ActionMode;)V")
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/ViewStubCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewStubCompat = env.NewGlobalRef(&c.Object)
+		midViewStubCompatCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midViewStubCompatGetInflatedId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "getInflatedId", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewCloseMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "closeMode", "()V")
+		midViewStubCompatSetInflatedId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "setInflatedId", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewKillMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "killMode", "()V")
+		midViewStubCompatGetLayoutResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "getLayoutResource", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewShowOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "showOverflowMenu", "()Z")
+		midViewStubCompatSetLayoutResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "setLayoutResource", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewHideOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "hideOverflowMenu", "()Z")
+		midViewStubCompatSetLayoutInflater, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "setLayoutInflater", "(Landroid/view/LayoutInflater;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewIsOverflowMenuShowing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "isOverflowMenuShowing", "()Z")
+		midViewStubCompatGetLayoutInflater, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "getLayoutInflater", "()Landroid/view/LayoutInflater;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewGenerateLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroid/view/ViewGroup$LayoutParams;")
+		midViewStubCompatDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "draw", "(Landroid/graphics/Canvas;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewShouldDelayChildPressedState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "shouldDelayChildPressedState", "()Z")
+		midViewStubCompatSetVisibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "setVisibility", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewSetTitleOptional, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "setTitleOptional", "(Z)V")
+		midViewStubCompatInflate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "inflate", "()Landroid/view/View;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewIsTitleOptional, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "isTitleOptional", "()Z")
+		midViewStubCompatSetOnInflateListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "setOnInflateListener", "(Landroidx/appcompat/widget/ViewStubCompat$OnInflateListener;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewDismissPopupMenus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "dismissPopupMenus", "()V")
+		midViewStubCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewCanShowOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "canShowOverflowMenu", "()Z")
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/ViewStubCompat$OnInflateListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewStubCompatOnInflateListener = env.NewGlobalRef(&c.Object)
+
+		midViewStubCompatOnInflateListenerOnInflate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompatOnInflateListener)), "onInflate", "(Landroidx/appcompat/widget/ViewStubCompat;Landroid/view/View;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewIsOverflowReserved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "isOverflowReserved", "()Z")
+		midViewStubCompatOnInflateListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompatOnInflateListener)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewIsOverflowMenuShowPending, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "isOverflowMenuShowPending", "()Z")
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/ContentFrameLayout")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsContentFrameLayout = env.NewGlobalRef(&c.Object)
+		midContentFrameLayoutCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midContentFrameLayoutDispatchFitSystemWindows, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "dispatchFitSystemWindows", "(Landroid/graphics/Rect;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewPostShowOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "postShowOverflowMenu", "()V")
+		midContentFrameLayoutSetAttachListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "setAttachListener", "(Landroidx/appcompat/widget/ContentFrameLayout$OnAttachListener;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewSetVisibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "setVisibility", "(I)V")
+		midContentFrameLayoutSetDecorPadding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "setDecorPadding", "(IIII)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewAnimateToVisibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "animateToVisibility", "(I)V")
+		midContentFrameLayoutGetMinWidthMajor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "getMinWidthMajor", "()Landroid/util/TypedValue;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewSetupAnimatorToVisibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "setupAnimatorToVisibility", "(IJ)Landroidx/core/view/ViewPropertyAnimatorCompat;")
+		midContentFrameLayoutGetMinWidthMinor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "getMinWidthMinor", "()Landroid/util/TypedValue;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewGetAnimatedVisibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "getAnimatedVisibility", "()I")
+		midContentFrameLayoutGetFixedWidthMajor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "getFixedWidthMajor", "()Landroid/util/TypedValue;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewGetContentHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "getContentHeight", "()I")
+		midContentFrameLayoutGetFixedWidthMinor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "getFixedWidthMinor", "()Landroid/util/TypedValue;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewOnHoverEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "onHoverEvent", "(Landroid/view/MotionEvent;)Z")
+		midContentFrameLayoutGetFixedHeightMajor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "getFixedHeightMajor", "()Landroid/util/TypedValue;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewOnTouchEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "onTouchEvent", "(Landroid/view/MotionEvent;)Z")
+		midContentFrameLayoutGetFixedHeightMinor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "getFixedHeightMinor", "()Landroid/util/TypedValue;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarContextViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "toString", "()Ljava/lang/String;")
+		midContentFrameLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/ContentFrameLayout$OnAttachListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsContentFrameLayoutOnAttachListener = env.NewGlobalRef(&c.Object)
+
+		midContentFrameLayoutOnAttachListenerOnDetachedFromWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayoutOnAttachListener)), "onDetachedFromWindow", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContentFrameLayoutOnAttachListenerOnAttachedFromWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayoutOnAttachListener)), "onAttachedFromWindow", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContentFrameLayoutOnAttachListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayoutOnAttachListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatTextView")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppCompatTextView = env.NewGlobalRef(&c.Object)
+		midAppCompatTextViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setBackgroundResource", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setSupportBackgroundTintList", "(Landroid/content/res/ColorStateList;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewGetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getSupportBackgroundTintList", "()Landroid/content/res/ColorStateList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setSupportBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewGetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getSupportBackgroundTintMode", "()Landroid/graphics/PorterDuff$Mode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetTextAppearance, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setTextAppearance", "(Landroid/content/Context;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetFilters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setFilters", "([Landroid/text/InputFilter;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetAllCaps, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setAllCaps", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setEmojiCompatEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewIsEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "isEmojiCompatEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetTextSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setTextSize", "(IF)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetAutoSizeTextTypeWithDefaults, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setAutoSizeTextTypeWithDefaults", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetAutoSizeTextTypeUniformWithConfiguration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setAutoSizeTextTypeUniformWithConfiguration", "(IIII)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetAutoSizeTextTypeUniformWithPresetSizes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setAutoSizeTextTypeUniformWithPresetSizes", "([II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewGetAutoSizeTextType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getAutoSizeTextType", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewGetAutoSizeStepGranularity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getAutoSizeStepGranularity", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewGetAutoSizeMinTextSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getAutoSizeMinTextSize", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewGetAutoSizeMaxTextSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getAutoSizeMaxTextSize", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewGetAutoSizeTextAvailableSizes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getAutoSizeTextAvailableSizes", "()[I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewOnCreateInputConnection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "onCreateInputConnection", "(Landroid/view/inputmethod/EditorInfo;)Landroid/view/inputmethod/InputConnection;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetFirstBaselineToTopHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setFirstBaselineToTopHeight", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetLastBaselineToBottomHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setLastBaselineToBottomHeight", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewGetFirstBaselineToTopHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getFirstBaselineToTopHeight", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewGetLastBaselineToBottomHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getLastBaselineToBottomHeight", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetLineHeight1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setLineHeight", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetLineHeight2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setLineHeight", "(IF)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetCustomSelectionActionModeCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setCustomSelectionActionModeCallback", "(Landroid/view/ActionMode$Callback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewGetCustomSelectionActionModeCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getCustomSelectionActionModeCallback", "()Landroid/view/ActionMode$Callback;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewGetTextMetricsParamsCompat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getTextMetricsParamsCompat", "()Landroidx/core/text/PrecomputedTextCompat$Params;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetTextMetricsParamsCompat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setTextMetricsParamsCompat", "(Landroidx/core/text/PrecomputedTextCompat$Params;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetPrecomputedText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setPrecomputedText", "(Landroidx/core/text/PrecomputedTextCompat;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewGetText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getText", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetTextClassifier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setTextClassifier", "(Landroid/view/textclassifier/TextClassifier;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewGetTextClassifier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getTextClassifier", "()Landroid/view/textclassifier/TextClassifier;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetCompoundDrawables, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setCompoundDrawables", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetCompoundDrawablesRelative, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setCompoundDrawablesRelative", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetCompoundDrawablesWithIntrinsicBounds4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setCompoundDrawablesWithIntrinsicBounds", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetCompoundDrawablesWithIntrinsicBounds4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setCompoundDrawablesWithIntrinsicBounds", "(IIII)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetCompoundDrawablesRelativeWithIntrinsicBounds4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setCompoundDrawablesRelativeWithIntrinsicBounds", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetCompoundDrawablesRelativeWithIntrinsicBounds4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setCompoundDrawablesRelativeWithIntrinsicBounds", "(IIII)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewGetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getSupportCompoundDrawablesTintList", "()Landroid/content/res/ColorStateList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setSupportCompoundDrawablesTintList", "(Landroid/content/res/ColorStateList;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewGetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getSupportCompoundDrawablesTintMode", "()Landroid/graphics/PorterDuff$Mode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setSupportCompoundDrawablesTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewSetTypeface, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setTypeface", "(Landroid/graphics/Typeface;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatTextView$InspectionCompanion")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppCompatTextViewInspectionCompanion = env.NewGlobalRef(&c.Object)
+		midAppCompatTextViewInspectionCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextViewInspectionCompanion)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextViewInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewInspectionCompanionReadProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextViewInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatTextView;Landroid/view/inspector/PropertyReader;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatTextViewInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextViewInspectionCompanion)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatDrawableManager")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppCompatDrawableManager = env.NewGlobalRef(&c.Object)
+		midAppCompatDrawableManagerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatDrawableManager)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAppCompatDrawableManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatDrawableManager)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/ListPopupWindow")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsListPopupWindow = env.NewGlobalRef(&c.Object)
+		midListPopupWindowCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetAdapter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setAdapter", "(Landroid/widget/ListAdapter;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetPromptPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setPromptPosition", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowGetPromptPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getPromptPosition", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetModal, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setModal", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowIsModal, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "isModal", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetForceIgnoreOutsideTouch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setForceIgnoreOutsideTouch", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetDropDownAlwaysVisible, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setDropDownAlwaysVisible", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowIsDropDownAlwaysVisible, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "isDropDownAlwaysVisible", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetSoftInputMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setSoftInputMode", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowGetSoftInputMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getSoftInputMode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetListSelector, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setListSelector", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowGetBackground, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getBackground", "()Landroid/graphics/drawable/Drawable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetAnimationStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setAnimationStyle", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowGetAnimationStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getAnimationStyle", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowGetAnchorView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getAnchorView", "()Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetAnchorView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setAnchorView", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowGetHorizontalOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getHorizontalOffset", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetHorizontalOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setHorizontalOffset", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowGetVerticalOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getVerticalOffset", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetVerticalOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setVerticalOffset", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetEpicenterBounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setEpicenterBounds", "(Landroid/graphics/Rect;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowGetEpicenterBounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getEpicenterBounds", "()Landroid/graphics/Rect;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetDropDownGravity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setDropDownGravity", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowGetWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getWidth", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setWidth", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetContentWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setContentWidth", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowGetHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getHeight", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setHeight", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetWindowLayoutType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setWindowLayoutType", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetOnItemClickListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setOnItemClickListener", "(Landroid/widget/AdapterView$OnItemClickListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetOnItemSelectedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setOnItemSelectedListener", "(Landroid/widget/AdapterView$OnItemSelectedListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetPromptView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setPromptView", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowPostShow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "postShow", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowShow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "show", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowDismiss, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "dismiss", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetOnDismissListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setOnDismissListener", "(Landroid/widget/PopupWindow$OnDismissListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetInputMethodMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setInputMethodMode", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowGetInputMethodMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getInputMethodMode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetSelection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setSelection", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowClearListSelection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "clearListSelection", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowIsShowing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "isShowing", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowIsInputMethodNotNeeded, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "isInputMethodNotNeeded", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowPerformItemClick, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "performItemClick", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowGetSelectedItem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getSelectedItem", "()Ljava/lang/Object;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowGetSelectedItemPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getSelectedItemPosition", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowGetSelectedItemId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getSelectedItemId", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowGetSelectedView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getSelectedView", "()Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowGetListView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getListView", "()Landroid/widget/ListView;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowOnKeyDown, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "onKeyDown", "(ILandroid/view/KeyEvent;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowOnKeyUp, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "onKeyUp", "(ILandroid/view/KeyEvent;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowOnKeyPreIme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "onKeyPreIme", "(ILandroid/view/KeyEvent;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowCreateDragToOpenListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "createDragToOpenListener", "(Landroid/view/View;)Landroid/view/View$OnTouchListener;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midListPopupWindowSetOverlapAnchor, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setOverlapAnchor", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/FitWindowsLinearLayout")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFitWindowsLinearLayout = env.NewGlobalRef(&c.Object)
+		midFitWindowsLinearLayoutCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFitWindowsLinearLayout)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midFitWindowsLinearLayoutSetOnFitSystemWindowsListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFitWindowsLinearLayout)), "setOnFitSystemWindowsListener", "(Landroidx/appcompat/widget/FitWindowsViewGroup$OnFitSystemWindowsListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFitWindowsLinearLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFitWindowsLinearLayout)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/TintInfo")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTintInfo = env.NewGlobalRef(&c.Object)
+		midTintInfoCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintInfo)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midTintInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintInfo)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/ButtonBarLayout")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsButtonBarLayout = env.NewGlobalRef(&c.Object)
+		midButtonBarLayoutCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsButtonBarLayout)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midButtonBarLayoutSetAllowStacking, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsButtonBarLayout)), "setAllowStacking", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midButtonBarLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsButtonBarLayout)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatRadioButton")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppCompatRadioButton = env.NewGlobalRef(&c.Object)
+		midAppCompatRadioButtonCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonSetButtonDrawable1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setButtonDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonSetButtonDrawable1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setButtonDrawable", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonSetSupportButtonTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setSupportButtonTintList", "(Landroid/content/res/ColorStateList;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonGetSupportButtonTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "getSupportButtonTintList", "()Landroid/content/res/ColorStateList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonSetSupportButtonTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setSupportButtonTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonGetSupportButtonTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "getSupportButtonTintMode", "()Landroid/graphics/PorterDuff$Mode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonSetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setSupportBackgroundTintList", "(Landroid/content/res/ColorStateList;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonGetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "getSupportBackgroundTintList", "()Landroid/content/res/ColorStateList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonSetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setSupportBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonGetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "getSupportBackgroundTintMode", "()Landroid/graphics/PorterDuff$Mode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonSetBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setBackgroundResource", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonSetFilters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setFilters", "([Landroid/text/InputFilter;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonSetAllCaps, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setAllCaps", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonSetEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setEmojiCompatEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonIsEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "isEmojiCompatEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonSetCompoundDrawables, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setCompoundDrawables", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonSetCompoundDrawablesRelative, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setCompoundDrawablesRelative", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonGetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "getSupportCompoundDrawablesTintList", "()Landroid/content/res/ColorStateList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonSetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setSupportCompoundDrawablesTintList", "(Landroid/content/res/ColorStateList;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonGetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "getSupportCompoundDrawablesTintMode", "()Landroid/graphics/PorterDuff$Mode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonSetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setSupportCompoundDrawablesTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatRadioButton$InspectionCompanion")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppCompatRadioButtonInspectionCompanion = env.NewGlobalRef(&c.Object)
+		midAppCompatRadioButtonInspectionCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButtonInspectionCompanion)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButtonInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonInspectionCompanionReadProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButtonInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatRadioButton;Landroid/view/inspector/PropertyReader;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatRadioButtonInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButtonInspectionCompanion)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/ForwardingListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsForwardingListener = env.NewGlobalRef(&c.Object)
+
+		midForwardingListenerGetPopup, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsForwardingListener)), "getPopup", "()Landroidx/appcompat/view/menu/ShowableListMenu;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midForwardingListenerOnTouch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsForwardingListener)), "onTouch", "(Landroid/view/View;Landroid/view/MotionEvent;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midForwardingListenerOnViewAttachedToWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsForwardingListener)), "onViewAttachedToWindow", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midForwardingListenerOnViewDetachedFromWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsForwardingListener)), "onViewDetachedFromWindow", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midForwardingListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsForwardingListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/ActionMenuView")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsActionMenuView = env.NewGlobalRef(&c.Object)
+		midActionMenuViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewSetPopupTheme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "setPopupTheme", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewGetPopupTheme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "getPopupTheme", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewSetPresenter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "setPresenter", "(Landroidx/appcompat/widget/ActionMenuPresenter;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewOnConfigurationChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "onConfigurationChanged", "(Landroid/content/res/Configuration;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewSetOnMenuItemClickListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "setOnMenuItemClickListener", "(Landroidx/appcompat/widget/ActionMenuView$OnMenuItemClickListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewOnDetachedFromWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "onDetachedFromWindow", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewSetOverflowIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "setOverflowIcon", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewGetOverflowIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "getOverflowIcon", "()Landroid/graphics/drawable/Drawable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewIsOverflowReserved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "isOverflowReserved", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewSetOverflowReserved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "setOverflowReserved", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewGenerateLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroidx/appcompat/widget/ActionMenuView$LayoutParams;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewGenerateOverflowButtonLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "generateOverflowButtonLayoutParams", "()Landroidx/appcompat/widget/ActionMenuView$LayoutParams;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewInvokeItem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "invokeItem", "(Landroidx/appcompat/view/menu/MenuItemImpl;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewGetWindowAnimations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "getWindowAnimations", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewInitialize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "initialize", "(Landroidx/appcompat/view/menu/MenuBuilder;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewGetMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "getMenu", "()Landroid/view/Menu;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewSetMenuCallbacks, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "setMenuCallbacks", "(Landroidx/appcompat/view/menu/MenuPresenter$Callback;Landroidx/appcompat/view/menu/MenuBuilder$Callback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewPeekMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "peekMenu", "()Landroidx/appcompat/view/menu/MenuBuilder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewShowOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "showOverflowMenu", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewHideOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "hideOverflowMenu", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewIsOverflowMenuShowing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "isOverflowMenuShowing", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewIsOverflowMenuShowPending, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "isOverflowMenuShowPending", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewDismissPopupMenus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "dismissPopupMenus", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewDispatchPopulateAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "dispatchPopulateAccessibilityEvent", "(Landroid/view/accessibility/AccessibilityEvent;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewSetExpandedActionViewsExclusive, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "setExpandedActionViewsExclusive", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuView)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/ActionMenuView$ActionMenuChildView")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsActionMenuViewActionMenuChildView = env.NewGlobalRef(&c.Object)
+
+		midActionMenuViewActionMenuChildViewNeedsDividerBefore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuViewActionMenuChildView)), "needsDividerBefore", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewActionMenuChildViewNeedsDividerAfter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuViewActionMenuChildView)), "needsDividerAfter", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionMenuViewActionMenuChildViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuViewActionMenuChildView)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -7099,7 +7367,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midAppCompatEditTextGetText0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatEditText)), "getText", "()Landroid/text/Editable;")
+		midAppCompatEditTextGetText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatEditText)), "getText", "()Landroid/text/Editable;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -7274,38 +7542,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midAppCompatEditTextGetText0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatEditText)), "getText", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midAppCompatEditTextToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatEditText)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/Toolbar$OnMenuItemClickListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsToolbarOnMenuItemClickListener = env.NewGlobalRef(&c.Object)
-
-		midToolbarOnMenuItemClickListenerOnMenuItemClick, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToolbarOnMenuItemClickListener)), "onMenuItemClick", "(Landroid/view/MenuItem;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midToolbarOnMenuItemClickListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToolbarOnMenuItemClickListener)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -7321,6 +7558,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsAppCompatEditTextInspectionCompanion = env.NewGlobalRef(&c.Object)
+		midAppCompatEditTextInspectionCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatEditTextInspectionCompanion)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midAppCompatEditTextInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatEditTextInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
 		if err != nil {
@@ -7329,14 +7570,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midAppCompatEditTextInspectionCompanionReadProperties2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatEditTextInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatEditText;Landroid/view/inspector/PropertyReader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatEditTextInspectionCompanionReadProperties2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatEditTextInspectionCompanion)), "readProperties", "(Ljava/lang/Object;Landroid/view/inspector/PropertyReader;)V")
+		midAppCompatEditTextInspectionCompanionReadProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatEditTextInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatEditText;Landroid/view/inspector/PropertyReader;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -7352,22 +7586,260 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/Toolbar$SavedState")
+	c, err = env.FindClass("androidx/appcompat/widget/TintTypedArray")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsToolbarSavedState = env.NewGlobalRef(&c.Object)
+		clsTintTypedArray = env.NewGlobalRef(&c.Object)
 
-		midToolbarSavedStateWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToolbarSavedState)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midTintTypedArrayGetWrappedTypeArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getWrappedTypeArray", "()Landroid/content/res/TypedArray;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midToolbarSavedStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToolbarSavedState)), "toString", "()Ljava/lang/String;")
+		midTintTypedArrayGetDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getDrawable", "(I)Landroid/graphics/drawable/Drawable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetDrawableIfKnown, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getDrawableIfKnown", "(I)Landroid/graphics/drawable/Drawable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetFont, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getFont", "(IILandroidx/core/content/res/ResourcesCompat$FontCallback;)Landroid/graphics/Typeface;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayLength, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "length", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetIndexCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getIndexCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getIndex", "(I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetResources, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getResources", "()Landroid/content/res/Resources;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getText", "(I)Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getString", "(I)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetNonResourceString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getNonResourceString", "(I)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetBoolean, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getBoolean", "(IZ)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetInt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getInt", "(II)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetFloat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getFloat", "(IF)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getColor", "(II)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetColorStateList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getColorStateList", "(I)Landroid/content/res/ColorStateList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetInteger, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getInteger", "(II)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetDimension, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getDimension", "(IF)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetDimensionPixelOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getDimensionPixelOffset", "(II)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetDimensionPixelSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getDimensionPixelSize", "(II)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetLayoutDimension2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getLayoutDimension", "(ILjava/lang/String;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetLayoutDimension2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getLayoutDimension", "(II)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetFraction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getFraction", "(IIIF)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetResourceId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getResourceId", "(II)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetTextArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getTextArray", "(I)[Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getValue", "(ILandroid/util/TypedValue;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getType", "(I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayHasValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "hasValue", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayPeekValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "peekValue", "(I)Landroid/util/TypedValue;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetPositionDescription, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getPositionDescription", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayRecycle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "recycle", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayGetChangingConfigurations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "getChangingConfigurations", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayObtainStyledAttributes3, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "obtainStyledAttributes", "(Landroid/content/Context;Landroid/util/AttributeSet;[I)Landroidx/appcompat/widget/TintTypedArray;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayObtainStyledAttributes5_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "obtainStyledAttributes", "(Landroid/content/Context;Landroid/util/AttributeSet;[III)Landroidx/appcompat/widget/TintTypedArray;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTintTypedArrayObtainStyledAttributes3_2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTintTypedArray)), "obtainStyledAttributes", "(Landroid/content/Context;I[I)Landroidx/appcompat/widget/TintTypedArray;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -7376,348 +7848,19 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/VectorEnabledTintResources")
+	c, err = env.FindClass("androidx/appcompat/widget/ActionMenuView$LayoutParams")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsVectorEnabledTintResources = env.NewGlobalRef(&c.Object)
-		midVectorEnabledTintResourcesCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "<init>", "(Landroid/content/Context;Landroid/content/res/Resources;)V")
+		clsActionMenuViewLayoutParams = env.NewGlobalRef(&c.Object)
+		midActionMenuViewLayoutParamsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuViewLayoutParams)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midVectorEnabledTintResourcesGetDrawable1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getDrawable", "(I)Landroid/graphics/drawable/Drawable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesParseBundleExtra, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "parseBundleExtra", "(Ljava/lang/String;Landroid/util/AttributeSet;Landroid/os/Bundle;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesParseBundleExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "parseBundleExtras", "(Landroid/content/res/XmlResourceParser;Landroid/os/Bundle;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetResourceEntryName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getResourceEntryName", "(I)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetResourceTypeName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getResourceTypeName", "(I)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetResourcePackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getResourcePackageName", "(I)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetResourceName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getResourceName", "(I)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetIdentifier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getIdentifier", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetConfiguration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getConfiguration", "()Landroid/content/res/Configuration;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetDisplayMetrics, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getDisplayMetrics", "()Landroid/util/DisplayMetrics;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesUpdateConfiguration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "updateConfiguration", "(Landroid/content/res/Configuration;Landroid/util/DisplayMetrics;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesObtainAttributes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "obtainAttributes", "(Landroid/util/AttributeSet;[I)Landroid/content/res/TypedArray;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetValue3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getValue", "(Ljava/lang/String;Landroid/util/TypedValue;Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetValueForDensity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getValueForDensity", "(IILandroid/util/TypedValue;Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetValue3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getValue", "(ILandroid/util/TypedValue;Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesOpenRawResourceFd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "openRawResourceFd", "(I)Landroid/content/res/AssetFileDescriptor;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesOpenRawResource2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "openRawResource", "(ILandroid/util/TypedValue;)Ljava/io/InputStream;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesOpenRawResource1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "openRawResource", "(I)Ljava/io/InputStream;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetXml, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getXml", "(I)Landroid/content/res/XmlResourceParser;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetAnimation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getAnimation", "(I)Landroid/content/res/XmlResourceParser;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetLayout, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getLayout", "(I)Landroid/content/res/XmlResourceParser;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetInteger, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getInteger", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetBoolean, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getBoolean", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetColorStateList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getColorStateList", "(I)Landroid/content/res/ColorStateList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getColor", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetMovie, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getMovie", "(I)Landroid/graphics/Movie;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetDrawableForDensity3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getDrawableForDensity", "(IILandroid/content/res/Resources$Theme;)Landroid/graphics/drawable/Drawable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetDrawableForDensity2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getDrawableForDensity", "(II)Landroid/graphics/drawable/Drawable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetDrawable2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getDrawable", "(ILandroid/content/res/Resources$Theme;)Landroid/graphics/drawable/Drawable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetFraction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getFraction", "(III)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetDimensionPixelSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getDimensionPixelSize", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetDimensionPixelOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getDimensionPixelOffset", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetDimension, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getDimension", "(I)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesObtainTypedArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "obtainTypedArray", "(I)Landroid/content/res/TypedArray;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetIntArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getIntArray", "(I)[I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetStringArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getStringArray", "(I)[Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetTextArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getTextArray", "(I)[Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetText2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getText", "(ILjava/lang/CharSequence;)Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetQuantityString2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getQuantityString", "(II)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetQuantityString3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getQuantityString", "(II[Ljava/lang/Object;)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetString2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getString", "(I[Ljava/lang/Object;)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetString1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getString", "(I)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetQuantityText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getQuantityText", "(II)Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesGetText1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "getText", "(I)Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesShouldBeUsed, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "shouldBeUsed", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesSetCompatVectorFromResourcesEnabled, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "setCompatVectorFromResourcesEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVectorEnabledTintResourcesIsCompatVectorFromResourcesEnabled, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsVectorEnabledTintResources)), "isCompatVectorFromResourcesEnabled", "()Z")
+		midActionMenuViewLayoutParamsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuViewLayoutParams)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -7726,36 +7869,173 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/DrawableUtils")
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatCheckBox")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsDrawableUtils = env.NewGlobalRef(&c.Object)
+		clsAppCompatCheckBox = env.NewGlobalRef(&c.Object)
+		midAppCompatCheckBoxCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midDrawableUtilsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawableUtils)), "toString", "()Ljava/lang/String;")
+		midAppCompatCheckBoxSetButtonDrawable1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setButtonDrawable", "(Landroid/graphics/drawable/Drawable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDrawableUtilsGetOpticalBounds, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDrawableUtils)), "getOpticalBounds", "(Landroid/graphics/drawable/Drawable;)Landroid/graphics/Rect;")
+		midAppCompatCheckBoxSetButtonDrawable1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setButtonDrawable", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDrawableUtilsCanSafelyMutateDrawable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDrawableUtils)), "canSafelyMutateDrawable", "(Landroid/graphics/drawable/Drawable;)Z")
+		midAppCompatCheckBoxSetSupportButtonTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setSupportButtonTintList", "(Landroid/content/res/ColorStateList;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDrawableUtilsParseTintMode, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDrawableUtils)), "parseTintMode", "(ILandroid/graphics/PorterDuff$Mode;)Landroid/graphics/PorterDuff$Mode;")
+		midAppCompatCheckBoxGetSupportButtonTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "getSupportButtonTintList", "()Landroid/content/res/ColorStateList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatCheckBoxSetSupportButtonTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setSupportButtonTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatCheckBoxGetSupportButtonTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "getSupportButtonTintMode", "()Landroid/graphics/PorterDuff$Mode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatCheckBoxSetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setSupportBackgroundTintList", "(Landroid/content/res/ColorStateList;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatCheckBoxGetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "getSupportBackgroundTintList", "()Landroid/content/res/ColorStateList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatCheckBoxSetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setSupportBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatCheckBoxGetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "getSupportBackgroundTintMode", "()Landroid/graphics/PorterDuff$Mode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatCheckBoxSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatCheckBoxSetBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setBackgroundResource", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatCheckBoxSetFilters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setFilters", "([Landroid/text/InputFilter;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatCheckBoxSetAllCaps, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setAllCaps", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatCheckBoxSetEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setEmojiCompatEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatCheckBoxIsEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "isEmojiCompatEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatCheckBoxSetCompoundDrawables, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setCompoundDrawables", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatCheckBoxSetCompoundDrawablesRelative, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setCompoundDrawablesRelative", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatCheckBoxGetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "getSupportCompoundDrawablesTintList", "()Landroid/content/res/ColorStateList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatCheckBoxSetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setSupportCompoundDrawablesTintList", "(Landroid/content/res/ColorStateList;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatCheckBoxGetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "getSupportCompoundDrawablesTintMode", "()Landroid/graphics/PorterDuff$Mode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatCheckBoxSetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "setSupportCompoundDrawablesTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatCheckBoxToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -7764,203 +8044,96 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatRatingBar")
+	c, err = env.FindClass("androidx/appcompat/widget/ActivityChooserView")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAppCompatRatingBar = env.NewGlobalRef(&c.Object)
-		midAppCompatRatingBarCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRatingBar)), "<init>", "(Landroid/content/Context;)V")
+		clsActivityChooserView = env.NewGlobalRef(&c.Object)
+		midActivityChooserViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "<init>", "(Landroid/content/Context;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midAppCompatRatingBarToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRatingBar)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/ContentFrameLayout")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsContentFrameLayout = env.NewGlobalRef(&c.Object)
-		midContentFrameLayoutCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midContentFrameLayoutDispatchFitSystemWindows, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "dispatchFitSystemWindows", "(Landroid/graphics/Rect;)V")
+		midActivityChooserViewSetActivityChooserModel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "setActivityChooserModel", "(Landroidx/appcompat/widget/ActivityChooserModel;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midContentFrameLayoutSetAttachListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "setAttachListener", "(Landroidx/appcompat/widget/ContentFrameLayout$OnAttachListener;)V")
+		midActivityChooserViewSetExpandActivityOverflowButtonDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "setExpandActivityOverflowButtonDrawable", "(Landroid/graphics/drawable/Drawable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midContentFrameLayoutSetDecorPadding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "setDecorPadding", "(IIII)V")
+		midActivityChooserViewSetExpandActivityOverflowButtonContentDescription, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "setExpandActivityOverflowButtonContentDescription", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midContentFrameLayoutGetMinWidthMajor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "getMinWidthMajor", "()Landroid/util/TypedValue;")
+		midActivityChooserViewSetProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "setProvider", "(Landroidx/core/view/ActionProvider;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midContentFrameLayoutGetMinWidthMinor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "getMinWidthMinor", "()Landroid/util/TypedValue;")
+		midActivityChooserViewShowPopup, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "showPopup", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midContentFrameLayoutGetFixedWidthMajor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "getFixedWidthMajor", "()Landroid/util/TypedValue;")
+		midActivityChooserViewDismissPopup, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "dismissPopup", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midContentFrameLayoutGetFixedWidthMinor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "getFixedWidthMinor", "()Landroid/util/TypedValue;")
+		midActivityChooserViewIsShowingPopup, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "isShowingPopup", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midContentFrameLayoutGetFixedHeightMajor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "getFixedHeightMajor", "()Landroid/util/TypedValue;")
+		midActivityChooserViewGetDataModel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "getDataModel", "()Landroidx/appcompat/widget/ActivityChooserModel;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midContentFrameLayoutGetFixedHeightMinor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "getFixedHeightMinor", "()Landroid/util/TypedValue;")
+		midActivityChooserViewSetOnDismissListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "setOnDismissListener", "(Landroid/widget/PopupWindow$OnDismissListener;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midContentFrameLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), "toString", "()Ljava/lang/String;")
+		midActivityChooserViewSetInitialActivityCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "setInitialActivityCount", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/ContentFrameLayout$OnAttachListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsContentFrameLayoutOnAttachListener = env.NewGlobalRef(&c.Object)
-
-		midContentFrameLayoutOnAttachListenerOnDetachedFromWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayoutOnAttachListener)), "onDetachedFromWindow", "()V")
+		midActivityChooserViewSetDefaultActionButtonContentDescription, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "setDefaultActionButtonContentDescription", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midContentFrameLayoutOnAttachListenerOnAttachedFromWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayoutOnAttachListener)), "onAttachedFromWindow", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContentFrameLayoutOnAttachListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentFrameLayoutOnAttachListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/ThemedSpinnerAdapter")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsThemedSpinnerAdapter = env.NewGlobalRef(&c.Object)
-
-		midThemedSpinnerAdapterSetDropDownViewTheme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsThemedSpinnerAdapter)), "setDropDownViewTheme", "(Landroid/content/res/Resources$Theme;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midThemedSpinnerAdapterGetDropDownViewTheme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsThemedSpinnerAdapter)), "getDropDownViewTheme", "()Landroid/content/res/Resources$Theme;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midThemedSpinnerAdapterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsThemedSpinnerAdapter)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/widget/ThemedSpinnerAdapter$Helper")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsThemedSpinnerAdapterHelper = env.NewGlobalRef(&c.Object)
-
-		midThemedSpinnerAdapterHelperSetDropDownViewTheme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsThemedSpinnerAdapterHelper)), "setDropDownViewTheme", "(Landroid/content/res/Resources$Theme;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midThemedSpinnerAdapterHelperGetDropDownViewTheme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsThemedSpinnerAdapterHelper)), "getDropDownViewTheme", "()Landroid/content/res/Resources$Theme;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midThemedSpinnerAdapterHelperGetDropDownViewInflater, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsThemedSpinnerAdapterHelper)), "getDropDownViewInflater", "()Landroid/view/LayoutInflater;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midThemedSpinnerAdapterHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsThemedSpinnerAdapterHelper)), "toString", "()Ljava/lang/String;")
+		midActivityChooserViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -8375,89 +8548,33 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/ViewStubCompat")
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatCheckBox$InspectionCompanion")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsViewStubCompat = env.NewGlobalRef(&c.Object)
-		midViewStubCompatCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		clsAppCompatCheckBoxInspectionCompanion = env.NewGlobalRef(&c.Object)
+		midAppCompatCheckBoxInspectionCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBoxInspectionCompanion)), "<init>", "()V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midViewStubCompatGetInflatedId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "getInflatedId", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewStubCompatSetInflatedId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "setInflatedId", "(I)V")
+		midAppCompatCheckBoxInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBoxInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midViewStubCompatGetLayoutResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "getLayoutResource", "()I")
+		midAppCompatCheckBoxInspectionCompanionReadProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBoxInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatCheckBox;Landroid/view/inspector/PropertyReader;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midViewStubCompatSetLayoutResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "setLayoutResource", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewStubCompatSetLayoutInflater, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "setLayoutInflater", "(Landroid/view/LayoutInflater;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewStubCompatGetLayoutInflater, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "getLayoutInflater", "()Landroid/view/LayoutInflater;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewStubCompatDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "draw", "(Landroid/graphics/Canvas;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewStubCompatSetVisibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "setVisibility", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewStubCompatInflate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "inflate", "()Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewStubCompatSetOnInflateListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "setOnInflateListener", "(Landroidx/appcompat/widget/ViewStubCompat$OnInflateListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewStubCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), "toString", "()Ljava/lang/String;")
+		midAppCompatCheckBoxInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBoxInspectionCompanion)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -8466,22 +8583,22 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/ViewStubCompat$OnInflateListener")
+	c, err = env.FindClass("androidx/appcompat/widget/ActionMenuView$OnMenuItemClickListener")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsViewStubCompatOnInflateListener = env.NewGlobalRef(&c.Object)
+		clsActionMenuViewOnMenuItemClickListener = env.NewGlobalRef(&c.Object)
 
-		midViewStubCompatOnInflateListenerOnInflate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompatOnInflateListener)), "onInflate", "(Landroidx/appcompat/widget/ViewStubCompat;Landroid/view/View;)V")
+		midActionMenuViewOnMenuItemClickListenerOnMenuItemClick, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuViewOnMenuItemClickListener)), "onMenuItemClick", "(Landroid/view/MenuItem;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midViewStubCompatOnInflateListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewStubCompatOnInflateListener)), "toString", "()Ljava/lang/String;")
+		midActionMenuViewOnMenuItemClickListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionMenuViewOnMenuItemClickListener)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -8490,33 +8607,61 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatImageHelper")
+	c, err = env.FindClass("androidx/appcompat/widget/ShareActionProvider")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAppCompatImageHelper = env.NewGlobalRef(&c.Object)
-		midAppCompatImageHelperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageHelper)), "<init>", "(Landroid/widget/ImageView;)V")
+		clsShareActionProvider = env.NewGlobalRef(&c.Object)
+		midShareActionProviderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShareActionProvider)), "<init>", "(Landroid/content/Context;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midAppCompatImageHelperLoadFromAttributes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageHelper)), "loadFromAttributes", "(Landroid/util/AttributeSet;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageHelperSetImageResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageHelper)), "setImageResource", "(I)V")
+		midShareActionProviderSetOnShareTargetSelectedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShareActionProvider)), "setOnShareTargetSelectedListener", "(Landroidx/appcompat/widget/ShareActionProvider$OnShareTargetSelectedListener;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatImageHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageHelper)), "toString", "()Ljava/lang/String;")
+		midShareActionProviderOnCreateActionView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShareActionProvider)), "onCreateActionView", "()Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midShareActionProviderHasSubMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShareActionProvider)), "hasSubMenu", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midShareActionProviderOnPrepareSubMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShareActionProvider)), "onPrepareSubMenu", "(Landroid/view/SubMenu;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midShareActionProviderSetShareHistoryFileName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShareActionProvider)), "setShareHistoryFileName", "(Ljava/lang/String;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midShareActionProviderSetShareIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShareActionProvider)), "setShareIntent", "(Landroid/content/Intent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midShareActionProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShareActionProvider)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -8525,341 +8670,22 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatTextView")
+	c, err = env.FindClass("androidx/appcompat/widget/ShareActionProvider$OnShareTargetSelectedListener")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAppCompatTextView = env.NewGlobalRef(&c.Object)
-		midAppCompatTextViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsShareActionProviderOnShareTargetSelectedListener = env.NewGlobalRef(&c.Object)
 
-		midAppCompatTextViewSetBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setBackgroundResource", "(I)V")
+		midShareActionProviderOnShareTargetSelectedListenerOnShareTargetSelected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShareActionProviderOnShareTargetSelectedListener)), "onShareTargetSelected", "(Landroidx/appcompat/widget/ShareActionProvider;Landroid/content/Intent;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatTextViewSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setSupportBackgroundTintList", "(Landroid/content/res/ColorStateList;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewGetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getSupportBackgroundTintList", "()Landroid/content/res/ColorStateList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setSupportBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewGetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getSupportBackgroundTintMode", "()Landroid/graphics/PorterDuff$Mode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetTextAppearance, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setTextAppearance", "(Landroid/content/Context;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetFilters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setFilters", "([Landroid/text/InputFilter;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetAllCaps, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setAllCaps", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setEmojiCompatEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewIsEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "isEmojiCompatEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetTextSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setTextSize", "(IF)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetAutoSizeTextTypeWithDefaults, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setAutoSizeTextTypeWithDefaults", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetAutoSizeTextTypeUniformWithConfiguration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setAutoSizeTextTypeUniformWithConfiguration", "(IIII)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetAutoSizeTextTypeUniformWithPresetSizes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setAutoSizeTextTypeUniformWithPresetSizes", "([II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewGetAutoSizeTextType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getAutoSizeTextType", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewGetAutoSizeStepGranularity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getAutoSizeStepGranularity", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewGetAutoSizeMinTextSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getAutoSizeMinTextSize", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewGetAutoSizeMaxTextSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getAutoSizeMaxTextSize", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewGetAutoSizeTextAvailableSizes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getAutoSizeTextAvailableSizes", "()[I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewOnCreateInputConnection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "onCreateInputConnection", "(Landroid/view/inputmethod/EditorInfo;)Landroid/view/inputmethod/InputConnection;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetFirstBaselineToTopHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setFirstBaselineToTopHeight", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetLastBaselineToBottomHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setLastBaselineToBottomHeight", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewGetFirstBaselineToTopHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getFirstBaselineToTopHeight", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewGetLastBaselineToBottomHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getLastBaselineToBottomHeight", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetLineHeight1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setLineHeight", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetLineHeight2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setLineHeight", "(IF)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetCustomSelectionActionModeCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setCustomSelectionActionModeCallback", "(Landroid/view/ActionMode$Callback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewGetCustomSelectionActionModeCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getCustomSelectionActionModeCallback", "()Landroid/view/ActionMode$Callback;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewGetTextMetricsParamsCompat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getTextMetricsParamsCompat", "()Landroidx/core/text/PrecomputedTextCompat$Params;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetTextMetricsParamsCompat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setTextMetricsParamsCompat", "(Landroidx/core/text/PrecomputedTextCompat$Params;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetPrecomputedText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setPrecomputedText", "(Landroidx/core/text/PrecomputedTextCompat;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewGetText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getText", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetTextClassifier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setTextClassifier", "(Landroid/view/textclassifier/TextClassifier;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewGetTextClassifier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getTextClassifier", "()Landroid/view/textclassifier/TextClassifier;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetCompoundDrawables, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setCompoundDrawables", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetCompoundDrawablesRelative, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setCompoundDrawablesRelative", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetCompoundDrawablesWithIntrinsicBounds4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setCompoundDrawablesWithIntrinsicBounds", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetCompoundDrawablesWithIntrinsicBounds4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setCompoundDrawablesWithIntrinsicBounds", "(IIII)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetCompoundDrawablesRelativeWithIntrinsicBounds4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setCompoundDrawablesRelativeWithIntrinsicBounds", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetCompoundDrawablesRelativeWithIntrinsicBounds4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setCompoundDrawablesRelativeWithIntrinsicBounds", "(IIII)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewGetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getSupportCompoundDrawablesTintList", "()Landroid/content/res/ColorStateList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setSupportCompoundDrawablesTintList", "(Landroid/content/res/ColorStateList;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewGetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "getSupportCompoundDrawablesTintMode", "()Landroid/graphics/PorterDuff$Mode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setSupportCompoundDrawablesTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewSetTypeface, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "setTypeface", "(Landroid/graphics/Typeface;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), "toString", "()Ljava/lang/String;")
+		midShareActionProviderOnShareTargetSelectedListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShareActionProviderOnShareTargetSelectedListener)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -8868,36 +8694,19 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatTextView$InspectionCompanion")
+	c, err = env.FindClass("androidx/appcompat/widget/ActivityChooserView$InnerLayout")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAppCompatTextViewInspectionCompanion = env.NewGlobalRef(&c.Object)
-
-		midAppCompatTextViewInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextViewInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
+		clsActivityChooserViewInnerLayout = env.NewGlobalRef(&c.Object)
+		midActivityChooserViewInnerLayoutCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserViewInnerLayout)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
 		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatTextViewInspectionCompanionReadProperties2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextViewInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatTextView;Landroid/view/inspector/PropertyReader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewInspectionCompanionReadProperties2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextViewInspectionCompanion)), "readProperties", "(Ljava/lang/Object;Landroid/view/inspector/PropertyReader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatTextViewInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatTextViewInspectionCompanion)), "toString", "()Ljava/lang/String;")
+		midActivityChooserViewInnerLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserViewInnerLayout)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -8906,26 +8715,138 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/ButtonBarLayout")
+	c, err = env.FindClass("androidx/appcompat/widget/ActionBarContextView")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsButtonBarLayout = env.NewGlobalRef(&c.Object)
-		midButtonBarLayoutCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsButtonBarLayout)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		clsActionBarContextView = env.NewGlobalRef(&c.Object)
+		midActionBarContextViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "<init>", "(Landroid/content/Context;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midButtonBarLayoutSetAllowStacking, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsButtonBarLayout)), "setAllowStacking", "(Z)V")
+		midActionBarContextViewOnDetachedFromWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "onDetachedFromWindow", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midButtonBarLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsButtonBarLayout)), "toString", "()Ljava/lang/String;")
+		midActionBarContextViewSetContentHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "setContentHeight", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarContextViewSetCustomView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "setCustomView", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarContextViewSetTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "setTitle", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarContextViewSetSubtitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "setSubtitle", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarContextViewGetTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "getTitle", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarContextViewGetSubtitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "getSubtitle", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarContextViewInitForMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "initForMode", "(Landroidx/appcompat/view/ActionMode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarContextViewCloseMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "closeMode", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarContextViewKillMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "killMode", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarContextViewShowOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "showOverflowMenu", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarContextViewHideOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "hideOverflowMenu", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarContextViewIsOverflowMenuShowing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "isOverflowMenuShowing", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarContextViewGenerateLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroid/view/ViewGroup$LayoutParams;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarContextViewShouldDelayChildPressedState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "shouldDelayChildPressedState", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarContextViewSetTitleOptional, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "setTitleOptional", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarContextViewIsTitleOptional, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "isTitleOptional", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarContextViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContextView)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -8934,159 +8855,113 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatAutoCompleteTextView")
+	c, err = env.FindClass("androidx/appcompat/widget/TintContextWrapper")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAppCompatAutoCompleteTextView = env.NewGlobalRef(&c.Object)
-		midAppCompatAutoCompleteTextViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsTintContextWrapper = env.NewGlobalRef(&c.Object)
 
-		midAppCompatAutoCompleteTextViewSetDropDownBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setDropDownBackgroundResource", "(I)V")
+		midTintContextWrapperGetTheme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintContextWrapper)), "getTheme", "()Landroid/content/res/Resources$Theme;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatAutoCompleteTextViewSetBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setBackgroundResource", "(I)V")
+		midTintContextWrapperSetTheme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintContextWrapper)), "setTheme", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatAutoCompleteTextViewSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		midTintContextWrapperGetResources, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintContextWrapper)), "getResources", "()Landroid/content/res/Resources;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatAutoCompleteTextViewSetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setSupportBackgroundTintList", "(Landroid/content/res/ColorStateList;)V")
+		midTintContextWrapperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTintContextWrapper)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatAutoCompleteTextViewGetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "getSupportBackgroundTintList", "()Landroid/content/res/ColorStateList;")
+		midTintContextWrapperWrap, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTintContextWrapper)), "wrap", "(Landroid/content/Context;)Landroid/content/Context;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatAutoCompleteTextViewSetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setSupportBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
+		midTintContextWrapperGetAssets, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTintContextWrapper)), "getAssets", "()Landroid/content/res/AssetManager;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatAutoCompleteTextViewGetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "getSupportBackgroundTintMode", "()Landroid/graphics/PorterDuff$Mode;")
+	}
+
+	c, err = env.FindClass("androidx/appcompat/widget/MenuPopupWindow")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMenuPopupWindow = env.NewGlobalRef(&c.Object)
+		midMenuPopupWindowCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindow)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;II)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMenuPopupWindowSetEnterTransition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindow)), "setEnterTransition", "(Ljava/lang/Object;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatAutoCompleteTextViewSetTextAppearance, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setTextAppearance", "(Landroid/content/Context;I)V")
+		midMenuPopupWindowSetExitTransition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindow)), "setExitTransition", "(Ljava/lang/Object;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatAutoCompleteTextViewOnCreateInputConnection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "onCreateInputConnection", "(Landroid/view/inputmethod/EditorInfo;)Landroid/view/inputmethod/InputConnection;")
+		midMenuPopupWindowSetHoverListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindow)), "setHoverListener", "(Landroidx/appcompat/widget/MenuItemHoverListener;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatAutoCompleteTextViewSetCustomSelectionActionModeCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setCustomSelectionActionModeCallback", "(Landroid/view/ActionMode$Callback;)V")
+		midMenuPopupWindowSetTouchModal, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindow)), "setTouchModal", "(Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatAutoCompleteTextViewGetCustomSelectionActionModeCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "getCustomSelectionActionModeCallback", "()Landroid/view/ActionMode$Callback;")
+		midMenuPopupWindowOnItemHoverEnter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindow)), "onItemHoverEnter", "(Landroidx/appcompat/view/menu/MenuBuilder;Landroid/view/MenuItem;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatAutoCompleteTextViewSetKeyListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setKeyListener", "(Landroid/text/method/KeyListener;)V")
+		midMenuPopupWindowToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindow)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatAutoCompleteTextViewSetEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setEmojiCompatEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatAutoCompleteTextViewIsEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "isEmojiCompatEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatAutoCompleteTextViewSetCompoundDrawables, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setCompoundDrawables", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatAutoCompleteTextViewSetCompoundDrawablesRelative, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setCompoundDrawablesRelative", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatAutoCompleteTextViewGetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "getSupportCompoundDrawablesTintList", "()Landroid/content/res/ColorStateList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatAutoCompleteTextViewSetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setSupportCompoundDrawablesTintList", "(Landroid/content/res/ColorStateList;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatAutoCompleteTextViewGetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "getSupportCompoundDrawablesTintMode", "()Landroid/graphics/PorterDuff$Mode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatAutoCompleteTextViewSetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "setSupportCompoundDrawablesTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatAutoCompleteTextViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextView)), "toString", "()Ljava/lang/String;")
+		midMenuPopupWindowOnItemHoverExit, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindow)), "onItemHoverExit", "(Landroidx/appcompat/view/menu/MenuBuilder;Landroid/view/MenuItem;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -9291,6 +9166,44 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("androidx/appcompat/widget/DrawableUtils")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDrawableUtils = env.NewGlobalRef(&c.Object)
+
+		midDrawableUtilsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawableUtils)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDrawableUtilsGetOpticalBounds, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDrawableUtils)), "getOpticalBounds", "(Landroid/graphics/drawable/Drawable;)Landroid/graphics/Rect;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDrawableUtilsCanSafelyMutateDrawable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDrawableUtils)), "canSafelyMutateDrawable", "(Landroid/graphics/drawable/Drawable;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDrawableUtilsParseTintMode, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDrawableUtils)), "parseTintMode", "(ILandroid/graphics/PorterDuff$Mode;)Landroid/graphics/PorterDuff$Mode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("androidx/appcompat/widget/AppCompatCheckedTextView$InspectionCompanion")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -9298,6 +9211,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsAppCompatCheckedTextViewInspectionCompanion = env.NewGlobalRef(&c.Object)
+		midAppCompatCheckedTextViewInspectionCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckedTextViewInspectionCompanion)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midAppCompatCheckedTextViewInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckedTextViewInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
 		if err != nil {
@@ -9306,14 +9223,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midAppCompatCheckedTextViewInspectionCompanionReadProperties2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckedTextViewInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatCheckedTextView;Landroid/view/inspector/PropertyReader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatCheckedTextViewInspectionCompanionReadProperties2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckedTextViewInspectionCompanion)), "readProperties", "(Ljava/lang/Object;Landroid/view/inspector/PropertyReader;)V")
+		midAppCompatCheckedTextViewInspectionCompanionReadProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatCheckedTextViewInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatCheckedTextView;Landroid/view/inspector/PropertyReader;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -9329,36 +9239,180 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatAutoCompleteTextView$InspectionCompanion")
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatSpinner")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAppCompatAutoCompleteTextViewInspectionCompanion = env.NewGlobalRef(&c.Object)
+		clsAppCompatSpinner = env.NewGlobalRef(&c.Object)
+		midAppCompatSpinnerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midAppCompatAutoCompleteTextViewInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextViewInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
+		midAppCompatSpinnerGetPopupContext, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "getPopupContext", "()Landroid/content/Context;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatAutoCompleteTextViewInspectionCompanionReadProperties2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextViewInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatAutoCompleteTextView;Landroid/view/inspector/PropertyReader;)V")
+		midAppCompatSpinnerSetPopupBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setPopupBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatAutoCompleteTextViewInspectionCompanionReadProperties2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextViewInspectionCompanion)), "readProperties", "(Ljava/lang/Object;Landroid/view/inspector/PropertyReader;)V")
+		midAppCompatSpinnerSetPopupBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setPopupBackgroundResource", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatAutoCompleteTextViewInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatAutoCompleteTextViewInspectionCompanion)), "toString", "()Ljava/lang/String;")
+		midAppCompatSpinnerGetPopupBackground, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "getPopupBackground", "()Landroid/graphics/drawable/Drawable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerSetDropDownVerticalOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setDropDownVerticalOffset", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerGetDropDownVerticalOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "getDropDownVerticalOffset", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerSetDropDownHorizontalOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setDropDownHorizontalOffset", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerGetDropDownHorizontalOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "getDropDownHorizontalOffset", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerSetDropDownWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setDropDownWidth", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerGetDropDownWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "getDropDownWidth", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerSetAdapter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setAdapter", "(Landroid/widget/SpinnerAdapter;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerOnTouchEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "onTouchEvent", "(Landroid/view/MotionEvent;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerPerformClick, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "performClick", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerSetPrompt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setPrompt", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerGetPrompt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "getPrompt", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerSetBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setBackgroundResource", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerSetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setSupportBackgroundTintList", "(Landroid/content/res/ColorStateList;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerGetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "getSupportBackgroundTintList", "()Landroid/content/res/ColorStateList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerSetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "setSupportBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerGetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "getSupportBackgroundTintMode", "()Landroid/graphics/PorterDuff$Mode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerOnSaveInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "onSaveInstanceState", "()Landroid/os/Parcelable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerOnRestoreInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "onRestoreInstanceState", "(Landroid/os/Parcelable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -9367,96 +9421,47 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/ActivityChooserView")
+	c, err = env.FindClass("androidx/appcompat/widget/MenuPopupWindow$MenuDropDownListView")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsActivityChooserView = env.NewGlobalRef(&c.Object)
-		midActivityChooserViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "<init>", "(Landroid/content/Context;)V")
+		clsMenuPopupWindowMenuDropDownListView = env.NewGlobalRef(&c.Object)
+		midMenuPopupWindowMenuDropDownListViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindowMenuDropDownListView)), "<init>", "(Landroid/content/Context;Z)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midActivityChooserViewSetActivityChooserModel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "setActivityChooserModel", "(Landroidx/appcompat/widget/ActivityChooserModel;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityChooserViewSetExpandActivityOverflowButtonDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "setExpandActivityOverflowButtonDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		midMenuPopupWindowMenuDropDownListViewSetHoverListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindowMenuDropDownListView)), "setHoverListener", "(Landroidx/appcompat/widget/MenuItemHoverListener;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityChooserViewSetExpandActivityOverflowButtonContentDescription, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "setExpandActivityOverflowButtonContentDescription", "(I)V")
+		midMenuPopupWindowMenuDropDownListViewClearSelection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindowMenuDropDownListView)), "clearSelection", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityChooserViewSetProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "setProvider", "(Landroidx/core/view/ActionProvider;)V")
+		midMenuPopupWindowMenuDropDownListViewOnKeyDown, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindowMenuDropDownListView)), "onKeyDown", "(ILandroid/view/KeyEvent;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityChooserViewShowPopup, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "showPopup", "()Z")
+		midMenuPopupWindowMenuDropDownListViewOnHoverEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindowMenuDropDownListView)), "onHoverEvent", "(Landroid/view/MotionEvent;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActivityChooserViewDismissPopup, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "dismissPopup", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityChooserViewIsShowingPopup, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "isShowingPopup", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityChooserViewGetDataModel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "getDataModel", "()Landroidx/appcompat/widget/ActivityChooserModel;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityChooserViewSetOnDismissListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "setOnDismissListener", "(Landroid/widget/PopupWindow$OnDismissListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityChooserViewSetInitialActivityCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "setInitialActivityCount", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityChooserViewSetDefaultActionButtonContentDescription, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "setDefaultActionButtonContentDescription", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActivityChooserViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), "toString", "()Ljava/lang/String;")
+		midMenuPopupWindowMenuDropDownListViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMenuPopupWindowMenuDropDownListView)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -9465,15 +9470,33 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/ActivityChooserView$InnerLayout")
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatSpinner$InspectionCompanion")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsActivityChooserViewInnerLayout = env.NewGlobalRef(&c.Object)
+		clsAppCompatSpinnerInspectionCompanion = env.NewGlobalRef(&c.Object)
+		midAppCompatSpinnerInspectionCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinnerInspectionCompanion)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midActivityChooserViewInnerLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityChooserViewInnerLayout)), "toString", "()Ljava/lang/String;")
+		midAppCompatSpinnerInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinnerInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerInspectionCompanionReadProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinnerInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatSpinner;Landroid/view/inspector/PropertyReader;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatSpinnerInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatSpinnerInspectionCompanion)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -9482,397 +9505,131 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/ListPopupWindow")
+	c, err = env.FindClass("androidx/appcompat/widget/ActionBarContainer")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsListPopupWindow = env.NewGlobalRef(&c.Object)
-		midListPopupWindowCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "<init>", "(Landroid/content/Context;)V")
+		clsActionBarContainer = env.NewGlobalRef(&c.Object)
+		midActionBarContainerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "<init>", "(Landroid/content/Context;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midListPopupWindowSetAdapter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setAdapter", "(Landroid/widget/ListAdapter;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowSetPromptPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setPromptPosition", "(I)V")
+		midActionBarContainerOnFinishInflate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "onFinishInflate", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midListPopupWindowGetPromptPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getPromptPosition", "()I")
+		midActionBarContainerSetPrimaryBackground, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "setPrimaryBackground", "(Landroid/graphics/drawable/Drawable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midListPopupWindowSetModal, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setModal", "(Z)V")
+		midActionBarContainerSetStackedBackground, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "setStackedBackground", "(Landroid/graphics/drawable/Drawable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midListPopupWindowIsModal, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "isModal", "()Z")
+		midActionBarContainerSetSplitBackground, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "setSplitBackground", "(Landroid/graphics/drawable/Drawable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midListPopupWindowSetForceIgnoreOutsideTouch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setForceIgnoreOutsideTouch", "(Z)V")
+		midActionBarContainerSetVisibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "setVisibility", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midListPopupWindowSetDropDownAlwaysVisible, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setDropDownAlwaysVisible", "(Z)V")
+		midActionBarContainerJumpDrawablesToCurrentState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "jumpDrawablesToCurrentState", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midListPopupWindowIsDropDownAlwaysVisible, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "isDropDownAlwaysVisible", "()Z")
+		midActionBarContainerSetTransitioning, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "setTransitioning", "(Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midListPopupWindowSetSoftInputMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setSoftInputMode", "(I)V")
+		midActionBarContainerOnInterceptTouchEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "onInterceptTouchEvent", "(Landroid/view/MotionEvent;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midListPopupWindowGetSoftInputMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getSoftInputMode", "()I")
+		midActionBarContainerOnTouchEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "onTouchEvent", "(Landroid/view/MotionEvent;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midListPopupWindowSetListSelector, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setListSelector", "(Landroid/graphics/drawable/Drawable;)V")
+		midActionBarContainerOnHoverEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "onHoverEvent", "(Landroid/view/MotionEvent;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midListPopupWindowGetBackground, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getBackground", "()Landroid/graphics/drawable/Drawable;")
+		midActionBarContainerSetTabContainer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "setTabContainer", "(Landroidx/appcompat/widget/ScrollingTabContainerView;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midListPopupWindowSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		midActionBarContainerGetTabContainer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "getTabContainer", "()Landroid/view/View;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midListPopupWindowSetAnimationStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setAnimationStyle", "(I)V")
+		midActionBarContainerStartActionModeForChild2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "startActionModeForChild", "(Landroid/view/View;Landroid/view/ActionMode$Callback;)Landroid/view/ActionMode;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midListPopupWindowGetAnimationStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getAnimationStyle", "()I")
+		midActionBarContainerStartActionModeForChild3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "startActionModeForChild", "(Landroid/view/View;Landroid/view/ActionMode$Callback;I)Landroid/view/ActionMode;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midListPopupWindowGetAnchorView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getAnchorView", "()Landroid/view/View;")
+		midActionBarContainerOnMeasure, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "onMeasure", "(II)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midListPopupWindowSetAnchorView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setAnchorView", "(Landroid/view/View;)V")
+		midActionBarContainerOnLayout, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "onLayout", "(ZIIII)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midListPopupWindowGetHorizontalOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getHorizontalOffset", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowSetHorizontalOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setHorizontalOffset", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowGetVerticalOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getVerticalOffset", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowSetVerticalOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setVerticalOffset", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowSetEpicenterBounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setEpicenterBounds", "(Landroid/graphics/Rect;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowGetEpicenterBounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getEpicenterBounds", "()Landroid/graphics/Rect;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowSetDropDownGravity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setDropDownGravity", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowGetWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getWidth", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowSetWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setWidth", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowSetContentWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setContentWidth", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowGetHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getHeight", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowSetHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setHeight", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowSetWindowLayoutType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setWindowLayoutType", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowSetOnItemClickListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setOnItemClickListener", "(Landroid/widget/AdapterView$OnItemClickListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowSetOnItemSelectedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setOnItemSelectedListener", "(Landroid/widget/AdapterView$OnItemSelectedListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowSetPromptView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setPromptView", "(Landroid/view/View;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowPostShow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "postShow", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowShow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "show", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowDismiss, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "dismiss", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowSetOnDismissListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setOnDismissListener", "(Landroid/widget/PopupWindow$OnDismissListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowSetInputMethodMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setInputMethodMode", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowGetInputMethodMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getInputMethodMode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowSetSelection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setSelection", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowClearListSelection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "clearListSelection", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowIsShowing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "isShowing", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowIsInputMethodNotNeeded, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "isInputMethodNotNeeded", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowPerformItemClick, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "performItemClick", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowGetSelectedItem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getSelectedItem", "()Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowGetSelectedItemPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getSelectedItemPosition", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowGetSelectedItemId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getSelectedItemId", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowGetSelectedView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getSelectedView", "()Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowGetListView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "getListView", "()Landroid/widget/ListView;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowOnKeyDown, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "onKeyDown", "(ILandroid/view/KeyEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowOnKeyUp, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "onKeyUp", "(ILandroid/view/KeyEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowOnKeyPreIme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "onKeyPreIme", "(ILandroid/view/KeyEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowCreateDragToOpenListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "createDragToOpenListener", "(Landroid/view/View;)Landroid/view/View$OnTouchListener;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowSetOverlapAnchor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "setOverlapAnchor", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListPopupWindowToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), "toString", "()Ljava/lang/String;")
+		midActionBarContainerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarContainer)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -9881,131 +9638,131 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatImageButton")
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatToggleButton")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAppCompatImageButton = env.NewGlobalRef(&c.Object)
-		midAppCompatImageButtonCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "<init>", "(Landroid/content/Context;)V")
+		clsAppCompatToggleButton = env.NewGlobalRef(&c.Object)
+		midAppCompatToggleButtonCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "<init>", "(Landroid/content/Context;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midAppCompatImageButtonSetImageResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setImageResource", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageButtonSetImageDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setImageDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		midAppCompatToggleButtonSetBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setBackgroundResource", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatImageButtonSetImageBitmap, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setImageBitmap", "(Landroid/graphics/Bitmap;)V")
+		midAppCompatToggleButtonSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatImageButtonSetImageURI, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setImageURI", "(Landroid/net/Uri;)V")
+		midAppCompatToggleButtonSetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setSupportBackgroundTintList", "(Landroid/content/res/ColorStateList;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatImageButtonSetBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setBackgroundResource", "(I)V")
+		midAppCompatToggleButtonGetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "getSupportBackgroundTintList", "()Landroid/content/res/ColorStateList;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatImageButtonSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		midAppCompatToggleButtonSetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setSupportBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatImageButtonSetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setSupportBackgroundTintList", "(Landroid/content/res/ColorStateList;)V")
+		midAppCompatToggleButtonGetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "getSupportBackgroundTintMode", "()Landroid/graphics/PorterDuff$Mode;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatImageButtonGetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "getSupportBackgroundTintList", "()Landroid/content/res/ColorStateList;")
+		midAppCompatToggleButtonSetFilters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setFilters", "([Landroid/text/InputFilter;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatImageButtonSetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setSupportBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
+		midAppCompatToggleButtonSetAllCaps, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setAllCaps", "(Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatImageButtonGetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "getSupportBackgroundTintMode", "()Landroid/graphics/PorterDuff$Mode;")
+		midAppCompatToggleButtonSetEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setEmojiCompatEnabled", "(Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatImageButtonSetSupportImageTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setSupportImageTintList", "(Landroid/content/res/ColorStateList;)V")
+		midAppCompatToggleButtonIsEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "isEmojiCompatEnabled", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatImageButtonGetSupportImageTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "getSupportImageTintList", "()Landroid/content/res/ColorStateList;")
+		midAppCompatToggleButtonSetCompoundDrawables, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setCompoundDrawables", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatImageButtonSetSupportImageTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setSupportImageTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
+		midAppCompatToggleButtonSetCompoundDrawablesRelative, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setCompoundDrawablesRelative", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatImageButtonGetSupportImageTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "getSupportImageTintMode", "()Landroid/graphics/PorterDuff$Mode;")
+		midAppCompatToggleButtonGetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "getSupportCompoundDrawablesTintList", "()Landroid/content/res/ColorStateList;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatImageButtonHasOverlappingRendering, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "hasOverlappingRendering", "()Z")
+		midAppCompatToggleButtonSetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setSupportCompoundDrawablesTintList", "(Landroid/content/res/ColorStateList;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatImageButtonSetImageLevel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "setImageLevel", "(I)V")
+		midAppCompatToggleButtonGetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "getSupportCompoundDrawablesTintMode", "()Landroid/graphics/PorterDuff$Mode;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatImageButtonToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), "toString", "()Ljava/lang/String;")
+		midAppCompatToggleButtonSetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "setSupportCompoundDrawablesTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppCompatToggleButtonToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -10014,36 +9771,33 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatImageButton$InspectionCompanion")
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatToggleButton$InspectionCompanion")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAppCompatImageButtonInspectionCompanion = env.NewGlobalRef(&c.Object)
+		clsAppCompatToggleButtonInspectionCompanion = env.NewGlobalRef(&c.Object)
+		midAppCompatToggleButtonInspectionCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButtonInspectionCompanion)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midAppCompatImageButtonInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButtonInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
+		midAppCompatToggleButtonInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButtonInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatImageButtonInspectionCompanionReadProperties2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButtonInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatImageButton;Landroid/view/inspector/PropertyReader;)V")
+		midAppCompatToggleButtonInspectionCompanionReadProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButtonInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatToggleButton;Landroid/view/inspector/PropertyReader;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatImageButtonInspectionCompanionReadProperties2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButtonInspectionCompanion)), "readProperties", "(Ljava/lang/Object;Landroid/view/inspector/PropertyReader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatImageButtonInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatImageButtonInspectionCompanion)), "toString", "()Ljava/lang/String;")
+		midAppCompatToggleButtonInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButtonInspectionCompanion)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -10052,400 +9806,222 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/DecorToolbar")
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatButton")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsDecorToolbar = env.NewGlobalRef(&c.Object)
+		clsAppCompatButton = env.NewGlobalRef(&c.Object)
+		midAppCompatButtonCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midDecorToolbarGetViewGroup, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getViewGroup", "()Landroid/view/ViewGroup;")
+		midAppCompatButtonSetBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setBackgroundResource", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarGetContext, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getContext", "()Landroid/content/Context;")
+		midAppCompatButtonSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarHasExpandedActionView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "hasExpandedActionView", "()Z")
+		midAppCompatButtonSetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setSupportBackgroundTintList", "(Landroid/content/res/ColorStateList;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarCollapseActionView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "collapseActionView", "()V")
+		midAppCompatButtonGetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "getSupportBackgroundTintList", "()Landroid/content/res/ColorStateList;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarSetWindowCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setWindowCallback", "(Landroid/view/Window$Callback;)V")
+		midAppCompatButtonSetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setSupportBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarSetWindowTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setWindowTitle", "(Ljava/lang/CharSequence;)V")
+		midAppCompatButtonGetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "getSupportBackgroundTintMode", "()Landroid/graphics/PorterDuff$Mode;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarGetTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getTitle", "()Ljava/lang/CharSequence;")
+		midAppCompatButtonSetTextAppearance, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setTextAppearance", "(Landroid/content/Context;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarSetTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setTitle", "(Ljava/lang/CharSequence;)V")
+		midAppCompatButtonOnInitializeAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "onInitializeAccessibilityEvent", "(Landroid/view/accessibility/AccessibilityEvent;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarGetSubtitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getSubtitle", "()Ljava/lang/CharSequence;")
+		midAppCompatButtonOnInitializeAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "onInitializeAccessibilityNodeInfo", "(Landroid/view/accessibility/AccessibilityNodeInfo;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarSetSubtitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setSubtitle", "(Ljava/lang/CharSequence;)V")
+		midAppCompatButtonSetTextSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setTextSize", "(IF)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarInitProgress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "initProgress", "()V")
+		midAppCompatButtonSetAutoSizeTextTypeWithDefaults, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setAutoSizeTextTypeWithDefaults", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarInitIndeterminateProgress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "initIndeterminateProgress", "()V")
+		midAppCompatButtonSetAutoSizeTextTypeUniformWithConfiguration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setAutoSizeTextTypeUniformWithConfiguration", "(IIII)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarHasIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "hasIcon", "()Z")
+		midAppCompatButtonSetAutoSizeTextTypeUniformWithPresetSizes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setAutoSizeTextTypeUniformWithPresetSizes", "([II)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarHasLogo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "hasLogo", "()Z")
+		midAppCompatButtonGetAutoSizeTextType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "getAutoSizeTextType", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarSetIcon1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setIcon", "(I)V")
+		midAppCompatButtonGetAutoSizeStepGranularity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "getAutoSizeStepGranularity", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarSetIcon1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setIcon", "(Landroid/graphics/drawable/Drawable;)V")
+		midAppCompatButtonGetAutoSizeMinTextSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "getAutoSizeMinTextSize", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarSetLogo1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setLogo", "(I)V")
+		midAppCompatButtonGetAutoSizeMaxTextSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "getAutoSizeMaxTextSize", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarSetLogo1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setLogo", "(Landroid/graphics/drawable/Drawable;)V")
+		midAppCompatButtonGetAutoSizeTextAvailableSizes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "getAutoSizeTextAvailableSizes", "()[I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarCanShowOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "canShowOverflowMenu", "()Z")
+		midAppCompatButtonSetSupportAllCaps, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setSupportAllCaps", "(Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarIsOverflowMenuShowing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "isOverflowMenuShowing", "()Z")
+		midAppCompatButtonSetCustomSelectionActionModeCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setCustomSelectionActionModeCallback", "(Landroid/view/ActionMode$Callback;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarIsOverflowMenuShowPending, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "isOverflowMenuShowPending", "()Z")
+		midAppCompatButtonGetCustomSelectionActionModeCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "getCustomSelectionActionModeCallback", "()Landroid/view/ActionMode$Callback;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarShowOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "showOverflowMenu", "()Z")
+		midAppCompatButtonSetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setSupportCompoundDrawablesTintList", "(Landroid/content/res/ColorStateList;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarHideOverflowMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "hideOverflowMenu", "()Z")
+		midAppCompatButtonGetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "getSupportCompoundDrawablesTintList", "()Landroid/content/res/ColorStateList;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarSetMenuPrepared, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setMenuPrepared", "()V")
+		midAppCompatButtonSetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setSupportCompoundDrawablesTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarSetMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setMenu", "(Landroid/view/Menu;Landroidx/appcompat/view/menu/MenuPresenter$Callback;)V")
+		midAppCompatButtonGetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "getSupportCompoundDrawablesTintMode", "()Landroid/graphics/PorterDuff$Mode;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarDismissPopupMenus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "dismissPopupMenus", "()V")
+		midAppCompatButtonSetFilters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setFilters", "([Landroid/text/InputFilter;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarGetDisplayOptions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getDisplayOptions", "()I")
+		midAppCompatButtonSetAllCaps, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setAllCaps", "(Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarSetDisplayOptions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setDisplayOptions", "(I)V")
+		midAppCompatButtonSetEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "setEmojiCompatEnabled", "(Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarSetEmbeddedTabView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setEmbeddedTabView", "(Landroidx/appcompat/widget/ScrollingTabContainerView;)V")
+		midAppCompatButtonIsEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "isEmojiCompatEnabled", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDecorToolbarHasEmbeddedTabs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "hasEmbeddedTabs", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarIsTitleTruncated, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "isTitleTruncated", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarSetCollapsible, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setCollapsible", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarSetHomeButtonEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setHomeButtonEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarGetNavigationMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getNavigationMode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarSetNavigationMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setNavigationMode", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarSetDropdownParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setDropdownParams", "(Landroid/widget/SpinnerAdapter;Landroid/widget/AdapterView$OnItemSelectedListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarSetDropdownSelectedPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setDropdownSelectedPosition", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarGetDropdownSelectedPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getDropdownSelectedPosition", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarGetDropdownItemCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getDropdownItemCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarSetCustomView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setCustomView", "(Landroid/view/View;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarGetCustomView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getCustomView", "()Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarAnimateToVisibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "animateToVisibility", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarSetupAnimatorToVisibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setupAnimatorToVisibility", "(IJ)Landroidx/core/view/ViewPropertyAnimatorCompat;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarSetNavigationIcon1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setNavigationIcon", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarSetNavigationIcon1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setNavigationIcon", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarSetNavigationContentDescription1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setNavigationContentDescription", "(Ljava/lang/CharSequence;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarSetNavigationContentDescription1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setNavigationContentDescription", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarSetDefaultNavigationContentDescription, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setDefaultNavigationContentDescription", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarSetDefaultNavigationIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setDefaultNavigationIcon", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarGetHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getHeight", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarSetVisibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setVisibility", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarGetVisibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getVisibility", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarSetMenuCallbacks, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "setMenuCallbacks", "(Landroidx/appcompat/view/menu/MenuPresenter$Callback;Landroidx/appcompat/view/menu/MenuBuilder$Callback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarGetMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "getMenu", "()Landroid/view/Menu;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDecorToolbarToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDecorToolbar)), "toString", "()Ljava/lang/String;")
+		midAppCompatButtonToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButton)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -10454,173 +10030,33 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatRadioButton")
+	c, err = env.FindClass("androidx/appcompat/widget/AppCompatButton$InspectionCompanion")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAppCompatRadioButton = env.NewGlobalRef(&c.Object)
-		midAppCompatRadioButtonCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "<init>", "(Landroid/content/Context;)V")
+		clsAppCompatButtonInspectionCompanion = env.NewGlobalRef(&c.Object)
+		midAppCompatButtonInspectionCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButtonInspectionCompanion)), "<init>", "()V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midAppCompatRadioButtonSetButtonDrawable1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setButtonDrawable", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatRadioButtonSetButtonDrawable1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setButtonDrawable", "(I)V")
+		midAppCompatButtonInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButtonInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatRadioButtonSetSupportButtonTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setSupportButtonTintList", "(Landroid/content/res/ColorStateList;)V")
+		midAppCompatButtonInspectionCompanionReadProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButtonInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatButton;Landroid/view/inspector/PropertyReader;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatRadioButtonGetSupportButtonTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "getSupportButtonTintList", "()Landroid/content/res/ColorStateList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatRadioButtonSetSupportButtonTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setSupportButtonTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatRadioButtonGetSupportButtonTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "getSupportButtonTintMode", "()Landroid/graphics/PorterDuff$Mode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatRadioButtonSetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setSupportBackgroundTintList", "(Landroid/content/res/ColorStateList;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatRadioButtonGetSupportBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "getSupportBackgroundTintList", "()Landroid/content/res/ColorStateList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatRadioButtonSetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setSupportBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatRadioButtonGetSupportBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "getSupportBackgroundTintMode", "()Landroid/graphics/PorterDuff$Mode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatRadioButtonSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatRadioButtonSetBackgroundResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setBackgroundResource", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatRadioButtonSetFilters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setFilters", "([Landroid/text/InputFilter;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatRadioButtonSetAllCaps, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setAllCaps", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatRadioButtonSetEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setEmojiCompatEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatRadioButtonIsEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "isEmojiCompatEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatRadioButtonSetCompoundDrawables, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setCompoundDrawables", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatRadioButtonSetCompoundDrawablesRelative, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setCompoundDrawablesRelative", "(Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatRadioButtonGetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "getSupportCompoundDrawablesTintList", "()Landroid/content/res/ColorStateList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatRadioButtonSetSupportCompoundDrawablesTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setSupportCompoundDrawablesTintList", "(Landroid/content/res/ColorStateList;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatRadioButtonGetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "getSupportCompoundDrawablesTintMode", "()Landroid/graphics/PorterDuff$Mode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatRadioButtonSetSupportCompoundDrawablesTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "setSupportCompoundDrawablesTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatRadioButtonToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), "toString", "()Ljava/lang/String;")
+		midAppCompatButtonInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatButtonInspectionCompanion)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -10629,36 +10065,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/widget/AppCompatRadioButton$InspectionCompanion")
+	c, err = env.FindClass("androidx/appcompat/widget/EmojiCompatConfigurationView")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAppCompatRadioButtonInspectionCompanion = env.NewGlobalRef(&c.Object)
+		clsEmojiCompatConfigurationView = env.NewGlobalRef(&c.Object)
 
-		midAppCompatRadioButtonInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButtonInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
+		midEmojiCompatConfigurationViewSetEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiCompatConfigurationView)), "setEmojiCompatEnabled", "(Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatRadioButtonInspectionCompanionReadProperties2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButtonInspectionCompanion)), "readProperties", "(Landroidx/appcompat/widget/AppCompatRadioButton;Landroid/view/inspector/PropertyReader;)V")
+		midEmojiCompatConfigurationViewIsEmojiCompatEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiCompatConfigurationView)), "isEmojiCompatEnabled", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppCompatRadioButtonInspectionCompanionReadProperties2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButtonInspectionCompanion)), "readProperties", "(Ljava/lang/Object;Landroid/view/inspector/PropertyReader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppCompatRadioButtonInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButtonInspectionCompanion)), "toString", "()Ljava/lang/String;")
+		midEmojiCompatConfigurationViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiCompatConfigurationView)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

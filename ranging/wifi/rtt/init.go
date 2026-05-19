@@ -23,6 +23,12 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsRangingCapabilities                                  *jni.GlobalRef
+	midRangingCapabilitiesDescribeContents                  jni.MethodID
+	midRangingCapabilitiesHasPeriodicRangingHardwareFeature jni.MethodID
+	midRangingCapabilitiesToString                          jni.MethodID
+	midRangingCapabilitiesWriteToParcel                     jni.MethodID
+
 	clsRangingParams                                  *jni.GlobalRef
 	midRangingParamsDescribeContents                  jni.MethodID
 	midRangingParamsEquals                            jni.MethodID
@@ -35,17 +41,12 @@ var (
 	midRangingParamsWriteToParcel                     jni.MethodID
 
 	clsRangingParamsBuilder                                   *jni.GlobalRef
+	midRangingParamsBuilderCtor                               jni.MethodID
 	midRangingParamsBuilderBuild                              jni.MethodID
 	midRangingParamsBuilderSetMatchFilter                     jni.MethodID
 	midRangingParamsBuilderSetPeriodicRangingHwFeatureEnabled jni.MethodID
 	midRangingParamsBuilderSetRangingUpdateRate               jni.MethodID
 	midRangingParamsBuilderToString                           jni.MethodID
-
-	clsRangingCapabilities                                  *jni.GlobalRef
-	midRangingCapabilitiesDescribeContents                  jni.MethodID
-	midRangingCapabilitiesHasPeriodicRangingHardwareFeature jni.MethodID
-	midRangingCapabilitiesToString                          jni.MethodID
-	midRangingCapabilitiesWriteToParcel                     jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -65,6 +66,44 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("android/ranging/wifi/rtt/RttRangingCapabilities")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRangingCapabilities = env.NewGlobalRef(&c.Object)
+
+		midRangingCapabilitiesDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangingCapabilities)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRangingCapabilitiesHasPeriodicRangingHardwareFeature, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangingCapabilities)), "hasPeriodicRangingHardwareFeature", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRangingCapabilitiesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangingCapabilities)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRangingCapabilitiesWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRangingCapabilities)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("android/ranging/wifi/rtt/RttRangingParams")
 	if err != nil {
@@ -130,7 +169,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midRangingParamsWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangingParams)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midRangingParamsWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRangingParams)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -146,6 +185,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsRangingParamsBuilder = env.NewGlobalRef(&c.Object)
+		midRangingParamsBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangingParamsBuilder)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midRangingParamsBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangingParamsBuilder)), "build", "()Landroid/ranging/wifi/rtt/RttRangingParams;")
 		if err != nil {
@@ -176,44 +219,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midRangingParamsBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangingParamsBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/ranging/wifi/rtt/RttRangingCapabilities")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRangingCapabilities = env.NewGlobalRef(&c.Object)
-
-		midRangingCapabilitiesDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangingCapabilities)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRangingCapabilitiesHasPeriodicRangingHardwareFeature, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangingCapabilities)), "hasPeriodicRangingHardwareFeature", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRangingCapabilitiesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangingCapabilities)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRangingCapabilitiesWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangingCapabilities)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

@@ -32,6 +32,12 @@ func NewCamera(vm *jni.VM) (*Camera, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCamera == nil {
+			return fmt.Errorf("android.graphics.Camera is not available on this device")
+		}
+		if midCameraCtor == nil {
+			return fmt.Errorf("android.graphics.Camera constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCamera)), midCameraCtor)
 		if err != nil {
 			return err

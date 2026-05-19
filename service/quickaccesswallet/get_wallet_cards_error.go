@@ -32,6 +32,12 @@ func NewGetWalletCardsError(vm *jni.VM, arg0 *jni.Object, arg1 string) (*GetWall
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGetWalletCardsError == nil {
+			return fmt.Errorf("android.service.quickaccesswallet.GetWalletCardsError is not available on this device")
+		}
+		if midGetWalletCardsErrorCtor == nil {
+			return fmt.Errorf("android.service.quickaccesswallet.GetWalletCardsError constructor (Landroid/graphics/drawable/Icon;Ljava/lang/CharSequence;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {
@@ -141,29 +147,6 @@ func (m *GetWalletCardsError) GetMessage() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.service.quickaccesswallet.GetWalletCardsError.writeToParcel.
-func (m *GetWalletCardsError) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midGetWalletCardsErrorWriteToParcel == nil {
-			callErr = fmt.Errorf("android.service.quickaccesswallet.GetWalletCardsError.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midGetWalletCardsErrorWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.service.quickaccesswallet.GetWalletCardsError.toString.
 func (m *GetWalletCardsError) ToString() (string, error) {
 	var result string
@@ -189,4 +172,27 @@ func (m *GetWalletCardsError) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.service.quickaccesswallet.GetWalletCardsError.writeToParcel.
+func (m *GetWalletCardsError) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midGetWalletCardsErrorWriteToParcel == nil {
+			callErr = fmt.Errorf("android.service.quickaccesswallet.GetWalletCardsError.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsGetWalletCardsError)),
+			midGetWalletCardsErrorWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

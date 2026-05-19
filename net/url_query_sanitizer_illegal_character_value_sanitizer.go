@@ -23,6 +23,35 @@ type UrlQuerySanitizerIllegalCharacterValueSanitizer struct {
 	Obj *jni.GlobalRef
 }
 
+// NewUrlQuerySanitizerIllegalCharacterValueSanitizer creates a new android.net.UrlQuerySanitizer$IllegalCharacterValueSanitizer instance.
+func NewUrlQuerySanitizerIllegalCharacterValueSanitizer(vm *jni.VM, arg0 int32) (*UrlQuerySanitizerIllegalCharacterValueSanitizer, error) {
+	var t UrlQuerySanitizerIllegalCharacterValueSanitizer
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsUrlQuerySanitizerIllegalCharacterValueSanitizer == nil {
+			return fmt.Errorf("android.net.UrlQuerySanitizer$IllegalCharacterValueSanitizer is not available on this device")
+		}
+		if midUrlQuerySanitizerIllegalCharacterValueSanitizerCtor == nil {
+			return fmt.Errorf("android.net.UrlQuerySanitizer$IllegalCharacterValueSanitizer constructor (I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUrlQuerySanitizerIllegalCharacterValueSanitizer)), midUrlQuerySanitizerIllegalCharacterValueSanitizerCtor, jni.IntValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Sanitize calls android.net.UrlQuerySanitizer$IllegalCharacterValueSanitizer.sanitize.
 func (m *UrlQuerySanitizerIllegalCharacterValueSanitizer) Sanitize(arg0 string) (string, error) {
 	var result string

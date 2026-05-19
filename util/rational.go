@@ -32,6 +32,12 @@ func NewRational(vm *jni.VM, arg0 int32, arg1 int32) (*Rational, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRational == nil {
+			return fmt.Errorf("android.util.Rational is not available on this device")
+		}
+		if midRationalCtor == nil {
+			return fmt.Errorf("android.util.Rational constructor (II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRational)), midRationalCtor, jni.IntValue(arg0), jni.IntValue(arg1))
 		if err != nil {
@@ -46,8 +52,8 @@ func NewRational(vm *jni.VM, arg0 int32, arg1 int32) (*Rational, error) {
 	return &t, nil
 }
 
-// CompareTo1 calls android.util.Rational.compareTo.
-func (m *Rational) CompareTo1(arg0 *jni.Object) (int32, error) {
+// CompareTo calls android.util.Rational.compareTo.
+func (m *Rational) CompareTo(arg0 *jni.Object) (int32, error) {
 	var result int32
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,14 +61,14 @@ func (m *Rational) CompareTo1(arg0 *jni.Object) (int32, error) {
 			callErr = err
 			return err
 		}
-		if midRationalCompareTo1 == nil {
+		if midRationalCompareTo == nil {
 			callErr = fmt.Errorf("android.util.Rational.compareTo is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallIntMethod(
 			m.Obj,
-			midRationalCompareTo1, jni.ObjectValue(arg0),
+			midRationalCompareTo, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -430,32 +436,6 @@ func (m *Rational) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
-		return callErr
-	})
-	return result, callErr
-}
-
-// CompareTo1_1 calls android.util.Rational.compareTo.
-func (m *Rational) CompareTo1_1(arg0 *jni.Object) (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRationalCompareTo1_1 == nil {
-			callErr = fmt.Errorf("android.util.Rational.compareTo is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midRationalCompareTo1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
 		return callErr
 	})
 	return result, callErr

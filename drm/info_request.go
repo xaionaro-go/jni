@@ -32,6 +32,12 @@ func NewInfoRequest(vm *jni.VM, arg0 int32, arg1 string) (*InfoRequest, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInfoRequest == nil {
+			return fmt.Errorf("android.drm.DrmInfoRequest is not available on this device")
+		}
+		if midInfoRequestCtor == nil {
+			return fmt.Errorf("android.drm.DrmInfoRequest constructor (ILjava/lang/String;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {

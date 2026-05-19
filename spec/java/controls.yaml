@@ -5,43 +5,6 @@
 package: controls
 go_import: github.com/AndroidGoLab/jni/service/controls
 classes:
-    - java_class: android.service.controls.ControlsProviderService
-      go_type: ProviderService
-      methods:
-        - java_method: createPublisherForAllAvailable
-          go_name: CreatePublisherForAllAvailable
-          returns: java.util.concurrent.Flow$Publisher<android.service.controls.Control>
-          error: true
-        - java_method: createPublisherForSuggested
-          go_name: CreatePublisherForSuggested
-          returns: java.util.concurrent.Flow$Publisher<android.service.controls.Control>
-          error: true
-        - java_method: onBind
-          go_name: OnBind
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
-          returns: android.os.IBinder
-          error: true
-        - java_method: onUnbind
-          go_name: OnUnbind
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
-          returns: boolean
-          error: true
-      static_methods:
-        - java_method: requestAddControl
-          go_name: RequestAddControl
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.ComponentName
-              go_name: arg1
-            - java_type: android.service.controls.Control
-              go_name: arg2
-          returns: void
-          error: true
     - java_class: android.service.controls.Control
       go_type: Control
       methods:
@@ -101,6 +64,7 @@ classes:
           go_name: IsAuthRequired
           returns: boolean
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -112,6 +76,10 @@ classes:
           error: true
     - java_class: android.service.controls.Control$StatefulBuilder
       go_type: ControlStatefulBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.service.controls.Control
+          go_name: arg0
       methods:
         - java_method: build
           go_name: Build
@@ -210,6 +178,10 @@ classes:
           error: true
     - java_class: android.service.controls.Control$StatelessBuilder
       go_type: ControlStatelessBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.service.controls.Control
+          go_name: arg0
       methods:
         - java_method: build
           go_name: Build
@@ -278,6 +250,43 @@ classes:
               go_name: arg0
           returns: android.service.controls.Control$StatelessBuilder
           error: true
+    - java_class: android.service.controls.ControlsProviderService
+      go_type: ProviderService
+      methods:
+        - java_method: createPublisherForAllAvailable
+          go_name: CreatePublisherForAllAvailable
+          returns: java.util.concurrent.Flow$Publisher<android.service.controls.Control>
+          error: true
+        - java_method: createPublisherForSuggested
+          go_name: CreatePublisherForSuggested
+          returns: java.util.concurrent.Flow$Publisher<android.service.controls.Control>
+          error: true
+        - java_method: onBind
+          go_name: OnBind
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: android.os.IBinder
+          error: true
+        - java_method: onUnbind
+          go_name: OnUnbind
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: boolean
+          error: true
+      static_methods:
+        - java_method: requestAddControl
+          go_name: RequestAddControl
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.ComponentName
+              go_name: arg1
+            - java_type: android.service.controls.Control
+              go_name: arg2
+          returns: void
+          error: true
     - java_class: android.service.controls.DeviceTypes
       go_type: DeviceTypes
       static_methods:
@@ -288,29 +297,29 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-abstract_callbacks:
+abstract_callback_eligibility:
     - java_class: android.service.controls.ControlsProviderService
-      go_type: ProviderServiceCallback
-      methods:
-        - java_method: createPublisherForAllAvailable
-          params: []
-          returns: java.util.concurrent.Flow$Publisher<android.service.controls.Control>
-          go_field: CreatePublisherForAllAvailable
-        - java_method: createPublisherForSuggested
-          params: []
-          returns: java.util.concurrent.Flow$Publisher<android.service.controls.Control>
-          go_field: CreatePublisherForSuggested
-        - java_method: onBind
-          params:
-            - android.content.Intent
-          returns: android.os.IBinder
-          go_field: OnBind
-        - java_method: onUnbind
-          params:
-            - android.content.Intent
-          returns: boolean
-          go_field: OnUnbind
+      generated: false
+      reason: non_object_superclass
 constants:
+    - go_name: Creator
+      value: "0"
+      go_type: int
+    - go_name: StatusDisabled
+      value: "4"
+      go_type: int
+    - go_name: StatusError
+      value: "3"
+      go_type: int
+    - go_name: StatusNotFound
+      value: "2"
+      go_type: int
+    - go_name: StatusOk
+      value: "1"
+      go_type: int
+    - go_name: StatusUnknown
+      value: "0"
+      go_type: int
     - go_name: ControlsSurfaceActivityPanel
       value: "0"
       go_type: int
@@ -332,24 +341,6 @@ constants:
     - go_name: Tag
       value: '"ControlsProviderService"'
       go_type: string
-    - go_name: Creator
-      value: "0"
-      go_type: int
-    - go_name: StatusDisabled
-      value: "4"
-      go_type: int
-    - go_name: StatusError
-      value: "3"
-      go_type: int
-    - go_name: StatusNotFound
-      value: "2"
-      go_type: int
-    - go_name: StatusOk
-      value: "1"
-      go_type: int
-    - go_name: StatusUnknown
-      value: "0"
-      go_type: int
     - go_name: TypeAcHeater
       value: "1"
       go_type: int

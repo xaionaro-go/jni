@@ -32,6 +32,12 @@ func NewChecksum(vm *jni.VM, arg0 int32, arg1 *jni.Object) (*Checksum, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsChecksum == nil {
+			return fmt.Errorf("android.content.pm.Checksum is not available on this device")
+		}
+		if midChecksumCtor == nil {
+			return fmt.Errorf("android.content.pm.Checksum constructor (I[B)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsChecksum)), midChecksumCtor, jni.IntValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

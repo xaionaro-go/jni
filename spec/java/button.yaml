@@ -5,132 +5,6 @@
 package: button
 go_import: github.com/AndroidGoLab/jni/com/google/android/material/button
 classes:
-    - java_class: com.google.android.material.button.MaterialButtonToggleGroup
-      go_type: MaterialButtonToggleGroup
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: addView
-          go_name: AddView
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.view.ViewGroup$LayoutParams
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onViewRemoved
-          go_name: OnViewRemoved
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onInitializeAccessibilityNodeInfo
-          go_name: OnInitializeAccessibilityNodeInfo
-          params:
-            - java_type: android.view.accessibility.AccessibilityNodeInfo
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: check
-          go_name: Check
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: uncheck
-          go_name: Uncheck
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: clearChecked
-          go_name: ClearChecked
-          returns: void
-          error: true
-        - java_method: getCheckedButtonId
-          go_name: GetCheckedButtonId
-          returns: int
-          error: true
-        - java_method: getCheckedButtonIds
-          go_name: GetCheckedButtonIds
-          returns: java.util.List<java.lang.Integer>
-          error: true
-        - java_method: addOnButtonCheckedListener
-          go_name: AddOnButtonCheckedListener
-          params:
-            - java_type: com.google.android.material.button.MaterialButtonToggleGroup$OnButtonCheckedListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeOnButtonCheckedListener
-          go_name: RemoveOnButtonCheckedListener
-          params:
-            - java_type: com.google.android.material.button.MaterialButtonToggleGroup$OnButtonCheckedListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: clearOnButtonCheckedListeners
-          go_name: ClearOnButtonCheckedListeners
-          returns: void
-          error: true
-        - java_method: isSingleSelection
-          go_name: IsSingleSelection
-          returns: boolean
-          error: true
-        - java_method: setSingleSelection
-          go_name: SetSingleSelection1
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSelectionRequired
-          go_name: SetSelectionRequired
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isSelectionRequired
-          go_name: IsSelectionRequired
-          returns: boolean
-          error: true
-        - java_method: setSingleSelection
-          go_name: SetSingleSelection1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setEnabled
-          go_name: SetEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: com.google.android.material.button.MaterialButtonToggleGroup$OnButtonCheckedListener
-      go_type: MaterialButtonToggleGroupOnButtonCheckedListener
-      methods:
-        - java_method: onButtonChecked
-          go_name: OnButtonChecked
-          params:
-            - java_type: com.google.android.material.button.MaterialButtonToggleGroup
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: boolean
-              go_name: arg2
-          returns: void
-          error: true
     - java_class: com.google.android.material.button.MaterialButton
       go_type: MaterialButton
       obtain: constructor
@@ -497,6 +371,7 @@ classes:
           go_name: GetShapeAppearanceModel
           returns: com.google.android.material.shape.ShapeAppearanceModel
           error: true
+      static_methods:
         - java_method: setPressed
           go_name: SetPressed
           params:
@@ -508,6 +383,7 @@ classes:
       go_type: MaterialButtonIconGravity
     - java_class: com.google.android.material.button.MaterialButton$InspectionCompanion
       go_type: MaterialButtonInspectionCompanion
+      obtain: constructor
       methods:
         - java_method: mapProperties
           go_name: MapProperties
@@ -517,18 +393,9 @@ classes:
           returns: void
           error: true
         - java_method: readProperties
-          go_name: ReadProperties2
+          go_name: ReadProperties
           params:
             - java_type: com.google.android.material.button.MaterialButton
-              go_name: arg0
-            - java_type: android.view.inspector.PropertyReader
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: readProperties
-          go_name: ReadProperties2_1
-          params:
-            - java_type: java.lang.Object
               go_name: arg0
             - java_type: android.view.inspector.PropertyReader
               go_name: arg1
@@ -544,6 +411,125 @@ classes:
               go_name: arg0
             - java_type: boolean
               go_name: arg1
+          returns: void
+          error: true
+    - java_class: com.google.android.material.button.MaterialButtonToggleGroup
+      go_type: MaterialButtonToggleGroup
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: addView
+          go_name: AddView
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.view.ViewGroup$LayoutParams
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onViewRemoved
+          go_name: OnViewRemoved
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onInitializeAccessibilityNodeInfo
+          go_name: OnInitializeAccessibilityNodeInfo
+          params:
+            - java_type: android.view.accessibility.AccessibilityNodeInfo
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: check
+          go_name: Check
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: uncheck
+          go_name: Uncheck
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: clearChecked
+          go_name: ClearChecked
+          returns: void
+          error: true
+        - java_method: getCheckedButtonId
+          go_name: GetCheckedButtonId
+          returns: int
+          error: true
+        - java_method: getCheckedButtonIds
+          go_name: GetCheckedButtonIds
+          returns: java.util.List<java.lang.Integer>
+          error: true
+        - java_method: addOnButtonCheckedListener
+          go_name: AddOnButtonCheckedListener
+          params:
+            - java_type: com.google.android.material.button.MaterialButtonToggleGroup$OnButtonCheckedListener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: removeOnButtonCheckedListener
+          go_name: RemoveOnButtonCheckedListener
+          params:
+            - java_type: com.google.android.material.button.MaterialButtonToggleGroup$OnButtonCheckedListener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: clearOnButtonCheckedListeners
+          go_name: ClearOnButtonCheckedListeners
+          returns: void
+          error: true
+        - java_method: isSingleSelection
+          go_name: IsSingleSelection
+          returns: boolean
+          error: true
+        - java_method: setSingleSelection
+          go_name: SetSingleSelection1
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSelectionRequired
+          go_name: SetSelectionRequired
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isSelectionRequired
+          go_name: IsSelectionRequired
+          returns: boolean
+          error: true
+        - java_method: setSingleSelection
+          go_name: SetSingleSelection1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: com.google.android.material.button.MaterialButtonToggleGroup$OnButtonCheckedListener
+      go_type: MaterialButtonToggleGroupOnButtonCheckedListener
+      methods:
+        - java_method: onButtonChecked
+          go_name: OnButtonChecked
+          params:
+            - java_type: com.google.android.material.button.MaterialButtonToggleGroup
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: boolean
+              go_name: arg2
           returns: void
           error: true
 constants:

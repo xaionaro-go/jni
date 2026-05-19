@@ -32,6 +32,12 @@ func NewPropertyPath(vm *jni.VM, arg0 string) (*PropertyPath, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPropertyPath == nil {
+			return fmt.Errorf("android.app.appsearch.PropertyPath is not available on this device")
+		}
+		if midPropertyPathCtor == nil {
+			return fmt.Errorf("android.app.appsearch.PropertyPath constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

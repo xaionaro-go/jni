@@ -32,6 +32,12 @@ func NewFloatingActionButton(vm *jni.VM, arg0 *jni.Object) (*FloatingActionButto
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFloatingActionButton == nil {
+			return fmt.Errorf("com.google.android.material.floatingactionbutton.FloatingActionButton is not available on this device")
+		}
+		if midFloatingActionButtonCtor == nil {
+			return fmt.Errorf("com.google.android.material.floatingactionbutton.FloatingActionButton constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFloatingActionButton)), midFloatingActionButtonCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -1930,33 +1936,6 @@ func (m *FloatingActionButton) SetScaleY(arg0 float32) error {
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midFloatingActionButtonSetScaleY, jni.FloatValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// SetShadowPaddingEnabled calls com.google.android.material.floatingactionbutton.FloatingActionButton.setShadowPaddingEnabled.
-func (m *FloatingActionButton) SetShadowPaddingEnabled(arg0 bool) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFloatingActionButtonSetShadowPaddingEnabled == nil {
-			callErr = fmt.Errorf("com.google.android.material.floatingactionbutton.FloatingActionButton.setShadowPaddingEnabled is not available on this device")
-			return callErr
-		}
-		var jArg0 uint8
-		if arg0 {
-			jArg0 = jniTrue
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midFloatingActionButtonSetShadowPaddingEnabled, jni.BooleanValue(jArg0),
 		)
 		return callErr
 	})

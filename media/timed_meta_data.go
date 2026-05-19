@@ -32,6 +32,12 @@ func NewTimedMetaData(vm *jni.VM, arg0 int64, arg1 *jni.Object) (*TimedMetaData,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTimedMetaData == nil {
+			return fmt.Errorf("android.media.TimedMetaData is not available on this device")
+		}
+		if midTimedMetaDataCtor == nil {
+			return fmt.Errorf("android.media.TimedMetaData constructor (J[B)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTimedMetaData)), midTimedMetaDataCtor, jni.LongValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

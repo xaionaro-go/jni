@@ -32,6 +32,12 @@ func NewContainerCompat(vm *jni.VM) (*ContainerCompat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsContainerCompat == nil {
+			return fmt.Errorf("androidx.appcompat.graphics.drawable.DrawableContainerCompat is not available on this device")
+		}
+		if midContainerCompatCtor == nil {
+			return fmt.Errorf("androidx.appcompat.graphics.drawable.DrawableContainerCompat constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContainerCompat)), midContainerCompatCtor)
 		if err != nil {
 			return err
@@ -911,38 +917,6 @@ func (m *ContainerCompat) GetConstantState() (*jni.Object, error) {
 	return result, callErr
 }
 
-// Mutate calls androidx.appcompat.graphics.drawable.DrawableContainerCompat.mutate.
-func (m *ContainerCompat) Mutate() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midContainerCompatMutate == nil {
-			callErr = fmt.Errorf("androidx.appcompat.graphics.drawable.DrawableContainerCompat.mutate is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midContainerCompatMutate,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.appcompat.graphics.drawable.DrawableContainerCompat.toString.
 func (m *ContainerCompat) ToString() (string, error) {
 	var result string
@@ -965,6 +939,38 @@ func (m *ContainerCompat) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// Mutate calls androidx.appcompat.graphics.drawable.DrawableContainerCompat.mutate.
+func (m *ContainerCompat) Mutate() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midContainerCompatMutate == nil {
+			callErr = fmt.Errorf("androidx.appcompat.graphics.drawable.DrawableContainerCompat.mutate is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsContainerCompat)),
+			midContainerCompatMutate,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
 		return callErr
 	})
 	return result, callErr

@@ -370,8 +370,8 @@ func TestFullPipeline_RealSpecs(t *testing.T) {
 	overlayPath := filepath.Join(repoRoot, "spec", "overlays", "jni.yaml")
 	tmplDir := filepath.Join(repoRoot, "templates", "jni")
 
-	if _, err := os.Stat(specPath); os.IsNotExist(err) {
-		t.Skip("real spec not found")
+	if _, err := os.Stat(specPath); err != nil {
+		t.Fatalf("required real spec not found at %s: %v", specPath, err)
 	}
 
 	spec, err := LoadSpec(specPath)

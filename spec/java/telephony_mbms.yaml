@@ -5,227 +5,6 @@
 package: mbms
 go_import: github.com/AndroidGoLab/jni/telephony/mbms
 classes:
-    - java_class: android.telephony.mbms.FileInfo
-      go_type: FileInfo
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getMimeType
-          go_name: GetMimeType
-          returns: String
-          error: true
-        - java_method: getUri
-          go_name: GetUri
-          returns: android.net.Uri
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.telephony.mbms.MbmsStreamingSessionCallback
-      go_type: StreamingSessionCallback
-      obtain: constructor
-      methods:
-        - java_method: onError
-          go_name: OnError
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onMiddlewareReady
-          go_name: OnMiddlewareReady
-          returns: void
-          error: true
-    - java_class: android.telephony.mbms.DownloadRequest
-      go_type: DownloadRequest
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getDestinationUri
-          go_name: GetDestinationUri
-          returns: android.net.Uri
-          error: true
-        - java_method: getFileServiceId
-          go_name: GetFileServiceId
-          returns: String
-          error: true
-        - java_method: getSourceUri
-          go_name: GetSourceUri
-          returns: android.net.Uri
-          error: true
-        - java_method: getSubscriptionId
-          go_name: GetSubscriptionId
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toByteArray
-          go_name: ToByteArray
-          returns: '[B'
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: getMaxAppIntentSize
-          go_name: GetMaxAppIntentSize
-          returns: int
-          error: true
-        - java_method: getMaxDestinationUriSize
-          go_name: GetMaxDestinationUriSize
-          returns: int
-          error: true
-    - java_class: android.telephony.mbms.DownloadRequest$Builder
-      go_type: DownloadRequestBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.telephony.mbms.DownloadRequest
-          error: true
-        - java_method: setAppIntent
-          go_name: SetAppIntent
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
-          returns: android.telephony.mbms.DownloadRequest$Builder
-          error: true
-        - java_method: setServiceInfo
-          go_name: SetServiceInfo
-          params:
-            - java_type: android.telephony.mbms.FileServiceInfo
-              go_name: arg0
-          returns: android.telephony.mbms.DownloadRequest$Builder
-          error: true
-        - java_method: setSubscriptionId
-          go_name: SetSubscriptionId
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.telephony.mbms.DownloadRequest$Builder
-          error: true
-      static_methods:
-        - java_method: fromDownloadRequest
-          go_name: FromDownloadRequest
-          params:
-            - java_type: android.telephony.mbms.DownloadRequest
-              go_name: arg0
-          returns: android.telephony.mbms.DownloadRequest$Builder
-          error: true
-        - java_method: fromSerializedRequest
-          go_name: FromSerializedRequest
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: android.telephony.mbms.DownloadRequest$Builder
-          error: true
-    - java_class: android.telephony.mbms.GroupCallCallback
-      go_type: GroupCallCallback
-    - java_class: android.telephony.mbms.MbmsErrors
-      go_type: Errors
-    - java_class: android.telephony.mbms.MbmsErrors$DownloadErrors
-      go_type: ErrorsDownloadErrors
-    - java_class: android.telephony.mbms.MbmsErrors$GeneralErrors
-      go_type: ErrorsGeneralErrors
-    - java_class: android.telephony.mbms.MbmsErrors$GroupCallErrors
-      go_type: ErrorsGroupCallErrors
-    - java_class: android.telephony.mbms.MbmsErrors$InitializationErrors
-      go_type: ErrorsInitializationErrors
-    - java_class: android.telephony.mbms.GroupCall
-      go_type: GroupCall
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: getTmgi
-          go_name: GetTmgi
-          returns: long
-          error: true
-    - java_class: android.telephony.mbms.MbmsErrors$StreamingErrors
-      go_type: ErrorsStreamingErrors
-    - java_class: android.telephony.mbms.ServiceInfo
-      go_type: ServiceInfo
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getLocales
-          go_name: GetLocales
-          returns: java.util.List<java.util.Locale>
-          error: true
-        - java_method: getNameForLocale
-          go_name: GetNameForLocale
-          params:
-            - java_type: java.util.Locale
-              go_name: arg0
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getNamedContentLocales
-          go_name: GetNamedContentLocales
-          returns: java.util.Set<java.util.Locale>
-          error: true
-        - java_method: getServiceClassName
-          go_name: GetServiceClassName
-          returns: String
-          error: true
-        - java_method: getServiceId
-          go_name: GetServiceId
-          returns: String
-          error: true
-        - java_method: getSessionEndTime
-          go_name: GetSessionEndTime
-          returns: java.util.Date
-          error: true
-        - java_method: getSessionStartTime
-          go_name: GetSessionStartTime
-          returns: java.util.Date
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
     - java_class: android.telephony.mbms.FileServiceInfo
       go_type: FileServiceInfo
       methods:
@@ -237,6 +16,7 @@ classes:
           go_name: GetFiles
           returns: java.util.List<android.telephony.mbms.FileInfo>
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -246,74 +26,8 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.telephony.mbms.StreamingService
-      go_type: StreamingService
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: getInfo
-          go_name: GetInfo
-          returns: android.telephony.mbms.StreamingServiceInfo
-          error: true
-        - java_method: getPlaybackUri
-          go_name: GetPlaybackUri
-          returns: android.net.Uri
-          error: true
-    - java_class: android.telephony.mbms.DownloadProgressListener
-      go_type: DownloadProgressListener
-      obtain: constructor
-      methods:
-        - java_method: onProgressUpdated
-          go_name: OnProgressUpdated
-          params:
-            - java_type: android.telephony.mbms.DownloadRequest
-              go_name: arg0
-            - java_type: android.telephony.mbms.FileInfo
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: int
-              go_name: arg5
-          returns: void
-          error: true
-    - java_class: android.telephony.mbms.DownloadStatusListener
-      go_type: DownloadStatusListener
-      obtain: constructor
-      methods:
-        - java_method: onStatusUpdated
-          go_name: OnStatusUpdated
-          params:
-            - java_type: android.telephony.mbms.DownloadRequest
-              go_name: arg0
-            - java_type: android.telephony.mbms.FileInfo
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-    - java_class: android.telephony.mbms.MbmsGroupCallSessionCallback
-      go_type: GroupCallSessionCallback
-    - java_class: android.telephony.mbms.MbmsDownloadReceiver
-      go_type: DownloadReceiver
-      obtain: constructor
-      methods:
-        - java_method: onReceive
-          go_name: OnReceive
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.telephony.mbms.MbmsDownloadSessionCallback
-      go_type: DownloadSessionCallback
+    - java_class: android.telephony.mbms.MbmsStreamingSessionCallback
+      go_type: StreamingSessionCallback
       obtain: constructor
       methods:
         - java_method: onError
@@ -369,11 +83,51 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.telephony.mbms.StreamingServiceInfo
-      go_type: StreamingServiceInfo
+    - java_class: android.telephony.mbms.DownloadRequest
+      go_type: DownloadRequest
       methods:
         - java_method: describeContents
           go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getDestinationUri
+          go_name: GetDestinationUri
+          returns: android.net.Uri
+          error: true
+        - java_method: getFileServiceId
+          go_name: GetFileServiceId
+          returns: String
+          error: true
+        - java_method: getSourceUri
+          go_name: GetSourceUri
+          returns: android.net.Uri
+          error: true
+        - java_method: getSubscriptionId
+          go_name: GetSubscriptionId
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toByteArray
+          go_name: ToByteArray
+          returns: '[B'
+          error: true
+      static_methods:
+        - java_method: getMaxAppIntentSize
+          go_name: GetMaxAppIntentSize
+          returns: int
+          error: true
+        - java_method: getMaxDestinationUriSize
+          go_name: GetMaxDestinationUriSize
           returns: int
           error: true
         - java_method: writeToParcel
@@ -383,6 +137,261 @@ classes:
               go_name: arg0
             - java_type: int
               go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.telephony.mbms.DownloadRequest$Builder
+      go_type: DownloadRequestBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.net.Uri
+          go_name: arg0
+        - java_type: android.net.Uri
+          go_name: arg1
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.telephony.mbms.DownloadRequest
+          error: true
+        - java_method: setAppIntent
+          go_name: SetAppIntent
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: android.telephony.mbms.DownloadRequest$Builder
+          error: true
+        - java_method: setServiceInfo
+          go_name: SetServiceInfo
+          params:
+            - java_type: android.telephony.mbms.FileServiceInfo
+              go_name: arg0
+          returns: android.telephony.mbms.DownloadRequest$Builder
+          error: true
+        - java_method: setSubscriptionId
+          go_name: SetSubscriptionId
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.telephony.mbms.DownloadRequest$Builder
+          error: true
+      static_methods:
+        - java_method: fromDownloadRequest
+          go_name: FromDownloadRequest
+          params:
+            - java_type: android.telephony.mbms.DownloadRequest
+              go_name: arg0
+          returns: android.telephony.mbms.DownloadRequest$Builder
+          error: true
+        - java_method: fromSerializedRequest
+          go_name: FromSerializedRequest
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: android.telephony.mbms.DownloadRequest$Builder
+          error: true
+    - java_class: android.telephony.mbms.MbmsErrors
+      go_type: Errors
+    - java_class: android.telephony.mbms.MbmsErrors$DownloadErrors
+      go_type: ErrorsDownloadErrors
+    - java_class: android.telephony.mbms.MbmsErrors$GeneralErrors
+      go_type: ErrorsGeneralErrors
+    - java_class: android.telephony.mbms.MbmsErrors$GroupCallErrors
+      go_type: ErrorsGroupCallErrors
+    - java_class: android.telephony.mbms.MbmsErrors$InitializationErrors
+      go_type: ErrorsInitializationErrors
+    - java_class: android.telephony.mbms.MbmsErrors$StreamingErrors
+      go_type: ErrorsStreamingErrors
+    - java_class: android.telephony.mbms.MbmsGroupCallSessionCallback
+      go_type: GroupCallSessionCallback
+    - java_class: android.telephony.mbms.StreamingService
+      go_type: StreamingService
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: getInfo
+          go_name: GetInfo
+          returns: android.telephony.mbms.StreamingServiceInfo
+          error: true
+        - java_method: getPlaybackUri
+          go_name: GetPlaybackUri
+          returns: android.net.Uri
+          error: true
+    - java_class: android.telephony.mbms.GroupCallCallback
+      go_type: GroupCallCallback
+    - java_class: android.telephony.mbms.ServiceInfo
+      go_type: ServiceInfo
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getLocales
+          go_name: GetLocales
+          returns: java.util.List<java.util.Locale>
+          error: true
+        - java_method: getNameForLocale
+          go_name: GetNameForLocale
+          params:
+            - java_type: java.util.Locale
+              go_name: arg0
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getNamedContentLocales
+          go_name: GetNamedContentLocales
+          returns: java.util.Set<java.util.Locale>
+          error: true
+        - java_method: getServiceClassName
+          go_name: GetServiceClassName
+          returns: String
+          error: true
+        - java_method: getServiceId
+          go_name: GetServiceId
+          returns: String
+          error: true
+        - java_method: getSessionEndTime
+          go_name: GetSessionEndTime
+          returns: java.util.Date
+          error: true
+        - java_method: getSessionStartTime
+          go_name: GetSessionStartTime
+          returns: java.util.Date
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+    - java_class: android.telephony.mbms.GroupCall
+      go_type: GroupCall
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: getTmgi
+          go_name: GetTmgi
+          returns: long
+          error: true
+    - java_class: android.telephony.mbms.FileInfo
+      go_type: FileInfo
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getMimeType
+          go_name: GetMimeType
+          returns: String
+          error: true
+        - java_method: getUri
+          go_name: GetUri
+          returns: android.net.Uri
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.telephony.mbms.StreamingServiceInfo
+      go_type: StreamingServiceInfo
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.telephony.mbms.MbmsDownloadReceiver
+      go_type: DownloadReceiver
+      obtain: constructor
+      methods:
+        - java_method: onReceive
+          go_name: OnReceive
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.telephony.mbms.MbmsDownloadSessionCallback
+      go_type: DownloadSessionCallback
+      obtain: constructor
+      methods:
+        - java_method: onError
+          go_name: OnError
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onMiddlewareReady
+          go_name: OnMiddlewareReady
+          returns: void
+          error: true
+    - java_class: android.telephony.mbms.DownloadProgressListener
+      go_type: DownloadProgressListener
+      obtain: constructor
+      methods:
+        - java_method: onProgressUpdated
+          go_name: OnProgressUpdated
+          params:
+            - java_type: android.telephony.mbms.DownloadRequest
+              go_name: arg0
+            - java_type: android.telephony.mbms.FileInfo
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: int
+              go_name: arg5
+          returns: void
+          error: true
+    - java_class: android.telephony.mbms.DownloadStatusListener
+      go_type: DownloadStatusListener
+      obtain: constructor
+      methods:
+        - java_method: onStatusUpdated
+          go_name: OnStatusUpdated
+          params:
+            - java_type: android.telephony.mbms.DownloadRequest
+              go_name: arg0
+            - java_type: android.telephony.mbms.FileInfo
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
           returns: void
           error: true
 constants:
@@ -455,8 +464,20 @@ constants:
     - go_name: ErrorUnableToInitialize
       value: "103"
       go_type: int
+    - go_name: ErrorConcurrentServiceLimitReached
+      value: "301"
+      go_type: int
+    - go_name: ErrorDuplicateStartStream
+      value: "303"
+      go_type: int
+    - go_name: BroadcastMethod
+      value: "1"
+      go_type: int
     - go_name: ReasonByUserRequest
       value: "1"
+      go_type: int
+    - go_name: ReasonEndOfSession
+      value: "2"
       go_type: int
     - go_name: ReasonFrequencyConflict
       value: "3"
@@ -481,18 +502,6 @@ constants:
       go_type: int
     - go_name: StateStopped
       value: "1"
-      go_type: int
-    - go_name: ErrorConcurrentServiceLimitReached
-      value: "301"
-      go_type: int
-    - go_name: ErrorDuplicateStartStream
-      value: "303"
-      go_type: int
-    - go_name: BroadcastMethod
-      value: "1"
-      go_type: int
-    - go_name: ReasonEndOfSession
-      value: "2"
       go_type: int
     - go_name: UnicastMethod
       value: "2"

@@ -32,6 +32,12 @@ func NewChangeImageTransform(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*C
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsChangeImageTransform == nil {
+			return fmt.Errorf("android.transition.ChangeImageTransform is not available on this device")
+		}
+		if midChangeImageTransformCtor == nil {
+			return fmt.Errorf("android.transition.ChangeImageTransform constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsChangeImageTransform)), midChangeImageTransformCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

@@ -5,42 +5,6 @@
 package: pm
 go_import: github.com/AndroidGoLab/jni/androidx/core/content/pm
 classes:
-    - java_class: androidx.core.content.pm.PackageInfoCompat
-      go_type: PackageInfoCompat
-      static_methods:
-        - java_method: getLongVersionCode
-          go_name: GetLongVersionCode
-          params:
-            - java_type: android.content.pm.PackageInfo
-              go_name: arg0
-          returns: long
-          error: true
-        - java_method: getSignatures
-          go_name: GetSignatures
-          params:
-            - java_type: android.content.pm.PackageManager
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: java.util.List<android.content.pm.Signature>
-          error: true
-    - java_class: androidx.core.content.pm.ShortcutXmlParser
-      go_type: ShortcutXmlParser
-      static_methods:
-        - java_method: getShortcutIds
-          go_name: GetShortcutIds
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: java.util.List<java.lang.String>
-          error: true
-        - java_method: parseShortcutIds
-          go_name: ParseShortcutIds
-          params:
-            - java_type: org.xmlpull.v1.XmlPullParser
-              go_name: arg0
-          returns: java.util.List<java.lang.String>
-          error: true
     - java_class: androidx.core.content.pm.ShortcutManagerCompat
       go_type: ShortcutManagerCompat
       static_methods:
@@ -140,36 +104,25 @@ classes:
               go_name: arg1
           returns: boolean
           error: true
+    - java_class: androidx.core.content.pm.ShortcutXmlParser
+      go_type: ShortcutXmlParser
+      static_methods:
+        - java_method: getShortcutIds
+          go_name: GetShortcutIds
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: java.util.List<java.lang.String>
+          error: true
+        - java_method: parseShortcutIds
+          go_name: ParseShortcutIds
+          params:
+            - java_type: org.xmlpull.v1.XmlPullParser
+              go_name: arg0
+          returns: java.util.List<java.lang.String>
+          error: true
     - java_class: androidx.core.content.pm.ShortcutManagerCompat$ShortcutMatchFlags
       go_type: ShortcutManagerCompatShortcutMatchFlags
-    - java_class: androidx.core.content.pm.PermissionInfoCompat
-      go_type: PermissionInfoCompat
-      static_methods:
-        - java_method: getProtection
-          go_name: GetProtection
-          params:
-            - java_type: android.content.pm.PermissionInfo
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getProtectionFlags
-          go_name: GetProtectionFlags
-          params:
-            - java_type: android.content.pm.PermissionInfo
-              go_name: arg0
-          returns: int
-          error: true
-    - java_class: androidx.core.content.pm.PermissionInfoCompat$Protection
-      go_type: PermissionInfoCompatProtection
-    - java_class: androidx.core.content.pm.PermissionInfoCompat$ProtectionFlags
-      go_type: PermissionInfoCompatProtectionFlags
-    - java_class: androidx.core.content.pm.ShortcutInfoChangeListener
-      go_type: ShortcutInfoChangeListener
-      methods:
-        - java_method: onAllShortcutsRemoved
-          go_name: OnAllShortcutsRemoved
-          returns: void
-          error: true
     - java_class: androidx.core.content.pm.ShortcutInfoCompat
       go_type: ShortcutInfoCompat
       methods:
@@ -225,10 +178,6 @@ classes:
           go_name: GetRank
           returns: int
           error: true
-        - java_method: getIcon
-          go_name: GetIcon
-          returns: androidx.core.graphics.drawable.IconCompat
-          error: true
         - java_method: getExtras
           go_name: GetExtras
           returns: android.os.PersistableBundle
@@ -269,10 +218,6 @@ classes:
           go_name: IsEnabled
           returns: boolean
           error: true
-        - java_method: hasKeyFieldsOnly
-          go_name: HasKeyFieldsOnly
-          returns: boolean
-          error: true
         - java_method: isExcludedFromSurfaces
           go_name: IsExcludedFromSurfaces
           params:
@@ -284,8 +229,23 @@ classes:
           go_name: GetExcludedFromSurfaces
           returns: int
           error: true
+      static_methods:
+        - java_method: getIcon
+          go_name: GetIcon
+          returns: androidx.core.graphics.drawable.IconCompat
+          error: true
+        - java_method: hasKeyFieldsOnly
+          go_name: HasKeyFieldsOnly
+          returns: boolean
+          error: true
     - java_class: androidx.core.content.pm.ShortcutInfoCompat$Builder
       go_type: ShortcutInfoCompatBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
       methods:
         - java_method: setShortLabel
           go_name: SetShortLabel
@@ -424,8 +384,6 @@ classes:
           error: true
     - java_class: androidx.core.content.pm.ShortcutInfoCompat$Surface
       go_type: ShortcutInfoCompatSurface
-    - java_class: androidx.core.content.pm.ActivityInfoCompat
-      go_type: ActivityInfoCompat
     - java_class: androidx.core.content.pm.ShortcutInfoCompatSaver
       go_type: ShortcutInfoCompatSaver
       methods:
@@ -435,28 +393,60 @@ classes:
           error: true
     - java_class: androidx.core.content.pm.ShortcutInfoCompatSaver$NoopImpl
       go_type: ShortcutInfoCompatSaverNoopImpl
+      obtain: constructor
       methods:
         - java_method: removeAllShortcuts
-          go_name: RemoveAllShortcuts0
+          go_name: RemoveAllShortcuts
           returns: java.lang.Void
           error: true
-        - java_method: removeAllShortcuts
-          go_name: RemoveAllShortcuts0_1
-          returns: java.lang.Object
-          error: true
-        - java_method: removeShortcuts
-          go_name: RemoveShortcuts
+    - java_class: androidx.core.content.pm.PackageInfoCompat
+      go_type: PackageInfoCompat
+      static_methods:
+        - java_method: getLongVersionCode
+          go_name: GetLongVersionCode
           params:
-            - java_type: java.util.List
+            - java_type: android.content.pm.PackageInfo
               go_name: arg0
-          returns: java.lang.Object
+          returns: long
           error: true
-        - java_method: addShortcuts
-          go_name: AddShortcuts
+        - java_method: getSignatures
+          go_name: GetSignatures
           params:
-            - java_type: java.util.List
+            - java_type: android.content.pm.PackageManager
               go_name: arg0
-          returns: java.lang.Object
+            - java_type: String
+              go_name: arg1
+          returns: java.util.List<android.content.pm.Signature>
+          error: true
+    - java_class: androidx.core.content.pm.PermissionInfoCompat
+      go_type: PermissionInfoCompat
+      static_methods:
+        - java_method: getProtection
+          go_name: GetProtection
+          params:
+            - java_type: android.content.pm.PermissionInfo
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getProtectionFlags
+          go_name: GetProtectionFlags
+          params:
+            - java_type: android.content.pm.PermissionInfo
+              go_name: arg0
+          returns: int
+          error: true
+    - java_class: androidx.core.content.pm.PermissionInfoCompat$Protection
+      go_type: PermissionInfoCompatProtection
+    - java_class: androidx.core.content.pm.PermissionInfoCompat$ProtectionFlags
+      go_type: PermissionInfoCompatProtectionFlags
+    - java_class: androidx.core.content.pm.ActivityInfoCompat
+      go_type: ActivityInfoCompat
+    - java_class: androidx.core.content.pm.ShortcutInfoChangeListener
+      go_type: ShortcutInfoChangeListener
+      methods:
+        - java_method: onAllShortcutsRemoved
+          go_name: OnAllShortcutsRemoved
+          returns: void
           error: true
 abstract_callbacks:
     - java_class: androidx.core.content.pm.ShortcutInfoChangeListener
@@ -466,13 +456,13 @@ abstract_callbacks:
           params: []
           returns: void
           go_field: OnAllShortcutsRemoved
+abstract_callback_eligibility:
     - java_class: androidx.core.content.pm.ShortcutInfoCompatSaver
-      go_type: ShortcutInfoCompatSaverCallback
-      methods:
-        - java_method: getShortcuts
-          params: []
-          returns: java.util.List<androidx.core.content.pm.ShortcutInfoCompat>
-          go_field: GetShortcuts
+      generated: false
+      reason: unsupported_abstract_method_signature
+    - java_class: androidx.core.content.pm.ShortcutInfoChangeListener
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
     - go_name: FlagMatchManifest
       value: "1"

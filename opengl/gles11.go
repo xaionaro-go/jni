@@ -32,6 +32,12 @@ func NewGLES11(vm *jni.VM) (*GLES11, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGLES11 == nil {
+			return fmt.Errorf("android.opengl.GLES11 is not available on this device")
+		}
+		if midGLES11Ctor == nil {
+			return fmt.Errorf("android.opengl.GLES11 constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGLES11)), midGLES11Ctor)
 		if err != nil {
 			return err

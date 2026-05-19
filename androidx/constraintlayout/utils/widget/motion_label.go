@@ -32,6 +32,12 @@ func NewMotionLabel(vm *jni.VM, arg0 *jni.Object) (*MotionLabel, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMotionLabel == nil {
+			return fmt.Errorf("androidx.constraintlayout.utils.widget.MotionLabel is not available on this device")
+		}
+		if midMotionLabelCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.utils.widget.MotionLabel constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMotionLabel)), midMotionLabelCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -828,29 +834,6 @@ func (m *MotionLabel) GetScaleFromTextSize() (float32, error) {
 		return callErr
 	})
 	return result, callErr
-}
-
-// SetScaleFromTextSize calls androidx.constraintlayout.utils.widget.MotionLabel.setScaleFromTextSize.
-func (m *MotionLabel) SetScaleFromTextSize(arg0 float32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMotionLabelSetScaleFromTextSize == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.utils.widget.MotionLabel.setScaleFromTextSize is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMotionLabelSetScaleFromTextSize, jni.FloatValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // ToString calls androidx.constraintlayout.utils.widget.MotionLabel.toString.

@@ -32,6 +32,12 @@ func NewApplicationInfo(vm *jni.VM) (*ApplicationInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsApplicationInfo == nil {
+			return fmt.Errorf("android.content.pm.ApplicationInfo is not available on this device")
+		}
+		if midApplicationInfoCtor == nil {
+			return fmt.Errorf("android.content.pm.ApplicationInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsApplicationInfo)), midApplicationInfoCtor)
 		if err != nil {
 			return err

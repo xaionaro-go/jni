@@ -32,6 +32,12 @@ func NewVerticalChainReference(vm *jni.VM, arg0 *jni.Object) (*VerticalChainRefe
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsVerticalChainReference == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.state.helpers.VerticalChainReference is not available on this device")
+		}
+		if midVerticalChainReferenceCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.state.helpers.VerticalChainReference constructor (Landroidx/constraintlayout/solver/state/State;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVerticalChainReference)), midVerticalChainReferenceCtor, jni.ObjectValue(arg0))
 		if err != nil {

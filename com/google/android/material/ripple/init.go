@@ -33,11 +33,10 @@ var (
 	midDrawableCompatIsStateful              jni.MethodID
 	midDrawableCompatDraw                    jni.MethodID
 	midDrawableCompatGetConstantState        jni.MethodID
-	midDrawableCompatMutate0                 jni.MethodID
+	midDrawableCompatMutate                  jni.MethodID
 	midDrawableCompatSetAlpha                jni.MethodID
 	midDrawableCompatSetColorFilter          jni.MethodID
 	midDrawableCompatGetOpacity              jni.MethodID
-	midDrawableCompatMutate0_1               jni.MethodID
 	midDrawableCompatToString                jni.MethodID
 
 	clsUtils                             *jni.GlobalRef
@@ -134,7 +133,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midDrawableCompatMutate0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawableCompat)), "mutate", "()Lcom/google/android/material/ripple/RippleDrawableCompat;")
+		midDrawableCompatMutate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawableCompat)), "mutate", "()Lcom/google/android/material/ripple/RippleDrawableCompat;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -156,13 +155,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midDrawableCompatGetOpacity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawableCompat)), "getOpacity", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDrawableCompatMutate0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawableCompat)), "mutate", "()Landroid/graphics/drawable/Drawable;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

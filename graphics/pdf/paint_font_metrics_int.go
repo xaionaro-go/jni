@@ -23,6 +23,34 @@ type PaintFontMetricsInt struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPaintFontMetricsInt creates a new android.graphics.Paint$FontMetricsInt instance.
+func NewPaintFontMetricsInt(vm *jni.VM) (*PaintFontMetricsInt, error) {
+	var t PaintFontMetricsInt
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPaintFontMetricsInt == nil {
+			return fmt.Errorf("android.graphics.Paint$FontMetricsInt is not available on this device")
+		}
+		if midPaintFontMetricsIntCtor == nil {
+			return fmt.Errorf("android.graphics.Paint$FontMetricsInt constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPaintFontMetricsInt)), midPaintFontMetricsIntCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.graphics.Paint$FontMetricsInt.equals.
 func (m *PaintFontMetricsInt) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

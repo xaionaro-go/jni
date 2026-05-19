@@ -3,12 +3,6 @@
 package consts
 
 const (
-	Library            int = 0
-	LibraryGroup       int = 0
-	LibraryGroupPrefix int = 0
-	GroupId            int = 0
-	Tests              int = 0
-	Subclasses         int = 0
 	None               int = 0
 	Inferred           int = 0
 	IntEnum            int = 0
@@ -19,6 +13,12 @@ const (
 	Dp                 int = 0
 	PxConst            int = 1
 	Sp                 int = 2
+	Library            int = 0
+	LibraryGroup       int = 0
+	LibraryGroupPrefix int = 0
+	GroupId            int = 0
+	Tests              int = 0
+	Subclasses         int = 0
 	Private            int = 2
 	PackagePrivate     int = 3
 	Protected          int = 4

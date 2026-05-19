@@ -32,6 +32,12 @@ func NewTabLayoutMediator(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTabLayoutMediator == nil {
+			return fmt.Errorf("com.google.android.material.tabs.TabLayoutMediator is not available on this device")
+		}
+		if midTabLayoutMediatorCtor == nil {
+			return fmt.Errorf("com.google.android.material.tabs.TabLayoutMediator constructor (Lcom/google/android/material/tabs/TabLayout;Landroidx/viewpager2/widget/ViewPager2;Lcom/google/android/material/tabs/TabLayoutMediator$TabConfigurationStrategy;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTabLayoutMediator)), midTabLayoutMediatorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
 		if err != nil {

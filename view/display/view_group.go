@@ -1629,8 +1629,8 @@ func (m *ViewGroup) GetNestedScrollAxes() (int32, error) {
 	return result, callErr
 }
 
-// GetOverlay0 calls android.view.ViewGroup.getOverlay.
-func (m *ViewGroup) GetOverlay0() (*jni.Object, error) {
+// GetOverlay calls android.view.ViewGroup.getOverlay.
+func (m *ViewGroup) GetOverlay() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1638,13 +1638,13 @@ func (m *ViewGroup) GetOverlay0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midViewGroupGetOverlay0 == nil {
+		if midViewGroupGetOverlay == nil {
 			callErr = fmt.Errorf("android.view.ViewGroup.getOverlay is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midViewGroupGetOverlay0,
+			midViewGroupGetOverlay,
 		)
 		if callErr != nil {
 			return callErr
@@ -3632,38 +3632,6 @@ func (m *ViewGroup) UpdateViewLayout(arg0 *jni.Object, arg1 *jni.Object) error {
 		return callErr
 	})
 	return callErr
-}
-
-// GetOverlay0_1 calls android.view.ViewGroup.getOverlay.
-func (m *ViewGroup) GetOverlay0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midViewGroupGetOverlay0_1 == nil {
-			callErr = fmt.Errorf("android.view.ViewGroup.getOverlay is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midViewGroupGetOverlay0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls android.view.ViewGroup.toString.

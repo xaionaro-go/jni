@@ -32,6 +32,12 @@ func NewAndroidViewModel(vm *jni.VM, arg0 *jni.Object) (*AndroidViewModel, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAndroidViewModel == nil {
+			return fmt.Errorf("androidx.lifecycle.AndroidViewModel is not available on this device")
+		}
+		if midAndroidViewModelCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.AndroidViewModel constructor (Landroid/app/Application;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAndroidViewModel)), midAndroidViewModelCtor, jni.ObjectValue(arg0))
 		if err != nil {

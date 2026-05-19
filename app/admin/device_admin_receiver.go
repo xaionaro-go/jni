@@ -32,6 +32,12 @@ func NewDeviceAdminReceiver(vm *jni.VM) (*DeviceAdminReceiver, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDeviceAdminReceiver == nil {
+			return fmt.Errorf("android.app.admin.DeviceAdminReceiver is not available on this device")
+		}
+		if midDeviceAdminReceiverCtor == nil {
+			return fmt.Errorf("android.app.admin.DeviceAdminReceiver constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDeviceAdminReceiver)), midDeviceAdminReceiverCtor)
 		if err != nil {
 			return err

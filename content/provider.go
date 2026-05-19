@@ -1006,6 +1006,45 @@ func (m *Provider) OpenFile3_1(
 	return result, callErr
 }
 
+// OpenFileHelper calls android.content.ContentProvider.openFileHelper.
+func (m *Provider) OpenFileHelper(arg0 *jni.Object, arg1 string) (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midProviderOpenFileHelper == nil {
+			callErr = fmt.Errorf("android.content.ContentProvider.openFileHelper is not available on this device")
+			return callErr
+		}
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		result, callErr = env.CallObjectMethod(
+			m.Obj,
+			midProviderOpenFileHelper, jni.ObjectValue(arg0), jni.ObjectValue(&jArg1.Object),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
 // OpenTypedAssetFile3 calls android.content.ContentProvider.openTypedAssetFile.
 func (m *Provider) OpenTypedAssetFile3(
 	arg0 *jni.Object,

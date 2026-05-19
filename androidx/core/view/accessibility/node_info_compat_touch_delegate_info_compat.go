@@ -23,6 +23,35 @@ type NodeInfoCompatTouchDelegateInfoCompat struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNodeInfoCompatTouchDelegateInfoCompat creates a new androidx.core.view.accessibility.AccessibilityNodeInfoCompat$TouchDelegateInfoCompat instance.
+func NewNodeInfoCompatTouchDelegateInfoCompat(vm *jni.VM, arg0 *jni.Object) (*NodeInfoCompatTouchDelegateInfoCompat, error) {
+	var t NodeInfoCompatTouchDelegateInfoCompat
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNodeInfoCompatTouchDelegateInfoCompat == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityNodeInfoCompat$TouchDelegateInfoCompat is not available on this device")
+		}
+		if midNodeInfoCompatTouchDelegateInfoCompatCtor == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityNodeInfoCompat$TouchDelegateInfoCompat constructor (Ljava/util/Map;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNodeInfoCompatTouchDelegateInfoCompat)), midNodeInfoCompatTouchDelegateInfoCompatCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetRegionCount calls androidx.core.view.accessibility.AccessibilityNodeInfoCompat$TouchDelegateInfoCompat.getRegionCount.
 func (m *NodeInfoCompatTouchDelegateInfoCompat) GetRegionCount() (int32, error) {
 	var result int32

@@ -32,6 +32,12 @@ func NewArchivedActivityInfo(vm *jni.VM, arg0 string, arg1 *jni.Object) (*Archiv
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsArchivedActivityInfo == nil {
+			return fmt.Errorf("android.content.pm.ArchivedActivityInfo is not available on this device")
+		}
+		if midArchivedActivityInfoCtor == nil {
+			return fmt.Errorf("android.content.pm.ArchivedActivityInfo constructor (Ljava/lang/CharSequence;Landroid/content/ComponentName;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

@@ -74,8 +74,8 @@ func (m *CursorTreeAdapter) ConvertToString(arg0 *jni.Object) (string, error) {
 	return result, callErr
 }
 
-// GetChild2 calls android.widget.CursorTreeAdapter.getChild.
-func (m *CursorTreeAdapter) GetChild2(arg0 int32, arg1 int32) (*jni.Object, error) {
+// GetChild calls android.widget.CursorTreeAdapter.getChild.
+func (m *CursorTreeAdapter) GetChild(arg0 int32, arg1 int32) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -83,14 +83,14 @@ func (m *CursorTreeAdapter) GetChild2(arg0 int32, arg1 int32) (*jni.Object, erro
 			callErr = err
 			return err
 		}
-		if midCursorTreeAdapterGetChild2 == nil {
+		if midCursorTreeAdapterGetChild == nil {
 			callErr = fmt.Errorf("android.widget.CursorTreeAdapter.getChild is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midCursorTreeAdapterGetChild2, jni.IntValue(arg0), jni.IntValue(arg1),
+			midCursorTreeAdapterGetChild, jni.IntValue(arg0), jni.IntValue(arg1),
 		)
 		if callErr != nil {
 			return callErr
@@ -299,8 +299,8 @@ func (m *CursorTreeAdapter) GetFilterQueryProvider() (*jni.Object, error) {
 	return result, callErr
 }
 
-// GetGroup1 calls android.widget.CursorTreeAdapter.getGroup.
-func (m *CursorTreeAdapter) GetGroup1(arg0 int32) (*jni.Object, error) {
+// GetGroup calls android.widget.CursorTreeAdapter.getGroup.
+func (m *CursorTreeAdapter) GetGroup(arg0 int32) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -308,14 +308,14 @@ func (m *CursorTreeAdapter) GetGroup1(arg0 int32) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midCursorTreeAdapterGetGroup1 == nil {
+		if midCursorTreeAdapterGetGroup == nil {
 			callErr = fmt.Errorf("android.widget.CursorTreeAdapter.getGroup is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midCursorTreeAdapterGetGroup1, jni.IntValue(arg0),
+			midCursorTreeAdapterGetGroup, jni.IntValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -680,72 +680,6 @@ func (m *CursorTreeAdapter) SetGroupCursor(arg0 *jni.Object) error {
 		return callErr
 	})
 	return callErr
-}
-
-// GetGroup1_1 calls android.widget.CursorTreeAdapter.getGroup.
-func (m *CursorTreeAdapter) GetGroup1_1(arg0 int32) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCursorTreeAdapterGetGroup1_1 == nil {
-			callErr = fmt.Errorf("android.widget.CursorTreeAdapter.getGroup is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCursorTreeAdapterGetGroup1_1, jni.IntValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetChild2_1 calls android.widget.CursorTreeAdapter.getChild.
-func (m *CursorTreeAdapter) GetChild2_1(arg0 int32, arg1 int32) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCursorTreeAdapterGetChild2_1 == nil {
-			callErr = fmt.Errorf("android.widget.CursorTreeAdapter.getChild is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCursorTreeAdapterGetChild2_1, jni.IntValue(arg0), jni.IntValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls android.widget.CursorTreeAdapter.toString.

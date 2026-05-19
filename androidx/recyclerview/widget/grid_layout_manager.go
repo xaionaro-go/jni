@@ -32,6 +32,12 @@ func NewGridLayoutManager(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 i
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGridLayoutManager == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.GridLayoutManager is not available on this device")
+		}
+		if midGridLayoutManagerCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.GridLayoutManager constructor (Landroid/content/Context;Landroid/util/AttributeSet;II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), midGridLayoutManagerCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3))
 		if err != nil {
@@ -540,33 +546,6 @@ func (m *GridLayoutManager) GetSpanSizeLookup() (*jni.Object, error) {
 	return result, callErr
 }
 
-// SetMeasuredDimension calls androidx.recyclerview.widget.GridLayoutManager.setMeasuredDimension.
-func (m *GridLayoutManager) SetMeasuredDimension(
-	arg0 *jni.Object,
-	arg1 int32,
-	arg2 int32,
-) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midGridLayoutManagerSetMeasuredDimension == nil {
-			callErr = fmt.Errorf("androidx.recyclerview.widget.GridLayoutManager.setMeasuredDimension is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midGridLayoutManagerSetMeasuredDimension, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ScrollHorizontallyBy calls androidx.recyclerview.widget.GridLayoutManager.scrollHorizontallyBy.
 func (m *GridLayoutManager) ScrollHorizontallyBy(
 	arg0 int32,
@@ -923,4 +902,31 @@ func (m *GridLayoutManager) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// SetMeasuredDimension calls androidx.recyclerview.widget.GridLayoutManager.setMeasuredDimension.
+func (m *GridLayoutManager) SetMeasuredDimension(
+	arg0 *jni.Object,
+	arg1 int32,
+	arg2 int32,
+) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midGridLayoutManagerSetMeasuredDimension == nil {
+			callErr = fmt.Errorf("androidx.recyclerview.widget.GridLayoutManager.setMeasuredDimension is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsGridLayoutManager)),
+			midGridLayoutManagerSetMeasuredDimension, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2),
+		)
+		return callErr
+	})
+	return callErr
 }

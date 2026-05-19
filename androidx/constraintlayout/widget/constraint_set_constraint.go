@@ -23,6 +23,34 @@ type ConstraintSetConstraint struct {
 	Obj *jni.GlobalRef
 }
 
+// NewConstraintSetConstraint creates a new androidx.constraintlayout.widget.ConstraintSet$Constraint instance.
+func NewConstraintSetConstraint(vm *jni.VM) (*ConstraintSetConstraint, error) {
+	var t ConstraintSetConstraint
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsConstraintSetConstraint == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet$Constraint is not available on this device")
+		}
+		if midConstraintSetConstraintCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet$Constraint constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConstraintSetConstraint)), midConstraintSetConstraintCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ApplyDelta calls androidx.constraintlayout.widget.ConstraintSet$Constraint.applyDelta.
 func (m *ConstraintSetConstraint) ApplyDelta(arg0 *jni.Object) error {
 
@@ -74,8 +102,8 @@ func (m *ConstraintSetConstraint) PrintDelta(arg0 string) error {
 	return callErr
 }
 
-// Clone0 calls androidx.constraintlayout.widget.ConstraintSet$Constraint.clone.
-func (m *ConstraintSetConstraint) Clone0() (*jni.Object, error) {
+// Clone calls androidx.constraintlayout.widget.ConstraintSet$Constraint.clone.
+func (m *ConstraintSetConstraint) Clone() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -83,13 +111,13 @@ func (m *ConstraintSetConstraint) Clone0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midConstraintSetConstraintClone0 == nil {
+		if midConstraintSetConstraintClone == nil {
 			callErr = fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet$Constraint.clone is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midConstraintSetConstraintClone0,
+			midConstraintSetConstraintClone,
 		)
 		if callErr != nil {
 			return callErr
@@ -127,38 +155,6 @@ func (m *ConstraintSetConstraint) ApplyTo(arg0 *jni.Object) error {
 		return callErr
 	})
 	return callErr
-}
-
-// Clone0_1 calls androidx.constraintlayout.widget.ConstraintSet$Constraint.clone.
-func (m *ConstraintSetConstraint) Clone0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midConstraintSetConstraintClone0_1 == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet$Constraint.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midConstraintSetConstraintClone0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls androidx.constraintlayout.widget.ConstraintSet$Constraint.toString.

@@ -23,6 +23,35 @@ type ElementBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewElementBuilder creates a new android.renderscript.Element$Builder instance.
+func NewElementBuilder(vm *jni.VM, arg0 *jni.Object) (*ElementBuilder, error) {
+	var t ElementBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsElementBuilder == nil {
+			return fmt.Errorf("android.renderscript.Element$Builder is not available on this device")
+		}
+		if midElementBuilderCtor == nil {
+			return fmt.Errorf("android.renderscript.Element$Builder constructor (Landroid/renderscript/RenderScript;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsElementBuilder)), midElementBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Add2 calls android.renderscript.Element$Builder.add.
 func (m *ElementBuilder) Add2(arg0 *jni.Object, arg1 string) (*jni.Object, error) {
 	var result *jni.Object

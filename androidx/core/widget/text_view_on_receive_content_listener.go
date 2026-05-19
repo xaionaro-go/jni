@@ -32,6 +32,12 @@ func NewTextViewOnReceiveContentListener(vm *jni.VM) (*TextViewOnReceiveContentL
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTextViewOnReceiveContentListener == nil {
+			return fmt.Errorf("androidx.core.widget.TextViewOnReceiveContentListener is not available on this device")
+		}
+		if midTextViewOnReceiveContentListenerCtor == nil {
+			return fmt.Errorf("androidx.core.widget.TextViewOnReceiveContentListener constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextViewOnReceiveContentListener)), midTextViewOnReceiveContentListenerCtor)
 		if err != nil {
 			return err

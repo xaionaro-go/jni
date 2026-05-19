@@ -32,6 +32,12 @@ func NewCircularIntArray(vm *jni.VM) (*CircularIntArray, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCircularIntArray == nil {
+			return fmt.Errorf("androidx.collection.CircularIntArray is not available on this device")
+		}
+		if midCircularIntArrayCtor == nil {
+			return fmt.Errorf("androidx.collection.CircularIntArray constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCircularIntArray)), midCircularIntArrayCtor)
 		if err != nil {
 			return err

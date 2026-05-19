@@ -32,6 +32,12 @@ func NewIconCompatParcelizer(vm *jni.VM) (*IconCompatParcelizer, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsIconCompatParcelizer == nil {
+			return fmt.Errorf("androidx.core.graphics.drawable.IconCompatParcelizer is not available on this device")
+		}
+		if midIconCompatParcelizerCtor == nil {
+			return fmt.Errorf("androidx.core.graphics.drawable.IconCompatParcelizer constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIconCompatParcelizer)), midIconCompatParcelizerCtor)
 		if err != nil {
 			return err

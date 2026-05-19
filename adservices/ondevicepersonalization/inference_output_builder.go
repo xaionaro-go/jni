@@ -23,6 +23,34 @@ type InferenceOutputBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewInferenceOutputBuilder creates a new android.adservices.ondevicepersonalization.InferenceOutput$Builder instance.
+func NewInferenceOutputBuilder(vm *jni.VM) (*InferenceOutputBuilder, error) {
+	var t InferenceOutputBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsInferenceOutputBuilder == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.InferenceOutput$Builder is not available on this device")
+		}
+		if midInferenceOutputBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.InferenceOutput$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInferenceOutputBuilder)), midInferenceOutputBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddDataOutput calls android.adservices.ondevicepersonalization.InferenceOutput$Builder.addDataOutput.
 func (m *InferenceOutputBuilder) AddDataOutput(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

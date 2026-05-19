@@ -32,6 +32,12 @@ func NewChangeScroll(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ChangeScr
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsChangeScroll == nil {
+			return fmt.Errorf("android.transition.ChangeScroll is not available on this device")
+		}
+		if midChangeScrollCtor == nil {
+			return fmt.Errorf("android.transition.ChangeScroll constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsChangeScroll)), midChangeScrollCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

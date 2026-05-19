@@ -5,12 +5,45 @@
 package: savedstate
 go_import: github.com/AndroidGoLab/jni/androidx/savedstate
 classes:
-    - java_class: androidx.savedstate.SavedStateRegistryOwner
-      go_type: SavedStateRegistryOwner
+    - java_class: androidx.savedstate.Recreator
+      go_type: Recreator
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.savedstate.SavedStateRegistryOwner
+          go_name: arg0
+      static_methods:
+        - java_method: onStateChanged
+          go_name: OnStateChanged
+          params:
+            - java_type: androidx.lifecycle.LifecycleOwner
+              go_name: arg0
+            - java_type: androidx.lifecycle.Lifecycle$Event
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: androidx.savedstate.Recreator$Companion
+      go_type: RecreatorCompanion
+      obtain: constructor
+      constructor_params:
+        - java_type: kotlin.jvm.internal.DefaultConstructorMarker
+          go_name: arg0
+    - java_class: androidx.savedstate.Recreator$SavedStateProvider
+      go_type: RecreatorSavedStateProvider
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.savedstate.SavedStateRegistry
+          go_name: arg0
       methods:
-        - java_method: getSavedStateRegistry
-          go_name: GetSavedStateRegistry
-          returns: androidx.savedstate.SavedStateRegistry
+        - java_method: saveState
+          go_name: SaveState
+          returns: android.os.Bundle
+          error: true
+        - java_method: add
+          go_name: Add
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
           error: true
     - java_class: androidx.savedstate.ViewTreeSavedStateRegistryOwner
       go_type: ViewTreeSavedStateRegistryOwner
@@ -38,6 +71,17 @@ classes:
         - java_method: isRestored
           go_name: IsRestored
           returns: boolean
+          error: true
+        - java_method: isAllowingSavingState$savedstate_release
+          go_name: IsAllowingSavingStateSavedstateRelease
+          returns: boolean
+          error: true
+        - java_method: setAllowingSavingState$savedstate_release
+          go_name: SetAllowingSavingStateSavedstateRelease
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
           error: true
         - java_method: consumeRestoredStateForKey
           go_name: ConsumeRestoredStateForKey
@@ -69,6 +113,21 @@ classes:
               go_name: arg0
           returns: void
           error: true
+        - java_method: performAttach$savedstate_release
+          go_name: PerformAttachSavedstateRelease
+          params:
+            - java_type: androidx.lifecycle.Lifecycle
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: performRestore$savedstate_release
+          go_name: PerformRestoreSavedstateRelease
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
         - java_method: performSave
           go_name: PerformSave
           params:
@@ -92,38 +151,6 @@ classes:
         - java_method: saveState
           go_name: SaveState
           returns: android.os.Bundle
-          error: true
-    - java_class: androidx.savedstate.Recreator
-      go_type: Recreator
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.savedstate.SavedStateRegistryOwner
-          go_name: arg0
-      methods:
-        - java_method: onStateChanged
-          go_name: OnStateChanged
-          params:
-            - java_type: androidx.lifecycle.LifecycleOwner
-              go_name: arg0
-            - java_type: androidx.lifecycle.Lifecycle$Event
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: androidx.savedstate.Recreator$Companion
-      go_type: RecreatorCompanion
-    - java_class: androidx.savedstate.Recreator$SavedStateProvider
-      go_type: RecreatorSavedStateProvider
-      methods:
-        - java_method: saveState
-          go_name: SaveState
-          returns: android.os.Bundle
-          error: true
-        - java_method: add
-          go_name: Add
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
           error: true
     - java_class: androidx.savedstate.SavedStateRegistryController
       go_type: SavedStateRegistryController
@@ -166,6 +193,10 @@ classes:
           error: true
     - java_class: androidx.savedstate.SavedStateRegistryController$Companion
       go_type: SavedStateRegistryControllerCompanion
+      obtain: constructor
+      constructor_params:
+        - java_type: kotlin.jvm.internal.DefaultConstructorMarker
+          go_name: arg0
       methods:
         - java_method: create
           go_name: Create
@@ -173,6 +204,13 @@ classes:
             - java_type: androidx.savedstate.SavedStateRegistryOwner
               go_name: arg0
           returns: androidx.savedstate.SavedStateRegistryController
+          error: true
+    - java_class: androidx.savedstate.SavedStateRegistryOwner
+      go_type: SavedStateRegistryOwner
+      methods:
+        - java_method: getSavedStateRegistry
+          go_name: GetSavedStateRegistry
+          returns: androidx.savedstate.SavedStateRegistry
           error: true
 constants:
     - go_name: Companion

@@ -413,8 +413,8 @@ func (m *GLES31) GlGenProgramPipelines2_1(arg0 int32, arg1 *jni.Object) error {
 	return callErr
 }
 
-// GlGetBooleani_v4 calls android.opengl.GLES31.glGetBooleani_v.
-func (m *GLES31) GlGetBooleani_v4(
+// GlGetBooleaniV4 calls android.opengl.GLES31.glGetBooleani_v.
+func (m *GLES31) GlGetBooleaniV4(
 	arg0 int32,
 	arg1 int32,
 	arg2 *jni.Object,
@@ -427,22 +427,22 @@ func (m *GLES31) GlGetBooleani_v4(
 			callErr = err
 			return err
 		}
-		if midGLES31GlGetBooleani_v4 == nil {
+		if midGLES31GlGetBooleaniV4 == nil {
 			callErr = fmt.Errorf("android.opengl.GLES31.glGetBooleani_v is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallStaticVoidMethod(
 			(*jni.Class)(unsafe.Pointer(clsGLES31)),
-			midGLES31GlGetBooleani_v4, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2), jni.IntValue(arg3),
+			midGLES31GlGetBooleaniV4, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2), jni.IntValue(arg3),
 		)
 		return callErr
 	})
 	return callErr
 }
 
-// GlGetBooleani_v3_1 calls android.opengl.GLES31.glGetBooleani_v.
-func (m *GLES31) GlGetBooleani_v3_1(
+// GlGetBooleaniV3_1 calls android.opengl.GLES31.glGetBooleani_v.
+func (m *GLES31) GlGetBooleaniV3_1(
 	arg0 int32,
 	arg1 int32,
 	arg2 *jni.Object,
@@ -454,14 +454,14 @@ func (m *GLES31) GlGetBooleani_v3_1(
 			callErr = err
 			return err
 		}
-		if midGLES31GlGetBooleani_v3_1 == nil {
+		if midGLES31GlGetBooleaniV3_1 == nil {
 			callErr = fmt.Errorf("android.opengl.GLES31.glGetBooleani_v is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallStaticVoidMethod(
 			(*jni.Class)(unsafe.Pointer(clsGLES31)),
-			midGLES31GlGetBooleani_v3_1, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2),
+			midGLES31GlGetBooleaniV3_1, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2),
 		)
 		return callErr
 	})

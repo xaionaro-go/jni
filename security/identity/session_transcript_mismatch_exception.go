@@ -32,6 +32,12 @@ func NewSessionTranscriptMismatchException(vm *jni.VM, arg0 string) (*SessionTra
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSessionTranscriptMismatchException == nil {
+			return fmt.Errorf("android.security.identity.SessionTranscriptMismatchException is not available on this device")
+		}
+		if midSessionTranscriptMismatchExceptionCtor == nil {
+			return fmt.Errorf("android.security.identity.SessionTranscriptMismatchException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

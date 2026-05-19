@@ -32,6 +32,12 @@ func NewRect(vm *jni.VM) (*Rect, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRect == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.Rect is not available on this device")
+		}
+		if midRectCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.Rect constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRect)), midRectCtor)
 		if err != nil {
 			return err

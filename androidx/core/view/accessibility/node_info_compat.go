@@ -32,6 +32,12 @@ func NewNodeInfoCompat(vm *jni.VM, arg0 *jni.Object) (*NodeInfoCompat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNodeInfoCompat == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityNodeInfoCompat is not available on this device")
+		}
+		if midNodeInfoCompatCtor == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityNodeInfoCompat constructor (Ljava/lang/Object;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNodeInfoCompat)), midNodeInfoCompatCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -4359,33 +4365,6 @@ func (m *NodeInfoCompat) Equals(arg0 *jni.Object) (bool, error) {
 	return result, callErr
 }
 
-// ToString calls androidx.core.view.accessibility.AccessibilityNodeInfoCompat.toString.
-func (m *NodeInfoCompat) ToString() (string, error) {
-	var result string
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midNodeInfoCompatToString == nil {
-			callErr = fmt.Errorf("androidx.core.view.accessibility.AccessibilityNodeInfoCompat.toString is not available on this device")
-			return callErr
-		}
-		var resultObj *jni.Object
-		resultObj, callErr = env.CallObjectMethod(
-			m.Obj,
-			midNodeInfoCompatToString,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
-		return callErr
-	})
-	return result, callErr
-}
-
 // Wrap calls androidx.core.view.accessibility.AccessibilityNodeInfoCompat.wrap.
 func (m *NodeInfoCompat) Wrap(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
@@ -4583,6 +4562,33 @@ func (m *NodeInfoCompat) GetClickableSpans(arg0 string) (*jni.Object, error) {
 			result = env.NewGlobalRef(localRef)
 			env.DeleteLocalRef(localRef)
 		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// ToString calls androidx.core.view.accessibility.AccessibilityNodeInfoCompat.toString.
+func (m *NodeInfoCompat) ToString() (string, error) {
+	var result string
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midNodeInfoCompatToString == nil {
+			callErr = fmt.Errorf("androidx.core.view.accessibility.AccessibilityNodeInfoCompat.toString is not available on this device")
+			return callErr
+		}
+		var resultObj *jni.Object
+		resultObj, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsNodeInfoCompat)),
+			midNodeInfoCompatToString,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
 		return callErr
 	})
 	return result, callErr

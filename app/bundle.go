@@ -30,6 +30,12 @@ func NewBundle(vm *jni.VM) (*Bundle, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBundle == nil {
+			return fmt.Errorf("android.os.Bundle is not available on this device")
+		}
+		if midBundleCtor == nil {
+			return fmt.Errorf("android.os.Bundle constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBundle)), midBundleCtor)
 		if err != nil {
 			return err
@@ -1661,29 +1667,6 @@ func (m *Bundle) SetClassLoader(arg0 *jni.Object) error {
 	return callErr
 }
 
-// WriteToParcel calls android.os.Bundle.writeToParcel.
-func (m *Bundle) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBundleWriteToParcel == nil {
-			callErr = fmt.Errorf("android.os.Bundle.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midBundleWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.os.Bundle.toString.
 func (m *Bundle) ToString() (string, error) {
 	var result string
@@ -1709,4 +1692,27 @@ func (m *Bundle) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.os.Bundle.writeToParcel.
+func (m *Bundle) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midBundleWriteToParcel == nil {
+			callErr = fmt.Errorf("android.os.Bundle.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsBundle)),
+			midBundleWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

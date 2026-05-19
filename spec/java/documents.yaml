@@ -285,6 +285,12 @@ classes:
       go_type: ContractDocument
     - java_class: android.provider.DocumentsContract$Path
       go_type: ContractPath
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: java.util.List<java.lang.String>
+          go_name: arg1
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -313,6 +319,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:

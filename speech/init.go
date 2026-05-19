@@ -23,6 +23,56 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsRecognitionSupport                              *jni.GlobalRef
+	midRecognitionSupportDescribeContents              jni.MethodID
+	midRecognitionSupportEquals                        jni.MethodID
+	midRecognitionSupportGetInstalledOnDeviceLanguages jni.MethodID
+	midRecognitionSupportGetOnlineLanguages            jni.MethodID
+	midRecognitionSupportGetPendingOnDeviceLanguages   jni.MethodID
+	midRecognitionSupportGetSupportedOnDeviceLanguages jni.MethodID
+	midRecognitionSupportHashCode                      jni.MethodID
+	midRecognitionSupportToString                      jni.MethodID
+	midRecognitionSupportWriteToParcel                 jni.MethodID
+
+	clsRecognitionSupportBuilder                             *jni.GlobalRef
+	midRecognitionSupportBuilderCtor                         jni.MethodID
+	midRecognitionSupportBuilderAddInstalledOnDeviceLanguage jni.MethodID
+	midRecognitionSupportBuilderAddOnlineLanguage            jni.MethodID
+	midRecognitionSupportBuilderAddPendingOnDeviceLanguage   jni.MethodID
+	midRecognitionSupportBuilderAddSupportedOnDeviceLanguage jni.MethodID
+	midRecognitionSupportBuilderBuild                        jni.MethodID
+	midRecognitionSupportBuilderToString                     jni.MethodID
+
+	clsModelDownloadListener            *jni.GlobalRef
+	midModelDownloadListenerOnError     jni.MethodID
+	midModelDownloadListenerOnProgress  jni.MethodID
+	midModelDownloadListenerOnScheduled jni.MethodID
+	midModelDownloadListenerOnSuccess   jni.MethodID
+	midModelDownloadListenerToString    jni.MethodID
+
+	clsRecognitionListener                    *jni.GlobalRef
+	midRecognitionListenerOnBeginningOfSpeech jni.MethodID
+	midRecognitionListenerOnBufferReceived    jni.MethodID
+	midRecognitionListenerOnEndOfSpeech       jni.MethodID
+	midRecognitionListenerOnError             jni.MethodID
+	midRecognitionListenerOnEvent             jni.MethodID
+	midRecognitionListenerOnPartialResults    jni.MethodID
+	midRecognitionListenerOnReadyForSpeech    jni.MethodID
+	midRecognitionListenerOnResults           jni.MethodID
+	midRecognitionListenerOnRmsChanged        jni.MethodID
+	midRecognitionListenerToString            jni.MethodID
+
+	clsAlternativeSpan                 *jni.GlobalRef
+	midAlternativeSpanCtor             jni.MethodID
+	midAlternativeSpanDescribeContents jni.MethodID
+	midAlternativeSpanEquals           jni.MethodID
+	midAlternativeSpanGetAlternatives  jni.MethodID
+	midAlternativeSpanGetEndPosition   jni.MethodID
+	midAlternativeSpanGetStartPosition jni.MethodID
+	midAlternativeSpanHashCode         jni.MethodID
+	midAlternativeSpanToString         jni.MethodID
+	midAlternativeSpanWriteToParcel    jni.MethodID
+
 	clsRecognitionPart                   *jni.GlobalRef
 	midRecognitionPartDescribeContents   jni.MethodID
 	midRecognitionPartEquals             jni.MethodID
@@ -35,12 +85,25 @@ var (
 	midRecognitionPartWriteToParcel      jni.MethodID
 
 	clsRecognitionPartBuilder                   *jni.GlobalRef
+	midRecognitionPartBuilderCtor               jni.MethodID
 	midRecognitionPartBuilderBuild              jni.MethodID
 	midRecognitionPartBuilderSetConfidenceLevel jni.MethodID
 	midRecognitionPartBuilderSetFormattedText   jni.MethodID
 	midRecognitionPartBuilderSetRawText         jni.MethodID
 	midRecognitionPartBuilderSetTimestampMillis jni.MethodID
 	midRecognitionPartBuilderToString           jni.MethodID
+
+	clsAlternativeSpans                 *jni.GlobalRef
+	midAlternativeSpansCtor             jni.MethodID
+	midAlternativeSpansDescribeContents jni.MethodID
+	midAlternativeSpansEquals           jni.MethodID
+	midAlternativeSpansGetSpans         jni.MethodID
+	midAlternativeSpansHashCode         jni.MethodID
+	midAlternativeSpansToString         jni.MethodID
+	midAlternativeSpansWriteToParcel    jni.MethodID
+
+	clsRecognizerResultsIntent         *jni.GlobalRef
+	midRecognizerResultsIntentToString jni.MethodID
 
 	clsRecognitionService                              *jni.GlobalRef
 	midRecognitionServiceCreateContext                 jni.MethodID
@@ -53,17 +116,6 @@ var (
 	midRecognitionServiceOnTriggerModelDownload2_1     jni.MethodID
 	midRecognitionServiceOnTriggerModelDownload3_2     jni.MethodID
 	midRecognitionServiceToString                      jni.MethodID
-
-	clsRecognitionSupport                              *jni.GlobalRef
-	midRecognitionSupportDescribeContents              jni.MethodID
-	midRecognitionSupportEquals                        jni.MethodID
-	midRecognitionSupportGetInstalledOnDeviceLanguages jni.MethodID
-	midRecognitionSupportGetOnlineLanguages            jni.MethodID
-	midRecognitionSupportGetPendingOnDeviceLanguages   jni.MethodID
-	midRecognitionSupportGetSupportedOnDeviceLanguages jni.MethodID
-	midRecognitionSupportHashCode                      jni.MethodID
-	midRecognitionSupportToString                      jni.MethodID
-	midRecognitionSupportWriteToParcel                 jni.MethodID
 
 	clsRecognitionServiceCallback                            *jni.GlobalRef
 	midRecognitionServiceCallbackBeginningOfSpeech           jni.MethodID
@@ -81,85 +133,10 @@ var (
 	midRecognitionServiceCallbackSegmentResults              jni.MethodID
 	midRecognitionServiceCallbackToString                    jni.MethodID
 
-	clsRecognitionSupportBuilder                             *jni.GlobalRef
-	midRecognitionSupportBuilderAddInstalledOnDeviceLanguage jni.MethodID
-	midRecognitionSupportBuilderAddOnlineLanguage            jni.MethodID
-	midRecognitionSupportBuilderAddPendingOnDeviceLanguage   jni.MethodID
-	midRecognitionSupportBuilderAddSupportedOnDeviceLanguage jni.MethodID
-	midRecognitionSupportBuilderBuild                        jni.MethodID
-	midRecognitionSupportBuilderToString                     jni.MethodID
-
 	clsRecognitionServiceSupportCallback                *jni.GlobalRef
 	midRecognitionServiceSupportCallbackOnError         jni.MethodID
 	midRecognitionServiceSupportCallbackOnSupportResult jni.MethodID
 	midRecognitionServiceSupportCallbackToString        jni.MethodID
-
-	clsRecognitionSupportCallback                *jni.GlobalRef
-	midRecognitionSupportCallbackOnError         jni.MethodID
-	midRecognitionSupportCallbackOnSupportResult jni.MethodID
-	midRecognitionSupportCallbackToString        jni.MethodID
-
-	clsRecognitionListener                    *jni.GlobalRef
-	midRecognitionListenerOnBeginningOfSpeech jni.MethodID
-	midRecognitionListenerOnBufferReceived    jni.MethodID
-	midRecognitionListenerOnEndOfSpeech       jni.MethodID
-	midRecognitionListenerOnError             jni.MethodID
-	midRecognitionListenerOnEvent             jni.MethodID
-	midRecognitionListenerOnPartialResults    jni.MethodID
-	midRecognitionListenerOnReadyForSpeech    jni.MethodID
-	midRecognitionListenerOnResults           jni.MethodID
-	midRecognitionListenerOnRmsChanged        jni.MethodID
-	midRecognitionListenerToString            jni.MethodID
-
-	clsRecognizer                               *jni.GlobalRef
-	midRecognizerCancel                         jni.MethodID
-	midRecognizerCheckRecognitionSupport        jni.MethodID
-	midRecognizerDestroy                        jni.MethodID
-	midRecognizerSetRecognitionListener         jni.MethodID
-	midRecognizerStartListening                 jni.MethodID
-	midRecognizerStopListening                  jni.MethodID
-	midRecognizerTriggerModelDownload1          jni.MethodID
-	midRecognizerTriggerModelDownload3_1        jni.MethodID
-	midRecognizerToString                       jni.MethodID
-	midRecognizerCreateOnDeviceSpeechRecognizer jni.MethodID
-	midRecognizerCreateSpeechRecognizer1        jni.MethodID
-	midRecognizerCreateSpeechRecognizer2_1      jni.MethodID
-	midRecognizerIsOnDeviceRecognitionAvailable jni.MethodID
-	midRecognizerIsRecognitionAvailable         jni.MethodID
-
-	clsRecognizerIntent                      *jni.GlobalRef
-	midRecognizerIntentToString              jni.MethodID
-	midRecognizerIntentGetVoiceDetailsIntent jni.MethodID
-
-	clsAlternativeSpans                 *jni.GlobalRef
-	midAlternativeSpansCtor             jni.MethodID
-	midAlternativeSpansDescribeContents jni.MethodID
-	midAlternativeSpansEquals           jni.MethodID
-	midAlternativeSpansGetSpans         jni.MethodID
-	midAlternativeSpansHashCode         jni.MethodID
-	midAlternativeSpansToString         jni.MethodID
-	midAlternativeSpansWriteToParcel    jni.MethodID
-
-	clsRecognizerResultsIntent         *jni.GlobalRef
-	midRecognizerResultsIntentToString jni.MethodID
-
-	clsAlternativeSpan                 *jni.GlobalRef
-	midAlternativeSpanCtor             jni.MethodID
-	midAlternativeSpanDescribeContents jni.MethodID
-	midAlternativeSpanEquals           jni.MethodID
-	midAlternativeSpanGetAlternatives  jni.MethodID
-	midAlternativeSpanGetEndPosition   jni.MethodID
-	midAlternativeSpanGetStartPosition jni.MethodID
-	midAlternativeSpanHashCode         jni.MethodID
-	midAlternativeSpanToString         jni.MethodID
-	midAlternativeSpanWriteToParcel    jni.MethodID
-
-	clsModelDownloadListener            *jni.GlobalRef
-	midModelDownloadListenerOnError     jni.MethodID
-	midModelDownloadListenerOnProgress  jni.MethodID
-	midModelDownloadListenerOnScheduled jni.MethodID
-	midModelDownloadListenerOnSuccess   jni.MethodID
-	midModelDownloadListenerToString    jni.MethodID
 
 	clsTextToSpeech                                *jni.GlobalRef
 	midTextToSpeechCtor                            jni.MethodID
@@ -203,9 +180,11 @@ var (
 	midTextToSpeechGetMaxSpeechInputLength         jni.MethodID
 
 	clsTextToSpeechEngine         *jni.GlobalRef
+	midTextToSpeechEngineCtor     jni.MethodID
 	midTextToSpeechEngineToString jni.MethodID
 
 	clsTextToSpeechEngineInfo         *jni.GlobalRef
+	midTextToSpeechEngineInfoCtor     jni.MethodID
 	midTextToSpeechEngineInfoToString jni.MethodID
 
 	clsTextToSpeechOnInitListener         *jni.GlobalRef
@@ -215,6 +194,31 @@ var (
 	clsTextToSpeechOnUtteranceCompletedListener                     *jni.GlobalRef
 	midTextToSpeechOnUtteranceCompletedListenerOnUtteranceCompleted jni.MethodID
 	midTextToSpeechOnUtteranceCompletedListenerToString             jni.MethodID
+
+	clsRecognizerIntent                      *jni.GlobalRef
+	midRecognizerIntentToString              jni.MethodID
+	midRecognizerIntentGetVoiceDetailsIntent jni.MethodID
+
+	clsRecognizer                               *jni.GlobalRef
+	midRecognizerCancel                         jni.MethodID
+	midRecognizerCheckRecognitionSupport        jni.MethodID
+	midRecognizerDestroy                        jni.MethodID
+	midRecognizerSetRecognitionListener         jni.MethodID
+	midRecognizerStartListening                 jni.MethodID
+	midRecognizerStopListening                  jni.MethodID
+	midRecognizerTriggerModelDownload1          jni.MethodID
+	midRecognizerTriggerModelDownload3_1        jni.MethodID
+	midRecognizerToString                       jni.MethodID
+	midRecognizerCreateOnDeviceSpeechRecognizer jni.MethodID
+	midRecognizerCreateSpeechRecognizer1        jni.MethodID
+	midRecognizerCreateSpeechRecognizer2_1      jni.MethodID
+	midRecognizerIsOnDeviceRecognitionAvailable jni.MethodID
+	midRecognizerIsRecognitionAvailable         jni.MethodID
+
+	clsRecognitionSupportCallback                *jni.GlobalRef
+	midRecognitionSupportCallbackOnError         jni.MethodID
+	midRecognitionSupportCallbackOnSupportResult jni.MethodID
+	midRecognitionSupportCallbackToString        jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -234,6 +238,330 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("android/speech/RecognitionSupport")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRecognitionSupport = env.NewGlobalRef(&c.Object)
+
+		midRecognitionSupportDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupport)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionSupportEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupport)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionSupportGetInstalledOnDeviceLanguages, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupport)), "getInstalledOnDeviceLanguages", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionSupportGetOnlineLanguages, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupport)), "getOnlineLanguages", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionSupportGetPendingOnDeviceLanguages, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupport)), "getPendingOnDeviceLanguages", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionSupportGetSupportedOnDeviceLanguages, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupport)), "getSupportedOnDeviceLanguages", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionSupportHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupport)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionSupportToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupport)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionSupportWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupport)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/speech/RecognitionSupport$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRecognitionSupportBuilder = env.NewGlobalRef(&c.Object)
+		midRecognitionSupportBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupportBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midRecognitionSupportBuilderAddInstalledOnDeviceLanguage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupportBuilder)), "addInstalledOnDeviceLanguage", "(Ljava/lang/String;)Landroid/speech/RecognitionSupport$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionSupportBuilderAddOnlineLanguage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupportBuilder)), "addOnlineLanguage", "(Ljava/lang/String;)Landroid/speech/RecognitionSupport$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionSupportBuilderAddPendingOnDeviceLanguage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupportBuilder)), "addPendingOnDeviceLanguage", "(Ljava/lang/String;)Landroid/speech/RecognitionSupport$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionSupportBuilderAddSupportedOnDeviceLanguage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupportBuilder)), "addSupportedOnDeviceLanguage", "(Ljava/lang/String;)Landroid/speech/RecognitionSupport$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionSupportBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupportBuilder)), "build", "()Landroid/speech/RecognitionSupport;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionSupportBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupportBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/speech/ModelDownloadListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsModelDownloadListener = env.NewGlobalRef(&c.Object)
+
+		midModelDownloadListenerOnError, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsModelDownloadListener)), "onError", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midModelDownloadListenerOnProgress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsModelDownloadListener)), "onProgress", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midModelDownloadListenerOnScheduled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsModelDownloadListener)), "onScheduled", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midModelDownloadListenerOnSuccess, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsModelDownloadListener)), "onSuccess", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midModelDownloadListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsModelDownloadListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/speech/RecognitionListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRecognitionListener = env.NewGlobalRef(&c.Object)
+
+		midRecognitionListenerOnBeginningOfSpeech, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionListener)), "onBeginningOfSpeech", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionListenerOnBufferReceived, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionListener)), "onBufferReceived", "([B)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionListenerOnEndOfSpeech, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionListener)), "onEndOfSpeech", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionListenerOnError, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionListener)), "onError", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionListenerOnEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionListener)), "onEvent", "(ILandroid/os/Bundle;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionListenerOnPartialResults, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionListener)), "onPartialResults", "(Landroid/os/Bundle;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionListenerOnReadyForSpeech, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionListener)), "onReadyForSpeech", "(Landroid/os/Bundle;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionListenerOnResults, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionListener)), "onResults", "(Landroid/os/Bundle;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionListenerOnRmsChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionListener)), "onRmsChanged", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/speech/AlternativeSpan")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAlternativeSpan = env.NewGlobalRef(&c.Object)
+		midAlternativeSpanCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpan)), "<init>", "(IILjava/util/List;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAlternativeSpanDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpan)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlternativeSpanEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpan)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlternativeSpanGetAlternatives, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpan)), "getAlternatives", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlternativeSpanGetEndPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpan)), "getEndPosition", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlternativeSpanGetStartPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpan)), "getStartPosition", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlternativeSpanHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpan)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlternativeSpanToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpan)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlternativeSpanWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpan)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("android/speech/RecognitionPart")
 	if err != nil {
@@ -299,7 +627,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midRecognitionPartWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionPart)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midRecognitionPartWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionPart)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -315,6 +643,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsRecognitionPartBuilder = env.NewGlobalRef(&c.Object)
+		midRecognitionPartBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionPartBuilder)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midRecognitionPartBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionPartBuilder)), "build", "()Landroid/speech/RecognitionPart;")
 		if err != nil {
@@ -352,6 +684,79 @@ func doInit(env *jni.Env) error {
 		}
 
 		midRecognitionPartBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionPartBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/speech/AlternativeSpans")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAlternativeSpans = env.NewGlobalRef(&c.Object)
+		midAlternativeSpansCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpans)), "<init>", "(Ljava/util/List;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAlternativeSpansDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpans)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlternativeSpansEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpans)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlternativeSpansGetSpans, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpans)), "getSpans", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlternativeSpansHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpans)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlternativeSpansToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpans)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlternativeSpansWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpans)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/speech/RecognizerResultsIntent")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRecognizerResultsIntent = env.NewGlobalRef(&c.Object)
+
+		midRecognizerResultsIntentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizerResultsIntent)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -432,79 +837,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midRecognitionServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionService)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/speech/RecognitionSupport")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRecognitionSupport = env.NewGlobalRef(&c.Object)
-
-		midRecognitionSupportDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupport)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionSupportEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupport)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionSupportGetInstalledOnDeviceLanguages, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupport)), "getInstalledOnDeviceLanguages", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionSupportGetOnlineLanguages, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupport)), "getOnlineLanguages", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionSupportGetPendingOnDeviceLanguages, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupport)), "getPendingOnDeviceLanguages", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionSupportGetSupportedOnDeviceLanguages, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupport)), "getSupportedOnDeviceLanguages", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionSupportHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupport)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionSupportToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupport)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionSupportWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupport)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -621,58 +953,6 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/speech/RecognitionSupport$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRecognitionSupportBuilder = env.NewGlobalRef(&c.Object)
-
-		midRecognitionSupportBuilderAddInstalledOnDeviceLanguage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupportBuilder)), "addInstalledOnDeviceLanguage", "(Ljava/lang/String;)Landroid/speech/RecognitionSupport$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionSupportBuilderAddOnlineLanguage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupportBuilder)), "addOnlineLanguage", "(Ljava/lang/String;)Landroid/speech/RecognitionSupport$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionSupportBuilderAddPendingOnDeviceLanguage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupportBuilder)), "addPendingOnDeviceLanguage", "(Ljava/lang/String;)Landroid/speech/RecognitionSupport$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionSupportBuilderAddSupportedOnDeviceLanguage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupportBuilder)), "addSupportedOnDeviceLanguage", "(Ljava/lang/String;)Landroid/speech/RecognitionSupport$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionSupportBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupportBuilder)), "build", "()Landroid/speech/RecognitionSupport;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionSupportBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupportBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("android/speech/RecognitionService$SupportCallback")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -696,437 +976,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midRecognitionServiceSupportCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionServiceSupportCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/speech/RecognitionSupportCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRecognitionSupportCallback = env.NewGlobalRef(&c.Object)
-
-		midRecognitionSupportCallbackOnError, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupportCallback)), "onError", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionSupportCallbackOnSupportResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupportCallback)), "onSupportResult", "(Landroid/speech/RecognitionSupport;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionSupportCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupportCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/speech/RecognitionListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRecognitionListener = env.NewGlobalRef(&c.Object)
-
-		midRecognitionListenerOnBeginningOfSpeech, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionListener)), "onBeginningOfSpeech", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionListenerOnBufferReceived, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionListener)), "onBufferReceived", "([B)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionListenerOnEndOfSpeech, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionListener)), "onEndOfSpeech", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionListenerOnError, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionListener)), "onError", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionListenerOnEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionListener)), "onEvent", "(ILandroid/os/Bundle;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionListenerOnPartialResults, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionListener)), "onPartialResults", "(Landroid/os/Bundle;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionListenerOnReadyForSpeech, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionListener)), "onReadyForSpeech", "(Landroid/os/Bundle;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionListenerOnResults, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionListener)), "onResults", "(Landroid/os/Bundle;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionListenerOnRmsChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionListener)), "onRmsChanged", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognitionListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/speech/SpeechRecognizer")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRecognizer = env.NewGlobalRef(&c.Object)
-
-		midRecognizerCancel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "cancel", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognizerCheckRecognitionSupport, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "checkRecognitionSupport", "(Landroid/content/Intent;Ljava/util/concurrent/Executor;Landroid/speech/RecognitionSupportCallback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognizerDestroy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "destroy", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognizerSetRecognitionListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "setRecognitionListener", "(Landroid/speech/RecognitionListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognizerStartListening, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "startListening", "(Landroid/content/Intent;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognizerStopListening, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "stopListening", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognizerTriggerModelDownload1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "triggerModelDownload", "(Landroid/content/Intent;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognizerTriggerModelDownload3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "triggerModelDownload", "(Landroid/content/Intent;Ljava/util/concurrent/Executor;Landroid/speech/ModelDownloadListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognizerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognizerCreateOnDeviceSpeechRecognizer, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "createOnDeviceSpeechRecognizer", "(Landroid/content/Context;)Landroid/speech/SpeechRecognizer;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognizerCreateSpeechRecognizer1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "createSpeechRecognizer", "(Landroid/content/Context;)Landroid/speech/SpeechRecognizer;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognizerCreateSpeechRecognizer2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "createSpeechRecognizer", "(Landroid/content/Context;Landroid/content/ComponentName;)Landroid/speech/SpeechRecognizer;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognizerIsOnDeviceRecognitionAvailable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "isOnDeviceRecognitionAvailable", "(Landroid/content/Context;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognizerIsRecognitionAvailable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "isRecognitionAvailable", "(Landroid/content/Context;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/speech/RecognizerIntent")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRecognizerIntent = env.NewGlobalRef(&c.Object)
-
-		midRecognizerIntentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizerIntent)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecognizerIntentGetVoiceDetailsIntent, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecognizerIntent)), "getVoiceDetailsIntent", "(Landroid/content/Context;)Landroid/content/Intent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/speech/AlternativeSpans")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAlternativeSpans = env.NewGlobalRef(&c.Object)
-		midAlternativeSpansCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpans)), "<init>", "(Ljava/util/List;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAlternativeSpansDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpans)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlternativeSpansEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpans)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlternativeSpansGetSpans, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpans)), "getSpans", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlternativeSpansHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpans)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlternativeSpansToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpans)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlternativeSpansWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpans)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/speech/RecognizerResultsIntent")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRecognizerResultsIntent = env.NewGlobalRef(&c.Object)
-
-		midRecognizerResultsIntentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizerResultsIntent)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/speech/AlternativeSpan")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAlternativeSpan = env.NewGlobalRef(&c.Object)
-		midAlternativeSpanCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpan)), "<init>", "(IILjava/util/List;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAlternativeSpanDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpan)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlternativeSpanEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpan)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlternativeSpanGetAlternatives, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpan)), "getAlternatives", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlternativeSpanGetEndPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpan)), "getEndPosition", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlternativeSpanGetStartPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpan)), "getStartPosition", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlternativeSpanHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpan)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlternativeSpanToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpan)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlternativeSpanWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlternativeSpan)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/speech/ModelDownloadListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsModelDownloadListener = env.NewGlobalRef(&c.Object)
-
-		midModelDownloadListenerOnError, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsModelDownloadListener)), "onError", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midModelDownloadListenerOnProgress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsModelDownloadListener)), "onProgress", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midModelDownloadListenerOnScheduled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsModelDownloadListener)), "onScheduled", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midModelDownloadListenerOnSuccess, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsModelDownloadListener)), "onSuccess", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midModelDownloadListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsModelDownloadListener)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1422,6 +1271,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsTextToSpeechEngine = env.NewGlobalRef(&c.Object)
+		midTextToSpeechEngineCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextToSpeechEngine)), "<init>", "(Landroid/speech/tts/TextToSpeech;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midTextToSpeechEngineToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextToSpeechEngine)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -1439,6 +1292,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsTextToSpeechEngineInfo = env.NewGlobalRef(&c.Object)
+		midTextToSpeechEngineInfoCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextToSpeechEngineInfo)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midTextToSpeechEngineInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextToSpeechEngineInfo)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -1489,6 +1346,169 @@ func doInit(env *jni.Env) error {
 		}
 
 		midTextToSpeechOnUtteranceCompletedListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextToSpeechOnUtteranceCompletedListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/speech/RecognizerIntent")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRecognizerIntent = env.NewGlobalRef(&c.Object)
+
+		midRecognizerIntentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizerIntent)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognizerIntentGetVoiceDetailsIntent, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecognizerIntent)), "getVoiceDetailsIntent", "(Landroid/content/Context;)Landroid/content/Intent;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/speech/SpeechRecognizer")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRecognizer = env.NewGlobalRef(&c.Object)
+
+		midRecognizerCancel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "cancel", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognizerCheckRecognitionSupport, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "checkRecognitionSupport", "(Landroid/content/Intent;Ljava/util/concurrent/Executor;Landroid/speech/RecognitionSupportCallback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognizerDestroy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "destroy", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognizerSetRecognitionListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "setRecognitionListener", "(Landroid/speech/RecognitionListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognizerStartListening, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "startListening", "(Landroid/content/Intent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognizerStopListening, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "stopListening", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognizerTriggerModelDownload1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "triggerModelDownload", "(Landroid/content/Intent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognizerTriggerModelDownload3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "triggerModelDownload", "(Landroid/content/Intent;Ljava/util/concurrent/Executor;Landroid/speech/ModelDownloadListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognizerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognizerCreateOnDeviceSpeechRecognizer, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "createOnDeviceSpeechRecognizer", "(Landroid/content/Context;)Landroid/speech/SpeechRecognizer;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognizerCreateSpeechRecognizer1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "createSpeechRecognizer", "(Landroid/content/Context;)Landroid/speech/SpeechRecognizer;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognizerCreateSpeechRecognizer2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "createSpeechRecognizer", "(Landroid/content/Context;Landroid/content/ComponentName;)Landroid/speech/SpeechRecognizer;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognizerIsOnDeviceRecognitionAvailable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "isOnDeviceRecognitionAvailable", "(Landroid/content/Context;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognizerIsRecognitionAvailable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecognizer)), "isRecognitionAvailable", "(Landroid/content/Context;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/speech/RecognitionSupportCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRecognitionSupportCallback = env.NewGlobalRef(&c.Object)
+
+		midRecognitionSupportCallbackOnError, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupportCallback)), "onError", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionSupportCallbackOnSupportResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupportCallback)), "onSupportResult", "(Landroid/speech/RecognitionSupport;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecognitionSupportCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecognitionSupportCallback)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

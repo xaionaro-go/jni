@@ -5,61 +5,6 @@
 package: view
 go_import: github.com/AndroidGoLab/jni/androidx/appcompat/view
 classes:
-    - java_class: androidx.appcompat.view.SupportMenuInflater
-      go_type: SupportMenuInflater
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: inflate
-          go_name: Inflate
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.view.Menu
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: androidx.appcompat.view.ActionBarPolicy
-      go_type: ActionBarPolicy
-      methods:
-        - java_method: getMaxActionButtons
-          go_name: GetMaxActionButtons
-          returns: int
-          error: true
-        - java_method: showsOverflowMenuButton
-          go_name: ShowsOverflowMenuButton
-          returns: boolean
-          error: true
-        - java_method: getEmbeddedMenuWidthLimit
-          go_name: GetEmbeddedMenuWidthLimit
-          returns: int
-          error: true
-        - java_method: hasEmbeddedTabs
-          go_name: HasEmbeddedTabs
-          returns: boolean
-          error: true
-        - java_method: getTabContainerHeight
-          go_name: GetTabContainerHeight
-          returns: int
-          error: true
-        - java_method: enableHomeButtonByDefault
-          go_name: EnableHomeButtonByDefault
-          returns: boolean
-          error: true
-        - java_method: getStackedTabMaxWidth
-          go_name: GetStackedTabMaxWidth
-          returns: int
-          error: true
-      static_methods:
-        - java_method: get
-          go_name: Get
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: androidx.appcompat.view.ActionBarPolicy
-          error: true
     - java_class: androidx.appcompat.view.StandaloneActionMode
       go_type: StandaloneActionMode
       obtain: constructor
@@ -189,6 +134,448 @@ classes:
         - java_method: isUiFocusable
           go_name: IsUiFocusable
           returns: boolean
+          error: true
+    - java_class: androidx.appcompat.view.ViewPropertyAnimatorCompatSet
+      go_type: PropertyAnimatorCompatSet
+      obtain: constructor
+      methods:
+        - java_method: play
+          go_name: Play
+          params:
+            - java_type: androidx.core.view.ViewPropertyAnimatorCompat
+              go_name: arg0
+          returns: androidx.appcompat.view.ViewPropertyAnimatorCompatSet
+          error: true
+        - java_method: playSequentially
+          go_name: PlaySequentially
+          params:
+            - java_type: androidx.core.view.ViewPropertyAnimatorCompat
+              go_name: arg0
+            - java_type: androidx.core.view.ViewPropertyAnimatorCompat
+              go_name: arg1
+          returns: androidx.appcompat.view.ViewPropertyAnimatorCompatSet
+          error: true
+        - java_method: start
+          go_name: Start
+          returns: void
+          error: true
+        - java_method: cancel
+          go_name: Cancel
+          returns: void
+          error: true
+        - java_method: setDuration
+          go_name: SetDuration
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: androidx.appcompat.view.ViewPropertyAnimatorCompatSet
+          error: true
+        - java_method: setInterpolator
+          go_name: SetInterpolator
+          params:
+            - java_type: android.view.animation.Interpolator
+              go_name: arg0
+          returns: androidx.appcompat.view.ViewPropertyAnimatorCompatSet
+          error: true
+        - java_method: setListener
+          go_name: SetListener
+          params:
+            - java_type: androidx.core.view.ViewPropertyAnimatorListener
+              go_name: arg0
+          returns: androidx.appcompat.view.ViewPropertyAnimatorCompatSet
+          error: true
+    - java_class: androidx.appcompat.view.SupportActionModeWrapper
+      go_type: SupportActionModeWrapper
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: androidx.appcompat.view.ActionMode
+          go_name: arg1
+      methods:
+        - java_method: getTag
+          go_name: GetTag
+          returns: java.lang.Object
+          error: true
+        - java_method: setTag
+          go_name: SetTag
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTitle
+          go_name: SetTitle1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSubtitle
+          go_name: SetSubtitle1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: invalidate
+          go_name: Invalidate
+          returns: void
+          error: true
+        - java_method: finish
+          go_name: Finish
+          returns: void
+          error: true
+        - java_method: getMenu
+          go_name: GetMenu
+          returns: android.view.Menu
+          error: true
+        - java_method: getTitle
+          go_name: GetTitle
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: setTitle
+          go_name: SetTitle1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getSubtitle
+          go_name: GetSubtitle
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: setSubtitle
+          go_name: SetSubtitle1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getCustomView
+          go_name: GetCustomView
+          returns: android.view.View
+          error: true
+        - java_method: setCustomView
+          go_name: SetCustomView
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getMenuInflater
+          go_name: GetMenuInflater
+          returns: android.view.MenuInflater
+          error: true
+        - java_method: getTitleOptionalHint
+          go_name: GetTitleOptionalHint
+          returns: boolean
+          error: true
+        - java_method: setTitleOptionalHint
+          go_name: SetTitleOptionalHint
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isTitleOptional
+          go_name: IsTitleOptional
+          returns: boolean
+          error: true
+    - java_class: androidx.appcompat.view.SupportActionModeWrapper$CallbackWrapper
+      go_type: SupportActionModeWrapperCallbackWrapper
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.view.ActionMode$Callback
+          go_name: arg1
+      methods:
+        - java_method: onCreateActionMode
+          go_name: OnCreateActionMode
+          params:
+            - java_type: androidx.appcompat.view.ActionMode
+              go_name: arg0
+            - java_type: android.view.Menu
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: onPrepareActionMode
+          go_name: OnPrepareActionMode
+          params:
+            - java_type: androidx.appcompat.view.ActionMode
+              go_name: arg0
+            - java_type: android.view.Menu
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: onActionItemClicked
+          go_name: OnActionItemClicked
+          params:
+            - java_type: androidx.appcompat.view.ActionMode
+              go_name: arg0
+            - java_type: android.view.MenuItem
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: onDestroyActionMode
+          go_name: OnDestroyActionMode
+          params:
+            - java_type: androidx.appcompat.view.ActionMode
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getActionModeWrapper
+          go_name: GetActionModeWrapper
+          params:
+            - java_type: androidx.appcompat.view.ActionMode
+              go_name: arg0
+          returns: android.view.ActionMode
+          error: true
+    - java_class: androidx.appcompat.view.ActionBarPolicy
+      go_type: ActionBarPolicy
+      methods:
+        - java_method: getMaxActionButtons
+          go_name: GetMaxActionButtons
+          returns: int
+          error: true
+        - java_method: showsOverflowMenuButton
+          go_name: ShowsOverflowMenuButton
+          returns: boolean
+          error: true
+        - java_method: getEmbeddedMenuWidthLimit
+          go_name: GetEmbeddedMenuWidthLimit
+          returns: int
+          error: true
+        - java_method: hasEmbeddedTabs
+          go_name: HasEmbeddedTabs
+          returns: boolean
+          error: true
+        - java_method: getTabContainerHeight
+          go_name: GetTabContainerHeight
+          returns: int
+          error: true
+        - java_method: enableHomeButtonByDefault
+          go_name: EnableHomeButtonByDefault
+          returns: boolean
+          error: true
+        - java_method: getStackedTabMaxWidth
+          go_name: GetStackedTabMaxWidth
+          returns: int
+          error: true
+      static_methods:
+        - java_method: get
+          go_name: Get
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: androidx.appcompat.view.ActionBarPolicy
+          error: true
+    - java_class: androidx.appcompat.view.CollapsibleActionView
+      go_type: CollapsibleActionView
+      methods:
+        - java_method: onActionViewExpanded
+          go_name: OnActionViewExpanded
+          returns: void
+          error: true
+        - java_method: onActionViewCollapsed
+          go_name: OnActionViewCollapsed
+          returns: void
+          error: true
+    - java_class: androidx.appcompat.view.ActionMode
+      go_type: ActionMode
+      methods:
+        - java_method: setTag
+          go_name: SetTag
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getTag
+          go_name: GetTag
+          returns: java.lang.Object
+          error: true
+        - java_method: setTitle
+          go_name: SetTitle1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTitle
+          go_name: SetTitle1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSubtitle
+          go_name: SetSubtitle1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSubtitle
+          go_name: SetSubtitle1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTitleOptionalHint
+          go_name: SetTitleOptionalHint
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getTitleOptionalHint
+          go_name: GetTitleOptionalHint
+          returns: boolean
+          error: true
+        - java_method: isTitleOptional
+          go_name: IsTitleOptional
+          returns: boolean
+          error: true
+        - java_method: setCustomView
+          go_name: SetCustomView
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: invalidate
+          go_name: Invalidate
+          returns: void
+          error: true
+        - java_method: finish
+          go_name: Finish
+          returns: void
+          error: true
+        - java_method: getMenu
+          go_name: GetMenu
+          returns: android.view.Menu
+          error: true
+        - java_method: getTitle
+          go_name: GetTitle
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getSubtitle
+          go_name: GetSubtitle
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getCustomView
+          go_name: GetCustomView
+          returns: android.view.View
+          error: true
+        - java_method: getMenuInflater
+          go_name: GetMenuInflater
+          returns: android.view.MenuInflater
+          error: true
+        - java_method: isUiFocusable
+          go_name: IsUiFocusable
+          returns: boolean
+          error: true
+    - java_class: androidx.appcompat.view.ActionMode$Callback
+      go_type: ActionModeCallback
+      methods:
+        - java_method: onCreateActionMode
+          go_name: OnCreateActionMode
+          params:
+            - java_type: androidx.appcompat.view.ActionMode
+              go_name: arg0
+            - java_type: android.view.Menu
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: onPrepareActionMode
+          go_name: OnPrepareActionMode
+          params:
+            - java_type: androidx.appcompat.view.ActionMode
+              go_name: arg0
+            - java_type: android.view.Menu
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: onActionItemClicked
+          go_name: OnActionItemClicked
+          params:
+            - java_type: androidx.appcompat.view.ActionMode
+              go_name: arg0
+            - java_type: android.view.MenuItem
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: onDestroyActionMode
+          go_name: OnDestroyActionMode
+          params:
+            - java_type: androidx.appcompat.view.ActionMode
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: androidx.appcompat.view.SupportMenuInflater
+      go_type: SupportMenuInflater
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      static_methods:
+        - java_method: inflate
+          go_name: Inflate
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.view.Menu
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: androidx.appcompat.view.ContextThemeWrapper
+      go_type: ContextThemeWrapper
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: applyOverrideConfiguration
+          go_name: ApplyOverrideConfiguration
+          params:
+            - java_type: android.content.res.Configuration
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getResources
+          go_name: GetResources
+          returns: android.content.res.Resources
+          error: true
+        - java_method: setTheme
+          go_name: SetTheme
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getThemeResId
+          go_name: GetThemeResId
+          returns: int
+          error: true
+        - java_method: getTheme
+          go_name: GetTheme
+          returns: android.content.res.Resources$Theme
+          error: true
+        - java_method: getSystemService
+          go_name: GetSystemService
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: java.lang.Object
+          error: true
+        - java_method: getAssets
+          go_name: GetAssets
+          returns: android.content.res.AssetManager
           error: true
     - java_class: androidx.appcompat.view.WindowCallbackWrapper
       go_type: WindowCallbackWrapper
@@ -371,387 +758,6 @@ classes:
           go_name: GetWrapped
           returns: android.view.Window$Callback
           error: true
-    - java_class: androidx.appcompat.view.ContextThemeWrapper
-      go_type: ContextThemeWrapper
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-      methods:
-        - java_method: applyOverrideConfiguration
-          go_name: ApplyOverrideConfiguration
-          params:
-            - java_type: android.content.res.Configuration
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getResources
-          go_name: GetResources
-          returns: android.content.res.Resources
-          error: true
-        - java_method: setTheme
-          go_name: SetTheme
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getThemeResId
-          go_name: GetThemeResId
-          returns: int
-          error: true
-        - java_method: getTheme
-          go_name: GetTheme
-          returns: android.content.res.Resources$Theme
-          error: true
-        - java_method: getSystemService
-          go_name: GetSystemService
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: java.lang.Object
-          error: true
-        - java_method: getAssets
-          go_name: GetAssets
-          returns: android.content.res.AssetManager
-          error: true
-    - java_class: androidx.appcompat.view.ViewPropertyAnimatorCompatSet
-      go_type: PropertyAnimatorCompatSet
-      obtain: constructor
-      methods:
-        - java_method: play
-          go_name: Play
-          params:
-            - java_type: androidx.core.view.ViewPropertyAnimatorCompat
-              go_name: arg0
-          returns: androidx.appcompat.view.ViewPropertyAnimatorCompatSet
-          error: true
-        - java_method: playSequentially
-          go_name: PlaySequentially
-          params:
-            - java_type: androidx.core.view.ViewPropertyAnimatorCompat
-              go_name: arg0
-            - java_type: androidx.core.view.ViewPropertyAnimatorCompat
-              go_name: arg1
-          returns: androidx.appcompat.view.ViewPropertyAnimatorCompatSet
-          error: true
-        - java_method: start
-          go_name: Start
-          returns: void
-          error: true
-        - java_method: cancel
-          go_name: Cancel
-          returns: void
-          error: true
-        - java_method: setDuration
-          go_name: SetDuration
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: androidx.appcompat.view.ViewPropertyAnimatorCompatSet
-          error: true
-        - java_method: setInterpolator
-          go_name: SetInterpolator
-          params:
-            - java_type: android.view.animation.Interpolator
-              go_name: arg0
-          returns: androidx.appcompat.view.ViewPropertyAnimatorCompatSet
-          error: true
-        - java_method: setListener
-          go_name: SetListener
-          params:
-            - java_type: androidx.core.view.ViewPropertyAnimatorListener
-              go_name: arg0
-          returns: androidx.appcompat.view.ViewPropertyAnimatorCompatSet
-          error: true
-    - java_class: androidx.appcompat.view.ActionMode
-      go_type: ActionMode
-      methods:
-        - java_method: setTag
-          go_name: SetTag
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getTag
-          go_name: GetTag
-          returns: java.lang.Object
-          error: true
-        - java_method: setTitle
-          go_name: SetTitle1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTitle
-          go_name: SetTitle1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSubtitle
-          go_name: SetSubtitle1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSubtitle
-          go_name: SetSubtitle1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTitleOptionalHint
-          go_name: SetTitleOptionalHint
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getTitleOptionalHint
-          go_name: GetTitleOptionalHint
-          returns: boolean
-          error: true
-        - java_method: isTitleOptional
-          go_name: IsTitleOptional
-          returns: boolean
-          error: true
-        - java_method: setCustomView
-          go_name: SetCustomView
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: invalidate
-          go_name: Invalidate
-          returns: void
-          error: true
-        - java_method: finish
-          go_name: Finish
-          returns: void
-          error: true
-        - java_method: getMenu
-          go_name: GetMenu
-          returns: android.view.Menu
-          error: true
-        - java_method: getTitle
-          go_name: GetTitle
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getSubtitle
-          go_name: GetSubtitle
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getCustomView
-          go_name: GetCustomView
-          returns: android.view.View
-          error: true
-        - java_method: getMenuInflater
-          go_name: GetMenuInflater
-          returns: android.view.MenuInflater
-          error: true
-        - java_method: isUiFocusable
-          go_name: IsUiFocusable
-          returns: boolean
-          error: true
-    - java_class: androidx.appcompat.view.ActionMode$Callback
-      go_type: ActionModeCallback
-      methods:
-        - java_method: onCreateActionMode
-          go_name: OnCreateActionMode
-          params:
-            - java_type: androidx.appcompat.view.ActionMode
-              go_name: arg0
-            - java_type: android.view.Menu
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: onPrepareActionMode
-          go_name: OnPrepareActionMode
-          params:
-            - java_type: androidx.appcompat.view.ActionMode
-              go_name: arg0
-            - java_type: android.view.Menu
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: onActionItemClicked
-          go_name: OnActionItemClicked
-          params:
-            - java_type: androidx.appcompat.view.ActionMode
-              go_name: arg0
-            - java_type: android.view.MenuItem
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: onDestroyActionMode
-          go_name: OnDestroyActionMode
-          params:
-            - java_type: androidx.appcompat.view.ActionMode
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.appcompat.view.CollapsibleActionView
-      go_type: CollapsibleActionView
-      methods:
-        - java_method: onActionViewExpanded
-          go_name: OnActionViewExpanded
-          returns: void
-          error: true
-        - java_method: onActionViewCollapsed
-          go_name: OnActionViewCollapsed
-          returns: void
-          error: true
-    - java_class: androidx.appcompat.view.SupportActionModeWrapper
-      go_type: SupportActionModeWrapper
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: androidx.appcompat.view.ActionMode
-          go_name: arg1
-      methods:
-        - java_method: getTag
-          go_name: GetTag
-          returns: java.lang.Object
-          error: true
-        - java_method: setTag
-          go_name: SetTag
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTitle
-          go_name: SetTitle1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSubtitle
-          go_name: SetSubtitle1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: invalidate
-          go_name: Invalidate
-          returns: void
-          error: true
-        - java_method: finish
-          go_name: Finish
-          returns: void
-          error: true
-        - java_method: getMenu
-          go_name: GetMenu
-          returns: android.view.Menu
-          error: true
-        - java_method: getTitle
-          go_name: GetTitle
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: setTitle
-          go_name: SetTitle1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getSubtitle
-          go_name: GetSubtitle
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: setSubtitle
-          go_name: SetSubtitle1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getCustomView
-          go_name: GetCustomView
-          returns: android.view.View
-          error: true
-        - java_method: setCustomView
-          go_name: SetCustomView
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getMenuInflater
-          go_name: GetMenuInflater
-          returns: android.view.MenuInflater
-          error: true
-        - java_method: getTitleOptionalHint
-          go_name: GetTitleOptionalHint
-          returns: boolean
-          error: true
-        - java_method: setTitleOptionalHint
-          go_name: SetTitleOptionalHint
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isTitleOptional
-          go_name: IsTitleOptional
-          returns: boolean
-          error: true
-    - java_class: androidx.appcompat.view.SupportActionModeWrapper$CallbackWrapper
-      go_type: SupportActionModeWrapperCallbackWrapper
-      methods:
-        - java_method: onCreateActionMode
-          go_name: OnCreateActionMode
-          params:
-            - java_type: androidx.appcompat.view.ActionMode
-              go_name: arg0
-            - java_type: android.view.Menu
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: onPrepareActionMode
-          go_name: OnPrepareActionMode
-          params:
-            - java_type: androidx.appcompat.view.ActionMode
-              go_name: arg0
-            - java_type: android.view.Menu
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: onActionItemClicked
-          go_name: OnActionItemClicked
-          params:
-            - java_type: androidx.appcompat.view.ActionMode
-              go_name: arg0
-            - java_type: android.view.MenuItem
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: onDestroyActionMode
-          go_name: OnDestroyActionMode
-          params:
-            - java_type: androidx.appcompat.view.ActionMode
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getActionModeWrapper
-          go_name: GetActionModeWrapper
-          params:
-            - java_type: androidx.appcompat.view.ActionMode
-              go_name: arg0
-          returns: android.view.ActionMode
-          error: true
 abstract_callbacks:
     - java_class: androidx.appcompat.view.ActionMode
       go_type: ActionModeCallback
@@ -835,3 +841,7 @@ abstract_callbacks:
           params: []
           returns: boolean
           go_field: IsUiFocusable
+abstract_callback_eligibility:
+    - java_class: androidx.appcompat.view.ActionMode
+      generated: true
+      reason: supported_no_arg_constructor

@@ -140,31 +140,6 @@ func (m *MindfulnessSessionRecord) GetTitle() (*jni.Object, error) {
 	return result, callErr
 }
 
-// HashCode calls android.health.connect.datatypes.MindfulnessSessionRecord.hashCode.
-func (m *MindfulnessSessionRecord) HashCode() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMindfulnessSessionRecordHashCode == nil {
-			callErr = fmt.Errorf("android.health.connect.datatypes.MindfulnessSessionRecord.hashCode is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midMindfulnessSessionRecordHashCode,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.health.connect.datatypes.MindfulnessSessionRecord.toString.
 func (m *MindfulnessSessionRecord) ToString() (string, error) {
 	var result string
@@ -187,6 +162,31 @@ func (m *MindfulnessSessionRecord) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// HashCode calls android.health.connect.datatypes.MindfulnessSessionRecord.hashCode.
+func (m *MindfulnessSessionRecord) HashCode() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midMindfulnessSessionRecordHashCode == nil {
+			callErr = fmt.Errorf("android.health.connect.datatypes.MindfulnessSessionRecord.hashCode is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsMindfulnessSessionRecord)),
+			midMindfulnessSessionRecordHashCode,
+		)
+		if callErr != nil {
+			return callErr
+		}
 		return callErr
 	})
 	return result, callErr

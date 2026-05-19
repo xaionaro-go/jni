@@ -23,6 +23,34 @@ type AudioTrackBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAudioTrackBuilder creates a new android.media.AudioTrack$Builder instance.
+func NewAudioTrackBuilder(vm *jni.VM) (*AudioTrackBuilder, error) {
+	var t AudioTrackBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAudioTrackBuilder == nil {
+			return fmt.Errorf("android.media.AudioTrack$Builder is not available on this device")
+		}
+		if midAudioTrackBuilderCtor == nil {
+			return fmt.Errorf("android.media.AudioTrack$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAudioTrackBuilder)), midAudioTrackBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.media.AudioTrack$Builder.build.
 func (m *AudioTrackBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

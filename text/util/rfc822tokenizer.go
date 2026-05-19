@@ -32,6 +32,12 @@ func NewRfc822Tokenizer(vm *jni.VM) (*Rfc822Tokenizer, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRfc822Tokenizer == nil {
+			return fmt.Errorf("android.text.util.Rfc822Tokenizer is not available on this device")
+		}
+		if midRfc822TokenizerCtor == nil {
+			return fmt.Errorf("android.text.util.Rfc822Tokenizer constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRfc822Tokenizer)), midRfc822TokenizerCtor)
 		if err != nil {
 			return err

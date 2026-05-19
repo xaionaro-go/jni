@@ -396,29 +396,6 @@ func (m *work) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.net.Network.writeToParcel.
-func (m *work) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midworkWriteToParcel == nil {
-			callErr = fmt.Errorf("android.net.Network.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midworkWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // FromNetworkHandle calls android.net.Network.fromNetworkHandle.
 func (m *work) FromNetworkHandle(arg0 int64) (*jni.Object, error) {
 	var result *jni.Object
@@ -450,4 +427,27 @@ func (m *work) FromNetworkHandle(arg0 int64) (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.net.Network.writeToParcel.
+func (m *work) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midworkWriteToParcel == nil {
+			callErr = fmt.Errorf("android.net.Network.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clswork)),
+			midworkWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

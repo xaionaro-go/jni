@@ -23,6 +23,34 @@ type ParcelFileDescriptorFileDescriptorDetachedException struct {
 	Obj *jni.GlobalRef
 }
 
+// NewParcelFileDescriptorFileDescriptorDetachedException creates a new android.os.ParcelFileDescriptor$FileDescriptorDetachedException instance.
+func NewParcelFileDescriptorFileDescriptorDetachedException(vm *jni.VM) (*ParcelFileDescriptorFileDescriptorDetachedException, error) {
+	var t ParcelFileDescriptorFileDescriptorDetachedException
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsParcelFileDescriptorFileDescriptorDetachedException == nil {
+			return fmt.Errorf("android.os.ParcelFileDescriptor$FileDescriptorDetachedException is not available on this device")
+		}
+		if midParcelFileDescriptorFileDescriptorDetachedExceptionCtor == nil {
+			return fmt.Errorf("android.os.ParcelFileDescriptor$FileDescriptorDetachedException constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsParcelFileDescriptorFileDescriptorDetachedException)), midParcelFileDescriptorFileDescriptorDetachedExceptionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.os.ParcelFileDescriptor$FileDescriptorDetachedException.toString.
 func (m *ParcelFileDescriptorFileDescriptorDetachedException) ToString() (string, error) {
 	var result string

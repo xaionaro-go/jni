@@ -9,12 +9,12 @@ const (
 )
 
 const (
+	Infinite           = consts.Infinite
+	Restart            = consts.Restart
+	Reverse            = consts.Reverse
 	Appearing          = consts.Appearing
 	ChangeAppearing    = consts.ChangeAppearing
 	ChangeDisappearing = consts.ChangeDisappearing
 	Changing           = consts.Changing
 	Disappearing       = consts.Disappearing
-	Infinite           = consts.Infinite
-	Restart            = consts.Restart
-	Reverse            = consts.Reverse
 )

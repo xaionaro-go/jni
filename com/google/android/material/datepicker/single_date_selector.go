@@ -32,6 +32,12 @@ func NewSingleDateSelector(vm *jni.VM) (*SingleDateSelector, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSingleDateSelector == nil {
+			return fmt.Errorf("com.google.android.material.datepicker.SingleDateSelector is not available on this device")
+		}
+		if midSingleDateSelectorCtor == nil {
+			return fmt.Errorf("com.google.android.material.datepicker.SingleDateSelector constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSingleDateSelector)), midSingleDateSelectorCtor)
 		if err != nil {
 			return err
@@ -68,8 +74,8 @@ func (m *SingleDateSelector) Select(arg0 int64) error {
 	return callErr
 }
 
-// SetSelection1 calls com.google.android.material.datepicker.SingleDateSelector.setSelection.
-func (m *SingleDateSelector) SetSelection1(arg0 *jni.Object) error {
+// SetSelection calls com.google.android.material.datepicker.SingleDateSelector.setSelection.
+func (m *SingleDateSelector) SetSelection(arg0 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -77,14 +83,14 @@ func (m *SingleDateSelector) SetSelection1(arg0 *jni.Object) error {
 			callErr = err
 			return err
 		}
-		if midSingleDateSelectorSetSelection1 == nil {
+		if midSingleDateSelectorSetSelection == nil {
 			callErr = fmt.Errorf("com.google.android.material.datepicker.SingleDateSelector.setSelection is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midSingleDateSelectorSetSelection1, jni.ObjectValue(arg0),
+			midSingleDateSelectorSetSelection, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})
@@ -150,8 +156,8 @@ func (m *SingleDateSelector) GetSelectedDays() (*jni.Object, error) {
 	return result, callErr
 }
 
-// GetSelection0 calls com.google.android.material.datepicker.SingleDateSelector.getSelection.
-func (m *SingleDateSelector) GetSelection0() (*jni.Object, error) {
+// GetSelection calls com.google.android.material.datepicker.SingleDateSelector.getSelection.
+func (m *SingleDateSelector) GetSelection() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -159,13 +165,13 @@ func (m *SingleDateSelector) GetSelection0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midSingleDateSelectorGetSelection0 == nil {
+		if midSingleDateSelectorGetSelection == nil {
 			callErr = fmt.Errorf("com.google.android.material.datepicker.SingleDateSelector.getSelection is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midSingleDateSelectorGetSelection0,
+			midSingleDateSelectorGetSelection,
 		)
 		if callErr != nil {
 			return callErr
@@ -385,61 +391,6 @@ func (m *SingleDateSelector) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 		return callErr
 	})
 	return callErr
-}
-
-// SetSelection1_1 calls com.google.android.material.datepicker.SingleDateSelector.setSelection.
-func (m *SingleDateSelector) SetSelection1_1(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSingleDateSelectorSetSelection1_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.datepicker.SingleDateSelector.setSelection is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSingleDateSelectorSetSelection1_1, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// GetSelection0_1 calls com.google.android.material.datepicker.SingleDateSelector.getSelection.
-func (m *SingleDateSelector) GetSelection0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSingleDateSelectorGetSelection0_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.datepicker.SingleDateSelector.getSelection is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midSingleDateSelectorGetSelection0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls com.google.android.material.datepicker.SingleDateSelector.toString.

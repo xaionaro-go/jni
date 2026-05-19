@@ -23,6 +23,35 @@ type RequestCompatBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRequestCompatBuilder creates a new androidx.core.location.LocationRequestCompat$Builder instance.
+func NewRequestCompatBuilder(vm *jni.VM, arg0 int64) (*RequestCompatBuilder, error) {
+	var t RequestCompatBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRequestCompatBuilder == nil {
+			return fmt.Errorf("androidx.core.location.LocationRequestCompat$Builder is not available on this device")
+		}
+		if midRequestCompatBuilderCtor == nil {
+			return fmt.Errorf("androidx.core.location.LocationRequestCompat$Builder constructor (J)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRequestCompatBuilder)), midRequestCompatBuilderCtor, jni.LongValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetIntervalMillis calls androidx.core.location.LocationRequestCompat$Builder.setIntervalMillis.
 func (m *RequestCompatBuilder) SetIntervalMillis(arg0 int64) (*jni.Object, error) {
 	var result *jni.Object

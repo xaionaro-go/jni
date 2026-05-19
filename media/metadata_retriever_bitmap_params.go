@@ -23,6 +23,34 @@ type MetadataRetrieverBitmapParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMetadataRetrieverBitmapParams creates a new android.media.MediaMetadataRetriever$BitmapParams instance.
+func NewMetadataRetrieverBitmapParams(vm *jni.VM) (*MetadataRetrieverBitmapParams, error) {
+	var t MetadataRetrieverBitmapParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMetadataRetrieverBitmapParams == nil {
+			return fmt.Errorf("android.media.MediaMetadataRetriever$BitmapParams is not available on this device")
+		}
+		if midMetadataRetrieverBitmapParamsCtor == nil {
+			return fmt.Errorf("android.media.MediaMetadataRetriever$BitmapParams constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMetadataRetrieverBitmapParams)), midMetadataRetrieverBitmapParamsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetActualConfig calls android.media.MediaMetadataRetriever$BitmapParams.getActualConfig.
 func (m *MetadataRetrieverBitmapParams) GetActualConfig() (*jni.Object, error) {
 	var result *jni.Object

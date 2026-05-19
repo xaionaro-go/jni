@@ -32,6 +32,12 @@ func NewURLUtil(vm *jni.VM) (*URLUtil, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsURLUtil == nil {
+			return fmt.Errorf("android.webkit.URLUtil is not available on this device")
+		}
+		if midURLUtilCtor == nil {
+			return fmt.Errorf("android.webkit.URLUtil constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsURLUtil)), midURLUtilCtor)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewOverScroller(vm *jni.VM, arg0 *jni.Object) (*OverScroller, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsOverScroller == nil {
+			return fmt.Errorf("android.widget.OverScroller is not available on this device")
+		}
+		if midOverScrollerCtor == nil {
+			return fmt.Errorf("android.widget.OverScroller constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsOverScroller)), midOverScrollerCtor, jni.ObjectValue(arg0))
 		if err != nil {

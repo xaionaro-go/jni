@@ -23,6 +23,35 @@ type ContextBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewContextBuilder creates a new android.view.translation.TranslationContext$Builder instance.
+func NewContextBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ContextBuilder, error) {
+	var t ContextBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsContextBuilder == nil {
+			return fmt.Errorf("android.view.translation.TranslationContext$Builder is not available on this device")
+		}
+		if midContextBuilderCtor == nil {
+			return fmt.Errorf("android.view.translation.TranslationContext$Builder constructor (Landroid/view/translation/TranslationSpec;Landroid/view/translation/TranslationSpec;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContextBuilder)), midContextBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.view.translation.TranslationContext$Builder.build.
 func (m *ContextBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

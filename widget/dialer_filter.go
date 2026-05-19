@@ -32,6 +32,12 @@ func NewDialerFilter(vm *jni.VM, arg0 *jni.Object) (*DialerFilter, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDialerFilter == nil {
+			return fmt.Errorf("android.widget.DialerFilter is not available on this device")
+		}
+		if midDialerFilterCtor == nil {
+			return fmt.Errorf("android.widget.DialerFilter constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDialerFilter)), midDialerFilterCtor, jni.ObjectValue(arg0))
 		if err != nil {

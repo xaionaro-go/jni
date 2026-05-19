@@ -32,6 +32,12 @@ func NewSession2Command(vm *jni.VM, arg0 int32) (*Session2Command, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSession2Command == nil {
+			return fmt.Errorf("android.media.Session2Command is not available on this device")
+		}
+		if midSession2CommandCtor == nil {
+			return fmt.Errorf("android.media.Session2Command constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSession2Command)), midSession2CommandCtor, jni.IntValue(arg0))
 		if err != nil {
@@ -208,29 +214,6 @@ func (m *Session2Command) HashCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.media.Session2Command.writeToParcel.
-func (m *Session2Command) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSession2CommandWriteToParcel == nil {
-			callErr = fmt.Errorf("android.media.Session2Command.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSession2CommandWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.media.Session2Command.toString.
 func (m *Session2Command) ToString() (string, error) {
 	var result string
@@ -256,4 +239,27 @@ func (m *Session2Command) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.media.Session2Command.writeToParcel.
+func (m *Session2Command) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSession2CommandWriteToParcel == nil {
+			callErr = fmt.Errorf("android.media.Session2Command.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSession2Command)),
+			midSession2CommandWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

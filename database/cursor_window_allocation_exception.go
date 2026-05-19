@@ -32,6 +32,12 @@ func NewCursorWindowAllocationException(vm *jni.VM, arg0 string) (*CursorWindowA
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCursorWindowAllocationException == nil {
+			return fmt.Errorf("android.database.CursorWindowAllocationException is not available on this device")
+		}
+		if midCursorWindowAllocationExceptionCtor == nil {
+			return fmt.Errorf("android.database.CursorWindowAllocationException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

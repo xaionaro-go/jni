@@ -23,6 +23,34 @@ type KeyFrameArrayCustomArray struct {
 	Obj *jni.GlobalRef
 }
 
+// NewKeyFrameArrayCustomArray creates a new androidx.constraintlayout.core.motion.utils.KeyFrameArray$CustomArray instance.
+func NewKeyFrameArrayCustomArray(vm *jni.VM) (*KeyFrameArrayCustomArray, error) {
+	var t KeyFrameArrayCustomArray
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsKeyFrameArrayCustomArray == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.KeyFrameArray$CustomArray is not available on this device")
+		}
+		if midKeyFrameArrayCustomArrayCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.KeyFrameArray$CustomArray constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyFrameArrayCustomArray)), midKeyFrameArrayCustomArrayCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Clear calls androidx.constraintlayout.core.motion.utils.KeyFrameArray$CustomArray.clear.
 func (m *KeyFrameArrayCustomArray) Clear() error {
 

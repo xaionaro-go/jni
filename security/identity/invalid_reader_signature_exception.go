@@ -32,6 +32,12 @@ func NewInvalidReaderSignatureException(vm *jni.VM, arg0 string) (*InvalidReader
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInvalidReaderSignatureException == nil {
+			return fmt.Errorf("android.security.identity.InvalidReaderSignatureException is not available on this device")
+		}
+		if midInvalidReaderSignatureExceptionCtor == nil {
+			return fmt.Errorf("android.security.identity.InvalidReaderSignatureException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

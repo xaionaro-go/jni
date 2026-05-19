@@ -23,6 +23,35 @@ type TypefaceCompatResourcesCallbackAdapter struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTypefaceCompatResourcesCallbackAdapter creates a new androidx.core.graphics.TypefaceCompat$ResourcesCallbackAdapter instance.
+func NewTypefaceCompatResourcesCallbackAdapter(vm *jni.VM, arg0 *jni.Object) (*TypefaceCompatResourcesCallbackAdapter, error) {
+	var t TypefaceCompatResourcesCallbackAdapter
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTypefaceCompatResourcesCallbackAdapter == nil {
+			return fmt.Errorf("androidx.core.graphics.TypefaceCompat$ResourcesCallbackAdapter is not available on this device")
+		}
+		if midTypefaceCompatResourcesCallbackAdapterCtor == nil {
+			return fmt.Errorf("androidx.core.graphics.TypefaceCompat$ResourcesCallbackAdapter constructor (Landroidx/core/content/res/ResourcesCompat$FontCallback;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTypefaceCompatResourcesCallbackAdapter)), midTypefaceCompatResourcesCallbackAdapterCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnTypefaceRetrieved calls androidx.core.graphics.TypefaceCompat$ResourcesCallbackAdapter.onTypefaceRetrieved.
 func (m *TypefaceCompatResourcesCallbackAdapter) OnTypefaceRetrieved(arg0 *jni.Object) error {
 

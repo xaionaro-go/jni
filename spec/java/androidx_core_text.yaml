@@ -5,53 +5,6 @@
 package: text
 go_import: github.com/AndroidGoLab/jni/androidx/core/text
 classes:
-    - java_class: androidx.core.text.StringKt
-      go_type: StringKt
-      static_methods:
-        - java_method: htmlEncode
-          go_name: HtmlEncode
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: String
-          error: true
-    - java_class: androidx.core.text.TextDirectionHeuristicCompat
-      go_type: DirectionHeuristicCompat
-      methods:
-        - java_method: isRtl
-          go_name: IsRtl3
-          params:
-            - java_type: char[]
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: boolean
-          error: true
-        - java_method: isRtl
-          go_name: IsRtl3_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: boolean
-          error: true
-    - java_class: androidx.core.text.SpannableStringBuilderKt
-      go_type: SpannableStringBuilderKt
-    - java_class: androidx.core.text.ICUCompat
-      go_type: ICUCompat
-      static_methods:
-        - java_method: maximizeAndGetScript
-          go_name: MaximizeAndGetScript
-          params:
-            - java_type: java.util.Locale
-              go_name: arg0
-          returns: String
-          error: true
     - java_class: androidx.core.text.HtmlCompat
       go_type: HtmlCompat
       static_methods:
@@ -73,6 +26,73 @@ classes:
               go_name: arg1
           returns: String
           error: true
+    - java_class: androidx.core.text.TextDirectionHeuristicsCompat
+      go_type: DirectionHeuristicsCompat
+    - java_class: androidx.core.text.HtmlKt
+      go_type: HtmlKt
+      static_methods:
+        - java_method: toHtml
+          go_name: ToHtml
+          params:
+            - java_type: android.text.Spanned
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: String
+          error: true
+    - java_class: androidx.core.text.LocaleKt
+      go_type: LocaleKt
+      static_methods:
+        - java_method: getLayoutDirection
+          go_name: GetLayoutDirection
+          params:
+            - java_type: java.util.Locale
+              go_name: arg0
+          returns: int
+          error: true
+    - java_class: androidx.core.text.SpannableStringKt
+      go_type: SpannableStringKt
+      static_methods:
+        - java_method: toSpannable
+          go_name: ToSpannable
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.text.Spannable
+          error: true
+        - java_method: clearSpans
+          go_name: ClearSpans
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: set
+          go_name: Set4
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: java.lang.Object
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: set
+          go_name: Set3_1
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: kotlin.ranges.IntRange
+              go_name: arg1
+            - java_type: java.lang.Object
+              go_name: arg2
+          returns: void
+          error: true
+    - java_class: androidx.core.text.SpannableStringBuilderKt
+      go_type: SpannableStringBuilderKt
     - java_class: androidx.core.text.PrecomputedTextCompat
       go_type: PrecomputedTextCompat
       methods:
@@ -174,10 +194,6 @@ classes:
               go_name: arg1
           returns: java.lang.CharSequence
           error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
       static_methods:
         - java_method: create
           go_name: Create
@@ -199,8 +215,16 @@ classes:
               go_name: arg2
           returns: java.util.concurrent.Future<androidx.core.text.PrecomputedTextCompat>
           error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
     - java_class: androidx.core.text.PrecomputedTextCompat$Params
       go_type: PrecomputedTextCompatParams
+      obtain: constructor
+      constructor_params:
+        - java_type: android.text.PrecomputedText$Params
+          go_name: arg0
       methods:
         - java_method: getTextPaint
           go_name: GetTextPaint
@@ -239,6 +263,35 @@ classes:
         - java_method: toString
           go_name: ToString
           returns: String
+          error: true
+    - java_class: androidx.core.text.StringKt
+      go_type: StringKt
+      static_methods:
+        - java_method: htmlEncode
+          go_name: HtmlEncode
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: String
+          error: true
+    - java_class: androidx.core.text.SpannedStringKt
+      go_type: SpannedStringKt
+    - java_class: androidx.core.text.TextUtilsCompat
+      go_type: UtilsCompat
+      static_methods:
+        - java_method: htmlEncode
+          go_name: HtmlEncode
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getLayoutDirectionFromLocale
+          go_name: GetLayoutDirectionFromLocale
+          params:
+            - java_type: java.util.Locale
+              go_name: arg0
+          returns: int
           error: true
     - java_class: androidx.core.text.BidiFormatter
       go_type: BidiFormatter
@@ -330,13 +383,6 @@ classes:
               go_name: arg0
           returns: String
           error: true
-        - java_method: unicodeWrap
-          go_name: UnicodeWrap1_7
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: java.lang.CharSequence
-          error: true
       static_methods:
         - java_method: getInstance
           go_name: GetInstance0
@@ -356,8 +402,16 @@ classes:
               go_name: arg0
           returns: androidx.core.text.BidiFormatter
           error: true
+        - java_method: unicodeWrap
+          go_name: UnicodeWrap1_7
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: java.lang.CharSequence
+          error: true
     - java_class: androidx.core.text.BidiFormatter$Builder
       go_type: BidiFormatterBuilder
+      obtain: constructor
       methods:
         - java_method: stereoReset
           go_name: StereoReset
@@ -377,79 +431,14 @@ classes:
           go_name: Build
           returns: androidx.core.text.BidiFormatter
           error: true
-    - java_class: androidx.core.text.SpannableStringKt
-      go_type: SpannableStringKt
+    - java_class: androidx.core.text.ICUCompat
+      go_type: ICUCompat
       static_methods:
-        - java_method: toSpannable
-          go_name: ToSpannable
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.text.Spannable
-          error: true
-        - java_method: clearSpans
-          go_name: ClearSpans
-          params:
-            - java_type: android.text.Spannable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: set
-          go_name: Set4
-          params:
-            - java_type: android.text.Spannable
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: java.lang.Object
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: set
-          go_name: Set3_1
-          params:
-            - java_type: android.text.Spannable
-              go_name: arg0
-            - java_type: kotlin.ranges.IntRange
-              go_name: arg1
-            - java_type: java.lang.Object
-              go_name: arg2
-          returns: void
-          error: true
-    - java_class: androidx.core.text.LocaleKt
-      go_type: LocaleKt
-      static_methods:
-        - java_method: getLayoutDirection
-          go_name: GetLayoutDirection
+        - java_method: maximizeAndGetScript
+          go_name: MaximizeAndGetScript
           params:
             - java_type: java.util.Locale
               go_name: arg0
-          returns: int
-          error: true
-    - java_class: androidx.core.text.TextDirectionHeuristicsCompat
-      go_type: DirectionHeuristicsCompat
-    - java_class: androidx.core.text.SpannedStringKt
-      go_type: SpannedStringKt
-      static_methods:
-        - java_method: toSpanned
-          go_name: ToSpanned
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.text.Spanned
-          error: true
-    - java_class: androidx.core.text.HtmlKt
-      go_type: HtmlKt
-      static_methods:
-        - java_method: toHtml
-          go_name: ToHtml
-          params:
-            - java_type: android.text.Spanned
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
           returns: String
           error: true
     - java_class: androidx.core.text.CharSequenceKt
@@ -469,22 +458,30 @@ classes:
               go_name: arg0
           returns: int
           error: true
-    - java_class: androidx.core.text.TextUtilsCompat
-      go_type: UtilsCompat
-      static_methods:
-        - java_method: htmlEncode
-          go_name: HtmlEncode
+    - java_class: androidx.core.text.TextDirectionHeuristicCompat
+      go_type: DirectionHeuristicCompat
+      methods:
+        - java_method: isRtl
+          go_name: IsRtl3
           params:
-            - java_type: String
+            - java_type: char[]
               go_name: arg0
-          returns: String
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: boolean
           error: true
-        - java_method: getLayoutDirectionFromLocale
-          go_name: GetLayoutDirectionFromLocale
+        - java_method: isRtl
+          go_name: IsRtl3_1
           params:
-            - java_type: java.util.Locale
+            - java_type: java.lang.CharSequence
               go_name: arg0
-          returns: int
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: boolean
           error: true
 constants:
     - go_name: ToHtmlParagraphLinesConsecutive

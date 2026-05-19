@@ -23,6 +23,35 @@ type JoinSpecBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewJoinSpecBuilder creates a new android.app.appsearch.JoinSpec$Builder instance.
+func NewJoinSpecBuilder(vm *jni.VM, arg0 *jni.Object) (*JoinSpecBuilder, error) {
+	var t JoinSpecBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsJoinSpecBuilder == nil {
+			return fmt.Errorf("android.app.appsearch.JoinSpec$Builder is not available on this device")
+		}
+		if midJoinSpecBuilderCtor == nil {
+			return fmt.Errorf("android.app.appsearch.JoinSpec$Builder constructor (Landroid/app/appsearch/JoinSpec;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsJoinSpecBuilder)), midJoinSpecBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.app.appsearch.JoinSpec$Builder.build.
 func (m *JoinSpecBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

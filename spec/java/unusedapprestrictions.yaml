@@ -7,7 +7,7 @@ go_import: github.com/AndroidGoLab/jni/androidx/core/app/unusedapprestrictions
 classes:
     - java_class: androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportService
       go_type: IUnusedAppRestrictionsBackportService
-      methods:
+      static_methods:
         - java_method: isPermissionRevocationEnabledForApp
           go_name: IsPermissionRevocationEnabledForApp
           params:
@@ -17,6 +17,7 @@ classes:
           error: true
     - java_class: androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportService$Default
       go_type: IUnusedAppRestrictionsBackportServiceDefault
+      obtain: constructor
       methods:
         - java_method: isPermissionRevocationEnabledForApp
           go_name: IsPermissionRevocationEnabledForApp
@@ -59,7 +60,7 @@ classes:
           error: true
     - java_class: androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportCallback
       go_type: IUnusedAppRestrictionsBackportCallback
-      methods:
+      static_methods:
         - java_method: onIsPermissionRevocationEnabledForAppResult
           go_name: OnIsPermissionRevocationEnabledForAppResult
           params:
@@ -71,6 +72,7 @@ classes:
           error: true
     - java_class: androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportCallback$Default
       go_type: IUnusedAppRestrictionsBackportCallbackDefault
+      obtain: constructor
       methods:
         - java_method: onIsPermissionRevocationEnabledForAppResult
           go_name: OnIsPermissionRevocationEnabledForAppResult
@@ -113,37 +115,13 @@ classes:
               go_name: arg0
           returns: androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportCallback
           error: true
-abstract_callbacks:
+abstract_callback_eligibility:
     - java_class: androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportService$Stub
-      go_type: IUnusedAppRestrictionsBackportServiceStubCallback
-      methods:
-        - java_method: asBinder
-          params: []
-          returns: android.os.IBinder
-          go_field: AsBinder
-        - java_method: onTransact
-          params:
-            - int
-            - android.os.Parcel
-            - android.os.Parcel
-            - int
-          returns: boolean
-          go_field: OnTransact
+      generated: false
+      reason: implements_interface
     - java_class: androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportCallback$Stub
-      go_type: IUnusedAppRestrictionsBackportCallbackStubCallback
-      methods:
-        - java_method: asBinder
-          params: []
-          returns: android.os.IBinder
-          go_field: AsBinder
-        - java_method: onTransact
-          params:
-            - int
-            - android.os.Parcel
-            - android.os.Parcel
-            - int
-          returns: boolean
-          go_field: OnTransact
+      generated: false
+      reason: implements_interface
 constants:
     - go_name: Descriptor
       value: '""'

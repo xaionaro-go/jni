@@ -32,6 +32,12 @@ func NewContent(vm *jni.VM) (*Content, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsContent == nil {
+			return fmt.Errorf("android.app.assist.AssistContent is not available on this device")
+		}
+		if midContentCtor == nil {
+			return fmt.Errorf("android.app.assist.AssistContent constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContent)), midContentCtor)
 		if err != nil {
 			return err
@@ -431,29 +437,6 @@ func (m *Content) SetWebUri(arg0 *jni.Object) error {
 	return callErr
 }
 
-// WriteToParcel calls android.app.assist.AssistContent.writeToParcel.
-func (m *Content) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midContentWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.assist.AssistContent.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midContentWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.assist.AssistContent.toString.
 func (m *Content) ToString() (string, error) {
 	var result string
@@ -479,4 +462,27 @@ func (m *Content) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.assist.AssistContent.writeToParcel.
+func (m *Content) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midContentWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.assist.AssistContent.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsContent)),
+			midContentWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

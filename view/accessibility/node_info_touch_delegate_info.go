@@ -23,6 +23,35 @@ type NodeInfoTouchDelegateInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNodeInfoTouchDelegateInfo creates a new android.view.accessibility.AccessibilityNodeInfo$TouchDelegateInfo instance.
+func NewNodeInfoTouchDelegateInfo(vm *jni.VM, arg0 *jni.Object) (*NodeInfoTouchDelegateInfo, error) {
+	var t NodeInfoTouchDelegateInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNodeInfoTouchDelegateInfo == nil {
+			return fmt.Errorf("android.view.accessibility.AccessibilityNodeInfo$TouchDelegateInfo is not available on this device")
+		}
+		if midNodeInfoTouchDelegateInfoCtor == nil {
+			return fmt.Errorf("android.view.accessibility.AccessibilityNodeInfo$TouchDelegateInfo constructor (Ljava/util/Map;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNodeInfoTouchDelegateInfo)), midNodeInfoTouchDelegateInfoCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.view.accessibility.AccessibilityNodeInfo$TouchDelegateInfo.describeContents.
 func (m *NodeInfoTouchDelegateInfo) DescribeContents() (int32, error) {
 	var result int32
@@ -139,29 +168,6 @@ func (m *NodeInfoTouchDelegateInfo) GetTargetForRegion(arg0 *jni.Object) (*jni.O
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.accessibility.AccessibilityNodeInfo$TouchDelegateInfo.writeToParcel.
-func (m *NodeInfoTouchDelegateInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midNodeInfoTouchDelegateInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.accessibility.AccessibilityNodeInfo$TouchDelegateInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midNodeInfoTouchDelegateInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.view.accessibility.AccessibilityNodeInfo$TouchDelegateInfo.toString.
 func (m *NodeInfoTouchDelegateInfo) ToString() (string, error) {
 	var result string
@@ -187,4 +193,27 @@ func (m *NodeInfoTouchDelegateInfo) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.accessibility.AccessibilityNodeInfo$TouchDelegateInfo.writeToParcel.
+func (m *NodeInfoTouchDelegateInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midNodeInfoTouchDelegateInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.accessibility.AccessibilityNodeInfo$TouchDelegateInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsNodeInfoTouchDelegateInfo)),
+			midNodeInfoTouchDelegateInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

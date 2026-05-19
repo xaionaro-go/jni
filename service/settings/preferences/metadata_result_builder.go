@@ -23,6 +23,35 @@ type MetadataResultBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMetadataResultBuilder creates a new android.service.settings.preferences.MetadataResult$Builder instance.
+func NewMetadataResultBuilder(vm *jni.VM, arg0 int32) (*MetadataResultBuilder, error) {
+	var t MetadataResultBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMetadataResultBuilder == nil {
+			return fmt.Errorf("android.service.settings.preferences.MetadataResult$Builder is not available on this device")
+		}
+		if midMetadataResultBuilderCtor == nil {
+			return fmt.Errorf("android.service.settings.preferences.MetadataResult$Builder constructor (I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMetadataResultBuilder)), midMetadataResultBuilderCtor, jni.IntValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.service.settings.preferences.MetadataResult$Builder.build.
 func (m *MetadataResultBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

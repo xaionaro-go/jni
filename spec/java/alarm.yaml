@@ -162,6 +162,12 @@ classes:
           error: true
     - java_class: android.app.AlarmManager$AlarmClockInfo
       go_type: ManagerAlarmClockInfo
+      obtain: constructor
+      constructor_params:
+        - java_type: long
+          go_name: arg0
+        - java_type: android.app.PendingIntent
+          go_name: arg1
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -175,6 +181,7 @@ classes:
           go_name: GetTriggerTime
           returns: long
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:

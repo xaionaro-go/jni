@@ -23,6 +23,44 @@ type DynamicsProcessingStage struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDynamicsProcessingStage creates a new android.media.audiofx.DynamicsProcessing$Stage instance.
+func NewDynamicsProcessingStage(vm *jni.VM, arg0 bool, arg1 bool) (*DynamicsProcessingStage, error) {
+	var t DynamicsProcessingStage
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDynamicsProcessingStage == nil {
+			return fmt.Errorf("android.media.audiofx.DynamicsProcessing$Stage is not available on this device")
+		}
+		if midDynamicsProcessingStageCtor == nil {
+			return fmt.Errorf("android.media.audiofx.DynamicsProcessing$Stage constructor (ZZ)V is not available on this device")
+		}
+		var jArg0 uint8
+		if arg0 {
+			jArg0 = jniTrue
+		}
+
+		var jArg1 uint8
+		if arg1 {
+			jArg1 = jniTrue
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDynamicsProcessingStage)), midDynamicsProcessingStageCtor, jni.BooleanValue(jArg0), jni.BooleanValue(jArg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // IsEnabled calls android.media.audiofx.DynamicsProcessing$Stage.isEnabled.
 func (m *DynamicsProcessingStage) IsEnabled() (bool, error) {
 	var result bool

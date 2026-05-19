@@ -23,6 +23,34 @@ type IpConfigurationBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewIpConfigurationBuilder creates a new android.net.IpConfiguration$Builder instance.
+func NewIpConfigurationBuilder(vm *jni.VM) (*IpConfigurationBuilder, error) {
+	var t IpConfigurationBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsIpConfigurationBuilder == nil {
+			return fmt.Errorf("android.net.IpConfiguration$Builder is not available on this device")
+		}
+		if midIpConfigurationBuilderCtor == nil {
+			return fmt.Errorf("android.net.IpConfiguration$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIpConfigurationBuilder)), midIpConfigurationBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.IpConfiguration$Builder.build.
 func (m *IpConfigurationBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

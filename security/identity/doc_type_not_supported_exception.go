@@ -32,6 +32,12 @@ func NewDocTypeNotSupportedException(vm *jni.VM, arg0 string) (*DocTypeNotSuppor
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDocTypeNotSupportedException == nil {
+			return fmt.Errorf("android.security.identity.DocTypeNotSupportedException is not available on this device")
+		}
+		if midDocTypeNotSupportedExceptionCtor == nil {
+			return fmt.Errorf("android.security.identity.DocTypeNotSupportedException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

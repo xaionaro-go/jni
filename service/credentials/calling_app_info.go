@@ -32,6 +32,12 @@ func NewCallingAppInfo(vm *jni.VM, arg0 string, arg1 *jni.Object) (*CallingAppIn
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCallingAppInfo == nil {
+			return fmt.Errorf("android.service.credentials.CallingAppInfo is not available on this device")
+		}
+		if midCallingAppInfoCtor == nil {
+			return fmt.Errorf("android.service.credentials.CallingAppInfo constructor (Ljava/lang/String;Landroid/content/pm/SigningInfo;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -203,8 +209,8 @@ func (m *CallingAppInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsCallingAppInfo)),
 			midCallingAppInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

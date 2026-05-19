@@ -23,6 +23,34 @@ type RecyclerViewRecycledViewPool struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRecyclerViewRecycledViewPool creates a new androidx.recyclerview.widget.RecyclerView$RecycledViewPool instance.
+func NewRecyclerViewRecycledViewPool(vm *jni.VM) (*RecyclerViewRecycledViewPool, error) {
+	var t RecyclerViewRecycledViewPool
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRecyclerViewRecycledViewPool == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.RecyclerView$RecycledViewPool is not available on this device")
+		}
+		if midRecyclerViewRecycledViewPoolCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.RecyclerView$RecycledViewPool constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRecyclerViewRecycledViewPool)), midRecyclerViewRecycledViewPoolCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Clear calls androidx.recyclerview.widget.RecyclerView$RecycledViewPool.clear.
 func (m *RecyclerViewRecycledViewPool) Clear() error {
 

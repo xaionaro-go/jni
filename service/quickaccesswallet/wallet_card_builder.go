@@ -23,6 +23,46 @@ type WalletCardBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWalletCardBuilder creates a new android.service.quickaccesswallet.WalletCard$Builder instance.
+func NewWalletCardBuilder(vm *jni.VM, arg0 string, arg1 *jni.Object, arg2 string, arg3 *jni.Object) (*WalletCardBuilder, error) {
+	var t WalletCardBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWalletCardBuilder == nil {
+			return fmt.Errorf("android.service.quickaccesswallet.WalletCard$Builder is not available on this device")
+		}
+		if midWalletCardBuilderCtor == nil {
+			return fmt.Errorf("android.service.quickaccesswallet.WalletCard$Builder constructor (Ljava/lang/String;Landroid/graphics/drawable/Icon;Ljava/lang/CharSequence;Landroid/app/PendingIntent;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		jArg2, err := env.NewStringUTF(arg2)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg2.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWalletCardBuilder)), midWalletCardBuilderCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1), jni.ObjectValue(&jArg2.Object), jni.ObjectValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.service.quickaccesswallet.WalletCard$Builder.build.
 func (m *WalletCardBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

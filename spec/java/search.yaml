@@ -5,334 +5,6 @@
 package: search
 go_import: github.com/AndroidGoLab/jni/com/google/android/material/search
 classes:
-    - java_class: com.google.android.material.search.SearchView
-      go_type: View
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: addView
-          go_name: AddView
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.view.ViewGroup$LayoutParams
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: setElevation
-          go_name: SetElevation
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getBehavior
-          go_name: GetBehavior
-          returns: androidx.coordinatorlayout.widget.CoordinatorLayout$Behavior<com.google.android.material.search.SearchView>
-          error: true
-        - java_method: startBackProgress
-          go_name: StartBackProgress
-          params:
-            - java_type: androidx.activity.BackEventCompat
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: updateBackProgress
-          go_name: UpdateBackProgress
-          params:
-            - java_type: androidx.activity.BackEventCompat
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: handleBackInvoked
-          go_name: HandleBackInvoked
-          returns: void
-          error: true
-        - java_method: cancelBackProgress
-          go_name: CancelBackProgress
-          returns: void
-          error: true
-        - java_method: isSetupWithSearchBar
-          go_name: IsSetupWithSearchBar
-          returns: boolean
-          error: true
-        - java_method: setupWithSearchBar
-          go_name: SetupWithSearchBar
-          params:
-            - java_type: com.google.android.material.search.SearchBar
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: addHeaderView
-          go_name: AddHeaderView
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeHeaderView
-          go_name: RemoveHeaderView
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeAllHeaderViews
-          go_name: RemoveAllHeaderViews
-          returns: void
-          error: true
-        - java_method: setAnimatedNavigationIcon
-          go_name: SetAnimatedNavigationIcon
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isAnimatedNavigationIcon
-          go_name: IsAnimatedNavigationIcon
-          returns: boolean
-          error: true
-        - java_method: setMenuItemsAnimated
-          go_name: SetMenuItemsAnimated
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isMenuItemsAnimated
-          go_name: IsMenuItemsAnimated
-          returns: boolean
-          error: true
-        - java_method: setAutoShowKeyboard
-          go_name: SetAutoShowKeyboard
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isAutoShowKeyboard
-          go_name: IsAutoShowKeyboard
-          returns: boolean
-          error: true
-        - java_method: setUseWindowInsetsController
-          go_name: SetUseWindowInsetsController
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isUseWindowInsetsController
-          go_name: IsUseWindowInsetsController
-          returns: boolean
-          error: true
-        - java_method: addTransitionListener
-          go_name: AddTransitionListener
-          params:
-            - java_type: com.google.android.material.search.SearchView$TransitionListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeTransitionListener
-          go_name: RemoveTransitionListener
-          params:
-            - java_type: com.google.android.material.search.SearchView$TransitionListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: inflateMenu
-          go_name: InflateMenu
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setOnMenuItemClickListener
-          go_name: SetOnMenuItemClickListener
-          params:
-            - java_type: androidx.appcompat.widget.Toolbar$OnMenuItemClickListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getSearchPrefix
-          go_name: GetSearchPrefix
-          returns: android.widget.TextView
-          error: true
-        - java_method: setSearchPrefixText
-          go_name: SetSearchPrefixText
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getSearchPrefixText
-          go_name: GetSearchPrefixText
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getToolbar
-          go_name: GetToolbar
-          returns: androidx.appcompat.widget.Toolbar
-          error: true
-        - java_method: getEditText
-          go_name: GetEditText
-          returns: android.widget.EditText
-          error: true
-        - java_method: getText
-          go_name: GetText
-          returns: android.text.Editable
-          error: true
-        - java_method: setText
-          go_name: SetText1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setText
-          go_name: SetText1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: clearText
-          go_name: ClearText
-          returns: void
-          error: true
-        - java_method: getHint
-          go_name: GetHint
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: setHint
-          go_name: SetHint1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setHint
-          go_name: SetHint1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getSoftInputMode
-          go_name: GetSoftInputMode
-          returns: int
-          error: true
-        - java_method: updateSoftInputMode
-          go_name: UpdateSoftInputMode
-          returns: void
-          error: true
-        - java_method: setStatusBarSpacerEnabled
-          go_name: SetStatusBarSpacerEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getCurrentTransitionState
-          go_name: GetCurrentTransitionState
-          returns: com.google.android.material.search.SearchView$TransitionState
-          error: true
-        - java_method: isShowing
-          go_name: IsShowing
-          returns: boolean
-          error: true
-        - java_method: show
-          go_name: Show
-          returns: void
-          error: true
-        - java_method: hide
-          go_name: Hide
-          returns: void
-          error: true
-        - java_method: setVisible
-          go_name: SetVisible
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: requestFocusAndShowKeyboard
-          go_name: RequestFocusAndShowKeyboard
-          returns: void
-          error: true
-        - java_method: clearFocusAndHideKeyboard
-          go_name: ClearFocusAndHideKeyboard
-          returns: void
-          error: true
-        - java_method: setModalForAccessibility
-          go_name: SetModalForAccessibility
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setToolbarTouchscreenBlocksFocus
-          go_name: SetToolbarTouchscreenBlocksFocus
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: com.google.android.material.search.SearchView$Behavior
-      go_type: ViewBehavior
-      methods:
-        - java_method: onDependentViewChanged
-          go_name: OnDependentViewChanged3
-          params:
-            - java_type: androidx.coordinatorlayout.widget.CoordinatorLayout
-              go_name: arg0
-            - java_type: com.google.android.material.search.SearchView
-              go_name: arg1
-            - java_type: android.view.View
-              go_name: arg2
-          returns: boolean
-          error: true
-        - java_method: onDependentViewChanged
-          go_name: OnDependentViewChanged3_1
-          params:
-            - java_type: androidx.coordinatorlayout.widget.CoordinatorLayout
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: android.view.View
-              go_name: arg2
-          returns: boolean
-          error: true
-    - java_class: com.google.android.material.search.SearchView$TransitionListener
-      go_type: ViewTransitionListener
-      methods:
-        - java_method: onStateChanged
-          go_name: OnStateChanged
-          params:
-            - java_type: com.google.android.material.search.SearchView
-              go_name: arg0
-            - java_type: com.google.android.material.search.SearchView$TransitionState
-              go_name: arg1
-            - java_type: com.google.android.material.search.SearchView$TransitionState
-              go_name: arg2
-          returns: void
-          error: true
-    - java_class: com.google.android.material.search.SearchView$TransitionState
-      go_type: ViewTransitionState
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: com.google.android.material.search.SearchView$TransitionState[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: com.google.android.material.search.SearchView$TransitionState
-          error: true
     - java_class: com.google.android.material.search.SearchBar
       go_type: Bar
       obtain: constructor
@@ -628,6 +300,12 @@ classes:
           error: true
     - java_class: com.google.android.material.search.SearchBar$ScrollingViewBehavior
       go_type: BarScrollingViewBehavior
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.util.AttributeSet
+          go_name: arg1
       methods:
         - java_method: onDependentViewChanged
           go_name: OnDependentViewChanged
@@ -639,6 +317,329 @@ classes:
             - java_type: android.view.View
               go_name: arg2
           returns: boolean
+          error: true
+    - java_class: com.google.android.material.search.SearchView
+      go_type: View
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: addView
+          go_name: AddView
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.view.ViewGroup$LayoutParams
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: setElevation
+          go_name: SetElevation
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getBehavior
+          go_name: GetBehavior
+          returns: androidx.coordinatorlayout.widget.CoordinatorLayout$Behavior<com.google.android.material.search.SearchView>
+          error: true
+        - java_method: startBackProgress
+          go_name: StartBackProgress
+          params:
+            - java_type: androidx.activity.BackEventCompat
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: updateBackProgress
+          go_name: UpdateBackProgress
+          params:
+            - java_type: androidx.activity.BackEventCompat
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: handleBackInvoked
+          go_name: HandleBackInvoked
+          returns: void
+          error: true
+        - java_method: cancelBackProgress
+          go_name: CancelBackProgress
+          returns: void
+          error: true
+        - java_method: isSetupWithSearchBar
+          go_name: IsSetupWithSearchBar
+          returns: boolean
+          error: true
+        - java_method: setupWithSearchBar
+          go_name: SetupWithSearchBar
+          params:
+            - java_type: com.google.android.material.search.SearchBar
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: addHeaderView
+          go_name: AddHeaderView
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: removeHeaderView
+          go_name: RemoveHeaderView
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: removeAllHeaderViews
+          go_name: RemoveAllHeaderViews
+          returns: void
+          error: true
+        - java_method: setAnimatedNavigationIcon
+          go_name: SetAnimatedNavigationIcon
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isAnimatedNavigationIcon
+          go_name: IsAnimatedNavigationIcon
+          returns: boolean
+          error: true
+        - java_method: setMenuItemsAnimated
+          go_name: SetMenuItemsAnimated
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isMenuItemsAnimated
+          go_name: IsMenuItemsAnimated
+          returns: boolean
+          error: true
+        - java_method: setAutoShowKeyboard
+          go_name: SetAutoShowKeyboard
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isAutoShowKeyboard
+          go_name: IsAutoShowKeyboard
+          returns: boolean
+          error: true
+        - java_method: setUseWindowInsetsController
+          go_name: SetUseWindowInsetsController
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isUseWindowInsetsController
+          go_name: IsUseWindowInsetsController
+          returns: boolean
+          error: true
+        - java_method: addTransitionListener
+          go_name: AddTransitionListener
+          params:
+            - java_type: com.google.android.material.search.SearchView$TransitionListener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: removeTransitionListener
+          go_name: RemoveTransitionListener
+          params:
+            - java_type: com.google.android.material.search.SearchView$TransitionListener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: inflateMenu
+          go_name: InflateMenu
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setOnMenuItemClickListener
+          go_name: SetOnMenuItemClickListener
+          params:
+            - java_type: androidx.appcompat.widget.Toolbar$OnMenuItemClickListener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getSearchPrefix
+          go_name: GetSearchPrefix
+          returns: android.widget.TextView
+          error: true
+        - java_method: setSearchPrefixText
+          go_name: SetSearchPrefixText
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getSearchPrefixText
+          go_name: GetSearchPrefixText
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getToolbar
+          go_name: GetToolbar
+          returns: androidx.appcompat.widget.Toolbar
+          error: true
+        - java_method: getEditText
+          go_name: GetEditText
+          returns: android.widget.EditText
+          error: true
+        - java_method: getText
+          go_name: GetText
+          returns: android.text.Editable
+          error: true
+        - java_method: setText
+          go_name: SetText1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setText
+          go_name: SetText1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: clearText
+          go_name: ClearText
+          returns: void
+          error: true
+        - java_method: getHint
+          go_name: GetHint
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: setHint
+          go_name: SetHint1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setHint
+          go_name: SetHint1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getSoftInputMode
+          go_name: GetSoftInputMode
+          returns: int
+          error: true
+        - java_method: updateSoftInputMode
+          go_name: UpdateSoftInputMode
+          returns: void
+          error: true
+        - java_method: setStatusBarSpacerEnabled
+          go_name: SetStatusBarSpacerEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getCurrentTransitionState
+          go_name: GetCurrentTransitionState
+          returns: com.google.android.material.search.SearchView$TransitionState
+          error: true
+        - java_method: isShowing
+          go_name: IsShowing
+          returns: boolean
+          error: true
+        - java_method: show
+          go_name: Show
+          returns: void
+          error: true
+        - java_method: hide
+          go_name: Hide
+          returns: void
+          error: true
+        - java_method: setVisible
+          go_name: SetVisible
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: requestFocusAndShowKeyboard
+          go_name: RequestFocusAndShowKeyboard
+          returns: void
+          error: true
+        - java_method: clearFocusAndHideKeyboard
+          go_name: ClearFocusAndHideKeyboard
+          returns: void
+          error: true
+        - java_method: setModalForAccessibility
+          go_name: SetModalForAccessibility
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setToolbarTouchscreenBlocksFocus
+          go_name: SetToolbarTouchscreenBlocksFocus
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: com.google.android.material.search.SearchView$Behavior
+      go_type: ViewBehavior
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.util.AttributeSet
+          go_name: arg1
+      methods:
+        - java_method: onDependentViewChanged
+          go_name: OnDependentViewChanged
+          params:
+            - java_type: androidx.coordinatorlayout.widget.CoordinatorLayout
+              go_name: arg0
+            - java_type: com.google.android.material.search.SearchView
+              go_name: arg1
+            - java_type: android.view.View
+              go_name: arg2
+          returns: boolean
+          error: true
+    - java_class: com.google.android.material.search.SearchView$TransitionListener
+      go_type: ViewTransitionListener
+      methods:
+        - java_method: onStateChanged
+          go_name: OnStateChanged
+          params:
+            - java_type: com.google.android.material.search.SearchView
+              go_name: arg0
+            - java_type: com.google.android.material.search.SearchView$TransitionState
+              go_name: arg1
+            - java_type: com.google.android.material.search.SearchView$TransitionState
+              go_name: arg2
+          returns: void
+          error: true
+    - java_class: com.google.android.material.search.SearchView$TransitionState
+      go_type: ViewTransitionState
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: com.google.android.material.search.SearchView$TransitionState[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: com.google.android.material.search.SearchView$TransitionState
           error: true
 abstract_callbacks:
     - java_class: com.google.android.material.search.SearchBar$OnLoadAnimationCallback
@@ -652,6 +653,10 @@ abstract_callbacks:
           params: []
           returns: void
           go_field: OnAnimationEnd
+abstract_callback_eligibility:
+    - java_class: com.google.android.material.search.SearchBar$OnLoadAnimationCallback
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
     - go_name: Hiding
       value: "0"

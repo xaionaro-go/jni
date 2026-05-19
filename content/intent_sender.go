@@ -276,29 +276,6 @@ func (m *IntentSender) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.content.IntentSender.writeToParcel.
-func (m *IntentSender) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midIntentSenderWriteToParcel == nil {
-			callErr = fmt.Errorf("android.content.IntentSender.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midIntentSenderWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ReadIntentSenderOrNullFromParcel calls android.content.IntentSender.readIntentSenderOrNullFromParcel.
 func (m *IntentSender) ReadIntentSenderOrNullFromParcel(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
@@ -349,6 +326,29 @@ func (m *IntentSender) WriteIntentSenderOrNullToParcel(arg0 *jni.Object, arg1 *j
 		callErr = env.CallStaticVoidMethod(
 			(*jni.Class)(unsafe.Pointer(clsIntentSender)),
 			midIntentSenderWriteIntentSenderOrNullToParcel, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
+}
+
+// WriteToParcel calls android.content.IntentSender.writeToParcel.
+func (m *IntentSender) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midIntentSenderWriteToParcel == nil {
+			callErr = fmt.Errorf("android.content.IntentSender.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsIntentSender)),
+			midIntentSenderWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr
 	})

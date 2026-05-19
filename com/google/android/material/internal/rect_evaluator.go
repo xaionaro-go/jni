@@ -32,6 +32,12 @@ func NewRectEvaluator(vm *jni.VM, arg0 *jni.Object) (*RectEvaluator, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRectEvaluator == nil {
+			return fmt.Errorf("com.google.android.material.internal.RectEvaluator is not available on this device")
+		}
+		if midRectEvaluatorCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.RectEvaluator constructor (Landroid/graphics/Rect;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRectEvaluator)), midRectEvaluatorCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -46,8 +52,8 @@ func NewRectEvaluator(vm *jni.VM, arg0 *jni.Object) (*RectEvaluator, error) {
 	return &t, nil
 }
 
-// Evaluate3 calls com.google.android.material.internal.RectEvaluator.evaluate.
-func (m *RectEvaluator) Evaluate3(
+// Evaluate calls com.google.android.material.internal.RectEvaluator.evaluate.
+func (m *RectEvaluator) Evaluate(
 	arg0 float32,
 	arg1 *jni.Object,
 	arg2 *jni.Object,
@@ -59,51 +65,14 @@ func (m *RectEvaluator) Evaluate3(
 			callErr = err
 			return err
 		}
-		if midRectEvaluatorEvaluate3 == nil {
+		if midRectEvaluatorEvaluate == nil {
 			callErr = fmt.Errorf("com.google.android.material.internal.RectEvaluator.evaluate is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midRectEvaluatorEvaluate3, jni.FloatValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Evaluate3_1 calls com.google.android.material.internal.RectEvaluator.evaluate.
-func (m *RectEvaluator) Evaluate3_1(
-	arg0 float32,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRectEvaluatorEvaluate3_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.internal.RectEvaluator.evaluate is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midRectEvaluatorEvaluate3_1, jni.FloatValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
+			midRectEvaluatorEvaluate, jni.FloatValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
 		)
 		if callErr != nil {
 			return callErr

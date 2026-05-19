@@ -23,6 +23,35 @@ type Session2Builder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSession2Builder creates a new android.media.MediaSession2$Builder instance.
+func NewSession2Builder(vm *jni.VM, arg0 *jni.Object) (*Session2Builder, error) {
+	var t Session2Builder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSession2Builder == nil {
+			return fmt.Errorf("android.media.MediaSession2$Builder is not available on this device")
+		}
+		if midSession2BuilderCtor == nil {
+			return fmt.Errorf("android.media.MediaSession2$Builder constructor (Landroid/content/Context;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSession2Builder)), midSession2BuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.media.MediaSession2$Builder.build.
 func (m *Session2Builder) Build() (*jni.Object, error) {
 	var result *jni.Object

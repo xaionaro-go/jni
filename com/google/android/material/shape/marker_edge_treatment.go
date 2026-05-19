@@ -32,6 +32,12 @@ func NewMarkerEdgeTreatment(vm *jni.VM, arg0 float32) (*MarkerEdgeTreatment, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMarkerEdgeTreatment == nil {
+			return fmt.Errorf("com.google.android.material.shape.MarkerEdgeTreatment is not available on this device")
+		}
+		if midMarkerEdgeTreatmentCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.MarkerEdgeTreatment constructor (F)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMarkerEdgeTreatment)), midMarkerEdgeTreatmentCtor, jni.FloatValue(arg0))
 		if err != nil {

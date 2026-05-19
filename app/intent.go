@@ -30,6 +30,12 @@ func NewIntent(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Intent, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsIntent == nil {
+			return fmt.Errorf("android.content.Intent is not available on this device")
+		}
+		if midIntentCtor == nil {
+			return fmt.Errorf("android.content.Intent constructor (Landroid/content/Context;Ljava/lang/Class;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIntent)), midIntentCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -3740,29 +3746,6 @@ func (m *Intent) ToUri(arg0 int32) (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.content.Intent.writeToParcel.
-func (m *Intent) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midIntentWriteToParcel == nil {
-			callErr = fmt.Errorf("android.content.Intent.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midIntentWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // CreateChooser2 calls android.content.Intent.createChooser.
 func (m *Intent) CreateChooser2(arg0 *jni.Object, arg1 string) (*jni.Object, error) {
 	var result *jni.Object
@@ -4137,4 +4120,27 @@ func (m *Intent) ParseUri(arg0 string, arg1 int32) (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.content.Intent.writeToParcel.
+func (m *Intent) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midIntentWriteToParcel == nil {
+			callErr = fmt.Errorf("android.content.Intent.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsIntent)),
+			midIntentWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

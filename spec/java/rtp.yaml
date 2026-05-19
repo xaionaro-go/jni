@@ -5,23 +5,38 @@
 package: rtp
 go_import: github.com/AndroidGoLab/jni/net/rtp
 classes:
-    - java_class: android.net.rtp.AudioCodec
-      go_type: AudioCodec
-      static_methods:
-        - java_method: getCodec
-          go_name: GetCodec
+    - java_class: android.net.rtp.AudioGroup
+      go_type: AudioGroup
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: clear
+          go_name: Clear
+          returns: void
+          error: true
+        - java_method: getMode
+          go_name: GetMode
+          returns: int
+          error: true
+        - java_method: getStreams
+          go_name: GetStreams
+          returns: android.net.rtp.AudioStream[]
+          error: true
+        - java_method: sendDtmf
+          go_name: SendDtmf
           params:
             - java_type: int
               go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: android.net.rtp.AudioCodec
+          returns: void
           error: true
-        - java_method: getCodecs
-          go_name: GetCodecs
-          returns: android.net.rtp.AudioCodec[]
+        - java_method: setMode
+          go_name: SetMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
           error: true
     - java_class: android.net.rtp.AudioStream
       go_type: AudioStream
@@ -67,38 +82,23 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.net.rtp.AudioGroup
-      go_type: AudioGroup
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: clear
-          go_name: Clear
-          returns: void
-          error: true
-        - java_method: getMode
-          go_name: GetMode
-          returns: int
-          error: true
-        - java_method: getStreams
-          go_name: GetStreams
-          returns: android.net.rtp.AudioStream[]
-          error: true
-        - java_method: sendDtmf
-          go_name: SendDtmf
+    - java_class: android.net.rtp.AudioCodec
+      go_type: AudioCodec
+      static_methods:
+        - java_method: getCodec
+          go_name: GetCodec
           params:
             - java_type: int
               go_name: arg0
-          returns: void
+            - java_type: String
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+          returns: android.net.rtp.AudioCodec
           error: true
-        - java_method: setMode
-          go_name: SetMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
+        - java_method: getCodecs
+          go_name: GetCodecs
+          returns: android.net.rtp.AudioCodec[]
           error: true
     - java_class: android.net.rtp.RtpStream
       go_type: Stream
@@ -148,6 +148,18 @@ classes:
           returns: void
           error: true
 constants:
+    - go_name: ModeEchoSuppression
+      value: "3"
+      go_type: int
+    - go_name: ModeMuted
+      value: "1"
+      go_type: int
+    - go_name: ModeNormal
+      value: "2"
+      go_type: int
+    - go_name: ModeOnHold
+      value: "0"
+      go_type: int
     - go_name: Amr
       value: "0"
       go_type: int
@@ -161,18 +173,6 @@ constants:
       value: "0"
       go_type: int
     - go_name: Pcmu
-      value: "0"
-      go_type: int
-    - go_name: ModeEchoSuppression
-      value: "3"
-      go_type: int
-    - go_name: ModeMuted
-      value: "1"
-      go_type: int
-    - go_name: ModeNormal
-      value: "2"
-      go_type: int
-    - go_name: ModeOnHold
       value: "0"
       go_type: int
     - go_name: ModeReceiveOnly

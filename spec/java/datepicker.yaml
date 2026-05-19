@@ -5,6 +5,55 @@
 package: datepicker
 go_import: github.com/AndroidGoLab/jni/com/google/android/material/datepicker
 classes:
+    - java_class: com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener
+      go_type: MaterialPickerOnPositiveButtonClickListener
+    - java_class: com.google.android.material.datepicker.MaterialStyledDatePickerDialog
+      go_type: MaterialStyledDatePickerDialog
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+    - java_class: com.google.android.material.datepicker.OnSelectionChangedListener
+      go_type: OnSelectionChangedListener
+      methods:
+        - java_method: onIncompleteSelectionChanged
+          go_name: OnIncompleteSelectionChanged
+          returns: void
+          error: true
+    - java_class: com.google.android.material.datepicker.MaterialCalendar
+      go_type: MaterialCalendar
+      obtain: constructor
+      methods:
+        - java_method: onSaveInstanceState
+          go_name: OnSaveInstanceState
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onCreate
+          go_name: OnCreate
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onCreateView
+          go_name: OnCreateView
+          params:
+            - java_type: android.view.LayoutInflater
+              go_name: arg0
+            - java_type: android.view.ViewGroup
+              go_name: arg1
+            - java_type: android.os.Bundle
+              go_name: arg2
+          returns: android.view.View
+          error: true
+      static_methods:
+        - java_method: getDateSelector
+          go_name: GetDateSelector
+          returns: com.google.android.material.datepicker.DateSelector<S>
+          error: true
     - java_class: com.google.android.material.datepicker.SingleDateSelector
       go_type: SingleDateSelector
       obtain: constructor
@@ -17,7 +66,7 @@ classes:
           returns: void
           error: true
         - java_method: setSelection
-          go_name: SetSelection1
+          go_name: SetSelection
           params:
             - java_type: java.lang.Long
               go_name: arg0
@@ -32,7 +81,7 @@ classes:
           returns: java.util.Collection<java.lang.Long>
           error: true
         - java_method: getSelection
-          go_name: GetSelection0
+          go_name: GetSelection
           returns: java.lang.Long
           error: true
         - java_method: setTextInputFormat
@@ -84,19 +133,180 @@ classes:
               go_name: arg1
           returns: void
           error: true
-        - java_method: setSelection
-          go_name: SetSelection1_1
+    - java_class: com.google.android.material.datepicker.DateValidatorPointBackward
+      go_type: DateValidatorPointBackward
+      methods:
+        - java_method: isValid
+          go_name: IsValid
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: equals
+          go_name: Equals
           params:
             - java_type: java.lang.Object
               go_name: arg0
+          returns: boolean
+          error: true
+      static_methods:
+        - java_method: before
+          go_name: Before
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: com.google.android.material.datepicker.DateValidatorPointBackward
+          error: true
+        - java_method: now
+          go_name: Now
+          returns: com.google.android.material.datepicker.DateValidatorPointBackward
+          error: true
+    - java_class: com.google.android.material.datepicker.CalendarConstraints
+      go_type: CalendarConstraints
+      methods:
+        - java_method: getDateValidator
+          go_name: GetDateValidator
+          returns: com.google.android.material.datepicker.CalendarConstraints$DateValidator
+          error: true
+        - java_method: getStartMs
+          go_name: GetStartMs
+          returns: long
+          error: true
+        - java_method: getEndMs
+          go_name: GetEndMs
+          returns: long
+          error: true
+        - java_method: getOpenAtMs
+          go_name: GetOpenAtMs
+          returns: java.lang.Long
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+    - java_class: com.google.android.material.datepicker.CalendarConstraints$Builder
+      go_type: CalendarConstraintsBuilder
+      obtain: constructor
+      methods:
+        - java_method: setStart
+          go_name: SetStart
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: com.google.android.material.datepicker.CalendarConstraints$Builder
+          error: true
+        - java_method: setEnd
+          go_name: SetEnd
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: com.google.android.material.datepicker.CalendarConstraints$Builder
+          error: true
+        - java_method: setOpenAt
+          go_name: SetOpenAt
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: com.google.android.material.datepicker.CalendarConstraints$Builder
+          error: true
+        - java_method: setFirstDayOfWeek
+          go_name: SetFirstDayOfWeek
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: com.google.android.material.datepicker.CalendarConstraints$Builder
+          error: true
+        - java_method: setValidator
+          go_name: SetValidator
+          params:
+            - java_type: com.google.android.material.datepicker.CalendarConstraints$DateValidator
+              go_name: arg0
+          returns: com.google.android.material.datepicker.CalendarConstraints$Builder
+          error: true
+      static_methods:
+        - java_method: build
+          go_name: Build
+          returns: com.google.android.material.datepicker.CalendarConstraints
+          error: true
+    - java_class: com.google.android.material.datepicker.CalendarConstraints$DateValidator
+      go_type: CalendarConstraintsDateValidator
+      methods:
+        - java_method: isValid
+          go_name: IsValid
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: boolean
+          error: true
+    - java_class: com.google.android.material.datepicker.DateValidatorPointForward
+      go_type: DateValidatorPointForward
+      methods:
+        - java_method: isValid
+          go_name: IsValid
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
           returns: void
           error: true
-        - java_method: getSelection
-          go_name: GetSelection0_1
-          returns: java.lang.Object
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
           error: true
-    - java_class: com.google.android.material.datepicker.MaterialCalendar
-      go_type: MaterialCalendar
+      static_methods:
+        - java_method: from
+          go_name: From
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: com.google.android.material.datepicker.DateValidatorPointForward
+          error: true
+        - java_method: now
+          go_name: Now
+          returns: com.google.android.material.datepicker.DateValidatorPointForward
+          error: true
+    - java_class: com.google.android.material.datepicker.MaterialTextInputPicker
+      go_type: MaterialTextInputPicker
       obtain: constructor
       methods:
         - java_method: onSaveInstanceState
@@ -128,153 +338,135 @@ classes:
           go_name: GetDateSelector
           returns: com.google.android.material.datepicker.DateSelector<S>
           error: true
-    - java_class: com.google.android.material.datepicker.RangeDateSelector
-      go_type: RangeDateSelector
+    - java_class: com.google.android.material.datepicker.MaterialDatePicker
+      go_type: MaterialDatePicker
       obtain: constructor
       methods:
-        - java_method: select
-          go_name: Select
+        - java_method: onSaveInstanceState
+          go_name: OnSaveInstanceState
           params:
-            - java_type: long
+            - java_type: android.os.Bundle
               go_name: arg0
           returns: void
           error: true
-        - java_method: isSelectionComplete
-          go_name: IsSelectionComplete
-          returns: boolean
-          error: true
-        - java_method: getSelectedDays
-          go_name: GetSelectedDays
-          returns: java.util.Collection<java.lang.Long>
-          error: true
-        - java_method: getDefaultThemeResId
-          go_name: GetDefaultThemeResId
+        - java_method: onCreate
+          go_name: OnCreate
           params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getSelectionDisplayString
-          go_name: GetSelectionDisplayString
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getSelectionContentDescription
-          go_name: GetSelectionContentDescription
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getError
-          go_name: GetError
-          returns: String
-          error: true
-        - java_method: getDefaultTitleResId
-          go_name: GetDefaultTitleResId
-          returns: int
-          error: true
-        - java_method: setTextInputFormat
-          go_name: SetTextInputFormat
-          params:
-            - java_type: java.text.SimpleDateFormat
+            - java_type: android.os.Bundle
               go_name: arg0
           returns: void
           error: true
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
+        - java_method: onCreateDialog
+          go_name: OnCreateDialog
           params:
-            - java_type: android.os.Parcel
+            - java_type: android.os.Bundle
               go_name: arg0
-            - java_type: int
+          returns: android.app.Dialog
+          error: true
+        - java_method: onCreateView
+          go_name: OnCreateView
+          params:
+            - java_type: android.view.LayoutInflater
+              go_name: arg0
+            - java_type: android.view.ViewGroup
               go_name: arg1
+            - java_type: android.os.Bundle
+              go_name: arg2
+          returns: android.view.View
+          error: true
+        - java_method: onStart
+          go_name: OnStart
           returns: void
           error: true
-        - java_method: setSelection
-          go_name: SetSelection
+        - java_method: onStop
+          go_name: OnStop
+          returns: void
+          error: true
+        - java_method: onCancel
+          go_name: OnCancel
           params:
-            - java_type: java.lang.Object
+            - java_type: android.content.DialogInterface
               go_name: arg0
           returns: void
           error: true
-        - java_method: getSelection
-          go_name: GetSelection
-          returns: java.lang.Object
+        - java_method: onDismiss
+          go_name: OnDismiss
+          params:
+            - java_type: android.content.DialogInterface
+              go_name: arg0
+          returns: void
           error: true
-    - java_class: com.google.android.material.datepicker.DateSelector
-      go_type: DateSelector
-      methods:
-        - java_method: isSelectionComplete
-          go_name: IsSelectionComplete
+        - java_method: clearOnPositiveButtonClickListeners
+          go_name: ClearOnPositiveButtonClickListeners
+          returns: void
+          error: true
+        - java_method: addOnNegativeButtonClickListener
+          go_name: AddOnNegativeButtonClickListener
+          params:
+            - java_type: android.view.View$OnClickListener
+              go_name: arg0
           returns: boolean
           error: true
-        - java_method: select
-          go_name: Select
+        - java_method: removeOnNegativeButtonClickListener
+          go_name: RemoveOnNegativeButtonClickListener
           params:
-            - java_type: long
+            - java_type: android.view.View$OnClickListener
               go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: clearOnNegativeButtonClickListeners
+          go_name: ClearOnNegativeButtonClickListeners
           returns: void
           error: true
-        - java_method: getSelectedDays
-          go_name: GetSelectedDays
-          returns: java.util.Collection<java.lang.Long>
-          error: true
-        - java_method: getSelectionDisplayString
-          go_name: GetSelectionDisplayString
+        - java_method: addOnCancelListener
+          go_name: AddOnCancelListener
           params:
-            - java_type: android.content.Context
+            - java_type: android.content.DialogInterface$OnCancelListener
               go_name: arg0
-          returns: String
+          returns: boolean
           error: true
-        - java_method: getSelectionContentDescription
-          go_name: GetSelectionContentDescription
+        - java_method: removeOnCancelListener
+          go_name: RemoveOnCancelListener
           params:
-            - java_type: android.content.Context
+            - java_type: android.content.DialogInterface$OnCancelListener
               go_name: arg0
-          returns: String
+          returns: boolean
           error: true
-        - java_method: getError
-          go_name: GetError
-          returns: String
-          error: true
-        - java_method: getDefaultTitleResId
-          go_name: GetDefaultTitleResId
-          returns: int
-          error: true
-        - java_method: getDefaultThemeResId
-          go_name: GetDefaultThemeResId
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: setTextInputFormat
-          go_name: SetTextInputFormat
-          params:
-            - java_type: java.text.SimpleDateFormat
-              go_name: arg0
+        - java_method: clearOnCancelListeners
+          go_name: ClearOnCancelListeners
           returns: void
+          error: true
+        - java_method: addOnDismissListener
+          go_name: AddOnDismissListener
+          params:
+            - java_type: android.content.DialogInterface$OnDismissListener
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: removeOnDismissListener
+          go_name: RemoveOnDismissListener
+          params:
+            - java_type: android.content.DialogInterface$OnDismissListener
+              go_name: arg0
+          returns: boolean
           error: true
       static_methods:
-        - java_method: showKeyboardWithAutoHideBehavior
-          go_name: ShowKeyboardWithAutoHideBehavior
-          params:
-            - java_type: android.widget.EditText...
-              go_name: arg0
-          returns: void
+        - java_method: todayInUtcMilliseconds
+          go_name: TodayInUtcMilliseconds
+          returns: long
           error: true
-    - java_class: com.google.android.material.datepicker.MaterialStyledDatePickerDialog
-      go_type: MaterialStyledDatePickerDialog
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
+        - java_method: thisMonthInUtcMilliseconds
+          go_name: ThisMonthInUtcMilliseconds
+          returns: long
+          error: true
+        - java_method: getHeaderText
+          go_name: GetHeaderText
+          returns: String
+          error: true
+        - java_method: getInputMode
+          go_name: GetInputMode
+          returns: int
+          error: true
     - java_class: com.google.android.material.datepicker.DayViewDecorator
       go_type: DayViewDecorator
       methods:
@@ -406,234 +598,6 @@ classes:
               go_name: arg6
           returns: java.lang.CharSequence
           error: true
-    - java_class: com.google.android.material.datepicker.CalendarConstraints
-      go_type: CalendarConstraints
-      methods:
-        - java_method: getDateValidator
-          go_name: GetDateValidator
-          returns: com.google.android.material.datepicker.CalendarConstraints$DateValidator
-          error: true
-        - java_method: getStartMs
-          go_name: GetStartMs
-          returns: long
-          error: true
-        - java_method: getEndMs
-          go_name: GetEndMs
-          returns: long
-          error: true
-        - java_method: getOpenAtMs
-          go_name: GetOpenAtMs
-          returns: java.lang.Long
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: com.google.android.material.datepicker.CalendarConstraints$Builder
-      go_type: CalendarConstraintsBuilder
-      methods:
-        - java_method: setStart
-          go_name: SetStart
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: com.google.android.material.datepicker.CalendarConstraints$Builder
-          error: true
-        - java_method: setEnd
-          go_name: SetEnd
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: com.google.android.material.datepicker.CalendarConstraints$Builder
-          error: true
-        - java_method: setOpenAt
-          go_name: SetOpenAt
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: com.google.android.material.datepicker.CalendarConstraints$Builder
-          error: true
-        - java_method: setFirstDayOfWeek
-          go_name: SetFirstDayOfWeek
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: com.google.android.material.datepicker.CalendarConstraints$Builder
-          error: true
-        - java_method: setValidator
-          go_name: SetValidator
-          params:
-            - java_type: com.google.android.material.datepicker.CalendarConstraints$DateValidator
-              go_name: arg0
-          returns: com.google.android.material.datepicker.CalendarConstraints$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: com.google.android.material.datepicker.CalendarConstraints
-          error: true
-    - java_class: com.google.android.material.datepicker.CalendarConstraints$DateValidator
-      go_type: CalendarConstraintsDateValidator
-      methods:
-        - java_method: isValid
-          go_name: IsValid
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: boolean
-          error: true
-    - java_class: com.google.android.material.datepicker.MaterialDatePicker
-      go_type: MaterialDatePicker
-      obtain: constructor
-      methods:
-        - java_method: getHeaderText
-          go_name: GetHeaderText
-          returns: String
-          error: true
-        - java_method: onSaveInstanceState
-          go_name: OnSaveInstanceState
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onCreate
-          go_name: OnCreate
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onCreateDialog
-          go_name: OnCreateDialog
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: android.app.Dialog
-          error: true
-        - java_method: onCreateView
-          go_name: OnCreateView
-          params:
-            - java_type: android.view.LayoutInflater
-              go_name: arg0
-            - java_type: android.view.ViewGroup
-              go_name: arg1
-            - java_type: android.os.Bundle
-              go_name: arg2
-          returns: android.view.View
-          error: true
-        - java_method: onStart
-          go_name: OnStart
-          returns: void
-          error: true
-        - java_method: onStop
-          go_name: OnStop
-          returns: void
-          error: true
-        - java_method: onCancel
-          go_name: OnCancel
-          params:
-            - java_type: android.content.DialogInterface
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onDismiss
-          go_name: OnDismiss
-          params:
-            - java_type: android.content.DialogInterface
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getInputMode
-          go_name: GetInputMode
-          returns: int
-          error: true
-        - java_method: clearOnPositiveButtonClickListeners
-          go_name: ClearOnPositiveButtonClickListeners
-          returns: void
-          error: true
-        - java_method: addOnNegativeButtonClickListener
-          go_name: AddOnNegativeButtonClickListener
-          params:
-            - java_type: android.view.View$OnClickListener
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: removeOnNegativeButtonClickListener
-          go_name: RemoveOnNegativeButtonClickListener
-          params:
-            - java_type: android.view.View$OnClickListener
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: clearOnNegativeButtonClickListeners
-          go_name: ClearOnNegativeButtonClickListeners
-          returns: void
-          error: true
-        - java_method: addOnCancelListener
-          go_name: AddOnCancelListener
-          params:
-            - java_type: android.content.DialogInterface$OnCancelListener
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: removeOnCancelListener
-          go_name: RemoveOnCancelListener
-          params:
-            - java_type: android.content.DialogInterface$OnCancelListener
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: clearOnCancelListeners
-          go_name: ClearOnCancelListeners
-          returns: void
-          error: true
-        - java_method: addOnDismissListener
-          go_name: AddOnDismissListener
-          params:
-            - java_type: android.content.DialogInterface$OnDismissListener
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: removeOnDismissListener
-          go_name: RemoveOnDismissListener
-          params:
-            - java_type: android.content.DialogInterface$OnDismissListener
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: clearOnDismissListeners
-          go_name: ClearOnDismissListeners
-          returns: void
-          error: true
-      static_methods:
-        - java_method: todayInUtcMilliseconds
-          go_name: TodayInUtcMilliseconds
-          returns: long
-          error: true
-        - java_method: thisMonthInUtcMilliseconds
-          go_name: ThisMonthInUtcMilliseconds
-          returns: long
-          error: true
     - java_class: com.google.android.material.datepicker.MaterialDatePicker$Builder
       go_type: MaterialDatePickerBuilder
       methods:
@@ -753,24 +717,60 @@ classes:
           error: true
     - java_class: com.google.android.material.datepicker.MaterialDatePicker$InputMode
       go_type: MaterialDatePickerInputMode
-    - java_class: com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener
-      go_type: MaterialPickerOnPositiveButtonClickListener
-    - java_class: com.google.android.material.datepicker.OnSelectionChangedListener
-      go_type: OnSelectionChangedListener
+    - java_class: com.google.android.material.datepicker.RangeDateSelector
+      go_type: RangeDateSelector
+      obtain: constructor
       methods:
-        - java_method: onIncompleteSelectionChanged
-          go_name: OnIncompleteSelectionChanged
-          returns: void
-          error: true
-    - java_class: com.google.android.material.datepicker.DateValidatorPointBackward
-      go_type: DateValidatorPointBackward
-      methods:
-        - java_method: isValid
-          go_name: IsValid
+        - java_method: select
+          go_name: Select
           params:
             - java_type: long
               go_name: arg0
+          returns: void
+          error: true
+        - java_method: isSelectionComplete
+          go_name: IsSelectionComplete
           returns: boolean
+          error: true
+        - java_method: getSelectedDays
+          go_name: GetSelectedDays
+          returns: java.util.Collection<java.lang.Long>
+          error: true
+        - java_method: getDefaultThemeResId
+          go_name: GetDefaultThemeResId
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getSelectionDisplayString
+          go_name: GetSelectionDisplayString
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getSelectionContentDescription
+          go_name: GetSelectionContentDescription
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getError
+          go_name: GetError
+          returns: String
+          error: true
+        - java_method: getDefaultTitleResId
+          go_name: GetDefaultTitleResId
+          returns: int
+          error: true
+        - java_method: setTextInputFormat
+          go_name: SetTextInputFormat
+          params:
+            - java_type: java.text.SimpleDateFormat
+              go_name: arg0
+          returns: void
           error: true
         - java_method: describeContents
           go_name: DescribeContents
@@ -784,75 +784,6 @@ classes:
             - java_type: int
               go_name: arg1
           returns: void
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-      static_methods:
-        - java_method: before
-          go_name: Before
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: com.google.android.material.datepicker.DateValidatorPointBackward
-          error: true
-        - java_method: now
-          go_name: Now
-          returns: com.google.android.material.datepicker.DateValidatorPointBackward
-          error: true
-    - java_class: com.google.android.material.datepicker.DateValidatorPointForward
-      go_type: DateValidatorPointForward
-      methods:
-        - java_method: isValid
-          go_name: IsValid
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-      static_methods:
-        - java_method: from
-          go_name: From
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: com.google.android.material.datepicker.DateValidatorPointForward
-          error: true
-        - java_method: now
-          go_name: Now
-          returns: com.google.android.material.datepicker.DateValidatorPointForward
           error: true
     - java_class: com.google.android.material.datepicker.CompositeDateValidator
       go_type: CompositeDateValidator
@@ -884,130 +815,90 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: hashCode
-          go_name: HashCode
+    - java_class: com.google.android.material.datepicker.DateSelector
+      go_type: DateSelector
+      methods:
+        - java_method: isSelectionComplete
+          go_name: IsSelectionComplete
+          returns: boolean
+          error: true
+        - java_method: select
+          go_name: Select
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getSelectedDays
+          go_name: GetSelectedDays
+          returns: java.util.Collection<java.lang.Long>
+          error: true
+        - java_method: getSelectionDisplayString
+          go_name: GetSelectionDisplayString
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getSelectionContentDescription
+          go_name: GetSelectionContentDescription
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getError
+          go_name: GetError
+          returns: String
+          error: true
+        - java_method: getDefaultTitleResId
+          go_name: GetDefaultTitleResId
           returns: int
           error: true
-    - java_class: com.google.android.material.datepicker.MaterialTextInputPicker
-      go_type: MaterialTextInputPicker
-      obtain: constructor
-      methods:
-        - java_method: onSaveInstanceState
-          go_name: OnSaveInstanceState
+        - java_method: getDefaultThemeResId
+          go_name: GetDefaultThemeResId
           params:
-            - java_type: android.os.Bundle
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: setTextInputFormat
+          go_name: SetTextInputFormat
+          params:
+            - java_type: java.text.SimpleDateFormat
               go_name: arg0
           returns: void
           error: true
-        - java_method: onCreate
-          go_name: OnCreate
+      static_methods:
+        - java_method: showKeyboardWithAutoHideBehavior
+          go_name: ShowKeyboardWithAutoHideBehavior
           params:
-            - java_type: android.os.Bundle
+            - java_type: android.widget.EditText...
               go_name: arg0
           returns: void
-          error: true
-        - java_method: onCreateView
-          go_name: OnCreateView
-          params:
-            - java_type: android.view.LayoutInflater
-              go_name: arg0
-            - java_type: android.view.ViewGroup
-              go_name: arg1
-            - java_type: android.os.Bundle
-              go_name: arg2
-          returns: android.view.View
-          error: true
-        - java_method: getDateSelector
-          go_name: GetDateSelector
-          returns: com.google.android.material.datepicker.DateSelector<S>
           error: true
 abstract_callbacks:
-    - java_class: com.google.android.material.datepicker.DayViewDecorator
-      go_type: DayViewDecoratorCallback
-      methods:
-        - java_method: initialize
-          params:
-            - android.content.Context
-          returns: void
-          go_field: Initialize
-        - java_method: getCompoundDrawableLeft
-          params:
-            - android.content.Context
-            - int
-            - int
-            - int
-            - boolean
-            - boolean
-          returns: android.graphics.drawable.Drawable
-          go_field: GetCompoundDrawableLeft
-        - java_method: getCompoundDrawableTop
-          params:
-            - android.content.Context
-            - int
-            - int
-            - int
-            - boolean
-            - boolean
-          returns: android.graphics.drawable.Drawable
-          go_field: GetCompoundDrawableTop
-        - java_method: getCompoundDrawableRight
-          params:
-            - android.content.Context
-            - int
-            - int
-            - int
-            - boolean
-            - boolean
-          returns: android.graphics.drawable.Drawable
-          go_field: GetCompoundDrawableRight
-        - java_method: getCompoundDrawableBottom
-          params:
-            - android.content.Context
-            - int
-            - int
-            - int
-            - boolean
-            - boolean
-          returns: android.graphics.drawable.Drawable
-          go_field: GetCompoundDrawableBottom
-        - java_method: getBackgroundColor
-          params:
-            - android.content.Context
-            - int
-            - int
-            - int
-            - boolean
-            - boolean
-          returns: android.content.res.ColorStateList
-          go_field: GetBackgroundColor
-        - java_method: getTextColor
-          params:
-            - android.content.Context
-            - int
-            - int
-            - int
-            - boolean
-            - boolean
-          returns: android.content.res.ColorStateList
-          go_field: GetTextColor
-        - java_method: getContentDescription
-          params:
-            - android.content.Context
-            - int
-            - int
-            - int
-            - boolean
-            - boolean
-            - java.lang.CharSequence
-          returns: java.lang.CharSequence
-          go_field: GetContentDescription
     - java_class: com.google.android.material.datepicker.OnSelectionChangedListener
       go_type: OnSelectionChangedListenerCallback
       methods:
+        - java_method: onSelectionChanged
+          params:
+            - java.lang.Object
+          returns: void
+          go_field: OnSelectionChanged
         - java_method: onIncompleteSelectionChanged
           params: []
           returns: void
           go_field: OnIncompleteSelectionChanged
+      type_param_bounds:
+        - java.lang.Object
+abstract_callback_eligibility:
+    - java_class: com.google.android.material.datepicker.OnSelectionChangedListener
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: com.google.android.material.datepicker.DayViewDecorator
+      generated: false
+      reason: implements_interface
 constants:
     - go_name: Creator
       value: "0"

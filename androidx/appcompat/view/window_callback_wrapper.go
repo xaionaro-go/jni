@@ -32,6 +32,12 @@ func NewWindowCallbackWrapper(vm *jni.VM, arg0 *jni.Object) (*WindowCallbackWrap
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWindowCallbackWrapper == nil {
+			return fmt.Errorf("androidx.appcompat.view.WindowCallbackWrapper is not available on this device")
+		}
+		if midWindowCallbackWrapperCtor == nil {
+			return fmt.Errorf("androidx.appcompat.view.WindowCallbackWrapper constructor (Landroid/view/Window$Callback;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), midWindowCallbackWrapperCtor, jni.ObjectValue(arg0))
 		if err != nil {

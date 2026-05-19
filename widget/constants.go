@@ -5,48 +5,6 @@ package widget
 import "github.com/AndroidGoLab/jni/widget/consts"
 
 const (
-	AlignBounds                  = consts.AlignBounds
-	AlignMargins                 = consts.AlignMargins
-	Baseline                     = consts.Baseline
-	Bottom                       = consts.Bottom
-	Center                       = consts.Center
-	End                          = consts.End
-	Fill                         = consts.Fill
-	Horizontal                   = consts.Horizontal
-	Left                         = consts.Left
-	Right                        = consts.Right
-	Start                        = consts.Start
-	Top                          = consts.Top
-	Undefined                    = consts.Undefined
-	Vertical                     = consts.Vertical
-	CenterCrop                   = consts.CenterCrop
-	CenterInside                 = consts.CenterInside
-	FitCenter                    = consts.FitCenter
-	FitEnd                       = consts.FitEnd
-	FitStart                     = consts.FitStart
-	FitXy                        = consts.FitXy
-	Matrix                       = consts.Matrix
-	InputMethodFromFocusable     = consts.InputMethodFromFocusable
-	InputMethodNeeded            = consts.InputMethodNeeded
-	InputMethodNotNeeded         = consts.InputMethodNotNeeded
-	MatchParent                  = consts.MatchParent
-	PositionPromptAbove          = consts.PositionPromptAbove
-	PositionPromptBelow          = consts.PositionPromptBelow
-	WrapContent                  = consts.WrapContent
-	DefaultBlendMode             = consts.DefaultBlendMode
-	DigitsAndLetters             = consts.DigitsAndLetters
-	DigitsAndLettersNoDigits     = consts.DigitsAndLettersNoDigits
-	DigitsAndLettersNoLetters    = consts.DigitsAndLettersNoLetters
-	DigitsOnly                   = consts.DigitsOnly
-	LettersOnly                  = consts.LettersOnly
-	ShowDividerBeginning         = consts.ShowDividerBeginning
-	ShowDividerEnd               = consts.ShowDividerEnd
-	ShowDividerMiddle            = consts.ShowDividerMiddle
-	ShowDividerNone              = consts.ShowDividerNone
-	FlagAutoRequery              = consts.FlagAutoRequery
-	FlagRegisterContentObserver  = consts.FlagRegisterContentObserver
-	IgnoreItemViewType           = consts.IgnoreItemViewType
-	NoSelection                  = consts.NoSelection
 	ChoiceModeMultiple           = consts.ChoiceModeMultiple
 	ChoiceModeMultipleModal      = consts.ChoiceModeMultipleModal
 	ChoiceModeNone               = consts.ChoiceModeNone
@@ -57,6 +15,12 @@ const (
 	ScrollStateFling             = consts.ScrollStateFling
 	ScrollStateIdle              = consts.ScrollStateIdle
 	ScrollStateTouchScroll       = consts.ScrollStateTouchScroll
+	Horizontal                   = consts.Horizontal
+	ShowDividerBeginning         = consts.ShowDividerBeginning
+	ShowDividerEnd               = consts.ShowDividerEnd
+	ShowDividerMiddle            = consts.ShowDividerMiddle
+	ShowDividerNone              = consts.ShowDividerNone
+	Vertical                     = consts.Vertical
 	AutoSizeTextTypeNone         = consts.AutoSizeTextTypeNone
 	AutoSizeTextTypeUniform      = consts.AutoSizeTextTypeUniform
 	FocusedSearchResultIndexNone = consts.FocusedSearchResultIndexNone
@@ -64,16 +28,65 @@ const (
 	Normal                       = consts.Normal
 	Spannable                    = consts.Spannable
 	Creator                      = consts.Creator
-	ModeDialog                   = consts.ModeDialog
-	ModeDropdown                 = consts.ModeDropdown
-	UnspecifiedGravity           = consts.UnspecifiedGravity
-	OrientationHorizontal        = consts.OrientationHorizontal
-	OrientationVertical          = consts.OrientationVertical
+	InputMethodFromFocusable     = consts.InputMethodFromFocusable
+	InputMethodNeeded            = consts.InputMethodNeeded
+	InputMethodNotNeeded         = consts.InputMethodNotNeeded
+	MatchParent                  = consts.MatchParent
+	PositionPromptAbove          = consts.PositionPromptAbove
+	PositionPromptBelow          = consts.PositionPromptBelow
+	WrapContent                  = consts.WrapContent
+	ChildIndicatorInherit        = consts.ChildIndicatorInherit
+	PackedPositionTypeChild      = consts.PackedPositionTypeChild
+	PackedPositionTypeGroup      = consts.PackedPositionTypeGroup
+	PackedPositionTypeNull       = consts.PackedPositionTypeNull
+	InvalidPosition              = consts.InvalidPosition
+	ItemViewTypeHeaderOrFooter   = consts.ItemViewTypeHeaderOrFooter
+	ItemViewTypeIgnore           = consts.ItemViewTypeIgnore
+	MarginBottom                 = consts.MarginBottom
+	MarginEnd                    = consts.MarginEnd
+	MarginLeft                   = consts.MarginLeft
+	MarginRight                  = consts.MarginRight
+	MarginStart                  = consts.MarginStart
+	MarginTop                    = consts.MarginTop
+	DigitsAndLetters             = consts.DigitsAndLetters
+	DigitsAndLettersNoDigits     = consts.DigitsAndLettersNoDigits
+	DigitsAndLettersNoLetters    = consts.DigitsAndLettersNoLetters
+	DigitsOnly                   = consts.DigitsOnly
+	LettersOnly                  = consts.LettersOnly
 	AutoFit                      = consts.AutoFit
 	NoStretch                    = consts.NoStretch
 	StretchColumnWidth           = consts.StretchColumnWidth
 	StretchSpacing               = consts.StretchSpacing
 	StretchSpacingUniform        = consts.StretchSpacingUniform
+	DefaultBlendMode             = consts.DefaultBlendMode
+	SourceBoundMaxInSurface      = consts.SourceBoundMaxInSurface
+	SourceBoundMaxVisible        = consts.SourceBoundMaxVisible
+	Center                       = consts.Center
+	CenterCrop                   = consts.CenterCrop
+	CenterInside                 = consts.CenterInside
+	FitCenter                    = consts.FitCenter
+	FitEnd                       = consts.FitEnd
+	FitStart                     = consts.FitStart
+	FitXy                        = consts.FitXy
+	Matrix                       = consts.Matrix
+	ModeDialog                   = consts.ModeDialog
+	ModeDropdown                 = consts.ModeDropdown
+	UnspecifiedGravity           = consts.UnspecifiedGravity
+	OrientationHorizontal        = consts.OrientationHorizontal
+	OrientationVertical          = consts.OrientationVertical
+	AlignBounds                  = consts.AlignBounds
+	AlignMargins                 = consts.AlignMargins
+	Baseline                     = consts.Baseline
+	Bottom                       = consts.Bottom
+	End                          = consts.End
+	Fill                         = consts.Fill
+	Left                         = consts.Left
+	Right                        = consts.Right
+	Start                        = consts.Start
+	Top                          = consts.Top
+	Undefined                    = consts.Undefined
+	DefaultFormat12Hour          = consts.DefaultFormat12Hour
+	DefaultFormat24Hour          = consts.DefaultFormat24Hour
 	Above                        = consts.Above
 	AlignBaseline                = consts.AlignBaseline
 	AlignBottom                  = consts.AlignBottom
@@ -97,32 +110,19 @@ const (
 	RightOf                      = consts.RightOf
 	StartOf                      = consts.StartOf
 	True                         = consts.True
-	MarginBottom                 = consts.MarginBottom
-	MarginEnd                    = consts.MarginEnd
-	MarginLeft                   = consts.MarginLeft
-	MarginRight                  = consts.MarginRight
-	MarginStart                  = consts.MarginStart
-	MarginTop                    = consts.MarginTop
-	DefaultFormat12Hour          = consts.DefaultFormat12Hour
-	DefaultFormat24Hour          = consts.DefaultFormat24Hour
-	SourceBoundMaxInSurface      = consts.SourceBoundMaxInSurface
-	SourceBoundMaxVisible        = consts.SourceBoundMaxVisible
-	InvalidPosition              = consts.InvalidPosition
-	ItemViewTypeHeaderOrFooter   = consts.ItemViewTypeHeaderOrFooter
-	ItemViewTypeIgnore           = consts.ItemViewTypeIgnore
-	ChildIndicatorInherit        = consts.ChildIndicatorInherit
-	PackedPositionTypeChild      = consts.PackedPositionTypeChild
-	PackedPositionTypeGroup      = consts.PackedPositionTypeGroup
-	PackedPositionTypeNull       = consts.PackedPositionTypeNull
+	IgnoreItemViewType           = consts.IgnoreItemViewType
+	NoSelection                  = consts.NoSelection
+	FlagAutoRequery              = consts.FlagAutoRequery
+	FlagRegisterContentObserver  = consts.FlagRegisterContentObserver
+)
+
+const (
+	PackedPositionValueNull = consts.PackedPositionValueNull
+	InvalidRowId            = consts.InvalidRowId
 )
 
 const (
 	DefaultShareHistoryFileName = consts.DefaultShareHistoryFileName
 	ExtraChecked                = consts.ExtraChecked
 	ExtraSharedElementBounds    = consts.ExtraSharedElementBounds
-)
-
-const (
-	InvalidRowId            = consts.InvalidRowId
-	PackedPositionValueNull = consts.PackedPositionValueNull
 )

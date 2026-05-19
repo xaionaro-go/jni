@@ -32,6 +32,12 @@ func NewRenderInput(vm *jni.VM, arg0 int32, arg1 int32, arg2 *jni.Object) (*Rend
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRenderInput == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.RenderInput is not available on this device")
+		}
+		if midRenderInputCtor == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.RenderInput constructor (IILandroid/adservices/ondevicepersonalization/RenderingConfig;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRenderInput)), midRenderInputCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2))
 		if err != nil {

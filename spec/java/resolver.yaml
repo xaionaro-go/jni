@@ -13,7 +13,7 @@ classes:
           returns: android.net.Uri$Builder
           error: true
         - java_method: compareTo
-          go_name: CompareTo1
+          go_name: CompareTo
           params:
             - java_type: android.net.Uri
               go_name: arg0
@@ -149,13 +149,6 @@ classes:
           go_name: ToString
           returns: String
           error: true
-        - java_method: compareTo
-          go_name: CompareTo1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
       static_methods:
         - java_method: decode
           go_name: Decode
@@ -225,6 +218,7 @@ classes:
           error: true
     - java_class: android.net.Uri$Builder
       go_type: UriBuilder
+      obtain: constructor
       methods:
         - java_method: appendEncodedPath
           go_name: AppendEncodedPath
@@ -337,6 +331,243 @@ classes:
         - java_method: toString
           go_name: ToString
           returns: String
+          error: true
+    - java_class: android.database.Cursor
+      go_type: Cursor
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: copyStringToBuffer
+          go_name: CopyStringToBuffer
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.database.CharArrayBuffer
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: deactivate
+          go_name: Deactivate
+          returns: void
+          error: true
+        - java_method: getBlob
+          go_name: GetBlob
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: '[B'
+          error: true
+        - java_method: getColumnCount
+          go_name: GetColumnCount
+          returns: int
+          error: true
+        - java_method: getColumnIndex
+          go_name: GetColumnIndex
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getColumnIndexOrThrow
+          go_name: GetColumnIndexOrThrow
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getColumnName
+          go_name: GetColumnName
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getColumnNames
+          go_name: GetColumnNames
+          returns: java.lang.String[]
+          error: true
+        - java_method: getCount
+          go_name: GetCount
+          returns: int
+          error: true
+        - java_method: getDouble
+          go_name: GetDouble
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: double
+          error: true
+        - java_method: getExtras
+          go_name: GetExtras
+          returns: android.os.Bundle
+          error: true
+        - java_method: getFloat
+          go_name: GetFloat
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getInt
+          go_name: GetInt
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getLong
+          go_name: GetLong
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: long
+          error: true
+        - java_method: getNotificationUri
+          go_name: GetNotificationUri
+          returns: android.net.Uri
+          error: true
+        - java_method: getPosition
+          go_name: GetPosition
+          returns: int
+          error: true
+        - java_method: getShort
+          go_name: GetShort
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: short
+          error: true
+        - java_method: getString
+          go_name: GetString
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getType
+          go_name: GetType
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getWantsAllOnMoveCalls
+          go_name: GetWantsAllOnMoveCalls
+          returns: boolean
+          error: true
+        - java_method: isAfterLast
+          go_name: IsAfterLast
+          returns: boolean
+          error: true
+        - java_method: isBeforeFirst
+          go_name: IsBeforeFirst
+          returns: boolean
+          error: true
+        - java_method: isClosed
+          go_name: IsClosed
+          returns: boolean
+          error: true
+        - java_method: isFirst
+          go_name: IsFirst
+          returns: boolean
+          error: true
+        - java_method: isLast
+          go_name: IsLast
+          returns: boolean
+          error: true
+        - java_method: isNull
+          go_name: IsNull
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: move
+          go_name: Move
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: moveToFirst
+          go_name: MoveToFirst
+          returns: boolean
+          error: true
+        - java_method: moveToLast
+          go_name: MoveToLast
+          returns: boolean
+          error: true
+        - java_method: moveToNext
+          go_name: MoveToNext
+          returns: boolean
+          error: true
+        - java_method: moveToPosition
+          go_name: MoveToPosition
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: moveToPrevious
+          go_name: MoveToPrevious
+          returns: boolean
+          error: true
+        - java_method: registerContentObserver
+          go_name: RegisterContentObserver
+          params:
+            - java_type: android.database.ContentObserver
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: registerDataSetObserver
+          go_name: RegisterDataSetObserver
+          params:
+            - java_type: android.database.DataSetObserver
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: requery
+          go_name: Requery
+          returns: boolean
+          error: true
+        - java_method: respond
+          go_name: Respond
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: android.os.Bundle
+          error: true
+        - java_method: setExtras
+          go_name: SetExtras
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setNotificationUri
+          go_name: SetNotificationUri
+          params:
+            - java_type: android.content.ContentResolver
+              go_name: arg0
+            - java_type: android.net.Uri
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: unregisterContentObserver
+          go_name: UnregisterContentObserver
+          params:
+            - java_type: android.database.ContentObserver
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: unregisterDataSetObserver
+          go_name: UnregisterDataSetObserver
+          params:
+            - java_type: android.database.DataSetObserver
+              go_name: arg0
+          returns: void
           error: true
     - java_class: android.content.ContentResolver
       go_type: ContentResolver
@@ -986,683 +1217,34 @@ classes:
           go_name: GetLabel
           returns: java.lang.CharSequence
           error: true
-    - java_class: android.database.Cursor
-      go_type: Cursor
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: copyStringToBuffer
-          go_name: CopyStringToBuffer
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.database.CharArrayBuffer
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: deactivate
-          go_name: Deactivate
-          returns: void
-          error: true
-        - java_method: getBlob
-          go_name: GetBlob
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: '[B'
-          error: true
-        - java_method: getColumnCount
-          go_name: GetColumnCount
-          returns: int
-          error: true
-        - java_method: getColumnIndex
-          go_name: GetColumnIndex
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getColumnIndexOrThrow
-          go_name: GetColumnIndexOrThrow
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getColumnName
-          go_name: GetColumnName
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getColumnNames
-          go_name: GetColumnNames
-          returns: java.lang.String[]
-          error: true
-        - java_method: getCount
-          go_name: GetCount
-          returns: int
-          error: true
-        - java_method: getDouble
-          go_name: GetDouble
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: double
-          error: true
-        - java_method: getExtras
-          go_name: GetExtras
-          returns: android.os.Bundle
-          error: true
-        - java_method: getFloat
-          go_name: GetFloat
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getInt
-          go_name: GetInt
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getLong
-          go_name: GetLong
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: long
-          error: true
-        - java_method: getNotificationUri
-          go_name: GetNotificationUri
-          returns: android.net.Uri
-          error: true
-        - java_method: getPosition
-          go_name: GetPosition
-          returns: int
-          error: true
-        - java_method: getShort
-          go_name: GetShort
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: short
-          error: true
-        - java_method: getString
-          go_name: GetString
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getType
-          go_name: GetType
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getWantsAllOnMoveCalls
-          go_name: GetWantsAllOnMoveCalls
-          returns: boolean
-          error: true
-        - java_method: isAfterLast
-          go_name: IsAfterLast
-          returns: boolean
-          error: true
-        - java_method: isBeforeFirst
-          go_name: IsBeforeFirst
-          returns: boolean
-          error: true
-        - java_method: isClosed
-          go_name: IsClosed
-          returns: boolean
-          error: true
-        - java_method: isFirst
-          go_name: IsFirst
-          returns: boolean
-          error: true
-        - java_method: isLast
-          go_name: IsLast
-          returns: boolean
-          error: true
-        - java_method: isNull
-          go_name: IsNull
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: move
-          go_name: Move
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: moveToFirst
-          go_name: MoveToFirst
-          returns: boolean
-          error: true
-        - java_method: moveToLast
-          go_name: MoveToLast
-          returns: boolean
-          error: true
-        - java_method: moveToNext
-          go_name: MoveToNext
-          returns: boolean
-          error: true
-        - java_method: moveToPosition
-          go_name: MoveToPosition
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: moveToPrevious
-          go_name: MoveToPrevious
-          returns: boolean
-          error: true
-        - java_method: registerContentObserver
-          go_name: RegisterContentObserver
-          params:
-            - java_type: android.database.ContentObserver
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: registerDataSetObserver
-          go_name: RegisterDataSetObserver
-          params:
-            - java_type: android.database.DataSetObserver
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: requery
-          go_name: Requery
-          returns: boolean
-          error: true
-        - java_method: respond
-          go_name: Respond
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: android.os.Bundle
-          error: true
-        - java_method: setExtras
-          go_name: SetExtras
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setNotificationUri
-          go_name: SetNotificationUri
-          params:
-            - java_type: android.content.ContentResolver
-              go_name: arg0
-            - java_type: android.net.Uri
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: unregisterContentObserver
-          go_name: UnregisterContentObserver
-          params:
-            - java_type: android.database.ContentObserver
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: unregisterDataSetObserver
-          go_name: UnregisterDataSetObserver
-          params:
-            - java_type: android.database.DataSetObserver
-              go_name: arg0
-          returns: void
-          error: true
-abstract_callbacks:
+abstract_callback_eligibility:
     - java_class: android.net.Uri
-      go_type: UriCallback
-      methods:
-        - java_method: buildUpon
-          params: []
-          returns: android.net.Uri$Builder
-          go_field: BuildUpon
-        - java_method: compareTo
-          params:
-            - android.net.Uri
-          returns: int
-          go_field: CompareTo
-        - java_method: equals
-          params:
-            - java.lang.Object
-          returns: boolean
-          go_field: Equals
-        - java_method: getAuthority
-          params: []
-          returns: String
-          go_field: GetAuthority
-        - java_method: getBooleanQueryParameter
-          params:
-            - String
-            - boolean
-          returns: boolean
-          go_field: GetBooleanQueryParameter
-        - java_method: getEncodedAuthority
-          params: []
-          returns: String
-          go_field: GetEncodedAuthority
-        - java_method: getEncodedFragment
-          params: []
-          returns: String
-          go_field: GetEncodedFragment
-        - java_method: getEncodedPath
-          params: []
-          returns: String
-          go_field: GetEncodedPath
-        - java_method: getEncodedQuery
-          params: []
-          returns: String
-          go_field: GetEncodedQuery
-        - java_method: getEncodedSchemeSpecificPart
-          params: []
-          returns: String
-          go_field: GetEncodedSchemeSpecificPart
-        - java_method: getEncodedUserInfo
-          params: []
-          returns: String
-          go_field: GetEncodedUserInfo
-        - java_method: getFragment
-          params: []
-          returns: String
-          go_field: GetFragment
-        - java_method: getHost
-          params: []
-          returns: String
-          go_field: GetHost
-        - java_method: getLastPathSegment
-          params: []
-          returns: String
-          go_field: GetLastPathSegment
-        - java_method: getPath
-          params: []
-          returns: String
-          go_field: GetPath
-        - java_method: getPathSegments
-          params: []
-          returns: java.util.List<java.lang.String>
-          go_field: GetPathSegments
-        - java_method: getPort
-          params: []
-          returns: int
-          go_field: GetPort
-        - java_method: getQuery
-          params: []
-          returns: String
-          go_field: GetQuery
-        - java_method: getQueryParameter
-          params:
-            - String
-          returns: String
-          go_field: GetQueryParameter
-        - java_method: getQueryParameterNames
-          params: []
-          returns: java.util.Set<java.lang.String>
-          go_field: GetQueryParameterNames
-        - java_method: getQueryParameters
-          params:
-            - String
-          returns: java.util.List<java.lang.String>
-          go_field: GetQueryParameters
-        - java_method: getScheme
-          params: []
-          returns: String
-          go_field: GetScheme
-        - java_method: getSchemeSpecificPart
-          params: []
-          returns: String
-          go_field: GetSchemeSpecificPart
-        - java_method: getUserInfo
-          params: []
-          returns: String
-          go_field: GetUserInfo
-        - java_method: hashCode
-          params: []
-          returns: int
-          go_field: HashCode
-        - java_method: isAbsolute
-          params: []
-          returns: boolean
-          go_field: IsAbsolute
-        - java_method: isHierarchical
-          params: []
-          returns: boolean
-          go_field: IsHierarchical
-        - java_method: isOpaque
-          params: []
-          returns: boolean
-          go_field: IsOpaque
-        - java_method: isRelative
-          params: []
-          returns: boolean
-          go_field: IsRelative
-        - java_method: normalizeScheme
-          params: []
-          returns: android.net.Uri
-          go_field: NormalizeScheme
-        - java_method: toString
-          params: []
-          returns: String
-          go_field: ToString
-        - java_method: compareTo
-          params:
-            - java.lang.Object
-          returns: int
-          go_field: CompareTo
+      generated: false
+      reason: implements_interface
     - java_class: android.content.ContentResolver
-      go_type: ContentResolverCallback
-      methods:
-        - java_method: acquireContentProviderClient
-          params:
-            - android.net.Uri
-          returns: android.content.ContentProviderClient
-          go_field: AcquireContentProviderClient
-        - java_method: acquireContentProviderClient
-          params:
-            - String
-          returns: android.content.ContentProviderClient
-          go_field: AcquireContentProviderClient
-        - java_method: acquireUnstableContentProviderClient
-          params:
-            - android.net.Uri
-          returns: android.content.ContentProviderClient
-          go_field: AcquireUnstableContentProviderClient
-        - java_method: acquireUnstableContentProviderClient
-          params:
-            - String
-          returns: android.content.ContentProviderClient
-          go_field: AcquireUnstableContentProviderClient
-        - java_method: bulkInsert
-          params:
-            - android.net.Uri
-            - android.content.ContentValues[]
-          returns: int
-          go_field: BulkInsert
-        - java_method: call
-          params:
-            - android.net.Uri
-            - String
-            - String
-            - android.os.Bundle
-          returns: android.os.Bundle
-          go_field: Call
-        - java_method: call
-          params:
-            - String
-            - String
-            - String
-            - android.os.Bundle
-          returns: android.os.Bundle
-          go_field: Call
-        - java_method: cancelSync
-          params:
-            - android.net.Uri
-          returns: void
-          go_field: CancelSync
-        - java_method: canonicalize
-          params:
-            - android.net.Uri
-          returns: android.net.Uri
-          go_field: Canonicalize
-        - java_method: delete
-          params:
-            - android.net.Uri
-            - android.os.Bundle
-          returns: int
-          go_field: Delete
-        - java_method: delete
-          params:
-            - android.net.Uri
-            - String
-            - java.lang.String[]
-          returns: int
-          go_field: Delete
-        - java_method: getOutgoingPersistedUriPermissions
-          params: []
-          returns: java.util.List<android.content.UriPermission>
-          go_field: GetOutgoingPersistedUriPermissions
-        - java_method: getPersistedUriPermissions
-          params: []
-          returns: java.util.List<android.content.UriPermission>
-          go_field: GetPersistedUriPermissions
-        - java_method: getStreamTypes
-          params:
-            - android.net.Uri
-            - String
-          returns: java.lang.String[]
-          go_field: GetStreamTypes
-        - java_method: getType
-          params:
-            - android.net.Uri
-          returns: String
-          go_field: GetType
-        - java_method: getTypeInfo
-          params:
-            - String
-          returns: android.content.ContentResolver$MimeTypeInfo
-          go_field: GetTypeInfo
-        - java_method: insert
-          params:
-            - android.net.Uri
-            - android.content.ContentValues
-          returns: android.net.Uri
-          go_field: Insert
-        - java_method: insert
-          params:
-            - android.net.Uri
-            - android.content.ContentValues
-            - android.os.Bundle
-          returns: android.net.Uri
-          go_field: Insert
-        - java_method: loadThumbnail
-          params:
-            - android.net.Uri
-            - android.util.Size
-            - android.os.CancellationSignal
-          returns: android.graphics.Bitmap
-          go_field: LoadThumbnail
-        - java_method: notifyChange
-          params:
-            - android.net.Uri
-            - android.database.ContentObserver
-          returns: void
-          go_field: NotifyChange
-        - java_method: notifyChange
-          params:
-            - android.net.Uri
-            - android.database.ContentObserver
-            - boolean
-          returns: void
-          go_field: NotifyChange
-        - java_method: notifyChange
-          params:
-            - android.net.Uri
-            - android.database.ContentObserver
-            - int
-          returns: void
-          go_field: NotifyChange
-        - java_method: openAssetFile
-          params:
-            - android.net.Uri
-            - String
-            - android.os.CancellationSignal
-          returns: android.content.res.AssetFileDescriptor
-          go_field: OpenAssetFile
-        - java_method: openAssetFileDescriptor
-          params:
-            - android.net.Uri
-            - String
-          returns: android.content.res.AssetFileDescriptor
-          go_field: OpenAssetFileDescriptor
-        - java_method: openAssetFileDescriptor
-          params:
-            - android.net.Uri
-            - String
-            - android.os.CancellationSignal
-          returns: android.content.res.AssetFileDescriptor
-          go_field: OpenAssetFileDescriptor
-        - java_method: openFile
-          params:
-            - android.net.Uri
-            - String
-            - android.os.CancellationSignal
-          returns: android.os.ParcelFileDescriptor
-          go_field: OpenFile
-        - java_method: openFileDescriptor
-          params:
-            - android.net.Uri
-            - String
-          returns: android.os.ParcelFileDescriptor
-          go_field: OpenFileDescriptor
-        - java_method: openFileDescriptor
-          params:
-            - android.net.Uri
-            - String
-            - android.os.CancellationSignal
-          returns: android.os.ParcelFileDescriptor
-          go_field: OpenFileDescriptor
-        - java_method: openInputStream
-          params:
-            - android.net.Uri
-          returns: java.io.InputStream
-          go_field: OpenInputStream
-        - java_method: openOutputStream
-          params:
-            - android.net.Uri
-          returns: java.io.OutputStream
-          go_field: OpenOutputStream
-        - java_method: openOutputStream
-          params:
-            - android.net.Uri
-            - String
-          returns: java.io.OutputStream
-          go_field: OpenOutputStream
-        - java_method: openTypedAssetFile
-          params:
-            - android.net.Uri
-            - String
-            - android.os.Bundle
-            - android.os.CancellationSignal
-          returns: android.content.res.AssetFileDescriptor
-          go_field: OpenTypedAssetFile
-        - java_method: openTypedAssetFileDescriptor
-          params:
-            - android.net.Uri
-            - String
-            - android.os.Bundle
-          returns: android.content.res.AssetFileDescriptor
-          go_field: OpenTypedAssetFileDescriptor
-        - java_method: openTypedAssetFileDescriptor
-          params:
-            - android.net.Uri
-            - String
-            - android.os.Bundle
-            - android.os.CancellationSignal
-          returns: android.content.res.AssetFileDescriptor
-          go_field: OpenTypedAssetFileDescriptor
-        - java_method: query
-          params:
-            - android.net.Uri
-            - java.lang.String[]
-            - android.os.Bundle
-            - android.os.CancellationSignal
-          returns: android.database.Cursor
-          go_field: Query
-        - java_method: query
-          params:
-            - android.net.Uri
-            - java.lang.String[]
-            - String
-            - java.lang.String[]
-            - String
-          returns: android.database.Cursor
-          go_field: Query
-        - java_method: query
-          params:
-            - android.net.Uri
-            - java.lang.String[]
-            - String
-            - java.lang.String[]
-            - String
-            - android.os.CancellationSignal
-          returns: android.database.Cursor
-          go_field: Query
-        - java_method: refresh
-          params:
-            - android.net.Uri
-            - android.os.Bundle
-            - android.os.CancellationSignal
-          returns: boolean
-          go_field: Refresh
-        - java_method: registerContentObserver
-          params:
-            - android.net.Uri
-            - boolean
-            - android.database.ContentObserver
-          returns: void
-          go_field: RegisterContentObserver
-        - java_method: releasePersistableUriPermission
-          params:
-            - android.net.Uri
-            - int
-          returns: void
-          go_field: ReleasePersistableUriPermission
-        - java_method: startSync
-          params:
-            - android.net.Uri
-            - android.os.Bundle
-          returns: void
-          go_field: StartSync
-        - java_method: takePersistableUriPermission
-          params:
-            - android.net.Uri
-            - int
-          returns: void
-          go_field: TakePersistableUriPermission
-        - java_method: uncanonicalize
-          params:
-            - android.net.Uri
-          returns: android.net.Uri
-          go_field: Uncanonicalize
-        - java_method: unregisterContentObserver
-          params:
-            - android.database.ContentObserver
-          returns: void
-          go_field: UnregisterContentObserver
-        - java_method: update
-          params:
-            - android.net.Uri
-            - android.content.ContentValues
-            - android.os.Bundle
-          returns: int
-          go_field: Update
-        - java_method: update
-          params:
-            - android.net.Uri
-            - android.content.ContentValues
-            - String
-            - java.lang.String[]
-          returns: int
-          go_field: Update
+      generated: false
+      reason: unsupported_constructor
 constants:
     - go_name: Creator
       value: "0"
       go_type: int
     - go_name: Empty
       value: "0"
+      go_type: int
+    - go_name: FieldTypeBlob
+      value: "4"
+      go_type: int
+    - go_name: FieldTypeFloat
+      value: "2"
+      go_type: int
+    - go_name: FieldTypeInteger
+      value: "1"
+      go_type: int
+    - go_name: FieldTypeNull
+      value: "0"
+      go_type: int
+    - go_name: FieldTypeString
+      value: "3"
       go_type: int
     - go_name: AnyCursorItemType
       value: '"vnd.android.cursor.item/*"'
@@ -1801,19 +1383,4 @@ constants:
       go_type: int
     - go_name: SyncObserverTypeSettings
       value: "1"
-      go_type: int
-    - go_name: FieldTypeBlob
-      value: "4"
-      go_type: int
-    - go_name: FieldTypeFloat
-      value: "2"
-      go_type: int
-    - go_name: FieldTypeInteger
-      value: "1"
-      go_type: int
-    - go_name: FieldTypeNull
-      value: "0"
-      go_type: int
-    - go_name: FieldTypeString
-      value: "3"
       go_type: int

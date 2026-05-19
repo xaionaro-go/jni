@@ -23,6 +23,34 @@ type CellUnderlyingNetworkTemplateBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCellUnderlyingNetworkTemplateBuilder creates a new android.net.vcn.VcnCellUnderlyingNetworkTemplate$Builder instance.
+func NewCellUnderlyingNetworkTemplateBuilder(vm *jni.VM) (*CellUnderlyingNetworkTemplateBuilder, error) {
+	var t CellUnderlyingNetworkTemplateBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCellUnderlyingNetworkTemplateBuilder == nil {
+			return fmt.Errorf("android.net.vcn.VcnCellUnderlyingNetworkTemplate$Builder is not available on this device")
+		}
+		if midCellUnderlyingNetworkTemplateBuilderCtor == nil {
+			return fmt.Errorf("android.net.vcn.VcnCellUnderlyingNetworkTemplate$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCellUnderlyingNetworkTemplateBuilder)), midCellUnderlyingNetworkTemplateBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.vcn.VcnCellUnderlyingNetworkTemplate$Builder.build.
 func (m *CellUnderlyingNetworkTemplateBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

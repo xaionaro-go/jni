@@ -23,6 +23,39 @@ type DynamicsProcessingBandBase struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDynamicsProcessingBandBase creates a new android.media.audiofx.DynamicsProcessing$BandBase instance.
+func NewDynamicsProcessingBandBase(vm *jni.VM, arg0 bool, arg1 float32) (*DynamicsProcessingBandBase, error) {
+	var t DynamicsProcessingBandBase
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDynamicsProcessingBandBase == nil {
+			return fmt.Errorf("android.media.audiofx.DynamicsProcessing$BandBase is not available on this device")
+		}
+		if midDynamicsProcessingBandBaseCtor == nil {
+			return fmt.Errorf("android.media.audiofx.DynamicsProcessing$BandBase constructor (ZF)V is not available on this device")
+		}
+		var jArg0 uint8
+		if arg0 {
+			jArg0 = jniTrue
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDynamicsProcessingBandBase)), midDynamicsProcessingBandBaseCtor, jni.BooleanValue(jArg0), jni.FloatValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetCutoffFrequency calls android.media.audiofx.DynamicsProcessing$BandBase.getCutoffFrequency.
 func (m *DynamicsProcessingBandBase) GetCutoffFrequency() (float32, error) {
 	var result float32

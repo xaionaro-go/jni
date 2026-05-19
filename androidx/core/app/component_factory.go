@@ -30,6 +30,12 @@ func NewComponentFactory(vm *jni.VM) (*ComponentFactory, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsComponentFactory == nil {
+			return fmt.Errorf("androidx.core.app.AppComponentFactory is not available on this device")
+		}
+		if midComponentFactoryCtor == nil {
+			return fmt.Errorf("androidx.core.app.AppComponentFactory constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsComponentFactory)), midComponentFactoryCtor)
 		if err != nil {
 			return err

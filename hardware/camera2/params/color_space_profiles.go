@@ -32,6 +32,12 @@ func NewColorSpaceProfiles(vm *jni.VM, arg0 *jni.Object) (*ColorSpaceProfiles, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsColorSpaceProfiles == nil {
+			return fmt.Errorf("android.hardware.camera2.params.ColorSpaceProfiles is not available on this device")
+		}
+		if midColorSpaceProfilesCtor == nil {
+			return fmt.Errorf("android.hardware.camera2.params.ColorSpaceProfiles constructor ([J)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsColorSpaceProfiles)), midColorSpaceProfilesCtor, jni.ObjectValue(arg0))
 		if err != nil {

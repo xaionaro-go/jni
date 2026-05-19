@@ -112,29 +112,6 @@ func (m *TrainingExampleRecord) GetTrainingExample() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.adservices.ondevicepersonalization.TrainingExampleRecord.writeToParcel.
-func (m *TrainingExampleRecord) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTrainingExampleRecordWriteToParcel == nil {
-			callErr = fmt.Errorf("android.adservices.ondevicepersonalization.TrainingExampleRecord.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midTrainingExampleRecordWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.adservices.ondevicepersonalization.TrainingExampleRecord.toString.
 func (m *TrainingExampleRecord) ToString() (string, error) {
 	var result string
@@ -160,4 +137,27 @@ func (m *TrainingExampleRecord) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.adservices.ondevicepersonalization.TrainingExampleRecord.writeToParcel.
+func (m *TrainingExampleRecord) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midTrainingExampleRecordWriteToParcel == nil {
+			callErr = fmt.Errorf("android.adservices.ondevicepersonalization.TrainingExampleRecord.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsTrainingExampleRecord)),
+			midTrainingExampleRecordWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

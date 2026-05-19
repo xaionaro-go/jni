@@ -5,6 +5,260 @@
 package: location
 go_import: github.com/AndroidGoLab/jni/androidx/core/location
 classes:
+    - java_class: androidx.core.location.LocationKt
+      go_type: Kt
+      static_methods:
+        - java_method: component1
+          go_name: Component1
+          params:
+            - java_type: android.location.Location
+              go_name: arg0
+          returns: double
+          error: true
+        - java_method: component2
+          go_name: Component2
+          params:
+            - java_type: android.location.Location
+              go_name: arg0
+          returns: double
+          error: true
+    - java_class: androidx.core.location.LocationRequestCompat
+      go_type: RequestCompat
+      methods:
+        - java_method: getQuality
+          go_name: GetQuality
+          returns: int
+          error: true
+        - java_method: getIntervalMillis
+          go_name: GetIntervalMillis
+          returns: long
+          error: true
+        - java_method: getMinUpdateIntervalMillis
+          go_name: GetMinUpdateIntervalMillis
+          returns: long
+          error: true
+        - java_method: getDurationMillis
+          go_name: GetDurationMillis
+          returns: long
+          error: true
+        - java_method: getMaxUpdates
+          go_name: GetMaxUpdates
+          returns: int
+          error: true
+        - java_method: getMinUpdateDistanceMeters
+          go_name: GetMinUpdateDistanceMeters
+          returns: float
+          error: true
+        - java_method: getMaxUpdateDelayMillis
+          go_name: GetMaxUpdateDelayMillis
+          returns: long
+          error: true
+        - java_method: toLocationRequest
+          go_name: ToLocationRequest0
+          returns: android.location.LocationRequest
+          error: true
+        - java_method: toLocationRequest
+          go_name: ToLocationRequest1_1
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.location.LocationRequest
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: androidx.core.location.LocationRequestCompat$Builder
+      go_type: RequestCompatBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: long
+          go_name: arg0
+      methods:
+        - java_method: setIntervalMillis
+          go_name: SetIntervalMillis
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: androidx.core.location.LocationRequestCompat$Builder
+          error: true
+        - java_method: setQuality
+          go_name: SetQuality
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.core.location.LocationRequestCompat$Builder
+          error: true
+        - java_method: setDurationMillis
+          go_name: SetDurationMillis
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: androidx.core.location.LocationRequestCompat$Builder
+          error: true
+        - java_method: setMaxUpdates
+          go_name: SetMaxUpdates
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.core.location.LocationRequestCompat$Builder
+          error: true
+        - java_method: setMinUpdateIntervalMillis
+          go_name: SetMinUpdateIntervalMillis
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: androidx.core.location.LocationRequestCompat$Builder
+          error: true
+        - java_method: clearMinUpdateIntervalMillis
+          go_name: ClearMinUpdateIntervalMillis
+          returns: androidx.core.location.LocationRequestCompat$Builder
+          error: true
+        - java_method: setMinUpdateDistanceMeters
+          go_name: SetMinUpdateDistanceMeters
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: androidx.core.location.LocationRequestCompat$Builder
+          error: true
+        - java_method: setMaxUpdateDelayMillis
+          go_name: SetMaxUpdateDelayMillis
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: androidx.core.location.LocationRequestCompat$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: androidx.core.location.LocationRequestCompat
+          error: true
+    - java_class: androidx.core.location.LocationRequestCompat$Quality
+      go_type: RequestCompatQuality
+    - java_class: androidx.core.location.LocationManagerCompat
+      go_type: ManagerCompat
+      static_methods:
+        - java_method: isLocationEnabled
+          go_name: IsLocationEnabled
+          params:
+            - java_type: android.location.LocationManager
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hasProvider
+          go_name: HasProvider
+          params:
+            - java_type: android.location.LocationManager
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: requestLocationUpdates
+          go_name: RequestLocationUpdates5
+          params:
+            - java_type: android.location.LocationManager
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: androidx.core.location.LocationRequestCompat
+              go_name: arg2
+            - java_type: java.util.concurrent.Executor
+              go_name: arg3
+            - java_type: androidx.core.location.LocationListenerCompat
+              go_name: arg4
+          returns: void
+          error: true
+        - java_method: requestLocationUpdates
+          go_name: RequestLocationUpdates5_1
+          params:
+            - java_type: android.location.LocationManager
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: androidx.core.location.LocationRequestCompat
+              go_name: arg2
+            - java_type: androidx.core.location.LocationListenerCompat
+              go_name: arg3
+            - java_type: android.os.Looper
+              go_name: arg4
+          returns: void
+          error: true
+        - java_method: removeUpdates
+          go_name: RemoveUpdates
+          params:
+            - java_type: android.location.LocationManager
+              go_name: arg0
+            - java_type: androidx.core.location.LocationListenerCompat
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getGnssHardwareModelName
+          go_name: GetGnssHardwareModelName
+          params:
+            - java_type: android.location.LocationManager
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getGnssYearOfHardware
+          go_name: GetGnssYearOfHardware
+          params:
+            - java_type: android.location.LocationManager
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: registerGnssMeasurementsCallback
+          go_name: RegisterGnssMeasurementsCallback
+          params:
+            - java_type: android.location.LocationManager
+              go_name: arg0
+            - java_type: java.util.concurrent.Executor
+              go_name: arg1
+            - java_type: android.location.GnssMeasurementsEvent$Callback
+              go_name: arg2
+          returns: boolean
+          error: true
+        - java_method: unregisterGnssMeasurementsCallback
+          go_name: UnregisterGnssMeasurementsCallback
+          params:
+            - java_type: android.location.LocationManager
+              go_name: arg0
+            - java_type: android.location.GnssMeasurementsEvent$Callback
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: registerGnssStatusCallback
+          go_name: RegisterGnssStatusCallback
+          params:
+            - java_type: android.location.LocationManager
+              go_name: arg0
+            - java_type: java.util.concurrent.Executor
+              go_name: arg1
+            - java_type: androidx.core.location.GnssStatusCompat$Callback
+              go_name: arg2
+          returns: boolean
+          error: true
+        - java_method: unregisterGnssStatusCallback
+          go_name: UnregisterGnssStatusCallback
+          params:
+            - java_type: android.location.LocationManager
+              go_name: arg0
+            - java_type: androidx.core.location.GnssStatusCompat$Callback
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: androidx.core.location.LocationListenerCompat
+      go_type: ListenerCompat
     - java_class: androidx.core.location.GnssStatusCompat
       go_type: GnssStatusCompat
       methods:
@@ -138,256 +392,6 @@ classes:
           error: true
     - java_class: androidx.core.location.GnssStatusCompat$ConstellationType
       go_type: GnssStatusCompatConstellationType
-    - java_class: androidx.core.location.LocationKt
-      go_type: Kt
-      static_methods:
-        - java_method: component1
-          go_name: Component1
-          params:
-            - java_type: android.location.Location
-              go_name: arg0
-          returns: double
-          error: true
-        - java_method: component2
-          go_name: Component2
-          params:
-            - java_type: android.location.Location
-              go_name: arg0
-          returns: double
-          error: true
-    - java_class: androidx.core.location.LocationManagerCompat
-      go_type: ManagerCompat
-      static_methods:
-        - java_method: isLocationEnabled
-          go_name: IsLocationEnabled
-          params:
-            - java_type: android.location.LocationManager
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hasProvider
-          go_name: HasProvider
-          params:
-            - java_type: android.location.LocationManager
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: requestLocationUpdates
-          go_name: RequestLocationUpdates5
-          params:
-            - java_type: android.location.LocationManager
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: androidx.core.location.LocationRequestCompat
-              go_name: arg2
-            - java_type: java.util.concurrent.Executor
-              go_name: arg3
-            - java_type: androidx.core.location.LocationListenerCompat
-              go_name: arg4
-          returns: void
-          error: true
-        - java_method: requestLocationUpdates
-          go_name: RequestLocationUpdates5_1
-          params:
-            - java_type: android.location.LocationManager
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: androidx.core.location.LocationRequestCompat
-              go_name: arg2
-            - java_type: androidx.core.location.LocationListenerCompat
-              go_name: arg3
-            - java_type: android.os.Looper
-              go_name: arg4
-          returns: void
-          error: true
-        - java_method: removeUpdates
-          go_name: RemoveUpdates
-          params:
-            - java_type: android.location.LocationManager
-              go_name: arg0
-            - java_type: androidx.core.location.LocationListenerCompat
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getGnssHardwareModelName
-          go_name: GetGnssHardwareModelName
-          params:
-            - java_type: android.location.LocationManager
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getGnssYearOfHardware
-          go_name: GetGnssYearOfHardware
-          params:
-            - java_type: android.location.LocationManager
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: registerGnssMeasurementsCallback
-          go_name: RegisterGnssMeasurementsCallback
-          params:
-            - java_type: android.location.LocationManager
-              go_name: arg0
-            - java_type: java.util.concurrent.Executor
-              go_name: arg1
-            - java_type: android.location.GnssMeasurementsEvent$Callback
-              go_name: arg2
-          returns: boolean
-          error: true
-        - java_method: unregisterGnssMeasurementsCallback
-          go_name: UnregisterGnssMeasurementsCallback
-          params:
-            - java_type: android.location.LocationManager
-              go_name: arg0
-            - java_type: android.location.GnssMeasurementsEvent$Callback
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: registerGnssStatusCallback
-          go_name: RegisterGnssStatusCallback
-          params:
-            - java_type: android.location.LocationManager
-              go_name: arg0
-            - java_type: java.util.concurrent.Executor
-              go_name: arg1
-            - java_type: androidx.core.location.GnssStatusCompat$Callback
-              go_name: arg2
-          returns: boolean
-          error: true
-        - java_method: unregisterGnssStatusCallback
-          go_name: UnregisterGnssStatusCallback
-          params:
-            - java_type: android.location.LocationManager
-              go_name: arg0
-            - java_type: androidx.core.location.GnssStatusCompat$Callback
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: androidx.core.location.LocationListenerCompat
-      go_type: ListenerCompat
-    - java_class: androidx.core.location.LocationRequestCompat
-      go_type: RequestCompat
-      methods:
-        - java_method: getQuality
-          go_name: GetQuality
-          returns: int
-          error: true
-        - java_method: getIntervalMillis
-          go_name: GetIntervalMillis
-          returns: long
-          error: true
-        - java_method: getMinUpdateIntervalMillis
-          go_name: GetMinUpdateIntervalMillis
-          returns: long
-          error: true
-        - java_method: getDurationMillis
-          go_name: GetDurationMillis
-          returns: long
-          error: true
-        - java_method: getMaxUpdates
-          go_name: GetMaxUpdates
-          returns: int
-          error: true
-        - java_method: getMinUpdateDistanceMeters
-          go_name: GetMinUpdateDistanceMeters
-          returns: float
-          error: true
-        - java_method: getMaxUpdateDelayMillis
-          go_name: GetMaxUpdateDelayMillis
-          returns: long
-          error: true
-        - java_method: toLocationRequest
-          go_name: ToLocationRequest0
-          returns: android.location.LocationRequest
-          error: true
-        - java_method: toLocationRequest
-          go_name: ToLocationRequest1_1
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.location.LocationRequest
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: androidx.core.location.LocationRequestCompat$Builder
-      go_type: RequestCompatBuilder
-      methods:
-        - java_method: setIntervalMillis
-          go_name: SetIntervalMillis
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: androidx.core.location.LocationRequestCompat$Builder
-          error: true
-        - java_method: setQuality
-          go_name: SetQuality
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.core.location.LocationRequestCompat$Builder
-          error: true
-        - java_method: setDurationMillis
-          go_name: SetDurationMillis
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: androidx.core.location.LocationRequestCompat$Builder
-          error: true
-        - java_method: setMaxUpdates
-          go_name: SetMaxUpdates
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.core.location.LocationRequestCompat$Builder
-          error: true
-        - java_method: setMinUpdateIntervalMillis
-          go_name: SetMinUpdateIntervalMillis
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: androidx.core.location.LocationRequestCompat$Builder
-          error: true
-        - java_method: clearMinUpdateIntervalMillis
-          go_name: ClearMinUpdateIntervalMillis
-          returns: androidx.core.location.LocationRequestCompat$Builder
-          error: true
-        - java_method: setMinUpdateDistanceMeters
-          go_name: SetMinUpdateDistanceMeters
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: androidx.core.location.LocationRequestCompat$Builder
-          error: true
-        - java_method: setMaxUpdateDelayMillis
-          go_name: SetMaxUpdateDelayMillis
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: androidx.core.location.LocationRequestCompat$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: androidx.core.location.LocationRequestCompat
-          error: true
-    - java_class: androidx.core.location.LocationRequestCompat$Quality
-      go_type: RequestCompatQuality
     - java_class: androidx.core.location.LocationCompat
       go_type: Compat
       static_methods:
@@ -572,73 +576,6 @@ classes:
           returns: void
           error: true
 abstract_callbacks:
-    - java_class: androidx.core.location.GnssStatusCompat
-      go_type: GnssStatusCompatCallback
-      methods:
-        - java_method: getSatelliteCount
-          params: []
-          returns: int
-          go_field: GetSatelliteCount
-        - java_method: getConstellationType
-          params:
-            - int
-          returns: int
-          go_field: GetConstellationType
-        - java_method: getSvid
-          params:
-            - int
-          returns: int
-          go_field: GetSvid
-        - java_method: getCn0DbHz
-          params:
-            - int
-          returns: float
-          go_field: GetCn0DbHz
-        - java_method: getElevationDegrees
-          params:
-            - int
-          returns: float
-          go_field: GetElevationDegrees
-        - java_method: getAzimuthDegrees
-          params:
-            - int
-          returns: float
-          go_field: GetAzimuthDegrees
-        - java_method: hasEphemerisData
-          params:
-            - int
-          returns: boolean
-          go_field: HasEphemerisData
-        - java_method: hasAlmanacData
-          params:
-            - int
-          returns: boolean
-          go_field: HasAlmanacData
-        - java_method: usedInFix
-          params:
-            - int
-          returns: boolean
-          go_field: UsedInFix
-        - java_method: hasCarrierFrequencyHz
-          params:
-            - int
-          returns: boolean
-          go_field: HasCarrierFrequencyHz
-        - java_method: getCarrierFrequencyHz
-          params:
-            - int
-          returns: float
-          go_field: GetCarrierFrequencyHz
-        - java_method: hasBasebandCn0DbHz
-          params:
-            - int
-          returns: boolean
-          go_field: HasBasebandCn0DbHz
-        - java_method: getBasebandCn0DbHz
-          params:
-            - int
-          returns: float
-          go_field: GetBasebandCn0DbHz
     - java_class: androidx.core.location.GnssStatusCompat$Callback
       go_type: GnssStatusCompatCallbackCallback
       methods:
@@ -660,7 +597,26 @@ abstract_callbacks:
             - androidx.core.location.GnssStatusCompat
           returns: void
           go_field: OnSatelliteStatusChanged
+abstract_callback_eligibility:
+    - java_class: androidx.core.location.GnssStatusCompat
+      generated: false
+      reason: unsupported_constructor
+    - java_class: androidx.core.location.GnssStatusCompat$Callback
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
+    - go_name: PassiveInterval
+      value: "9223372036854775807"
+      go_type: int64
+    - go_name: QualityHighAccuracy
+      value: "100"
+      go_type: int
+    - go_name: QualityBalancedPowerAccuracy
+      value: "102"
+      go_type: int
+    - go_name: QualityLowPower
+      value: "104"
+      go_type: int
     - go_name: ConstellationUnknown
       value: "0"
       go_type: int
@@ -684,18 +640,6 @@ constants:
       go_type: int
     - go_name: ConstellationIrnss
       value: "7"
-      go_type: int
-    - go_name: PassiveInterval
-      value: "9223372036854775807"
-      go_type: int64
-    - go_name: QualityHighAccuracy
-      value: "100"
-      go_type: int
-    - go_name: QualityBalancedPowerAccuracy
-      value: "102"
-      go_type: int
-    - go_name: QualityLowPower
-      value: "104"
       go_type: int
     - go_name: ExtraIsMock
       value: '"mockLocation"'

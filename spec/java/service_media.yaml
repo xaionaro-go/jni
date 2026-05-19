@@ -106,6 +106,12 @@ classes:
           error: true
     - java_class: android.service.media.MediaBrowserService$BrowserRoot
       go_type: BrowserServiceBrowserRoot
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: android.os.Bundle
+          go_name: arg1
       methods:
         - java_method: getExtras
           go_name: GetExtras
@@ -122,83 +128,13 @@ classes:
           go_name: Detach
           returns: void
           error: true
-abstract_callbacks:
+abstract_callback_eligibility:
     - java_class: android.service.media.CameraPrewarmService
-      go_type: CameraPrewarmServiceCallback
-      methods:
-        - java_method: onBind
-          params:
-            - android.content.Intent
-          returns: android.os.IBinder
-          go_field: OnBind
-        - java_method: onCooldown
-          params:
-            - boolean
-          returns: void
-          go_field: OnCooldown
-        - java_method: onPrewarm
-          params: []
-          returns: void
-          go_field: OnPrewarm
-        - java_method: onUnbind
-          params:
-            - android.content.Intent
-          returns: boolean
-          go_field: OnUnbind
+      generated: false
+      reason: non_object_superclass
     - java_class: android.service.media.MediaBrowserService
-      go_type: BrowserServiceCallback
-      methods:
-        - java_method: dump
-          params:
-            - java.io.FileDescriptor
-            - java.io.PrintWriter
-            - java.lang.String[]
-          returns: void
-          go_field: Dump
-        - java_method: getBrowserRootHints
-          params: []
-          returns: android.os.Bundle
-          go_field: GetBrowserRootHints
-        - java_method: getCurrentBrowserInfo
-          params: []
-          returns: android.media.session.MediaSessionManager$RemoteUserInfo
-          go_field: GetCurrentBrowserInfo
-        - java_method: getSessionToken
-          params: []
-          returns: android.media.session.MediaSession$Token
-          go_field: GetSessionToken
-        - java_method: notifyChildrenChanged
-          params:
-            - String
-          returns: void
-          go_field: NotifyChildrenChanged
-        - java_method: notifyChildrenChanged
-          params:
-            - String
-            - android.os.Bundle
-          returns: void
-          go_field: NotifyChildrenChanged
-        - java_method: onBind
-          params:
-            - android.content.Intent
-          returns: android.os.IBinder
-          go_field: OnBind
-        - java_method: onCreate
-          params: []
-          returns: void
-          go_field: OnCreate
-        - java_method: onGetRoot
-          params:
-            - String
-            - int
-            - android.os.Bundle
-          returns: android.service.media.MediaBrowserService$BrowserRoot
-          go_field: OnGetRoot
-        - java_method: setSessionToken
-          params:
-            - android.media.session.MediaSession$Token
-          returns: void
-          go_field: SetSessionToken
+      generated: false
+      reason: non_object_superclass
 constants:
     - go_name: ServiceInterface
       value: '"android.media.browse.MediaBrowserService"'

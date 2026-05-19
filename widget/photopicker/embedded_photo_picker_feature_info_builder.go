@@ -23,6 +23,34 @@ type EmbeddedPhotoPickerFeatureInfoBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewEmbeddedPhotoPickerFeatureInfoBuilder creates a new android.widget.photopicker.EmbeddedPhotoPickerFeatureInfo$Builder instance.
+func NewEmbeddedPhotoPickerFeatureInfoBuilder(vm *jni.VM) (*EmbeddedPhotoPickerFeatureInfoBuilder, error) {
+	var t EmbeddedPhotoPickerFeatureInfoBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsEmbeddedPhotoPickerFeatureInfoBuilder == nil {
+			return fmt.Errorf("android.widget.photopicker.EmbeddedPhotoPickerFeatureInfo$Builder is not available on this device")
+		}
+		if midEmbeddedPhotoPickerFeatureInfoBuilderCtor == nil {
+			return fmt.Errorf("android.widget.photopicker.EmbeddedPhotoPickerFeatureInfo$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerFeatureInfoBuilder)), midEmbeddedPhotoPickerFeatureInfoBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.widget.photopicker.EmbeddedPhotoPickerFeatureInfo$Builder.build.
 func (m *EmbeddedPhotoPickerFeatureInfoBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

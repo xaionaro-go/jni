@@ -32,6 +32,12 @@ func NewTableLayout(vm *jni.VM, arg0 *jni.Object) (*TableLayout, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTableLayout == nil {
+			return fmt.Errorf("android.widget.TableLayout is not available on this device")
+		}
+		if midTableLayoutCtor == nil {
+			return fmt.Errorf("android.widget.TableLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTableLayout)), midTableLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -142,8 +148,8 @@ func (m *TableLayout) AddView3_3(
 	return callErr
 }
 
-// GenerateLayoutParams1 calls android.widget.TableLayout.generateLayoutParams.
-func (m *TableLayout) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, error) {
+// GenerateLayoutParams calls android.widget.TableLayout.generateLayoutParams.
+func (m *TableLayout) GenerateLayoutParams(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -151,14 +157,14 @@ func (m *TableLayout) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, erro
 			callErr = err
 			return err
 		}
-		if midTableLayoutGenerateLayoutParams1 == nil {
+		if midTableLayoutGenerateLayoutParams == nil {
 			callErr = fmt.Errorf("android.widget.TableLayout.generateLayoutParams is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midTableLayoutGenerateLayoutParams1, jni.ObjectValue(arg0),
+			midTableLayoutGenerateLayoutParams, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -526,72 +532,6 @@ func (m *TableLayout) SetStretchAllColumns(arg0 bool) error {
 		return callErr
 	})
 	return callErr
-}
-
-// GenerateLayoutParams1_1 calls android.widget.TableLayout.generateLayoutParams.
-func (m *TableLayout) GenerateLayoutParams1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTableLayoutGenerateLayoutParams1_1 == nil {
-			callErr = fmt.Errorf("android.widget.TableLayout.generateLayoutParams is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midTableLayoutGenerateLayoutParams1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GenerateLayoutParams1_2 calls android.widget.TableLayout.generateLayoutParams.
-func (m *TableLayout) GenerateLayoutParams1_2(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTableLayoutGenerateLayoutParams1_2 == nil {
-			callErr = fmt.Errorf("android.widget.TableLayout.generateLayoutParams is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midTableLayoutGenerateLayoutParams1_2, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls android.widget.TableLayout.toString.

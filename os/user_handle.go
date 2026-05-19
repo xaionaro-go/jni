@@ -32,6 +32,12 @@ func NewUserHandle(vm *jni.VM, arg0 *jni.Object) (*UserHandle, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsUserHandle == nil {
+			return fmt.Errorf("android.os.UserHandle is not available on this device")
+		}
+		if midUserHandleCtor == nil {
+			return fmt.Errorf("android.os.UserHandle constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUserHandle)), midUserHandleCtor, jni.ObjectValue(arg0))
 		if err != nil {

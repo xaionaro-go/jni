@@ -32,6 +32,12 @@ func NewComponentAdData(vm *jni.VM, arg0 *jni.Object, arg1 string) (*ComponentAd
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsComponentAdData == nil {
+			return fmt.Errorf("android.adservices.common.ComponentAdData is not available on this device")
+		}
+		if midComponentAdDataCtor == nil {
+			return fmt.Errorf("android.adservices.common.ComponentAdData constructor (Landroid/net/Uri;Ljava/lang/String;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {
@@ -230,8 +236,8 @@ func (m *ComponentAdData) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsComponentAdData)),
 			midComponentAdDataWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

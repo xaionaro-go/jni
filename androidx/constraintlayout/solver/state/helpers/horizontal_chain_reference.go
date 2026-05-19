@@ -32,6 +32,12 @@ func NewHorizontalChainReference(vm *jni.VM, arg0 *jni.Object) (*HorizontalChain
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsHorizontalChainReference == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.state.helpers.HorizontalChainReference is not available on this device")
+		}
+		if midHorizontalChainReferenceCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.state.helpers.HorizontalChainReference constructor (Landroidx/constraintlayout/solver/state/State;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHorizontalChainReference)), midHorizontalChainReferenceCtor, jni.ObjectValue(arg0))
 		if err != nil {

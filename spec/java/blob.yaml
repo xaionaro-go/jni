@@ -43,15 +43,6 @@ classes:
           go_name: ToString
           returns: String
           error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
       static_methods:
         - java_method: createWithSha256
           go_name: CreateWithSha256
@@ -65,6 +56,15 @@ classes:
             - java_type: String
               go_name: arg3
           returns: android.app.blob.BlobHandle
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
           error: true
     - java_class: android.app.blob.BlobStoreManager
       go_type: StoreManager

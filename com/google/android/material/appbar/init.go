@@ -94,11 +94,11 @@ var (
 	midCollapsingToolbarLayoutGetTitlePositionInterpolator         jni.MethodID
 	midCollapsingToolbarLayoutSetScrimAnimationDuration            jni.MethodID
 	midCollapsingToolbarLayoutGetScrimAnimationDuration            jni.MethodID
-	midCollapsingToolbarLayoutGenerateLayoutParams1                jni.MethodID
-	midCollapsingToolbarLayoutGenerateLayoutParams1_1              jni.MethodID
+	midCollapsingToolbarLayoutGenerateLayoutParams                 jni.MethodID
 	midCollapsingToolbarLayoutToString                             jni.MethodID
 
 	clsCollapsingToolbarLayoutLayoutParams                      *jni.GlobalRef
+	midCollapsingToolbarLayoutLayoutParamsCtor                  jni.MethodID
 	midCollapsingToolbarLayoutLayoutParamsSetCollapseMode       jni.MethodID
 	midCollapsingToolbarLayoutLayoutParamsGetCollapseMode       jni.MethodID
 	midCollapsingToolbarLayoutLayoutParamsSetParallaxMultiplier jni.MethodID
@@ -110,24 +110,6 @@ var (
 
 	clsCollapsingToolbarLayoutTitleCollapseMode         *jni.GlobalRef
 	midCollapsingToolbarLayoutTitleCollapseModeToString jni.MethodID
-
-	clsMaterialToolbar                        *jni.GlobalRef
-	midMaterialToolbarCtor                    jni.MethodID
-	midMaterialToolbarInflateMenu             jni.MethodID
-	midMaterialToolbarGetLogoScaleType        jni.MethodID
-	midMaterialToolbarSetLogoScaleType        jni.MethodID
-	midMaterialToolbarIsLogoAdjustViewBounds  jni.MethodID
-	midMaterialToolbarSetLogoAdjustViewBounds jni.MethodID
-	midMaterialToolbarSetElevation            jni.MethodID
-	midMaterialToolbarSetNavigationIcon       jni.MethodID
-	midMaterialToolbarSetNavigationIconTint   jni.MethodID
-	midMaterialToolbarClearNavigationIconTint jni.MethodID
-	midMaterialToolbarGetNavigationIconTint   jni.MethodID
-	midMaterialToolbarSetTitleCentered        jni.MethodID
-	midMaterialToolbarIsTitleCentered         jni.MethodID
-	midMaterialToolbarSetSubtitleCentered     jni.MethodID
-	midMaterialToolbarIsSubtitleCentered      jni.MethodID
-	midMaterialToolbarToString                jni.MethodID
 
 	clsAppBarLayout                                             *jni.GlobalRef
 	midAppBarLayoutCtor                                         jni.MethodID
@@ -150,7 +132,7 @@ var (
 	midAppBarLayoutSetElevation                                 jni.MethodID
 	midAppBarLayoutSetExpanded1                                 jni.MethodID
 	midAppBarLayoutSetExpanded2_1                               jni.MethodID
-	midAppBarLayoutGenerateLayoutParams1                        jni.MethodID
+	midAppBarLayoutGenerateLayoutParams                         jni.MethodID
 	midAppBarLayoutGetTotalScrollRange                          jni.MethodID
 	midAppBarLayoutGetMinimumHeightForVisibleOverlappingContent jni.MethodID
 	midAppBarLayoutSetLiftable                                  jni.MethodID
@@ -164,56 +146,31 @@ var (
 	midAppBarLayoutGetLiftOnScrollTargetViewId                  jni.MethodID
 	midAppBarLayoutSetTargetElevation                           jni.MethodID
 	midAppBarLayoutGetTargetElevation                           jni.MethodID
-	midAppBarLayoutGenerateLayoutParams1_1                      jni.MethodID
-	midAppBarLayoutGenerateLayoutParams1_2                      jni.MethodID
 	midAppBarLayoutToString                                     jni.MethodID
 
-	clsAppBarLayoutBaseBehavior                       *jni.GlobalRef
-	midAppBarLayoutBaseBehaviorSetDragCallback        jni.MethodID
-	midAppBarLayoutBaseBehaviorOnLayoutChild          jni.MethodID
-	midAppBarLayoutBaseBehaviorOnSaveInstanceState    jni.MethodID
-	midAppBarLayoutBaseBehaviorOnRestoreInstanceState jni.MethodID
-	midAppBarLayoutBaseBehaviorOnNestedPreScroll      jni.MethodID
-	midAppBarLayoutBaseBehaviorOnNestedScroll         jni.MethodID
-	midAppBarLayoutBaseBehaviorOnStopNestedScroll     jni.MethodID
-	midAppBarLayoutBaseBehaviorOnStartNestedScroll    jni.MethodID
-	midAppBarLayoutBaseBehaviorOnMeasureChild         jni.MethodID
-	midAppBarLayoutBaseBehaviorToString               jni.MethodID
+	clsAppBarLayoutBaseBehavior                *jni.GlobalRef
+	midAppBarLayoutBaseBehaviorCtor            jni.MethodID
+	midAppBarLayoutBaseBehaviorSetDragCallback jni.MethodID
+	midAppBarLayoutBaseBehaviorToString        jni.MethodID
 
 	clsAppBarLayoutBaseOnOffsetChangedListener         *jni.GlobalRef
 	midAppBarLayoutBaseOnOffsetChangedListenerToString jni.MethodID
 
-	clsAppBarLayoutBehavior                           *jni.GlobalRef
-	midAppBarLayoutBehaviorOnRestoreInstanceState     jni.MethodID
-	midAppBarLayoutBehaviorOnSaveInstanceState        jni.MethodID
-	midAppBarLayoutBehaviorOnLayoutChild              jni.MethodID
-	midAppBarLayoutBehaviorOnMeasureChild             jni.MethodID
-	midAppBarLayoutBehaviorSetDragCallback            jni.MethodID
-	midAppBarLayoutBehaviorOnStopNestedScroll         jni.MethodID
-	midAppBarLayoutBehaviorOnNestedScroll             jni.MethodID
-	midAppBarLayoutBehaviorOnNestedPreScroll          jni.MethodID
-	midAppBarLayoutBehaviorOnStartNestedScroll        jni.MethodID
-	midAppBarLayoutBehaviorOnTouchEvent               jni.MethodID
-	midAppBarLayoutBehaviorOnInterceptTouchEvent      jni.MethodID
-	midAppBarLayoutBehaviorIsHorizontalOffsetEnabled  jni.MethodID
-	midAppBarLayoutBehaviorSetHorizontalOffsetEnabled jni.MethodID
-	midAppBarLayoutBehaviorIsVerticalOffsetEnabled    jni.MethodID
-	midAppBarLayoutBehaviorSetVerticalOffsetEnabled   jni.MethodID
-	midAppBarLayoutBehaviorGetLeftAndRightOffset      jni.MethodID
-	midAppBarLayoutBehaviorGetTopAndBottomOffset      jni.MethodID
-	midAppBarLayoutBehaviorSetLeftAndRightOffset      jni.MethodID
-	midAppBarLayoutBehaviorSetTopAndBottomOffset      jni.MethodID
-	midAppBarLayoutBehaviorToString                   jni.MethodID
+	clsAppBarLayoutBehavior         *jni.GlobalRef
+	midAppBarLayoutBehaviorCtor     jni.MethodID
+	midAppBarLayoutBehaviorToString jni.MethodID
 
 	clsAppBarLayoutChildScrollEffect                *jni.GlobalRef
 	midAppBarLayoutChildScrollEffectOnOffsetChanged jni.MethodID
 	midAppBarLayoutChildScrollEffectToString        jni.MethodID
 
 	clsAppBarLayoutCompressChildScrollEffect                *jni.GlobalRef
+	midAppBarLayoutCompressChildScrollEffectCtor            jni.MethodID
 	midAppBarLayoutCompressChildScrollEffectOnOffsetChanged jni.MethodID
 	midAppBarLayoutCompressChildScrollEffectToString        jni.MethodID
 
 	clsAppBarLayoutLayoutParams                      *jni.GlobalRef
+	midAppBarLayoutLayoutParamsCtor                  jni.MethodID
 	midAppBarLayoutLayoutParamsSetScrollFlags        jni.MethodID
 	midAppBarLayoutLayoutParamsGetScrollFlags        jni.MethodID
 	midAppBarLayoutLayoutParamsGetScrollEffect       jni.MethodID
@@ -231,22 +188,30 @@ var (
 	midAppBarLayoutOnOffsetChangedListenerOnOffsetChanged jni.MethodID
 	midAppBarLayoutOnOffsetChangedListenerToString        jni.MethodID
 
-	clsAppBarLayoutScrollingViewBehavior                                *jni.GlobalRef
-	midAppBarLayoutScrollingViewBehaviorLayoutDependsOn                 jni.MethodID
-	midAppBarLayoutScrollingViewBehaviorOnDependentViewChanged          jni.MethodID
-	midAppBarLayoutScrollingViewBehaviorOnDependentViewRemoved          jni.MethodID
-	midAppBarLayoutScrollingViewBehaviorOnRequestChildRectangleOnScreen jni.MethodID
-	midAppBarLayoutScrollingViewBehaviorOnMeasureChild                  jni.MethodID
-	midAppBarLayoutScrollingViewBehaviorIsHorizontalOffsetEnabled       jni.MethodID
-	midAppBarLayoutScrollingViewBehaviorSetHorizontalOffsetEnabled      jni.MethodID
-	midAppBarLayoutScrollingViewBehaviorIsVerticalOffsetEnabled         jni.MethodID
-	midAppBarLayoutScrollingViewBehaviorSetVerticalOffsetEnabled        jni.MethodID
-	midAppBarLayoutScrollingViewBehaviorGetLeftAndRightOffset           jni.MethodID
-	midAppBarLayoutScrollingViewBehaviorGetTopAndBottomOffset           jni.MethodID
-	midAppBarLayoutScrollingViewBehaviorSetLeftAndRightOffset           jni.MethodID
-	midAppBarLayoutScrollingViewBehaviorSetTopAndBottomOffset           jni.MethodID
-	midAppBarLayoutScrollingViewBehaviorOnLayoutChild                   jni.MethodID
-	midAppBarLayoutScrollingViewBehaviorToString                        jni.MethodID
+	clsAppBarLayoutScrollingViewBehavior                       *jni.GlobalRef
+	midAppBarLayoutScrollingViewBehaviorCtor                   jni.MethodID
+	midAppBarLayoutScrollingViewBehaviorLayoutDependsOn        jni.MethodID
+	midAppBarLayoutScrollingViewBehaviorOnDependentViewChanged jni.MethodID
+	midAppBarLayoutScrollingViewBehaviorOnDependentViewRemoved jni.MethodID
+	midAppBarLayoutScrollingViewBehaviorToString               jni.MethodID
+
+	clsMaterialToolbar                        *jni.GlobalRef
+	midMaterialToolbarCtor                    jni.MethodID
+	midMaterialToolbarInflateMenu             jni.MethodID
+	midMaterialToolbarGetLogoScaleType        jni.MethodID
+	midMaterialToolbarSetLogoScaleType        jni.MethodID
+	midMaterialToolbarIsLogoAdjustViewBounds  jni.MethodID
+	midMaterialToolbarSetLogoAdjustViewBounds jni.MethodID
+	midMaterialToolbarSetElevation            jni.MethodID
+	midMaterialToolbarSetNavigationIcon       jni.MethodID
+	midMaterialToolbarSetNavigationIconTint   jni.MethodID
+	midMaterialToolbarClearNavigationIconTint jni.MethodID
+	midMaterialToolbarGetNavigationIconTint   jni.MethodID
+	midMaterialToolbarSetTitleCentered        jni.MethodID
+	midMaterialToolbarIsTitleCentered         jni.MethodID
+	midMaterialToolbarSetSubtitleCentered     jni.MethodID
+	midMaterialToolbarToString                jni.MethodID
+	midMaterialToolbarIsSubtitleCentered      jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -762,14 +727,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midCollapsingToolbarLayoutGenerateLayoutParams1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCollapsingToolbarLayout)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroid/widget/FrameLayout$LayoutParams;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCollapsingToolbarLayoutGenerateLayoutParams1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCollapsingToolbarLayout)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroid/view/ViewGroup$LayoutParams;")
+		midCollapsingToolbarLayoutGenerateLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCollapsingToolbarLayout)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroid/widget/FrameLayout$LayoutParams;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -792,6 +750,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsCollapsingToolbarLayoutLayoutParams = env.NewGlobalRef(&c.Object)
+		midCollapsingToolbarLayoutLayoutParamsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCollapsingToolbarLayoutLayoutParams)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midCollapsingToolbarLayoutLayoutParamsSetCollapseMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCollapsingToolbarLayoutLayoutParams)), "setCollapseMode", "(I)V")
 		if err != nil {
@@ -856,125 +818,6 @@ func doInit(env *jni.Env) error {
 		clsCollapsingToolbarLayoutTitleCollapseMode = env.NewGlobalRef(&c.Object)
 
 		midCollapsingToolbarLayoutTitleCollapseModeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCollapsingToolbarLayoutTitleCollapseMode)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/appbar/MaterialToolbar")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMaterialToolbar = env.NewGlobalRef(&c.Object)
-		midMaterialToolbarCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMaterialToolbarInflateMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "inflateMenu", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialToolbarGetLogoScaleType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "getLogoScaleType", "()Landroid/widget/ImageView$ScaleType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialToolbarSetLogoScaleType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "setLogoScaleType", "(Landroid/widget/ImageView$ScaleType;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialToolbarIsLogoAdjustViewBounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "isLogoAdjustViewBounds", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialToolbarSetLogoAdjustViewBounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "setLogoAdjustViewBounds", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialToolbarSetElevation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "setElevation", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialToolbarSetNavigationIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "setNavigationIcon", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialToolbarSetNavigationIconTint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "setNavigationIconTint", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialToolbarClearNavigationIconTint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "clearNavigationIconTint", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialToolbarGetNavigationIconTint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "getNavigationIconTint", "()Ljava/lang/Integer;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialToolbarSetTitleCentered, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "setTitleCentered", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialToolbarIsTitleCentered, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "isTitleCentered", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialToolbarSetSubtitleCentered, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "setSubtitleCentered", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialToolbarIsSubtitleCentered, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "isSubtitleCentered", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialToolbarToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1128,7 +971,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midAppBarLayoutGenerateLayoutParams1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayout)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Lcom/google/android/material/appbar/AppBarLayout$LayoutParams;")
+		midAppBarLayoutGenerateLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayout)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Lcom/google/android/material/appbar/AppBarLayout$LayoutParams;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1226,20 +1069,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midAppBarLayoutGenerateLayoutParams1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayout)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroid/widget/LinearLayout$LayoutParams;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutGenerateLayoutParams1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayout)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroid/view/ViewGroup$LayoutParams;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midAppBarLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayout)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -1256,64 +1085,12 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsAppBarLayoutBaseBehavior = env.NewGlobalRef(&c.Object)
+		midAppBarLayoutBaseBehaviorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBaseBehavior)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midAppBarLayoutBaseBehaviorSetDragCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBaseBehavior)), "setDragCallback", "(Lcom/google/android/material/appbar/AppBarLayout$BaseBehavior$BaseDragCallback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBaseBehaviorOnLayoutChild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBaseBehavior)), "onLayoutChild", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBaseBehaviorOnSaveInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBaseBehavior)), "onSaveInstanceState", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;)Landroid/os/Parcelable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBaseBehaviorOnRestoreInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBaseBehavior)), "onRestoreInstanceState", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/os/Parcelable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBaseBehaviorOnNestedPreScroll, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBaseBehavior)), "onNestedPreScroll", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/View;II[II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBaseBehaviorOnNestedScroll, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBaseBehavior)), "onNestedScroll", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/View;IIIII[I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBaseBehaviorOnStopNestedScroll, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBaseBehavior)), "onStopNestedScroll", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/View;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBaseBehaviorOnStartNestedScroll, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBaseBehavior)), "onStartNestedScroll", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/View;Landroid/view/View;II)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBaseBehaviorOnMeasureChild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBaseBehavior)), "onMeasureChild", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;IIII)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1353,137 +1130,8 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsAppBarLayoutBehavior = env.NewGlobalRef(&c.Object)
-
-		midAppBarLayoutBehaviorOnRestoreInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBehavior)), "onRestoreInstanceState", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/appbar/AppBarLayout;Landroid/os/Parcelable;)V")
+		midAppBarLayoutBehaviorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBehavior)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
 		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBehaviorOnSaveInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBehavior)), "onSaveInstanceState", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/appbar/AppBarLayout;)Landroid/os/Parcelable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBehaviorOnLayoutChild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBehavior)), "onLayoutChild", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/appbar/AppBarLayout;I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBehaviorOnMeasureChild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBehavior)), "onMeasureChild", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/appbar/AppBarLayout;IIII)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBehaviorSetDragCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBehavior)), "setDragCallback", "(Lcom/google/android/material/appbar/AppBarLayout$BaseBehavior$BaseDragCallback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBehaviorOnStopNestedScroll, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBehavior)), "onStopNestedScroll", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/appbar/AppBarLayout;Landroid/view/View;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBehaviorOnNestedScroll, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBehavior)), "onNestedScroll", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/appbar/AppBarLayout;Landroid/view/View;IIIII[I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBehaviorOnNestedPreScroll, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBehavior)), "onNestedPreScroll", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/appbar/AppBarLayout;Landroid/view/View;II[II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBehaviorOnStartNestedScroll, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBehavior)), "onStartNestedScroll", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/appbar/AppBarLayout;Landroid/view/View;Landroid/view/View;II)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBehaviorOnTouchEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBehavior)), "onTouchEvent", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/MotionEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBehaviorOnInterceptTouchEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBehavior)), "onInterceptTouchEvent", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/MotionEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBehaviorIsHorizontalOffsetEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBehavior)), "isHorizontalOffsetEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBehaviorSetHorizontalOffsetEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBehavior)), "setHorizontalOffsetEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBehaviorIsVerticalOffsetEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBehavior)), "isVerticalOffsetEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBehaviorSetVerticalOffsetEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBehavior)), "setVerticalOffsetEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBehaviorGetLeftAndRightOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBehavior)), "getLeftAndRightOffset", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBehaviorGetTopAndBottomOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBehavior)), "getTopAndBottomOffset", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBehaviorSetLeftAndRightOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBehavior)), "setLeftAndRightOffset", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutBehaviorSetTopAndBottomOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBehavior)), "setTopAndBottomOffset", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
@@ -1527,6 +1175,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsAppBarLayoutCompressChildScrollEffect = env.NewGlobalRef(&c.Object)
+		midAppBarLayoutCompressChildScrollEffectCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutCompressChildScrollEffect)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midAppBarLayoutCompressChildScrollEffectOnOffsetChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutCompressChildScrollEffect)), "onOffsetChanged", "(Lcom/google/android/material/appbar/AppBarLayout;Landroid/view/View;F)V")
 		if err != nil {
@@ -1551,6 +1203,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsAppBarLayoutLayoutParams = env.NewGlobalRef(&c.Object)
+		midAppBarLayoutLayoutParamsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutLayoutParams)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midAppBarLayoutLayoutParamsSetScrollFlags, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutLayoutParams)), "setScrollFlags", "(I)V")
 		if err != nil {
@@ -1665,6 +1321,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsAppBarLayoutScrollingViewBehavior = env.NewGlobalRef(&c.Object)
+		midAppBarLayoutScrollingViewBehaviorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutScrollingViewBehavior)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midAppBarLayoutScrollingViewBehaviorLayoutDependsOn, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutScrollingViewBehavior)), "layoutDependsOn", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/View;)Z")
 		if err != nil {
@@ -1687,84 +1347,126 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midAppBarLayoutScrollingViewBehaviorOnRequestChildRectangleOnScreen, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutScrollingViewBehavior)), "onRequestChildRectangleOnScreen", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/graphics/Rect;Z)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutScrollingViewBehaviorOnMeasureChild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutScrollingViewBehavior)), "onMeasureChild", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;IIII)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutScrollingViewBehaviorIsHorizontalOffsetEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutScrollingViewBehavior)), "isHorizontalOffsetEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutScrollingViewBehaviorSetHorizontalOffsetEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutScrollingViewBehavior)), "setHorizontalOffsetEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutScrollingViewBehaviorIsVerticalOffsetEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutScrollingViewBehavior)), "isVerticalOffsetEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutScrollingViewBehaviorSetVerticalOffsetEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutScrollingViewBehavior)), "setVerticalOffsetEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutScrollingViewBehaviorGetLeftAndRightOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutScrollingViewBehavior)), "getLeftAndRightOffset", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutScrollingViewBehaviorGetTopAndBottomOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutScrollingViewBehavior)), "getTopAndBottomOffset", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutScrollingViewBehaviorSetLeftAndRightOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutScrollingViewBehavior)), "setLeftAndRightOffset", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutScrollingViewBehaviorSetTopAndBottomOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutScrollingViewBehavior)), "setTopAndBottomOffset", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppBarLayoutScrollingViewBehaviorOnLayoutChild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutScrollingViewBehavior)), "onLayoutChild", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midAppBarLayoutScrollingViewBehaviorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppBarLayoutScrollingViewBehavior)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/appbar/MaterialToolbar")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMaterialToolbar = env.NewGlobalRef(&c.Object)
+		midMaterialToolbarCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMaterialToolbarInflateMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "inflateMenu", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialToolbarGetLogoScaleType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "getLogoScaleType", "()Landroid/widget/ImageView$ScaleType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialToolbarSetLogoScaleType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "setLogoScaleType", "(Landroid/widget/ImageView$ScaleType;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialToolbarIsLogoAdjustViewBounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "isLogoAdjustViewBounds", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialToolbarSetLogoAdjustViewBounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "setLogoAdjustViewBounds", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialToolbarSetElevation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "setElevation", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialToolbarSetNavigationIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "setNavigationIcon", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialToolbarSetNavigationIconTint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "setNavigationIconTint", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialToolbarClearNavigationIconTint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "clearNavigationIconTint", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialToolbarGetNavigationIconTint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "getNavigationIconTint", "()Ljava/lang/Integer;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialToolbarSetTitleCentered, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "setTitleCentered", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialToolbarIsTitleCentered, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "isTitleCentered", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialToolbarSetSubtitleCentered, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "setSubtitleCentered", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialToolbarToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialToolbarIsSubtitleCentered, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), "isSubtitleCentered", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

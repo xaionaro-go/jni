@@ -3,15 +3,15 @@
 package consts
 
 const (
-	ActionQsTile            string = "android.service.quicksettings.action.QS_TILE"
-	ActionQsTilePreferences string = "android.service.quicksettings.action.QS_TILE_PREFERENCES"
-	MetaDataActiveTile      string = "android.service.quicksettings.ACTIVE_TILE"
-	MetaDataToggleableTile  string = "android.service.quicksettings.TOGGLEABLE_TILE"
-)
-
-const (
 	Creator          int = 0
 	StateActive      int = 2
 	StateInactive    int = 1
 	StateUnavailable int = 0
+)
+
+const (
+	ActionQsTile            string = "android.service.quicksettings.action.QS_TILE"
+	ActionQsTilePreferences string = "android.service.quicksettings.action.QS_TILE_PREFERENCES"
+	MetaDataActiveTile      string = "android.service.quicksettings.ACTIVE_TILE"
+	MetaDataToggleableTile  string = "android.service.quicksettings.TOGGLEABLE_TILE"
 )

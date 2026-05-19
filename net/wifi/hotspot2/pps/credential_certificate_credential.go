@@ -23,6 +23,34 @@ type CredentialCertificateCredential struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCredentialCertificateCredential creates a new android.net.wifi.hotspot2.pps.Credential$CertificateCredential instance.
+func NewCredentialCertificateCredential(vm *jni.VM) (*CredentialCertificateCredential, error) {
+	var t CredentialCertificateCredential
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCredentialCertificateCredential == nil {
+			return fmt.Errorf("android.net.wifi.hotspot2.pps.Credential$CertificateCredential is not available on this device")
+		}
+		if midCredentialCertificateCredentialCtor == nil {
+			return fmt.Errorf("android.net.wifi.hotspot2.pps.Credential$CertificateCredential constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCredentialCertificateCredential)), midCredentialCertificateCredentialCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.net.wifi.hotspot2.pps.Credential$CertificateCredential.describeContents.
 func (m *CredentialCertificateCredential) DescribeContents() (int32, error) {
 	var result int32
@@ -252,8 +280,8 @@ func (m *CredentialCertificateCredential) WriteToParcel(arg0 *jni.Object, arg1 i
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsCredentialCertificateCredential)),
 			midCredentialCertificateCredentialWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

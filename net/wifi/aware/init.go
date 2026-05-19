@@ -23,76 +23,29 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsWifiAwareNetworkSpecifier                                   *jni.GlobalRef
-	midWifiAwareNetworkSpecifierCanBeSatisfiedBy                   jni.MethodID
-	midWifiAwareNetworkSpecifierDescribeContents                   jni.MethodID
-	midWifiAwareNetworkSpecifierEquals                             jni.MethodID
-	midWifiAwareNetworkSpecifierGetChannelFrequencyMhz             jni.MethodID
-	midWifiAwareNetworkSpecifierGetWifiAwareDataPathSecurityConfig jni.MethodID
-	midWifiAwareNetworkSpecifierHashCode                           jni.MethodID
-	midWifiAwareNetworkSpecifierIsChannelRequired                  jni.MethodID
-	midWifiAwareNetworkSpecifierToString                           jni.MethodID
-	midWifiAwareNetworkSpecifierWriteToParcel                      jni.MethodID
+	clsWifiAwareChannelInfo                       *jni.GlobalRef
+	midWifiAwareChannelInfoDescribeContents       jni.MethodID
+	midWifiAwareChannelInfoEquals                 jni.MethodID
+	midWifiAwareChannelInfoGetChannelBandwidth    jni.MethodID
+	midWifiAwareChannelInfoGetChannelFrequencyMhz jni.MethodID
+	midWifiAwareChannelInfoGetSpatialStreamCount  jni.MethodID
+	midWifiAwareChannelInfoHashCode               jni.MethodID
+	midWifiAwareChannelInfoToString               jni.MethodID
+	midWifiAwareChannelInfoWriteToParcel          jni.MethodID
 
-	clsWifiAwareNetworkSpecifierBuilder                          *jni.GlobalRef
-	midWifiAwareNetworkSpecifierBuilderBuild                     jni.MethodID
-	midWifiAwareNetworkSpecifierBuilderSetChannelFrequencyMhz    jni.MethodID
-	midWifiAwareNetworkSpecifierBuilderSetDataPathSecurityConfig jni.MethodID
-	midWifiAwareNetworkSpecifierBuilderSetPmk                    jni.MethodID
-	midWifiAwareNetworkSpecifierBuilderSetPort                   jni.MethodID
-	midWifiAwareNetworkSpecifierBuilderSetPskPassphrase          jni.MethodID
-	midWifiAwareNetworkSpecifierBuilderSetTransportProtocol      jni.MethodID
-	midWifiAwareNetworkSpecifierBuilderToString                  jni.MethodID
+	clsWifiAwareSession                                 *jni.GlobalRef
+	midWifiAwareSessionClose                            jni.MethodID
+	midWifiAwareSessionCreateNetworkSpecifierOpen       jni.MethodID
+	midWifiAwareSessionCreateNetworkSpecifierPassphrase jni.MethodID
+	midWifiAwareSessionToString                         jni.MethodID
 
-	clsWifiAwareManager                                  *jni.GlobalRef
-	midWifiAwareManagerGetAvailableAwareResources        jni.MethodID
-	midWifiAwareManagerGetCharacteristics                jni.MethodID
-	midWifiAwareManagerIsAvailable                       jni.MethodID
-	midWifiAwareManagerIsDeviceAttached                  jni.MethodID
-	midWifiAwareManagerIsInstantCommunicationModeEnabled jni.MethodID
-	midWifiAwareManagerIsSetChannelOnDataPathSupported   jni.MethodID
-	midWifiAwareManagerRemovePairedDevice                jni.MethodID
-	midWifiAwareManagerResetPairedDevices                jni.MethodID
-	midWifiAwareManagerSetOpportunisticModeEnabled       jni.MethodID
-	midWifiAwareManagerToString                          jni.MethodID
+	clsSubscribeDiscoverySession                *jni.GlobalRef
+	midSubscribeDiscoverySessionUpdateSubscribe jni.MethodID
+	midSubscribeDiscoverySessionToString        jni.MethodID
 
-	clsPeerHandle         *jni.GlobalRef
-	midPeerHandleEquals   jni.MethodID
-	midPeerHandleHashCode jni.MethodID
-	midPeerHandleToString jni.MethodID
-
-	clsResources                                   *jni.GlobalRef
-	midResourcesCtor                               jni.MethodID
-	midResourcesDescribeContents                   jni.MethodID
-	midResourcesGetAvailableDataPathsCount         jni.MethodID
-	midResourcesGetAvailablePublishSessionsCount   jni.MethodID
-	midResourcesGetAvailableSubscribeSessionsCount jni.MethodID
-	midResourcesWriteToParcel                      jni.MethodID
-	midResourcesToString                           jni.MethodID
-
-	clsPublishConfig                                  *jni.GlobalRef
-	midPublishConfigDescribeContents                  jni.MethodID
-	midPublishConfigEquals                            jni.MethodID
-	midPublishConfigGetInstantCommunicationBand       jni.MethodID
-	midPublishConfigGetPairingConfig                  jni.MethodID
-	midPublishConfigGetSecurityConfig                 jni.MethodID
-	midPublishConfigHashCode                          jni.MethodID
-	midPublishConfigIsInstantCommunicationModeEnabled jni.MethodID
-	midPublishConfigToString                          jni.MethodID
-	midPublishConfigWriteToParcel                     jni.MethodID
-
-	clsPublishConfigBuilder                                   *jni.GlobalRef
-	midPublishConfigBuilderBuild                              jni.MethodID
-	midPublishConfigBuilderSetDataPathSecurityConfig          jni.MethodID
-	midPublishConfigBuilderSetInstantCommunicationModeEnabled jni.MethodID
-	midPublishConfigBuilderSetPairingConfig                   jni.MethodID
-	midPublishConfigBuilderSetPublishType                     jni.MethodID
-	midPublishConfigBuilderSetRangingEnabled                  jni.MethodID
-	midPublishConfigBuilderSetServiceName                     jni.MethodID
-	midPublishConfigBuilderSetServiceSpecificInfo             jni.MethodID
-	midPublishConfigBuilderSetTerminateNotificationEnabled    jni.MethodID
-	midPublishConfigBuilderSetTtlSec                          jni.MethodID
-	midPublishConfigBuilderToString                           jni.MethodID
+	clsPublishDiscoverySession              *jni.GlobalRef
+	midPublishDiscoverySessionUpdatePublish jni.MethodID
+	midPublishDiscoverySessionToString      jni.MethodID
 
 	clsWifiAwareDataPathSecurityConfig                 *jni.GlobalRef
 	midWifiAwareDataPathSecurityConfigDescribeContents jni.MethodID
@@ -106,59 +59,12 @@ var (
 	midWifiAwareDataPathSecurityConfigWriteToParcel    jni.MethodID
 
 	clsWifiAwareDataPathSecurityConfigBuilder                 *jni.GlobalRef
+	midWifiAwareDataPathSecurityConfigBuilderCtor             jni.MethodID
 	midWifiAwareDataPathSecurityConfigBuilderBuild            jni.MethodID
 	midWifiAwareDataPathSecurityConfigBuilderSetPmk           jni.MethodID
 	midWifiAwareDataPathSecurityConfigBuilderSetPmkId         jni.MethodID
 	midWifiAwareDataPathSecurityConfigBuilderSetPskPassphrase jni.MethodID
 	midWifiAwareDataPathSecurityConfigBuilderToString         jni.MethodID
-
-	clsWifiAwareChannelInfo                       *jni.GlobalRef
-	midWifiAwareChannelInfoDescribeContents       jni.MethodID
-	midWifiAwareChannelInfoEquals                 jni.MethodID
-	midWifiAwareChannelInfoGetChannelBandwidth    jni.MethodID
-	midWifiAwareChannelInfoGetChannelFrequencyMhz jni.MethodID
-	midWifiAwareChannelInfoGetSpatialStreamCount  jni.MethodID
-	midWifiAwareChannelInfoHashCode               jni.MethodID
-	midWifiAwareChannelInfoToString               jni.MethodID
-	midWifiAwareChannelInfoWriteToParcel          jni.MethodID
-
-	clsSubscribeConfig                                  *jni.GlobalRef
-	midSubscribeConfigDescribeContents                  jni.MethodID
-	midSubscribeConfigEquals                            jni.MethodID
-	midSubscribeConfigGetInstantCommunicationBand       jni.MethodID
-	midSubscribeConfigGetPairingConfig                  jni.MethodID
-	midSubscribeConfigHashCode                          jni.MethodID
-	midSubscribeConfigIsInstantCommunicationModeEnabled jni.MethodID
-	midSubscribeConfigToString                          jni.MethodID
-	midSubscribeConfigWriteToParcel                     jni.MethodID
-
-	clsSubscribeConfigBuilder                                   *jni.GlobalRef
-	midSubscribeConfigBuilderBuild                              jni.MethodID
-	midSubscribeConfigBuilderSetInstantCommunicationModeEnabled jni.MethodID
-	midSubscribeConfigBuilderSetMaxDistanceMm                   jni.MethodID
-	midSubscribeConfigBuilderSetMinDistanceMm                   jni.MethodID
-	midSubscribeConfigBuilderSetPairingConfig                   jni.MethodID
-	midSubscribeConfigBuilderSetServiceName                     jni.MethodID
-	midSubscribeConfigBuilderSetServiceSpecificInfo             jni.MethodID
-	midSubscribeConfigBuilderSetSubscribeType                   jni.MethodID
-	midSubscribeConfigBuilderSetTerminateNotificationEnabled    jni.MethodID
-	midSubscribeConfigBuilderSetTtlSec                          jni.MethodID
-	midSubscribeConfigBuilderToString                           jni.MethodID
-
-	clsDiscoverySession                                 *jni.GlobalRef
-	midDiscoverySessionAcceptPairingRequest             jni.MethodID
-	midDiscoverySessionClose                            jni.MethodID
-	midDiscoverySessionCreateNetworkSpecifierOpen       jni.MethodID
-	midDiscoverySessionCreateNetworkSpecifierPassphrase jni.MethodID
-	midDiscoverySessionInitiateBootstrappingRequest     jni.MethodID
-	midDiscoverySessionInitiatePairingRequest           jni.MethodID
-	midDiscoverySessionRejectPairingRequest             jni.MethodID
-	midDiscoverySessionSendMessage                      jni.MethodID
-	midDiscoverySessionToString                         jni.MethodID
-
-	clsPublishDiscoverySession              *jni.GlobalRef
-	midPublishDiscoverySessionUpdatePublish jni.MethodID
-	midPublishDiscoverySessionToString      jni.MethodID
 
 	clsCharacteristics                                      *jni.GlobalRef
 	midCharacteristicsDescribeContents                      jni.MethodID
@@ -174,30 +80,168 @@ var (
 	midCharacteristicsIsAwarePairingSupported               jni.MethodID
 	midCharacteristicsIsInstantCommunicationModeSupported   jni.MethodID
 	midCharacteristicsIsSuspensionSupported                 jni.MethodID
-	midCharacteristicsWriteToParcel                         jni.MethodID
 	midCharacteristicsToString                              jni.MethodID
+	midCharacteristicsWriteToParcel                         jni.MethodID
 
-	clsServiceDiscoveryInfo                       *jni.GlobalRef
-	midServiceDiscoveryInfoGetMatchFilters        jni.MethodID
-	midServiceDiscoveryInfoGetPairedAlias         jni.MethodID
-	midServiceDiscoveryInfoGetPairingConfig       jni.MethodID
-	midServiceDiscoveryInfoGetPeerCipherSuite     jni.MethodID
-	midServiceDiscoveryInfoGetPeerHandle          jni.MethodID
-	midServiceDiscoveryInfoGetScid                jni.MethodID
-	midServiceDiscoveryInfoGetServiceSpecificInfo jni.MethodID
-	midServiceDiscoveryInfoToString               jni.MethodID
+	clsDiscoverySession                                 *jni.GlobalRef
+	midDiscoverySessionAcceptPairingRequest             jni.MethodID
+	midDiscoverySessionClose                            jni.MethodID
+	midDiscoverySessionCreateNetworkSpecifierOpen       jni.MethodID
+	midDiscoverySessionCreateNetworkSpecifierPassphrase jni.MethodID
+	midDiscoverySessionInitiateBootstrappingRequest     jni.MethodID
+	midDiscoverySessionInitiatePairingRequest           jni.MethodID
+	midDiscoverySessionRejectPairingRequest             jni.MethodID
+	midDiscoverySessionSendMessage                      jni.MethodID
+	midDiscoverySessionToString                         jni.MethodID
+
+	clsAttachCallback                         *jni.GlobalRef
+	midAttachCallbackCtor                     jni.MethodID
+	midAttachCallbackOnAttachFailed           jni.MethodID
+	midAttachCallbackOnAttached               jni.MethodID
+	midAttachCallbackOnAwareSessionTerminated jni.MethodID
+	midAttachCallbackToString                 jni.MethodID
+
+	clsWifiAwareNetworkSpecifier                                   *jni.GlobalRef
+	midWifiAwareNetworkSpecifierCanBeSatisfiedBy                   jni.MethodID
+	midWifiAwareNetworkSpecifierDescribeContents                   jni.MethodID
+	midWifiAwareNetworkSpecifierEquals                             jni.MethodID
+	midWifiAwareNetworkSpecifierGetChannelFrequencyMhz             jni.MethodID
+	midWifiAwareNetworkSpecifierGetWifiAwareDataPathSecurityConfig jni.MethodID
+	midWifiAwareNetworkSpecifierHashCode                           jni.MethodID
+	midWifiAwareNetworkSpecifierIsChannelRequired                  jni.MethodID
+	midWifiAwareNetworkSpecifierToString                           jni.MethodID
+	midWifiAwareNetworkSpecifierWriteToParcel                      jni.MethodID
+
+	clsWifiAwareNetworkSpecifierBuilder                          *jni.GlobalRef
+	midWifiAwareNetworkSpecifierBuilderCtor                      jni.MethodID
+	midWifiAwareNetworkSpecifierBuilderBuild                     jni.MethodID
+	midWifiAwareNetworkSpecifierBuilderSetChannelFrequencyMhz    jni.MethodID
+	midWifiAwareNetworkSpecifierBuilderSetDataPathSecurityConfig jni.MethodID
+	midWifiAwareNetworkSpecifierBuilderSetPmk                    jni.MethodID
+	midWifiAwareNetworkSpecifierBuilderSetPort                   jni.MethodID
+	midWifiAwareNetworkSpecifierBuilderSetPskPassphrase          jni.MethodID
+	midWifiAwareNetworkSpecifierBuilderSetTransportProtocol      jni.MethodID
+	midWifiAwareNetworkSpecifierBuilderToString                  jni.MethodID
+
+	clsWifiAwareNetworkInfo                     *jni.GlobalRef
+	midWifiAwareNetworkInfoDescribeContents     jni.MethodID
+	midWifiAwareNetworkInfoEquals               jni.MethodID
+	midWifiAwareNetworkInfoGetChannelInfoList   jni.MethodID
+	midWifiAwareNetworkInfoGetPeerIpv6Addr      jni.MethodID
+	midWifiAwareNetworkInfoGetPort              jni.MethodID
+	midWifiAwareNetworkInfoGetTransportProtocol jni.MethodID
+	midWifiAwareNetworkInfoHashCode             jni.MethodID
+	midWifiAwareNetworkInfoToString             jni.MethodID
+	midWifiAwareNetworkInfoWriteToParcel        jni.MethodID
+
+	clsIdentityChangedListener                   *jni.GlobalRef
+	midIdentityChangedListenerCtor               jni.MethodID
+	midIdentityChangedListenerOnClusterIdChanged jni.MethodID
+	midIdentityChangedListenerOnIdentityChanged  jni.MethodID
+	midIdentityChangedListenerToString           jni.MethodID
+
+	clsPublishConfig                                  *jni.GlobalRef
+	midPublishConfigDescribeContents                  jni.MethodID
+	midPublishConfigEquals                            jni.MethodID
+	midPublishConfigGetInstantCommunicationBand       jni.MethodID
+	midPublishConfigGetPairingConfig                  jni.MethodID
+	midPublishConfigGetSecurityConfig                 jni.MethodID
+	midPublishConfigHashCode                          jni.MethodID
+	midPublishConfigIsInstantCommunicationModeEnabled jni.MethodID
+	midPublishConfigToString                          jni.MethodID
+	midPublishConfigWriteToParcel                     jni.MethodID
+
+	clsPublishConfigBuilder                                   *jni.GlobalRef
+	midPublishConfigBuilderCtor                               jni.MethodID
+	midPublishConfigBuilderBuild                              jni.MethodID
+	midPublishConfigBuilderSetDataPathSecurityConfig          jni.MethodID
+	midPublishConfigBuilderSetInstantCommunicationModeEnabled jni.MethodID
+	midPublishConfigBuilderSetPairingConfig                   jni.MethodID
+	midPublishConfigBuilderSetPublishType                     jni.MethodID
+	midPublishConfigBuilderSetRangingEnabled                  jni.MethodID
+	midPublishConfigBuilderSetServiceName                     jni.MethodID
+	midPublishConfigBuilderSetServiceSpecificInfo             jni.MethodID
+	midPublishConfigBuilderSetTerminateNotificationEnabled    jni.MethodID
+	midPublishConfigBuilderSetTtlSec                          jni.MethodID
+	midPublishConfigBuilderToString                           jni.MethodID
+
+	clsPeerHandle         *jni.GlobalRef
+	midPeerHandleEquals   jni.MethodID
+	midPeerHandleHashCode jni.MethodID
+	midPeerHandleToString jni.MethodID
 
 	clsParcelablePeerHandle                 *jni.GlobalRef
 	midParcelablePeerHandleCtor             jni.MethodID
 	midParcelablePeerHandleDescribeContents jni.MethodID
-	midParcelablePeerHandleWriteToParcel    jni.MethodID
 	midParcelablePeerHandleToString         jni.MethodID
+	midParcelablePeerHandleWriteToParcel    jni.MethodID
 
-	clsWifiAwareSession                                 *jni.GlobalRef
-	midWifiAwareSessionClose                            jni.MethodID
-	midWifiAwareSessionCreateNetworkSpecifierOpen       jni.MethodID
-	midWifiAwareSessionCreateNetworkSpecifierPassphrase jni.MethodID
-	midWifiAwareSessionToString                         jni.MethodID
+	clsWifiAwareManager                                  *jni.GlobalRef
+	midWifiAwareManagerGetAvailableAwareResources        jni.MethodID
+	midWifiAwareManagerGetCharacteristics                jni.MethodID
+	midWifiAwareManagerIsAvailable                       jni.MethodID
+	midWifiAwareManagerIsDeviceAttached                  jni.MethodID
+	midWifiAwareManagerIsInstantCommunicationModeEnabled jni.MethodID
+	midWifiAwareManagerIsSetChannelOnDataPathSupported   jni.MethodID
+	midWifiAwareManagerRemovePairedDevice                jni.MethodID
+	midWifiAwareManagerResetPairedDevices                jni.MethodID
+	midWifiAwareManagerSetOpportunisticModeEnabled       jni.MethodID
+	midWifiAwareManagerToString                          jni.MethodID
+
+	clsSubscribeConfig                                  *jni.GlobalRef
+	midSubscribeConfigDescribeContents                  jni.MethodID
+	midSubscribeConfigEquals                            jni.MethodID
+	midSubscribeConfigGetInstantCommunicationBand       jni.MethodID
+	midSubscribeConfigGetPairingConfig                  jni.MethodID
+	midSubscribeConfigHashCode                          jni.MethodID
+	midSubscribeConfigIsInstantCommunicationModeEnabled jni.MethodID
+	midSubscribeConfigToString                          jni.MethodID
+	midSubscribeConfigWriteToParcel                     jni.MethodID
+
+	clsSubscribeConfigBuilder                                   *jni.GlobalRef
+	midSubscribeConfigBuilderCtor                               jni.MethodID
+	midSubscribeConfigBuilderBuild                              jni.MethodID
+	midSubscribeConfigBuilderSetInstantCommunicationModeEnabled jni.MethodID
+	midSubscribeConfigBuilderSetMaxDistanceMm                   jni.MethodID
+	midSubscribeConfigBuilderSetMinDistanceMm                   jni.MethodID
+	midSubscribeConfigBuilderSetPairingConfig                   jni.MethodID
+	midSubscribeConfigBuilderSetServiceName                     jni.MethodID
+	midSubscribeConfigBuilderSetServiceSpecificInfo             jni.MethodID
+	midSubscribeConfigBuilderSetSubscribeType                   jni.MethodID
+	midSubscribeConfigBuilderSetTerminateNotificationEnabled    jni.MethodID
+	midSubscribeConfigBuilderSetTtlSec                          jni.MethodID
+	midSubscribeConfigBuilderToString                           jni.MethodID
+
+	clsResources                                   *jni.GlobalRef
+	midResourcesCtor                               jni.MethodID
+	midResourcesDescribeContents                   jni.MethodID
+	midResourcesGetAvailableDataPathsCount         jni.MethodID
+	midResourcesGetAvailablePublishSessionsCount   jni.MethodID
+	midResourcesGetAvailableSubscribeSessionsCount jni.MethodID
+	midResourcesToString                           jni.MethodID
+	midResourcesWriteToParcel                      jni.MethodID
+
+	clsPairingConfig                             *jni.GlobalRef
+	midPairingConfigDescribeContents             jni.MethodID
+	midPairingConfigEquals                       jni.MethodID
+	midPairingConfigGetBootstrappingMethods      jni.MethodID
+	midPairingConfigGetSupportedCipherSuites     jni.MethodID
+	midPairingConfigHashCode                     jni.MethodID
+	midPairingConfigIsPairingCacheEnabled        jni.MethodID
+	midPairingConfigIsPairingSetupEnabled        jni.MethodID
+	midPairingConfigIsPairingVerificationEnabled jni.MethodID
+	midPairingConfigToString                     jni.MethodID
+	midPairingConfigWriteToParcel                jni.MethodID
+
+	clsPairingConfigBuilder                              *jni.GlobalRef
+	midPairingConfigBuilderCtor                          jni.MethodID
+	midPairingConfigBuilderBuild                         jni.MethodID
+	midPairingConfigBuilderSetBootstrappingMethods       jni.MethodID
+	midPairingConfigBuilderSetPairingCacheEnabled        jni.MethodID
+	midPairingConfigBuilderSetPairingSetupEnabled        jni.MethodID
+	midPairingConfigBuilderSetPairingVerificationEnabled jni.MethodID
+	midPairingConfigBuilderSetSupportedCipherSuites      jni.MethodID
+	midPairingConfigBuilderToString                      jni.MethodID
 
 	clsDiscoverySessionCallback                               *jni.GlobalRef
 	midDiscoverySessionCallbackCtor                           jni.MethodID
@@ -221,54 +265,15 @@ var (
 	midDiscoverySessionCallbackOnSubscribeStarted             jni.MethodID
 	midDiscoverySessionCallbackToString                       jni.MethodID
 
-	clsIdentityChangedListener                   *jni.GlobalRef
-	midIdentityChangedListenerCtor               jni.MethodID
-	midIdentityChangedListenerOnClusterIdChanged jni.MethodID
-	midIdentityChangedListenerOnIdentityChanged  jni.MethodID
-	midIdentityChangedListenerToString           jni.MethodID
-
-	clsWifiAwareNetworkInfo                     *jni.GlobalRef
-	midWifiAwareNetworkInfoDescribeContents     jni.MethodID
-	midWifiAwareNetworkInfoEquals               jni.MethodID
-	midWifiAwareNetworkInfoGetChannelInfoList   jni.MethodID
-	midWifiAwareNetworkInfoGetPeerIpv6Addr      jni.MethodID
-	midWifiAwareNetworkInfoGetPort              jni.MethodID
-	midWifiAwareNetworkInfoGetTransportProtocol jni.MethodID
-	midWifiAwareNetworkInfoHashCode             jni.MethodID
-	midWifiAwareNetworkInfoToString             jni.MethodID
-	midWifiAwareNetworkInfoWriteToParcel        jni.MethodID
-
-	clsAttachCallback                         *jni.GlobalRef
-	midAttachCallbackCtor                     jni.MethodID
-	midAttachCallbackOnAttachFailed           jni.MethodID
-	midAttachCallbackOnAttached               jni.MethodID
-	midAttachCallbackOnAwareSessionTerminated jni.MethodID
-	midAttachCallbackToString                 jni.MethodID
-
-	clsPairingConfig                             *jni.GlobalRef
-	midPairingConfigDescribeContents             jni.MethodID
-	midPairingConfigEquals                       jni.MethodID
-	midPairingConfigGetBootstrappingMethods      jni.MethodID
-	midPairingConfigGetSupportedCipherSuites     jni.MethodID
-	midPairingConfigHashCode                     jni.MethodID
-	midPairingConfigIsPairingCacheEnabled        jni.MethodID
-	midPairingConfigIsPairingSetupEnabled        jni.MethodID
-	midPairingConfigIsPairingVerificationEnabled jni.MethodID
-	midPairingConfigWriteToParcel                jni.MethodID
-	midPairingConfigToString                     jni.MethodID
-
-	clsPairingConfigBuilder                              *jni.GlobalRef
-	midPairingConfigBuilderBuild                         jni.MethodID
-	midPairingConfigBuilderSetBootstrappingMethods       jni.MethodID
-	midPairingConfigBuilderSetPairingCacheEnabled        jni.MethodID
-	midPairingConfigBuilderSetPairingSetupEnabled        jni.MethodID
-	midPairingConfigBuilderSetPairingVerificationEnabled jni.MethodID
-	midPairingConfigBuilderSetSupportedCipherSuites      jni.MethodID
-	midPairingConfigBuilderToString                      jni.MethodID
-
-	clsSubscribeDiscoverySession                *jni.GlobalRef
-	midSubscribeDiscoverySessionUpdateSubscribe jni.MethodID
-	midSubscribeDiscoverySessionToString        jni.MethodID
+	clsServiceDiscoveryInfo                       *jni.GlobalRef
+	midServiceDiscoveryInfoGetMatchFilters        jni.MethodID
+	midServiceDiscoveryInfoGetPairedAlias         jni.MethodID
+	midServiceDiscoveryInfoGetPairingConfig       jni.MethodID
+	midServiceDiscoveryInfoGetPeerCipherSuite     jni.MethodID
+	midServiceDiscoveryInfoGetPeerHandle          jni.MethodID
+	midServiceDiscoveryInfoGetScid                jni.MethodID
+	midServiceDiscoveryInfoGetServiceSpecificInfo jni.MethodID
+	midServiceDiscoveryInfoToString               jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -289,71 +294,64 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("android/net/wifi/aware/WifiAwareNetworkSpecifier")
+	c, err = env.FindClass("android/net/wifi/aware/WifiAwareChannelInfo")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsWifiAwareNetworkSpecifier = env.NewGlobalRef(&c.Object)
+		clsWifiAwareChannelInfo = env.NewGlobalRef(&c.Object)
 
-		midWifiAwareNetworkSpecifierCanBeSatisfiedBy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifier)), "canBeSatisfiedBy", "(Landroid/net/NetworkSpecifier;)Z")
+		midWifiAwareChannelInfoDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareChannelInfo)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midWifiAwareNetworkSpecifierDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifier)), "describeContents", "()I")
+		midWifiAwareChannelInfoEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareChannelInfo)), "equals", "(Ljava/lang/Object;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midWifiAwareNetworkSpecifierEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifier)), "equals", "(Ljava/lang/Object;)Z")
+		midWifiAwareChannelInfoGetChannelBandwidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareChannelInfo)), "getChannelBandwidth", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midWifiAwareNetworkSpecifierGetChannelFrequencyMhz, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifier)), "getChannelFrequencyMhz", "()I")
+		midWifiAwareChannelInfoGetChannelFrequencyMhz, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareChannelInfo)), "getChannelFrequencyMhz", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midWifiAwareNetworkSpecifierGetWifiAwareDataPathSecurityConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifier)), "getWifiAwareDataPathSecurityConfig", "()Landroid/net/wifi/aware/WifiAwareDataPathSecurityConfig;")
+		midWifiAwareChannelInfoGetSpatialStreamCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareChannelInfo)), "getSpatialStreamCount", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midWifiAwareNetworkSpecifierHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifier)), "hashCode", "()I")
+		midWifiAwareChannelInfoHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareChannelInfo)), "hashCode", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midWifiAwareNetworkSpecifierIsChannelRequired, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifier)), "isChannelRequired", "()Z")
+		midWifiAwareChannelInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareChannelInfo)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midWifiAwareNetworkSpecifierToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifier)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareNetworkSpecifierWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifier)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midWifiAwareChannelInfoWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareChannelInfo)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -362,64 +360,36 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/net/wifi/aware/WifiAwareNetworkSpecifier$Builder")
+	c, err = env.FindClass("android/net/wifi/aware/WifiAwareSession")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsWifiAwareNetworkSpecifierBuilder = env.NewGlobalRef(&c.Object)
+		clsWifiAwareSession = env.NewGlobalRef(&c.Object)
 
-		midWifiAwareNetworkSpecifierBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifierBuilder)), "build", "()Landroid/net/wifi/aware/WifiAwareNetworkSpecifier;")
+		midWifiAwareSessionClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareSession)), "close", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midWifiAwareNetworkSpecifierBuilderSetChannelFrequencyMhz, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifierBuilder)), "setChannelFrequencyMhz", "(IZ)Landroid/net/wifi/aware/WifiAwareNetworkSpecifier$Builder;")
+		midWifiAwareSessionCreateNetworkSpecifierOpen, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareSession)), "createNetworkSpecifierOpen", "(I[B)Landroid/net/NetworkSpecifier;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midWifiAwareNetworkSpecifierBuilderSetDataPathSecurityConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifierBuilder)), "setDataPathSecurityConfig", "(Landroid/net/wifi/aware/WifiAwareDataPathSecurityConfig;)Landroid/net/wifi/aware/WifiAwareNetworkSpecifier$Builder;")
+		midWifiAwareSessionCreateNetworkSpecifierPassphrase, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareSession)), "createNetworkSpecifierPassphrase", "(I[BLjava/lang/String;)Landroid/net/NetworkSpecifier;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midWifiAwareNetworkSpecifierBuilderSetPmk, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifierBuilder)), "setPmk", "([B)Landroid/net/wifi/aware/WifiAwareNetworkSpecifier$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareNetworkSpecifierBuilderSetPort, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifierBuilder)), "setPort", "(I)Landroid/net/wifi/aware/WifiAwareNetworkSpecifier$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareNetworkSpecifierBuilderSetPskPassphrase, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifierBuilder)), "setPskPassphrase", "(Ljava/lang/String;)Landroid/net/wifi/aware/WifiAwareNetworkSpecifier$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareNetworkSpecifierBuilderSetTransportProtocol, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifierBuilder)), "setTransportProtocol", "(I)Landroid/net/wifi/aware/WifiAwareNetworkSpecifier$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareNetworkSpecifierBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifierBuilder)), "toString", "()Ljava/lang/String;")
+		midWifiAwareSessionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareSession)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -428,78 +398,22 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/net/wifi/aware/WifiAwareManager")
+	c, err = env.FindClass("android/net/wifi/aware/SubscribeDiscoverySession")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsWifiAwareManager = env.NewGlobalRef(&c.Object)
+		clsSubscribeDiscoverySession = env.NewGlobalRef(&c.Object)
 
-		midWifiAwareManagerGetAvailableAwareResources, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareManager)), "getAvailableAwareResources", "()Landroid/net/wifi/aware/AwareResources;")
+		midSubscribeDiscoverySessionUpdateSubscribe, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeDiscoverySession)), "updateSubscribe", "(Landroid/net/wifi/aware/SubscribeConfig;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midWifiAwareManagerGetCharacteristics, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareManager)), "getCharacteristics", "()Landroid/net/wifi/aware/Characteristics;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareManagerIsAvailable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareManager)), "isAvailable", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareManagerIsDeviceAttached, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareManager)), "isDeviceAttached", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareManagerIsInstantCommunicationModeEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareManager)), "isInstantCommunicationModeEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareManagerIsSetChannelOnDataPathSupported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareManager)), "isSetChannelOnDataPathSupported", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareManagerRemovePairedDevice, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareManager)), "removePairedDevice", "(Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareManagerResetPairedDevices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareManager)), "resetPairedDevices", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareManagerSetOpportunisticModeEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareManager)), "setOpportunisticModeEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareManager)), "toString", "()Ljava/lang/String;")
+		midSubscribeDiscoverySessionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeDiscoverySession)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -508,245 +422,22 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/net/wifi/aware/PeerHandle")
+	c, err = env.FindClass("android/net/wifi/aware/PublishDiscoverySession")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsPeerHandle = env.NewGlobalRef(&c.Object)
+		clsPublishDiscoverySession = env.NewGlobalRef(&c.Object)
 
-		midPeerHandleEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPeerHandle)), "equals", "(Ljava/lang/Object;)Z")
+		midPublishDiscoverySessionUpdatePublish, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishDiscoverySession)), "updatePublish", "(Landroid/net/wifi/aware/PublishConfig;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPeerHandleHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPeerHandle)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPeerHandleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPeerHandle)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/net/wifi/aware/AwareResources")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsResources = env.NewGlobalRef(&c.Object)
-		midResourcesCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResources)), "<init>", "(III)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midResourcesDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResources)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midResourcesGetAvailableDataPathsCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResources)), "getAvailableDataPathsCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midResourcesGetAvailablePublishSessionsCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResources)), "getAvailablePublishSessionsCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midResourcesGetAvailableSubscribeSessionsCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResources)), "getAvailableSubscribeSessionsCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midResourcesWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResources)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midResourcesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResources)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/net/wifi/aware/PublishConfig")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPublishConfig = env.NewGlobalRef(&c.Object)
-
-		midPublishConfigDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfig)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPublishConfigEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfig)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPublishConfigGetInstantCommunicationBand, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfig)), "getInstantCommunicationBand", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPublishConfigGetPairingConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfig)), "getPairingConfig", "()Landroid/net/wifi/aware/AwarePairingConfig;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPublishConfigGetSecurityConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfig)), "getSecurityConfig", "()Landroid/net/wifi/aware/WifiAwareDataPathSecurityConfig;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPublishConfigHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfig)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPublishConfigIsInstantCommunicationModeEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfig)), "isInstantCommunicationModeEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPublishConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfig)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPublishConfigWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfig)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/net/wifi/aware/PublishConfig$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPublishConfigBuilder = env.NewGlobalRef(&c.Object)
-
-		midPublishConfigBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "build", "()Landroid/net/wifi/aware/PublishConfig;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPublishConfigBuilderSetDataPathSecurityConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "setDataPathSecurityConfig", "(Landroid/net/wifi/aware/WifiAwareDataPathSecurityConfig;)Landroid/net/wifi/aware/PublishConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPublishConfigBuilderSetInstantCommunicationModeEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "setInstantCommunicationModeEnabled", "(ZI)Landroid/net/wifi/aware/PublishConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPublishConfigBuilderSetPairingConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "setPairingConfig", "(Landroid/net/wifi/aware/AwarePairingConfig;)Landroid/net/wifi/aware/PublishConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPublishConfigBuilderSetPublishType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "setPublishType", "(I)Landroid/net/wifi/aware/PublishConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPublishConfigBuilderSetRangingEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "setRangingEnabled", "(Z)Landroid/net/wifi/aware/PublishConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPublishConfigBuilderSetServiceName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "setServiceName", "(Ljava/lang/String;)Landroid/net/wifi/aware/PublishConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPublishConfigBuilderSetServiceSpecificInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "setServiceSpecificInfo", "([B)Landroid/net/wifi/aware/PublishConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPublishConfigBuilderSetTerminateNotificationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "setTerminateNotificationEnabled", "(Z)Landroid/net/wifi/aware/PublishConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPublishConfigBuilderSetTtlSec, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "setTtlSec", "(I)Landroid/net/wifi/aware/PublishConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPublishConfigBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "toString", "()Ljava/lang/String;")
+		midPublishDiscoverySessionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishDiscoverySession)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -819,7 +510,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midWifiAwareDataPathSecurityConfigWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareDataPathSecurityConfig)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midWifiAwareDataPathSecurityConfigWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareDataPathSecurityConfig)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -835,6 +526,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsWifiAwareDataPathSecurityConfigBuilder = env.NewGlobalRef(&c.Object)
+		midWifiAwareDataPathSecurityConfigBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareDataPathSecurityConfigBuilder)), "<init>", "(I)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midWifiAwareDataPathSecurityConfigBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareDataPathSecurityConfigBuilder)), "build", "()Landroid/net/wifi/aware/WifiAwareDataPathSecurityConfig;")
 		if err != nil {
@@ -865,322 +560,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midWifiAwareDataPathSecurityConfigBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareDataPathSecurityConfigBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/net/wifi/aware/WifiAwareChannelInfo")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsWifiAwareChannelInfo = env.NewGlobalRef(&c.Object)
-
-		midWifiAwareChannelInfoDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareChannelInfo)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareChannelInfoEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareChannelInfo)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareChannelInfoGetChannelBandwidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareChannelInfo)), "getChannelBandwidth", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareChannelInfoGetChannelFrequencyMhz, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareChannelInfo)), "getChannelFrequencyMhz", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareChannelInfoGetSpatialStreamCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareChannelInfo)), "getSpatialStreamCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareChannelInfoHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareChannelInfo)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareChannelInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareChannelInfo)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareChannelInfoWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareChannelInfo)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/net/wifi/aware/SubscribeConfig")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSubscribeConfig = env.NewGlobalRef(&c.Object)
-
-		midSubscribeConfigDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfig)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSubscribeConfigEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfig)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSubscribeConfigGetInstantCommunicationBand, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfig)), "getInstantCommunicationBand", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSubscribeConfigGetPairingConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfig)), "getPairingConfig", "()Landroid/net/wifi/aware/AwarePairingConfig;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSubscribeConfigHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfig)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSubscribeConfigIsInstantCommunicationModeEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfig)), "isInstantCommunicationModeEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSubscribeConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfig)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSubscribeConfigWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfig)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/net/wifi/aware/SubscribeConfig$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSubscribeConfigBuilder = env.NewGlobalRef(&c.Object)
-
-		midSubscribeConfigBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "build", "()Landroid/net/wifi/aware/SubscribeConfig;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSubscribeConfigBuilderSetInstantCommunicationModeEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "setInstantCommunicationModeEnabled", "(ZI)Landroid/net/wifi/aware/SubscribeConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSubscribeConfigBuilderSetMaxDistanceMm, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "setMaxDistanceMm", "(I)Landroid/net/wifi/aware/SubscribeConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSubscribeConfigBuilderSetMinDistanceMm, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "setMinDistanceMm", "(I)Landroid/net/wifi/aware/SubscribeConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSubscribeConfigBuilderSetPairingConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "setPairingConfig", "(Landroid/net/wifi/aware/AwarePairingConfig;)Landroid/net/wifi/aware/SubscribeConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSubscribeConfigBuilderSetServiceName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "setServiceName", "(Ljava/lang/String;)Landroid/net/wifi/aware/SubscribeConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSubscribeConfigBuilderSetServiceSpecificInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "setServiceSpecificInfo", "([B)Landroid/net/wifi/aware/SubscribeConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSubscribeConfigBuilderSetSubscribeType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "setSubscribeType", "(I)Landroid/net/wifi/aware/SubscribeConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSubscribeConfigBuilderSetTerminateNotificationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "setTerminateNotificationEnabled", "(Z)Landroid/net/wifi/aware/SubscribeConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSubscribeConfigBuilderSetTtlSec, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "setTtlSec", "(I)Landroid/net/wifi/aware/SubscribeConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSubscribeConfigBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/net/wifi/aware/DiscoverySession")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDiscoverySession = env.NewGlobalRef(&c.Object)
-
-		midDiscoverySessionAcceptPairingRequest, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscoverySession)), "acceptPairingRequest", "(ILandroid/net/wifi/aware/PeerHandle;Ljava/lang/String;ILjava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDiscoverySessionClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscoverySession)), "close", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDiscoverySessionCreateNetworkSpecifierOpen, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscoverySession)), "createNetworkSpecifierOpen", "(Landroid/net/wifi/aware/PeerHandle;)Landroid/net/NetworkSpecifier;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDiscoverySessionCreateNetworkSpecifierPassphrase, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscoverySession)), "createNetworkSpecifierPassphrase", "(Landroid/net/wifi/aware/PeerHandle;Ljava/lang/String;)Landroid/net/NetworkSpecifier;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDiscoverySessionInitiateBootstrappingRequest, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscoverySession)), "initiateBootstrappingRequest", "(Landroid/net/wifi/aware/PeerHandle;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDiscoverySessionInitiatePairingRequest, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscoverySession)), "initiatePairingRequest", "(Landroid/net/wifi/aware/PeerHandle;Ljava/lang/String;ILjava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDiscoverySessionRejectPairingRequest, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscoverySession)), "rejectPairingRequest", "(ILandroid/net/wifi/aware/PeerHandle;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDiscoverySessionSendMessage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscoverySession)), "sendMessage", "(Landroid/net/wifi/aware/PeerHandle;I[B)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDiscoverySessionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscoverySession)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/net/wifi/aware/PublishDiscoverySession")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPublishDiscoverySession = env.NewGlobalRef(&c.Object)
-
-		midPublishDiscoverySessionUpdatePublish, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishDiscoverySession)), "updatePublish", "(Landroid/net/wifi/aware/PublishConfig;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPublishDiscoverySessionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishDiscoverySession)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1288,14 +667,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midCharacteristicsWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCharacteristics)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midCharacteristicsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCharacteristics)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCharacteristicsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCharacteristics)), "toString", "()Ljava/lang/String;")
+		midCharacteristicsWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCharacteristics)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1304,64 +683,559 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/net/wifi/aware/ServiceDiscoveryInfo")
+	c, err = env.FindClass("android/net/wifi/aware/DiscoverySession")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsServiceDiscoveryInfo = env.NewGlobalRef(&c.Object)
+		clsDiscoverySession = env.NewGlobalRef(&c.Object)
 
-		midServiceDiscoveryInfoGetMatchFilters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServiceDiscoveryInfo)), "getMatchFilters", "()Ljava/util/List;")
+		midDiscoverySessionAcceptPairingRequest, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscoverySession)), "acceptPairingRequest", "(ILandroid/net/wifi/aware/PeerHandle;Ljava/lang/String;ILjava/lang/String;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midServiceDiscoveryInfoGetPairedAlias, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServiceDiscoveryInfo)), "getPairedAlias", "()Ljava/lang/String;")
+		midDiscoverySessionClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscoverySession)), "close", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midServiceDiscoveryInfoGetPairingConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServiceDiscoveryInfo)), "getPairingConfig", "()Landroid/net/wifi/aware/AwarePairingConfig;")
+		midDiscoverySessionCreateNetworkSpecifierOpen, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscoverySession)), "createNetworkSpecifierOpen", "(Landroid/net/wifi/aware/PeerHandle;)Landroid/net/NetworkSpecifier;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midServiceDiscoveryInfoGetPeerCipherSuite, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServiceDiscoveryInfo)), "getPeerCipherSuite", "()I")
+		midDiscoverySessionCreateNetworkSpecifierPassphrase, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscoverySession)), "createNetworkSpecifierPassphrase", "(Landroid/net/wifi/aware/PeerHandle;Ljava/lang/String;)Landroid/net/NetworkSpecifier;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midServiceDiscoveryInfoGetPeerHandle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServiceDiscoveryInfo)), "getPeerHandle", "()Landroid/net/wifi/aware/PeerHandle;")
+		midDiscoverySessionInitiateBootstrappingRequest, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscoverySession)), "initiateBootstrappingRequest", "(Landroid/net/wifi/aware/PeerHandle;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midServiceDiscoveryInfoGetScid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServiceDiscoveryInfo)), "getScid", "()[B")
+		midDiscoverySessionInitiatePairingRequest, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscoverySession)), "initiatePairingRequest", "(Landroid/net/wifi/aware/PeerHandle;Ljava/lang/String;ILjava/lang/String;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midServiceDiscoveryInfoGetServiceSpecificInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServiceDiscoveryInfo)), "getServiceSpecificInfo", "()[B")
+		midDiscoverySessionRejectPairingRequest, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscoverySession)), "rejectPairingRequest", "(ILandroid/net/wifi/aware/PeerHandle;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midServiceDiscoveryInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServiceDiscoveryInfo)), "toString", "()Ljava/lang/String;")
+		midDiscoverySessionSendMessage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscoverySession)), "sendMessage", "(Landroid/net/wifi/aware/PeerHandle;I[B)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDiscoverySessionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiscoverySession)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/wifi/aware/AttachCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAttachCallback = env.NewGlobalRef(&c.Object)
+		midAttachCallbackCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAttachCallback)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAttachCallbackOnAttachFailed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAttachCallback)), "onAttachFailed", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAttachCallbackOnAttached, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAttachCallback)), "onAttached", "(Landroid/net/wifi/aware/WifiAwareSession;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAttachCallbackOnAwareSessionTerminated, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAttachCallback)), "onAwareSessionTerminated", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAttachCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAttachCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/wifi/aware/WifiAwareNetworkSpecifier")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsWifiAwareNetworkSpecifier = env.NewGlobalRef(&c.Object)
+
+		midWifiAwareNetworkSpecifierCanBeSatisfiedBy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifier)), "canBeSatisfiedBy", "(Landroid/net/NetworkSpecifier;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkSpecifierDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifier)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkSpecifierEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifier)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkSpecifierGetChannelFrequencyMhz, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifier)), "getChannelFrequencyMhz", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkSpecifierGetWifiAwareDataPathSecurityConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifier)), "getWifiAwareDataPathSecurityConfig", "()Landroid/net/wifi/aware/WifiAwareDataPathSecurityConfig;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkSpecifierHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifier)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkSpecifierIsChannelRequired, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifier)), "isChannelRequired", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkSpecifierToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifier)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkSpecifierWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifier)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/wifi/aware/WifiAwareNetworkSpecifier$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsWifiAwareNetworkSpecifierBuilder = env.NewGlobalRef(&c.Object)
+		midWifiAwareNetworkSpecifierBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifierBuilder)), "<init>", "(Landroid/net/wifi/aware/DiscoverySession;Landroid/net/wifi/aware/PeerHandle;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkSpecifierBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifierBuilder)), "build", "()Landroid/net/wifi/aware/WifiAwareNetworkSpecifier;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkSpecifierBuilderSetChannelFrequencyMhz, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifierBuilder)), "setChannelFrequencyMhz", "(IZ)Landroid/net/wifi/aware/WifiAwareNetworkSpecifier$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkSpecifierBuilderSetDataPathSecurityConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifierBuilder)), "setDataPathSecurityConfig", "(Landroid/net/wifi/aware/WifiAwareDataPathSecurityConfig;)Landroid/net/wifi/aware/WifiAwareNetworkSpecifier$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkSpecifierBuilderSetPmk, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifierBuilder)), "setPmk", "([B)Landroid/net/wifi/aware/WifiAwareNetworkSpecifier$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkSpecifierBuilderSetPort, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifierBuilder)), "setPort", "(I)Landroid/net/wifi/aware/WifiAwareNetworkSpecifier$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkSpecifierBuilderSetPskPassphrase, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifierBuilder)), "setPskPassphrase", "(Ljava/lang/String;)Landroid/net/wifi/aware/WifiAwareNetworkSpecifier$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkSpecifierBuilderSetTransportProtocol, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifierBuilder)), "setTransportProtocol", "(I)Landroid/net/wifi/aware/WifiAwareNetworkSpecifier$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkSpecifierBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkSpecifierBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/wifi/aware/WifiAwareNetworkInfo")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsWifiAwareNetworkInfo = env.NewGlobalRef(&c.Object)
+
+		midWifiAwareNetworkInfoDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkInfo)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkInfoEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkInfo)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkInfoGetChannelInfoList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkInfo)), "getChannelInfoList", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkInfoGetPeerIpv6Addr, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkInfo)), "getPeerIpv6Addr", "()Ljava/net/Inet6Address;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkInfoGetPort, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkInfo)), "getPort", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkInfoGetTransportProtocol, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkInfo)), "getTransportProtocol", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkInfoHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkInfo)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkInfo)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareNetworkInfoWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkInfo)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/wifi/aware/IdentityChangedListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsIdentityChangedListener = env.NewGlobalRef(&c.Object)
+		midIdentityChangedListenerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIdentityChangedListener)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midIdentityChangedListenerOnClusterIdChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIdentityChangedListener)), "onClusterIdChanged", "(ILandroid/net/MacAddress;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midIdentityChangedListenerOnIdentityChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIdentityChangedListener)), "onIdentityChanged", "([B)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midIdentityChangedListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIdentityChangedListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/wifi/aware/PublishConfig")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPublishConfig = env.NewGlobalRef(&c.Object)
+
+		midPublishConfigDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfig)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPublishConfigEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfig)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPublishConfigGetInstantCommunicationBand, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfig)), "getInstantCommunicationBand", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPublishConfigGetPairingConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfig)), "getPairingConfig", "()Landroid/net/wifi/aware/AwarePairingConfig;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPublishConfigGetSecurityConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfig)), "getSecurityConfig", "()Landroid/net/wifi/aware/WifiAwareDataPathSecurityConfig;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPublishConfigHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfig)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPublishConfigIsInstantCommunicationModeEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfig)), "isInstantCommunicationModeEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPublishConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfig)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPublishConfigWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfig)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/wifi/aware/PublishConfig$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPublishConfigBuilder = env.NewGlobalRef(&c.Object)
+		midPublishConfigBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midPublishConfigBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "build", "()Landroid/net/wifi/aware/PublishConfig;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPublishConfigBuilderSetDataPathSecurityConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "setDataPathSecurityConfig", "(Landroid/net/wifi/aware/WifiAwareDataPathSecurityConfig;)Landroid/net/wifi/aware/PublishConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPublishConfigBuilderSetInstantCommunicationModeEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "setInstantCommunicationModeEnabled", "(ZI)Landroid/net/wifi/aware/PublishConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPublishConfigBuilderSetPairingConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "setPairingConfig", "(Landroid/net/wifi/aware/AwarePairingConfig;)Landroid/net/wifi/aware/PublishConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPublishConfigBuilderSetPublishType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "setPublishType", "(I)Landroid/net/wifi/aware/PublishConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPublishConfigBuilderSetRangingEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "setRangingEnabled", "(Z)Landroid/net/wifi/aware/PublishConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPublishConfigBuilderSetServiceName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "setServiceName", "(Ljava/lang/String;)Landroid/net/wifi/aware/PublishConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPublishConfigBuilderSetServiceSpecificInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "setServiceSpecificInfo", "([B)Landroid/net/wifi/aware/PublishConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPublishConfigBuilderSetTerminateNotificationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "setTerminateNotificationEnabled", "(Z)Landroid/net/wifi/aware/PublishConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPublishConfigBuilderSetTtlSec, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "setTtlSec", "(I)Landroid/net/wifi/aware/PublishConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPublishConfigBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/wifi/aware/PeerHandle")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPeerHandle = env.NewGlobalRef(&c.Object)
+
+		midPeerHandleEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPeerHandle)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPeerHandleHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPeerHandle)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPeerHandleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPeerHandle)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1389,14 +1263,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midParcelablePeerHandleWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsParcelablePeerHandle)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midParcelablePeerHandleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsParcelablePeerHandle)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midParcelablePeerHandleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsParcelablePeerHandle)), "toString", "()Ljava/lang/String;")
+		midParcelablePeerHandleWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsParcelablePeerHandle)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1405,36 +1279,434 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/net/wifi/aware/WifiAwareSession")
+	c, err = env.FindClass("android/net/wifi/aware/WifiAwareManager")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsWifiAwareSession = env.NewGlobalRef(&c.Object)
+		clsWifiAwareManager = env.NewGlobalRef(&c.Object)
 
-		midWifiAwareSessionClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareSession)), "close", "()V")
+		midWifiAwareManagerGetAvailableAwareResources, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareManager)), "getAvailableAwareResources", "()Landroid/net/wifi/aware/AwareResources;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midWifiAwareSessionCreateNetworkSpecifierOpen, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareSession)), "createNetworkSpecifierOpen", "(I[B)Landroid/net/NetworkSpecifier;")
+		midWifiAwareManagerGetCharacteristics, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareManager)), "getCharacteristics", "()Landroid/net/wifi/aware/Characteristics;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midWifiAwareSessionCreateNetworkSpecifierPassphrase, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareSession)), "createNetworkSpecifierPassphrase", "(I[BLjava/lang/String;)Landroid/net/NetworkSpecifier;")
+		midWifiAwareManagerIsAvailable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareManager)), "isAvailable", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midWifiAwareSessionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareSession)), "toString", "()Ljava/lang/String;")
+		midWifiAwareManagerIsDeviceAttached, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareManager)), "isDeviceAttached", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareManagerIsInstantCommunicationModeEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareManager)), "isInstantCommunicationModeEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareManagerIsSetChannelOnDataPathSupported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareManager)), "isSetChannelOnDataPathSupported", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareManagerRemovePairedDevice, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareManager)), "removePairedDevice", "(Ljava/lang/String;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareManagerResetPairedDevices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareManager)), "resetPairedDevices", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareManagerSetOpportunisticModeEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareManager)), "setOpportunisticModeEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiAwareManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareManager)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/wifi/aware/SubscribeConfig")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSubscribeConfig = env.NewGlobalRef(&c.Object)
+
+		midSubscribeConfigDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfig)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSubscribeConfigEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfig)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSubscribeConfigGetInstantCommunicationBand, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfig)), "getInstantCommunicationBand", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSubscribeConfigGetPairingConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfig)), "getPairingConfig", "()Landroid/net/wifi/aware/AwarePairingConfig;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSubscribeConfigHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfig)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSubscribeConfigIsInstantCommunicationModeEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfig)), "isInstantCommunicationModeEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSubscribeConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfig)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSubscribeConfigWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfig)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/wifi/aware/SubscribeConfig$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSubscribeConfigBuilder = env.NewGlobalRef(&c.Object)
+		midSubscribeConfigBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSubscribeConfigBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "build", "()Landroid/net/wifi/aware/SubscribeConfig;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSubscribeConfigBuilderSetInstantCommunicationModeEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "setInstantCommunicationModeEnabled", "(ZI)Landroid/net/wifi/aware/SubscribeConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSubscribeConfigBuilderSetMaxDistanceMm, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "setMaxDistanceMm", "(I)Landroid/net/wifi/aware/SubscribeConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSubscribeConfigBuilderSetMinDistanceMm, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "setMinDistanceMm", "(I)Landroid/net/wifi/aware/SubscribeConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSubscribeConfigBuilderSetPairingConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "setPairingConfig", "(Landroid/net/wifi/aware/AwarePairingConfig;)Landroid/net/wifi/aware/SubscribeConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSubscribeConfigBuilderSetServiceName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "setServiceName", "(Ljava/lang/String;)Landroid/net/wifi/aware/SubscribeConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSubscribeConfigBuilderSetServiceSpecificInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "setServiceSpecificInfo", "([B)Landroid/net/wifi/aware/SubscribeConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSubscribeConfigBuilderSetSubscribeType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "setSubscribeType", "(I)Landroid/net/wifi/aware/SubscribeConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSubscribeConfigBuilderSetTerminateNotificationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "setTerminateNotificationEnabled", "(Z)Landroid/net/wifi/aware/SubscribeConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSubscribeConfigBuilderSetTtlSec, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "setTtlSec", "(I)Landroid/net/wifi/aware/SubscribeConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSubscribeConfigBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeConfigBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/wifi/aware/AwareResources")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsResources = env.NewGlobalRef(&c.Object)
+		midResourcesCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResources)), "<init>", "(III)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midResourcesDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResources)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midResourcesGetAvailableDataPathsCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResources)), "getAvailableDataPathsCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midResourcesGetAvailablePublishSessionsCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResources)), "getAvailablePublishSessionsCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midResourcesGetAvailableSubscribeSessionsCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResources)), "getAvailableSubscribeSessionsCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midResourcesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResources)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midResourcesWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsResources)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/wifi/aware/AwarePairingConfig")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPairingConfig = env.NewGlobalRef(&c.Object)
+
+		midPairingConfigDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfig)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPairingConfigEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfig)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPairingConfigGetBootstrappingMethods, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfig)), "getBootstrappingMethods", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPairingConfigGetSupportedCipherSuites, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfig)), "getSupportedCipherSuites", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPairingConfigHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfig)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPairingConfigIsPairingCacheEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfig)), "isPairingCacheEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPairingConfigIsPairingSetupEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfig)), "isPairingSetupEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPairingConfigIsPairingVerificationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfig)), "isPairingVerificationEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPairingConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfig)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPairingConfigWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfig)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/wifi/aware/AwarePairingConfig$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPairingConfigBuilder = env.NewGlobalRef(&c.Object)
+		midPairingConfigBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfigBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midPairingConfigBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfigBuilder)), "build", "()Landroid/net/wifi/aware/AwarePairingConfig;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPairingConfigBuilderSetBootstrappingMethods, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfigBuilder)), "setBootstrappingMethods", "(I)Landroid/net/wifi/aware/AwarePairingConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPairingConfigBuilderSetPairingCacheEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfigBuilder)), "setPairingCacheEnabled", "(Z)Landroid/net/wifi/aware/AwarePairingConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPairingConfigBuilderSetPairingSetupEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfigBuilder)), "setPairingSetupEnabled", "(Z)Landroid/net/wifi/aware/AwarePairingConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPairingConfigBuilderSetPairingVerificationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfigBuilder)), "setPairingVerificationEnabled", "(Z)Landroid/net/wifi/aware/AwarePairingConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPairingConfigBuilderSetSupportedCipherSuites, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfigBuilder)), "setSupportedCipherSuites", "(I)Landroid/net/wifi/aware/AwarePairingConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPairingConfigBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfigBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1590,311 +1862,64 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/net/wifi/aware/IdentityChangedListener")
+	c, err = env.FindClass("android/net/wifi/aware/ServiceDiscoveryInfo")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsIdentityChangedListener = env.NewGlobalRef(&c.Object)
-		midIdentityChangedListenerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIdentityChangedListener)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsServiceDiscoveryInfo = env.NewGlobalRef(&c.Object)
 
-		midIdentityChangedListenerOnClusterIdChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIdentityChangedListener)), "onClusterIdChanged", "(ILandroid/net/MacAddress;)V")
+		midServiceDiscoveryInfoGetMatchFilters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServiceDiscoveryInfo)), "getMatchFilters", "()Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midIdentityChangedListenerOnIdentityChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIdentityChangedListener)), "onIdentityChanged", "([B)V")
+		midServiceDiscoveryInfoGetPairedAlias, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServiceDiscoveryInfo)), "getPairedAlias", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midIdentityChangedListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIdentityChangedListener)), "toString", "()Ljava/lang/String;")
+		midServiceDiscoveryInfoGetPairingConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServiceDiscoveryInfo)), "getPairingConfig", "()Landroid/net/wifi/aware/AwarePairingConfig;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("android/net/wifi/aware/WifiAwareNetworkInfo")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsWifiAwareNetworkInfo = env.NewGlobalRef(&c.Object)
-
-		midWifiAwareNetworkInfoDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkInfo)), "describeContents", "()I")
+		midServiceDiscoveryInfoGetPeerCipherSuite, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServiceDiscoveryInfo)), "getPeerCipherSuite", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midWifiAwareNetworkInfoEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkInfo)), "equals", "(Ljava/lang/Object;)Z")
+		midServiceDiscoveryInfoGetPeerHandle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServiceDiscoveryInfo)), "getPeerHandle", "()Landroid/net/wifi/aware/PeerHandle;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midWifiAwareNetworkInfoGetChannelInfoList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkInfo)), "getChannelInfoList", "()Ljava/util/List;")
+		midServiceDiscoveryInfoGetScid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServiceDiscoveryInfo)), "getScid", "()[B")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midWifiAwareNetworkInfoGetPeerIpv6Addr, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkInfo)), "getPeerIpv6Addr", "()Ljava/net/Inet6Address;")
+		midServiceDiscoveryInfoGetServiceSpecificInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServiceDiscoveryInfo)), "getServiceSpecificInfo", "()[B")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midWifiAwareNetworkInfoGetPort, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkInfo)), "getPort", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareNetworkInfoGetTransportProtocol, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkInfo)), "getTransportProtocol", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareNetworkInfoHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkInfo)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareNetworkInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkInfo)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiAwareNetworkInfoWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiAwareNetworkInfo)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/net/wifi/aware/AttachCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAttachCallback = env.NewGlobalRef(&c.Object)
-		midAttachCallbackCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAttachCallback)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAttachCallbackOnAttachFailed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAttachCallback)), "onAttachFailed", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAttachCallbackOnAttached, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAttachCallback)), "onAttached", "(Landroid/net/wifi/aware/WifiAwareSession;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAttachCallbackOnAwareSessionTerminated, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAttachCallback)), "onAwareSessionTerminated", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAttachCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAttachCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/net/wifi/aware/AwarePairingConfig")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPairingConfig = env.NewGlobalRef(&c.Object)
-
-		midPairingConfigDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfig)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPairingConfigEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfig)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPairingConfigGetBootstrappingMethods, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfig)), "getBootstrappingMethods", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPairingConfigGetSupportedCipherSuites, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfig)), "getSupportedCipherSuites", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPairingConfigHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfig)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPairingConfigIsPairingCacheEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfig)), "isPairingCacheEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPairingConfigIsPairingSetupEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfig)), "isPairingSetupEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPairingConfigIsPairingVerificationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfig)), "isPairingVerificationEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPairingConfigWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfig)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPairingConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfig)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/net/wifi/aware/AwarePairingConfig$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPairingConfigBuilder = env.NewGlobalRef(&c.Object)
-
-		midPairingConfigBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfigBuilder)), "build", "()Landroid/net/wifi/aware/AwarePairingConfig;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPairingConfigBuilderSetBootstrappingMethods, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfigBuilder)), "setBootstrappingMethods", "(I)Landroid/net/wifi/aware/AwarePairingConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPairingConfigBuilderSetPairingCacheEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfigBuilder)), "setPairingCacheEnabled", "(Z)Landroid/net/wifi/aware/AwarePairingConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPairingConfigBuilderSetPairingSetupEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfigBuilder)), "setPairingSetupEnabled", "(Z)Landroid/net/wifi/aware/AwarePairingConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPairingConfigBuilderSetPairingVerificationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfigBuilder)), "setPairingVerificationEnabled", "(Z)Landroid/net/wifi/aware/AwarePairingConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPairingConfigBuilderSetSupportedCipherSuites, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfigBuilder)), "setSupportedCipherSuites", "(I)Landroid/net/wifi/aware/AwarePairingConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPairingConfigBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPairingConfigBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/net/wifi/aware/SubscribeDiscoverySession")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSubscribeDiscoverySession = env.NewGlobalRef(&c.Object)
-
-		midSubscribeDiscoverySessionUpdateSubscribe, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeDiscoverySession)), "updateSubscribe", "(Landroid/net/wifi/aware/SubscribeConfig;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSubscribeDiscoverySessionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscribeDiscoverySession)), "toString", "()Ljava/lang/String;")
+		midServiceDiscoveryInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServiceDiscoveryInfo)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

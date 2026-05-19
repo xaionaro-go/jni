@@ -23,6 +23,35 @@ type WebTriggerRegistrationRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWebTriggerRegistrationRequestBuilder creates a new android.adservices.measurement.WebTriggerRegistrationRequest$Builder instance.
+func NewWebTriggerRegistrationRequestBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*WebTriggerRegistrationRequestBuilder, error) {
+	var t WebTriggerRegistrationRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWebTriggerRegistrationRequestBuilder == nil {
+			return fmt.Errorf("android.adservices.measurement.WebTriggerRegistrationRequest$Builder is not available on this device")
+		}
+		if midWebTriggerRegistrationRequestBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.measurement.WebTriggerRegistrationRequest$Builder constructor (Ljava/util/List;Landroid/net/Uri;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWebTriggerRegistrationRequestBuilder)), midWebTriggerRegistrationRequestBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.measurement.WebTriggerRegistrationRequest$Builder.build.
 func (m *WebTriggerRegistrationRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -18,12 +18,12 @@ const (
 )
 
 const (
-	ActionUnusedAppRestrictionsBackportConnection string = "android.support.unusedapprestrictions.action.CustomUnusedAppRestrictionsBackportService"
-	LogTag                                        string = "PackageManagerCompat"
-	ActionPermissionRevocationSettings            string = "android.intent.action.AUTO_REVOKE_PERMISSIONS"
 	ActionCreateReminder                          string = "android.intent.action.CREATE_REMINDER"
 	ExtraHtmlText                                 string = "android.intent.extra.HTML_TEXT"
 	ExtraStartPlayback                            string = "android.intent.extra.START_PLAYBACK"
 	ExtraTime                                     string = "android.intent.extra.TIME"
 	CategoryLeanbackLauncher                      string = "android.intent.category.LEANBACK_LAUNCHER"
+	ActionUnusedAppRestrictionsBackportConnection string = "android.support.unusedapprestrictions.action.CustomUnusedAppRestrictionsBackportService"
+	LogTag                                        string = "PackageManagerCompat"
+	ActionPermissionRevocationSettings            string = "android.intent.action.AUTO_REVOKE_PERMISSIONS"
 )

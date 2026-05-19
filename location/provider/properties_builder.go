@@ -23,6 +23,34 @@ type PropertiesBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPropertiesBuilder creates a new android.location.provider.ProviderProperties$Builder instance.
+func NewPropertiesBuilder(vm *jni.VM) (*PropertiesBuilder, error) {
+	var t PropertiesBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPropertiesBuilder == nil {
+			return fmt.Errorf("android.location.provider.ProviderProperties$Builder is not available on this device")
+		}
+		if midPropertiesBuilderCtor == nil {
+			return fmt.Errorf("android.location.provider.ProviderProperties$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPropertiesBuilder)), midPropertiesBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.location.provider.ProviderProperties$Builder.build.
 func (m *PropertiesBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewPrintedPdfDocument(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Pri
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPrintedPdfDocument == nil {
+			return fmt.Errorf("android.print.pdf.PrintedPdfDocument is not available on this device")
+		}
+		if midPrintedPdfDocumentCtor == nil {
+			return fmt.Errorf("android.print.pdf.PrintedPdfDocument constructor (Landroid/content/Context;Landroid/print/PrintAttributes;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPrintedPdfDocument)), midPrintedPdfDocumentCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

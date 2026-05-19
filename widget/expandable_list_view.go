@@ -32,6 +32,12 @@ func NewExpandableListView(vm *jni.VM, arg0 *jni.Object) (*ExpandableListView, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsExpandableListView == nil {
+			return fmt.Errorf("android.widget.ExpandableListView is not available on this device")
+		}
+		if midExpandableListViewCtor == nil {
+			return fmt.Errorf("android.widget.ExpandableListView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExpandableListView)), midExpandableListViewCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -167,8 +173,8 @@ func (m *ExpandableListView) GetAccessibilityClassName() (*jni.Object, error) {
 	return result, callErr
 }
 
-// GetAdapter0 calls android.widget.ExpandableListView.getAdapter.
-func (m *ExpandableListView) GetAdapter0() (*jni.Object, error) {
+// GetAdapter calls android.widget.ExpandableListView.getAdapter.
+func (m *ExpandableListView) GetAdapter() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -176,13 +182,13 @@ func (m *ExpandableListView) GetAdapter0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midExpandableListViewGetAdapter0 == nil {
+		if midExpandableListViewGetAdapter == nil {
 			callErr = fmt.Errorf("android.widget.ExpandableListView.getAdapter is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midExpandableListViewGetAdapter0,
+			midExpandableListViewGetAdapter,
 		)
 		if callErr != nil {
 			return callErr
@@ -878,61 +884,6 @@ func (m *ExpandableListView) SetSelectedGroup(arg0 int32) error {
 		return callErr
 	})
 	return callErr
-}
-
-// SetAdapter1_2 calls android.widget.ExpandableListView.setAdapter.
-func (m *ExpandableListView) SetAdapter1_2(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midExpandableListViewSetAdapter1_2 == nil {
-			callErr = fmt.Errorf("android.widget.ExpandableListView.setAdapter is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midExpandableListViewSetAdapter1_2, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// GetAdapter0_1 calls android.widget.ExpandableListView.getAdapter.
-func (m *ExpandableListView) GetAdapter0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midExpandableListViewGetAdapter0_1 == nil {
-			callErr = fmt.Errorf("android.widget.ExpandableListView.getAdapter is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midExpandableListViewGetAdapter0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls android.widget.ExpandableListView.toString.

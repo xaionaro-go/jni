@@ -159,29 +159,6 @@ func (m *ParameterCapability) IsSupported() (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.media.quality.ParameterCapability.writeToParcel.
-func (m *ParameterCapability) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midParameterCapabilityWriteToParcel == nil {
-			callErr = fmt.Errorf("android.media.quality.ParameterCapability.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midParameterCapabilityWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.media.quality.ParameterCapability.toString.
 func (m *ParameterCapability) ToString() (string, error) {
 	var result string
@@ -207,4 +184,27 @@ func (m *ParameterCapability) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.media.quality.ParameterCapability.writeToParcel.
+func (m *ParameterCapability) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midParameterCapabilityWriteToParcel == nil {
+			callErr = fmt.Errorf("android.media.quality.ParameterCapability.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsParameterCapability)),
+			midParameterCapabilityWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

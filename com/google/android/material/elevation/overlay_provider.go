@@ -32,6 +32,12 @@ func NewOverlayProvider(vm *jni.VM, arg0 *jni.Object) (*OverlayProvider, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsOverlayProvider == nil {
+			return fmt.Errorf("com.google.android.material.elevation.ElevationOverlayProvider is not available on this device")
+		}
+		if midOverlayProviderCtor == nil {
+			return fmt.Errorf("com.google.android.material.elevation.ElevationOverlayProvider constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsOverlayProvider)), midOverlayProviderCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -339,32 +345,6 @@ func (m *OverlayProvider) GetThemeSurfaceColor() (int32, error) {
 	return result, callErr
 }
 
-// GetParentAbsoluteElevation calls com.google.android.material.elevation.ElevationOverlayProvider.getParentAbsoluteElevation.
-func (m *OverlayProvider) GetParentAbsoluteElevation(arg0 *jni.Object) (float32, error) {
-	var result float32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midOverlayProviderGetParentAbsoluteElevation == nil {
-			callErr = fmt.Errorf("com.google.android.material.elevation.ElevationOverlayProvider.getParentAbsoluteElevation is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallFloatMethod(
-			m.Obj,
-			midOverlayProviderGetParentAbsoluteElevation, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.elevation.ElevationOverlayProvider.toString.
 func (m *OverlayProvider) ToString() (string, error) {
 	var result string
@@ -387,6 +367,32 @@ func (m *OverlayProvider) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetParentAbsoluteElevation calls com.google.android.material.elevation.ElevationOverlayProvider.getParentAbsoluteElevation.
+func (m *OverlayProvider) GetParentAbsoluteElevation(arg0 *jni.Object) (float32, error) {
+	var result float32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midOverlayProviderGetParentAbsoluteElevation == nil {
+			callErr = fmt.Errorf("com.google.android.material.elevation.ElevationOverlayProvider.getParentAbsoluteElevation is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallStaticFloatMethod(
+			(*jni.Class)(unsafe.Pointer(clsOverlayProvider)),
+			midOverlayProviderGetParentAbsoluteElevation, jni.ObjectValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
 		return callErr
 	})
 	return result, callErr

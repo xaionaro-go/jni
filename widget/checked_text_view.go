@@ -32,6 +32,12 @@ func NewCheckedTextView(vm *jni.VM, arg0 *jni.Object) (*CheckedTextView, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCheckedTextView == nil {
+			return fmt.Errorf("android.widget.CheckedTextView is not available on this device")
+		}
+		if midCheckedTextViewCtor == nil {
+			return fmt.Errorf("android.widget.CheckedTextView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCheckedTextView)), midCheckedTextViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

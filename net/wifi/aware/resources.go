@@ -32,6 +32,12 @@ func NewResources(vm *jni.VM, arg0 int32, arg1 int32, arg2 int32) (*Resources, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsResources == nil {
+			return fmt.Errorf("android.net.wifi.aware.AwareResources is not available on this device")
+		}
+		if midResourcesCtor == nil {
+			return fmt.Errorf("android.net.wifi.aware.AwareResources constructor (III)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsResources)), midResourcesCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2))
 		if err != nil {
@@ -146,29 +152,6 @@ func (m *Resources) GetAvailableSubscribeSessionsCount() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.net.wifi.aware.AwareResources.writeToParcel.
-func (m *Resources) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midResourcesWriteToParcel == nil {
-			callErr = fmt.Errorf("android.net.wifi.aware.AwareResources.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midResourcesWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.net.wifi.aware.AwareResources.toString.
 func (m *Resources) ToString() (string, error) {
 	var result string
@@ -194,4 +177,27 @@ func (m *Resources) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.net.wifi.aware.AwareResources.writeToParcel.
+func (m *Resources) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midResourcesWriteToParcel == nil {
+			callErr = fmt.Errorf("android.net.wifi.aware.AwareResources.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsResources)),
+			midResourcesWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

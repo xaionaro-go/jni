@@ -23,6 +23,35 @@ type AbsListViewLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAbsListViewLayoutParams creates a new android.widget.AbsListView$LayoutParams instance.
+func NewAbsListViewLayoutParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*AbsListViewLayoutParams, error) {
+	var t AbsListViewLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAbsListViewLayoutParams == nil {
+			return fmt.Errorf("android.widget.AbsListView$LayoutParams is not available on this device")
+		}
+		if midAbsListViewLayoutParamsCtor == nil {
+			return fmt.Errorf("android.widget.AbsListView$LayoutParams constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAbsListViewLayoutParams)), midAbsListViewLayoutParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.widget.AbsListView$LayoutParams.toString.
 func (m *AbsListViewLayoutParams) ToString() (string, error) {
 	var result string

@@ -32,6 +32,12 @@ func NewIsolatedServiceException(vm *jni.VM, arg0 int32) (*IsolatedServiceExcept
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsIsolatedServiceException == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.IsolatedServiceException is not available on this device")
+		}
+		if midIsolatedServiceExceptionCtor == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.IsolatedServiceException constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIsolatedServiceException)), midIsolatedServiceExceptionCtor, jni.IntValue(arg0))
 		if err != nil {

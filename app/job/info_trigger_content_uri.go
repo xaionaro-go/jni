@@ -23,6 +23,35 @@ type InfoTriggerContentUri struct {
 	Obj *jni.GlobalRef
 }
 
+// NewInfoTriggerContentUri creates a new android.app.job.JobInfo$TriggerContentUri instance.
+func NewInfoTriggerContentUri(vm *jni.VM, arg0 *jni.Object, arg1 int32) (*InfoTriggerContentUri, error) {
+	var t InfoTriggerContentUri
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsInfoTriggerContentUri == nil {
+			return fmt.Errorf("android.app.job.JobInfo$TriggerContentUri is not available on this device")
+		}
+		if midInfoTriggerContentUriCtor == nil {
+			return fmt.Errorf("android.app.job.JobInfo$TriggerContentUri constructor (Landroid/net/Uri;I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInfoTriggerContentUri)), midInfoTriggerContentUriCtor, jni.ObjectValue(arg0), jni.IntValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.app.job.JobInfo$TriggerContentUri.describeContents.
 func (m *InfoTriggerContentUri) DescribeContents() (int32, error) {
 	var result int32
@@ -158,29 +187,6 @@ func (m *InfoTriggerContentUri) HashCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.job.JobInfo$TriggerContentUri.writeToParcel.
-func (m *InfoTriggerContentUri) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midInfoTriggerContentUriWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.job.JobInfo$TriggerContentUri.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midInfoTriggerContentUriWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.job.JobInfo$TriggerContentUri.toString.
 func (m *InfoTriggerContentUri) ToString() (string, error) {
 	var result string
@@ -206,4 +212,27 @@ func (m *InfoTriggerContentUri) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.job.JobInfo$TriggerContentUri.writeToParcel.
+func (m *InfoTriggerContentUri) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midInfoTriggerContentUriWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.job.JobInfo$TriggerContentUri.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsInfoTriggerContentUri)),
+			midInfoTriggerContentUriWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

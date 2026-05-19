@@ -4,17 +4,6 @@ package consts
 
 const (
 	Creator                                   int = 0
-	ExtendedAddressByteLength                 int = 8
-	ShortAddressByteLength                    int = 2
-	ConfigMulticastDsTwr                      int = 2
-	ConfigProvisionedIndividualMulticastDsTwr int = 5
-	ConfigProvisionedMulticastDsTwr           int = 4
-	ConfigProvisionedUnicastDsTwr             int = 3
-	ConfigProvisionedUnicastDsTwrVeryFast     int = 6
-	ConfigUnicastDsTwr                        int = 1
-	Duration1Ms                               int = 1
-	Duration2Ms                               int = 2
-	SubSessionUndefined                       int = -1
 	UwbChannel10                              int = 10
 	UwbChannel12                              int = 12
 	UwbChannel13                              int = 13
@@ -35,4 +24,15 @@ const (
 	UwbPreambleCodeIndex31                    int = 31
 	UwbPreambleCodeIndex32                    int = 32
 	UwbPreambleCodeIndex9                     int = 9
+	ConfigMulticastDsTwr                      int = 2
+	ConfigProvisionedIndividualMulticastDsTwr int = 5
+	ConfigProvisionedMulticastDsTwr           int = 4
+	ConfigProvisionedUnicastDsTwr             int = 3
+	ConfigProvisionedUnicastDsTwrVeryFast     int = 6
+	ConfigUnicastDsTwr                        int = 1
+	Duration1Ms                               int = 1
+	Duration2Ms                               int = 2
+	SubSessionUndefined                       int = -1
+	ExtendedAddressByteLength                 int = 8
+	ShortAddressByteLength                    int = 2
 )

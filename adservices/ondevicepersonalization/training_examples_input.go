@@ -32,6 +32,12 @@ func NewTrainingExamplesInput(vm *jni.VM, arg0 string, arg1 string, arg2 *jni.Ob
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTrainingExamplesInput == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.TrainingExamplesInput is not available on this device")
+		}
+		if midTrainingExamplesInputCtor == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.TrainingExamplesInput constructor (Ljava/lang/String;Ljava/lang/String;[BLjava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

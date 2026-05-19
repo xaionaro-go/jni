@@ -23,6 +23,35 @@ type ServiceEngine struct {
 	Obj *jni.GlobalRef
 }
 
+// NewServiceEngine creates a new android.service.wallpaper.WallpaperService$Engine instance.
+func NewServiceEngine(vm *jni.VM, arg0 *jni.Object) (*ServiceEngine, error) {
+	var t ServiceEngine
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsServiceEngine == nil {
+			return fmt.Errorf("android.service.wallpaper.WallpaperService$Engine is not available on this device")
+		}
+		if midServiceEngineCtor == nil {
+			return fmt.Errorf("android.service.wallpaper.WallpaperService$Engine constructor (Landroid/service/wallpaper/WallpaperService;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsServiceEngine)), midServiceEngineCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetDesiredMinimumHeight calls android.service.wallpaper.WallpaperService$Engine.getDesiredMinimumHeight.
 func (m *ServiceEngine) GetDesiredMinimumHeight() (int32, error) {
 	var result int32

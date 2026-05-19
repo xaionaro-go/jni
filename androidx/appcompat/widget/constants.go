@@ -5,10 +5,7 @@ package widget
 import "github.com/AndroidGoLab/jni/androidx/appcompat/widget/consts"
 
 const (
-	DefaultShareHistoryFileName = consts.DefaultShareHistoryFileName
-)
-
-const (
+	MaxSdkWhereRequired      = consts.MaxSdkWhereRequired
 	Horizontal               = consts.Horizontal
 	Vertical                 = consts.Vertical
 	ShowDividerNone          = consts.ShowDividerNone
@@ -16,8 +13,6 @@ const (
 	ShowDividerMiddle        = consts.ShowDividerMiddle
 	ShowDividerEnd           = consts.ShowDividerEnd
 	Creator                  = consts.Creator
-	MaxSdkWhereRequired      = consts.MaxSdkWhereRequired
-	InsetsNone               = consts.InsetsNone
 	PositionPromptAbove      = consts.PositionPromptAbove
 	PositionPromptBelow      = consts.PositionPromptBelow
 	MatchParent              = consts.MatchParent
@@ -25,4 +20,9 @@ const (
 	InputMethodFromFocusable = consts.InputMethodFromFocusable
 	InputMethodNeeded        = consts.InputMethodNeeded
 	InputMethodNotNeeded     = consts.InputMethodNotNeeded
+	InsetsNone               = consts.InsetsNone
+)
+
+const (
+	DefaultShareHistoryFileName = consts.DefaultShareHistoryFileName
 )

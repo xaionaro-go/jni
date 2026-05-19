@@ -31,6 +31,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -38,45 +39,6 @@ classes:
               go_name: arg0
             - java_type: int
               go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.service.voice.VoiceInteractionSessionService
-      go_type: InteractionSessionService
-      methods:
-        - java_method: onBind
-          go_name: OnBind
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
-          returns: android.os.IBinder
-          error: true
-        - java_method: onConfigurationChanged
-          go_name: OnConfigurationChanged
-          params:
-            - java_type: android.content.res.Configuration
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onCreate
-          go_name: OnCreate
-          returns: void
-          error: true
-        - java_method: onLowMemory
-          go_name: OnLowMemory
-          returns: void
-          error: true
-        - java_method: onNewSession
-          go_name: OnNewSession
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: android.service.voice.VoiceInteractionSession
-          error: true
-        - java_method: onTrimMemory
-          go_name: OnTrimMemory
-          params:
-            - java_type: int
-              go_name: arg0
           returns: void
           error: true
     - java_class: android.service.voice.VoiceInteractionSession
@@ -568,6 +530,7 @@ classes:
           error: true
     - java_class: android.service.voice.VoiceInteractionSession$Insets
       go_type: InteractionSessionInsets
+      obtain: constructor
     - java_class: android.service.voice.VoiceInteractionSession$PickOptionRequest
       go_type: InteractionSessionPickOptionRequest
       methods:
@@ -630,6 +593,45 @@ classes:
           error: true
     - java_class: android.service.voice.VoiceInteractionSession$VisibleActivityCallback
       go_type: InteractionSessionVisibleActivityCallback
+    - java_class: android.service.voice.VoiceInteractionSessionService
+      go_type: InteractionSessionService
+      methods:
+        - java_method: onBind
+          go_name: OnBind
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: android.os.IBinder
+          error: true
+        - java_method: onConfigurationChanged
+          go_name: OnConfigurationChanged
+          params:
+            - java_type: android.content.res.Configuration
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onCreate
+          go_name: OnCreate
+          returns: void
+          error: true
+        - java_method: onLowMemory
+          go_name: OnLowMemory
+          returns: void
+          error: true
+        - java_method: onNewSession
+          go_name: OnNewSession
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: android.service.voice.VoiceInteractionSession
+          error: true
+        - java_method: onTrimMemory
+          go_name: OnTrimMemory
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
     - java_class: android.service.voice.VoiceInteractionService
       go_type: InteractionService
       obtain: constructor
@@ -706,38 +708,10 @@ classes:
               go_name: arg1
           returns: boolean
           error: true
-abstract_callbacks:
+abstract_callback_eligibility:
     - java_class: android.service.voice.VoiceInteractionSessionService
-      go_type: InteractionSessionServiceCallback
-      methods:
-        - java_method: onBind
-          params:
-            - android.content.Intent
-          returns: android.os.IBinder
-          go_field: OnBind
-        - java_method: onConfigurationChanged
-          params:
-            - android.content.res.Configuration
-          returns: void
-          go_field: OnConfigurationChanged
-        - java_method: onCreate
-          params: []
-          returns: void
-          go_field: OnCreate
-        - java_method: onLowMemory
-          params: []
-          returns: void
-          go_field: OnLowMemory
-        - java_method: onNewSession
-          params:
-            - android.os.Bundle
-          returns: android.service.voice.VoiceInteractionSession
-          go_field: OnNewSession
-        - java_method: onTrimMemory
-          params:
-            - int
-          returns: void
-          go_field: OnTrimMemory
+      generated: false
+      reason: non_object_superclass
 constants:
     - go_name: Creator
       value: "0"

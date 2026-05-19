@@ -60,6 +60,10 @@ classes:
           error: true
     - java_class: android.hardware.fingerprint.FingerprintManager$CryptoObject
       go_type: ManagerCryptoObject
+      obtain: constructor
+      constructor_params:
+        - java_type: java.security.Signature
+          go_name: arg0
       methods:
         - java_method: getCipher
           go_name: GetCipher
@@ -98,6 +102,10 @@ abstract_callbacks:
             - android.hardware.fingerprint.FingerprintManager$AuthenticationResult
           returns: void
           go_field: OnAuthenticationSucceeded
+abstract_callback_eligibility:
+    - java_class: android.hardware.fingerprint.FingerprintManager$AuthenticationCallback
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
     - go_name: FingerprintAcquiredGood
       value: "0"

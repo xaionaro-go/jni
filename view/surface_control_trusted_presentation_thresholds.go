@@ -23,6 +23,35 @@ type SurfaceControlTrustedPresentationThresholds struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSurfaceControlTrustedPresentationThresholds creates a new android.view.SurfaceControl$TrustedPresentationThresholds instance.
+func NewSurfaceControlTrustedPresentationThresholds(vm *jni.VM, arg0 float32, arg1 float32, arg2 int32) (*SurfaceControlTrustedPresentationThresholds, error) {
+	var t SurfaceControlTrustedPresentationThresholds
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSurfaceControlTrustedPresentationThresholds == nil {
+			return fmt.Errorf("android.view.SurfaceControl$TrustedPresentationThresholds is not available on this device")
+		}
+		if midSurfaceControlTrustedPresentationThresholdsCtor == nil {
+			return fmt.Errorf("android.view.SurfaceControl$TrustedPresentationThresholds constructor (FFI)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSurfaceControlTrustedPresentationThresholds)), midSurfaceControlTrustedPresentationThresholdsCtor, jni.FloatValue(arg0), jni.FloatValue(arg1), jni.IntValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.view.SurfaceControl$TrustedPresentationThresholds.toString.
 func (m *SurfaceControlTrustedPresentationThresholds) ToString() (string, error) {
 	var result string

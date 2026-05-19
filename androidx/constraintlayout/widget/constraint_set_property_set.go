@@ -23,6 +23,34 @@ type ConstraintSetPropertySet struct {
 	Obj *jni.GlobalRef
 }
 
+// NewConstraintSetPropertySet creates a new androidx.constraintlayout.widget.ConstraintSet$PropertySet instance.
+func NewConstraintSetPropertySet(vm *jni.VM) (*ConstraintSetPropertySet, error) {
+	var t ConstraintSetPropertySet
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsConstraintSetPropertySet == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet$PropertySet is not available on this device")
+		}
+		if midConstraintSetPropertySetCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet$PropertySet constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConstraintSetPropertySet)), midConstraintSetPropertySetCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // CopyFrom calls androidx.constraintlayout.widget.ConstraintSet$PropertySet.copyFrom.
 func (m *ConstraintSetPropertySet) CopyFrom(arg0 *jni.Object) error {
 

@@ -12,9 +12,9 @@ const (
 )
 
 const (
-	Creator                        int = 0
 	ChooserResultCopy              int = 1
 	ChooserResultEdit              int = 2
 	ChooserResultSelectedComponent int = 0
 	ChooserResultUnknown           int = -1
+	Creator                        int = 0
 )

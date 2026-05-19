@@ -3,26 +3,6 @@
 package consts
 
 const (
-	Tag string = "MotionPaths"
-)
-
-const (
-	Debug  bool = false
-	OldWay bool = false
-)
-
-const (
-	Perpendicular         int = 1
-	Cartesian             int = 0
-	Screen                int = 2
-	IntType               int = 0
-	FloatType             int = 0
-	ColorType             int = 0
-	ColorDrawableType     int = 0
-	StringType            int = 0
-	BooleanType           int = 0
-	DimensionType         int = 0
-	ReferenceType         int = 0
 	PathPercent           int = 0
 	PathPerpendicular     int = 1
 	HorizontalPathX       int = 2
@@ -55,4 +35,24 @@ const (
 	WrapContent           int = -2
 	GoneUnset             int = -2147483648
 	MatchConstraintWrap   int = 1
+	Perpendicular         int = 1
+	Cartesian             int = 0
+	Screen                int = 2
+	IntType               int = 0
+	FloatType             int = 0
+	ColorType             int = 0
+	ColorDrawableType     int = 0
+	StringType            int = 0
+	BooleanType           int = 0
+	DimensionType         int = 0
+	ReferenceType         int = 0
+)
+
+const (
+	Tag string = "MotionPaths"
+)
+
+const (
+	Debug  bool = false
+	OldWay bool = false
 )

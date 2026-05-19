@@ -32,6 +32,12 @@ func NewDeviceAdminService(vm *jni.VM) (*DeviceAdminService, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDeviceAdminService == nil {
+			return fmt.Errorf("android.app.admin.DeviceAdminService is not available on this device")
+		}
+		if midDeviceAdminServiceCtor == nil {
+			return fmt.Errorf("android.app.admin.DeviceAdminService constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDeviceAdminService)), midDeviceAdminServiceCtor)
 		if err != nil {
 			return err

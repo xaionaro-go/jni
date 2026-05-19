@@ -32,6 +32,12 @@ func NewMaterialButton(vm *jni.VM, arg0 *jni.Object) (*MaterialButton, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialButton == nil {
+			return fmt.Errorf("com.google.android.material.button.MaterialButton is not available on this device")
+		}
+		if midMaterialButtonCtor == nil {
+			return fmt.Errorf("com.google.android.material.button.MaterialButton constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialButton)), midMaterialButtonCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -1610,33 +1616,6 @@ func (m *MaterialButton) GetShapeAppearanceModel() (*jni.Object, error) {
 	return result, callErr
 }
 
-// SetPressed calls com.google.android.material.button.MaterialButton.setPressed.
-func (m *MaterialButton) SetPressed(arg0 bool) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialButtonSetPressed == nil {
-			callErr = fmt.Errorf("com.google.android.material.button.MaterialButton.setPressed is not available on this device")
-			return callErr
-		}
-		var jArg0 uint8
-		if arg0 {
-			jArg0 = jniTrue
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMaterialButtonSetPressed, jni.BooleanValue(jArg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls com.google.android.material.button.MaterialButton.toString.
 func (m *MaterialButton) ToString() (string, error) {
 	var result string
@@ -1662,4 +1641,31 @@ func (m *MaterialButton) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// SetPressed calls com.google.android.material.button.MaterialButton.setPressed.
+func (m *MaterialButton) SetPressed(arg0 bool) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midMaterialButtonSetPressed == nil {
+			callErr = fmt.Errorf("com.google.android.material.button.MaterialButton.setPressed is not available on this device")
+			return callErr
+		}
+		var jArg0 uint8
+		if arg0 {
+			jArg0 = jniTrue
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsMaterialButton)),
+			midMaterialButtonSetPressed, jni.BooleanValue(jArg0),
+		)
+		return callErr
+	})
+	return callErr
 }

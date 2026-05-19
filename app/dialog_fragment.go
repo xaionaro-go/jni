@@ -30,6 +30,12 @@ func NewDialogFragment(vm *jni.VM) (*DialogFragment, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDialogFragment == nil {
+			return fmt.Errorf("android.app.DialogFragment is not available on this device")
+		}
+		if midDialogFragmentCtor == nil {
+			return fmt.Errorf("android.app.DialogFragment constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDialogFragment)), midDialogFragmentCtor)
 		if err != nil {
 			return err

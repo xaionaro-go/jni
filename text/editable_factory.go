@@ -23,6 +23,34 @@ type EditableFactory struct {
 	Obj *jni.GlobalRef
 }
 
+// NewEditableFactory creates a new android.text.Editable$Factory instance.
+func NewEditableFactory(vm *jni.VM) (*EditableFactory, error) {
+	var t EditableFactory
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsEditableFactory == nil {
+			return fmt.Errorf("android.text.Editable$Factory is not available on this device")
+		}
+		if midEditableFactoryCtor == nil {
+			return fmt.Errorf("android.text.Editable$Factory constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEditableFactory)), midEditableFactoryCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // NewEditable calls android.text.Editable$Factory.newEditable.
 func (m *EditableFactory) NewEditable(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

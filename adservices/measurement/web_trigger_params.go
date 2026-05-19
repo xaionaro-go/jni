@@ -160,29 +160,6 @@ func (m *WebTriggerParams) IsDebugKeyAllowed() (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.adservices.measurement.WebTriggerParams.writeToParcel.
-func (m *WebTriggerParams) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midWebTriggerParamsWriteToParcel == nil {
-			callErr = fmt.Errorf("android.adservices.measurement.WebTriggerParams.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midWebTriggerParamsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.adservices.measurement.WebTriggerParams.toString.
 func (m *WebTriggerParams) ToString() (string, error) {
 	var result string
@@ -208,4 +185,27 @@ func (m *WebTriggerParams) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.adservices.measurement.WebTriggerParams.writeToParcel.
+func (m *WebTriggerParams) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midWebTriggerParamsWriteToParcel == nil {
+			callErr = fmt.Errorf("android.adservices.measurement.WebTriggerParams.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsWebTriggerParams)),
+			midWebTriggerParamsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

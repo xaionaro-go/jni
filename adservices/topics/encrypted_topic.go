@@ -32,6 +32,12 @@ func NewEncryptedTopic(vm *jni.VM, arg0 *jni.Object, arg1 string, arg2 *jni.Obje
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEncryptedTopic == nil {
+			return fmt.Errorf("android.adservices.topics.EncryptedTopic is not available on this device")
+		}
+		if midEncryptedTopicCtor == nil {
+			return fmt.Errorf("android.adservices.topics.EncryptedTopic constructor ([BLjava/lang/String;[B)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {

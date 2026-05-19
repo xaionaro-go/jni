@@ -23,6 +23,34 @@ type CallLogCalls struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCallLogCalls creates a new android.provider.CallLog$Calls instance.
+func NewCallLogCalls(vm *jni.VM) (*CallLogCalls, error) {
+	var t CallLogCalls
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCallLogCalls == nil {
+			return fmt.Errorf("android.provider.CallLog$Calls is not available on this device")
+		}
+		if midCallLogCallsCtor == nil {
+			return fmt.Errorf("android.provider.CallLog$Calls constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCallLogCalls)), midCallLogCallsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.provider.CallLog$Calls.toString.
 func (m *CallLogCalls) ToString() (string, error) {
 	var result string

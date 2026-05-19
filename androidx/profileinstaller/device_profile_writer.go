@@ -32,6 +32,12 @@ func NewDeviceProfileWriter(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDeviceProfileWriter == nil {
+			return fmt.Errorf("androidx.profileinstaller.DeviceProfileWriter is not available on this device")
+		}
+		if midDeviceProfileWriterCtor == nil {
+			return fmt.Errorf("androidx.profileinstaller.DeviceProfileWriter constructor (Landroid/content/res/AssetManager;Ljava/util/concurrent/Executor;Landroidx/profileinstaller/ProfileInstaller$DiagnosticsCallback;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/io/File;)V is not available on this device")
+		}
 
 		jArg3, err := env.NewStringUTF(arg3)
 		if err != nil {

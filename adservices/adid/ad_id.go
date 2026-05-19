@@ -32,6 +32,12 @@ func NewAdId(vm *jni.VM, arg0 string, arg1 bool) (*AdId, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAdId == nil {
+			return fmt.Errorf("android.adservices.adid.AdId is not available on this device")
+		}
+		if midAdIdCtor == nil {
+			return fmt.Errorf("android.adservices.adid.AdId constructor (Ljava/lang/String;Z)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

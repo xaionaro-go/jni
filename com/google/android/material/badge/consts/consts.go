@@ -3,14 +3,14 @@
 package consts
 
 const (
+	UseCompatParent bool = false
+)
+
+const (
 	Creator                  int = 0
 	TopEnd                   int = 8388661
 	TopStart                 int = 8388659
 	BottomEnd                int = 8388693
 	BottomStart              int = 8388691
 	BadgeContentNotTruncated int = -2
-)
-
-const (
-	UseCompatParent bool = false
 )

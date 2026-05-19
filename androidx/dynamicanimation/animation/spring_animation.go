@@ -32,6 +32,12 @@ func NewSpringAnimation(vm *jni.VM, arg0 *jni.Object) (*SpringAnimation, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSpringAnimation == nil {
+			return fmt.Errorf("androidx.dynamicanimation.animation.SpringAnimation is not available on this device")
+		}
+		if midSpringAnimationCtor == nil {
+			return fmt.Errorf("androidx.dynamicanimation.animation.SpringAnimation constructor (Landroidx/dynamicanimation/animation/FloatValueHolder;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSpringAnimation)), midSpringAnimationCtor, jni.ObjectValue(arg0))
 		if err != nil {

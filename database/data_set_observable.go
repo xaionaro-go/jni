@@ -32,6 +32,12 @@ func NewDataSetObservable(vm *jni.VM) (*DataSetObservable, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDataSetObservable == nil {
+			return fmt.Errorf("android.database.DataSetObservable is not available on this device")
+		}
+		if midDataSetObservableCtor == nil {
+			return fmt.Errorf("android.database.DataSetObservable constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDataSetObservable)), midDataSetObservableCtor)
 		if err != nil {
 			return err

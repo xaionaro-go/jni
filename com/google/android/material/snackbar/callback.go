@@ -23,8 +23,36 @@ type Callback struct {
 	Obj *jni.GlobalRef
 }
 
-// OnShown1 calls com.google.android.material.snackbar.Snackbar$Callback.onShown.
-func (m *Callback) OnShown1(arg0 *jni.Object) error {
+// NewCallback creates a new com.google.android.material.snackbar.Snackbar$Callback instance.
+func NewCallback(vm *jni.VM) (*Callback, error) {
+	var t Callback
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCallback == nil {
+			return fmt.Errorf("com.google.android.material.snackbar.Snackbar$Callback is not available on this device")
+		}
+		if midCallbackCtor == nil {
+			return fmt.Errorf("com.google.android.material.snackbar.Snackbar$Callback constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCallback)), midCallbackCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
+// OnShown calls com.google.android.material.snackbar.Snackbar$Callback.onShown.
+func (m *Callback) OnShown(arg0 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -32,22 +60,22 @@ func (m *Callback) OnShown1(arg0 *jni.Object) error {
 			callErr = err
 			return err
 		}
-		if midCallbackOnShown1 == nil {
+		if midCallbackOnShown == nil {
 			callErr = fmt.Errorf("com.google.android.material.snackbar.Snackbar$Callback.onShown is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midCallbackOnShown1, jni.ObjectValue(arg0),
+			midCallbackOnShown, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})
 	return callErr
 }
 
-// OnDismissed2 calls com.google.android.material.snackbar.Snackbar$Callback.onDismissed.
-func (m *Callback) OnDismissed2(arg0 *jni.Object, arg1 int32) error {
+// OnDismissed calls com.google.android.material.snackbar.Snackbar$Callback.onDismissed.
+func (m *Callback) OnDismissed(arg0 *jni.Object, arg1 int32) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,60 +83,14 @@ func (m *Callback) OnDismissed2(arg0 *jni.Object, arg1 int32) error {
 			callErr = err
 			return err
 		}
-		if midCallbackOnDismissed2 == nil {
+		if midCallbackOnDismissed == nil {
 			callErr = fmt.Errorf("com.google.android.material.snackbar.Snackbar$Callback.onDismissed is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midCallbackOnDismissed2, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// OnShown1_1 calls com.google.android.material.snackbar.Snackbar$Callback.onShown.
-func (m *Callback) OnShown1_1(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCallbackOnShown1_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.snackbar.Snackbar$Callback.onShown is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midCallbackOnShown1_1, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// OnDismissed2_1 calls com.google.android.material.snackbar.Snackbar$Callback.onDismissed.
-func (m *Callback) OnDismissed2_1(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCallbackOnDismissed2_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.snackbar.Snackbar$Callback.onDismissed is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midCallbackOnDismissed2_1, jni.ObjectValue(arg0), jni.IntValue(arg1),
+			midCallbackOnDismissed, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr
 	})

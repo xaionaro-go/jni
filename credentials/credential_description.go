@@ -32,6 +32,12 @@ func NewCredentialDescription(vm *jni.VM, arg0 string, arg1 *jni.Object, arg2 *j
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCredentialDescription == nil {
+			return fmt.Errorf("android.credentials.CredentialDescription is not available on this device")
+		}
+		if midCredentialDescriptionCtor == nil {
+			return fmt.Errorf("android.credentials.CredentialDescription constructor (Ljava/lang/String;Ljava/util/Set;Ljava/util/List;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -220,29 +226,6 @@ func (m *CredentialDescription) HashCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.credentials.CredentialDescription.writeToParcel.
-func (m *CredentialDescription) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCredentialDescriptionWriteToParcel == nil {
-			callErr = fmt.Errorf("android.credentials.CredentialDescription.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midCredentialDescriptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.credentials.CredentialDescription.toString.
 func (m *CredentialDescription) ToString() (string, error) {
 	var result string
@@ -268,4 +251,27 @@ func (m *CredentialDescription) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.credentials.CredentialDescription.writeToParcel.
+func (m *CredentialDescription) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCredentialDescriptionWriteToParcel == nil {
+			callErr = fmt.Errorf("android.credentials.CredentialDescription.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsCredentialDescription)),
+			midCredentialDescriptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

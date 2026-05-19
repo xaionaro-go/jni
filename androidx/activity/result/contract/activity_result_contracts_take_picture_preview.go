@@ -23,8 +23,36 @@ type ActivityResultContractsTakePicturePreview struct {
 	Obj *jni.GlobalRef
 }
 
-// CreateIntent2 calls androidx.activity.result.contract.ActivityResultContracts$TakePicturePreview.createIntent.
-func (m *ActivityResultContractsTakePicturePreview) CreateIntent2(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
+// NewActivityResultContractsTakePicturePreview creates a new androidx.activity.result.contract.ActivityResultContracts$TakePicturePreview instance.
+func NewActivityResultContractsTakePicturePreview(vm *jni.VM) (*ActivityResultContractsTakePicturePreview, error) {
+	var t ActivityResultContractsTakePicturePreview
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsActivityResultContractsTakePicturePreview == nil {
+			return fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$TakePicturePreview is not available on this device")
+		}
+		if midActivityResultContractsTakePicturePreviewCtor == nil {
+			return fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$TakePicturePreview constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivityResultContractsTakePicturePreview)), midActivityResultContractsTakePicturePreviewCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
+// CreateIntent calls androidx.activity.result.contract.ActivityResultContracts$TakePicturePreview.createIntent.
+func (m *ActivityResultContractsTakePicturePreview) CreateIntent(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -32,14 +60,14 @@ func (m *ActivityResultContractsTakePicturePreview) CreateIntent2(arg0 *jni.Obje
 			callErr = err
 			return err
 		}
-		if midActivityResultContractsTakePicturePreviewCreateIntent2 == nil {
+		if midActivityResultContractsTakePicturePreviewCreateIntent == nil {
 			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$TakePicturePreview.createIntent is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActivityResultContractsTakePicturePreviewCreateIntent2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midActivityResultContractsTakePicturePreviewCreateIntent, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr
@@ -56,8 +84,8 @@ func (m *ActivityResultContractsTakePicturePreview) CreateIntent2(arg0 *jni.Obje
 	return result, callErr
 }
 
-// GetSynchronousResult2 calls androidx.activity.result.contract.ActivityResultContracts$TakePicturePreview.getSynchronousResult.
-func (m *ActivityResultContractsTakePicturePreview) GetSynchronousResult2(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
+// GetSynchronousResult calls androidx.activity.result.contract.ActivityResultContracts$TakePicturePreview.getSynchronousResult.
+func (m *ActivityResultContractsTakePicturePreview) GetSynchronousResult(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -65,14 +93,14 @@ func (m *ActivityResultContractsTakePicturePreview) GetSynchronousResult2(arg0 *
 			callErr = err
 			return err
 		}
-		if midActivityResultContractsTakePicturePreviewGetSynchronousResult2 == nil {
+		if midActivityResultContractsTakePicturePreviewGetSynchronousResult == nil {
 			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$TakePicturePreview.getSynchronousResult is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActivityResultContractsTakePicturePreviewGetSynchronousResult2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midActivityResultContractsTakePicturePreviewGetSynchronousResult, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr
@@ -89,8 +117,8 @@ func (m *ActivityResultContractsTakePicturePreview) GetSynchronousResult2(arg0 *
 	return result, callErr
 }
 
-// ParseResult2 calls androidx.activity.result.contract.ActivityResultContracts$TakePicturePreview.parseResult.
-func (m *ActivityResultContractsTakePicturePreview) ParseResult2(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
+// ParseResult calls androidx.activity.result.contract.ActivityResultContracts$TakePicturePreview.parseResult.
+func (m *ActivityResultContractsTakePicturePreview) ParseResult(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -98,113 +126,14 @@ func (m *ActivityResultContractsTakePicturePreview) ParseResult2(arg0 int32, arg
 			callErr = err
 			return err
 		}
-		if midActivityResultContractsTakePicturePreviewParseResult2 == nil {
+		if midActivityResultContractsTakePicturePreviewParseResult == nil {
 			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$TakePicturePreview.parseResult is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActivityResultContractsTakePicturePreviewParseResult2, jni.IntValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// CreateIntent2_1 calls androidx.activity.result.contract.ActivityResultContracts$TakePicturePreview.createIntent.
-func (m *ActivityResultContractsTakePicturePreview) CreateIntent2_1(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsTakePicturePreviewCreateIntent2_1 == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$TakePicturePreview.createIntent is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsTakePicturePreviewCreateIntent2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetSynchronousResult2_1 calls androidx.activity.result.contract.ActivityResultContracts$TakePicturePreview.getSynchronousResult.
-func (m *ActivityResultContractsTakePicturePreview) GetSynchronousResult2_1(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsTakePicturePreviewGetSynchronousResult2_1 == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$TakePicturePreview.getSynchronousResult is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsTakePicturePreviewGetSynchronousResult2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// ParseResult2_1 calls androidx.activity.result.contract.ActivityResultContracts$TakePicturePreview.parseResult.
-func (m *ActivityResultContractsTakePicturePreview) ParseResult2_1(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsTakePicturePreviewParseResult2_1 == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$TakePicturePreview.parseResult is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsTakePicturePreviewParseResult2_1, jni.IntValue(arg0), jni.ObjectValue(arg1),
+			midActivityResultContractsTakePicturePreviewParseResult, jni.IntValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr

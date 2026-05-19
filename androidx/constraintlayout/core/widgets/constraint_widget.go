@@ -32,6 +32,12 @@ func NewConstraintWidget(vm *jni.VM) (*ConstraintWidget, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsConstraintWidget == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.ConstraintWidget is not available on this device")
+		}
+		if midConstraintWidgetCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.ConstraintWidget constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConstraintWidget)), midConstraintWidgetCtor)
 		if err != nil {
 			return err
@@ -3804,8 +3810,8 @@ func (m *ConstraintWidget) GetSceneString(arg0 *jni.Object) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsConstraintWidget)),
 			midConstraintWidgetGetSceneString, jni.ObjectValue(arg0),
 		)
 		return callErr

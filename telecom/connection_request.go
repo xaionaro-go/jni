@@ -32,6 +32,12 @@ func NewConnectionRequest(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsConnectionRequest == nil {
+			return fmt.Errorf("android.telecom.ConnectionRequest is not available on this device")
+		}
+		if midConnectionRequestCtor == nil {
+			return fmt.Errorf("android.telecom.ConnectionRequest constructor (Landroid/telecom/PhoneAccountHandle;Landroid/net/Uri;Landroid/os/Bundle;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConnectionRequest)), midConnectionRequestCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
 		if err != nil {
@@ -351,8 +357,8 @@ func (m *ConnectionRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsConnectionRequest)),
 			midConnectionRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

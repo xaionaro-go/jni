@@ -32,6 +32,12 @@ func NewPathEffect(vm *jni.VM) (*PathEffect, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPathEffect == nil {
+			return fmt.Errorf("android.graphics.PathEffect is not available on this device")
+		}
+		if midPathEffectCtor == nil {
+			return fmt.Errorf("android.graphics.PathEffect constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPathEffect)), midPathEffectCtor)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewConverter(vm *jni.VM) (*Converter, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsConverter == nil {
+			return fmt.Errorf("android.location.altitude.AltitudeConverter is not available on this device")
+		}
+		if midConverterCtor == nil {
+			return fmt.Errorf("android.location.altitude.AltitudeConverter constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConverter)), midConverterCtor)
 		if err != nil {
 			return err

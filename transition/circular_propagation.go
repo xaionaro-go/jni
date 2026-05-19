@@ -32,6 +32,12 @@ func NewCircularPropagation(vm *jni.VM) (*CircularPropagation, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCircularPropagation == nil {
+			return fmt.Errorf("android.transition.CircularPropagation is not available on this device")
+		}
+		if midCircularPropagationCtor == nil {
+			return fmt.Errorf("android.transition.CircularPropagation constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCircularPropagation)), midCircularPropagationCtor)
 		if err != nil {
 			return err

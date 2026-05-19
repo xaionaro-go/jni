@@ -26,8 +26,8 @@ var (
 	clsSwitchMaterial                          *jni.GlobalRef
 	midSwitchMaterialCtor                      jni.MethodID
 	midSwitchMaterialSetUseMaterialThemeColors jni.MethodID
-	midSwitchMaterialIsUseMaterialThemeColors  jni.MethodID
 	midSwitchMaterialToString                  jni.MethodID
+	midSwitchMaterialIsUseMaterialThemeColors  jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -67,14 +67,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midSwitchMaterialIsUseMaterialThemeColors, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSwitchMaterial)), "isUseMaterialThemeColors", "()Z")
+		midSwitchMaterialToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSwitchMaterial)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSwitchMaterialToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSwitchMaterial)), "toString", "()Ljava/lang/String;")
+		midSwitchMaterialIsUseMaterialThemeColors, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSwitchMaterial)), "isUseMaterialThemeColors", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

@@ -23,6 +23,34 @@ type IResultReceiver2_Parcel struct {
 	Obj *jni.GlobalRef
 }
 
+// NewIResultReceiver2_Parcel creates a new android.support.v4.os.IResultReceiver2$_Parcel instance.
+func NewIResultReceiver2_Parcel(vm *jni.VM) (*IResultReceiver2_Parcel, error) {
+	var t IResultReceiver2_Parcel
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsIResultReceiver2_Parcel == nil {
+			return fmt.Errorf("android.support.v4.os.IResultReceiver2$_Parcel is not available on this device")
+		}
+		if midIResultReceiver2_ParcelCtor == nil {
+			return fmt.Errorf("android.support.v4.os.IResultReceiver2$_Parcel constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIResultReceiver2_Parcel)), midIResultReceiver2_ParcelCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.support.v4.os.IResultReceiver2$_Parcel.toString.
 func (m *IResultReceiver2_Parcel) ToString() (string, error) {
 	var result string

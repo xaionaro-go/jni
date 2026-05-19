@@ -30,6 +30,12 @@ func NewMultiWindowModeChangedInfo(vm *jni.VM, arg0 bool) (*MultiWindowModeChang
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMultiWindowModeChangedInfo == nil {
+			return fmt.Errorf("androidx.core.app.MultiWindowModeChangedInfo is not available on this device")
+		}
+		if midMultiWindowModeChangedInfoCtor == nil {
+			return fmt.Errorf("androidx.core.app.MultiWindowModeChangedInfo constructor (Z)V is not available on this device")
+		}
 		var jArg0 uint8
 		if arg0 {
 			jArg0 = jniTrue

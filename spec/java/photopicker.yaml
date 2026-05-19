@@ -5,6 +5,119 @@
 package: photopicker
 go_import: github.com/AndroidGoLab/jni/widget/photopicker
 classes:
+    - java_class: android.widget.photopicker.EmbeddedPhotoPickerProviderFactory
+      go_type: EmbeddedPhotoPickerProviderFactory
+      static_methods:
+        - java_method: create
+          go_name: Create
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: android.widget.photopicker.EmbeddedPhotoPickerProvider
+          error: true
+    - java_class: android.widget.photopicker.EmbeddedPhotoPickerFeatureInfo
+      go_type: EmbeddedPhotoPickerFeatureInfo
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getAccentColor
+          go_name: GetAccentColor
+          returns: long
+          error: true
+        - java_method: getMaxSelectionLimit
+          go_name: GetMaxSelectionLimit
+          returns: int
+          error: true
+        - java_method: getMimeTypes
+          go_name: GetMimeTypes
+          returns: java.util.List<java.lang.String>
+          error: true
+        - java_method: getPreSelectedUris
+          go_name: GetPreSelectedUris
+          returns: java.util.List<android.net.Uri>
+          error: true
+        - java_method: getThemeNightMode
+          go_name: GetThemeNightMode
+          returns: int
+          error: true
+        - java_method: isOrderedSelection
+          go_name: IsOrderedSelection
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.widget.photopicker.EmbeddedPhotoPickerFeatureInfo$Builder
+      go_type: EmbeddedPhotoPickerFeatureInfoBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.widget.photopicker.EmbeddedPhotoPickerFeatureInfo
+          error: true
+        - java_method: setAccentColor
+          go_name: SetAccentColor
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.widget.photopicker.EmbeddedPhotoPickerFeatureInfo$Builder
+          error: true
+        - java_method: setMaxSelectionLimit
+          go_name: SetMaxSelectionLimit
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.widget.photopicker.EmbeddedPhotoPickerFeatureInfo$Builder
+          error: true
+        - java_method: setOrderedSelection
+          go_name: SetOrderedSelection
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.widget.photopicker.EmbeddedPhotoPickerFeatureInfo$Builder
+          error: true
+        - java_method: setThemeNightMode
+          go_name: SetThemeNightMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.widget.photopicker.EmbeddedPhotoPickerFeatureInfo$Builder
+          error: true
+    - java_class: android.widget.photopicker.EmbeddedPhotoPickerProvider
+      go_type: EmbeddedPhotoPickerProvider
+      methods:
+        - java_method: openSession
+          go_name: OpenSession
+          params:
+            - java_type: android.os.IBinder
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: android.widget.photopicker.EmbeddedPhotoPickerFeatureInfo
+              go_name: arg4
+            - java_type: java.util.concurrent.Executor
+              go_name: arg5
+            - java_type: android.widget.photopicker.EmbeddedPhotoPickerClient
+              go_name: arg6
+          returns: void
+          error: true
     - java_class: android.widget.photopicker.EmbeddedPhotoPickerClient
       go_type: EmbeddedPhotoPickerClient
       methods:
@@ -25,16 +138,6 @@ classes:
             - java_type: android.widget.photopicker.EmbeddedPhotoPickerSession
               go_name: arg0
           returns: void
-          error: true
-    - java_class: android.widget.photopicker.EmbeddedPhotoPickerProviderFactory
-      go_type: EmbeddedPhotoPickerProviderFactory
-      static_methods:
-        - java_method: create
-          go_name: Create
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: android.widget.photopicker.EmbeddedPhotoPickerProvider
           error: true
     - java_class: android.widget.photopicker.EmbeddedPhotoPickerSession
       go_type: EmbeddedPhotoPickerSession
@@ -76,107 +179,6 @@ classes:
             - java_type: boolean
               go_name: arg0
           returns: void
-          error: true
-    - java_class: android.widget.photopicker.EmbeddedPhotoPickerProvider
-      go_type: EmbeddedPhotoPickerProvider
-      methods:
-        - java_method: openSession
-          go_name: OpenSession
-          params:
-            - java_type: android.os.IBinder
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: android.widget.photopicker.EmbeddedPhotoPickerFeatureInfo
-              go_name: arg4
-            - java_type: java.util.concurrent.Executor
-              go_name: arg5
-            - java_type: android.widget.photopicker.EmbeddedPhotoPickerClient
-              go_name: arg6
-          returns: void
-          error: true
-    - java_class: android.widget.photopicker.EmbeddedPhotoPickerFeatureInfo
-      go_type: EmbeddedPhotoPickerFeatureInfo
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getAccentColor
-          go_name: GetAccentColor
-          returns: long
-          error: true
-        - java_method: getMaxSelectionLimit
-          go_name: GetMaxSelectionLimit
-          returns: int
-          error: true
-        - java_method: getMimeTypes
-          go_name: GetMimeTypes
-          returns: java.util.List<java.lang.String>
-          error: true
-        - java_method: getPreSelectedUris
-          go_name: GetPreSelectedUris
-          returns: java.util.List<android.net.Uri>
-          error: true
-        - java_method: getThemeNightMode
-          go_name: GetThemeNightMode
-          returns: int
-          error: true
-        - java_method: isOrderedSelection
-          go_name: IsOrderedSelection
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.widget.photopicker.EmbeddedPhotoPickerFeatureInfo$Builder
-      go_type: EmbeddedPhotoPickerFeatureInfoBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.widget.photopicker.EmbeddedPhotoPickerFeatureInfo
-          error: true
-        - java_method: setAccentColor
-          go_name: SetAccentColor
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.widget.photopicker.EmbeddedPhotoPickerFeatureInfo$Builder
-          error: true
-        - java_method: setMaxSelectionLimit
-          go_name: SetMaxSelectionLimit
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.widget.photopicker.EmbeddedPhotoPickerFeatureInfo$Builder
-          error: true
-        - java_method: setOrderedSelection
-          go_name: SetOrderedSelection
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.widget.photopicker.EmbeddedPhotoPickerFeatureInfo$Builder
-          error: true
-        - java_method: setThemeNightMode
-          go_name: SetThemeNightMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.widget.photopicker.EmbeddedPhotoPickerFeatureInfo$Builder
           error: true
 constants:
     - go_name: Creator

@@ -32,6 +32,12 @@ func NewProxyInfo(vm *jni.VM, arg0 *jni.Object) (*ProxyInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsProxyInfo == nil {
+			return fmt.Errorf("android.net.ProxyInfo is not available on this device")
+		}
+		if midProxyInfoCtor == nil {
+			return fmt.Errorf("android.net.ProxyInfo constructor (Landroid/net/ProxyInfo;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsProxyInfo)), midProxyInfoCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -294,29 +300,6 @@ func (m *ProxyInfo) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.net.ProxyInfo.writeToParcel.
-func (m *ProxyInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midProxyInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.net.ProxyInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midProxyInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // BuildDirectProxy calls android.net.ProxyInfo.buildDirectProxy.
 func (m *ProxyInfo) BuildDirectProxy(arg0 string, arg1 int32) (*jni.Object, error) {
 	var result *jni.Object
@@ -419,4 +402,27 @@ func (m *ProxyInfo) BuildPacProxy2_1(arg0 *jni.Object, arg1 int32) (*jni.Object,
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.net.ProxyInfo.writeToParcel.
+func (m *ProxyInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midProxyInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.net.ProxyInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsProxyInfo)),
+			midProxyInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

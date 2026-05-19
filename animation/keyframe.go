@@ -23,8 +23,8 @@ type Keyframe struct {
 	Obj *jni.GlobalRef
 }
 
-// Clone0 calls android.animation.Keyframe.clone.
-func (m *Keyframe) Clone0() (*jni.Object, error) {
+// Clone calls android.animation.Keyframe.clone.
+func (m *Keyframe) Clone() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -32,13 +32,13 @@ func (m *Keyframe) Clone0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midKeyframeClone0 == nil {
+		if midKeyframeClone == nil {
 			callErr = fmt.Errorf("android.animation.Keyframe.clone is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midKeyframeClone0,
+			midKeyframeClone,
 		)
 		if callErr != nil {
 			return callErr
@@ -270,38 +270,6 @@ func (m *Keyframe) SetValue(arg0 *jni.Object) error {
 		return callErr
 	})
 	return callErr
-}
-
-// Clone0_1 calls android.animation.Keyframe.clone.
-func (m *Keyframe) Clone0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midKeyframeClone0_1 == nil {
-			callErr = fmt.Errorf("android.animation.Keyframe.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midKeyframeClone0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls android.animation.Keyframe.toString.

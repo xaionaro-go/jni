@@ -23,6 +23,34 @@ type KeyCharacterMapKeyData struct {
 	Obj *jni.GlobalRef
 }
 
+// NewKeyCharacterMapKeyData creates a new android.view.KeyCharacterMap$KeyData instance.
+func NewKeyCharacterMapKeyData(vm *jni.VM) (*KeyCharacterMapKeyData, error) {
+	var t KeyCharacterMapKeyData
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsKeyCharacterMapKeyData == nil {
+			return fmt.Errorf("android.view.KeyCharacterMap$KeyData is not available on this device")
+		}
+		if midKeyCharacterMapKeyDataCtor == nil {
+			return fmt.Errorf("android.view.KeyCharacterMap$KeyData constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyCharacterMapKeyData)), midKeyCharacterMapKeyDataCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.view.KeyCharacterMap$KeyData.toString.
 func (m *KeyCharacterMapKeyData) ToString() (string, error) {
 	var result string

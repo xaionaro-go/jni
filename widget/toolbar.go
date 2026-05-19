@@ -32,6 +32,12 @@ func NewToolbar(vm *jni.VM, arg0 *jni.Object) (*Toolbar, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsToolbar == nil {
+			return fmt.Errorf("android.widget.Toolbar is not available on this device")
+		}
+		if midToolbarCtor == nil {
+			return fmt.Errorf("android.widget.Toolbar constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsToolbar)), midToolbarCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -90,8 +96,8 @@ func (m *Toolbar) DismissPopupMenus() error {
 	return callErr
 }
 
-// GenerateLayoutParams1 calls android.widget.Toolbar.generateLayoutParams.
-func (m *Toolbar) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, error) {
+// GenerateLayoutParams calls android.widget.Toolbar.generateLayoutParams.
+func (m *Toolbar) GenerateLayoutParams(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -99,14 +105,14 @@ func (m *Toolbar) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midToolbarGenerateLayoutParams1 == nil {
+		if midToolbarGenerateLayoutParams == nil {
 			callErr = fmt.Errorf("android.widget.Toolbar.generateLayoutParams is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midToolbarGenerateLayoutParams1, jni.ObjectValue(arg0),
+			midToolbarGenerateLayoutParams, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1784,39 +1790,6 @@ func (m *Toolbar) ShowOverflowMenu() (bool, error) {
 			return callErr
 		}
 		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// GenerateLayoutParams1_1 calls android.widget.Toolbar.generateLayoutParams.
-func (m *Toolbar) GenerateLayoutParams1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midToolbarGenerateLayoutParams1_1 == nil {
-			callErr = fmt.Errorf("android.widget.Toolbar.generateLayoutParams is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midToolbarGenerateLayoutParams1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
 		return callErr
 	})
 	return result, callErr

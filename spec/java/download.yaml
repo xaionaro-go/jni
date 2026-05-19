@@ -112,6 +112,7 @@ classes:
           error: true
     - java_class: android.app.DownloadManager$Query
       go_type: ManagerQuery
+      obtain: constructor
       methods:
         - java_method: setFilterById
           go_name: SetFilterById
@@ -129,6 +130,10 @@ classes:
           error: true
     - java_class: android.app.DownloadManager$Request
       go_type: ManagerRequest
+      obtain: constructor
+      constructor_params:
+        - java_type: android.net.Uri
+          go_name: arg0
       methods:
         - java_method: addRequestHeader
           go_name: AddRequestHeader

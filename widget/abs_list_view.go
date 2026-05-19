@@ -270,8 +270,8 @@ func (m *AbsListView) Fling(arg0 int32) error {
 	return callErr
 }
 
-// GenerateLayoutParams1 calls android.widget.AbsListView.generateLayoutParams.
-func (m *AbsListView) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, error) {
+// GenerateLayoutParams calls android.widget.AbsListView.generateLayoutParams.
+func (m *AbsListView) GenerateLayoutParams(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -279,14 +279,14 @@ func (m *AbsListView) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, erro
 			callErr = err
 			return err
 		}
-		if midAbsListViewGenerateLayoutParams1 == nil {
+		if midAbsListViewGenerateLayoutParams == nil {
 			callErr = fmt.Errorf("android.widget.AbsListView.generateLayoutParams is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midAbsListViewGenerateLayoutParams1, jni.ObjectValue(arg0),
+			midAbsListViewGenerateLayoutParams, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -2005,8 +2005,8 @@ func (m *AbsListView) ScrollListBy(arg0 int32) error {
 	return callErr
 }
 
-// SetAdapter1 calls android.widget.AbsListView.setAdapter.
-func (m *AbsListView) SetAdapter1(arg0 *jni.Object) error {
+// SetAdapter calls android.widget.AbsListView.setAdapter.
+func (m *AbsListView) SetAdapter(arg0 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -2014,14 +2014,14 @@ func (m *AbsListView) SetAdapter1(arg0 *jni.Object) error {
 			callErr = err
 			return err
 		}
-		if midAbsListViewSetAdapter1 == nil {
+		if midAbsListViewSetAdapter == nil {
 			callErr = fmt.Errorf("android.widget.AbsListView.setAdapter is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midAbsListViewSetAdapter1, jni.ObjectValue(arg0),
+			midAbsListViewSetAdapter, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})
@@ -2994,62 +2994,6 @@ func (m *AbsListView) VerifyDrawable(arg0 *jni.Object) (bool, error) {
 			return callErr
 		}
 		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetAdapter1_1 calls android.widget.AbsListView.setAdapter.
-func (m *AbsListView) SetAdapter1_1(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAbsListViewSetAdapter1_1 == nil {
-			callErr = fmt.Errorf("android.widget.AbsListView.setAdapter is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAbsListViewSetAdapter1_1, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// GenerateLayoutParams1_1 calls android.widget.AbsListView.generateLayoutParams.
-func (m *AbsListView) GenerateLayoutParams1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAbsListViewGenerateLayoutParams1_1 == nil {
-			callErr = fmt.Errorf("android.widget.AbsListView.generateLayoutParams is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midAbsListViewGenerateLayoutParams1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
 		return callErr
 	})
 	return result, callErr

@@ -40,6 +40,7 @@ var (
 	midManagerAuthenticationResultToString        jni.MethodID
 
 	clsManagerCryptoObject             *jni.GlobalRef
+	midManagerCryptoObjectCtor         jni.MethodID
 	midManagerCryptoObjectGetCipher    jni.MethodID
 	midManagerCryptoObjectGetMac       jni.MethodID
 	midManagerCryptoObjectGetSignature jni.MethodID
@@ -171,6 +172,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsManagerCryptoObject = env.NewGlobalRef(&c.Object)
+		midManagerCryptoObjectCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerCryptoObject)), "<init>", "(Ljava/security/Signature;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midManagerCryptoObjectGetCipher, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerCryptoObject)), "getCipher", "()Ljavax/crypto/Cipher;")
 		if err != nil {

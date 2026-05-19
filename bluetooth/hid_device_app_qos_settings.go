@@ -32,6 +32,12 @@ func NewHidDeviceAppQosSettings(vm *jni.VM, arg0 int32, arg1 int32, arg2 int32, 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsHidDeviceAppQosSettings == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothHidDeviceAppQosSettings is not available on this device")
+		}
+		if midHidDeviceAppQosSettingsCtor == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothHidDeviceAppQosSettings constructor (IIIIII)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)), midHidDeviceAppQosSettingsCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3), jni.IntValue(arg4), jni.IntValue(arg5))
 		if err != nil {
@@ -221,29 +227,6 @@ func (m *HidDeviceAppQosSettings) GetTokenRate() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.bluetooth.BluetoothHidDeviceAppQosSettings.writeToParcel.
-func (m *HidDeviceAppQosSettings) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midHidDeviceAppQosSettingsWriteToParcel == nil {
-			callErr = fmt.Errorf("android.bluetooth.BluetoothHidDeviceAppQosSettings.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midHidDeviceAppQosSettingsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.bluetooth.BluetoothHidDeviceAppQosSettings.toString.
 func (m *HidDeviceAppQosSettings) ToString() (string, error) {
 	var result string
@@ -269,4 +252,27 @@ func (m *HidDeviceAppQosSettings) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.bluetooth.BluetoothHidDeviceAppQosSettings.writeToParcel.
+func (m *HidDeviceAppQosSettings) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midHidDeviceAppQosSettingsWriteToParcel == nil {
+			callErr = fmt.Errorf("android.bluetooth.BluetoothHidDeviceAppQosSettings.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)),
+			midHidDeviceAppQosSettingsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

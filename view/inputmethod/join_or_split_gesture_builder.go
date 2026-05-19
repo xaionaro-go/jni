@@ -23,6 +23,34 @@ type JoinOrSplitGestureBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewJoinOrSplitGestureBuilder creates a new android.view.inputmethod.JoinOrSplitGesture$Builder instance.
+func NewJoinOrSplitGestureBuilder(vm *jni.VM) (*JoinOrSplitGestureBuilder, error) {
+	var t JoinOrSplitGestureBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsJoinOrSplitGestureBuilder == nil {
+			return fmt.Errorf("android.view.inputmethod.JoinOrSplitGesture$Builder is not available on this device")
+		}
+		if midJoinOrSplitGestureBuilderCtor == nil {
+			return fmt.Errorf("android.view.inputmethod.JoinOrSplitGesture$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsJoinOrSplitGestureBuilder)), midJoinOrSplitGestureBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.view.inputmethod.JoinOrSplitGesture$Builder.build.
 func (m *JoinOrSplitGestureBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewConfigurationStats(vm *jni.VM, arg0 *jni.Object) (*ConfigurationStats, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsConfigurationStats == nil {
+			return fmt.Errorf("android.app.usage.ConfigurationStats is not available on this device")
+		}
+		if midConfigurationStatsCtor == nil {
+			return fmt.Errorf("android.app.usage.ConfigurationStats constructor (Landroid/app/usage/ConfigurationStats;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConfigurationStats)), midConfigurationStatsCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -228,29 +234,6 @@ func (m *ConfigurationStats) GetTotalTimeActive() (int64, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.usage.ConfigurationStats.writeToParcel.
-func (m *ConfigurationStats) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midConfigurationStatsWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.usage.ConfigurationStats.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midConfigurationStatsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.usage.ConfigurationStats.toString.
 func (m *ConfigurationStats) ToString() (string, error) {
 	var result string
@@ -276,4 +259,27 @@ func (m *ConfigurationStats) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.usage.ConfigurationStats.writeToParcel.
+func (m *ConfigurationStats) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midConfigurationStatsWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.usage.ConfigurationStats.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsConfigurationStats)),
+			midConfigurationStatsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

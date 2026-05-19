@@ -23,6 +23,34 @@ type ComplexChannelBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewComplexChannelBuilder creates a new android.ranging.uwb.UwbComplexChannel$Builder instance.
+func NewComplexChannelBuilder(vm *jni.VM) (*ComplexChannelBuilder, error) {
+	var t ComplexChannelBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsComplexChannelBuilder == nil {
+			return fmt.Errorf("android.ranging.uwb.UwbComplexChannel$Builder is not available on this device")
+		}
+		if midComplexChannelBuilderCtor == nil {
+			return fmt.Errorf("android.ranging.uwb.UwbComplexChannel$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsComplexChannelBuilder)), midComplexChannelBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.ranging.uwb.UwbComplexChannel$Builder.build.
 func (m *ComplexChannelBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

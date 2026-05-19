@@ -9,6 +9,10 @@ const (
 	BackDispositionDefault        = consts.BackDispositionDefault
 	BackDispositionWillDismiss    = consts.BackDispositionWillDismiss
 	BackDispositionWillNotDismiss = consts.BackDispositionWillNotDismiss
+	TouchableInsetsContent        = consts.TouchableInsetsContent
+	TouchableInsetsFrame          = consts.TouchableInsetsFrame
+	TouchableInsetsRegion         = consts.TouchableInsetsRegion
+	TouchableInsetsVisible        = consts.TouchableInsetsVisible
 	EdgeBottom                    = consts.EdgeBottom
 	EdgeLeft                      = consts.EdgeLeft
 	EdgeRight                     = consts.EdgeRight
@@ -19,8 +23,4 @@ const (
 	KeycodeDone                   = consts.KeycodeDone
 	KeycodeModeChange             = consts.KeycodeModeChange
 	KeycodeShift                  = consts.KeycodeShift
-	TouchableInsetsContent        = consts.TouchableInsetsContent
-	TouchableInsetsFrame          = consts.TouchableInsetsFrame
-	TouchableInsetsRegion         = consts.TouchableInsetsRegion
-	TouchableInsetsVisible        = consts.TouchableInsetsVisible
 )

@@ -21,6 +21,40 @@ type RemoteInputBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRemoteInputBuilder creates a new android.app.RemoteInput$Builder instance.
+func NewRemoteInputBuilder(vm *jni.VM, arg0 string) (*RemoteInputBuilder, error) {
+	var t RemoteInputBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRemoteInputBuilder == nil {
+			return fmt.Errorf("android.app.RemoteInput$Builder is not available on this device")
+		}
+		if midRemoteInputBuilderCtor == nil {
+			return fmt.Errorf("android.app.RemoteInput$Builder constructor (Ljava/lang/String;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRemoteInputBuilder)), midRemoteInputBuilderCtor, jni.ObjectValue(&jArg0.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddExtras calls android.app.RemoteInput$Builder.addExtras.
 func (m *RemoteInputBuilder) AddExtras(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

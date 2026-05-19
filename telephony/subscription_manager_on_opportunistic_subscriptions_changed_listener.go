@@ -23,6 +23,34 @@ type SubscriptionManagerOnOpportunisticSubscriptionsChangedListener struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSubscriptionManagerOnOpportunisticSubscriptionsChangedListener creates a new android.telephony.SubscriptionManager$OnOpportunisticSubscriptionsChangedListener instance.
+func NewSubscriptionManagerOnOpportunisticSubscriptionsChangedListener(vm *jni.VM) (*SubscriptionManagerOnOpportunisticSubscriptionsChangedListener, error) {
+	var t SubscriptionManagerOnOpportunisticSubscriptionsChangedListener
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSubscriptionManagerOnOpportunisticSubscriptionsChangedListener == nil {
+			return fmt.Errorf("android.telephony.SubscriptionManager$OnOpportunisticSubscriptionsChangedListener is not available on this device")
+		}
+		if midSubscriptionManagerOnOpportunisticSubscriptionsChangedListenerCtor == nil {
+			return fmt.Errorf("android.telephony.SubscriptionManager$OnOpportunisticSubscriptionsChangedListener constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSubscriptionManagerOnOpportunisticSubscriptionsChangedListener)), midSubscriptionManagerOnOpportunisticSubscriptionsChangedListenerCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnOpportunisticSubscriptionsChanged calls android.telephony.SubscriptionManager$OnOpportunisticSubscriptionsChangedListener.onOpportunisticSubscriptionsChanged.
 func (m *SubscriptionManagerOnOpportunisticSubscriptionsChangedListener) OnOpportunisticSubscriptionsChanged() error {
 

@@ -3,33 +3,10 @@
 package consts
 
 const (
-	DefaultSpanCount                 int = -1
-	InvalidSpanId                    int = -1
 	Horizontal                       int = 0
 	Vertical                         int = 1
-	NoPosition                       int = -1
-	InvalidType                      int = -1
-	TouchSlopDefault                 int = 0
-	TouchSlopPaging                  int = 1
-	UndefinedDuration                int = -2147483648
-	ScrollStateIdle                  int = 0
-	ScrollStateDragging              int = 1
-	ScrollStateSettling              int = 2
-	DirectionLeft                    int = 0
-	DirectionTop                     int = 1
-	DirectionRight                   int = 2
-	DirectionBottom                  int = 3
-	FlagChanged                      int = 2
-	FlagRemoved                      int = 8
-	FlagInvalidated                  int = 4
-	FlagMoved                        int = 2048
-	FlagAppearedInPreLayout          int = 4096
-	Creator                          int = 0
-	HintScrollNone                   int = 0
-	HintScrollDesc                   int = 1
-	HintScrollAsc                    int = 2
-	Default                          int = 0
 	InvalidOffset                    int = -2147483648
+	Creator                          int = 0
 	Up                               int = 1
 	Down                             int = 2
 	Left                             int = 4
@@ -44,13 +21,36 @@ const (
 	AnimationTypeDrag                int = 8
 	DefaultDragAnimationDuration     int = 200
 	DefaultSwipeAnimationDuration    int = 250
-	InvalidPosition                  int = -1
 	GapHandlingNone                  int = 0
 	GapHandlingLazy                  int = 1
 	GapHandlingMoveItemsBetweenSpans int = 2
+	InvalidSpanId                    int = -1
+	HintScrollNone                   int = 0
+	HintScrollDesc                   int = 1
+	HintScrollAsc                    int = 2
+	NoPosition                       int = -1
+	InvalidType                      int = -1
+	TouchSlopDefault                 int = 0
+	TouchSlopPaging                  int = 1
+	UndefinedDuration                int = -2147483648
+	ScrollStateIdle                  int = 0
+	ScrollStateDragging              int = 1
+	ScrollStateSettling              int = 2
+	Default                          int = 0
+	DirectionLeft                    int = 0
+	DirectionTop                     int = 1
+	DirectionRight                   int = 2
+	DirectionBottom                  int = 3
+	FlagChanged                      int = 2
+	FlagRemoved                      int = 8
+	FlagInvalidated                  int = 4
+	FlagMoved                        int = 2048
+	FlagAppearedInPreLayout          int = 4096
+	InvalidPosition                  int = -1
 	SnapToStart                      int = -1
 	SnapToEnd                        int = 1
 	SnapToAny                        int = 0
+	DefaultSpanCount                 int = -1
 )
 
 const (

@@ -32,6 +32,12 @@ func NewSectionResponse(vm *jni.VM, arg0 int32, arg1 int32, arg2 int32, arg3 int
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSectionResponse == nil {
+			return fmt.Errorf("android.media.tv.SectionResponse is not available on this device")
+		}
+		if midSectionResponseCtor == nil {
+			return fmt.Errorf("android.media.tv.SectionResponse constructor (IIIIILandroid/os/Bundle;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSectionResponse)), midSectionResponseCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3), jni.IntValue(arg4), jni.ObjectValue(arg5))
 		if err != nil {
@@ -153,29 +159,6 @@ func (m *SectionResponse) GetVersion() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.media.tv.SectionResponse.writeToParcel.
-func (m *SectionResponse) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSectionResponseWriteToParcel == nil {
-			callErr = fmt.Errorf("android.media.tv.SectionResponse.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSectionResponseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.media.tv.SectionResponse.toString.
 func (m *SectionResponse) ToString() (string, error) {
 	var result string
@@ -201,4 +184,27 @@ func (m *SectionResponse) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.media.tv.SectionResponse.writeToParcel.
+func (m *SectionResponse) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSectionResponseWriteToParcel == nil {
+			callErr = fmt.Errorf("android.media.tv.SectionResponse.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSectionResponse)),
+			midSectionResponseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

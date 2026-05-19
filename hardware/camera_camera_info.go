@@ -23,6 +23,34 @@ type CameraCameraInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCameraCameraInfo creates a new android.hardware.Camera$CameraInfo instance.
+func NewCameraCameraInfo(vm *jni.VM) (*CameraCameraInfo, error) {
+	var t CameraCameraInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCameraCameraInfo == nil {
+			return fmt.Errorf("android.hardware.Camera$CameraInfo is not available on this device")
+		}
+		if midCameraCameraInfoCtor == nil {
+			return fmt.Errorf("android.hardware.Camera$CameraInfo constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCameraCameraInfo)), midCameraCameraInfoCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.hardware.Camera$CameraInfo.toString.
 func (m *CameraCameraInfo) ToString() (string, error) {
 	var result string

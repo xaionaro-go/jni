@@ -32,6 +32,12 @@ func NewNavigationMenuItemView(vm *jni.VM, arg0 *jni.Object) (*NavigationMenuIte
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNavigationMenuItemView == nil {
+			return fmt.Errorf("com.google.android.material.internal.NavigationMenuItemView is not available on this device")
+		}
+		if midNavigationMenuItemViewCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.NavigationMenuItemView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNavigationMenuItemView)), midNavigationMenuItemViewCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -479,29 +485,6 @@ func (m *NavigationMenuItemView) SetIconPadding(arg0 int32) error {
 	return callErr
 }
 
-// SetMaxLines calls com.google.android.material.internal.NavigationMenuItemView.setMaxLines.
-func (m *NavigationMenuItemView) SetMaxLines(arg0 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midNavigationMenuItemViewSetMaxLines == nil {
-			callErr = fmt.Errorf("com.google.android.material.internal.NavigationMenuItemView.setMaxLines is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midNavigationMenuItemViewSetMaxLines, jni.IntValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls com.google.android.material.internal.NavigationMenuItemView.toString.
 func (m *NavigationMenuItemView) ToString() (string, error) {
 	var result string
@@ -527,4 +510,27 @@ func (m *NavigationMenuItemView) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// SetMaxLines calls com.google.android.material.internal.NavigationMenuItemView.setMaxLines.
+func (m *NavigationMenuItemView) SetMaxLines(arg0 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midNavigationMenuItemViewSetMaxLines == nil {
+			callErr = fmt.Errorf("com.google.android.material.internal.NavigationMenuItemView.setMaxLines is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsNavigationMenuItemView)),
+			midNavigationMenuItemViewSetMaxLines, jni.IntValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

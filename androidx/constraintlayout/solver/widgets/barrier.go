@@ -32,6 +32,12 @@ func NewBarrier(vm *jni.VM) (*Barrier, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBarrier == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.widgets.Barrier is not available on this device")
+		}
+		if midBarrierCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.widgets.Barrier constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBarrier)), midBarrierCtor)
 		if err != nil {
 			return err

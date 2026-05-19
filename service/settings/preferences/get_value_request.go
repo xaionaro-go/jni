@@ -102,29 +102,6 @@ func (m *GetValueRequest) GetScreenKey() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.service.settings.preferences.GetValueRequest.writeToParcel.
-func (m *GetValueRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midGetValueRequestWriteToParcel == nil {
-			callErr = fmt.Errorf("android.service.settings.preferences.GetValueRequest.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midGetValueRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.service.settings.preferences.GetValueRequest.toString.
 func (m *GetValueRequest) ToString() (string, error) {
 	var result string
@@ -150,4 +127,27 @@ func (m *GetValueRequest) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.service.settings.preferences.GetValueRequest.writeToParcel.
+func (m *GetValueRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midGetValueRequestWriteToParcel == nil {
+			callErr = fmt.Errorf("android.service.settings.preferences.GetValueRequest.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsGetValueRequest)),
+			midGetValueRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

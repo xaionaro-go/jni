@@ -3,14 +3,9 @@
 package consts
 
 const (
-	Creator                                    int = 0
-	TypeAccessibilityOverlay                   int = 4
-	TypeApplication                            int = 1
-	TypeInputMethod                            int = 2
-	TypeMagnificationOverlay                   int = 6
-	TypeSplitScreenDivider                     int = 5
-	TypeSystem                                 int = 3
-	TypeWindowControl                          int = 7
+	FlagContentControls                        int = 4
+	FlagContentIcons                           int = 1
+	FlagContentText                            int = 2
 	ContentChangeTypeChecked                   int = 8192
 	ContentChangeTypeContentDescription        int = 4
 	ContentChangeTypeContentInvalid            int = 1024
@@ -28,6 +23,7 @@ const (
 	ContentChangeTypeSupplementalDescription   int = 32768
 	ContentChangeTypeText                      int = 2
 	ContentChangeTypeUndefined                 int = 0
+	Creator                                    int = 0
 	InvalidPosition                            int = -1
 	MaxTextLength                              int = 500
 	SpeechStateListeningEnd                    int = 8
@@ -73,16 +69,7 @@ const (
 	WindowsChangePip                           int = 1024
 	WindowsChangeRemoved                       int = 2
 	WindowsChangeTitle                         int = 4
-	EdgeTypeDepressed                          int = 4
-	EdgeTypeDropShadow                         int = 2
-	EdgeTypeNone                               int = 0
-	EdgeTypeOutline                            int = 1
-	EdgeTypeRaised                             int = 3
-	EdgeTypeUnspecified                        int = -1
-	FlagContentControls                        int = 4
-	FlagContentIcons                           int = 1
-	FlagContentText                            int = 2
-	RequestTypeExtraData                       int = 1
+	HostViewId                                 int = -1
 	ActionAccessibilityFocus                   int = 64
 	ActionClearAccessibilityFocus              int = 128
 	ActionClearFocus                           int = 2
@@ -158,7 +145,20 @@ const (
 	RangeTypeIndeterminate                     int = 3
 	RangeTypeInt                               int = 0
 	RangeTypePercent                           int = 2
-	HostViewId                                 int = -1
+	EdgeTypeDepressed                          int = 4
+	EdgeTypeDropShadow                         int = 2
+	EdgeTypeNone                               int = 0
+	EdgeTypeOutline                            int = 1
+	EdgeTypeRaised                             int = 3
+	EdgeTypeUnspecified                        int = -1
+	RequestTypeExtraData                       int = 1
+	TypeAccessibilityOverlay                   int = 4
+	TypeApplication                            int = 1
+	TypeInputMethod                            int = 2
+	TypeMagnificationOverlay                   int = 6
+	TypeSplitScreenDivider                     int = 5
+	TypeSystem                                 int = 3
+	TypeWindowControl                          int = 7
 )
 
 const (

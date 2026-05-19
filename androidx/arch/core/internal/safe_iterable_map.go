@@ -32,6 +32,12 @@ func NewSafeIterableMap(vm *jni.VM) (*SafeIterableMap, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSafeIterableMap == nil {
+			return fmt.Errorf("androidx.arch.core.internal.SafeIterableMap is not available on this device")
+		}
+		if midSafeIterableMapCtor == nil {
+			return fmt.Errorf("androidx.arch.core.internal.SafeIterableMap constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSafeIterableMap)), midSafeIterableMapCtor)
 		if err != nil {
 			return err

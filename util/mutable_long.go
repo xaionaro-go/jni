@@ -32,6 +32,12 @@ func NewMutableLong(vm *jni.VM, arg0 int64) (*MutableLong, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMutableLong == nil {
+			return fmt.Errorf("android.util.MutableLong is not available on this device")
+		}
+		if midMutableLongCtor == nil {
+			return fmt.Errorf("android.util.MutableLong constructor (J)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMutableLong)), midMutableLongCtor, jni.LongValue(arg0))
 		if err != nil {

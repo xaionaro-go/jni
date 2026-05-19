@@ -32,6 +32,12 @@ func NewEmojiEditTextHelper(vm *jni.VM, arg0 *jni.Object) (*EmojiEditTextHelper,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEmojiEditTextHelper == nil {
+			return fmt.Errorf("androidx.emoji2.viewsintegration.EmojiEditTextHelper is not available on this device")
+		}
+		if midEmojiEditTextHelperCtor == nil {
+			return fmt.Errorf("androidx.emoji2.viewsintegration.EmojiEditTextHelper constructor (Landroid/widget/EditText;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEmojiEditTextHelper)), midEmojiEditTextHelperCtor, jni.ObjectValue(arg0))
 		if err != nil {

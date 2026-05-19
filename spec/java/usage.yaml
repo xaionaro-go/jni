@@ -5,67 +5,63 @@
 package: usage
 go_import: github.com/AndroidGoLab/jni/app/usage
 classes:
-    - java_class: android.app.usage.UsageEvents
-      go_type: Events
+    - java_class: android.app.usage.StorageStatsManager
+      go_type: StorageStatsManager
+      obtain: system_service
+      service_name: storagestats
+      close: true
       methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getNextEvent
-          go_name: GetNextEvent
+        - java_method: getFreeBytes
+          go_name: GetFreeBytes
           params:
-            - java_type: android.app.usage.UsageEvents$Event
+            - java_type: java.util.UUID
               go_name: arg0
-          returns: boolean
+          returns: long
           error: true
-        - java_method: hasNextEvent
-          go_name: HasNextEvent
-          returns: boolean
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
+        - java_method: getTotalBytes
+          go_name: GetTotalBytes
           params:
-            - java_type: android.os.Parcel
+            - java_type: java.util.UUID
+              go_name: arg0
+          returns: long
+          error: true
+        - java_method: queryExternalStatsForUser
+          go_name: QueryExternalStatsForUser
+          params:
+            - java_type: java.util.UUID
+              go_name: arg0
+            - java_type: android.os.UserHandle
+              go_name: arg1
+          returns: android.app.usage.ExternalStorageStats
+          error: true
+        - java_method: queryStatsForPackage
+          go_name: QueryStatsForPackage
+          params:
+            - java_type: java.util.UUID
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: android.os.UserHandle
+              go_name: arg2
+          returns: android.app.usage.StorageStats
+          error: true
+        - java_method: queryStatsForUid
+          go_name: QueryStatsForUid
+          params:
+            - java_type: java.util.UUID
               go_name: arg0
             - java_type: int
               go_name: arg1
-          returns: void
+          returns: android.app.usage.StorageStats
           error: true
-    - java_class: android.app.usage.UsageEvents$Event
-      go_type: EventsEvent
-      methods:
-        - java_method: getAppStandbyBucket
-          go_name: GetAppStandbyBucket
-          returns: int
-          error: true
-        - java_method: getClassName
-          go_name: GetClassName
-          returns: String
-          error: true
-        - java_method: getConfiguration
-          go_name: GetConfiguration
-          returns: android.content.res.Configuration
-          error: true
-        - java_method: getEventType
-          go_name: GetEventType
-          returns: int
-          error: true
-        - java_method: getExtras
-          go_name: GetExtras
-          returns: android.os.PersistableBundle
-          error: true
-        - java_method: getPackageName
-          go_name: GetPackageName
-          returns: String
-          error: true
-        - java_method: getShortcutId
-          go_name: GetShortcutId
-          returns: String
-          error: true
-        - java_method: getTimeStamp
-          go_name: GetTimeStamp
-          returns: long
+        - java_method: queryStatsForUser
+          go_name: QueryStatsForUser
+          params:
+            - java_type: java.util.UUID
+              go_name: arg0
+            - java_type: android.os.UserHandle
+              go_name: arg1
+          returns: android.app.usage.StorageStats
           error: true
     - java_class: android.app.usage.NetworkStatsManager
       go_type: NetworkStatsManager
@@ -208,135 +204,49 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.app.usage.ExternalStorageStats
-      go_type: ExternalStorageStats
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getAppBytes
-          go_name: GetAppBytes
-          returns: long
-          error: true
-        - java_method: getAudioBytes
-          go_name: GetAudioBytes
-          returns: long
-          error: true
-        - java_method: getImageBytes
-          go_name: GetImageBytes
-          returns: long
-          error: true
-        - java_method: getTotalBytes
-          go_name: GetTotalBytes
-          returns: long
-          error: true
-        - java_method: getVideoBytes
-          go_name: GetVideoBytes
-          returns: long
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.usage.StorageStatsManager
-      go_type: StorageStatsManager
-      obtain: system_service
-      service_name: storagestats
-      close: true
-      methods:
-        - java_method: getFreeBytes
-          go_name: GetFreeBytes
-          params:
-            - java_type: java.util.UUID
-              go_name: arg0
-          returns: long
-          error: true
-        - java_method: getTotalBytes
-          go_name: GetTotalBytes
-          params:
-            - java_type: java.util.UUID
-              go_name: arg0
-          returns: long
-          error: true
-        - java_method: queryExternalStatsForUser
-          go_name: QueryExternalStatsForUser
-          params:
-            - java_type: java.util.UUID
-              go_name: arg0
-            - java_type: android.os.UserHandle
-              go_name: arg1
-          returns: android.app.usage.ExternalStorageStats
-          error: true
-        - java_method: queryStatsForPackage
-          go_name: QueryStatsForPackage
-          params:
-            - java_type: java.util.UUID
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: android.os.UserHandle
-              go_name: arg2
-          returns: android.app.usage.StorageStats
-          error: true
-        - java_method: queryStatsForUid
-          go_name: QueryStatsForUid
-          params:
-            - java_type: java.util.UUID
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.app.usage.StorageStats
-          error: true
-        - java_method: queryStatsForUser
-          go_name: QueryStatsForUser
-          params:
-            - java_type: java.util.UUID
-              go_name: arg0
-            - java_type: android.os.UserHandle
-              go_name: arg1
-          returns: android.app.usage.StorageStats
-          error: true
-    - java_class: android.app.usage.ConfigurationStats
-      go_type: ConfigurationStats
+    - java_class: android.app.usage.EventStats
+      go_type: EventStats
       obtain: constructor
       constructor_params:
-        - java_type: android.app.usage.ConfigurationStats
+        - java_type: android.app.usage.EventStats
           go_name: arg0
       methods:
+        - java_method: add
+          go_name: Add
+          params:
+            - java_type: android.app.usage.EventStats
+              go_name: arg0
+          returns: void
+          error: true
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
-        - java_method: getActivationCount
-          go_name: GetActivationCount
+        - java_method: getCount
+          go_name: GetCount
           returns: int
           error: true
-        - java_method: getConfiguration
-          go_name: GetConfiguration
-          returns: android.content.res.Configuration
+        - java_method: getEventType
+          go_name: GetEventType
+          returns: int
           error: true
         - java_method: getFirstTimeStamp
           go_name: GetFirstTimeStamp
           returns: long
           error: true
-        - java_method: getLastTimeActive
-          go_name: GetLastTimeActive
+        - java_method: getLastEventTime
+          go_name: GetLastEventTime
           returns: long
           error: true
         - java_method: getLastTimeStamp
           go_name: GetLastTimeStamp
           returns: long
           error: true
-        - java_method: getTotalTimeActive
-          go_name: GetTotalTimeActive
+        - java_method: getTotalTime
+          go_name: GetTotalTime
           returns: long
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -376,6 +286,7 @@ classes:
           go_name: GetExternalCacheBytes
           returns: long
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -384,59 +295,6 @@ classes:
             - java_type: int
               go_name: arg1
           returns: void
-          error: true
-    - java_class: android.app.usage.UsageEventsQuery
-      go_type: EventsQuery
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getBeginTimeMillis
-          go_name: GetBeginTimeMillis
-          returns: long
-          error: true
-        - java_method: getEndTimeMillis
-          go_name: GetEndTimeMillis
-          returns: long
-          error: true
-        - java_method: getEventTypes
-          go_name: GetEventTypes
-          returns: '[I'
-          error: true
-        - java_method: getPackageNames
-          go_name: GetPackageNames
-          returns: java.util.Set<java.lang.String>
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.usage.UsageEventsQuery$Builder
-      go_type: EventsQueryBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.app.usage.UsageEventsQuery
-          error: true
-        - java_method: setEventTypes
-          go_name: SetEventTypes
-          params:
-            - java_type: int...
-              go_name: arg0
-          returns: android.app.usage.UsageEventsQuery$Builder
-          error: true
-        - java_method: setPackageNames
-          go_name: SetPackageNames
-          params:
-            - java_type: java.lang.String...
-              go_name: arg0
-          returns: android.app.usage.UsageEventsQuery$Builder
           error: true
     - java_class: android.app.usage.NetworkStats
       go_type: NetworkStats
@@ -458,6 +316,7 @@ classes:
           error: true
     - java_class: android.app.usage.NetworkStats$Bucket
       go_type: NetworkStatsBucket
+      obtain: constructor
       methods:
         - java_method: getDefaultNetworkStatus
           go_name: GetDefaultNetworkStatus
@@ -506,6 +365,43 @@ classes:
         - java_method: getUid
           go_name: GetUid
           returns: int
+          error: true
+    - java_class: android.app.usage.ExternalStorageStats
+      go_type: ExternalStorageStats
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getAppBytes
+          go_name: GetAppBytes
+          returns: long
+          error: true
+        - java_method: getAudioBytes
+          go_name: GetAudioBytes
+          returns: long
+          error: true
+        - java_method: getImageBytes
+          go_name: GetImageBytes
+          returns: long
+          error: true
+        - java_method: getTotalBytes
+          go_name: GetTotalBytes
+          returns: long
+          error: true
+        - java_method: getVideoBytes
+          go_name: GetVideoBytes
+          returns: long
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
           error: true
     - java_class: android.app.usage.UsageStats
       go_type: Stats
@@ -561,6 +457,7 @@ classes:
           go_name: GetTotalTimeVisible
           returns: long
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -570,48 +467,42 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.app.usage.EventStats
-      go_type: EventStats
+    - java_class: android.app.usage.ConfigurationStats
+      go_type: ConfigurationStats
       obtain: constructor
       constructor_params:
-        - java_type: android.app.usage.EventStats
+        - java_type: android.app.usage.ConfigurationStats
           go_name: arg0
       methods:
-        - java_method: add
-          go_name: Add
-          params:
-            - java_type: android.app.usage.EventStats
-              go_name: arg0
-          returns: void
-          error: true
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
-        - java_method: getCount
-          go_name: GetCount
+        - java_method: getActivationCount
+          go_name: GetActivationCount
           returns: int
           error: true
-        - java_method: getEventType
-          go_name: GetEventType
-          returns: int
+        - java_method: getConfiguration
+          go_name: GetConfiguration
+          returns: android.content.res.Configuration
           error: true
         - java_method: getFirstTimeStamp
           go_name: GetFirstTimeStamp
           returns: long
           error: true
-        - java_method: getLastEventTime
-          go_name: GetLastEventTime
+        - java_method: getLastTimeActive
+          go_name: GetLastTimeActive
           returns: long
           error: true
         - java_method: getLastTimeStamp
           go_name: GetLastTimeStamp
           returns: long
           error: true
-        - java_method: getTotalTime
-          go_name: GetTotalTime
+        - java_method: getTotalTimeActive
+          go_name: GetTotalTimeActive
           returns: long
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -696,6 +587,130 @@ classes:
               go_name: arg2
           returns: java.util.List<android.app.usage.UsageStats>
           error: true
+    - java_class: android.app.usage.UsageEventsQuery
+      go_type: EventsQuery
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getBeginTimeMillis
+          go_name: GetBeginTimeMillis
+          returns: long
+          error: true
+        - java_method: getEndTimeMillis
+          go_name: GetEndTimeMillis
+          returns: long
+          error: true
+        - java_method: getEventTypes
+          go_name: GetEventTypes
+          returns: '[I'
+          error: true
+        - java_method: getPackageNames
+          go_name: GetPackageNames
+          returns: java.util.Set<java.lang.String>
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.usage.UsageEventsQuery$Builder
+      go_type: EventsQueryBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: long
+          go_name: arg0
+        - java_type: long
+          go_name: arg1
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.app.usage.UsageEventsQuery
+          error: true
+        - java_method: setEventTypes
+          go_name: SetEventTypes
+          params:
+            - java_type: int...
+              go_name: arg0
+          returns: android.app.usage.UsageEventsQuery$Builder
+          error: true
+        - java_method: setPackageNames
+          go_name: SetPackageNames
+          params:
+            - java_type: java.lang.String...
+              go_name: arg0
+          returns: android.app.usage.UsageEventsQuery$Builder
+          error: true
+    - java_class: android.app.usage.UsageEvents
+      go_type: Events
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getNextEvent
+          go_name: GetNextEvent
+          params:
+            - java_type: android.app.usage.UsageEvents$Event
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hasNextEvent
+          go_name: HasNextEvent
+          returns: boolean
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.usage.UsageEvents$Event
+      go_type: EventsEvent
+      obtain: constructor
+      methods:
+        - java_method: getAppStandbyBucket
+          go_name: GetAppStandbyBucket
+          returns: int
+          error: true
+        - java_method: getClassName
+          go_name: GetClassName
+          returns: String
+          error: true
+        - java_method: getConfiguration
+          go_name: GetConfiguration
+          returns: android.content.res.Configuration
+          error: true
+        - java_method: getEventType
+          go_name: GetEventType
+          returns: int
+          error: true
+        - java_method: getExtras
+          go_name: GetExtras
+          returns: android.os.PersistableBundle
+          error: true
+        - java_method: getPackageName
+          go_name: GetPackageName
+          returns: String
+          error: true
+        - java_method: getShortcutId
+          go_name: GetShortcutId
+          returns: String
+          error: true
+        - java_method: getTimeStamp
+          go_name: GetTimeStamp
+          returns: long
+          error: true
 abstract_callbacks:
     - java_class: android.app.usage.NetworkStatsManager$UsageCallback
       go_type: NetworkStatsManagerUsageCallbackCallback
@@ -706,63 +721,13 @@ abstract_callbacks:
             - String
           returns: void
           go_field: OnThresholdReached
+abstract_callback_eligibility:
+    - java_class: android.app.usage.NetworkStatsManager$UsageCallback
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
     - go_name: Creator
       value: "0"
-      go_type: int
-    - go_name: ActivityPaused
-      value: "2"
-      go_type: int
-    - go_name: ActivityResumed
-      value: "1"
-      go_type: int
-    - go_name: ActivityStopped
-      value: "23"
-      go_type: int
-    - go_name: ConfigurationChange
-      value: "5"
-      go_type: int
-    - go_name: DeviceShutdown
-      value: "26"
-      go_type: int
-    - go_name: DeviceStartup
-      value: "27"
-      go_type: int
-    - go_name: ForegroundServiceStart
-      value: "19"
-      go_type: int
-    - go_name: ForegroundServiceStop
-      value: "20"
-      go_type: int
-    - go_name: KeyguardHidden
-      value: "18"
-      go_type: int
-    - go_name: KeyguardShown
-      value: "17"
-      go_type: int
-    - go_name: MoveToBackground
-      value: "2"
-      go_type: int
-    - go_name: MoveToForeground
-      value: "1"
-      go_type: int
-    - go_name: None
-      value: "0"
-      go_type: int
-    - go_name: ScreenInteractive
-      value: "15"
-      go_type: int
-    - go_name: ScreenNonInteractive
-      value: "16"
-      go_type: int
-    - go_name: ShortcutInvocation
-      value: "8"
-      go_type: int
-    - go_name: StandbyBucketChanged
-      value: "11"
-      go_type: int
-    - go_name: UserInteraction
-      value: "7"
       go_type: int
     - go_name: AppDataTypeFileTypeApk
       value: "3"
@@ -865,4 +830,58 @@ constants:
       go_type: int
     - go_name: StandbyBucketWorkingSet
       value: "20"
+      go_type: int
+    - go_name: ActivityPaused
+      value: "2"
+      go_type: int
+    - go_name: ActivityResumed
+      value: "1"
+      go_type: int
+    - go_name: ActivityStopped
+      value: "23"
+      go_type: int
+    - go_name: ConfigurationChange
+      value: "5"
+      go_type: int
+    - go_name: DeviceShutdown
+      value: "26"
+      go_type: int
+    - go_name: DeviceStartup
+      value: "27"
+      go_type: int
+    - go_name: ForegroundServiceStart
+      value: "19"
+      go_type: int
+    - go_name: ForegroundServiceStop
+      value: "20"
+      go_type: int
+    - go_name: KeyguardHidden
+      value: "18"
+      go_type: int
+    - go_name: KeyguardShown
+      value: "17"
+      go_type: int
+    - go_name: MoveToBackground
+      value: "2"
+      go_type: int
+    - go_name: MoveToForeground
+      value: "1"
+      go_type: int
+    - go_name: None
+      value: "0"
+      go_type: int
+    - go_name: ScreenInteractive
+      value: "15"
+      go_type: int
+    - go_name: ScreenNonInteractive
+      value: "16"
+      go_type: int
+    - go_name: ShortcutInvocation
+      value: "8"
+      go_type: int
+    - go_name: StandbyBucketChanged
+      value: "11"
+      go_type: int
+    - go_name: UserInteraction
+      value: "7"
       go_type: int

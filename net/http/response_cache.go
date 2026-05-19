@@ -139,31 +139,6 @@ func (m *ResponseCache) GetNetworkCount() (int32, error) {
 	return result, callErr
 }
 
-// GetRequestCount calls android.net.http.HttpResponseCache.getRequestCount.
-func (m *ResponseCache) GetRequestCount() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midResponseCacheGetRequestCount == nil {
-			callErr = fmt.Errorf("android.net.http.HttpResponseCache.getRequestCount is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midResponseCacheGetRequestCount,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // MaxSize calls android.net.http.HttpResponseCache.maxSize.
 func (m *ResponseCache) MaxSize() (int64, error) {
 	var result int64
@@ -300,6 +275,31 @@ func (m *ResponseCache) GetInstalled() (*jni.Object, error) {
 			localRef := result
 			result = env.NewGlobalRef(localRef)
 			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetRequestCount calls android.net.http.HttpResponseCache.getRequestCount.
+func (m *ResponseCache) GetRequestCount() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midResponseCacheGetRequestCount == nil {
+			callErr = fmt.Errorf("android.net.http.HttpResponseCache.getRequestCount is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsResponseCache)),
+			midResponseCacheGetRequestCount,
+		)
+		if callErr != nil {
+			return callErr
 		}
 		return callErr
 	})

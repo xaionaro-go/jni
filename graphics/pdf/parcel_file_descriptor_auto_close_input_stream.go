@@ -23,6 +23,35 @@ type ParcelFileDescriptorAutoCloseInputStream struct {
 	Obj *jni.GlobalRef
 }
 
+// NewParcelFileDescriptorAutoCloseInputStream creates a new android.os.ParcelFileDescriptor$AutoCloseInputStream instance.
+func NewParcelFileDescriptorAutoCloseInputStream(vm *jni.VM, arg0 *jni.Object) (*ParcelFileDescriptorAutoCloseInputStream, error) {
+	var t ParcelFileDescriptorAutoCloseInputStream
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsParcelFileDescriptorAutoCloseInputStream == nil {
+			return fmt.Errorf("android.os.ParcelFileDescriptor$AutoCloseInputStream is not available on this device")
+		}
+		if midParcelFileDescriptorAutoCloseInputStreamCtor == nil {
+			return fmt.Errorf("android.os.ParcelFileDescriptor$AutoCloseInputStream constructor (Landroid/os/ParcelFileDescriptor;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsParcelFileDescriptorAutoCloseInputStream)), midParcelFileDescriptorAutoCloseInputStreamCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Close calls android.os.ParcelFileDescriptor$AutoCloseInputStream.close.
 func (m *ParcelFileDescriptorAutoCloseInputStream) Close() error {
 

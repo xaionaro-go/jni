@@ -5,60 +5,6 @@
 package: changelog
 go_import: github.com/AndroidGoLab/jni/health/connect/changelog
 classes:
-    - java_class: android.health.connect.changelog.ChangeLogTokenRequest
-      go_type: ChangeLogTokenRequest
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getDataOriginFilters
-          go_name: GetDataOriginFilters
-          returns: java.util.Set<android.health.connect.datatypes.DataOrigin>
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.health.connect.changelog.ChangeLogTokenRequest$Builder
-      go_type: ChangeLogTokenRequestBuilder
-      methods:
-        - java_method: addDataOriginFilter
-          go_name: AddDataOriginFilter
-          params:
-            - java_type: android.health.connect.datatypes.DataOrigin
-              go_name: arg0
-          returns: android.health.connect.changelog.ChangeLogTokenRequest$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.health.connect.changelog.ChangeLogTokenRequest
-          error: true
-    - java_class: android.health.connect.changelog.ChangeLogTokenResponse
-      go_type: ChangeLogTokenResponse
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getToken
-          go_name: GetToken
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
     - java_class: android.health.connect.changelog.ChangeLogsResponse
       go_type: ChangeLogsResponse
       methods:
@@ -82,6 +28,7 @@ classes:
           go_name: HasMorePages
           returns: boolean
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -93,6 +40,12 @@ classes:
           error: true
     - java_class: android.health.connect.changelog.ChangeLogsResponse$DeletedLog
       go_type: ChangeLogsResponseDeletedLog
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: long
+          go_name: arg1
       methods:
         - java_method: getDeletedRecordId
           go_name: GetDeletedRecordId
@@ -101,6 +54,63 @@ classes:
         - java_method: getDeletedTime
           go_name: GetDeletedTime
           returns: java.time.Instant
+          error: true
+    - java_class: android.health.connect.changelog.ChangeLogTokenRequest
+      go_type: ChangeLogTokenRequest
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getDataOriginFilters
+          go_name: GetDataOriginFilters
+          returns: java.util.Set<android.health.connect.datatypes.DataOrigin>
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.health.connect.changelog.ChangeLogTokenRequest$Builder
+      go_type: ChangeLogTokenRequestBuilder
+      obtain: constructor
+      methods:
+        - java_method: addDataOriginFilter
+          go_name: AddDataOriginFilter
+          params:
+            - java_type: android.health.connect.datatypes.DataOrigin
+              go_name: arg0
+          returns: android.health.connect.changelog.ChangeLogTokenRequest$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.health.connect.changelog.ChangeLogTokenRequest
+          error: true
+    - java_class: android.health.connect.changelog.ChangeLogTokenResponse
+      go_type: ChangeLogTokenResponse
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getToken
+          go_name: GetToken
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
           error: true
     - java_class: android.health.connect.changelog.ChangeLogsRequest
       go_type: ChangeLogsRequest
@@ -117,6 +127,7 @@ classes:
           go_name: GetToken
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -128,6 +139,10 @@ classes:
           error: true
     - java_class: android.health.connect.changelog.ChangeLogsRequest$Builder
       go_type: ChangeLogsRequestBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
       methods:
         - java_method: build
           go_name: Build

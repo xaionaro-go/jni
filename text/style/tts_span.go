@@ -32,6 +32,12 @@ func NewTtsSpan(vm *jni.VM, arg0 *jni.Object) (*TtsSpan, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTtsSpan == nil {
+			return fmt.Errorf("android.text.style.TtsSpan is not available on this device")
+		}
+		if midTtsSpanCtor == nil {
+			return fmt.Errorf("android.text.style.TtsSpan constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTtsSpan)), midTtsSpanCtor, jni.ObjectValue(arg0))
 		if err != nil {

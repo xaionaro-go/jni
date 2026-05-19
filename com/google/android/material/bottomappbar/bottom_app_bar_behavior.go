@@ -23,8 +23,37 @@ type BottomAppBarBehavior struct {
 	Obj *jni.GlobalRef
 }
 
-// OnLayoutChild3 calls com.google.android.material.bottomappbar.BottomAppBar$Behavior.onLayoutChild.
-func (m *BottomAppBarBehavior) OnLayoutChild3(
+// NewBottomAppBarBehavior creates a new com.google.android.material.bottomappbar.BottomAppBar$Behavior instance.
+func NewBottomAppBarBehavior(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*BottomAppBarBehavior, error) {
+	var t BottomAppBarBehavior
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsBottomAppBarBehavior == nil {
+			return fmt.Errorf("com.google.android.material.bottomappbar.BottomAppBar$Behavior is not available on this device")
+		}
+		if midBottomAppBarBehaviorCtor == nil {
+			return fmt.Errorf("com.google.android.material.bottomappbar.BottomAppBar$Behavior constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBottomAppBarBehavior)), midBottomAppBarBehaviorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
+// OnLayoutChild calls com.google.android.material.bottomappbar.BottomAppBar$Behavior.onLayoutChild.
+func (m *BottomAppBarBehavior) OnLayoutChild(
 	arg0 *jni.Object,
 	arg1 *jni.Object,
 	arg2 int32,
@@ -36,7 +65,7 @@ func (m *BottomAppBarBehavior) OnLayoutChild3(
 			callErr = err
 			return err
 		}
-		if midBottomAppBarBehaviorOnLayoutChild3 == nil {
+		if midBottomAppBarBehaviorOnLayoutChild == nil {
 			callErr = fmt.Errorf("com.google.android.material.bottomappbar.BottomAppBar$Behavior.onLayoutChild is not available on this device")
 			return callErr
 		}
@@ -44,7 +73,7 @@ func (m *BottomAppBarBehavior) OnLayoutChild3(
 		var resultRaw uint8
 		resultRaw, callErr = env.CallBooleanMethod(
 			m.Obj,
-			midBottomAppBarBehaviorOnLayoutChild3, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2),
+			midBottomAppBarBehaviorOnLayoutChild, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2),
 		)
 		if callErr != nil {
 			return callErr
@@ -55,8 +84,8 @@ func (m *BottomAppBarBehavior) OnLayoutChild3(
 	return result, callErr
 }
 
-// OnStartNestedScroll6 calls com.google.android.material.bottomappbar.BottomAppBar$Behavior.onStartNestedScroll.
-func (m *BottomAppBarBehavior) OnStartNestedScroll6(
+// OnStartNestedScroll calls com.google.android.material.bottomappbar.BottomAppBar$Behavior.onStartNestedScroll.
+func (m *BottomAppBarBehavior) OnStartNestedScroll(
 	arg0 *jni.Object,
 	arg1 *jni.Object,
 	arg2 *jni.Object,
@@ -71,7 +100,7 @@ func (m *BottomAppBarBehavior) OnStartNestedScroll6(
 			callErr = err
 			return err
 		}
-		if midBottomAppBarBehaviorOnStartNestedScroll6 == nil {
+		if midBottomAppBarBehaviorOnStartNestedScroll == nil {
 			callErr = fmt.Errorf("com.google.android.material.bottomappbar.BottomAppBar$Behavior.onStartNestedScroll is not available on this device")
 			return callErr
 		}
@@ -79,74 +108,7 @@ func (m *BottomAppBarBehavior) OnStartNestedScroll6(
 		var resultRaw uint8
 		resultRaw, callErr = env.CallBooleanMethod(
 			m.Obj,
-			midBottomAppBarBehaviorOnStartNestedScroll6, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3), jni.IntValue(arg4), jni.IntValue(arg5),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// OnStartNestedScroll6_1 calls com.google.android.material.bottomappbar.BottomAppBar$Behavior.onStartNestedScroll.
-func (m *BottomAppBarBehavior) OnStartNestedScroll6_1(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-	arg3 *jni.Object,
-	arg4 int32,
-	arg5 int32,
-) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBottomAppBarBehaviorOnStartNestedScroll6_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.bottomappbar.BottomAppBar$Behavior.onStartNestedScroll is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midBottomAppBarBehaviorOnStartNestedScroll6_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3), jni.IntValue(arg4), jni.IntValue(arg5),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// OnLayoutChild3_1 calls com.google.android.material.bottomappbar.BottomAppBar$Behavior.onLayoutChild.
-func (m *BottomAppBarBehavior) OnLayoutChild3_1(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 int32,
-) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBottomAppBarBehaviorOnLayoutChild3_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.bottomappbar.BottomAppBar$Behavior.onLayoutChild is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midBottomAppBarBehaviorOnLayoutChild3_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2),
+			midBottomAppBarBehaviorOnStartNestedScroll, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3), jni.IntValue(arg4), jni.IntValue(arg5),
 		)
 		if callErr != nil {
 			return callErr

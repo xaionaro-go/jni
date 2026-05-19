@@ -32,6 +32,12 @@ func NewAdWithBid(vm *jni.VM, arg0 *jni.Object, arg1 float64) (*AdWithBid, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAdWithBid == nil {
+			return fmt.Errorf("android.adservices.adselection.AdWithBid is not available on this device")
+		}
+		if midAdWithBidCtor == nil {
+			return fmt.Errorf("android.adservices.adselection.AdWithBid constructor (Landroid/adservices/common/AdData;D)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAdWithBid)), midAdWithBidCtor, jni.ObjectValue(arg0), jni.DoubleValue(arg1))
 		if err != nil {
@@ -181,29 +187,6 @@ func (m *AdWithBid) HashCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.adservices.adselection.AdWithBid.writeToParcel.
-func (m *AdWithBid) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAdWithBidWriteToParcel == nil {
-			callErr = fmt.Errorf("android.adservices.adselection.AdWithBid.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAdWithBidWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.adservices.adselection.AdWithBid.toString.
 func (m *AdWithBid) ToString() (string, error) {
 	var result string
@@ -229,4 +212,27 @@ func (m *AdWithBid) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.adservices.adselection.AdWithBid.writeToParcel.
+func (m *AdWithBid) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midAdWithBidWriteToParcel == nil {
+			callErr = fmt.Errorf("android.adservices.adselection.AdWithBid.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAdWithBid)),
+			midAdWithBidWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

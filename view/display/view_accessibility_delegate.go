@@ -23,6 +23,34 @@ type ViewAccessibilityDelegate struct {
 	Obj *jni.GlobalRef
 }
 
+// NewViewAccessibilityDelegate creates a new android.view.View$AccessibilityDelegate instance.
+func NewViewAccessibilityDelegate(vm *jni.VM) (*ViewAccessibilityDelegate, error) {
+	var t ViewAccessibilityDelegate
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsViewAccessibilityDelegate == nil {
+			return fmt.Errorf("android.view.View$AccessibilityDelegate is not available on this device")
+		}
+		if midViewAccessibilityDelegateCtor == nil {
+			return fmt.Errorf("android.view.View$AccessibilityDelegate constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewAccessibilityDelegate)), midViewAccessibilityDelegateCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddExtraDataToAccessibilityNodeInfo calls android.view.View$AccessibilityDelegate.addExtraDataToAccessibilityNodeInfo.
 func (m *ViewAccessibilityDelegate) AddExtraDataToAccessibilityNodeInfo(
 	arg0 *jni.Object,

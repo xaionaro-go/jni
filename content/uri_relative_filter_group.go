@@ -32,6 +32,12 @@ func NewUriRelativeFilterGroup(vm *jni.VM, arg0 int32) (*UriRelativeFilterGroup,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsUriRelativeFilterGroup == nil {
+			return fmt.Errorf("android.content.UriRelativeFilterGroup is not available on this device")
+		}
+		if midUriRelativeFilterGroupCtor == nil {
+			return fmt.Errorf("android.content.UriRelativeFilterGroup constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUriRelativeFilterGroup)), midUriRelativeFilterGroupCtor, jni.IntValue(arg0))
 		if err != nil {

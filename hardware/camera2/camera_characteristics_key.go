@@ -23,6 +23,40 @@ type CameraCharacteristicsKey struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCameraCharacteristicsKey creates a new android.hardware.camera2.CameraCharacteristics$Key instance.
+func NewCameraCharacteristicsKey(vm *jni.VM, arg0 string, arg1 *jni.Object) (*CameraCharacteristicsKey, error) {
+	var t CameraCharacteristicsKey
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCameraCharacteristicsKey == nil {
+			return fmt.Errorf("android.hardware.camera2.CameraCharacteristics$Key is not available on this device")
+		}
+		if midCameraCharacteristicsKeyCtor == nil {
+			return fmt.Errorf("android.hardware.camera2.CameraCharacteristics$Key constructor (Ljava/lang/String;Ljava/lang/Class;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCameraCharacteristicsKey)), midCameraCharacteristicsKeyCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.hardware.camera2.CameraCharacteristics$Key.equals.
 func (m *CameraCharacteristicsKey) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

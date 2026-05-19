@@ -32,6 +32,12 @@ func NewCLKey(vm *jni.VM, arg0 *jni.Object) (*CLKey, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCLKey == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.parser.CLKey is not available on this device")
+		}
+		if midCLKeyCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.parser.CLKey constructor ([C)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCLKey)), midCLKeyCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -94,38 +100,6 @@ func (m *CLKey) Set(arg0 *jni.Object) error {
 		return callErr
 	})
 	return callErr
-}
-
-// GetValue calls androidx.constraintlayout.core.parser.CLKey.getValue.
-func (m *CLKey) GetValue() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCLKeyGetValue == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.core.parser.CLKey.getValue is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCLKeyGetValue,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls androidx.constraintlayout.core.parser.CLKey.toString.
@@ -210,6 +184,38 @@ func (m *CLKey) Allocate2_1(arg0 string, arg1 *jni.Object) (*jni.Object, error) 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsCLKey)),
 			midCLKeyAllocate2_1, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetValue calls androidx.constraintlayout.core.parser.CLKey.getValue.
+func (m *CLKey) GetValue() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCLKeyGetValue == nil {
+			callErr = fmt.Errorf("androidx.constraintlayout.core.parser.CLKey.getValue is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsCLKey)),
+			midCLKeyGetValue,
 		)
 		if callErr != nil {
 			return callErr

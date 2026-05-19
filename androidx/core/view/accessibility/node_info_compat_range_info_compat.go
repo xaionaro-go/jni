@@ -23,6 +23,35 @@ type NodeInfoCompatRangeInfoCompat struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNodeInfoCompatRangeInfoCompat creates a new androidx.core.view.accessibility.AccessibilityNodeInfoCompat$RangeInfoCompat instance.
+func NewNodeInfoCompatRangeInfoCompat(vm *jni.VM, arg0 int32, arg1 float32, arg2 float32, arg3 float32) (*NodeInfoCompatRangeInfoCompat, error) {
+	var t NodeInfoCompatRangeInfoCompat
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNodeInfoCompatRangeInfoCompat == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityNodeInfoCompat$RangeInfoCompat is not available on this device")
+		}
+		if midNodeInfoCompatRangeInfoCompatCtor == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityNodeInfoCompat$RangeInfoCompat constructor (IFFF)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNodeInfoCompatRangeInfoCompat)), midNodeInfoCompatRangeInfoCompatCtor, jni.IntValue(arg0), jni.FloatValue(arg1), jni.FloatValue(arg2), jni.FloatValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetCurrent calls androidx.core.view.accessibility.AccessibilityNodeInfoCompat$RangeInfoCompat.getCurrent.
 func (m *NodeInfoCompatRangeInfoCompat) GetCurrent() (float32, error) {
 	var result float32

@@ -32,6 +32,12 @@ func NewWorkSource(vm *jni.VM) (*WorkSource, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWorkSource == nil {
+			return fmt.Errorf("android.os.WorkSource is not available on this device")
+		}
+		if midWorkSourceCtor == nil {
+			return fmt.Errorf("android.os.WorkSource constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWorkSource)), midWorkSourceCtor)
 		if err != nil {
 			return err
@@ -293,8 +299,8 @@ func (m *WorkSource) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsWorkSource)),
 			midWorkSourceWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

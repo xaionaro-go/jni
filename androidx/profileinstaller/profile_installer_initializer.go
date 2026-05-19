@@ -32,6 +32,12 @@ func NewProfileInstallerInitializer(vm *jni.VM) (*ProfileInstallerInitializer, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsProfileInstallerInitializer == nil {
+			return fmt.Errorf("androidx.profileinstaller.ProfileInstallerInitializer is not available on this device")
+		}
+		if midProfileInstallerInitializerCtor == nil {
+			return fmt.Errorf("androidx.profileinstaller.ProfileInstallerInitializer constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsProfileInstallerInitializer)), midProfileInstallerInitializerCtor)
 		if err != nil {
 			return err
@@ -45,8 +51,8 @@ func NewProfileInstallerInitializer(vm *jni.VM) (*ProfileInstallerInitializer, e
 	return &t, nil
 }
 
-// Create1 calls androidx.profileinstaller.ProfileInstallerInitializer.create.
-func (m *ProfileInstallerInitializer) Create1(arg0 *jni.Object) (*jni.Object, error) {
+// Create calls androidx.profileinstaller.ProfileInstallerInitializer.create.
+func (m *ProfileInstallerInitializer) Create(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -54,47 +60,14 @@ func (m *ProfileInstallerInitializer) Create1(arg0 *jni.Object) (*jni.Object, er
 			callErr = err
 			return err
 		}
-		if midProfileInstallerInitializerCreate1 == nil {
+		if midProfileInstallerInitializerCreate == nil {
 			callErr = fmt.Errorf("androidx.profileinstaller.ProfileInstallerInitializer.create is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midProfileInstallerInitializerCreate1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Create1_1 calls androidx.profileinstaller.ProfileInstallerInitializer.create.
-func (m *ProfileInstallerInitializer) Create1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midProfileInstallerInitializerCreate1_1 == nil {
-			callErr = fmt.Errorf("androidx.profileinstaller.ProfileInstallerInitializer.create is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midProfileInstallerInitializerCreate1_1, jni.ObjectValue(arg0),
+			midProfileInstallerInitializerCreate, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr

@@ -32,6 +32,12 @@ func NewEdgeEffectCompat(vm *jni.VM, arg0 *jni.Object) (*EdgeEffectCompat, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEdgeEffectCompat == nil {
+			return fmt.Errorf("androidx.core.widget.EdgeEffectCompat is not available on this device")
+		}
+		if midEdgeEffectCompatCtor == nil {
+			return fmt.Errorf("androidx.core.widget.EdgeEffectCompat constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEdgeEffectCompat)), midEdgeEffectCompatCtor, jni.ObjectValue(arg0))
 		if err != nil {

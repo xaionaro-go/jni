@@ -23,6 +23,35 @@ type ExerciseLapBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewExerciseLapBuilder creates a new android.health.connect.datatypes.ExerciseLap$Builder instance.
+func NewExerciseLapBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ExerciseLapBuilder, error) {
+	var t ExerciseLapBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsExerciseLapBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.ExerciseLap$Builder is not available on this device")
+		}
+		if midExerciseLapBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.ExerciseLap$Builder constructor (Ljava/time/Instant;Ljava/time/Instant;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExerciseLapBuilder)), midExerciseLapBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.datatypes.ExerciseLap$Builder.build.
 func (m *ExerciseLapBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewSandboxedSdk(vm *jni.VM, arg0 *jni.Object) (*SandboxedSdk, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSandboxedSdk == nil {
+			return fmt.Errorf("android.app.sdksandbox.SandboxedSdk is not available on this device")
+		}
+		if midSandboxedSdkCtor == nil {
+			return fmt.Errorf("android.app.sdksandbox.SandboxedSdk constructor (Landroid/os/IBinder;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSandboxedSdk)), midSandboxedSdkCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -135,29 +141,6 @@ func (m *SandboxedSdk) GetSharedLibraryInfo() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.sdksandbox.SandboxedSdk.writeToParcel.
-func (m *SandboxedSdk) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSandboxedSdkWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.sdksandbox.SandboxedSdk.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSandboxedSdkWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.sdksandbox.SandboxedSdk.toString.
 func (m *SandboxedSdk) ToString() (string, error) {
 	var result string
@@ -183,4 +166,27 @@ func (m *SandboxedSdk) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.sdksandbox.SandboxedSdk.writeToParcel.
+func (m *SandboxedSdk) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSandboxedSdkWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.sdksandbox.SandboxedSdk.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSandboxedSdk)),
+			midSandboxedSdkWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -60,6 +60,17 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
+        - java_method: dump
+          go_name: Dump
+          params:
+            - java_type: java.io.FileDescriptor
+              go_name: arg0
+            - java_type: java.io.PrintWriter
+              go_name: arg1
+            - java_type: java.lang.String[]
+              go_name: arg2
+          returns: void
+          error: true
         - java_method: finish
           go_name: Finish
           returns: void

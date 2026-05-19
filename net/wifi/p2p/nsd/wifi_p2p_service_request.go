@@ -32,6 +32,12 @@ func NewWifiP2pServiceRequest(vm *jni.VM, arg0 *jni.Object) (*WifiP2pServiceRequ
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWifiP2pServiceRequest == nil {
+			return fmt.Errorf("android.net.wifi.p2p.nsd.WifiP2pServiceRequest is not available on this device")
+		}
+		if midWifiP2pServiceRequestCtor == nil {
+			return fmt.Errorf("android.net.wifi.p2p.nsd.WifiP2pServiceRequest constructor (Landroid/net/wifi/p2p/nsd/WifiP2pUsdBasedServiceConfig;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWifiP2pServiceRequest)), midWifiP2pServiceRequestCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -32,6 +32,12 @@ func NewMultiBrowseCarouselStrategy(vm *jni.VM) (*MultiBrowseCarouselStrategy, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMultiBrowseCarouselStrategy == nil {
+			return fmt.Errorf("com.google.android.material.carousel.MultiBrowseCarouselStrategy is not available on this device")
+		}
+		if midMultiBrowseCarouselStrategyCtor == nil {
+			return fmt.Errorf("com.google.android.material.carousel.MultiBrowseCarouselStrategy constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMultiBrowseCarouselStrategy)), midMultiBrowseCarouselStrategyCtor)
 		if err != nil {
 			return err

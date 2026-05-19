@@ -32,6 +32,12 @@ func NewPhoneNumberFormattingTextWatcher(vm *jni.VM) (*PhoneNumberFormattingText
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPhoneNumberFormattingTextWatcher == nil {
+			return fmt.Errorf("android.telephony.PhoneNumberFormattingTextWatcher is not available on this device")
+		}
+		if midPhoneNumberFormattingTextWatcherCtor == nil {
+			return fmt.Errorf("android.telephony.PhoneNumberFormattingTextWatcher constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPhoneNumberFormattingTextWatcher)), midPhoneNumberFormattingTextWatcherCtor)
 		if err != nil {
 			return err

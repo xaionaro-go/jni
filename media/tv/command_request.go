@@ -32,6 +32,12 @@ func NewCommandRequest(vm *jni.VM, arg0 int32, arg1 int32, arg2 string, arg3 str
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCommandRequest == nil {
+			return fmt.Errorf("android.media.tv.CommandRequest is not available on this device")
+		}
+		if midCommandRequestCtor == nil {
+			return fmt.Errorf("android.media.tv.CommandRequest constructor (IILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V is not available on this device")
+		}
 
 		jArg2, err := env.NewStringUTF(arg2)
 		if err != nil {
@@ -203,29 +209,6 @@ func (m *CommandRequest) GetNamespace() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.media.tv.CommandRequest.writeToParcel.
-func (m *CommandRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCommandRequestWriteToParcel == nil {
-			callErr = fmt.Errorf("android.media.tv.CommandRequest.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midCommandRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.media.tv.CommandRequest.toString.
 func (m *CommandRequest) ToString() (string, error) {
 	var result string
@@ -251,4 +234,27 @@ func (m *CommandRequest) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.media.tv.CommandRequest.writeToParcel.
+func (m *CommandRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCommandRequestWriteToParcel == nil {
+			callErr = fmt.Errorf("android.media.tv.CommandRequest.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsCommandRequest)),
+			midCommandRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

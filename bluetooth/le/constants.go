@@ -5,18 +5,7 @@ package le
 import "github.com/AndroidGoLab/jni/bluetooth/le/consts"
 
 const (
-	ScanFailedAlreadyStarted                     = consts.ScanFailedAlreadyStarted
-	ScanFailedApplicationRegistrationFailed      = consts.ScanFailedApplicationRegistrationFailed
-	ScanFailedFeatureUnsupported                 = consts.ScanFailedFeatureUnsupported
-	ScanFailedInternalError                      = consts.ScanFailedInternalError
-	ScanFailedOutOfHardwareResources             = consts.ScanFailedOutOfHardwareResources
-	ScanFailedScanningTooFrequently              = consts.ScanFailedScanningTooFrequently
 	Creator                                      = consts.Creator
-	AdvertiseFailedAlreadyStarted                = consts.AdvertiseFailedAlreadyStarted
-	AdvertiseFailedDataTooLarge                  = consts.AdvertiseFailedDataTooLarge
-	AdvertiseFailedFeatureUnsupported            = consts.AdvertiseFailedFeatureUnsupported
-	AdvertiseFailedInternalError                 = consts.AdvertiseFailedInternalError
-	AdvertiseFailedTooManyAdvertisers            = consts.AdvertiseFailedTooManyAdvertisers
 	IntervalHigh                                 = consts.IntervalHigh
 	IntervalLow                                  = consts.IntervalLow
 	IntervalMax                                  = consts.IntervalMax
@@ -28,7 +17,23 @@ const (
 	TxPowerMedium                                = consts.TxPowerMedium
 	TxPowerMin                                   = consts.TxPowerMin
 	TxPowerUltraLow                              = consts.TxPowerUltraLow
-	AdvertiseSuccess                             = consts.AdvertiseSuccess
+	AdvertiseFailedAlreadyStarted                = consts.AdvertiseFailedAlreadyStarted
+	AdvertiseFailedDataTooLarge                  = consts.AdvertiseFailedDataTooLarge
+	AdvertiseFailedFeatureUnsupported            = consts.AdvertiseFailedFeatureUnsupported
+	AdvertiseFailedInternalError                 = consts.AdvertiseFailedInternalError
+	AdvertiseFailedTooManyAdvertisers            = consts.AdvertiseFailedTooManyAdvertisers
+	ScanFailedAlreadyStarted                     = consts.ScanFailedAlreadyStarted
+	ScanFailedApplicationRegistrationFailed      = consts.ScanFailedApplicationRegistrationFailed
+	ScanFailedFeatureUnsupported                 = consts.ScanFailedFeatureUnsupported
+	ScanFailedInternalError                      = consts.ScanFailedInternalError
+	ScanFailedOutOfHardwareResources             = consts.ScanFailedOutOfHardwareResources
+	ScanFailedScanningTooFrequently              = consts.ScanFailedScanningTooFrequently
+	DataComplete                                 = consts.DataComplete
+	DataTruncated                                = consts.DataTruncated
+	PeriodicIntervalNotPresent                   = consts.PeriodicIntervalNotPresent
+	PhyUnused                                    = consts.PhyUnused
+	SidNotPresent                                = consts.SidNotPresent
+	TxPowerNotPresent                            = consts.TxPowerNotPresent
 	CallbackTypeAllMatches                       = consts.CallbackTypeAllMatches
 	CallbackTypeAllMatchesAutoBatch              = consts.CallbackTypeAllMatchesAutoBatch
 	CallbackTypeFirstMatch                       = consts.CallbackTypeFirstMatch
@@ -50,12 +55,7 @@ const (
 	AdvertiseTxPowerLow                          = consts.AdvertiseTxPowerLow
 	AdvertiseTxPowerMedium                       = consts.AdvertiseTxPowerMedium
 	AdvertiseTxPowerUltraLow                     = consts.AdvertiseTxPowerUltraLow
-	DataComplete                                 = consts.DataComplete
-	DataTruncated                                = consts.DataTruncated
-	PeriodicIntervalNotPresent                   = consts.PeriodicIntervalNotPresent
-	PhyUnused                                    = consts.PhyUnused
-	SidNotPresent                                = consts.SidNotPresent
-	TxPowerNotPresent                            = consts.TxPowerNotPresent
+	AdvertiseSuccess                             = consts.AdvertiseSuccess
 	DataType3dInformationData                    = consts.DataType3dInformationData
 	DataTypeAdvertisingInterval                  = consts.DataTypeAdvertisingInterval
 	DataTypeAdvertisingIntervalLong              = consts.DataTypeAdvertisingIntervalLong
@@ -106,11 +106,11 @@ const (
 )
 
 const (
-	ExtraCallbackType   = consts.ExtraCallbackType
-	ExtraErrorCode      = consts.ExtraErrorCode
-	ExtraListScanResult = consts.ExtraListScanResult
+	AutoBatchMinReportDelayMillis = consts.AutoBatchMinReportDelayMillis
 )
 
 const (
-	AutoBatchMinReportDelayMillis = consts.AutoBatchMinReportDelayMillis
+	ExtraCallbackType   = consts.ExtraCallbackType
+	ExtraErrorCode      = consts.ExtraErrorCode
+	ExtraListScanResult = consts.ExtraListScanResult
 )

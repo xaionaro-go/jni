@@ -32,6 +32,12 @@ func NewLoadSdkException(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*LoadS
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLoadSdkException == nil {
+			return fmt.Errorf("android.app.sdksandbox.LoadSdkException is not available on this device")
+		}
+		if midLoadSdkExceptionCtor == nil {
+			return fmt.Errorf("android.app.sdksandbox.LoadSdkException constructor (Ljava/lang/Throwable;Landroid/os/Bundle;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLoadSdkException)), midLoadSdkExceptionCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -128,29 +134,6 @@ func (m *LoadSdkException) GetLoadSdkErrorCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.sdksandbox.LoadSdkException.writeToParcel.
-func (m *LoadSdkException) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midLoadSdkExceptionWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.sdksandbox.LoadSdkException.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midLoadSdkExceptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.sdksandbox.LoadSdkException.toString.
 func (m *LoadSdkException) ToString() (string, error) {
 	var result string
@@ -176,4 +159,27 @@ func (m *LoadSdkException) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.sdksandbox.LoadSdkException.writeToParcel.
+func (m *LoadSdkException) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midLoadSdkExceptionWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.sdksandbox.LoadSdkException.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsLoadSdkException)),
+			midLoadSdkExceptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

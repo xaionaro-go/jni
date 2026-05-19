@@ -32,6 +32,12 @@ func NewBlendModeColorFilter(vm *jni.VM, arg0 int32, arg1 *jni.Object) (*BlendMo
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBlendModeColorFilter == nil {
+			return fmt.Errorf("android.graphics.BlendModeColorFilter is not available on this device")
+		}
+		if midBlendModeColorFilterCtor == nil {
+			return fmt.Errorf("android.graphics.BlendModeColorFilter constructor (ILandroid/graphics/BlendMode;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBlendModeColorFilter)), midBlendModeColorFilterCtor, jni.IntValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

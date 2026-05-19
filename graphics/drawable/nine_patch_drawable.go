@@ -32,6 +32,12 @@ func NewNinePatchDrawable(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNinePatchDrawable == nil {
+			return fmt.Errorf("android.graphics.drawable.NinePatchDrawable is not available on this device")
+		}
+		if midNinePatchDrawableCtor == nil {
+			return fmt.Errorf("android.graphics.drawable.NinePatchDrawable constructor (Landroid/content/res/Resources;Landroid/graphics/Bitmap;[BLandroid/graphics/Rect;Ljava/lang/String;)V is not available on this device")
+		}
 
 		jArg4, err := env.NewStringUTF(arg4)
 		if err != nil {

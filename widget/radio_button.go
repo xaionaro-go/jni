@@ -32,6 +32,12 @@ func NewRadioButton(vm *jni.VM, arg0 *jni.Object) (*RadioButton, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRadioButton == nil {
+			return fmt.Errorf("android.widget.RadioButton is not available on this device")
+		}
+		if midRadioButtonCtor == nil {
+			return fmt.Errorf("android.widget.RadioButton constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRadioButton)), midRadioButtonCtor, jni.ObjectValue(arg0))
 		if err != nil {

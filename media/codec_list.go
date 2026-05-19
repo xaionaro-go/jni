@@ -32,6 +32,12 @@ func NewCodecList(vm *jni.VM, arg0 int32) (*CodecList, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCodecList == nil {
+			return fmt.Errorf("android.media.MediaCodecList is not available on this device")
+		}
+		if midCodecListCtor == nil {
+			return fmt.Errorf("android.media.MediaCodecList constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCodecList)), midCodecListCtor, jni.IntValue(arg0))
 		if err != nil {

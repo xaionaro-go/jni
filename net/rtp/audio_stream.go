@@ -32,6 +32,12 @@ func NewAudioStream(vm *jni.VM, arg0 *jni.Object) (*AudioStream, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAudioStream == nil {
+			return fmt.Errorf("android.net.rtp.AudioStream is not available on this device")
+		}
+		if midAudioStreamCtor == nil {
+			return fmt.Errorf("android.net.rtp.AudioStream constructor (Ljava/net/InetAddress;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAudioStream)), midAudioStreamCtor, jni.ObjectValue(arg0))
 		if err != nil {

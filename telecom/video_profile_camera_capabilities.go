@@ -23,6 +23,35 @@ type VideoProfileCameraCapabilities struct {
 	Obj *jni.GlobalRef
 }
 
+// NewVideoProfileCameraCapabilities creates a new android.telecom.VideoProfile$CameraCapabilities instance.
+func NewVideoProfileCameraCapabilities(vm *jni.VM, arg0 int32, arg1 int32) (*VideoProfileCameraCapabilities, error) {
+	var t VideoProfileCameraCapabilities
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsVideoProfileCameraCapabilities == nil {
+			return fmt.Errorf("android.telecom.VideoProfile$CameraCapabilities is not available on this device")
+		}
+		if midVideoProfileCameraCapabilitiesCtor == nil {
+			return fmt.Errorf("android.telecom.VideoProfile$CameraCapabilities constructor (II)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVideoProfileCameraCapabilities)), midVideoProfileCameraCapabilitiesCtor, jni.IntValue(arg0), jni.IntValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.telecom.VideoProfile$CameraCapabilities.describeContents.
 func (m *VideoProfileCameraCapabilities) DescribeContents() (int32, error) {
 	var result int32
@@ -150,29 +179,6 @@ func (m *VideoProfileCameraCapabilities) IsZoomSupported() (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.telecom.VideoProfile$CameraCapabilities.writeToParcel.
-func (m *VideoProfileCameraCapabilities) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midVideoProfileCameraCapabilitiesWriteToParcel == nil {
-			callErr = fmt.Errorf("android.telecom.VideoProfile$CameraCapabilities.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midVideoProfileCameraCapabilitiesWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.telecom.VideoProfile$CameraCapabilities.toString.
 func (m *VideoProfileCameraCapabilities) ToString() (string, error) {
 	var result string
@@ -198,4 +204,27 @@ func (m *VideoProfileCameraCapabilities) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.telecom.VideoProfile$CameraCapabilities.writeToParcel.
+func (m *VideoProfileCameraCapabilities) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midVideoProfileCameraCapabilitiesWriteToParcel == nil {
+			callErr = fmt.Errorf("android.telecom.VideoProfile$CameraCapabilities.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsVideoProfileCameraCapabilities)),
+			midVideoProfileCameraCapabilitiesWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

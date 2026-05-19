@@ -32,6 +32,12 @@ func NewMaskFilter(vm *jni.VM) (*MaskFilter, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaskFilter == nil {
+			return fmt.Errorf("android.graphics.MaskFilter is not available on this device")
+		}
+		if midMaskFilterCtor == nil {
+			return fmt.Errorf("android.graphics.MaskFilter constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaskFilter)), midMaskFilterCtor)
 		if err != nil {
 			return err

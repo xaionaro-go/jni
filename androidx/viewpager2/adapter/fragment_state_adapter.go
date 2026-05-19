@@ -102,8 +102,8 @@ func (m *FragmentStateAdapter) CreateFragment(arg0 int32) (*jni.Object, error) {
 	return result, callErr
 }
 
-// OnCreateViewHolder2 calls androidx.viewpager2.adapter.FragmentStateAdapter.onCreateViewHolder.
-func (m *FragmentStateAdapter) OnCreateViewHolder2(arg0 *jni.Object, arg1 int32) (*jni.Object, error) {
+// OnCreateViewHolder calls androidx.viewpager2.adapter.FragmentStateAdapter.onCreateViewHolder.
+func (m *FragmentStateAdapter) OnCreateViewHolder(arg0 *jni.Object, arg1 int32) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -111,14 +111,14 @@ func (m *FragmentStateAdapter) OnCreateViewHolder2(arg0 *jni.Object, arg1 int32)
 			callErr = err
 			return err
 		}
-		if midFragmentStateAdapterOnCreateViewHolder2 == nil {
+		if midFragmentStateAdapterOnCreateViewHolder == nil {
 			callErr = fmt.Errorf("androidx.viewpager2.adapter.FragmentStateAdapter.onCreateViewHolder is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midFragmentStateAdapterOnCreateViewHolder2, jni.ObjectValue(arg0), jni.IntValue(arg1),
+			midFragmentStateAdapterOnCreateViewHolder, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		if callErr != nil {
 			return callErr
@@ -135,8 +135,8 @@ func (m *FragmentStateAdapter) OnCreateViewHolder2(arg0 *jni.Object, arg1 int32)
 	return result, callErr
 }
 
-// OnBindViewHolder2 calls androidx.viewpager2.adapter.FragmentStateAdapter.onBindViewHolder.
-func (m *FragmentStateAdapter) OnBindViewHolder2(arg0 *jni.Object, arg1 int32) error {
+// OnBindViewHolder calls androidx.viewpager2.adapter.FragmentStateAdapter.onBindViewHolder.
+func (m *FragmentStateAdapter) OnBindViewHolder(arg0 *jni.Object, arg1 int32) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -144,22 +144,22 @@ func (m *FragmentStateAdapter) OnBindViewHolder2(arg0 *jni.Object, arg1 int32) e
 			callErr = err
 			return err
 		}
-		if midFragmentStateAdapterOnBindViewHolder2 == nil {
+		if midFragmentStateAdapterOnBindViewHolder == nil {
 			callErr = fmt.Errorf("androidx.viewpager2.adapter.FragmentStateAdapter.onBindViewHolder is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midFragmentStateAdapterOnBindViewHolder2, jni.ObjectValue(arg0), jni.IntValue(arg1),
+			midFragmentStateAdapterOnBindViewHolder, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr
 	})
 	return callErr
 }
 
-// OnViewAttachedToWindow1 calls androidx.viewpager2.adapter.FragmentStateAdapter.onViewAttachedToWindow.
-func (m *FragmentStateAdapter) OnViewAttachedToWindow1(arg0 *jni.Object) error {
+// OnViewAttachedToWindow calls androidx.viewpager2.adapter.FragmentStateAdapter.onViewAttachedToWindow.
+func (m *FragmentStateAdapter) OnViewAttachedToWindow(arg0 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -167,22 +167,22 @@ func (m *FragmentStateAdapter) OnViewAttachedToWindow1(arg0 *jni.Object) error {
 			callErr = err
 			return err
 		}
-		if midFragmentStateAdapterOnViewAttachedToWindow1 == nil {
+		if midFragmentStateAdapterOnViewAttachedToWindow == nil {
 			callErr = fmt.Errorf("androidx.viewpager2.adapter.FragmentStateAdapter.onViewAttachedToWindow is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midFragmentStateAdapterOnViewAttachedToWindow1, jni.ObjectValue(arg0),
+			midFragmentStateAdapterOnViewAttachedToWindow, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})
 	return callErr
 }
 
-// OnViewRecycled1 calls androidx.viewpager2.adapter.FragmentStateAdapter.onViewRecycled.
-func (m *FragmentStateAdapter) OnViewRecycled1(arg0 *jni.Object) error {
+// OnViewRecycled calls androidx.viewpager2.adapter.FragmentStateAdapter.onViewRecycled.
+func (m *FragmentStateAdapter) OnViewRecycled(arg0 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -190,22 +190,22 @@ func (m *FragmentStateAdapter) OnViewRecycled1(arg0 *jni.Object) error {
 			callErr = err
 			return err
 		}
-		if midFragmentStateAdapterOnViewRecycled1 == nil {
+		if midFragmentStateAdapterOnViewRecycled == nil {
 			callErr = fmt.Errorf("androidx.viewpager2.adapter.FragmentStateAdapter.onViewRecycled is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midFragmentStateAdapterOnViewRecycled1, jni.ObjectValue(arg0),
+			midFragmentStateAdapterOnViewRecycled, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})
 	return callErr
 }
 
-// OnFailedToRecycleView1 calls androidx.viewpager2.adapter.FragmentStateAdapter.onFailedToRecycleView.
-func (m *FragmentStateAdapter) OnFailedToRecycleView1(arg0 *jni.Object) (bool, error) {
+// OnFailedToRecycleView calls androidx.viewpager2.adapter.FragmentStateAdapter.onFailedToRecycleView.
+func (m *FragmentStateAdapter) OnFailedToRecycleView(arg0 *jni.Object) (bool, error) {
 	var result bool
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -213,7 +213,7 @@ func (m *FragmentStateAdapter) OnFailedToRecycleView1(arg0 *jni.Object) (bool, e
 			callErr = err
 			return err
 		}
-		if midFragmentStateAdapterOnFailedToRecycleView1 == nil {
+		if midFragmentStateAdapterOnFailedToRecycleView == nil {
 			callErr = fmt.Errorf("androidx.viewpager2.adapter.FragmentStateAdapter.onFailedToRecycleView is not available on this device")
 			return callErr
 		}
@@ -221,7 +221,7 @@ func (m *FragmentStateAdapter) OnFailedToRecycleView1(arg0 *jni.Object) (bool, e
 		var resultRaw uint8
 		resultRaw, callErr = env.CallBooleanMethod(
 			m.Obj,
-			midFragmentStateAdapterOnFailedToRecycleView1, jni.ObjectValue(arg0),
+			midFragmentStateAdapterOnFailedToRecycleView, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -366,136 +366,6 @@ func (m *FragmentStateAdapter) RestoreState(arg0 *jni.Object) error {
 		return callErr
 	})
 	return callErr
-}
-
-// OnViewAttachedToWindow1_1 calls androidx.viewpager2.adapter.FragmentStateAdapter.onViewAttachedToWindow.
-func (m *FragmentStateAdapter) OnViewAttachedToWindow1_1(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFragmentStateAdapterOnViewAttachedToWindow1_1 == nil {
-			callErr = fmt.Errorf("androidx.viewpager2.adapter.FragmentStateAdapter.onViewAttachedToWindow is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midFragmentStateAdapterOnViewAttachedToWindow1_1, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// OnFailedToRecycleView1_1 calls androidx.viewpager2.adapter.FragmentStateAdapter.onFailedToRecycleView.
-func (m *FragmentStateAdapter) OnFailedToRecycleView1_1(arg0 *jni.Object) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFragmentStateAdapterOnFailedToRecycleView1_1 == nil {
-			callErr = fmt.Errorf("androidx.viewpager2.adapter.FragmentStateAdapter.onFailedToRecycleView is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midFragmentStateAdapterOnFailedToRecycleView1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// OnViewRecycled1_1 calls androidx.viewpager2.adapter.FragmentStateAdapter.onViewRecycled.
-func (m *FragmentStateAdapter) OnViewRecycled1_1(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFragmentStateAdapterOnViewRecycled1_1 == nil {
-			callErr = fmt.Errorf("androidx.viewpager2.adapter.FragmentStateAdapter.onViewRecycled is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midFragmentStateAdapterOnViewRecycled1_1, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// OnBindViewHolder2_1 calls androidx.viewpager2.adapter.FragmentStateAdapter.onBindViewHolder.
-func (m *FragmentStateAdapter) OnBindViewHolder2_1(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFragmentStateAdapterOnBindViewHolder2_1 == nil {
-			callErr = fmt.Errorf("androidx.viewpager2.adapter.FragmentStateAdapter.onBindViewHolder is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midFragmentStateAdapterOnBindViewHolder2_1, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// OnCreateViewHolder2_1 calls androidx.viewpager2.adapter.FragmentStateAdapter.onCreateViewHolder.
-func (m *FragmentStateAdapter) OnCreateViewHolder2_1(arg0 *jni.Object, arg1 int32) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFragmentStateAdapterOnCreateViewHolder2_1 == nil {
-			callErr = fmt.Errorf("androidx.viewpager2.adapter.FragmentStateAdapter.onCreateViewHolder is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midFragmentStateAdapterOnCreateViewHolder2_1, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls androidx.viewpager2.adapter.FragmentStateAdapter.toString.

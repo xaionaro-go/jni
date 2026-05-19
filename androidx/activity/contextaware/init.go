@@ -23,18 +23,9 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsContextAwareKt         *jni.GlobalRef
-	midContextAwareKtToString jni.MethodID
-
 	clsOnContextAvailableListener                   *jni.GlobalRef
 	midOnContextAvailableListenerOnContextAvailable jni.MethodID
 	midOnContextAvailableListenerToString           jni.MethodID
-
-	clsContextAware                                 *jni.GlobalRef
-	midContextAwarePeekAvailableContext             jni.MethodID
-	midContextAwareAddOnContextAvailableListener    jni.MethodID
-	midContextAwareRemoveOnContextAvailableListener jni.MethodID
-	midContextAwareToString                         jni.MethodID
 
 	clsContextAwareHelper                                 *jni.GlobalRef
 	midContextAwareHelperCtor                             jni.MethodID
@@ -44,6 +35,15 @@ var (
 	midContextAwareHelperDispatchOnContextAvailable       jni.MethodID
 	midContextAwareHelperClearAvailableContext            jni.MethodID
 	midContextAwareHelperToString                         jni.MethodID
+
+	clsContextAware                                 *jni.GlobalRef
+	midContextAwarePeekAvailableContext             jni.MethodID
+	midContextAwareAddOnContextAvailableListener    jni.MethodID
+	midContextAwareRemoveOnContextAvailableListener jni.MethodID
+	midContextAwareToString                         jni.MethodID
+
+	clsContextAwareKt         *jni.GlobalRef
+	midContextAwareKtToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -64,23 +64,6 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("androidx/activity/contextaware/ContextAwareKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsContextAwareKt = env.NewGlobalRef(&c.Object)
-
-		midContextAwareKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextAwareKt)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("androidx/activity/contextaware/OnContextAvailableListener")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -97,44 +80,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midOnContextAvailableListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnContextAvailableListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/activity/contextaware/ContextAware")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsContextAware = env.NewGlobalRef(&c.Object)
-
-		midContextAwarePeekAvailableContext, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextAware)), "peekAvailableContext", "()Landroid/content/Context;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContextAwareAddOnContextAvailableListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextAware)), "addOnContextAvailableListener", "(Landroidx/activity/contextaware/OnContextAvailableListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContextAwareRemoveOnContextAvailableListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextAware)), "removeOnContextAvailableListener", "(Landroidx/activity/contextaware/OnContextAvailableListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContextAwareToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextAware)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -191,6 +136,61 @@ func doInit(env *jni.Env) error {
 		}
 
 		midContextAwareHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextAwareHelper)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/activity/contextaware/ContextAware")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsContextAware = env.NewGlobalRef(&c.Object)
+
+		midContextAwarePeekAvailableContext, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextAware)), "peekAvailableContext", "()Landroid/content/Context;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContextAwareAddOnContextAvailableListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextAware)), "addOnContextAvailableListener", "(Landroidx/activity/contextaware/OnContextAvailableListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContextAwareRemoveOnContextAvailableListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextAware)), "removeOnContextAvailableListener", "(Landroidx/activity/contextaware/OnContextAvailableListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContextAwareToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextAware)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/activity/contextaware/ContextAwareKt")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsContextAwareKt = env.NewGlobalRef(&c.Object)
+
+		midContextAwareKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextAwareKt)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

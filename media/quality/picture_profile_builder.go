@@ -23,6 +23,35 @@ type PictureProfileBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPictureProfileBuilder creates a new android.media.quality.PictureProfile$Builder instance.
+func NewPictureProfileBuilder(vm *jni.VM, arg0 *jni.Object) (*PictureProfileBuilder, error) {
+	var t PictureProfileBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPictureProfileBuilder == nil {
+			return fmt.Errorf("android.media.quality.PictureProfile$Builder is not available on this device")
+		}
+		if midPictureProfileBuilderCtor == nil {
+			return fmt.Errorf("android.media.quality.PictureProfile$Builder constructor (Landroid/media/quality/PictureProfile;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPictureProfileBuilder)), midPictureProfileBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.media.quality.PictureProfile$Builder.build.
 func (m *PictureProfileBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -23,6 +23,34 @@ type ConnectivityManagerNetworkCallback struct {
 	Obj *jni.GlobalRef
 }
 
+// NewConnectivityManagerNetworkCallback creates a new android.net.ConnectivityManager$NetworkCallback instance.
+func NewConnectivityManagerNetworkCallback(vm *jni.VM) (*ConnectivityManagerNetworkCallback, error) {
+	var t ConnectivityManagerNetworkCallback
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsConnectivityManagerNetworkCallback == nil {
+			return fmt.Errorf("android.net.ConnectivityManager$NetworkCallback is not available on this device")
+		}
+		if midConnectivityManagerNetworkCallbackCtor == nil {
+			return fmt.Errorf("android.net.ConnectivityManager$NetworkCallback constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConnectivityManagerNetworkCallback)), midConnectivityManagerNetworkCallbackCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnAvailable calls android.net.ConnectivityManager$NetworkCallback.onAvailable.
 func (m *ConnectivityManagerNetworkCallback) OnAvailable(arg0 *jni.Object) error {
 

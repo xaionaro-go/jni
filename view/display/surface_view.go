@@ -32,6 +32,12 @@ func NewSurfaceView(vm *jni.VM, arg0 *jni.Object) (*SurfaceView, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSurfaceView == nil {
+			return fmt.Errorf("android.view.SurfaceView is not available on this device")
+		}
+		if midSurfaceViewCtor == nil {
+			return fmt.Errorf("android.view.SurfaceView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSurfaceView)), midSurfaceViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

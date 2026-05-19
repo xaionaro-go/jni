@@ -23,6 +23,40 @@ type RangingParamsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRangingParamsBuilder creates a new android.ranging.wifi.rtt.RttRangingParams$Builder instance.
+func NewRangingParamsBuilder(vm *jni.VM, arg0 string) (*RangingParamsBuilder, error) {
+	var t RangingParamsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRangingParamsBuilder == nil {
+			return fmt.Errorf("android.ranging.wifi.rtt.RttRangingParams$Builder is not available on this device")
+		}
+		if midRangingParamsBuilderCtor == nil {
+			return fmt.Errorf("android.ranging.wifi.rtt.RttRangingParams$Builder constructor (Ljava/lang/String;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRangingParamsBuilder)), midRangingParamsBuilderCtor, jni.ObjectValue(&jArg0.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.ranging.wifi.rtt.RttRangingParams$Builder.build.
 func (m *RangingParamsBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

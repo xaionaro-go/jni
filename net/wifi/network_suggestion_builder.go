@@ -23,6 +23,34 @@ type NetworkSuggestionBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNetworkSuggestionBuilder creates a new android.net.wifi.WifiNetworkSuggestion$Builder instance.
+func NewNetworkSuggestionBuilder(vm *jni.VM) (*NetworkSuggestionBuilder, error) {
+	var t NetworkSuggestionBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNetworkSuggestionBuilder == nil {
+			return fmt.Errorf("android.net.wifi.WifiNetworkSuggestion$Builder is not available on this device")
+		}
+		if midNetworkSuggestionBuilderCtor == nil {
+			return fmt.Errorf("android.net.wifi.WifiNetworkSuggestion$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNetworkSuggestionBuilder)), midNetworkSuggestionBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.wifi.WifiNetworkSuggestion$Builder.build.
 func (m *NetworkSuggestionBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

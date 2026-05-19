@@ -5,6 +5,36 @@
 package: text
 go_import: github.com/AndroidGoLab/jni/androidx/emoji2/text
 classes:
+    - java_class: androidx.emoji2.text.EmojiSpan
+      go_type: EmojiSpan
+      methods:
+        - java_method: getSize
+          go_name: GetSize
+          params:
+            - java_type: android.graphics.Paint
+              go_name: arg0
+            - java_type: java.lang.CharSequence
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: android.graphics.Paint$FontMetricsInt
+              go_name: arg4
+          returns: int
+          error: true
+        - java_method: getTypefaceRasterizer
+          go_name: GetTypefaceRasterizer
+          returns: androidx.emoji2.text.TypefaceEmojiRasterizer
+          error: true
+        - java_method: getHeight
+          go_name: GetHeight
+          returns: int
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: int
+          error: true
     - java_class: androidx.emoji2.text.SpannableBuilder
       go_type: SpannableBuilder
       methods:
@@ -126,7 +156,7 @@ classes:
           returns: android.text.SpannableStringBuilder
           error: true
         - java_method: delete
-          go_name: Delete2
+          go_name: Delete
           params:
             - java_type: int
               go_name: arg0
@@ -170,112 +200,97 @@ classes:
               go_name: arg2
           returns: android.text.SpannableStringBuilder
           error: true
-        - java_method: append
-          go_name: Append1_4
+    - java_class: androidx.emoji2.text.EmojiDefaults
+      go_type: EmojiDefaults
+    - java_class: androidx.emoji2.text.DefaultEmojiCompatConfig
+      go_type: DefaultEmojiCompatConfig
+      static_methods:
+        - java_method: create
+          go_name: Create
           params:
-            - java_type: char
+            - java_type: android.content.Context
               go_name: arg0
-          returns: android.text.Editable
+          returns: androidx.emoji2.text.FontRequestEmojiCompatConfig
           error: true
-        - java_method: append
-          go_name: Append3_5
+    - java_class: androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigFactory
+      go_type: DefaultEmojiCompatConfigDefaultEmojiCompatConfigFactory
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper
+          go_name: arg0
+      methods:
+        - java_method: create
+          go_name: Create
           params:
-            - java_type: java.lang.CharSequence
+            - java_type: android.content.Context
               go_name: arg0
-            - java_type: int
+          returns: androidx.emoji2.text.EmojiCompat$Config
+          error: true
+    - java_class: androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper
+      go_type: DefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper
+      obtain: constructor
+      methods:
+        - java_method: getSigningSignatures
+          go_name: GetSigningSignatures
+          params:
+            - java_type: android.content.pm.PackageManager
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: android.content.pm.Signature[]
+          error: true
+        - java_method: queryIntentContentProviders
+          go_name: QueryIntentContentProviders
+          params:
+            - java_type: android.content.pm.PackageManager
+              go_name: arg0
+            - java_type: android.content.Intent
               go_name: arg1
             - java_type: int
               go_name: arg2
-          returns: android.text.Editable
+          returns: java.util.List<android.content.pm.ResolveInfo>
           error: true
-        - java_method: append
-          go_name: Append1_6
+        - java_method: getProviderInfo
+          go_name: GetProviderInfo
           params:
-            - java_type: java.lang.CharSequence
+            - java_type: android.content.pm.ResolveInfo
               go_name: arg0
-          returns: android.text.Editable
+          returns: android.content.pm.ProviderInfo
           error: true
-        - java_method: delete
-          go_name: Delete2_1
+    - java_class: androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper_API19
+      go_type: DefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19
+      obtain: constructor
+      methods:
+        - java_method: queryIntentContentProviders
+          go_name: QueryIntentContentProviders
           params:
-            - java_type: int
+            - java_type: android.content.pm.PackageManager
               go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.text.Editable
-          error: true
-        - java_method: insert
-          go_name: Insert2_2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: java.lang.CharSequence
-              go_name: arg1
-          returns: android.text.Editable
-          error: true
-        - java_method: insert
-          go_name: Insert4_3
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: java.lang.CharSequence
+            - java_type: android.content.Intent
               go_name: arg1
             - java_type: int
               go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: android.text.Editable
+          returns: java.util.List<android.content.pm.ResolveInfo>
           error: true
-        - java_method: replace
-          go_name: Replace3_2
+        - java_method: getProviderInfo
+          go_name: GetProviderInfo
           params:
-            - java_type: int
+            - java_type: android.content.pm.ResolveInfo
               go_name: arg0
-            - java_type: int
+          returns: android.content.pm.ProviderInfo
+          error: true
+    - java_class: androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper_API28
+      go_type: DefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API28
+      obtain: constructor
+      methods:
+        - java_method: getSigningSignatures
+          go_name: GetSigningSignatures
+          params:
+            - java_type: android.content.pm.PackageManager
+              go_name: arg0
+            - java_type: String
               go_name: arg1
-            - java_type: java.lang.CharSequence
-              go_name: arg2
-          returns: android.text.Editable
-          error: true
-        - java_method: replace
-          go_name: Replace5_3
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: java.lang.CharSequence
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-          returns: android.text.Editable
-          error: true
-        - java_method: append
-          go_name: Append1_7
-          params:
-            - java_type: char
-              go_name: arg0
-          returns: java.lang.Appendable
-          error: true
-        - java_method: append
-          go_name: Append3_8
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: java.lang.Appendable
-          error: true
-        - java_method: append
-          go_name: Append1_9
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: java.lang.Appendable
+          returns: android.content.pm.Signature[]
           error: true
     - java_class: androidx.emoji2.text.MetadataRepo
       go_type: MetadataRepo
@@ -313,6 +328,17 @@ classes:
             - java_type: String
               go_name: arg1
           returns: androidx.emoji2.text.MetadataRepo
+          error: true
+    - java_class: androidx.emoji2.text.EmojiCompatInitializer
+      go_type: EmojiCompatInitializer
+      obtain: constructor
+      methods:
+        - java_method: create
+          go_name: Create
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: java.lang.Boolean
           error: true
     - java_class: androidx.emoji2.text.TypefaceEmojiRasterizer
       go_type: TypefaceEmojiRasterizer
@@ -395,12 +421,127 @@ classes:
           go_name: GetCodepointsLength
           returns: int
           error: true
+      static_methods:
         - java_method: toString
           go_name: ToString
           returns: String
           error: true
     - java_class: androidx.emoji2.text.TypefaceEmojiRasterizer$HasGlyph
       go_type: TypefaceEmojiRasterizerHasGlyph
+    - java_class: androidx.emoji2.text.FontRequestEmojiCompatConfig
+      go_type: FontRequestEmojiCompatConfig
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: androidx.core.provider.FontRequest
+          go_name: arg1
+      methods:
+        - java_method: setLoadingExecutor
+          go_name: SetLoadingExecutor
+          params:
+            - java_type: java.util.concurrent.Executor
+              go_name: arg0
+          returns: androidx.emoji2.text.FontRequestEmojiCompatConfig
+          error: true
+      static_methods:
+        - java_method: setRetryPolicy
+          go_name: SetRetryPolicy
+          params:
+            - java_type: androidx.emoji2.text.FontRequestEmojiCompatConfig$RetryPolicy
+              go_name: arg0
+          returns: androidx.emoji2.text.FontRequestEmojiCompatConfig
+          error: true
+    - java_class: androidx.emoji2.text.FontRequestEmojiCompatConfig$ExponentialBackoffRetryPolicy
+      go_type: FontRequestEmojiCompatConfigExponentialBackoffRetryPolicy
+      obtain: constructor
+      constructor_params:
+        - java_type: long
+          go_name: arg0
+      methods:
+        - java_method: getRetryDelay
+          go_name: GetRetryDelay
+          returns: long
+          error: true
+    - java_class: androidx.emoji2.text.FontRequestEmojiCompatConfig$FontProviderHelper
+      go_type: FontRequestEmojiCompatConfigFontProviderHelper
+      obtain: constructor
+      methods:
+        - java_method: fetchFonts
+          go_name: FetchFonts
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: androidx.core.provider.FontRequest
+              go_name: arg1
+          returns: androidx.core.provider.FontsContractCompat$FontFamilyResult
+          error: true
+        - java_method: buildTypeface
+          go_name: BuildTypeface
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: androidx.core.provider.FontsContractCompat$FontInfo
+              go_name: arg1
+          returns: android.graphics.Typeface
+          error: true
+        - java_method: registerObserver
+          go_name: RegisterObserver
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.net.Uri
+              go_name: arg1
+            - java_type: android.database.ContentObserver
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: unregisterObserver
+          go_name: UnregisterObserver
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.database.ContentObserver
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: androidx.emoji2.text.FontRequestEmojiCompatConfig$RetryPolicy
+      go_type: FontRequestEmojiCompatConfigRetryPolicy
+      methods:
+        - java_method: getRetryDelay
+          go_name: GetRetryDelay
+          returns: long
+          error: true
+    - java_class: androidx.emoji2.text.TypefaceEmojiSpan
+      go_type: TypefaceEmojiSpan
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.emoji2.text.TypefaceEmojiRasterizer
+          go_name: arg0
+      methods:
+        - java_method: draw
+          go_name: Draw
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+            - java_type: java.lang.CharSequence
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: float
+              go_name: arg4
+            - java_type: int
+              go_name: arg5
+            - java_type: int
+              go_name: arg6
+            - java_type: int
+              go_name: arg7
+            - java_type: android.graphics.Paint
+              go_name: arg8
+          returns: void
+          error: true
     - java_class: androidx.emoji2.text.EmojiCompat
       go_type: EmojiCompat
       methods:
@@ -527,13 +668,6 @@ classes:
           go_name: GetAssetSignature
           returns: String
           error: true
-        - java_method: updateEditorInfo
-          go_name: UpdateEditorInfo
-          params:
-            - java_type: android.view.inputmethod.EditorInfo
-              go_name: arg0
-          returns: void
-          error: true
       static_methods:
         - java_method: init
           go_name: Init1
@@ -615,77 +749,6 @@ classes:
           error: true
     - java_class: androidx.emoji2.text.EmojiCompat$CodepointSequenceMatchResult
       go_type: EmojiCompatCodepointSequenceMatchResult
-    - java_class: androidx.emoji2.text.DefaultEmojiCompatConfig
-      go_type: DefaultEmojiCompatConfig
-      static_methods:
-        - java_method: create
-          go_name: Create
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: androidx.emoji2.text.FontRequestEmojiCompatConfig
-          error: true
-    - java_class: androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigFactory
-      go_type: DefaultEmojiCompatConfigDefaultEmojiCompatConfigFactory
-      methods:
-        - java_method: create
-          go_name: Create
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: androidx.emoji2.text.EmojiCompat$Config
-          error: true
-    - java_class: androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper
-      go_type: DefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper
-      methods:
-        - java_method: getSigningSignatures
-          go_name: GetSigningSignatures
-          params:
-            - java_type: android.content.pm.PackageManager
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: android.content.pm.Signature[]
-          error: true
-        - java_method: queryIntentContentProviders
-          go_name: QueryIntentContentProviders
-          params:
-            - java_type: android.content.pm.PackageManager
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: java.util.List<android.content.pm.ResolveInfo>
-          error: true
-        - java_method: getProviderInfo
-          go_name: GetProviderInfo
-          params:
-            - java_type: android.content.pm.ResolveInfo
-              go_name: arg0
-          returns: android.content.pm.ProviderInfo
-          error: true
-    - java_class: androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper_API19
-      go_type: DefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19
-      methods:
-        - java_method: queryIntentContentProviders
-          go_name: QueryIntentContentProviders
-          params:
-            - java_type: android.content.pm.PackageManager
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: java.util.List<android.content.pm.ResolveInfo>
-          error: true
-        - java_method: getProviderInfo
-          go_name: GetProviderInfo
-          params:
-            - java_type: android.content.pm.ResolveInfo
-              go_name: arg0
-          returns: android.content.pm.ProviderInfo
-          error: true
     - java_class: androidx.emoji2.text.EmojiCompat$Config
       go_type: EmojiCompatConfig
       methods:
@@ -754,6 +817,7 @@ classes:
           error: true
     - java_class: androidx.emoji2.text.EmojiCompat$DefaultSpanFactory
       go_type: EmojiCompatDefaultSpanFactory
+      obtain: constructor
       methods:
         - java_method: createSpan
           go_name: CreateSpan
@@ -761,18 +825,6 @@ classes:
             - java_type: androidx.emoji2.text.TypefaceEmojiRasterizer
               go_name: arg0
           returns: androidx.emoji2.text.EmojiSpan
-          error: true
-    - java_class: androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper_API28
-      go_type: DefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API28
-      methods:
-        - java_method: getSigningSignatures
-          go_name: GetSigningSignatures
-          params:
-            - java_type: android.content.pm.PackageManager
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: android.content.pm.Signature[]
           error: true
     - java_class: androidx.emoji2.text.EmojiCompat$GlyphChecker
       go_type: EmojiCompatGlyphChecker
@@ -845,213 +897,14 @@ classes:
               go_name: arg0
           returns: androidx.emoji2.text.EmojiSpan
           error: true
-    - java_class: androidx.emoji2.text.EmojiCompatInitializer
-      go_type: EmojiCompatInitializer
-      obtain: constructor
-      methods:
-        - java_method: create
-          go_name: Create1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: java.lang.Boolean
-          error: true
-        - java_method: create
-          go_name: Create1_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: java.lang.Object
-          error: true
-    - java_class: androidx.emoji2.text.EmojiSpan
-      go_type: EmojiSpan
-      methods:
-        - java_method: getSize
-          go_name: GetSize
-          params:
-            - java_type: android.graphics.Paint
-              go_name: arg0
-            - java_type: java.lang.CharSequence
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: android.graphics.Paint$FontMetricsInt
-              go_name: arg4
-          returns: int
-          error: true
-        - java_method: getTypefaceRasterizer
-          go_name: GetTypefaceRasterizer
-          returns: androidx.emoji2.text.TypefaceEmojiRasterizer
-          error: true
-        - java_method: getHeight
-          go_name: GetHeight
-          returns: int
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: int
-          error: true
-    - java_class: androidx.emoji2.text.EmojiDefaults
-      go_type: EmojiDefaults
-    - java_class: androidx.emoji2.text.FontRequestEmojiCompatConfig
-      go_type: FontRequestEmojiCompatConfig
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: androidx.core.provider.FontRequest
-          go_name: arg1
-      methods:
-        - java_method: setLoadingExecutor
-          go_name: SetLoadingExecutor
-          params:
-            - java_type: java.util.concurrent.Executor
-              go_name: arg0
-          returns: androidx.emoji2.text.FontRequestEmojiCompatConfig
-          error: true
-        - java_method: setRetryPolicy
-          go_name: SetRetryPolicy
-          params:
-            - java_type: androidx.emoji2.text.FontRequestEmojiCompatConfig$RetryPolicy
-              go_name: arg0
-          returns: androidx.emoji2.text.FontRequestEmojiCompatConfig
-          error: true
-    - java_class: androidx.emoji2.text.FontRequestEmojiCompatConfig$ExponentialBackoffRetryPolicy
-      go_type: FontRequestEmojiCompatConfigExponentialBackoffRetryPolicy
-      methods:
-        - java_method: getRetryDelay
-          go_name: GetRetryDelay
-          returns: long
-          error: true
-    - java_class: androidx.emoji2.text.TypefaceEmojiSpan
-      go_type: TypefaceEmojiSpan
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.emoji2.text.TypefaceEmojiRasterizer
-          go_name: arg0
-      methods:
-        - java_method: draw
-          go_name: Draw
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-            - java_type: java.lang.CharSequence
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: float
-              go_name: arg4
-            - java_type: int
-              go_name: arg5
-            - java_type: int
-              go_name: arg6
-            - java_type: int
-              go_name: arg7
-            - java_type: android.graphics.Paint
-              go_name: arg8
-          returns: void
-          error: true
-    - java_class: androidx.emoji2.text.FontRequestEmojiCompatConfig$FontProviderHelper
-      go_type: FontRequestEmojiCompatConfigFontProviderHelper
-      methods:
-        - java_method: fetchFonts
-          go_name: FetchFonts
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: androidx.core.provider.FontRequest
-              go_name: arg1
-          returns: androidx.core.provider.FontsContractCompat$FontFamilyResult
-          error: true
-        - java_method: buildTypeface
-          go_name: BuildTypeface
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: androidx.core.provider.FontsContractCompat$FontInfo
-              go_name: arg1
-          returns: android.graphics.Typeface
-          error: true
-        - java_method: registerObserver
-          go_name: RegisterObserver
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.net.Uri
-              go_name: arg1
-            - java_type: android.database.ContentObserver
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: unregisterObserver
-          go_name: UnregisterObserver
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.database.ContentObserver
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: androidx.emoji2.text.FontRequestEmojiCompatConfig$RetryPolicy
-      go_type: FontRequestEmojiCompatConfigRetryPolicy
-      methods:
-        - java_method: getRetryDelay
-          go_name: GetRetryDelay
-          returns: long
-          error: true
 abstract_callbacks:
-    - java_class: androidx.emoji2.text.EmojiCompat$Config
-      go_type: EmojiCompatConfigCallback
+    - java_class: androidx.emoji2.text.FontRequestEmojiCompatConfig$RetryPolicy
+      go_type: FontRequestEmojiCompatConfigRetryPolicyCallback
       methods:
-        - java_method: registerInitCallback
-          params:
-            - androidx.emoji2.text.EmojiCompat$InitCallback
-          returns: androidx.emoji2.text.EmojiCompat$Config
-          go_field: RegisterInitCallback
-        - java_method: unregisterInitCallback
-          params:
-            - androidx.emoji2.text.EmojiCompat$InitCallback
-          returns: androidx.emoji2.text.EmojiCompat$Config
-          go_field: UnregisterInitCallback
-        - java_method: setReplaceAll
-          params:
-            - boolean
-          returns: androidx.emoji2.text.EmojiCompat$Config
-          go_field: SetReplaceAll
-        - java_method: setUseEmojiAsDefaultStyle
-          params:
-            - boolean
-          returns: androidx.emoji2.text.EmojiCompat$Config
-          go_field: SetUseEmojiAsDefaultStyle
-        - java_method: setEmojiSpanIndicatorEnabled
-          params:
-            - boolean
-          returns: androidx.emoji2.text.EmojiCompat$Config
-          go_field: SetEmojiSpanIndicatorEnabled
-        - java_method: setEmojiSpanIndicatorColor
-          params:
-            - int
-          returns: androidx.emoji2.text.EmojiCompat$Config
-          go_field: SetEmojiSpanIndicatorColor
-        - java_method: setMetadataLoadStrategy
-          params:
-            - int
-          returns: androidx.emoji2.text.EmojiCompat$Config
-          go_field: SetMetadataLoadStrategy
-        - java_method: setSpanFactory
-          params:
-            - androidx.emoji2.text.EmojiCompat$SpanFactory
-          returns: androidx.emoji2.text.EmojiCompat$Config
-          go_field: SetSpanFactory
-        - java_method: setGlyphChecker
-          params:
-            - androidx.emoji2.text.EmojiCompat$GlyphChecker
-          returns: androidx.emoji2.text.EmojiCompat$Config
-          go_field: SetGlyphChecker
+        - java_method: getRetryDelay
+          params: []
+          returns: long
+          go_field: GetRetryDelay
     - java_class: androidx.emoji2.text.EmojiCompat$InitCallback
       go_type: EmojiCompatInitCallbackCallback
       methods:
@@ -1077,38 +930,26 @@ abstract_callbacks:
             - java.lang.Throwable
           returns: void
           go_field: OnFailed
+abstract_callback_eligibility:
     - java_class: androidx.emoji2.text.EmojiSpan
-      go_type: EmojiSpanCallback
-      methods:
-        - java_method: getSize
-          params:
-            - android.graphics.Paint
-            - java.lang.CharSequence
-            - int
-            - int
-            - android.graphics.Paint$FontMetricsInt
-          returns: int
-          go_field: GetSize
-        - java_method: getTypefaceRasterizer
-          params: []
-          returns: androidx.emoji2.text.TypefaceEmojiRasterizer
-          go_field: GetTypefaceRasterizer
-        - java_method: getHeight
-          params: []
-          returns: int
-          go_field: GetHeight
-        - java_method: getId
-          params: []
-          returns: int
-          go_field: GetId
+      generated: false
+      reason: unsupported_constructor
     - java_class: androidx.emoji2.text.FontRequestEmojiCompatConfig$RetryPolicy
-      go_type: FontRequestEmojiCompatConfigRetryPolicyCallback
-      methods:
-        - java_method: getRetryDelay
-          params: []
-          returns: long
-          go_field: GetRetryDelay
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: androidx.emoji2.text.EmojiCompat$Config
+      generated: false
+      reason: unsupported_constructor
+    - java_class: androidx.emoji2.text.EmojiCompat$InitCallback
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: androidx.emoji2.text.EmojiCompat$MetadataRepoLoaderCallback
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
+    - go_name: MaxEmojiCount
+      value: "2147483647"
+      go_type: int
     - go_name: EditorInfoMetaversionKey
       value: '"android.support.text.emoji.emojiCompat_metadataVersion"'
       go_type: string
@@ -1150,7 +991,4 @@ constants:
       go_type: int
     - go_name: EmojiFallback
       value: "2"
-      go_type: int
-    - go_name: MaxEmojiCount
-      value: "2147483647"
       go_type: int

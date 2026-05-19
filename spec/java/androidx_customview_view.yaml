@@ -16,33 +16,10 @@ classes:
           go_name: DescribeContents
           returns: int
           error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-abstract_callbacks:
+abstract_callback_eligibility:
     - java_class: androidx.customview.view.AbsSavedState
-      go_type: AbsSavedStateCallback
-      methods:
-        - java_method: getSuperState
-          params: []
-          returns: android.os.Parcelable
-          go_field: GetSuperState
-        - java_method: describeContents
-          params: []
-          returns: int
-          go_field: DescribeContents
-        - java_method: writeToParcel
-          params:
-            - android.os.Parcel
-            - int
-          returns: void
-          go_field: WriteToParcel
+      generated: false
+      reason: implements_interface
 constants:
     - go_name: EmptyState
       value: "0"

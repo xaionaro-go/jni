@@ -32,6 +32,12 @@ func NewColorFilter(vm *jni.VM) (*ColorFilter, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsColorFilter == nil {
+			return fmt.Errorf("android.graphics.ColorFilter is not available on this device")
+		}
+		if midColorFilterCtor == nil {
+			return fmt.Errorf("android.graphics.ColorFilter constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsColorFilter)), midColorFilterCtor)
 		if err != nil {
 			return err

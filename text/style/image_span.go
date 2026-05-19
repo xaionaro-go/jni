@@ -32,6 +32,12 @@ func NewImageSpan(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ImageSpan, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsImageSpan == nil {
+			return fmt.Errorf("android.text.style.ImageSpan is not available on this device")
+		}
+		if midImageSpanCtor == nil {
+			return fmt.Errorf("android.text.style.ImageSpan constructor (Landroid/content/Context;Landroid/graphics/Bitmap;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsImageSpan)), midImageSpanCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

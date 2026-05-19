@@ -23,6 +23,34 @@ type BeginGetCredentialResponseBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewBeginGetCredentialResponseBuilder creates a new android.service.credentials.BeginGetCredentialResponse$Builder instance.
+func NewBeginGetCredentialResponseBuilder(vm *jni.VM) (*BeginGetCredentialResponseBuilder, error) {
+	var t BeginGetCredentialResponseBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsBeginGetCredentialResponseBuilder == nil {
+			return fmt.Errorf("android.service.credentials.BeginGetCredentialResponse$Builder is not available on this device")
+		}
+		if midBeginGetCredentialResponseBuilderCtor == nil {
+			return fmt.Errorf("android.service.credentials.BeginGetCredentialResponse$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBeginGetCredentialResponseBuilder)), midBeginGetCredentialResponseBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddAction calls android.service.credentials.BeginGetCredentialResponse$Builder.addAction.
 func (m *BeginGetCredentialResponseBuilder) AddAction(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

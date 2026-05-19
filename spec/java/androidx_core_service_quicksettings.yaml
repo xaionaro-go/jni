@@ -5,29 +5,6 @@
 package: quicksettings
 go_import: github.com/AndroidGoLab/jni/androidx/core/service/quicksettings
 classes:
-    - java_class: androidx.core.service.quicksettings.TileServiceCompat
-      go_type: TileServiceCompat
-      static_methods:
-        - java_method: startActivityAndCollapse
-          go_name: StartActivityAndCollapse
-          params:
-            - java_type: android.service.quicksettings.TileService
-              go_name: arg0
-            - java_type: androidx.core.service.quicksettings.PendingIntentActivityWrapper
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setTileServiceWrapper
-          go_name: SetTileServiceWrapper
-          params:
-            - java_type: androidx.core.service.quicksettings.TileServiceCompat$TileServiceWrapper
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: clearTileServiceWrapper
-          go_name: ClearTileServiceWrapper
-          returns: void
-          error: true
     - java_class: androidx.core.service.quicksettings.PendingIntentActivityWrapper
       go_type: PendingIntentActivityWrapper
       obtain: constructor
@@ -70,4 +47,27 @@ classes:
         - java_method: getPendingIntent
           go_name: GetPendingIntent
           returns: android.app.PendingIntent
+          error: true
+    - java_class: androidx.core.service.quicksettings.TileServiceCompat
+      go_type: TileServiceCompat
+      static_methods:
+        - java_method: startActivityAndCollapse
+          go_name: StartActivityAndCollapse
+          params:
+            - java_type: android.service.quicksettings.TileService
+              go_name: arg0
+            - java_type: androidx.core.service.quicksettings.PendingIntentActivityWrapper
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setTileServiceWrapper
+          go_name: SetTileServiceWrapper
+          params:
+            - java_type: androidx.core.service.quicksettings.TileServiceCompat$TileServiceWrapper
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: clearTileServiceWrapper
+          go_name: ClearTileServiceWrapper
+          returns: void
           error: true

@@ -32,6 +32,12 @@ func NewChronometer(vm *jni.VM, arg0 *jni.Object) (*Chronometer, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsChronometer == nil {
+			return fmt.Errorf("android.widget.Chronometer is not available on this device")
+		}
+		if midChronometerCtor == nil {
+			return fmt.Errorf("android.widget.Chronometer constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsChronometer)), midChronometerCtor, jni.ObjectValue(arg0))
 		if err != nil {

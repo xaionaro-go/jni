@@ -65,8 +65,8 @@ var (
 	midSwipeRefreshLayoutOnNestedFling                            jni.MethodID
 	midSwipeRefreshLayoutDispatchNestedFling                      jni.MethodID
 	midSwipeRefreshLayoutDispatchNestedPreFling                   jni.MethodID
-	midSwipeRefreshLayoutOnTouchEvent                             jni.MethodID
 	midSwipeRefreshLayoutToString                                 jni.MethodID
+	midSwipeRefreshLayoutOnTouchEvent                             jni.MethodID
 
 	clsSwipeRefreshLayoutOnChildScrollUpCallback                 *jni.GlobalRef
 	midSwipeRefreshLayoutOnChildScrollUpCallbackCanChildScrollUp jni.MethodID
@@ -108,8 +108,8 @@ var (
 	midCircularProgressDrawableGetOpacity           jni.MethodID
 	midCircularProgressDrawableIsRunning            jni.MethodID
 	midCircularProgressDrawableStart                jni.MethodID
-	midCircularProgressDrawableStop                 jni.MethodID
 	midCircularProgressDrawableToString             jni.MethodID
+	midCircularProgressDrawableStop                 jni.MethodID
 
 	clsCircularProgressDrawableProgressDrawableSize         *jni.GlobalRef
 	midCircularProgressDrawableProgressDrawableSizeToString jni.MethodID
@@ -425,14 +425,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midSwipeRefreshLayoutOnTouchEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSwipeRefreshLayout)), "onTouchEvent", "(Landroid/view/MotionEvent;)Z")
+		midSwipeRefreshLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSwipeRefreshLayout)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSwipeRefreshLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSwipeRefreshLayout)), "toString", "()Ljava/lang/String;")
+		midSwipeRefreshLayoutOnTouchEvent, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSwipeRefreshLayout)), "onTouchEvent", "(Landroid/view/MotionEvent;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -711,14 +711,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midCircularProgressDrawableStop, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressDrawable)), "stop", "()V")
+		midCircularProgressDrawableToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressDrawable)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularProgressDrawableToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressDrawable)), "toString", "()Ljava/lang/String;")
+		midCircularProgressDrawableStop, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressDrawable)), "stop", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

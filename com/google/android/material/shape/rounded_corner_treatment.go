@@ -32,6 +32,12 @@ func NewRoundedCornerTreatment(vm *jni.VM) (*RoundedCornerTreatment, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRoundedCornerTreatment == nil {
+			return fmt.Errorf("com.google.android.material.shape.RoundedCornerTreatment is not available on this device")
+		}
+		if midRoundedCornerTreatmentCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.RoundedCornerTreatment constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRoundedCornerTreatment)), midRoundedCornerTreatmentCtor)
 		if err != nil {
 			return err

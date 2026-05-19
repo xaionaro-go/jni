@@ -2085,29 +2085,6 @@ func (m *MotionEvent) Transform(arg0 *jni.Object) error {
 	return callErr
 }
 
-// WriteToParcel calls android.view.MotionEvent.writeToParcel.
-func (m *MotionEvent) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMotionEventWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.MotionEvent.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMotionEventWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ActionToString calls android.view.MotionEvent.actionToString.
 func (m *MotionEvent) ActionToString(arg0 int32) (string, error) {
 	var result string
@@ -2537,4 +2514,27 @@ func (m *MotionEvent) ObtainNoHistory(arg0 *jni.Object) (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.MotionEvent.writeToParcel.
+func (m *MotionEvent) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midMotionEventWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.MotionEvent.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsMotionEvent)),
+			midMotionEventWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

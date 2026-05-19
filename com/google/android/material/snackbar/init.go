@@ -23,51 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsContentViewCallback                  *jni.GlobalRef
-	midContentViewCallbackAnimateContentIn  jni.MethodID
-	midContentViewCallbackAnimateContentOut jni.MethodID
-	midContentViewCallbackToString          jni.MethodID
-
-	clsSnackbar                        *jni.GlobalRef
-	midSnackbarShow                    jni.MethodID
-	midSnackbarDismiss                 jni.MethodID
-	midSnackbarIsShown                 jni.MethodID
-	midSnackbarSetText1                jni.MethodID
-	midSnackbarSetText1_1              jni.MethodID
-	midSnackbarSetAction2              jni.MethodID
-	midSnackbarSetAction2_1            jni.MethodID
-	midSnackbarGetDuration             jni.MethodID
-	midSnackbarSetTextColor1           jni.MethodID
-	midSnackbarSetTextColor1_1         jni.MethodID
-	midSnackbarSetTextMaxLines         jni.MethodID
-	midSnackbarSetActionTextColor1     jni.MethodID
-	midSnackbarSetMaxInlineActionWidth jni.MethodID
-	midSnackbarSetActionTextColor1_1   jni.MethodID
-	midSnackbarSetBackgroundTint       jni.MethodID
-	midSnackbarSetBackgroundTintList   jni.MethodID
-	midSnackbarSetBackgroundTintMode   jni.MethodID
-	midSnackbarSetCallback             jni.MethodID
-	midSnackbarToString                jni.MethodID
-	midSnackbarMake3                   jni.MethodID
-	midSnackbarMake4_1                 jni.MethodID
-	midSnackbarMake3_2                 jni.MethodID
-
-	clsCallback               *jni.GlobalRef
-	midCallbackOnShown1       jni.MethodID
-	midCallbackOnDismissed2   jni.MethodID
-	midCallbackOnShown1_1     jni.MethodID
-	midCallbackOnDismissed2_1 jni.MethodID
-	midCallbackToString       jni.MethodID
-
-	clsSnackbarLayout                      *jni.GlobalRef
-	midSnackbarLayoutSetLayoutParams       jni.MethodID
-	midSnackbarLayoutSetOnClickListener    jni.MethodID
-	midSnackbarLayoutSetBackgroundTintMode jni.MethodID
-	midSnackbarLayoutSetBackgroundTintList jni.MethodID
-	midSnackbarLayoutSetBackgroundDrawable jni.MethodID
-	midSnackbarLayoutSetBackground         jni.MethodID
-	midSnackbarLayoutToString              jni.MethodID
-
 	clsContentLayout                        *jni.GlobalRef
 	midContentLayoutCtor                    jni.MethodID
 	midContentLayoutGetMessageView          jni.MethodID
@@ -90,7 +45,6 @@ var (
 	midBaseTransientBottomBarShow                               jni.MethodID
 	midBaseTransientBottomBarDismiss                            jni.MethodID
 	midBaseTransientBottomBarIsShown                            jni.MethodID
-	midBaseTransientBottomBarIsShownOrQueued                    jni.MethodID
 	midBaseTransientBottomBarToString                           jni.MethodID
 
 	clsBaseTransientBottomBarAnimationMode         *jni.GlobalRef
@@ -99,12 +53,13 @@ var (
 	clsBaseTransientBottomBarBaseCallback         *jni.GlobalRef
 	midBaseTransientBottomBarBaseCallbackToString jni.MethodID
 
-	clsBaseTransientBottomBarBehavior                      *jni.GlobalRef
-	midBaseTransientBottomBarBehaviorCanSwipeDismissView   jni.MethodID
-	midBaseTransientBottomBarBehaviorOnInterceptTouchEvent jni.MethodID
-	midBaseTransientBottomBarBehaviorToString              jni.MethodID
+	clsBaseTransientBottomBarBehavior                    *jni.GlobalRef
+	midBaseTransientBottomBarBehaviorCtor                jni.MethodID
+	midBaseTransientBottomBarBehaviorCanSwipeDismissView jni.MethodID
+	midBaseTransientBottomBarBehaviorToString            jni.MethodID
 
 	clsBaseTransientBottomBarBehaviorDelegate                      *jni.GlobalRef
+	midBaseTransientBottomBarBehaviorDelegateCtor                  jni.MethodID
 	midBaseTransientBottomBarBehaviorDelegateCanSwipeDismissView   jni.MethodID
 	midBaseTransientBottomBarBehaviorDelegateOnInterceptTouchEvent jni.MethodID
 	midBaseTransientBottomBarBehaviorDelegateToString              jni.MethodID
@@ -121,8 +76,46 @@ var (
 	midBaseTransientBottomBarSnackbarBaseLayoutSetBackgroundTintList jni.MethodID
 	midBaseTransientBottomBarSnackbarBaseLayoutSetBackgroundTintMode jni.MethodID
 	midBaseTransientBottomBarSnackbarBaseLayoutSetOnClickListener    jni.MethodID
-	midBaseTransientBottomBarSnackbarBaseLayoutSetLayoutParams       jni.MethodID
 	midBaseTransientBottomBarSnackbarBaseLayoutToString              jni.MethodID
+
+	clsSnackbar                        *jni.GlobalRef
+	midSnackbarShow                    jni.MethodID
+	midSnackbarDismiss                 jni.MethodID
+	midSnackbarIsShown                 jni.MethodID
+	midSnackbarSetText1                jni.MethodID
+	midSnackbarSetText1_1              jni.MethodID
+	midSnackbarSetAction2              jni.MethodID
+	midSnackbarSetAction2_1            jni.MethodID
+	midSnackbarGetDuration             jni.MethodID
+	midSnackbarSetTextColor1           jni.MethodID
+	midSnackbarSetTextColor1_1         jni.MethodID
+	midSnackbarSetTextMaxLines         jni.MethodID
+	midSnackbarSetActionTextColor1     jni.MethodID
+	midSnackbarSetMaxInlineActionWidth jni.MethodID
+	midSnackbarSetActionTextColor1_1   jni.MethodID
+	midSnackbarSetBackgroundTint       jni.MethodID
+	midSnackbarSetBackgroundTintList   jni.MethodID
+	midSnackbarSetBackgroundTintMode   jni.MethodID
+	midSnackbarToString                jni.MethodID
+	midSnackbarMake3                   jni.MethodID
+	midSnackbarMake4_1                 jni.MethodID
+	midSnackbarMake3_2                 jni.MethodID
+	midSnackbarSetCallback             jni.MethodID
+
+	clsCallback            *jni.GlobalRef
+	midCallbackCtor        jni.MethodID
+	midCallbackOnShown     jni.MethodID
+	midCallbackOnDismissed jni.MethodID
+	midCallbackToString    jni.MethodID
+
+	clsSnackbarLayout         *jni.GlobalRef
+	midSnackbarLayoutCtor     jni.MethodID
+	midSnackbarLayoutToString jni.MethodID
+
+	clsContentViewCallback                  *jni.GlobalRef
+	midContentViewCallbackAnimateContentIn  jni.MethodID
+	midContentViewCallbackAnimateContentOut jni.MethodID
+	midContentViewCallbackToString          jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -142,305 +135,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("com/google/android/material/snackbar/ContentViewCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsContentViewCallback = env.NewGlobalRef(&c.Object)
-
-		midContentViewCallbackAnimateContentIn, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentViewCallback)), "animateContentIn", "(II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContentViewCallbackAnimateContentOut, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentViewCallback)), "animateContentOut", "(II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContentViewCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentViewCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/snackbar/Snackbar")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSnackbar = env.NewGlobalRef(&c.Object)
-
-		midSnackbarShow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "show", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarDismiss, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "dismiss", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarIsShown, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "isShown", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarSetText1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setText", "(Ljava/lang/CharSequence;)Lcom/google/android/material/snackbar/Snackbar;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarSetText1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setText", "(I)Lcom/google/android/material/snackbar/Snackbar;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarSetAction2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setAction", "(ILandroid/view/View$OnClickListener;)Lcom/google/android/material/snackbar/Snackbar;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarSetAction2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setAction", "(Ljava/lang/CharSequence;Landroid/view/View$OnClickListener;)Lcom/google/android/material/snackbar/Snackbar;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarGetDuration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "getDuration", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarSetTextColor1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setTextColor", "(Landroid/content/res/ColorStateList;)Lcom/google/android/material/snackbar/Snackbar;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarSetTextColor1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setTextColor", "(I)Lcom/google/android/material/snackbar/Snackbar;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarSetTextMaxLines, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setTextMaxLines", "(I)Lcom/google/android/material/snackbar/Snackbar;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarSetActionTextColor1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setActionTextColor", "(Landroid/content/res/ColorStateList;)Lcom/google/android/material/snackbar/Snackbar;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarSetMaxInlineActionWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setMaxInlineActionWidth", "(I)Lcom/google/android/material/snackbar/Snackbar;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarSetActionTextColor1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setActionTextColor", "(I)Lcom/google/android/material/snackbar/Snackbar;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarSetBackgroundTint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setBackgroundTint", "(I)Lcom/google/android/material/snackbar/Snackbar;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarSetBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setBackgroundTintList", "(Landroid/content/res/ColorStateList;)Lcom/google/android/material/snackbar/Snackbar;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarSetBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)Lcom/google/android/material/snackbar/Snackbar;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarSetCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setCallback", "(Lcom/google/android/material/snackbar/Snackbar$Callback;)Lcom/google/android/material/snackbar/Snackbar;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarMake3, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "make", "(Landroid/view/View;Ljava/lang/CharSequence;I)Lcom/google/android/material/snackbar/Snackbar;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarMake4_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "make", "(Landroid/content/Context;Landroid/view/View;Ljava/lang/CharSequence;I)Lcom/google/android/material/snackbar/Snackbar;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarMake3_2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "make", "(Landroid/view/View;II)Lcom/google/android/material/snackbar/Snackbar;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/snackbar/Snackbar$Callback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCallback = env.NewGlobalRef(&c.Object)
-
-		midCallbackOnShown1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCallback)), "onShown", "(Lcom/google/android/material/snackbar/Snackbar;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCallbackOnDismissed2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCallback)), "onDismissed", "(Lcom/google/android/material/snackbar/Snackbar;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCallbackOnShown1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCallback)), "onShown", "(Ljava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCallbackOnDismissed2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCallback)), "onDismissed", "(Ljava/lang/Object;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/snackbar/Snackbar$SnackbarLayout")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSnackbarLayout = env.NewGlobalRef(&c.Object)
-
-		midSnackbarLayoutSetLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbarLayout)), "setLayoutParams", "(Landroid/view/ViewGroup$LayoutParams;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarLayoutSetOnClickListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbarLayout)), "setOnClickListener", "(Landroid/view/View$OnClickListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarLayoutSetBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbarLayout)), "setBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarLayoutSetBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbarLayout)), "setBackgroundTintList", "(Landroid/content/res/ColorStateList;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarLayoutSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbarLayout)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarLayoutSetBackground, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbarLayout)), "setBackground", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnackbarLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbarLayout)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("com/google/android/material/snackbar/SnackbarContentLayout")
 	if err != nil {
@@ -590,13 +284,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midBaseTransientBottomBarIsShownOrQueued, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseTransientBottomBar)), "isShownOrQueued", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midBaseTransientBottomBarToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseTransientBottomBar)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -647,15 +334,12 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsBaseTransientBottomBarBehavior = env.NewGlobalRef(&c.Object)
-
-		midBaseTransientBottomBarBehaviorCanSwipeDismissView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseTransientBottomBarBehavior)), "canSwipeDismissView", "(Landroid/view/View;)Z")
+		midBaseTransientBottomBarBehaviorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseTransientBottomBarBehavior)), "<init>", "()V")
 		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midBaseTransientBottomBarBehaviorOnInterceptTouchEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseTransientBottomBarBehavior)), "onInterceptTouchEvent", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/MotionEvent;)Z")
+		midBaseTransientBottomBarBehaviorCanSwipeDismissView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseTransientBottomBarBehavior)), "canSwipeDismissView", "(Landroid/view/View;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -678,6 +362,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsBaseTransientBottomBarBehaviorDelegate = env.NewGlobalRef(&c.Object)
+		midBaseTransientBottomBarBehaviorDelegateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseTransientBottomBarBehaviorDelegate)), "<init>", "(Lcom/google/android/material/behavior/SwipeDismissBehavior;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midBaseTransientBottomBarBehaviorDelegateCanSwipeDismissView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseTransientBottomBarBehaviorDelegate)), "canSwipeDismissView", "(Landroid/view/View;)Z")
 		if err != nil {
@@ -779,14 +467,258 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midBaseTransientBottomBarSnackbarBaseLayoutSetLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseTransientBottomBarSnackbarBaseLayout)), "setLayoutParams", "(Landroid/view/ViewGroup$LayoutParams;)V")
+		midBaseTransientBottomBarSnackbarBaseLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseTransientBottomBarSnackbarBaseLayout)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midBaseTransientBottomBarSnackbarBaseLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseTransientBottomBarSnackbarBaseLayout)), "toString", "()Ljava/lang/String;")
+	}
+
+	c, err = env.FindClass("com/google/android/material/snackbar/Snackbar")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSnackbar = env.NewGlobalRef(&c.Object)
+
+		midSnackbarShow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "show", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSnackbarDismiss, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "dismiss", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSnackbarIsShown, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "isShown", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSnackbarSetText1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setText", "(Ljava/lang/CharSequence;)Lcom/google/android/material/snackbar/Snackbar;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSnackbarSetText1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setText", "(I)Lcom/google/android/material/snackbar/Snackbar;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSnackbarSetAction2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setAction", "(ILandroid/view/View$OnClickListener;)Lcom/google/android/material/snackbar/Snackbar;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSnackbarSetAction2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setAction", "(Ljava/lang/CharSequence;Landroid/view/View$OnClickListener;)Lcom/google/android/material/snackbar/Snackbar;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSnackbarGetDuration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "getDuration", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSnackbarSetTextColor1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setTextColor", "(Landroid/content/res/ColorStateList;)Lcom/google/android/material/snackbar/Snackbar;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSnackbarSetTextColor1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setTextColor", "(I)Lcom/google/android/material/snackbar/Snackbar;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSnackbarSetTextMaxLines, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setTextMaxLines", "(I)Lcom/google/android/material/snackbar/Snackbar;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSnackbarSetActionTextColor1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setActionTextColor", "(Landroid/content/res/ColorStateList;)Lcom/google/android/material/snackbar/Snackbar;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSnackbarSetMaxInlineActionWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setMaxInlineActionWidth", "(I)Lcom/google/android/material/snackbar/Snackbar;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSnackbarSetActionTextColor1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setActionTextColor", "(I)Lcom/google/android/material/snackbar/Snackbar;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSnackbarSetBackgroundTint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setBackgroundTint", "(I)Lcom/google/android/material/snackbar/Snackbar;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSnackbarSetBackgroundTintList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setBackgroundTintList", "(Landroid/content/res/ColorStateList;)Lcom/google/android/material/snackbar/Snackbar;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSnackbarSetBackgroundTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setBackgroundTintMode", "(Landroid/graphics/PorterDuff$Mode;)Lcom/google/android/material/snackbar/Snackbar;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSnackbarToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSnackbarMake3, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "make", "(Landroid/view/View;Ljava/lang/CharSequence;I)Lcom/google/android/material/snackbar/Snackbar;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSnackbarMake4_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "make", "(Landroid/content/Context;Landroid/view/View;Ljava/lang/CharSequence;I)Lcom/google/android/material/snackbar/Snackbar;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSnackbarMake3_2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "make", "(Landroid/view/View;II)Lcom/google/android/material/snackbar/Snackbar;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSnackbarSetCallback, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSnackbar)), "setCallback", "(Lcom/google/android/material/snackbar/Snackbar$Callback;)Lcom/google/android/material/snackbar/Snackbar;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/snackbar/Snackbar$Callback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCallback = env.NewGlobalRef(&c.Object)
+		midCallbackCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCallback)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCallbackOnShown, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCallback)), "onShown", "(Lcom/google/android/material/snackbar/Snackbar;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCallbackOnDismissed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCallback)), "onDismissed", "(Lcom/google/android/material/snackbar/Snackbar;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/snackbar/Snackbar$SnackbarLayout")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSnackbarLayout = env.NewGlobalRef(&c.Object)
+		midSnackbarLayoutCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbarLayout)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSnackbarLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnackbarLayout)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/snackbar/ContentViewCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsContentViewCallback = env.NewGlobalRef(&c.Object)
+
+		midContentViewCallbackAnimateContentIn, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentViewCallback)), "animateContentIn", "(II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContentViewCallbackAnimateContentOut, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentViewCallback)), "animateContentOut", "(II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContentViewCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentViewCallback)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

@@ -23,6 +23,34 @@ type FontRequestEmojiCompatConfigFontProviderHelper struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFontRequestEmojiCompatConfigFontProviderHelper creates a new androidx.emoji2.text.FontRequestEmojiCompatConfig$FontProviderHelper instance.
+func NewFontRequestEmojiCompatConfigFontProviderHelper(vm *jni.VM) (*FontRequestEmojiCompatConfigFontProviderHelper, error) {
+	var t FontRequestEmojiCompatConfigFontProviderHelper
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFontRequestEmojiCompatConfigFontProviderHelper == nil {
+			return fmt.Errorf("androidx.emoji2.text.FontRequestEmojiCompatConfig$FontProviderHelper is not available on this device")
+		}
+		if midFontRequestEmojiCompatConfigFontProviderHelperCtor == nil {
+			return fmt.Errorf("androidx.emoji2.text.FontRequestEmojiCompatConfig$FontProviderHelper constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigFontProviderHelper)), midFontRequestEmojiCompatConfigFontProviderHelperCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // FetchFonts calls androidx.emoji2.text.FontRequestEmojiCompatConfig$FontProviderHelper.fetchFonts.
 func (m *FontRequestEmojiCompatConfigFontProviderHelper) FetchFonts(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

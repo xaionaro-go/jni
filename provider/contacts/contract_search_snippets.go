@@ -23,6 +23,34 @@ type ContractSearchSnippets struct {
 	Obj *jni.GlobalRef
 }
 
+// NewContractSearchSnippets creates a new android.provider.ContactsContract$SearchSnippets instance.
+func NewContractSearchSnippets(vm *jni.VM) (*ContractSearchSnippets, error) {
+	var t ContractSearchSnippets
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsContractSearchSnippets == nil {
+			return fmt.Errorf("android.provider.ContactsContract$SearchSnippets is not available on this device")
+		}
+		if midContractSearchSnippetsCtor == nil {
+			return fmt.Errorf("android.provider.ContactsContract$SearchSnippets constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContractSearchSnippets)), midContractSearchSnippetsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.provider.ContactsContract$SearchSnippets.toString.
 func (m *ContractSearchSnippets) ToString() (string, error) {
 	var result string

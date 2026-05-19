@@ -32,6 +32,12 @@ func NewEdgeEffect(vm *jni.VM, arg0 *jni.Object) (*EdgeEffect, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEdgeEffect == nil {
+			return fmt.Errorf("android.widget.EdgeEffect is not available on this device")
+		}
+		if midEdgeEffectCtor == nil {
+			return fmt.Errorf("android.widget.EdgeEffect constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEdgeEffect)), midEdgeEffectCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -393,29 +399,6 @@ func (m *EdgeEffect) SetColor(arg0 int32) error {
 	return callErr
 }
 
-// SetSize calls android.widget.EdgeEffect.setSize.
-func (m *EdgeEffect) SetSize(arg0 int32, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midEdgeEffectSetSize == nil {
-			callErr = fmt.Errorf("android.widget.EdgeEffect.setSize is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midEdgeEffectSetSize, jni.IntValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.widget.EdgeEffect.toString.
 func (m *EdgeEffect) ToString() (string, error) {
 	var result string
@@ -441,4 +424,27 @@ func (m *EdgeEffect) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// SetSize calls android.widget.EdgeEffect.setSize.
+func (m *EdgeEffect) SetSize(arg0 int32, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midEdgeEffectSetSize == nil {
+			callErr = fmt.Errorf("android.widget.EdgeEffect.setSize is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsEdgeEffect)),
+			midEdgeEffectSetSize, jni.IntValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

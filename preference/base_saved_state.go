@@ -23,6 +23,35 @@ type BaseSavedState struct {
 	Obj *jni.GlobalRef
 }
 
+// NewBaseSavedState creates a new android.preference.Preference$BaseSavedState instance.
+func NewBaseSavedState(vm *jni.VM, arg0 *jni.Object) (*BaseSavedState, error) {
+	var t BaseSavedState
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsBaseSavedState == nil {
+			return fmt.Errorf("android.preference.Preference$BaseSavedState is not available on this device")
+		}
+		if midBaseSavedStateCtor == nil {
+			return fmt.Errorf("android.preference.Preference$BaseSavedState constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBaseSavedState)), midBaseSavedStateCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.preference.Preference$BaseSavedState.toString.
 func (m *BaseSavedState) ToString() (string, error) {
 	var result string

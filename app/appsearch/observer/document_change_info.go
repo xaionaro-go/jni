@@ -32,6 +32,12 @@ func NewDocumentChangeInfo(vm *jni.VM, arg0 string, arg1 string, arg2 string, ar
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDocumentChangeInfo == nil {
+			return fmt.Errorf("android.app.appsearch.observer.DocumentChangeInfo is not available on this device")
+		}
+		if midDocumentChangeInfoCtor == nil {
+			return fmt.Errorf("android.app.appsearch.observer.DocumentChangeInfo constructor (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

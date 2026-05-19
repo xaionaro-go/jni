@@ -23,6 +23,35 @@ type FontFamilyBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFontFamilyBuilder creates a new android.graphics.fonts.FontFamily$Builder instance.
+func NewFontFamilyBuilder(vm *jni.VM, arg0 *jni.Object) (*FontFamilyBuilder, error) {
+	var t FontFamilyBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFontFamilyBuilder == nil {
+			return fmt.Errorf("android.graphics.fonts.FontFamily$Builder is not available on this device")
+		}
+		if midFontFamilyBuilderCtor == nil {
+			return fmt.Errorf("android.graphics.fonts.FontFamily$Builder constructor (Landroid/graphics/fonts/Font;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFontFamilyBuilder)), midFontFamilyBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddFont calls android.graphics.fonts.FontFamily$Builder.addFont.
 func (m *FontFamilyBuilder) AddFont(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

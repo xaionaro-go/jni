@@ -32,6 +32,12 @@ func NewWebViewFragment(vm *jni.VM) (*WebViewFragment, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWebViewFragment == nil {
+			return fmt.Errorf("android.webkit.WebViewFragment is not available on this device")
+		}
+		if midWebViewFragmentCtor == nil {
+			return fmt.Errorf("android.webkit.WebViewFragment constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWebViewFragment)), midWebViewFragmentCtor)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewAndroidCharacter(vm *jni.VM) (*AndroidCharacter, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAndroidCharacter == nil {
+			return fmt.Errorf("android.text.AndroidCharacter is not available on this device")
+		}
+		if midAndroidCharacterCtor == nil {
+			return fmt.Errorf("android.text.AndroidCharacter constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAndroidCharacter)), midAndroidCharacterCtor)
 		if err != nil {
 			return err

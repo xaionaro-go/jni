@@ -23,6 +23,34 @@ type FilterFilterResults struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFilterFilterResults creates a new android.widget.Filter$FilterResults instance.
+func NewFilterFilterResults(vm *jni.VM) (*FilterFilterResults, error) {
+	var t FilterFilterResults
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFilterFilterResults == nil {
+			return fmt.Errorf("android.widget.Filter$FilterResults is not available on this device")
+		}
+		if midFilterFilterResultsCtor == nil {
+			return fmt.Errorf("android.widget.Filter$FilterResults constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFilterFilterResults)), midFilterFilterResultsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.widget.Filter$FilterResults.toString.
 func (m *FilterFilterResults) ToString() (string, error) {
 	var result string

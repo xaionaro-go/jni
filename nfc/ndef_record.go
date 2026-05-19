@@ -32,6 +32,12 @@ func NewNdefRecord(vm *jni.VM, arg0 *jni.Object) (*NdefRecord, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNdefRecord == nil {
+			return fmt.Errorf("android.nfc.NdefRecord is not available on this device")
+		}
+		if midNdefRecordCtor == nil {
+			return fmt.Errorf("android.nfc.NdefRecord constructor ([B)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNdefRecord)), midNdefRecordCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -363,29 +369,6 @@ func (m *NdefRecord) ToUri() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.nfc.NdefRecord.writeToParcel.
-func (m *NdefRecord) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midNdefRecordWriteToParcel == nil {
-			callErr = fmt.Errorf("android.nfc.NdefRecord.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midNdefRecordWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // CreateApplicationRecord calls android.nfc.NdefRecord.createApplicationRecord.
 func (m *NdefRecord) CreateApplicationRecord(arg0 string) (*jni.Object, error) {
 	var result *jni.Object
@@ -623,4 +606,27 @@ func (m *NdefRecord) CreateUri1_1(arg0 string) (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.nfc.NdefRecord.writeToParcel.
+func (m *NdefRecord) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midNdefRecordWriteToParcel == nil {
+			callErr = fmt.Errorf("android.nfc.NdefRecord.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsNdefRecord)),
+			midNdefRecordWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

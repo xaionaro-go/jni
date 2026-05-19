@@ -2,6 +2,8 @@ package jni
 
 import (
 	"os"
+	"os/exec"
+	"path/filepath"
 	"runtime"
 	"testing"
 	"unsafe"
@@ -39,6 +41,37 @@ func withEnv(t *testing.T, fn func(env *Env)) {
 	}
 }
 
+func requireJavac(t *testing.T) string {
+	t.Helper()
+	javac, err := exec.LookPath("javac")
+	if err != nil {
+		t.Fatalf("javac not available: %v", err)
+	}
+	return javac
+}
+
+func compileJavaFixture(
+	t *testing.T,
+	sourceRelPath string,
+	source string,
+) string {
+	t.Helper()
+	tmp := t.TempDir()
+	src := filepath.Join(tmp, "src", filepath.FromSlash(sourceRelPath))
+	if err := os.MkdirAll(filepath.Dir(src), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(src, []byte(source), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	classesDir := filepath.Join(tmp, "classes")
+	cmd := exec.Command(requireJavac(t), "-d", classesDir, src)
+	if out, err := cmd.CombinedOutput(); err != nil {
+		t.Fatalf("javac fixture: %v\n%s", err, out)
+	}
+	return classesDir
+}
+
 // --- Version ---
 
 func TestGetVersion(t *testing.T) {
@@ -72,6 +105,117 @@ func TestFindClassNotFound(t *testing.T) {
 			t.Fatal("expected error for non-existent class")
 		}
 	})
+}
+
+func TestFindClassUsesProxyClassLoaderFallbackAfterException(t *testing.T) {
+	classesDir := compileJavaFixture(
+		t,
+		filepath.Join("test", "fallback", "FallbackOnly.java"),
+		"package test.fallback; public class FallbackOnly {}\n",
+	)
+
+	withEnv(t, func(env *Env) {
+		loader := newURLClassLoaderForDir(t, env, classesDir)
+		loaderGlobal := env.NewGlobalRef(loader)
+		env.DeleteLocalRef(loader)
+		defer env.DeleteGlobalRef(loaderGlobal)
+
+		proxyMu.Lock()
+		oldLoader := proxyClassLoader
+		proxyClassLoader = loaderGlobal.Ref()
+		proxyMu.Unlock()
+		defer func() {
+			proxyMu.Lock()
+			proxyClassLoader = oldLoader
+			proxyMu.Unlock()
+		}()
+
+		cls, err := env.FindClass("test/fallback/FallbackOnly")
+		if err != nil {
+			t.Fatalf("FindClass via loader fallback: %v", err)
+		}
+		if cls == nil {
+			t.Fatal("FindClass returned nil for fallback-loaded class")
+		}
+		env.DeleteLocalRef(&cls.Object)
+	})
+}
+
+func newURLClassLoaderForDir(t *testing.T, env *Env, classesDir string) *Object {
+	t.Helper()
+
+	fileCls, err := env.FindClass("java/io/File")
+	if err != nil {
+		t.Fatalf("FindClass(File): %v", err)
+	}
+	defer env.DeleteLocalRef(&fileCls.Object)
+	fileCtor, err := env.GetMethodID(fileCls, "<init>", "(Ljava/lang/String;)V")
+	if err != nil {
+		t.Fatalf("File.<init>: %v", err)
+	}
+	path, err := env.NewStringUTF(classesDir)
+	if err != nil {
+		t.Fatalf("NewStringUTF(classesDir): %v", err)
+	}
+	defer env.DeleteLocalRef(&path.Object)
+	fileObj, err := env.NewObject(fileCls, fileCtor, ObjectValue(&path.Object))
+	if err != nil {
+		t.Fatalf("new File: %v", err)
+	}
+	defer env.DeleteLocalRef(fileObj)
+
+	toURIMid, err := env.GetMethodID(fileCls, "toURI", "()Ljava/net/URI;")
+	if err != nil {
+		t.Fatalf("File.toURI: %v", err)
+	}
+	uriObj, err := env.CallObjectMethod(fileObj, toURIMid)
+	if err != nil {
+		t.Fatalf("File.toURI(): %v", err)
+	}
+	defer env.DeleteLocalRef(uriObj)
+	uriCls := env.GetObjectClass(uriObj)
+	defer env.DeleteLocalRef(&uriCls.Object)
+	toURLMid, err := env.GetMethodID(uriCls, "toURL", "()Ljava/net/URL;")
+	if err != nil {
+		t.Fatalf("URI.toURL: %v", err)
+	}
+	urlObj, err := env.CallObjectMethod(uriObj, toURLMid)
+	if err != nil {
+		t.Fatalf("URI.toURL(): %v", err)
+	}
+	defer env.DeleteLocalRef(urlObj)
+
+	urlCls, err := env.FindClass("java/net/URL")
+	if err != nil {
+		t.Fatalf("FindClass(URL): %v", err)
+	}
+	defer env.DeleteLocalRef(&urlCls.Object)
+	urls, err := env.NewObjectArray(1, urlCls, nil)
+	if err != nil {
+		t.Fatalf("NewObjectArray(URL): %v", err)
+	}
+	if urls == nil {
+		t.Fatal("NewObjectArray(URL) returned nil")
+	}
+	defer env.DeleteLocalRef(&urls.Object)
+	if err := env.SetObjectArrayElement(urls, 0, urlObj); err != nil {
+		t.Fatalf("SetObjectArrayElement(URL): %v", err)
+	}
+
+	loaderCls, err := env.FindClass("java/net/URLClassLoader")
+	if err != nil {
+		t.Fatalf("FindClass(URLClassLoader): %v", err)
+	}
+	defer env.DeleteLocalRef(&loaderCls.Object)
+	loaderCtor, err := env.GetMethodID(loaderCls, "<init>", "([Ljava/net/URL;)V")
+	if err != nil {
+		t.Fatalf("URLClassLoader.<init>: %v", err)
+	}
+	loader, err := env.NewObject(loaderCls, loaderCtor, ObjectValue(&urls.Object))
+	if err != nil {
+		t.Fatalf("new URLClassLoader: %v", err)
+	}
+	return loader
 }
 
 func TestGetObjectClass(t *testing.T) {

@@ -32,6 +32,12 @@ func NewUnknownAuthenticationKeyException(vm *jni.VM, arg0 string) (*UnknownAuth
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsUnknownAuthenticationKeyException == nil {
+			return fmt.Errorf("android.security.identity.UnknownAuthenticationKeyException is not available on this device")
+		}
+		if midUnknownAuthenticationKeyExceptionCtor == nil {
+			return fmt.Errorf("android.security.identity.UnknownAuthenticationKeyException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

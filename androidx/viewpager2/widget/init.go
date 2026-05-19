@@ -23,6 +23,13 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsCompositePageTransformer                  *jni.GlobalRef
+	midCompositePageTransformerCtor              jni.MethodID
+	midCompositePageTransformerAddTransformer    jni.MethodID
+	midCompositePageTransformerRemoveTransformer jni.MethodID
+	midCompositePageTransformerTransformPage     jni.MethodID
+	midCompositePageTransformerToString          jni.MethodID
+
 	clsViewPager2                                  *jni.GlobalRef
 	midViewPager2Ctor                              jni.MethodID
 	midViewPager2GetAccessibilityClassName         jni.MethodID
@@ -58,15 +65,8 @@ var (
 	midViewPager2GetItemDecorationCount            jni.MethodID
 	midViewPager2InvalidateItemDecorations         jni.MethodID
 	midViewPager2RemoveItemDecorationAt            jni.MethodID
-	midViewPager2RemoveItemDecoration              jni.MethodID
 	midViewPager2ToString                          jni.MethodID
-
-	clsCompositePageTransformer                  *jni.GlobalRef
-	midCompositePageTransformerCtor              jni.MethodID
-	midCompositePageTransformerAddTransformer    jni.MethodID
-	midCompositePageTransformerRemoveTransformer jni.MethodID
-	midCompositePageTransformerTransformPage     jni.MethodID
-	midCompositePageTransformerToString          jni.MethodID
+	midViewPager2RemoveItemDecoration              jni.MethodID
 
 	clsViewPager2Orientation         *jni.GlobalRef
 	midViewPager2OrientationToString jni.MethodID
@@ -110,6 +110,48 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("androidx/viewpager2/widget/CompositePageTransformer")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCompositePageTransformer = env.NewGlobalRef(&c.Object)
+		midCompositePageTransformerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompositePageTransformer)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCompositePageTransformerAddTransformer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompositePageTransformer)), "addTransformer", "(Landroidx/viewpager2/widget/ViewPager2$PageTransformer;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompositePageTransformerRemoveTransformer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompositePageTransformer)), "removeTransformer", "(Landroidx/viewpager2/widget/ViewPager2$PageTransformer;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompositePageTransformerTransformPage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompositePageTransformer)), "transformPage", "(Landroid/view/View;F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompositePageTransformerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompositePageTransformer)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("androidx/viewpager2/widget/ViewPager2")
 	if err != nil {
@@ -354,13 +396,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midViewPager2RemoveItemDecoration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewPager2)), "removeItemDecoration", "(Landroidx/recyclerview/widget/RecyclerView$ItemDecoration;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midViewPager2ToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewPager2)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -368,42 +403,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("androidx/viewpager2/widget/CompositePageTransformer")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCompositePageTransformer = env.NewGlobalRef(&c.Object)
-		midCompositePageTransformerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompositePageTransformer)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCompositePageTransformerAddTransformer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompositePageTransformer)), "addTransformer", "(Landroidx/viewpager2/widget/ViewPager2$PageTransformer;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompositePageTransformerRemoveTransformer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompositePageTransformer)), "removeTransformer", "(Landroidx/viewpager2/widget/ViewPager2$PageTransformer;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompositePageTransformerTransformPage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompositePageTransformer)), "transformPage", "(Landroid/view/View;F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompositePageTransformerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompositePageTransformer)), "toString", "()Ljava/lang/String;")
+		midViewPager2RemoveItemDecoration, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewPager2)), "removeItemDecoration", "(Landroidx/recyclerview/widget/RecyclerView$ItemDecoration;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

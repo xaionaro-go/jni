@@ -32,6 +32,12 @@ func NewMultiAutoCompleteTextView(vm *jni.VM, arg0 *jni.Object) (*MultiAutoCompl
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMultiAutoCompleteTextView == nil {
+			return fmt.Errorf("android.widget.MultiAutoCompleteTextView is not available on this device")
+		}
+		if midMultiAutoCompleteTextViewCtor == nil {
+			return fmt.Errorf("android.widget.MultiAutoCompleteTextView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMultiAutoCompleteTextView)), midMultiAutoCompleteTextViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

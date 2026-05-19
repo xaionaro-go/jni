@@ -32,6 +32,12 @@ func NewCLArray(vm *jni.VM, arg0 *jni.Object) (*CLArray, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCLArray == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.parser.CLArray is not available on this device")
+		}
+		if midCLArrayCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.parser.CLArray constructor ([C)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCLArray)), midCLArrayCtor, jni.ObjectValue(arg0))
 		if err != nil {

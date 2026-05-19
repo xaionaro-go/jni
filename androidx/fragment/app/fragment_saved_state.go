@@ -46,29 +46,6 @@ func (m *FragmentSavedState) DescribeContents() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls androidx.fragment.app.Fragment$SavedState.writeToParcel.
-func (m *FragmentSavedState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFragmentSavedStateWriteToParcel == nil {
-			callErr = fmt.Errorf("androidx.fragment.app.Fragment$SavedState.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midFragmentSavedStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.fragment.app.Fragment$SavedState.toString.
 func (m *FragmentSavedState) ToString() (string, error) {
 	var result string
@@ -94,4 +71,27 @@ func (m *FragmentSavedState) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls androidx.fragment.app.Fragment$SavedState.writeToParcel.
+func (m *FragmentSavedState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midFragmentSavedStateWriteToParcel == nil {
+			callErr = fmt.Errorf("androidx.fragment.app.Fragment$SavedState.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsFragmentSavedState)),
+			midFragmentSavedStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -23,6 +23,34 @@ type CpuHeadroomParamsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCpuHeadroomParamsBuilder creates a new android.os.CpuHeadroomParams$Builder instance.
+func NewCpuHeadroomParamsBuilder(vm *jni.VM) (*CpuHeadroomParamsBuilder, error) {
+	var t CpuHeadroomParamsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCpuHeadroomParamsBuilder == nil {
+			return fmt.Errorf("android.os.CpuHeadroomParams$Builder is not available on this device")
+		}
+		if midCpuHeadroomParamsBuilderCtor == nil {
+			return fmt.Errorf("android.os.CpuHeadroomParams$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCpuHeadroomParamsBuilder)), midCpuHeadroomParamsBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.os.CpuHeadroomParams$Builder.build.
 func (m *CpuHeadroomParamsBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

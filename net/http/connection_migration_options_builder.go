@@ -23,6 +23,34 @@ type ConnectionMigrationOptionsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewConnectionMigrationOptionsBuilder creates a new android.net.http.ConnectionMigrationOptions$Builder instance.
+func NewConnectionMigrationOptionsBuilder(vm *jni.VM) (*ConnectionMigrationOptionsBuilder, error) {
+	var t ConnectionMigrationOptionsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsConnectionMigrationOptionsBuilder == nil {
+			return fmt.Errorf("android.net.http.ConnectionMigrationOptions$Builder is not available on this device")
+		}
+		if midConnectionMigrationOptionsBuilderCtor == nil {
+			return fmt.Errorf("android.net.http.ConnectionMigrationOptions$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConnectionMigrationOptionsBuilder)), midConnectionMigrationOptionsBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.http.ConnectionMigrationOptions$Builder.build.
 func (m *ConnectionMigrationOptionsBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -190,29 +190,6 @@ func (m *SelectRangeGesture) HashCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.inputmethod.SelectRangeGesture.writeToParcel.
-func (m *SelectRangeGesture) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSelectRangeGestureWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.inputmethod.SelectRangeGesture.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSelectRangeGestureWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.view.inputmethod.SelectRangeGesture.toString.
 func (m *SelectRangeGesture) ToString() (string, error) {
 	var result string
@@ -238,4 +215,27 @@ func (m *SelectRangeGesture) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.inputmethod.SelectRangeGesture.writeToParcel.
+func (m *SelectRangeGesture) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSelectRangeGestureWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.inputmethod.SelectRangeGesture.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSelectRangeGesture)),
+			midSelectRangeGestureWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

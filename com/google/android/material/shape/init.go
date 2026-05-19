@@ -23,105 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsAdjustedCornerSize              *jni.GlobalRef
-	midAdjustedCornerSizeCtor          jni.MethodID
-	midAdjustedCornerSizeGetCornerSize jni.MethodID
-	midAdjustedCornerSizeEquals        jni.MethodID
-	midAdjustedCornerSizeHashCode      jni.MethodID
-	midAdjustedCornerSizeToString      jni.MethodID
-
-	clsAppearanceModel                           *jni.GlobalRef
-	midAppearanceModelCtor                       jni.MethodID
-	midAppearanceModelGetTopLeftCorner           jni.MethodID
-	midAppearanceModelGetTopRightCorner          jni.MethodID
-	midAppearanceModelGetBottomRightCorner       jni.MethodID
-	midAppearanceModelGetBottomLeftCorner        jni.MethodID
-	midAppearanceModelGetTopLeftCornerSize       jni.MethodID
-	midAppearanceModelGetTopRightCornerSize      jni.MethodID
-	midAppearanceModelGetBottomRightCornerSize   jni.MethodID
-	midAppearanceModelGetBottomLeftCornerSize    jni.MethodID
-	midAppearanceModelGetLeftEdge                jni.MethodID
-	midAppearanceModelGetTopEdge                 jni.MethodID
-	midAppearanceModelGetRightEdge               jni.MethodID
-	midAppearanceModelGetBottomEdge              jni.MethodID
-	midAppearanceModelToBuilder                  jni.MethodID
-	midAppearanceModelWithCornerSize1            jni.MethodID
-	midAppearanceModelWithCornerSize1_1          jni.MethodID
-	midAppearanceModelWithTransformedCornerSizes jni.MethodID
-	midAppearanceModelIsRoundRect                jni.MethodID
-	midAppearanceModelToString                   jni.MethodID
-	midAppearanceModelBuilder0                   jni.MethodID
-	midAppearanceModelBuilder4_1                 jni.MethodID
-	midAppearanceModelBuilder5_2                 jni.MethodID
-	midAppearanceModelBuilder5_3                 jni.MethodID
-	midAppearanceModelBuilder3_4                 jni.MethodID
-
-	clsAppearanceModelBuilder                            *jni.GlobalRef
-	midAppearanceModelBuilderSetAllCorners2              jni.MethodID
-	midAppearanceModelBuilderSetAllCorners1_1            jni.MethodID
-	midAppearanceModelBuilderSetAllCornerSizes1          jni.MethodID
-	midAppearanceModelBuilderSetAllCornerSizes1_1        jni.MethodID
-	midAppearanceModelBuilderSetTopLeftCornerSize1       jni.MethodID
-	midAppearanceModelBuilderSetTopLeftCornerSize1_1     jni.MethodID
-	midAppearanceModelBuilderSetTopRightCornerSize1      jni.MethodID
-	midAppearanceModelBuilderSetTopRightCornerSize1_1    jni.MethodID
-	midAppearanceModelBuilderSetBottomRightCornerSize1   jni.MethodID
-	midAppearanceModelBuilderSetBottomRightCornerSize1_1 jni.MethodID
-	midAppearanceModelBuilderSetBottomLeftCornerSize1    jni.MethodID
-	midAppearanceModelBuilderSetBottomLeftCornerSize1_1  jni.MethodID
-	midAppearanceModelBuilderSetTopLeftCorner2           jni.MethodID
-	midAppearanceModelBuilderSetTopLeftCorner2_1         jni.MethodID
-	midAppearanceModelBuilderSetTopLeftCorner1_2         jni.MethodID
-	midAppearanceModelBuilderSetTopRightCorner2          jni.MethodID
-	midAppearanceModelBuilderSetTopRightCorner2_1        jni.MethodID
-	midAppearanceModelBuilderSetTopRightCorner1_2        jni.MethodID
-	midAppearanceModelBuilderSetBottomRightCorner2       jni.MethodID
-	midAppearanceModelBuilderSetBottomRightCorner2_1     jni.MethodID
-	midAppearanceModelBuilderSetBottomRightCorner1_2     jni.MethodID
-	midAppearanceModelBuilderSetBottomLeftCorner2        jni.MethodID
-	midAppearanceModelBuilderSetBottomLeftCorner2_1      jni.MethodID
-	midAppearanceModelBuilderSetBottomLeftCorner1_2      jni.MethodID
-	midAppearanceModelBuilderSetAllEdges                 jni.MethodID
-	midAppearanceModelBuilderSetLeftEdge                 jni.MethodID
-	midAppearanceModelBuilderSetTopEdge                  jni.MethodID
-	midAppearanceModelBuilderSetRightEdge                jni.MethodID
-	midAppearanceModelBuilderSetBottomEdge               jni.MethodID
-	midAppearanceModelBuilderBuild                       jni.MethodID
-	midAppearanceModelBuilderToString                    jni.MethodID
-
-	clsAppearanceModelCornerSizeUnaryOperator         *jni.GlobalRef
-	midAppearanceModelCornerSizeUnaryOperatorApply    jni.MethodID
-	midAppearanceModelCornerSizeUnaryOperatorToString jni.MethodID
-
-	clsableDelegate                                     *jni.GlobalRef
-	midableDelegateIsForceCompatClippingEnabled         jni.MethodID
-	midableDelegateSetForceCompatClippingEnabled        jni.MethodID
-	midableDelegateSetOffsetZeroCornerEdgeBoundsEnabled jni.MethodID
-	midableDelegateOnShapeAppearanceChanged             jni.MethodID
-	midableDelegateOnMaskChanged                        jni.MethodID
-	midableDelegateMaybeClip                            jni.MethodID
-	midableDelegateToString                             jni.MethodID
-	midableDelegateCreate                               jni.MethodID
-
-	clsRelativeCornerSize                     *jni.GlobalRef
-	midRelativeCornerSizeCtor                 jni.MethodID
-	midRelativeCornerSizeGetRelativePercent   jni.MethodID
-	midRelativeCornerSizeGetCornerSize        jni.MethodID
-	midRelativeCornerSizeEquals               jni.MethodID
-	midRelativeCornerSizeHashCode             jni.MethodID
-	midRelativeCornerSizeToString             jni.MethodID
-	midRelativeCornerSizeCreateFromCornerSize jni.MethodID
-
-	clsTriangleEdgeTreatment            *jni.GlobalRef
-	midTriangleEdgeTreatmentCtor        jni.MethodID
-	midTriangleEdgeTreatmentGetEdgePath jni.MethodID
-	midTriangleEdgeTreatmentToString    jni.MethodID
-
-	clsable                        *jni.GlobalRef
-	midableSetShapeAppearanceModel jni.MethodID
-	midableGetShapeAppearanceModel jni.MethodID
-	midableToString                jni.MethodID
-
 	clsClampedCornerSize                     *jni.GlobalRef
 	midClampedCornerSizeCtor                 jni.MethodID
 	midClampedCornerSizeGetCornerSize        jni.MethodID
@@ -130,32 +31,16 @@ var (
 	midClampedCornerSizeToString             jni.MethodID
 	midClampedCornerSizeCreateFromCornerSize jni.MethodID
 
+	clsCutCornerTreatment              *jni.GlobalRef
+	midCutCornerTreatmentCtor          jni.MethodID
+	midCutCornerTreatmentGetCornerPath jni.MethodID
+	midCutCornerTreatmentToString      jni.MethodID
+
 	clsMaterialShapeUtils                              *jni.GlobalRef
 	midMaterialShapeUtilsToString                      jni.MethodID
 	midMaterialShapeUtilsSetElevation                  jni.MethodID
 	midMaterialShapeUtilsSetParentAbsoluteElevation1   jni.MethodID
 	midMaterialShapeUtilsSetParentAbsoluteElevation2_1 jni.MethodID
-
-	clsCornerTreatment                 *jni.GlobalRef
-	midCornerTreatmentCtor             jni.MethodID
-	midCornerTreatmentGetCornerPath3   jni.MethodID
-	midCornerTreatmentGetCornerPath4_1 jni.MethodID
-	midCornerTreatmentGetCornerPath5_2 jni.MethodID
-	midCornerTreatmentToString         jni.MethodID
-
-	clsInterpolateOnScrollPositionChangeHelper                                     *jni.GlobalRef
-	midInterpolateOnScrollPositionChangeHelperCtor                                 jni.MethodID
-	midInterpolateOnScrollPositionChangeHelperSetMaterialShapeDrawable             jni.MethodID
-	midInterpolateOnScrollPositionChangeHelperSetContainingScrollView              jni.MethodID
-	midInterpolateOnScrollPositionChangeHelperStartListeningForScrollChanges       jni.MethodID
-	midInterpolateOnScrollPositionChangeHelperStopListeningForScrollChanges        jni.MethodID
-	midInterpolateOnScrollPositionChangeHelperUpdateInterpolationForScreenPosition jni.MethodID
-	midInterpolateOnScrollPositionChangeHelperToString                             jni.MethodID
-
-	clsRoundedCornerTreatment              *jni.GlobalRef
-	midRoundedCornerTreatmentCtor          jni.MethodID
-	midRoundedCornerTreatmentGetCornerPath jni.MethodID
-	midRoundedCornerTreatmentToString      jni.MethodID
 
 	clsPathModel                     *jni.GlobalRef
 	midPathModelCtor                 jni.MethodID
@@ -173,58 +58,10 @@ var (
 	midPathModelSetLeftEdge          jni.MethodID
 	midPathModelToString             jni.MethodID
 
-	clsCornerFamily         *jni.GlobalRef
-	midCornerFamilyToString jni.MethodID
-
-	clsMarkerEdgeTreatment            *jni.GlobalRef
-	midMarkerEdgeTreatmentCtor        jni.MethodID
-	midMarkerEdgeTreatmentGetEdgePath jni.MethodID
-	midMarkerEdgeTreatmentToString    jni.MethodID
-
-	clsCutCornerTreatment              *jni.GlobalRef
-	midCutCornerTreatmentCtor          jni.MethodID
-	midCutCornerTreatmentGetCornerPath jni.MethodID
-	midCutCornerTreatmentToString      jni.MethodID
-
-	clsAbsoluteCornerSize                 *jni.GlobalRef
-	midAbsoluteCornerSizeCtor             jni.MethodID
-	midAbsoluteCornerSizeGetCornerSize1   jni.MethodID
-	midAbsoluteCornerSizeGetCornerSize0_1 jni.MethodID
-	midAbsoluteCornerSizeEquals           jni.MethodID
-	midAbsoluteCornerSizeHashCode         jni.MethodID
-	midAbsoluteCornerSizeToString         jni.MethodID
-
-	clsPath             *jni.GlobalRef
-	midPathCtor         jni.MethodID
-	midPathReset2       jni.MethodID
-	midPathReset4_1     jni.MethodID
-	midPathLineTo2      jni.MethodID
-	midPathLineTo4_1    jni.MethodID
-	midPathQuadToPoint  jni.MethodID
-	midPathCubicToPoint jni.MethodID
-	midPathAddArc       jni.MethodID
-	midPathApplyToPath  jni.MethodID
-	midPathToString     jni.MethodID
-
-	clsPathPathArcOperation            *jni.GlobalRef
-	midPathPathArcOperationApplyToPath jni.MethodID
-	midPathPathArcOperationToString    jni.MethodID
-
-	clsPathPathCubicOperation            *jni.GlobalRef
-	midPathPathCubicOperationApplyToPath jni.MethodID
-	midPathPathCubicOperationToString    jni.MethodID
-
-	clsPathPathLineOperation            *jni.GlobalRef
-	midPathPathLineOperationApplyToPath jni.MethodID
-	midPathPathLineOperationToString    jni.MethodID
-
-	clsPathPathOperation            *jni.GlobalRef
-	midPathPathOperationApplyToPath jni.MethodID
-	midPathPathOperationToString    jni.MethodID
-
-	clsPathPathQuadOperation            *jni.GlobalRef
-	midPathPathQuadOperationApplyToPath jni.MethodID
-	midPathPathQuadOperationToString    jni.MethodID
+	clsTriangleEdgeTreatment            *jni.GlobalRef
+	midTriangleEdgeTreatmentCtor        jni.MethodID
+	midTriangleEdgeTreatmentGetEdgePath jni.MethodID
+	midTriangleEdgeTreatmentToString    jni.MethodID
 
 	clsCornerSize              *jni.GlobalRef
 	midCornerSizeGetCornerSize jni.MethodID
@@ -309,7 +146,6 @@ var (
 	midMaterialShapeDrawableGetTopRightCornerResolvedSize    jni.MethodID
 	midMaterialShapeDrawableGetBottomLeftCornerResolvedSize  jni.MethodID
 	midMaterialShapeDrawableGetBottomRightCornerResolvedSize jni.MethodID
-	midMaterialShapeDrawableIsRoundRect                      jni.MethodID
 	midMaterialShapeDrawableToString                         jni.MethodID
 	midMaterialShapeDrawableCreateWithElevationOverlay1      jni.MethodID
 	midMaterialShapeDrawableCreateWithElevationOverlay2_1    jni.MethodID
@@ -318,16 +154,51 @@ var (
 	clsMaterialShapeDrawableCompatibilityShadowMode         *jni.GlobalRef
 	midMaterialShapeDrawableCompatibilityShadowModeToString jni.MethodID
 
+	clsCornerTreatment                 *jni.GlobalRef
+	midCornerTreatmentCtor             jni.MethodID
+	midCornerTreatmentGetCornerPath3   jni.MethodID
+	midCornerTreatmentGetCornerPath4_1 jni.MethodID
+	midCornerTreatmentGetCornerPath5_2 jni.MethodID
+	midCornerTreatmentToString         jni.MethodID
+
 	clsMaterialShapeDrawableMaterialShapeDrawableState                          *jni.GlobalRef
+	midMaterialShapeDrawableMaterialShapeDrawableStateCtor                      jni.MethodID
 	midMaterialShapeDrawableMaterialShapeDrawableStateNewDrawable               jni.MethodID
 	midMaterialShapeDrawableMaterialShapeDrawableStateGetChangingConfigurations jni.MethodID
 	midMaterialShapeDrawableMaterialShapeDrawableStateToString                  jni.MethodID
 
-	clsEdgeTreatment               *jni.GlobalRef
-	midEdgeTreatmentCtor           jni.MethodID
-	midEdgeTreatmentGetEdgePath3   jni.MethodID
-	midEdgeTreatmentGetEdgePath4_1 jni.MethodID
-	midEdgeTreatmentToString       jni.MethodID
+	clsPath             *jni.GlobalRef
+	midPathCtor         jni.MethodID
+	midPathReset2       jni.MethodID
+	midPathReset4_1     jni.MethodID
+	midPathLineTo2      jni.MethodID
+	midPathLineTo4_1    jni.MethodID
+	midPathQuadToPoint  jni.MethodID
+	midPathCubicToPoint jni.MethodID
+	midPathAddArc       jni.MethodID
+	midPathApplyToPath  jni.MethodID
+	midPathToString     jni.MethodID
+
+	clsPathPathArcOperation         *jni.GlobalRef
+	midPathPathArcOperationCtor     jni.MethodID
+	midPathPathArcOperationToString jni.MethodID
+
+	clsPathPathCubicOperation            *jni.GlobalRef
+	midPathPathCubicOperationCtor        jni.MethodID
+	midPathPathCubicOperationApplyToPath jni.MethodID
+	midPathPathCubicOperationToString    jni.MethodID
+
+	clsPathPathLineOperation         *jni.GlobalRef
+	midPathPathLineOperationCtor     jni.MethodID
+	midPathPathLineOperationToString jni.MethodID
+
+	clsPathPathOperation            *jni.GlobalRef
+	midPathPathOperationApplyToPath jni.MethodID
+	midPathPathOperationToString    jni.MethodID
+
+	clsPathPathQuadOperation         *jni.GlobalRef
+	midPathPathQuadOperationCtor     jni.MethodID
+	midPathPathQuadOperationToString jni.MethodID
 
 	clsAppearancePathProvider                 *jni.GlobalRef
 	midAppearancePathProviderCtor             jni.MethodID
@@ -341,10 +212,139 @@ var (
 	midAppearancePathProviderPathListenerOnEdgePathCreated   jni.MethodID
 	midAppearancePathProviderPathListenerToString            jni.MethodID
 
+	clsAppearanceModel                           *jni.GlobalRef
+	midAppearanceModelCtor                       jni.MethodID
+	midAppearanceModelGetTopLeftCorner           jni.MethodID
+	midAppearanceModelGetTopRightCorner          jni.MethodID
+	midAppearanceModelGetBottomRightCorner       jni.MethodID
+	midAppearanceModelGetBottomLeftCorner        jni.MethodID
+	midAppearanceModelGetTopLeftCornerSize       jni.MethodID
+	midAppearanceModelGetTopRightCornerSize      jni.MethodID
+	midAppearanceModelGetBottomRightCornerSize   jni.MethodID
+	midAppearanceModelGetBottomLeftCornerSize    jni.MethodID
+	midAppearanceModelGetLeftEdge                jni.MethodID
+	midAppearanceModelGetTopEdge                 jni.MethodID
+	midAppearanceModelGetRightEdge               jni.MethodID
+	midAppearanceModelGetBottomEdge              jni.MethodID
+	midAppearanceModelToBuilder                  jni.MethodID
+	midAppearanceModelWithCornerSize1            jni.MethodID
+	midAppearanceModelWithCornerSize1_1          jni.MethodID
+	midAppearanceModelWithTransformedCornerSizes jni.MethodID
+	midAppearanceModelToString                   jni.MethodID
+	midAppearanceModelBuilder0                   jni.MethodID
+	midAppearanceModelBuilder4_1                 jni.MethodID
+	midAppearanceModelBuilder5_2                 jni.MethodID
+	midAppearanceModelBuilder5_3                 jni.MethodID
+	midAppearanceModelBuilder3_4                 jni.MethodID
+
+	clsAppearanceModelBuilder                            *jni.GlobalRef
+	midAppearanceModelBuilderCtor                        jni.MethodID
+	midAppearanceModelBuilderSetAllCorners2              jni.MethodID
+	midAppearanceModelBuilderSetAllCorners1_1            jni.MethodID
+	midAppearanceModelBuilderSetAllCornerSizes1          jni.MethodID
+	midAppearanceModelBuilderSetAllCornerSizes1_1        jni.MethodID
+	midAppearanceModelBuilderSetTopLeftCornerSize1       jni.MethodID
+	midAppearanceModelBuilderSetTopLeftCornerSize1_1     jni.MethodID
+	midAppearanceModelBuilderSetTopRightCornerSize1      jni.MethodID
+	midAppearanceModelBuilderSetTopRightCornerSize1_1    jni.MethodID
+	midAppearanceModelBuilderSetBottomRightCornerSize1   jni.MethodID
+	midAppearanceModelBuilderSetBottomRightCornerSize1_1 jni.MethodID
+	midAppearanceModelBuilderSetBottomLeftCornerSize1    jni.MethodID
+	midAppearanceModelBuilderSetBottomLeftCornerSize1_1  jni.MethodID
+	midAppearanceModelBuilderSetTopLeftCorner2           jni.MethodID
+	midAppearanceModelBuilderSetTopLeftCorner2_1         jni.MethodID
+	midAppearanceModelBuilderSetTopLeftCorner1_2         jni.MethodID
+	midAppearanceModelBuilderSetTopRightCorner2          jni.MethodID
+	midAppearanceModelBuilderSetTopRightCorner2_1        jni.MethodID
+	midAppearanceModelBuilderSetTopRightCorner1_2        jni.MethodID
+	midAppearanceModelBuilderSetBottomRightCorner2       jni.MethodID
+	midAppearanceModelBuilderSetBottomRightCorner2_1     jni.MethodID
+	midAppearanceModelBuilderSetBottomRightCorner1_2     jni.MethodID
+	midAppearanceModelBuilderSetBottomLeftCorner2        jni.MethodID
+	midAppearanceModelBuilderSetBottomLeftCorner2_1      jni.MethodID
+	midAppearanceModelBuilderSetBottomLeftCorner1_2      jni.MethodID
+	midAppearanceModelBuilderSetAllEdges                 jni.MethodID
+	midAppearanceModelBuilderSetLeftEdge                 jni.MethodID
+	midAppearanceModelBuilderSetTopEdge                  jni.MethodID
+	midAppearanceModelBuilderSetRightEdge                jni.MethodID
+	midAppearanceModelBuilderSetBottomEdge               jni.MethodID
+	midAppearanceModelBuilderToString                    jni.MethodID
+
+	clsAppearanceModelCornerSizeUnaryOperator         *jni.GlobalRef
+	midAppearanceModelCornerSizeUnaryOperatorApply    jni.MethodID
+	midAppearanceModelCornerSizeUnaryOperatorToString jni.MethodID
+
+	clsAbsoluteCornerSize                 *jni.GlobalRef
+	midAbsoluteCornerSizeCtor             jni.MethodID
+	midAbsoluteCornerSizeGetCornerSize1   jni.MethodID
+	midAbsoluteCornerSizeGetCornerSize0_1 jni.MethodID
+	midAbsoluteCornerSizeEquals           jni.MethodID
+	midAbsoluteCornerSizeHashCode         jni.MethodID
+	midAbsoluteCornerSizeToString         jni.MethodID
+
+	clsCornerFamily         *jni.GlobalRef
+	midCornerFamilyToString jni.MethodID
+
+	clsInterpolateOnScrollPositionChangeHelper                                     *jni.GlobalRef
+	midInterpolateOnScrollPositionChangeHelperCtor                                 jni.MethodID
+	midInterpolateOnScrollPositionChangeHelperSetMaterialShapeDrawable             jni.MethodID
+	midInterpolateOnScrollPositionChangeHelperSetContainingScrollView              jni.MethodID
+	midInterpolateOnScrollPositionChangeHelperStartListeningForScrollChanges       jni.MethodID
+	midInterpolateOnScrollPositionChangeHelperStopListeningForScrollChanges        jni.MethodID
+	midInterpolateOnScrollPositionChangeHelperUpdateInterpolationForScreenPosition jni.MethodID
+	midInterpolateOnScrollPositionChangeHelperToString                             jni.MethodID
+
+	clsEdgeTreatment               *jni.GlobalRef
+	midEdgeTreatmentCtor           jni.MethodID
+	midEdgeTreatmentGetEdgePath3   jni.MethodID
+	midEdgeTreatmentGetEdgePath4_1 jni.MethodID
+	midEdgeTreatmentToString       jni.MethodID
+
+	clsable                        *jni.GlobalRef
+	midableSetShapeAppearanceModel jni.MethodID
+	midableGetShapeAppearanceModel jni.MethodID
+	midableToString                jni.MethodID
+
+	clsMarkerEdgeTreatment            *jni.GlobalRef
+	midMarkerEdgeTreatmentCtor        jni.MethodID
+	midMarkerEdgeTreatmentGetEdgePath jni.MethodID
+	midMarkerEdgeTreatmentToString    jni.MethodID
+
+	clsRelativeCornerSize                     *jni.GlobalRef
+	midRelativeCornerSizeCtor                 jni.MethodID
+	midRelativeCornerSizeGetRelativePercent   jni.MethodID
+	midRelativeCornerSizeGetCornerSize        jni.MethodID
+	midRelativeCornerSizeEquals               jni.MethodID
+	midRelativeCornerSizeHashCode             jni.MethodID
+	midRelativeCornerSizeToString             jni.MethodID
+	midRelativeCornerSizeCreateFromCornerSize jni.MethodID
+
+	clsAdjustedCornerSize              *jni.GlobalRef
+	midAdjustedCornerSizeCtor          jni.MethodID
+	midAdjustedCornerSizeGetCornerSize jni.MethodID
+	midAdjustedCornerSizeEquals        jni.MethodID
+	midAdjustedCornerSizeHashCode      jni.MethodID
+	midAdjustedCornerSizeToString      jni.MethodID
+
 	clsOffsetEdgeTreatment            *jni.GlobalRef
 	midOffsetEdgeTreatmentCtor        jni.MethodID
 	midOffsetEdgeTreatmentGetEdgePath jni.MethodID
 	midOffsetEdgeTreatmentToString    jni.MethodID
+
+	clsRoundedCornerTreatment              *jni.GlobalRef
+	midRoundedCornerTreatmentCtor          jni.MethodID
+	midRoundedCornerTreatmentGetCornerPath jni.MethodID
+	midRoundedCornerTreatmentToString      jni.MethodID
+
+	clsableDelegate                                     *jni.GlobalRef
+	midableDelegateIsForceCompatClippingEnabled         jni.MethodID
+	midableDelegateSetForceCompatClippingEnabled        jni.MethodID
+	midableDelegateSetOffsetZeroCornerEdgeBoundsEnabled jni.MethodID
+	midableDelegateOnShapeAppearanceChanged             jni.MethodID
+	midableDelegateOnMaskChanged                        jni.MethodID
+	midableDelegateMaybeClip                            jni.MethodID
+	midableDelegateToString                             jni.MethodID
+	midableDelegateCreate                               jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -364,655 +364,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("com/google/android/material/shape/AdjustedCornerSize")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAdjustedCornerSize = env.NewGlobalRef(&c.Object)
-		midAdjustedCornerSizeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdjustedCornerSize)), "<init>", "(FLcom/google/android/material/shape/CornerSize;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAdjustedCornerSizeGetCornerSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdjustedCornerSize)), "getCornerSize", "(Landroid/graphics/RectF;)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdjustedCornerSizeEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdjustedCornerSize)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdjustedCornerSizeHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdjustedCornerSize)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdjustedCornerSizeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdjustedCornerSize)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/shape/ShapeAppearanceModel")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAppearanceModel = env.NewGlobalRef(&c.Object)
-		midAppearanceModelCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelGetTopLeftCorner, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getTopLeftCorner", "()Lcom/google/android/material/shape/CornerTreatment;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelGetTopRightCorner, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getTopRightCorner", "()Lcom/google/android/material/shape/CornerTreatment;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelGetBottomRightCorner, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getBottomRightCorner", "()Lcom/google/android/material/shape/CornerTreatment;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelGetBottomLeftCorner, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getBottomLeftCorner", "()Lcom/google/android/material/shape/CornerTreatment;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelGetTopLeftCornerSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getTopLeftCornerSize", "()Lcom/google/android/material/shape/CornerSize;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelGetTopRightCornerSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getTopRightCornerSize", "()Lcom/google/android/material/shape/CornerSize;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelGetBottomRightCornerSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getBottomRightCornerSize", "()Lcom/google/android/material/shape/CornerSize;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelGetBottomLeftCornerSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getBottomLeftCornerSize", "()Lcom/google/android/material/shape/CornerSize;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelGetLeftEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getLeftEdge", "()Lcom/google/android/material/shape/EdgeTreatment;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelGetTopEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getTopEdge", "()Lcom/google/android/material/shape/EdgeTreatment;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelGetRightEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getRightEdge", "()Lcom/google/android/material/shape/EdgeTreatment;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelGetBottomEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getBottomEdge", "()Lcom/google/android/material/shape/EdgeTreatment;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelToBuilder, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "toBuilder", "()Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelWithCornerSize1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "withCornerSize", "(F)Lcom/google/android/material/shape/ShapeAppearanceModel;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelWithCornerSize1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "withCornerSize", "(Lcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelWithTransformedCornerSizes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "withTransformedCornerSizes", "(Lcom/google/android/material/shape/ShapeAppearanceModel$CornerSizeUnaryOperator;)Lcom/google/android/material/shape/ShapeAppearanceModel;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelIsRoundRect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "isRoundRect", "(Landroid/graphics/RectF;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilder0, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "builder", "()Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilder4_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "builder", "(Landroid/content/Context;Landroid/util/AttributeSet;II)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilder5_2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "builder", "(Landroid/content/Context;Landroid/util/AttributeSet;III)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilder5_3, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "builder", "(Landroid/content/Context;Landroid/util/AttributeSet;IILcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilder3_4, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "builder", "(Landroid/content/Context;II)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/shape/ShapeAppearanceModel$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAppearanceModelBuilder = env.NewGlobalRef(&c.Object)
-
-		midAppearanceModelBuilderSetAllCorners2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setAllCorners", "(IF)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetAllCorners1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setAllCorners", "(Lcom/google/android/material/shape/CornerTreatment;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetAllCornerSizes1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setAllCornerSizes", "(Lcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetAllCornerSizes1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setAllCornerSizes", "(F)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetTopLeftCornerSize1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopLeftCornerSize", "(F)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetTopLeftCornerSize1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopLeftCornerSize", "(Lcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetTopRightCornerSize1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopRightCornerSize", "(F)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetTopRightCornerSize1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopRightCornerSize", "(Lcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetBottomRightCornerSize1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomRightCornerSize", "(F)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetBottomRightCornerSize1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomRightCornerSize", "(Lcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetBottomLeftCornerSize1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomLeftCornerSize", "(F)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetBottomLeftCornerSize1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomLeftCornerSize", "(Lcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetTopLeftCorner2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopLeftCorner", "(IF)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetTopLeftCorner2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopLeftCorner", "(ILcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetTopLeftCorner1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopLeftCorner", "(Lcom/google/android/material/shape/CornerTreatment;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetTopRightCorner2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopRightCorner", "(IF)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetTopRightCorner2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopRightCorner", "(ILcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetTopRightCorner1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopRightCorner", "(Lcom/google/android/material/shape/CornerTreatment;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetBottomRightCorner2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomRightCorner", "(IF)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetBottomRightCorner2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomRightCorner", "(ILcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetBottomRightCorner1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomRightCorner", "(Lcom/google/android/material/shape/CornerTreatment;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetBottomLeftCorner2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomLeftCorner", "(IF)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetBottomLeftCorner2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomLeftCorner", "(ILcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetBottomLeftCorner1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomLeftCorner", "(Lcom/google/android/material/shape/CornerTreatment;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetAllEdges, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setAllEdges", "(Lcom/google/android/material/shape/EdgeTreatment;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetLeftEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setLeftEdge", "(Lcom/google/android/material/shape/EdgeTreatment;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetTopEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopEdge", "(Lcom/google/android/material/shape/EdgeTreatment;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetRightEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setRightEdge", "(Lcom/google/android/material/shape/EdgeTreatment;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderSetBottomEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomEdge", "(Lcom/google/android/material/shape/EdgeTreatment;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "build", "()Lcom/google/android/material/shape/ShapeAppearanceModel;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/shape/ShapeAppearanceModel$CornerSizeUnaryOperator")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAppearanceModelCornerSizeUnaryOperator = env.NewGlobalRef(&c.Object)
-
-		midAppearanceModelCornerSizeUnaryOperatorApply, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelCornerSizeUnaryOperator)), "apply", "(Lcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/CornerSize;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppearanceModelCornerSizeUnaryOperatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelCornerSizeUnaryOperator)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/shape/ShapeableDelegate")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsableDelegate = env.NewGlobalRef(&c.Object)
-
-		midableDelegateIsForceCompatClippingEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsableDelegate)), "isForceCompatClippingEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midableDelegateSetForceCompatClippingEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsableDelegate)), "setForceCompatClippingEnabled", "(Landroid/view/View;Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midableDelegateSetOffsetZeroCornerEdgeBoundsEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsableDelegate)), "setOffsetZeroCornerEdgeBoundsEnabled", "(Landroid/view/View;Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midableDelegateOnShapeAppearanceChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsableDelegate)), "onShapeAppearanceChanged", "(Landroid/view/View;Lcom/google/android/material/shape/ShapeAppearanceModel;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midableDelegateOnMaskChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsableDelegate)), "onMaskChanged", "(Landroid/view/View;Landroid/graphics/RectF;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midableDelegateMaybeClip, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsableDelegate)), "maybeClip", "(Landroid/graphics/Canvas;Lcom/google/android/material/canvas/CanvasCompat$CanvasOperation;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midableDelegateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsableDelegate)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midableDelegateCreate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsableDelegate)), "create", "(Landroid/view/View;)Lcom/google/android/material/shape/ShapeableDelegate;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/shape/RelativeCornerSize")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRelativeCornerSize = env.NewGlobalRef(&c.Object)
-		midRelativeCornerSizeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRelativeCornerSize)), "<init>", "(F)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midRelativeCornerSizeGetRelativePercent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRelativeCornerSize)), "getRelativePercent", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRelativeCornerSizeGetCornerSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRelativeCornerSize)), "getCornerSize", "(Landroid/graphics/RectF;)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRelativeCornerSizeEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRelativeCornerSize)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRelativeCornerSizeHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRelativeCornerSize)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRelativeCornerSizeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRelativeCornerSize)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRelativeCornerSizeCreateFromCornerSize, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRelativeCornerSize)), "createFromCornerSize", "(Landroid/graphics/RectF;Lcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/RelativeCornerSize;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/shape/TriangleEdgeTreatment")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTriangleEdgeTreatment = env.NewGlobalRef(&c.Object)
-		midTriangleEdgeTreatmentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTriangleEdgeTreatment)), "<init>", "(FZ)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midTriangleEdgeTreatmentGetEdgePath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTriangleEdgeTreatment)), "getEdgePath", "(FFFLcom/google/android/material/shape/ShapePath;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTriangleEdgeTreatmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTriangleEdgeTreatment)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/shape/Shapeable")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsable = env.NewGlobalRef(&c.Object)
-
-		midableSetShapeAppearanceModel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsable)), "setShapeAppearanceModel", "(Lcom/google/android/material/shape/ShapeAppearanceModel;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midableGetShapeAppearanceModel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsable)), "getShapeAppearanceModel", "()Lcom/google/android/material/shape/ShapeAppearanceModel;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midableToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsable)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("com/google/android/material/shape/ClampedCornerSize")
 	if err != nil {
@@ -1063,6 +414,34 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("com/google/android/material/shape/CutCornerTreatment")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCutCornerTreatment = env.NewGlobalRef(&c.Object)
+		midCutCornerTreatmentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCutCornerTreatment)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCutCornerTreatmentGetCornerPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCutCornerTreatment)), "getCornerPath", "(Lcom/google/android/material/shape/ShapePath;FFF)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCutCornerTreatmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCutCornerTreatment)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("com/google/android/material/shape/MaterialShapeUtils")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -1093,132 +472,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midMaterialShapeUtilsSetParentAbsoluteElevation2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialShapeUtils)), "setParentAbsoluteElevation", "(Landroid/view/View;Lcom/google/android/material/shape/MaterialShapeDrawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/shape/CornerTreatment")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCornerTreatment = env.NewGlobalRef(&c.Object)
-		midCornerTreatmentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCornerTreatment)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCornerTreatmentGetCornerPath3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCornerTreatment)), "getCornerPath", "(FFLcom/google/android/material/shape/ShapePath;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCornerTreatmentGetCornerPath4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCornerTreatment)), "getCornerPath", "(Lcom/google/android/material/shape/ShapePath;FFF)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCornerTreatmentGetCornerPath5_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCornerTreatment)), "getCornerPath", "(Lcom/google/android/material/shape/ShapePath;FFLandroid/graphics/RectF;Lcom/google/android/material/shape/CornerSize;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCornerTreatmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCornerTreatment)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/shape/InterpolateOnScrollPositionChangeHelper")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsInterpolateOnScrollPositionChangeHelper = env.NewGlobalRef(&c.Object)
-		midInterpolateOnScrollPositionChangeHelperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInterpolateOnScrollPositionChangeHelper)), "<init>", "(Landroid/view/View;Lcom/google/android/material/shape/MaterialShapeDrawable;Landroid/widget/ScrollView;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midInterpolateOnScrollPositionChangeHelperSetMaterialShapeDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInterpolateOnScrollPositionChangeHelper)), "setMaterialShapeDrawable", "(Lcom/google/android/material/shape/MaterialShapeDrawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInterpolateOnScrollPositionChangeHelperSetContainingScrollView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInterpolateOnScrollPositionChangeHelper)), "setContainingScrollView", "(Landroid/widget/ScrollView;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInterpolateOnScrollPositionChangeHelperStartListeningForScrollChanges, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInterpolateOnScrollPositionChangeHelper)), "startListeningForScrollChanges", "(Landroid/view/ViewTreeObserver;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInterpolateOnScrollPositionChangeHelperStopListeningForScrollChanges, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInterpolateOnScrollPositionChangeHelper)), "stopListeningForScrollChanges", "(Landroid/view/ViewTreeObserver;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInterpolateOnScrollPositionChangeHelperUpdateInterpolationForScreenPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInterpolateOnScrollPositionChangeHelper)), "updateInterpolationForScreenPosition", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInterpolateOnScrollPositionChangeHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInterpolateOnScrollPositionChangeHelper)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/shape/RoundedCornerTreatment")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRoundedCornerTreatment = env.NewGlobalRef(&c.Object)
-		midRoundedCornerTreatmentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRoundedCornerTreatment)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midRoundedCornerTreatmentGetCornerPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRoundedCornerTreatment)), "getCornerPath", "(Lcom/google/android/material/shape/ShapePath;FFF)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRoundedCornerTreatmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRoundedCornerTreatment)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1332,317 +585,26 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/shape/CornerFamily")
+	c, err = env.FindClass("com/google/android/material/shape/TriangleEdgeTreatment")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCornerFamily = env.NewGlobalRef(&c.Object)
+		clsTriangleEdgeTreatment = env.NewGlobalRef(&c.Object)
+		midTriangleEdgeTreatmentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTriangleEdgeTreatment)), "<init>", "(FZ)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midCornerFamilyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCornerFamily)), "toString", "()Ljava/lang/String;")
+		midTriangleEdgeTreatmentGetEdgePath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTriangleEdgeTreatment)), "getEdgePath", "(FFFLcom/google/android/material/shape/ShapePath;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("com/google/android/material/shape/MarkerEdgeTreatment")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMarkerEdgeTreatment = env.NewGlobalRef(&c.Object)
-		midMarkerEdgeTreatmentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMarkerEdgeTreatment)), "<init>", "(F)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMarkerEdgeTreatmentGetEdgePath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMarkerEdgeTreatment)), "getEdgePath", "(FFFLcom/google/android/material/shape/ShapePath;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMarkerEdgeTreatmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMarkerEdgeTreatment)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/shape/CutCornerTreatment")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCutCornerTreatment = env.NewGlobalRef(&c.Object)
-		midCutCornerTreatmentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCutCornerTreatment)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCutCornerTreatmentGetCornerPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCutCornerTreatment)), "getCornerPath", "(Lcom/google/android/material/shape/ShapePath;FFF)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCutCornerTreatmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCutCornerTreatment)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/shape/AbsoluteCornerSize")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAbsoluteCornerSize = env.NewGlobalRef(&c.Object)
-		midAbsoluteCornerSizeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbsoluteCornerSize)), "<init>", "(F)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAbsoluteCornerSizeGetCornerSize1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbsoluteCornerSize)), "getCornerSize", "(Landroid/graphics/RectF;)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAbsoluteCornerSizeGetCornerSize0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbsoluteCornerSize)), "getCornerSize", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAbsoluteCornerSizeEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbsoluteCornerSize)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAbsoluteCornerSizeHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbsoluteCornerSize)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAbsoluteCornerSizeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbsoluteCornerSize)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/shape/ShapePath")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPath = env.NewGlobalRef(&c.Object)
-		midPathCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPath)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midPathReset2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPath)), "reset", "(FF)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathReset4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPath)), "reset", "(FFFF)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathLineTo2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPath)), "lineTo", "(FF)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathLineTo4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPath)), "lineTo", "(FFFF)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathQuadToPoint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPath)), "quadToPoint", "(FFFF)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathCubicToPoint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPath)), "cubicToPoint", "(FFFFFF)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathAddArc, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPath)), "addArc", "(FFFFFF)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathApplyToPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPath)), "applyToPath", "(Landroid/graphics/Matrix;Landroid/graphics/Path;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPath)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/shape/ShapePath$PathArcOperation")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPathPathArcOperation = env.NewGlobalRef(&c.Object)
-
-		midPathPathArcOperationApplyToPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathPathArcOperation)), "applyToPath", "(Landroid/graphics/Matrix;Landroid/graphics/Path;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathPathArcOperationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathPathArcOperation)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/shape/ShapePath$PathCubicOperation")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPathPathCubicOperation = env.NewGlobalRef(&c.Object)
-
-		midPathPathCubicOperationApplyToPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathPathCubicOperation)), "applyToPath", "(Landroid/graphics/Matrix;Landroid/graphics/Path;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathPathCubicOperationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathPathCubicOperation)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/shape/ShapePath$PathLineOperation")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPathPathLineOperation = env.NewGlobalRef(&c.Object)
-
-		midPathPathLineOperationApplyToPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathPathLineOperation)), "applyToPath", "(Landroid/graphics/Matrix;Landroid/graphics/Path;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathPathLineOperationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathPathLineOperation)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/shape/ShapePath$PathOperation")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPathPathOperation = env.NewGlobalRef(&c.Object)
-
-		midPathPathOperationApplyToPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathPathOperation)), "applyToPath", "(Landroid/graphics/Matrix;Landroid/graphics/Path;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathPathOperationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathPathOperation)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/shape/ShapePath$PathQuadOperation")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPathPathQuadOperation = env.NewGlobalRef(&c.Object)
-
-		midPathPathQuadOperationApplyToPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathPathQuadOperation)), "applyToPath", "(Landroid/graphics/Matrix;Landroid/graphics/Path;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathPathQuadOperationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathPathQuadOperation)), "toString", "()Ljava/lang/String;")
+		midTriangleEdgeTreatmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTriangleEdgeTreatment)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2226,13 +1188,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMaterialShapeDrawableIsRoundRect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialShapeDrawable)), "isRoundRect", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midMaterialShapeDrawableToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialShapeDrawable)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -2280,6 +1235,48 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("com/google/android/material/shape/CornerTreatment")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCornerTreatment = env.NewGlobalRef(&c.Object)
+		midCornerTreatmentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCornerTreatment)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCornerTreatmentGetCornerPath3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCornerTreatment)), "getCornerPath", "(FFLcom/google/android/material/shape/ShapePath;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCornerTreatmentGetCornerPath4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCornerTreatment)), "getCornerPath", "(Lcom/google/android/material/shape/ShapePath;FFF)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCornerTreatmentGetCornerPath5_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCornerTreatment)), "getCornerPath", "(Lcom/google/android/material/shape/ShapePath;FFLandroid/graphics/RectF;Lcom/google/android/material/shape/CornerSize;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCornerTreatmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCornerTreatment)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("com/google/android/material/shape/MaterialShapeDrawable$MaterialShapeDrawableState")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -2287,6 +1284,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsMaterialShapeDrawableMaterialShapeDrawableState = env.NewGlobalRef(&c.Object)
+		midMaterialShapeDrawableMaterialShapeDrawableStateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialShapeDrawableMaterialShapeDrawableState)), "<init>", "(Lcom/google/android/material/shape/ShapeAppearanceModel;Lcom/google/android/material/elevation/ElevationOverlayProvider;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midMaterialShapeDrawableMaterialShapeDrawableStateNewDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialShapeDrawableMaterialShapeDrawableState)), "newDrawable", "()Landroid/graphics/drawable/Drawable;")
 		if err != nil {
@@ -2311,33 +1312,190 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/shape/EdgeTreatment")
+	c, err = env.FindClass("com/google/android/material/shape/ShapePath")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsEdgeTreatment = env.NewGlobalRef(&c.Object)
-		midEdgeTreatmentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEdgeTreatment)), "<init>", "()V")
+		clsPath = env.NewGlobalRef(&c.Object)
+		midPathCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPath)), "<init>", "()V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midEdgeTreatmentGetEdgePath3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEdgeTreatment)), "getEdgePath", "(FFLcom/google/android/material/shape/ShapePath;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEdgeTreatmentGetEdgePath4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEdgeTreatment)), "getEdgePath", "(FFFLcom/google/android/material/shape/ShapePath;)V")
+		midPathReset2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPath)), "reset", "(FF)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midEdgeTreatmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEdgeTreatment)), "toString", "()Ljava/lang/String;")
+		midPathReset4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPath)), "reset", "(FFFF)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathLineTo2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPath)), "lineTo", "(FF)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathLineTo4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPath)), "lineTo", "(FFFF)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathQuadToPoint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPath)), "quadToPoint", "(FFFF)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathCubicToPoint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPath)), "cubicToPoint", "(FFFFFF)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathAddArc, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPath)), "addArc", "(FFFFFF)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathApplyToPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPath)), "applyToPath", "(Landroid/graphics/Matrix;Landroid/graphics/Path;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPath)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/shape/ShapePath$PathArcOperation")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPathPathArcOperation = env.NewGlobalRef(&c.Object)
+		midPathPathArcOperationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathPathArcOperation)), "<init>", "(FFFF)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midPathPathArcOperationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathPathArcOperation)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/shape/ShapePath$PathCubicOperation")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPathPathCubicOperation = env.NewGlobalRef(&c.Object)
+		midPathPathCubicOperationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathPathCubicOperation)), "<init>", "(FFFFFF)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midPathPathCubicOperationApplyToPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathPathCubicOperation)), "applyToPath", "(Landroid/graphics/Matrix;Landroid/graphics/Path;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathPathCubicOperationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathPathCubicOperation)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/shape/ShapePath$PathLineOperation")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPathPathLineOperation = env.NewGlobalRef(&c.Object)
+		midPathPathLineOperationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathPathLineOperation)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midPathPathLineOperationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathPathLineOperation)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/shape/ShapePath$PathOperation")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPathPathOperation = env.NewGlobalRef(&c.Object)
+
+		midPathPathOperationApplyToPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathPathOperation)), "applyToPath", "(Landroid/graphics/Matrix;Landroid/graphics/Path;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathPathOperationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathPathOperation)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/shape/ShapePath$PathQuadOperation")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPathPathQuadOperation = env.NewGlobalRef(&c.Object)
+		midPathPathQuadOperationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathPathQuadOperation)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midPathPathQuadOperationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathPathQuadOperation)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2419,6 +1577,736 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("com/google/android/material/shape/ShapeAppearanceModel")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppearanceModel = env.NewGlobalRef(&c.Object)
+		midAppearanceModelCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelGetTopLeftCorner, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getTopLeftCorner", "()Lcom/google/android/material/shape/CornerTreatment;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelGetTopRightCorner, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getTopRightCorner", "()Lcom/google/android/material/shape/CornerTreatment;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelGetBottomRightCorner, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getBottomRightCorner", "()Lcom/google/android/material/shape/CornerTreatment;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelGetBottomLeftCorner, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getBottomLeftCorner", "()Lcom/google/android/material/shape/CornerTreatment;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelGetTopLeftCornerSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getTopLeftCornerSize", "()Lcom/google/android/material/shape/CornerSize;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelGetTopRightCornerSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getTopRightCornerSize", "()Lcom/google/android/material/shape/CornerSize;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelGetBottomRightCornerSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getBottomRightCornerSize", "()Lcom/google/android/material/shape/CornerSize;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelGetBottomLeftCornerSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getBottomLeftCornerSize", "()Lcom/google/android/material/shape/CornerSize;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelGetLeftEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getLeftEdge", "()Lcom/google/android/material/shape/EdgeTreatment;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelGetTopEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getTopEdge", "()Lcom/google/android/material/shape/EdgeTreatment;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelGetRightEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getRightEdge", "()Lcom/google/android/material/shape/EdgeTreatment;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelGetBottomEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "getBottomEdge", "()Lcom/google/android/material/shape/EdgeTreatment;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelToBuilder, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "toBuilder", "()Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelWithCornerSize1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "withCornerSize", "(F)Lcom/google/android/material/shape/ShapeAppearanceModel;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelWithCornerSize1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "withCornerSize", "(Lcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelWithTransformedCornerSizes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "withTransformedCornerSizes", "(Lcom/google/android/material/shape/ShapeAppearanceModel$CornerSizeUnaryOperator;)Lcom/google/android/material/shape/ShapeAppearanceModel;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilder0, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "builder", "()Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilder4_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "builder", "(Landroid/content/Context;Landroid/util/AttributeSet;II)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilder5_2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "builder", "(Landroid/content/Context;Landroid/util/AttributeSet;III)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilder5_3, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "builder", "(Landroid/content/Context;Landroid/util/AttributeSet;IILcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilder3_4, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), "builder", "(Landroid/content/Context;II)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/shape/ShapeAppearanceModel$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppearanceModelBuilder = env.NewGlobalRef(&c.Object)
+		midAppearanceModelBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetAllCorners2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setAllCorners", "(IF)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetAllCorners1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setAllCorners", "(Lcom/google/android/material/shape/CornerTreatment;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetAllCornerSizes1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setAllCornerSizes", "(Lcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetAllCornerSizes1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setAllCornerSizes", "(F)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetTopLeftCornerSize1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopLeftCornerSize", "(F)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetTopLeftCornerSize1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopLeftCornerSize", "(Lcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetTopRightCornerSize1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopRightCornerSize", "(F)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetTopRightCornerSize1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopRightCornerSize", "(Lcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetBottomRightCornerSize1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomRightCornerSize", "(F)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetBottomRightCornerSize1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomRightCornerSize", "(Lcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetBottomLeftCornerSize1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomLeftCornerSize", "(F)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetBottomLeftCornerSize1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomLeftCornerSize", "(Lcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetTopLeftCorner2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopLeftCorner", "(IF)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetTopLeftCorner2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopLeftCorner", "(ILcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetTopLeftCorner1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopLeftCorner", "(Lcom/google/android/material/shape/CornerTreatment;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetTopRightCorner2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopRightCorner", "(IF)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetTopRightCorner2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopRightCorner", "(ILcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetTopRightCorner1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopRightCorner", "(Lcom/google/android/material/shape/CornerTreatment;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetBottomRightCorner2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomRightCorner", "(IF)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetBottomRightCorner2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomRightCorner", "(ILcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetBottomRightCorner1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomRightCorner", "(Lcom/google/android/material/shape/CornerTreatment;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetBottomLeftCorner2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomLeftCorner", "(IF)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetBottomLeftCorner2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomLeftCorner", "(ILcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetBottomLeftCorner1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomLeftCorner", "(Lcom/google/android/material/shape/CornerTreatment;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetAllEdges, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setAllEdges", "(Lcom/google/android/material/shape/EdgeTreatment;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetLeftEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setLeftEdge", "(Lcom/google/android/material/shape/EdgeTreatment;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetTopEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setTopEdge", "(Lcom/google/android/material/shape/EdgeTreatment;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetRightEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setRightEdge", "(Lcom/google/android/material/shape/EdgeTreatment;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderSetBottomEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "setBottomEdge", "(Lcom/google/android/material/shape/EdgeTreatment;)Lcom/google/android/material/shape/ShapeAppearanceModel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/shape/ShapeAppearanceModel$CornerSizeUnaryOperator")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppearanceModelCornerSizeUnaryOperator = env.NewGlobalRef(&c.Object)
+
+		midAppearanceModelCornerSizeUnaryOperatorApply, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelCornerSizeUnaryOperator)), "apply", "(Lcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/CornerSize;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppearanceModelCornerSizeUnaryOperatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppearanceModelCornerSizeUnaryOperator)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/shape/AbsoluteCornerSize")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAbsoluteCornerSize = env.NewGlobalRef(&c.Object)
+		midAbsoluteCornerSizeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbsoluteCornerSize)), "<init>", "(F)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAbsoluteCornerSizeGetCornerSize1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbsoluteCornerSize)), "getCornerSize", "(Landroid/graphics/RectF;)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAbsoluteCornerSizeGetCornerSize0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbsoluteCornerSize)), "getCornerSize", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAbsoluteCornerSizeEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbsoluteCornerSize)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAbsoluteCornerSizeHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbsoluteCornerSize)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAbsoluteCornerSizeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbsoluteCornerSize)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/shape/CornerFamily")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCornerFamily = env.NewGlobalRef(&c.Object)
+
+		midCornerFamilyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCornerFamily)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/shape/InterpolateOnScrollPositionChangeHelper")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInterpolateOnScrollPositionChangeHelper = env.NewGlobalRef(&c.Object)
+		midInterpolateOnScrollPositionChangeHelperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInterpolateOnScrollPositionChangeHelper)), "<init>", "(Landroid/view/View;Lcom/google/android/material/shape/MaterialShapeDrawable;Landroid/widget/ScrollView;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midInterpolateOnScrollPositionChangeHelperSetMaterialShapeDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInterpolateOnScrollPositionChangeHelper)), "setMaterialShapeDrawable", "(Lcom/google/android/material/shape/MaterialShapeDrawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInterpolateOnScrollPositionChangeHelperSetContainingScrollView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInterpolateOnScrollPositionChangeHelper)), "setContainingScrollView", "(Landroid/widget/ScrollView;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInterpolateOnScrollPositionChangeHelperStartListeningForScrollChanges, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInterpolateOnScrollPositionChangeHelper)), "startListeningForScrollChanges", "(Landroid/view/ViewTreeObserver;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInterpolateOnScrollPositionChangeHelperStopListeningForScrollChanges, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInterpolateOnScrollPositionChangeHelper)), "stopListeningForScrollChanges", "(Landroid/view/ViewTreeObserver;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInterpolateOnScrollPositionChangeHelperUpdateInterpolationForScreenPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInterpolateOnScrollPositionChangeHelper)), "updateInterpolationForScreenPosition", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInterpolateOnScrollPositionChangeHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInterpolateOnScrollPositionChangeHelper)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/shape/EdgeTreatment")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsEdgeTreatment = env.NewGlobalRef(&c.Object)
+		midEdgeTreatmentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEdgeTreatment)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midEdgeTreatmentGetEdgePath3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEdgeTreatment)), "getEdgePath", "(FFLcom/google/android/material/shape/ShapePath;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEdgeTreatmentGetEdgePath4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEdgeTreatment)), "getEdgePath", "(FFFLcom/google/android/material/shape/ShapePath;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEdgeTreatmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEdgeTreatment)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/shape/Shapeable")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsable = env.NewGlobalRef(&c.Object)
+
+		midableSetShapeAppearanceModel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsable)), "setShapeAppearanceModel", "(Lcom/google/android/material/shape/ShapeAppearanceModel;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midableGetShapeAppearanceModel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsable)), "getShapeAppearanceModel", "()Lcom/google/android/material/shape/ShapeAppearanceModel;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midableToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsable)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/shape/MarkerEdgeTreatment")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMarkerEdgeTreatment = env.NewGlobalRef(&c.Object)
+		midMarkerEdgeTreatmentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMarkerEdgeTreatment)), "<init>", "(F)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMarkerEdgeTreatmentGetEdgePath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMarkerEdgeTreatment)), "getEdgePath", "(FFFLcom/google/android/material/shape/ShapePath;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMarkerEdgeTreatmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMarkerEdgeTreatment)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/shape/RelativeCornerSize")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRelativeCornerSize = env.NewGlobalRef(&c.Object)
+		midRelativeCornerSizeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRelativeCornerSize)), "<init>", "(F)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midRelativeCornerSizeGetRelativePercent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRelativeCornerSize)), "getRelativePercent", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRelativeCornerSizeGetCornerSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRelativeCornerSize)), "getCornerSize", "(Landroid/graphics/RectF;)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRelativeCornerSizeEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRelativeCornerSize)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRelativeCornerSizeHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRelativeCornerSize)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRelativeCornerSizeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRelativeCornerSize)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRelativeCornerSizeCreateFromCornerSize, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRelativeCornerSize)), "createFromCornerSize", "(Landroid/graphics/RectF;Lcom/google/android/material/shape/CornerSize;)Lcom/google/android/material/shape/RelativeCornerSize;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/shape/AdjustedCornerSize")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAdjustedCornerSize = env.NewGlobalRef(&c.Object)
+		midAdjustedCornerSizeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdjustedCornerSize)), "<init>", "(FLcom/google/android/material/shape/CornerSize;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAdjustedCornerSizeGetCornerSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdjustedCornerSize)), "getCornerSize", "(Landroid/graphics/RectF;)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdjustedCornerSizeEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdjustedCornerSize)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdjustedCornerSizeHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdjustedCornerSize)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdjustedCornerSizeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdjustedCornerSize)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("com/google/android/material/shape/OffsetEdgeTreatment")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -2439,6 +2327,100 @@ func doInit(env *jni.Env) error {
 		}
 
 		midOffsetEdgeTreatmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOffsetEdgeTreatment)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/shape/RoundedCornerTreatment")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRoundedCornerTreatment = env.NewGlobalRef(&c.Object)
+		midRoundedCornerTreatmentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRoundedCornerTreatment)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midRoundedCornerTreatmentGetCornerPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRoundedCornerTreatment)), "getCornerPath", "(Lcom/google/android/material/shape/ShapePath;FFF)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRoundedCornerTreatmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRoundedCornerTreatment)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/shape/ShapeableDelegate")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsableDelegate = env.NewGlobalRef(&c.Object)
+
+		midableDelegateIsForceCompatClippingEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsableDelegate)), "isForceCompatClippingEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midableDelegateSetForceCompatClippingEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsableDelegate)), "setForceCompatClippingEnabled", "(Landroid/view/View;Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midableDelegateSetOffsetZeroCornerEdgeBoundsEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsableDelegate)), "setOffsetZeroCornerEdgeBoundsEnabled", "(Landroid/view/View;Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midableDelegateOnShapeAppearanceChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsableDelegate)), "onShapeAppearanceChanged", "(Landroid/view/View;Lcom/google/android/material/shape/ShapeAppearanceModel;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midableDelegateOnMaskChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsableDelegate)), "onMaskChanged", "(Landroid/view/View;Landroid/graphics/RectF;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midableDelegateMaybeClip, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsableDelegate)), "maybeClip", "(Landroid/graphics/Canvas;Lcom/google/android/material/canvas/CanvasCompat$CanvasOperation;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midableDelegateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsableDelegate)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midableDelegateCreate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsableDelegate)), "create", "(Landroid/view/View;)Lcom/google/android/material/shape/ShapeableDelegate;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

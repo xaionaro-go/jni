@@ -5,65 +5,6 @@
 package: textfield
 go_import: github.com/AndroidGoLab/jni/com/google/android/material/textfield
 classes:
-    - java_class: com.google.android.material.textfield.TextInputEditText
-      go_type: TextInputEditText
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: getHint
-          go_name: GetHint
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: onCreateInputConnection
-          go_name: OnCreateInputConnection
-          params:
-            - java_type: android.view.inputmethod.EditorInfo
-              go_name: arg0
-          returns: android.view.inputmethod.InputConnection
-          error: true
-        - java_method: setTextInputLayoutFocusedRectEnabled
-          go_name: SetTextInputLayoutFocusedRectEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isTextInputLayoutFocusedRectEnabled
-          go_name: IsTextInputLayoutFocusedRectEnabled
-          returns: boolean
-          error: true
-        - java_method: getFocusedRect
-          go_name: GetFocusedRect
-          params:
-            - java_type: android.graphics.Rect
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getGlobalVisibleRect
-          go_name: GetGlobalVisibleRect
-          params:
-            - java_type: android.graphics.Rect
-              go_name: arg0
-            - java_type: android.graphics.Point
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: requestRectangleOnScreen
-          go_name: RequestRectangleOnScreen
-          params:
-            - java_type: android.graphics.Rect
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onInitializeAccessibilityNodeInfo
-          go_name: OnInitializeAccessibilityNodeInfo
-          params:
-            - java_type: android.view.accessibility.AccessibilityNodeInfo
-              go_name: arg0
-          returns: void
-          error: true
     - java_class: com.google.android.material.textfield.TextInputLayout
       go_type: TextInputLayout
       obtain: constructor
@@ -1148,8 +1089,71 @@ classes:
               go_name: arg0
           returns: void
           error: true
+    - java_class: com.google.android.material.textfield.TextInputEditText
+      go_type: TextInputEditText
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: getHint
+          go_name: GetHint
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: onCreateInputConnection
+          go_name: OnCreateInputConnection
+          params:
+            - java_type: android.view.inputmethod.EditorInfo
+              go_name: arg0
+          returns: android.view.inputmethod.InputConnection
+          error: true
+        - java_method: setTextInputLayoutFocusedRectEnabled
+          go_name: SetTextInputLayoutFocusedRectEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isTextInputLayoutFocusedRectEnabled
+          go_name: IsTextInputLayoutFocusedRectEnabled
+          returns: boolean
+          error: true
+        - java_method: getFocusedRect
+          go_name: GetFocusedRect
+          params:
+            - java_type: android.graphics.Rect
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getGlobalVisibleRect
+          go_name: GetGlobalVisibleRect
+          params:
+            - java_type: android.graphics.Rect
+              go_name: arg0
+            - java_type: android.graphics.Point
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: requestRectangleOnScreen
+          go_name: RequestRectangleOnScreen
+          params:
+            - java_type: android.graphics.Rect
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onInitializeAccessibilityNodeInfo
+          go_name: OnInitializeAccessibilityNodeInfo
+          params:
+            - java_type: android.view.accessibility.AccessibilityNodeInfo
+              go_name: arg0
+          returns: void
+          error: true
     - java_class: com.google.android.material.textfield.TextInputLayout$AccessibilityDelegate
       go_type: TextInputLayoutAccessibilityDelegate
+      obtain: constructor
+      constructor_params:
+        - java_type: com.google.android.material.textfield.TextInputLayout
+          go_name: arg0
       methods:
         - java_method: onInitializeAccessibilityNodeInfo
           go_name: OnInitializeAccessibilityNodeInfo

@@ -23,6 +23,35 @@ type AbstractCursorSelfContentObserver struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAbstractCursorSelfContentObserver creates a new android.database.AbstractCursor$SelfContentObserver instance.
+func NewAbstractCursorSelfContentObserver(vm *jni.VM, arg0 *jni.Object) (*AbstractCursorSelfContentObserver, error) {
+	var t AbstractCursorSelfContentObserver
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAbstractCursorSelfContentObserver == nil {
+			return fmt.Errorf("android.database.AbstractCursor$SelfContentObserver is not available on this device")
+		}
+		if midAbstractCursorSelfContentObserverCtor == nil {
+			return fmt.Errorf("android.database.AbstractCursor$SelfContentObserver constructor (Landroid/database/AbstractCursor;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAbstractCursorSelfContentObserver)), midAbstractCursorSelfContentObserverCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DeliverSelfNotifications calls android.database.AbstractCursor$SelfContentObserver.deliverSelfNotifications.
 func (m *AbstractCursorSelfContentObserver) DeliverSelfNotifications() (bool, error) {
 	var result bool

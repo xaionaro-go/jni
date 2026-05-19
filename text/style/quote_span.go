@@ -32,6 +32,12 @@ func NewQuoteSpan(vm *jni.VM) (*QuoteSpan, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsQuoteSpan == nil {
+			return fmt.Errorf("android.text.style.QuoteSpan is not available on this device")
+		}
+		if midQuoteSpanCtor == nil {
+			return fmt.Errorf("android.text.style.QuoteSpan constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsQuoteSpan)), midQuoteSpanCtor)
 		if err != nil {
 			return err

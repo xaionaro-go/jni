@@ -23,6 +23,34 @@ type RenderOutputBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRenderOutputBuilder creates a new android.adservices.ondevicepersonalization.RenderOutput$Builder instance.
+func NewRenderOutputBuilder(vm *jni.VM) (*RenderOutputBuilder, error) {
+	var t RenderOutputBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRenderOutputBuilder == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.RenderOutput$Builder is not available on this device")
+		}
+		if midRenderOutputBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.RenderOutput$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRenderOutputBuilder)), midRenderOutputBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.ondevicepersonalization.RenderOutput$Builder.build.
 func (m *RenderOutputBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

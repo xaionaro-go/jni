@@ -32,6 +32,12 @@ func NewGLSurfaceView(vm *jni.VM, arg0 *jni.Object) (*GLSurfaceView, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGLSurfaceView == nil {
+			return fmt.Errorf("android.opengl.GLSurfaceView is not available on this device")
+		}
+		if midGLSurfaceViewCtor == nil {
+			return fmt.Errorf("android.opengl.GLSurfaceView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGLSurfaceView)), midGLSurfaceViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

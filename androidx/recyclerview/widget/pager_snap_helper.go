@@ -32,6 +32,12 @@ func NewPagerSnapHelper(vm *jni.VM) (*PagerSnapHelper, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPagerSnapHelper == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.PagerSnapHelper is not available on this device")
+		}
+		if midPagerSnapHelperCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.PagerSnapHelper constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPagerSnapHelper)), midPagerSnapHelperCtor)
 		if err != nil {
 			return err

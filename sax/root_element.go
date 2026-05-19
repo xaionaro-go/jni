@@ -32,6 +32,12 @@ func NewRootElement(vm *jni.VM, arg0 string) (*RootElement, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRootElement == nil {
+			return fmt.Errorf("android.sax.RootElement is not available on this device")
+		}
+		if midRootElementCtor == nil {
+			return fmt.Errorf("android.sax.RootElement constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

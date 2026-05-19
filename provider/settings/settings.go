@@ -32,6 +32,12 @@ func NewSettings(vm *jni.VM) (*Settings, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSettings == nil {
+			return fmt.Errorf("android.provider.Settings is not available on this device")
+		}
+		if midSettingsCtor == nil {
+			return fmt.Errorf("android.provider.Settings constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSettings)), midSettingsCtor)
 		if err != nil {
 			return err

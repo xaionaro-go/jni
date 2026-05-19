@@ -23,6 +23,40 @@ type DocumentInfoBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDocumentInfoBuilder creates a new android.print.PrintDocumentInfo$Builder instance.
+func NewDocumentInfoBuilder(vm *jni.VM, arg0 string) (*DocumentInfoBuilder, error) {
+	var t DocumentInfoBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDocumentInfoBuilder == nil {
+			return fmt.Errorf("android.print.PrintDocumentInfo$Builder is not available on this device")
+		}
+		if midDocumentInfoBuilderCtor == nil {
+			return fmt.Errorf("android.print.PrintDocumentInfo$Builder constructor (Ljava/lang/String;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDocumentInfoBuilder)), midDocumentInfoBuilderCtor, jni.ObjectValue(&jArg0.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.print.PrintDocumentInfo$Builder.build.
 func (m *DocumentInfoBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

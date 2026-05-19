@@ -23,6 +23,34 @@ type TtsSpanVerbatimBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTtsSpanVerbatimBuilder creates a new android.text.style.TtsSpan$VerbatimBuilder instance.
+func NewTtsSpanVerbatimBuilder(vm *jni.VM) (*TtsSpanVerbatimBuilder, error) {
+	var t TtsSpanVerbatimBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTtsSpanVerbatimBuilder == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$VerbatimBuilder is not available on this device")
+		}
+		if midTtsSpanVerbatimBuilderCtor == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$VerbatimBuilder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTtsSpanVerbatimBuilder)), midTtsSpanVerbatimBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetVerbatim calls android.text.style.TtsSpan$VerbatimBuilder.setVerbatim.
 func (m *TtsSpanVerbatimBuilder) SetVerbatim(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

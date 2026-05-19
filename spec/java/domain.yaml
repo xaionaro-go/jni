@@ -5,6 +5,19 @@
 package: domain
 go_import: github.com/AndroidGoLab/jni/content/pm/verify/domain
 classes:
+    - java_class: android.content.pm.verify.domain.DomainVerificationManager
+      go_type: VerificationManager
+      obtain: system_service
+      service_name: domain_verification
+      close: true
+      methods:
+        - java_method: getDomainVerificationUserState
+          go_name: GetDomainVerificationUserState
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.content.pm.verify.domain.DomainVerificationUserState
+          error: true
     - java_class: android.content.pm.verify.domain.DomainVerificationUserState
       go_type: VerificationUserState
       methods:
@@ -39,6 +52,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -47,19 +61,6 @@ classes:
             - java_type: int
               go_name: arg1
           returns: void
-          error: true
-    - java_class: android.content.pm.verify.domain.DomainVerificationManager
-      go_type: VerificationManager
-      obtain: system_service
-      service_name: domain_verification
-      close: true
-      methods:
-        - java_method: getDomainVerificationUserState
-          go_name: GetDomainVerificationUserState
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.content.pm.verify.domain.DomainVerificationUserState
           error: true
 constants:
     - go_name: Creator

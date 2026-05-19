@@ -32,6 +32,12 @@ func NewActionBarOverlayLayout(vm *jni.VM, arg0 *jni.Object) (*ActionBarOverlayL
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsActionBarOverlayLayout == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ActionBarOverlayLayout is not available on this device")
+		}
+		if midActionBarOverlayLayoutCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ActionBarOverlayLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActionBarOverlayLayout)), midActionBarOverlayLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -233,8 +239,8 @@ func (m *ActionBarOverlayLayout) OnApplyWindowInsets(arg0 *jni.Object) (*jni.Obj
 	return result, callErr
 }
 
-// GenerateLayoutParams1 calls androidx.appcompat.widget.ActionBarOverlayLayout.generateLayoutParams.
-func (m *ActionBarOverlayLayout) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, error) {
+// GenerateLayoutParams calls androidx.appcompat.widget.ActionBarOverlayLayout.generateLayoutParams.
+func (m *ActionBarOverlayLayout) GenerateLayoutParams(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -242,14 +248,14 @@ func (m *ActionBarOverlayLayout) GenerateLayoutParams1(arg0 *jni.Object) (*jni.O
 			callErr = err
 			return err
 		}
-		if midActionBarOverlayLayoutGenerateLayoutParams1 == nil {
+		if midActionBarOverlayLayoutGenerateLayoutParams == nil {
 			callErr = fmt.Errorf("androidx.appcompat.widget.ActionBarOverlayLayout.generateLayoutParams is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActionBarOverlayLayoutGenerateLayoutParams1, jni.ObjectValue(arg0),
+			midActionBarOverlayLayoutGenerateLayoutParams, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1278,39 +1284,6 @@ func (m *ActionBarOverlayLayout) DismissPopups() error {
 		return callErr
 	})
 	return callErr
-}
-
-// GenerateLayoutParams1_1 calls androidx.appcompat.widget.ActionBarOverlayLayout.generateLayoutParams.
-func (m *ActionBarOverlayLayout) GenerateLayoutParams1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActionBarOverlayLayoutGenerateLayoutParams1_1 == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.ActionBarOverlayLayout.generateLayoutParams is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActionBarOverlayLayoutGenerateLayoutParams1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls androidx.appcompat.widget.ActionBarOverlayLayout.toString.

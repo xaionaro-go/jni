@@ -73,13 +73,15 @@ func TestLoadOverlay_RealOverlays(t *testing.T) {
 
 	entries, err := os.ReadDir(overlaysDir)
 	if err != nil {
-		t.Skip("overlay directory not found")
+		t.Fatalf("required overlay directory not found at %s: %v", overlaysDir, err)
 	}
 
+	overlayCount := 0
 	for _, e := range entries {
 		if e.IsDir() || filepath.Ext(e.Name()) != ".yaml" {
 			continue
 		}
+		overlayCount++
 		t.Run(e.Name(), func(t *testing.T) {
 			path := filepath.Join(overlaysDir, e.Name())
 			_, err := LoadOverlay(path)
@@ -87,5 +89,8 @@ func TestLoadOverlay_RealOverlays(t *testing.T) {
 				t.Fatalf("LoadOverlay: %v", err)
 			}
 		})
+	}
+	if overlayCount == 0 {
+		t.Fatalf("required overlay directory has no YAML files: %s", overlaysDir)
 	}
 }

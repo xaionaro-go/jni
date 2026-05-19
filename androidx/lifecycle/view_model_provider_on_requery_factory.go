@@ -23,6 +23,34 @@ type ViewModelProviderOnRequeryFactory struct {
 	Obj *jni.GlobalRef
 }
 
+// NewViewModelProviderOnRequeryFactory creates a new androidx.lifecycle.ViewModelProvider$OnRequeryFactory instance.
+func NewViewModelProviderOnRequeryFactory(vm *jni.VM) (*ViewModelProviderOnRequeryFactory, error) {
+	var t ViewModelProviderOnRequeryFactory
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsViewModelProviderOnRequeryFactory == nil {
+			return fmt.Errorf("androidx.lifecycle.ViewModelProvider$OnRequeryFactory is not available on this device")
+		}
+		if midViewModelProviderOnRequeryFactoryCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.ViewModelProvider$OnRequeryFactory constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewModelProviderOnRequeryFactory)), midViewModelProviderOnRequeryFactoryCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnRequery calls androidx.lifecycle.ViewModelProvider$OnRequeryFactory.onRequery.
 func (m *ViewModelProviderOnRequeryFactory) OnRequery(arg0 *jni.Object) error {
 

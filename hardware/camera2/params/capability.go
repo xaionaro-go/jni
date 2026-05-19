@@ -32,6 +32,12 @@ func NewCapability(vm *jni.VM, arg0 int32, arg1 *jni.Object, arg2 *jni.Object) (
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCapability == nil {
+			return fmt.Errorf("android.hardware.camera2.params.Capability is not available on this device")
+		}
+		if midCapabilityCtor == nil {
+			return fmt.Errorf("android.hardware.camera2.params.Capability constructor (ILandroid/util/Size;Landroid/util/Range;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCapability)), midCapabilityCtor, jni.IntValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
 		if err != nil {

@@ -165,29 +165,6 @@ func (m *TrustedBiddingData) HashCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.adservices.customaudience.TrustedBiddingData.writeToParcel.
-func (m *TrustedBiddingData) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTrustedBiddingDataWriteToParcel == nil {
-			callErr = fmt.Errorf("android.adservices.customaudience.TrustedBiddingData.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midTrustedBiddingDataWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.adservices.customaudience.TrustedBiddingData.toString.
 func (m *TrustedBiddingData) ToString() (string, error) {
 	var result string
@@ -213,4 +190,27 @@ func (m *TrustedBiddingData) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.adservices.customaudience.TrustedBiddingData.writeToParcel.
+func (m *TrustedBiddingData) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midTrustedBiddingDataWriteToParcel == nil {
+			callErr = fmt.Errorf("android.adservices.customaudience.TrustedBiddingData.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsTrustedBiddingData)),
+			midTrustedBiddingDataWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

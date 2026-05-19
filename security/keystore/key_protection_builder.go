@@ -23,6 +23,35 @@ type KeyProtectionBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewKeyProtectionBuilder creates a new android.security.keystore.KeyProtection$Builder instance.
+func NewKeyProtectionBuilder(vm *jni.VM, arg0 int32) (*KeyProtectionBuilder, error) {
+	var t KeyProtectionBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsKeyProtectionBuilder == nil {
+			return fmt.Errorf("android.security.keystore.KeyProtection$Builder is not available on this device")
+		}
+		if midKeyProtectionBuilderCtor == nil {
+			return fmt.Errorf("android.security.keystore.KeyProtection$Builder constructor (I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyProtectionBuilder)), midKeyProtectionBuilderCtor, jni.IntValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.security.keystore.KeyProtection$Builder.build.
 func (m *KeyProtectionBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

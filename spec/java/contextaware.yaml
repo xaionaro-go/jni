@@ -5,8 +5,6 @@
 package: contextaware
 go_import: github.com/AndroidGoLab/jni/androidx/activity/contextaware
 classes:
-    - java_class: androidx.activity.contextaware.ContextAwareKt
-      go_type: ContextAwareKt
     - java_class: androidx.activity.contextaware.OnContextAvailableListener
       go_type: OnContextAvailableListener
       methods:
@@ -14,27 +12,6 @@ classes:
           go_name: OnContextAvailable
           params:
             - java_type: android.content.Context
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.activity.contextaware.ContextAware
-      go_type: ContextAware
-      methods:
-        - java_method: peekAvailableContext
-          go_name: PeekAvailableContext
-          returns: android.content.Context
-          error: true
-        - java_method: addOnContextAvailableListener
-          go_name: AddOnContextAvailableListener
-          params:
-            - java_type: androidx.activity.contextaware.OnContextAvailableListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeOnContextAvailableListener
-          go_name: RemoveOnContextAvailableListener
-          params:
-            - java_type: androidx.activity.contextaware.OnContextAvailableListener
               go_name: arg0
           returns: void
           error: true
@@ -71,3 +48,26 @@ classes:
           go_name: ClearAvailableContext
           returns: void
           error: true
+    - java_class: androidx.activity.contextaware.ContextAware
+      go_type: ContextAware
+      methods:
+        - java_method: peekAvailableContext
+          go_name: PeekAvailableContext
+          returns: android.content.Context
+          error: true
+        - java_method: addOnContextAvailableListener
+          go_name: AddOnContextAvailableListener
+          params:
+            - java_type: androidx.activity.contextaware.OnContextAvailableListener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: removeOnContextAvailableListener
+          go_name: RemoveOnContextAvailableListener
+          params:
+            - java_type: androidx.activity.contextaware.OnContextAvailableListener
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: androidx.activity.contextaware.ContextAwareKt
+      go_type: ContextAwareKt

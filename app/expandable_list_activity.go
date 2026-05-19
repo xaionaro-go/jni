@@ -30,6 +30,12 @@ func NewExpandableListActivity(vm *jni.VM) (*ExpandableListActivity, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsExpandableListActivity == nil {
+			return fmt.Errorf("android.app.ExpandableListActivity is not available on this device")
+		}
+		if midExpandableListActivityCtor == nil {
+			return fmt.Errorf("android.app.ExpandableListActivity constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExpandableListActivity)), midExpandableListActivityCtor)
 		if err != nil {
 			return err

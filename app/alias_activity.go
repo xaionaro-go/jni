@@ -30,6 +30,12 @@ func NewAliasActivity(vm *jni.VM) (*AliasActivity, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAliasActivity == nil {
+			return fmt.Errorf("android.app.AliasActivity is not available on this device")
+		}
+		if midAliasActivityCtor == nil {
+			return fmt.Errorf("android.app.AliasActivity constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAliasActivity)), midAliasActivityCtor)
 		if err != nil {
 			return err

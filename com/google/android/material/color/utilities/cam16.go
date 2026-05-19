@@ -248,31 +248,6 @@ func (m *Cam16) GetBstar() (float64, error) {
 	return result, callErr
 }
 
-// ToInt calls com.google.android.material.color.utilities.Cam16.toInt.
-func (m *Cam16) ToInt() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCam16ToInt == nil {
-			callErr = fmt.Errorf("com.google.android.material.color.utilities.Cam16.toInt is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midCam16ToInt,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.color.utilities.Cam16.toString.
 func (m *Cam16) ToString() (string, error) {
 	var result string
@@ -402,6 +377,31 @@ func (m *Cam16) FromUcsInViewingConditions(
 			localRef := result
 			result = env.NewGlobalRef(localRef)
 			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// ToInt calls com.google.android.material.color.utilities.Cam16.toInt.
+func (m *Cam16) ToInt() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCam16ToInt == nil {
+			callErr = fmt.Errorf("com.google.android.material.color.utilities.Cam16.toInt is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsCam16)),
+			midCam16ToInt,
+		)
+		if callErr != nil {
+			return callErr
 		}
 		return callErr
 	})

@@ -32,6 +32,12 @@ func NewEnvironmentalReverb(vm *jni.VM, arg0 int32, arg1 int32) (*EnvironmentalR
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEnvironmentalReverb == nil {
+			return fmt.Errorf("android.media.audiofx.EnvironmentalReverb is not available on this device")
+		}
+		if midEnvironmentalReverbCtor == nil {
+			return fmt.Errorf("android.media.audiofx.EnvironmentalReverb constructor (II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEnvironmentalReverb)), midEnvironmentalReverbCtor, jni.IntValue(arg0), jni.IntValue(arg1))
 		if err != nil {

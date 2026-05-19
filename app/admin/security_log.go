@@ -32,6 +32,12 @@ func NewSecurityLog(vm *jni.VM) (*SecurityLog, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSecurityLog == nil {
+			return fmt.Errorf("android.app.admin.SecurityLog is not available on this device")
+		}
+		if midSecurityLogCtor == nil {
+			return fmt.Errorf("android.app.admin.SecurityLog constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSecurityLog)), midSecurityLogCtor)
 		if err != nil {
 			return err

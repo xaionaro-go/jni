@@ -5,59 +5,6 @@
 package: color
 go_import: github.com/AndroidGoLab/jni/com/google/android/material/color
 classes:
-    - java_class: com.google.android.material.color.ColorContrast
-      go_type: Contrast
-      static_methods:
-        - java_method: applyToActivitiesIfAvailable
-          go_name: ApplyToActivitiesIfAvailable
-          params:
-            - java_type: android.app.Application
-              go_name: arg0
-            - java_type: com.google.android.material.color.ColorContrastOptions
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: applyToActivityIfAvailable
-          go_name: ApplyToActivityIfAvailable
-          params:
-            - java_type: android.app.Activity
-              go_name: arg0
-            - java_type: com.google.android.material.color.ColorContrastOptions
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: wrapContextIfAvailable
-          go_name: WrapContextIfAvailable
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: com.google.android.material.color.ColorContrastOptions
-              go_name: arg1
-          returns: android.content.Context
-          error: true
-        - java_method: isContrastAvailable
-          go_name: IsContrastAvailable
-          returns: boolean
-          error: true
-    - java_class: com.google.android.material.color.ColorRoles
-      go_type: Roles
-      methods:
-        - java_method: getAccent
-          go_name: GetAccent
-          returns: int
-          error: true
-        - java_method: getOnAccent
-          go_name: GetOnAccent
-          returns: int
-          error: true
-        - java_method: getAccentContainer
-          go_name: GetAccentContainer
-          returns: int
-          error: true
-        - java_method: getOnAccentContainer
-          go_name: GetOnAccentContainer
-          returns: int
-          error: true
     - java_class: com.google.android.material.color.DynamicColors
       go_type: DynamicColors
       static_methods:
@@ -198,6 +145,168 @@ classes:
               go_name: arg1
           returns: boolean
           error: true
+    - java_class: com.google.android.material.color.DynamicColorsOptions
+      go_type: DynamicColorsOptions
+      methods:
+        - java_method: getThemeOverlay
+          go_name: GetThemeOverlay
+          returns: int
+          error: true
+        - java_method: getPrecondition
+          go_name: GetPrecondition
+          returns: com.google.android.material.color.DynamicColors$Precondition
+          error: true
+        - java_method: getOnAppliedCallback
+          go_name: GetOnAppliedCallback
+          returns: com.google.android.material.color.DynamicColors$OnAppliedCallback
+          error: true
+    - java_class: com.google.android.material.color.ThemeUtils
+      go_type: ThemeUtils
+      static_methods:
+        - java_method: applyThemeOverlay
+          go_name: ApplyThemeOverlay
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: com.google.android.material.color.DynamicColorsOptions$Builder
+      go_type: DynamicColorsOptionsBuilder
+      obtain: constructor
+      methods:
+        - java_method: setThemeOverlay
+          go_name: SetThemeOverlay
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: com.google.android.material.color.DynamicColorsOptions$Builder
+          error: true
+        - java_method: setPrecondition
+          go_name: SetPrecondition
+          params:
+            - java_type: com.google.android.material.color.DynamicColors$Precondition
+              go_name: arg0
+          returns: com.google.android.material.color.DynamicColorsOptions$Builder
+          error: true
+        - java_method: setOnAppliedCallback
+          go_name: SetOnAppliedCallback
+          params:
+            - java_type: com.google.android.material.color.DynamicColors$OnAppliedCallback
+              go_name: arg0
+          returns: com.google.android.material.color.DynamicColorsOptions$Builder
+          error: true
+        - java_method: setContentBasedSource
+          go_name: SetContentBasedSource1
+          params:
+            - java_type: android.graphics.Bitmap
+              go_name: arg0
+          returns: com.google.android.material.color.DynamicColorsOptions$Builder
+          error: true
+        - java_method: setContentBasedSource
+          go_name: SetContentBasedSource1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: com.google.android.material.color.DynamicColorsOptions$Builder
+          error: true
+    - java_class: com.google.android.material.color.ColorRoles
+      go_type: Roles
+      methods:
+        - java_method: getAccent
+          go_name: GetAccent
+          returns: int
+          error: true
+        - java_method: getOnAccent
+          go_name: GetOnAccent
+          returns: int
+          error: true
+        - java_method: getAccentContainer
+          go_name: GetAccentContainer
+          returns: int
+          error: true
+        - java_method: getOnAccentContainer
+          go_name: GetOnAccentContainer
+          returns: int
+          error: true
+    - java_class: com.google.android.material.color.ColorContrast
+      go_type: Contrast
+      static_methods:
+        - java_method: applyToActivitiesIfAvailable
+          go_name: ApplyToActivitiesIfAvailable
+          params:
+            - java_type: android.app.Application
+              go_name: arg0
+            - java_type: com.google.android.material.color.ColorContrastOptions
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: applyToActivityIfAvailable
+          go_name: ApplyToActivityIfAvailable
+          params:
+            - java_type: android.app.Activity
+              go_name: arg0
+            - java_type: com.google.android.material.color.ColorContrastOptions
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: wrapContextIfAvailable
+          go_name: WrapContextIfAvailable
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: com.google.android.material.color.ColorContrastOptions
+              go_name: arg1
+          returns: android.content.Context
+          error: true
+        - java_method: isContrastAvailable
+          go_name: IsContrastAvailable
+          returns: boolean
+          error: true
+    - java_class: com.google.android.material.color.HarmonizedColorsOptions
+      go_type: HarmonizedColorsOptions
+      methods:
+        - java_method: getColorResourceIds
+          go_name: GetColorResourceIds
+          returns: '[I'
+          error: true
+        - java_method: getColorAttributes
+          go_name: GetColorAttributes
+          returns: com.google.android.material.color.HarmonizedColorAttributes
+          error: true
+      static_methods:
+        - java_method: createMaterialDefaults
+          go_name: CreateMaterialDefaults
+          returns: com.google.android.material.color.HarmonizedColorsOptions
+          error: true
+    - java_class: com.google.android.material.color.HarmonizedColorsOptions$Builder
+      go_type: HarmonizedColorsOptionsBuilder
+      obtain: constructor
+      methods:
+        - java_method: setColorResourceIds
+          go_name: SetColorResourceIds
+          params:
+            - java_type: '[I'
+              go_name: arg0
+          returns: com.google.android.material.color.HarmonizedColorsOptions$Builder
+          error: true
+        - java_method: setColorAttributes
+          go_name: SetColorAttributes
+          params:
+            - java_type: com.google.android.material.color.HarmonizedColorAttributes
+              go_name: arg0
+          returns: com.google.android.material.color.HarmonizedColorsOptions$Builder
+          error: true
+        - java_method: setColorAttributeToHarmonizeWith
+          go_name: SetColorAttributeToHarmonizeWith
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: com.google.android.material.color.HarmonizedColorsOptions$Builder
+          error: true
+    - java_class: com.google.android.material.color.MaterialColorUtilitiesHelper
+      go_type: MaterialColorUtilitiesHelper
     - java_class: com.google.android.material.color.MaterialColors
       go_type: MaterialColors
       static_methods:
@@ -386,17 +495,19 @@ classes:
               go_name: arg1
           returns: int
           error: true
-    - java_class: com.google.android.material.color.ThemeUtils
-      go_type: ThemeUtils
+    - java_class: com.google.android.material.color.ColorResourcesOverride
+      go_type: ResourcesOverride
       static_methods:
-        - java_method: applyThemeOverlay
-          go_name: ApplyThemeOverlay
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
+        - java_method: getInstance
+          go_name: GetInstance
+          returns: com.google.android.material.color.ColorResourcesOverride
+          error: true
+    - java_class: com.google.android.material.color.ColorContrastOptions
+      go_type: ContrastOptions
+      methods:
+        - java_method: getMediumContrastThemeOverlay
+          go_name: GetMediumContrastThemeOverlay
+          returns: int
           error: true
     - java_class: com.google.android.material.color.HarmonizedColorAttributes
       go_type: HarmonizedColorAttributes
@@ -404,10 +515,6 @@ classes:
         - java_method: getAttributes
           go_name: GetAttributes
           returns: '[I'
-          error: true
-        - java_method: getThemeOverlay
-          go_name: GetThemeOverlay
-          returns: int
           error: true
       static_methods:
         - java_method: create
@@ -429,6 +536,28 @@ classes:
         - java_method: createMaterialDefaults
           go_name: CreateMaterialDefaults
           returns: com.google.android.material.color.HarmonizedColorAttributes
+          error: true
+        - java_method: getThemeOverlay
+          go_name: GetThemeOverlay
+          returns: int
+          error: true
+    - java_class: com.google.android.material.color.ColorContrastOptions$Builder
+      go_type: ContrastOptionsBuilder
+      obtain: constructor
+      methods:
+        - java_method: setMediumContrastThemeOverlay
+          go_name: SetMediumContrastThemeOverlay
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: com.google.android.material.color.ColorContrastOptions$Builder
+          error: true
+        - java_method: setHighContrastThemeOverlay
+          go_name: SetHighContrastThemeOverlay
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: com.google.android.material.color.ColorContrastOptions$Builder
           error: true
     - java_class: com.google.android.material.color.HarmonizedColors
       go_type: HarmonizedColors
@@ -455,156 +584,6 @@ classes:
           go_name: IsHarmonizedColorAvailable
           returns: boolean
           error: true
-    - java_class: com.google.android.material.color.DynamicColorsOptions
-      go_type: DynamicColorsOptions
-      methods:
-        - java_method: getThemeOverlay
-          go_name: GetThemeOverlay
-          returns: int
-          error: true
-        - java_method: getPrecondition
-          go_name: GetPrecondition
-          returns: com.google.android.material.color.DynamicColors$Precondition
-          error: true
-        - java_method: getOnAppliedCallback
-          go_name: GetOnAppliedCallback
-          returns: com.google.android.material.color.DynamicColors$OnAppliedCallback
-          error: true
-        - java_method: getContentBasedSeedColor
-          go_name: GetContentBasedSeedColor
-          returns: java.lang.Integer
-          error: true
-    - java_class: com.google.android.material.color.DynamicColorsOptions$Builder
-      go_type: DynamicColorsOptionsBuilder
-      methods:
-        - java_method: setThemeOverlay
-          go_name: SetThemeOverlay
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: com.google.android.material.color.DynamicColorsOptions$Builder
-          error: true
-        - java_method: setPrecondition
-          go_name: SetPrecondition
-          params:
-            - java_type: com.google.android.material.color.DynamicColors$Precondition
-              go_name: arg0
-          returns: com.google.android.material.color.DynamicColorsOptions$Builder
-          error: true
-        - java_method: setOnAppliedCallback
-          go_name: SetOnAppliedCallback
-          params:
-            - java_type: com.google.android.material.color.DynamicColors$OnAppliedCallback
-              go_name: arg0
-          returns: com.google.android.material.color.DynamicColorsOptions$Builder
-          error: true
-        - java_method: setContentBasedSource
-          go_name: SetContentBasedSource1
-          params:
-            - java_type: android.graphics.Bitmap
-              go_name: arg0
-          returns: com.google.android.material.color.DynamicColorsOptions$Builder
-          error: true
-        - java_method: setContentBasedSource
-          go_name: SetContentBasedSource1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: com.google.android.material.color.DynamicColorsOptions$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: com.google.android.material.color.DynamicColorsOptions
-          error: true
-    - java_class: com.google.android.material.color.HarmonizedColorsOptions
-      go_type: HarmonizedColorsOptions
-      methods:
-        - java_method: getColorResourceIds
-          go_name: GetColorResourceIds
-          returns: '[I'
-          error: true
-        - java_method: getColorAttributes
-          go_name: GetColorAttributes
-          returns: com.google.android.material.color.HarmonizedColorAttributes
-          error: true
-        - java_method: getColorAttributeToHarmonizeWith
-          go_name: GetColorAttributeToHarmonizeWith
-          returns: int
-          error: true
-      static_methods:
-        - java_method: createMaterialDefaults
-          go_name: CreateMaterialDefaults
-          returns: com.google.android.material.color.HarmonizedColorsOptions
-          error: true
-    - java_class: com.google.android.material.color.HarmonizedColorsOptions$Builder
-      go_type: HarmonizedColorsOptionsBuilder
-      methods:
-        - java_method: setColorResourceIds
-          go_name: SetColorResourceIds
-          params:
-            - java_type: '[I'
-              go_name: arg0
-          returns: com.google.android.material.color.HarmonizedColorsOptions$Builder
-          error: true
-        - java_method: setColorAttributes
-          go_name: SetColorAttributes
-          params:
-            - java_type: com.google.android.material.color.HarmonizedColorAttributes
-              go_name: arg0
-          returns: com.google.android.material.color.HarmonizedColorsOptions$Builder
-          error: true
-        - java_method: setColorAttributeToHarmonizeWith
-          go_name: SetColorAttributeToHarmonizeWith
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: com.google.android.material.color.HarmonizedColorsOptions$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: com.google.android.material.color.HarmonizedColorsOptions
-          error: true
-    - java_class: com.google.android.material.color.ColorContrastOptions
-      go_type: ContrastOptions
-      methods:
-        - java_method: getMediumContrastThemeOverlay
-          go_name: GetMediumContrastThemeOverlay
-          returns: int
-          error: true
-        - java_method: getHighContrastThemeOverlay
-          go_name: GetHighContrastThemeOverlay
-          returns: int
-          error: true
-    - java_class: com.google.android.material.color.ColorContrastOptions$Builder
-      go_type: ContrastOptionsBuilder
-      methods:
-        - java_method: setMediumContrastThemeOverlay
-          go_name: SetMediumContrastThemeOverlay
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: com.google.android.material.color.ColorContrastOptions$Builder
-          error: true
-        - java_method: setHighContrastThemeOverlay
-          go_name: SetHighContrastThemeOverlay
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: com.google.android.material.color.ColorContrastOptions$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: com.google.android.material.color.ColorContrastOptions
-          error: true
-    - java_class: com.google.android.material.color.ColorResourcesOverride
-      go_type: ResourcesOverride
-      static_methods:
-        - java_method: getInstance
-          go_name: GetInstance
-          returns: com.google.android.material.color.ColorResourcesOverride
-          error: true
-    - java_class: com.google.android.material.color.MaterialColorUtilitiesHelper
-      go_type: MaterialColorUtilitiesHelper
 constants:
     - go_name: AlphaFull
       value: "1.0"

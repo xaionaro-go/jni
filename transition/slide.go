@@ -32,6 +32,12 @@ func NewSlide(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Slide, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSlide == nil {
+			return fmt.Errorf("android.transition.Slide is not available on this device")
+		}
+		if midSlideCtor == nil {
+			return fmt.Errorf("android.transition.Slide constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSlide)), midSlideCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

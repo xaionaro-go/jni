@@ -32,6 +32,12 @@ func NewStructStat(vm *jni.VM, arg0 int64, arg1 int64, arg2 int32, arg3 int64, a
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStructStat == nil {
+			return fmt.Errorf("android.system.StructStat is not available on this device")
+		}
+		if midStructStatCtor == nil {
+			return fmt.Errorf("android.system.StructStat constructor (JJIJIIJJLandroid/system/StructTimespec;Landroid/system/StructTimespec;Landroid/system/StructTimespec;JJ)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStructStat)), midStructStatCtor, jni.LongValue(arg0), jni.LongValue(arg1), jni.IntValue(arg2), jni.LongValue(arg3), jni.IntValue(arg4), jni.IntValue(arg5), jni.LongValue(arg6), jni.LongValue(arg7), jni.ObjectValue(arg8), jni.ObjectValue(arg9), jni.ObjectValue(arg10), jni.LongValue(arg11), jni.LongValue(arg12))
 		if err != nil {

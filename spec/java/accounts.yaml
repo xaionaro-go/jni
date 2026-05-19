@@ -5,6 +5,86 @@
 package: accounts
 go_import: github.com/AndroidGoLab/jni/accounts
 classes:
+    - java_class: android.accounts.AccountAuthenticatorResponse
+      go_type: AccountAuthenticatorResponse
+      obtain: constructor
+      constructor_params:
+        - java_type: android.os.Parcel
+          go_name: arg0
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: onError
+          go_name: OnError
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onRequestContinued
+          go_name: OnRequestContinued
+          returns: void
+          error: true
+        - java_method: onResult
+          go_name: OnResult
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.accounts.Account
+      go_type: Account
+      obtain: constructor
+      constructor_params:
+        - java_type: android.os.Parcel
+          go_name: arg0
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.accounts.OperationCanceledException
+      go_type: OperationCanceledException
+      obtain: constructor
     - java_class: android.accounts.AccountManagerFuture
       go_type: AccountManagerFuture
       methods:
@@ -23,6 +103,8 @@ classes:
           go_name: IsDone
           returns: boolean
           error: true
+    - java_class: android.accounts.AccountManagerCallback
+      go_type: AccountManagerCallback
     - java_class: android.accounts.AbstractAccountAuthenticator
       go_type: AbstractAccountAuthenticator
       methods:
@@ -187,6 +269,84 @@ classes:
             - java_type: android.os.Bundle
               go_name: arg3
           returns: android.os.Bundle
+          error: true
+    - java_class: android.accounts.AccountAuthenticatorActivity
+      go_type: AccountAuthenticatorActivity
+      obtain: constructor
+      methods:
+        - java_method: finish
+          go_name: Finish
+          returns: void
+          error: true
+        - java_method: setAccountAuthenticatorResult
+          go_name: SetAccountAuthenticatorResult
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.accounts.AuthenticatorDescription
+      go_type: AuthenticatorDescription
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+        - java_type: int
+          go_name: arg3
+        - java_type: int
+          go_name: arg4
+        - java_type: int
+          go_name: arg5
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: newKey
+          go_name: NewKey
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.accounts.AuthenticatorDescription
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.accounts.OnAccountsUpdateListener
+      go_type: OnAccountsUpdateListener
+      methods:
+        - java_method: onAccountsUpdated
+          go_name: OnAccountsUpdated
+          params:
+            - java_type: android.accounts.Account[]
+              go_name: arg0
+          returns: void
           error: true
     - java_class: android.accounts.AccountManager
       go_type: AccountManager
@@ -368,282 +528,23 @@ classes:
               go_name: arg0
           returns: android.accounts.AccountManager
           error: true
+    - java_class: android.accounts.AccountsException
+      go_type: Exception
+      obtain: constructor
     - java_class: android.accounts.NetworkErrorException
       go_type: NetworkErrorException
-      obtain: constructor
-    - java_class: android.accounts.OperationCanceledException
-      go_type: OperationCanceledException
       obtain: constructor
     - java_class: android.accounts.AuthenticatorException
       go_type: AuthenticatorException
       obtain: constructor
-    - java_class: android.accounts.AccountManagerCallback
-      go_type: AccountManagerCallback
-    - java_class: android.accounts.Account
-      go_type: Account
-      obtain: constructor
-      constructor_params:
-        - java_type: android.os.Parcel
-          go_name: arg0
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.accounts.AuthenticatorDescription
-      go_type: AuthenticatorDescription
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-        - java_type: int
-          go_name: arg2
-        - java_type: int
-          go_name: arg3
-        - java_type: int
-          go_name: arg4
-        - java_type: int
-          go_name: arg5
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: newKey
-          go_name: NewKey
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.accounts.AuthenticatorDescription
-          error: true
-    - java_class: android.accounts.AccountAuthenticatorResponse
-      go_type: AccountAuthenticatorResponse
-      obtain: constructor
-      constructor_params:
-        - java_type: android.os.Parcel
-          go_name: arg0
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: onError
-          go_name: OnError
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onRequestContinued
-          go_name: OnRequestContinued
-          returns: void
-          error: true
-        - java_method: onResult
-          go_name: OnResult
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.accounts.AccountsException
-      go_type: Exception
-      obtain: constructor
-    - java_class: android.accounts.OnAccountsUpdateListener
-      go_type: OnAccountsUpdateListener
-      methods:
-        - java_method: onAccountsUpdated
-          go_name: OnAccountsUpdated
-          params:
-            - java_type: android.accounts.Account[]
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.accounts.AccountAuthenticatorActivity
-      go_type: AccountAuthenticatorActivity
-      obtain: constructor
-      methods:
-        - java_method: finish
-          go_name: Finish
-          returns: void
-          error: true
-        - java_method: setAccountAuthenticatorResult
-          go_name: SetAccountAuthenticatorResult
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: void
-          error: true
-abstract_callbacks:
+abstract_callback_eligibility:
     - java_class: android.accounts.AbstractAccountAuthenticator
-      go_type: AbstractAccountAuthenticatorCallback
-      methods:
-        - java_method: addAccount
-          params:
-            - android.accounts.AccountAuthenticatorResponse
-            - String
-            - String
-            - java.lang.String[]
-            - android.os.Bundle
-          returns: android.os.Bundle
-          go_field: AddAccount
-        - java_method: addAccountFromCredentials
-          params:
-            - android.accounts.AccountAuthenticatorResponse
-            - android.accounts.Account
-            - android.os.Bundle
-          returns: android.os.Bundle
-          go_field: AddAccountFromCredentials
-        - java_method: confirmCredentials
-          params:
-            - android.accounts.AccountAuthenticatorResponse
-            - android.accounts.Account
-            - android.os.Bundle
-          returns: android.os.Bundle
-          go_field: ConfirmCredentials
-        - java_method: editProperties
-          params:
-            - android.accounts.AccountAuthenticatorResponse
-            - String
-          returns: android.os.Bundle
-          go_field: EditProperties
-        - java_method: finishSession
-          params:
-            - android.accounts.AccountAuthenticatorResponse
-            - String
-            - android.os.Bundle
-          returns: android.os.Bundle
-          go_field: FinishSession
-        - java_method: getAccountCredentialsForCloning
-          params:
-            - android.accounts.AccountAuthenticatorResponse
-            - android.accounts.Account
-          returns: android.os.Bundle
-          go_field: GetAccountCredentialsForCloning
-        - java_method: getAccountRemovalAllowed
-          params:
-            - android.accounts.AccountAuthenticatorResponse
-            - android.accounts.Account
-          returns: android.os.Bundle
-          go_field: GetAccountRemovalAllowed
-        - java_method: getAuthToken
-          params:
-            - android.accounts.AccountAuthenticatorResponse
-            - android.accounts.Account
-            - String
-            - android.os.Bundle
-          returns: android.os.Bundle
-          go_field: GetAuthToken
-        - java_method: getAuthTokenLabel
-          params:
-            - String
-          returns: String
-          go_field: GetAuthTokenLabel
-        - java_method: getIBinder
-          params: []
-          returns: android.os.IBinder
-          go_field: GetIBinder
-        - java_method: hasFeatures
-          params:
-            - android.accounts.AccountAuthenticatorResponse
-            - android.accounts.Account
-            - java.lang.String[]
-          returns: android.os.Bundle
-          go_field: HasFeatures
-        - java_method: isCredentialsUpdateSuggested
-          params:
-            - android.accounts.AccountAuthenticatorResponse
-            - android.accounts.Account
-            - String
-          returns: android.os.Bundle
-          go_field: IsCredentialsUpdateSuggested
-        - java_method: startAddAccountSession
-          params:
-            - android.accounts.AccountAuthenticatorResponse
-            - String
-            - String
-            - java.lang.String[]
-            - android.os.Bundle
-          returns: android.os.Bundle
-          go_field: StartAddAccountSession
-        - java_method: startUpdateCredentialsSession
-          params:
-            - android.accounts.AccountAuthenticatorResponse
-            - android.accounts.Account
-            - String
-            - android.os.Bundle
-          returns: android.os.Bundle
-          go_field: StartUpdateCredentialsSession
-        - java_method: updateCredentials
-          params:
-            - android.accounts.AccountAuthenticatorResponse
-            - android.accounts.Account
-            - String
-            - android.os.Bundle
-          returns: android.os.Bundle
-          go_field: UpdateCredentials
+      generated: false
+      reason: unsupported_constructor
 constants:
+    - go_name: Creator
+      value: "0"
+      go_type: int
     - go_name: KeyCustomTokenExpiry
       value: '"android.accounts.expiry"'
       go_type: string
@@ -769,7 +670,4 @@ constants:
       go_type: int
     - go_name: VisibilityVisible
       value: "1"
-      go_type: int
-    - go_name: Creator
-      value: "0"
       go_type: int

@@ -32,6 +32,12 @@ func NewProcess(vm *jni.VM) (*Process, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsProcess == nil {
+			return fmt.Errorf("android.os.Process is not available on this device")
+		}
+		if midProcessCtor == nil {
+			return fmt.Errorf("android.os.Process constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsProcess)), midProcessCtor)
 		if err != nil {
 			return err

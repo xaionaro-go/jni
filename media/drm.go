@@ -32,6 +32,12 @@ func NewDrm(vm *jni.VM, arg0 *jni.Object) (*Drm, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDrm == nil {
+			return fmt.Errorf("android.media.MediaDrm is not available on this device")
+		}
+		if midDrmCtor == nil {
+			return fmt.Errorf("android.media.MediaDrm constructor (Ljava/util/UUID;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDrm)), midDrmCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -279,39 +279,6 @@ func (m *CameraCharacteristics) GetPhysicalCameraIds() (*jni.Object, error) {
 	return result, callErr
 }
 
-// GetRecommendedStreamConfigurationMap calls android.hardware.camera2.CameraCharacteristics.getRecommendedStreamConfigurationMap.
-func (m *CameraCharacteristics) GetRecommendedStreamConfigurationMap(arg0 int32) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCameraCharacteristicsGetRecommendedStreamConfigurationMap == nil {
-			callErr = fmt.Errorf("android.hardware.camera2.CameraCharacteristics.getRecommendedStreamConfigurationMap is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCameraCharacteristicsGetRecommendedStreamConfigurationMap, jni.IntValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.hardware.camera2.CameraCharacteristics.toString.
 func (m *CameraCharacteristics) ToString() (string, error) {
 	var result string
@@ -334,6 +301,39 @@ func (m *CameraCharacteristics) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetRecommendedStreamConfigurationMap calls android.hardware.camera2.CameraCharacteristics.getRecommendedStreamConfigurationMap.
+func (m *CameraCharacteristics) GetRecommendedStreamConfigurationMap(arg0 int32) (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCameraCharacteristicsGetRecommendedStreamConfigurationMap == nil {
+			callErr = fmt.Errorf("android.hardware.camera2.CameraCharacteristics.getRecommendedStreamConfigurationMap is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsCameraCharacteristics)),
+			midCameraCharacteristicsGetRecommendedStreamConfigurationMap, jni.IntValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
 		return callErr
 	})
 	return result, callErr

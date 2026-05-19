@@ -32,6 +32,12 @@ func NewFormat(vm *jni.VM) (*Format, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFormat == nil {
+			return fmt.Errorf("android.media.MediaFormat is not available on this device")
+		}
+		if midFormatCtor == nil {
+			return fmt.Errorf("android.media.MediaFormat constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFormat)), midFormatCtor)
 		if err != nil {
 			return err

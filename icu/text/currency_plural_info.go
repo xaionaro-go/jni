@@ -32,6 +32,12 @@ func NewCurrencyPluralInfo(vm *jni.VM) (*CurrencyPluralInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCurrencyPluralInfo == nil {
+			return fmt.Errorf("android.icu.text.CurrencyPluralInfo is not available on this device")
+		}
+		if midCurrencyPluralInfoCtor == nil {
+			return fmt.Errorf("android.icu.text.CurrencyPluralInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCurrencyPluralInfo)), midCurrencyPluralInfoCtor)
 		if err != nil {
 			return err

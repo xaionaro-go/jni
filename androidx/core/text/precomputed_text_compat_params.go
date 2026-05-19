@@ -23,6 +23,35 @@ type PrecomputedTextCompatParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPrecomputedTextCompatParams creates a new androidx.core.text.PrecomputedTextCompat$Params instance.
+func NewPrecomputedTextCompatParams(vm *jni.VM, arg0 *jni.Object) (*PrecomputedTextCompatParams, error) {
+	var t PrecomputedTextCompatParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPrecomputedTextCompatParams == nil {
+			return fmt.Errorf("androidx.core.text.PrecomputedTextCompat$Params is not available on this device")
+		}
+		if midPrecomputedTextCompatParamsCtor == nil {
+			return fmt.Errorf("androidx.core.text.PrecomputedTextCompat$Params constructor (Landroid/text/PrecomputedText$Params;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPrecomputedTextCompatParams)), midPrecomputedTextCompatParamsCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetTextPaint calls androidx.core.text.PrecomputedTextCompat$Params.getTextPaint.
 func (m *PrecomputedTextCompatParams) GetTextPaint() (*jni.Object, error) {
 	var result *jni.Object

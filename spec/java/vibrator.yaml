@@ -43,6 +43,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -51,39 +52,6 @@ classes:
             - java_type: int
               go_name: arg1
           returns: void
-          error: true
-    - java_class: android.os.vibrator.VibratorFrequencyProfile
-      go_type: FrequencyProfile
-      methods:
-        - java_method: getFrequenciesOutputAcceleration
-          go_name: GetFrequenciesOutputAcceleration
-          returns: android.util.SparseArray<java.lang.Float>
-          error: true
-        - java_method: getFrequencyRange
-          go_name: GetFrequencyRange
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: android.util.Range<java.lang.Float>
-          error: true
-        - java_method: getMaxFrequencyHz
-          go_name: GetMaxFrequencyHz
-          returns: float
-          error: true
-        - java_method: getMaxOutputAccelerationGs
-          go_name: GetMaxOutputAccelerationGs
-          returns: float
-          error: true
-        - java_method: getMinFrequencyHz
-          go_name: GetMinFrequencyHz
-          returns: float
-          error: true
-        - java_method: getOutputAccelerationGs
-          go_name: GetOutputAccelerationGs
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: float
           error: true
     - java_class: android.os.Vibrator
       go_type: Vibrator
@@ -223,112 +191,43 @@ classes:
               go_name: arg2
           returns: void
           error: true
-abstract_callbacks:
-    - java_class: android.os.Vibrator
-      go_type: VibratorCallback
+    - java_class: android.os.vibrator.VibratorFrequencyProfile
+      go_type: FrequencyProfile
       methods:
-        - java_method: areAllEffectsSupported
+        - java_method: getFrequenciesOutputAcceleration
+          go_name: GetFrequenciesOutputAcceleration
+          returns: android.util.SparseArray<java.lang.Float>
+          error: true
+        - java_method: getFrequencyRange
+          go_name: GetFrequencyRange
           params:
-            - int...
-          returns: int
-          go_field: AreAllEffectsSupported
-        - java_method: areAllPrimitivesSupported
-          params:
-            - int...
-          returns: boolean
-          go_field: AreAllPrimitivesSupported
-        - java_method: areEffectsSupported
-          params:
-            - int...
-          returns: '[I'
-          go_field: AreEffectsSupported
-        - java_method: areEnvelopeEffectsSupported
-          params: []
-          returns: boolean
-          go_field: AreEnvelopeEffectsSupported
-        - java_method: arePrimitivesSupported
-          params:
-            - int...
-          returns: boolean[]
-          go_field: ArePrimitivesSupported
-        - java_method: cancel
-          params: []
-          returns: void
-          go_field: Cancel
-        - java_method: getEnvelopeEffectInfo
-          params: []
-          returns: android.os.vibrator.VibratorEnvelopeEffectInfo
-          go_field: GetEnvelopeEffectInfo
-        - java_method: getFrequencyProfile
-          params: []
-          returns: android.os.vibrator.VibratorFrequencyProfile
-          go_field: GetFrequencyProfile
-        - java_method: getId
-          params: []
-          returns: int
-          go_field: GetId
-        - java_method: getPrimitiveDurations
-          params:
-            - int...
-          returns: '[I'
-          go_field: GetPrimitiveDurations
-        - java_method: getQFactor
-          params: []
+            - java_type: float
+              go_name: arg0
+          returns: android.util.Range<java.lang.Float>
+          error: true
+        - java_method: getMaxFrequencyHz
+          go_name: GetMaxFrequencyHz
           returns: float
-          go_field: GetQFactor
-        - java_method: getResonantFrequency
-          params: []
+          error: true
+        - java_method: getMaxOutputAccelerationGs
+          go_name: GetMaxOutputAccelerationGs
           returns: float
-          go_field: GetResonantFrequency
-        - java_method: hasAmplitudeControl
-          params: []
-          returns: boolean
-          go_field: HasAmplitudeControl
-        - java_method: hasVibrator
-          params: []
-          returns: boolean
-          go_field: HasVibrator
-        - java_method: vibrate
+          error: true
+        - java_method: getMinFrequencyHz
+          go_name: GetMinFrequencyHz
+          returns: float
+          error: true
+        - java_method: getOutputAccelerationGs
+          go_name: GetOutputAccelerationGs
           params:
-            - android.os.VibrationEffect
-          returns: void
-          go_field: Vibrate
-        - java_method: vibrate
-          params:
-            - android.os.VibrationEffect
-            - android.media.AudioAttributes
-          returns: void
-          go_field: Vibrate
-        - java_method: vibrate
-          params:
-            - android.os.VibrationEffect
-            - android.os.VibrationAttributes
-          returns: void
-          go_field: Vibrate
-        - java_method: vibrate
-          params:
-            - long
-          returns: void
-          go_field: Vibrate
-        - java_method: vibrate
-          params:
-            - long
-            - android.media.AudioAttributes
-          returns: void
-          go_field: Vibrate
-        - java_method: vibrate
-          params:
-            - '[J'
-            - int
-          returns: void
-          go_field: Vibrate
-        - java_method: vibrate
-          params:
-            - '[J'
-            - int
-            - android.media.AudioAttributes
-          returns: void
-          go_field: Vibrate
+            - java_type: float
+              go_name: arg0
+          returns: float
+          error: true
+abstract_callback_eligibility:
+    - java_class: android.os.Vibrator
+      generated: false
+      reason: unsupported_constructor
 constants:
     - go_name: Creator
       value: "0"

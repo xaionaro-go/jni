@@ -32,6 +32,12 @@ func NewSearchRecentSuggestions(vm *jni.VM, arg0 *jni.Object, arg1 string, arg2 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSearchRecentSuggestions == nil {
+			return fmt.Errorf("android.provider.SearchRecentSuggestions is not available on this device")
+		}
+		if midSearchRecentSuggestionsCtor == nil {
+			return fmt.Errorf("android.provider.SearchRecentSuggestions constructor (Landroid/content/Context;Ljava/lang/String;I)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {

@@ -185,29 +185,6 @@ func (m *Result) IsShortcut() (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.service.chooser.ChooserResult.writeToParcel.
-func (m *Result) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midResultWriteToParcel == nil {
-			callErr = fmt.Errorf("android.service.chooser.ChooserResult.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midResultWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.service.chooser.ChooserResult.toString.
 func (m *Result) ToString() (string, error) {
 	var result string
@@ -233,4 +210,27 @@ func (m *Result) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.service.chooser.ChooserResult.writeToParcel.
+func (m *Result) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midResultWriteToParcel == nil {
+			callErr = fmt.Errorf("android.service.chooser.ChooserResult.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsResult)),
+			midResultWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

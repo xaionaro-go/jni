@@ -23,6 +23,34 @@ type SignalThresholdInfoBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSignalThresholdInfoBuilder creates a new android.telephony.SignalThresholdInfo$Builder instance.
+func NewSignalThresholdInfoBuilder(vm *jni.VM) (*SignalThresholdInfoBuilder, error) {
+	var t SignalThresholdInfoBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSignalThresholdInfoBuilder == nil {
+			return fmt.Errorf("android.telephony.SignalThresholdInfo$Builder is not available on this device")
+		}
+		if midSignalThresholdInfoBuilderCtor == nil {
+			return fmt.Errorf("android.telephony.SignalThresholdInfo$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSignalThresholdInfoBuilder)), midSignalThresholdInfoBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.telephony.SignalThresholdInfo$Builder.build.
 func (m *SignalThresholdInfoBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

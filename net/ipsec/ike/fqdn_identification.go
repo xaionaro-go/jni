@@ -32,6 +32,12 @@ func NewFqdnIdentification(vm *jni.VM, arg0 string) (*FqdnIdentification, error)
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFqdnIdentification == nil {
+			return fmt.Errorf("android.net.ipsec.ike.IkeFqdnIdentification is not available on this device")
+		}
+		if midFqdnIdentificationCtor == nil {
+			return fmt.Errorf("android.net.ipsec.ike.IkeFqdnIdentification constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

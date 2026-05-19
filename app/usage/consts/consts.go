@@ -4,24 +4,6 @@ package consts
 
 const (
 	Creator                             int = 0
-	ActivityPaused                      int = 2
-	ActivityResumed                     int = 1
-	ActivityStopped                     int = 23
-	ConfigurationChange                 int = 5
-	DeviceShutdown                      int = 26
-	DeviceStartup                       int = 27
-	ForegroundServiceStart              int = 19
-	ForegroundServiceStop               int = 20
-	KeyguardHidden                      int = 18
-	KeyguardShown                       int = 17
-	MoveToBackground                    int = 2
-	MoveToForeground                    int = 1
-	None                                int = 0
-	ScreenInteractive                   int = 15
-	ScreenNonInteractive                int = 16
-	ShortcutInvocation                  int = 8
-	StandbyBucketChanged                int = 11
-	UserInteraction                     int = 7
 	AppDataTypeFileTypeApk              int = 3
 	AppDataTypeFileTypeCurrentProfile   int = 2
 	AppDataTypeFileTypeDexoptArtifact   int = 0
@@ -54,6 +36,24 @@ const (
 	StandbyBucketRare                   int = 40
 	StandbyBucketRestricted             int = 45
 	StandbyBucketWorkingSet             int = 20
+	ActivityPaused                      int = 2
+	ActivityResumed                     int = 1
+	ActivityStopped                     int = 23
+	ConfigurationChange                 int = 5
+	DeviceShutdown                      int = 26
+	DeviceStartup                       int = 27
+	ForegroundServiceStart              int = 19
+	ForegroundServiceStop               int = 20
+	KeyguardHidden                      int = 18
+	KeyguardShown                       int = 17
+	MoveToBackground                    int = 2
+	MoveToForeground                    int = 1
+	None                                int = 0
+	ScreenInteractive                   int = 15
+	ScreenNonInteractive                int = 16
+	ShortcutInvocation                  int = 8
+	StandbyBucketChanged                int = 11
+	UserInteraction                     int = 7
 )
 
 const (

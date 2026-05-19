@@ -5,26 +5,6 @@
 package: badge
 go_import: github.com/AndroidGoLab/jni/com/google/android/material/badge
 classes:
-    - java_class: com.google.android.material.badge.BadgeState
-      go_type: State
-    - java_class: com.google.android.material.badge.BadgeState$State
-      go_type: StateState
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: com.google.android.material.badge.ExperimentalBadgeUtils
-      go_type: ExperimentalBadgeUtils
     - java_class: com.google.android.material.badge.BadgeUtils
       go_type: Utils
       static_methods:
@@ -118,14 +98,17 @@ classes:
               go_name: arg2
           returns: void
           error: true
-        - java_method: createBadgeDrawablesFromSavedStates
-          go_name: CreateBadgeDrawablesFromSavedStates
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: com.google.android.material.internal.ParcelableSparseArray
-              go_name: arg1
-          returns: android.util.SparseArray<com.google.android.material.badge.BadgeDrawable>
+    - java_class: com.google.android.material.badge.ExperimentalBadgeUtils
+      go_type: ExperimentalBadgeUtils
+    - java_class: com.google.android.material.badge.BadgeState
+      go_type: State
+    - java_class: com.google.android.material.badge.BadgeState$State
+      go_type: StateState
+      obtain: constructor
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
           error: true
     - java_class: com.google.android.material.badge.BadgeDrawable
       go_type: Drawable
@@ -488,13 +471,6 @@ classes:
               go_name: arg0
           returns: void
           error: true
-        - java_method: setBadgeWithTextShapeAppearanceOverlay
-          go_name: SetBadgeWithTextShapeAppearanceOverlay
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
       static_methods:
         - java_method: create
           go_name: Create
@@ -512,15 +488,22 @@ classes:
               go_name: arg1
           returns: com.google.android.material.badge.BadgeDrawable
           error: true
+        - java_method: setBadgeWithTextShapeAppearanceOverlay
+          go_name: SetBadgeWithTextShapeAppearanceOverlay
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
     - java_class: com.google.android.material.badge.BadgeDrawable$BadgeGravity
       go_type: DrawableBadgeGravity
 constants:
-    - go_name: Creator
-      value: "0"
-      go_type: int
     - go_name: UseCompatParent
       value: "false"
       go_type: bool
+    - go_name: Creator
+      value: "0"
+      go_type: int
     - go_name: TopEnd
       value: "8388661"
       go_type: int

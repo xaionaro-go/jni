@@ -5,6 +5,160 @@
 package: widgets
 go_import: github.com/AndroidGoLab/jni/androidx/constraintlayout/core/widgets
 classes:
+    - java_class: androidx.constraintlayout.core.widgets.Flow
+      go_type: Flow
+      obtain: constructor
+      methods:
+        - java_method: setOrientation
+          go_name: SetOrientation
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setFirstHorizontalStyle
+          go_name: SetFirstHorizontalStyle
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setFirstVerticalStyle
+          go_name: SetFirstVerticalStyle
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setLastHorizontalStyle
+          go_name: SetLastHorizontalStyle
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setLastVerticalStyle
+          go_name: SetLastVerticalStyle
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setHorizontalStyle
+          go_name: SetHorizontalStyle
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setVerticalStyle
+          go_name: SetVerticalStyle
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setHorizontalBias
+          go_name: SetHorizontalBias
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setVerticalBias
+          go_name: SetVerticalBias
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setFirstHorizontalBias
+          go_name: SetFirstHorizontalBias
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setFirstVerticalBias
+          go_name: SetFirstVerticalBias
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setLastHorizontalBias
+          go_name: SetLastHorizontalBias
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setLastVerticalBias
+          go_name: SetLastVerticalBias
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setHorizontalAlign
+          go_name: SetHorizontalAlign
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setVerticalAlign
+          go_name: SetVerticalAlign
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setWrapMode
+          go_name: SetWrapMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setHorizontalGap
+          go_name: SetHorizontalGap
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setVerticalGap
+          go_name: SetVerticalGap
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setMaxElementsWrap
+          go_name: SetMaxElementsWrap
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getMaxElementsWrap
+          go_name: GetMaxElementsWrap
+          returns: float
+          error: true
+        - java_method: measure
+          go_name: Measure
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
     - java_class: androidx.constraintlayout.core.widgets.Optimizer
       go_type: Optimizer
       obtain: constructor
@@ -51,421 +205,6 @@ classes:
         - java_method: getCenterY
           go_name: GetCenterY
           returns: int
-          error: true
-    - java_class: androidx.constraintlayout.core.widgets.ChainHead
-      go_type: ChainHead
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-        - java_type: boolean
-          go_name: arg2
-      methods:
-        - java_method: getFirst
-          go_name: GetFirst
-          returns: androidx.constraintlayout.core.widgets.ConstraintWidget
-          error: true
-        - java_method: getFirstVisibleWidget
-          go_name: GetFirstVisibleWidget
-          returns: androidx.constraintlayout.core.widgets.ConstraintWidget
-          error: true
-        - java_method: getLast
-          go_name: GetLast
-          returns: androidx.constraintlayout.core.widgets.ConstraintWidget
-          error: true
-        - java_method: getLastVisibleWidget
-          go_name: GetLastVisibleWidget
-          returns: androidx.constraintlayout.core.widgets.ConstraintWidget
-          error: true
-        - java_method: getHead
-          go_name: GetHead
-          returns: androidx.constraintlayout.core.widgets.ConstraintWidget
-          error: true
-        - java_method: getFirstMatchConstraintWidget
-          go_name: GetFirstMatchConstraintWidget
-          returns: androidx.constraintlayout.core.widgets.ConstraintWidget
-          error: true
-        - java_method: getLastMatchConstraintWidget
-          go_name: GetLastMatchConstraintWidget
-          returns: androidx.constraintlayout.core.widgets.ConstraintWidget
-          error: true
-        - java_method: getTotalWeight
-          go_name: GetTotalWeight
-          returns: float
-          error: true
-        - java_method: define
-          go_name: Define
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.core.widgets.ConstraintWidgetContainer
-      go_type: ConstraintWidgetContainer
-      obtain: constructor
-      methods:
-        - java_method: invalidateGraph
-          go_name: InvalidateGraph
-          returns: void
-          error: true
-        - java_method: invalidateMeasures
-          go_name: InvalidateMeasures
-          returns: void
-          error: true
-        - java_method: directMeasure
-          go_name: DirectMeasure
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: directMeasureSetup
-          go_name: DirectMeasureSetup
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: directMeasureWithOrientation
-          go_name: DirectMeasureWithOrientation
-          params:
-            - java_type: boolean
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: defineTerminalWidgets
-          go_name: DefineTerminalWidgets
-          returns: void
-          error: true
-        - java_method: measure
-          go_name: Measure9
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: int
-              go_name: arg5
-            - java_type: int
-              go_name: arg6
-            - java_type: int
-              go_name: arg7
-            - java_type: int
-              go_name: arg8
-          returns: long
-          error: true
-        - java_method: updateHierarchy
-          go_name: UpdateHierarchy
-          returns: void
-          error: true
-        - java_method: setMeasurer
-          go_name: SetMeasurer
-          params:
-            - java_type: androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measurer
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getMeasurer
-          go_name: GetMeasurer
-          returns: androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measurer
-          error: true
-        - java_method: fillMetrics
-          go_name: FillMetrics
-          params:
-            - java_type: androidx.constraintlayout.core.Metrics
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setOptimizationLevel
-          go_name: SetOptimizationLevel
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getOptimizationLevel
-          go_name: GetOptimizationLevel
-          returns: int
-          error: true
-        - java_method: optimizeFor
-          go_name: OptimizeFor
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: String
-          error: true
-        - java_method: reset
-          go_name: Reset
-          returns: void
-          error: true
-        - java_method: isWidthMeasuredTooSmall
-          go_name: IsWidthMeasuredTooSmall
-          returns: boolean
-          error: true
-        - java_method: isHeightMeasuredTooSmall
-          go_name: IsHeightMeasuredTooSmall
-          returns: boolean
-          error: true
-        - java_method: addHorizontalWrapMinVariable
-          go_name: AddHorizontalWrapMinVariable
-          params:
-            - java_type: androidx.constraintlayout.core.widgets.ConstraintAnchor
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: addHorizontalWrapMaxVariable
-          go_name: AddHorizontalWrapMaxVariable
-          params:
-            - java_type: androidx.constraintlayout.core.widgets.ConstraintAnchor
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: addChildrenToSolver
-          go_name: AddChildrenToSolver
-          params:
-            - java_type: androidx.constraintlayout.core.LinearSystem
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: updateChildrenFromSolver
-          go_name: UpdateChildrenFromSolver
-          params:
-            - java_type: androidx.constraintlayout.core.LinearSystem
-              go_name: arg0
-            - java_type: boolean[]
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: updateFromRuns
-          go_name: UpdateFromRuns
-          params:
-            - java_type: boolean
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setPadding
-          go_name: SetPadding
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: setRtl
-          go_name: SetRtl
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isRtl
-          go_name: IsRtl
-          returns: boolean
-          error: true
-        - java_method: layout
-          go_name: Layout
-          returns: void
-          error: true
-        - java_method: handlesInternalConstraints
-          go_name: HandlesInternalConstraints
-          returns: boolean
-          error: true
-        - java_method: getVerticalGuidelines
-          go_name: GetVerticalGuidelines
-          returns: java.util.ArrayList<androidx.constraintlayout.core.widgets.Guideline>
-          error: true
-        - java_method: getHorizontalGuidelines
-          go_name: GetHorizontalGuidelines
-          returns: java.util.ArrayList<androidx.constraintlayout.core.widgets.Guideline>
-          error: true
-        - java_method: getSystem
-          go_name: GetSystem
-          returns: androidx.constraintlayout.core.LinearSystem
-          error: true
-        - java_method: setPass
-          go_name: SetPass
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getSceneString
-          go_name: GetSceneString
-          params:
-            - java_type: java.lang.StringBuilder
-              go_name: arg0
-          returns: void
-          error: true
-      static_methods:
-        - java_method: measure
-          go_name: Measure5_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
-              go_name: arg1
-            - java_type: androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measurer
-              go_name: arg2
-            - java_type: androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measure
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-          returns: boolean
-          error: true
-    - java_class: androidx.constraintlayout.core.widgets.HelperWidget
-      go_type: HelperWidget
-      obtain: constructor
-      methods:
-        - java_method: updateConstraints
-          go_name: UpdateConstraints
-          params:
-            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidgetContainer
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: add
-          go_name: Add
-          params:
-            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeAllIds
-          go_name: RemoveAllIds
-          returns: void
-          error: true
-        - java_method: findGroupInDependents
-          go_name: FindGroupInDependents
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-    - java_class: androidx.constraintlayout.core.widgets.Placeholder
-      go_type: Placeholder
-      obtain: constructor
-      methods:
-        - java_method: measure
-          go_name: Measure
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: addToSolver
-          go_name: AddToSolver
-          params:
-            - java_type: androidx.constraintlayout.core.LinearSystem
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.core.widgets.Helper
-      go_type: Helper
-      methods:
-        - java_method: updateConstraints
-          go_name: UpdateConstraints
-          params:
-            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidgetContainer
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: add
-          go_name: Add
-          params:
-            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeAllIds
-          go_name: RemoveAllIds
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.core.widgets.WidgetContainer
-      go_type: WidgetContainer
-      obtain: constructor
-      methods:
-        - java_method: reset
-          go_name: Reset
-          returns: void
-          error: true
-        - java_method: add
-          go_name: Add1
-          params:
-            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: add
-          go_name: Add1_1
-          params:
-            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget...
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: remove
-          go_name: Remove
-          params:
-            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getChildren
-          go_name: GetChildren
-          returns: java.util.ArrayList<androidx.constraintlayout.core.widgets.ConstraintWidget>
-          error: true
-        - java_method: getRootConstraintContainer
-          go_name: GetRootConstraintContainer
-          returns: androidx.constraintlayout.core.widgets.ConstraintWidgetContainer
-          error: true
-        - java_method: setOffset
-          go_name: SetOffset
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: layout
-          go_name: Layout
-          returns: void
-          error: true
-        - java_method: resetSolverVariables
-          go_name: ResetSolverVariables
-          params:
-            - java_type: androidx.constraintlayout.core.Cache
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeAllChildren
-          go_name: RemoveAllChildren
-          returns: void
           error: true
     - java_class: androidx.constraintlayout.core.widgets.ConstraintWidget
       go_type: ConstraintWidget
@@ -1371,6 +1110,7 @@ classes:
               go_name: arg1
           returns: void
           error: true
+      static_methods:
         - java_method: getSceneString
           go_name: GetSceneString
           params:
@@ -1391,6 +1131,53 @@ classes:
             - java_type: String
               go_name: arg0
           returns: androidx.constraintlayout.core.widgets.ConstraintWidget$DimensionBehaviour
+          error: true
+    - java_class: androidx.constraintlayout.core.widgets.ChainHead
+      go_type: ChainHead
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: boolean
+          go_name: arg2
+      methods:
+        - java_method: getFirst
+          go_name: GetFirst
+          returns: androidx.constraintlayout.core.widgets.ConstraintWidget
+          error: true
+        - java_method: getFirstVisibleWidget
+          go_name: GetFirstVisibleWidget
+          returns: androidx.constraintlayout.core.widgets.ConstraintWidget
+          error: true
+        - java_method: getLast
+          go_name: GetLast
+          returns: androidx.constraintlayout.core.widgets.ConstraintWidget
+          error: true
+        - java_method: getLastVisibleWidget
+          go_name: GetLastVisibleWidget
+          returns: androidx.constraintlayout.core.widgets.ConstraintWidget
+          error: true
+        - java_method: getHead
+          go_name: GetHead
+          returns: androidx.constraintlayout.core.widgets.ConstraintWidget
+          error: true
+        - java_method: getFirstMatchConstraintWidget
+          go_name: GetFirstMatchConstraintWidget
+          returns: androidx.constraintlayout.core.widgets.ConstraintWidget
+          error: true
+        - java_method: getLastMatchConstraintWidget
+          go_name: GetLastMatchConstraintWidget
+          returns: androidx.constraintlayout.core.widgets.ConstraintWidget
+          error: true
+        - java_method: getTotalWeight
+          go_name: GetTotalWeight
+          returns: float
+          error: true
+        - java_method: define
+          go_name: Define
+          returns: void
           error: true
     - java_class: androidx.constraintlayout.core.widgets.Guideline
       go_type: Guideline
@@ -1518,99 +1305,12 @@ classes:
           go_name: IsPercent
           returns: boolean
           error: true
-    - java_class: androidx.constraintlayout.core.widgets.VirtualLayout
-      go_type: VirtualLayout
+    - java_class: androidx.constraintlayout.core.widgets.Chain
+      go_type: Chain
       obtain: constructor
+    - java_class: androidx.constraintlayout.core.widgets.Helper
+      go_type: Helper
       methods:
-        - java_method: setPadding
-          go_name: SetPadding
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setPaddingStart
-          go_name: SetPaddingStart
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setPaddingEnd
-          go_name: SetPaddingEnd
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setPaddingLeft
-          go_name: SetPaddingLeft
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: applyRtl
-          go_name: ApplyRtl
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setPaddingTop
-          go_name: SetPaddingTop
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setPaddingRight
-          go_name: SetPaddingRight
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setPaddingBottom
-          go_name: SetPaddingBottom
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getPaddingTop
-          go_name: GetPaddingTop
-          returns: int
-          error: true
-        - java_method: getPaddingBottom
-          go_name: GetPaddingBottom
-          returns: int
-          error: true
-        - java_method: getPaddingLeft
-          go_name: GetPaddingLeft
-          returns: int
-          error: true
-        - java_method: getPaddingRight
-          go_name: GetPaddingRight
-          returns: int
-          error: true
-        - java_method: needSolverPass
-          go_name: NeedSolverPass
-          returns: boolean
-          error: true
-        - java_method: measure
-          go_name: Measure
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
         - java_method: updateConstraints
           go_name: UpdateConstraints
           params:
@@ -1618,25 +1318,15 @@ classes:
               go_name: arg0
           returns: void
           error: true
-        - java_method: captureWidgets
-          go_name: CaptureWidgets
+        - java_method: add
+          go_name: Add
+          params:
+            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
+              go_name: arg0
           returns: void
           error: true
-        - java_method: getMeasuredWidth
-          go_name: GetMeasuredWidth
-          returns: int
-          error: true
-        - java_method: getMeasuredHeight
-          go_name: GetMeasuredHeight
-          returns: int
-          error: true
-        - java_method: setMeasure
-          go_name: SetMeasure
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
+        - java_method: removeAllIds
+          go_name: RemoveAllIds
           returns: void
           error: true
     - java_class: androidx.constraintlayout.core.widgets.ConstraintAnchor
@@ -1810,6 +1500,474 @@ classes:
               go_name: arg0
           returns: androidx.constraintlayout.core.widgets.ConstraintAnchor$Type
           error: true
+    - java_class: androidx.constraintlayout.core.widgets.HelperWidget
+      go_type: HelperWidget
+      obtain: constructor
+      methods:
+        - java_method: updateConstraints
+          go_name: UpdateConstraints
+          params:
+            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidgetContainer
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: add
+          go_name: Add
+          params:
+            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: removeAllIds
+          go_name: RemoveAllIds
+          returns: void
+          error: true
+        - java_method: findGroupInDependents
+          go_name: FindGroupInDependents
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+    - java_class: androidx.constraintlayout.core.widgets.ConstraintWidgetContainer
+      go_type: ConstraintWidgetContainer
+      obtain: constructor
+      methods:
+        - java_method: invalidateGraph
+          go_name: InvalidateGraph
+          returns: void
+          error: true
+        - java_method: invalidateMeasures
+          go_name: InvalidateMeasures
+          returns: void
+          error: true
+        - java_method: directMeasure
+          go_name: DirectMeasure
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: directMeasureSetup
+          go_name: DirectMeasureSetup
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: directMeasureWithOrientation
+          go_name: DirectMeasureWithOrientation
+          params:
+            - java_type: boolean
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: defineTerminalWidgets
+          go_name: DefineTerminalWidgets
+          returns: void
+          error: true
+        - java_method: measure
+          go_name: Measure9
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: int
+              go_name: arg5
+            - java_type: int
+              go_name: arg6
+            - java_type: int
+              go_name: arg7
+            - java_type: int
+              go_name: arg8
+          returns: long
+          error: true
+        - java_method: updateHierarchy
+          go_name: UpdateHierarchy
+          returns: void
+          error: true
+        - java_method: setMeasurer
+          go_name: SetMeasurer
+          params:
+            - java_type: androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measurer
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getMeasurer
+          go_name: GetMeasurer
+          returns: androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measurer
+          error: true
+        - java_method: fillMetrics
+          go_name: FillMetrics
+          params:
+            - java_type: androidx.constraintlayout.core.Metrics
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setOptimizationLevel
+          go_name: SetOptimizationLevel
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getOptimizationLevel
+          go_name: GetOptimizationLevel
+          returns: int
+          error: true
+        - java_method: optimizeFor
+          go_name: OptimizeFor
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: String
+          error: true
+        - java_method: reset
+          go_name: Reset
+          returns: void
+          error: true
+        - java_method: isWidthMeasuredTooSmall
+          go_name: IsWidthMeasuredTooSmall
+          returns: boolean
+          error: true
+        - java_method: isHeightMeasuredTooSmall
+          go_name: IsHeightMeasuredTooSmall
+          returns: boolean
+          error: true
+        - java_method: addHorizontalWrapMinVariable
+          go_name: AddHorizontalWrapMinVariable
+          params:
+            - java_type: androidx.constraintlayout.core.widgets.ConstraintAnchor
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: addHorizontalWrapMaxVariable
+          go_name: AddHorizontalWrapMaxVariable
+          params:
+            - java_type: androidx.constraintlayout.core.widgets.ConstraintAnchor
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: addChildrenToSolver
+          go_name: AddChildrenToSolver
+          params:
+            - java_type: androidx.constraintlayout.core.LinearSystem
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: updateChildrenFromSolver
+          go_name: UpdateChildrenFromSolver
+          params:
+            - java_type: androidx.constraintlayout.core.LinearSystem
+              go_name: arg0
+            - java_type: boolean[]
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: updateFromRuns
+          go_name: UpdateFromRuns
+          params:
+            - java_type: boolean
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setPadding
+          go_name: SetPadding
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: setRtl
+          go_name: SetRtl
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isRtl
+          go_name: IsRtl
+          returns: boolean
+          error: true
+        - java_method: layout
+          go_name: Layout
+          returns: void
+          error: true
+        - java_method: handlesInternalConstraints
+          go_name: HandlesInternalConstraints
+          returns: boolean
+          error: true
+        - java_method: getVerticalGuidelines
+          go_name: GetVerticalGuidelines
+          returns: java.util.ArrayList<androidx.constraintlayout.core.widgets.Guideline>
+          error: true
+        - java_method: getHorizontalGuidelines
+          go_name: GetHorizontalGuidelines
+          returns: java.util.ArrayList<androidx.constraintlayout.core.widgets.Guideline>
+          error: true
+        - java_method: getSystem
+          go_name: GetSystem
+          returns: androidx.constraintlayout.core.LinearSystem
+          error: true
+        - java_method: setPass
+          go_name: SetPass
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
+        - java_method: measure
+          go_name: Measure5_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
+              go_name: arg1
+            - java_type: androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measurer
+              go_name: arg2
+            - java_type: androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measure
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+          returns: boolean
+          error: true
+        - java_method: getSceneString
+          go_name: GetSceneString
+          params:
+            - java_type: java.lang.StringBuilder
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.core.widgets.Placeholder
+      go_type: Placeholder
+      obtain: constructor
+      methods:
+        - java_method: measure
+          go_name: Measure
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: addToSolver
+          go_name: AddToSolver
+          params:
+            - java_type: androidx.constraintlayout.core.LinearSystem
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.core.widgets.VirtualLayout
+      go_type: VirtualLayout
+      obtain: constructor
+      methods:
+        - java_method: setPadding
+          go_name: SetPadding
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setPaddingStart
+          go_name: SetPaddingStart
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setPaddingEnd
+          go_name: SetPaddingEnd
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setPaddingLeft
+          go_name: SetPaddingLeft
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: applyRtl
+          go_name: ApplyRtl
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setPaddingTop
+          go_name: SetPaddingTop
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setPaddingRight
+          go_name: SetPaddingRight
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setPaddingBottom
+          go_name: SetPaddingBottom
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getPaddingTop
+          go_name: GetPaddingTop
+          returns: int
+          error: true
+        - java_method: getPaddingBottom
+          go_name: GetPaddingBottom
+          returns: int
+          error: true
+        - java_method: getPaddingLeft
+          go_name: GetPaddingLeft
+          returns: int
+          error: true
+        - java_method: getPaddingRight
+          go_name: GetPaddingRight
+          returns: int
+          error: true
+        - java_method: needSolverPass
+          go_name: NeedSolverPass
+          returns: boolean
+          error: true
+        - java_method: measure
+          go_name: Measure
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: updateConstraints
+          go_name: UpdateConstraints
+          params:
+            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidgetContainer
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: captureWidgets
+          go_name: CaptureWidgets
+          returns: void
+          error: true
+        - java_method: getMeasuredWidth
+          go_name: GetMeasuredWidth
+          returns: int
+          error: true
+        - java_method: getMeasuredHeight
+          go_name: GetMeasuredHeight
+          returns: int
+          error: true
+        - java_method: setMeasure
+          go_name: SetMeasure
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.core.widgets.WidgetContainer
+      go_type: WidgetContainer
+      obtain: constructor
+      methods:
+        - java_method: reset
+          go_name: Reset
+          returns: void
+          error: true
+        - java_method: add
+          go_name: Add1
+          params:
+            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: add
+          go_name: Add1_1
+          params:
+            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget...
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: remove
+          go_name: Remove
+          params:
+            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getChildren
+          go_name: GetChildren
+          returns: java.util.ArrayList<androidx.constraintlayout.core.widgets.ConstraintWidget>
+          error: true
+        - java_method: getRootConstraintContainer
+          go_name: GetRootConstraintContainer
+          returns: androidx.constraintlayout.core.widgets.ConstraintWidgetContainer
+          error: true
+        - java_method: setOffset
+          go_name: SetOffset
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: layout
+          go_name: Layout
+          returns: void
+          error: true
+        - java_method: resetSolverVariables
+          go_name: ResetSolverVariables
+          params:
+            - java_type: androidx.constraintlayout.core.Cache
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: removeAllChildren
+          go_name: RemoveAllChildren
+          returns: void
+          error: true
     - java_class: androidx.constraintlayout.core.widgets.Barrier
       go_type: Barrier
       obtain: constructor
@@ -1884,173 +2042,40 @@ classes:
           go_name: AllSolved
           returns: boolean
           error: true
-    - java_class: androidx.constraintlayout.core.widgets.Chain
-      go_type: Chain
-      obtain: constructor
-    - java_class: androidx.constraintlayout.core.widgets.Flow
-      go_type: Flow
-      obtain: constructor
-      methods:
-        - java_method: setOrientation
-          go_name: SetOrientation
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setFirstHorizontalStyle
-          go_name: SetFirstHorizontalStyle
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setFirstVerticalStyle
-          go_name: SetFirstVerticalStyle
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLastHorizontalStyle
-          go_name: SetLastHorizontalStyle
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLastVerticalStyle
-          go_name: SetLastVerticalStyle
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setHorizontalStyle
-          go_name: SetHorizontalStyle
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setVerticalStyle
-          go_name: SetVerticalStyle
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setHorizontalBias
-          go_name: SetHorizontalBias
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setVerticalBias
-          go_name: SetVerticalBias
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setFirstHorizontalBias
-          go_name: SetFirstHorizontalBias
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setFirstVerticalBias
-          go_name: SetFirstVerticalBias
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLastHorizontalBias
-          go_name: SetLastHorizontalBias
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLastVerticalBias
-          go_name: SetLastVerticalBias
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setHorizontalAlign
-          go_name: SetHorizontalAlign
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setVerticalAlign
-          go_name: SetVerticalAlign
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setWrapMode
-          go_name: SetWrapMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setHorizontalGap
-          go_name: SetHorizontalGap
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setVerticalGap
-          go_name: SetVerticalGap
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setMaxElementsWrap
-          go_name: SetMaxElementsWrap
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getMaxElementsWrap
-          go_name: GetMaxElementsWrap
-          returns: float
-          error: true
-        - java_method: measure
-          go_name: Measure
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: addToSolver
-          go_name: AddToSolver
-          params:
-            - java_type: androidx.constraintlayout.core.LinearSystem
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
 constants:
+    - go_name: HorizontalAlignStart
+      value: "0"
+      go_type: int
+    - go_name: HorizontalAlignEnd
+      value: "1"
+      go_type: int
+    - go_name: HorizontalAlignCenter
+      value: "2"
+      go_type: int
+    - go_name: VerticalAlignTop
+      value: "0"
+      go_type: int
+    - go_name: VerticalAlignBottom
+      value: "1"
+      go_type: int
+    - go_name: VerticalAlignCenter
+      value: "2"
+      go_type: int
+    - go_name: VerticalAlignBaseline
+      value: "3"
+      go_type: int
+    - go_name: WrapNone
+      value: "0"
+      go_type: int
+    - go_name: WrapChain
+      value: "1"
+      go_type: int
+    - go_name: WrapAligned
+      value: "2"
+      go_type: int
+    - go_name: WrapChainNew
+      value: "3"
+      go_type: int
     - go_name: OptimizationNone
       value: "0"
       go_type: int
@@ -2186,6 +2211,9 @@ constants:
     - go_name: RelativeUnknown
       value: "-1"
       go_type: int
+    - go_name: UseChainOptimization
+      value: "false"
+      go_type: bool
     - go_name: None
       value: "0"
       go_type: int
@@ -2212,40 +2240,4 @@ constants:
       go_type: int
     - go_name: CenterY
       value: "0"
-      go_type: int
-    - go_name: UseChainOptimization
-      value: "false"
-      go_type: bool
-    - go_name: HorizontalAlignStart
-      value: "0"
-      go_type: int
-    - go_name: HorizontalAlignEnd
-      value: "1"
-      go_type: int
-    - go_name: HorizontalAlignCenter
-      value: "2"
-      go_type: int
-    - go_name: VerticalAlignTop
-      value: "0"
-      go_type: int
-    - go_name: VerticalAlignBottom
-      value: "1"
-      go_type: int
-    - go_name: VerticalAlignCenter
-      value: "2"
-      go_type: int
-    - go_name: VerticalAlignBaseline
-      value: "3"
-      go_type: int
-    - go_name: WrapNone
-      value: "0"
-      go_type: int
-    - go_name: WrapChain
-      value: "1"
-      go_type: int
-    - go_name: WrapAligned
-      value: "2"
-      go_type: int
-    - go_name: WrapChainNew
-      value: "3"
       go_type: int

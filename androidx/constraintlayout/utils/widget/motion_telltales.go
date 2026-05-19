@@ -32,6 +32,12 @@ func NewMotionTelltales(vm *jni.VM, arg0 *jni.Object) (*MotionTelltales, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMotionTelltales == nil {
+			return fmt.Errorf("androidx.constraintlayout.utils.widget.MotionTelltales is not available on this device")
+		}
+		if midMotionTelltalesCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.utils.widget.MotionTelltales constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMotionTelltales)), midMotionTelltalesCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -23,6 +23,34 @@ type TextAttributeBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTextAttributeBuilder creates a new android.view.inputmethod.TextAttribute$Builder instance.
+func NewTextAttributeBuilder(vm *jni.VM) (*TextAttributeBuilder, error) {
+	var t TextAttributeBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTextAttributeBuilder == nil {
+			return fmt.Errorf("android.view.inputmethod.TextAttribute$Builder is not available on this device")
+		}
+		if midTextAttributeBuilderCtor == nil {
+			return fmt.Errorf("android.view.inputmethod.TextAttribute$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextAttributeBuilder)), midTextAttributeBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.view.inputmethod.TextAttribute$Builder.build.
 func (m *TextAttributeBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

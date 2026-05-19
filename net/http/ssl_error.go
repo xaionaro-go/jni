@@ -32,6 +32,12 @@ func NewSslError(vm *jni.VM, arg0 int32, arg1 *jni.Object) (*SslError, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSslError == nil {
+			return fmt.Errorf("android.net.http.SslError is not available on this device")
+		}
+		if midSslErrorCtor == nil {
+			return fmt.Errorf("android.net.http.SslError constructor (ILandroid/net/http/SslCertificate;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSslError)), midSslErrorCtor, jni.IntValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

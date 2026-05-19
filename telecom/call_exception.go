@@ -32,6 +32,12 @@ func NewCallException(vm *jni.VM, arg0 string, arg1 int32) (*CallException, erro
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCallException == nil {
+			return fmt.Errorf("android.telecom.CallException is not available on this device")
+		}
+		if midCallExceptionCtor == nil {
+			return fmt.Errorf("android.telecom.CallException constructor (Ljava/lang/String;I)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -101,29 +107,6 @@ func (m *CallException) GetCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.telecom.CallException.writeToParcel.
-func (m *CallException) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCallExceptionWriteToParcel == nil {
-			callErr = fmt.Errorf("android.telecom.CallException.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midCallExceptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.telecom.CallException.toString.
 func (m *CallException) ToString() (string, error) {
 	var result string
@@ -149,4 +132,27 @@ func (m *CallException) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.telecom.CallException.writeToParcel.
+func (m *CallException) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCallExceptionWriteToParcel == nil {
+			callErr = fmt.Errorf("android.telecom.CallException.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsCallException)),
+			midCallExceptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

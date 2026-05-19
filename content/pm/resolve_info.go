@@ -32,6 +32,12 @@ func NewResolveInfo(vm *jni.VM) (*ResolveInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsResolveInfo == nil {
+			return fmt.Errorf("android.content.pm.ResolveInfo is not available on this device")
+		}
+		if midResolveInfoCtor == nil {
+			return fmt.Errorf("android.content.pm.ResolveInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsResolveInfo)), midResolveInfoCtor)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewMockView(vm *jni.VM, arg0 *jni.Object) (*MockView, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMockView == nil {
+			return fmt.Errorf("androidx.constraintlayout.utils.widget.MockView is not available on this device")
+		}
+		if midMockViewCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.utils.widget.MockView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMockView)), midMockViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

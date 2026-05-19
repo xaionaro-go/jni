@@ -23,6 +23,35 @@ type MeasuredTextBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMeasuredTextBuilder creates a new android.graphics.text.MeasuredText$Builder instance.
+func NewMeasuredTextBuilder(vm *jni.VM, arg0 *jni.Object) (*MeasuredTextBuilder, error) {
+	var t MeasuredTextBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMeasuredTextBuilder == nil {
+			return fmt.Errorf("android.graphics.text.MeasuredText$Builder is not available on this device")
+		}
+		if midMeasuredTextBuilderCtor == nil {
+			return fmt.Errorf("android.graphics.text.MeasuredText$Builder constructor (Landroid/graphics/text/MeasuredText;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMeasuredTextBuilder)), midMeasuredTextBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AppendReplacementRun calls android.graphics.text.MeasuredText$Builder.appendReplacementRun.
 func (m *MeasuredTextBuilder) AppendReplacementRun(
 	arg0 *jni.Object,

@@ -32,6 +32,12 @@ func NewULocale(vm *jni.VM, arg0 string) (*ULocale, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsULocale == nil {
+			return fmt.Errorf("android.icu.util.ULocale is not available on this device")
+		}
+		if midULocaleCtor == nil {
+			return fmt.Errorf("android.icu.util.ULocale constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -83,8 +89,8 @@ func (m *ULocale) Clone() (*jni.Object, error) {
 	return result, callErr
 }
 
-// CompareTo1 calls android.icu.util.ULocale.compareTo.
-func (m *ULocale) CompareTo1(arg0 *jni.Object) (int32, error) {
+// CompareTo calls android.icu.util.ULocale.compareTo.
+func (m *ULocale) CompareTo(arg0 *jni.Object) (int32, error) {
 	var result int32
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -92,14 +98,14 @@ func (m *ULocale) CompareTo1(arg0 *jni.Object) (int32, error) {
 			callErr = err
 			return err
 		}
-		if midULocaleCompareTo1 == nil {
+		if midULocaleCompareTo == nil {
 			callErr = fmt.Errorf("android.icu.util.ULocale.compareTo is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallIntMethod(
 			m.Obj,
-			midULocaleCompareTo1, jni.ObjectValue(arg0),
+			midULocaleCompareTo, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1289,32 +1295,6 @@ func (m *ULocale) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
-		return callErr
-	})
-	return result, callErr
-}
-
-// CompareTo1_1 calls android.icu.util.ULocale.compareTo.
-func (m *ULocale) CompareTo1_1(arg0 *jni.Object) (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midULocaleCompareTo1_1 == nil {
-			callErr = fmt.Errorf("android.icu.util.ULocale.compareTo is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midULocaleCompareTo1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
 		return callErr
 	})
 	return result, callErr

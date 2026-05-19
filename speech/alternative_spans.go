@@ -32,6 +32,12 @@ func NewAlternativeSpans(vm *jni.VM, arg0 *jni.Object) (*AlternativeSpans, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAlternativeSpans == nil {
+			return fmt.Errorf("android.speech.AlternativeSpans is not available on this device")
+		}
+		if midAlternativeSpansCtor == nil {
+			return fmt.Errorf("android.speech.AlternativeSpans constructor (Ljava/util/List;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAlternativeSpans)), midAlternativeSpansCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -197,8 +203,8 @@ func (m *AlternativeSpans) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAlternativeSpans)),
 			midAlternativeSpansWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

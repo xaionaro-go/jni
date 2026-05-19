@@ -32,6 +32,12 @@ func NewCancelableFontCallback(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCancelableFontCallback == nil {
+			return fmt.Errorf("com.google.android.material.resources.CancelableFontCallback is not available on this device")
+		}
+		if midCancelableFontCallbackCtor == nil {
+			return fmt.Errorf("com.google.android.material.resources.CancelableFontCallback constructor (Lcom/google/android/material/resources/CancelableFontCallback$ApplyFont;Landroid/graphics/Typeface;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCancelableFontCallback)), midCancelableFontCallbackCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

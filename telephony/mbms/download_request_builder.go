@@ -23,6 +23,35 @@ type DownloadRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDownloadRequestBuilder creates a new android.telephony.mbms.DownloadRequest$Builder instance.
+func NewDownloadRequestBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*DownloadRequestBuilder, error) {
+	var t DownloadRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDownloadRequestBuilder == nil {
+			return fmt.Errorf("android.telephony.mbms.DownloadRequest$Builder is not available on this device")
+		}
+		if midDownloadRequestBuilderCtor == nil {
+			return fmt.Errorf("android.telephony.mbms.DownloadRequest$Builder constructor (Landroid/net/Uri;Landroid/net/Uri;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDownloadRequestBuilder)), midDownloadRequestBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.telephony.mbms.DownloadRequest$Builder.build.
 func (m *DownloadRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

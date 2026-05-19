@@ -32,6 +32,12 @@ func NewProviderResult(vm *jni.VM, arg0 *jni.Object) (*ProviderResult, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsProviderResult == nil {
+			return fmt.Errorf("android.content.ContentProviderResult is not available on this device")
+		}
+		if midProviderResultCtor == nil {
+			return fmt.Errorf("android.content.ContentProviderResult constructor (Landroid/net/Uri;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsProviderResult)), midProviderResultCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -112,8 +118,8 @@ func (m *ProviderResult) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsProviderResult)),
 			midProviderResultWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

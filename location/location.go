@@ -32,6 +32,12 @@ func NewLocation(vm *jni.VM, arg0 *jni.Object) (*Location, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLocation == nil {
+			return fmt.Errorf("android.location.Location is not available on this device")
+		}
+		if midLocationCtor == nil {
+			return fmt.Errorf("android.location.Location constructor (Landroid/location/Location;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLocation)), midLocationCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -1733,29 +1739,6 @@ func (m *Location) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.location.Location.writeToParcel.
-func (m *Location) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midLocationWriteToParcel == nil {
-			callErr = fmt.Errorf("android.location.Location.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midLocationWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // Convert2 calls android.location.Location.convert.
 func (m *Location) Convert2(arg0 float64, arg1 int32) (string, error) {
 	var result string
@@ -1838,6 +1821,29 @@ func (m *Location) DistanceBetween(
 		callErr = env.CallStaticVoidMethod(
 			(*jni.Class)(unsafe.Pointer(clsLocation)),
 			midLocationDistanceBetween, jni.DoubleValue(arg0), jni.DoubleValue(arg1), jni.DoubleValue(arg2), jni.DoubleValue(arg3), jni.ObjectValue(arg4),
+		)
+		return callErr
+	})
+	return callErr
+}
+
+// WriteToParcel calls android.location.Location.writeToParcel.
+func (m *Location) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midLocationWriteToParcel == nil {
+			callErr = fmt.Errorf("android.location.Location.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsLocation)),
+			midLocationWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr
 	})

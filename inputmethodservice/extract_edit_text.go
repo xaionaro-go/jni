@@ -32,6 +32,12 @@ func NewExtractEditText(vm *jni.VM, arg0 *jni.Object) (*ExtractEditText, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsExtractEditText == nil {
+			return fmt.Errorf("android.inputmethodservice.ExtractEditText is not available on this device")
+		}
+		if midExtractEditTextCtor == nil {
+			return fmt.Errorf("android.inputmethodservice.ExtractEditText constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExtractEditText)), midExtractEditTextCtor, jni.ObjectValue(arg0))
 		if err != nil {

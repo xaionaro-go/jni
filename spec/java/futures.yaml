@@ -5,8 +5,10 @@
 package: futures
 go_import: github.com/AndroidGoLab/jni/androidx/concurrent/futures
 classes:
-    - java_class: androidx.concurrent.futures.ResolvableFuture
-      go_type: ResolvableFuture
+    - java_class: androidx.concurrent.futures.CallbackToFutureAdapter
+      go_type: CallbackToFutureAdapter
+    - java_class: androidx.concurrent.futures.CallbackToFutureAdapter$Completer
+      go_type: CallbackToFutureAdapterCompleter
       methods:
         - java_method: setException
           go_name: SetException
@@ -15,6 +17,21 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
+        - java_method: setCancelled
+          go_name: SetCancelled
+          returns: boolean
+          error: true
+        - java_method: addCancellationListener
+          go_name: AddCancellationListener
+          params:
+            - java_type: java.lang.Runnable
+              go_name: arg0
+            - java_type: java.util.concurrent.Executor
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: androidx.concurrent.futures.CallbackToFutureAdapter$Resolver
+      go_type: CallbackToFutureAdapterResolver
     - java_class: androidx.concurrent.futures.AbstractResolvableFuture
       go_type: AbstractResolvableFuture
       methods:
@@ -46,10 +63,8 @@ classes:
           go_name: ToString
           returns: String
           error: true
-    - java_class: androidx.concurrent.futures.CallbackToFutureAdapter
-      go_type: CallbackToFutureAdapter
-    - java_class: androidx.concurrent.futures.CallbackToFutureAdapter$Completer
-      go_type: CallbackToFutureAdapterCompleter
+    - java_class: androidx.concurrent.futures.ResolvableFuture
+      go_type: ResolvableFuture
       methods:
         - java_method: setException
           go_name: SetException
@@ -58,45 +73,7 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: setCancelled
-          go_name: SetCancelled
-          returns: boolean
-          error: true
-        - java_method: addCancellationListener
-          go_name: AddCancellationListener
-          params:
-            - java_type: java.lang.Runnable
-              go_name: arg0
-            - java_type: java.util.concurrent.Executor
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: androidx.concurrent.futures.CallbackToFutureAdapter$Resolver
-      go_type: CallbackToFutureAdapterResolver
-abstract_callbacks:
+abstract_callback_eligibility:
     - java_class: androidx.concurrent.futures.AbstractResolvableFuture
-      go_type: AbstractResolvableFutureCallback
-      methods:
-        - java_method: isDone
-          params: []
-          returns: boolean
-          go_field: IsDone
-        - java_method: isCancelled
-          params: []
-          returns: boolean
-          go_field: IsCancelled
-        - java_method: cancel
-          params:
-            - boolean
-          returns: boolean
-          go_field: Cancel
-        - java_method: addListener
-          params:
-            - java.lang.Runnable
-            - java.util.concurrent.Executor
-          returns: void
-          go_field: AddListener
-        - java_method: toString
-          params: []
-          returns: String
-          go_field: ToString
+      generated: false
+      reason: implements_interface

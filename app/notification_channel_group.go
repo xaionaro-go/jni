@@ -30,6 +30,12 @@ func NewNotificationChannelGroup(vm *jni.VM, arg0 string, arg1 string) (*Notific
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNotificationChannelGroup == nil {
+			return fmt.Errorf("android.app.NotificationChannelGroup is not available on this device")
+		}
+		if midNotificationChannelGroupCtor == nil {
+			return fmt.Errorf("android.app.NotificationChannelGroup constructor (Ljava/lang/String;Ljava/lang/CharSequence;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -55,8 +61,8 @@ func NewNotificationChannelGroup(vm *jni.VM, arg0 string, arg1 string) (*Notific
 	return &t, nil
 }
 
-// Clone0 calls android.app.NotificationChannelGroup.clone.
-func (m *NotificationChannelGroup) Clone0() (*jni.Object, error) {
+// Clone calls android.app.NotificationChannelGroup.clone.
+func (m *NotificationChannelGroup) Clone() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -64,13 +70,13 @@ func (m *NotificationChannelGroup) Clone0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midNotificationChannelGroupClone0 == nil {
+		if midNotificationChannelGroupClone == nil {
 			callErr = fmt.Errorf("android.app.NotificationChannelGroup.clone is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midNotificationChannelGroupClone0,
+			midNotificationChannelGroupClone,
 		)
 		if callErr != nil {
 			return callErr
@@ -386,36 +392,4 @@ func (m *NotificationChannelGroup) WriteToParcel(arg0 *jni.Object, arg1 int32) e
 		return callErr
 	})
 	return callErr
-}
-
-// Clone0_1 calls android.app.NotificationChannelGroup.clone.
-func (m *NotificationChannelGroup) Clone0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midNotificationChannelGroupClone0_1 == nil {
-			callErr = fmt.Errorf("android.app.NotificationChannelGroup.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midNotificationChannelGroupClone0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }

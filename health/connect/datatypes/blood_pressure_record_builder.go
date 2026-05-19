@@ -23,6 +23,35 @@ type BloodPressureRecordBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewBloodPressureRecordBuilder creates a new android.health.connect.datatypes.BloodPressureRecord$Builder instance.
+func NewBloodPressureRecordBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 int32, arg3 *jni.Object, arg4 *jni.Object, arg5 int32) (*BloodPressureRecordBuilder, error) {
+	var t BloodPressureRecordBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsBloodPressureRecordBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.BloodPressureRecord$Builder is not available on this device")
+		}
+		if midBloodPressureRecordBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.BloodPressureRecord$Builder constructor (Landroid/health/connect/datatypes/Metadata;Ljava/time/Instant;ILandroid/health/connect/datatypes/units/Pressure;Landroid/health/connect/datatypes/units/Pressure;I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBloodPressureRecordBuilder)), midBloodPressureRecordBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2), jni.ObjectValue(arg3), jni.ObjectValue(arg4), jni.IntValue(arg5))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.datatypes.BloodPressureRecord$Builder.build.
 func (m *BloodPressureRecordBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

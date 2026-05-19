@@ -3,13 +3,6 @@
 package consts
 
 const (
-	ShowNone                             int = 0
-	ShowOutward                          int = 1
-	ShowInward                           int = 2
-	HideNone                             int = 0
-	HideOutward                          int = 1
-	HideInward                           int = 2
-	HideEscape                           int = 3
 	DefStyleRes                          int = 0
 	IndeterminateAnimationTypeContiguous int = 0
 	IndeterminateAnimationTypeDisjoint   int = 1
@@ -19,4 +12,11 @@ const (
 	IndicatorDirectionEndToStart         int = 3
 	IndicatorDirectionClockwise          int = 0
 	IndicatorDirectionCounterclockwise   int = 1
+	ShowNone                             int = 0
+	ShowOutward                          int = 1
+	ShowInward                           int = 2
+	HideNone                             int = 0
+	HideOutward                          int = 1
+	HideInward                           int = 2
+	HideEscape                           int = 3
 )

@@ -32,6 +32,12 @@ func NewCLParsingException(vm *jni.VM, arg0 string, arg1 *jni.Object) (*CLParsin
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCLParsingException == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.parser.CLParsingException is not available on this device")
+		}
+		if midCLParsingExceptionCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.parser.CLParsingException constructor (Ljava/lang/String;Landroidx/constraintlayout/core/parser/CLElement;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

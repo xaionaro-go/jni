@@ -21,6 +21,34 @@ type PersonBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPersonBuilder creates a new androidx.core.app.Person$Builder instance.
+func NewPersonBuilder(vm *jni.VM) (*PersonBuilder, error) {
+	var t PersonBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPersonBuilder == nil {
+			return fmt.Errorf("androidx.core.app.Person$Builder is not available on this device")
+		}
+		if midPersonBuilderCtor == nil {
+			return fmt.Errorf("androidx.core.app.Person$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPersonBuilder)), midPersonBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetName calls androidx.core.app.Person$Builder.setName.
 func (m *PersonBuilder) SetName(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

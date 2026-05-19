@@ -32,6 +32,12 @@ func NewWebResourceResponse(vm *jni.VM, arg0 string, arg1 string, arg2 int32, ar
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWebResourceResponse == nil {
+			return fmt.Errorf("android.webkit.WebResourceResponse is not available on this device")
+		}
+		if midWebResourceResponseCtor == nil {
+			return fmt.Errorf("android.webkit.WebResourceResponse constructor (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/util/Map;Ljava/io/InputStream;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

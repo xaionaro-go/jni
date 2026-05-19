@@ -32,6 +32,12 @@ func NewSpringStopEngine(vm *jni.VM) (*SpringStopEngine, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSpringStopEngine == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.SpringStopEngine is not available on this device")
+		}
+		if midSpringStopEngineCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.SpringStopEngine constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSpringStopEngine)), midSpringStopEngineCtor)
 		if err != nil {
 			return err

@@ -23,6 +23,34 @@ type VERSION_CODES struct {
 	Obj *jni.GlobalRef
 }
 
+// NewVERSION_CODES creates a new android.os.Build$VERSION_CODES instance.
+func NewVERSION_CODES(vm *jni.VM) (*VERSION_CODES, error) {
+	var t VERSION_CODES
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsVERSION_CODES == nil {
+			return fmt.Errorf("android.os.Build$VERSION_CODES is not available on this device")
+		}
+		if midVERSION_CODESCtor == nil {
+			return fmt.Errorf("android.os.Build$VERSION_CODES constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVERSION_CODES)), midVERSION_CODESCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.os.Build$VERSION_CODES.toString.
 func (m *VERSION_CODES) ToString() (string, error) {
 	var result string

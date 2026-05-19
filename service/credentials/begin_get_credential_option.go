@@ -32,6 +32,12 @@ func NewBeginGetCredentialOption(vm *jni.VM, arg0 string, arg1 string, arg2 *jni
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBeginGetCredentialOption == nil {
+			return fmt.Errorf("android.service.credentials.BeginGetCredentialOption is not available on this device")
+		}
+		if midBeginGetCredentialOptionCtor == nil {
+			return fmt.Errorf("android.service.credentials.BeginGetCredentialOption constructor (Ljava/lang/String;Ljava/lang/String;Landroid/os/Bundle;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -209,8 +215,8 @@ func (m *BeginGetCredentialOption) WriteToParcel(arg0 *jni.Object, arg1 int32) e
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsBeginGetCredentialOption)),
 			midBeginGetCredentialOptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

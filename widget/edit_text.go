@@ -32,6 +32,12 @@ func NewEditText(vm *jni.VM, arg0 *jni.Object) (*EditText, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEditText == nil {
+			return fmt.Errorf("android.widget.EditText is not available on this device")
+		}
+		if midEditTextCtor == nil {
+			return fmt.Errorf("android.widget.EditText constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEditText)), midEditTextCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -128,8 +134,8 @@ func (m *EditText) GetFreezesText() (bool, error) {
 	return result, callErr
 }
 
-// GetText0 calls android.widget.EditText.getText.
-func (m *EditText) GetText0() (*jni.Object, error) {
+// GetText calls android.widget.EditText.getText.
+func (m *EditText) GetText() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -137,13 +143,13 @@ func (m *EditText) GetText0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midEditTextGetText0 == nil {
+		if midEditTextGetText == nil {
 			callErr = fmt.Errorf("android.widget.EditText.getText is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midEditTextGetText0,
+			midEditTextGetText,
 		)
 		if callErr != nil {
 			return callErr
@@ -387,38 +393,6 @@ func (m *EditText) SetText(arg0 string, arg1 *jni.Object) error {
 		return callErr
 	})
 	return callErr
-}
-
-// GetText0_1 calls android.widget.EditText.getText.
-func (m *EditText) GetText0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midEditTextGetText0_1 == nil {
-			callErr = fmt.Errorf("android.widget.EditText.getText is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midEditTextGetText0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls android.widget.EditText.toString.

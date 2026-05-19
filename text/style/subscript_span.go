@@ -32,6 +32,12 @@ func NewSubscriptSpan(vm *jni.VM) (*SubscriptSpan, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSubscriptSpan == nil {
+			return fmt.Errorf("android.text.style.SubscriptSpan is not available on this device")
+		}
+		if midSubscriptSpanCtor == nil {
+			return fmt.Errorf("android.text.style.SubscriptSpan constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSubscriptSpan)), midSubscriptSpanCtor)
 		if err != nil {
 			return err

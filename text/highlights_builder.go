@@ -23,6 +23,34 @@ type HighlightsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewHighlightsBuilder creates a new android.text.Highlights$Builder instance.
+func NewHighlightsBuilder(vm *jni.VM) (*HighlightsBuilder, error) {
+	var t HighlightsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsHighlightsBuilder == nil {
+			return fmt.Errorf("android.text.Highlights$Builder is not available on this device")
+		}
+		if midHighlightsBuilderCtor == nil {
+			return fmt.Errorf("android.text.Highlights$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHighlightsBuilder)), midHighlightsBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddRange calls android.text.Highlights$Builder.addRange.
 func (m *HighlightsBuilder) AddRange(
 	arg0 *jni.Object,

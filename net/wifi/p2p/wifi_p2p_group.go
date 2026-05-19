@@ -32,6 +32,12 @@ func NewWifiP2pGroup(vm *jni.VM) (*WifiP2pGroup, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWifiP2pGroup == nil {
+			return fmt.Errorf("android.net.wifi.p2p.WifiP2pGroup is not available on this device")
+		}
+		if midWifiP2pGroupCtor == nil {
+			return fmt.Errorf("android.net.wifi.p2p.WifiP2pGroup constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWifiP2pGroup)), midWifiP2pGroupCtor)
 		if err != nil {
 			return err
@@ -390,8 +396,8 @@ func (m *WifiP2pGroup) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsWifiP2pGroup)),
 			midWifiP2pGroupWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

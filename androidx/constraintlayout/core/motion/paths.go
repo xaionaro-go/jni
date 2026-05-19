@@ -32,6 +32,12 @@ func NewPaths(vm *jni.VM) (*Paths, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPaths == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.MotionPaths is not available on this device")
+		}
+		if midPathsCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.MotionPaths constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPaths)), midPathsCtor)
 		if err != nil {
 			return err
@@ -68,8 +74,8 @@ func (m *Paths) SetupRelative(arg0 *jni.Object, arg1 *jni.Object) error {
 	return callErr
 }
 
-// CompareTo1 calls androidx.constraintlayout.core.motion.MotionPaths.compareTo.
-func (m *Paths) CompareTo1(arg0 *jni.Object) (int32, error) {
+// CompareTo calls androidx.constraintlayout.core.motion.MotionPaths.compareTo.
+func (m *Paths) CompareTo(arg0 *jni.Object) (int32, error) {
 	var result int32
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -77,14 +83,14 @@ func (m *Paths) CompareTo1(arg0 *jni.Object) (int32, error) {
 			callErr = err
 			return err
 		}
-		if midPathsCompareTo1 == nil {
+		if midPathsCompareTo == nil {
 			callErr = fmt.Errorf("androidx.constraintlayout.core.motion.MotionPaths.compareTo is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallIntMethod(
 			m.Obj,
-			midPathsCompareTo1, jni.ObjectValue(arg0),
+			midPathsCompareTo, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -138,32 +144,6 @@ func (m *Paths) ConfigureRelativeTo(arg0 *jni.Object) error {
 		return callErr
 	})
 	return callErr
-}
-
-// CompareTo1_1 calls androidx.constraintlayout.core.motion.MotionPaths.compareTo.
-func (m *Paths) CompareTo1_1(arg0 *jni.Object) (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midPathsCompareTo1_1 == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.core.motion.MotionPaths.compareTo is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midPathsCompareTo1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls androidx.constraintlayout.core.motion.MotionPaths.toString.

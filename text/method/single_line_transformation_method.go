@@ -32,6 +32,12 @@ func NewSingleLineTransformationMethod(vm *jni.VM) (*SingleLineTransformationMet
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSingleLineTransformationMethod == nil {
+			return fmt.Errorf("android.text.method.SingleLineTransformationMethod is not available on this device")
+		}
+		if midSingleLineTransformationMethodCtor == nil {
+			return fmt.Errorf("android.text.method.SingleLineTransformationMethod constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSingleLineTransformationMethod)), midSingleLineTransformationMethodCtor)
 		if err != nil {
 			return err

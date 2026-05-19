@@ -32,6 +32,12 @@ func NewArrayMap(vm *jni.VM) (*ArrayMap, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsArrayMap == nil {
+			return fmt.Errorf("androidx.collection.ArrayMap is not available on this device")
+		}
+		if midArrayMapCtor == nil {
+			return fmt.Errorf("androidx.collection.ArrayMap constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsArrayMap)), midArrayMapCtor)
 		if err != nil {
 			return err

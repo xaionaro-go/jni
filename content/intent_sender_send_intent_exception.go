@@ -23,6 +23,34 @@ type IntentSenderSendIntentException struct {
 	Obj *jni.GlobalRef
 }
 
+// NewIntentSenderSendIntentException creates a new android.content.IntentSender$SendIntentException instance.
+func NewIntentSenderSendIntentException(vm *jni.VM) (*IntentSenderSendIntentException, error) {
+	var t IntentSenderSendIntentException
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsIntentSenderSendIntentException == nil {
+			return fmt.Errorf("android.content.IntentSender$SendIntentException is not available on this device")
+		}
+		if midIntentSenderSendIntentExceptionCtor == nil {
+			return fmt.Errorf("android.content.IntentSender$SendIntentException constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIntentSenderSendIntentException)), midIntentSenderSendIntentExceptionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.content.IntentSender$SendIntentException.toString.
 func (m *IntentSenderSendIntentException) ToString() (string, error) {
 	var result string

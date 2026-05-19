@@ -23,6 +23,40 @@ type PartialCustomAudienceBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPartialCustomAudienceBuilder creates a new android.adservices.customaudience.PartialCustomAudience$Builder instance.
+func NewPartialCustomAudienceBuilder(vm *jni.VM, arg0 string) (*PartialCustomAudienceBuilder, error) {
+	var t PartialCustomAudienceBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPartialCustomAudienceBuilder == nil {
+			return fmt.Errorf("android.adservices.customaudience.PartialCustomAudience$Builder is not available on this device")
+		}
+		if midPartialCustomAudienceBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.customaudience.PartialCustomAudience$Builder constructor (Ljava/lang/String;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPartialCustomAudienceBuilder)), midPartialCustomAudienceBuilderCtor, jni.ObjectValue(&jArg0.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.customaudience.PartialCustomAudience$Builder.build.
 func (m *PartialCustomAudienceBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

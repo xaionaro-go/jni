@@ -23,6 +23,41 @@ type MeshSpecificationAttribute struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMeshSpecificationAttribute creates a new android.graphics.MeshSpecification$Attribute instance.
+func NewMeshSpecificationAttribute(vm *jni.VM, arg0 int32, arg1 int32, arg2 string) (*MeshSpecificationAttribute, error) {
+	var t MeshSpecificationAttribute
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMeshSpecificationAttribute == nil {
+			return fmt.Errorf("android.graphics.MeshSpecification$Attribute is not available on this device")
+		}
+		if midMeshSpecificationAttributeCtor == nil {
+			return fmt.Errorf("android.graphics.MeshSpecification$Attribute constructor (IILjava/lang/String;)V is not available on this device")
+		}
+
+		jArg2, err := env.NewStringUTF(arg2)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg2.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMeshSpecificationAttribute)), midMeshSpecificationAttributeCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(&jArg2.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetName calls android.graphics.MeshSpecification$Attribute.getName.
 func (m *MeshSpecificationAttribute) GetName() (string, error) {
 	var result string

@@ -23,6 +23,41 @@ type SslCertificateDName struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSslCertificateDName creates a new android.net.http.SslCertificate$DName instance.
+func NewSslCertificateDName(vm *jni.VM, arg0 *jni.Object, arg1 string) (*SslCertificateDName, error) {
+	var t SslCertificateDName
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSslCertificateDName == nil {
+			return fmt.Errorf("android.net.http.SslCertificate$DName is not available on this device")
+		}
+		if midSslCertificateDNameCtor == nil {
+			return fmt.Errorf("android.net.http.SslCertificate$DName constructor (Landroid/net/http/SslCertificate;Ljava/lang/String;)V is not available on this device")
+		}
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSslCertificateDName)), midSslCertificateDNameCtor, jni.ObjectValue(arg0), jni.ObjectValue(&jArg1.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetCName calls android.net.http.SslCertificate$DName.getCName.
 func (m *SslCertificateDName) GetCName() (string, error) {
 	var result string

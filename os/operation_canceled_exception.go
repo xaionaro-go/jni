@@ -32,6 +32,12 @@ func NewOperationCanceledException(vm *jni.VM) (*OperationCanceledException, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsOperationCanceledException == nil {
+			return fmt.Errorf("android.os.OperationCanceledException is not available on this device")
+		}
+		if midOperationCanceledExceptionCtor == nil {
+			return fmt.Errorf("android.os.OperationCanceledException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsOperationCanceledException)), midOperationCanceledExceptionCtor)
 		if err != nil {
 			return err

@@ -32,8 +32,8 @@ var (
 	midHandleGetTag              jni.MethodID
 	midHandleHashCode            jni.MethodID
 	midHandleToString            jni.MethodID
-	midHandleWriteToParcel       jni.MethodID
 	midHandleCreateWithSha256    jni.MethodID
+	midHandleWriteToParcel       jni.MethodID
 
 	clsStoreManager                            *jni.GlobalRef
 	midStoreManagerAbandonSession              jni.MethodID
@@ -146,14 +146,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midHandleWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHandle)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midHandleCreateWithSha256, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHandle)), "createWithSha256", "([BLjava/lang/CharSequence;JLjava/lang/String;)Landroid/app/blob/BlobHandle;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midHandleCreateWithSha256, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHandle)), "createWithSha256", "([BLjava/lang/CharSequence;JLjava/lang/String;)Landroid/app/blob/BlobHandle;")
+		midHandleWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHandle)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

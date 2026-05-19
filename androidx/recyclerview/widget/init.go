@@ -23,67 +23,326 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsAdapterListUpdateCallback           *jni.GlobalRef
+	midAdapterListUpdateCallbackCtor       jni.MethodID
+	midAdapterListUpdateCallbackOnInserted jni.MethodID
+	midAdapterListUpdateCallbackOnRemoved  jni.MethodID
+	midAdapterListUpdateCallbackOnMoved    jni.MethodID
+	midAdapterListUpdateCallbackOnChanged  jni.MethodID
+	midAdapterListUpdateCallbackToString   jni.MethodID
+
+	clsSortedListAdapterCallback             *jni.GlobalRef
+	midSortedListAdapterCallbackOnInserted   jni.MethodID
+	midSortedListAdapterCallbackOnRemoved    jni.MethodID
+	midSortedListAdapterCallbackOnMoved      jni.MethodID
+	midSortedListAdapterCallbackOnChanged2   jni.MethodID
+	midSortedListAdapterCallbackOnChanged3_1 jni.MethodID
+	midSortedListAdapterCallbackToString     jni.MethodID
+
+	clsBatchingListUpdateCallback                  *jni.GlobalRef
+	midBatchingListUpdateCallbackCtor              jni.MethodID
+	midBatchingListUpdateCallbackDispatchLastEvent jni.MethodID
+	midBatchingListUpdateCallbackOnInserted        jni.MethodID
+	midBatchingListUpdateCallbackOnRemoved         jni.MethodID
+	midBatchingListUpdateCallbackOnMoved           jni.MethodID
+	midBatchingListUpdateCallbackOnChanged         jni.MethodID
+	midBatchingListUpdateCallbackToString          jni.MethodID
+
+	clsAsyncDifferConfig                            *jni.GlobalRef
+	midAsyncDifferConfigGetMainThreadExecutor       jni.MethodID
+	midAsyncDifferConfigGetBackgroundThreadExecutor jni.MethodID
+	midAsyncDifferConfigGetDiffCallback             jni.MethodID
+	midAsyncDifferConfigToString                    jni.MethodID
+
+	clsAsyncDifferConfigBuilder                            *jni.GlobalRef
+	midAsyncDifferConfigBuilderCtor                        jni.MethodID
+	midAsyncDifferConfigBuilderSetMainThreadExecutor       jni.MethodID
+	midAsyncDifferConfigBuilderSetBackgroundThreadExecutor jni.MethodID
+	midAsyncDifferConfigBuilderToString                    jni.MethodID
+	midAsyncDifferConfigBuilderBuild                       jni.MethodID
+
+	clsAsyncListDiffer               *jni.GlobalRef
+	midAsyncListDifferCtor           jni.MethodID
+	midAsyncListDifferGetCurrentList jni.MethodID
+	midAsyncListDifferToString       jni.MethodID
+
+	clsAsyncListDifferListListener         *jni.GlobalRef
+	midAsyncListDifferListListenerToString jni.MethodID
+
+	clsLinearLayoutManager                                       *jni.GlobalRef
+	midLinearLayoutManagerCtor                                   jni.MethodID
+	midLinearLayoutManagerIsAutoMeasureEnabled                   jni.MethodID
+	midLinearLayoutManagerGenerateDefaultLayoutParams            jni.MethodID
+	midLinearLayoutManagerGetRecycleChildrenOnDetach             jni.MethodID
+	midLinearLayoutManagerSetRecycleChildrenOnDetach             jni.MethodID
+	midLinearLayoutManagerOnDetachedFromWindow                   jni.MethodID
+	midLinearLayoutManagerOnInitializeAccessibilityEvent         jni.MethodID
+	midLinearLayoutManagerOnSaveInstanceState                    jni.MethodID
+	midLinearLayoutManagerOnRestoreInstanceState                 jni.MethodID
+	midLinearLayoutManagerCanScrollHorizontally                  jni.MethodID
+	midLinearLayoutManagerCanScrollVertically                    jni.MethodID
+	midLinearLayoutManagerSetStackFromEnd                        jni.MethodID
+	midLinearLayoutManagerGetStackFromEnd                        jni.MethodID
+	midLinearLayoutManagerGetOrientation                         jni.MethodID
+	midLinearLayoutManagerSetOrientation                         jni.MethodID
+	midLinearLayoutManagerGetReverseLayout                       jni.MethodID
+	midLinearLayoutManagerSetReverseLayout                       jni.MethodID
+	midLinearLayoutManagerFindViewByPosition                     jni.MethodID
+	midLinearLayoutManagerSmoothScrollToPosition                 jni.MethodID
+	midLinearLayoutManagerComputeScrollVectorForPosition         jni.MethodID
+	midLinearLayoutManagerOnLayoutChildren                       jni.MethodID
+	midLinearLayoutManagerOnLayoutCompleted                      jni.MethodID
+	midLinearLayoutManagerScrollToPosition                       jni.MethodID
+	midLinearLayoutManagerScrollToPositionWithOffset             jni.MethodID
+	midLinearLayoutManagerScrollHorizontallyBy                   jni.MethodID
+	midLinearLayoutManagerScrollVerticallyBy                     jni.MethodID
+	midLinearLayoutManagerComputeHorizontalScrollOffset          jni.MethodID
+	midLinearLayoutManagerComputeVerticalScrollOffset            jni.MethodID
+	midLinearLayoutManagerComputeHorizontalScrollExtent          jni.MethodID
+	midLinearLayoutManagerComputeVerticalScrollExtent            jni.MethodID
+	midLinearLayoutManagerComputeHorizontalScrollRange           jni.MethodID
+	midLinearLayoutManagerComputeVerticalScrollRange             jni.MethodID
+	midLinearLayoutManagerSetSmoothScrollbarEnabled              jni.MethodID
+	midLinearLayoutManagerIsSmoothScrollbarEnabled               jni.MethodID
+	midLinearLayoutManagerCollectInitialPrefetchPositions        jni.MethodID
+	midLinearLayoutManagerSetInitialPrefetchItemCount            jni.MethodID
+	midLinearLayoutManagerGetInitialPrefetchItemCount            jni.MethodID
+	midLinearLayoutManagerCollectAdjacentPrefetchPositions       jni.MethodID
+	midLinearLayoutManagerAssertNotInLayoutOrScroll              jni.MethodID
+	midLinearLayoutManagerFindFirstVisibleItemPosition           jni.MethodID
+	midLinearLayoutManagerFindFirstCompletelyVisibleItemPosition jni.MethodID
+	midLinearLayoutManagerFindLastVisibleItemPosition            jni.MethodID
+	midLinearLayoutManagerFindLastCompletelyVisibleItemPosition  jni.MethodID
+	midLinearLayoutManagerOnFocusSearchFailed                    jni.MethodID
+	midLinearLayoutManagerSupportsPredictiveItemAnimations       jni.MethodID
+	midLinearLayoutManagerPrepareForDrop                         jni.MethodID
+	midLinearLayoutManagerToString                               jni.MethodID
+
+	clsLinearLayoutManagerLayoutChunkResult         *jni.GlobalRef
+	midLinearLayoutManagerLayoutChunkResultToString jni.MethodID
+
+	clsLinearLayoutManagerSavedState                 *jni.GlobalRef
+	midLinearLayoutManagerSavedStateCtor             jni.MethodID
+	midLinearLayoutManagerSavedStateDescribeContents jni.MethodID
+	midLinearLayoutManagerSavedStateToString         jni.MethodID
+	midLinearLayoutManagerSavedStateWriteToParcel    jni.MethodID
+
+	clsPagerSnapHelper                             *jni.GlobalRef
+	midPagerSnapHelperCtor                         jni.MethodID
+	midPagerSnapHelperCalculateDistanceToFinalSnap jni.MethodID
+	midPagerSnapHelperFindSnapView                 jni.MethodID
+	midPagerSnapHelperFindTargetSnapPosition       jni.MethodID
+	midPagerSnapHelperToString                     jni.MethodID
+
 	clsListAdapter               *jni.GlobalRef
 	midListAdapterGetItemCount   jni.MethodID
 	midListAdapterGetCurrentList jni.MethodID
 	midListAdapterToString       jni.MethodID
 
-	clsGridLayoutManager                                           *jni.GlobalRef
-	midGridLayoutManagerCtor                                       jni.MethodID
-	midGridLayoutManagerSetStackFromEnd                            jni.MethodID
-	midGridLayoutManagerGetRowCountForAccessibility                jni.MethodID
-	midGridLayoutManagerGetColumnCountForAccessibility             jni.MethodID
-	midGridLayoutManagerOnInitializeAccessibilityNodeInfoForItem   jni.MethodID
-	midGridLayoutManagerOnInitializeAccessibilityNodeInfo          jni.MethodID
-	midGridLayoutManagerOnLayoutChildren                           jni.MethodID
-	midGridLayoutManagerOnLayoutCompleted                          jni.MethodID
-	midGridLayoutManagerOnItemsAdded                               jni.MethodID
-	midGridLayoutManagerOnItemsChanged                             jni.MethodID
-	midGridLayoutManagerOnItemsRemoved                             jni.MethodID
-	midGridLayoutManagerOnItemsUpdated                             jni.MethodID
-	midGridLayoutManagerOnItemsMoved                               jni.MethodID
-	midGridLayoutManagerGenerateDefaultLayoutParams                jni.MethodID
-	midGridLayoutManagerGenerateLayoutParams2                      jni.MethodID
-	midGridLayoutManagerGenerateLayoutParams1_1                    jni.MethodID
-	midGridLayoutManagerCheckLayoutParams                          jni.MethodID
-	midGridLayoutManagerSetSpanSizeLookup                          jni.MethodID
-	midGridLayoutManagerGetSpanSizeLookup                          jni.MethodID
-	midGridLayoutManagerSetMeasuredDimension                       jni.MethodID
-	midGridLayoutManagerScrollHorizontallyBy                       jni.MethodID
-	midGridLayoutManagerScrollVerticallyBy                         jni.MethodID
-	midGridLayoutManagerGetSpanCount                               jni.MethodID
-	midGridLayoutManagerSetSpanCount                               jni.MethodID
-	midGridLayoutManagerOnFocusSearchFailed                        jni.MethodID
-	midGridLayoutManagerSupportsPredictiveItemAnimations           jni.MethodID
-	midGridLayoutManagerComputeHorizontalScrollRange               jni.MethodID
-	midGridLayoutManagerComputeVerticalScrollRange                 jni.MethodID
-	midGridLayoutManagerComputeHorizontalScrollOffset              jni.MethodID
-	midGridLayoutManagerComputeVerticalScrollOffset                jni.MethodID
-	midGridLayoutManagerSetUsingSpansToEstimateScrollbarDimensions jni.MethodID
-	midGridLayoutManagerIsUsingSpansToEstimateScrollbarDimensions  jni.MethodID
-	midGridLayoutManagerToString                                   jni.MethodID
+	clsSnapHelper                             *jni.GlobalRef
+	midSnapHelperOnFling                      jni.MethodID
+	midSnapHelperAttachToRecyclerView         jni.MethodID
+	midSnapHelperCalculateScrollDistance      jni.MethodID
+	midSnapHelperCalculateDistanceToFinalSnap jni.MethodID
+	midSnapHelperFindSnapView                 jni.MethodID
+	midSnapHelperFindTargetSnapPosition       jni.MethodID
+	midSnapHelperToString                     jni.MethodID
 
-	clsGridLayoutManagerDefaultSpanSizeLookup             *jni.GlobalRef
-	midGridLayoutManagerDefaultSpanSizeLookupGetSpanSize  jni.MethodID
-	midGridLayoutManagerDefaultSpanSizeLookupGetSpanIndex jni.MethodID
-	midGridLayoutManagerDefaultSpanSizeLookupToString     jni.MethodID
+	clsItemTouchHelper                              *jni.GlobalRef
+	midItemTouchHelperCtor                          jni.MethodID
+	midItemTouchHelperAttachToRecyclerView          jni.MethodID
+	midItemTouchHelperOnDrawOver                    jni.MethodID
+	midItemTouchHelperOnDraw                        jni.MethodID
+	midItemTouchHelperOnChildViewAttachedToWindow   jni.MethodID
+	midItemTouchHelperOnChildViewDetachedFromWindow jni.MethodID
+	midItemTouchHelperGetItemOffsets                jni.MethodID
+	midItemTouchHelperStartDrag                     jni.MethodID
+	midItemTouchHelperStartSwipe                    jni.MethodID
+	midItemTouchHelperToString                      jni.MethodID
 
-	clsGridLayoutManagerLayoutParams             *jni.GlobalRef
-	midGridLayoutManagerLayoutParamsGetSpanIndex jni.MethodID
-	midGridLayoutManagerLayoutParamsGetSpanSize  jni.MethodID
-	midGridLayoutManagerLayoutParamsToString     jni.MethodID
+	clsOrientationHelper                                  *jni.GlobalRef
+	midOrientationHelperGetLayoutManager                  jni.MethodID
+	midOrientationHelperOnLayoutComplete                  jni.MethodID
+	midOrientationHelperGetTotalSpaceChange               jni.MethodID
+	midOrientationHelperGetDecoratedStart                 jni.MethodID
+	midOrientationHelperGetDecoratedEnd                   jni.MethodID
+	midOrientationHelperGetTransformedEndWithDecoration   jni.MethodID
+	midOrientationHelperGetTransformedStartWithDecoration jni.MethodID
+	midOrientationHelperGetDecoratedMeasurement           jni.MethodID
+	midOrientationHelperGetDecoratedMeasurementInOther    jni.MethodID
+	midOrientationHelperGetStartAfterPadding              jni.MethodID
+	midOrientationHelperGetEndAfterPadding                jni.MethodID
+	midOrientationHelperGetEnd                            jni.MethodID
+	midOrientationHelperOffsetChildren                    jni.MethodID
+	midOrientationHelperGetTotalSpace                     jni.MethodID
+	midOrientationHelperOffsetChild                       jni.MethodID
+	midOrientationHelperGetEndPadding                     jni.MethodID
+	midOrientationHelperGetMode                           jni.MethodID
+	midOrientationHelperGetModeInOther                    jni.MethodID
+	midOrientationHelperToString                          jni.MethodID
+	midOrientationHelperCreateOrientationHelper           jni.MethodID
+	midOrientationHelperCreateHorizontalHelper            jni.MethodID
 
-	clsGridLayoutManagerSpanSizeLookup                              *jni.GlobalRef
-	midGridLayoutManagerSpanSizeLookupGetSpanSize                   jni.MethodID
-	midGridLayoutManagerSpanSizeLookupSetSpanIndexCacheEnabled      jni.MethodID
-	midGridLayoutManagerSpanSizeLookupSetSpanGroupIndexCacheEnabled jni.MethodID
-	midGridLayoutManagerSpanSizeLookupInvalidateSpanIndexCache      jni.MethodID
-	midGridLayoutManagerSpanSizeLookupInvalidateSpanGroupIndexCache jni.MethodID
-	midGridLayoutManagerSpanSizeLookupIsSpanIndexCacheEnabled       jni.MethodID
-	midGridLayoutManagerSpanSizeLookupIsSpanGroupIndexCacheEnabled  jni.MethodID
-	midGridLayoutManagerSpanSizeLookupGetSpanIndex                  jni.MethodID
-	midGridLayoutManagerSpanSizeLookupGetSpanGroupIndex             jni.MethodID
-	midGridLayoutManagerSpanSizeLookupToString                      jni.MethodID
+	clsItemTouchHelperCallback                             *jni.GlobalRef
+	midItemTouchHelperCallbackGetMovementFlags             jni.MethodID
+	midItemTouchHelperCallbackConvertToAbsoluteDirection   jni.MethodID
+	midItemTouchHelperCallbackCanDropOver                  jni.MethodID
+	midItemTouchHelperCallbackOnMove                       jni.MethodID
+	midItemTouchHelperCallbackIsLongPressDragEnabled       jni.MethodID
+	midItemTouchHelperCallbackIsItemViewSwipeEnabled       jni.MethodID
+	midItemTouchHelperCallbackGetBoundingBoxMargin         jni.MethodID
+	midItemTouchHelperCallbackGetSwipeThreshold            jni.MethodID
+	midItemTouchHelperCallbackGetMoveThreshold             jni.MethodID
+	midItemTouchHelperCallbackGetSwipeEscapeVelocity       jni.MethodID
+	midItemTouchHelperCallbackGetSwipeVelocityThreshold    jni.MethodID
+	midItemTouchHelperCallbackOnSwiped                     jni.MethodID
+	midItemTouchHelperCallbackOnSelectedChanged            jni.MethodID
+	midItemTouchHelperCallbackOnMoved                      jni.MethodID
+	midItemTouchHelperCallbackClearView                    jni.MethodID
+	midItemTouchHelperCallbackOnChildDraw                  jni.MethodID
+	midItemTouchHelperCallbackOnChildDrawOver              jni.MethodID
+	midItemTouchHelperCallbackGetAnimationDuration         jni.MethodID
+	midItemTouchHelperCallbackToString                     jni.MethodID
+	midItemTouchHelperCallbackGetDefaultUIUtil             jni.MethodID
+	midItemTouchHelperCallbackConvertToRelativeDirection   jni.MethodID
+	midItemTouchHelperCallbackMakeMovementFlags            jni.MethodID
+	midItemTouchHelperCallbackMakeFlag                     jni.MethodID
+	midItemTouchHelperCallbackInterpolateOutOfBoundsScroll jni.MethodID
+
+	clsItemTouchHelperSimpleCallback                    *jni.GlobalRef
+	midItemTouchHelperSimpleCallbackSetDefaultSwipeDirs jni.MethodID
+	midItemTouchHelperSimpleCallbackSetDefaultDragDirs  jni.MethodID
+	midItemTouchHelperSimpleCallbackGetSwipeDirs        jni.MethodID
+	midItemTouchHelperSimpleCallbackGetDragDirs         jni.MethodID
+	midItemTouchHelperSimpleCallbackGetMovementFlags    jni.MethodID
+	midItemTouchHelperSimpleCallbackToString            jni.MethodID
+
+	clsItemTouchHelperViewDropHandler               *jni.GlobalRef
+	midItemTouchHelperViewDropHandlerPrepareForDrop jni.MethodID
+	midItemTouchHelperViewDropHandlerToString       jni.MethodID
+
+	clsRecyclerViewAccessibilityDelegate                                  *jni.GlobalRef
+	midRecyclerViewAccessibilityDelegateCtor                              jni.MethodID
+	midRecyclerViewAccessibilityDelegatePerformAccessibilityAction        jni.MethodID
+	midRecyclerViewAccessibilityDelegateOnInitializeAccessibilityNodeInfo jni.MethodID
+	midRecyclerViewAccessibilityDelegateOnInitializeAccessibilityEvent    jni.MethodID
+	midRecyclerViewAccessibilityDelegateGetItemDelegate                   jni.MethodID
+	midRecyclerViewAccessibilityDelegateToString                          jni.MethodID
+
+	clsRecyclerViewAccessibilityDelegateItemDelegate                                   *jni.GlobalRef
+	midRecyclerViewAccessibilityDelegateItemDelegateCtor                               jni.MethodID
+	midRecyclerViewAccessibilityDelegateItemDelegateOnInitializeAccessibilityNodeInfo  jni.MethodID
+	midRecyclerViewAccessibilityDelegateItemDelegatePerformAccessibilityAction         jni.MethodID
+	midRecyclerViewAccessibilityDelegateItemDelegateSendAccessibilityEvent             jni.MethodID
+	midRecyclerViewAccessibilityDelegateItemDelegateSendAccessibilityEventUnchecked    jni.MethodID
+	midRecyclerViewAccessibilityDelegateItemDelegateDispatchPopulateAccessibilityEvent jni.MethodID
+	midRecyclerViewAccessibilityDelegateItemDelegateOnPopulateAccessibilityEvent       jni.MethodID
+	midRecyclerViewAccessibilityDelegateItemDelegateOnInitializeAccessibilityEvent     jni.MethodID
+	midRecyclerViewAccessibilityDelegateItemDelegateOnRequestSendAccessibilityEvent    jni.MethodID
+	midRecyclerViewAccessibilityDelegateItemDelegateGetAccessibilityNodeProvider       jni.MethodID
+	midRecyclerViewAccessibilityDelegateItemDelegateToString                           jni.MethodID
+
+	clsLinearSnapHelper                             *jni.GlobalRef
+	midLinearSnapHelperCtor                         jni.MethodID
+	midLinearSnapHelperCalculateDistanceToFinalSnap jni.MethodID
+	midLinearSnapHelperFindTargetSnapPosition       jni.MethodID
+	midLinearSnapHelperFindSnapView                 jni.MethodID
+	midLinearSnapHelperToString                     jni.MethodID
+
+	clsItemTouchUIUtil           *jni.GlobalRef
+	midItemTouchUIUtilOnDraw     jni.MethodID
+	midItemTouchUIUtilOnDrawOver jni.MethodID
+	midItemTouchUIUtilClearView  jni.MethodID
+	midItemTouchUIUtilOnSelected jni.MethodID
+	midItemTouchUIUtilToString   jni.MethodID
+
+	clsStaggeredGridLayoutManager                                        *jni.GlobalRef
+	midStaggeredGridLayoutManagerCtor                                    jni.MethodID
+	midStaggeredGridLayoutManagerIsAutoMeasureEnabled                    jni.MethodID
+	midStaggeredGridLayoutManagerOnScrollStateChanged                    jni.MethodID
+	midStaggeredGridLayoutManagerOnDetachedFromWindow                    jni.MethodID
+	midStaggeredGridLayoutManagerSetSpanCount                            jni.MethodID
+	midStaggeredGridLayoutManagerSetOrientation                          jni.MethodID
+	midStaggeredGridLayoutManagerSetReverseLayout                        jni.MethodID
+	midStaggeredGridLayoutManagerGetGapStrategy                          jni.MethodID
+	midStaggeredGridLayoutManagerSetGapStrategy                          jni.MethodID
+	midStaggeredGridLayoutManagerAssertNotInLayoutOrScroll               jni.MethodID
+	midStaggeredGridLayoutManagerGetSpanCount                            jni.MethodID
+	midStaggeredGridLayoutManagerInvalidateSpanAssignments               jni.MethodID
+	midStaggeredGridLayoutManagerGetReverseLayout                        jni.MethodID
+	midStaggeredGridLayoutManagerSetMeasuredDimension                    jni.MethodID
+	midStaggeredGridLayoutManagerOnLayoutChildren                        jni.MethodID
+	midStaggeredGridLayoutManagerOnAdapterChanged                        jni.MethodID
+	midStaggeredGridLayoutManagerOnLayoutCompleted                       jni.MethodID
+	midStaggeredGridLayoutManagerSupportsPredictiveItemAnimations        jni.MethodID
+	midStaggeredGridLayoutManagerFindFirstVisibleItemPositions           jni.MethodID
+	midStaggeredGridLayoutManagerFindFirstCompletelyVisibleItemPositions jni.MethodID
+	midStaggeredGridLayoutManagerFindLastVisibleItemPositions            jni.MethodID
+	midStaggeredGridLayoutManagerFindLastCompletelyVisibleItemPositions  jni.MethodID
+	midStaggeredGridLayoutManagerComputeHorizontalScrollOffset           jni.MethodID
+	midStaggeredGridLayoutManagerComputeVerticalScrollOffset             jni.MethodID
+	midStaggeredGridLayoutManagerComputeHorizontalScrollExtent           jni.MethodID
+	midStaggeredGridLayoutManagerComputeVerticalScrollExtent             jni.MethodID
+	midStaggeredGridLayoutManagerComputeHorizontalScrollRange            jni.MethodID
+	midStaggeredGridLayoutManagerComputeVerticalScrollRange              jni.MethodID
+	midStaggeredGridLayoutManagerOnRestoreInstanceState                  jni.MethodID
+	midStaggeredGridLayoutManagerOnSaveInstanceState                     jni.MethodID
+	midStaggeredGridLayoutManagerOnInitializeAccessibilityEvent          jni.MethodID
+	midStaggeredGridLayoutManagerOffsetChildrenHorizontal                jni.MethodID
+	midStaggeredGridLayoutManagerOffsetChildrenVertical                  jni.MethodID
+	midStaggeredGridLayoutManagerOnItemsRemoved                          jni.MethodID
+	midStaggeredGridLayoutManagerOnItemsAdded                            jni.MethodID
+	midStaggeredGridLayoutManagerOnItemsChanged                          jni.MethodID
+	midStaggeredGridLayoutManagerOnItemsMoved                            jni.MethodID
+	midStaggeredGridLayoutManagerOnItemsUpdated                          jni.MethodID
+	midStaggeredGridLayoutManagerCanScrollVertically                     jni.MethodID
+	midStaggeredGridLayoutManagerCanScrollHorizontally                   jni.MethodID
+	midStaggeredGridLayoutManagerScrollHorizontallyBy                    jni.MethodID
+	midStaggeredGridLayoutManagerScrollVerticallyBy                      jni.MethodID
+	midStaggeredGridLayoutManagerComputeScrollVectorForPosition          jni.MethodID
+	midStaggeredGridLayoutManagerSmoothScrollToPosition                  jni.MethodID
+	midStaggeredGridLayoutManagerScrollToPosition                        jni.MethodID
+	midStaggeredGridLayoutManagerScrollToPositionWithOffset              jni.MethodID
+	midStaggeredGridLayoutManagerCollectAdjacentPrefetchPositions        jni.MethodID
+	midStaggeredGridLayoutManagerGenerateDefaultLayoutParams             jni.MethodID
+	midStaggeredGridLayoutManagerGenerateLayoutParams2                   jni.MethodID
+	midStaggeredGridLayoutManagerGenerateLayoutParams1_1                 jni.MethodID
+	midStaggeredGridLayoutManagerCheckLayoutParams                       jni.MethodID
+	midStaggeredGridLayoutManagerGetOrientation                          jni.MethodID
+	midStaggeredGridLayoutManagerOnFocusSearchFailed                     jni.MethodID
+	midStaggeredGridLayoutManagerToString                                jni.MethodID
+
+	clsAsyncListUtil               *jni.GlobalRef
+	midAsyncListUtilCtor           jni.MethodID
+	midAsyncListUtilOnRangeChanged jni.MethodID
+	midAsyncListUtilRefresh        jni.MethodID
+	midAsyncListUtilGetItemCount   jni.MethodID
+	midAsyncListUtilToString       jni.MethodID
+
+	clsStaggeredGridLayoutManagerLayoutParams             *jni.GlobalRef
+	midStaggeredGridLayoutManagerLayoutParamsCtor         jni.MethodID
+	midStaggeredGridLayoutManagerLayoutParamsSetFullSpan  jni.MethodID
+	midStaggeredGridLayoutManagerLayoutParamsIsFullSpan   jni.MethodID
+	midStaggeredGridLayoutManagerLayoutParamsGetSpanIndex jni.MethodID
+	midStaggeredGridLayoutManagerLayoutParamsToString     jni.MethodID
+
+	clsAsyncListUtilDataCallback                  *jni.GlobalRef
+	midAsyncListUtilDataCallbackRefreshData       jni.MethodID
+	midAsyncListUtilDataCallbackGetMaxCachedTiles jni.MethodID
+	midAsyncListUtilDataCallbackToString          jni.MethodID
+
+	clsAsyncListUtilViewCallback                 *jni.GlobalRef
+	midAsyncListUtilViewCallbackGetItemRangeInto jni.MethodID
+	midAsyncListUtilViewCallbackExtendRangeInto  jni.MethodID
+	midAsyncListUtilViewCallbackOnDataRefresh    jni.MethodID
+	midAsyncListUtilViewCallbackOnItemLoaded     jni.MethodID
+	midAsyncListUtilViewCallbackToString         jni.MethodID
+
+	clsStaggeredGridLayoutManagerSavedState                 *jni.GlobalRef
+	midStaggeredGridLayoutManagerSavedStateCtor             jni.MethodID
+	midStaggeredGridLayoutManagerSavedStateDescribeContents jni.MethodID
+	midStaggeredGridLayoutManagerSavedStateToString         jni.MethodID
+	midStaggeredGridLayoutManagerSavedStateWriteToParcel    jni.MethodID
 
 	clsRecyclerView                                       *jni.GlobalRef
 	midRecyclerViewCtor                                   jni.MethodID
@@ -175,7 +434,6 @@ var (
 	midRecyclerViewSetPreserveFocusAfterLayout            jni.MethodID
 	midRecyclerViewGetChildViewHolder                     jni.MethodID
 	midRecyclerViewFindContainingItemView                 jni.MethodID
-	midRecyclerViewFindContainingViewHolder               jni.MethodID
 	midRecyclerViewGetChildPosition                       jni.MethodID
 	midRecyclerViewGetChildAdapterPosition                jni.MethodID
 	midRecyclerViewGetChildLayoutPosition                 jni.MethodID
@@ -190,10 +448,8 @@ var (
 	midRecyclerViewOnChildAttachedToWindow                jni.MethodID
 	midRecyclerViewOnChildDetachedFromWindow              jni.MethodID
 	midRecyclerViewOffsetChildrenHorizontal               jni.MethodID
-	midRecyclerViewGetDecoratedBoundsWithMargins          jni.MethodID
 	midRecyclerViewOnScrolled                             jni.MethodID
 	midRecyclerViewOnScrollStateChanged                   jni.MethodID
-	midRecyclerViewHasPendingAdapterUpdates               jni.MethodID
 	midRecyclerViewSetNestedScrollingEnabled              jni.MethodID
 	midRecyclerViewIsNestedScrollingEnabled               jni.MethodID
 	midRecyclerViewStartNestedScroll1                     jni.MethodID
@@ -212,11 +468,29 @@ var (
 	midRecyclerViewToString                               jni.MethodID
 	midRecyclerViewSetDebugAssertionsEnabled              jni.MethodID
 	midRecyclerViewSetVerboseLoggingEnabled               jni.MethodID
+	midRecyclerViewFindContainingViewHolder               jni.MethodID
+	midRecyclerViewGetDecoratedBoundsWithMargins          jni.MethodID
+	midRecyclerViewHasPendingAdapterUpdates               jni.MethodID
 
-	clsAsyncListDiffer               *jni.GlobalRef
-	midAsyncListDifferCtor           jni.MethodID
-	midAsyncListDifferGetCurrentList jni.MethodID
-	midAsyncListDifferToString       jni.MethodID
+	clsConcatAdapter                           *jni.GlobalRef
+	midConcatAdapterCtor                       jni.MethodID
+	midConcatAdapterGetItemViewType            jni.MethodID
+	midConcatAdapterOnCreateViewHolder         jni.MethodID
+	midConcatAdapterOnBindViewHolder           jni.MethodID
+	midConcatAdapterSetHasStableIds            jni.MethodID
+	midConcatAdapterSetStateRestorationPolicy  jni.MethodID
+	midConcatAdapterGetItemId                  jni.MethodID
+	midConcatAdapterGetItemCount               jni.MethodID
+	midConcatAdapterOnFailedToRecycleView      jni.MethodID
+	midConcatAdapterOnViewAttachedToWindow     jni.MethodID
+	midConcatAdapterOnViewDetachedFromWindow   jni.MethodID
+	midConcatAdapterOnViewRecycled             jni.MethodID
+	midConcatAdapterOnAttachedToRecyclerView   jni.MethodID
+	midConcatAdapterOnDetachedFromRecyclerView jni.MethodID
+	midConcatAdapterToString                   jni.MethodID
+
+	clsConcatAdapterConfig         *jni.GlobalRef
+	midConcatAdapterConfigToString jni.MethodID
 
 	clsRecyclerViewAdapter                              *jni.GlobalRef
 	midRecyclerViewAdapterOnCreateViewHolder            jni.MethodID
@@ -251,8 +525,10 @@ var (
 	midRecyclerViewAdapterGetStateRestorationPolicy     jni.MethodID
 	midRecyclerViewAdapterToString                      jni.MethodID
 
-	clsAsyncListDifferListListener         *jni.GlobalRef
-	midAsyncListDifferListListenerToString jni.MethodID
+	clsDiffUtil                 *jni.GlobalRef
+	midDiffUtilToString         jni.MethodID
+	midDiffUtilCalculateDiff1   jni.MethodID
+	midDiffUtilCalculateDiff2_1 jni.MethodID
 
 	clsRecyclerViewAdapterDataObserver                                *jni.GlobalRef
 	midRecyclerViewAdapterDataObserverOnChanged                       jni.MethodID
@@ -264,11 +540,20 @@ var (
 	midRecyclerViewAdapterDataObserverOnStateRestorationPolicyChanged jni.MethodID
 	midRecyclerViewAdapterDataObserverToString                        jni.MethodID
 
+	clsDiffUtilCallback                   *jni.GlobalRef
+	midDiffUtilCallbackGetOldListSize     jni.MethodID
+	midDiffUtilCallbackGetNewListSize     jni.MethodID
+	midDiffUtilCallbackAreItemsTheSame    jni.MethodID
+	midDiffUtilCallbackAreContentsTheSame jni.MethodID
+	midDiffUtilCallbackGetChangePayload   jni.MethodID
+	midDiffUtilCallbackToString           jni.MethodID
+
 	clsRecyclerViewChildDrawingOrderCallback                       *jni.GlobalRef
 	midRecyclerViewChildDrawingOrderCallbackOnGetChildDrawingOrder jni.MethodID
 	midRecyclerViewChildDrawingOrderCallbackToString               jni.MethodID
 
 	clsRecyclerViewEdgeEffectFactory         *jni.GlobalRef
+	midRecyclerViewEdgeEffectFactoryCtor     jni.MethodID
 	midRecyclerViewEdgeEffectFactoryToString jni.MethodID
 
 	clsRecyclerViewItemAnimator                            *jni.GlobalRef
@@ -284,7 +569,6 @@ var (
 	midRecyclerViewItemAnimatorAnimateDisappearance        jni.MethodID
 	midRecyclerViewItemAnimatorAnimateAppearance           jni.MethodID
 	midRecyclerViewItemAnimatorAnimatePersistence          jni.MethodID
-	midRecyclerViewItemAnimatorAnimateChange               jni.MethodID
 	midRecyclerViewItemAnimatorRunPendingAnimations        jni.MethodID
 	midRecyclerViewItemAnimatorEndAnimation                jni.MethodID
 	midRecyclerViewItemAnimatorEndAnimations               jni.MethodID
@@ -298,6 +582,17 @@ var (
 	midRecyclerViewItemAnimatorDispatchAnimationsFinished  jni.MethodID
 	midRecyclerViewItemAnimatorObtainHolderInfo            jni.MethodID
 	midRecyclerViewItemAnimatorToString                    jni.MethodID
+	midRecyclerViewItemAnimatorAnimateChange               jni.MethodID
+
+	clsDiffUtilDiffResult                        *jni.GlobalRef
+	midDiffUtilDiffResultConvertOldPositionToNew jni.MethodID
+	midDiffUtilDiffResultConvertNewPositionToOld jni.MethodID
+	midDiffUtilDiffResultDispatchUpdatesTo1      jni.MethodID
+	midDiffUtilDiffResultDispatchUpdatesTo1_1    jni.MethodID
+	midDiffUtilDiffResultToString                jni.MethodID
+
+	clsDiffUtilItemCallback         *jni.GlobalRef
+	midDiffUtilItemCallbackToString jni.MethodID
 
 	clsRecyclerViewItemDecoration                  *jni.GlobalRef
 	midRecyclerViewItemDecorationOnDraw3           jni.MethodID
@@ -452,6 +747,7 @@ var (
 	midRecyclerViewLayoutManagerGetProperties                            jni.MethodID
 
 	clsRecyclerViewLayoutParams                           *jni.GlobalRef
+	midRecyclerViewLayoutParamsCtor                       jni.MethodID
 	midRecyclerViewLayoutParamsViewNeedsUpdate            jni.MethodID
 	midRecyclerViewLayoutParamsIsViewInvalid              jni.MethodID
 	midRecyclerViewLayoutParamsIsItemRemoved              jni.MethodID
@@ -487,6 +783,7 @@ var (
 	midRecyclerViewOrientationToString jni.MethodID
 
 	clsRecyclerViewRecycledViewPool                     *jni.GlobalRef
+	midRecyclerViewRecycledViewPoolCtor                 jni.MethodID
 	midRecyclerViewRecycledViewPoolClear                jni.MethodID
 	midRecyclerViewRecycledViewPoolSetMaxRecycledViews  jni.MethodID
 	midRecyclerViewRecycledViewPoolGetRecycledViewCount jni.MethodID
@@ -495,6 +792,7 @@ var (
 	midRecyclerViewRecycledViewPoolToString             jni.MethodID
 
 	clsRecyclerViewRecycler                                     *jni.GlobalRef
+	midRecyclerViewRecyclerCtor                                 jni.MethodID
 	midRecyclerViewRecyclerClear                                jni.MethodID
 	midRecyclerViewRecyclerSetViewCacheSize                     jni.MethodID
 	midRecyclerViewRecyclerGetScrapList                         jni.MethodID
@@ -509,26 +807,15 @@ var (
 	midRecyclerViewRecyclerListenerToString       jni.MethodID
 
 	clsRecyclerViewSavedState              *jni.GlobalRef
-	midRecyclerViewSavedStateWriteToParcel jni.MethodID
 	midRecyclerViewSavedStateToString      jni.MethodID
-
-	clsAsyncDifferConfig                            *jni.GlobalRef
-	midAsyncDifferConfigGetMainThreadExecutor       jni.MethodID
-	midAsyncDifferConfigGetBackgroundThreadExecutor jni.MethodID
-	midAsyncDifferConfigGetDiffCallback             jni.MethodID
-	midAsyncDifferConfigToString                    jni.MethodID
+	midRecyclerViewSavedStateWriteToParcel jni.MethodID
 
 	clsRecyclerViewSimpleOnItemTouchListener                                     *jni.GlobalRef
+	midRecyclerViewSimpleOnItemTouchListenerCtor                                 jni.MethodID
 	midRecyclerViewSimpleOnItemTouchListenerOnInterceptTouchEvent                jni.MethodID
 	midRecyclerViewSimpleOnItemTouchListenerOnTouchEvent                         jni.MethodID
 	midRecyclerViewSimpleOnItemTouchListenerOnRequestDisallowInterceptTouchEvent jni.MethodID
 	midRecyclerViewSimpleOnItemTouchListenerToString                             jni.MethodID
-
-	clsAsyncDifferConfigBuilder                            *jni.GlobalRef
-	midAsyncDifferConfigBuilderSetMainThreadExecutor       jni.MethodID
-	midAsyncDifferConfigBuilderSetBackgroundThreadExecutor jni.MethodID
-	midAsyncDifferConfigBuilderBuild                       jni.MethodID
-	midAsyncDifferConfigBuilderToString                    jni.MethodID
 
 	clsRecyclerViewSmoothScroller                               *jni.GlobalRef
 	midRecyclerViewSmoothScrollerSetTargetPosition              jni.MethodID
@@ -544,6 +831,7 @@ var (
 	midRecyclerViewSmoothScrollerToString                       jni.MethodID
 
 	clsRecyclerViewState                             *jni.GlobalRef
+	midRecyclerViewStateCtor                         jni.MethodID
 	midRecyclerViewStateIsMeasuring                  jni.MethodID
 	midRecyclerViewStateIsPreLayout                  jni.MethodID
 	midRecyclerViewStateWillRunPredictiveAnimations  jni.MethodID
@@ -575,210 +863,14 @@ var (
 	midRecyclerViewViewHolderSetIsRecyclable            jni.MethodID
 	midRecyclerViewViewHolderIsRecyclable               jni.MethodID
 
-	clsAsyncListUtil               *jni.GlobalRef
-	midAsyncListUtilCtor           jni.MethodID
-	midAsyncListUtilOnRangeChanged jni.MethodID
-	midAsyncListUtilRefresh        jni.MethodID
-	midAsyncListUtilGetItemCount   jni.MethodID
-	midAsyncListUtilToString       jni.MethodID
-
-	clsAsyncListUtilDataCallback                  *jni.GlobalRef
-	midAsyncListUtilDataCallbackRefreshData       jni.MethodID
-	midAsyncListUtilDataCallbackGetMaxCachedTiles jni.MethodID
-	midAsyncListUtilDataCallbackToString          jni.MethodID
-
-	clsAsyncListUtilViewCallback                 *jni.GlobalRef
-	midAsyncListUtilViewCallbackGetItemRangeInto jni.MethodID
-	midAsyncListUtilViewCallbackExtendRangeInto  jni.MethodID
-	midAsyncListUtilViewCallbackOnDataRefresh    jni.MethodID
-	midAsyncListUtilViewCallbackOnItemLoaded     jni.MethodID
-	midAsyncListUtilViewCallbackToString         jni.MethodID
-
-	clsPagerSnapHelper                             *jni.GlobalRef
-	midPagerSnapHelperCtor                         jni.MethodID
-	midPagerSnapHelperCalculateDistanceToFinalSnap jni.MethodID
-	midPagerSnapHelperFindSnapView                 jni.MethodID
-	midPagerSnapHelperFindTargetSnapPosition       jni.MethodID
-	midPagerSnapHelperToString                     jni.MethodID
-
-	clsConcatAdapter                           *jni.GlobalRef
-	midConcatAdapterCtor                       jni.MethodID
-	midConcatAdapterGetItemViewType            jni.MethodID
-	midConcatAdapterOnCreateViewHolder         jni.MethodID
-	midConcatAdapterOnBindViewHolder           jni.MethodID
-	midConcatAdapterSetHasStableIds            jni.MethodID
-	midConcatAdapterSetStateRestorationPolicy  jni.MethodID
-	midConcatAdapterGetItemId                  jni.MethodID
-	midConcatAdapterGetItemCount               jni.MethodID
-	midConcatAdapterOnFailedToRecycleView      jni.MethodID
-	midConcatAdapterOnViewAttachedToWindow     jni.MethodID
-	midConcatAdapterOnViewDetachedFromWindow   jni.MethodID
-	midConcatAdapterOnViewRecycled             jni.MethodID
-	midConcatAdapterOnAttachedToRecyclerView   jni.MethodID
-	midConcatAdapterOnDetachedFromRecyclerView jni.MethodID
-	midConcatAdapterToString                   jni.MethodID
-
-	clsConcatAdapterConfig         *jni.GlobalRef
-	midConcatAdapterConfigToString jni.MethodID
-
 	clsDividerItemDecoration               *jni.GlobalRef
 	midDividerItemDecorationCtor           jni.MethodID
 	midDividerItemDecorationSetOrientation jni.MethodID
 	midDividerItemDecorationSetDrawable    jni.MethodID
 	midDividerItemDecorationGetDrawable    jni.MethodID
 	midDividerItemDecorationOnDraw         jni.MethodID
-	midDividerItemDecorationGetItemOffsets jni.MethodID
 	midDividerItemDecorationToString       jni.MethodID
-
-	clsDefaultItemAnimator                     *jni.GlobalRef
-	midDefaultItemAnimatorCtor                 jni.MethodID
-	midDefaultItemAnimatorRunPendingAnimations jni.MethodID
-	midDefaultItemAnimatorAnimateRemove        jni.MethodID
-	midDefaultItemAnimatorAnimateAdd           jni.MethodID
-	midDefaultItemAnimatorAnimateMove          jni.MethodID
-	midDefaultItemAnimatorAnimateChange        jni.MethodID
-	midDefaultItemAnimatorEndAnimation         jni.MethodID
-	midDefaultItemAnimatorIsRunning            jni.MethodID
-	midDefaultItemAnimatorEndAnimations        jni.MethodID
-	midDefaultItemAnimatorToString             jni.MethodID
-
-	clsLinearLayoutManager                                       *jni.GlobalRef
-	midLinearLayoutManagerCtor                                   jni.MethodID
-	midLinearLayoutManagerIsAutoMeasureEnabled                   jni.MethodID
-	midLinearLayoutManagerGenerateDefaultLayoutParams            jni.MethodID
-	midLinearLayoutManagerGetRecycleChildrenOnDetach             jni.MethodID
-	midLinearLayoutManagerSetRecycleChildrenOnDetach             jni.MethodID
-	midLinearLayoutManagerOnDetachedFromWindow                   jni.MethodID
-	midLinearLayoutManagerOnInitializeAccessibilityEvent         jni.MethodID
-	midLinearLayoutManagerOnSaveInstanceState                    jni.MethodID
-	midLinearLayoutManagerOnRestoreInstanceState                 jni.MethodID
-	midLinearLayoutManagerCanScrollHorizontally                  jni.MethodID
-	midLinearLayoutManagerCanScrollVertically                    jni.MethodID
-	midLinearLayoutManagerSetStackFromEnd                        jni.MethodID
-	midLinearLayoutManagerGetStackFromEnd                        jni.MethodID
-	midLinearLayoutManagerGetOrientation                         jni.MethodID
-	midLinearLayoutManagerSetOrientation                         jni.MethodID
-	midLinearLayoutManagerGetReverseLayout                       jni.MethodID
-	midLinearLayoutManagerSetReverseLayout                       jni.MethodID
-	midLinearLayoutManagerFindViewByPosition                     jni.MethodID
-	midLinearLayoutManagerSmoothScrollToPosition                 jni.MethodID
-	midLinearLayoutManagerComputeScrollVectorForPosition         jni.MethodID
-	midLinearLayoutManagerOnLayoutChildren                       jni.MethodID
-	midLinearLayoutManagerOnLayoutCompleted                      jni.MethodID
-	midLinearLayoutManagerScrollToPosition                       jni.MethodID
-	midLinearLayoutManagerScrollToPositionWithOffset             jni.MethodID
-	midLinearLayoutManagerScrollHorizontallyBy                   jni.MethodID
-	midLinearLayoutManagerScrollVerticallyBy                     jni.MethodID
-	midLinearLayoutManagerComputeHorizontalScrollOffset          jni.MethodID
-	midLinearLayoutManagerComputeVerticalScrollOffset            jni.MethodID
-	midLinearLayoutManagerComputeHorizontalScrollExtent          jni.MethodID
-	midLinearLayoutManagerComputeVerticalScrollExtent            jni.MethodID
-	midLinearLayoutManagerComputeHorizontalScrollRange           jni.MethodID
-	midLinearLayoutManagerComputeVerticalScrollRange             jni.MethodID
-	midLinearLayoutManagerSetSmoothScrollbarEnabled              jni.MethodID
-	midLinearLayoutManagerIsSmoothScrollbarEnabled               jni.MethodID
-	midLinearLayoutManagerCollectInitialPrefetchPositions        jni.MethodID
-	midLinearLayoutManagerSetInitialPrefetchItemCount            jni.MethodID
-	midLinearLayoutManagerGetInitialPrefetchItemCount            jni.MethodID
-	midLinearLayoutManagerCollectAdjacentPrefetchPositions       jni.MethodID
-	midLinearLayoutManagerAssertNotInLayoutOrScroll              jni.MethodID
-	midLinearLayoutManagerFindFirstVisibleItemPosition           jni.MethodID
-	midLinearLayoutManagerFindFirstCompletelyVisibleItemPosition jni.MethodID
-	midLinearLayoutManagerFindLastVisibleItemPosition            jni.MethodID
-	midLinearLayoutManagerFindLastCompletelyVisibleItemPosition  jni.MethodID
-	midLinearLayoutManagerOnFocusSearchFailed                    jni.MethodID
-	midLinearLayoutManagerSupportsPredictiveItemAnimations       jni.MethodID
-	midLinearLayoutManagerPrepareForDrop                         jni.MethodID
-	midLinearLayoutManagerToString                               jni.MethodID
-
-	clsLinearLayoutManagerLayoutChunkResult         *jni.GlobalRef
-	midLinearLayoutManagerLayoutChunkResultToString jni.MethodID
-
-	clsLinearLayoutManagerSavedState                 *jni.GlobalRef
-	midLinearLayoutManagerSavedStateDescribeContents jni.MethodID
-	midLinearLayoutManagerSavedStateWriteToParcel    jni.MethodID
-	midLinearLayoutManagerSavedStateToString         jni.MethodID
-
-	clsItemTouchHelper                              *jni.GlobalRef
-	midItemTouchHelperCtor                          jni.MethodID
-	midItemTouchHelperAttachToRecyclerView          jni.MethodID
-	midItemTouchHelperOnDrawOver                    jni.MethodID
-	midItemTouchHelperOnDraw                        jni.MethodID
-	midItemTouchHelperOnChildViewAttachedToWindow   jni.MethodID
-	midItemTouchHelperOnChildViewDetachedFromWindow jni.MethodID
-	midItemTouchHelperGetItemOffsets                jni.MethodID
-	midItemTouchHelperStartDrag                     jni.MethodID
-	midItemTouchHelperStartSwipe                    jni.MethodID
-	midItemTouchHelperToString                      jni.MethodID
-
-	clsOrientationHelper                                  *jni.GlobalRef
-	midOrientationHelperGetLayoutManager                  jni.MethodID
-	midOrientationHelperOnLayoutComplete                  jni.MethodID
-	midOrientationHelperGetTotalSpaceChange               jni.MethodID
-	midOrientationHelperGetDecoratedStart                 jni.MethodID
-	midOrientationHelperGetDecoratedEnd                   jni.MethodID
-	midOrientationHelperGetTransformedEndWithDecoration   jni.MethodID
-	midOrientationHelperGetTransformedStartWithDecoration jni.MethodID
-	midOrientationHelperGetDecoratedMeasurement           jni.MethodID
-	midOrientationHelperGetDecoratedMeasurementInOther    jni.MethodID
-	midOrientationHelperGetStartAfterPadding              jni.MethodID
-	midOrientationHelperGetEndAfterPadding                jni.MethodID
-	midOrientationHelperGetEnd                            jni.MethodID
-	midOrientationHelperOffsetChildren                    jni.MethodID
-	midOrientationHelperGetTotalSpace                     jni.MethodID
-	midOrientationHelperOffsetChild                       jni.MethodID
-	midOrientationHelperGetEndPadding                     jni.MethodID
-	midOrientationHelperGetMode                           jni.MethodID
-	midOrientationHelperGetModeInOther                    jni.MethodID
-	midOrientationHelperToString                          jni.MethodID
-	midOrientationHelperCreateOrientationHelper           jni.MethodID
-	midOrientationHelperCreateHorizontalHelper            jni.MethodID
-	midOrientationHelperCreateVerticalHelper              jni.MethodID
-
-	clsItemTouchHelperCallback                             *jni.GlobalRef
-	midItemTouchHelperCallbackGetMovementFlags             jni.MethodID
-	midItemTouchHelperCallbackConvertToAbsoluteDirection   jni.MethodID
-	midItemTouchHelperCallbackCanDropOver                  jni.MethodID
-	midItemTouchHelperCallbackOnMove                       jni.MethodID
-	midItemTouchHelperCallbackIsLongPressDragEnabled       jni.MethodID
-	midItemTouchHelperCallbackIsItemViewSwipeEnabled       jni.MethodID
-	midItemTouchHelperCallbackGetBoundingBoxMargin         jni.MethodID
-	midItemTouchHelperCallbackGetSwipeThreshold            jni.MethodID
-	midItemTouchHelperCallbackGetMoveThreshold             jni.MethodID
-	midItemTouchHelperCallbackGetSwipeEscapeVelocity       jni.MethodID
-	midItemTouchHelperCallbackGetSwipeVelocityThreshold    jni.MethodID
-	midItemTouchHelperCallbackOnSwiped                     jni.MethodID
-	midItemTouchHelperCallbackOnSelectedChanged            jni.MethodID
-	midItemTouchHelperCallbackOnMoved                      jni.MethodID
-	midItemTouchHelperCallbackClearView                    jni.MethodID
-	midItemTouchHelperCallbackOnChildDraw                  jni.MethodID
-	midItemTouchHelperCallbackOnChildDrawOver              jni.MethodID
-	midItemTouchHelperCallbackGetAnimationDuration         jni.MethodID
-	midItemTouchHelperCallbackInterpolateOutOfBoundsScroll jni.MethodID
-	midItemTouchHelperCallbackToString                     jni.MethodID
-	midItemTouchHelperCallbackGetDefaultUIUtil             jni.MethodID
-	midItemTouchHelperCallbackConvertToRelativeDirection   jni.MethodID
-	midItemTouchHelperCallbackMakeMovementFlags            jni.MethodID
-	midItemTouchHelperCallbackMakeFlag                     jni.MethodID
-
-	clsItemTouchHelperSimpleCallback                    *jni.GlobalRef
-	midItemTouchHelperSimpleCallbackSetDefaultSwipeDirs jni.MethodID
-	midItemTouchHelperSimpleCallbackSetDefaultDragDirs  jni.MethodID
-	midItemTouchHelperSimpleCallbackGetSwipeDirs        jni.MethodID
-	midItemTouchHelperSimpleCallbackGetDragDirs         jni.MethodID
-	midItemTouchHelperSimpleCallbackGetMovementFlags    jni.MethodID
-	midItemTouchHelperSimpleCallbackToString            jni.MethodID
-
-	clsItemTouchHelperViewDropHandler               *jni.GlobalRef
-	midItemTouchHelperViewDropHandlerPrepareForDrop jni.MethodID
-	midItemTouchHelperViewDropHandlerToString       jni.MethodID
-
-	clsLinearSnapHelper                             *jni.GlobalRef
-	midLinearSnapHelperCtor                         jni.MethodID
-	midLinearSnapHelperCalculateDistanceToFinalSnap jni.MethodID
-	midLinearSnapHelperFindTargetSnapPosition       jni.MethodID
-	midLinearSnapHelperFindSnapView                 jni.MethodID
-	midLinearSnapHelperToString                     jni.MethodID
+	midDividerItemDecorationGetItemOffsets jni.MethodID
 
 	clsSortedList                            *jni.GlobalRef
 	midSortedListCtor                        jni.MethodID
@@ -792,6 +884,7 @@ var (
 	midSortedListToString                    jni.MethodID
 
 	clsSortedListBatchedCallback                   *jni.GlobalRef
+	midSortedListBatchedCallbackCtor               jni.MethodID
 	midSortedListBatchedCallbackCompare            jni.MethodID
 	midSortedListBatchedCallbackOnInserted         jni.MethodID
 	midSortedListBatchedCallbackOnRemoved          jni.MethodID
@@ -812,19 +905,6 @@ var (
 	midSortedListCallbackAreItemsTheSame    jni.MethodID
 	midSortedListCallbackGetChangePayload   jni.MethodID
 	midSortedListCallbackToString           jni.MethodID
-
-	clsDiffUtil                 *jni.GlobalRef
-	midDiffUtilToString         jni.MethodID
-	midDiffUtilCalculateDiff1   jni.MethodID
-	midDiffUtilCalculateDiff2_1 jni.MethodID
-
-	clsDiffUtilCallback                   *jni.GlobalRef
-	midDiffUtilCallbackGetOldListSize     jni.MethodID
-	midDiffUtilCallbackGetNewListSize     jni.MethodID
-	midDiffUtilCallbackAreItemsTheSame    jni.MethodID
-	midDiffUtilCallbackAreContentsTheSame jni.MethodID
-	midDiffUtilCallbackGetChangePayload   jni.MethodID
-	midDiffUtilCallbackToString           jni.MethodID
 
 	clsSimpleItemAnimator                            *jni.GlobalRef
 	midSimpleItemAnimatorGetSupportsChangeAnimations jni.MethodID
@@ -856,123 +936,12 @@ var (
 	midSimpleItemAnimatorOnChangeFinished            jni.MethodID
 	midSimpleItemAnimatorToString                    jni.MethodID
 
-	clsDiffUtilDiffResult                        *jni.GlobalRef
-	midDiffUtilDiffResultConvertOldPositionToNew jni.MethodID
-	midDiffUtilDiffResultConvertNewPositionToOld jni.MethodID
-	midDiffUtilDiffResultDispatchUpdatesTo1      jni.MethodID
-	midDiffUtilDiffResultDispatchUpdatesTo1_1    jni.MethodID
-	midDiffUtilDiffResultToString                jni.MethodID
-
-	clsDiffUtilItemCallback         *jni.GlobalRef
-	midDiffUtilItemCallbackToString jni.MethodID
-
-	clsStaggeredGridLayoutManager                                        *jni.GlobalRef
-	midStaggeredGridLayoutManagerCtor                                    jni.MethodID
-	midStaggeredGridLayoutManagerIsAutoMeasureEnabled                    jni.MethodID
-	midStaggeredGridLayoutManagerOnScrollStateChanged                    jni.MethodID
-	midStaggeredGridLayoutManagerOnDetachedFromWindow                    jni.MethodID
-	midStaggeredGridLayoutManagerSetSpanCount                            jni.MethodID
-	midStaggeredGridLayoutManagerSetOrientation                          jni.MethodID
-	midStaggeredGridLayoutManagerSetReverseLayout                        jni.MethodID
-	midStaggeredGridLayoutManagerGetGapStrategy                          jni.MethodID
-	midStaggeredGridLayoutManagerSetGapStrategy                          jni.MethodID
-	midStaggeredGridLayoutManagerAssertNotInLayoutOrScroll               jni.MethodID
-	midStaggeredGridLayoutManagerGetSpanCount                            jni.MethodID
-	midStaggeredGridLayoutManagerInvalidateSpanAssignments               jni.MethodID
-	midStaggeredGridLayoutManagerGetReverseLayout                        jni.MethodID
-	midStaggeredGridLayoutManagerSetMeasuredDimension                    jni.MethodID
-	midStaggeredGridLayoutManagerOnLayoutChildren                        jni.MethodID
-	midStaggeredGridLayoutManagerOnAdapterChanged                        jni.MethodID
-	midStaggeredGridLayoutManagerOnLayoutCompleted                       jni.MethodID
-	midStaggeredGridLayoutManagerSupportsPredictiveItemAnimations        jni.MethodID
-	midStaggeredGridLayoutManagerFindFirstVisibleItemPositions           jni.MethodID
-	midStaggeredGridLayoutManagerFindFirstCompletelyVisibleItemPositions jni.MethodID
-	midStaggeredGridLayoutManagerFindLastVisibleItemPositions            jni.MethodID
-	midStaggeredGridLayoutManagerFindLastCompletelyVisibleItemPositions  jni.MethodID
-	midStaggeredGridLayoutManagerComputeHorizontalScrollOffset           jni.MethodID
-	midStaggeredGridLayoutManagerComputeVerticalScrollOffset             jni.MethodID
-	midStaggeredGridLayoutManagerComputeHorizontalScrollExtent           jni.MethodID
-	midStaggeredGridLayoutManagerComputeVerticalScrollExtent             jni.MethodID
-	midStaggeredGridLayoutManagerComputeHorizontalScrollRange            jni.MethodID
-	midStaggeredGridLayoutManagerComputeVerticalScrollRange              jni.MethodID
-	midStaggeredGridLayoutManagerOnRestoreInstanceState                  jni.MethodID
-	midStaggeredGridLayoutManagerOnSaveInstanceState                     jni.MethodID
-	midStaggeredGridLayoutManagerOnInitializeAccessibilityEvent          jni.MethodID
-	midStaggeredGridLayoutManagerOffsetChildrenHorizontal                jni.MethodID
-	midStaggeredGridLayoutManagerOffsetChildrenVertical                  jni.MethodID
-	midStaggeredGridLayoutManagerOnItemsRemoved                          jni.MethodID
-	midStaggeredGridLayoutManagerOnItemsAdded                            jni.MethodID
-	midStaggeredGridLayoutManagerOnItemsChanged                          jni.MethodID
-	midStaggeredGridLayoutManagerOnItemsMoved                            jni.MethodID
-	midStaggeredGridLayoutManagerOnItemsUpdated                          jni.MethodID
-	midStaggeredGridLayoutManagerCanScrollVertically                     jni.MethodID
-	midStaggeredGridLayoutManagerCanScrollHorizontally                   jni.MethodID
-	midStaggeredGridLayoutManagerScrollHorizontallyBy                    jni.MethodID
-	midStaggeredGridLayoutManagerScrollVerticallyBy                      jni.MethodID
-	midStaggeredGridLayoutManagerComputeScrollVectorForPosition          jni.MethodID
-	midStaggeredGridLayoutManagerSmoothScrollToPosition                  jni.MethodID
-	midStaggeredGridLayoutManagerScrollToPosition                        jni.MethodID
-	midStaggeredGridLayoutManagerScrollToPositionWithOffset              jni.MethodID
-	midStaggeredGridLayoutManagerCollectAdjacentPrefetchPositions        jni.MethodID
-	midStaggeredGridLayoutManagerGenerateDefaultLayoutParams             jni.MethodID
-	midStaggeredGridLayoutManagerGenerateLayoutParams2                   jni.MethodID
-	midStaggeredGridLayoutManagerGenerateLayoutParams1_1                 jni.MethodID
-	midStaggeredGridLayoutManagerCheckLayoutParams                       jni.MethodID
-	midStaggeredGridLayoutManagerGetOrientation                          jni.MethodID
-	midStaggeredGridLayoutManagerOnFocusSearchFailed                     jni.MethodID
-	midStaggeredGridLayoutManagerToString                                jni.MethodID
-
-	clsBatchingListUpdateCallback                  *jni.GlobalRef
-	midBatchingListUpdateCallbackCtor              jni.MethodID
-	midBatchingListUpdateCallbackDispatchLastEvent jni.MethodID
-	midBatchingListUpdateCallbackOnInserted        jni.MethodID
-	midBatchingListUpdateCallbackOnRemoved         jni.MethodID
-	midBatchingListUpdateCallbackOnMoved           jni.MethodID
-	midBatchingListUpdateCallbackOnChanged         jni.MethodID
-	midBatchingListUpdateCallbackToString          jni.MethodID
-
-	clsStaggeredGridLayoutManagerLayoutParams             *jni.GlobalRef
-	midStaggeredGridLayoutManagerLayoutParamsSetFullSpan  jni.MethodID
-	midStaggeredGridLayoutManagerLayoutParamsIsFullSpan   jni.MethodID
-	midStaggeredGridLayoutManagerLayoutParamsGetSpanIndex jni.MethodID
-	midStaggeredGridLayoutManagerLayoutParamsToString     jni.MethodID
-
-	clsStaggeredGridLayoutManagerSavedState                 *jni.GlobalRef
-	midStaggeredGridLayoutManagerSavedStateDescribeContents jni.MethodID
-	midStaggeredGridLayoutManagerSavedStateWriteToParcel    jni.MethodID
-	midStaggeredGridLayoutManagerSavedStateToString         jni.MethodID
-
 	clsLinearSmoothScroller                         *jni.GlobalRef
 	midLinearSmoothScrollerCtor                     jni.MethodID
 	midLinearSmoothScrollerCalculateDtToFit         jni.MethodID
 	midLinearSmoothScrollerCalculateDyToMakeVisible jni.MethodID
 	midLinearSmoothScrollerCalculateDxToMakeVisible jni.MethodID
 	midLinearSmoothScrollerToString                 jni.MethodID
-
-	clsSortedListAdapterCallback             *jni.GlobalRef
-	midSortedListAdapterCallbackOnInserted   jni.MethodID
-	midSortedListAdapterCallbackOnRemoved    jni.MethodID
-	midSortedListAdapterCallbackOnMoved      jni.MethodID
-	midSortedListAdapterCallbackOnChanged2   jni.MethodID
-	midSortedListAdapterCallbackOnChanged3_1 jni.MethodID
-	midSortedListAdapterCallbackToString     jni.MethodID
-
-	clsAdapterListUpdateCallback           *jni.GlobalRef
-	midAdapterListUpdateCallbackCtor       jni.MethodID
-	midAdapterListUpdateCallbackOnInserted jni.MethodID
-	midAdapterListUpdateCallbackOnRemoved  jni.MethodID
-	midAdapterListUpdateCallbackOnMoved    jni.MethodID
-	midAdapterListUpdateCallbackOnChanged  jni.MethodID
-	midAdapterListUpdateCallbackToString   jni.MethodID
-
-	clsSnapHelper                             *jni.GlobalRef
-	midSnapHelperOnFling                      jni.MethodID
-	midSnapHelperAttachToRecyclerView         jni.MethodID
-	midSnapHelperCalculateScrollDistance      jni.MethodID
-	midSnapHelperCalculateDistanceToFinalSnap jni.MethodID
-	midSnapHelperFindSnapView                 jni.MethodID
-	midSnapHelperFindTargetSnapPosition       jni.MethodID
-	midSnapHelperToString                     jni.MethodID
 
 	clsListUpdateCallback           *jni.GlobalRef
 	midListUpdateCallbackOnInserted jni.MethodID
@@ -981,32 +950,76 @@ var (
 	midListUpdateCallbackOnChanged  jni.MethodID
 	midListUpdateCallbackToString   jni.MethodID
 
-	clsItemTouchUIUtil           *jni.GlobalRef
-	midItemTouchUIUtilOnDraw     jni.MethodID
-	midItemTouchUIUtilOnDrawOver jni.MethodID
-	midItemTouchUIUtilClearView  jni.MethodID
-	midItemTouchUIUtilOnSelected jni.MethodID
-	midItemTouchUIUtilToString   jni.MethodID
+	clsGridLayoutManager                                           *jni.GlobalRef
+	midGridLayoutManagerCtor                                       jni.MethodID
+	midGridLayoutManagerSetStackFromEnd                            jni.MethodID
+	midGridLayoutManagerGetRowCountForAccessibility                jni.MethodID
+	midGridLayoutManagerGetColumnCountForAccessibility             jni.MethodID
+	midGridLayoutManagerOnInitializeAccessibilityNodeInfoForItem   jni.MethodID
+	midGridLayoutManagerOnInitializeAccessibilityNodeInfo          jni.MethodID
+	midGridLayoutManagerOnLayoutChildren                           jni.MethodID
+	midGridLayoutManagerOnLayoutCompleted                          jni.MethodID
+	midGridLayoutManagerOnItemsAdded                               jni.MethodID
+	midGridLayoutManagerOnItemsChanged                             jni.MethodID
+	midGridLayoutManagerOnItemsRemoved                             jni.MethodID
+	midGridLayoutManagerOnItemsUpdated                             jni.MethodID
+	midGridLayoutManagerOnItemsMoved                               jni.MethodID
+	midGridLayoutManagerGenerateDefaultLayoutParams                jni.MethodID
+	midGridLayoutManagerGenerateLayoutParams2                      jni.MethodID
+	midGridLayoutManagerGenerateLayoutParams1_1                    jni.MethodID
+	midGridLayoutManagerCheckLayoutParams                          jni.MethodID
+	midGridLayoutManagerSetSpanSizeLookup                          jni.MethodID
+	midGridLayoutManagerGetSpanSizeLookup                          jni.MethodID
+	midGridLayoutManagerScrollHorizontallyBy                       jni.MethodID
+	midGridLayoutManagerScrollVerticallyBy                         jni.MethodID
+	midGridLayoutManagerGetSpanCount                               jni.MethodID
+	midGridLayoutManagerSetSpanCount                               jni.MethodID
+	midGridLayoutManagerOnFocusSearchFailed                        jni.MethodID
+	midGridLayoutManagerSupportsPredictiveItemAnimations           jni.MethodID
+	midGridLayoutManagerComputeHorizontalScrollRange               jni.MethodID
+	midGridLayoutManagerComputeVerticalScrollRange                 jni.MethodID
+	midGridLayoutManagerComputeHorizontalScrollOffset              jni.MethodID
+	midGridLayoutManagerComputeVerticalScrollOffset                jni.MethodID
+	midGridLayoutManagerSetUsingSpansToEstimateScrollbarDimensions jni.MethodID
+	midGridLayoutManagerIsUsingSpansToEstimateScrollbarDimensions  jni.MethodID
+	midGridLayoutManagerToString                                   jni.MethodID
+	midGridLayoutManagerSetMeasuredDimension                       jni.MethodID
 
-	clsRecyclerViewAccessibilityDelegate                                  *jni.GlobalRef
-	midRecyclerViewAccessibilityDelegateCtor                              jni.MethodID
-	midRecyclerViewAccessibilityDelegatePerformAccessibilityAction        jni.MethodID
-	midRecyclerViewAccessibilityDelegateOnInitializeAccessibilityNodeInfo jni.MethodID
-	midRecyclerViewAccessibilityDelegateOnInitializeAccessibilityEvent    jni.MethodID
-	midRecyclerViewAccessibilityDelegateGetItemDelegate                   jni.MethodID
-	midRecyclerViewAccessibilityDelegateToString                          jni.MethodID
+	clsDefaultItemAnimator                     *jni.GlobalRef
+	midDefaultItemAnimatorCtor                 jni.MethodID
+	midDefaultItemAnimatorRunPendingAnimations jni.MethodID
+	midDefaultItemAnimatorAnimateRemove        jni.MethodID
+	midDefaultItemAnimatorAnimateAdd           jni.MethodID
+	midDefaultItemAnimatorAnimateMove          jni.MethodID
+	midDefaultItemAnimatorAnimateChange        jni.MethodID
+	midDefaultItemAnimatorEndAnimation         jni.MethodID
+	midDefaultItemAnimatorIsRunning            jni.MethodID
+	midDefaultItemAnimatorEndAnimations        jni.MethodID
+	midDefaultItemAnimatorToString             jni.MethodID
 
-	clsRecyclerViewAccessibilityDelegateItemDelegate                                   *jni.GlobalRef
-	midRecyclerViewAccessibilityDelegateItemDelegateOnInitializeAccessibilityNodeInfo  jni.MethodID
-	midRecyclerViewAccessibilityDelegateItemDelegatePerformAccessibilityAction         jni.MethodID
-	midRecyclerViewAccessibilityDelegateItemDelegateSendAccessibilityEvent             jni.MethodID
-	midRecyclerViewAccessibilityDelegateItemDelegateSendAccessibilityEventUnchecked    jni.MethodID
-	midRecyclerViewAccessibilityDelegateItemDelegateDispatchPopulateAccessibilityEvent jni.MethodID
-	midRecyclerViewAccessibilityDelegateItemDelegateOnPopulateAccessibilityEvent       jni.MethodID
-	midRecyclerViewAccessibilityDelegateItemDelegateOnInitializeAccessibilityEvent     jni.MethodID
-	midRecyclerViewAccessibilityDelegateItemDelegateOnRequestSendAccessibilityEvent    jni.MethodID
-	midRecyclerViewAccessibilityDelegateItemDelegateGetAccessibilityNodeProvider       jni.MethodID
-	midRecyclerViewAccessibilityDelegateItemDelegateToString                           jni.MethodID
+	clsGridLayoutManagerDefaultSpanSizeLookup             *jni.GlobalRef
+	midGridLayoutManagerDefaultSpanSizeLookupCtor         jni.MethodID
+	midGridLayoutManagerDefaultSpanSizeLookupGetSpanSize  jni.MethodID
+	midGridLayoutManagerDefaultSpanSizeLookupGetSpanIndex jni.MethodID
+	midGridLayoutManagerDefaultSpanSizeLookupToString     jni.MethodID
+
+	clsGridLayoutManagerLayoutParams             *jni.GlobalRef
+	midGridLayoutManagerLayoutParamsCtor         jni.MethodID
+	midGridLayoutManagerLayoutParamsGetSpanIndex jni.MethodID
+	midGridLayoutManagerLayoutParamsGetSpanSize  jni.MethodID
+	midGridLayoutManagerLayoutParamsToString     jni.MethodID
+
+	clsGridLayoutManagerSpanSizeLookup                              *jni.GlobalRef
+	midGridLayoutManagerSpanSizeLookupGetSpanSize                   jni.MethodID
+	midGridLayoutManagerSpanSizeLookupSetSpanIndexCacheEnabled      jni.MethodID
+	midGridLayoutManagerSpanSizeLookupSetSpanGroupIndexCacheEnabled jni.MethodID
+	midGridLayoutManagerSpanSizeLookupInvalidateSpanIndexCache      jni.MethodID
+	midGridLayoutManagerSpanSizeLookupInvalidateSpanGroupIndexCache jni.MethodID
+	midGridLayoutManagerSpanSizeLookupIsSpanIndexCacheEnabled       jni.MethodID
+	midGridLayoutManagerSpanSizeLookupIsSpanGroupIndexCacheEnabled  jni.MethodID
+	midGridLayoutManagerSpanSizeLookupGetSpanGroupIndex             jni.MethodID
+	midGridLayoutManagerSpanSizeLookupToString                      jni.MethodID
+	midGridLayoutManagerSpanSizeLookupGetSpanIndex                  jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -1026,6 +1039,718 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("androidx/recyclerview/widget/AdapterListUpdateCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAdapterListUpdateCallback = env.NewGlobalRef(&c.Object)
+		midAdapterListUpdateCallbackCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdapterListUpdateCallback)), "<init>", "(Landroidx/recyclerview/widget/RecyclerView$Adapter;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAdapterListUpdateCallbackOnInserted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdapterListUpdateCallback)), "onInserted", "(II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdapterListUpdateCallbackOnRemoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdapterListUpdateCallback)), "onRemoved", "(II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdapterListUpdateCallbackOnMoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdapterListUpdateCallback)), "onMoved", "(II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdapterListUpdateCallbackOnChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdapterListUpdateCallback)), "onChanged", "(IILjava/lang/Object;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdapterListUpdateCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdapterListUpdateCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/SortedListAdapterCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSortedListAdapterCallback = env.NewGlobalRef(&c.Object)
+
+		midSortedListAdapterCallbackOnInserted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSortedListAdapterCallback)), "onInserted", "(II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSortedListAdapterCallbackOnRemoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSortedListAdapterCallback)), "onRemoved", "(II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSortedListAdapterCallbackOnMoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSortedListAdapterCallback)), "onMoved", "(II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSortedListAdapterCallbackOnChanged2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSortedListAdapterCallback)), "onChanged", "(II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSortedListAdapterCallbackOnChanged3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSortedListAdapterCallback)), "onChanged", "(IILjava/lang/Object;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSortedListAdapterCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSortedListAdapterCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/BatchingListUpdateCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBatchingListUpdateCallback = env.NewGlobalRef(&c.Object)
+		midBatchingListUpdateCallbackCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatchingListUpdateCallback)), "<init>", "(Landroidx/recyclerview/widget/ListUpdateCallback;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midBatchingListUpdateCallbackDispatchLastEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatchingListUpdateCallback)), "dispatchLastEvent", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBatchingListUpdateCallbackOnInserted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatchingListUpdateCallback)), "onInserted", "(II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBatchingListUpdateCallbackOnRemoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatchingListUpdateCallback)), "onRemoved", "(II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBatchingListUpdateCallbackOnMoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatchingListUpdateCallback)), "onMoved", "(II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBatchingListUpdateCallbackOnChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatchingListUpdateCallback)), "onChanged", "(IILjava/lang/Object;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBatchingListUpdateCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatchingListUpdateCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/AsyncDifferConfig")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAsyncDifferConfig = env.NewGlobalRef(&c.Object)
+
+		midAsyncDifferConfigGetMainThreadExecutor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncDifferConfig)), "getMainThreadExecutor", "()Ljava/util/concurrent/Executor;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAsyncDifferConfigGetBackgroundThreadExecutor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncDifferConfig)), "getBackgroundThreadExecutor", "()Ljava/util/concurrent/Executor;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAsyncDifferConfigGetDiffCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncDifferConfig)), "getDiffCallback", "()Landroidx/recyclerview/widget/DiffUtil$ItemCallback;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAsyncDifferConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncDifferConfig)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/AsyncDifferConfig$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAsyncDifferConfigBuilder = env.NewGlobalRef(&c.Object)
+		midAsyncDifferConfigBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncDifferConfigBuilder)), "<init>", "(Landroidx/recyclerview/widget/DiffUtil$ItemCallback;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAsyncDifferConfigBuilderSetMainThreadExecutor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncDifferConfigBuilder)), "setMainThreadExecutor", "(Ljava/util/concurrent/Executor;)Landroidx/recyclerview/widget/AsyncDifferConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAsyncDifferConfigBuilderSetBackgroundThreadExecutor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncDifferConfigBuilder)), "setBackgroundThreadExecutor", "(Ljava/util/concurrent/Executor;)Landroidx/recyclerview/widget/AsyncDifferConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAsyncDifferConfigBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncDifferConfigBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAsyncDifferConfigBuilderBuild, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAsyncDifferConfigBuilder)), "build", "()Landroidx/recyclerview/widget/AsyncDifferConfig;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/AsyncListDiffer")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAsyncListDiffer = env.NewGlobalRef(&c.Object)
+		midAsyncListDifferCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListDiffer)), "<init>", "(Landroidx/recyclerview/widget/RecyclerView$Adapter;Landroidx/recyclerview/widget/DiffUtil$ItemCallback;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAsyncListDifferGetCurrentList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListDiffer)), "getCurrentList", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAsyncListDifferToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListDiffer)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/AsyncListDiffer$ListListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAsyncListDifferListListener = env.NewGlobalRef(&c.Object)
+
+		midAsyncListDifferListListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListDifferListListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/LinearLayoutManager")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLinearLayoutManager = env.NewGlobalRef(&c.Object)
+		midLinearLayoutManagerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerIsAutoMeasureEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "isAutoMeasureEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerGenerateDefaultLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "generateDefaultLayoutParams", "()Landroidx/recyclerview/widget/RecyclerView$LayoutParams;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerGetRecycleChildrenOnDetach, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "getRecycleChildrenOnDetach", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerSetRecycleChildrenOnDetach, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "setRecycleChildrenOnDetach", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerOnDetachedFromWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "onDetachedFromWindow", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$Recycler;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerOnInitializeAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "onInitializeAccessibilityEvent", "(Landroid/view/accessibility/AccessibilityEvent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerOnSaveInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "onSaveInstanceState", "()Landroid/os/Parcelable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerOnRestoreInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "onRestoreInstanceState", "(Landroid/os/Parcelable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerCanScrollHorizontally, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "canScrollHorizontally", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerCanScrollVertically, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "canScrollVertically", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerSetStackFromEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "setStackFromEnd", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerGetStackFromEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "getStackFromEnd", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerGetOrientation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "getOrientation", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerSetOrientation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "setOrientation", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerGetReverseLayout, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "getReverseLayout", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerSetReverseLayout, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "setReverseLayout", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerFindViewByPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "findViewByPosition", "(I)Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerSmoothScrollToPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "smoothScrollToPosition", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$State;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerComputeScrollVectorForPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "computeScrollVectorForPosition", "(I)Landroid/graphics/PointF;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerOnLayoutChildren, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "onLayoutChildren", "(Landroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerOnLayoutCompleted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "onLayoutCompleted", "(Landroidx/recyclerview/widget/RecyclerView$State;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerScrollToPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "scrollToPosition", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerScrollToPositionWithOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "scrollToPositionWithOffset", "(II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerScrollHorizontallyBy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "scrollHorizontallyBy", "(ILandroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerScrollVerticallyBy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "scrollVerticallyBy", "(ILandroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerComputeHorizontalScrollOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "computeHorizontalScrollOffset", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerComputeVerticalScrollOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "computeVerticalScrollOffset", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerComputeHorizontalScrollExtent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "computeHorizontalScrollExtent", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerComputeVerticalScrollExtent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "computeVerticalScrollExtent", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerComputeHorizontalScrollRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "computeHorizontalScrollRange", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerComputeVerticalScrollRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "computeVerticalScrollRange", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerSetSmoothScrollbarEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "setSmoothScrollbarEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerIsSmoothScrollbarEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "isSmoothScrollbarEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerCollectInitialPrefetchPositions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "collectInitialPrefetchPositions", "(ILandroidx/recyclerview/widget/RecyclerView$LayoutManager$LayoutPrefetchRegistry;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerSetInitialPrefetchItemCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "setInitialPrefetchItemCount", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerGetInitialPrefetchItemCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "getInitialPrefetchItemCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerCollectAdjacentPrefetchPositions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "collectAdjacentPrefetchPositions", "(IILandroidx/recyclerview/widget/RecyclerView$State;Landroidx/recyclerview/widget/RecyclerView$LayoutManager$LayoutPrefetchRegistry;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerAssertNotInLayoutOrScroll, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "assertNotInLayoutOrScroll", "(Ljava/lang/String;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerFindFirstVisibleItemPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "findFirstVisibleItemPosition", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerFindFirstCompletelyVisibleItemPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "findFirstCompletelyVisibleItemPosition", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerFindLastVisibleItemPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "findLastVisibleItemPosition", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerFindLastCompletelyVisibleItemPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "findLastCompletelyVisibleItemPosition", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerOnFocusSearchFailed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "onFocusSearchFailed", "(Landroid/view/View;ILandroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerSupportsPredictiveItemAnimations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "supportsPredictiveItemAnimations", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerPrepareForDrop, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "prepareForDrop", "(Landroid/view/View;Landroid/view/View;II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/LinearLayoutManager$LayoutChunkResult")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLinearLayoutManagerLayoutChunkResult = env.NewGlobalRef(&c.Object)
+
+		midLinearLayoutManagerLayoutChunkResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManagerLayoutChunkResult)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/LinearLayoutManager$SavedState")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLinearLayoutManagerSavedState = env.NewGlobalRef(&c.Object)
+		midLinearLayoutManagerSavedStateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManagerSavedState)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerSavedStateDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManagerSavedState)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerSavedStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManagerSavedState)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearLayoutManagerSavedStateWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManagerSavedState)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/PagerSnapHelper")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPagerSnapHelper = env.NewGlobalRef(&c.Object)
+		midPagerSnapHelperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerSnapHelper)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midPagerSnapHelperCalculateDistanceToFinalSnap, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerSnapHelper)), "calculateDistanceToFinalSnap", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;Landroid/view/View;)[I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerSnapHelperFindSnapView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerSnapHelper)), "findSnapView", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;)Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerSnapHelperFindTargetSnapPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerSnapHelper)), "findTargetSnapPosition", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;II)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerSnapHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerSnapHelper)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("androidx/recyclerview/widget/ListAdapter")
 	if err != nil {
@@ -1058,236 +1783,57 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/recyclerview/widget/GridLayoutManager")
+	c, err = env.FindClass("androidx/recyclerview/widget/SnapHelper")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsGridLayoutManager = env.NewGlobalRef(&c.Object)
-		midGridLayoutManagerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;II)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsSnapHelper = env.NewGlobalRef(&c.Object)
 
-		midGridLayoutManagerSetStackFromEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "setStackFromEnd", "(Z)V")
+		midSnapHelperOnFling, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnapHelper)), "onFling", "(II)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGridLayoutManagerGetRowCountForAccessibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "getRowCountForAccessibility", "(Landroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		midSnapHelperAttachToRecyclerView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnapHelper)), "attachToRecyclerView", "(Landroidx/recyclerview/widget/RecyclerView;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGridLayoutManagerGetColumnCountForAccessibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "getColumnCountForAccessibility", "(Landroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		midSnapHelperCalculateScrollDistance, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnapHelper)), "calculateScrollDistance", "(II)[I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGridLayoutManagerOnInitializeAccessibilityNodeInfoForItem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "onInitializeAccessibilityNodeInfoForItem", "(Landroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;Landroid/view/View;Landroidx/core/view/accessibility/AccessibilityNodeInfoCompat;)V")
+		midSnapHelperCalculateDistanceToFinalSnap, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnapHelper)), "calculateDistanceToFinalSnap", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;Landroid/view/View;)[I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGridLayoutManagerOnInitializeAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "onInitializeAccessibilityNodeInfo", "(Landroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;Landroidx/core/view/accessibility/AccessibilityNodeInfoCompat;)V")
+		midSnapHelperFindSnapView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnapHelper)), "findSnapView", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;)Landroid/view/View;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGridLayoutManagerOnLayoutChildren, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "onLayoutChildren", "(Landroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)V")
+		midSnapHelperFindTargetSnapPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnapHelper)), "findTargetSnapPosition", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;II)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGridLayoutManagerOnLayoutCompleted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "onLayoutCompleted", "(Landroidx/recyclerview/widget/RecyclerView$State;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerOnItemsAdded, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "onItemsAdded", "(Landroidx/recyclerview/widget/RecyclerView;II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerOnItemsChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "onItemsChanged", "(Landroidx/recyclerview/widget/RecyclerView;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerOnItemsRemoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "onItemsRemoved", "(Landroidx/recyclerview/widget/RecyclerView;II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerOnItemsUpdated, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "onItemsUpdated", "(Landroidx/recyclerview/widget/RecyclerView;IILjava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerOnItemsMoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "onItemsMoved", "(Landroidx/recyclerview/widget/RecyclerView;III)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerGenerateDefaultLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "generateDefaultLayoutParams", "()Landroidx/recyclerview/widget/RecyclerView$LayoutParams;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerGenerateLayoutParams2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "generateLayoutParams", "(Landroid/content/Context;Landroid/util/AttributeSet;)Landroidx/recyclerview/widget/RecyclerView$LayoutParams;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerGenerateLayoutParams1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "generateLayoutParams", "(Landroid/view/ViewGroup$LayoutParams;)Landroidx/recyclerview/widget/RecyclerView$LayoutParams;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerCheckLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "checkLayoutParams", "(Landroidx/recyclerview/widget/RecyclerView$LayoutParams;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerSetSpanSizeLookup, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "setSpanSizeLookup", "(Landroidx/recyclerview/widget/GridLayoutManager$SpanSizeLookup;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerGetSpanSizeLookup, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "getSpanSizeLookup", "()Landroidx/recyclerview/widget/GridLayoutManager$SpanSizeLookup;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerSetMeasuredDimension, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "setMeasuredDimension", "(Landroid/graphics/Rect;II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerScrollHorizontallyBy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "scrollHorizontallyBy", "(ILandroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerScrollVerticallyBy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "scrollVerticallyBy", "(ILandroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerGetSpanCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "getSpanCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerSetSpanCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "setSpanCount", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerOnFocusSearchFailed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "onFocusSearchFailed", "(Landroid/view/View;ILandroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerSupportsPredictiveItemAnimations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "supportsPredictiveItemAnimations", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerComputeHorizontalScrollRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "computeHorizontalScrollRange", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerComputeVerticalScrollRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "computeVerticalScrollRange", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerComputeHorizontalScrollOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "computeHorizontalScrollOffset", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerComputeVerticalScrollOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "computeVerticalScrollOffset", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerSetUsingSpansToEstimateScrollbarDimensions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "setUsingSpansToEstimateScrollbarDimensions", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerIsUsingSpansToEstimateScrollbarDimensions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "isUsingSpansToEstimateScrollbarDimensions", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGridLayoutManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "toString", "()Ljava/lang/String;")
+		midSnapHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnapHelper)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1296,29 +1842,75 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/recyclerview/widget/GridLayoutManager$DefaultSpanSizeLookup")
+	c, err = env.FindClass("androidx/recyclerview/widget/ItemTouchHelper")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsGridLayoutManagerDefaultSpanSizeLookup = env.NewGlobalRef(&c.Object)
+		clsItemTouchHelper = env.NewGlobalRef(&c.Object)
+		midItemTouchHelperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelper)), "<init>", "(Landroidx/recyclerview/widget/ItemTouchHelper$Callback;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midGridLayoutManagerDefaultSpanSizeLookupGetSpanSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerDefaultSpanSizeLookup)), "getSpanSize", "(I)I")
+		midItemTouchHelperAttachToRecyclerView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelper)), "attachToRecyclerView", "(Landroidx/recyclerview/widget/RecyclerView;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGridLayoutManagerDefaultSpanSizeLookupGetSpanIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerDefaultSpanSizeLookup)), "getSpanIndex", "(II)I")
+		midItemTouchHelperOnDrawOver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelper)), "onDrawOver", "(Landroid/graphics/Canvas;Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$State;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGridLayoutManagerDefaultSpanSizeLookupToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerDefaultSpanSizeLookup)), "toString", "()Ljava/lang/String;")
+		midItemTouchHelperOnDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelper)), "onDraw", "(Landroid/graphics/Canvas;Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$State;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperOnChildViewAttachedToWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelper)), "onChildViewAttachedToWindow", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperOnChildViewDetachedFromWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelper)), "onChildViewDetachedFromWindow", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperGetItemOffsets, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelper)), "getItemOffsets", "(Landroid/graphics/Rect;Landroid/view/View;Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$State;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperStartDrag, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelper)), "startDrag", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperStartSwipe, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelper)), "startSwipe", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelper)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1327,29 +1919,155 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/recyclerview/widget/GridLayoutManager$LayoutParams")
+	c, err = env.FindClass("androidx/recyclerview/widget/OrientationHelper")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsGridLayoutManagerLayoutParams = env.NewGlobalRef(&c.Object)
+		clsOrientationHelper = env.NewGlobalRef(&c.Object)
 
-		midGridLayoutManagerLayoutParamsGetSpanIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerLayoutParams)), "getSpanIndex", "()I")
+		midOrientationHelperGetLayoutManager, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getLayoutManager", "()Landroidx/recyclerview/widget/RecyclerView$LayoutManager;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGridLayoutManagerLayoutParamsGetSpanSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerLayoutParams)), "getSpanSize", "()I")
+		midOrientationHelperOnLayoutComplete, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "onLayoutComplete", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGridLayoutManagerLayoutParamsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerLayoutParams)), "toString", "()Ljava/lang/String;")
+		midOrientationHelperGetTotalSpaceChange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getTotalSpaceChange", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOrientationHelperGetDecoratedStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getDecoratedStart", "(Landroid/view/View;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOrientationHelperGetDecoratedEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getDecoratedEnd", "(Landroid/view/View;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOrientationHelperGetTransformedEndWithDecoration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getTransformedEndWithDecoration", "(Landroid/view/View;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOrientationHelperGetTransformedStartWithDecoration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getTransformedStartWithDecoration", "(Landroid/view/View;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOrientationHelperGetDecoratedMeasurement, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getDecoratedMeasurement", "(Landroid/view/View;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOrientationHelperGetDecoratedMeasurementInOther, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getDecoratedMeasurementInOther", "(Landroid/view/View;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOrientationHelperGetStartAfterPadding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getStartAfterPadding", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOrientationHelperGetEndAfterPadding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getEndAfterPadding", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOrientationHelperGetEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getEnd", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOrientationHelperOffsetChildren, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "offsetChildren", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOrientationHelperGetTotalSpace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getTotalSpace", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOrientationHelperOffsetChild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "offsetChild", "(Landroid/view/View;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOrientationHelperGetEndPadding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getEndPadding", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOrientationHelperGetMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getMode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOrientationHelperGetModeInOther, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getModeInOther", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOrientationHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOrientationHelperCreateOrientationHelper, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "createOrientationHelper", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;I)Landroidx/recyclerview/widget/OrientationHelper;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOrientationHelperCreateHorizontalHelper, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "createHorizontalHelper", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;)Landroidx/recyclerview/widget/OrientationHelper;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1358,78 +2076,1052 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/recyclerview/widget/GridLayoutManager$SpanSizeLookup")
+	c, err = env.FindClass("androidx/recyclerview/widget/ItemTouchHelper$Callback")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsGridLayoutManagerSpanSizeLookup = env.NewGlobalRef(&c.Object)
+		clsItemTouchHelperCallback = env.NewGlobalRef(&c.Object)
 
-		midGridLayoutManagerSpanSizeLookupGetSpanSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerSpanSizeLookup)), "getSpanSize", "(I)I")
+		midItemTouchHelperCallbackGetMovementFlags, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "getMovementFlags", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGridLayoutManagerSpanSizeLookupSetSpanIndexCacheEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerSpanSizeLookup)), "setSpanIndexCacheEnabled", "(Z)V")
+		midItemTouchHelperCallbackConvertToAbsoluteDirection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "convertToAbsoluteDirection", "(II)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGridLayoutManagerSpanSizeLookupSetSpanGroupIndexCacheEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerSpanSizeLookup)), "setSpanGroupIndexCacheEnabled", "(Z)V")
+		midItemTouchHelperCallbackCanDropOver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "canDropOver", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGridLayoutManagerSpanSizeLookupInvalidateSpanIndexCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerSpanSizeLookup)), "invalidateSpanIndexCache", "()V")
+		midItemTouchHelperCallbackOnMove, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "onMove", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGridLayoutManagerSpanSizeLookupInvalidateSpanGroupIndexCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerSpanSizeLookup)), "invalidateSpanGroupIndexCache", "()V")
+		midItemTouchHelperCallbackIsLongPressDragEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "isLongPressDragEnabled", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGridLayoutManagerSpanSizeLookupIsSpanIndexCacheEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerSpanSizeLookup)), "isSpanIndexCacheEnabled", "()Z")
+		midItemTouchHelperCallbackIsItemViewSwipeEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "isItemViewSwipeEnabled", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGridLayoutManagerSpanSizeLookupIsSpanGroupIndexCacheEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerSpanSizeLookup)), "isSpanGroupIndexCacheEnabled", "()Z")
+		midItemTouchHelperCallbackGetBoundingBoxMargin, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "getBoundingBoxMargin", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGridLayoutManagerSpanSizeLookupGetSpanIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerSpanSizeLookup)), "getSpanIndex", "(II)I")
+		midItemTouchHelperCallbackGetSwipeThreshold, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "getSwipeThreshold", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)F")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGridLayoutManagerSpanSizeLookupGetSpanGroupIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerSpanSizeLookup)), "getSpanGroupIndex", "(II)I")
+		midItemTouchHelperCallbackGetMoveThreshold, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "getMoveThreshold", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)F")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGridLayoutManagerSpanSizeLookupToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerSpanSizeLookup)), "toString", "()Ljava/lang/String;")
+		midItemTouchHelperCallbackGetSwipeEscapeVelocity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "getSwipeEscapeVelocity", "(F)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperCallbackGetSwipeVelocityThreshold, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "getSwipeVelocityThreshold", "(F)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperCallbackOnSwiped, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "onSwiped", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperCallbackOnSelectedChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "onSelectedChanged", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperCallbackOnMoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "onMoved", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;ILandroidx/recyclerview/widget/RecyclerView$ViewHolder;III)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperCallbackClearView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "clearView", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperCallbackOnChildDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "onChildDraw", "(Landroid/graphics/Canvas;Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;FFIZ)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperCallbackOnChildDrawOver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "onChildDrawOver", "(Landroid/graphics/Canvas;Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;FFIZ)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperCallbackGetAnimationDuration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "getAnimationDuration", "(Landroidx/recyclerview/widget/RecyclerView;IFF)J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperCallbackGetDefaultUIUtil, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "getDefaultUIUtil", "()Landroidx/recyclerview/widget/ItemTouchUIUtil;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperCallbackConvertToRelativeDirection, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "convertToRelativeDirection", "(II)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperCallbackMakeMovementFlags, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "makeMovementFlags", "(II)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperCallbackMakeFlag, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "makeFlag", "(II)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperCallbackInterpolateOutOfBoundsScroll, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "interpolateOutOfBoundsScroll", "(Landroidx/recyclerview/widget/RecyclerView;IIIJ)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/ItemTouchHelper$SimpleCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsItemTouchHelperSimpleCallback = env.NewGlobalRef(&c.Object)
+
+		midItemTouchHelperSimpleCallbackSetDefaultSwipeDirs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperSimpleCallback)), "setDefaultSwipeDirs", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperSimpleCallbackSetDefaultDragDirs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperSimpleCallback)), "setDefaultDragDirs", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperSimpleCallbackGetSwipeDirs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperSimpleCallback)), "getSwipeDirs", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperSimpleCallbackGetDragDirs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperSimpleCallback)), "getDragDirs", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperSimpleCallbackGetMovementFlags, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperSimpleCallback)), "getMovementFlags", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperSimpleCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperSimpleCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/ItemTouchHelper$ViewDropHandler")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsItemTouchHelperViewDropHandler = env.NewGlobalRef(&c.Object)
+
+		midItemTouchHelperViewDropHandlerPrepareForDrop, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperViewDropHandler)), "prepareForDrop", "(Landroid/view/View;Landroid/view/View;II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchHelperViewDropHandlerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperViewDropHandler)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/RecyclerViewAccessibilityDelegate")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRecyclerViewAccessibilityDelegate = env.NewGlobalRef(&c.Object)
+		midRecyclerViewAccessibilityDelegateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegate)), "<init>", "(Landroidx/recyclerview/widget/RecyclerView;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midRecyclerViewAccessibilityDelegatePerformAccessibilityAction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegate)), "performAccessibilityAction", "(Landroid/view/View;ILandroid/os/Bundle;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecyclerViewAccessibilityDelegateOnInitializeAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegate)), "onInitializeAccessibilityNodeInfo", "(Landroid/view/View;Landroidx/core/view/accessibility/AccessibilityNodeInfoCompat;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecyclerViewAccessibilityDelegateOnInitializeAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegate)), "onInitializeAccessibilityEvent", "(Landroid/view/View;Landroid/view/accessibility/AccessibilityEvent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecyclerViewAccessibilityDelegateGetItemDelegate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegate)), "getItemDelegate", "()Landroidx/core/view/AccessibilityDelegateCompat;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecyclerViewAccessibilityDelegateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegate)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/RecyclerViewAccessibilityDelegate$ItemDelegate")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRecyclerViewAccessibilityDelegateItemDelegate = env.NewGlobalRef(&c.Object)
+		midRecyclerViewAccessibilityDelegateItemDelegateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), "<init>", "(Landroidx/recyclerview/widget/RecyclerViewAccessibilityDelegate;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midRecyclerViewAccessibilityDelegateItemDelegateOnInitializeAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), "onInitializeAccessibilityNodeInfo", "(Landroid/view/View;Landroidx/core/view/accessibility/AccessibilityNodeInfoCompat;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecyclerViewAccessibilityDelegateItemDelegatePerformAccessibilityAction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), "performAccessibilityAction", "(Landroid/view/View;ILandroid/os/Bundle;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecyclerViewAccessibilityDelegateItemDelegateSendAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), "sendAccessibilityEvent", "(Landroid/view/View;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecyclerViewAccessibilityDelegateItemDelegateSendAccessibilityEventUnchecked, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), "sendAccessibilityEventUnchecked", "(Landroid/view/View;Landroid/view/accessibility/AccessibilityEvent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecyclerViewAccessibilityDelegateItemDelegateDispatchPopulateAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), "dispatchPopulateAccessibilityEvent", "(Landroid/view/View;Landroid/view/accessibility/AccessibilityEvent;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecyclerViewAccessibilityDelegateItemDelegateOnPopulateAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), "onPopulateAccessibilityEvent", "(Landroid/view/View;Landroid/view/accessibility/AccessibilityEvent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecyclerViewAccessibilityDelegateItemDelegateOnInitializeAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), "onInitializeAccessibilityEvent", "(Landroid/view/View;Landroid/view/accessibility/AccessibilityEvent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecyclerViewAccessibilityDelegateItemDelegateOnRequestSendAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), "onRequestSendAccessibilityEvent", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/view/accessibility/AccessibilityEvent;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecyclerViewAccessibilityDelegateItemDelegateGetAccessibilityNodeProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), "getAccessibilityNodeProvider", "(Landroid/view/View;)Landroidx/core/view/accessibility/AccessibilityNodeProviderCompat;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecyclerViewAccessibilityDelegateItemDelegateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/LinearSnapHelper")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLinearSnapHelper = env.NewGlobalRef(&c.Object)
+		midLinearSnapHelperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSnapHelper)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midLinearSnapHelperCalculateDistanceToFinalSnap, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSnapHelper)), "calculateDistanceToFinalSnap", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;Landroid/view/View;)[I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSnapHelperFindTargetSnapPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSnapHelper)), "findTargetSnapPosition", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;II)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSnapHelperFindSnapView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSnapHelper)), "findSnapView", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;)Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSnapHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSnapHelper)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/ItemTouchUIUtil")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsItemTouchUIUtil = env.NewGlobalRef(&c.Object)
+
+		midItemTouchUIUtilOnDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchUIUtil)), "onDraw", "(Landroid/graphics/Canvas;Landroidx/recyclerview/widget/RecyclerView;Landroid/view/View;FFIZ)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchUIUtilOnDrawOver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchUIUtil)), "onDrawOver", "(Landroid/graphics/Canvas;Landroidx/recyclerview/widget/RecyclerView;Landroid/view/View;FFIZ)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchUIUtilClearView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchUIUtil)), "clearView", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchUIUtilOnSelected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchUIUtil)), "onSelected", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midItemTouchUIUtilToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchUIUtil)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/StaggeredGridLayoutManager")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStaggeredGridLayoutManager = env.NewGlobalRef(&c.Object)
+		midStaggeredGridLayoutManagerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;II)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerIsAutoMeasureEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "isAutoMeasureEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerOnScrollStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onScrollStateChanged", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerOnDetachedFromWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onDetachedFromWindow", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$Recycler;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerSetSpanCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "setSpanCount", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerSetOrientation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "setOrientation", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerSetReverseLayout, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "setReverseLayout", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerGetGapStrategy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "getGapStrategy", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerSetGapStrategy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "setGapStrategy", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerAssertNotInLayoutOrScroll, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "assertNotInLayoutOrScroll", "(Ljava/lang/String;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerGetSpanCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "getSpanCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerInvalidateSpanAssignments, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "invalidateSpanAssignments", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerGetReverseLayout, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "getReverseLayout", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerSetMeasuredDimension, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "setMeasuredDimension", "(Landroid/graphics/Rect;II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerOnLayoutChildren, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onLayoutChildren", "(Landroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerOnAdapterChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onAdapterChanged", "(Landroidx/recyclerview/widget/RecyclerView$Adapter;Landroidx/recyclerview/widget/RecyclerView$Adapter;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerOnLayoutCompleted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onLayoutCompleted", "(Landroidx/recyclerview/widget/RecyclerView$State;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerSupportsPredictiveItemAnimations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "supportsPredictiveItemAnimations", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerFindFirstVisibleItemPositions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "findFirstVisibleItemPositions", "([I)[I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerFindFirstCompletelyVisibleItemPositions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "findFirstCompletelyVisibleItemPositions", "([I)[I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerFindLastVisibleItemPositions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "findLastVisibleItemPositions", "([I)[I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerFindLastCompletelyVisibleItemPositions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "findLastCompletelyVisibleItemPositions", "([I)[I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerComputeHorizontalScrollOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "computeHorizontalScrollOffset", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerComputeVerticalScrollOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "computeVerticalScrollOffset", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerComputeHorizontalScrollExtent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "computeHorizontalScrollExtent", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerComputeVerticalScrollExtent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "computeVerticalScrollExtent", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerComputeHorizontalScrollRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "computeHorizontalScrollRange", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerComputeVerticalScrollRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "computeVerticalScrollRange", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerOnRestoreInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onRestoreInstanceState", "(Landroid/os/Parcelable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerOnSaveInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onSaveInstanceState", "()Landroid/os/Parcelable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerOnInitializeAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onInitializeAccessibilityEvent", "(Landroid/view/accessibility/AccessibilityEvent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerOffsetChildrenHorizontal, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "offsetChildrenHorizontal", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerOffsetChildrenVertical, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "offsetChildrenVertical", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerOnItemsRemoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onItemsRemoved", "(Landroidx/recyclerview/widget/RecyclerView;II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerOnItemsAdded, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onItemsAdded", "(Landroidx/recyclerview/widget/RecyclerView;II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerOnItemsChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onItemsChanged", "(Landroidx/recyclerview/widget/RecyclerView;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerOnItemsMoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onItemsMoved", "(Landroidx/recyclerview/widget/RecyclerView;III)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerOnItemsUpdated, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onItemsUpdated", "(Landroidx/recyclerview/widget/RecyclerView;IILjava/lang/Object;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerCanScrollVertically, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "canScrollVertically", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerCanScrollHorizontally, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "canScrollHorizontally", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerScrollHorizontallyBy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "scrollHorizontallyBy", "(ILandroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerScrollVerticallyBy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "scrollVerticallyBy", "(ILandroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerComputeScrollVectorForPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "computeScrollVectorForPosition", "(I)Landroid/graphics/PointF;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerSmoothScrollToPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "smoothScrollToPosition", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$State;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerScrollToPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "scrollToPosition", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerScrollToPositionWithOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "scrollToPositionWithOffset", "(II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerCollectAdjacentPrefetchPositions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "collectAdjacentPrefetchPositions", "(IILandroidx/recyclerview/widget/RecyclerView$State;Landroidx/recyclerview/widget/RecyclerView$LayoutManager$LayoutPrefetchRegistry;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerGenerateDefaultLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "generateDefaultLayoutParams", "()Landroidx/recyclerview/widget/RecyclerView$LayoutParams;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerGenerateLayoutParams2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "generateLayoutParams", "(Landroid/content/Context;Landroid/util/AttributeSet;)Landroidx/recyclerview/widget/RecyclerView$LayoutParams;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerGenerateLayoutParams1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "generateLayoutParams", "(Landroid/view/ViewGroup$LayoutParams;)Landroidx/recyclerview/widget/RecyclerView$LayoutParams;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerCheckLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "checkLayoutParams", "(Landroidx/recyclerview/widget/RecyclerView$LayoutParams;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerGetOrientation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "getOrientation", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerOnFocusSearchFailed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onFocusSearchFailed", "(Landroid/view/View;ILandroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/AsyncListUtil")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAsyncListUtil = env.NewGlobalRef(&c.Object)
+		midAsyncListUtilCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtil)), "<init>", "(Ljava/lang/Class;ILandroidx/recyclerview/widget/AsyncListUtil$DataCallback;Landroidx/recyclerview/widget/AsyncListUtil$ViewCallback;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAsyncListUtilOnRangeChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtil)), "onRangeChanged", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAsyncListUtilRefresh, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtil)), "refresh", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAsyncListUtilGetItemCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtil)), "getItemCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAsyncListUtilToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtil)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/StaggeredGridLayoutManager$LayoutParams")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStaggeredGridLayoutManagerLayoutParams = env.NewGlobalRef(&c.Object)
+		midStaggeredGridLayoutManagerLayoutParamsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManagerLayoutParams)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerLayoutParamsSetFullSpan, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManagerLayoutParams)), "setFullSpan", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerLayoutParamsIsFullSpan, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManagerLayoutParams)), "isFullSpan", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerLayoutParamsGetSpanIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManagerLayoutParams)), "getSpanIndex", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerLayoutParamsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManagerLayoutParams)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/AsyncListUtil$DataCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAsyncListUtilDataCallback = env.NewGlobalRef(&c.Object)
+
+		midAsyncListUtilDataCallbackRefreshData, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtilDataCallback)), "refreshData", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAsyncListUtilDataCallbackGetMaxCachedTiles, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtilDataCallback)), "getMaxCachedTiles", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAsyncListUtilDataCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtilDataCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/AsyncListUtil$ViewCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAsyncListUtilViewCallback = env.NewGlobalRef(&c.Object)
+
+		midAsyncListUtilViewCallbackGetItemRangeInto, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtilViewCallback)), "getItemRangeInto", "([I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAsyncListUtilViewCallbackExtendRangeInto, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtilViewCallback)), "extendRangeInto", "([I[II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAsyncListUtilViewCallbackOnDataRefresh, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtilViewCallback)), "onDataRefresh", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAsyncListUtilViewCallbackOnItemLoaded, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtilViewCallback)), "onItemLoaded", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAsyncListUtilViewCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtilViewCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/StaggeredGridLayoutManager$SavedState")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStaggeredGridLayoutManagerSavedState = env.NewGlobalRef(&c.Object)
+		midStaggeredGridLayoutManagerSavedStateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManagerSavedState)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerSavedStateDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManagerSavedState)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerSavedStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManagerSavedState)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStaggeredGridLayoutManagerSavedStateWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManagerSavedState)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2066,13 +3758,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midRecyclerViewFindContainingViewHolder, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerView)), "findContainingViewHolder", "(Landroid/view/View;)Landroidx/recyclerview/widget/RecyclerView$ViewHolder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midRecyclerViewGetChildPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerView)), "getChildPosition", "(Landroid/view/View;)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -2171,13 +3856,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midRecyclerViewGetDecoratedBoundsWithMargins, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerView)), "getDecoratedBoundsWithMargins", "(Landroid/view/View;Landroid/graphics/Rect;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midRecyclerViewOnScrolled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerView)), "onScrolled", "(II)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -2186,13 +3864,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midRecyclerViewOnScrollStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerView)), "onScrollStateChanged", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecyclerViewHasPendingAdapterUpdates, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerView)), "hasPendingAdapterUpdates", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2325,28 +3996,150 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/AsyncListDiffer")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAsyncListDiffer = env.NewGlobalRef(&c.Object)
-		midAsyncListDifferCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListDiffer)), "<init>", "(Landroidx/recyclerview/widget/RecyclerView$Adapter;Landroidx/recyclerview/widget/DiffUtil$ItemCallback;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAsyncListDifferGetCurrentList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListDiffer)), "getCurrentList", "()Ljava/util/List;")
+		midRecyclerViewFindContainingViewHolder, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerView)), "findContainingViewHolder", "(Landroid/view/View;)Landroidx/recyclerview/widget/RecyclerView$ViewHolder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAsyncListDifferToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListDiffer)), "toString", "()Ljava/lang/String;")
+		midRecyclerViewGetDecoratedBoundsWithMargins, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerView)), "getDecoratedBoundsWithMargins", "(Landroid/view/View;Landroid/graphics/Rect;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecyclerViewHasPendingAdapterUpdates, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerView)), "hasPendingAdapterUpdates", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/ConcatAdapter")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsConcatAdapter = env.NewGlobalRef(&c.Object)
+		midConcatAdapterCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "<init>", "([Landroidx/recyclerview/widget/RecyclerView$Adapter;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midConcatAdapterGetItemViewType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "getItemViewType", "(I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConcatAdapterOnCreateViewHolder, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "onCreateViewHolder", "(Landroid/view/ViewGroup;I)Landroidx/recyclerview/widget/RecyclerView$ViewHolder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConcatAdapterOnBindViewHolder, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "onBindViewHolder", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConcatAdapterSetHasStableIds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "setHasStableIds", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConcatAdapterSetStateRestorationPolicy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "setStateRestorationPolicy", "(Landroidx/recyclerview/widget/RecyclerView$Adapter$StateRestorationPolicy;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConcatAdapterGetItemId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "getItemId", "(I)J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConcatAdapterGetItemCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "getItemCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConcatAdapterOnFailedToRecycleView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "onFailedToRecycleView", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConcatAdapterOnViewAttachedToWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "onViewAttachedToWindow", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConcatAdapterOnViewDetachedFromWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "onViewDetachedFromWindow", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConcatAdapterOnViewRecycled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "onViewRecycled", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConcatAdapterOnAttachedToRecyclerView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "onAttachedToRecyclerView", "(Landroidx/recyclerview/widget/RecyclerView;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConcatAdapterOnDetachedFromRecyclerView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "onDetachedFromRecyclerView", "(Landroidx/recyclerview/widget/RecyclerView;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConcatAdapterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/ConcatAdapter$Config")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsConcatAdapterConfig = env.NewGlobalRef(&c.Object)
+
+		midConcatAdapterConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapterConfig)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2582,15 +4375,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/recyclerview/widget/AsyncListDiffer$ListListener")
+	c, err = env.FindClass("androidx/recyclerview/widget/DiffUtil")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAsyncListDifferListListener = env.NewGlobalRef(&c.Object)
+		clsDiffUtil = env.NewGlobalRef(&c.Object)
 
-		midAsyncListDifferListListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListDifferListListener)), "toString", "()Ljava/lang/String;")
+		midDiffUtilToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtil)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDiffUtilCalculateDiff1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtil)), "calculateDiff", "(Landroidx/recyclerview/widget/DiffUtil$Callback;)Landroidx/recyclerview/widget/DiffUtil$DiffResult;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDiffUtilCalculateDiff2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtil)), "calculateDiff", "(Landroidx/recyclerview/widget/DiffUtil$Callback;Z)Landroidx/recyclerview/widget/DiffUtil$DiffResult;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2665,6 +4472,58 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("androidx/recyclerview/widget/DiffUtil$Callback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDiffUtilCallback = env.NewGlobalRef(&c.Object)
+
+		midDiffUtilCallbackGetOldListSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilCallback)), "getOldListSize", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDiffUtilCallbackGetNewListSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilCallback)), "getNewListSize", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDiffUtilCallbackAreItemsTheSame, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilCallback)), "areItemsTheSame", "(II)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDiffUtilCallbackAreContentsTheSame, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilCallback)), "areContentsTheSame", "(II)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDiffUtilCallbackGetChangePayload, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilCallback)), "getChangePayload", "(II)Ljava/lang/Object;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDiffUtilCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("androidx/recyclerview/widget/RecyclerView$ChildDrawingOrderCallback")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -2696,6 +4555,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsRecyclerViewEdgeEffectFactory = env.NewGlobalRef(&c.Object)
+		midRecyclerViewEdgeEffectFactoryCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewEdgeEffectFactory)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midRecyclerViewEdgeEffectFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewEdgeEffectFactory)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -2798,13 +4661,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midRecyclerViewItemAnimatorAnimateChange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewItemAnimator)), "animateChange", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;Landroidx/recyclerview/widget/RecyclerView$ItemAnimator$ItemHolderInfo;Landroidx/recyclerview/widget/RecyclerView$ItemAnimator$ItemHolderInfo;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midRecyclerViewItemAnimatorRunPendingAnimations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewItemAnimator)), "runPendingAnimations", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -2890,6 +4746,75 @@ func doInit(env *jni.Env) error {
 		}
 
 		midRecyclerViewItemAnimatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewItemAnimator)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecyclerViewItemAnimatorAnimateChange, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewItemAnimator)), "animateChange", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;Landroidx/recyclerview/widget/RecyclerView$ItemAnimator$ItemHolderInfo;Landroidx/recyclerview/widget/RecyclerView$ItemAnimator$ItemHolderInfo;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/DiffUtil$DiffResult")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDiffUtilDiffResult = env.NewGlobalRef(&c.Object)
+
+		midDiffUtilDiffResultConvertOldPositionToNew, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilDiffResult)), "convertOldPositionToNew", "(I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDiffUtilDiffResultConvertNewPositionToOld, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilDiffResult)), "convertNewPositionToOld", "(I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDiffUtilDiffResultDispatchUpdatesTo1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilDiffResult)), "dispatchUpdatesTo", "(Landroidx/recyclerview/widget/RecyclerView$Adapter;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDiffUtilDiffResultDispatchUpdatesTo1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilDiffResult)), "dispatchUpdatesTo", "(Landroidx/recyclerview/widget/ListUpdateCallback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDiffUtilDiffResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilDiffResult)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/DiffUtil$ItemCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDiffUtilItemCallback = env.NewGlobalRef(&c.Object)
+
+		midDiffUtilItemCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilItemCallback)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -3961,6 +5886,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsRecyclerViewLayoutParams = env.NewGlobalRef(&c.Object)
+		midRecyclerViewLayoutParamsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewLayoutParams)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midRecyclerViewLayoutParamsViewNeedsUpdate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewLayoutParams)), "viewNeedsUpdate", "()Z")
 		if err != nil {
@@ -4182,6 +6111,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsRecyclerViewRecycledViewPool = env.NewGlobalRef(&c.Object)
+		midRecyclerViewRecycledViewPoolCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewRecycledViewPool)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midRecyclerViewRecycledViewPoolClear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewRecycledViewPool)), "clear", "()V")
 		if err != nil {
@@ -4234,6 +6167,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsRecyclerViewRecycler = env.NewGlobalRef(&c.Object)
+		midRecyclerViewRecyclerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewRecycler)), "<init>", "(Landroidx/recyclerview/widget/RecyclerView;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midRecyclerViewRecyclerClear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewRecycler)), "clear", "()V")
 		if err != nil {
@@ -4325,13 +6262,6 @@ func doInit(env *jni.Env) error {
 	} else {
 		clsRecyclerViewSavedState = env.NewGlobalRef(&c.Object)
 
-		midRecyclerViewSavedStateWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewSavedState)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midRecyclerViewSavedStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewSavedState)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -4339,38 +6269,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/AsyncDifferConfig")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAsyncDifferConfig = env.NewGlobalRef(&c.Object)
-
-		midAsyncDifferConfigGetMainThreadExecutor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncDifferConfig)), "getMainThreadExecutor", "()Ljava/util/concurrent/Executor;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAsyncDifferConfigGetBackgroundThreadExecutor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncDifferConfig)), "getBackgroundThreadExecutor", "()Ljava/util/concurrent/Executor;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAsyncDifferConfigGetDiffCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncDifferConfig)), "getDiffCallback", "()Landroidx/recyclerview/widget/DiffUtil$ItemCallback;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAsyncDifferConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncDifferConfig)), "toString", "()Ljava/lang/String;")
+		midRecyclerViewSavedStateWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewSavedState)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -4386,6 +6285,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsRecyclerViewSimpleOnItemTouchListener = env.NewGlobalRef(&c.Object)
+		midRecyclerViewSimpleOnItemTouchListenerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewSimpleOnItemTouchListener)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midRecyclerViewSimpleOnItemTouchListenerOnInterceptTouchEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewSimpleOnItemTouchListener)), "onInterceptTouchEvent", "(Landroidx/recyclerview/widget/RecyclerView;Landroid/view/MotionEvent;)Z")
 		if err != nil {
@@ -4409,44 +6312,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midRecyclerViewSimpleOnItemTouchListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewSimpleOnItemTouchListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/AsyncDifferConfig$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAsyncDifferConfigBuilder = env.NewGlobalRef(&c.Object)
-
-		midAsyncDifferConfigBuilderSetMainThreadExecutor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncDifferConfigBuilder)), "setMainThreadExecutor", "(Ljava/util/concurrent/Executor;)Landroidx/recyclerview/widget/AsyncDifferConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAsyncDifferConfigBuilderSetBackgroundThreadExecutor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncDifferConfigBuilder)), "setBackgroundThreadExecutor", "(Ljava/util/concurrent/Executor;)Landroidx/recyclerview/widget/AsyncDifferConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAsyncDifferConfigBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncDifferConfigBuilder)), "build", "()Landroidx/recyclerview/widget/AsyncDifferConfig;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAsyncDifferConfigBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncDifferConfigBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -4549,6 +6414,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsRecyclerViewState = env.NewGlobalRef(&c.Object)
+		midRecyclerViewStateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewState)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midRecyclerViewStateIsMeasuring, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewState)), "isMeasuring", "()Z")
 		if err != nil {
@@ -4745,296 +6614,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midRecyclerViewViewHolderIsRecyclable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewViewHolder)), "isRecyclable", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/AsyncListUtil")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAsyncListUtil = env.NewGlobalRef(&c.Object)
-		midAsyncListUtilCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtil)), "<init>", "(Ljava/lang/Class;ILandroidx/recyclerview/widget/AsyncListUtil$DataCallback;Landroidx/recyclerview/widget/AsyncListUtil$ViewCallback;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAsyncListUtilOnRangeChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtil)), "onRangeChanged", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAsyncListUtilRefresh, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtil)), "refresh", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAsyncListUtilGetItemCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtil)), "getItemCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAsyncListUtilToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtil)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/AsyncListUtil$DataCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAsyncListUtilDataCallback = env.NewGlobalRef(&c.Object)
-
-		midAsyncListUtilDataCallbackRefreshData, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtilDataCallback)), "refreshData", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAsyncListUtilDataCallbackGetMaxCachedTiles, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtilDataCallback)), "getMaxCachedTiles", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAsyncListUtilDataCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtilDataCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/AsyncListUtil$ViewCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAsyncListUtilViewCallback = env.NewGlobalRef(&c.Object)
-
-		midAsyncListUtilViewCallbackGetItemRangeInto, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtilViewCallback)), "getItemRangeInto", "([I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAsyncListUtilViewCallbackExtendRangeInto, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtilViewCallback)), "extendRangeInto", "([I[II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAsyncListUtilViewCallbackOnDataRefresh, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtilViewCallback)), "onDataRefresh", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAsyncListUtilViewCallbackOnItemLoaded, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtilViewCallback)), "onItemLoaded", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAsyncListUtilViewCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAsyncListUtilViewCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/PagerSnapHelper")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPagerSnapHelper = env.NewGlobalRef(&c.Object)
-		midPagerSnapHelperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerSnapHelper)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midPagerSnapHelperCalculateDistanceToFinalSnap, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerSnapHelper)), "calculateDistanceToFinalSnap", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;Landroid/view/View;)[I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerSnapHelperFindSnapView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerSnapHelper)), "findSnapView", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;)Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerSnapHelperFindTargetSnapPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerSnapHelper)), "findTargetSnapPosition", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;II)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerSnapHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerSnapHelper)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/ConcatAdapter")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsConcatAdapter = env.NewGlobalRef(&c.Object)
-		midConcatAdapterCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "<init>", "([Landroidx/recyclerview/widget/RecyclerView$Adapter;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midConcatAdapterGetItemViewType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "getItemViewType", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConcatAdapterOnCreateViewHolder, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "onCreateViewHolder", "(Landroid/view/ViewGroup;I)Landroidx/recyclerview/widget/RecyclerView$ViewHolder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConcatAdapterOnBindViewHolder, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "onBindViewHolder", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConcatAdapterSetHasStableIds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "setHasStableIds", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConcatAdapterSetStateRestorationPolicy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "setStateRestorationPolicy", "(Landroidx/recyclerview/widget/RecyclerView$Adapter$StateRestorationPolicy;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConcatAdapterGetItemId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "getItemId", "(I)J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConcatAdapterGetItemCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "getItemCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConcatAdapterOnFailedToRecycleView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "onFailedToRecycleView", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConcatAdapterOnViewAttachedToWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "onViewAttachedToWindow", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConcatAdapterOnViewDetachedFromWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "onViewDetachedFromWindow", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConcatAdapterOnViewRecycled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "onViewRecycled", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConcatAdapterOnAttachedToRecyclerView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "onAttachedToRecyclerView", "(Landroidx/recyclerview/widget/RecyclerView;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConcatAdapterOnDetachedFromRecyclerView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "onDetachedFromRecyclerView", "(Landroidx/recyclerview/widget/RecyclerView;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConcatAdapterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/ConcatAdapter$Config")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsConcatAdapterConfig = env.NewGlobalRef(&c.Object)
-
-		midConcatAdapterConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConcatAdapterConfig)), "toString", "()Ljava/lang/String;")
+		midRecyclerViewViewHolderIsRecyclable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewViewHolder)), "isRecyclable", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -5083,13 +6663,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midDividerItemDecorationGetItemOffsets, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDividerItemDecoration)), "getItemOffsets", "(Landroid/graphics/Rect;Landroid/view/View;Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$State;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midDividerItemDecorationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDividerItemDecoration)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -5097,998 +6670,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/DefaultItemAnimator")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDefaultItemAnimator = env.NewGlobalRef(&c.Object)
-		midDefaultItemAnimatorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultItemAnimator)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midDefaultItemAnimatorRunPendingAnimations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultItemAnimator)), "runPendingAnimations", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDefaultItemAnimatorAnimateRemove, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultItemAnimator)), "animateRemove", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDefaultItemAnimatorAnimateAdd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultItemAnimator)), "animateAdd", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDefaultItemAnimatorAnimateMove, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultItemAnimator)), "animateMove", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;IIII)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDefaultItemAnimatorAnimateChange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultItemAnimator)), "animateChange", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;IIII)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDefaultItemAnimatorEndAnimation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultItemAnimator)), "endAnimation", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDefaultItemAnimatorIsRunning, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultItemAnimator)), "isRunning", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDefaultItemAnimatorEndAnimations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultItemAnimator)), "endAnimations", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDefaultItemAnimatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultItemAnimator)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/LinearLayoutManager")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLinearLayoutManager = env.NewGlobalRef(&c.Object)
-		midLinearLayoutManagerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerIsAutoMeasureEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "isAutoMeasureEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerGenerateDefaultLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "generateDefaultLayoutParams", "()Landroidx/recyclerview/widget/RecyclerView$LayoutParams;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerGetRecycleChildrenOnDetach, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "getRecycleChildrenOnDetach", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerSetRecycleChildrenOnDetach, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "setRecycleChildrenOnDetach", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerOnDetachedFromWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "onDetachedFromWindow", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$Recycler;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerOnInitializeAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "onInitializeAccessibilityEvent", "(Landroid/view/accessibility/AccessibilityEvent;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerOnSaveInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "onSaveInstanceState", "()Landroid/os/Parcelable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerOnRestoreInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "onRestoreInstanceState", "(Landroid/os/Parcelable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerCanScrollHorizontally, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "canScrollHorizontally", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerCanScrollVertically, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "canScrollVertically", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerSetStackFromEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "setStackFromEnd", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerGetStackFromEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "getStackFromEnd", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerGetOrientation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "getOrientation", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerSetOrientation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "setOrientation", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerGetReverseLayout, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "getReverseLayout", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerSetReverseLayout, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "setReverseLayout", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerFindViewByPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "findViewByPosition", "(I)Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerSmoothScrollToPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "smoothScrollToPosition", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$State;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerComputeScrollVectorForPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "computeScrollVectorForPosition", "(I)Landroid/graphics/PointF;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerOnLayoutChildren, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "onLayoutChildren", "(Landroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerOnLayoutCompleted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "onLayoutCompleted", "(Landroidx/recyclerview/widget/RecyclerView$State;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerScrollToPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "scrollToPosition", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerScrollToPositionWithOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "scrollToPositionWithOffset", "(II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerScrollHorizontallyBy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "scrollHorizontallyBy", "(ILandroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerScrollVerticallyBy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "scrollVerticallyBy", "(ILandroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerComputeHorizontalScrollOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "computeHorizontalScrollOffset", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerComputeVerticalScrollOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "computeVerticalScrollOffset", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerComputeHorizontalScrollExtent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "computeHorizontalScrollExtent", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerComputeVerticalScrollExtent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "computeVerticalScrollExtent", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerComputeHorizontalScrollRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "computeHorizontalScrollRange", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerComputeVerticalScrollRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "computeVerticalScrollRange", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerSetSmoothScrollbarEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "setSmoothScrollbarEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerIsSmoothScrollbarEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "isSmoothScrollbarEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerCollectInitialPrefetchPositions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "collectInitialPrefetchPositions", "(ILandroidx/recyclerview/widget/RecyclerView$LayoutManager$LayoutPrefetchRegistry;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerSetInitialPrefetchItemCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "setInitialPrefetchItemCount", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerGetInitialPrefetchItemCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "getInitialPrefetchItemCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerCollectAdjacentPrefetchPositions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "collectAdjacentPrefetchPositions", "(IILandroidx/recyclerview/widget/RecyclerView$State;Landroidx/recyclerview/widget/RecyclerView$LayoutManager$LayoutPrefetchRegistry;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerAssertNotInLayoutOrScroll, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "assertNotInLayoutOrScroll", "(Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerFindFirstVisibleItemPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "findFirstVisibleItemPosition", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerFindFirstCompletelyVisibleItemPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "findFirstCompletelyVisibleItemPosition", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerFindLastVisibleItemPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "findLastVisibleItemPosition", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerFindLastCompletelyVisibleItemPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "findLastCompletelyVisibleItemPosition", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerOnFocusSearchFailed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "onFocusSearchFailed", "(Landroid/view/View;ILandroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerSupportsPredictiveItemAnimations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "supportsPredictiveItemAnimations", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerPrepareForDrop, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "prepareForDrop", "(Landroid/view/View;Landroid/view/View;II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/LinearLayoutManager$LayoutChunkResult")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLinearLayoutManagerLayoutChunkResult = env.NewGlobalRef(&c.Object)
-
-		midLinearLayoutManagerLayoutChunkResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManagerLayoutChunkResult)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/LinearLayoutManager$SavedState")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLinearLayoutManagerSavedState = env.NewGlobalRef(&c.Object)
-
-		midLinearLayoutManagerSavedStateDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManagerSavedState)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerSavedStateWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManagerSavedState)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearLayoutManagerSavedStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearLayoutManagerSavedState)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/ItemTouchHelper")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsItemTouchHelper = env.NewGlobalRef(&c.Object)
-		midItemTouchHelperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelper)), "<init>", "(Landroidx/recyclerview/widget/ItemTouchHelper$Callback;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperAttachToRecyclerView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelper)), "attachToRecyclerView", "(Landroidx/recyclerview/widget/RecyclerView;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperOnDrawOver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelper)), "onDrawOver", "(Landroid/graphics/Canvas;Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$State;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperOnDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelper)), "onDraw", "(Landroid/graphics/Canvas;Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$State;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperOnChildViewAttachedToWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelper)), "onChildViewAttachedToWindow", "(Landroid/view/View;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperOnChildViewDetachedFromWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelper)), "onChildViewDetachedFromWindow", "(Landroid/view/View;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperGetItemOffsets, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelper)), "getItemOffsets", "(Landroid/graphics/Rect;Landroid/view/View;Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$State;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperStartDrag, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelper)), "startDrag", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperStartSwipe, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelper)), "startSwipe", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelper)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/OrientationHelper")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsOrientationHelper = env.NewGlobalRef(&c.Object)
-
-		midOrientationHelperGetLayoutManager, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getLayoutManager", "()Landroidx/recyclerview/widget/RecyclerView$LayoutManager;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOrientationHelperOnLayoutComplete, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "onLayoutComplete", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOrientationHelperGetTotalSpaceChange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getTotalSpaceChange", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOrientationHelperGetDecoratedStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getDecoratedStart", "(Landroid/view/View;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOrientationHelperGetDecoratedEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getDecoratedEnd", "(Landroid/view/View;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOrientationHelperGetTransformedEndWithDecoration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getTransformedEndWithDecoration", "(Landroid/view/View;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOrientationHelperGetTransformedStartWithDecoration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getTransformedStartWithDecoration", "(Landroid/view/View;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOrientationHelperGetDecoratedMeasurement, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getDecoratedMeasurement", "(Landroid/view/View;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOrientationHelperGetDecoratedMeasurementInOther, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getDecoratedMeasurementInOther", "(Landroid/view/View;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOrientationHelperGetStartAfterPadding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getStartAfterPadding", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOrientationHelperGetEndAfterPadding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getEndAfterPadding", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOrientationHelperGetEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getEnd", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOrientationHelperOffsetChildren, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "offsetChildren", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOrientationHelperGetTotalSpace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getTotalSpace", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOrientationHelperOffsetChild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "offsetChild", "(Landroid/view/View;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOrientationHelperGetEndPadding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getEndPadding", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOrientationHelperGetMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getMode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOrientationHelperGetModeInOther, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "getModeInOther", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOrientationHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOrientationHelperCreateOrientationHelper, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "createOrientationHelper", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;I)Landroidx/recyclerview/widget/OrientationHelper;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOrientationHelperCreateHorizontalHelper, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "createHorizontalHelper", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;)Landroidx/recyclerview/widget/OrientationHelper;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOrientationHelperCreateVerticalHelper, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOrientationHelper)), "createVerticalHelper", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;)Landroidx/recyclerview/widget/OrientationHelper;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/ItemTouchHelper$Callback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsItemTouchHelperCallback = env.NewGlobalRef(&c.Object)
-
-		midItemTouchHelperCallbackGetMovementFlags, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "getMovementFlags", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackConvertToAbsoluteDirection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "convertToAbsoluteDirection", "(II)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackCanDropOver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "canDropOver", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackOnMove, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "onMove", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackIsLongPressDragEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "isLongPressDragEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackIsItemViewSwipeEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "isItemViewSwipeEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackGetBoundingBoxMargin, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "getBoundingBoxMargin", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackGetSwipeThreshold, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "getSwipeThreshold", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackGetMoveThreshold, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "getMoveThreshold", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackGetSwipeEscapeVelocity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "getSwipeEscapeVelocity", "(F)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackGetSwipeVelocityThreshold, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "getSwipeVelocityThreshold", "(F)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackOnSwiped, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "onSwiped", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackOnSelectedChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "onSelectedChanged", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackOnMoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "onMoved", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;ILandroidx/recyclerview/widget/RecyclerView$ViewHolder;III)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackClearView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "clearView", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackOnChildDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "onChildDraw", "(Landroid/graphics/Canvas;Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;FFIZ)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackOnChildDrawOver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "onChildDrawOver", "(Landroid/graphics/Canvas;Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;FFIZ)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackGetAnimationDuration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "getAnimationDuration", "(Landroidx/recyclerview/widget/RecyclerView;IFF)J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackInterpolateOutOfBoundsScroll, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "interpolateOutOfBoundsScroll", "(Landroidx/recyclerview/widget/RecyclerView;IIIJ)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackGetDefaultUIUtil, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "getDefaultUIUtil", "()Landroidx/recyclerview/widget/ItemTouchUIUtil;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackConvertToRelativeDirection, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "convertToRelativeDirection", "(II)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackMakeMovementFlags, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "makeMovementFlags", "(II)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperCallbackMakeFlag, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperCallback)), "makeFlag", "(II)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/ItemTouchHelper$SimpleCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsItemTouchHelperSimpleCallback = env.NewGlobalRef(&c.Object)
-
-		midItemTouchHelperSimpleCallbackSetDefaultSwipeDirs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperSimpleCallback)), "setDefaultSwipeDirs", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperSimpleCallbackSetDefaultDragDirs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperSimpleCallback)), "setDefaultDragDirs", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperSimpleCallbackGetSwipeDirs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperSimpleCallback)), "getSwipeDirs", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperSimpleCallbackGetDragDirs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperSimpleCallback)), "getDragDirs", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperSimpleCallbackGetMovementFlags, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperSimpleCallback)), "getMovementFlags", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperSimpleCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperSimpleCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/ItemTouchHelper$ViewDropHandler")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsItemTouchHelperViewDropHandler = env.NewGlobalRef(&c.Object)
-
-		midItemTouchHelperViewDropHandlerPrepareForDrop, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperViewDropHandler)), "prepareForDrop", "(Landroid/view/View;Landroid/view/View;II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midItemTouchHelperViewDropHandlerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchHelperViewDropHandler)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/LinearSnapHelper")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLinearSnapHelper = env.NewGlobalRef(&c.Object)
-		midLinearSnapHelperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSnapHelper)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midLinearSnapHelperCalculateDistanceToFinalSnap, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSnapHelper)), "calculateDistanceToFinalSnap", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;Landroid/view/View;)[I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSnapHelperFindTargetSnapPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSnapHelper)), "findTargetSnapPosition", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;II)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSnapHelperFindSnapView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSnapHelper)), "findSnapView", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;)Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSnapHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSnapHelper)), "toString", "()Ljava/lang/String;")
+		midDividerItemDecorationGetItemOffsets, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDividerItemDecoration)), "getItemOffsets", "(Landroid/graphics/Rect;Landroid/view/View;Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$State;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -6174,6 +6756,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsSortedListBatchedCallback = env.NewGlobalRef(&c.Object)
+		midSortedListBatchedCallbackCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSortedListBatchedCallback)), "<init>", "(Landroidx/recyclerview/widget/SortedList$Callback;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midSortedListBatchedCallbackCompare, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSortedListBatchedCallback)), "compare", "(Ljava/lang/T2;Ljava/lang/T2;)I")
 		if err != nil {
@@ -6305,89 +6891,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midSortedListCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSortedListCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/DiffUtil")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDiffUtil = env.NewGlobalRef(&c.Object)
-
-		midDiffUtilToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtil)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDiffUtilCalculateDiff1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtil)), "calculateDiff", "(Landroidx/recyclerview/widget/DiffUtil$Callback;)Landroidx/recyclerview/widget/DiffUtil$DiffResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDiffUtilCalculateDiff2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtil)), "calculateDiff", "(Landroidx/recyclerview/widget/DiffUtil$Callback;Z)Landroidx/recyclerview/widget/DiffUtil$DiffResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/DiffUtil$Callback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDiffUtilCallback = env.NewGlobalRef(&c.Object)
-
-		midDiffUtilCallbackGetOldListSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilCallback)), "getOldListSize", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDiffUtilCallbackGetNewListSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilCallback)), "getNewListSize", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDiffUtilCallbackAreItemsTheSame, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilCallback)), "areItemsTheSame", "(II)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDiffUtilCallbackAreContentsTheSame, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilCallback)), "areContentsTheSame", "(II)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDiffUtilCallbackGetChangePayload, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilCallback)), "getChangePayload", "(II)Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDiffUtilCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilCallback)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -6602,578 +7105,6 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/recyclerview/widget/DiffUtil$DiffResult")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDiffUtilDiffResult = env.NewGlobalRef(&c.Object)
-
-		midDiffUtilDiffResultConvertOldPositionToNew, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilDiffResult)), "convertOldPositionToNew", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDiffUtilDiffResultConvertNewPositionToOld, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilDiffResult)), "convertNewPositionToOld", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDiffUtilDiffResultDispatchUpdatesTo1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilDiffResult)), "dispatchUpdatesTo", "(Landroidx/recyclerview/widget/RecyclerView$Adapter;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDiffUtilDiffResultDispatchUpdatesTo1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilDiffResult)), "dispatchUpdatesTo", "(Landroidx/recyclerview/widget/ListUpdateCallback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDiffUtilDiffResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilDiffResult)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/DiffUtil$ItemCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDiffUtilItemCallback = env.NewGlobalRef(&c.Object)
-
-		midDiffUtilItemCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDiffUtilItemCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/StaggeredGridLayoutManager")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStaggeredGridLayoutManager = env.NewGlobalRef(&c.Object)
-		midStaggeredGridLayoutManagerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;II)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerIsAutoMeasureEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "isAutoMeasureEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerOnScrollStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onScrollStateChanged", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerOnDetachedFromWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onDetachedFromWindow", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$Recycler;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerSetSpanCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "setSpanCount", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerSetOrientation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "setOrientation", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerSetReverseLayout, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "setReverseLayout", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerGetGapStrategy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "getGapStrategy", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerSetGapStrategy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "setGapStrategy", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerAssertNotInLayoutOrScroll, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "assertNotInLayoutOrScroll", "(Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerGetSpanCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "getSpanCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerInvalidateSpanAssignments, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "invalidateSpanAssignments", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerGetReverseLayout, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "getReverseLayout", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerSetMeasuredDimension, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "setMeasuredDimension", "(Landroid/graphics/Rect;II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerOnLayoutChildren, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onLayoutChildren", "(Landroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerOnAdapterChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onAdapterChanged", "(Landroidx/recyclerview/widget/RecyclerView$Adapter;Landroidx/recyclerview/widget/RecyclerView$Adapter;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerOnLayoutCompleted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onLayoutCompleted", "(Landroidx/recyclerview/widget/RecyclerView$State;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerSupportsPredictiveItemAnimations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "supportsPredictiveItemAnimations", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerFindFirstVisibleItemPositions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "findFirstVisibleItemPositions", "([I)[I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerFindFirstCompletelyVisibleItemPositions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "findFirstCompletelyVisibleItemPositions", "([I)[I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerFindLastVisibleItemPositions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "findLastVisibleItemPositions", "([I)[I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerFindLastCompletelyVisibleItemPositions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "findLastCompletelyVisibleItemPositions", "([I)[I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerComputeHorizontalScrollOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "computeHorizontalScrollOffset", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerComputeVerticalScrollOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "computeVerticalScrollOffset", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerComputeHorizontalScrollExtent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "computeHorizontalScrollExtent", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerComputeVerticalScrollExtent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "computeVerticalScrollExtent", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerComputeHorizontalScrollRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "computeHorizontalScrollRange", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerComputeVerticalScrollRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "computeVerticalScrollRange", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerOnRestoreInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onRestoreInstanceState", "(Landroid/os/Parcelable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerOnSaveInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onSaveInstanceState", "()Landroid/os/Parcelable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerOnInitializeAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onInitializeAccessibilityEvent", "(Landroid/view/accessibility/AccessibilityEvent;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerOffsetChildrenHorizontal, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "offsetChildrenHorizontal", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerOffsetChildrenVertical, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "offsetChildrenVertical", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerOnItemsRemoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onItemsRemoved", "(Landroidx/recyclerview/widget/RecyclerView;II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerOnItemsAdded, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onItemsAdded", "(Landroidx/recyclerview/widget/RecyclerView;II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerOnItemsChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onItemsChanged", "(Landroidx/recyclerview/widget/RecyclerView;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerOnItemsMoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onItemsMoved", "(Landroidx/recyclerview/widget/RecyclerView;III)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerOnItemsUpdated, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onItemsUpdated", "(Landroidx/recyclerview/widget/RecyclerView;IILjava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerCanScrollVertically, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "canScrollVertically", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerCanScrollHorizontally, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "canScrollHorizontally", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerScrollHorizontallyBy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "scrollHorizontallyBy", "(ILandroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerScrollVerticallyBy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "scrollVerticallyBy", "(ILandroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerComputeScrollVectorForPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "computeScrollVectorForPosition", "(I)Landroid/graphics/PointF;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerSmoothScrollToPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "smoothScrollToPosition", "(Landroidx/recyclerview/widget/RecyclerView;Landroidx/recyclerview/widget/RecyclerView$State;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerScrollToPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "scrollToPosition", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerScrollToPositionWithOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "scrollToPositionWithOffset", "(II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerCollectAdjacentPrefetchPositions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "collectAdjacentPrefetchPositions", "(IILandroidx/recyclerview/widget/RecyclerView$State;Landroidx/recyclerview/widget/RecyclerView$LayoutManager$LayoutPrefetchRegistry;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerGenerateDefaultLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "generateDefaultLayoutParams", "()Landroidx/recyclerview/widget/RecyclerView$LayoutParams;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerGenerateLayoutParams2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "generateLayoutParams", "(Landroid/content/Context;Landroid/util/AttributeSet;)Landroidx/recyclerview/widget/RecyclerView$LayoutParams;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerGenerateLayoutParams1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "generateLayoutParams", "(Landroid/view/ViewGroup$LayoutParams;)Landroidx/recyclerview/widget/RecyclerView$LayoutParams;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerCheckLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "checkLayoutParams", "(Landroidx/recyclerview/widget/RecyclerView$LayoutParams;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerGetOrientation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "getOrientation", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerOnFocusSearchFailed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "onFocusSearchFailed", "(Landroid/view/View;ILandroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/BatchingListUpdateCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBatchingListUpdateCallback = env.NewGlobalRef(&c.Object)
-		midBatchingListUpdateCallbackCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatchingListUpdateCallback)), "<init>", "(Landroidx/recyclerview/widget/ListUpdateCallback;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midBatchingListUpdateCallbackDispatchLastEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatchingListUpdateCallback)), "dispatchLastEvent", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBatchingListUpdateCallbackOnInserted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatchingListUpdateCallback)), "onInserted", "(II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBatchingListUpdateCallbackOnRemoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatchingListUpdateCallback)), "onRemoved", "(II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBatchingListUpdateCallbackOnMoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatchingListUpdateCallback)), "onMoved", "(II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBatchingListUpdateCallbackOnChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatchingListUpdateCallback)), "onChanged", "(IILjava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBatchingListUpdateCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatchingListUpdateCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/StaggeredGridLayoutManager$LayoutParams")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStaggeredGridLayoutManagerLayoutParams = env.NewGlobalRef(&c.Object)
-
-		midStaggeredGridLayoutManagerLayoutParamsSetFullSpan, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManagerLayoutParams)), "setFullSpan", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerLayoutParamsIsFullSpan, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManagerLayoutParams)), "isFullSpan", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerLayoutParamsGetSpanIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManagerLayoutParams)), "getSpanIndex", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerLayoutParamsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManagerLayoutParams)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/StaggeredGridLayoutManager$SavedState")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStaggeredGridLayoutManagerSavedState = env.NewGlobalRef(&c.Object)
-
-		midStaggeredGridLayoutManagerSavedStateDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManagerSavedState)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerSavedStateWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManagerSavedState)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStaggeredGridLayoutManagerSavedStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManagerSavedState)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("androidx/recyclerview/widget/LinearSmoothScroller")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -7208,166 +7139,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midLinearSmoothScrollerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSmoothScroller)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/SortedListAdapterCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSortedListAdapterCallback = env.NewGlobalRef(&c.Object)
-
-		midSortedListAdapterCallbackOnInserted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSortedListAdapterCallback)), "onInserted", "(II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSortedListAdapterCallbackOnRemoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSortedListAdapterCallback)), "onRemoved", "(II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSortedListAdapterCallbackOnMoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSortedListAdapterCallback)), "onMoved", "(II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSortedListAdapterCallbackOnChanged2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSortedListAdapterCallback)), "onChanged", "(II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSortedListAdapterCallbackOnChanged3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSortedListAdapterCallback)), "onChanged", "(IILjava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSortedListAdapterCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSortedListAdapterCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/AdapterListUpdateCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAdapterListUpdateCallback = env.NewGlobalRef(&c.Object)
-		midAdapterListUpdateCallbackCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdapterListUpdateCallback)), "<init>", "(Landroidx/recyclerview/widget/RecyclerView$Adapter;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAdapterListUpdateCallbackOnInserted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdapterListUpdateCallback)), "onInserted", "(II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdapterListUpdateCallbackOnRemoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdapterListUpdateCallback)), "onRemoved", "(II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdapterListUpdateCallbackOnMoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdapterListUpdateCallback)), "onMoved", "(II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdapterListUpdateCallbackOnChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdapterListUpdateCallback)), "onChanged", "(IILjava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdapterListUpdateCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdapterListUpdateCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/recyclerview/widget/SnapHelper")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSnapHelper = env.NewGlobalRef(&c.Object)
-
-		midSnapHelperOnFling, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnapHelper)), "onFling", "(II)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnapHelperAttachToRecyclerView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnapHelper)), "attachToRecyclerView", "(Landroidx/recyclerview/widget/RecyclerView;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnapHelperCalculateScrollDistance, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnapHelper)), "calculateScrollDistance", "(II)[I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnapHelperCalculateDistanceToFinalSnap, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnapHelper)), "calculateDistanceToFinalSnap", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;Landroid/view/View;)[I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnapHelperFindSnapView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnapHelper)), "findSnapView", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;)Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnapHelperFindTargetSnapPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnapHelper)), "findTargetSnapPosition", "(Landroidx/recyclerview/widget/RecyclerView$LayoutManager;II)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSnapHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSnapHelper)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -7421,43 +7192,236 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/recyclerview/widget/ItemTouchUIUtil")
+	c, err = env.FindClass("androidx/recyclerview/widget/GridLayoutManager")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsItemTouchUIUtil = env.NewGlobalRef(&c.Object)
+		clsGridLayoutManager = env.NewGlobalRef(&c.Object)
+		midGridLayoutManagerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;II)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midItemTouchUIUtilOnDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchUIUtil)), "onDraw", "(Landroid/graphics/Canvas;Landroidx/recyclerview/widget/RecyclerView;Landroid/view/View;FFIZ)V")
+		midGridLayoutManagerSetStackFromEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "setStackFromEnd", "(Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midItemTouchUIUtilOnDrawOver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchUIUtil)), "onDrawOver", "(Landroid/graphics/Canvas;Landroidx/recyclerview/widget/RecyclerView;Landroid/view/View;FFIZ)V")
+		midGridLayoutManagerGetRowCountForAccessibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "getRowCountForAccessibility", "(Landroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midItemTouchUIUtilClearView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchUIUtil)), "clearView", "(Landroid/view/View;)V")
+		midGridLayoutManagerGetColumnCountForAccessibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "getColumnCountForAccessibility", "(Landroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midItemTouchUIUtilOnSelected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchUIUtil)), "onSelected", "(Landroid/view/View;)V")
+		midGridLayoutManagerOnInitializeAccessibilityNodeInfoForItem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "onInitializeAccessibilityNodeInfoForItem", "(Landroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;Landroid/view/View;Landroidx/core/view/accessibility/AccessibilityNodeInfoCompat;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midItemTouchUIUtilToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsItemTouchUIUtil)), "toString", "()Ljava/lang/String;")
+		midGridLayoutManagerOnInitializeAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "onInitializeAccessibilityNodeInfo", "(Landroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;Landroidx/core/view/accessibility/AccessibilityNodeInfoCompat;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerOnLayoutChildren, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "onLayoutChildren", "(Landroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerOnLayoutCompleted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "onLayoutCompleted", "(Landroidx/recyclerview/widget/RecyclerView$State;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerOnItemsAdded, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "onItemsAdded", "(Landroidx/recyclerview/widget/RecyclerView;II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerOnItemsChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "onItemsChanged", "(Landroidx/recyclerview/widget/RecyclerView;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerOnItemsRemoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "onItemsRemoved", "(Landroidx/recyclerview/widget/RecyclerView;II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerOnItemsUpdated, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "onItemsUpdated", "(Landroidx/recyclerview/widget/RecyclerView;IILjava/lang/Object;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerOnItemsMoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "onItemsMoved", "(Landroidx/recyclerview/widget/RecyclerView;III)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerGenerateDefaultLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "generateDefaultLayoutParams", "()Landroidx/recyclerview/widget/RecyclerView$LayoutParams;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerGenerateLayoutParams2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "generateLayoutParams", "(Landroid/content/Context;Landroid/util/AttributeSet;)Landroidx/recyclerview/widget/RecyclerView$LayoutParams;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerGenerateLayoutParams1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "generateLayoutParams", "(Landroid/view/ViewGroup$LayoutParams;)Landroidx/recyclerview/widget/RecyclerView$LayoutParams;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerCheckLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "checkLayoutParams", "(Landroidx/recyclerview/widget/RecyclerView$LayoutParams;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerSetSpanSizeLookup, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "setSpanSizeLookup", "(Landroidx/recyclerview/widget/GridLayoutManager$SpanSizeLookup;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerGetSpanSizeLookup, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "getSpanSizeLookup", "()Landroidx/recyclerview/widget/GridLayoutManager$SpanSizeLookup;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerScrollHorizontallyBy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "scrollHorizontallyBy", "(ILandroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerScrollVerticallyBy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "scrollVerticallyBy", "(ILandroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerGetSpanCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "getSpanCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerSetSpanCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "setSpanCount", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerOnFocusSearchFailed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "onFocusSearchFailed", "(Landroid/view/View;ILandroidx/recyclerview/widget/RecyclerView$Recycler;Landroidx/recyclerview/widget/RecyclerView$State;)Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerSupportsPredictiveItemAnimations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "supportsPredictiveItemAnimations", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerComputeHorizontalScrollRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "computeHorizontalScrollRange", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerComputeVerticalScrollRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "computeVerticalScrollRange", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerComputeHorizontalScrollOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "computeHorizontalScrollOffset", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerComputeVerticalScrollOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "computeVerticalScrollOffset", "(Landroidx/recyclerview/widget/RecyclerView$State;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerSetUsingSpansToEstimateScrollbarDimensions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "setUsingSpansToEstimateScrollbarDimensions", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerIsUsingSpansToEstimateScrollbarDimensions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "isUsingSpansToEstimateScrollbarDimensions", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerSetMeasuredDimension, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManager)), "setMeasuredDimension", "(Landroid/graphics/Rect;II)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -7466,47 +7430,75 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/recyclerview/widget/RecyclerViewAccessibilityDelegate")
+	c, err = env.FindClass("androidx/recyclerview/widget/DefaultItemAnimator")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsRecyclerViewAccessibilityDelegate = env.NewGlobalRef(&c.Object)
-		midRecyclerViewAccessibilityDelegateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegate)), "<init>", "(Landroidx/recyclerview/widget/RecyclerView;)V")
+		clsDefaultItemAnimator = env.NewGlobalRef(&c.Object)
+		midDefaultItemAnimatorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultItemAnimator)), "<init>", "()V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midRecyclerViewAccessibilityDelegatePerformAccessibilityAction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegate)), "performAccessibilityAction", "(Landroid/view/View;ILandroid/os/Bundle;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecyclerViewAccessibilityDelegateOnInitializeAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegate)), "onInitializeAccessibilityNodeInfo", "(Landroid/view/View;Landroidx/core/view/accessibility/AccessibilityNodeInfoCompat;)V")
+		midDefaultItemAnimatorRunPendingAnimations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultItemAnimator)), "runPendingAnimations", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midRecyclerViewAccessibilityDelegateOnInitializeAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegate)), "onInitializeAccessibilityEvent", "(Landroid/view/View;Landroid/view/accessibility/AccessibilityEvent;)V")
+		midDefaultItemAnimatorAnimateRemove, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultItemAnimator)), "animateRemove", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midRecyclerViewAccessibilityDelegateGetItemDelegate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegate)), "getItemDelegate", "()Landroidx/core/view/AccessibilityDelegateCompat;")
+		midDefaultItemAnimatorAnimateAdd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultItemAnimator)), "animateAdd", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midRecyclerViewAccessibilityDelegateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegate)), "toString", "()Ljava/lang/String;")
+		midDefaultItemAnimatorAnimateMove, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultItemAnimator)), "animateMove", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;IIII)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDefaultItemAnimatorAnimateChange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultItemAnimator)), "animateChange", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;Landroidx/recyclerview/widget/RecyclerView$ViewHolder;IIII)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDefaultItemAnimatorEndAnimation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultItemAnimator)), "endAnimation", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDefaultItemAnimatorIsRunning, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultItemAnimator)), "isRunning", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDefaultItemAnimatorEndAnimations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultItemAnimator)), "endAnimations", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDefaultItemAnimatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultItemAnimator)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -7515,78 +7507,148 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/recyclerview/widget/RecyclerViewAccessibilityDelegate$ItemDelegate")
+	c, err = env.FindClass("androidx/recyclerview/widget/GridLayoutManager$DefaultSpanSizeLookup")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsRecyclerViewAccessibilityDelegateItemDelegate = env.NewGlobalRef(&c.Object)
+		clsGridLayoutManagerDefaultSpanSizeLookup = env.NewGlobalRef(&c.Object)
+		midGridLayoutManagerDefaultSpanSizeLookupCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerDefaultSpanSizeLookup)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midRecyclerViewAccessibilityDelegateItemDelegateOnInitializeAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), "onInitializeAccessibilityNodeInfo", "(Landroid/view/View;Landroidx/core/view/accessibility/AccessibilityNodeInfoCompat;)V")
+		midGridLayoutManagerDefaultSpanSizeLookupGetSpanSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerDefaultSpanSizeLookup)), "getSpanSize", "(I)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midRecyclerViewAccessibilityDelegateItemDelegatePerformAccessibilityAction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), "performAccessibilityAction", "(Landroid/view/View;ILandroid/os/Bundle;)Z")
+		midGridLayoutManagerDefaultSpanSizeLookupGetSpanIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerDefaultSpanSizeLookup)), "getSpanIndex", "(II)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midRecyclerViewAccessibilityDelegateItemDelegateSendAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), "sendAccessibilityEvent", "(Landroid/view/View;I)V")
+		midGridLayoutManagerDefaultSpanSizeLookupToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerDefaultSpanSizeLookup)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midRecyclerViewAccessibilityDelegateItemDelegateSendAccessibilityEventUnchecked, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), "sendAccessibilityEventUnchecked", "(Landroid/view/View;Landroid/view/accessibility/AccessibilityEvent;)V")
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/GridLayoutManager$LayoutParams")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsGridLayoutManagerLayoutParams = env.NewGlobalRef(&c.Object)
+		midGridLayoutManagerLayoutParamsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerLayoutParams)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerLayoutParamsGetSpanIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerLayoutParams)), "getSpanIndex", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midRecyclerViewAccessibilityDelegateItemDelegateDispatchPopulateAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), "dispatchPopulateAccessibilityEvent", "(Landroid/view/View;Landroid/view/accessibility/AccessibilityEvent;)Z")
+		midGridLayoutManagerLayoutParamsGetSpanSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerLayoutParams)), "getSpanSize", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midRecyclerViewAccessibilityDelegateItemDelegateOnPopulateAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), "onPopulateAccessibilityEvent", "(Landroid/view/View;Landroid/view/accessibility/AccessibilityEvent;)V")
+		midGridLayoutManagerLayoutParamsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerLayoutParams)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midRecyclerViewAccessibilityDelegateItemDelegateOnInitializeAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), "onInitializeAccessibilityEvent", "(Landroid/view/View;Landroid/view/accessibility/AccessibilityEvent;)V")
+	}
+
+	c, err = env.FindClass("androidx/recyclerview/widget/GridLayoutManager$SpanSizeLookup")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsGridLayoutManagerSpanSizeLookup = env.NewGlobalRef(&c.Object)
+
+		midGridLayoutManagerSpanSizeLookupGetSpanSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerSpanSizeLookup)), "getSpanSize", "(I)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midRecyclerViewAccessibilityDelegateItemDelegateOnRequestSendAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), "onRequestSendAccessibilityEvent", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/view/accessibility/AccessibilityEvent;)Z")
+		midGridLayoutManagerSpanSizeLookupSetSpanIndexCacheEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerSpanSizeLookup)), "setSpanIndexCacheEnabled", "(Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midRecyclerViewAccessibilityDelegateItemDelegateGetAccessibilityNodeProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), "getAccessibilityNodeProvider", "(Landroid/view/View;)Landroidx/core/view/accessibility/AccessibilityNodeProviderCompat;")
+		midGridLayoutManagerSpanSizeLookupSetSpanGroupIndexCacheEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerSpanSizeLookup)), "setSpanGroupIndexCacheEnabled", "(Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midRecyclerViewAccessibilityDelegateItemDelegateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), "toString", "()Ljava/lang/String;")
+		midGridLayoutManagerSpanSizeLookupInvalidateSpanIndexCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerSpanSizeLookup)), "invalidateSpanIndexCache", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerSpanSizeLookupInvalidateSpanGroupIndexCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerSpanSizeLookup)), "invalidateSpanGroupIndexCache", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerSpanSizeLookupIsSpanIndexCacheEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerSpanSizeLookup)), "isSpanIndexCacheEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerSpanSizeLookupIsSpanGroupIndexCacheEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerSpanSizeLookup)), "isSpanGroupIndexCacheEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerSpanSizeLookupGetSpanGroupIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerSpanSizeLookup)), "getSpanGroupIndex", "(II)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerSpanSizeLookupToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerSpanSizeLookup)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGridLayoutManagerSpanSizeLookupGetSpanIndex, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerSpanSizeLookup)), "getSpanIndex", "(II)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

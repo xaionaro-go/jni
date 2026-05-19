@@ -32,6 +32,12 @@ func NewStreamEventRequest(vm *jni.VM, arg0 int32, arg1 int32, arg2 *jni.Object,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStreamEventRequest == nil {
+			return fmt.Errorf("android.media.tv.StreamEventRequest is not available on this device")
+		}
+		if midStreamEventRequestCtor == nil {
+			return fmt.Errorf("android.media.tv.StreamEventRequest constructor (IILandroid/net/Uri;Ljava/lang/String;)V is not available on this device")
+		}
 
 		jArg3, err := env.NewStringUTF(arg3)
 		if err != nil {
@@ -136,29 +142,6 @@ func (m *StreamEventRequest) GetTargetUri() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.media.tv.StreamEventRequest.writeToParcel.
-func (m *StreamEventRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midStreamEventRequestWriteToParcel == nil {
-			callErr = fmt.Errorf("android.media.tv.StreamEventRequest.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midStreamEventRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.media.tv.StreamEventRequest.toString.
 func (m *StreamEventRequest) ToString() (string, error) {
 	var result string
@@ -184,4 +167,27 @@ func (m *StreamEventRequest) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.media.tv.StreamEventRequest.writeToParcel.
+func (m *StreamEventRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midStreamEventRequestWriteToParcel == nil {
+			callErr = fmt.Errorf("android.media.tv.StreamEventRequest.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsStreamEventRequest)),
+			midStreamEventRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

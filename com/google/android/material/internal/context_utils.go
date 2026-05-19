@@ -32,6 +32,12 @@ func NewContextUtils(vm *jni.VM) (*ContextUtils, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsContextUtils == nil {
+			return fmt.Errorf("com.google.android.material.internal.ContextUtils is not available on this device")
+		}
+		if midContextUtilsCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.ContextUtils constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContextUtils)), midContextUtilsCtor)
 		if err != nil {
 			return err

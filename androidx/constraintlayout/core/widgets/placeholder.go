@@ -32,6 +32,12 @@ func NewPlaceholder(vm *jni.VM) (*Placeholder, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPlaceholder == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.Placeholder is not available on this device")
+		}
+		if midPlaceholderCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.Placeholder constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPlaceholder)), midPlaceholderCtor)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewBadParcelableException(vm *jni.VM, arg0 *jni.Object) (*BadParcelableExce
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBadParcelableException == nil {
+			return fmt.Errorf("android.os.BadParcelableException is not available on this device")
+		}
+		if midBadParcelableExceptionCtor == nil {
+			return fmt.Errorf("android.os.BadParcelableException constructor (Ljava/lang/Exception;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBadParcelableException)), midBadParcelableExceptionCtor, jni.ObjectValue(arg0))
 		if err != nil {

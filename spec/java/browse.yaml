@@ -93,6 +93,7 @@ classes:
           error: true
     - java_class: android.media.browse.MediaBrowser$ConnectionCallback
       go_type: MediaBrowserConnectionCallback
+      obtain: constructor
       methods:
         - java_method: onConnected
           go_name: OnConnected
@@ -125,6 +126,12 @@ classes:
           error: true
     - java_class: android.media.browse.MediaBrowser$MediaItem
       go_type: MediaBrowserMediaItem
+      obtain: constructor
+      constructor_params:
+        - java_type: android.media.MediaDescription
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -154,6 +161,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -210,6 +218,13 @@ abstract_callbacks:
             - android.os.Bundle
           returns: void
           go_field: OnError
+abstract_callback_eligibility:
+    - java_class: android.media.browse.MediaBrowser$ItemCallback
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.media.browse.MediaBrowser$SubscriptionCallback
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
     - go_name: ExtraPage
       value: '"android.media.browse.extra.PAGE"'

@@ -34,6 +34,7 @@ var (
 	midPresentationSpecWriteToParcel    jni.MethodID
 
 	clsPresentationSpecBuilder         *jni.GlobalRef
+	midPresentationSpecBuilderCtor     jni.MethodID
 	midPresentationSpecBuilderBuild    jni.MethodID
 	midPresentationSpecBuilderSetStyle jni.MethodID
 	midPresentationSpecBuilderToString jni.MethodID
@@ -128,7 +129,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midPresentationSpecWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPresentationSpec)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midPresentationSpecWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPresentationSpec)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -144,6 +145,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsPresentationSpecBuilder = env.NewGlobalRef(&c.Object)
+		midPresentationSpecBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPresentationSpecBuilder)), "<init>", "(Landroid/util/Size;Landroid/util/Size;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midPresentationSpecBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPresentationSpecBuilder)), "build", "()Landroid/widget/inline/InlinePresentationSpec;")
 		if err != nil {

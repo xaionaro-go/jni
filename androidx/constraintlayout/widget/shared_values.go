@@ -32,6 +32,12 @@ func NewSharedValues(vm *jni.VM) (*SharedValues, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSharedValues == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.SharedValues is not available on this device")
+		}
+		if midSharedValuesCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.SharedValues constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSharedValues)), midSharedValuesCtor)
 		if err != nil {
 			return err

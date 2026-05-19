@@ -32,6 +32,12 @@ func NewMessagePdu(vm *jni.VM, arg0 *jni.Object) (*MessagePdu, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMessagePdu == nil {
+			return fmt.Errorf("android.service.carrier.MessagePdu is not available on this device")
+		}
+		if midMessagePduCtor == nil {
+			return fmt.Errorf("android.service.carrier.MessagePdu constructor (Ljava/util/List;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMessagePdu)), midMessagePduCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -103,29 +109,6 @@ func (m *MessagePdu) GetPdus() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.service.carrier.MessagePdu.writeToParcel.
-func (m *MessagePdu) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMessagePduWriteToParcel == nil {
-			callErr = fmt.Errorf("android.service.carrier.MessagePdu.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMessagePduWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.service.carrier.MessagePdu.toString.
 func (m *MessagePdu) ToString() (string, error) {
 	var result string
@@ -151,4 +134,27 @@ func (m *MessagePdu) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.service.carrier.MessagePdu.writeToParcel.
+func (m *MessagePdu) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midMessagePduWriteToParcel == nil {
+			callErr = fmt.Errorf("android.service.carrier.MessagePdu.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsMessagePdu)),
+			midMessagePduWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

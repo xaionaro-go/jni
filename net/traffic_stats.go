@@ -32,6 +32,12 @@ func NewTrafficStats(vm *jni.VM) (*TrafficStats, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTrafficStats == nil {
+			return fmt.Errorf("android.net.TrafficStats is not available on this device")
+		}
+		if midTrafficStatsCtor == nil {
+			return fmt.Errorf("android.net.TrafficStats constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTrafficStats)), midTrafficStatsCtor)
 		if err != nil {
 			return err

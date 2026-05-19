@@ -32,6 +32,12 @@ func NewQueryMap(vm *jni.VM, arg0 *jni.Object, arg1 string, arg2 bool, arg3 *jni
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsQueryMap == nil {
+			return fmt.Errorf("android.content.ContentQueryMap is not available on this device")
+		}
+		if midQueryMapCtor == nil {
+			return fmt.Errorf("android.content.ContentQueryMap constructor (Landroid/database/Cursor;Ljava/lang/String;ZLandroid/os/Handler;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {
@@ -55,6 +61,28 @@ func NewQueryMap(vm *jni.VM, arg0 *jni.Object, arg1 string, arg2 bool, arg3 *jni
 		return nil, err
 	}
 	return &t, nil
+}
+
+// Finalize calls android.content.ContentQueryMap.finalize.
+func (m *QueryMap) Finalize() error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midQueryMapFinalize == nil {
+			callErr = fmt.Errorf("android.content.ContentQueryMap.finalize is not available on this device")
+			return callErr
+		}
+		callErr = env.CallVoidMethod(
+			m.Obj,
+			midQueryMapFinalize,
+		)
+		return callErr
+	})
+	return callErr
 }
 
 // Requery calls android.content.ContentQueryMap.requery.

@@ -23,6 +23,35 @@ type ElevationGainedRecordBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewElevationGainedRecordBuilder creates a new android.health.connect.datatypes.ElevationGainedRecord$Builder instance.
+func NewElevationGainedRecordBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.Object, arg3 *jni.Object) (*ElevationGainedRecordBuilder, error) {
+	var t ElevationGainedRecordBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsElevationGainedRecordBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.ElevationGainedRecord$Builder is not available on this device")
+		}
+		if midElevationGainedRecordBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.ElevationGainedRecord$Builder constructor (Landroid/health/connect/datatypes/Metadata;Ljava/time/Instant;Ljava/time/Instant;Landroid/health/connect/datatypes/units/Length;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsElevationGainedRecordBuilder)), midElevationGainedRecordBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.datatypes.ElevationGainedRecord$Builder.build.
 func (m *ElevationGainedRecordBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

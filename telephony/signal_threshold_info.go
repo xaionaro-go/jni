@@ -235,29 +235,6 @@ func (m *SignalThresholdInfo) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.telephony.SignalThresholdInfo.writeToParcel.
-func (m *SignalThresholdInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSignalThresholdInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.telephony.SignalThresholdInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSignalThresholdInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // GetMaximumNumberOfThresholdsAllowed calls android.telephony.SignalThresholdInfo.getMaximumNumberOfThresholdsAllowed.
 func (m *SignalThresholdInfo) GetMaximumNumberOfThresholdsAllowed() (int32, error) {
 	var result int32
@@ -306,4 +283,27 @@ func (m *SignalThresholdInfo) GetMinimumNumberOfThresholdsAllowed() (int32, erro
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.telephony.SignalThresholdInfo.writeToParcel.
+func (m *SignalThresholdInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSignalThresholdInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.telephony.SignalThresholdInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSignalThresholdInfo)),
+			midSignalThresholdInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

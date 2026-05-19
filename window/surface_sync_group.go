@@ -32,6 +32,12 @@ func NewSurfaceSyncGroup(vm *jni.VM, arg0 string) (*SurfaceSyncGroup, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSurfaceSyncGroup == nil {
+			return fmt.Errorf("android.window.SurfaceSyncGroup is not available on this device")
+		}
+		if midSurfaceSyncGroupCtor == nil {
+			return fmt.Errorf("android.window.SurfaceSyncGroup constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

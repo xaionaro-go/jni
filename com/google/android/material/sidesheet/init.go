@@ -23,21 +23,14 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsSideSheetDialog                                    *jni.GlobalRef
-	midSideSheetDialogCtor                                jni.MethodID
-	midSideSheetDialogSetSheetEdge                        jni.MethodID
-	midSideSheetDialogGetBehavior                         jni.MethodID
-	midSideSheetDialogIsDismissWithSheetAnimationEnabled  jni.MethodID
-	midSideSheetDialogSetDismissWithSheetAnimationEnabled jni.MethodID
-	midSideSheetDialogSetCanceledOnTouchOutside           jni.MethodID
-	midSideSheetDialogCancel                              jni.MethodID
-	midSideSheetDialogOnDetachedFromWindow                jni.MethodID
-	midSideSheetDialogOnAttachedToWindow                  jni.MethodID
-	midSideSheetDialogSetCancelable                       jni.MethodID
-	midSideSheetDialogSetContentView2                     jni.MethodID
-	midSideSheetDialogSetContentView1_1                   jni.MethodID
-	midSideSheetDialogSetContentView1_2                   jni.MethodID
-	midSideSheetDialogToString                            jni.MethodID
+	clsSideSheetDialog         *jni.GlobalRef
+	midSideSheetDialogCtor     jni.MethodID
+	midSideSheetDialogToString jni.MethodID
+
+	clsSideSheetCallback               *jni.GlobalRef
+	midSideSheetCallbackOnStateChanged jni.MethodID
+	midSideSheetCallbackOnSlide        jni.MethodID
+	midSideSheetCallbackToString       jni.MethodID
 
 	clsSideSheetBehavior                           *jni.GlobalRef
 	midSideSheetBehaviorCtor                       jni.MethodID
@@ -50,8 +43,8 @@ var (
 	midSideSheetBehaviorIsDraggable                jni.MethodID
 	midSideSheetBehaviorSetHideFriction            jni.MethodID
 	midSideSheetBehaviorGetHideFriction            jni.MethodID
-	midSideSheetBehaviorAddCallback1               jni.MethodID
-	midSideSheetBehaviorRemoveCallback1            jni.MethodID
+	midSideSheetBehaviorAddCallback                jni.MethodID
+	midSideSheetBehaviorRemoveCallback             jni.MethodID
 	midSideSheetBehaviorSetState                   jni.MethodID
 	midSideSheetBehaviorGetState                   jni.MethodID
 	midSideSheetBehaviorSetCoplanarSiblingViewId   jni.MethodID
@@ -62,19 +55,13 @@ var (
 	midSideSheetBehaviorStartBackProgress          jni.MethodID
 	midSideSheetBehaviorUpdateBackProgress         jni.MethodID
 	midSideSheetBehaviorHandleBackInvoked          jni.MethodID
-	midSideSheetBehaviorCancelBackProgress         jni.MethodID
-	midSideSheetBehaviorRemoveCallback1_1          jni.MethodID
-	midSideSheetBehaviorAddCallback1_1             jni.MethodID
 	midSideSheetBehaviorToString                   jni.MethodID
+	midSideSheetBehaviorCancelBackProgress         jni.MethodID
 
 	clsSideSheetBehaviorSavedState              *jni.GlobalRef
-	midSideSheetBehaviorSavedStateWriteToParcel jni.MethodID
+	midSideSheetBehaviorSavedStateCtor          jni.MethodID
 	midSideSheetBehaviorSavedStateToString      jni.MethodID
-
-	clsSideSheetCallback               *jni.GlobalRef
-	midSideSheetCallbackOnStateChanged jni.MethodID
-	midSideSheetCallbackOnSlide        jni.MethodID
-	midSideSheetCallbackToString       jni.MethodID
+	midSideSheetBehaviorSavedStateWriteToParcel jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -107,91 +94,38 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midSideSheetDialogSetSheetEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetDialog)), "setSheetEdge", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSideSheetDialogGetBehavior, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetDialog)), "getBehavior", "()Lcom/google/android/material/sidesheet/Sheet;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSideSheetDialogIsDismissWithSheetAnimationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetDialog)), "isDismissWithSheetAnimationEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSideSheetDialogSetDismissWithSheetAnimationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetDialog)), "setDismissWithSheetAnimationEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSideSheetDialogSetCanceledOnTouchOutside, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetDialog)), "setCanceledOnTouchOutside", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSideSheetDialogCancel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetDialog)), "cancel", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSideSheetDialogOnDetachedFromWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetDialog)), "onDetachedFromWindow", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSideSheetDialogOnAttachedToWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetDialog)), "onAttachedToWindow", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSideSheetDialogSetCancelable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetDialog)), "setCancelable", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSideSheetDialogSetContentView2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetDialog)), "setContentView", "(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSideSheetDialogSetContentView1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetDialog)), "setContentView", "(Landroid/view/View;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSideSheetDialogSetContentView1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetDialog)), "setContentView", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midSideSheetDialogToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetDialog)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/sidesheet/SideSheetCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSideSheetCallback = env.NewGlobalRef(&c.Object)
+
+		midSideSheetCallbackOnStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetCallback)), "onStateChanged", "(Landroid/view/View;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSideSheetCallbackOnSlide, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetCallback)), "onSlide", "(Landroid/view/View;F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSideSheetCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetCallback)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -275,14 +209,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midSideSheetBehaviorAddCallback1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetBehavior)), "addCallback", "(Lcom/google/android/material/sidesheet/SideSheetCallback;)V")
+		midSideSheetBehaviorAddCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetBehavior)), "addCallback", "(Lcom/google/android/material/sidesheet/SideSheetCallback;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSideSheetBehaviorRemoveCallback1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetBehavior)), "removeCallback", "(Lcom/google/android/material/sidesheet/SideSheetCallback;)V")
+		midSideSheetBehaviorRemoveCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetBehavior)), "removeCallback", "(Lcom/google/android/material/sidesheet/SideSheetCallback;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -359,28 +293,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midSideSheetBehaviorCancelBackProgress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetBehavior)), "cancelBackProgress", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSideSheetBehaviorRemoveCallback1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetBehavior)), "removeCallback", "(Lcom/google/android/material/sidesheet/SheetCallback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSideSheetBehaviorAddCallback1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetBehavior)), "addCallback", "(Lcom/google/android/material/sidesheet/SheetCallback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midSideSheetBehaviorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetBehavior)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSideSheetBehaviorCancelBackProgress, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetBehavior)), "cancelBackProgress", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -396,11 +316,8 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsSideSheetBehaviorSavedState = env.NewGlobalRef(&c.Object)
-
-		midSideSheetBehaviorSavedStateWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetBehaviorSavedState)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midSideSheetBehaviorSavedStateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetBehaviorSavedState)), "<init>", "(Landroid/os/Parcel;)V")
 		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
@@ -411,31 +328,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("com/google/android/material/sidesheet/SideSheetCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSideSheetCallback = env.NewGlobalRef(&c.Object)
-
-		midSideSheetCallbackOnStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetCallback)), "onStateChanged", "(Landroid/view/View;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSideSheetCallbackOnSlide, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetCallback)), "onSlide", "(Landroid/view/View;F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSideSheetCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetCallback)), "toString", "()Ljava/lang/String;")
+		midSideSheetBehaviorSavedStateWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSideSheetBehaviorSavedState)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

@@ -23,6 +23,34 @@ type L2capNetworkSpecifierBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewL2capNetworkSpecifierBuilder creates a new android.net.L2capNetworkSpecifier$Builder instance.
+func NewL2capNetworkSpecifierBuilder(vm *jni.VM) (*L2capNetworkSpecifierBuilder, error) {
+	var t L2capNetworkSpecifierBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsL2capNetworkSpecifierBuilder == nil {
+			return fmt.Errorf("android.net.L2capNetworkSpecifier$Builder is not available on this device")
+		}
+		if midL2capNetworkSpecifierBuilderCtor == nil {
+			return fmt.Errorf("android.net.L2capNetworkSpecifier$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsL2capNetworkSpecifierBuilder)), midL2capNetworkSpecifierBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.L2capNetworkSpecifier$Builder.build.
 func (m *L2capNetworkSpecifierBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

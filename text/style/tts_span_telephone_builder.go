@@ -23,6 +23,34 @@ type TtsSpanTelephoneBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTtsSpanTelephoneBuilder creates a new android.text.style.TtsSpan$TelephoneBuilder instance.
+func NewTtsSpanTelephoneBuilder(vm *jni.VM) (*TtsSpanTelephoneBuilder, error) {
+	var t TtsSpanTelephoneBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTtsSpanTelephoneBuilder == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$TelephoneBuilder is not available on this device")
+		}
+		if midTtsSpanTelephoneBuilderCtor == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$TelephoneBuilder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTtsSpanTelephoneBuilder)), midTtsSpanTelephoneBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetCountryCode calls android.text.style.TtsSpan$TelephoneBuilder.setCountryCode.
 func (m *TtsSpanTelephoneBuilder) SetCountryCode(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

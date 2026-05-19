@@ -23,6 +23,34 @@ type ManagerQuery struct {
 	Obj *jni.GlobalRef
 }
 
+// NewManagerQuery creates a new android.app.DownloadManager$Query instance.
+func NewManagerQuery(vm *jni.VM) (*ManagerQuery, error) {
+	var t ManagerQuery
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsManagerQuery == nil {
+			return fmt.Errorf("android.app.DownloadManager$Query is not available on this device")
+		}
+		if midManagerQueryCtor == nil {
+			return fmt.Errorf("android.app.DownloadManager$Query constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsManagerQuery)), midManagerQueryCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetFilterById calls android.app.DownloadManager$Query.setFilterById.
 func (m *ManagerQuery) SetFilterById(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

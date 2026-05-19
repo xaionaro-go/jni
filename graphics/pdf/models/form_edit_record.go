@@ -267,29 +267,6 @@ func (m *FormEditRecord) HashCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.graphics.pdf.models.FormEditRecord.writeToParcel.
-func (m *FormEditRecord) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFormEditRecordWriteToParcel == nil {
-			callErr = fmt.Errorf("android.graphics.pdf.models.FormEditRecord.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midFormEditRecordWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.graphics.pdf.models.FormEditRecord.toString.
 func (m *FormEditRecord) ToString() (string, error) {
 	var result string
@@ -315,4 +292,27 @@ func (m *FormEditRecord) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.graphics.pdf.models.FormEditRecord.writeToParcel.
+func (m *FormEditRecord) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midFormEditRecordWriteToParcel == nil {
+			callErr = fmt.Errorf("android.graphics.pdf.models.FormEditRecord.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsFormEditRecord)),
+			midFormEditRecordWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

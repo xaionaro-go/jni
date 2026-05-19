@@ -32,6 +32,12 @@ func NewRemoteException(vm *jni.VM) (*RemoteException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRemoteException == nil {
+			return fmt.Errorf("android.os.RemoteException is not available on this device")
+		}
+		if midRemoteExceptionCtor == nil {
+			return fmt.Errorf("android.os.RemoteException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRemoteException)), midRemoteExceptionCtor)
 		if err != nil {
 			return err

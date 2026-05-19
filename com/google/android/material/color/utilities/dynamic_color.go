@@ -32,6 +32,12 @@ func NewDynamicColor(vm *jni.VM, arg0 string, arg1 *jni.Object, arg2 *jni.Object
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDynamicColor == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.DynamicColor is not available on this device")
+		}
+		if midDynamicColorCtor == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.DynamicColor constructor (Ljava/lang/String;Ljava/util/function/Function;Ljava/util/function/Function;ZLjava/util/function/Function;Ljava/util/function/Function;Lcom/google/android/material/color/utilities/ContrastCurve;Ljava/util/function/Function;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

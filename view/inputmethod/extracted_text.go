@@ -32,6 +32,12 @@ func NewExtractedText(vm *jni.VM) (*ExtractedText, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsExtractedText == nil {
+			return fmt.Errorf("android.view.inputmethod.ExtractedText is not available on this device")
+		}
+		if midExtractedTextCtor == nil {
+			return fmt.Errorf("android.view.inputmethod.ExtractedText constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExtractedText)), midExtractedTextCtor)
 		if err != nil {
 			return err
@@ -70,29 +76,6 @@ func (m *ExtractedText) DescribeContents() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.inputmethod.ExtractedText.writeToParcel.
-func (m *ExtractedText) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midExtractedTextWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.inputmethod.ExtractedText.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midExtractedTextWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.view.inputmethod.ExtractedText.toString.
 func (m *ExtractedText) ToString() (string, error) {
 	var result string
@@ -118,4 +101,27 @@ func (m *ExtractedText) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.inputmethod.ExtractedText.writeToParcel.
+func (m *ExtractedText) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midExtractedTextWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.inputmethod.ExtractedText.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsExtractedText)),
+			midExtractedTextWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

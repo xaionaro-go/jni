@@ -23,6 +23,34 @@ type workRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewworkRequestBuilder creates a new android.net.NetworkRequest$Builder instance.
+func NewworkRequestBuilder(vm *jni.VM) (*workRequestBuilder, error) {
+	var t workRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsworkRequestBuilder == nil {
+			return fmt.Errorf("android.net.NetworkRequest$Builder is not available on this device")
+		}
+		if midworkRequestBuilderCtor == nil {
+			return fmt.Errorf("android.net.NetworkRequest$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsworkRequestBuilder)), midworkRequestBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddCapability calls android.net.NetworkRequest$Builder.addCapability.
 func (m *workRequestBuilder) AddCapability(arg0 int32) (*jni.Object, error) {
 	var result *jni.Object

@@ -23,14 +23,9 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsAkaInfo            *jni.GlobalRef
-	midAkaInfoGetReauthId jni.MethodID
-	midAkaInfoToString    jni.MethodID
-
-	clsAkaInfoBuilder            *jni.GlobalRef
-	midAkaInfoBuilderBuild       jni.MethodID
-	midAkaInfoBuilderSetReauthId jni.MethodID
-	midAkaInfoBuilderToString    jni.MethodID
+	clsInfo                 *jni.GlobalRef
+	midInfoGetEapMethodType jni.MethodID
+	midInfoToString         jni.MethodID
 
 	clsSessionConfig                     *jni.GlobalRef
 	midSessionConfigEquals               jni.MethodID
@@ -44,6 +39,7 @@ var (
 	midSessionConfigToString             jni.MethodID
 
 	clsSessionConfigBuilder                     *jni.GlobalRef
+	midSessionConfigBuilderCtor                 jni.MethodID
 	midSessionConfigBuilderBuild                jni.MethodID
 	midSessionConfigBuilderSetEapAkaConfig2     jni.MethodID
 	midSessionConfigBuilderSetEapAkaConfig3_1   jni.MethodID
@@ -102,9 +98,15 @@ var (
 	midSessionConfigEapTtlsConfigHashCode                 jni.MethodID
 	midSessionConfigEapTtlsConfigToString                 jni.MethodID
 
-	clsInfo                 *jni.GlobalRef
-	midInfoGetEapMethodType jni.MethodID
-	midInfoToString         jni.MethodID
+	clsAkaInfo            *jni.GlobalRef
+	midAkaInfoGetReauthId jni.MethodID
+	midAkaInfoToString    jni.MethodID
+
+	clsAkaInfoBuilder            *jni.GlobalRef
+	midAkaInfoBuilderCtor        jni.MethodID
+	midAkaInfoBuilderBuild       jni.MethodID
+	midAkaInfoBuilderSetReauthId jni.MethodID
+	midAkaInfoBuilderToString    jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -125,53 +127,22 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("android/net/eap/EapAkaInfo")
+	c, err = env.FindClass("android/net/eap/EapInfo")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAkaInfo = env.NewGlobalRef(&c.Object)
+		clsInfo = env.NewGlobalRef(&c.Object)
 
-		midAkaInfoGetReauthId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAkaInfo)), "getReauthId", "()[B")
+		midInfoGetEapMethodType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "getEapMethodType", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAkaInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAkaInfo)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/net/eap/EapAkaInfo$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAkaInfoBuilder = env.NewGlobalRef(&c.Object)
-
-		midAkaInfoBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAkaInfoBuilder)), "build", "()Landroid/net/eap/EapAkaInfo;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAkaInfoBuilderSetReauthId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAkaInfoBuilder)), "setReauthId", "([B)Landroid/net/eap/EapAkaInfo$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAkaInfoBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAkaInfoBuilder)), "toString", "()Ljava/lang/String;")
+		midInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -260,6 +231,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsSessionConfigBuilder = env.NewGlobalRef(&c.Object)
+		midSessionConfigBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfigBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midSessionConfigBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfigBuilder)), "build", "()Landroid/net/eap/EapSessionConfig;")
 		if err != nil {
@@ -634,22 +609,57 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/net/eap/EapInfo")
+	c, err = env.FindClass("android/net/eap/EapAkaInfo")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsInfo = env.NewGlobalRef(&c.Object)
+		clsAkaInfo = env.NewGlobalRef(&c.Object)
 
-		midInfoGetEapMethodType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "getEapMethodType", "()I")
+		midAkaInfoGetReauthId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAkaInfo)), "getReauthId", "()[B")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "toString", "()Ljava/lang/String;")
+		midAkaInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAkaInfo)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/eap/EapAkaInfo$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAkaInfoBuilder = env.NewGlobalRef(&c.Object)
+		midAkaInfoBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAkaInfoBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAkaInfoBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAkaInfoBuilder)), "build", "()Landroid/net/eap/EapAkaInfo;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAkaInfoBuilderSetReauthId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAkaInfoBuilder)), "setReauthId", "([B)Landroid/net/eap/EapAkaInfo$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAkaInfoBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAkaInfoBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

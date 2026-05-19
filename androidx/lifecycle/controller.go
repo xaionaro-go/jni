@@ -32,6 +32,12 @@ func NewController(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.Obj
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsController == nil {
+			return fmt.Errorf("androidx.lifecycle.LifecycleController is not available on this device")
+		}
+		if midControllerCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.LifecycleController constructor (Landroidx/lifecycle/Lifecycle;Landroidx/lifecycle/Lifecycle$State;Landroidx/lifecycle/DispatchQueue;Lkotlinx/coroutines/Job;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsController)), midControllerCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3))
 		if err != nil {

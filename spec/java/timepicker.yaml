@@ -5,8 +5,6 @@
 package: timepicker
 go_import: github.com/AndroidGoLab/jni/com/google/android/material/timepicker
 classes:
-    - java_class: com.google.android.material.timepicker.TimeFormat
-      go_type: TimeFormat
     - java_class: com.google.android.material.timepicker.MaterialTimePicker
       go_type: MaterialTimePicker
       obtain: constructor
@@ -175,12 +173,9 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: clearOnDismissListeners
-          go_name: ClearOnDismissListeners
-          returns: void
-          error: true
     - java_class: com.google.android.material.timepicker.MaterialTimePicker$Builder
       go_type: MaterialTimePickerBuilder
+      obtain: constructor
       methods:
         - java_method: setInputMode
           go_name: SetInputMode
@@ -259,20 +254,18 @@ classes:
               go_name: arg0
           returns: com.google.android.material.timepicker.MaterialTimePicker$Builder
           error: true
-        - java_method: build
-          go_name: Build
-          returns: com.google.android.material.timepicker.MaterialTimePicker
-          error: true
+    - java_class: com.google.android.material.timepicker.TimeFormat
+      go_type: TimeFormat
 constants:
-    - go_name: Clock12h
-      value: "0"
-      go_type: int
-    - go_name: Clock24h
-      value: "1"
-      go_type: int
     - go_name: InputModeClock
       value: "0"
       go_type: int
     - go_name: InputModeKeyboard
+      value: "1"
+      go_type: int
+    - go_name: Clock12h
+      value: "0"
+      go_type: int
+    - go_name: Clock24h
       value: "1"
       go_type: int

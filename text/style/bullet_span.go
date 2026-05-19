@@ -32,6 +32,12 @@ func NewBulletSpan(vm *jni.VM) (*BulletSpan, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBulletSpan == nil {
+			return fmt.Errorf("android.text.style.BulletSpan is not available on this device")
+		}
+		if midBulletSpanCtor == nil {
+			return fmt.Errorf("android.text.style.BulletSpan constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBulletSpan)), midBulletSpanCtor)
 		if err != nil {
 			return err

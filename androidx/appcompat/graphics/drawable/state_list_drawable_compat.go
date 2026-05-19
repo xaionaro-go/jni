@@ -32,6 +32,12 @@ func NewStateListDrawableCompat(vm *jni.VM) (*StateListDrawableCompat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStateListDrawableCompat == nil {
+			return fmt.Errorf("androidx.appcompat.graphics.drawable.StateListDrawableCompat is not available on this device")
+		}
+		if midStateListDrawableCompatCtor == nil {
+			return fmt.Errorf("androidx.appcompat.graphics.drawable.StateListDrawableCompat constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStateListDrawableCompat)), midStateListDrawableCompatCtor)
 		if err != nil {
 			return err
@@ -154,29 +160,6 @@ func (m *StateListDrawableCompat) Mutate() (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
-}
-
-// ApplyTheme calls androidx.appcompat.graphics.drawable.StateListDrawableCompat.applyTheme.
-func (m *StateListDrawableCompat) ApplyTheme(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midStateListDrawableCompatApplyTheme == nil {
-			callErr = fmt.Errorf("androidx.appcompat.graphics.drawable.StateListDrawableCompat.applyTheme is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midStateListDrawableCompatApplyTheme, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // ToString calls androidx.appcompat.graphics.drawable.StateListDrawableCompat.toString.

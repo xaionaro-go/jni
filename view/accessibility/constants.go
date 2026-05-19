@@ -5,14 +5,9 @@ package accessibility
 import "github.com/AndroidGoLab/jni/view/accessibility/consts"
 
 const (
-	Creator                                    = consts.Creator
-	TypeAccessibilityOverlay                   = consts.TypeAccessibilityOverlay
-	TypeApplication                            = consts.TypeApplication
-	TypeInputMethod                            = consts.TypeInputMethod
-	TypeMagnificationOverlay                   = consts.TypeMagnificationOverlay
-	TypeSplitScreenDivider                     = consts.TypeSplitScreenDivider
-	TypeSystem                                 = consts.TypeSystem
-	TypeWindowControl                          = consts.TypeWindowControl
+	FlagContentControls                        = consts.FlagContentControls
+	FlagContentIcons                           = consts.FlagContentIcons
+	FlagContentText                            = consts.FlagContentText
 	ContentChangeTypeChecked                   = consts.ContentChangeTypeChecked
 	ContentChangeTypeContentDescription        = consts.ContentChangeTypeContentDescription
 	ContentChangeTypeContentInvalid            = consts.ContentChangeTypeContentInvalid
@@ -30,6 +25,7 @@ const (
 	ContentChangeTypeSupplementalDescription   = consts.ContentChangeTypeSupplementalDescription
 	ContentChangeTypeText                      = consts.ContentChangeTypeText
 	ContentChangeTypeUndefined                 = consts.ContentChangeTypeUndefined
+	Creator                                    = consts.Creator
 	InvalidPosition                            = consts.InvalidPosition
 	MaxTextLength                              = consts.MaxTextLength
 	SpeechStateListeningEnd                    = consts.SpeechStateListeningEnd
@@ -75,16 +71,7 @@ const (
 	WindowsChangePip                           = consts.WindowsChangePip
 	WindowsChangeRemoved                       = consts.WindowsChangeRemoved
 	WindowsChangeTitle                         = consts.WindowsChangeTitle
-	EdgeTypeDepressed                          = consts.EdgeTypeDepressed
-	EdgeTypeDropShadow                         = consts.EdgeTypeDropShadow
-	EdgeTypeNone                               = consts.EdgeTypeNone
-	EdgeTypeOutline                            = consts.EdgeTypeOutline
-	EdgeTypeRaised                             = consts.EdgeTypeRaised
-	EdgeTypeUnspecified                        = consts.EdgeTypeUnspecified
-	FlagContentControls                        = consts.FlagContentControls
-	FlagContentIcons                           = consts.FlagContentIcons
-	FlagContentText                            = consts.FlagContentText
-	RequestTypeExtraData                       = consts.RequestTypeExtraData
+	HostViewId                                 = consts.HostViewId
 	ActionAccessibilityFocus                   = consts.ActionAccessibilityFocus
 	ActionClearAccessibilityFocus              = consts.ActionClearAccessibilityFocus
 	ActionClearFocus                           = consts.ActionClearFocus
@@ -160,7 +147,20 @@ const (
 	RangeTypeIndeterminate                     = consts.RangeTypeIndeterminate
 	RangeTypeInt                               = consts.RangeTypeInt
 	RangeTypePercent                           = consts.RangeTypePercent
-	HostViewId                                 = consts.HostViewId
+	EdgeTypeDepressed                          = consts.EdgeTypeDepressed
+	EdgeTypeDropShadow                         = consts.EdgeTypeDropShadow
+	EdgeTypeNone                               = consts.EdgeTypeNone
+	EdgeTypeOutline                            = consts.EdgeTypeOutline
+	EdgeTypeRaised                             = consts.EdgeTypeRaised
+	EdgeTypeUnspecified                        = consts.EdgeTypeUnspecified
+	RequestTypeExtraData                       = consts.RequestTypeExtraData
+	TypeAccessibilityOverlay                   = consts.TypeAccessibilityOverlay
+	TypeApplication                            = consts.TypeApplication
+	TypeInputMethod                            = consts.TypeInputMethod
+	TypeMagnificationOverlay                   = consts.TypeMagnificationOverlay
+	TypeSplitScreenDivider                     = consts.TypeSplitScreenDivider
+	TypeSystem                                 = consts.TypeSystem
+	TypeWindowControl                          = consts.TypeWindowControl
 )
 
 const (

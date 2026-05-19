@@ -32,6 +32,12 @@ func NewMediaController(vm *jni.VM, arg0 *jni.Object) (*MediaController, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMediaController == nil {
+			return fmt.Errorf("android.widget.MediaController is not available on this device")
+		}
+		if midMediaControllerCtor == nil {
+			return fmt.Errorf("android.widget.MediaController constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMediaController)), midMediaControllerCtor, jni.ObjectValue(arg0))
 		if err != nil {

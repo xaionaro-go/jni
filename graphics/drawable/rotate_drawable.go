@@ -32,6 +32,12 @@ func NewRotateDrawable(vm *jni.VM) (*RotateDrawable, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRotateDrawable == nil {
+			return fmt.Errorf("android.graphics.drawable.RotateDrawable is not available on this device")
+		}
+		if midRotateDrawableCtor == nil {
+			return fmt.Errorf("android.graphics.drawable.RotateDrawable constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRotateDrawable)), midRotateDrawableCtor)
 		if err != nil {
 			return err

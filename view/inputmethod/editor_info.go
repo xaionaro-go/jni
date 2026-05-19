@@ -32,6 +32,12 @@ func NewEditorInfo(vm *jni.VM) (*EditorInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEditorInfo == nil {
+			return fmt.Errorf("android.view.inputmethod.EditorInfo is not available on this device")
+		}
+		if midEditorInfoCtor == nil {
+			return fmt.Errorf("android.view.inputmethod.EditorInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEditorInfo)), midEditorInfoCtor)
 		if err != nil {
 			return err
@@ -525,29 +531,6 @@ func (m *EditorInfo) SetWritingToolsEnabled(arg0 bool) error {
 	return callErr
 }
 
-// WriteToParcel calls android.view.inputmethod.EditorInfo.writeToParcel.
-func (m *EditorInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midEditorInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.inputmethod.EditorInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midEditorInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.view.inputmethod.EditorInfo.toString.
 func (m *EditorInfo) ToString() (string, error) {
 	var result string
@@ -573,4 +556,27 @@ func (m *EditorInfo) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.inputmethod.EditorInfo.writeToParcel.
+func (m *EditorInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midEditorInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.inputmethod.EditorInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsEditorInfo)),
+			midEditorInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

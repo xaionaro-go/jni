@@ -23,6 +23,35 @@ type CollapsingToolbarLayoutLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCollapsingToolbarLayoutLayoutParams creates a new com.google.android.material.appbar.CollapsingToolbarLayout$LayoutParams instance.
+func NewCollapsingToolbarLayoutLayoutParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*CollapsingToolbarLayoutLayoutParams, error) {
+	var t CollapsingToolbarLayoutLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCollapsingToolbarLayoutLayoutParams == nil {
+			return fmt.Errorf("com.google.android.material.appbar.CollapsingToolbarLayout$LayoutParams is not available on this device")
+		}
+		if midCollapsingToolbarLayoutLayoutParamsCtor == nil {
+			return fmt.Errorf("com.google.android.material.appbar.CollapsingToolbarLayout$LayoutParams constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCollapsingToolbarLayoutLayoutParams)), midCollapsingToolbarLayoutLayoutParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetCollapseMode calls com.google.android.material.appbar.CollapsingToolbarLayout$LayoutParams.setCollapseMode.
 func (m *CollapsingToolbarLayoutLayoutParams) SetCollapseMode(arg0 int32) error {
 

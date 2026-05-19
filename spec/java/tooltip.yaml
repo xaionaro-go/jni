@@ -131,10 +131,6 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: onTextSizeChange
-          go_name: OnTextSizeChange
-          returns: void
-          error: true
       static_methods:
         - java_method: createFromAttributes
           go_name: CreateFromAttributes4

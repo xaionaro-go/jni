@@ -23,6 +23,34 @@ type WifiDeviceFilterBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWifiDeviceFilterBuilder creates a new android.companion.WifiDeviceFilter$Builder instance.
+func NewWifiDeviceFilterBuilder(vm *jni.VM) (*WifiDeviceFilterBuilder, error) {
+	var t WifiDeviceFilterBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWifiDeviceFilterBuilder == nil {
+			return fmt.Errorf("android.companion.WifiDeviceFilter$Builder is not available on this device")
+		}
+		if midWifiDeviceFilterBuilderCtor == nil {
+			return fmt.Errorf("android.companion.WifiDeviceFilter$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWifiDeviceFilterBuilder)), midWifiDeviceFilterBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.companion.WifiDeviceFilter$Builder.build.
 func (m *WifiDeviceFilterBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

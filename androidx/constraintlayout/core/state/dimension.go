@@ -386,33 +386,6 @@ func (m *Dimension) Ratio1_1(arg0 string) (*jni.Object, error) {
 	return result, callErr
 }
 
-// Apply calls androidx.constraintlayout.core.state.Dimension.apply.
-func (m *Dimension) Apply(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 int32,
-) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDimensionApply == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.core.state.Dimension.apply is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midDimensionApply, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.constraintlayout.core.state.Dimension.toString.
 func (m *Dimension) ToString() (string, error) {
 	var result string
@@ -737,4 +710,31 @@ func (m *Dimension) Ratio1(arg0 string) (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// Apply calls androidx.constraintlayout.core.state.Dimension.apply.
+func (m *Dimension) Apply(
+	arg0 *jni.Object,
+	arg1 *jni.Object,
+	arg2 int32,
+) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDimensionApply == nil {
+			callErr = fmt.Errorf("androidx.constraintlayout.core.state.Dimension.apply is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsDimension)),
+			midDimensionApply, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2),
+		)
+		return callErr
+	})
+	return callErr
 }

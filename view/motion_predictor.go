@@ -32,6 +32,12 @@ func NewMotionPredictor(vm *jni.VM, arg0 *jni.Object) (*MotionPredictor, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMotionPredictor == nil {
+			return fmt.Errorf("android.view.MotionPredictor is not available on this device")
+		}
+		if midMotionPredictorCtor == nil {
+			return fmt.Errorf("android.view.MotionPredictor constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMotionPredictor)), midMotionPredictorCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -32,6 +32,12 @@ func NewBuddhistCalendar(vm *jni.VM) (*BuddhistCalendar, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBuddhistCalendar == nil {
+			return fmt.Errorf("android.icu.util.BuddhistCalendar is not available on this device")
+		}
+		if midBuddhistCalendarCtor == nil {
+			return fmt.Errorf("android.icu.util.BuddhistCalendar constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBuddhistCalendar)), midBuddhistCalendarCtor)
 		if err != nil {
 			return err

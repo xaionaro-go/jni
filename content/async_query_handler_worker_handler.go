@@ -23,6 +23,35 @@ type AsyncQueryHandlerWorkerHandler struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAsyncQueryHandlerWorkerHandler creates a new android.content.AsyncQueryHandler$WorkerHandler instance.
+func NewAsyncQueryHandlerWorkerHandler(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*AsyncQueryHandlerWorkerHandler, error) {
+	var t AsyncQueryHandlerWorkerHandler
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAsyncQueryHandlerWorkerHandler == nil {
+			return fmt.Errorf("android.content.AsyncQueryHandler$WorkerHandler is not available on this device")
+		}
+		if midAsyncQueryHandlerWorkerHandlerCtor == nil {
+			return fmt.Errorf("android.content.AsyncQueryHandler$WorkerHandler constructor (Landroid/content/AsyncQueryHandler;Landroid/os/Looper;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAsyncQueryHandlerWorkerHandler)), midAsyncQueryHandlerWorkerHandlerCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // HandleMessage calls android.content.AsyncQueryHandler$WorkerHandler.handleMessage.
 func (m *AsyncQueryHandlerWorkerHandler) HandleMessage(arg0 *jni.Object) error {
 

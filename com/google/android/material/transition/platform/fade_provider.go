@@ -32,6 +32,12 @@ func NewFadeProvider(vm *jni.VM) (*FadeProvider, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFadeProvider == nil {
+			return fmt.Errorf("com.google.android.material.transition.platform.FadeProvider is not available on this device")
+		}
+		if midFadeProviderCtor == nil {
+			return fmt.Errorf("com.google.android.material.transition.platform.FadeProvider constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFadeProvider)), midFadeProviderCtor)
 		if err != nil {
 			return err

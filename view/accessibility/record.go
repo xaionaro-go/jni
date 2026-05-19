@@ -32,6 +32,12 @@ func NewRecord(vm *jni.VM) (*Record, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRecord == nil {
+			return fmt.Errorf("android.view.accessibility.AccessibilityRecord is not available on this device")
+		}
+		if midRecordCtor == nil {
+			return fmt.Errorf("android.view.accessibility.AccessibilityRecord constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRecord)), midRecordCtor)
 		if err != nil {
 			return err

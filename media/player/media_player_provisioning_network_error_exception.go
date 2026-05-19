@@ -23,6 +23,40 @@ type MediaPlayerProvisioningNetworkErrorException struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMediaPlayerProvisioningNetworkErrorException creates a new android.media.MediaPlayer$ProvisioningNetworkErrorException instance.
+func NewMediaPlayerProvisioningNetworkErrorException(vm *jni.VM, arg0 string) (*MediaPlayerProvisioningNetworkErrorException, error) {
+	var t MediaPlayerProvisioningNetworkErrorException
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMediaPlayerProvisioningNetworkErrorException == nil {
+			return fmt.Errorf("android.media.MediaPlayer$ProvisioningNetworkErrorException is not available on this device")
+		}
+		if midMediaPlayerProvisioningNetworkErrorExceptionCtor == nil {
+			return fmt.Errorf("android.media.MediaPlayer$ProvisioningNetworkErrorException constructor (Ljava/lang/String;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMediaPlayerProvisioningNetworkErrorException)), midMediaPlayerProvisioningNetworkErrorExceptionCtor, jni.ObjectValue(&jArg0.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.media.MediaPlayer$ProvisioningNetworkErrorException.toString.
 func (m *MediaPlayerProvisioningNetworkErrorException) ToString() (string, error) {
 	var result string

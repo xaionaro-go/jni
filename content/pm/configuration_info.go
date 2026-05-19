@@ -32,6 +32,12 @@ func NewConfigurationInfo(vm *jni.VM) (*ConfigurationInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsConfigurationInfo == nil {
+			return fmt.Errorf("android.content.pm.ConfigurationInfo is not available on this device")
+		}
+		if midConfigurationInfoCtor == nil {
+			return fmt.Errorf("android.content.pm.ConfigurationInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConfigurationInfo)), midConfigurationInfoCtor)
 		if err != nil {
 			return err

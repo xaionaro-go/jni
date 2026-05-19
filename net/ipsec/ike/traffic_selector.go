@@ -32,6 +32,12 @@ func NewTrafficSelector(vm *jni.VM, arg0 int32, arg1 int32, arg2 *jni.Object, ar
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTrafficSelector == nil {
+			return fmt.Errorf("android.net.ipsec.ike.IkeTrafficSelector is not available on this device")
+		}
+		if midTrafficSelectorCtor == nil {
+			return fmt.Errorf("android.net.ipsec.ike.IkeTrafficSelector constructor (IILjava/net/InetAddress;Ljava/net/InetAddress;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTrafficSelector)), midTrafficSelectorCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3))
 		if err != nil {

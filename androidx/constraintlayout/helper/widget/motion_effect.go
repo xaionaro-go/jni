@@ -32,6 +32,12 @@ func NewMotionEffect(vm *jni.VM, arg0 *jni.Object) (*MotionEffect, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMotionEffect == nil {
+			return fmt.Errorf("androidx.constraintlayout.helper.widget.MotionEffect is not available on this device")
+		}
+		if midMotionEffectCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.helper.widget.MotionEffect constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMotionEffect)), midMotionEffectCtor, jni.ObjectValue(arg0))
 		if err != nil {

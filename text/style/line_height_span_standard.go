@@ -23,6 +23,35 @@ type LineHeightSpanStandard struct {
 	Obj *jni.GlobalRef
 }
 
+// NewLineHeightSpanStandard creates a new android.text.style.LineHeightSpan$Standard instance.
+func NewLineHeightSpanStandard(vm *jni.VM, arg0 *jni.Object) (*LineHeightSpanStandard, error) {
+	var t LineHeightSpanStandard
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsLineHeightSpanStandard == nil {
+			return fmt.Errorf("android.text.style.LineHeightSpan$Standard is not available on this device")
+		}
+		if midLineHeightSpanStandardCtor == nil {
+			return fmt.Errorf("android.text.style.LineHeightSpan$Standard constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLineHeightSpanStandard)), midLineHeightSpanStandardCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ChooseHeight calls android.text.style.LineHeightSpan$Standard.chooseHeight.
 func (m *LineHeightSpanStandard) ChooseHeight(
 	arg0 string,

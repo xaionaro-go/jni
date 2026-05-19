@@ -32,10 +32,11 @@ var (
 	clsINotificationSideChannel          *jni.GlobalRef
 	midINotificationSideChannelNotify    jni.MethodID
 	midINotificationSideChannelCancel    jni.MethodID
-	midINotificationSideChannelCancelAll jni.MethodID
 	midINotificationSideChannelToString  jni.MethodID
+	midINotificationSideChannelCancelAll jni.MethodID
 
 	clsINotificationSideChannelDefault          *jni.GlobalRef
+	midINotificationSideChannelDefaultCtor      jni.MethodID
 	midINotificationSideChannelDefaultNotify    jni.MethodID
 	midINotificationSideChannelDefaultCancel    jni.MethodID
 	midINotificationSideChannelDefaultCancelAll jni.MethodID
@@ -49,6 +50,7 @@ var (
 	midINotificationSideChannelStubAsInterface jni.MethodID
 
 	clsINotificationSideChannel_Parcel         *jni.GlobalRef
+	midINotificationSideChannel_ParcelCtor     jni.MethodID
 	midINotificationSideChannel_ParcelToString jni.MethodID
 )
 
@@ -127,14 +129,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midINotificationSideChannelCancelAll, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsINotificationSideChannel)), "cancelAll", "(Ljava/lang/String;)V")
+		midINotificationSideChannelToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsINotificationSideChannel)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midINotificationSideChannelToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsINotificationSideChannel)), "toString", "()Ljava/lang/String;")
+		midINotificationSideChannelCancelAll, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsINotificationSideChannel)), "cancelAll", "(Ljava/lang/String;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -150,6 +152,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsINotificationSideChannelDefault = env.NewGlobalRef(&c.Object)
+		midINotificationSideChannelDefaultCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsINotificationSideChannelDefault)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midINotificationSideChannelDefaultNotify, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsINotificationSideChannelDefault)), "notify", "(Ljava/lang/String;ILjava/lang/String;Landroid/app/Notification;)V")
 		if err != nil {
@@ -233,6 +239,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsINotificationSideChannel_Parcel = env.NewGlobalRef(&c.Object)
+		midINotificationSideChannel_ParcelCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsINotificationSideChannel_Parcel)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midINotificationSideChannel_ParcelToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsINotificationSideChannel_Parcel)), "toString", "()Ljava/lang/String;")
 		if err != nil {

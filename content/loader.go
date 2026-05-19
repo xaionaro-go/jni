@@ -32,6 +32,12 @@ func NewLoader(vm *jni.VM, arg0 *jni.Object) (*Loader, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLoader == nil {
+			return fmt.Errorf("android.content.Loader is not available on this device")
+		}
+		if midLoaderCtor == nil {
+			return fmt.Errorf("android.content.Loader constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLoader)), midLoaderCtor, jni.ObjectValue(arg0))
 		if err != nil {

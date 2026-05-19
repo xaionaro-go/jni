@@ -32,6 +32,12 @@ func NewWifiP2pWfdInfo(vm *jni.VM) (*WifiP2pWfdInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWifiP2pWfdInfo == nil {
+			return fmt.Errorf("android.net.wifi.p2p.WifiP2pWfdInfo is not available on this device")
+		}
+		if midWifiP2pWfdInfoCtor == nil {
+			return fmt.Errorf("android.net.wifi.p2p.WifiP2pWfdInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWifiP2pWfdInfo)), midWifiP2pWfdInfoCtor)
 		if err != nil {
 			return err
@@ -660,8 +666,8 @@ func (m *WifiP2pWfdInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsWifiP2pWfdInfo)),
 			midWifiP2pWfdInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

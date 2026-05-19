@@ -32,6 +32,12 @@ func NewCustomSupport(vm *jni.VM) (*CustomSupport, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCustomSupport == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.utils.CustomSupport is not available on this device")
+		}
+		if midCustomSupportCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.utils.CustomSupport constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCustomSupport)), midCustomSupportCtor)
 		if err != nil {
 			return err

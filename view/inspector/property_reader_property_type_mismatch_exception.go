@@ -23,6 +23,47 @@ type PropertyReaderPropertyTypeMismatchException struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPropertyReaderPropertyTypeMismatchException creates a new android.view.inspector.PropertyReader$PropertyTypeMismatchException instance.
+func NewPropertyReaderPropertyTypeMismatchException(vm *jni.VM, arg0 int32, arg1 string, arg2 string) (*PropertyReaderPropertyTypeMismatchException, error) {
+	var t PropertyReaderPropertyTypeMismatchException
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPropertyReaderPropertyTypeMismatchException == nil {
+			return fmt.Errorf("android.view.inspector.PropertyReader$PropertyTypeMismatchException is not available on this device")
+		}
+		if midPropertyReaderPropertyTypeMismatchExceptionCtor == nil {
+			return fmt.Errorf("android.view.inspector.PropertyReader$PropertyTypeMismatchException constructor (ILjava/lang/String;Ljava/lang/String;)V is not available on this device")
+		}
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		jArg2, err := env.NewStringUTF(arg2)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg2.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPropertyReaderPropertyTypeMismatchException)), midPropertyReaderPropertyTypeMismatchExceptionCtor, jni.IntValue(arg0), jni.ObjectValue(&jArg1.Object), jni.ObjectValue(&jArg2.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.view.inspector.PropertyReader$PropertyTypeMismatchException.toString.
 func (m *PropertyReaderPropertyTypeMismatchException) ToString() (string, error) {
 	var result string

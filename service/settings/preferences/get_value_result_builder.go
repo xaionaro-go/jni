@@ -23,6 +23,35 @@ type GetValueResultBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGetValueResultBuilder creates a new android.service.settings.preferences.GetValueResult$Builder instance.
+func NewGetValueResultBuilder(vm *jni.VM, arg0 int32) (*GetValueResultBuilder, error) {
+	var t GetValueResultBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGetValueResultBuilder == nil {
+			return fmt.Errorf("android.service.settings.preferences.GetValueResult$Builder is not available on this device")
+		}
+		if midGetValueResultBuilderCtor == nil {
+			return fmt.Errorf("android.service.settings.preferences.GetValueResult$Builder constructor (I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGetValueResultBuilder)), midGetValueResultBuilderCtor, jni.IntValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.service.settings.preferences.GetValueResult$Builder.build.
 func (m *GetValueResultBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

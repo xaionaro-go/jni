@@ -23,6 +23,35 @@ type TypefaceCustomFallbackBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTypefaceCustomFallbackBuilder creates a new android.graphics.Typeface$CustomFallbackBuilder instance.
+func NewTypefaceCustomFallbackBuilder(vm *jni.VM, arg0 *jni.Object) (*TypefaceCustomFallbackBuilder, error) {
+	var t TypefaceCustomFallbackBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTypefaceCustomFallbackBuilder == nil {
+			return fmt.Errorf("android.graphics.Typeface$CustomFallbackBuilder is not available on this device")
+		}
+		if midTypefaceCustomFallbackBuilderCtor == nil {
+			return fmt.Errorf("android.graphics.Typeface$CustomFallbackBuilder constructor (Landroid/graphics/fonts/FontFamily;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTypefaceCustomFallbackBuilder)), midTypefaceCustomFallbackBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddCustomFallback calls android.graphics.Typeface$CustomFallbackBuilder.addCustomFallback.
 func (m *TypefaceCustomFallbackBuilder) AddCustomFallback(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

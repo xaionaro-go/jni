@@ -23,6 +23,35 @@ type FhirResourceBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFhirResourceBuilder creates a new android.health.connect.datatypes.FhirResource$Builder instance.
+func NewFhirResourceBuilder(vm *jni.VM, arg0 *jni.Object) (*FhirResourceBuilder, error) {
+	var t FhirResourceBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFhirResourceBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.FhirResource$Builder is not available on this device")
+		}
+		if midFhirResourceBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.FhirResource$Builder constructor (Landroid/health/connect/datatypes/FhirResource;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFhirResourceBuilder)), midFhirResourceBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.datatypes.FhirResource$Builder.build.
 func (m *FhirResourceBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

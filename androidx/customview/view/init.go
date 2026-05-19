@@ -26,7 +26,6 @@ var (
 	clsAbsSavedState                 *jni.GlobalRef
 	midAbsSavedStateGetSuperState    jni.MethodID
 	midAbsSavedStateDescribeContents jni.MethodID
-	midAbsSavedStateWriteToParcel    jni.MethodID
 	midAbsSavedStateToString         jni.MethodID
 )
 
@@ -64,13 +63,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midAbsSavedStateDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbsSavedState)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAbsSavedStateWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbsSavedState)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

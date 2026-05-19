@@ -30,6 +30,12 @@ func NewRemoteActionCompatParcelizer(vm *jni.VM) (*RemoteActionCompatParcelizer,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRemoteActionCompatParcelizer == nil {
+			return fmt.Errorf("android.support.v4.app.RemoteActionCompatParcelizer is not available on this device")
+		}
+		if midRemoteActionCompatParcelizerCtor == nil {
+			return fmt.Errorf("android.support.v4.app.RemoteActionCompatParcelizer constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRemoteActionCompatParcelizer)), midRemoteActionCompatParcelizerCtor)
 		if err != nil {
 			return err

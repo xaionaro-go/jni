@@ -32,6 +32,12 @@ func NewAnimatorInflater(vm *jni.VM) (*AnimatorInflater, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAnimatorInflater == nil {
+			return fmt.Errorf("android.animation.AnimatorInflater is not available on this device")
+		}
+		if midAnimatorInflaterCtor == nil {
+			return fmt.Errorf("android.animation.AnimatorInflater constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAnimatorInflater)), midAnimatorInflaterCtor)
 		if err != nil {
 			return err

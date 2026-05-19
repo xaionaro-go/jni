@@ -32,6 +32,12 @@ func NewTypefaceEmojiSpan(vm *jni.VM, arg0 *jni.Object) (*TypefaceEmojiSpan, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTypefaceEmojiSpan == nil {
+			return fmt.Errorf("androidx.emoji2.text.TypefaceEmojiSpan is not available on this device")
+		}
+		if midTypefaceEmojiSpanCtor == nil {
+			return fmt.Errorf("androidx.emoji2.text.TypefaceEmojiSpan constructor (Landroidx/emoji2/text/TypefaceEmojiRasterizer;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTypefaceEmojiSpan)), midTypefaceEmojiSpanCtor, jni.ObjectValue(arg0))
 		if err != nil {

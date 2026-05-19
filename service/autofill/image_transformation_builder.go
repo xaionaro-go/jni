@@ -23,6 +23,35 @@ type ImageTransformationBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewImageTransformationBuilder creates a new android.service.autofill.ImageTransformation$Builder instance.
+func NewImageTransformationBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 int32) (*ImageTransformationBuilder, error) {
+	var t ImageTransformationBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsImageTransformationBuilder == nil {
+			return fmt.Errorf("android.service.autofill.ImageTransformation$Builder is not available on this device")
+		}
+		if midImageTransformationBuilderCtor == nil {
+			return fmt.Errorf("android.service.autofill.ImageTransformation$Builder constructor (Landroid/view/autofill/AutofillId;Ljava/util/regex/Pattern;I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsImageTransformationBuilder)), midImageTransformationBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddOption2 calls android.service.autofill.ImageTransformation$Builder.addOption.
 func (m *ImageTransformationBuilder) AddOption2(arg0 *jni.Object, arg1 int32) (*jni.Object, error) {
 	var result *jni.Object

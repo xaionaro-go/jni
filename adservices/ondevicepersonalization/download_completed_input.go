@@ -32,6 +32,12 @@ func NewDownloadCompletedInput(vm *jni.VM, arg0 *jni.Object) (*DownloadCompleted
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDownloadCompletedInput == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.DownloadCompletedInput is not available on this device")
+		}
+		if midDownloadCompletedInputCtor == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.DownloadCompletedInput constructor (Landroid/adservices/ondevicepersonalization/KeyValueStore;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDownloadCompletedInput)), midDownloadCompletedInputCtor, jni.ObjectValue(arg0))
 		if err != nil {

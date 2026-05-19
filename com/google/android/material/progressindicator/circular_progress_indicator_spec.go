@@ -32,6 +32,12 @@ func NewCircularProgressIndicatorSpec(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Ob
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCircularProgressIndicatorSpec == nil {
+			return fmt.Errorf("com.google.android.material.progressindicator.CircularProgressIndicatorSpec is not available on this device")
+		}
+		if midCircularProgressIndicatorSpecCtor == nil {
+			return fmt.Errorf("com.google.android.material.progressindicator.CircularProgressIndicatorSpec constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicatorSpec)), midCircularProgressIndicatorSpecCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

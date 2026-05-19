@@ -123,29 +123,6 @@ func (m *BroadcastInfoRequest) GetType() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.media.tv.BroadcastInfoRequest.writeToParcel.
-func (m *BroadcastInfoRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBroadcastInfoRequestWriteToParcel == nil {
-			callErr = fmt.Errorf("android.media.tv.BroadcastInfoRequest.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midBroadcastInfoRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.media.tv.BroadcastInfoRequest.toString.
 func (m *BroadcastInfoRequest) ToString() (string, error) {
 	var result string
@@ -171,4 +148,27 @@ func (m *BroadcastInfoRequest) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.media.tv.BroadcastInfoRequest.writeToParcel.
+func (m *BroadcastInfoRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midBroadcastInfoRequestWriteToParcel == nil {
+			callErr = fmt.Errorf("android.media.tv.BroadcastInfoRequest.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsBroadcastInfoRequest)),
+			midBroadcastInfoRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

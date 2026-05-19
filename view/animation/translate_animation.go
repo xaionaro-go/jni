@@ -32,6 +32,12 @@ func NewTranslateAnimation(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Tra
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTranslateAnimation == nil {
+			return fmt.Errorf("android.view.animation.TranslateAnimation is not available on this device")
+		}
+		if midTranslateAnimationCtor == nil {
+			return fmt.Errorf("android.view.animation.TranslateAnimation constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTranslateAnimation)), midTranslateAnimationCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

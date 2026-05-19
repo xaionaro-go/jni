@@ -46,7 +46,6 @@ var (
 	midCardViewSetMaxCardElevation       jni.MethodID
 	midCardViewGetMaxCardElevation       jni.MethodID
 	midCardViewGetPreventCornerOverlap   jni.MethodID
-	midCardViewSetPreventCornerOverlap   jni.MethodID
 	midCardViewToString                  jni.MethodID
 )
 
@@ -221,13 +220,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midCardViewGetPreventCornerOverlap, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCardView)), "getPreventCornerOverlap", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCardViewSetPreventCornerOverlap, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCardView)), "setPreventCornerOverlap", "(Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

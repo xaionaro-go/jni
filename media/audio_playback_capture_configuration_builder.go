@@ -23,6 +23,35 @@ type AudioPlaybackCaptureConfigurationBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAudioPlaybackCaptureConfigurationBuilder creates a new android.media.AudioPlaybackCaptureConfiguration$Builder instance.
+func NewAudioPlaybackCaptureConfigurationBuilder(vm *jni.VM, arg0 *jni.Object) (*AudioPlaybackCaptureConfigurationBuilder, error) {
+	var t AudioPlaybackCaptureConfigurationBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAudioPlaybackCaptureConfigurationBuilder == nil {
+			return fmt.Errorf("android.media.AudioPlaybackCaptureConfiguration$Builder is not available on this device")
+		}
+		if midAudioPlaybackCaptureConfigurationBuilderCtor == nil {
+			return fmt.Errorf("android.media.AudioPlaybackCaptureConfiguration$Builder constructor (Landroid/media/projection/MediaProjection;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAudioPlaybackCaptureConfigurationBuilder)), midAudioPlaybackCaptureConfigurationBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddMatchingUid calls android.media.AudioPlaybackCaptureConfiguration$Builder.addMatchingUid.
 func (m *AudioPlaybackCaptureConfigurationBuilder) AddMatchingUid(arg0 int32) (*jni.Object, error) {
 	var result *jni.Object

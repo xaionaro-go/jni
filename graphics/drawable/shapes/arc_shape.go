@@ -32,6 +32,12 @@ func NewArcShape(vm *jni.VM, arg0 float32, arg1 float32) (*ArcShape, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsArcShape == nil {
+			return fmt.Errorf("android.graphics.drawable.shapes.ArcShape is not available on this device")
+		}
+		if midArcShapeCtor == nil {
+			return fmt.Errorf("android.graphics.drawable.shapes.ArcShape constructor (FF)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsArcShape)), midArcShapeCtor, jni.FloatValue(arg0), jni.FloatValue(arg1))
 		if err != nil {
@@ -46,8 +52,8 @@ func NewArcShape(vm *jni.VM, arg0 float32, arg1 float32) (*ArcShape, error) {
 	return &t, nil
 }
 
-// Clone0 calls android.graphics.drawable.shapes.ArcShape.clone.
-func (m *ArcShape) Clone0() (*jni.Object, error) {
+// Clone calls android.graphics.drawable.shapes.ArcShape.clone.
+func (m *ArcShape) Clone() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,13 +61,13 @@ func (m *ArcShape) Clone0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midArcShapeClone0 == nil {
+		if midArcShapeClone == nil {
 			callErr = fmt.Errorf("android.graphics.drawable.shapes.ArcShape.clone is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midArcShapeClone0,
+			midArcShapeClone,
 		)
 		if callErr != nil {
 			return callErr
@@ -221,102 +227,6 @@ func (m *ArcShape) HashCode() (int32, error) {
 		)
 		if callErr != nil {
 			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Clone0_1 calls android.graphics.drawable.shapes.ArcShape.clone.
-func (m *ArcShape) Clone0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midArcShapeClone0_1 == nil {
-			callErr = fmt.Errorf("android.graphics.drawable.shapes.ArcShape.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midArcShapeClone0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Clone0_2 calls android.graphics.drawable.shapes.ArcShape.clone.
-func (m *ArcShape) Clone0_2() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midArcShapeClone0_2 == nil {
-			callErr = fmt.Errorf("android.graphics.drawable.shapes.ArcShape.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midArcShapeClone0_2,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Clone0_3 calls android.graphics.drawable.shapes.ArcShape.clone.
-func (m *ArcShape) Clone0_3() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midArcShapeClone0_3 == nil {
-			callErr = fmt.Errorf("android.graphics.drawable.shapes.ArcShape.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midArcShapeClone0_3,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
 		}
 		return callErr
 	})

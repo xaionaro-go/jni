@@ -118,6 +118,7 @@ var (
 	midMediaPlayerMetricsConstantsToString jni.MethodID
 
 	clsMediaPlayerNoDrmSchemeException         *jni.GlobalRef
+	midMediaPlayerNoDrmSchemeExceptionCtor     jni.MethodID
 	midMediaPlayerNoDrmSchemeExceptionToString jni.MethodID
 
 	clsMediaPlayerOnBufferingUpdateListener                  *jni.GlobalRef
@@ -177,9 +178,11 @@ var (
 	midMediaPlayerOnVideoSizeChangedListenerToString           jni.MethodID
 
 	clsMediaPlayerProvisioningNetworkErrorException         *jni.GlobalRef
+	midMediaPlayerProvisioningNetworkErrorExceptionCtor     jni.MethodID
 	midMediaPlayerProvisioningNetworkErrorExceptionToString jni.MethodID
 
 	clsMediaPlayerProvisioningServerErrorException         *jni.GlobalRef
+	midMediaPlayerProvisioningServerErrorExceptionCtor     jni.MethodID
 	midMediaPlayerProvisioningServerErrorExceptionToString jni.MethodID
 
 	clsMediaPlayerTrackInfo                 *jni.GlobalRef
@@ -859,6 +862,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsMediaPlayerNoDrmSchemeException = env.NewGlobalRef(&c.Object)
+		midMediaPlayerNoDrmSchemeExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaPlayerNoDrmSchemeException)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midMediaPlayerNoDrmSchemeExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaPlayerNoDrmSchemeException)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -1212,6 +1219,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsMediaPlayerProvisioningNetworkErrorException = env.NewGlobalRef(&c.Object)
+		midMediaPlayerProvisioningNetworkErrorExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaPlayerProvisioningNetworkErrorException)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midMediaPlayerProvisioningNetworkErrorExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaPlayerProvisioningNetworkErrorException)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -1229,6 +1240,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsMediaPlayerProvisioningServerErrorException = env.NewGlobalRef(&c.Object)
+		midMediaPlayerProvisioningServerErrorExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaPlayerProvisioningServerErrorException)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midMediaPlayerProvisioningServerErrorExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaPlayerProvisioningServerErrorException)), "toString", "()Ljava/lang/String;")
 		if err != nil {

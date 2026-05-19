@@ -32,6 +32,12 @@ func NewDiscoverySessionCallback(vm *jni.VM) (*DiscoverySessionCallback, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDiscoverySessionCallback == nil {
+			return fmt.Errorf("android.net.wifi.aware.DiscoverySessionCallback is not available on this device")
+		}
+		if midDiscoverySessionCallbackCtor == nil {
+			return fmt.Errorf("android.net.wifi.aware.DiscoverySessionCallback constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDiscoverySessionCallback)), midDiscoverySessionCallbackCtor)
 		if err != nil {
 			return err

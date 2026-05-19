@@ -23,6 +23,35 @@ type WebViewWebViewTransport struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWebViewWebViewTransport creates a new android.webkit.WebView$WebViewTransport instance.
+func NewWebViewWebViewTransport(vm *jni.VM, arg0 *jni.Object) (*WebViewWebViewTransport, error) {
+	var t WebViewWebViewTransport
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWebViewWebViewTransport == nil {
+			return fmt.Errorf("android.webkit.WebView$WebViewTransport is not available on this device")
+		}
+		if midWebViewWebViewTransportCtor == nil {
+			return fmt.Errorf("android.webkit.WebView$WebViewTransport constructor (Landroid/webkit/WebView;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWebViewWebViewTransport)), midWebViewWebViewTransportCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.webkit.WebView$WebViewTransport.toString.
 func (m *WebViewWebViewTransport) ToString() (string, error) {
 	var result string

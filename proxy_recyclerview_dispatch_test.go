@@ -12,20 +12,83 @@ package jni
 //
 // The fixture classes live under internal/testjvm/testdata:
 //   - center/dx/jni/internal/TestAbstractAdapter.java       (the abstract class)
-//   - center/dx/jni/generated/TestAbstractAdapterAdapter.java (the dispatching subclass)
+//   - center/dx/jni/generated/center/dx/jni/internal/TestAbstractAdapterAdapter.java
+//     (the namespaced dispatching subclass)
+//   - center/dx/jni/generated/TestAbstractAdapterAdapter.java
+//     (the flat compatibility fallback)
 //
 // These four tests exercise: primitive-int return, Object return, void
 // return, and primitive-int parameter unboxing on the Go side.
 
 import (
+	"os"
+	"os/exec"
+	"path/filepath"
 	"testing"
 	"unsafe"
 )
 
 const (
-	abstractAdapterJNIName  = "center/dx/jni/internal/TestAbstractAdapter"
-	abstractAdapterJavaName = "center.dx.jni.internal.TestAbstractAdapter"
+	abstractAdapterJNIName         = "center/dx/jni/internal/TestAbstractAdapter"
+	abstractAdapterJavaName        = "center.dx.jni.internal.TestAbstractAdapter"
+	abstractAdapterAdapterJavaName = "center.dx.jni.generated.center.dx.jni.internal.TestAbstractAdapterAdapter"
+	legacyAdapterAdapterJavaName   = "center.dx.jni.generated.TestAbstractAdapterAdapter"
+	flatFallbackAbstractJNIName    = "test/fallback/FlatOnlyAbstract"
+	flatFallbackAdapterJavaName    = "center.dx.jni.generated.FlatOnlyAbstractAdapter"
 )
+
+func compileFlatFallbackOnlyFixture(t *testing.T) string {
+	t.Helper()
+
+	tmp := t.TempDir()
+	srcRoot := filepath.Join(tmp, "src")
+	classesDir := filepath.Join(tmp, "classes")
+	sources := map[string]string{
+		"test/fallback/FlatOnlyAbstract.java": `package test.fallback;
+
+public abstract class FlatOnlyAbstract {
+    public abstract int getItemCount();
+}
+`,
+		"center/dx/jni/generated/FlatOnlyAbstractAdapter.java": `package center.dx.jni.generated;
+
+import center.dx.jni.internal.GoAbstractDispatch;
+
+public class FlatOnlyAbstractAdapter extends test.fallback.FlatOnlyAbstract {
+    private final long handlerID;
+
+    public FlatOnlyAbstractAdapter(long handlerID) {
+        this.handlerID = handlerID;
+    }
+
+    @Override
+    public int getItemCount() {
+        return ((Integer) GoAbstractDispatch.invoke(
+            handlerID, "getItemCount", new Object[]{})).intValue();
+    }
+}
+`,
+	}
+	var paths []string
+	for rel, source := range sources {
+		path := filepath.Join(srcRoot, filepath.FromSlash(rel))
+		if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(path, []byte(source), 0o644); err != nil {
+			t.Fatal(err)
+		}
+		paths = append(paths, path)
+	}
+
+	args := []string{"-cp", "internal/testjvm/testdata", "-d", classesDir}
+	args = append(args, paths...)
+	cmd := exec.Command(requireJavac(t), args...)
+	if out, err := cmd.CombinedOutput(); err != nil {
+		t.Fatalf("javac flat fallback fixture: %v\n%s", err, out)
+	}
+	return classesDir
+}
 
 // newAbstractAdapterProxy creates a proxy backed by
 // TestAbstractAdapterAdapter via tryAbstractAdapter. It wires `handler` as
@@ -58,6 +121,40 @@ func newAbstractAdapterProxy(
 		env.DeleteLocalRef(&cls.Object)
 	}
 	return proxy, cls, cleanup
+}
+
+func objectJavaClassName(
+	t *testing.T,
+	env *Env,
+	obj *Object,
+) string {
+	t.Helper()
+	cls := env.GetObjectClass(obj)
+	if cls == nil {
+		t.Fatal("GetObjectClass returned nil")
+	}
+	defer env.DeleteLocalRef(&cls.Object)
+
+	classCls, err := env.FindClass("java/lang/Class")
+	if err != nil {
+		t.Fatalf("FindClass(Class): %v", err)
+	}
+	defer env.DeleteLocalRef(&classCls.Object)
+
+	mid, err := env.GetMethodID(classCls, "getName", "()Ljava/lang/String;")
+	if err != nil {
+		t.Fatalf("GetMethodID(Class.getName): %v", err)
+	}
+	nameObj, err := env.CallObjectMethod(&cls.Object, mid)
+	if err != nil {
+		t.Fatalf("Class.getName(): %v", err)
+	}
+	if nameObj == nil {
+		t.Fatal("Class.getName returned nil")
+	}
+	defer env.DeleteLocalRef(nameObj)
+
+	return env.GoString((*String)(unsafe.Pointer(nameObj)))
 }
 
 // boxInt creates a fresh java.lang.Integer wrapping `n`. The
@@ -164,6 +261,89 @@ func TestAbstractAdapterDispatch_PrimitiveIntReturn(t *testing.T) {
 		}
 		if len(seenArgs) != 0 {
 			t.Errorf("len(seenArgs) = %d, want 0", len(seenArgs))
+		}
+	})
+}
+
+// TestAbstractAdapterDispatch_PrefersNamespacedAdapter verifies that the
+// generated-package-specific lookup wins even when the legacy flat adapter
+// fallback is also on the classpath.
+func TestAbstractAdapterDispatch_PrefersNamespacedAdapter(t *testing.T) {
+	withEnv(t, func(env *Env) {
+		handler := ProxyHandler(func(e *Env, method string, args []*Object) (*Object, error) {
+			return boxInt(t, e, 1), nil
+		})
+
+		proxy, _, cleanup := newAbstractAdapterProxy(t, env, handler)
+		defer cleanup()
+
+		got := objectJavaClassName(t, env, proxy)
+		if got != abstractAdapterAdapterJavaName {
+			t.Fatalf("adapter class = %q, want namespaced %q; legacy fallback is %q", got, abstractAdapterAdapterJavaName, legacyAdapterAdapterJavaName)
+		}
+	})
+}
+
+func TestAbstractAdapterDispatch_FlatFallbackOnly(t *testing.T) {
+	classesDir := compileFlatFallbackOnlyFixture(t)
+
+	withEnv(t, func(env *Env) {
+		loader := newURLClassLoaderForDir(t, env, classesDir)
+		loaderGlobal := env.NewGlobalRef(loader)
+		env.DeleteLocalRef(loader)
+		defer env.DeleteGlobalRef(loaderGlobal)
+
+		proxyMu.Lock()
+		oldLoader := proxyClassLoader
+		proxyClassLoader = loaderGlobal.Ref()
+		proxyMu.Unlock()
+		defer func() {
+			proxyMu.Lock()
+			proxyClassLoader = oldLoader
+			proxyMu.Unlock()
+		}()
+
+		cls, err := env.FindClass(flatFallbackAbstractJNIName)
+		if err != nil {
+			t.Fatalf("FindClass(%s): %v", flatFallbackAbstractJNIName, err)
+		}
+		defer env.DeleteLocalRef(&cls.Object)
+
+		var seenMethod string
+		handler := ProxyHandler(func(e *Env, method string, args []*Object) (*Object, error) {
+			seenMethod = method
+			if len(args) != 0 {
+				t.Errorf("len(args) = %d, want 0", len(args))
+			}
+			return boxInt(t, e, 77), nil
+		})
+		proxy, cleanup, err := env.NewProxy([]*Class{cls}, handler)
+		if err != nil {
+			t.Fatalf("NewProxy(FlatOnlyAbstract): %v", err)
+		}
+		if proxy == nil {
+			t.Fatal("NewProxy returned nil proxy")
+		}
+		defer cleanup()
+		defer env.DeleteLocalRef(proxy)
+
+		if got := objectJavaClassName(t, env, proxy); got != flatFallbackAdapterJavaName {
+			t.Fatalf("adapter class = %q, want flat fallback %q", got, flatFallbackAdapterJavaName)
+		}
+
+		mid, err := env.GetMethodID(cls, "getItemCount", "()I")
+		if err != nil {
+			t.Fatalf("GetMethodID(getItemCount): %v", err)
+		}
+		got, err := env.CallIntMethod(proxy, mid)
+		if err != nil {
+			t.Fatalf("CallIntMethod(getItemCount): %v", err)
+		}
+		if got != 77 {
+			t.Errorf("getItemCount() = %d, want 77", got)
+		}
+		if seenMethod != "getItemCount" {
+			t.Errorf("seenMethod = %q, want getItemCount", seenMethod)
 		}
 	})
 }

@@ -23,13 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsTaskExecutor                    *jni.GlobalRef
-	midTaskExecutorExecuteOnDiskIO     jni.MethodID
-	midTaskExecutorPostToMainThread    jni.MethodID
-	midTaskExecutorExecuteOnMainThread jni.MethodID
-	midTaskExecutorIsMainThread        jni.MethodID
-	midTaskExecutorToString            jni.MethodID
-
 	clsDefaultTaskExecutor                 *jni.GlobalRef
 	midDefaultTaskExecutorCtor             jni.MethodID
 	midDefaultTaskExecutorExecuteOnDiskIO  jni.MethodID
@@ -41,11 +34,18 @@ var (
 	midArchTaskExecutorSetDelegate           jni.MethodID
 	midArchTaskExecutorExecuteOnDiskIO       jni.MethodID
 	midArchTaskExecutorPostToMainThread      jni.MethodID
-	midArchTaskExecutorIsMainThread          jni.MethodID
 	midArchTaskExecutorToString              jni.MethodID
 	midArchTaskExecutorGetInstance           jni.MethodID
 	midArchTaskExecutorGetMainThreadExecutor jni.MethodID
 	midArchTaskExecutorGetIOThreadExecutor   jni.MethodID
+	midArchTaskExecutorIsMainThread          jni.MethodID
+
+	clsTaskExecutor                    *jni.GlobalRef
+	midTaskExecutorExecuteOnDiskIO     jni.MethodID
+	midTaskExecutorPostToMainThread    jni.MethodID
+	midTaskExecutorExecuteOnMainThread jni.MethodID
+	midTaskExecutorIsMainThread        jni.MethodID
+	midTaskExecutorToString            jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -65,51 +65,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("androidx/arch/core/executor/TaskExecutor")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTaskExecutor = env.NewGlobalRef(&c.Object)
-
-		midTaskExecutorExecuteOnDiskIO, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTaskExecutor)), "executeOnDiskIO", "(Ljava/lang/Runnable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTaskExecutorPostToMainThread, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTaskExecutor)), "postToMainThread", "(Ljava/lang/Runnable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTaskExecutorExecuteOnMainThread, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTaskExecutor)), "executeOnMainThread", "(Ljava/lang/Runnable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTaskExecutorIsMainThread, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTaskExecutor)), "isMainThread", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTaskExecutorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTaskExecutor)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("androidx/arch/core/executor/DefaultTaskExecutor")
 	if err != nil {
@@ -182,13 +137,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midArchTaskExecutorIsMainThread, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArchTaskExecutor)), "isMainThread", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midArchTaskExecutorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArchTaskExecutor)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -211,6 +159,58 @@ func doInit(env *jni.Env) error {
 		}
 
 		midArchTaskExecutorGetIOThreadExecutor, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsArchTaskExecutor)), "getIOThreadExecutor", "()Ljava/util/concurrent/Executor;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midArchTaskExecutorIsMainThread, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsArchTaskExecutor)), "isMainThread", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/arch/core/executor/TaskExecutor")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTaskExecutor = env.NewGlobalRef(&c.Object)
+
+		midTaskExecutorExecuteOnDiskIO, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTaskExecutor)), "executeOnDiskIO", "(Ljava/lang/Runnable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTaskExecutorPostToMainThread, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTaskExecutor)), "postToMainThread", "(Ljava/lang/Runnable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTaskExecutorExecuteOnMainThread, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTaskExecutor)), "executeOnMainThread", "(Ljava/lang/Runnable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTaskExecutorIsMainThread, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTaskExecutor)), "isMainThread", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTaskExecutorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTaskExecutor)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

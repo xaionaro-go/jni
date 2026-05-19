@@ -32,6 +32,12 @@ func NewOffsetEdgeTreatment(vm *jni.VM, arg0 *jni.Object, arg1 float32) (*Offset
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsOffsetEdgeTreatment == nil {
+			return fmt.Errorf("com.google.android.material.shape.OffsetEdgeTreatment is not available on this device")
+		}
+		if midOffsetEdgeTreatmentCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.OffsetEdgeTreatment constructor (Lcom/google/android/material/shape/EdgeTreatment;F)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsOffsetEdgeTreatment)), midOffsetEdgeTreatmentCtor, jni.ObjectValue(arg0), jni.FloatValue(arg1))
 		if err != nil {

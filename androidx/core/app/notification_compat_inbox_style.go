@@ -21,6 +21,34 @@ type NotificationCompatInboxStyle struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNotificationCompatInboxStyle creates a new androidx.core.app.NotificationCompat$InboxStyle instance.
+func NewNotificationCompatInboxStyle(vm *jni.VM) (*NotificationCompatInboxStyle, error) {
+	var t NotificationCompatInboxStyle
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNotificationCompatInboxStyle == nil {
+			return fmt.Errorf("androidx.core.app.NotificationCompat$InboxStyle is not available on this device")
+		}
+		if midNotificationCompatInboxStyleCtor == nil {
+			return fmt.Errorf("androidx.core.app.NotificationCompat$InboxStyle constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNotificationCompatInboxStyle)), midNotificationCompatInboxStyleCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetBigContentTitle calls androidx.core.app.NotificationCompat$InboxStyle.setBigContentTitle.
 func (m *NotificationCompatInboxStyle) SetBigContentTitle(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

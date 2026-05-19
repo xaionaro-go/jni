@@ -23,6 +23,40 @@ type NodeInfoCollectionItemInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNodeInfoCollectionItemInfo creates a new android.view.accessibility.AccessibilityNodeInfo$CollectionItemInfo instance.
+func NewNodeInfoCollectionItemInfo(vm *jni.VM, arg0 int32, arg1 int32, arg2 int32, arg3 int32, arg4 bool) (*NodeInfoCollectionItemInfo, error) {
+	var t NodeInfoCollectionItemInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNodeInfoCollectionItemInfo == nil {
+			return fmt.Errorf("android.view.accessibility.AccessibilityNodeInfo$CollectionItemInfo is not available on this device")
+		}
+		if midNodeInfoCollectionItemInfoCtor == nil {
+			return fmt.Errorf("android.view.accessibility.AccessibilityNodeInfo$CollectionItemInfo constructor (IIIIZ)V is not available on this device")
+		}
+
+		var jArg4 uint8
+		if arg4 {
+			jArg4 = jniTrue
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNodeInfoCollectionItemInfo)), midNodeInfoCollectionItemInfoCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3), jni.BooleanValue(jArg4))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetColumnIndex calls android.view.accessibility.AccessibilityNodeInfo$CollectionItemInfo.getColumnIndex.
 func (m *NodeInfoCollectionItemInfo) GetColumnIndex() (int32, error) {
 	var result int32

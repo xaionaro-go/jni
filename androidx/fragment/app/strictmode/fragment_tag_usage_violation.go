@@ -32,6 +32,12 @@ func NewFragmentTagUsageViolation(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFragmentTagUsageViolation == nil {
+			return fmt.Errorf("androidx.fragment.app.strictmode.FragmentTagUsageViolation is not available on this device")
+		}
+		if midFragmentTagUsageViolationCtor == nil {
+			return fmt.Errorf("androidx.fragment.app.strictmode.FragmentTagUsageViolation constructor (Landroidx/fragment/app/Fragment;Landroid/view/ViewGroup;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFragmentTagUsageViolation)), midFragmentTagUsageViolationCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

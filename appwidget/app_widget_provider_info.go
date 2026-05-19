@@ -32,6 +32,12 @@ func NewAppWidgetProviderInfo(vm *jni.VM) (*AppWidgetProviderInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppWidgetProviderInfo == nil {
+			return fmt.Errorf("android.appwidget.AppWidgetProviderInfo is not available on this device")
+		}
+		if midAppWidgetProviderInfoCtor == nil {
+			return fmt.Errorf("android.appwidget.AppWidgetProviderInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppWidgetProviderInfo)), midAppWidgetProviderInfoCtor)
 		if err != nil {
 			return err
@@ -45,8 +51,8 @@ func NewAppWidgetProviderInfo(vm *jni.VM) (*AppWidgetProviderInfo, error) {
 	return &t, nil
 }
 
-// Clone0 calls android.appwidget.AppWidgetProviderInfo.clone.
-func (m *AppWidgetProviderInfo) Clone0() (*jni.Object, error) {
+// Clone calls android.appwidget.AppWidgetProviderInfo.clone.
+func (m *AppWidgetProviderInfo) Clone() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -54,13 +60,13 @@ func (m *AppWidgetProviderInfo) Clone0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midAppWidgetProviderInfoClone0 == nil {
+		if midAppWidgetProviderInfoClone == nil {
 			callErr = fmt.Errorf("android.appwidget.AppWidgetProviderInfo.clone is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midAppWidgetProviderInfoClone0,
+			midAppWidgetProviderInfoClone,
 		)
 		if callErr != nil {
 			return callErr
@@ -341,36 +347,4 @@ func (m *AppWidgetProviderInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) erro
 		return callErr
 	})
 	return callErr
-}
-
-// Clone0_1 calls android.appwidget.AppWidgetProviderInfo.clone.
-func (m *AppWidgetProviderInfo) Clone0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppWidgetProviderInfoClone0_1 == nil {
-			callErr = fmt.Errorf("android.appwidget.AppWidgetProviderInfo.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midAppWidgetProviderInfoClone0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }

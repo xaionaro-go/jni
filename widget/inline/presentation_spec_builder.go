@@ -23,6 +23,35 @@ type PresentationSpecBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPresentationSpecBuilder creates a new android.widget.inline.InlinePresentationSpec$Builder instance.
+func NewPresentationSpecBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*PresentationSpecBuilder, error) {
+	var t PresentationSpecBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPresentationSpecBuilder == nil {
+			return fmt.Errorf("android.widget.inline.InlinePresentationSpec$Builder is not available on this device")
+		}
+		if midPresentationSpecBuilderCtor == nil {
+			return fmt.Errorf("android.widget.inline.InlinePresentationSpec$Builder constructor (Landroid/util/Size;Landroid/util/Size;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPresentationSpecBuilder)), midPresentationSpecBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.widget.inline.InlinePresentationSpec$Builder.build.
 func (m *PresentationSpecBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

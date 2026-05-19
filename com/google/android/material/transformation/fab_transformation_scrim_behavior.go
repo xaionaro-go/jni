@@ -32,6 +32,12 @@ func NewFabTransformationScrimBehavior(vm *jni.VM, arg0 *jni.Object, arg1 *jni.O
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFabTransformationScrimBehavior == nil {
+			return fmt.Errorf("com.google.android.material.transformation.FabTransformationScrimBehavior is not available on this device")
+		}
+		if midFabTransformationScrimBehaviorCtor == nil {
+			return fmt.Errorf("com.google.android.material.transformation.FabTransformationScrimBehavior constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFabTransformationScrimBehavior)), midFabTransformationScrimBehaviorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

@@ -32,6 +32,12 @@ func NewSwipeRefreshLayout(vm *jni.VM, arg0 *jni.Object) (*SwipeRefreshLayout, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSwipeRefreshLayout == nil {
+			return fmt.Errorf("androidx.swiperefreshlayout.widget.SwipeRefreshLayout is not available on this device")
+		}
+		if midSwipeRefreshLayoutCtor == nil {
+			return fmt.Errorf("androidx.swiperefreshlayout.widget.SwipeRefreshLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSwipeRefreshLayout)), midSwipeRefreshLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -1115,34 +1121,6 @@ func (m *SwipeRefreshLayout) DispatchNestedPreFling(arg0 float32, arg1 float32) 
 	return result, callErr
 }
 
-// OnTouchEvent calls androidx.swiperefreshlayout.widget.SwipeRefreshLayout.onTouchEvent.
-func (m *SwipeRefreshLayout) OnTouchEvent(arg0 *jni.Object) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSwipeRefreshLayoutOnTouchEvent == nil {
-			callErr = fmt.Errorf("androidx.swiperefreshlayout.widget.SwipeRefreshLayout.onTouchEvent is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midSwipeRefreshLayoutOnTouchEvent, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.swiperefreshlayout.widget.SwipeRefreshLayout.toString.
 func (m *SwipeRefreshLayout) ToString() (string, error) {
 	var result string
@@ -1165,6 +1143,34 @@ func (m *SwipeRefreshLayout) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// OnTouchEvent calls androidx.swiperefreshlayout.widget.SwipeRefreshLayout.onTouchEvent.
+func (m *SwipeRefreshLayout) OnTouchEvent(arg0 *jni.Object) (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSwipeRefreshLayoutOnTouchEvent == nil {
+			callErr = fmt.Errorf("androidx.swiperefreshlayout.widget.SwipeRefreshLayout.onTouchEvent is not available on this device")
+			return callErr
+		}
+
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsSwipeRefreshLayout)),
+			midSwipeRefreshLayoutOnTouchEvent, jni.ObjectValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

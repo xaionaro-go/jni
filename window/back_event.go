@@ -32,6 +32,12 @@ func NewBackEvent(vm *jni.VM, arg0 float32, arg1 float32, arg2 float32, arg3 int
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBackEvent == nil {
+			return fmt.Errorf("android.window.BackEvent is not available on this device")
+		}
+		if midBackEventCtor == nil {
+			return fmt.Errorf("android.window.BackEvent constructor (FFFI)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBackEvent)), midBackEventCtor, jni.FloatValue(arg0), jni.FloatValue(arg1), jni.FloatValue(arg2), jni.IntValue(arg3))
 		if err != nil {

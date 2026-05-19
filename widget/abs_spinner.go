@@ -78,8 +78,8 @@ func (m *AbsSpinner) GetAccessibilityClassName() (*jni.Object, error) {
 	return result, callErr
 }
 
-// GetAdapter0 calls android.widget.AbsSpinner.getAdapter.
-func (m *AbsSpinner) GetAdapter0() (*jni.Object, error) {
+// GetAdapter calls android.widget.AbsSpinner.getAdapter.
+func (m *AbsSpinner) GetAdapter() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -87,13 +87,13 @@ func (m *AbsSpinner) GetAdapter0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midAbsSpinnerGetAdapter0 == nil {
+		if midAbsSpinnerGetAdapter == nil {
 			callErr = fmt.Errorf("android.widget.AbsSpinner.getAdapter is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midAbsSpinnerGetAdapter0,
+			midAbsSpinnerGetAdapter,
 		)
 		if callErr != nil {
 			return callErr
@@ -327,8 +327,8 @@ func (m *AbsSpinner) RequestLayout() error {
 	return callErr
 }
 
-// SetAdapter1 calls android.widget.AbsSpinner.setAdapter.
-func (m *AbsSpinner) SetAdapter1(arg0 *jni.Object) error {
+// SetAdapter calls android.widget.AbsSpinner.setAdapter.
+func (m *AbsSpinner) SetAdapter(arg0 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -336,14 +336,14 @@ func (m *AbsSpinner) SetAdapter1(arg0 *jni.Object) error {
 			callErr = err
 			return err
 		}
-		if midAbsSpinnerSetAdapter1 == nil {
+		if midAbsSpinnerSetAdapter == nil {
 			callErr = fmt.Errorf("android.widget.AbsSpinner.setAdapter is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midAbsSpinnerSetAdapter1, jni.ObjectValue(arg0),
+			midAbsSpinnerSetAdapter, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})
@@ -399,61 +399,6 @@ func (m *AbsSpinner) SetSelection2_1(arg0 int32, arg1 bool) error {
 		return callErr
 	})
 	return callErr
-}
-
-// SetAdapter1_1 calls android.widget.AbsSpinner.setAdapter.
-func (m *AbsSpinner) SetAdapter1_1(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAbsSpinnerSetAdapter1_1 == nil {
-			callErr = fmt.Errorf("android.widget.AbsSpinner.setAdapter is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAbsSpinnerSetAdapter1_1, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// GetAdapter0_1 calls android.widget.AbsSpinner.getAdapter.
-func (m *AbsSpinner) GetAdapter0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAbsSpinnerGetAdapter0_1 == nil {
-			callErr = fmt.Errorf("android.widget.AbsSpinner.getAdapter is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midAbsSpinnerGetAdapter0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls android.widget.AbsSpinner.toString.

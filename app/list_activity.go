@@ -30,6 +30,12 @@ func NewListActivity(vm *jni.VM) (*ListActivity, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsListActivity == nil {
+			return fmt.Errorf("android.app.ListActivity is not available on this device")
+		}
+		if midListActivityCtor == nil {
+			return fmt.Errorf("android.app.ListActivity constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsListActivity)), midListActivityCtor)
 		if err != nil {
 			return err

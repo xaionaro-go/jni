@@ -23,6 +23,34 @@ type AdSelectionFromOutcomesConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAdSelectionFromOutcomesConfigBuilder creates a new android.adservices.adselection.AdSelectionFromOutcomesConfig$Builder instance.
+func NewAdSelectionFromOutcomesConfigBuilder(vm *jni.VM) (*AdSelectionFromOutcomesConfigBuilder, error) {
+	var t AdSelectionFromOutcomesConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAdSelectionFromOutcomesConfigBuilder == nil {
+			return fmt.Errorf("android.adservices.adselection.AdSelectionFromOutcomesConfig$Builder is not available on this device")
+		}
+		if midAdSelectionFromOutcomesConfigBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.adselection.AdSelectionFromOutcomesConfig$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAdSelectionFromOutcomesConfigBuilder)), midAdSelectionFromOutcomesConfigBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.adselection.AdSelectionFromOutcomesConfig$Builder.build.
 func (m *AdSelectionFromOutcomesConfigBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

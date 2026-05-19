@@ -31,13 +31,6 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: sendBroadcastSync
-          go_name: SendBroadcastSync
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
-          returns: void
-          error: true
       static_methods:
         - java_method: getInstance
           go_name: GetInstance
@@ -45,4 +38,11 @@ classes:
             - java_type: android.content.Context
               go_name: arg0
           returns: androidx.localbroadcastmanager.content.LocalBroadcastManager
+          error: true
+        - java_method: sendBroadcastSync
+          go_name: SendBroadcastSync
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: void
           error: true

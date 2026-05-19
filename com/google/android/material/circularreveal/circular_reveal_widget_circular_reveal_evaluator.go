@@ -23,45 +23,36 @@ type CircularRevealWidgetCircularRevealEvaluator struct {
 	Obj *jni.GlobalRef
 }
 
-// Evaluate3 calls com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealEvaluator.evaluate.
-func (m *CircularRevealWidgetCircularRevealEvaluator) Evaluate3(
-	arg0 float32,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
+// NewCircularRevealWidgetCircularRevealEvaluator creates a new com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealEvaluator instance.
+func NewCircularRevealWidgetCircularRevealEvaluator(vm *jni.VM) (*CircularRevealWidgetCircularRevealEvaluator, error) {
+	var t CircularRevealWidgetCircularRevealEvaluator
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
 		if err := ensureInit(env); err != nil {
-			callErr = err
 			return err
 		}
-		if midCircularRevealWidgetCircularRevealEvaluatorEvaluate3 == nil {
-			callErr = fmt.Errorf("com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealEvaluator.evaluate is not available on this device")
-			return callErr
+		if clsCircularRevealWidgetCircularRevealEvaluator == nil {
+			return fmt.Errorf("com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealEvaluator is not available on this device")
 		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCircularRevealWidgetCircularRevealEvaluatorEvaluate3, jni.FloatValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
-		)
-		if callErr != nil {
-			return callErr
+		if midCircularRevealWidgetCircularRevealEvaluatorCtor == nil {
+			return fmt.Errorf("com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealEvaluator constructor ()V is not available on this device")
 		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealEvaluator)), midCircularRevealWidgetCircularRevealEvaluatorCtor)
+		if err != nil {
+			return err
 		}
-		return callErr
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
 	})
-	return result, callErr
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
 }
 
-// Evaluate3_1 calls com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealEvaluator.evaluate.
-func (m *CircularRevealWidgetCircularRevealEvaluator) Evaluate3_1(
+// Evaluate calls com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealEvaluator.evaluate.
+func (m *CircularRevealWidgetCircularRevealEvaluator) Evaluate(
 	arg0 float32,
 	arg1 *jni.Object,
 	arg2 *jni.Object,
@@ -73,14 +64,14 @@ func (m *CircularRevealWidgetCircularRevealEvaluator) Evaluate3_1(
 			callErr = err
 			return err
 		}
-		if midCircularRevealWidgetCircularRevealEvaluatorEvaluate3_1 == nil {
+		if midCircularRevealWidgetCircularRevealEvaluatorEvaluate == nil {
 			callErr = fmt.Errorf("com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealEvaluator.evaluate is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midCircularRevealWidgetCircularRevealEvaluatorEvaluate3_1, jni.FloatValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
+			midCircularRevealWidgetCircularRevealEvaluatorEvaluate, jni.FloatValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
 		)
 		if callErr != nil {
 			return callErr

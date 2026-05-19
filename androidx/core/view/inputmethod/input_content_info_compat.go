@@ -32,6 +32,12 @@ func NewInputContentInfoCompat(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, a
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInputContentInfoCompat == nil {
+			return fmt.Errorf("androidx.core.view.inputmethod.InputContentInfoCompat is not available on this device")
+		}
+		if midInputContentInfoCompatCtor == nil {
+			return fmt.Errorf("androidx.core.view.inputmethod.InputContentInfoCompat constructor (Landroid/net/Uri;Landroid/content/ClipDescription;Landroid/net/Uri;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInputContentInfoCompat)), midInputContentInfoCompatCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
 		if err != nil {

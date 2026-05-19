@@ -9,13 +9,18 @@ classes:
       go_type: ActivityResultContract
     - java_class: androidx.activity.result.contract.ActivityResultContract$SynchronousResult
       go_type: ActivityResultContractSynchronousResult
+      obtain: constructor
+      constructor_params:
+        - java_type: T
+          go_name: arg0
     - java_class: androidx.activity.result.contract.ActivityResultContracts
       go_type: ActivityResultContracts
     - java_class: androidx.activity.result.contract.ActivityResultContracts$CaptureVideo
       go_type: ActivityResultContractsCaptureVideo
+      obtain: constructor
       methods:
         - java_method: createIntent
-          go_name: CreateIntent2
+          go_name: CreateIntent
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -24,7 +29,7 @@ classes:
           returns: android.content.Intent
           error: true
         - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2
+          go_name: GetSynchronousResult
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -33,7 +38,7 @@ classes:
           returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult<java.lang.Boolean>
           error: true
         - java_method: parseResult
-          go_name: ParseResult2
+          go_name: ParseResult
           params:
             - java_type: int
               go_name: arg0
@@ -41,38 +46,12 @@ classes:
               go_name: arg1
           returns: java.lang.Boolean
           error: true
-        - java_method: createIntent
-          go_name: CreateIntent2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: android.content.Intent
-          error: true
-        - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult
-          error: true
-        - java_method: parseResult
-          go_name: ParseResult2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: java.lang.Object
-          error: true
     - java_class: androidx.activity.result.contract.ActivityResultContracts$CreateDocument
       go_type: ActivityResultContractsCreateDocument
+      obtain: constructor
       methods:
         - java_method: createIntent
-          go_name: CreateIntent2
+          go_name: CreateIntent
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -81,7 +60,7 @@ classes:
           returns: android.content.Intent
           error: true
         - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2
+          go_name: GetSynchronousResult
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -90,46 +69,20 @@ classes:
           returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult<android.net.Uri>
           error: true
         - java_method: parseResult
-          go_name: ParseResult2
+          go_name: ParseResult
           params:
             - java_type: int
               go_name: arg0
             - java_type: android.content.Intent
               go_name: arg1
           returns: android.net.Uri
-          error: true
-        - java_method: createIntent
-          go_name: CreateIntent2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: android.content.Intent
-          error: true
-        - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult
-          error: true
-        - java_method: parseResult
-          go_name: ParseResult2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: java.lang.Object
           error: true
     - java_class: androidx.activity.result.contract.ActivityResultContracts$GetContent
       go_type: ActivityResultContractsGetContent
+      obtain: constructor
       methods:
         - java_method: createIntent
-          go_name: CreateIntent2
+          go_name: CreateIntent
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -138,7 +91,7 @@ classes:
           returns: android.content.Intent
           error: true
         - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2
+          go_name: GetSynchronousResult
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -147,46 +100,20 @@ classes:
           returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult<android.net.Uri>
           error: true
         - java_method: parseResult
-          go_name: ParseResult2
+          go_name: ParseResult
           params:
             - java_type: int
               go_name: arg0
             - java_type: android.content.Intent
               go_name: arg1
           returns: android.net.Uri
-          error: true
-        - java_method: createIntent
-          go_name: CreateIntent2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: android.content.Intent
-          error: true
-        - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult
-          error: true
-        - java_method: parseResult
-          go_name: ParseResult2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: java.lang.Object
           error: true
     - java_class: androidx.activity.result.contract.ActivityResultContracts$GetMultipleContents
       go_type: ActivityResultContractsGetMultipleContents
+      obtain: constructor
       methods:
         - java_method: createIntent
-          go_name: CreateIntent2
+          go_name: CreateIntent
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -195,7 +122,7 @@ classes:
           returns: android.content.Intent
           error: true
         - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2
+          go_name: GetSynchronousResult
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -204,46 +131,20 @@ classes:
           returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult<java.util.List<android.net.Uri>>
           error: true
         - java_method: parseResult
-          go_name: ParseResult2
+          go_name: ParseResult
           params:
             - java_type: int
               go_name: arg0
             - java_type: android.content.Intent
               go_name: arg1
           returns: java.util.List<android.net.Uri>
-          error: true
-        - java_method: createIntent
-          go_name: CreateIntent2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: android.content.Intent
-          error: true
-        - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult
-          error: true
-        - java_method: parseResult
-          go_name: ParseResult2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: java.lang.Object
           error: true
     - java_class: androidx.activity.result.contract.ActivityResultContracts$OpenDocument
       go_type: ActivityResultContractsOpenDocument
+      obtain: constructor
       methods:
         - java_method: createIntent
-          go_name: CreateIntent2
+          go_name: CreateIntent
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -252,7 +153,7 @@ classes:
           returns: android.content.Intent
           error: true
         - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2
+          go_name: GetSynchronousResult
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -261,46 +162,20 @@ classes:
           returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult<android.net.Uri>
           error: true
         - java_method: parseResult
-          go_name: ParseResult2
+          go_name: ParseResult
           params:
             - java_type: int
               go_name: arg0
             - java_type: android.content.Intent
               go_name: arg1
           returns: android.net.Uri
-          error: true
-        - java_method: createIntent
-          go_name: CreateIntent2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: android.content.Intent
-          error: true
-        - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult
-          error: true
-        - java_method: parseResult
-          go_name: ParseResult2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: java.lang.Object
           error: true
     - java_class: androidx.activity.result.contract.ActivityResultContracts$OpenDocumentTree
       go_type: ActivityResultContractsOpenDocumentTree
+      obtain: constructor
       methods:
         - java_method: createIntent
-          go_name: CreateIntent2
+          go_name: CreateIntent
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -309,7 +184,7 @@ classes:
           returns: android.content.Intent
           error: true
         - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2
+          go_name: GetSynchronousResult
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -318,7 +193,7 @@ classes:
           returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult<android.net.Uri>
           error: true
         - java_method: parseResult
-          go_name: ParseResult2
+          go_name: ParseResult
           params:
             - java_type: int
               go_name: arg0
@@ -326,38 +201,12 @@ classes:
               go_name: arg1
           returns: android.net.Uri
           error: true
-        - java_method: createIntent
-          go_name: CreateIntent2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: android.content.Intent
-          error: true
-        - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult
-          error: true
-        - java_method: parseResult
-          go_name: ParseResult2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: java.lang.Object
-          error: true
     - java_class: androidx.activity.result.contract.ActivityResultContracts$OpenMultipleDocuments
       go_type: ActivityResultContractsOpenMultipleDocuments
+      obtain: constructor
       methods:
         - java_method: createIntent
-          go_name: CreateIntent2
+          go_name: CreateIntent
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -366,7 +215,7 @@ classes:
           returns: android.content.Intent
           error: true
         - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2
+          go_name: GetSynchronousResult
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -375,7 +224,7 @@ classes:
           returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult<java.util.List<android.net.Uri>>
           error: true
         - java_method: parseResult
-          go_name: ParseResult2
+          go_name: ParseResult
           params:
             - java_type: int
               go_name: arg0
@@ -383,38 +232,12 @@ classes:
               go_name: arg1
           returns: java.util.List<android.net.Uri>
           error: true
-        - java_method: createIntent
-          go_name: CreateIntent2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: android.content.Intent
-          error: true
-        - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult
-          error: true
-        - java_method: parseResult
-          go_name: ParseResult2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: java.lang.Object
-          error: true
     - java_class: androidx.activity.result.contract.ActivityResultContracts$PickContact
       go_type: ActivityResultContractsPickContact
+      obtain: constructor
       methods:
         - java_method: createIntent
-          go_name: CreateIntent2
+          go_name: CreateIntent
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -423,7 +246,7 @@ classes:
           returns: android.content.Intent
           error: true
         - java_method: parseResult
-          go_name: ParseResult2
+          go_name: ParseResult
           params:
             - java_type: int
               go_name: arg0
@@ -431,29 +254,12 @@ classes:
               go_name: arg1
           returns: android.net.Uri
           error: true
-        - java_method: createIntent
-          go_name: CreateIntent2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: android.content.Intent
-          error: true
-        - java_method: parseResult
-          go_name: ParseResult2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: java.lang.Object
-          error: true
     - java_class: androidx.activity.result.contract.ActivityResultContracts$PickMultipleVisualMedia
       go_type: ActivityResultContractsPickMultipleVisualMedia
+      obtain: constructor
       methods:
         - java_method: createIntent
-          go_name: CreateIntent2
+          go_name: CreateIntent
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -462,7 +268,7 @@ classes:
           returns: android.content.Intent
           error: true
         - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2
+          go_name: GetSynchronousResult
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -471,7 +277,7 @@ classes:
           returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult<java.util.List<android.net.Uri>>
           error: true
         - java_method: parseResult
-          go_name: ParseResult2
+          go_name: ParseResult
           params:
             - java_type: int
               go_name: arg0
@@ -479,38 +285,12 @@ classes:
               go_name: arg1
           returns: java.util.List<android.net.Uri>
           error: true
-        - java_method: createIntent
-          go_name: CreateIntent2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: android.content.Intent
-          error: true
-        - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult
-          error: true
-        - java_method: parseResult
-          go_name: ParseResult2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: java.lang.Object
-          error: true
     - java_class: androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia
       go_type: ActivityResultContractsPickVisualMedia
+      obtain: constructor
       methods:
         - java_method: createIntent
-          go_name: CreateIntent2
+          go_name: CreateIntent
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -519,7 +299,7 @@ classes:
           returns: android.content.Intent
           error: true
         - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2
+          go_name: GetSynchronousResult
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -528,40 +308,13 @@ classes:
           returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult<android.net.Uri>
           error: true
         - java_method: parseResult
-          go_name: ParseResult2
+          go_name: ParseResult
           params:
             - java_type: int
               go_name: arg0
             - java_type: android.content.Intent
               go_name: arg1
           returns: android.net.Uri
-          error: true
-        - java_method: createIntent
-          go_name: CreateIntent2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: android.content.Intent
-          error: true
-        - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult
-          error: true
-        - java_method: parseResult
-          go_name: ParseResult2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: java.lang.Object
           error: true
       static_methods:
         - java_method: isPhotoPickerAvailable
@@ -575,11 +328,44 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
+        - java_method: isSystemPickerAvailable$activity_release
+          go_name: IsSystemPickerAvailableActivityRelease
+          returns: boolean
+          error: true
+        - java_method: isSystemFallbackPickerAvailable$activity_release
+          go_name: IsSystemFallbackPickerAvailableActivityRelease
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getSystemFallbackPicker$activity_release
+          go_name: GetSystemFallbackPickerActivityRelease
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: android.content.pm.ResolveInfo
+          error: true
+        - java_method: isGmsPickerAvailable$activity_release
+          go_name: IsGmsPickerAvailableActivityRelease
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getGmsPicker$activity_release
+          go_name: GetGmsPickerActivityRelease
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: android.content.pm.ResolveInfo
+          error: true
     - java_class: androidx.activity.result.contract.ActivityResultContracts$RequestMultiplePermissions
       go_type: ActivityResultContractsRequestMultiplePermissions
+      obtain: constructor
       methods:
         - java_method: createIntent
-          go_name: CreateIntent2
+          go_name: CreateIntent
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -587,23 +373,18 @@ classes:
               go_name: arg1
           returns: android.content.Intent
           error: true
+    - java_class: androidx.activity.result.contract.ActivityResultContracts$RequestPermission
+      go_type: ActivityResultContractsRequestPermission
+      obtain: constructor
+      methods:
         - java_method: createIntent
-          go_name: CreateIntent2_1
+          go_name: CreateIntent
           params:
             - java_type: android.content.Context
               go_name: arg0
-            - java_type: java.lang.Object
+            - java_type: String
               go_name: arg1
           returns: android.content.Intent
-          error: true
-        - java_method: getSynchronousResult
-          go_name: GetSynchronousResult
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult
           error: true
         - java_method: parseResult
           go_name: ParseResult
@@ -612,31 +393,10 @@ classes:
               go_name: arg0
             - java_type: android.content.Intent
               go_name: arg1
-          returns: java.lang.Object
-          error: true
-    - java_class: androidx.activity.result.contract.ActivityResultContracts$RequestPermission
-      go_type: ActivityResultContractsRequestPermission
-      methods:
-        - java_method: createIntent
-          go_name: CreateIntent2
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: android.content.Intent
-          error: true
-        - java_method: parseResult
-          go_name: ParseResult2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
           returns: java.lang.Boolean
           error: true
         - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2
+          go_name: GetSynchronousResult
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -644,38 +404,12 @@ classes:
               go_name: arg1
           returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult<java.lang.Boolean>
           error: true
-        - java_method: createIntent
-          go_name: CreateIntent2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: android.content.Intent
-          error: true
-        - java_method: parseResult
-          go_name: ParseResult2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: java.lang.Object
-          error: true
-        - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult
-          error: true
     - java_class: androidx.activity.result.contract.ActivityResultContracts$StartActivityForResult
       go_type: ActivityResultContractsStartActivityForResult
+      obtain: constructor
       methods:
         - java_method: createIntent
-          go_name: CreateIntent2
+          go_name: CreateIntent
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -684,7 +418,7 @@ classes:
           returns: android.content.Intent
           error: true
         - java_method: parseResult
-          go_name: ParseResult2
+          go_name: ParseResult
           params:
             - java_type: int
               go_name: arg0
@@ -692,29 +426,12 @@ classes:
               go_name: arg1
           returns: androidx.activity.result.ActivityResult
           error: true
-        - java_method: createIntent
-          go_name: CreateIntent2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: android.content.Intent
-          error: true
-        - java_method: parseResult
-          go_name: ParseResult2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: java.lang.Object
-          error: true
     - java_class: androidx.activity.result.contract.ActivityResultContracts$StartIntentSenderForResult
       go_type: ActivityResultContractsStartIntentSenderForResult
+      obtain: constructor
       methods:
         - java_method: createIntent
-          go_name: CreateIntent2
+          go_name: CreateIntent
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -723,7 +440,7 @@ classes:
           returns: android.content.Intent
           error: true
         - java_method: parseResult
-          go_name: ParseResult2
+          go_name: ParseResult
           params:
             - java_type: int
               go_name: arg0
@@ -731,29 +448,12 @@ classes:
               go_name: arg1
           returns: androidx.activity.result.ActivityResult
           error: true
-        - java_method: createIntent
-          go_name: CreateIntent2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: android.content.Intent
-          error: true
-        - java_method: parseResult
-          go_name: ParseResult2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: java.lang.Object
-          error: true
     - java_class: androidx.activity.result.contract.ActivityResultContracts$TakePicture
       go_type: ActivityResultContractsTakePicture
+      obtain: constructor
       methods:
         - java_method: createIntent
-          go_name: CreateIntent2
+          go_name: CreateIntent
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -762,7 +462,7 @@ classes:
           returns: android.content.Intent
           error: true
         - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2
+          go_name: GetSynchronousResult
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -771,7 +471,7 @@ classes:
           returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult<java.lang.Boolean>
           error: true
         - java_method: parseResult
-          go_name: ParseResult2
+          go_name: ParseResult
           params:
             - java_type: int
               go_name: arg0
@@ -779,38 +479,12 @@ classes:
               go_name: arg1
           returns: java.lang.Boolean
           error: true
-        - java_method: createIntent
-          go_name: CreateIntent2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: android.content.Intent
-          error: true
-        - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult
-          error: true
-        - java_method: parseResult
-          go_name: ParseResult2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: java.lang.Object
-          error: true
     - java_class: androidx.activity.result.contract.ActivityResultContracts$TakePicturePreview
       go_type: ActivityResultContractsTakePicturePreview
+      obtain: constructor
       methods:
         - java_method: createIntent
-          go_name: CreateIntent2
+          go_name: CreateIntent
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -819,7 +493,7 @@ classes:
           returns: android.content.Intent
           error: true
         - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2
+          go_name: GetSynchronousResult
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -828,46 +502,20 @@ classes:
           returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult<android.graphics.Bitmap>
           error: true
         - java_method: parseResult
-          go_name: ParseResult2
+          go_name: ParseResult
           params:
             - java_type: int
               go_name: arg0
             - java_type: android.content.Intent
               go_name: arg1
           returns: android.graphics.Bitmap
-          error: true
-        - java_method: createIntent
-          go_name: CreateIntent2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: android.content.Intent
-          error: true
-        - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult
-          error: true
-        - java_method: parseResult
-          go_name: ParseResult2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: java.lang.Object
           error: true
     - java_class: androidx.activity.result.contract.ActivityResultContracts$TakeVideo
       go_type: ActivityResultContractsTakeVideo
+      obtain: constructor
       methods:
         - java_method: createIntent
-          go_name: CreateIntent2
+          go_name: CreateIntent
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -876,7 +524,7 @@ classes:
           returns: android.content.Intent
           error: true
         - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2
+          go_name: GetSynchronousResult
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -885,7 +533,7 @@ classes:
           returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult<android.graphics.Bitmap>
           error: true
         - java_method: parseResult
-          go_name: ParseResult2
+          go_name: ParseResult
           params:
             - java_type: int
               go_name: arg0
@@ -893,33 +541,35 @@ classes:
               go_name: arg1
           returns: android.graphics.Bitmap
           error: true
+abstract_callbacks:
+    - java_class: androidx.activity.result.contract.ActivityResultContract
+      go_type: ActivityResultContractCallback
+      methods:
         - java_method: createIntent
-          go_name: CreateIntent2_1
           params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
+            - android.content.Context
+            - java.lang.Object
           returns: android.content.Intent
-          error: true
-        - java_method: getSynchronousResult
-          go_name: GetSynchronousResult2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult
-          error: true
+          go_field: CreateIntent
         - java_method: parseResult
-          go_name: ParseResult2_1
           params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
+            - int
+            - android.content.Intent
           returns: java.lang.Object
-          error: true
+          go_field: ParseResult
+        - java_method: getSynchronousResult
+          params:
+            - android.content.Context
+            - java.lang.Object
+          returns: androidx.activity.result.contract.ActivityResultContract$SynchronousResult
+          go_field: GetSynchronousResult
+      type_param_bounds:
+        - java.lang.Object
+        - java.lang.Object
+abstract_callback_eligibility:
+    - java_class: androidx.activity.result.contract.ActivityResultContract
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
     - go_name: Companion
       value: "0"

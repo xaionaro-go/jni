@@ -32,6 +32,12 @@ func NewNetworkScanRequest(vm *jni.VM, arg0 int32, arg1 *jni.Object, arg2 int32,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNetworkScanRequest == nil {
+			return fmt.Errorf("android.telephony.NetworkScanRequest is not available on this device")
+		}
+		if midNetworkScanRequestCtor == nil {
+			return fmt.Errorf("android.telephony.NetworkScanRequest constructor (I[Landroid/telephony/RadioAccessSpecifier;IIZILjava/util/ArrayList;)V is not available on this device")
+		}
 
 		var jArg4 uint8
 		if arg4 {
@@ -320,29 +326,6 @@ func (m *NetworkScanRequest) HashCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.telephony.NetworkScanRequest.writeToParcel.
-func (m *NetworkScanRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midNetworkScanRequestWriteToParcel == nil {
-			callErr = fmt.Errorf("android.telephony.NetworkScanRequest.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midNetworkScanRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.telephony.NetworkScanRequest.toString.
 func (m *NetworkScanRequest) ToString() (string, error) {
 	var result string
@@ -368,4 +351,27 @@ func (m *NetworkScanRequest) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.telephony.NetworkScanRequest.writeToParcel.
+func (m *NetworkScanRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midNetworkScanRequestWriteToParcel == nil {
+			callErr = fmt.Errorf("android.telephony.NetworkScanRequest.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsNetworkScanRequest)),
+			midNetworkScanRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

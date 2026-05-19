@@ -32,6 +32,12 @@ func NewTableResponse(vm *jni.VM, arg0 int32, arg1 int32, arg2 int32, arg3 *jni.
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTableResponse == nil {
+			return fmt.Errorf("android.media.tv.TableResponse is not available on this device")
+		}
+		if midTableResponseCtor == nil {
+			return fmt.Errorf("android.media.tv.TableResponse constructor (IIILandroid/net/Uri;II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTableResponse)), midTableResponseCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2), jni.ObjectValue(arg3), jni.IntValue(arg4), jni.IntValue(arg5))
 		if err != nil {
@@ -217,29 +223,6 @@ func (m *TableResponse) GetVersion() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.media.tv.TableResponse.writeToParcel.
-func (m *TableResponse) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTableResponseWriteToParcel == nil {
-			callErr = fmt.Errorf("android.media.tv.TableResponse.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midTableResponseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.media.tv.TableResponse.toString.
 func (m *TableResponse) ToString() (string, error) {
 	var result string
@@ -265,4 +248,27 @@ func (m *TableResponse) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.media.tv.TableResponse.writeToParcel.
+func (m *TableResponse) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midTableResponseWriteToParcel == nil {
+			callErr = fmt.Errorf("android.media.tv.TableResponse.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsTableResponse)),
+			midTableResponseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

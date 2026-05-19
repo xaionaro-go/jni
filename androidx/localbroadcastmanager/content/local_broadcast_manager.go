@@ -97,29 +97,6 @@ func (m *LocalBroadcastManager) SendBroadcast(arg0 *jni.Object) (bool, error) {
 	return result, callErr
 }
 
-// SendBroadcastSync calls androidx.localbroadcastmanager.content.LocalBroadcastManager.sendBroadcastSync.
-func (m *LocalBroadcastManager) SendBroadcastSync(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midLocalBroadcastManagerSendBroadcastSync == nil {
-			callErr = fmt.Errorf("androidx.localbroadcastmanager.content.LocalBroadcastManager.sendBroadcastSync is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midLocalBroadcastManagerSendBroadcastSync, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.localbroadcastmanager.content.LocalBroadcastManager.toString.
 func (m *LocalBroadcastManager) ToString() (string, error) {
 	var result string
@@ -178,4 +155,27 @@ func (m *LocalBroadcastManager) GetInstance(arg0 *jni.Object) (*jni.Object, erro
 		return callErr
 	})
 	return result, callErr
+}
+
+// SendBroadcastSync calls androidx.localbroadcastmanager.content.LocalBroadcastManager.sendBroadcastSync.
+func (m *LocalBroadcastManager) SendBroadcastSync(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midLocalBroadcastManagerSendBroadcastSync == nil {
+			callErr = fmt.Errorf("androidx.localbroadcastmanager.content.LocalBroadcastManager.sendBroadcastSync is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsLocalBroadcastManager)),
+			midLocalBroadcastManagerSendBroadcastSync, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -23,6 +23,46 @@ type AttributesMediaSize struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAttributesMediaSize creates a new android.print.PrintAttributes$MediaSize instance.
+func NewAttributesMediaSize(vm *jni.VM, arg0 string, arg1 string, arg2 int32, arg3 int32) (*AttributesMediaSize, error) {
+	var t AttributesMediaSize
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAttributesMediaSize == nil {
+			return fmt.Errorf("android.print.PrintAttributes$MediaSize is not available on this device")
+		}
+		if midAttributesMediaSizeCtor == nil {
+			return fmt.Errorf("android.print.PrintAttributes$MediaSize constructor (Ljava/lang/String;Ljava/lang/String;II)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAttributesMediaSize)), midAttributesMediaSizeCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(&jArg1.Object), jni.IntValue(arg2), jni.IntValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AsLandscape calls android.print.PrintAttributes$MediaSize.asLandscape.
 func (m *AttributesMediaSize) AsLandscape() (*jni.Object, error) {
 	var result *jni.Object
@@ -286,8 +326,8 @@ func (m *AttributesMediaSize) ToString() (string, error) {
 			return callErr
 		}
 		var resultObj *jni.Object
-		resultObj, callErr = env.CallObjectMethod(
-			m.Obj,
+		resultObj, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsAttributesMediaSize)),
 			midAttributesMediaSizeToString,
 		)
 		if callErr != nil {

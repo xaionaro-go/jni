@@ -32,6 +32,12 @@ func NewMaterialDynamicColors(vm *jni.VM) (*MaterialDynamicColors, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialDynamicColors == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.MaterialDynamicColors is not available on this device")
+		}
+		if midMaterialDynamicColorsCtor == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.MaterialDynamicColors constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialDynamicColors)), midMaterialDynamicColorsCtor)
 		if err != nil {
 			return err
@@ -2030,38 +2036,6 @@ func (m *MaterialDynamicColors) TextSecondaryAndTertiaryInverseDisabled() (*jni.
 	return result, callErr
 }
 
-// TextHintInverse calls com.google.android.material.color.utilities.MaterialDynamicColors.textHintInverse.
-func (m *MaterialDynamicColors) TextHintInverse() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialDynamicColorsTextHintInverse == nil {
-			callErr = fmt.Errorf("com.google.android.material.color.utilities.MaterialDynamicColors.textHintInverse is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialDynamicColorsTextHintInverse,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.color.utilities.MaterialDynamicColors.toString.
 func (m *MaterialDynamicColors) ToString() (string, error) {
 	var result string
@@ -2084,6 +2058,38 @@ func (m *MaterialDynamicColors) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// TextHintInverse calls com.google.android.material.color.utilities.MaterialDynamicColors.textHintInverse.
+func (m *MaterialDynamicColors) TextHintInverse() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midMaterialDynamicColorsTextHintInverse == nil {
+			callErr = fmt.Errorf("com.google.android.material.color.utilities.MaterialDynamicColors.textHintInverse is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsMaterialDynamicColors)),
+			midMaterialDynamicColorsTextHintInverse,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
 		return callErr
 	})
 	return result, callErr

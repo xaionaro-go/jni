@@ -30,6 +30,12 @@ func NewLocalActivityManager(vm *jni.VM, arg0 *jni.Object, arg1 bool) (*LocalAct
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLocalActivityManager == nil {
+			return fmt.Errorf("android.app.LocalActivityManager is not available on this device")
+		}
+		if midLocalActivityManagerCtor == nil {
+			return fmt.Errorf("android.app.LocalActivityManager constructor (Landroid/app/Activity;Z)V is not available on this device")
+		}
 
 		var jArg1 uint8
 		if arg1 {

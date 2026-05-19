@@ -529,29 +529,6 @@ func (m *Device) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.hardware.usb.UsbDevice.writeToParcel.
-func (m *Device) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDeviceWriteToParcel == nil {
-			callErr = fmt.Errorf("android.hardware.usb.UsbDevice.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midDeviceWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // GetDeviceId1_1 calls android.hardware.usb.UsbDevice.getDeviceId.
 func (m *Device) GetDeviceId1_1(arg0 string) (int32, error) {
 	var result int32
@@ -609,4 +586,27 @@ func (m *Device) GetDeviceName1_1(arg0 int32) (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.hardware.usb.UsbDevice.writeToParcel.
+func (m *Device) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDeviceWriteToParcel == nil {
+			callErr = fmt.Errorf("android.hardware.usb.UsbDevice.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsDevice)),
+			midDeviceWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

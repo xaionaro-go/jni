@@ -23,6 +23,34 @@ type EditorBoundsInfoBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewEditorBoundsInfoBuilder creates a new android.view.inputmethod.EditorBoundsInfo$Builder instance.
+func NewEditorBoundsInfoBuilder(vm *jni.VM) (*EditorBoundsInfoBuilder, error) {
+	var t EditorBoundsInfoBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsEditorBoundsInfoBuilder == nil {
+			return fmt.Errorf("android.view.inputmethod.EditorBoundsInfo$Builder is not available on this device")
+		}
+		if midEditorBoundsInfoBuilderCtor == nil {
+			return fmt.Errorf("android.view.inputmethod.EditorBoundsInfo$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEditorBoundsInfoBuilder)), midEditorBoundsInfoBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.view.inputmethod.EditorBoundsInfo$Builder.build.
 func (m *EditorBoundsInfoBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

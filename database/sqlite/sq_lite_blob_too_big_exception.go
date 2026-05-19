@@ -32,6 +32,12 @@ func NewSQLiteBlobTooBigException(vm *jni.VM) (*SQLiteBlobTooBigException, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSQLiteBlobTooBigException == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteBlobTooBigException is not available on this device")
+		}
+		if midSQLiteBlobTooBigExceptionCtor == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteBlobTooBigException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSQLiteBlobTooBigException)), midSQLiteBlobTooBigExceptionCtor)
 		if err != nil {
 			return err

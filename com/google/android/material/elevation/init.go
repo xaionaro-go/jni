@@ -23,6 +23,13 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsSurfaceColors                     *jni.GlobalRef
+	midSurfaceColorsGetColor             jni.MethodID
+	midSurfaceColorsToString             jni.MethodID
+	midSurfaceColorsValues               jni.MethodID
+	midSurfaceColorsValueOf              jni.MethodID
+	midSurfaceColorsGetColorForElevation jni.MethodID
+
 	clsOverlayProvider                                                 *jni.GlobalRef
 	midOverlayProviderCtor                                             jni.MethodID
 	midOverlayProviderCompositeOverlayWithThemeSurfaceColorIfNeeded2   jni.MethodID
@@ -36,15 +43,8 @@ var (
 	midOverlayProviderIsThemeElevationOverlayEnabled                   jni.MethodID
 	midOverlayProviderGetThemeElevationOverlayColor                    jni.MethodID
 	midOverlayProviderGetThemeSurfaceColor                             jni.MethodID
-	midOverlayProviderGetParentAbsoluteElevation                       jni.MethodID
 	midOverlayProviderToString                                         jni.MethodID
-
-	clsSurfaceColors                     *jni.GlobalRef
-	midSurfaceColorsGetColor             jni.MethodID
-	midSurfaceColorsToString             jni.MethodID
-	midSurfaceColorsValues               jni.MethodID
-	midSurfaceColorsValueOf              jni.MethodID
-	midSurfaceColorsGetColorForElevation jni.MethodID
+	midOverlayProviderGetParentAbsoluteElevation                       jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -64,6 +64,51 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("com/google/android/material/elevation/SurfaceColors")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSurfaceColors = env.NewGlobalRef(&c.Object)
+
+		midSurfaceColorsGetColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSurfaceColors)), "getColor", "(Landroid/content/Context;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSurfaceColorsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSurfaceColors)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSurfaceColorsValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSurfaceColors)), "values", "()[Lcom/google/android/material/elevation/SurfaceColors;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSurfaceColorsValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSurfaceColors)), "valueOf", "(Ljava/lang/String;)Lcom/google/android/material/elevation/SurfaceColors;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSurfaceColorsGetColorForElevation, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSurfaceColors)), "getColorForElevation", "(Landroid/content/Context;F)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("com/google/android/material/elevation/ElevationOverlayProvider")
 	if err != nil {
@@ -154,13 +199,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midOverlayProviderGetParentAbsoluteElevation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayProvider)), "getParentAbsoluteElevation", "(Landroid/view/View;)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midOverlayProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayProvider)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -168,45 +206,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("com/google/android/material/elevation/SurfaceColors")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSurfaceColors = env.NewGlobalRef(&c.Object)
-
-		midSurfaceColorsGetColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSurfaceColors)), "getColor", "(Landroid/content/Context;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSurfaceColorsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSurfaceColors)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSurfaceColorsValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSurfaceColors)), "values", "()[Lcom/google/android/material/elevation/SurfaceColors;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSurfaceColorsValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSurfaceColors)), "valueOf", "(Ljava/lang/String;)Lcom/google/android/material/elevation/SurfaceColors;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSurfaceColorsGetColorForElevation, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSurfaceColors)), "getColorForElevation", "(Landroid/content/Context;F)I")
+		midOverlayProviderGetParentAbsoluteElevation, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOverlayProvider)), "getParentAbsoluteElevation", "(Landroid/view/View;)F")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

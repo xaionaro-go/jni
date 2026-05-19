@@ -199,31 +199,6 @@ func (m *AdSelectionOutcome) HasOutcome() (bool, error) {
 	return result, callErr
 }
 
-// HashCode calls android.adservices.adselection.AdSelectionOutcome.hashCode.
-func (m *AdSelectionOutcome) HashCode() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAdSelectionOutcomeHashCode == nil {
-			callErr = fmt.Errorf("android.adservices.adselection.AdSelectionOutcome.hashCode is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midAdSelectionOutcomeHashCode,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.adservices.adselection.AdSelectionOutcome.toString.
 func (m *AdSelectionOutcome) ToString() (string, error) {
 	var result string
@@ -246,6 +221,31 @@ func (m *AdSelectionOutcome) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// HashCode calls android.adservices.adselection.AdSelectionOutcome.hashCode.
+func (m *AdSelectionOutcome) HashCode() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midAdSelectionOutcomeHashCode == nil {
+			callErr = fmt.Errorf("android.adservices.adselection.AdSelectionOutcome.hashCode is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsAdSelectionOutcome)),
+			midAdSelectionOutcomeHashCode,
+		)
+		if callErr != nil {
+			return callErr
+		}
 		return callErr
 	})
 	return result, callErr

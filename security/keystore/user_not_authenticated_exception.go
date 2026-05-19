@@ -32,6 +32,12 @@ func NewUserNotAuthenticatedException(vm *jni.VM) (*UserNotAuthenticatedExceptio
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsUserNotAuthenticatedException == nil {
+			return fmt.Errorf("android.security.keystore.UserNotAuthenticatedException is not available on this device")
+		}
+		if midUserNotAuthenticatedExceptionCtor == nil {
+			return fmt.Errorf("android.security.keystore.UserNotAuthenticatedException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUserNotAuthenticatedException)), midUserNotAuthenticatedExceptionCtor)
 		if err != nil {
 			return err

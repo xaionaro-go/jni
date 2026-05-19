@@ -32,6 +32,12 @@ func NewPdfPageTextContent(vm *jni.VM, arg0 string) (*PdfPageTextContent, error)
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPdfPageTextContent == nil {
+			return fmt.Errorf("android.graphics.pdf.content.PdfPageTextContent is not available on this device")
+		}
+		if midPdfPageTextContentCtor == nil {
+			return fmt.Errorf("android.graphics.pdf.content.PdfPageTextContent constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -135,29 +141,6 @@ func (m *PdfPageTextContent) GetText() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.graphics.pdf.content.PdfPageTextContent.writeToParcel.
-func (m *PdfPageTextContent) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midPdfPageTextContentWriteToParcel == nil {
-			callErr = fmt.Errorf("android.graphics.pdf.content.PdfPageTextContent.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midPdfPageTextContentWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.graphics.pdf.content.PdfPageTextContent.toString.
 func (m *PdfPageTextContent) ToString() (string, error) {
 	var result string
@@ -183,4 +166,27 @@ func (m *PdfPageTextContent) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.graphics.pdf.content.PdfPageTextContent.writeToParcel.
+func (m *PdfPageTextContent) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midPdfPageTextContentWriteToParcel == nil {
+			callErr = fmt.Errorf("android.graphics.pdf.content.PdfPageTextContent.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsPdfPageTextContent)),
+			midPdfPageTextContentWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

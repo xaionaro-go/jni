@@ -25,32 +25,25 @@ var (
 
 	clsMotionKeyAttributes                *jni.GlobalRef
 	midMotionKeyAttributesCtor            jni.MethodID
-	midMotionKeyAttributesClone0          jni.MethodID
+	midMotionKeyAttributesClone           jni.MethodID
 	midMotionKeyAttributesSetValue2       jni.MethodID
 	midMotionKeyAttributesSetValue2_1     jni.MethodID
 	midMotionKeyAttributesSetValue2_2     jni.MethodID
 	midMotionKeyAttributesGetId           jni.MethodID
 	midMotionKeyAttributesGetCurveFit     jni.MethodID
 	midMotionKeyAttributesPrintAttributes jni.MethodID
-	midMotionKeyAttributesClone0_1        jni.MethodID
 	midMotionKeyAttributesToString        jni.MethodID
 
-	clsMotionKeyPosition                   *jni.GlobalRef
-	midMotionKeyPositionCtor               jni.MethodID
-	midMotionKeyPositionPositionAttributes jni.MethodID
-	midMotionKeyPositionIntersects         jni.MethodID
-	midMotionKeyPositionCopy               jni.MethodID
-	midMotionKeyPositionClone0             jni.MethodID
-	midMotionKeyPositionSetValue2          jni.MethodID
-	midMotionKeyPositionSetValue2_1        jni.MethodID
-	midMotionKeyPositionSetValue2_2        jni.MethodID
-	midMotionKeyPositionGetId              jni.MethodID
-	midMotionKeyPositionClone0_1           jni.MethodID
-	midMotionKeyPositionToString           jni.MethodID
-
-	clsMotionConstraintSet         *jni.GlobalRef
-	midMotionConstraintSetCtor     jni.MethodID
-	midMotionConstraintSetToString jni.MethodID
+	clsMotionKeyTimeCycle            *jni.GlobalRef
+	midMotionKeyTimeCycleCtor        jni.MethodID
+	midMotionKeyTimeCycleSetValue2   jni.MethodID
+	midMotionKeyTimeCycleSetValue2_1 jni.MethodID
+	midMotionKeyTimeCycleSetValue2_2 jni.MethodID
+	midMotionKeyTimeCycleSetValue2_3 jni.MethodID
+	midMotionKeyTimeCycleCopy        jni.MethodID
+	midMotionKeyTimeCycleClone       jni.MethodID
+	midMotionKeyTimeCycleGetId       jni.MethodID
+	midMotionKeyTimeCycleToString    jni.MethodID
 
 	clsMotionKeyCycle                *jni.GlobalRef
 	midMotionKeyCycleCtor            jni.MethodID
@@ -58,16 +51,19 @@ var (
 	midMotionKeyCycleSetValue2_1     jni.MethodID
 	midMotionKeyCycleSetValue2_2     jni.MethodID
 	midMotionKeyCycleGetValue        jni.MethodID
-	midMotionKeyCycleClone0          jni.MethodID
+	midMotionKeyCycleClone           jni.MethodID
 	midMotionKeyCycleGetId           jni.MethodID
 	midMotionKeyCycleDump            jni.MethodID
 	midMotionKeyCyclePrintAttributes jni.MethodID
-	midMotionKeyCycleClone0_1        jni.MethodID
 	midMotionKeyCycleToString        jni.MethodID
+
+	clsMotionConstraintSet         *jni.GlobalRef
+	midMotionConstraintSetCtor     jni.MethodID
+	midMotionConstraintSetToString jni.MethodID
 
 	clsMotionKey                      *jni.GlobalRef
 	midMotionKeyCopy                  jni.MethodID
-	midMotionKeyClone0                jni.MethodID
+	midMotionKeyClone                 jni.MethodID
 	midMotionKeySetViewId             jni.MethodID
 	midMotionKeySetFramePosition      jni.MethodID
 	midMotionKeyGetFramePosition      jni.MethodID
@@ -79,35 +75,31 @@ var (
 	midMotionKeySetCustomAttribute3_1 jni.MethodID
 	midMotionKeySetCustomAttribute3_2 jni.MethodID
 	midMotionKeySetCustomAttribute3_3 jni.MethodID
-	midMotionKeyClone0_1              jni.MethodID
 	midMotionKeyToString              jni.MethodID
-
-	clsMotionKeyTimeCycle            *jni.GlobalRef
-	midMotionKeyTimeCycleCtor        jni.MethodID
-	midMotionKeyTimeCycleSetValue2   jni.MethodID
-	midMotionKeyTimeCycleSetValue2_1 jni.MethodID
-	midMotionKeyTimeCycleSetValue2_2 jni.MethodID
-	midMotionKeyTimeCycleSetValue2_3 jni.MethodID
-	midMotionKeyTimeCycleCopy1       jni.MethodID
-	midMotionKeyTimeCycleClone0      jni.MethodID
-	midMotionKeyTimeCycleGetId       jni.MethodID
-	midMotionKeyTimeCycleCopy1_1     jni.MethodID
-	midMotionKeyTimeCycleClone0_1    jni.MethodID
-	midMotionKeyTimeCycleToString    jni.MethodID
 
 	clsMotionKeyTrigger                  *jni.GlobalRef
 	midMotionKeyTriggerCtor              jni.MethodID
 	midMotionKeyTriggerGetId             jni.MethodID
-	midMotionKeyTriggerCopy1             jni.MethodID
-	midMotionKeyTriggerClone0            jni.MethodID
+	midMotionKeyTriggerCopy              jni.MethodID
+	midMotionKeyTriggerClone             jni.MethodID
 	midMotionKeyTriggerConditionallyFire jni.MethodID
 	midMotionKeyTriggerSetValue2         jni.MethodID
 	midMotionKeyTriggerSetValue2_1       jni.MethodID
 	midMotionKeyTriggerSetValue2_2       jni.MethodID
 	midMotionKeyTriggerSetValue2_3       jni.MethodID
-	midMotionKeyTriggerCopy1_1           jni.MethodID
-	midMotionKeyTriggerClone0_1          jni.MethodID
 	midMotionKeyTriggerToString          jni.MethodID
+
+	clsMotionKeyPosition                   *jni.GlobalRef
+	midMotionKeyPositionCtor               jni.MethodID
+	midMotionKeyPositionPositionAttributes jni.MethodID
+	midMotionKeyPositionIntersects         jni.MethodID
+	midMotionKeyPositionCopy               jni.MethodID
+	midMotionKeyPositionClone              jni.MethodID
+	midMotionKeyPositionSetValue2          jni.MethodID
+	midMotionKeyPositionSetValue2_1        jni.MethodID
+	midMotionKeyPositionSetValue2_2        jni.MethodID
+	midMotionKeyPositionGetId              jni.MethodID
+	midMotionKeyPositionToString           jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -140,7 +132,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMotionKeyAttributesClone0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyAttributes)), "clone", "()Landroidx/constraintlayout/core/motion/key/MotionKey;")
+		midMotionKeyAttributesClone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyAttributes)), "clone", "()Landroidx/constraintlayout/core/motion/key/MotionKey;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -189,13 +181,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMotionKeyAttributesClone0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyAttributes)), "clone", "()Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midMotionKeyAttributesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyAttributes)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -205,103 +190,68 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/constraintlayout/core/motion/key/MotionKeyPosition")
+	c, err = env.FindClass("androidx/constraintlayout/core/motion/key/MotionKeyTimeCycle")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsMotionKeyPosition = env.NewGlobalRef(&c.Object)
-		midMotionKeyPositionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyPosition)), "<init>", "()V")
+		clsMotionKeyTimeCycle = env.NewGlobalRef(&c.Object)
+		midMotionKeyTimeCycleCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTimeCycle)), "<init>", "()V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midMotionKeyPositionPositionAttributes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyPosition)), "positionAttributes", "(Landroidx/constraintlayout/core/motion/MotionWidget;Landroidx/constraintlayout/core/motion/utils/FloatRect;Landroidx/constraintlayout/core/motion/utils/FloatRect;FF[Ljava/lang/String;[F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMotionKeyPositionIntersects, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyPosition)), "intersects", "(IILandroidx/constraintlayout/core/motion/utils/FloatRect;Landroidx/constraintlayout/core/motion/utils/FloatRect;FF)Z")
+		midMotionKeyTimeCycleSetValue2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTimeCycle)), "setValue", "(II)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMotionKeyPositionCopy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyPosition)), "copy", "(Landroidx/constraintlayout/core/motion/key/MotionKey;)Landroidx/constraintlayout/core/motion/key/MotionKey;")
+		midMotionKeyTimeCycleSetValue2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTimeCycle)), "setValue", "(IF)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMotionKeyPositionClone0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyPosition)), "clone", "()Landroidx/constraintlayout/core/motion/key/MotionKey;")
+		midMotionKeyTimeCycleSetValue2_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTimeCycle)), "setValue", "(ILjava/lang/String;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMotionKeyPositionSetValue2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyPosition)), "setValue", "(II)Z")
+		midMotionKeyTimeCycleSetValue2_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTimeCycle)), "setValue", "(IZ)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMotionKeyPositionSetValue2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyPosition)), "setValue", "(IF)Z")
+		midMotionKeyTimeCycleCopy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTimeCycle)), "copy", "(Landroidx/constraintlayout/core/motion/key/MotionKey;)Landroidx/constraintlayout/core/motion/key/MotionKeyTimeCycle;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMotionKeyPositionSetValue2_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyPosition)), "setValue", "(ILjava/lang/String;)Z")
+		midMotionKeyTimeCycleClone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTimeCycle)), "clone", "()Landroidx/constraintlayout/core/motion/key/MotionKey;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMotionKeyPositionGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyPosition)), "getId", "(Ljava/lang/String;)I")
+		midMotionKeyTimeCycleGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTimeCycle)), "getId", "(Ljava/lang/String;)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMotionKeyPositionClone0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyPosition)), "clone", "()Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMotionKeyPositionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyPosition)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/core/motion/key/MotionConstraintSet")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMotionConstraintSet = env.NewGlobalRef(&c.Object)
-		midMotionConstraintSetCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionConstraintSet)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMotionConstraintSetToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionConstraintSet)), "toString", "()Ljava/lang/String;")
+		midMotionKeyTimeCycleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTimeCycle)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -350,7 +300,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMotionKeyCycleClone0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyCycle)), "clone", "()Landroidx/constraintlayout/core/motion/key/MotionKey;")
+		midMotionKeyCycleClone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyCycle)), "clone", "()Landroidx/constraintlayout/core/motion/key/MotionKey;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -378,14 +328,28 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMotionKeyCycleClone0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyCycle)), "clone", "()Ljava/lang/Object;")
+		midMotionKeyCycleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyCycle)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMotionKeyCycleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyCycle)), "toString", "()Ljava/lang/String;")
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/core/motion/key/MotionConstraintSet")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMotionConstraintSet = env.NewGlobalRef(&c.Object)
+		midMotionConstraintSetCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionConstraintSet)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMotionConstraintSetToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionConstraintSet)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -409,7 +373,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMotionKeyClone0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKey)), "clone", "()Landroidx/constraintlayout/core/motion/key/MotionKey;")
+		midMotionKeyClone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKey)), "clone", "()Landroidx/constraintlayout/core/motion/key/MotionKey;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -493,98 +457,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMotionKeyClone0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKey)), "clone", "()Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midMotionKeyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKey)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/core/motion/key/MotionKeyTimeCycle")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMotionKeyTimeCycle = env.NewGlobalRef(&c.Object)
-		midMotionKeyTimeCycleCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTimeCycle)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMotionKeyTimeCycleSetValue2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTimeCycle)), "setValue", "(II)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMotionKeyTimeCycleSetValue2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTimeCycle)), "setValue", "(IF)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMotionKeyTimeCycleSetValue2_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTimeCycle)), "setValue", "(ILjava/lang/String;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMotionKeyTimeCycleSetValue2_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTimeCycle)), "setValue", "(IZ)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMotionKeyTimeCycleCopy1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTimeCycle)), "copy", "(Landroidx/constraintlayout/core/motion/key/MotionKey;)Landroidx/constraintlayout/core/motion/key/MotionKeyTimeCycle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMotionKeyTimeCycleClone0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTimeCycle)), "clone", "()Landroidx/constraintlayout/core/motion/key/MotionKey;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMotionKeyTimeCycleGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTimeCycle)), "getId", "(Ljava/lang/String;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMotionKeyTimeCycleCopy1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTimeCycle)), "copy", "(Landroidx/constraintlayout/core/motion/key/MotionKey;)Landroidx/constraintlayout/core/motion/key/MotionKey;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMotionKeyTimeCycleClone0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTimeCycle)), "clone", "()Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMotionKeyTimeCycleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTimeCycle)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -612,14 +485,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMotionKeyTriggerCopy1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTrigger)), "copy", "(Landroidx/constraintlayout/core/motion/key/MotionKey;)Landroidx/constraintlayout/core/motion/key/MotionKeyTrigger;")
+		midMotionKeyTriggerCopy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTrigger)), "copy", "(Landroidx/constraintlayout/core/motion/key/MotionKey;)Landroidx/constraintlayout/core/motion/key/MotionKeyTrigger;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMotionKeyTriggerClone0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTrigger)), "clone", "()Landroidx/constraintlayout/core/motion/key/MotionKey;")
+		midMotionKeyTriggerClone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTrigger)), "clone", "()Landroidx/constraintlayout/core/motion/key/MotionKey;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -661,21 +534,84 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMotionKeyTriggerCopy1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTrigger)), "copy", "(Landroidx/constraintlayout/core/motion/key/MotionKey;)Landroidx/constraintlayout/core/motion/key/MotionKey;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMotionKeyTriggerClone0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTrigger)), "clone", "()Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midMotionKeyTriggerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyTrigger)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/core/motion/key/MotionKeyPosition")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMotionKeyPosition = env.NewGlobalRef(&c.Object)
+		midMotionKeyPositionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyPosition)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMotionKeyPositionPositionAttributes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyPosition)), "positionAttributes", "(Landroidx/constraintlayout/core/motion/MotionWidget;Landroidx/constraintlayout/core/motion/utils/FloatRect;Landroidx/constraintlayout/core/motion/utils/FloatRect;FF[Ljava/lang/String;[F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMotionKeyPositionIntersects, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyPosition)), "intersects", "(IILandroidx/constraintlayout/core/motion/utils/FloatRect;Landroidx/constraintlayout/core/motion/utils/FloatRect;FF)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMotionKeyPositionCopy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyPosition)), "copy", "(Landroidx/constraintlayout/core/motion/key/MotionKey;)Landroidx/constraintlayout/core/motion/key/MotionKey;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMotionKeyPositionClone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyPosition)), "clone", "()Landroidx/constraintlayout/core/motion/key/MotionKey;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMotionKeyPositionSetValue2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyPosition)), "setValue", "(II)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMotionKeyPositionSetValue2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyPosition)), "setValue", "(IF)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMotionKeyPositionSetValue2_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyPosition)), "setValue", "(ILjava/lang/String;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMotionKeyPositionGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyPosition)), "getId", "(Ljava/lang/String;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMotionKeyPositionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionKeyPosition)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

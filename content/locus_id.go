@@ -32,6 +32,12 @@ func NewLocusId(vm *jni.VM, arg0 string) (*LocusId, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLocusId == nil {
+			return fmt.Errorf("android.content.LocusId is not available on this device")
+		}
+		if midLocusIdCtor == nil {
+			return fmt.Errorf("android.content.LocusId constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -197,8 +203,8 @@ func (m *LocusId) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsLocusId)),
 			midLocusIdWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

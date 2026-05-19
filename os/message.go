@@ -32,6 +32,12 @@ func NewMessage(vm *jni.VM) (*Message, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMessage == nil {
+			return fmt.Errorf("android.os.Message is not available on this device")
+		}
+		if midMessageCtor == nil {
+			return fmt.Errorf("android.os.Message constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMessage)), midMessageCtor)
 		if err != nil {
 			return err
@@ -394,29 +400,6 @@ func (m *Message) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.os.Message.writeToParcel.
-func (m *Message) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMessageWriteToParcel == nil {
-			callErr = fmt.Errorf("android.os.Message.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMessageWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // Obtain0 calls android.os.Message.obtain.
 func (m *Message) Obtain0() (*jni.Object, error) {
 	var result *jni.Object
@@ -480,4 +463,27 @@ func (m *Message) Obtain1_1(arg0 *jni.Object) (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.os.Message.writeToParcel.
+func (m *Message) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midMessageWriteToParcel == nil {
+			callErr = fmt.Errorf("android.os.Message.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsMessage)),
+			midMessageWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -9,15 +9,15 @@ const (
 )
 
 const (
-	AutoSizeTextTypeNone    = consts.AutoSizeTextTypeNone
-	AutoSizeTextTypeUniform = consts.AutoSizeTextTypeUniform
-	EdgeTypeInside          = consts.EdgeTypeInside
-	EdgeTypeInsideExtend    = consts.EdgeTypeInsideExtend
-	EdgeTypeOutside         = consts.EdgeTypeOutside
-)
-
-const (
 	RelativeUnspecified = consts.RelativeUnspecified
 	NoMax               = consts.NoMax
 	NoMin               = consts.NoMin
+)
+
+const (
+	EdgeTypeInside          = consts.EdgeTypeInside
+	EdgeTypeInsideExtend    = consts.EdgeTypeInsideExtend
+	EdgeTypeOutside         = consts.EdgeTypeOutside
+	AutoSizeTextTypeNone    = consts.AutoSizeTextTypeNone
+	AutoSizeTextTypeUniform = consts.AutoSizeTextTypeUniform
 )

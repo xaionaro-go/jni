@@ -23,8 +23,8 @@ type Number struct {
 	Obj *jni.GlobalRef
 }
 
-// CompareTo1 calls android.telephony.emergency.EmergencyNumber.compareTo.
-func (m *Number) CompareTo1(arg0 *jni.Object) (int32, error) {
+// CompareTo calls android.telephony.emergency.EmergencyNumber.compareTo.
+func (m *Number) CompareTo(arg0 *jni.Object) (int32, error) {
 	var result int32
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -32,14 +32,14 @@ func (m *Number) CompareTo1(arg0 *jni.Object) (int32, error) {
 			callErr = err
 			return err
 		}
-		if midNumberCompareTo1 == nil {
+		if midNumberCompareTo == nil {
 			callErr = fmt.Errorf("android.telephony.emergency.EmergencyNumber.compareTo is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallIntMethod(
 			m.Obj,
-			midNumberCompareTo1, jni.ObjectValue(arg0),
+			midNumberCompareTo, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -433,30 +433,4 @@ func (m *Number) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 		return callErr
 	})
 	return callErr
-}
-
-// CompareTo1_1 calls android.telephony.emergency.EmergencyNumber.compareTo.
-func (m *Number) CompareTo1_1(arg0 *jni.Object) (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midNumberCompareTo1_1 == nil {
-			callErr = fmt.Errorf("android.telephony.emergency.EmergencyNumber.compareTo is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midNumberCompareTo1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
 }

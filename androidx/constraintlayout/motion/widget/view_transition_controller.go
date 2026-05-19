@@ -32,6 +32,12 @@ func NewViewTransitionController(vm *jni.VM, arg0 *jni.Object) (*ViewTransitionC
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsViewTransitionController == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.ViewTransitionController is not available on this device")
+		}
+		if midViewTransitionControllerCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.ViewTransitionController constructor (Landroidx/constraintlayout/motion/widget/MotionLayout;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewTransitionController)), midViewTransitionControllerCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -44,29 +50,6 @@ func NewViewTransitionController(vm *jni.VM, arg0 *jni.Object) (*ViewTransitionC
 		return nil, err
 	}
 	return &t, nil
-}
-
-// Add calls androidx.constraintlayout.motion.widget.ViewTransitionController.add.
-func (m *ViewTransitionController) Add(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midViewTransitionControllerAdd == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.motion.widget.ViewTransitionController.add is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midViewTransitionControllerAdd, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // ToString calls androidx.constraintlayout.motion.widget.ViewTransitionController.toString.

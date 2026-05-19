@@ -80,6 +80,7 @@ classes:
               go_name: arg0
           returns: void
           error: true
+      static_methods:
         - java_method: getDividerColor
           go_name: GetDividerColor
           returns: int

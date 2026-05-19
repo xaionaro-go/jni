@@ -32,6 +32,12 @@ func NewDifferentialMotionFlingController(vm *jni.VM, arg0 *jni.Object, arg1 *jn
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDifferentialMotionFlingController == nil {
+			return fmt.Errorf("androidx.core.view.DifferentialMotionFlingController is not available on this device")
+		}
+		if midDifferentialMotionFlingControllerCtor == nil {
+			return fmt.Errorf("androidx.core.view.DifferentialMotionFlingController constructor (Landroid/content/Context;Landroidx/core/view/DifferentialMotionFlingTarget;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDifferentialMotionFlingController)), midDifferentialMotionFlingControllerCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

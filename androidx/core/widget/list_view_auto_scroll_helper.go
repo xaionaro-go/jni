@@ -32,6 +32,12 @@ func NewListViewAutoScrollHelper(vm *jni.VM, arg0 *jni.Object) (*ListViewAutoScr
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsListViewAutoScrollHelper == nil {
+			return fmt.Errorf("androidx.core.widget.ListViewAutoScrollHelper is not available on this device")
+		}
+		if midListViewAutoScrollHelperCtor == nil {
+			return fmt.Errorf("androidx.core.widget.ListViewAutoScrollHelper constructor (Landroid/widget/ListView;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsListViewAutoScrollHelper)), midListViewAutoScrollHelperCtor, jni.ObjectValue(arg0))
 		if err != nil {

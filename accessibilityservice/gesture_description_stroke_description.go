@@ -23,6 +23,35 @@ type GestureDescriptionStrokeDescription struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGestureDescriptionStrokeDescription creates a new android.accessibilityservice.GestureDescription$StrokeDescription instance.
+func NewGestureDescriptionStrokeDescription(vm *jni.VM, arg0 *jni.Object, arg1 int64, arg2 int64) (*GestureDescriptionStrokeDescription, error) {
+	var t GestureDescriptionStrokeDescription
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGestureDescriptionStrokeDescription == nil {
+			return fmt.Errorf("android.accessibilityservice.GestureDescription$StrokeDescription is not available on this device")
+		}
+		if midGestureDescriptionStrokeDescriptionCtor == nil {
+			return fmt.Errorf("android.accessibilityservice.GestureDescription$StrokeDescription constructor (Landroid/graphics/Path;JJ)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGestureDescriptionStrokeDescription)), midGestureDescriptionStrokeDescriptionCtor, jni.ObjectValue(arg0), jni.LongValue(arg1), jni.LongValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ContinueStroke calls android.accessibilityservice.GestureDescription$StrokeDescription.continueStroke.
 func (m *GestureDescriptionStrokeDescription) ContinueStroke(
 	arg0 *jni.Object,

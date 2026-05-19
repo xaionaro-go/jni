@@ -32,6 +32,12 @@ func NewFade(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Fade, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFade == nil {
+			return fmt.Errorf("androidx.transition.Fade is not available on this device")
+		}
+		if midFadeCtor == nil {
+			return fmt.Errorf("androidx.transition.Fade constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFade)), midFadeCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

@@ -83,31 +83,6 @@ func (m *CyclingPedalingCadenceRecord) GetSamples() (*jni.Object, error) {
 	return result, callErr
 }
 
-// HashCode calls android.health.connect.datatypes.CyclingPedalingCadenceRecord.hashCode.
-func (m *CyclingPedalingCadenceRecord) HashCode() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCyclingPedalingCadenceRecordHashCode == nil {
-			callErr = fmt.Errorf("android.health.connect.datatypes.CyclingPedalingCadenceRecord.hashCode is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midCyclingPedalingCadenceRecordHashCode,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.health.connect.datatypes.CyclingPedalingCadenceRecord.toString.
 func (m *CyclingPedalingCadenceRecord) ToString() (string, error) {
 	var result string
@@ -130,6 +105,31 @@ func (m *CyclingPedalingCadenceRecord) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// HashCode calls android.health.connect.datatypes.CyclingPedalingCadenceRecord.hashCode.
+func (m *CyclingPedalingCadenceRecord) HashCode() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCyclingPedalingCadenceRecordHashCode == nil {
+			callErr = fmt.Errorf("android.health.connect.datatypes.CyclingPedalingCadenceRecord.hashCode is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsCyclingPedalingCadenceRecord)),
+			midCyclingPedalingCadenceRecordHashCode,
+		)
+		if callErr != nil {
+			return callErr
+		}
 		return callErr
 	})
 	return result, callErr

@@ -23,6 +23,33 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsColorStateListInflaterCompat                   *jni.GlobalRef
+	midColorStateListInflaterCompatToString           jni.MethodID
+	midColorStateListInflaterCompatInflate            jni.MethodID
+	midColorStateListInflaterCompatCreateFromXml      jni.MethodID
+	midColorStateListInflaterCompatCreateFromXmlInner jni.MethodID
+
+	clsourcesCompat                      *jni.GlobalRef
+	midourcesCompatToString              jni.MethodID
+	midourcesCompatClearCachesForTheme   jni.MethodID
+	midourcesCompatGetDrawable           jni.MethodID
+	midourcesCompatGetDrawableForDensity jni.MethodID
+	midourcesCompatGetColor              jni.MethodID
+	midourcesCompatGetColorStateList     jni.MethodID
+	midourcesCompatGetFloat              jni.MethodID
+	midourcesCompatGetFont2              jni.MethodID
+	midourcesCompatGetCachedFont         jni.MethodID
+	midourcesCompatGetFont5_1            jni.MethodID
+
+	clsourcesCompatFontCallback                      *jni.GlobalRef
+	midourcesCompatFontCallbackOnFontRetrieved       jni.MethodID
+	midourcesCompatFontCallbackOnFontRetrievalFailed jni.MethodID
+	midourcesCompatFontCallbackToString              jni.MethodID
+
+	clsourcesCompatThemeCompat         *jni.GlobalRef
+	midourcesCompatThemeCompatToString jni.MethodID
+	midourcesCompatThemeCompatRebase   jni.MethodID
+
 	clsTypedArrayKt                               *jni.GlobalRef
 	midTypedArrayKtToString                       jni.MethodID
 	midTypedArrayKtGetBooleanOrThrow              jni.MethodID
@@ -41,41 +68,16 @@ var (
 	midTypedArrayKtGetTextOrThrow                 jni.MethodID
 	midTypedArrayKtGetTextArrayOrThrow            jni.MethodID
 
-	clsFontResourcesParserCompat          *jni.GlobalRef
-	midFontResourcesParserCompatToString  jni.MethodID
-	midFontResourcesParserCompatParse     jni.MethodID
-	midFontResourcesParserCompatReadCerts jni.MethodID
-
-	clsFontResourcesParserCompatFamilyResourceEntry         *jni.GlobalRef
-	midFontResourcesParserCompatFamilyResourceEntryToString jni.MethodID
-
-	clsFontResourcesParserCompatFetchStrategy         *jni.GlobalRef
-	midFontResourcesParserCompatFetchStrategyToString jni.MethodID
-
-	clsFontResourcesParserCompatFontFamilyFilesResourceEntry           *jni.GlobalRef
-	midFontResourcesParserCompatFontFamilyFilesResourceEntryGetEntries jni.MethodID
-	midFontResourcesParserCompatFontFamilyFilesResourceEntryToString   jni.MethodID
-
-	clsFontResourcesParserCompatFontFileResourceEntry                     *jni.GlobalRef
-	midFontResourcesParserCompatFontFileResourceEntryGetFileName          jni.MethodID
-	midFontResourcesParserCompatFontFileResourceEntryGetWeight            jni.MethodID
-	midFontResourcesParserCompatFontFileResourceEntryIsItalic             jni.MethodID
-	midFontResourcesParserCompatFontFileResourceEntryGetVariationSettings jni.MethodID
-	midFontResourcesParserCompatFontFileResourceEntryGetTtcIndex          jni.MethodID
-	midFontResourcesParserCompatFontFileResourceEntryGetResourceId        jni.MethodID
-	midFontResourcesParserCompatFontFileResourceEntryToString             jni.MethodID
-
-	clsFontResourcesParserCompatProviderResourceEntry                        *jni.GlobalRef
-	midFontResourcesParserCompatProviderResourceEntryGetRequest              jni.MethodID
-	midFontResourcesParserCompatProviderResourceEntryGetFetchStrategy        jni.MethodID
-	midFontResourcesParserCompatProviderResourceEntryGetTimeout              jni.MethodID
-	midFontResourcesParserCompatProviderResourceEntryGetSystemFontFamilyName jni.MethodID
-	midFontResourcesParserCompatProviderResourceEntryToString                jni.MethodID
-
-	clsCamColor                  *jni.GlobalRef
-	midCamColorToString          jni.MethodID
-	midCamColorToColor           jni.MethodID
-	midCamColorGetM3HCTfromColor jni.MethodID
+	clsComplexColorCompat               *jni.GlobalRef
+	midComplexColorCompatGetShader      jni.MethodID
+	midComplexColorCompatGetColor       jni.MethodID
+	midComplexColorCompatSetColor       jni.MethodID
+	midComplexColorCompatIsGradient     jni.MethodID
+	midComplexColorCompatIsStateful     jni.MethodID
+	midComplexColorCompatOnStateChanged jni.MethodID
+	midComplexColorCompatWillDraw       jni.MethodID
+	midComplexColorCompatToString       jni.MethodID
+	midComplexColorCompatInflate        jni.MethodID
 
 	clsTypedArrayUtils                       *jni.GlobalRef
 	midTypedArrayUtilsToString               jni.MethodID
@@ -99,47 +101,48 @@ var (
 	midTypedArrayUtilsGetTextArray           jni.MethodID
 	midTypedArrayUtilsGetAttr                jni.MethodID
 
-	clsColorStateListInflaterCompat                   *jni.GlobalRef
-	midColorStateListInflaterCompatToString           jni.MethodID
-	midColorStateListInflaterCompatInflate            jni.MethodID
-	midColorStateListInflaterCompatCreateFromXml      jni.MethodID
-	midColorStateListInflaterCompatCreateFromXmlInner jni.MethodID
+	clsCamColor                  *jni.GlobalRef
+	midCamColorToString          jni.MethodID
+	midCamColorToColor           jni.MethodID
+	midCamColorGetM3HCTfromColor jni.MethodID
 
 	clsConfigurationHelper              *jni.GlobalRef
 	midConfigurationHelperToString      jni.MethodID
 	midConfigurationHelperGetDensityDpi jni.MethodID
 
-	clsourcesCompat                      *jni.GlobalRef
-	midourcesCompatToString              jni.MethodID
-	midourcesCompatClearCachesForTheme   jni.MethodID
-	midourcesCompatGetDrawable           jni.MethodID
-	midourcesCompatGetDrawableForDensity jni.MethodID
-	midourcesCompatGetColor              jni.MethodID
-	midourcesCompatGetColorStateList     jni.MethodID
-	midourcesCompatGetFloat              jni.MethodID
-	midourcesCompatGetFont2              jni.MethodID
-	midourcesCompatGetCachedFont         jni.MethodID
-	midourcesCompatGetFont5_1            jni.MethodID
+	clsFontResourcesParserCompat          *jni.GlobalRef
+	midFontResourcesParserCompatToString  jni.MethodID
+	midFontResourcesParserCompatParse     jni.MethodID
+	midFontResourcesParserCompatReadCerts jni.MethodID
 
-	clsourcesCompatFontCallback                      *jni.GlobalRef
-	midourcesCompatFontCallbackOnFontRetrieved       jni.MethodID
-	midourcesCompatFontCallbackOnFontRetrievalFailed jni.MethodID
-	midourcesCompatFontCallbackToString              jni.MethodID
+	clsFontResourcesParserCompatFamilyResourceEntry         *jni.GlobalRef
+	midFontResourcesParserCompatFamilyResourceEntryToString jni.MethodID
 
-	clsourcesCompatThemeCompat         *jni.GlobalRef
-	midourcesCompatThemeCompatToString jni.MethodID
-	midourcesCompatThemeCompatRebase   jni.MethodID
+	clsFontResourcesParserCompatFetchStrategy         *jni.GlobalRef
+	midFontResourcesParserCompatFetchStrategyToString jni.MethodID
 
-	clsComplexColorCompat               *jni.GlobalRef
-	midComplexColorCompatGetShader      jni.MethodID
-	midComplexColorCompatGetColor       jni.MethodID
-	midComplexColorCompatSetColor       jni.MethodID
-	midComplexColorCompatIsGradient     jni.MethodID
-	midComplexColorCompatIsStateful     jni.MethodID
-	midComplexColorCompatOnStateChanged jni.MethodID
-	midComplexColorCompatWillDraw       jni.MethodID
-	midComplexColorCompatToString       jni.MethodID
-	midComplexColorCompatInflate        jni.MethodID
+	clsFontResourcesParserCompatFontFamilyFilesResourceEntry           *jni.GlobalRef
+	midFontResourcesParserCompatFontFamilyFilesResourceEntryCtor       jni.MethodID
+	midFontResourcesParserCompatFontFamilyFilesResourceEntryGetEntries jni.MethodID
+	midFontResourcesParserCompatFontFamilyFilesResourceEntryToString   jni.MethodID
+
+	clsFontResourcesParserCompatFontFileResourceEntry                     *jni.GlobalRef
+	midFontResourcesParserCompatFontFileResourceEntryCtor                 jni.MethodID
+	midFontResourcesParserCompatFontFileResourceEntryGetFileName          jni.MethodID
+	midFontResourcesParserCompatFontFileResourceEntryGetWeight            jni.MethodID
+	midFontResourcesParserCompatFontFileResourceEntryIsItalic             jni.MethodID
+	midFontResourcesParserCompatFontFileResourceEntryGetVariationSettings jni.MethodID
+	midFontResourcesParserCompatFontFileResourceEntryGetTtcIndex          jni.MethodID
+	midFontResourcesParserCompatFontFileResourceEntryGetResourceId        jni.MethodID
+	midFontResourcesParserCompatFontFileResourceEntryToString             jni.MethodID
+
+	clsFontResourcesParserCompatProviderResourceEntry                        *jni.GlobalRef
+	midFontResourcesParserCompatProviderResourceEntryCtor                    jni.MethodID
+	midFontResourcesParserCompatProviderResourceEntryGetRequest              jni.MethodID
+	midFontResourcesParserCompatProviderResourceEntryGetFetchStrategy        jni.MethodID
+	midFontResourcesParserCompatProviderResourceEntryGetTimeout              jni.MethodID
+	midFontResourcesParserCompatProviderResourceEntryGetSystemFontFamilyName jni.MethodID
+	midFontResourcesParserCompatProviderResourceEntryToString                jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -159,6 +162,179 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("androidx/core/content/res/ColorStateListInflaterCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsColorStateListInflaterCompat = env.NewGlobalRef(&c.Object)
+
+		midColorStateListInflaterCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsColorStateListInflaterCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midColorStateListInflaterCompatInflate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsColorStateListInflaterCompat)), "inflate", "(Landroid/content/res/Resources;ILandroid/content/res/Resources$Theme;)Landroid/content/res/ColorStateList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midColorStateListInflaterCompatCreateFromXml, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsColorStateListInflaterCompat)), "createFromXml", "(Landroid/content/res/Resources;Lorg/xmlpull/v1/XmlPullParser;Landroid/content/res/Resources$Theme;)Landroid/content/res/ColorStateList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midColorStateListInflaterCompatCreateFromXmlInner, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsColorStateListInflaterCompat)), "createFromXmlInner", "(Landroid/content/res/Resources;Lorg/xmlpull/v1/XmlPullParser;Landroid/util/AttributeSet;Landroid/content/res/Resources$Theme;)Landroid/content/res/ColorStateList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/content/res/ResourcesCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsourcesCompat = env.NewGlobalRef(&c.Object)
+
+		midourcesCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midourcesCompatClearCachesForTheme, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompat)), "clearCachesForTheme", "(Landroid/content/res/Resources$Theme;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midourcesCompatGetDrawable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompat)), "getDrawable", "(Landroid/content/res/Resources;ILandroid/content/res/Resources$Theme;)Landroid/graphics/drawable/Drawable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midourcesCompatGetDrawableForDensity, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompat)), "getDrawableForDensity", "(Landroid/content/res/Resources;IILandroid/content/res/Resources$Theme;)Landroid/graphics/drawable/Drawable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midourcesCompatGetColor, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompat)), "getColor", "(Landroid/content/res/Resources;ILandroid/content/res/Resources$Theme;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midourcesCompatGetColorStateList, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompat)), "getColorStateList", "(Landroid/content/res/Resources;ILandroid/content/res/Resources$Theme;)Landroid/content/res/ColorStateList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midourcesCompatGetFloat, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompat)), "getFloat", "(Landroid/content/res/Resources;I)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midourcesCompatGetFont2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompat)), "getFont", "(Landroid/content/Context;I)Landroid/graphics/Typeface;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midourcesCompatGetCachedFont, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompat)), "getCachedFont", "(Landroid/content/Context;I)Landroid/graphics/Typeface;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midourcesCompatGetFont5_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompat)), "getFont", "(Landroid/content/Context;ILandroid/util/TypedValue;ILandroidx/core/content/res/ResourcesCompat$FontCallback;)Landroid/graphics/Typeface;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/content/res/ResourcesCompat$FontCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsourcesCompatFontCallback = env.NewGlobalRef(&c.Object)
+
+		midourcesCompatFontCallbackOnFontRetrieved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompatFontCallback)), "onFontRetrieved", "(Landroid/graphics/Typeface;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midourcesCompatFontCallbackOnFontRetrievalFailed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompatFontCallback)), "onFontRetrievalFailed", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midourcesCompatFontCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompatFontCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/content/res/ResourcesCompat$ThemeCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsourcesCompatThemeCompat = env.NewGlobalRef(&c.Object)
+
+		midourcesCompatThemeCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompatThemeCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midourcesCompatThemeCompatRebase, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompatThemeCompat)), "rebase", "(Landroid/content/res/Resources$Theme;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("androidx/core/content/res/TypedArrayKt")
 	if err != nil {
@@ -282,222 +458,71 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/content/res/FontResourcesParserCompat")
+	c, err = env.FindClass("androidx/core/content/res/ComplexColorCompat")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsFontResourcesParserCompat = env.NewGlobalRef(&c.Object)
+		clsComplexColorCompat = env.NewGlobalRef(&c.Object)
 
-		midFontResourcesParserCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompat)), "toString", "()Ljava/lang/String;")
+		midComplexColorCompatGetShader, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexColorCompat)), "getShader", "()Landroid/graphics/Shader;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midFontResourcesParserCompatParse, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompat)), "parse", "(Lorg/xmlpull/v1/XmlPullParser;Landroid/content/res/Resources;)Landroidx/core/content/res/FontResourcesParserCompat$FamilyResourceEntry;")
+		midComplexColorCompatGetColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexColorCompat)), "getColor", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midFontResourcesParserCompatReadCerts, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompat)), "readCerts", "(Landroid/content/res/Resources;I)Ljava/util/List;")
+		midComplexColorCompatSetColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexColorCompat)), "setColor", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("androidx/core/content/res/FontResourcesParserCompat$FamilyResourceEntry")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFontResourcesParserCompatFamilyResourceEntry = env.NewGlobalRef(&c.Object)
-
-		midFontResourcesParserCompatFamilyResourceEntryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFamilyResourceEntry)), "toString", "()Ljava/lang/String;")
+		midComplexColorCompatIsGradient, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexColorCompat)), "isGradient", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("androidx/core/content/res/FontResourcesParserCompat$FetchStrategy")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFontResourcesParserCompatFetchStrategy = env.NewGlobalRef(&c.Object)
-
-		midFontResourcesParserCompatFetchStrategyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFetchStrategy)), "toString", "()Ljava/lang/String;")
+		midComplexColorCompatIsStateful, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexColorCompat)), "isStateful", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("androidx/core/content/res/FontResourcesParserCompat$FontFamilyFilesResourceEntry")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFontResourcesParserCompatFontFamilyFilesResourceEntry = env.NewGlobalRef(&c.Object)
-
-		midFontResourcesParserCompatFontFamilyFilesResourceEntryGetEntries, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFamilyFilesResourceEntry)), "getEntries", "()[Landroidx/core/content/res/FontResourcesParserCompat$FontFileResourceEntry;")
+		midComplexColorCompatOnStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexColorCompat)), "onStateChanged", "([I)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midFontResourcesParserCompatFontFamilyFilesResourceEntryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFamilyFilesResourceEntry)), "toString", "()Ljava/lang/String;")
+		midComplexColorCompatWillDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexColorCompat)), "willDraw", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("androidx/core/content/res/FontResourcesParserCompat$FontFileResourceEntry")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFontResourcesParserCompatFontFileResourceEntry = env.NewGlobalRef(&c.Object)
-
-		midFontResourcesParserCompatFontFileResourceEntryGetFileName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFileResourceEntry)), "getFileName", "()Ljava/lang/String;")
+		midComplexColorCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexColorCompat)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midFontResourcesParserCompatFontFileResourceEntryGetWeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFileResourceEntry)), "getWeight", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontResourcesParserCompatFontFileResourceEntryIsItalic, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFileResourceEntry)), "isItalic", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontResourcesParserCompatFontFileResourceEntryGetVariationSettings, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFileResourceEntry)), "getVariationSettings", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontResourcesParserCompatFontFileResourceEntryGetTtcIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFileResourceEntry)), "getTtcIndex", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontResourcesParserCompatFontFileResourceEntryGetResourceId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFileResourceEntry)), "getResourceId", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontResourcesParserCompatFontFileResourceEntryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFileResourceEntry)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/content/res/FontResourcesParserCompat$ProviderResourceEntry")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFontResourcesParserCompatProviderResourceEntry = env.NewGlobalRef(&c.Object)
-
-		midFontResourcesParserCompatProviderResourceEntryGetRequest, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatProviderResourceEntry)), "getRequest", "()Landroidx/core/provider/FontRequest;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontResourcesParserCompatProviderResourceEntryGetFetchStrategy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatProviderResourceEntry)), "getFetchStrategy", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontResourcesParserCompatProviderResourceEntryGetTimeout, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatProviderResourceEntry)), "getTimeout", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontResourcesParserCompatProviderResourceEntryGetSystemFontFamilyName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatProviderResourceEntry)), "getSystemFontFamilyName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontResourcesParserCompatProviderResourceEntryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatProviderResourceEntry)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/content/res/CamColor")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCamColor = env.NewGlobalRef(&c.Object)
-
-		midCamColorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCamColor)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCamColorToColor, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCamColor)), "toColor", "(FFF)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCamColorGetM3HCTfromColor, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCamColor)), "getM3HCTfromColor", "(I[F)V")
+		midComplexColorCompatInflate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsComplexColorCompat)), "inflate", "(Landroid/content/res/Resources;ILandroid/content/res/Resources$Theme;)Landroidx/core/content/res/ComplexColorCompat;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -656,36 +681,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/content/res/ColorStateListInflaterCompat")
+	c, err = env.FindClass("androidx/core/content/res/CamColor")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsColorStateListInflaterCompat = env.NewGlobalRef(&c.Object)
+		clsCamColor = env.NewGlobalRef(&c.Object)
 
-		midColorStateListInflaterCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsColorStateListInflaterCompat)), "toString", "()Ljava/lang/String;")
+		midCamColorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCamColor)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midColorStateListInflaterCompatInflate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsColorStateListInflaterCompat)), "inflate", "(Landroid/content/res/Resources;ILandroid/content/res/Resources$Theme;)Landroid/content/res/ColorStateList;")
+		midCamColorToColor, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCamColor)), "toColor", "(FFF)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midColorStateListInflaterCompatCreateFromXml, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsColorStateListInflaterCompat)), "createFromXml", "(Landroid/content/res/Resources;Lorg/xmlpull/v1/XmlPullParser;Landroid/content/res/Resources$Theme;)Landroid/content/res/ColorStateList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midColorStateListInflaterCompatCreateFromXmlInner, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsColorStateListInflaterCompat)), "createFromXmlInner", "(Landroid/content/res/Resources;Lorg/xmlpull/v1/XmlPullParser;Landroid/util/AttributeSet;Landroid/content/res/Resources$Theme;)Landroid/content/res/ColorStateList;")
+		midCamColorGetM3HCTfromColor, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCamColor)), "getM3HCTfromColor", "(I[F)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -718,78 +736,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/content/res/ResourcesCompat")
+	c, err = env.FindClass("androidx/core/content/res/FontResourcesParserCompat")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsourcesCompat = env.NewGlobalRef(&c.Object)
+		clsFontResourcesParserCompat = env.NewGlobalRef(&c.Object)
 
-		midourcesCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompat)), "toString", "()Ljava/lang/String;")
+		midFontResourcesParserCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompat)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midourcesCompatClearCachesForTheme, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompat)), "clearCachesForTheme", "(Landroid/content/res/Resources$Theme;)V")
+		midFontResourcesParserCompatParse, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompat)), "parse", "(Lorg/xmlpull/v1/XmlPullParser;Landroid/content/res/Resources;)Landroidx/core/content/res/FontResourcesParserCompat$FamilyResourceEntry;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midourcesCompatGetDrawable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompat)), "getDrawable", "(Landroid/content/res/Resources;ILandroid/content/res/Resources$Theme;)Landroid/graphics/drawable/Drawable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midourcesCompatGetDrawableForDensity, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompat)), "getDrawableForDensity", "(Landroid/content/res/Resources;IILandroid/content/res/Resources$Theme;)Landroid/graphics/drawable/Drawable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midourcesCompatGetColor, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompat)), "getColor", "(Landroid/content/res/Resources;ILandroid/content/res/Resources$Theme;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midourcesCompatGetColorStateList, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompat)), "getColorStateList", "(Landroid/content/res/Resources;ILandroid/content/res/Resources$Theme;)Landroid/content/res/ColorStateList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midourcesCompatGetFloat, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompat)), "getFloat", "(Landroid/content/res/Resources;I)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midourcesCompatGetFont2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompat)), "getFont", "(Landroid/content/Context;I)Landroid/graphics/Typeface;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midourcesCompatGetCachedFont, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompat)), "getCachedFont", "(Landroid/content/Context;I)Landroid/graphics/Typeface;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midourcesCompatGetFont5_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompat)), "getFont", "(Landroid/content/Context;ILandroid/util/TypedValue;ILandroidx/core/content/res/ResourcesCompat$FontCallback;)Landroid/graphics/Typeface;")
+		midFontResourcesParserCompatReadCerts, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompat)), "readCerts", "(Landroid/content/res/Resources;I)Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -798,29 +767,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/content/res/ResourcesCompat$FontCallback")
+	c, err = env.FindClass("androidx/core/content/res/FontResourcesParserCompat$FamilyResourceEntry")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsourcesCompatFontCallback = env.NewGlobalRef(&c.Object)
+		clsFontResourcesParserCompatFamilyResourceEntry = env.NewGlobalRef(&c.Object)
 
-		midourcesCompatFontCallbackOnFontRetrieved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompatFontCallback)), "onFontRetrieved", "(Landroid/graphics/Typeface;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midourcesCompatFontCallbackOnFontRetrievalFailed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompatFontCallback)), "onFontRetrievalFailed", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midourcesCompatFontCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompatFontCallback)), "toString", "()Ljava/lang/String;")
+		midFontResourcesParserCompatFamilyResourceEntryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFamilyResourceEntry)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -829,22 +784,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/content/res/ResourcesCompat$ThemeCompat")
+	c, err = env.FindClass("androidx/core/content/res/FontResourcesParserCompat$FetchStrategy")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsourcesCompatThemeCompat = env.NewGlobalRef(&c.Object)
+		clsFontResourcesParserCompatFetchStrategy = env.NewGlobalRef(&c.Object)
 
-		midourcesCompatThemeCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompatThemeCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midourcesCompatThemeCompatRebase, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsourcesCompatThemeCompat)), "rebase", "(Landroid/content/res/Resources$Theme;)V")
+		midFontResourcesParserCompatFetchStrategyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFetchStrategy)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -853,71 +801,138 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/content/res/ComplexColorCompat")
+	c, err = env.FindClass("androidx/core/content/res/FontResourcesParserCompat$FontFamilyFilesResourceEntry")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsComplexColorCompat = env.NewGlobalRef(&c.Object)
+		clsFontResourcesParserCompatFontFamilyFilesResourceEntry = env.NewGlobalRef(&c.Object)
+		midFontResourcesParserCompatFontFamilyFilesResourceEntryCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFamilyFilesResourceEntry)), "<init>", "([Landroidx/core/content/res/FontResourcesParserCompat$FontFileResourceEntry;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midComplexColorCompatGetShader, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexColorCompat)), "getShader", "()Landroid/graphics/Shader;")
+		midFontResourcesParserCompatFontFamilyFilesResourceEntryGetEntries, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFamilyFilesResourceEntry)), "getEntries", "()[Landroidx/core/content/res/FontResourcesParserCompat$FontFileResourceEntry;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midComplexColorCompatGetColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexColorCompat)), "getColor", "()I")
+		midFontResourcesParserCompatFontFamilyFilesResourceEntryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFamilyFilesResourceEntry)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midComplexColorCompatSetColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexColorCompat)), "setColor", "(I)V")
+	}
+
+	c, err = env.FindClass("androidx/core/content/res/FontResourcesParserCompat$FontFileResourceEntry")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFontResourcesParserCompatFontFileResourceEntry = env.NewGlobalRef(&c.Object)
+		midFontResourcesParserCompatFontFileResourceEntryCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFileResourceEntry)), "<init>", "(Ljava/lang/String;IZLjava/lang/String;II)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midFontResourcesParserCompatFontFileResourceEntryGetFileName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFileResourceEntry)), "getFileName", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midComplexColorCompatIsGradient, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexColorCompat)), "isGradient", "()Z")
+		midFontResourcesParserCompatFontFileResourceEntryGetWeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFileResourceEntry)), "getWeight", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midComplexColorCompatIsStateful, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexColorCompat)), "isStateful", "()Z")
+		midFontResourcesParserCompatFontFileResourceEntryIsItalic, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFileResourceEntry)), "isItalic", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midComplexColorCompatOnStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexColorCompat)), "onStateChanged", "([I)Z")
+		midFontResourcesParserCompatFontFileResourceEntryGetVariationSettings, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFileResourceEntry)), "getVariationSettings", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midComplexColorCompatWillDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexColorCompat)), "willDraw", "()Z")
+		midFontResourcesParserCompatFontFileResourceEntryGetTtcIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFileResourceEntry)), "getTtcIndex", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midComplexColorCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexColorCompat)), "toString", "()Ljava/lang/String;")
+		midFontResourcesParserCompatFontFileResourceEntryGetResourceId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFileResourceEntry)), "getResourceId", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midComplexColorCompatInflate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsComplexColorCompat)), "inflate", "(Landroid/content/res/Resources;ILandroid/content/res/Resources$Theme;)Landroidx/core/content/res/ComplexColorCompat;")
+		midFontResourcesParserCompatFontFileResourceEntryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFileResourceEntry)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/content/res/FontResourcesParserCompat$ProviderResourceEntry")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFontResourcesParserCompatProviderResourceEntry = env.NewGlobalRef(&c.Object)
+		midFontResourcesParserCompatProviderResourceEntryCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatProviderResourceEntry)), "<init>", "(Landroidx/core/provider/FontRequest;IILjava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midFontResourcesParserCompatProviderResourceEntryGetRequest, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatProviderResourceEntry)), "getRequest", "()Landroidx/core/provider/FontRequest;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFontResourcesParserCompatProviderResourceEntryGetFetchStrategy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatProviderResourceEntry)), "getFetchStrategy", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFontResourcesParserCompatProviderResourceEntryGetTimeout, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatProviderResourceEntry)), "getTimeout", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFontResourcesParserCompatProviderResourceEntryGetSystemFontFamilyName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatProviderResourceEntry)), "getSystemFontFamilyName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFontResourcesParserCompatProviderResourceEntryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatProviderResourceEntry)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

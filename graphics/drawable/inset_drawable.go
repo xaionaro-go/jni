@@ -32,6 +32,12 @@ func NewInsetDrawable(vm *jni.VM, arg0 *jni.Object, arg1 float32) (*InsetDrawabl
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInsetDrawable == nil {
+			return fmt.Errorf("android.graphics.drawable.InsetDrawable is not available on this device")
+		}
+		if midInsetDrawableCtor == nil {
+			return fmt.Errorf("android.graphics.drawable.InsetDrawable constructor (Landroid/graphics/drawable/Drawable;F)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInsetDrawable)), midInsetDrawableCtor, jni.ObjectValue(arg0), jni.FloatValue(arg1))
 		if err != nil {

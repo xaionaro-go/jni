@@ -32,6 +32,12 @@ func NewLinearSystem(vm *jni.VM) (*LinearSystem, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLinearSystem == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.LinearSystem is not available on this device")
+		}
+		if midLinearSystemCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.LinearSystem constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLinearSystem)), midLinearSystemCtor)
 		if err != nil {
 			return err
@@ -775,34 +781,6 @@ func (m *LinearSystem) AddEquality2_1(arg0 *jni.Object, arg1 int32) error {
 	return callErr
 }
 
-// AddCenterPoint calls androidx.constraintlayout.core.LinearSystem.addCenterPoint.
-func (m *LinearSystem) AddCenterPoint(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 float32,
-	arg3 int32,
-) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midLinearSystemAddCenterPoint == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.core.LinearSystem.addCenterPoint is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midLinearSystemAddCenterPoint, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.FloatValue(arg2), jni.IntValue(arg3),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.constraintlayout.core.LinearSystem.toString.
 func (m *LinearSystem) ToString() (string, error) {
 	var result string
@@ -898,4 +876,32 @@ func (m *LinearSystem) CreateRowDimensionPercent(
 		return callErr
 	})
 	return result, callErr
+}
+
+// AddCenterPoint calls androidx.constraintlayout.core.LinearSystem.addCenterPoint.
+func (m *LinearSystem) AddCenterPoint(
+	arg0 *jni.Object,
+	arg1 *jni.Object,
+	arg2 float32,
+	arg3 int32,
+) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midLinearSystemAddCenterPoint == nil {
+			callErr = fmt.Errorf("androidx.constraintlayout.core.LinearSystem.addCenterPoint is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsLinearSystem)),
+			midLinearSystemAddCenterPoint, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.FloatValue(arg2), jni.IntValue(arg3),
+		)
+		return callErr
+	})
+	return callErr
 }

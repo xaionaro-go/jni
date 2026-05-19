@@ -32,6 +32,12 @@ func NewRelativeSizeSpan(vm *jni.VM, arg0 *jni.Object) (*RelativeSizeSpan, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRelativeSizeSpan == nil {
+			return fmt.Errorf("android.text.style.RelativeSizeSpan is not available on this device")
+		}
+		if midRelativeSizeSpanCtor == nil {
+			return fmt.Errorf("android.text.style.RelativeSizeSpan constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRelativeSizeSpan)), midRelativeSizeSpanCtor, jni.ObjectValue(arg0))
 		if err != nil {

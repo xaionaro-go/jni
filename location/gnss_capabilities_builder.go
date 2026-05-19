@@ -23,6 +23,34 @@ type GnssCapabilitiesBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGnssCapabilitiesBuilder creates a new android.location.GnssCapabilities$Builder instance.
+func NewGnssCapabilitiesBuilder(vm *jni.VM) (*GnssCapabilitiesBuilder, error) {
+	var t GnssCapabilitiesBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGnssCapabilitiesBuilder == nil {
+			return fmt.Errorf("android.location.GnssCapabilities$Builder is not available on this device")
+		}
+		if midGnssCapabilitiesBuilderCtor == nil {
+			return fmt.Errorf("android.location.GnssCapabilities$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGnssCapabilitiesBuilder)), midGnssCapabilitiesBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.location.GnssCapabilities$Builder.build.
 func (m *GnssCapabilitiesBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

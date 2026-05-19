@@ -23,6 +23,35 @@ type PoolsSynchronizedPool struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPoolsSynchronizedPool creates a new androidx.core.util.Pools$SynchronizedPool instance.
+func NewPoolsSynchronizedPool(vm *jni.VM, arg0 int32) (*PoolsSynchronizedPool, error) {
+	var t PoolsSynchronizedPool
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPoolsSynchronizedPool == nil {
+			return fmt.Errorf("androidx.core.util.Pools$SynchronizedPool is not available on this device")
+		}
+		if midPoolsSynchronizedPoolCtor == nil {
+			return fmt.Errorf("androidx.core.util.Pools$SynchronizedPool constructor (I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPoolsSynchronizedPool)), midPoolsSynchronizedPoolCtor, jni.IntValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.core.util.Pools$SynchronizedPool.toString.
 func (m *PoolsSynchronizedPool) ToString() (string, error) {
 	var result string

@@ -23,6 +23,34 @@ type TracingConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTracingConfigBuilder creates a new android.webkit.TracingConfig$Builder instance.
+func NewTracingConfigBuilder(vm *jni.VM) (*TracingConfigBuilder, error) {
+	var t TracingConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTracingConfigBuilder == nil {
+			return fmt.Errorf("android.webkit.TracingConfig$Builder is not available on this device")
+		}
+		if midTracingConfigBuilderCtor == nil {
+			return fmt.Errorf("android.webkit.TracingConfig$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTracingConfigBuilder)), midTracingConfigBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddCategories1 calls android.webkit.TracingConfig$Builder.addCategories.
 func (m *TracingConfigBuilder) AddCategories1(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

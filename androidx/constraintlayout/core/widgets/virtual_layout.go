@@ -32,6 +32,12 @@ func NewVirtualLayout(vm *jni.VM) (*VirtualLayout, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsVirtualLayout == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.VirtualLayout is not available on this device")
+		}
+		if midVirtualLayoutCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.VirtualLayout constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVirtualLayout)), midVirtualLayoutCtor)
 		if err != nil {
 			return err

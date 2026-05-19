@@ -23,6 +23,35 @@ type Session2CommandResult struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSession2CommandResult creates a new android.media.Session2Command$Result instance.
+func NewSession2CommandResult(vm *jni.VM, arg0 int32, arg1 *jni.Object) (*Session2CommandResult, error) {
+	var t Session2CommandResult
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSession2CommandResult == nil {
+			return fmt.Errorf("android.media.Session2Command$Result is not available on this device")
+		}
+		if midSession2CommandResultCtor == nil {
+			return fmt.Errorf("android.media.Session2Command$Result constructor (ILandroid/os/Bundle;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSession2CommandResult)), midSession2CommandResultCtor, jni.IntValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetResultCode calls android.media.Session2Command$Result.getResultCode.
 func (m *Session2CommandResult) GetResultCode() (int32, error) {
 	var result int32

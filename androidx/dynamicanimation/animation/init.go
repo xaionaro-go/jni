@@ -23,27 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsFlingAnimation                    *jni.GlobalRef
-	midFlingAnimationCtor                jni.MethodID
-	midFlingAnimationSetFriction         jni.MethodID
-	midFlingAnimationGetFriction         jni.MethodID
-	midFlingAnimationSetMinValue1        jni.MethodID
-	midFlingAnimationSetMaxValue1        jni.MethodID
-	midFlingAnimationSetStartVelocity1   jni.MethodID
-	midFlingAnimationSetMinValue1_1      jni.MethodID
-	midFlingAnimationSetMaxValue1_1      jni.MethodID
-	midFlingAnimationSetStartVelocity1_1 jni.MethodID
-	midFlingAnimationToString            jni.MethodID
-
-	clsFloatPropertyCompat         *jni.GlobalRef
-	midFloatPropertyCompatToString jni.MethodID
-
-	clsFloatValueHolder         *jni.GlobalRef
-	midFloatValueHolderCtor     jni.MethodID
-	midFloatValueHolderSetValue jni.MethodID
-	midFloatValueHolderGetValue jni.MethodID
-	midFloatValueHolderToString jni.MethodID
-
 	clsDynamicAnimation                        *jni.GlobalRef
 	midDynamicAnimationRemoveEndListener       jni.MethodID
 	midDynamicAnimationRemoveUpdateListener    jni.MethodID
@@ -62,8 +41,23 @@ var (
 	midDynamicAnimationOnAnimationUpdateListenerOnAnimationUpdate jni.MethodID
 	midDynamicAnimationOnAnimationUpdateListenerToString          jni.MethodID
 
+	clsFloatValueHolder         *jni.GlobalRef
+	midFloatValueHolderCtor     jni.MethodID
+	midFloatValueHolderSetValue jni.MethodID
+	midFloatValueHolderGetValue jni.MethodID
+	midFloatValueHolderToString jni.MethodID
+
 	clsDynamicAnimationViewProperty         *jni.GlobalRef
 	midDynamicAnimationViewPropertyToString jni.MethodID
+
+	clsFlingAnimation                 *jni.GlobalRef
+	midFlingAnimationCtor             jni.MethodID
+	midFlingAnimationSetFriction      jni.MethodID
+	midFlingAnimationGetFriction      jni.MethodID
+	midFlingAnimationSetMinValue      jni.MethodID
+	midFlingAnimationSetMaxValue      jni.MethodID
+	midFlingAnimationSetStartVelocity jni.MethodID
+	midFlingAnimationToString         jni.MethodID
 
 	clsSpringAnimation                       *jni.GlobalRef
 	midSpringAnimationCtor                   jni.MethodID
@@ -74,6 +68,9 @@ var (
 	midSpringAnimationSkipToEnd              jni.MethodID
 	midSpringAnimationCanSkipToEnd           jni.MethodID
 	midSpringAnimationToString               jni.MethodID
+
+	clsFloatPropertyCompat         *jni.GlobalRef
+	midFloatPropertyCompatToString jni.MethodID
 
 	clsSpringForce                 *jni.GlobalRef
 	midSpringForceCtor             jni.MethodID
@@ -105,135 +102,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("androidx/dynamicanimation/animation/FlingAnimation")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFlingAnimation = env.NewGlobalRef(&c.Object)
-		midFlingAnimationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFlingAnimation)), "<init>", "(Landroidx/dynamicanimation/animation/FloatValueHolder;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midFlingAnimationSetFriction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFlingAnimation)), "setFriction", "(F)Landroidx/dynamicanimation/animation/FlingAnimation;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFlingAnimationGetFriction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFlingAnimation)), "getFriction", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFlingAnimationSetMinValue1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFlingAnimation)), "setMinValue", "(F)Landroidx/dynamicanimation/animation/FlingAnimation;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFlingAnimationSetMaxValue1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFlingAnimation)), "setMaxValue", "(F)Landroidx/dynamicanimation/animation/FlingAnimation;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFlingAnimationSetStartVelocity1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFlingAnimation)), "setStartVelocity", "(F)Landroidx/dynamicanimation/animation/FlingAnimation;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFlingAnimationSetMinValue1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFlingAnimation)), "setMinValue", "(F)Landroidx/dynamicanimation/animation/DynamicAnimation;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFlingAnimationSetMaxValue1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFlingAnimation)), "setMaxValue", "(F)Landroidx/dynamicanimation/animation/DynamicAnimation;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFlingAnimationSetStartVelocity1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFlingAnimation)), "setStartVelocity", "(F)Landroidx/dynamicanimation/animation/DynamicAnimation;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFlingAnimationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFlingAnimation)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/dynamicanimation/animation/FloatPropertyCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFloatPropertyCompat = env.NewGlobalRef(&c.Object)
-
-		midFloatPropertyCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatPropertyCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/dynamicanimation/animation/FloatValueHolder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFloatValueHolder = env.NewGlobalRef(&c.Object)
-		midFloatValueHolderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatValueHolder)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midFloatValueHolderSetValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatValueHolder)), "setValue", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFloatValueHolderGetValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatValueHolder)), "getValue", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFloatValueHolderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatValueHolder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("androidx/dynamicanimation/animation/DynamicAnimation")
 	if err != nil {
@@ -349,6 +217,41 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("androidx/dynamicanimation/animation/FloatValueHolder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFloatValueHolder = env.NewGlobalRef(&c.Object)
+		midFloatValueHolderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatValueHolder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midFloatValueHolderSetValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatValueHolder)), "setValue", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFloatValueHolderGetValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatValueHolder)), "getValue", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFloatValueHolderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatValueHolder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("androidx/dynamicanimation/animation/DynamicAnimation$ViewProperty")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -358,6 +261,62 @@ func doInit(env *jni.Env) error {
 		clsDynamicAnimationViewProperty = env.NewGlobalRef(&c.Object)
 
 		midDynamicAnimationViewPropertyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicAnimationViewProperty)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/dynamicanimation/animation/FlingAnimation")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFlingAnimation = env.NewGlobalRef(&c.Object)
+		midFlingAnimationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFlingAnimation)), "<init>", "(Landroidx/dynamicanimation/animation/FloatValueHolder;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midFlingAnimationSetFriction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFlingAnimation)), "setFriction", "(F)Landroidx/dynamicanimation/animation/FlingAnimation;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFlingAnimationGetFriction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFlingAnimation)), "getFriction", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFlingAnimationSetMinValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFlingAnimation)), "setMinValue", "(F)Landroidx/dynamicanimation/animation/FlingAnimation;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFlingAnimationSetMaxValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFlingAnimation)), "setMaxValue", "(F)Landroidx/dynamicanimation/animation/FlingAnimation;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFlingAnimationSetStartVelocity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFlingAnimation)), "setStartVelocity", "(F)Landroidx/dynamicanimation/animation/FlingAnimation;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFlingAnimationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFlingAnimation)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -421,6 +380,23 @@ func doInit(env *jni.Env) error {
 		}
 
 		midSpringAnimationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpringAnimation)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/dynamicanimation/animation/FloatPropertyCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFloatPropertyCompat = env.NewGlobalRef(&c.Object)
+
+		midFloatPropertyCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatPropertyCompat)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

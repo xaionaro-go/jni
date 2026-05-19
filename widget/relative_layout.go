@@ -32,6 +32,12 @@ func NewRelativeLayout(vm *jni.VM, arg0 *jni.Object) (*RelativeLayout, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRelativeLayout == nil {
+			return fmt.Errorf("android.widget.RelativeLayout is not available on this device")
+		}
+		if midRelativeLayoutCtor == nil {
+			return fmt.Errorf("android.widget.RelativeLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRelativeLayout)), midRelativeLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -46,8 +52,8 @@ func NewRelativeLayout(vm *jni.VM, arg0 *jni.Object) (*RelativeLayout, error) {
 	return &t, nil
 }
 
-// GenerateLayoutParams1 calls android.widget.RelativeLayout.generateLayoutParams.
-func (m *RelativeLayout) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, error) {
+// GenerateLayoutParams calls android.widget.RelativeLayout.generateLayoutParams.
+func (m *RelativeLayout) GenerateLayoutParams(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,14 +61,14 @@ func (m *RelativeLayout) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, e
 			callErr = err
 			return err
 		}
-		if midRelativeLayoutGenerateLayoutParams1 == nil {
+		if midRelativeLayoutGenerateLayoutParams == nil {
 			callErr = fmt.Errorf("android.widget.RelativeLayout.generateLayoutParams is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midRelativeLayoutGenerateLayoutParams1, jni.ObjectValue(arg0),
+			midRelativeLayoutGenerateLayoutParams, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -322,39 +328,6 @@ func (m *RelativeLayout) ShouldDelayChildPressedState() (bool, error) {
 			return callErr
 		}
 		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// GenerateLayoutParams1_1 calls android.widget.RelativeLayout.generateLayoutParams.
-func (m *RelativeLayout) GenerateLayoutParams1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRelativeLayoutGenerateLayoutParams1_1 == nil {
-			callErr = fmt.Errorf("android.widget.RelativeLayout.generateLayoutParams is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midRelativeLayoutGenerateLayoutParams1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
 		return callErr
 	})
 	return result, callErr

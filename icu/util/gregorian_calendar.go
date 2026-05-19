@@ -32,6 +32,12 @@ func NewGregorianCalendar(vm *jni.VM) (*GregorianCalendar, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGregorianCalendar == nil {
+			return fmt.Errorf("android.icu.util.GregorianCalendar is not available on this device")
+		}
+		if midGregorianCalendarCtor == nil {
+			return fmt.Errorf("android.icu.util.GregorianCalendar constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGregorianCalendar)), midGregorianCalendarCtor)
 		if err != nil {
 			return err

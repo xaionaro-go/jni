@@ -32,6 +32,12 @@ func NewFitWindowsFrameLayout(vm *jni.VM, arg0 *jni.Object) (*FitWindowsFrameLay
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFitWindowsFrameLayout == nil {
+			return fmt.Errorf("androidx.appcompat.widget.FitWindowsFrameLayout is not available on this device")
+		}
+		if midFitWindowsFrameLayoutCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.FitWindowsFrameLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFitWindowsFrameLayout)), midFitWindowsFrameLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {

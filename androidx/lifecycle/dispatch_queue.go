@@ -32,6 +32,12 @@ func NewDispatchQueue(vm *jni.VM) (*DispatchQueue, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDispatchQueue == nil {
+			return fmt.Errorf("androidx.lifecycle.DispatchQueue is not available on this device")
+		}
+		if midDispatchQueueCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.DispatchQueue constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDispatchQueue)), midDispatchQueueCtor)
 		if err != nil {
 			return err

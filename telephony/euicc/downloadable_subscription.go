@@ -102,29 +102,6 @@ func (m *DownloadableSubscription) GetEncodedActivationCode() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.telephony.euicc.DownloadableSubscription.writeToParcel.
-func (m *DownloadableSubscription) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDownloadableSubscriptionWriteToParcel == nil {
-			callErr = fmt.Errorf("android.telephony.euicc.DownloadableSubscription.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midDownloadableSubscriptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.telephony.euicc.DownloadableSubscription.toString.
 func (m *DownloadableSubscription) ToString() (string, error) {
 	var result string
@@ -188,4 +165,27 @@ func (m *DownloadableSubscription) ForActivationCode(arg0 string) (*jni.Object, 
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.telephony.euicc.DownloadableSubscription.writeToParcel.
+func (m *DownloadableSubscription) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDownloadableSubscriptionWriteToParcel == nil {
+			callErr = fmt.Errorf("android.telephony.euicc.DownloadableSubscription.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsDownloadableSubscription)),
+			midDownloadableSubscriptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

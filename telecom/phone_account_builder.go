@@ -23,6 +23,35 @@ type PhoneAccountBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPhoneAccountBuilder creates a new android.telecom.PhoneAccount$Builder instance.
+func NewPhoneAccountBuilder(vm *jni.VM, arg0 *jni.Object) (*PhoneAccountBuilder, error) {
+	var t PhoneAccountBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPhoneAccountBuilder == nil {
+			return fmt.Errorf("android.telecom.PhoneAccount$Builder is not available on this device")
+		}
+		if midPhoneAccountBuilderCtor == nil {
+			return fmt.Errorf("android.telecom.PhoneAccount$Builder constructor (Landroid/telecom/PhoneAccount;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPhoneAccountBuilder)), midPhoneAccountBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddSupportedUriScheme calls android.telecom.PhoneAccount$Builder.addSupportedUriScheme.
 func (m *PhoneAccountBuilder) AddSupportedUriScheme(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

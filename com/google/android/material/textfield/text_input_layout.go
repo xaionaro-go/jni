@@ -32,6 +32,12 @@ func NewTextInputLayout(vm *jni.VM, arg0 *jni.Object) (*TextInputLayout, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTextInputLayout == nil {
+			return fmt.Errorf("com.google.android.material.textfield.TextInputLayout is not available on this device")
+		}
+		if midTextInputLayoutCtor == nil {
+			return fmt.Errorf("com.google.android.material.textfield.TextInputLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextInputLayout)), midTextInputLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {

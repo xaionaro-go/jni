@@ -32,6 +32,12 @@ func NewSurfaceTexture(vm *jni.VM, arg0 bool) (*SurfaceTexture, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSurfaceTexture == nil {
+			return fmt.Errorf("android.graphics.SurfaceTexture is not available on this device")
+		}
+		if midSurfaceTextureCtor == nil {
+			return fmt.Errorf("android.graphics.SurfaceTexture constructor (Z)V is not available on this device")
+		}
 		var jArg0 uint8
 		if arg0 {
 			jArg0 = jniTrue

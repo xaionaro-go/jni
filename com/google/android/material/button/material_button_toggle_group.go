@@ -32,6 +32,12 @@ func NewMaterialButtonToggleGroup(vm *jni.VM, arg0 *jni.Object) (*MaterialButton
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialButtonToggleGroup == nil {
+			return fmt.Errorf("com.google.android.material.button.MaterialButtonToggleGroup is not available on this device")
+		}
+		if midMaterialButtonToggleGroupCtor == nil {
+			return fmt.Errorf("com.google.android.material.button.MaterialButtonToggleGroup constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialButtonToggleGroup)), midMaterialButtonToggleGroupCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -437,33 +443,6 @@ func (m *MaterialButtonToggleGroup) SetSingleSelection1_1(arg0 int32) error {
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midMaterialButtonToggleGroupSetSingleSelection1_1, jni.IntValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// SetEnabled calls com.google.android.material.button.MaterialButtonToggleGroup.setEnabled.
-func (m *MaterialButtonToggleGroup) SetEnabled(arg0 bool) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialButtonToggleGroupSetEnabled == nil {
-			callErr = fmt.Errorf("com.google.android.material.button.MaterialButtonToggleGroup.setEnabled is not available on this device")
-			return callErr
-		}
-		var jArg0 uint8
-		if arg0 {
-			jArg0 = jniTrue
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMaterialButtonToggleGroupSetEnabled, jni.BooleanValue(jArg0),
 		)
 		return callErr
 	})

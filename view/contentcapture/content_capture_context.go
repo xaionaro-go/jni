@@ -139,29 +139,6 @@ func (m *ContentCaptureContext) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.contentcapture.ContentCaptureContext.writeToParcel.
-func (m *ContentCaptureContext) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midContentCaptureContextWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.contentcapture.ContentCaptureContext.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midContentCaptureContextWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ForLocusId calls android.view.contentcapture.ContentCaptureContext.forLocusId.
 func (m *ContentCaptureContext) ForLocusId(arg0 string) (*jni.Object, error) {
 	var result *jni.Object
@@ -198,4 +175,27 @@ func (m *ContentCaptureContext) ForLocusId(arg0 string) (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.contentcapture.ContentCaptureContext.writeToParcel.
+func (m *ContentCaptureContext) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midContentCaptureContextWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.contentcapture.ContentCaptureContext.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsContentCaptureContext)),
+			midContentCaptureContextWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

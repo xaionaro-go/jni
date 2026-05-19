@@ -32,6 +32,12 @@ func NewArraySet(vm *jni.VM) (*ArraySet, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsArraySet == nil {
+			return fmt.Errorf("androidx.collection.ArraySet is not available on this device")
+		}
+		if midArraySetCtor == nil {
+			return fmt.Errorf("androidx.collection.ArraySet constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsArraySet)), midArraySetCtor)
 		if err != nil {
 			return err

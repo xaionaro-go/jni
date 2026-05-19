@@ -37,12 +37,12 @@ import (
 	"unsafe"
 
 	"github.com/AndroidGoLab/jni"
-	"github.com/AndroidGoLab/jni/app"
-	"github.com/AndroidGoLab/jni/app/alarm"
-	app_consts "github.com/AndroidGoLab/jni/app/consts"
 	appcompat_widget "github.com/AndroidGoLab/jni/androidx/appcompat/widget"
 	rvwidget "github.com/AndroidGoLab/jni/androidx/recyclerview/widget"
 	rv_consts "github.com/AndroidGoLab/jni/androidx/recyclerview/widget/consts"
+	"github.com/AndroidGoLab/jni/app"
+	"github.com/AndroidGoLab/jni/app/alarm"
+	app_consts "github.com/AndroidGoLab/jni/app/consts"
 	"github.com/AndroidGoLab/jni/com/google/android/material/appbar"
 	"github.com/AndroidGoLab/jni/com/google/android/material/button"
 	"github.com/AndroidGoLab/jni/com/google/android/material/card"
@@ -451,8 +451,8 @@ func unboxInt(env *jni.Env, boxed *jni.Object) (int, error) {
 
 // newAlarmAdapter creates a Go-backed RecyclerView.Adapter via NewProxy;
 // proxy.go falls through to tryAbstractAdapter which instantiates
-// center.dx.jni.generated.RecyclerView$AdapterAdapter. The dispatch
-// handler implements getItemCount, onCreateViewHolder, onBindViewHolder.
+// center.dx.jni.generated.androidx.recyclerview.widget.RecyclerView$AdapterAdapter.
+// The dispatch handler implements getItemCount, onCreateViewHolder, onBindViewHolder.
 func (a *alarmApp) newAlarmAdapter() (*jni.Object, func(), error) {
 	var (
 		proxyObj *jni.Object
@@ -535,8 +535,8 @@ func (a *alarmApp) dispatchAdapter(
 
 // createRowHolder builds a fresh MaterialCardView with the row widgets,
 // caches them in a.holders, tags the card with the holder ID, and wraps it
-// in a RecyclerView$ViewHolderAdapter (the cycle-7 generated concrete
-// subclass of RecyclerView.ViewHolder that takes a single View arg).
+// in the generated concrete RecyclerView.ViewHolder subclass that takes a
+// single View arg.
 func (a *alarmApp) createRowHolder(env *jni.Env) (*jni.Object, error) {
 	cardObj, refs, err := a.buildCardRow()
 	if err != nil {
@@ -560,10 +560,9 @@ func (a *alarmApp) createRowHolder(env *jni.Env) (*jni.Object, error) {
 	}
 	defer env.DeleteGlobalRef(tagGlobal)
 
-	// Instantiate center.dx.jni.generated.RecyclerView$ViewHolderAdapter,
-	// which is the generator-emitted concrete RecyclerView.ViewHolder
-	// subclass: ctor takes only (View itemView).
-	cls, err := env.FindClass("center/dx/jni/generated/RecyclerView$ViewHolderAdapter")
+	// Instantiate the generator-emitted concrete RecyclerView.ViewHolder
+	// subclass; ctor takes only (View itemView).
+	cls, err := env.FindClass("center/dx/jni/generated/androidx/recyclerview/widget/RecyclerView$ViewHolderAdapter")
 	if err != nil {
 		return nil, fmt.Errorf("find ViewHolderAdapter: %w", err)
 	}
@@ -1302,4 +1301,3 @@ func maxID(es []alarmEntry) int32 {
 	}
 	return m
 }
-

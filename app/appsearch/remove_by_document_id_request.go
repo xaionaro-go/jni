@@ -107,29 +107,6 @@ func (m *RemoveByDocumentIdRequest) GetNamespace() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.appsearch.RemoveByDocumentIdRequest.writeToParcel.
-func (m *RemoveByDocumentIdRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRemoveByDocumentIdRequestWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.appsearch.RemoveByDocumentIdRequest.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midRemoveByDocumentIdRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.appsearch.RemoveByDocumentIdRequest.toString.
 func (m *RemoveByDocumentIdRequest) ToString() (string, error) {
 	var result string
@@ -155,4 +132,27 @@ func (m *RemoveByDocumentIdRequest) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.appsearch.RemoveByDocumentIdRequest.writeToParcel.
+func (m *RemoveByDocumentIdRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRemoveByDocumentIdRequestWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.appsearch.RemoveByDocumentIdRequest.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsRemoveByDocumentIdRequest)),
+			midRemoveByDocumentIdRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

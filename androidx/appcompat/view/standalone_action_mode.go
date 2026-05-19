@@ -32,6 +32,12 @@ func NewStandaloneActionMode(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStandaloneActionMode == nil {
+			return fmt.Errorf("androidx.appcompat.view.StandaloneActionMode is not available on this device")
+		}
+		if midStandaloneActionModeCtor == nil {
+			return fmt.Errorf("androidx.appcompat.view.StandaloneActionMode constructor (Landroid/content/Context;Landroidx/appcompat/widget/ActionBarContextView;Landroidx/appcompat/view/ActionMode$Callback;Z)V is not available on this device")
+		}
 
 		var jArg3 uint8
 		if arg3 {

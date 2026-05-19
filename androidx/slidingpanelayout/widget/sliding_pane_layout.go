@@ -32,6 +32,12 @@ func NewSlidingPaneLayout(vm *jni.VM, arg0 *jni.Object) (*SlidingPaneLayout, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSlidingPaneLayout == nil {
+			return fmt.Errorf("androidx.slidingpanelayout.widget.SlidingPaneLayout is not available on this device")
+		}
+		if midSlidingPaneLayoutCtor == nil {
+			return fmt.Errorf("androidx.slidingpanelayout.widget.SlidingPaneLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSlidingPaneLayout)), midSlidingPaneLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {

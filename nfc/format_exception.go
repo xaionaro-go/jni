@@ -32,6 +32,12 @@ func NewFormatException(vm *jni.VM) (*FormatException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFormatException == nil {
+			return fmt.Errorf("android.nfc.FormatException is not available on this device")
+		}
+		if midFormatExceptionCtor == nil {
+			return fmt.Errorf("android.nfc.FormatException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFormatException)), midFormatExceptionCtor)
 		if err != nil {
 			return err

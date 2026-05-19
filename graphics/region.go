@@ -32,6 +32,12 @@ func NewRegion(vm *jni.VM) (*Region, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRegion == nil {
+			return fmt.Errorf("android.graphics.Region is not available on this device")
+		}
+		if midRegionCtor == nil {
+			return fmt.Errorf("android.graphics.Region constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRegion)), midRegionCtor)
 		if err != nil {
 			return err
@@ -889,8 +895,8 @@ func (m *Region) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsRegion)),
 			midRegionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

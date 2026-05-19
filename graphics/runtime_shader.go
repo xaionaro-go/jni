@@ -32,6 +32,12 @@ func NewRuntimeShader(vm *jni.VM, arg0 string) (*RuntimeShader, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRuntimeShader == nil {
+			return fmt.Errorf("android.graphics.RuntimeShader is not available on this device")
+		}
+		if midRuntimeShaderCtor == nil {
+			return fmt.Errorf("android.graphics.RuntimeShader constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

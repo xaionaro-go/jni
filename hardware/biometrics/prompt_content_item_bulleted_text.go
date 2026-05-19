@@ -32,6 +32,12 @@ func NewPromptContentItemBulletedText(vm *jni.VM, arg0 string) (*PromptContentIt
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPromptContentItemBulletedText == nil {
+			return fmt.Errorf("android.hardware.biometrics.PromptContentItemBulletedText is not available on this device")
+		}
+		if midPromptContentItemBulletedTextCtor == nil {
+			return fmt.Errorf("android.hardware.biometrics.PromptContentItemBulletedText constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -76,29 +82,6 @@ func (m *PromptContentItemBulletedText) DescribeContents() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.hardware.biometrics.PromptContentItemBulletedText.writeToParcel.
-func (m *PromptContentItemBulletedText) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midPromptContentItemBulletedTextWriteToParcel == nil {
-			callErr = fmt.Errorf("android.hardware.biometrics.PromptContentItemBulletedText.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midPromptContentItemBulletedTextWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.hardware.biometrics.PromptContentItemBulletedText.toString.
 func (m *PromptContentItemBulletedText) ToString() (string, error) {
 	var result string
@@ -124,4 +107,27 @@ func (m *PromptContentItemBulletedText) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.hardware.biometrics.PromptContentItemBulletedText.writeToParcel.
+func (m *PromptContentItemBulletedText) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midPromptContentItemBulletedTextWriteToParcel == nil {
+			callErr = fmt.Errorf("android.hardware.biometrics.PromptContentItemBulletedText.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsPromptContentItemBulletedText)),
+			midPromptContentItemBulletedTextWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

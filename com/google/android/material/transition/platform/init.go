@@ -23,6 +23,11 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsMaterialArcMotion         *jni.GlobalRef
+	midMaterialArcMotionCtor     jni.MethodID
+	midMaterialArcMotionGetPath  jni.MethodID
+	midMaterialArcMotionToString jni.MethodID
+
 	clsFadeProvider                        *jni.GlobalRef
 	midFadeProviderCtor                    jni.MethodID
 	midFadeProviderGetIncomingEndThreshold jni.MethodID
@@ -31,42 +36,28 @@ var (
 	midFadeProviderCreateDisappear         jni.MethodID
 	midFadeProviderToString                jni.MethodID
 
-	clsMaterialContainerTransformSharedElementCallback                                         *jni.GlobalRef
-	midMaterialContainerTransformSharedElementCallbackCtor                                     jni.MethodID
-	midMaterialContainerTransformSharedElementCallbackOnCaptureSharedElementSnapshot           jni.MethodID
-	midMaterialContainerTransformSharedElementCallbackOnCreateSnapshotView                     jni.MethodID
-	midMaterialContainerTransformSharedElementCallbackGetShapeProvider                         jni.MethodID
-	midMaterialContainerTransformSharedElementCallbackSetShapeProvider                         jni.MethodID
-	midMaterialContainerTransformSharedElementCallbackIsTransparentWindowBackgroundEnabled     jni.MethodID
-	midMaterialContainerTransformSharedElementCallbackSetTransparentWindowBackgroundEnabled    jni.MethodID
-	midMaterialContainerTransformSharedElementCallbackIsSharedElementReenterTransitionEnabled  jni.MethodID
-	midMaterialContainerTransformSharedElementCallbackSetSharedElementReenterTransitionEnabled jni.MethodID
-	midMaterialContainerTransformSharedElementCallbackToString                                 jni.MethodID
+	clsSlideDistanceProvider                 *jni.GlobalRef
+	midSlideDistanceProviderCtor             jni.MethodID
+	midSlideDistanceProviderGetSlideEdge     jni.MethodID
+	midSlideDistanceProviderSetSlideEdge     jni.MethodID
+	midSlideDistanceProviderGetSlideDistance jni.MethodID
+	midSlideDistanceProviderSetSlideDistance jni.MethodID
+	midSlideDistanceProviderCreateAppear     jni.MethodID
+	midSlideDistanceProviderCreateDisappear  jni.MethodID
+	midSlideDistanceProviderToString         jni.MethodID
 
-	clsMaterialContainerTransformSharedElementCallbackShapeProvider             *jni.GlobalRef
-	midMaterialContainerTransformSharedElementCallbackShapeProviderProvideShape jni.MethodID
-	midMaterialContainerTransformSharedElementCallbackShapeProviderToString     jni.MethodID
+	clsSlideDistanceProviderGravityFlag         *jni.GlobalRef
+	midSlideDistanceProviderGravityFlagToString jni.MethodID
 
-	clsMaterialContainerTransformSharedElementCallbackShapeableViewShapeProvider             *jni.GlobalRef
-	midMaterialContainerTransformSharedElementCallbackShapeableViewShapeProviderProvideShape jni.MethodID
-	midMaterialContainerTransformSharedElementCallbackShapeableViewShapeProviderToString     jni.MethodID
+	clsMaterialFade         *jni.GlobalRef
+	midMaterialFadeCtor     jni.MethodID
+	midMaterialFadeToString jni.MethodID
 
-	clsMaterialSharedAxis                                 *jni.GlobalRef
-	midMaterialSharedAxisCtor                             jni.MethodID
-	midMaterialSharedAxisGetAxis                          jni.MethodID
-	midMaterialSharedAxisIsForward                        jni.MethodID
-	midMaterialSharedAxisOnDisappear                      jni.MethodID
-	midMaterialSharedAxisOnAppear                         jni.MethodID
-	midMaterialSharedAxisClearAdditionalAnimatorProvider  jni.MethodID
-	midMaterialSharedAxisRemoveAdditionalAnimatorProvider jni.MethodID
-	midMaterialSharedAxisAddAdditionalAnimatorProvider    jni.MethodID
-	midMaterialSharedAxisSetSecondaryAnimatorProvider     jni.MethodID
-	midMaterialSharedAxisGetSecondaryAnimatorProvider     jni.MethodID
-	midMaterialSharedAxisGetPrimaryAnimatorProvider       jni.MethodID
-	midMaterialSharedAxisToString                         jni.MethodID
-
-	clsMaterialSharedAxisAxis         *jni.GlobalRef
-	midMaterialSharedAxisAxisToString jni.MethodID
+	clsHold            *jni.GlobalRef
+	midHoldCtor        jni.MethodID
+	midHoldOnAppear    jni.MethodID
+	midHoldOnDisappear jni.MethodID
+	midHoldToString    jni.MethodID
 
 	clsMaterialContainerTransform                               *jni.GlobalRef
 	midMaterialContainerTransformCtor                           jni.MethodID
@@ -121,7 +112,6 @@ var (
 	midMaterialContainerTransformGetTransitionProperties        jni.MethodID
 	midMaterialContainerTransformCaptureStartValues             jni.MethodID
 	midMaterialContainerTransformCaptureEndValues               jni.MethodID
-	midMaterialContainerTransformCreateAnimator                 jni.MethodID
 	midMaterialContainerTransformToString                       jni.MethodID
 
 	clsMaterialContainerTransformFadeMode         *jni.GlobalRef
@@ -131,54 +121,59 @@ var (
 	midMaterialContainerTransformFitModeToString jni.MethodID
 
 	clsMaterialContainerTransformProgressThresholds         *jni.GlobalRef
+	midMaterialContainerTransformProgressThresholdsCtor     jni.MethodID
 	midMaterialContainerTransformProgressThresholdsGetStart jni.MethodID
-	midMaterialContainerTransformProgressThresholdsGetEnd   jni.MethodID
 	midMaterialContainerTransformProgressThresholdsToString jni.MethodID
+
+	clsFadeThroughProvider                     *jni.GlobalRef
+	midFadeThroughProviderCtor                 jni.MethodID
+	midFadeThroughProviderGetProgressThreshold jni.MethodID
+	midFadeThroughProviderSetProgressThreshold jni.MethodID
+	midFadeThroughProviderCreateAppear         jni.MethodID
+	midFadeThroughProviderCreateDisappear      jni.MethodID
+	midFadeThroughProviderToString             jni.MethodID
 
 	clsMaterialContainerTransformTransitionDirection         *jni.GlobalRef
 	midMaterialContainerTransformTransitionDirectionToString jni.MethodID
-
-	clsMaterialArcMotion         *jni.GlobalRef
-	midMaterialArcMotionCtor     jni.MethodID
-	midMaterialArcMotionGetPath  jni.MethodID
-	midMaterialArcMotionToString jni.MethodID
 
 	clsVisibilityAnimatorProvider                *jni.GlobalRef
 	midVisibilityAnimatorProviderCreateAppear    jni.MethodID
 	midVisibilityAnimatorProviderCreateDisappear jni.MethodID
 	midVisibilityAnimatorProviderToString        jni.MethodID
 
-	clsHold            *jni.GlobalRef
-	midHoldCtor        jni.MethodID
-	midHoldOnAppear    jni.MethodID
-	midHoldOnDisappear jni.MethodID
-	midHoldToString    jni.MethodID
+	clsMaterialSharedAxis          *jni.GlobalRef
+	midMaterialSharedAxisCtor      jni.MethodID
+	midMaterialSharedAxisGetAxis   jni.MethodID
+	midMaterialSharedAxisIsForward jni.MethodID
+	midMaterialSharedAxisToString  jni.MethodID
 
-	clsSlideDistanceProvider                 *jni.GlobalRef
-	midSlideDistanceProviderCtor             jni.MethodID
-	midSlideDistanceProviderGetSlideEdge     jni.MethodID
-	midSlideDistanceProviderSetSlideEdge     jni.MethodID
-	midSlideDistanceProviderGetSlideDistance jni.MethodID
-	midSlideDistanceProviderSetSlideDistance jni.MethodID
-	midSlideDistanceProviderCreateAppear     jni.MethodID
-	midSlideDistanceProviderCreateDisappear  jni.MethodID
-	midSlideDistanceProviderToString         jni.MethodID
+	clsMaterialSharedAxisAxis         *jni.GlobalRef
+	midMaterialSharedAxisAxisToString jni.MethodID
 
-	clsSlideDistanceProviderGravityFlag         *jni.GlobalRef
-	midSlideDistanceProviderGravityFlagToString jni.MethodID
+	clsMaterialContainerTransformSharedElementCallback                                        *jni.GlobalRef
+	midMaterialContainerTransformSharedElementCallbackCtor                                    jni.MethodID
+	midMaterialContainerTransformSharedElementCallbackOnCaptureSharedElementSnapshot          jni.MethodID
+	midMaterialContainerTransformSharedElementCallbackOnCreateSnapshotView                    jni.MethodID
+	midMaterialContainerTransformSharedElementCallbackGetShapeProvider                        jni.MethodID
+	midMaterialContainerTransformSharedElementCallbackSetShapeProvider                        jni.MethodID
+	midMaterialContainerTransformSharedElementCallbackIsTransparentWindowBackgroundEnabled    jni.MethodID
+	midMaterialContainerTransformSharedElementCallbackSetTransparentWindowBackgroundEnabled   jni.MethodID
+	midMaterialContainerTransformSharedElementCallbackIsSharedElementReenterTransitionEnabled jni.MethodID
+	midMaterialContainerTransformSharedElementCallbackToString                                jni.MethodID
 
-	clsMaterialElevationScale                                 *jni.GlobalRef
-	midMaterialElevationScaleCtor                             jni.MethodID
-	midMaterialElevationScaleIsGrowing                        jni.MethodID
-	midMaterialElevationScaleOnDisappear                      jni.MethodID
-	midMaterialElevationScaleOnAppear                         jni.MethodID
-	midMaterialElevationScaleClearAdditionalAnimatorProvider  jni.MethodID
-	midMaterialElevationScaleRemoveAdditionalAnimatorProvider jni.MethodID
-	midMaterialElevationScaleAddAdditionalAnimatorProvider    jni.MethodID
-	midMaterialElevationScaleSetSecondaryAnimatorProvider     jni.MethodID
-	midMaterialElevationScaleGetSecondaryAnimatorProvider     jni.MethodID
-	midMaterialElevationScaleGetPrimaryAnimatorProvider       jni.MethodID
-	midMaterialElevationScaleToString                         jni.MethodID
+	clsMaterialContainerTransformSharedElementCallbackShapeProvider             *jni.GlobalRef
+	midMaterialContainerTransformSharedElementCallbackShapeProviderProvideShape jni.MethodID
+	midMaterialContainerTransformSharedElementCallbackShapeProviderToString     jni.MethodID
+
+	clsMaterialContainerTransformSharedElementCallbackShapeableViewShapeProvider             *jni.GlobalRef
+	midMaterialContainerTransformSharedElementCallbackShapeableViewShapeProviderCtor         jni.MethodID
+	midMaterialContainerTransformSharedElementCallbackShapeableViewShapeProviderProvideShape jni.MethodID
+	midMaterialContainerTransformSharedElementCallbackShapeableViewShapeProviderToString     jni.MethodID
+
+	clsMaterialElevationScale          *jni.GlobalRef
+	midMaterialElevationScaleCtor      jni.MethodID
+	midMaterialElevationScaleIsGrowing jni.MethodID
+	midMaterialElevationScaleToString  jni.MethodID
 
 	clsScaleProvider                      *jni.GlobalRef
 	midScaleProviderCtor                  jni.MethodID
@@ -198,37 +193,9 @@ var (
 	midScaleProviderCreateDisappear       jni.MethodID
 	midScaleProviderToString              jni.MethodID
 
-	clsMaterialFadeThrough                                 *jni.GlobalRef
-	midMaterialFadeThroughCtor                             jni.MethodID
-	midMaterialFadeThroughOnDisappear                      jni.MethodID
-	midMaterialFadeThroughOnAppear                         jni.MethodID
-	midMaterialFadeThroughClearAdditionalAnimatorProvider  jni.MethodID
-	midMaterialFadeThroughRemoveAdditionalAnimatorProvider jni.MethodID
-	midMaterialFadeThroughAddAdditionalAnimatorProvider    jni.MethodID
-	midMaterialFadeThroughSetSecondaryAnimatorProvider     jni.MethodID
-	midMaterialFadeThroughGetSecondaryAnimatorProvider     jni.MethodID
-	midMaterialFadeThroughGetPrimaryAnimatorProvider       jni.MethodID
-	midMaterialFadeThroughToString                         jni.MethodID
-
-	clsMaterialFade                                 *jni.GlobalRef
-	midMaterialFadeCtor                             jni.MethodID
-	midMaterialFadeOnDisappear                      jni.MethodID
-	midMaterialFadeOnAppear                         jni.MethodID
-	midMaterialFadeClearAdditionalAnimatorProvider  jni.MethodID
-	midMaterialFadeRemoveAdditionalAnimatorProvider jni.MethodID
-	midMaterialFadeAddAdditionalAnimatorProvider    jni.MethodID
-	midMaterialFadeSetSecondaryAnimatorProvider     jni.MethodID
-	midMaterialFadeGetSecondaryAnimatorProvider     jni.MethodID
-	midMaterialFadeGetPrimaryAnimatorProvider       jni.MethodID
-	midMaterialFadeToString                         jni.MethodID
-
-	clsFadeThroughProvider                     *jni.GlobalRef
-	midFadeThroughProviderCtor                 jni.MethodID
-	midFadeThroughProviderGetProgressThreshold jni.MethodID
-	midFadeThroughProviderSetProgressThreshold jni.MethodID
-	midFadeThroughProviderCreateAppear         jni.MethodID
-	midFadeThroughProviderCreateDisappear      jni.MethodID
-	midFadeThroughProviderToString             jni.MethodID
+	clsMaterialFadeThrough         *jni.GlobalRef
+	midMaterialFadeThroughCtor     jni.MethodID
+	midMaterialFadeThroughToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -248,6 +215,34 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("com/google/android/material/transition/platform/MaterialArcMotion")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMaterialArcMotion = env.NewGlobalRef(&c.Object)
+		midMaterialArcMotionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialArcMotion)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMaterialArcMotionGetPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialArcMotion)), "getPath", "(FFFF)Landroid/graphics/Path;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialArcMotionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialArcMotion)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("com/google/android/material/transition/platform/FadeProvider")
 	if err != nil {
@@ -298,75 +293,61 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/transition/platform/MaterialContainerTransformSharedElementCallback")
+	c, err = env.FindClass("com/google/android/material/transition/platform/SlideDistanceProvider")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsMaterialContainerTransformSharedElementCallback = env.NewGlobalRef(&c.Object)
-		midMaterialContainerTransformSharedElementCallbackCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallback)), "<init>", "()V")
+		clsSlideDistanceProvider = env.NewGlobalRef(&c.Object)
+		midSlideDistanceProviderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlideDistanceProvider)), "<init>", "(I)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midMaterialContainerTransformSharedElementCallbackOnCaptureSharedElementSnapshot, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallback)), "onCaptureSharedElementSnapshot", "(Landroid/view/View;Landroid/graphics/Matrix;Landroid/graphics/RectF;)Landroid/os/Parcelable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialContainerTransformSharedElementCallbackOnCreateSnapshotView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallback)), "onCreateSnapshotView", "(Landroid/content/Context;Landroid/os/Parcelable;)Landroid/view/View;")
+		midSlideDistanceProviderGetSlideEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlideDistanceProvider)), "getSlideEdge", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialContainerTransformSharedElementCallbackGetShapeProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallback)), "getShapeProvider", "()Lcom/google/android/material/transition/platform/MaterialContainerTransformSharedElementCallback$ShapeProvider;")
+		midSlideDistanceProviderSetSlideEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlideDistanceProvider)), "setSlideEdge", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialContainerTransformSharedElementCallbackSetShapeProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallback)), "setShapeProvider", "(Lcom/google/android/material/transition/platform/MaterialContainerTransformSharedElementCallback$ShapeProvider;)V")
+		midSlideDistanceProviderGetSlideDistance, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlideDistanceProvider)), "getSlideDistance", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialContainerTransformSharedElementCallbackIsTransparentWindowBackgroundEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallback)), "isTransparentWindowBackgroundEnabled", "()Z")
+		midSlideDistanceProviderSetSlideDistance, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlideDistanceProvider)), "setSlideDistance", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialContainerTransformSharedElementCallbackSetTransparentWindowBackgroundEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallback)), "setTransparentWindowBackgroundEnabled", "(Z)V")
+		midSlideDistanceProviderCreateAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlideDistanceProvider)), "createAppear", "(Landroid/view/ViewGroup;Landroid/view/View;)Landroid/animation/Animator;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialContainerTransformSharedElementCallbackIsSharedElementReenterTransitionEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallback)), "isSharedElementReenterTransitionEnabled", "()Z")
+		midSlideDistanceProviderCreateDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlideDistanceProvider)), "createDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;)Landroid/animation/Animator;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialContainerTransformSharedElementCallbackSetSharedElementReenterTransitionEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallback)), "setSharedElementReenterTransitionEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialContainerTransformSharedElementCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallback)), "toString", "()Ljava/lang/String;")
+		midSlideDistanceProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlideDistanceProvider)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -375,22 +356,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/transition/platform/MaterialContainerTransformSharedElementCallback$ShapeProvider")
+	c, err = env.FindClass("com/google/android/material/transition/platform/SlideDistanceProvider$GravityFlag")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsMaterialContainerTransformSharedElementCallbackShapeProvider = env.NewGlobalRef(&c.Object)
+		clsSlideDistanceProviderGravityFlag = env.NewGlobalRef(&c.Object)
 
-		midMaterialContainerTransformSharedElementCallbackShapeProviderProvideShape, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallbackShapeProvider)), "provideShape", "(Landroid/view/View;)Lcom/google/android/material/shape/ShapeAppearanceModel;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialContainerTransformSharedElementCallbackShapeProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallbackShapeProvider)), "toString", "()Ljava/lang/String;")
+		midSlideDistanceProviderGravityFlagToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlideDistanceProviderGravityFlag)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -399,22 +373,19 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/transition/platform/MaterialContainerTransformSharedElementCallback$ShapeableViewShapeProvider")
+	c, err = env.FindClass("com/google/android/material/transition/platform/MaterialFade")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsMaterialContainerTransformSharedElementCallbackShapeableViewShapeProvider = env.NewGlobalRef(&c.Object)
-
-		midMaterialContainerTransformSharedElementCallbackShapeableViewShapeProviderProvideShape, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallbackShapeableViewShapeProvider)), "provideShape", "(Landroid/view/View;)Lcom/google/android/material/shape/ShapeAppearanceModel;")
+		clsMaterialFade = env.NewGlobalRef(&c.Object)
+		midMaterialFadeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "<init>", "()V")
 		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialContainerTransformSharedElementCallbackShapeableViewShapeProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallbackShapeableViewShapeProvider)), "toString", "()Ljava/lang/String;")
+		midMaterialFadeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -423,106 +394,33 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/transition/platform/MaterialSharedAxis")
+	c, err = env.FindClass("com/google/android/material/transition/platform/Hold")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsMaterialSharedAxis = env.NewGlobalRef(&c.Object)
-		midMaterialSharedAxisCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "<init>", "(IZ)V")
+		clsHold = env.NewGlobalRef(&c.Object)
+		midHoldCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHold)), "<init>", "()V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midMaterialSharedAxisGetAxis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "getAxis", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialSharedAxisIsForward, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "isForward", "()Z")
+		midHoldOnAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHold)), "onAppear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialSharedAxisOnDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "onDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
+		midHoldOnDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHold)), "onDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialSharedAxisOnAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "onAppear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialSharedAxisClearAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "clearAdditionalAnimatorProvider", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialSharedAxisRemoveAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "removeAdditionalAnimatorProvider", "(Lcom/google/android/material/transition/platform/VisibilityAnimatorProvider;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialSharedAxisAddAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "addAdditionalAnimatorProvider", "(Lcom/google/android/material/transition/platform/VisibilityAnimatorProvider;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialSharedAxisSetSecondaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "setSecondaryAnimatorProvider", "(Lcom/google/android/material/transition/platform/VisibilityAnimatorProvider;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialSharedAxisGetSecondaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "getSecondaryAnimatorProvider", "()Lcom/google/android/material/transition/platform/VisibilityAnimatorProvider;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialSharedAxisGetPrimaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "getPrimaryAnimatorProvider", "()Lcom/google/android/material/transition/platform/VisibilityAnimatorProvider;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialSharedAxisToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/transition/platform/MaterialSharedAxis$Axis")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMaterialSharedAxisAxis = env.NewGlobalRef(&c.Object)
-
-		midMaterialSharedAxisAxisToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxisAxis)), "toString", "()Ljava/lang/String;")
+		midHoldToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHold)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -900,13 +798,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMaterialContainerTransformCreateAnimator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransform)), "createAnimator", "(Landroid/view/ViewGroup;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midMaterialContainerTransformToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransform)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -957,6 +848,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsMaterialContainerTransformProgressThresholds = env.NewGlobalRef(&c.Object)
+		midMaterialContainerTransformProgressThresholdsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformProgressThresholds)), "<init>", "(FF)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midMaterialContainerTransformProgressThresholdsGetStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformProgressThresholds)), "getStart", "()F")
 		if err != nil {
@@ -965,14 +860,56 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMaterialContainerTransformProgressThresholdsGetEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformProgressThresholds)), "getEnd", "()F")
+		midMaterialContainerTransformProgressThresholdsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformProgressThresholds)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialContainerTransformProgressThresholdsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformProgressThresholds)), "toString", "()Ljava/lang/String;")
+	}
+
+	c, err = env.FindClass("com/google/android/material/transition/platform/FadeThroughProvider")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFadeThroughProvider = env.NewGlobalRef(&c.Object)
+		midFadeThroughProviderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeThroughProvider)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midFadeThroughProviderGetProgressThreshold, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeThroughProvider)), "getProgressThreshold", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFadeThroughProviderSetProgressThreshold, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeThroughProvider)), "setProgressThreshold", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFadeThroughProviderCreateAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeThroughProvider)), "createAppear", "(Landroid/view/ViewGroup;Landroid/view/View;)Landroid/animation/Animator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFadeThroughProviderCreateDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeThroughProvider)), "createDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;)Landroid/animation/Animator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFadeThroughProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeThroughProvider)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -990,34 +927,6 @@ func doInit(env *jni.Env) error {
 		clsMaterialContainerTransformTransitionDirection = env.NewGlobalRef(&c.Object)
 
 		midMaterialContainerTransformTransitionDirectionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformTransitionDirection)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/transition/platform/MaterialArcMotion")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMaterialArcMotion = env.NewGlobalRef(&c.Object)
-		midMaterialArcMotionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialArcMotion)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMaterialArcMotionGetPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialArcMotion)), "getPath", "(FFFF)Landroid/graphics/Path;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialArcMotionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialArcMotion)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1057,33 +966,33 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/transition/platform/Hold")
+	c, err = env.FindClass("com/google/android/material/transition/platform/MaterialSharedAxis")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsHold = env.NewGlobalRef(&c.Object)
-		midHoldCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHold)), "<init>", "()V")
+		clsMaterialSharedAxis = env.NewGlobalRef(&c.Object)
+		midMaterialSharedAxisCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "<init>", "(IZ)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midHoldOnAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHold)), "onAppear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHoldOnDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHold)), "onDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
+		midMaterialSharedAxisGetAxis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "getAxis", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midHoldToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHold)), "toString", "()Ljava/lang/String;")
+		midMaterialSharedAxisIsForward, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "isForward", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialSharedAxisToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1092,61 +1001,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/transition/platform/SlideDistanceProvider")
+	c, err = env.FindClass("com/google/android/material/transition/platform/MaterialSharedAxis$Axis")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSlideDistanceProvider = env.NewGlobalRef(&c.Object)
-		midSlideDistanceProviderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlideDistanceProvider)), "<init>", "(I)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsMaterialSharedAxisAxis = env.NewGlobalRef(&c.Object)
 
-		midSlideDistanceProviderGetSlideEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlideDistanceProvider)), "getSlideEdge", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSlideDistanceProviderSetSlideEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlideDistanceProvider)), "setSlideEdge", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSlideDistanceProviderGetSlideDistance, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlideDistanceProvider)), "getSlideDistance", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSlideDistanceProviderSetSlideDistance, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlideDistanceProvider)), "setSlideDistance", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSlideDistanceProviderCreateAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlideDistanceProvider)), "createAppear", "(Landroid/view/ViewGroup;Landroid/view/View;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSlideDistanceProviderCreateDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlideDistanceProvider)), "createDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSlideDistanceProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlideDistanceProvider)), "toString", "()Ljava/lang/String;")
+		midMaterialSharedAxisAxisToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxisAxis)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1155,15 +1018,120 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/transition/platform/SlideDistanceProvider$GravityFlag")
+	c, err = env.FindClass("com/google/android/material/transition/platform/MaterialContainerTransformSharedElementCallback")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSlideDistanceProviderGravityFlag = env.NewGlobalRef(&c.Object)
+		clsMaterialContainerTransformSharedElementCallback = env.NewGlobalRef(&c.Object)
+		midMaterialContainerTransformSharedElementCallbackCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallback)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midSlideDistanceProviderGravityFlagToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlideDistanceProviderGravityFlag)), "toString", "()Ljava/lang/String;")
+		midMaterialContainerTransformSharedElementCallbackOnCaptureSharedElementSnapshot, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallback)), "onCaptureSharedElementSnapshot", "(Landroid/view/View;Landroid/graphics/Matrix;Landroid/graphics/RectF;)Landroid/os/Parcelable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialContainerTransformSharedElementCallbackOnCreateSnapshotView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallback)), "onCreateSnapshotView", "(Landroid/content/Context;Landroid/os/Parcelable;)Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialContainerTransformSharedElementCallbackGetShapeProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallback)), "getShapeProvider", "()Lcom/google/android/material/transition/platform/MaterialContainerTransformSharedElementCallback$ShapeProvider;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialContainerTransformSharedElementCallbackSetShapeProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallback)), "setShapeProvider", "(Lcom/google/android/material/transition/platform/MaterialContainerTransformSharedElementCallback$ShapeProvider;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialContainerTransformSharedElementCallbackIsTransparentWindowBackgroundEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallback)), "isTransparentWindowBackgroundEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialContainerTransformSharedElementCallbackSetTransparentWindowBackgroundEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallback)), "setTransparentWindowBackgroundEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialContainerTransformSharedElementCallbackIsSharedElementReenterTransitionEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallback)), "isSharedElementReenterTransitionEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialContainerTransformSharedElementCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/transition/platform/MaterialContainerTransformSharedElementCallback$ShapeProvider")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMaterialContainerTransformSharedElementCallbackShapeProvider = env.NewGlobalRef(&c.Object)
+
+		midMaterialContainerTransformSharedElementCallbackShapeProviderProvideShape, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallbackShapeProvider)), "provideShape", "(Landroid/view/View;)Lcom/google/android/material/shape/ShapeAppearanceModel;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialContainerTransformSharedElementCallbackShapeProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallbackShapeProvider)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/transition/platform/MaterialContainerTransformSharedElementCallback$ShapeableViewShapeProvider")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMaterialContainerTransformSharedElementCallbackShapeableViewShapeProvider = env.NewGlobalRef(&c.Object)
+		midMaterialContainerTransformSharedElementCallbackShapeableViewShapeProviderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallbackShapeableViewShapeProvider)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMaterialContainerTransformSharedElementCallbackShapeableViewShapeProviderProvideShape, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallbackShapeableViewShapeProvider)), "provideShape", "(Landroid/view/View;)Lcom/google/android/material/shape/ShapeAppearanceModel;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialContainerTransformSharedElementCallbackShapeableViewShapeProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallbackShapeableViewShapeProvider)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1185,62 +1153,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midMaterialElevationScaleIsGrowing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "isGrowing", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialElevationScaleOnDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "onDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialElevationScaleOnAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "onAppear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialElevationScaleClearAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "clearAdditionalAnimatorProvider", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialElevationScaleRemoveAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "removeAdditionalAnimatorProvider", "(Lcom/google/android/material/transition/platform/VisibilityAnimatorProvider;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialElevationScaleAddAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "addAdditionalAnimatorProvider", "(Lcom/google/android/material/transition/platform/VisibilityAnimatorProvider;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialElevationScaleSetSecondaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "setSecondaryAnimatorProvider", "(Lcom/google/android/material/transition/platform/VisibilityAnimatorProvider;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialElevationScaleGetSecondaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "getSecondaryAnimatorProvider", "()Lcom/google/android/material/transition/platform/VisibilityAnimatorProvider;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialElevationScaleGetPrimaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "getPrimaryAnimatorProvider", "()Lcom/google/android/material/transition/platform/VisibilityAnimatorProvider;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1387,189 +1299,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMaterialFadeThroughOnDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFadeThrough)), "onDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeThroughOnAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFadeThrough)), "onAppear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeThroughClearAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFadeThrough)), "clearAdditionalAnimatorProvider", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeThroughRemoveAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFadeThrough)), "removeAdditionalAnimatorProvider", "(Lcom/google/android/material/transition/platform/VisibilityAnimatorProvider;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeThroughAddAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFadeThrough)), "addAdditionalAnimatorProvider", "(Lcom/google/android/material/transition/platform/VisibilityAnimatorProvider;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeThroughSetSecondaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFadeThrough)), "setSecondaryAnimatorProvider", "(Lcom/google/android/material/transition/platform/VisibilityAnimatorProvider;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeThroughGetSecondaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFadeThrough)), "getSecondaryAnimatorProvider", "()Lcom/google/android/material/transition/platform/VisibilityAnimatorProvider;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeThroughGetPrimaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFadeThrough)), "getPrimaryAnimatorProvider", "()Lcom/google/android/material/transition/platform/VisibilityAnimatorProvider;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midMaterialFadeThroughToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFadeThrough)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/transition/platform/MaterialFade")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMaterialFade = env.NewGlobalRef(&c.Object)
-		midMaterialFadeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeOnDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "onDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeOnAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "onAppear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeClearAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "clearAdditionalAnimatorProvider", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeRemoveAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "removeAdditionalAnimatorProvider", "(Lcom/google/android/material/transition/platform/VisibilityAnimatorProvider;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeAddAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "addAdditionalAnimatorProvider", "(Lcom/google/android/material/transition/platform/VisibilityAnimatorProvider;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeSetSecondaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "setSecondaryAnimatorProvider", "(Lcom/google/android/material/transition/platform/VisibilityAnimatorProvider;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeGetSecondaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "getSecondaryAnimatorProvider", "()Lcom/google/android/material/transition/platform/VisibilityAnimatorProvider;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeGetPrimaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "getPrimaryAnimatorProvider", "()Lcom/google/android/material/transition/platform/VisibilityAnimatorProvider;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/transition/platform/FadeThroughProvider")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFadeThroughProvider = env.NewGlobalRef(&c.Object)
-		midFadeThroughProviderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeThroughProvider)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midFadeThroughProviderGetProgressThreshold, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeThroughProvider)), "getProgressThreshold", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFadeThroughProviderSetProgressThreshold, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeThroughProvider)), "setProgressThreshold", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFadeThroughProviderCreateAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeThroughProvider)), "createAppear", "(Landroid/view/ViewGroup;Landroid/view/View;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFadeThroughProviderCreateDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeThroughProvider)), "createDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFadeThroughProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeThroughProvider)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

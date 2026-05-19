@@ -32,6 +32,12 @@ func NewWindowInsetsCompat(vm *jni.VM, arg0 *jni.Object) (*WindowInsetsCompat, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWindowInsetsCompat == nil {
+			return fmt.Errorf("androidx.core.view.WindowInsetsCompat is not available on this device")
+		}
+		if midWindowInsetsCompatCtor == nil {
+			return fmt.Errorf("androidx.core.view.WindowInsetsCompat constructor (Landroidx/core/view/WindowInsetsCompat;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWindowInsetsCompat)), midWindowInsetsCompatCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -958,38 +964,6 @@ func (m *WindowInsetsCompat) HashCode() (int32, error) {
 	return result, callErr
 }
 
-// ToWindowInsets calls androidx.core.view.WindowInsetsCompat.toWindowInsets.
-func (m *WindowInsetsCompat) ToWindowInsets() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midWindowInsetsCompatToWindowInsets == nil {
-			callErr = fmt.Errorf("androidx.core.view.WindowInsetsCompat.toWindowInsets is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midWindowInsetsCompatToWindowInsets,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.core.view.WindowInsetsCompat.toString.
 func (m *WindowInsetsCompat) ToString() (string, error) {
 	var result string
@@ -1067,6 +1041,38 @@ func (m *WindowInsetsCompat) ToWindowInsetsCompat2_1(arg0 *jni.Object, arg1 *jni
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsWindowInsetsCompat)),
 			midWindowInsetsCompatToWindowInsetsCompat2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// ToWindowInsets calls androidx.core.view.WindowInsetsCompat.toWindowInsets.
+func (m *WindowInsetsCompat) ToWindowInsets() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midWindowInsetsCompatToWindowInsets == nil {
+			callErr = fmt.Errorf("androidx.core.view.WindowInsetsCompat.toWindowInsets is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsWindowInsetsCompat)),
+			midWindowInsetsCompatToWindowInsets,
 		)
 		if callErr != nil {
 			return callErr

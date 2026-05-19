@@ -32,6 +32,12 @@ func NewMetrics(vm *jni.VM) (*Metrics, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMetrics == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.Metrics is not available on this device")
+		}
+		if midMetricsCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.Metrics constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMetrics)), midMetricsCtor)
 		if err != nil {
 			return err

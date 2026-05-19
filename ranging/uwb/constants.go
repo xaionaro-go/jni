@@ -6,17 +6,6 @@ import "github.com/AndroidGoLab/jni/ranging/uwb/consts"
 
 const (
 	Creator                                   = consts.Creator
-	ExtendedAddressByteLength                 = consts.ExtendedAddressByteLength
-	ShortAddressByteLength                    = consts.ShortAddressByteLength
-	ConfigMulticastDsTwr                      = consts.ConfigMulticastDsTwr
-	ConfigProvisionedIndividualMulticastDsTwr = consts.ConfigProvisionedIndividualMulticastDsTwr
-	ConfigProvisionedMulticastDsTwr           = consts.ConfigProvisionedMulticastDsTwr
-	ConfigProvisionedUnicastDsTwr             = consts.ConfigProvisionedUnicastDsTwr
-	ConfigProvisionedUnicastDsTwrVeryFast     = consts.ConfigProvisionedUnicastDsTwrVeryFast
-	ConfigUnicastDsTwr                        = consts.ConfigUnicastDsTwr
-	Duration1Ms                               = consts.Duration1Ms
-	Duration2Ms                               = consts.Duration2Ms
-	SubSessionUndefined                       = consts.SubSessionUndefined
 	UwbChannel10                              = consts.UwbChannel10
 	UwbChannel12                              = consts.UwbChannel12
 	UwbChannel13                              = consts.UwbChannel13
@@ -37,4 +26,15 @@ const (
 	UwbPreambleCodeIndex31                    = consts.UwbPreambleCodeIndex31
 	UwbPreambleCodeIndex32                    = consts.UwbPreambleCodeIndex32
 	UwbPreambleCodeIndex9                     = consts.UwbPreambleCodeIndex9
+	ConfigMulticastDsTwr                      = consts.ConfigMulticastDsTwr
+	ConfigProvisionedIndividualMulticastDsTwr = consts.ConfigProvisionedIndividualMulticastDsTwr
+	ConfigProvisionedMulticastDsTwr           = consts.ConfigProvisionedMulticastDsTwr
+	ConfigProvisionedUnicastDsTwr             = consts.ConfigProvisionedUnicastDsTwr
+	ConfigProvisionedUnicastDsTwrVeryFast     = consts.ConfigProvisionedUnicastDsTwrVeryFast
+	ConfigUnicastDsTwr                        = consts.ConfigUnicastDsTwr
+	Duration1Ms                               = consts.Duration1Ms
+	Duration2Ms                               = consts.Duration2Ms
+	SubSessionUndefined                       = consts.SubSessionUndefined
+	ExtendedAddressByteLength                 = consts.ExtendedAddressByteLength
+	ShortAddressByteLength                    = consts.ShortAddressByteLength
 )

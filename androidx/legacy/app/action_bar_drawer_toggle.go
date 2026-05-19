@@ -30,6 +30,12 @@ func NewActionBarDrawerToggle(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, ar
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsActionBarDrawerToggle == nil {
+			return fmt.Errorf("androidx.legacy.app.ActionBarDrawerToggle is not available on this device")
+		}
+		if midActionBarDrawerToggleCtor == nil {
+			return fmt.Errorf("androidx.legacy.app.ActionBarDrawerToggle constructor (Landroid/app/Activity;Landroidx/drawerlayout/widget/DrawerLayout;III)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActionBarDrawerToggle)), midActionBarDrawerToggleCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3), jni.IntValue(arg4))
 		if err != nil {
@@ -286,29 +292,6 @@ func (m *ActionBarDrawerToggle) OnDrawerClosed(arg0 *jni.Object) error {
 	return callErr
 }
 
-// OnDrawerStateChanged calls androidx.legacy.app.ActionBarDrawerToggle.onDrawerStateChanged.
-func (m *ActionBarDrawerToggle) OnDrawerStateChanged(arg0 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActionBarDrawerToggleOnDrawerStateChanged == nil {
-			callErr = fmt.Errorf("androidx.legacy.app.ActionBarDrawerToggle.onDrawerStateChanged is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midActionBarDrawerToggleOnDrawerStateChanged, jni.IntValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.legacy.app.ActionBarDrawerToggle.toString.
 func (m *ActionBarDrawerToggle) ToString() (string, error) {
 	var result string
@@ -334,4 +317,27 @@ func (m *ActionBarDrawerToggle) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// OnDrawerStateChanged calls androidx.legacy.app.ActionBarDrawerToggle.onDrawerStateChanged.
+func (m *ActionBarDrawerToggle) OnDrawerStateChanged(arg0 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midActionBarDrawerToggleOnDrawerStateChanged == nil {
+			callErr = fmt.Errorf("androidx.legacy.app.ActionBarDrawerToggle.onDrawerStateChanged is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsActionBarDrawerToggle)),
+			midActionBarDrawerToggleOnDrawerStateChanged, jni.IntValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

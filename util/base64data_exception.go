@@ -32,6 +32,12 @@ func NewBase64DataException(vm *jni.VM, arg0 string) (*Base64DataException, erro
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBase64DataException == nil {
+			return fmt.Errorf("android.util.Base64DataException is not available on this device")
+		}
+		if midBase64DataExceptionCtor == nil {
+			return fmt.Errorf("android.util.Base64DataException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

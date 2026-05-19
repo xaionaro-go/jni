@@ -32,6 +32,12 @@ func NewScaleDrawable(vm *jni.VM, arg0 *jni.Object, arg1 int32, arg2 float32, ar
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsScaleDrawable == nil {
+			return fmt.Errorf("android.graphics.drawable.ScaleDrawable is not available on this device")
+		}
+		if midScaleDrawableCtor == nil {
+			return fmt.Errorf("android.graphics.drawable.ScaleDrawable constructor (Landroid/graphics/drawable/Drawable;IFF)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScaleDrawable)), midScaleDrawableCtor, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.FloatValue(arg2), jni.FloatValue(arg3))
 		if err != nil {

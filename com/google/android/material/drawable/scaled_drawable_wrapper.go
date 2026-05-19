@@ -32,6 +32,12 @@ func NewScaledDrawableWrapper(vm *jni.VM, arg0 *jni.Object, arg1 int32, arg2 int
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsScaledDrawableWrapper == nil {
+			return fmt.Errorf("com.google.android.material.drawable.ScaledDrawableWrapper is not available on this device")
+		}
+		if midScaledDrawableWrapperCtor == nil {
+			return fmt.Errorf("com.google.android.material.drawable.ScaledDrawableWrapper constructor (Landroid/graphics/drawable/Drawable;II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScaledDrawableWrapper)), midScaledDrawableWrapperCtor, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2))
 		if err != nil {

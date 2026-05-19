@@ -23,6 +23,35 @@ type TabLayoutViewPagerOnTabSelectedListener struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTabLayoutViewPagerOnTabSelectedListener creates a new com.google.android.material.tabs.TabLayout$ViewPagerOnTabSelectedListener instance.
+func NewTabLayoutViewPagerOnTabSelectedListener(vm *jni.VM, arg0 *jni.Object) (*TabLayoutViewPagerOnTabSelectedListener, error) {
+	var t TabLayoutViewPagerOnTabSelectedListener
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTabLayoutViewPagerOnTabSelectedListener == nil {
+			return fmt.Errorf("com.google.android.material.tabs.TabLayout$ViewPagerOnTabSelectedListener is not available on this device")
+		}
+		if midTabLayoutViewPagerOnTabSelectedListenerCtor == nil {
+			return fmt.Errorf("com.google.android.material.tabs.TabLayout$ViewPagerOnTabSelectedListener constructor (Landroidx/viewpager/widget/ViewPager;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTabLayoutViewPagerOnTabSelectedListener)), midTabLayoutViewPagerOnTabSelectedListenerCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnTabSelected calls com.google.android.material.tabs.TabLayout$ViewPagerOnTabSelectedListener.onTabSelected.
 func (m *TabLayoutViewPagerOnTabSelectedListener) OnTabSelected(arg0 *jni.Object) error {
 

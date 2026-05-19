@@ -128,29 +128,6 @@ func (m *Insets) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.graphics.Insets.writeToParcel.
-func (m *Insets) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midInsetsWriteToParcel == nil {
-			callErr = fmt.Errorf("android.graphics.Insets.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midInsetsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // Add calls android.graphics.Insets.add.
 func (m *Insets) Add(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
@@ -352,4 +329,27 @@ func (m *Insets) Subtract(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, erro
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.graphics.Insets.writeToParcel.
+func (m *Insets) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midInsetsWriteToParcel == nil {
+			callErr = fmt.Errorf("android.graphics.Insets.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsInsets)),
+			midInsetsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

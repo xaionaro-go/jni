@@ -32,6 +32,12 @@ func NewEthiopicCalendar(vm *jni.VM) (*EthiopicCalendar, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEthiopicCalendar == nil {
+			return fmt.Errorf("android.icu.util.EthiopicCalendar is not available on this device")
+		}
+		if midEthiopicCalendarCtor == nil {
+			return fmt.Errorf("android.icu.util.EthiopicCalendar constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEthiopicCalendar)), midEthiopicCalendarCtor)
 		if err != nil {
 			return err

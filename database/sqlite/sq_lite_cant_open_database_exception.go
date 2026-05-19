@@ -32,6 +32,12 @@ func NewSQLiteCantOpenDatabaseException(vm *jni.VM) (*SQLiteCantOpenDatabaseExce
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSQLiteCantOpenDatabaseException == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteCantOpenDatabaseException is not available on this device")
+		}
+		if midSQLiteCantOpenDatabaseExceptionCtor == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteCantOpenDatabaseException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSQLiteCantOpenDatabaseException)), midSQLiteCantOpenDatabaseExceptionCtor)
 		if err != nil {
 			return err

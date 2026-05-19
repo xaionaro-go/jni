@@ -32,6 +32,12 @@ func NewConcatAdapter(vm *jni.VM, arg0 *jni.Object) (*ConcatAdapter, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsConcatAdapter == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.ConcatAdapter is not available on this device")
+		}
+		if midConcatAdapterCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.ConcatAdapter constructor ([Landroidx/recyclerview/widget/RecyclerView$Adapter;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConcatAdapter)), midConcatAdapterCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -5,6 +5,61 @@
 package: inputmethod
 go_import: github.com/AndroidGoLab/jni/androidx/core/view/inputmethod
 classes:
+    - java_class: androidx.core.view.inputmethod.InputConnectionCompat
+      go_type: InputConnectionCompat
+      obtain: constructor
+      static_methods:
+        - java_method: commitContent
+          go_name: CommitContent
+          params:
+            - java_type: android.view.inputmethod.InputConnection
+              go_name: arg0
+            - java_type: android.view.inputmethod.EditorInfo
+              go_name: arg1
+            - java_type: androidx.core.view.inputmethod.InputContentInfoCompat
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: android.os.Bundle
+              go_name: arg4
+          returns: boolean
+          error: true
+        - java_method: createWrapper
+          go_name: CreateWrapper3
+          params:
+            - java_type: android.view.inputmethod.InputConnection
+              go_name: arg0
+            - java_type: android.view.inputmethod.EditorInfo
+              go_name: arg1
+            - java_type: androidx.core.view.inputmethod.InputConnectionCompat$OnCommitContentListener
+              go_name: arg2
+          returns: android.view.inputmethod.InputConnection
+          error: true
+        - java_method: createWrapper
+          go_name: CreateWrapper3_1
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.view.inputmethod.InputConnection
+              go_name: arg1
+            - java_type: android.view.inputmethod.EditorInfo
+              go_name: arg2
+          returns: android.view.inputmethod.InputConnection
+          error: true
+    - java_class: androidx.core.view.inputmethod.InputConnectionCompat$OnCommitContentListener
+      go_type: InputConnectionCompatOnCommitContentListener
+      methods:
+        - java_method: onCommitContent
+          go_name: OnCommitContent
+          params:
+            - java_type: androidx.core.view.inputmethod.InputContentInfoCompat
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.os.Bundle
+              go_name: arg2
+          returns: boolean
+          error: true
     - java_class: androidx.core.view.inputmethod.EditorInfoCompat
       go_type: EditorInfoCompat
       obtain: constructor
@@ -92,61 +147,6 @@ classes:
               go_name: arg2
           returns: java.lang.CharSequence
           error: true
-    - java_class: androidx.core.view.inputmethod.InputConnectionCompat
-      go_type: InputConnectionCompat
-      obtain: constructor
-      static_methods:
-        - java_method: commitContent
-          go_name: CommitContent
-          params:
-            - java_type: android.view.inputmethod.InputConnection
-              go_name: arg0
-            - java_type: android.view.inputmethod.EditorInfo
-              go_name: arg1
-            - java_type: androidx.core.view.inputmethod.InputContentInfoCompat
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: android.os.Bundle
-              go_name: arg4
-          returns: boolean
-          error: true
-        - java_method: createWrapper
-          go_name: CreateWrapper3
-          params:
-            - java_type: android.view.inputmethod.InputConnection
-              go_name: arg0
-            - java_type: android.view.inputmethod.EditorInfo
-              go_name: arg1
-            - java_type: androidx.core.view.inputmethod.InputConnectionCompat$OnCommitContentListener
-              go_name: arg2
-          returns: android.view.inputmethod.InputConnection
-          error: true
-        - java_method: createWrapper
-          go_name: CreateWrapper3_1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.view.inputmethod.InputConnection
-              go_name: arg1
-            - java_type: android.view.inputmethod.EditorInfo
-              go_name: arg2
-          returns: android.view.inputmethod.InputConnection
-          error: true
-    - java_class: androidx.core.view.inputmethod.InputConnectionCompat$OnCommitContentListener
-      go_type: InputConnectionCompatOnCommitContentListener
-      methods:
-        - java_method: onCommitContent
-          go_name: OnCommitContent
-          params:
-            - java_type: androidx.core.view.inputmethod.InputContentInfoCompat
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.os.Bundle
-              go_name: arg2
-          returns: boolean
-          error: true
     - java_class: androidx.core.view.inputmethod.InputContentInfoCompat
       go_type: InputContentInfoCompat
       obtain: constructor
@@ -191,12 +191,12 @@ classes:
           returns: androidx.core.view.inputmethod.InputContentInfoCompat
           error: true
 constants:
+    - go_name: InputContentGrantReadUriPermission
+      value: "1"
+      go_type: int
     - go_name: ImeFlagNoPersonalizedLearning
       value: "16777216"
       go_type: int
     - go_name: ImeFlagForceAscii
       value: "-2147483648"
-      go_type: int
-    - go_name: InputContentGrantReadUriPermission
-      value: "1"
       go_type: int

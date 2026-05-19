@@ -32,6 +32,12 @@ func NewErrorEvent(vm *jni.VM, arg0 int32, arg1 int32, arg2 string) (*ErrorEvent
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsErrorEvent == nil {
+			return fmt.Errorf("android.drm.DrmErrorEvent is not available on this device")
+		}
+		if midErrorEventCtor == nil {
+			return fmt.Errorf("android.drm.DrmErrorEvent constructor (IILjava/lang/String;)V is not available on this device")
+		}
 
 		jArg2, err := env.NewStringUTF(arg2)
 		if err != nil {

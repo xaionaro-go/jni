@@ -23,6 +23,35 @@ type ViewTranslationRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewViewTranslationRequestBuilder creates a new android.view.translation.ViewTranslationRequest$Builder instance.
+func NewViewTranslationRequestBuilder(vm *jni.VM, arg0 *jni.Object) (*ViewTranslationRequestBuilder, error) {
+	var t ViewTranslationRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsViewTranslationRequestBuilder == nil {
+			return fmt.Errorf("android.view.translation.ViewTranslationRequest$Builder is not available on this device")
+		}
+		if midViewTranslationRequestBuilderCtor == nil {
+			return fmt.Errorf("android.view.translation.ViewTranslationRequest$Builder constructor (Landroid/view/autofill/AutofillId;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewTranslationRequestBuilder)), midViewTranslationRequestBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.view.translation.ViewTranslationRequest$Builder.build.
 func (m *ViewTranslationRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

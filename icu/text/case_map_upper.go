@@ -57,8 +57,8 @@ func (m *CaseMapUpper) Apply(arg0 *jni.Object, arg1 string) (string, error) {
 	return result, callErr
 }
 
-// OmitUnchangedText0 calls android.icu.text.CaseMap$Upper.omitUnchangedText.
-func (m *CaseMapUpper) OmitUnchangedText0() (*jni.Object, error) {
+// OmitUnchangedText calls android.icu.text.CaseMap$Upper.omitUnchangedText.
+func (m *CaseMapUpper) OmitUnchangedText() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -66,45 +66,13 @@ func (m *CaseMapUpper) OmitUnchangedText0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midCaseMapUpperOmitUnchangedText0 == nil {
+		if midCaseMapUpperOmitUnchangedText == nil {
 			callErr = fmt.Errorf("android.icu.text.CaseMap$Upper.omitUnchangedText is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midCaseMapUpperOmitUnchangedText0,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// OmitUnchangedText0_1 calls android.icu.text.CaseMap$Upper.omitUnchangedText.
-func (m *CaseMapUpper) OmitUnchangedText0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCaseMapUpperOmitUnchangedText0_1 == nil {
-			callErr = fmt.Errorf("android.icu.text.CaseMap$Upper.omitUnchangedText is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCaseMapUpperOmitUnchangedText0_1,
+			midCaseMapUpperOmitUnchangedText,
 		)
 		if callErr != nil {
 			return callErr

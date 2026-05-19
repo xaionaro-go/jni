@@ -23,6 +23,34 @@ type AppearanceModelBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAppearanceModelBuilder creates a new com.google.android.material.shape.ShapeAppearanceModel$Builder instance.
+func NewAppearanceModelBuilder(vm *jni.VM) (*AppearanceModelBuilder, error) {
+	var t AppearanceModelBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAppearanceModelBuilder == nil {
+			return fmt.Errorf("com.google.android.material.shape.ShapeAppearanceModel$Builder is not available on this device")
+		}
+		if midAppearanceModelBuilderCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.ShapeAppearanceModel$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppearanceModelBuilder)), midAppearanceModelBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetAllCorners2 calls com.google.android.material.shape.ShapeAppearanceModel$Builder.setAllCorners.
 func (m *AppearanceModelBuilder) SetAllCorners2(arg0 int32, arg1 float32) (*jni.Object, error) {
 	var result *jni.Object
@@ -964,38 +992,6 @@ func (m *AppearanceModelBuilder) SetBottomEdge(arg0 *jni.Object) (*jni.Object, e
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
 			midAppearanceModelBuilderSetBottomEdge, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Build calls com.google.android.material.shape.ShapeAppearanceModel$Builder.build.
-func (m *AppearanceModelBuilder) Build() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppearanceModelBuilderBuild == nil {
-			callErr = fmt.Errorf("com.google.android.material.shape.ShapeAppearanceModel$Builder.build is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midAppearanceModelBuilderBuild,
 		)
 		if callErr != nil {
 			return callErr

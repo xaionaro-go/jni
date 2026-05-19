@@ -521,29 +521,6 @@ func (m *PendingIntent) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.PendingIntent.writeToParcel.
-func (m *PendingIntent) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midPendingIntentWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.PendingIntent.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midPendingIntentWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // GetActivities4 calls android.app.PendingIntent.getActivities.
 func (m *PendingIntent) GetActivities4(
 	arg0 *jni.Object,
@@ -862,6 +839,29 @@ func (m *PendingIntent) WritePendingIntentOrNullToParcel(arg0 *jni.Object, arg1 
 		callErr = env.CallStaticVoidMethod(
 			(*jni.Class)(unsafe.Pointer(clsPendingIntent)),
 			midPendingIntentWritePendingIntentOrNullToParcel, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
+}
+
+// WriteToParcel calls android.app.PendingIntent.writeToParcel.
+func (m *PendingIntent) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midPendingIntentWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.PendingIntent.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsPendingIntent)),
+			midPendingIntentWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr
 	})

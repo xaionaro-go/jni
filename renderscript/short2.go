@@ -32,6 +32,12 @@ func NewShort2(vm *jni.VM) (*Short2, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsShort2 == nil {
+			return fmt.Errorf("android.renderscript.Short2 is not available on this device")
+		}
+		if midShort2Ctor == nil {
+			return fmt.Errorf("android.renderscript.Short2 constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsShort2)), midShort2Ctor)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewBaseMovementMethod(vm *jni.VM) (*BaseMovementMethod, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBaseMovementMethod == nil {
+			return fmt.Errorf("android.text.method.BaseMovementMethod is not available on this device")
+		}
+		if midBaseMovementMethodCtor == nil {
+			return fmt.Errorf("android.text.method.BaseMovementMethod constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBaseMovementMethod)), midBaseMovementMethodCtor)
 		if err != nil {
 			return err

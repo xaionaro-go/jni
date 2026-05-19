@@ -32,6 +32,12 @@ func NewFabricatedOverlay(vm *jni.VM, arg0 string, arg1 string) (*FabricatedOver
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFabricatedOverlay == nil {
+			return fmt.Errorf("android.content.om.FabricatedOverlay is not available on this device")
+		}
+		if midFabricatedOverlayCtor == nil {
+			return fmt.Errorf("android.content.om.FabricatedOverlay constructor (Ljava/lang/String;Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

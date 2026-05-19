@@ -3,6 +3,15 @@
 package consts
 
 const (
+	ResultErrorGenericFailure    int = 1
+	ResultErrorNoService         int = 4
+	ResultErrorNullPdu           int = 3
+	ResultErrorRadioOff          int = 2
+	StatusOnSimFree              int = 0
+	StatusOnSimRead              int = 1
+	StatusOnSimSent              int = 5
+	StatusOnSimUnread            int = 3
+	StatusOnSimUnsent            int = 7
 	Encoding16bit                int = 3
 	Encoding7bit                 int = 1
 	Encoding8bit                 int = 2
@@ -15,13 +24,4 @@ const (
 	Class2                       int = 0
 	Class3                       int = 0
 	Unknown                      int = 0
-	ResultErrorGenericFailure    int = 1
-	ResultErrorNoService         int = 4
-	ResultErrorNullPdu           int = 3
-	ResultErrorRadioOff          int = 2
-	StatusOnSimFree              int = 0
-	StatusOnSimRead              int = 1
-	StatusOnSimSent              int = 5
-	StatusOnSimUnread            int = 3
-	StatusOnSimUnsent            int = 7
 )

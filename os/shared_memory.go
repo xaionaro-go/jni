@@ -224,29 +224,6 @@ func (m *SharedMemory) SetProtect(arg0 int32) (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.os.SharedMemory.writeToParcel.
-func (m *SharedMemory) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSharedMemoryWriteToParcel == nil {
-			callErr = fmt.Errorf("android.os.SharedMemory.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSharedMemoryWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.os.SharedMemory.toString.
 func (m *SharedMemory) ToString() (string, error) {
 	var result string
@@ -343,4 +320,27 @@ func (m *SharedMemory) FromFileDescriptor(arg0 *jni.Object) (*jni.Object, error)
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.os.SharedMemory.writeToParcel.
+func (m *SharedMemory) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSharedMemoryWriteToParcel == nil {
+			callErr = fmt.Errorf("android.os.SharedMemory.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSharedMemory)),
+			midSharedMemoryWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -79,7 +79,6 @@ var (
 	midMaterialCardViewSetShapeAppearanceModel           jni.MethodID
 	midMaterialCardViewGetShapeAppearanceModel           jni.MethodID
 	midMaterialCardViewGetCheckedIconGravity             jni.MethodID
-	midMaterialCardViewSetCheckedIconGravity             jni.MethodID
 	midMaterialCardViewToString                          jni.MethodID
 
 	clsMaterialCardViewCheckedIconGravity         *jni.GlobalRef
@@ -492,13 +491,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midMaterialCardViewGetCheckedIconGravity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialCardView)), "getCheckedIconGravity", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialCardViewSetCheckedIconGravity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialCardView)), "setCheckedIconGravity", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

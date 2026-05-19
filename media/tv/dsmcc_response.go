@@ -32,6 +32,12 @@ func NewDsmccResponse(vm *jni.VM, arg0 int32, arg1 int32, arg2 int32, arg3 *jni.
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDsmccResponse == nil {
+			return fmt.Errorf("android.media.tv.DsmccResponse is not available on this device")
+		}
+		if midDsmccResponseCtor == nil {
+			return fmt.Errorf("android.media.tv.DsmccResponse constructor (IIILandroid/os/ParcelFileDescriptor;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDsmccResponse)), midDsmccResponseCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2), jni.ObjectValue(arg3))
 		if err != nil {
@@ -226,29 +232,6 @@ func (m *DsmccResponse) GetStreamEventNames() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.media.tv.DsmccResponse.writeToParcel.
-func (m *DsmccResponse) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDsmccResponseWriteToParcel == nil {
-			callErr = fmt.Errorf("android.media.tv.DsmccResponse.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midDsmccResponseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.media.tv.DsmccResponse.toString.
 func (m *DsmccResponse) ToString() (string, error) {
 	var result string
@@ -274,4 +257,27 @@ func (m *DsmccResponse) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.media.tv.DsmccResponse.writeToParcel.
+func (m *DsmccResponse) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDsmccResponseWriteToParcel == nil {
+			callErr = fmt.Errorf("android.media.tv.DsmccResponse.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsDsmccResponse)),
+			midDsmccResponseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

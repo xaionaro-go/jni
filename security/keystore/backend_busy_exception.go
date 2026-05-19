@@ -32,6 +32,12 @@ func NewBackendBusyException(vm *jni.VM, arg0 int64) (*BackendBusyException, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBackendBusyException == nil {
+			return fmt.Errorf("android.security.keystore.BackendBusyException is not available on this device")
+		}
+		if midBackendBusyExceptionCtor == nil {
+			return fmt.Errorf("android.security.keystore.BackendBusyException constructor (J)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBackendBusyException)), midBackendBusyExceptionCtor, jni.LongValue(arg0))
 		if err != nil {

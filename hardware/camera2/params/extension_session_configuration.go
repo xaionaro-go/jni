@@ -32,6 +32,12 @@ func NewExtensionSessionConfiguration(vm *jni.VM, arg0 int32, arg1 *jni.Object, 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsExtensionSessionConfiguration == nil {
+			return fmt.Errorf("android.hardware.camera2.params.ExtensionSessionConfiguration is not available on this device")
+		}
+		if midExtensionSessionConfigurationCtor == nil {
+			return fmt.Errorf("android.hardware.camera2.params.ExtensionSessionConfiguration constructor (ILjava/util/List;Ljava/util/concurrent/Executor;Landroid/hardware/camera2/CameraExtensionSession$StateCallback;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), midExtensionSessionConfigurationCtor, jni.IntValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3))
 		if err != nil {

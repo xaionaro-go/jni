@@ -32,6 +32,12 @@ func NewMultiViewUpdateListener(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMultiViewUpdateListener == nil {
+			return fmt.Errorf("com.google.android.material.internal.MultiViewUpdateListener is not available on this device")
+		}
+		if midMultiViewUpdateListenerCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.MultiViewUpdateListener constructor (Lcom/google/android/material/internal/MultiViewUpdateListener$Listener;[Landroid/view/View;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMultiViewUpdateListener)), midMultiViewUpdateListenerCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

@@ -32,6 +32,12 @@ func NewValues(vm *jni.VM) (*Values, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsValues == nil {
+			return fmt.Errorf("android.content.ContentValues is not available on this device")
+		}
+		if midValuesCtor == nil {
+			return fmt.Errorf("android.content.ContentValues constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsValues)), midValuesCtor)
 		if err != nil {
 			return err
@@ -1015,8 +1021,8 @@ func (m *Values) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsValues)),
 			midValuesWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

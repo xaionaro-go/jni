@@ -32,6 +32,12 @@ func NewSimpleExpandableListAdapter(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Obje
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSimpleExpandableListAdapter == nil {
+			return fmt.Errorf("android.widget.SimpleExpandableListAdapter is not available on this device")
+		}
+		if midSimpleExpandableListAdapterCtor == nil {
+			return fmt.Errorf("android.widget.SimpleExpandableListAdapter constructor (Landroid/content/Context;Ljava/util/List;II[Ljava/lang/String;[ILjava/util/List;II[Ljava/lang/String;[I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSimpleExpandableListAdapter)), midSimpleExpandableListAdapterCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3), jni.ObjectValue(arg4), jni.ObjectValue(arg5), jni.ObjectValue(arg6), jni.IntValue(arg7), jni.IntValue(arg8), jni.ObjectValue(arg9), jni.ObjectValue(arg10))
 		if err != nil {

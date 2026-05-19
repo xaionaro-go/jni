@@ -32,6 +32,12 @@ func NewAlarmClock(vm *jni.VM) (*AlarmClock, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAlarmClock == nil {
+			return fmt.Errorf("android.provider.AlarmClock is not available on this device")
+		}
+		if midAlarmClockCtor == nil {
+			return fmt.Errorf("android.provider.AlarmClock constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAlarmClock)), midAlarmClockCtor)
 		if err != nil {
 			return err

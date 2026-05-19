@@ -32,6 +32,12 @@ func NewConstraintAnchor(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Const
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsConstraintAnchor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.ConstraintAnchor is not available on this device")
+		}
+		if midConstraintAnchorCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.ConstraintAnchor constructor (Landroidx/constraintlayout/core/widgets/ConstraintWidget;Landroidx/constraintlayout/core/widgets/ConstraintAnchor$Type;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConstraintAnchor)), midConstraintAnchorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

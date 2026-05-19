@@ -32,6 +32,12 @@ func NewDragStartHelper(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*DragSt
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDragStartHelper == nil {
+			return fmt.Errorf("androidx.core.view.DragStartHelper is not available on this device")
+		}
+		if midDragStartHelperCtor == nil {
+			return fmt.Errorf("androidx.core.view.DragStartHelper constructor (Landroid/view/View;Landroidx/core/view/DragStartHelper$OnDragStartListener;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDragStartHelper)), midDragStartHelperCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

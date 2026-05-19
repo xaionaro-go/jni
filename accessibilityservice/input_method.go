@@ -32,6 +32,12 @@ func NewInputMethod(vm *jni.VM, arg0 *jni.Object) (*InputMethod, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInputMethod == nil {
+			return fmt.Errorf("android.accessibilityservice.InputMethod is not available on this device")
+		}
+		if midInputMethodCtor == nil {
+			return fmt.Errorf("android.accessibilityservice.InputMethod constructor (Landroid/accessibilityservice/AccessibilityService;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInputMethod)), midInputMethodCtor, jni.ObjectValue(arg0))
 		if err != nil {

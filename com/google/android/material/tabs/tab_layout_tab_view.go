@@ -23,6 +23,35 @@ type TabLayoutTabView struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTabLayoutTabView creates a new com.google.android.material.tabs.TabLayout$TabView instance.
+func NewTabLayoutTabView(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*TabLayoutTabView, error) {
+	var t TabLayoutTabView
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTabLayoutTabView == nil {
+			return fmt.Errorf("com.google.android.material.tabs.TabLayout$TabView is not available on this device")
+		}
+		if midTabLayoutTabViewCtor == nil {
+			return fmt.Errorf("com.google.android.material.tabs.TabLayout$TabView constructor (Lcom/google/android/material/tabs/TabLayout;Landroid/content/Context;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTabLayoutTabView)), midTabLayoutTabViewCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // PerformClick calls com.google.android.material.tabs.TabLayout$TabView.performClick.
 func (m *TabLayoutTabView) PerformClick() (bool, error) {
 	var result bool
@@ -121,38 +150,6 @@ func (m *TabLayoutTabView) OnMeasure(arg0 int32, arg1 int32) error {
 		return callErr
 	})
 	return callErr
-}
-
-// GetTab calls com.google.android.material.tabs.TabLayout$TabView.getTab.
-func (m *TabLayoutTabView) GetTab() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTabLayoutTabViewGetTab == nil {
-			callErr = fmt.Errorf("com.google.android.material.tabs.TabLayout$TabView.getTab is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midTabLayoutTabViewGetTab,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls com.google.android.material.tabs.TabLayout$TabView.toString.

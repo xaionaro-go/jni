@@ -32,6 +32,12 @@ func NewAppCompatEditText(vm *jni.VM, arg0 *jni.Object) (*AppCompatEditText, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppCompatEditText == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatEditText is not available on this device")
+		}
+		if midAppCompatEditTextCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatEditText constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppCompatEditText)), midAppCompatEditTextCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -46,8 +52,8 @@ func NewAppCompatEditText(vm *jni.VM, arg0 *jni.Object) (*AppCompatEditText, err
 	return &t, nil
 }
 
-// GetText0 calls androidx.appcompat.widget.AppCompatEditText.getText.
-func (m *AppCompatEditText) GetText0() (*jni.Object, error) {
+// GetText calls androidx.appcompat.widget.AppCompatEditText.getText.
+func (m *AppCompatEditText) GetText() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,13 +61,13 @@ func (m *AppCompatEditText) GetText0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midAppCompatEditTextGetText0 == nil {
+		if midAppCompatEditTextGetText == nil {
 			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatEditText.getText is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midAppCompatEditTextGetText0,
+			midAppCompatEditTextGetText,
 		)
 		if callErr != nil {
 			return callErr
@@ -730,38 +736,6 @@ func (m *AppCompatEditText) SetSupportCompoundDrawablesTintMode(arg0 *jni.Object
 		return callErr
 	})
 	return callErr
-}
-
-// GetText0_1 calls androidx.appcompat.widget.AppCompatEditText.getText.
-func (m *AppCompatEditText) GetText0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppCompatEditTextGetText0_1 == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatEditText.getText is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midAppCompatEditTextGetText0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls androidx.appcompat.widget.AppCompatEditText.toString.

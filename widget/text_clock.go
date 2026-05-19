@@ -32,6 +32,12 @@ func NewTextClock(vm *jni.VM, arg0 *jni.Object) (*TextClock, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTextClock == nil {
+			return fmt.Errorf("android.widget.TextClock is not available on this device")
+		}
+		if midTextClockCtor == nil {
+			return fmt.Errorf("android.widget.TextClock constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextClock)), midTextClockCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -269,34 +275,6 @@ func (m *TextClock) SetFormat24Hour(arg0 string) error {
 	return callErr
 }
 
-// SetTimeZone calls android.widget.TextClock.setTimeZone.
-func (m *TextClock) SetTimeZone(arg0 string) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTextClockSetTimeZone == nil {
-			callErr = fmt.Errorf("android.widget.TextClock.setTimeZone is not available on this device")
-			return callErr
-		}
-		jArg0, err := env.NewStringUTF(arg0)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg0.Object)
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midTextClockSetTimeZone, jni.ObjectValue(&jArg0.Object),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.widget.TextClock.toString.
 func (m *TextClock) ToString() (string, error) {
 	var result string
@@ -322,4 +300,32 @@ func (m *TextClock) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// SetTimeZone calls android.widget.TextClock.setTimeZone.
+func (m *TextClock) SetTimeZone(arg0 string) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midTextClockSetTimeZone == nil {
+			callErr = fmt.Errorf("android.widget.TextClock.setTimeZone is not available on this device")
+			return callErr
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsTextClock)),
+			midTextClockSetTimeZone, jni.ObjectValue(&jArg0.Object),
+		)
+		return callErr
+	})
+	return callErr
 }

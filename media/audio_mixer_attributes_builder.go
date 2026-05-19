@@ -23,6 +23,35 @@ type AudioMixerAttributesBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAudioMixerAttributesBuilder creates a new android.media.AudioMixerAttributes$Builder instance.
+func NewAudioMixerAttributesBuilder(vm *jni.VM, arg0 *jni.Object) (*AudioMixerAttributesBuilder, error) {
+	var t AudioMixerAttributesBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAudioMixerAttributesBuilder == nil {
+			return fmt.Errorf("android.media.AudioMixerAttributes$Builder is not available on this device")
+		}
+		if midAudioMixerAttributesBuilderCtor == nil {
+			return fmt.Errorf("android.media.AudioMixerAttributes$Builder constructor (Landroid/media/AudioFormat;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAudioMixerAttributesBuilder)), midAudioMixerAttributesBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.media.AudioMixerAttributes$Builder.build.
 func (m *AudioMixerAttributesBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

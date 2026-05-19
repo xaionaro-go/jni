@@ -23,6 +23,35 @@ type RespiratoryRateRecordBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRespiratoryRateRecordBuilder creates a new android.health.connect.datatypes.RespiratoryRateRecord$Builder instance.
+func NewRespiratoryRateRecordBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 float64) (*RespiratoryRateRecordBuilder, error) {
+	var t RespiratoryRateRecordBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRespiratoryRateRecordBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.RespiratoryRateRecord$Builder is not available on this device")
+		}
+		if midRespiratoryRateRecordBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.RespiratoryRateRecord$Builder constructor (Landroid/health/connect/datatypes/Metadata;Ljava/time/Instant;D)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRespiratoryRateRecordBuilder)), midRespiratoryRateRecordBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.DoubleValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.datatypes.RespiratoryRateRecord$Builder.build.
 func (m *RespiratoryRateRecordBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

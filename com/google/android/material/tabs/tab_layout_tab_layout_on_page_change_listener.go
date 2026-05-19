@@ -23,6 +23,35 @@ type TabLayoutTabLayoutOnPageChangeListener struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTabLayoutTabLayoutOnPageChangeListener creates a new com.google.android.material.tabs.TabLayout$TabLayoutOnPageChangeListener instance.
+func NewTabLayoutTabLayoutOnPageChangeListener(vm *jni.VM, arg0 *jni.Object) (*TabLayoutTabLayoutOnPageChangeListener, error) {
+	var t TabLayoutTabLayoutOnPageChangeListener
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTabLayoutTabLayoutOnPageChangeListener == nil {
+			return fmt.Errorf("com.google.android.material.tabs.TabLayout$TabLayoutOnPageChangeListener is not available on this device")
+		}
+		if midTabLayoutTabLayoutOnPageChangeListenerCtor == nil {
+			return fmt.Errorf("com.google.android.material.tabs.TabLayout$TabLayoutOnPageChangeListener constructor (Lcom/google/android/material/tabs/TabLayout;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTabLayoutTabLayoutOnPageChangeListener)), midTabLayoutTabLayoutOnPageChangeListenerCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnPageScrollStateChanged calls com.google.android.material.tabs.TabLayout$TabLayoutOnPageChangeListener.onPageScrollStateChanged.
 func (m *TabLayoutTabLayoutOnPageChangeListener) OnPageScrollStateChanged(arg0 int32) error {
 

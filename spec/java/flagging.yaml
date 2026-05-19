@@ -5,6 +5,23 @@
 package: flagging
 go_import: github.com/AndroidGoLab/jni/os/flagging
 classes:
+    - java_class: android.os.flagging.AconfigStorageReadException
+      go_type: AconfigStorageReadException
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+      methods:
+        - java_method: getErrorCode
+          go_name: GetErrorCode
+          returns: int
+          error: true
+        - java_method: getMessage
+          go_name: GetMessage
+          returns: String
+          error: true
     - java_class: android.os.flagging.AconfigPackage
       go_type: AconfigPackage
       methods:
@@ -24,23 +41,6 @@ classes:
             - java_type: String
               go_name: arg0
           returns: android.os.flagging.AconfigPackage
-          error: true
-    - java_class: android.os.flagging.AconfigStorageReadException
-      go_type: AconfigStorageReadException
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-      methods:
-        - java_method: getErrorCode
-          go_name: GetErrorCode
-          returns: int
-          error: true
-        - java_method: getMessage
-          go_name: GetMessage
-          returns: String
           error: true
 constants:
     - go_name: ErrorCannotReadStorageFile

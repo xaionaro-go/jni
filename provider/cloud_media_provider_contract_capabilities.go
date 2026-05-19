@@ -143,8 +143,8 @@ func (m *CloudMediaProviderContractCapabilities) WriteToParcel(arg0 *jni.Object,
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsCloudMediaProviderContractCapabilities)),
 			midCloudMediaProviderContractCapabilitiesWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

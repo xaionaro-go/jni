@@ -23,6 +23,35 @@ type ConsumerIrManagerCarrierFrequencyRange struct {
 	Obj *jni.GlobalRef
 }
 
+// NewConsumerIrManagerCarrierFrequencyRange creates a new android.hardware.ConsumerIrManager$CarrierFrequencyRange instance.
+func NewConsumerIrManagerCarrierFrequencyRange(vm *jni.VM, arg0 *jni.Object, arg1 int32, arg2 int32) (*ConsumerIrManagerCarrierFrequencyRange, error) {
+	var t ConsumerIrManagerCarrierFrequencyRange
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsConsumerIrManagerCarrierFrequencyRange == nil {
+			return fmt.Errorf("android.hardware.ConsumerIrManager$CarrierFrequencyRange is not available on this device")
+		}
+		if midConsumerIrManagerCarrierFrequencyRangeCtor == nil {
+			return fmt.Errorf("android.hardware.ConsumerIrManager$CarrierFrequencyRange constructor (Landroid/hardware/ConsumerIrManager;II)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConsumerIrManagerCarrierFrequencyRange)), midConsumerIrManagerCarrierFrequencyRangeCtor, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetMaxFrequency calls android.hardware.ConsumerIrManager$CarrierFrequencyRange.getMaxFrequency.
 func (m *ConsumerIrManagerCarrierFrequencyRange) GetMaxFrequency() (int32, error) {
 	var result int32

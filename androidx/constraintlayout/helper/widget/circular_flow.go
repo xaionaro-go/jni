@@ -32,6 +32,12 @@ func NewCircularFlow(vm *jni.VM, arg0 *jni.Object) (*CircularFlow, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCircularFlow == nil {
+			return fmt.Errorf("androidx.constraintlayout.helper.widget.CircularFlow is not available on this device")
+		}
+		if midCircularFlowCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.helper.widget.CircularFlow constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCircularFlow)), midCircularFlowCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -304,34 +310,6 @@ func (m *CircularFlow) RemoveView(arg0 *jni.Object) (int32, error) {
 	return result, callErr
 }
 
-// IsUpdatable calls androidx.constraintlayout.helper.widget.CircularFlow.isUpdatable.
-func (m *CircularFlow) IsUpdatable(arg0 *jni.Object) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCircularFlowIsUpdatable == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.helper.widget.CircularFlow.isUpdatable is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midCircularFlowIsUpdatable, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.constraintlayout.helper.widget.CircularFlow.toString.
 func (m *CircularFlow) ToString() (string, error) {
 	var result string
@@ -420,6 +398,34 @@ func (m *CircularFlow) RemoveElementFromArray2_1(arg0 *jni.Object, arg1 int32) (
 			result = env.NewGlobalRef(localRef)
 			env.DeleteLocalRef(localRef)
 		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// IsUpdatable calls androidx.constraintlayout.helper.widget.CircularFlow.isUpdatable.
+func (m *CircularFlow) IsUpdatable(arg0 *jni.Object) (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCircularFlowIsUpdatable == nil {
+			callErr = fmt.Errorf("androidx.constraintlayout.helper.widget.CircularFlow.isUpdatable is not available on this device")
+			return callErr
+		}
+
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsCircularFlow)),
+			midCircularFlowIsUpdatable, jni.ObjectValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

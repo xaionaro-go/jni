@@ -3,11 +3,19 @@
 package consts
 
 const (
-	Default    int = 0
+	RatioMin float64 = 1.0
+	RatioMax float64 = 21.0
+	Ratio30  float64 = 3.0
+	Ratio45  float64 = 4.5
+	Ratio70  float64 = 7.0
+)
+
+const (
 	Darker     int = 0
 	Lighter    int = 0
 	Nearer     int = 0
 	Farther    int = 0
+	Default    int = 0
 	Monochrome int = 0
 	Neutral    int = 0
 	TonalSpot  int = 0
@@ -17,12 +25,4 @@ const (
 	Content    int = 0
 	Rainbow    int = 0
 	FruitSalad int = 0
-)
-
-const (
-	RatioMin float64 = 1.0
-	RatioMax float64 = 21.0
-	Ratio30  float64 = 3.0
-	Ratio45  float64 = 4.5
-	Ratio70  float64 = 7.0
 )

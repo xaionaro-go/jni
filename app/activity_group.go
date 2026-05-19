@@ -30,6 +30,12 @@ func NewActivityGroup(vm *jni.VM) (*ActivityGroup, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsActivityGroup == nil {
+			return fmt.Errorf("android.app.ActivityGroup is not available on this device")
+		}
+		if midActivityGroupCtor == nil {
+			return fmt.Errorf("android.app.ActivityGroup constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivityGroup)), midActivityGroupCtor)
 		if err != nil {
 			return err

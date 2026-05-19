@@ -32,6 +32,12 @@ func NewSolverVariable(vm *jni.VM, arg0 string, arg1 *jni.Object) (*SolverVariab
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSolverVariable == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.SolverVariable is not available on this device")
+		}
+		if midSolverVariableCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.SolverVariable constructor (Ljava/lang/String;Landroidx/constraintlayout/core/SolverVariable$Type;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -276,8 +282,8 @@ func (m *SolverVariable) SetType(arg0 *jni.Object, arg1 string) error {
 	return callErr
 }
 
-// CompareTo1 calls androidx.constraintlayout.core.SolverVariable.compareTo.
-func (m *SolverVariable) CompareTo1(arg0 *jni.Object) (int32, error) {
+// CompareTo calls androidx.constraintlayout.core.SolverVariable.compareTo.
+func (m *SolverVariable) CompareTo(arg0 *jni.Object) (int32, error) {
 	var result int32
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -285,14 +291,14 @@ func (m *SolverVariable) CompareTo1(arg0 *jni.Object) (int32, error) {
 			callErr = err
 			return err
 		}
-		if midSolverVariableCompareTo1 == nil {
+		if midSolverVariableCompareTo == nil {
 			callErr = fmt.Errorf("androidx.constraintlayout.core.SolverVariable.compareTo is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallIntMethod(
 			m.Obj,
-			midSolverVariableCompareTo1, jni.ObjectValue(arg0),
+			midSolverVariableCompareTo, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -324,32 +330,6 @@ func (m *SolverVariable) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
-		return callErr
-	})
-	return result, callErr
-}
-
-// CompareTo1_1 calls androidx.constraintlayout.core.SolverVariable.compareTo.
-func (m *SolverVariable) CompareTo1_1(arg0 *jni.Object) (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSolverVariableCompareTo1_1 == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.core.SolverVariable.compareTo is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midSolverVariableCompareTo1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
 		return callErr
 	})
 	return result, callErr

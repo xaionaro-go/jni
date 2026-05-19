@@ -32,6 +32,12 @@ func NewSQLiteDatatypeMismatchException(vm *jni.VM) (*SQLiteDatatypeMismatchExce
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSQLiteDatatypeMismatchException == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteDatatypeMismatchException is not available on this device")
+		}
+		if midSQLiteDatatypeMismatchExceptionCtor == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteDatatypeMismatchException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSQLiteDatatypeMismatchException)), midSQLiteDatatypeMismatchExceptionCtor)
 		if err != nil {
 			return err

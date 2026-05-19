@@ -32,6 +32,12 @@ func NewIkeNetworkLostException(vm *jni.VM, arg0 *jni.Object) (*IkeNetworkLostEx
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsIkeNetworkLostException == nil {
+			return fmt.Errorf("android.net.ipsec.ike.exceptions.IkeNetworkLostException is not available on this device")
+		}
+		if midIkeNetworkLostExceptionCtor == nil {
+			return fmt.Errorf("android.net.ipsec.ike.exceptions.IkeNetworkLostException constructor (Landroid/net/Network;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIkeNetworkLostException)), midIkeNetworkLostExceptionCtor, jni.ObjectValue(arg0))
 		if err != nil {

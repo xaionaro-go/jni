@@ -23,6 +23,40 @@ type ConversationStatusBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewConversationStatusBuilder creates a new android.app.people.ConversationStatus$Builder instance.
+func NewConversationStatusBuilder(vm *jni.VM, arg0 string, arg1 int32) (*ConversationStatusBuilder, error) {
+	var t ConversationStatusBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsConversationStatusBuilder == nil {
+			return fmt.Errorf("android.app.people.ConversationStatus$Builder is not available on this device")
+		}
+		if midConversationStatusBuilderCtor == nil {
+			return fmt.Errorf("android.app.people.ConversationStatus$Builder constructor (Ljava/lang/String;I)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConversationStatusBuilder)), midConversationStatusBuilderCtor, jni.ObjectValue(&jArg0.Object), jni.IntValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.app.people.ConversationStatus$Builder.build.
 func (m *ConversationStatusBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

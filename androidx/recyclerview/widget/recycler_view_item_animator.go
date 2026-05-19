@@ -344,39 +344,6 @@ func (m *RecyclerViewItemAnimator) AnimatePersistence(
 	return result, callErr
 }
 
-// AnimateChange calls androidx.recyclerview.widget.RecyclerView$ItemAnimator.animateChange.
-func (m *RecyclerViewItemAnimator) AnimateChange(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-	arg3 *jni.Object,
-) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRecyclerViewItemAnimatorAnimateChange == nil {
-			callErr = fmt.Errorf("androidx.recyclerview.widget.RecyclerView$ItemAnimator.animateChange is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midRecyclerViewItemAnimatorAnimateChange, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // RunPendingAnimations calls androidx.recyclerview.widget.RecyclerView$ItemAnimator.runPendingAnimations.
 func (m *RecyclerViewItemAnimator) RunPendingAnimations() error {
 
@@ -695,6 +662,39 @@ func (m *RecyclerViewItemAnimator) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// AnimateChange calls androidx.recyclerview.widget.RecyclerView$ItemAnimator.animateChange.
+func (m *RecyclerViewItemAnimator) AnimateChange(
+	arg0 *jni.Object,
+	arg1 *jni.Object,
+	arg2 *jni.Object,
+	arg3 *jni.Object,
+) (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRecyclerViewItemAnimatorAnimateChange == nil {
+			callErr = fmt.Errorf("androidx.recyclerview.widget.RecyclerView$ItemAnimator.animateChange is not available on this device")
+			return callErr
+		}
+
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsRecyclerViewItemAnimator)),
+			midRecyclerViewItemAnimatorAnimateChange, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

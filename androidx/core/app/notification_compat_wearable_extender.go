@@ -21,6 +21,34 @@ type NotificationCompatWearableExtender struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNotificationCompatWearableExtender creates a new androidx.core.app.NotificationCompat$WearableExtender instance.
+func NewNotificationCompatWearableExtender(vm *jni.VM) (*NotificationCompatWearableExtender, error) {
+	var t NotificationCompatWearableExtender
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNotificationCompatWearableExtender == nil {
+			return fmt.Errorf("androidx.core.app.NotificationCompat$WearableExtender is not available on this device")
+		}
+		if midNotificationCompatWearableExtenderCtor == nil {
+			return fmt.Errorf("androidx.core.app.NotificationCompat$WearableExtender constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNotificationCompatWearableExtender)), midNotificationCompatWearableExtenderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Extend calls androidx.core.app.NotificationCompat$WearableExtender.extend.
 func (m *NotificationCompatWearableExtender) Extend(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
@@ -54,8 +82,8 @@ func (m *NotificationCompatWearableExtender) Extend(arg0 *jni.Object) (*jni.Obje
 	return result, callErr
 }
 
-// Clone0 calls androidx.core.app.NotificationCompat$WearableExtender.clone.
-func (m *NotificationCompatWearableExtender) Clone0() (*jni.Object, error) {
+// Clone calls androidx.core.app.NotificationCompat$WearableExtender.clone.
+func (m *NotificationCompatWearableExtender) Clone() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -63,13 +91,13 @@ func (m *NotificationCompatWearableExtender) Clone0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midNotificationCompatWearableExtenderClone0 == nil {
+		if midNotificationCompatWearableExtenderClone == nil {
 			callErr = fmt.Errorf("androidx.core.app.NotificationCompat$WearableExtender.clone is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midNotificationCompatWearableExtenderClone0,
+			midNotificationCompatWearableExtenderClone,
 		)
 		if callErr != nil {
 			return callErr
@@ -1389,38 +1417,6 @@ func (m *NotificationCompatWearableExtender) GetBridgeTag() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
-		return callErr
-	})
-	return result, callErr
-}
-
-// Clone0_1 calls androidx.core.app.NotificationCompat$WearableExtender.clone.
-func (m *NotificationCompatWearableExtender) Clone0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midNotificationCompatWearableExtenderClone0_1 == nil {
-			callErr = fmt.Errorf("androidx.core.app.NotificationCompat$WearableExtender.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midNotificationCompatWearableExtenderClone0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
 		return callErr
 	})
 	return result, callErr

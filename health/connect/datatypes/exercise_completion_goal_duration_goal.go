@@ -23,6 +23,35 @@ type ExerciseCompletionGoalDurationGoal struct {
 	Obj *jni.GlobalRef
 }
 
+// NewExerciseCompletionGoalDurationGoal creates a new android.health.connect.datatypes.ExerciseCompletionGoal$DurationGoal instance.
+func NewExerciseCompletionGoalDurationGoal(vm *jni.VM, arg0 *jni.Object) (*ExerciseCompletionGoalDurationGoal, error) {
+	var t ExerciseCompletionGoalDurationGoal
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsExerciseCompletionGoalDurationGoal == nil {
+			return fmt.Errorf("android.health.connect.datatypes.ExerciseCompletionGoal$DurationGoal is not available on this device")
+		}
+		if midExerciseCompletionGoalDurationGoalCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.ExerciseCompletionGoal$DurationGoal constructor (Ljava/time/Duration;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExerciseCompletionGoalDurationGoal)), midExerciseCompletionGoalDurationGoalCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.health.connect.datatypes.ExerciseCompletionGoal$DurationGoal.equals.
 func (m *ExerciseCompletionGoalDurationGoal) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

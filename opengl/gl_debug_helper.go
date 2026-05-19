@@ -32,6 +32,12 @@ func NewGLDebugHelper(vm *jni.VM) (*GLDebugHelper, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGLDebugHelper == nil {
+			return fmt.Errorf("android.opengl.GLDebugHelper is not available on this device")
+		}
+		if midGLDebugHelperCtor == nil {
+			return fmt.Errorf("android.opengl.GLDebugHelper constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGLDebugHelper)), midGLDebugHelperCtor)
 		if err != nil {
 			return err

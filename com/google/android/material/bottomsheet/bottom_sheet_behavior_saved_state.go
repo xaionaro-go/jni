@@ -23,27 +23,33 @@ type BottomSheetBehaviorSavedState struct {
 	Obj *jni.GlobalRef
 }
 
-// WriteToParcel calls com.google.android.material.bottomsheet.BottomSheetBehavior$SavedState.writeToParcel.
-func (m *BottomSheetBehaviorSavedState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+// NewBottomSheetBehaviorSavedState creates a new com.google.android.material.bottomsheet.BottomSheetBehavior$SavedState instance.
+func NewBottomSheetBehaviorSavedState(vm *jni.VM, arg0 *jni.Object) (*BottomSheetBehaviorSavedState, error) {
+	var t BottomSheetBehaviorSavedState
+	t.VM = vm
 
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
+	err := vm.Do(func(env *jni.Env) error {
 		if err := ensureInit(env); err != nil {
-			callErr = err
 			return err
 		}
-		if midBottomSheetBehaviorSavedStateWriteToParcel == nil {
-			callErr = fmt.Errorf("com.google.android.material.bottomsheet.BottomSheetBehavior$SavedState.writeToParcel is not available on this device")
-			return callErr
+		if clsBottomSheetBehaviorSavedState == nil {
+			return fmt.Errorf("com.google.android.material.bottomsheet.BottomSheetBehavior$SavedState is not available on this device")
+		}
+		if midBottomSheetBehaviorSavedStateCtor == nil {
+			return fmt.Errorf("com.google.android.material.bottomsheet.BottomSheetBehavior$SavedState constructor (Landroid/os/Parcel;)V is not available on this device")
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midBottomSheetBehaviorSavedStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBottomSheetBehaviorSavedState)), midBottomSheetBehaviorSavedStateCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
 	})
-	return callErr
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
 }
 
 // ToString calls com.google.android.material.bottomsheet.BottomSheetBehavior$SavedState.toString.
@@ -71,4 +77,27 @@ func (m *BottomSheetBehaviorSavedState) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls com.google.android.material.bottomsheet.BottomSheetBehavior$SavedState.writeToParcel.
+func (m *BottomSheetBehaviorSavedState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midBottomSheetBehaviorSavedStateWriteToParcel == nil {
+			callErr = fmt.Errorf("com.google.android.material.bottomsheet.BottomSheetBehavior$SavedState.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsBottomSheetBehaviorSavedState)),
+			midBottomSheetBehaviorSavedStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

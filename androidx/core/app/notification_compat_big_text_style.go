@@ -21,6 +21,34 @@ type NotificationCompatBigTextStyle struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNotificationCompatBigTextStyle creates a new androidx.core.app.NotificationCompat$BigTextStyle instance.
+func NewNotificationCompatBigTextStyle(vm *jni.VM) (*NotificationCompatBigTextStyle, error) {
+	var t NotificationCompatBigTextStyle
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNotificationCompatBigTextStyle == nil {
+			return fmt.Errorf("androidx.core.app.NotificationCompat$BigTextStyle is not available on this device")
+		}
+		if midNotificationCompatBigTextStyleCtor == nil {
+			return fmt.Errorf("androidx.core.app.NotificationCompat$BigTextStyle constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNotificationCompatBigTextStyle)), midNotificationCompatBigTextStyleCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetBigContentTitle calls androidx.core.app.NotificationCompat$BigTextStyle.setBigContentTitle.
 func (m *NotificationCompatBigTextStyle) SetBigContentTitle(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

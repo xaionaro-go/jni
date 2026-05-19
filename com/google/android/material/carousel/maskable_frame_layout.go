@@ -32,6 +32,12 @@ func NewMaskableFrameLayout(vm *jni.VM, arg0 *jni.Object) (*MaskableFrameLayout,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaskableFrameLayout == nil {
+			return fmt.Errorf("com.google.android.material.carousel.MaskableFrameLayout is not available on this device")
+		}
+		if midMaskableFrameLayoutCtor == nil {
+			return fmt.Errorf("com.google.android.material.carousel.MaskableFrameLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaskableFrameLayout)), midMaskableFrameLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {

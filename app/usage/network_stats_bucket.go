@@ -23,6 +23,34 @@ type NetworkStatsBucket struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNetworkStatsBucket creates a new android.app.usage.NetworkStats$Bucket instance.
+func NewNetworkStatsBucket(vm *jni.VM) (*NetworkStatsBucket, error) {
+	var t NetworkStatsBucket
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNetworkStatsBucket == nil {
+			return fmt.Errorf("android.app.usage.NetworkStats$Bucket is not available on this device")
+		}
+		if midNetworkStatsBucketCtor == nil {
+			return fmt.Errorf("android.app.usage.NetworkStats$Bucket constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNetworkStatsBucket)), midNetworkStatsBucketCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetDefaultNetworkStatus calls android.app.usage.NetworkStats$Bucket.getDefaultNetworkStatus.
 func (m *NetworkStatsBucket) GetDefaultNetworkStatus() (int32, error) {
 	var result int32

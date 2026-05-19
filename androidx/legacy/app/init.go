@@ -35,8 +35,8 @@ var (
 	midActionBarDrawerToggleOnDrawerSlide             jni.MethodID
 	midActionBarDrawerToggleOnDrawerOpened            jni.MethodID
 	midActionBarDrawerToggleOnDrawerClosed            jni.MethodID
-	midActionBarDrawerToggleOnDrawerStateChanged      jni.MethodID
 	midActionBarDrawerToggleToString                  jni.MethodID
+	midActionBarDrawerToggleOnDrawerStateChanged      jni.MethodID
 
 	clsActionBarDrawerToggleDelegate                        *jni.GlobalRef
 	midActionBarDrawerToggleDelegateGetThemeUpIndicator     jni.MethodID
@@ -149,14 +149,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midActionBarDrawerToggleOnDrawerStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarDrawerToggle)), "onDrawerStateChanged", "(I)V")
+		midActionBarDrawerToggleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarDrawerToggle)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midActionBarDrawerToggleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarDrawerToggle)), "toString", "()Ljava/lang/String;")
+		midActionBarDrawerToggleOnDrawerStateChanged, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsActionBarDrawerToggle)), "onDrawerStateChanged", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

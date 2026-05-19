@@ -121,8 +121,8 @@ func TestLoadOverlay_EmptyMaps(t *testing.T) {
 
 func TestLoadOverlay_RealOverlay(t *testing.T) {
 	overlayPath := filepath.Join(findRepoRoot(t), "spec", "overlays", "jni.yaml")
-	if _, err := os.Stat(overlayPath); os.IsNotExist(err) {
-		t.Skip("real overlay file not found")
+	if _, err := os.Stat(overlayPath); err != nil {
+		t.Fatalf("required real overlay file not found at %s: %v", overlayPath, err)
 	}
 	overlay, err := LoadOverlay(overlayPath)
 	if err != nil {

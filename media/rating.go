@@ -231,29 +231,6 @@ func (m *Rating) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.media.Rating.writeToParcel.
-func (m *Rating) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRatingWriteToParcel == nil {
-			callErr = fmt.Errorf("android.media.Rating.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midRatingWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // NewHeartRating calls android.media.Rating.newHeartRating.
 func (m *Rating) NewHeartRating(arg0 bool) (*jni.Object, error) {
 	var result *jni.Object
@@ -425,4 +402,27 @@ func (m *Rating) NewUnratedRating(arg0 int32) (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.media.Rating.writeToParcel.
+func (m *Rating) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRatingWriteToParcel == nil {
+			callErr = fmt.Errorf("android.media.Rating.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsRating)),
+			midRatingWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

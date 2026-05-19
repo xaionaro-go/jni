@@ -23,6 +23,34 @@ type TtsSpanDecimalBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTtsSpanDecimalBuilder creates a new android.text.style.TtsSpan$DecimalBuilder instance.
+func NewTtsSpanDecimalBuilder(vm *jni.VM) (*TtsSpanDecimalBuilder, error) {
+	var t TtsSpanDecimalBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTtsSpanDecimalBuilder == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$DecimalBuilder is not available on this device")
+		}
+		if midTtsSpanDecimalBuilderCtor == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$DecimalBuilder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTtsSpanDecimalBuilder)), midTtsSpanDecimalBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetArgumentsFromDouble calls android.text.style.TtsSpan$DecimalBuilder.setArgumentsFromDouble.
 func (m *TtsSpanDecimalBuilder) SetArgumentsFromDouble(
 	arg0 float64,

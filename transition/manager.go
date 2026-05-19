@@ -32,6 +32,12 @@ func NewManager(vm *jni.VM) (*Manager, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsManager == nil {
+			return fmt.Errorf("android.transition.TransitionManager is not available on this device")
+		}
+		if midManagerCtor == nil {
+			return fmt.Errorf("android.transition.TransitionManager constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsManager)), midManagerCtor)
 		if err != nil {
 			return err

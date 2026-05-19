@@ -32,6 +32,12 @@ func NewFreezePeriod(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*FreezePer
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFreezePeriod == nil {
+			return fmt.Errorf("android.app.admin.FreezePeriod is not available on this device")
+		}
+		if midFreezePeriodCtor == nil {
+			return fmt.Errorf("android.app.admin.FreezePeriod constructor (Ljava/time/MonthDay;Ljava/time/MonthDay;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFreezePeriod)), midFreezePeriodCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

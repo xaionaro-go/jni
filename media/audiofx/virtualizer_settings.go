@@ -23,6 +23,34 @@ type VirtualizerSettings struct {
 	Obj *jni.GlobalRef
 }
 
+// NewVirtualizerSettings creates a new android.media.audiofx.Virtualizer$Settings instance.
+func NewVirtualizerSettings(vm *jni.VM) (*VirtualizerSettings, error) {
+	var t VirtualizerSettings
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsVirtualizerSettings == nil {
+			return fmt.Errorf("android.media.audiofx.Virtualizer$Settings is not available on this device")
+		}
+		if midVirtualizerSettingsCtor == nil {
+			return fmt.Errorf("android.media.audiofx.Virtualizer$Settings constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVirtualizerSettings)), midVirtualizerSettingsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.media.audiofx.Virtualizer$Settings.toString.
 func (m *VirtualizerSettings) ToString() (string, error) {
 	var result string

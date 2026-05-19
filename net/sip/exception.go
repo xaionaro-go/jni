@@ -32,6 +32,12 @@ func NewException(vm *jni.VM) (*Exception, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsException == nil {
+			return fmt.Errorf("android.net.sip.SipException is not available on this device")
+		}
+		if midExceptionCtor == nil {
+			return fmt.Errorf("android.net.sip.SipException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsException)), midExceptionCtor)
 		if err != nil {
 			return err

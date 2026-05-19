@@ -5,44 +5,12 @@
 package: annotation
 go_import: github.com/AndroidGoLab/jni/androidx/annotation
 classes:
-    - java_class: androidx.annotation.UiThread
-      go_type: UiThread
-    - java_class: androidx.annotation.RestrictTo
-      go_type: RestrictTo
-      methods:
-        - java_method: value
-          go_name: Value
-          returns: androidx.annotation.RestrictTo$Scope[]
-          error: true
-    - java_class: androidx.annotation.RestrictTo$Scope
-      go_type: RestrictToScope
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: androidx.annotation.RestrictTo$Scope[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: androidx.annotation.RestrictTo$Scope
-          error: true
-    - java_class: androidx.annotation.FractionRes
-      go_type: FractionRes
-    - java_class: androidx.annotation.ColorRes
-      go_type: ColorRes
-    - java_class: androidx.annotation.StringDef
-      go_type: StringDef
-      methods:
-        - java_method: value
-          go_name: Value
-          returns: java.lang.String[]
-          error: true
-        - java_method: open
-          go_name: Open
-          returns: boolean
-          error: true
+    - java_class: androidx.annotation.LayoutRes
+      go_type: LayoutRes
+    - java_class: androidx.annotation.NavigationRes
+      go_type: NavigationRes
+    - java_class: androidx.annotation.BoolRes
+      go_type: BoolRes
     - java_class: androidx.annotation.InspectableProperty
       go_type: InspectableProperty
       methods:
@@ -110,72 +78,19 @@ classes:
               go_name: arg0
           returns: androidx.annotation.InspectableProperty$ValueType
           error: true
-    - java_class: androidx.annotation.Nullable
-      go_type: Nullable
-    - java_class: androidx.annotation.AnimatorRes
-      go_type: AnimatorRes
-    - java_class: androidx.annotation.AttrRes
-      go_type: AttrRes
-    - java_class: androidx.annotation.Px
-      go_type: Px
-    - java_class: androidx.annotation.UiContext
-      go_type: UiContext
-    - java_class: androidx.annotation.FontRes
-      go_type: FontRes
-    - java_class: androidx.annotation.IntRange
-      go_type: IntRange
-      methods:
-        - java_method: from
-          go_name: From
-          returns: long
-          error: true
-        - java_method: to
-          go_name: To
-          returns: long
-          error: true
     - java_class: androidx.annotation.IdRes
       go_type: IdRes
-    - java_class: androidx.annotation.Discouraged
-      go_type: Discouraged
+    - java_class: androidx.annotation.AnimatorRes
+      go_type: AnimatorRes
+    - java_class: androidx.annotation.Px
+      go_type: Px
+    - java_class: androidx.annotation.CheckResult
+      go_type: CheckResult
       methods:
-        - java_method: message
-          go_name: Message
+        - java_method: suggest
+          go_name: Suggest
           returns: String
           error: true
-    - java_class: androidx.annotation.CallSuper
-      go_type: CallSuper
-    - java_class: androidx.annotation.BoolRes
-      go_type: BoolRes
-    - java_class: androidx.annotation.Dimension
-      go_type: Dimension
-      methods:
-        - java_method: unit
-          go_name: Unit
-          returns: int
-          error: true
-    - java_class: androidx.annotation.StyleRes
-      go_type: StyleRes
-    - java_class: androidx.annotation.RawRes
-      go_type: RawRes
-    - java_class: androidx.annotation.BinderThread
-      go_type: BinderThread
-    - java_class: androidx.annotation.LongDef
-      go_type: LongDef
-      methods:
-        - java_method: value
-          go_name: Value
-          returns: '[J'
-          error: true
-        - java_method: flag
-          go_name: Flag
-          returns: boolean
-          error: true
-        - java_method: open
-          go_name: Open
-          returns: boolean
-          error: true
-    - java_class: androidx.annotation.AnyRes
-      go_type: AnyRes
     - java_class: androidx.annotation.XmlRes
       go_type: XmlRes
     - java_class: androidx.annotation.RequiresApi
@@ -189,22 +104,24 @@ classes:
           go_name: Api
           returns: int
           error: true
-    - java_class: androidx.annotation.HalfFloat
-      go_type: HalfFloat
-    - java_class: androidx.annotation.MenuRes
-      go_type: MenuRes
-    - java_class: androidx.annotation.LayoutRes
-      go_type: LayoutRes
-    - java_class: androidx.annotation.DrawableRes
-      go_type: DrawableRes
-    - java_class: androidx.annotation.TransitionRes
-      go_type: TransitionRes
+    - java_class: androidx.annotation.NonNull
+      go_type: NonNull
+    - java_class: androidx.annotation.AttrRes
+      go_type: AttrRes
+    - java_class: androidx.annotation.ArrayRes
+      go_type: ArrayRes
+    - java_class: androidx.annotation.ColorLong
+      go_type: ColorLong
     - java_class: androidx.annotation.NonUiContext
       go_type: NonUiContext
-    - java_class: androidx.annotation.AnyThread
-      go_type: AnyThread
-    - java_class: androidx.annotation.ColorInt
-      go_type: ColorInt
+    - java_class: androidx.annotation.HalfFloat
+      go_type: HalfFloat
+    - java_class: androidx.annotation.MainThread
+      go_type: MainThread
+    - java_class: androidx.annotation.PluralsRes
+      go_type: PluralsRes
+    - java_class: androidx.annotation.BinderThread
+      go_type: BinderThread
     - java_class: androidx.annotation.FloatRange
       go_type: FloatRange
       methods:
@@ -224,18 +141,10 @@ classes:
           go_name: ToInclusive
           returns: boolean
           error: true
-    - java_class: androidx.annotation.ContentView
-      go_type: ContentView
-    - java_class: androidx.annotation.AnimRes
-      go_type: AnimRes
-    - java_class: androidx.annotation.NavigationRes
-      go_type: NavigationRes
-    - java_class: androidx.annotation.StringRes
-      go_type: StringRes
-    - java_class: androidx.annotation.DisplayContext
-      go_type: DisplayContext
-    - java_class: androidx.annotation.MainThread
-      go_type: MainThread
+    - java_class: androidx.annotation.Keep
+      go_type: Keep
+    - java_class: androidx.annotation.WorkerThread
+      go_type: WorkerThread
     - java_class: androidx.annotation.GuardedBy
       go_type: GuardedBy
       methods:
@@ -243,63 +152,12 @@ classes:
           go_name: Value
           returns: String
           error: true
-    - java_class: androidx.annotation.RequiresPermission
-      go_type: RequiresPermission
-      methods:
-        - java_method: value
-          go_name: Value
-          returns: String
-          error: true
-        - java_method: allOf
-          go_name: AllOf
-          returns: java.lang.String[]
-          error: true
-        - java_method: anyOf
-          go_name: AnyOf
-          returns: java.lang.String[]
-          error: true
-        - java_method: conditional
-          go_name: Conditional
-          returns: boolean
-          error: true
-    - java_class: androidx.annotation.RequiresPermission$Read
-      go_type: RequiresPermissionRead
-      methods:
-        - java_method: value
-          go_name: Value
-          returns: androidx.annotation.RequiresPermission
-          error: true
-    - java_class: androidx.annotation.RequiresPermission$Write
-      go_type: RequiresPermissionWrite
-      methods:
-        - java_method: value
-          go_name: Value
-          returns: androidx.annotation.RequiresPermission
-          error: true
-    - java_class: androidx.annotation.ColorLong
-      go_type: ColorLong
-    - java_class: androidx.annotation.VisibleForTesting
-      go_type: VisibleForTesting
-      methods:
-        - java_method: otherwise
-          go_name: Otherwise
-          returns: int
-          error: true
-    - java_class: androidx.annotation.IntegerRes
-      go_type: IntegerRes
-    - java_class: androidx.annotation.PluralsRes
-      go_type: PluralsRes
-    - java_class: androidx.annotation.RequiresFeature
-      go_type: RequiresFeature
-      methods:
-        - java_method: name
-          go_name: Name
-          returns: String
-          error: true
-        - java_method: enforcement
-          go_name: Enforcement
-          returns: String
-          error: true
+    - java_class: androidx.annotation.MenuRes
+      go_type: MenuRes
+    - java_class: androidx.annotation.StringRes
+      go_type: StringRes
+    - java_class: androidx.annotation.Nullable
+      go_type: Nullable
     - java_class: androidx.annotation.ChecksSdkIntAtLeast
       go_type: ChecksSdkIntAtLeast
       methods:
@@ -334,8 +192,34 @@ classes:
           go_name: Open
           returns: boolean
           error: true
+    - java_class: androidx.annotation.IntegerRes
+      go_type: IntegerRes
+    - java_class: androidx.annotation.InterpolatorRes
+      go_type: InterpolatorRes
+    - java_class: androidx.annotation.DisplayContext
+      go_type: DisplayContext
+    - java_class: androidx.annotation.StringDef
+      go_type: StringDef
+      methods:
+        - java_method: value
+          go_name: Value
+          returns: java.lang.String[]
+          error: true
+        - java_method: open
+          go_name: Open
+          returns: boolean
+          error: true
     - java_class: androidx.annotation.DoNotInline
       go_type: DoNotInline
+    - java_class: androidx.annotation.ColorInt
+      go_type: ColorInt
+    - java_class: androidx.annotation.Dimension
+      go_type: Dimension
+      methods:
+        - java_method: unit
+          go_name: Unit
+          returns: int
+          error: true
     - java_class: androidx.annotation.Size
       go_type: Size
       methods:
@@ -355,48 +239,146 @@ classes:
           go_name: Multiple
           returns: long
           error: true
-    - java_class: androidx.annotation.InterpolatorRes
-      go_type: InterpolatorRes
-    - java_class: androidx.annotation.StyleableRes
-      go_type: StyleableRes
-    - java_class: androidx.annotation.ArrayRes
-      go_type: ArrayRes
-    - java_class: androidx.annotation.CheckResult
-      go_type: CheckResult
+    - java_class: androidx.annotation.StyleRes
+      go_type: StyleRes
+    - java_class: androidx.annotation.TransitionRes
+      go_type: TransitionRes
+    - java_class: androidx.annotation.FractionRes
+      go_type: FractionRes
+    - java_class: androidx.annotation.UiContext
+      go_type: UiContext
+    - java_class: androidx.annotation.RestrictTo
+      go_type: RestrictTo
       methods:
-        - java_method: suggest
-          go_name: Suggest
+        - java_method: value
+          go_name: Value
+          returns: androidx.annotation.RestrictTo$Scope[]
+          error: true
+    - java_class: androidx.annotation.RestrictTo$Scope
+      go_type: RestrictToScope
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: androidx.annotation.RestrictTo$Scope[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: androidx.annotation.RestrictTo$Scope
+          error: true
+    - java_class: androidx.annotation.UiThread
+      go_type: UiThread
+    - java_class: androidx.annotation.CallSuper
+      go_type: CallSuper
+    - java_class: androidx.annotation.DrawableRes
+      go_type: DrawableRes
+    - java_class: androidx.annotation.RawRes
+      go_type: RawRes
+    - java_class: androidx.annotation.LongDef
+      go_type: LongDef
+      methods:
+        - java_method: value
+          go_name: Value
+          returns: '[J'
+          error: true
+        - java_method: flag
+          go_name: Flag
+          returns: boolean
+          error: true
+        - java_method: open
+          go_name: Open
+          returns: boolean
+          error: true
+    - java_class: androidx.annotation.AnimRes
+      go_type: AnimRes
+    - java_class: androidx.annotation.ColorRes
+      go_type: ColorRes
+    - java_class: androidx.annotation.RequiresFeature
+      go_type: RequiresFeature
+      methods:
+        - java_method: name
+          go_name: Name
           returns: String
           error: true
-    - java_class: androidx.annotation.GravityInt
-      go_type: GravityInt
-    - java_class: androidx.annotation.Keep
-      go_type: Keep
-    - java_class: androidx.annotation.WorkerThread
-      go_type: WorkerThread
+        - java_method: enforcement
+          go_name: Enforcement
+          returns: String
+          error: true
+    - java_class: androidx.annotation.VisibleForTesting
+      go_type: VisibleForTesting
+      methods:
+        - java_method: otherwise
+          go_name: Otherwise
+          returns: int
+          error: true
+    - java_class: androidx.annotation.ContentView
+      go_type: ContentView
     - java_class: androidx.annotation.DimenRes
       go_type: DimenRes
-    - java_class: androidx.annotation.NonNull
-      go_type: NonNull
+    - java_class: androidx.annotation.IntRange
+      go_type: IntRange
+      methods:
+        - java_method: from
+          go_name: From
+          returns: long
+          error: true
+        - java_method: to
+          go_name: To
+          returns: long
+          error: true
+    - java_class: androidx.annotation.RequiresPermission
+      go_type: RequiresPermission
+      methods:
+        - java_method: value
+          go_name: Value
+          returns: String
+          error: true
+        - java_method: allOf
+          go_name: AllOf
+          returns: java.lang.String[]
+          error: true
+        - java_method: anyOf
+          go_name: AnyOf
+          returns: java.lang.String[]
+          error: true
+        - java_method: conditional
+          go_name: Conditional
+          returns: boolean
+          error: true
+    - java_class: androidx.annotation.RequiresPermission$Read
+      go_type: RequiresPermissionRead
+      methods:
+        - java_method: value
+          go_name: Value
+          returns: androidx.annotation.RequiresPermission
+          error: true
+    - java_class: androidx.annotation.RequiresPermission$Write
+      go_type: RequiresPermissionWrite
+      methods:
+        - java_method: value
+          go_name: Value
+          returns: androidx.annotation.RequiresPermission
+          error: true
+    - java_class: androidx.annotation.StyleableRes
+      go_type: StyleableRes
+    - java_class: androidx.annotation.FontRes
+      go_type: FontRes
+    - java_class: androidx.annotation.AnyRes
+      go_type: AnyRes
+    - java_class: androidx.annotation.GravityInt
+      go_type: GravityInt
+    - java_class: androidx.annotation.Discouraged
+      go_type: Discouraged
+      methods:
+        - java_method: message
+          go_name: Message
+          returns: String
+          error: true
+    - java_class: androidx.annotation.AnyThread
+      go_type: AnyThread
 constants:
-    - go_name: Library
-      value: "0"
-      go_type: int
-    - go_name: LibraryGroup
-      value: "0"
-      go_type: int
-    - go_name: LibraryGroupPrefix
-      value: "0"
-      go_type: int
-    - go_name: GroupId
-      value: "0"
-      go_type: int
-    - go_name: Tests
-      value: "0"
-      go_type: int
-    - go_name: Subclasses
-      value: "0"
-      go_type: int
     - go_name: None
       value: "0"
       go_type: int
@@ -426,6 +408,24 @@ constants:
       go_type: int
     - go_name: Sp
       value: "2"
+      go_type: int
+    - go_name: Library
+      value: "0"
+      go_type: int
+    - go_name: LibraryGroup
+      value: "0"
+      go_type: int
+    - go_name: LibraryGroupPrefix
+      value: "0"
+      go_type: int
+    - go_name: GroupId
+      value: "0"
+      go_type: int
+    - go_name: Tests
+      value: "0"
+      go_type: int
+    - go_name: Subclasses
+      value: "0"
       go_type: int
     - go_name: Private
       value: "2"

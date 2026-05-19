@@ -32,6 +32,12 @@ func NewCLToken(vm *jni.VM, arg0 *jni.Object) (*CLToken, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCLToken == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.parser.CLToken is not available on this device")
+		}
+		if midCLTokenCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.parser.CLToken constructor ([C)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCLToken)), midCLTokenCtor, jni.ObjectValue(arg0))
 		if err != nil {

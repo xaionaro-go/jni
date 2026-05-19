@@ -21,6 +21,34 @@ type ActivityManagerRunningServiceInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewActivityManagerRunningServiceInfo creates a new android.app.ActivityManager$RunningServiceInfo instance.
+func NewActivityManagerRunningServiceInfo(vm *jni.VM) (*ActivityManagerRunningServiceInfo, error) {
+	var t ActivityManagerRunningServiceInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsActivityManagerRunningServiceInfo == nil {
+			return fmt.Errorf("android.app.ActivityManager$RunningServiceInfo is not available on this device")
+		}
+		if midActivityManagerRunningServiceInfoCtor == nil {
+			return fmt.Errorf("android.app.ActivityManager$RunningServiceInfo constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivityManagerRunningServiceInfo)), midActivityManagerRunningServiceInfoCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.app.ActivityManager$RunningServiceInfo.describeContents.
 func (m *ActivityManagerRunningServiceInfo) DescribeContents() (int32, error) {
 	var result int32
@@ -69,29 +97,6 @@ func (m *ActivityManagerRunningServiceInfo) ReadFromParcel(arg0 *jni.Object) err
 	return callErr
 }
 
-// WriteToParcel calls android.app.ActivityManager$RunningServiceInfo.writeToParcel.
-func (m *ActivityManagerRunningServiceInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityManagerRunningServiceInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.ActivityManager$RunningServiceInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midActivityManagerRunningServiceInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.ActivityManager$RunningServiceInfo.toString.
 func (m *ActivityManagerRunningServiceInfo) ToString() (string, error) {
 	var result string
@@ -117,4 +122,27 @@ func (m *ActivityManagerRunningServiceInfo) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.ActivityManager$RunningServiceInfo.writeToParcel.
+func (m *ActivityManagerRunningServiceInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midActivityManagerRunningServiceInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.ActivityManager$RunningServiceInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsActivityManagerRunningServiceInfo)),
+			midActivityManagerRunningServiceInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

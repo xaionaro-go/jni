@@ -48,29 +48,6 @@ func (m *SupplicantState) DescribeContents() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.net.wifi.SupplicantState.writeToParcel.
-func (m *SupplicantState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSupplicantStateWriteToParcel == nil {
-			callErr = fmt.Errorf("android.net.wifi.SupplicantState.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSupplicantStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.net.wifi.SupplicantState.toString.
 func (m *SupplicantState) ToString() (string, error) {
 	var result string
@@ -194,4 +171,27 @@ func (m *SupplicantState) IsValidState(arg0 *jni.Object) (bool, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.net.wifi.SupplicantState.writeToParcel.
+func (m *SupplicantState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSupplicantStateWriteToParcel == nil {
+			callErr = fmt.Errorf("android.net.wifi.SupplicantState.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSupplicantState)),
+			midSupplicantStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

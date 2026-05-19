@@ -30,6 +30,12 @@ func NewDialog(vm *jni.VM, arg0 *jni.Object) (*Dialog, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDialog == nil {
+			return fmt.Errorf("android.app.Dialog is not available on this device")
+		}
+		if midDialogCtor == nil {
+			return fmt.Errorf("android.app.Dialog constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDialog)), midDialogCtor, jni.ObjectValue(arg0))
 		if err != nil {

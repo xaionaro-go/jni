@@ -32,6 +32,12 @@ func NewDynamicsProcessing(vm *jni.VM, arg0 int32) (*DynamicsProcessing, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDynamicsProcessing == nil {
+			return fmt.Errorf("android.media.audiofx.DynamicsProcessing is not available on this device")
+		}
+		if midDynamicsProcessingCtor == nil {
+			return fmt.Errorf("android.media.audiofx.DynamicsProcessing constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDynamicsProcessing)), midDynamicsProcessingCtor, jni.IntValue(arg0))
 		if err != nil {

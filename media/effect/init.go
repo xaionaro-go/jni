@@ -28,14 +28,6 @@ var (
 	midFactoryToString          jni.MethodID
 	midFactoryIsEffectSupported jni.MethodID
 
-	clsEffect                  *jni.GlobalRef
-	midEffectApply             jni.MethodID
-	midEffectGetName           jni.MethodID
-	midEffectRelease           jni.MethodID
-	midEffectSetParameter      jni.MethodID
-	midEffectSetUpdateListener jni.MethodID
-	midEffectToString          jni.MethodID
-
 	clsUpdateListener                *jni.GlobalRef
 	midUpdateListenerOnEffectUpdated jni.MethodID
 	midUpdateListenerToString        jni.MethodID
@@ -45,6 +37,14 @@ var (
 	midContextRelease                    jni.MethodID
 	midContextToString                   jni.MethodID
 	midContextCreateWithCurrentGlContext jni.MethodID
+
+	clsEffect                  *jni.GlobalRef
+	midEffectApply             jni.MethodID
+	midEffectGetName           jni.MethodID
+	midEffectRelease           jni.MethodID
+	midEffectSetParameter      jni.MethodID
+	midEffectSetUpdateListener jni.MethodID
+	midEffectToString          jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -88,58 +88,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midFactoryIsEffectSupported, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsFactory)), "isEffectSupported", "(Ljava/lang/String;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/media/effect/Effect")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsEffect = env.NewGlobalRef(&c.Object)
-
-		midEffectApply, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEffect)), "apply", "(IIII)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEffectGetName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEffect)), "getName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEffectRelease, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEffect)), "release", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEffectSetParameter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEffect)), "setParameter", "(Ljava/lang/String;Ljava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEffectSetUpdateListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEffect)), "setUpdateListener", "(Landroid/media/effect/EffectUpdateListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEffectToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEffect)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -202,6 +150,58 @@ func doInit(env *jni.Env) error {
 		}
 
 		midContextCreateWithCurrentGlContext, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContext)), "createWithCurrentGlContext", "()Landroid/media/effect/EffectContext;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/media/effect/Effect")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsEffect = env.NewGlobalRef(&c.Object)
+
+		midEffectApply, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEffect)), "apply", "(IIII)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEffectGetName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEffect)), "getName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEffectRelease, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEffect)), "release", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEffectSetParameter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEffect)), "setParameter", "(Ljava/lang/String;Ljava/lang/Object;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEffectSetUpdateListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEffect)), "setUpdateListener", "(Landroid/media/effect/EffectUpdateListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEffectToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEffect)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

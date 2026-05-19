@@ -32,6 +32,12 @@ func NewSetUserVisibleHintViolation(vm *jni.VM, arg0 *jni.Object, arg1 bool) (*S
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSetUserVisibleHintViolation == nil {
+			return fmt.Errorf("androidx.fragment.app.strictmode.SetUserVisibleHintViolation is not available on this device")
+		}
+		if midSetUserVisibleHintViolationCtor == nil {
+			return fmt.Errorf("androidx.fragment.app.strictmode.SetUserVisibleHintViolation constructor (Landroidx/fragment/app/Fragment;Z)V is not available on this device")
+		}
 
 		var jArg1 uint8
 		if arg1 {

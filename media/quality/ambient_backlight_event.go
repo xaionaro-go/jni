@@ -32,6 +32,12 @@ func NewAmbientBacklightEvent(vm *jni.VM, arg0 int32, arg1 *jni.Object) (*Ambien
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAmbientBacklightEvent == nil {
+			return fmt.Errorf("android.media.quality.AmbientBacklightEvent is not available on this device")
+		}
+		if midAmbientBacklightEventCtor == nil {
+			return fmt.Errorf("android.media.quality.AmbientBacklightEvent constructor (ILandroid/media/quality/AmbientBacklightMetadata;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAmbientBacklightEvent)), midAmbientBacklightEventCtor, jni.IntValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -222,8 +228,8 @@ func (m *AmbientBacklightEvent) WriteToParcel(arg0 *jni.Object, arg1 int32) erro
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAmbientBacklightEvent)),
 			midAmbientBacklightEventWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

@@ -32,6 +32,12 @@ func NewDefaultDatabaseErrorHandler(vm *jni.VM) (*DefaultDatabaseErrorHandler, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDefaultDatabaseErrorHandler == nil {
+			return fmt.Errorf("android.database.DefaultDatabaseErrorHandler is not available on this device")
+		}
+		if midDefaultDatabaseErrorHandlerCtor == nil {
+			return fmt.Errorf("android.database.DefaultDatabaseErrorHandler constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDefaultDatabaseErrorHandler)), midDefaultDatabaseErrorHandlerCtor)
 		if err != nil {
 			return err

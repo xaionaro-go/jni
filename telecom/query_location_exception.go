@@ -32,6 +32,12 @@ func NewQueryLocationException(vm *jni.VM, arg0 string) (*QueryLocationException
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsQueryLocationException == nil {
+			return fmt.Errorf("android.telecom.QueryLocationException is not available on this device")
+		}
+		if midQueryLocationExceptionCtor == nil {
+			return fmt.Errorf("android.telecom.QueryLocationException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -101,29 +107,6 @@ func (m *QueryLocationException) GetCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.telecom.QueryLocationException.writeToParcel.
-func (m *QueryLocationException) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midQueryLocationExceptionWriteToParcel == nil {
-			callErr = fmt.Errorf("android.telecom.QueryLocationException.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midQueryLocationExceptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.telecom.QueryLocationException.toString.
 func (m *QueryLocationException) ToString() (string, error) {
 	var result string
@@ -149,4 +132,27 @@ func (m *QueryLocationException) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.telecom.QueryLocationException.writeToParcel.
+func (m *QueryLocationException) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midQueryLocationExceptionWriteToParcel == nil {
+			callErr = fmt.Errorf("android.telecom.QueryLocationException.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsQueryLocationException)),
+			midQueryLocationExceptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

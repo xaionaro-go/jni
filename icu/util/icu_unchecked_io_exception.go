@@ -32,6 +32,12 @@ func NewICUUncheckedIOException(vm *jni.VM) (*ICUUncheckedIOException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsICUUncheckedIOException == nil {
+			return fmt.Errorf("android.icu.util.ICUUncheckedIOException is not available on this device")
+		}
+		if midICUUncheckedIOExceptionCtor == nil {
+			return fmt.Errorf("android.icu.util.ICUUncheckedIOException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsICUUncheckedIOException)), midICUUncheckedIOExceptionCtor)
 		if err != nil {
 			return err

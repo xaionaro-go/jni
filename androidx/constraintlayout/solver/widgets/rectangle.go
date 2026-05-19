@@ -32,6 +32,12 @@ func NewRectangle(vm *jni.VM) (*Rectangle, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRectangle == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.widgets.Rectangle is not available on this device")
+		}
+		if midRectangleCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.widgets.Rectangle constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRectangle)), midRectangleCtor)
 		if err != nil {
 			return err

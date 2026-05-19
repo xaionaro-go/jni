@@ -23,6 +23,40 @@ type CreateCredentialRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCreateCredentialRequestBuilder creates a new android.credentials.CreateCredentialRequest$Builder instance.
+func NewCreateCredentialRequestBuilder(vm *jni.VM, arg0 string, arg1 *jni.Object, arg2 *jni.Object) (*CreateCredentialRequestBuilder, error) {
+	var t CreateCredentialRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCreateCredentialRequestBuilder == nil {
+			return fmt.Errorf("android.credentials.CreateCredentialRequest$Builder is not available on this device")
+		}
+		if midCreateCredentialRequestBuilderCtor == nil {
+			return fmt.Errorf("android.credentials.CreateCredentialRequest$Builder constructor (Ljava/lang/String;Landroid/os/Bundle;Landroid/os/Bundle;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCreateCredentialRequestBuilder)), midCreateCredentialRequestBuilderCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.credentials.CreateCredentialRequest$Builder.build.
 func (m *CreateCredentialRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

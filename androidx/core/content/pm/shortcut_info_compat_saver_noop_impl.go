@@ -23,8 +23,36 @@ type ShortcutInfoCompatSaverNoopImpl struct {
 	Obj *jni.GlobalRef
 }
 
-// RemoveAllShortcuts0 calls androidx.core.content.pm.ShortcutInfoCompatSaver$NoopImpl.removeAllShortcuts.
-func (m *ShortcutInfoCompatSaverNoopImpl) RemoveAllShortcuts0() (*jni.Object, error) {
+// NewShortcutInfoCompatSaverNoopImpl creates a new androidx.core.content.pm.ShortcutInfoCompatSaver$NoopImpl instance.
+func NewShortcutInfoCompatSaverNoopImpl(vm *jni.VM) (*ShortcutInfoCompatSaverNoopImpl, error) {
+	var t ShortcutInfoCompatSaverNoopImpl
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsShortcutInfoCompatSaverNoopImpl == nil {
+			return fmt.Errorf("androidx.core.content.pm.ShortcutInfoCompatSaver$NoopImpl is not available on this device")
+		}
+		if midShortcutInfoCompatSaverNoopImplCtor == nil {
+			return fmt.Errorf("androidx.core.content.pm.ShortcutInfoCompatSaver$NoopImpl constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsShortcutInfoCompatSaverNoopImpl)), midShortcutInfoCompatSaverNoopImplCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
+// RemoveAllShortcuts calls androidx.core.content.pm.ShortcutInfoCompatSaver$NoopImpl.removeAllShortcuts.
+func (m *ShortcutInfoCompatSaverNoopImpl) RemoveAllShortcuts() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -32,111 +60,13 @@ func (m *ShortcutInfoCompatSaverNoopImpl) RemoveAllShortcuts0() (*jni.Object, er
 			callErr = err
 			return err
 		}
-		if midShortcutInfoCompatSaverNoopImplRemoveAllShortcuts0 == nil {
+		if midShortcutInfoCompatSaverNoopImplRemoveAllShortcuts == nil {
 			callErr = fmt.Errorf("androidx.core.content.pm.ShortcutInfoCompatSaver$NoopImpl.removeAllShortcuts is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midShortcutInfoCompatSaverNoopImplRemoveAllShortcuts0,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// RemoveAllShortcuts0_1 calls androidx.core.content.pm.ShortcutInfoCompatSaver$NoopImpl.removeAllShortcuts.
-func (m *ShortcutInfoCompatSaverNoopImpl) RemoveAllShortcuts0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midShortcutInfoCompatSaverNoopImplRemoveAllShortcuts0_1 == nil {
-			callErr = fmt.Errorf("androidx.core.content.pm.ShortcutInfoCompatSaver$NoopImpl.removeAllShortcuts is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midShortcutInfoCompatSaverNoopImplRemoveAllShortcuts0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// RemoveShortcuts calls androidx.core.content.pm.ShortcutInfoCompatSaver$NoopImpl.removeShortcuts.
-func (m *ShortcutInfoCompatSaverNoopImpl) RemoveShortcuts(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midShortcutInfoCompatSaverNoopImplRemoveShortcuts == nil {
-			callErr = fmt.Errorf("androidx.core.content.pm.ShortcutInfoCompatSaver$NoopImpl.removeShortcuts is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midShortcutInfoCompatSaverNoopImplRemoveShortcuts, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// AddShortcuts calls androidx.core.content.pm.ShortcutInfoCompatSaver$NoopImpl.addShortcuts.
-func (m *ShortcutInfoCompatSaverNoopImpl) AddShortcuts(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midShortcutInfoCompatSaverNoopImplAddShortcuts == nil {
-			callErr = fmt.Errorf("androidx.core.content.pm.ShortcutInfoCompatSaver$NoopImpl.addShortcuts is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midShortcutInfoCompatSaverNoopImplAddShortcuts, jni.ObjectValue(arg0),
+			midShortcutInfoCompatSaverNoopImplRemoveAllShortcuts,
 		)
 		if callErr != nil {
 			return callErr

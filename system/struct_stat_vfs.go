@@ -32,6 +32,12 @@ func NewStructStatVfs(vm *jni.VM, arg0 int64, arg1 int64, arg2 int64, arg3 int64
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStructStatVfs == nil {
+			return fmt.Errorf("android.system.StructStatVfs is not available on this device")
+		}
+		if midStructStatVfsCtor == nil {
+			return fmt.Errorf("android.system.StructStatVfs constructor (JJJJJJJJJJJ)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStructStatVfs)), midStructStatVfsCtor, jni.LongValue(arg0), jni.LongValue(arg1), jni.LongValue(arg2), jni.LongValue(arg3), jni.LongValue(arg4), jni.LongValue(arg5), jni.LongValue(arg6), jni.LongValue(arg7), jni.LongValue(arg8), jni.LongValue(arg9), jni.LongValue(arg10))
 		if err != nil {

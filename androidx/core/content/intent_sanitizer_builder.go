@@ -23,6 +23,34 @@ type IntentSanitizerBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewIntentSanitizerBuilder creates a new androidx.core.content.IntentSanitizer$Builder instance.
+func NewIntentSanitizerBuilder(vm *jni.VM) (*IntentSanitizerBuilder, error) {
+	var t IntentSanitizerBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsIntentSanitizerBuilder == nil {
+			return fmt.Errorf("androidx.core.content.IntentSanitizer$Builder is not available on this device")
+		}
+		if midIntentSanitizerBuilderCtor == nil {
+			return fmt.Errorf("androidx.core.content.IntentSanitizer$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIntentSanitizerBuilder)), midIntentSanitizerBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AllowFlags calls androidx.core.content.IntentSanitizer$Builder.allowFlags.
 func (m *IntentSanitizerBuilder) AllowFlags(arg0 int32) (*jni.Object, error) {
 	var result *jni.Object

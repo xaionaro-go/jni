@@ -32,6 +32,12 @@ func NewETC1Util(vm *jni.VM) (*ETC1Util, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsETC1Util == nil {
+			return fmt.Errorf("android.opengl.ETC1Util is not available on this device")
+		}
+		if midETC1UtilCtor == nil {
+			return fmt.Errorf("android.opengl.ETC1Util constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsETC1Util)), midETC1UtilCtor)
 		if err != nil {
 			return err

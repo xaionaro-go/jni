@@ -23,6 +23,34 @@ type WindowInsetsCompatBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWindowInsetsCompatBuilder creates a new androidx.core.view.WindowInsetsCompat$Builder instance.
+func NewWindowInsetsCompatBuilder(vm *jni.VM) (*WindowInsetsCompatBuilder, error) {
+	var t WindowInsetsCompatBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWindowInsetsCompatBuilder == nil {
+			return fmt.Errorf("androidx.core.view.WindowInsetsCompat$Builder is not available on this device")
+		}
+		if midWindowInsetsCompatBuilderCtor == nil {
+			return fmt.Errorf("androidx.core.view.WindowInsetsCompat$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWindowInsetsCompatBuilder)), midWindowInsetsCompatBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetSystemWindowInsets calls androidx.core.view.WindowInsetsCompat$Builder.setSystemWindowInsets.
 func (m *WindowInsetsCompatBuilder) SetSystemWindowInsets(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewKeyFrames(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*KeyFrames, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsKeyFrames == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.KeyFrames is not available on this device")
+		}
+		if midKeyFramesCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.KeyFrames constructor (Landroid/content/Context;Lorg/xmlpull/v1/XmlPullParser;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyFrames)), midKeyFramesCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -92,29 +98,6 @@ func (m *KeyFrames) AddAllFrames(arg0 *jni.Object) error {
 	return callErr
 }
 
-// AddFrames calls androidx.constraintlayout.motion.widget.KeyFrames.addFrames.
-func (m *KeyFrames) AddFrames(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midKeyFramesAddFrames == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.motion.widget.KeyFrames.addFrames is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midKeyFramesAddFrames, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // GetKeys calls androidx.constraintlayout.motion.widget.KeyFrames.getKeys.
 func (m *KeyFrames) GetKeys() (*jni.Object, error) {
 	var result *jni.Object
@@ -131,39 +114,6 @@ func (m *KeyFrames) GetKeys() (*jni.Object, error) {
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
 			midKeyFramesGetKeys,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetKeyFramesForView calls androidx.constraintlayout.motion.widget.KeyFrames.getKeyFramesForView.
-func (m *KeyFrames) GetKeyFramesForView(arg0 int32) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midKeyFramesGetKeyFramesForView == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.motion.widget.KeyFrames.getKeyFramesForView is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midKeyFramesGetKeyFramesForView, jni.IntValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -202,6 +152,62 @@ func (m *KeyFrames) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// AddFrames calls androidx.constraintlayout.motion.widget.KeyFrames.addFrames.
+func (m *KeyFrames) AddFrames(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midKeyFramesAddFrames == nil {
+			callErr = fmt.Errorf("androidx.constraintlayout.motion.widget.KeyFrames.addFrames is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsKeyFrames)),
+			midKeyFramesAddFrames, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
+}
+
+// GetKeyFramesForView calls androidx.constraintlayout.motion.widget.KeyFrames.getKeyFramesForView.
+func (m *KeyFrames) GetKeyFramesForView(arg0 int32) (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midKeyFramesGetKeyFramesForView == nil {
+			callErr = fmt.Errorf("androidx.constraintlayout.motion.widget.KeyFrames.getKeyFramesForView is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsKeyFrames)),
+			midKeyFramesGetKeyFramesForView, jni.IntValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
 		return callErr
 	})
 	return result, callErr

@@ -23,6 +23,35 @@ type SkinTemperatureRecordBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSkinTemperatureRecordBuilder creates a new android.health.connect.datatypes.SkinTemperatureRecord$Builder instance.
+func NewSkinTemperatureRecordBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.Object) (*SkinTemperatureRecordBuilder, error) {
+	var t SkinTemperatureRecordBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSkinTemperatureRecordBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.SkinTemperatureRecord$Builder is not available on this device")
+		}
+		if midSkinTemperatureRecordBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.SkinTemperatureRecord$Builder constructor (Landroid/health/connect/datatypes/Metadata;Ljava/time/Instant;Ljava/time/Instant;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSkinTemperatureRecordBuilder)), midSkinTemperatureRecordBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.datatypes.SkinTemperatureRecord$Builder.build.
 func (m *SkinTemperatureRecordBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -23,6 +23,46 @@ type TextClassificationContextBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTextClassificationContextBuilder creates a new android.view.textclassifier.TextClassificationContext$Builder instance.
+func NewTextClassificationContextBuilder(vm *jni.VM, arg0 string, arg1 string) (*TextClassificationContextBuilder, error) {
+	var t TextClassificationContextBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTextClassificationContextBuilder == nil {
+			return fmt.Errorf("android.view.textclassifier.TextClassificationContext$Builder is not available on this device")
+		}
+		if midTextClassificationContextBuilderCtor == nil {
+			return fmt.Errorf("android.view.textclassifier.TextClassificationContext$Builder constructor (Ljava/lang/String;Ljava/lang/String;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextClassificationContextBuilder)), midTextClassificationContextBuilderCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(&jArg1.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.view.textclassifier.TextClassificationContext$Builder.build.
 func (m *TextClassificationContextBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

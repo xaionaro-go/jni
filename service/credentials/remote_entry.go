@@ -32,6 +32,12 @@ func NewRemoteEntry(vm *jni.VM, arg0 *jni.Object) (*RemoteEntry, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRemoteEntry == nil {
+			return fmt.Errorf("android.service.credentials.RemoteEntry is not available on this device")
+		}
+		if midRemoteEntryCtor == nil {
+			return fmt.Errorf("android.service.credentials.RemoteEntry constructor (Landroid/app/slice/Slice;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRemoteEntry)), midRemoteEntryCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -103,29 +109,6 @@ func (m *RemoteEntry) GetSlice() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.service.credentials.RemoteEntry.writeToParcel.
-func (m *RemoteEntry) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRemoteEntryWriteToParcel == nil {
-			callErr = fmt.Errorf("android.service.credentials.RemoteEntry.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midRemoteEntryWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.service.credentials.RemoteEntry.toString.
 func (m *RemoteEntry) ToString() (string, error) {
 	var result string
@@ -151,4 +134,27 @@ func (m *RemoteEntry) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.service.credentials.RemoteEntry.writeToParcel.
+func (m *RemoteEntry) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRemoteEntryWriteToParcel == nil {
+			callErr = fmt.Errorf("android.service.credentials.RemoteEntry.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsRemoteEntry)),
+			midRemoteEntryWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -32,6 +32,12 @@ func NewPeriodicSync(vm *jni.VM, arg0 *jni.Object, arg1 string, arg2 *jni.Object
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPeriodicSync == nil {
+			return fmt.Errorf("android.content.PeriodicSync is not available on this device")
+		}
+		if midPeriodicSyncCtor == nil {
+			return fmt.Errorf("android.content.PeriodicSync constructor (Landroid/accounts/Account;Ljava/lang/String;Landroid/os/Bundle;J)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {
@@ -146,8 +152,8 @@ func (m *PeriodicSync) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsPeriodicSync)),
 			midPeriodicSyncWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

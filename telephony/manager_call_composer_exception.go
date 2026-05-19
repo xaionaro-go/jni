@@ -23,6 +23,35 @@ type ManagerCallComposerException struct {
 	Obj *jni.GlobalRef
 }
 
+// NewManagerCallComposerException creates a new android.telephony.TelephonyManager$CallComposerException instance.
+func NewManagerCallComposerException(vm *jni.VM, arg0 int32, arg1 *jni.Object) (*ManagerCallComposerException, error) {
+	var t ManagerCallComposerException
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsManagerCallComposerException == nil {
+			return fmt.Errorf("android.telephony.TelephonyManager$CallComposerException is not available on this device")
+		}
+		if midManagerCallComposerExceptionCtor == nil {
+			return fmt.Errorf("android.telephony.TelephonyManager$CallComposerException constructor (ILjava/io/IOException;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsManagerCallComposerException)), midManagerCallComposerExceptionCtor, jni.IntValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetErrorCode calls android.telephony.TelephonyManager$CallComposerException.getErrorCode.
 func (m *ManagerCallComposerException) GetErrorCode() (int32, error) {
 	var result int32

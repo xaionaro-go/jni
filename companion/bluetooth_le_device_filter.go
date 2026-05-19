@@ -128,29 +128,6 @@ func (m *BluetoothLeDeviceFilter) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.companion.BluetoothLeDeviceFilter.writeToParcel.
-func (m *BluetoothLeDeviceFilter) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBluetoothLeDeviceFilterWriteToParcel == nil {
-			callErr = fmt.Errorf("android.companion.BluetoothLeDeviceFilter.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midBluetoothLeDeviceFilterWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // GetRenamePrefixLengthLimit calls android.companion.BluetoothLeDeviceFilter.getRenamePrefixLengthLimit.
 func (m *BluetoothLeDeviceFilter) GetRenamePrefixLengthLimit() (int32, error) {
 	var result int32
@@ -174,4 +151,27 @@ func (m *BluetoothLeDeviceFilter) GetRenamePrefixLengthLimit() (int32, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.companion.BluetoothLeDeviceFilter.writeToParcel.
+func (m *BluetoothLeDeviceFilter) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midBluetoothLeDeviceFilterWriteToParcel == nil {
+			callErr = fmt.Errorf("android.companion.BluetoothLeDeviceFilter.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsBluetoothLeDeviceFilter)),
+			midBluetoothLeDeviceFilterWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

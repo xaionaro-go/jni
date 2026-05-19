@@ -32,6 +32,12 @@ func NewMonthDisplayHelper(vm *jni.VM, arg0 int32, arg1 int32) (*MonthDisplayHel
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMonthDisplayHelper == nil {
+			return fmt.Errorf("android.util.MonthDisplayHelper is not available on this device")
+		}
+		if midMonthDisplayHelperCtor == nil {
+			return fmt.Errorf("android.util.MonthDisplayHelper constructor (II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMonthDisplayHelper)), midMonthDisplayHelperCtor, jni.IntValue(arg0), jni.IntValue(arg1))
 		if err != nil {

@@ -32,6 +32,12 @@ func NewFeature(vm *jni.VM) (*Feature, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFeature == nil {
+			return fmt.Errorf("android.media.MediaFeature is not available on this device")
+		}
+		if midFeatureCtor == nil {
+			return fmt.Errorf("android.media.MediaFeature constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFeature)), midFeatureCtor)
 		if err != nil {
 			return err

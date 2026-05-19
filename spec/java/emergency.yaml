@@ -9,7 +9,7 @@ classes:
       go_type: Number
       methods:
         - java_method: compareTo
-          go_name: CompareTo1
+          go_name: CompareTo
           params:
             - java_type: android.telephony.emergency.EmergencyNumber
               go_name: arg0
@@ -84,13 +84,6 @@ classes:
             - java_type: int
               go_name: arg1
           returns: void
-          error: true
-        - java_method: compareTo
-          go_name: CompareTo1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
           error: true
 constants:
     - go_name: Creator

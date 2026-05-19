@@ -32,6 +32,12 @@ func NewToneDeltaPair(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 float
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsToneDeltaPair == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.ToneDeltaPair is not available on this device")
+		}
+		if midToneDeltaPairCtor == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.ToneDeltaPair constructor (Lcom/google/android/material/color/utilities/DynamicColor;Lcom/google/android/material/color/utilities/DynamicColor;DLcom/google/android/material/color/utilities/TonePolarity;Z)V is not available on this device")
+		}
 
 		var jArg4 uint8
 		if arg4 {

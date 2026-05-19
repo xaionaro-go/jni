@@ -23,27 +23,33 @@ type CoordinatorLayoutSavedState struct {
 	Obj *jni.GlobalRef
 }
 
-// WriteToParcel calls androidx.coordinatorlayout.widget.CoordinatorLayout$SavedState.writeToParcel.
-func (m *CoordinatorLayoutSavedState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+// NewCoordinatorLayoutSavedState creates a new androidx.coordinatorlayout.widget.CoordinatorLayout$SavedState instance.
+func NewCoordinatorLayoutSavedState(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*CoordinatorLayoutSavedState, error) {
+	var t CoordinatorLayoutSavedState
+	t.VM = vm
 
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
+	err := vm.Do(func(env *jni.Env) error {
 		if err := ensureInit(env); err != nil {
-			callErr = err
 			return err
 		}
-		if midCoordinatorLayoutSavedStateWriteToParcel == nil {
-			callErr = fmt.Errorf("androidx.coordinatorlayout.widget.CoordinatorLayout$SavedState.writeToParcel is not available on this device")
-			return callErr
+		if clsCoordinatorLayoutSavedState == nil {
+			return fmt.Errorf("androidx.coordinatorlayout.widget.CoordinatorLayout$SavedState is not available on this device")
+		}
+		if midCoordinatorLayoutSavedStateCtor == nil {
+			return fmt.Errorf("androidx.coordinatorlayout.widget.CoordinatorLayout$SavedState constructor (Landroid/os/Parcel;Ljava/lang/ClassLoader;)V is not available on this device")
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midCoordinatorLayoutSavedStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCoordinatorLayoutSavedState)), midCoordinatorLayoutSavedStateCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
 	})
-	return callErr
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
 }
 
 // ToString calls androidx.coordinatorlayout.widget.CoordinatorLayout$SavedState.toString.
@@ -71,4 +77,27 @@ func (m *CoordinatorLayoutSavedState) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls androidx.coordinatorlayout.widget.CoordinatorLayout$SavedState.writeToParcel.
+func (m *CoordinatorLayoutSavedState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCoordinatorLayoutSavedStateWriteToParcel == nil {
+			callErr = fmt.Errorf("androidx.coordinatorlayout.widget.CoordinatorLayout$SavedState.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsCoordinatorLayoutSavedState)),
+			midCoordinatorLayoutSavedStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

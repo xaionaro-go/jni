@@ -32,6 +32,12 @@ func NewTypefaceSpan(vm *jni.VM, arg0 *jni.Object) (*TypefaceSpan, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTypefaceSpan == nil {
+			return fmt.Errorf("android.text.style.TypefaceSpan is not available on this device")
+		}
+		if midTypefaceSpanCtor == nil {
+			return fmt.Errorf("android.text.style.TypefaceSpan constructor (Landroid/graphics/Typeface;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTypefaceSpan)), midTypefaceSpanCtor, jni.ObjectValue(arg0))
 		if err != nil {

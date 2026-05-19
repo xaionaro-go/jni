@@ -32,6 +32,12 @@ func NewDouble3(vm *jni.VM) (*Double3, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDouble3 == nil {
+			return fmt.Errorf("android.renderscript.Double3 is not available on this device")
+		}
+		if midDouble3Ctor == nil {
+			return fmt.Errorf("android.renderscript.Double3 constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDouble3)), midDouble3Ctor)
 		if err != nil {
 			return err

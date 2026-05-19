@@ -23,6 +23,34 @@ type RenderingConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRenderingConfigBuilder creates a new android.adservices.ondevicepersonalization.RenderingConfig$Builder instance.
+func NewRenderingConfigBuilder(vm *jni.VM) (*RenderingConfigBuilder, error) {
+	var t RenderingConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRenderingConfigBuilder == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.RenderingConfig$Builder is not available on this device")
+		}
+		if midRenderingConfigBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.RenderingConfig$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRenderingConfigBuilder)), midRenderingConfigBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddKey calls android.adservices.ondevicepersonalization.RenderingConfig$Builder.addKey.
 func (m *RenderingConfigBuilder) AddKey(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewFloatAction(vm *jni.VM, arg0 string, arg1 float32) (*FloatAction, error)
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFloatAction == nil {
+			return fmt.Errorf("android.service.controls.actions.FloatAction is not available on this device")
+		}
+		if midFloatActionCtor == nil {
+			return fmt.Errorf("android.service.controls.actions.FloatAction constructor (Ljava/lang/String;F)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

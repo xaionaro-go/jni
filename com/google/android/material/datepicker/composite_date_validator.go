@@ -127,31 +127,6 @@ func (m *CompositeDateValidator) Equals(arg0 *jni.Object) (bool, error) {
 	return result, callErr
 }
 
-// HashCode calls com.google.android.material.datepicker.CompositeDateValidator.hashCode.
-func (m *CompositeDateValidator) HashCode() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCompositeDateValidatorHashCode == nil {
-			callErr = fmt.Errorf("com.google.android.material.datepicker.CompositeDateValidator.hashCode is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midCompositeDateValidatorHashCode,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.datepicker.CompositeDateValidator.toString.
 func (m *CompositeDateValidator) ToString() (string, error) {
 	var result string

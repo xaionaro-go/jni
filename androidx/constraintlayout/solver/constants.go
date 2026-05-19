@@ -5,12 +5,6 @@ package solver
 import "github.com/AndroidGoLab/jni/androidx/constraintlayout/solver/consts"
 
 const (
-	FullDebug = consts.FullDebug
-	Debug     = consts.Debug
-	Measure   = consts.Measure
-)
-
-const (
 	StrengthNone      = consts.StrengthNone
 	StrengthLow       = consts.StrengthLow
 	StrengthMedium    = consts.StrengthMedium
@@ -25,4 +19,10 @@ const (
 	Slack             = consts.Slack
 	Error             = consts.Error
 	Unknown           = consts.Unknown
+)
+
+const (
+	FullDebug = consts.FullDebug
+	Debug     = consts.Debug
+	Measure   = consts.Measure
 )

@@ -32,6 +32,12 @@ func NewConstraintWidgetContainer(vm *jni.VM) (*ConstraintWidgetContainer, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsConstraintWidgetContainer == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.ConstraintWidgetContainer is not available on this device")
+		}
+		if midConstraintWidgetContainerCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.ConstraintWidgetContainer constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConstraintWidgetContainer)), midConstraintWidgetContainerCtor)
 		if err != nil {
 			return err
@@ -906,29 +912,6 @@ func (m *ConstraintWidgetContainer) SetPass(arg0 int32) error {
 	return callErr
 }
 
-// GetSceneString calls androidx.constraintlayout.core.widgets.ConstraintWidgetContainer.getSceneString.
-func (m *ConstraintWidgetContainer) GetSceneString(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midConstraintWidgetContainerGetSceneString == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.core.widgets.ConstraintWidgetContainer.getSceneString is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midConstraintWidgetContainerGetSceneString, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.constraintlayout.core.widgets.ConstraintWidgetContainer.toString.
 func (m *ConstraintWidgetContainer) ToString() (string, error) {
 	var result string
@@ -988,4 +971,27 @@ func (m *ConstraintWidgetContainer) Measure5_1(
 		return callErr
 	})
 	return result, callErr
+}
+
+// GetSceneString calls androidx.constraintlayout.core.widgets.ConstraintWidgetContainer.getSceneString.
+func (m *ConstraintWidgetContainer) GetSceneString(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midConstraintWidgetContainerGetSceneString == nil {
+			callErr = fmt.Errorf("androidx.constraintlayout.core.widgets.ConstraintWidgetContainer.getSceneString is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsConstraintWidgetContainer)),
+			midConstraintWidgetContainerGetSceneString, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -32,6 +32,12 @@ func NewIpSecAlgorithm(vm *jni.VM, arg0 string, arg1 *jni.Object) (*IpSecAlgorit
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsIpSecAlgorithm == nil {
+			return fmt.Errorf("android.net.IpSecAlgorithm is not available on this device")
+		}
+		if midIpSecAlgorithmCtor == nil {
+			return fmt.Errorf("android.net.IpSecAlgorithm constructor (Ljava/lang/String;[B)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -187,29 +193,6 @@ func (m *IpSecAlgorithm) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.net.IpSecAlgorithm.writeToParcel.
-func (m *IpSecAlgorithm) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midIpSecAlgorithmWriteToParcel == nil {
-			callErr = fmt.Errorf("android.net.IpSecAlgorithm.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midIpSecAlgorithmWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // GetSupportedAlgorithms calls android.net.IpSecAlgorithm.getSupportedAlgorithms.
 func (m *IpSecAlgorithm) GetSupportedAlgorithms() (*jni.Object, error) {
 	var result *jni.Object
@@ -240,4 +223,27 @@ func (m *IpSecAlgorithm) GetSupportedAlgorithms() (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.net.IpSecAlgorithm.writeToParcel.
+func (m *IpSecAlgorithm) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midIpSecAlgorithmWriteToParcel == nil {
+			callErr = fmt.Errorf("android.net.IpSecAlgorithm.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsIpSecAlgorithm)),
+			midIpSecAlgorithmWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

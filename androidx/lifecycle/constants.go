@@ -6,10 +6,6 @@ import "github.com/AndroidGoLab/jni/androidx/lifecycle/consts"
 
 const (
 	Companion                  = consts.Companion
-	SavedStateRegistryOwnerKey = consts.SavedStateRegistryOwnerKey
-	ViewModelStoreOwnerKey     = consts.ViewModelStoreOwnerKey
-	DefaultArgsKey             = consts.DefaultArgsKey
-	Instance                   = consts.Instance
 	ApplicationKey             = consts.ApplicationKey
 	ViewModelKey               = consts.ViewModelKey
 	OnCreate                   = consts.OnCreate
@@ -24,9 +20,13 @@ const (
 	Created                    = consts.Created
 	Started                    = consts.Started
 	Resumed                    = consts.Resumed
+	Instance                   = consts.Instance
+	SavedStateRegistryOwnerKey = consts.SavedStateRegistryOwnerKey
+	ViewModelStoreOwnerKey     = consts.ViewModelStoreOwnerKey
+	DefaultArgsKey             = consts.DefaultArgsKey
 )
 
 const (
-	TagSavedStateHandleController = consts.TagSavedStateHandleController
 	DefaultKey                    = consts.DefaultKey
+	TagSavedStateHandleController = consts.TagSavedStateHandleController
 )

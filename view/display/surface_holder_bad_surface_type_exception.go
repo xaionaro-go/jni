@@ -23,6 +23,34 @@ type SurfaceHolderBadSurfaceTypeException struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSurfaceHolderBadSurfaceTypeException creates a new android.view.SurfaceHolder$BadSurfaceTypeException instance.
+func NewSurfaceHolderBadSurfaceTypeException(vm *jni.VM) (*SurfaceHolderBadSurfaceTypeException, error) {
+	var t SurfaceHolderBadSurfaceTypeException
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSurfaceHolderBadSurfaceTypeException == nil {
+			return fmt.Errorf("android.view.SurfaceHolder$BadSurfaceTypeException is not available on this device")
+		}
+		if midSurfaceHolderBadSurfaceTypeExceptionCtor == nil {
+			return fmt.Errorf("android.view.SurfaceHolder$BadSurfaceTypeException constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSurfaceHolderBadSurfaceTypeException)), midSurfaceHolderBadSurfaceTypeExceptionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.view.SurfaceHolder$BadSurfaceTypeException.toString.
 func (m *SurfaceHolderBadSurfaceTypeException) ToString() (string, error) {
 	var result string

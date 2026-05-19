@@ -23,6 +23,35 @@ type FederatedComputeSchedulerParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFederatedComputeSchedulerParams creates a new android.adservices.ondevicepersonalization.FederatedComputeScheduler$Params instance.
+func NewFederatedComputeSchedulerParams(vm *jni.VM, arg0 *jni.Object) (*FederatedComputeSchedulerParams, error) {
+	var t FederatedComputeSchedulerParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFederatedComputeSchedulerParams == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.FederatedComputeScheduler$Params is not available on this device")
+		}
+		if midFederatedComputeSchedulerParamsCtor == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.FederatedComputeScheduler$Params constructor (Landroid/adservices/ondevicepersonalization/TrainingInterval;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFederatedComputeSchedulerParams)), midFederatedComputeSchedulerParamsCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetTrainingInterval calls android.adservices.ondevicepersonalization.FederatedComputeScheduler$Params.getTrainingInterval.
 func (m *FederatedComputeSchedulerParams) GetTrainingInterval() (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewScaleGestureDetector(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*S
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsScaleGestureDetector == nil {
+			return fmt.Errorf("android.view.ScaleGestureDetector is not available on this device")
+		}
+		if midScaleGestureDetectorCtor == nil {
+			return fmt.Errorf("android.view.ScaleGestureDetector constructor (Landroid/content/Context;Landroid/view/ScaleGestureDetector$OnScaleGestureListener;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScaleGestureDetector)), midScaleGestureDetectorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

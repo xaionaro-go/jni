@@ -32,6 +32,12 @@ func NewDrawFilter(vm *jni.VM) (*DrawFilter, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDrawFilter == nil {
+			return fmt.Errorf("android.graphics.DrawFilter is not available on this device")
+		}
+		if midDrawFilterCtor == nil {
+			return fmt.Errorf("android.graphics.DrawFilter constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDrawFilter)), midDrawFilterCtor)
 		if err != nil {
 			return err

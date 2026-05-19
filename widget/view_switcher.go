@@ -32,6 +32,12 @@ func NewViewSwitcher(vm *jni.VM, arg0 *jni.Object) (*ViewSwitcher, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsViewSwitcher == nil {
+			return fmt.Errorf("android.widget.ViewSwitcher is not available on this device")
+		}
+		if midViewSwitcherCtor == nil {
+			return fmt.Errorf("android.widget.ViewSwitcher constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewSwitcher)), midViewSwitcherCtor, jni.ObjectValue(arg0))
 		if err != nil {

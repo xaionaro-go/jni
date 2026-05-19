@@ -579,6 +579,10 @@ classes:
       go_type: MediaPlayerMetricsConstants
     - java_class: android.media.MediaPlayer$NoDrmSchemeException
       go_type: MediaPlayerNoDrmSchemeException
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
     - java_class: android.media.MediaPlayer$OnBufferingUpdateListener
       go_type: MediaPlayerOnBufferingUpdateListener
       methods:
@@ -747,8 +751,16 @@ classes:
           error: true
     - java_class: android.media.MediaPlayer$ProvisioningNetworkErrorException
       go_type: MediaPlayerProvisioningNetworkErrorException
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
     - java_class: android.media.MediaPlayer$ProvisioningServerErrorException
       go_type: MediaPlayerProvisioningServerErrorException
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
     - java_class: android.media.MediaPlayer$TrackInfo
       go_type: MediaPlayerTrackInfo
       methods:

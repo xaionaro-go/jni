@@ -32,6 +32,12 @@ func NewPathDashPathEffect(vm *jni.VM, arg0 *jni.Object, arg1 float32, arg2 floa
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPathDashPathEffect == nil {
+			return fmt.Errorf("android.graphics.PathDashPathEffect is not available on this device")
+		}
+		if midPathDashPathEffectCtor == nil {
+			return fmt.Errorf("android.graphics.PathDashPathEffect constructor (Landroid/graphics/Path;FFLandroid/graphics/PathDashPathEffect$Style;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPathDashPathEffect)), midPathDashPathEffectCtor, jni.ObjectValue(arg0), jni.FloatValue(arg1), jni.FloatValue(arg2), jni.ObjectValue(arg3))
 		if err != nil {

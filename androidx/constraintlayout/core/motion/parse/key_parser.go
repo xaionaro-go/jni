@@ -32,6 +32,12 @@ func NewKeyParser(vm *jni.VM) (*KeyParser, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsKeyParser == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.parse.KeyParser is not available on this device")
+		}
+		if midKeyParserCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.parse.KeyParser constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyParser)), midKeyParserCtor)
 		if err != nil {
 			return err

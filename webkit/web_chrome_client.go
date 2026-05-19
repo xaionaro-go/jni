@@ -32,6 +32,12 @@ func NewWebChromeClient(vm *jni.VM) (*WebChromeClient, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWebChromeClient == nil {
+			return fmt.Errorf("android.webkit.WebChromeClient is not available on this device")
+		}
+		if midWebChromeClientCtor == nil {
+			return fmt.Errorf("android.webkit.WebChromeClient constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWebChromeClient)), midWebChromeClientCtor)
 		if err != nil {
 			return err

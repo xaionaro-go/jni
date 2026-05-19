@@ -32,6 +32,12 @@ func NewKeyboardShortcutGroup(vm *jni.VM, arg0 string) (*KeyboardShortcutGroup, 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsKeyboardShortcutGroup == nil {
+			return fmt.Errorf("android.view.KeyboardShortcutGroup is not available on this device")
+		}
+		if midKeyboardShortcutGroupCtor == nil {
+			return fmt.Errorf("android.view.KeyboardShortcutGroup constructor (Ljava/lang/CharSequence;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -163,29 +169,6 @@ func (m *KeyboardShortcutGroup) GetLabel() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.KeyboardShortcutGroup.writeToParcel.
-func (m *KeyboardShortcutGroup) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midKeyboardShortcutGroupWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.KeyboardShortcutGroup.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midKeyboardShortcutGroupWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.view.KeyboardShortcutGroup.toString.
 func (m *KeyboardShortcutGroup) ToString() (string, error) {
 	var result string
@@ -211,4 +194,27 @@ func (m *KeyboardShortcutGroup) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.KeyboardShortcutGroup.writeToParcel.
+func (m *KeyboardShortcutGroup) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midKeyboardShortcutGroupWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.KeyboardShortcutGroup.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsKeyboardShortcutGroup)),
+			midKeyboardShortcutGroupWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

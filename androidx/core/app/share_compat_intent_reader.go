@@ -21,6 +21,35 @@ type ShareCompatIntentReader struct {
 	Obj *jni.GlobalRef
 }
 
+// NewShareCompatIntentReader creates a new androidx.core.app.ShareCompat$IntentReader instance.
+func NewShareCompatIntentReader(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ShareCompatIntentReader, error) {
+	var t ShareCompatIntentReader
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsShareCompatIntentReader == nil {
+			return fmt.Errorf("androidx.core.app.ShareCompat$IntentReader is not available on this device")
+		}
+		if midShareCompatIntentReaderCtor == nil {
+			return fmt.Errorf("androidx.core.app.ShareCompat$IntentReader constructor (Landroid/content/Context;Landroid/content/Intent;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsShareCompatIntentReader)), midShareCompatIntentReaderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // IsShareIntent calls androidx.core.app.ShareCompat$IntentReader.isShareIntent.
 func (m *ShareCompatIntentReader) IsShareIntent() (bool, error) {
 	var result bool

@@ -32,6 +32,12 @@ func NewStreamingSessionCallback(vm *jni.VM) (*StreamingSessionCallback, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStreamingSessionCallback == nil {
+			return fmt.Errorf("android.telephony.mbms.MbmsStreamingSessionCallback is not available on this device")
+		}
+		if midStreamingSessionCallbackCtor == nil {
+			return fmt.Errorf("android.telephony.mbms.MbmsStreamingSessionCallback constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStreamingSessionCallback)), midStreamingSessionCallbackCtor)
 		if err != nil {
 			return err

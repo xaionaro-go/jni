@@ -5,6 +5,82 @@
 package: topics
 go_import: github.com/AndroidGoLab/jni/adservices/topics
 classes:
+    - java_class: android.adservices.topics.TopicsManager
+      go_type: Manager
+      static_methods:
+        - java_method: get
+          go_name: Get
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: android.adservices.topics.TopicsManager
+          error: true
+    - java_class: android.adservices.topics.GetTopicsResponse
+      go_type: GetTopicsResponse
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getEncryptedTopics
+          go_name: GetEncryptedTopics
+          returns: java.util.List<android.adservices.topics.EncryptedTopic>
+          error: true
+        - java_method: getTopics
+          go_name: GetTopics
+          returns: java.util.List<android.adservices.topics.Topic>
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+    - java_class: android.adservices.topics.GetTopicsResponse$Builder
+      go_type: GetTopicsResponseBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: java.util.List<android.adservices.topics.Topic>
+          go_name: arg0
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.adservices.topics.GetTopicsResponse
+          error: true
+    - java_class: android.adservices.topics.GetTopicsRequest
+      go_type: GetTopicsRequest
+      methods:
+        - java_method: getAdsSdkName
+          go_name: GetAdsSdkName
+          returns: String
+          error: true
+        - java_method: shouldRecordObservation
+          go_name: ShouldRecordObservation
+          returns: boolean
+          error: true
+    - java_class: android.adservices.topics.GetTopicsRequest$Builder
+      go_type: GetTopicsRequestBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.adservices.topics.GetTopicsRequest
+          error: true
+        - java_method: setAdsSdkName
+          go_name: SetAdsSdkName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.adservices.topics.GetTopicsRequest$Builder
+          error: true
+        - java_method: setShouldRecordObservation
+          go_name: SetShouldRecordObservation
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.adservices.topics.GetTopicsRequest$Builder
+          error: true
     - java_class: android.adservices.topics.Topic
       go_type: Topic
       obtain: constructor
@@ -43,16 +119,6 @@ classes:
           go_name: ToString
           returns: String
           error: true
-    - java_class: android.adservices.topics.TopicsManager
-      go_type: Manager
-      static_methods:
-        - java_method: get
-          go_name: Get
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: android.adservices.topics.TopicsManager
-          error: true
     - java_class: android.adservices.topics.EncryptedTopic
       go_type: EncryptedTopic
       obtain: constructor
@@ -90,65 +156,4 @@ classes:
         - java_method: toString
           go_name: ToString
           returns: String
-          error: true
-    - java_class: android.adservices.topics.GetTopicsRequest
-      go_type: GetTopicsRequest
-      methods:
-        - java_method: getAdsSdkName
-          go_name: GetAdsSdkName
-          returns: String
-          error: true
-        - java_method: shouldRecordObservation
-          go_name: ShouldRecordObservation
-          returns: boolean
-          error: true
-    - java_class: android.adservices.topics.GetTopicsRequest$Builder
-      go_type: GetTopicsRequestBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.adservices.topics.GetTopicsRequest
-          error: true
-        - java_method: setAdsSdkName
-          go_name: SetAdsSdkName
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.adservices.topics.GetTopicsRequest$Builder
-          error: true
-        - java_method: setShouldRecordObservation
-          go_name: SetShouldRecordObservation
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.adservices.topics.GetTopicsRequest$Builder
-          error: true
-    - java_class: android.adservices.topics.GetTopicsResponse
-      go_type: GetTopicsResponse
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getEncryptedTopics
-          go_name: GetEncryptedTopics
-          returns: java.util.List<android.adservices.topics.EncryptedTopic>
-          error: true
-        - java_method: getTopics
-          go_name: GetTopics
-          returns: java.util.List<android.adservices.topics.Topic>
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-    - java_class: android.adservices.topics.GetTopicsResponse$Builder
-      go_type: GetTopicsResponseBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.adservices.topics.GetTopicsResponse
           error: true

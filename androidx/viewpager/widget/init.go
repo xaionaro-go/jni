@@ -23,6 +23,40 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsPagerAdapter                          *jni.GlobalRef
+	midPagerAdapterGetCount                  jni.MethodID
+	midPagerAdapterStartUpdate1              jni.MethodID
+	midPagerAdapterInstantiateItem2          jni.MethodID
+	midPagerAdapterDestroyItem3              jni.MethodID
+	midPagerAdapterSetPrimaryItem3           jni.MethodID
+	midPagerAdapterFinishUpdate1             jni.MethodID
+	midPagerAdapterStartUpdate1_1            jni.MethodID
+	midPagerAdapterInstantiateItem2_1        jni.MethodID
+	midPagerAdapterDestroyItem3_1            jni.MethodID
+	midPagerAdapterSetPrimaryItem3_1         jni.MethodID
+	midPagerAdapterFinishUpdate1_1           jni.MethodID
+	midPagerAdapterIsViewFromObject          jni.MethodID
+	midPagerAdapterSaveState                 jni.MethodID
+	midPagerAdapterRestoreState              jni.MethodID
+	midPagerAdapterGetItemPosition           jni.MethodID
+	midPagerAdapterNotifyDataSetChanged      jni.MethodID
+	midPagerAdapterRegisterDataSetObserver   jni.MethodID
+	midPagerAdapterUnregisterDataSetObserver jni.MethodID
+	midPagerAdapterGetPageTitle              jni.MethodID
+	midPagerAdapterGetPageWidth              jni.MethodID
+	midPagerAdapterToString                  jni.MethodID
+
+	clsPagerTitleStrip                   *jni.GlobalRef
+	midPagerTitleStripCtor               jni.MethodID
+	midPagerTitleStripSetTextSpacing     jni.MethodID
+	midPagerTitleStripGetTextSpacing     jni.MethodID
+	midPagerTitleStripSetNonPrimaryAlpha jni.MethodID
+	midPagerTitleStripSetTextColor       jni.MethodID
+	midPagerTitleStripSetTextSize        jni.MethodID
+	midPagerTitleStripSetGravity         jni.MethodID
+	midPagerTitleStripRequestLayout      jni.MethodID
+	midPagerTitleStripToString           jni.MethodID
+
 	clsViewPager                                   *jni.GlobalRef
 	midViewPagerCtor                               jni.MethodID
 	midViewPagerSetAdapter                         jni.MethodID
@@ -61,13 +95,14 @@ var (
 	midViewPagerExecuteKeyEvent                    jni.MethodID
 	midViewPagerArrowScroll                        jni.MethodID
 	midViewPagerDispatchPopulateAccessibilityEvent jni.MethodID
-	midViewPagerGenerateLayoutParams               jni.MethodID
 	midViewPagerToString                           jni.MethodID
+	midViewPagerGenerateLayoutParams               jni.MethodID
 
 	clsViewPagerDecorView         *jni.GlobalRef
 	midViewPagerDecorViewToString jni.MethodID
 
 	clsViewPagerLayoutParams         *jni.GlobalRef
+	midViewPagerLayoutParamsCtor     jni.MethodID
 	midViewPagerLayoutParamsToString jni.MethodID
 
 	clsViewPagerOnAdapterChangeListener                 *jni.GlobalRef
@@ -85,48 +120,16 @@ var (
 	midViewPagerPageTransformerToString      jni.MethodID
 
 	clsViewPagerSavedState              *jni.GlobalRef
+	midViewPagerSavedStateCtor          jni.MethodID
 	midViewPagerSavedStateWriteToParcel jni.MethodID
 	midViewPagerSavedStateToString      jni.MethodID
 
 	clsViewPagerSimpleOnPageChangeListener                         *jni.GlobalRef
+	midViewPagerSimpleOnPageChangeListenerCtor                     jni.MethodID
 	midViewPagerSimpleOnPageChangeListenerOnPageScrolled           jni.MethodID
 	midViewPagerSimpleOnPageChangeListenerOnPageSelected           jni.MethodID
 	midViewPagerSimpleOnPageChangeListenerOnPageScrollStateChanged jni.MethodID
 	midViewPagerSimpleOnPageChangeListenerToString                 jni.MethodID
-
-	clsPagerAdapter                          *jni.GlobalRef
-	midPagerAdapterGetCount                  jni.MethodID
-	midPagerAdapterStartUpdate1              jni.MethodID
-	midPagerAdapterInstantiateItem2          jni.MethodID
-	midPagerAdapterDestroyItem3              jni.MethodID
-	midPagerAdapterSetPrimaryItem3           jni.MethodID
-	midPagerAdapterFinishUpdate1             jni.MethodID
-	midPagerAdapterStartUpdate1_1            jni.MethodID
-	midPagerAdapterInstantiateItem2_1        jni.MethodID
-	midPagerAdapterDestroyItem3_1            jni.MethodID
-	midPagerAdapterSetPrimaryItem3_1         jni.MethodID
-	midPagerAdapterFinishUpdate1_1           jni.MethodID
-	midPagerAdapterIsViewFromObject          jni.MethodID
-	midPagerAdapterSaveState                 jni.MethodID
-	midPagerAdapterRestoreState              jni.MethodID
-	midPagerAdapterGetItemPosition           jni.MethodID
-	midPagerAdapterNotifyDataSetChanged      jni.MethodID
-	midPagerAdapterRegisterDataSetObserver   jni.MethodID
-	midPagerAdapterUnregisterDataSetObserver jni.MethodID
-	midPagerAdapterGetPageTitle              jni.MethodID
-	midPagerAdapterGetPageWidth              jni.MethodID
-	midPagerAdapterToString                  jni.MethodID
-
-	clsPagerTitleStrip                   *jni.GlobalRef
-	midPagerTitleStripCtor               jni.MethodID
-	midPagerTitleStripSetTextSpacing     jni.MethodID
-	midPagerTitleStripGetTextSpacing     jni.MethodID
-	midPagerTitleStripSetNonPrimaryAlpha jni.MethodID
-	midPagerTitleStripSetTextColor       jni.MethodID
-	midPagerTitleStripSetTextSize        jni.MethodID
-	midPagerTitleStripSetGravity         jni.MethodID
-	midPagerTitleStripRequestLayout      jni.MethodID
-	midPagerTitleStripToString           jni.MethodID
 
 	clsPagerTabStrip                             *jni.GlobalRef
 	midPagerTabStripCtor                         jni.MethodID
@@ -161,6 +164,233 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("androidx/viewpager/widget/PagerAdapter")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPagerAdapter = env.NewGlobalRef(&c.Object)
+
+		midPagerAdapterGetCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "getCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerAdapterStartUpdate1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "startUpdate", "(Landroid/view/ViewGroup;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerAdapterInstantiateItem2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "instantiateItem", "(Landroid/view/ViewGroup;I)Ljava/lang/Object;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerAdapterDestroyItem3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "destroyItem", "(Landroid/view/ViewGroup;ILjava/lang/Object;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerAdapterSetPrimaryItem3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "setPrimaryItem", "(Landroid/view/ViewGroup;ILjava/lang/Object;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerAdapterFinishUpdate1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "finishUpdate", "(Landroid/view/ViewGroup;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerAdapterStartUpdate1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "startUpdate", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerAdapterInstantiateItem2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "instantiateItem", "(Landroid/view/View;I)Ljava/lang/Object;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerAdapterDestroyItem3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "destroyItem", "(Landroid/view/View;ILjava/lang/Object;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerAdapterSetPrimaryItem3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "setPrimaryItem", "(Landroid/view/View;ILjava/lang/Object;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerAdapterFinishUpdate1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "finishUpdate", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerAdapterIsViewFromObject, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "isViewFromObject", "(Landroid/view/View;Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerAdapterSaveState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "saveState", "()Landroid/os/Parcelable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerAdapterRestoreState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "restoreState", "(Landroid/os/Parcelable;Ljava/lang/ClassLoader;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerAdapterGetItemPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "getItemPosition", "(Ljava/lang/Object;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerAdapterNotifyDataSetChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "notifyDataSetChanged", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerAdapterRegisterDataSetObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "registerDataSetObserver", "(Landroid/database/DataSetObserver;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerAdapterUnregisterDataSetObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "unregisterDataSetObserver", "(Landroid/database/DataSetObserver;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerAdapterGetPageTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "getPageTitle", "(I)Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerAdapterGetPageWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "getPageWidth", "(I)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerAdapterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/viewpager/widget/PagerTitleStrip")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPagerTitleStrip = env.NewGlobalRef(&c.Object)
+		midPagerTitleStripCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerTitleStrip)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midPagerTitleStripSetTextSpacing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerTitleStrip)), "setTextSpacing", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerTitleStripGetTextSpacing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerTitleStrip)), "getTextSpacing", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerTitleStripSetNonPrimaryAlpha, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerTitleStrip)), "setNonPrimaryAlpha", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerTitleStripSetTextColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerTitleStrip)), "setTextColor", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerTitleStripSetTextSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerTitleStrip)), "setTextSize", "(IF)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerTitleStripSetGravity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerTitleStrip)), "setGravity", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerTitleStripRequestLayout, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerTitleStrip)), "requestLayout", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPagerTitleStripToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerTitleStrip)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("androidx/viewpager/widget/ViewPager")
 	if err != nil {
@@ -426,14 +656,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midViewPagerGenerateLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewPager)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroid/view/ViewGroup$LayoutParams;")
+		midViewPagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewPager)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midViewPagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewPager)), "toString", "()Ljava/lang/String;")
+		midViewPagerGenerateLayoutParams, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewPager)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroid/view/ViewGroup$LayoutParams;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -466,6 +696,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsViewPagerLayoutParams = env.NewGlobalRef(&c.Object)
+		midViewPagerLayoutParamsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewPagerLayoutParams)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midViewPagerLayoutParamsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewPagerLayoutParams)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -569,6 +803,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsViewPagerSavedState = env.NewGlobalRef(&c.Object)
+		midViewPagerSavedStateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewPagerSavedState)), "<init>", "(Landroid/os/Parcelable;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midViewPagerSavedStateWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewPagerSavedState)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
@@ -577,7 +815,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midViewPagerSavedStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewPagerSavedState)), "toString", "()Ljava/lang/String;")
+		midViewPagerSavedStateToString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewPagerSavedState)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -593,6 +831,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsViewPagerSimpleOnPageChangeListener = env.NewGlobalRef(&c.Object)
+		midViewPagerSimpleOnPageChangeListenerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewPagerSimpleOnPageChangeListener)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midViewPagerSimpleOnPageChangeListenerOnPageScrolled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewPagerSimpleOnPageChangeListener)), "onPageScrolled", "(IFI)V")
 		if err != nil {
@@ -616,233 +858,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midViewPagerSimpleOnPageChangeListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewPagerSimpleOnPageChangeListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/viewpager/widget/PagerAdapter")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPagerAdapter = env.NewGlobalRef(&c.Object)
-
-		midPagerAdapterGetCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "getCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerAdapterStartUpdate1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "startUpdate", "(Landroid/view/ViewGroup;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerAdapterInstantiateItem2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "instantiateItem", "(Landroid/view/ViewGroup;I)Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerAdapterDestroyItem3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "destroyItem", "(Landroid/view/ViewGroup;ILjava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerAdapterSetPrimaryItem3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "setPrimaryItem", "(Landroid/view/ViewGroup;ILjava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerAdapterFinishUpdate1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "finishUpdate", "(Landroid/view/ViewGroup;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerAdapterStartUpdate1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "startUpdate", "(Landroid/view/View;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerAdapterInstantiateItem2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "instantiateItem", "(Landroid/view/View;I)Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerAdapterDestroyItem3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "destroyItem", "(Landroid/view/View;ILjava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerAdapterSetPrimaryItem3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "setPrimaryItem", "(Landroid/view/View;ILjava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerAdapterFinishUpdate1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "finishUpdate", "(Landroid/view/View;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerAdapterIsViewFromObject, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "isViewFromObject", "(Landroid/view/View;Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerAdapterSaveState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "saveState", "()Landroid/os/Parcelable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerAdapterRestoreState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "restoreState", "(Landroid/os/Parcelable;Ljava/lang/ClassLoader;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerAdapterGetItemPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "getItemPosition", "(Ljava/lang/Object;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerAdapterNotifyDataSetChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "notifyDataSetChanged", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerAdapterRegisterDataSetObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "registerDataSetObserver", "(Landroid/database/DataSetObserver;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerAdapterUnregisterDataSetObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "unregisterDataSetObserver", "(Landroid/database/DataSetObserver;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerAdapterGetPageTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "getPageTitle", "(I)Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerAdapterGetPageWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "getPageWidth", "(I)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerAdapterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerAdapter)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/viewpager/widget/PagerTitleStrip")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPagerTitleStrip = env.NewGlobalRef(&c.Object)
-		midPagerTitleStripCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerTitleStrip)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midPagerTitleStripSetTextSpacing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerTitleStrip)), "setTextSpacing", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerTitleStripGetTextSpacing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerTitleStrip)), "getTextSpacing", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerTitleStripSetNonPrimaryAlpha, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerTitleStrip)), "setNonPrimaryAlpha", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerTitleStripSetTextColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerTitleStrip)), "setTextColor", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerTitleStripSetTextSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerTitleStrip)), "setTextSize", "(IF)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerTitleStripSetGravity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerTitleStrip)), "setGravity", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerTitleStripRequestLayout, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerTitleStrip)), "requestLayout", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPagerTitleStripToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPagerTitleStrip)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

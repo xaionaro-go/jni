@@ -32,6 +32,12 @@ func NewListPreference(vm *jni.VM, arg0 *jni.Object) (*ListPreference, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsListPreference == nil {
+			return fmt.Errorf("android.preference.ListPreference is not available on this device")
+		}
+		if midListPreferenceCtor == nil {
+			return fmt.Errorf("android.preference.ListPreference constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsListPreference)), midListPreferenceCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -32,6 +32,12 @@ func NewTextWatcherAdapter(vm *jni.VM) (*TextWatcherAdapter, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTextWatcherAdapter == nil {
+			return fmt.Errorf("com.google.android.material.internal.TextWatcherAdapter is not available on this device")
+		}
+		if midTextWatcherAdapterCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.TextWatcherAdapter constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextWatcherAdapter)), midTextWatcherAdapterCtor)
 		if err != nil {
 			return err

@@ -98,34 +98,6 @@ func (m *INotificationSideChannel) Cancel(
 	return callErr
 }
 
-// CancelAll calls android.support.v4.app.INotificationSideChannel.cancelAll.
-func (m *INotificationSideChannel) CancelAll(arg0 string) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midINotificationSideChannelCancelAll == nil {
-			callErr = fmt.Errorf("android.support.v4.app.INotificationSideChannel.cancelAll is not available on this device")
-			return callErr
-		}
-		jArg0, err := env.NewStringUTF(arg0)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg0.Object)
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midINotificationSideChannelCancelAll, jni.ObjectValue(&jArg0.Object),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.support.v4.app.INotificationSideChannel.toString.
 func (m *INotificationSideChannel) ToString() (string, error) {
 	var result string
@@ -151,4 +123,32 @@ func (m *INotificationSideChannel) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// CancelAll calls android.support.v4.app.INotificationSideChannel.cancelAll.
+func (m *INotificationSideChannel) CancelAll(arg0 string) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midINotificationSideChannelCancelAll == nil {
+			callErr = fmt.Errorf("android.support.v4.app.INotificationSideChannel.cancelAll is not available on this device")
+			return callErr
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsINotificationSideChannel)),
+			midINotificationSideChannelCancelAll, jni.ObjectValue(&jArg0.Object),
+		)
+		return callErr
+	})
+	return callErr
 }

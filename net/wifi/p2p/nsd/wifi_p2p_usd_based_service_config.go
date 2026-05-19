@@ -32,6 +32,12 @@ func NewWifiP2pUsdBasedServiceConfig(vm *jni.VM) (*WifiP2pUsdBasedServiceConfig,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWifiP2pUsdBasedServiceConfig == nil {
+			return fmt.Errorf("android.net.wifi.p2p.nsd.WifiP2pUsdBasedServiceConfig is not available on this device")
+		}
+		if midWifiP2pUsdBasedServiceConfigCtor == nil {
+			return fmt.Errorf("android.net.wifi.p2p.nsd.WifiP2pUsdBasedServiceConfig constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWifiP2pUsdBasedServiceConfig)), midWifiP2pUsdBasedServiceConfigCtor)
 		if err != nil {
 			return err
@@ -181,29 +187,6 @@ func (m *WifiP2pUsdBasedServiceConfig) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.net.wifi.p2p.nsd.WifiP2pUsdBasedServiceConfig.writeToParcel.
-func (m *WifiP2pUsdBasedServiceConfig) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midWifiP2pUsdBasedServiceConfigWriteToParcel == nil {
-			callErr = fmt.Errorf("android.net.wifi.p2p.nsd.WifiP2pUsdBasedServiceConfig.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midWifiP2pUsdBasedServiceConfigWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // GetMaxAllowedServiceSpecificInfoLength calls android.net.wifi.p2p.nsd.WifiP2pUsdBasedServiceConfig.getMaxAllowedServiceSpecificInfoLength.
 func (m *WifiP2pUsdBasedServiceConfig) GetMaxAllowedServiceSpecificInfoLength() (int32, error) {
 	var result int32
@@ -227,4 +210,27 @@ func (m *WifiP2pUsdBasedServiceConfig) GetMaxAllowedServiceSpecificInfoLength() 
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.net.wifi.p2p.nsd.WifiP2pUsdBasedServiceConfig.writeToParcel.
+func (m *WifiP2pUsdBasedServiceConfig) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midWifiP2pUsdBasedServiceConfigWriteToParcel == nil {
+			callErr = fmt.Errorf("android.net.wifi.p2p.nsd.WifiP2pUsdBasedServiceConfig.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsWifiP2pUsdBasedServiceConfig)),
+			midWifiP2pUsdBasedServiceConfigWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -32,6 +32,12 @@ func NewSwitchMaterial(vm *jni.VM, arg0 *jni.Object) (*SwitchMaterial, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSwitchMaterial == nil {
+			return fmt.Errorf("com.google.android.material.switchmaterial.SwitchMaterial is not available on this device")
+		}
+		if midSwitchMaterialCtor == nil {
+			return fmt.Errorf("com.google.android.material.switchmaterial.SwitchMaterial constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSwitchMaterial)), midSwitchMaterialCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -73,33 +79,6 @@ func (m *SwitchMaterial) SetUseMaterialThemeColors(arg0 bool) error {
 	return callErr
 }
 
-// IsUseMaterialThemeColors calls com.google.android.material.switchmaterial.SwitchMaterial.isUseMaterialThemeColors.
-func (m *SwitchMaterial) IsUseMaterialThemeColors() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSwitchMaterialIsUseMaterialThemeColors == nil {
-			callErr = fmt.Errorf("com.google.android.material.switchmaterial.SwitchMaterial.isUseMaterialThemeColors is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midSwitchMaterialIsUseMaterialThemeColors,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.switchmaterial.SwitchMaterial.toString.
 func (m *SwitchMaterial) ToString() (string, error) {
 	var result string
@@ -122,6 +101,33 @@ func (m *SwitchMaterial) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// IsUseMaterialThemeColors calls com.google.android.material.switchmaterial.SwitchMaterial.isUseMaterialThemeColors.
+func (m *SwitchMaterial) IsUseMaterialThemeColors() (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSwitchMaterialIsUseMaterialThemeColors == nil {
+			callErr = fmt.Errorf("com.google.android.material.switchmaterial.SwitchMaterial.isUseMaterialThemeColors is not available on this device")
+			return callErr
+		}
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsSwitchMaterial)),
+			midSwitchMaterialIsUseMaterialThemeColors,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

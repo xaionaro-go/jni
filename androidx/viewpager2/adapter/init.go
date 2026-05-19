@@ -23,34 +23,29 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsStatefulAdapter             *jni.GlobalRef
-	midStatefulAdapterSaveState    jni.MethodID
-	midStatefulAdapterRestoreState jni.MethodID
-	midStatefulAdapterToString     jni.MethodID
-
 	clsFragmentStateAdapter                           *jni.GlobalRef
 	midFragmentStateAdapterOnAttachedToRecyclerView   jni.MethodID
 	midFragmentStateAdapterOnDetachedFromRecyclerView jni.MethodID
 	midFragmentStateAdapterCreateFragment             jni.MethodID
-	midFragmentStateAdapterOnCreateViewHolder2        jni.MethodID
-	midFragmentStateAdapterOnBindViewHolder2          jni.MethodID
-	midFragmentStateAdapterOnViewAttachedToWindow1    jni.MethodID
-	midFragmentStateAdapterOnViewRecycled1            jni.MethodID
-	midFragmentStateAdapterOnFailedToRecycleView1     jni.MethodID
+	midFragmentStateAdapterOnCreateViewHolder         jni.MethodID
+	midFragmentStateAdapterOnBindViewHolder           jni.MethodID
+	midFragmentStateAdapterOnViewAttachedToWindow     jni.MethodID
+	midFragmentStateAdapterOnViewRecycled             jni.MethodID
+	midFragmentStateAdapterOnFailedToRecycleView      jni.MethodID
 	midFragmentStateAdapterGetItemId                  jni.MethodID
 	midFragmentStateAdapterContainsItem               jni.MethodID
 	midFragmentStateAdapterSetHasStableIds            jni.MethodID
 	midFragmentStateAdapterSaveState                  jni.MethodID
 	midFragmentStateAdapterRestoreState               jni.MethodID
-	midFragmentStateAdapterOnViewAttachedToWindow1_1  jni.MethodID
-	midFragmentStateAdapterOnFailedToRecycleView1_1   jni.MethodID
-	midFragmentStateAdapterOnViewRecycled1_1          jni.MethodID
-	midFragmentStateAdapterOnBindViewHolder2_1        jni.MethodID
-	midFragmentStateAdapterOnCreateViewHolder2_1      jni.MethodID
 	midFragmentStateAdapterToString                   jni.MethodID
 
 	clsFragmentViewHolder         *jni.GlobalRef
 	midFragmentViewHolderToString jni.MethodID
+
+	clsStatefulAdapter             *jni.GlobalRef
+	midStatefulAdapterSaveState    jni.MethodID
+	midStatefulAdapterRestoreState jni.MethodID
+	midStatefulAdapterToString     jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -70,37 +65,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("androidx/viewpager2/adapter/StatefulAdapter")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStatefulAdapter = env.NewGlobalRef(&c.Object)
-
-		midStatefulAdapterSaveState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStatefulAdapter)), "saveState", "()Landroid/os/Parcelable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStatefulAdapterRestoreState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStatefulAdapter)), "restoreState", "(Landroid/os/Parcelable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStatefulAdapterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStatefulAdapter)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("androidx/viewpager2/adapter/FragmentStateAdapter")
 	if err != nil {
@@ -131,35 +95,35 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midFragmentStateAdapterOnCreateViewHolder2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStateAdapter)), "onCreateViewHolder", "(Landroid/view/ViewGroup;I)Landroidx/viewpager2/adapter/FragmentViewHolder;")
+		midFragmentStateAdapterOnCreateViewHolder, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStateAdapter)), "onCreateViewHolder", "(Landroid/view/ViewGroup;I)Landroidx/viewpager2/adapter/FragmentViewHolder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midFragmentStateAdapterOnBindViewHolder2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStateAdapter)), "onBindViewHolder", "(Landroidx/viewpager2/adapter/FragmentViewHolder;I)V")
+		midFragmentStateAdapterOnBindViewHolder, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStateAdapter)), "onBindViewHolder", "(Landroidx/viewpager2/adapter/FragmentViewHolder;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midFragmentStateAdapterOnViewAttachedToWindow1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStateAdapter)), "onViewAttachedToWindow", "(Landroidx/viewpager2/adapter/FragmentViewHolder;)V")
+		midFragmentStateAdapterOnViewAttachedToWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStateAdapter)), "onViewAttachedToWindow", "(Landroidx/viewpager2/adapter/FragmentViewHolder;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midFragmentStateAdapterOnViewRecycled1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStateAdapter)), "onViewRecycled", "(Landroidx/viewpager2/adapter/FragmentViewHolder;)V")
+		midFragmentStateAdapterOnViewRecycled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStateAdapter)), "onViewRecycled", "(Landroidx/viewpager2/adapter/FragmentViewHolder;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midFragmentStateAdapterOnFailedToRecycleView1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStateAdapter)), "onFailedToRecycleView", "(Landroidx/viewpager2/adapter/FragmentViewHolder;)Z")
+		midFragmentStateAdapterOnFailedToRecycleView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStateAdapter)), "onFailedToRecycleView", "(Landroidx/viewpager2/adapter/FragmentViewHolder;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -201,41 +165,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midFragmentStateAdapterOnViewAttachedToWindow1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStateAdapter)), "onViewAttachedToWindow", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFragmentStateAdapterOnFailedToRecycleView1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStateAdapter)), "onFailedToRecycleView", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFragmentStateAdapterOnViewRecycled1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStateAdapter)), "onViewRecycled", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFragmentStateAdapterOnBindViewHolder2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStateAdapter)), "onBindViewHolder", "(Landroidx/recyclerview/widget/RecyclerView$ViewHolder;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFragmentStateAdapterOnCreateViewHolder2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStateAdapter)), "onCreateViewHolder", "(Landroid/view/ViewGroup;I)Landroidx/recyclerview/widget/RecyclerView$ViewHolder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midFragmentStateAdapterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStateAdapter)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -254,6 +183,37 @@ func doInit(env *jni.Env) error {
 		clsFragmentViewHolder = env.NewGlobalRef(&c.Object)
 
 		midFragmentViewHolderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentViewHolder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/viewpager2/adapter/StatefulAdapter")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStatefulAdapter = env.NewGlobalRef(&c.Object)
+
+		midStatefulAdapterSaveState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStatefulAdapter)), "saveState", "()Landroid/os/Parcelable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStatefulAdapterRestoreState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStatefulAdapter)), "restoreState", "(Landroid/os/Parcelable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStatefulAdapterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStatefulAdapter)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

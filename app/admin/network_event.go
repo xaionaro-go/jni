@@ -125,29 +125,6 @@ func (m *NetworkEvent) GetTimestamp() (int64, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.admin.NetworkEvent.writeToParcel.
-func (m *NetworkEvent) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midNetworkEventWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.admin.NetworkEvent.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midNetworkEventWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.admin.NetworkEvent.toString.
 func (m *NetworkEvent) ToString() (string, error) {
 	var result string
@@ -173,4 +150,27 @@ func (m *NetworkEvent) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.admin.NetworkEvent.writeToParcel.
+func (m *NetworkEvent) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midNetworkEventWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.admin.NetworkEvent.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsNetworkEvent)),
+			midNetworkEventWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

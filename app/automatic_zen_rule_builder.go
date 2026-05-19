@@ -21,6 +21,35 @@ type AutomaticZenRuleBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAutomaticZenRuleBuilder creates a new android.app.AutomaticZenRule$Builder instance.
+func NewAutomaticZenRuleBuilder(vm *jni.VM, arg0 *jni.Object) (*AutomaticZenRuleBuilder, error) {
+	var t AutomaticZenRuleBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAutomaticZenRuleBuilder == nil {
+			return fmt.Errorf("android.app.AutomaticZenRule$Builder is not available on this device")
+		}
+		if midAutomaticZenRuleBuilderCtor == nil {
+			return fmt.Errorf("android.app.AutomaticZenRule$Builder constructor (Landroid/app/AutomaticZenRule;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAutomaticZenRuleBuilder)), midAutomaticZenRuleBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.app.AutomaticZenRule$Builder.build.
 func (m *AutomaticZenRuleBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

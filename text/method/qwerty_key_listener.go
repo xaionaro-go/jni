@@ -32,6 +32,12 @@ func NewQwertyKeyListener(vm *jni.VM, arg0 *jni.Object, arg1 bool) (*QwertyKeyLi
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsQwertyKeyListener == nil {
+			return fmt.Errorf("android.text.method.QwertyKeyListener is not available on this device")
+		}
+		if midQwertyKeyListenerCtor == nil {
+			return fmt.Errorf("android.text.method.QwertyKeyListener constructor (Landroid/text/method/TextKeyListener$Capitalize;Z)V is not available on this device")
+		}
 
 		var jArg1 uint8
 		if arg1 {

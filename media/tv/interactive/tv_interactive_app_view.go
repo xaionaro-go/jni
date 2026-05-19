@@ -32,6 +32,12 @@ func NewTvInteractiveAppView(vm *jni.VM, arg0 *jni.Object) (*TvInteractiveAppVie
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTvInteractiveAppView == nil {
+			return fmt.Errorf("android.media.tv.interactive.TvInteractiveAppView is not available on this device")
+		}
+		if midTvInteractiveAppViewCtor == nil {
+			return fmt.Errorf("android.media.tv.interactive.TvInteractiveAppView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTvInteractiveAppView)), midTvInteractiveAppViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

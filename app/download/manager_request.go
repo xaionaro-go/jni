@@ -23,6 +23,35 @@ type ManagerRequest struct {
 	Obj *jni.GlobalRef
 }
 
+// NewManagerRequest creates a new android.app.DownloadManager$Request instance.
+func NewManagerRequest(vm *jni.VM, arg0 *jni.Object) (*ManagerRequest, error) {
+	var t ManagerRequest
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsManagerRequest == nil {
+			return fmt.Errorf("android.app.DownloadManager$Request is not available on this device")
+		}
+		if midManagerRequestCtor == nil {
+			return fmt.Errorf("android.app.DownloadManager$Request constructor (Landroid/net/Uri;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsManagerRequest)), midManagerRequestCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddRequestHeader calls android.app.DownloadManager$Request.addRequestHeader.
 func (m *ManagerRequest) AddRequestHeader(arg0 string, arg1 string) (*jni.Object, error) {
 	var result *jni.Object

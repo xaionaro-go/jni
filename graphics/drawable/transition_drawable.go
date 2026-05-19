@@ -32,6 +32,12 @@ func NewTransitionDrawable(vm *jni.VM, arg0 *jni.Object) (*TransitionDrawable, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTransitionDrawable == nil {
+			return fmt.Errorf("android.graphics.drawable.TransitionDrawable is not available on this device")
+		}
+		if midTransitionDrawableCtor == nil {
+			return fmt.Errorf("android.graphics.drawable.TransitionDrawable constructor ([Landroid/graphics/drawable/Drawable;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTransitionDrawable)), midTransitionDrawableCtor, jni.ObjectValue(arg0))
 		if err != nil {

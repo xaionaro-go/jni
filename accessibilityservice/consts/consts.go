@@ -3,6 +3,11 @@
 package consts
 
 const (
+	StateClear                                     int = 0
+	StateDelegating                                int = 4
+	StateDragging                                  int = 3
+	StateTouchExploring                            int = 2
+	StateTouchInteracting                          int = 1
 	CapabilityCanControlMagnification              int = 16
 	CapabilityCanPerformGestures                   int = 32
 	CapabilityCanRequestEnhancedWebAccessibility   int = 4
@@ -35,6 +40,12 @@ const (
 	FlagRetrieveInteractiveWindows                 int = 64
 	FlagSendMotionEvents                           int = 16384
 	FlagServiceHandlesDoubleTap                    int = 2048
+	FingerprintGestureSwipeDown                    int = 8
+	FingerprintGestureSwipeLeft                    int = 2
+	FingerprintGestureSwipeRight                   int = 1
+	FingerprintGestureSwipeUp                      int = 4
+	FlagErrorBrailleDisplayNotFound                int = 2
+	FlagErrorCannotAccess                          int = 1
 	MagnificationModeDefault                       int = 0
 	MagnificationModeFullscreen                    int = 1
 	MagnificationModeWindow                        int = 2
@@ -118,17 +129,6 @@ const (
 	EnableImeFailByAdmin                           int = 1
 	EnableImeFailUnknown                           int = 2
 	EnableImeSuccess                               int = 0
-	StateClear                                     int = 0
-	StateDelegating                                int = 4
-	StateDragging                                  int = 3
-	StateTouchExploring                            int = 2
-	StateTouchInteracting                          int = 1
-	FlagErrorBrailleDisplayNotFound                int = 2
-	FlagErrorCannotAccess                          int = 1
-	FingerprintGestureSwipeDown                    int = 8
-	FingerprintGestureSwipeLeft                    int = 2
-	FingerprintGestureSwipeRight                   int = 1
-	FingerprintGestureSwipeUp                      int = 4
 )
 
 const (

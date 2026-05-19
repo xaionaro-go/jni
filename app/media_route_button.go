@@ -30,6 +30,12 @@ func NewMediaRouteButton(vm *jni.VM, arg0 *jni.Object) (*MediaRouteButton, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMediaRouteButton == nil {
+			return fmt.Errorf("android.app.MediaRouteButton is not available on this device")
+		}
+		if midMediaRouteButtonCtor == nil {
+			return fmt.Errorf("android.app.MediaRouteButton constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMediaRouteButton)), midMediaRouteButtonCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -32,6 +32,12 @@ func NewTemperatureCache(vm *jni.VM, arg0 *jni.Object) (*TemperatureCache, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTemperatureCache == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.TemperatureCache is not available on this device")
+		}
+		if midTemperatureCacheCtor == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.TemperatureCache constructor (Lcom/google/android/material/color/utilities/Hct;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTemperatureCache)), midTemperatureCacheCtor, jni.ObjectValue(arg0))
 		if err != nil {

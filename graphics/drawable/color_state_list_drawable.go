@@ -32,6 +32,12 @@ func NewColorStateListDrawable(vm *jni.VM) (*ColorStateListDrawable, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsColorStateListDrawable == nil {
+			return fmt.Errorf("android.graphics.drawable.ColorStateListDrawable is not available on this device")
+		}
+		if midColorStateListDrawableCtor == nil {
+			return fmt.Errorf("android.graphics.drawable.ColorStateListDrawable constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsColorStateListDrawable)), midColorStateListDrawableCtor)
 		if err != nil {
 			return err

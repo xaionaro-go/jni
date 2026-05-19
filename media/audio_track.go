@@ -32,6 +32,12 @@ func NewAudioTrack(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 int32, a
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAudioTrack == nil {
+			return fmt.Errorf("android.media.AudioTrack is not available on this device")
+		}
+		if midAudioTrackCtor == nil {
+			return fmt.Errorf("android.media.AudioTrack constructor (Landroid/media/AudioAttributes;Landroid/media/AudioFormat;III)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAudioTrack)), midAudioTrackCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3), jni.IntValue(arg4))
 		if err != nil {

@@ -32,6 +32,12 @@ func NewSupportInfo(vm *jni.VM) (*SupportInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSupportInfo == nil {
+			return fmt.Errorf("android.drm.DrmSupportInfo is not available on this device")
+		}
+		if midSupportInfoCtor == nil {
+			return fmt.Errorf("android.drm.DrmSupportInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSupportInfo)), midSupportInfoCtor)
 		if err != nil {
 			return err

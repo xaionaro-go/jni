@@ -5,16 +5,95 @@
 package: analyzer
 go_import: github.com/AndroidGoLab/jni/androidx/constraintlayout/solver/widgets/analyzer
 classes:
-    - java_class: androidx.constraintlayout.solver.widgets.analyzer.VerticalWidgetRun
-      go_type: VerticalWidgetRun
+    - java_class: androidx.constraintlayout.solver.widgets.analyzer.DependencyGraph
+      go_type: DependencyGraph
       obtain: constructor
       constructor_params:
-        - java_type: androidx.constraintlayout.solver.widgets.ConstraintWidget
+        - java_type: androidx.constraintlayout.solver.widgets.ConstraintWidgetContainer
           go_name: arg0
       methods:
-        - java_method: toString
-          go_name: ToString
-          returns: String
+        - java_method: setMeasurer
+          go_name: SetMeasurer
+          params:
+            - java_type: androidx.constraintlayout.solver.widgets.analyzer.BasicMeasure$Measurer
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: defineTerminalWidgets
+          go_name: DefineTerminalWidgets
+          params:
+            - java_type: androidx.constraintlayout.solver.widgets.ConstraintWidget$DimensionBehaviour
+              go_name: arg0
+            - java_type: androidx.constraintlayout.solver.widgets.ConstraintWidget$DimensionBehaviour
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: directMeasure
+          go_name: DirectMeasure
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: directMeasureSetup
+          go_name: DirectMeasureSetup
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: directMeasureWithOrientation
+          go_name: DirectMeasureWithOrientation
+          params:
+            - java_type: boolean
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: measureWidgets
+          go_name: MeasureWidgets
+          returns: void
+          error: true
+        - java_method: invalidateGraph
+          go_name: InvalidateGraph
+          returns: void
+          error: true
+        - java_method: invalidateMeasures
+          go_name: InvalidateMeasures
+          returns: void
+          error: true
+        - java_method: buildGraph
+          go_name: BuildGraph
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.solver.widgets.analyzer.Dependency
+      go_type: Dependency
+      methods:
+        - java_method: update
+          go_name: Update
+          params:
+            - java_type: androidx.constraintlayout.solver.widgets.analyzer.Dependency
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.solver.widgets.analyzer.WidgetRun
+      go_type: WidgetRun
+      methods:
+        - java_method: isDimensionResolved
+          go_name: IsDimensionResolved
+          returns: boolean
+          error: true
+        - java_method: isCenterConnection
+          go_name: IsCenterConnection
+          returns: boolean
+          error: true
+        - java_method: wrapSize
+          go_name: WrapSize
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: long
           error: true
         - java_method: update
           go_name: Update
@@ -23,9 +102,13 @@ classes:
               go_name: arg0
           returns: void
           error: true
-        - java_method: applyToWidget
-          go_name: ApplyToWidget
-          returns: void
+        - java_method: getWrapDimension
+          go_name: GetWrapDimension
+          returns: long
+          error: true
+        - java_method: isResolved
+          go_name: IsResolved
+          returns: boolean
           error: true
     - java_class: androidx.constraintlayout.solver.widgets.analyzer.ChainRun
       go_type: ChainRun
@@ -43,28 +126,6 @@ classes:
         - java_method: getWrapDimension
           go_name: GetWrapDimension
           returns: long
-          error: true
-        - java_method: update
-          go_name: Update
-          params:
-            - java_type: androidx.constraintlayout.solver.widgets.analyzer.Dependency
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: applyToWidget
-          go_name: ApplyToWidget
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.solver.widgets.analyzer.HorizontalWidgetRun
-      go_type: HorizontalWidgetRun
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.constraintlayout.solver.widgets.ConstraintWidget
-          go_name: arg0
-      methods:
-        - java_method: toString
-          go_name: ToString
-          returns: String
           error: true
         - java_method: update
           go_name: Update
@@ -132,6 +193,7 @@ classes:
           error: true
     - java_class: androidx.constraintlayout.solver.widgets.analyzer.BasicMeasure$Measure
       go_type: BasicMeasureMeasure
+      obtain: constructor
     - java_class: androidx.constraintlayout.solver.widgets.analyzer.BasicMeasure$Measurer
       go_type: BasicMeasureMeasurer
       methods:
@@ -146,111 +208,6 @@ classes:
           error: true
         - java_method: didMeasures
           go_name: DidMeasures
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.solver.widgets.analyzer.Dependency
-      go_type: Dependency
-      methods:
-        - java_method: update
-          go_name: Update
-          params:
-            - java_type: androidx.constraintlayout.solver.widgets.analyzer.Dependency
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.solver.widgets.analyzer.WidgetRun
-      go_type: WidgetRun
-      methods:
-        - java_method: isDimensionResolved
-          go_name: IsDimensionResolved
-          returns: boolean
-          error: true
-        - java_method: isCenterConnection
-          go_name: IsCenterConnection
-          returns: boolean
-          error: true
-        - java_method: wrapSize
-          go_name: WrapSize
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: long
-          error: true
-        - java_method: update
-          go_name: Update
-          params:
-            - java_type: androidx.constraintlayout.solver.widgets.analyzer.Dependency
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getWrapDimension
-          go_name: GetWrapDimension
-          returns: long
-          error: true
-        - java_method: isResolved
-          go_name: IsResolved
-          returns: boolean
-          error: true
-    - java_class: androidx.constraintlayout.solver.widgets.analyzer.DependencyGraph
-      go_type: DependencyGraph
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.constraintlayout.solver.widgets.ConstraintWidgetContainer
-          go_name: arg0
-      methods:
-        - java_method: setMeasurer
-          go_name: SetMeasurer
-          params:
-            - java_type: androidx.constraintlayout.solver.widgets.analyzer.BasicMeasure$Measurer
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: defineTerminalWidgets
-          go_name: DefineTerminalWidgets
-          params:
-            - java_type: androidx.constraintlayout.solver.widgets.ConstraintWidget$DimensionBehaviour
-              go_name: arg0
-            - java_type: androidx.constraintlayout.solver.widgets.ConstraintWidget$DimensionBehaviour
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: directMeasure
-          go_name: DirectMeasure
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: directMeasureSetup
-          go_name: DirectMeasureSetup
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: directMeasureWithOrientation
-          go_name: DirectMeasureWithOrientation
-          params:
-            - java_type: boolean
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: measureWidgets
-          go_name: MeasureWidgets
-          returns: void
-          error: true
-        - java_method: invalidateGraph
-          go_name: InvalidateGraph
-          returns: void
-          error: true
-        - java_method: invalidateMeasures
-          go_name: InvalidateMeasures
-          returns: void
-          error: true
-        - java_method: buildGraph
-          go_name: BuildGraph
           returns: void
           error: true
     - java_class: androidx.constraintlayout.solver.widgets.analyzer.DependencyNode
@@ -293,36 +250,55 @@ classes:
           go_name: Clear
           returns: void
           error: true
-abstract_callbacks:
-    - java_class: androidx.constraintlayout.solver.widgets.analyzer.WidgetRun
-      go_type: WidgetRunCallback
+    - java_class: androidx.constraintlayout.solver.widgets.analyzer.VerticalWidgetRun
+      go_type: VerticalWidgetRun
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.constraintlayout.solver.widgets.ConstraintWidget
+          go_name: arg0
       methods:
-        - java_method: isDimensionResolved
-          params: []
-          returns: boolean
-          go_field: IsDimensionResolved
-        - java_method: isCenterConnection
-          params: []
-          returns: boolean
-          go_field: IsCenterConnection
-        - java_method: wrapSize
-          params:
-            - int
-          returns: long
-          go_field: WrapSize
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
         - java_method: update
+          go_name: Update
           params:
-            - androidx.constraintlayout.solver.widgets.analyzer.Dependency
+            - java_type: androidx.constraintlayout.solver.widgets.analyzer.Dependency
+              go_name: arg0
           returns: void
-          go_field: Update
-        - java_method: getWrapDimension
-          params: []
-          returns: long
-          go_field: GetWrapDimension
-        - java_method: isResolved
-          params: []
-          returns: boolean
-          go_field: IsResolved
+          error: true
+        - java_method: applyToWidget
+          go_name: ApplyToWidget
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.solver.widgets.analyzer.HorizontalWidgetRun
+      go_type: HorizontalWidgetRun
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.constraintlayout.solver.widgets.ConstraintWidget
+          go_name: arg0
+      methods:
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: update
+          go_name: Update
+          params:
+            - java_type: androidx.constraintlayout.solver.widgets.analyzer.Dependency
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
+        - java_method: applyToWidget
+          go_name: ApplyToWidget
+          returns: void
+          error: true
+abstract_callback_eligibility:
+    - java_class: androidx.constraintlayout.solver.widgets.analyzer.WidgetRun
+      generated: false
+      reason: implements_interface
 constants:
     - go_name: Unspecified
       value: "0"

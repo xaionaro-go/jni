@@ -32,6 +32,12 @@ func NewTvAdView(vm *jni.VM, arg0 *jni.Object) (*TvAdView, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTvAdView == nil {
+			return fmt.Errorf("android.media.tv.ad.TvAdView is not available on this device")
+		}
+		if midTvAdViewCtor == nil {
+			return fmt.Errorf("android.media.tv.ad.TvAdView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTvAdView)), midTvAdViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

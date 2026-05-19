@@ -32,6 +32,12 @@ func NewRangeDateSelector(vm *jni.VM) (*RangeDateSelector, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRangeDateSelector == nil {
+			return fmt.Errorf("com.google.android.material.datepicker.RangeDateSelector is not available on this device")
+		}
+		if midRangeDateSelectorCtor == nil {
+			return fmt.Errorf("com.google.android.material.datepicker.RangeDateSelector constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), midRangeDateSelectorCtor)
 		if err != nil {
 			return err
@@ -330,61 +336,6 @@ func (m *RangeDateSelector) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 		return callErr
 	})
 	return callErr
-}
-
-// SetSelection calls com.google.android.material.datepicker.RangeDateSelector.setSelection.
-func (m *RangeDateSelector) SetSelection(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRangeDateSelectorSetSelection == nil {
-			callErr = fmt.Errorf("com.google.android.material.datepicker.RangeDateSelector.setSelection is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midRangeDateSelectorSetSelection, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// GetSelection calls com.google.android.material.datepicker.RangeDateSelector.getSelection.
-func (m *RangeDateSelector) GetSelection() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRangeDateSelectorGetSelection == nil {
-			callErr = fmt.Errorf("com.google.android.material.datepicker.RangeDateSelector.getSelection is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midRangeDateSelectorGetSelection,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls com.google.android.material.datepicker.RangeDateSelector.toString.

@@ -32,6 +32,12 @@ func NewSpannableString(vm *jni.VM, arg0 string) (*SpannableString, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSpannableString == nil {
+			return fmt.Errorf("android.text.SpannableString is not available on this device")
+		}
+		if midSpannableStringCtor == nil {
+			return fmt.Errorf("android.text.SpannableString constructor (Ljava/lang/CharSequence;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

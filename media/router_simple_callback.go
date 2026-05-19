@@ -23,6 +23,34 @@ type RouterSimpleCallback struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRouterSimpleCallback creates a new android.media.MediaRouter$SimpleCallback instance.
+func NewRouterSimpleCallback(vm *jni.VM) (*RouterSimpleCallback, error) {
+	var t RouterSimpleCallback
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRouterSimpleCallback == nil {
+			return fmt.Errorf("android.media.MediaRouter$SimpleCallback is not available on this device")
+		}
+		if midRouterSimpleCallbackCtor == nil {
+			return fmt.Errorf("android.media.MediaRouter$SimpleCallback constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRouterSimpleCallback)), midRouterSimpleCallbackCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnRouteAdded calls android.media.MediaRouter$SimpleCallback.onRouteAdded.
 func (m *RouterSimpleCallback) OnRouteAdded(arg0 *jni.Object, arg1 *jni.Object) error {
 

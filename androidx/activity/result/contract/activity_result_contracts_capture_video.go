@@ -23,8 +23,36 @@ type ActivityResultContractsCaptureVideo struct {
 	Obj *jni.GlobalRef
 }
 
-// CreateIntent2 calls androidx.activity.result.contract.ActivityResultContracts$CaptureVideo.createIntent.
-func (m *ActivityResultContractsCaptureVideo) CreateIntent2(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
+// NewActivityResultContractsCaptureVideo creates a new androidx.activity.result.contract.ActivityResultContracts$CaptureVideo instance.
+func NewActivityResultContractsCaptureVideo(vm *jni.VM) (*ActivityResultContractsCaptureVideo, error) {
+	var t ActivityResultContractsCaptureVideo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsActivityResultContractsCaptureVideo == nil {
+			return fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$CaptureVideo is not available on this device")
+		}
+		if midActivityResultContractsCaptureVideoCtor == nil {
+			return fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$CaptureVideo constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivityResultContractsCaptureVideo)), midActivityResultContractsCaptureVideoCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
+// CreateIntent calls androidx.activity.result.contract.ActivityResultContracts$CaptureVideo.createIntent.
+func (m *ActivityResultContractsCaptureVideo) CreateIntent(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -32,14 +60,14 @@ func (m *ActivityResultContractsCaptureVideo) CreateIntent2(arg0 *jni.Object, ar
 			callErr = err
 			return err
 		}
-		if midActivityResultContractsCaptureVideoCreateIntent2 == nil {
+		if midActivityResultContractsCaptureVideoCreateIntent == nil {
 			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$CaptureVideo.createIntent is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActivityResultContractsCaptureVideoCreateIntent2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midActivityResultContractsCaptureVideoCreateIntent, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr
@@ -56,8 +84,8 @@ func (m *ActivityResultContractsCaptureVideo) CreateIntent2(arg0 *jni.Object, ar
 	return result, callErr
 }
 
-// GetSynchronousResult2 calls androidx.activity.result.contract.ActivityResultContracts$CaptureVideo.getSynchronousResult.
-func (m *ActivityResultContractsCaptureVideo) GetSynchronousResult2(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
+// GetSynchronousResult calls androidx.activity.result.contract.ActivityResultContracts$CaptureVideo.getSynchronousResult.
+func (m *ActivityResultContractsCaptureVideo) GetSynchronousResult(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -65,14 +93,14 @@ func (m *ActivityResultContractsCaptureVideo) GetSynchronousResult2(arg0 *jni.Ob
 			callErr = err
 			return err
 		}
-		if midActivityResultContractsCaptureVideoGetSynchronousResult2 == nil {
+		if midActivityResultContractsCaptureVideoGetSynchronousResult == nil {
 			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$CaptureVideo.getSynchronousResult is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActivityResultContractsCaptureVideoGetSynchronousResult2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midActivityResultContractsCaptureVideoGetSynchronousResult, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr
@@ -89,8 +117,8 @@ func (m *ActivityResultContractsCaptureVideo) GetSynchronousResult2(arg0 *jni.Ob
 	return result, callErr
 }
 
-// ParseResult2 calls androidx.activity.result.contract.ActivityResultContracts$CaptureVideo.parseResult.
-func (m *ActivityResultContractsCaptureVideo) ParseResult2(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
+// ParseResult calls androidx.activity.result.contract.ActivityResultContracts$CaptureVideo.parseResult.
+func (m *ActivityResultContractsCaptureVideo) ParseResult(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -98,113 +126,14 @@ func (m *ActivityResultContractsCaptureVideo) ParseResult2(arg0 int32, arg1 *jni
 			callErr = err
 			return err
 		}
-		if midActivityResultContractsCaptureVideoParseResult2 == nil {
+		if midActivityResultContractsCaptureVideoParseResult == nil {
 			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$CaptureVideo.parseResult is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActivityResultContractsCaptureVideoParseResult2, jni.IntValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// CreateIntent2_1 calls androidx.activity.result.contract.ActivityResultContracts$CaptureVideo.createIntent.
-func (m *ActivityResultContractsCaptureVideo) CreateIntent2_1(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsCaptureVideoCreateIntent2_1 == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$CaptureVideo.createIntent is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsCaptureVideoCreateIntent2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetSynchronousResult2_1 calls androidx.activity.result.contract.ActivityResultContracts$CaptureVideo.getSynchronousResult.
-func (m *ActivityResultContractsCaptureVideo) GetSynchronousResult2_1(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsCaptureVideoGetSynchronousResult2_1 == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$CaptureVideo.getSynchronousResult is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsCaptureVideoGetSynchronousResult2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// ParseResult2_1 calls androidx.activity.result.contract.ActivityResultContracts$CaptureVideo.parseResult.
-func (m *ActivityResultContractsCaptureVideo) ParseResult2_1(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsCaptureVideoParseResult2_1 == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$CaptureVideo.parseResult is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsCaptureVideoParseResult2_1, jni.IntValue(arg0), jni.ObjectValue(arg1),
+			midActivityResultContractsCaptureVideoParseResult, jni.IntValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr

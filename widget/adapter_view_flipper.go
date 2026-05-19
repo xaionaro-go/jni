@@ -32,6 +32,12 @@ func NewAdapterViewFlipper(vm *jni.VM, arg0 *jni.Object) (*AdapterViewFlipper, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAdapterViewFlipper == nil {
+			return fmt.Errorf("android.widget.AdapterViewFlipper is not available on this device")
+		}
+		if midAdapterViewFlipperCtor == nil {
+			return fmt.Errorf("android.widget.AdapterViewFlipper constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAdapterViewFlipper)), midAdapterViewFlipperCtor, jni.ObjectValue(arg0))
 		if err != nil {

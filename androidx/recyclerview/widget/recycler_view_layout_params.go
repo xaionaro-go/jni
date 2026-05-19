@@ -23,6 +23,35 @@ type RecyclerViewLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRecyclerViewLayoutParams creates a new androidx.recyclerview.widget.RecyclerView$LayoutParams instance.
+func NewRecyclerViewLayoutParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*RecyclerViewLayoutParams, error) {
+	var t RecyclerViewLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRecyclerViewLayoutParams == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.RecyclerView$LayoutParams is not available on this device")
+		}
+		if midRecyclerViewLayoutParamsCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.RecyclerView$LayoutParams constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRecyclerViewLayoutParams)), midRecyclerViewLayoutParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ViewNeedsUpdate calls androidx.recyclerview.widget.RecyclerView$LayoutParams.viewNeedsUpdate.
 func (m *RecyclerViewLayoutParams) ViewNeedsUpdate() (bool, error) {
 	var result bool

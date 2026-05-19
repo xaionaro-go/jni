@@ -23,14 +23,10 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsCLKey            *jni.GlobalRef
-	midCLKeyCtor        jni.MethodID
-	midCLKeyGetName     jni.MethodID
-	midCLKeySet         jni.MethodID
-	midCLKeyGetValue    jni.MethodID
-	midCLKeyToString    jni.MethodID
-	midCLKeyAllocate1   jni.MethodID
-	midCLKeyAllocate2_1 jni.MethodID
+	clsCLString         *jni.GlobalRef
+	midCLStringCtor     jni.MethodID
+	midCLStringToString jni.MethodID
+	midCLStringAllocate jni.MethodID
 
 	clsCLNumber         *jni.GlobalRef
 	midCLNumberCtor     jni.MethodID
@@ -41,6 +37,12 @@ var (
 	midCLNumberToString jni.MethodID
 	midCLNumberAllocate jni.MethodID
 
+	clsCLParser         *jni.GlobalRef
+	midCLParserCtor     jni.MethodID
+	midCLParserToString jni.MethodID
+	midCLParserParse1   jni.MethodID
+	midCLParserParse0_1 jni.MethodID
+
 	clsCLToken           *jni.GlobalRef
 	midCLTokenCtor       jni.MethodID
 	midCLTokenGetBoolean jni.MethodID
@@ -49,6 +51,52 @@ var (
 	midCLTokenValidate   jni.MethodID
 	midCLTokenToString   jni.MethodID
 	midCLTokenAllocate   jni.MethodID
+
+	clsCLParsingException         *jni.GlobalRef
+	midCLParsingExceptionCtor     jni.MethodID
+	midCLParsingExceptionReason   jni.MethodID
+	midCLParsingExceptionToString jni.MethodID
+
+	clsCLKey            *jni.GlobalRef
+	midCLKeyCtor        jni.MethodID
+	midCLKeyGetName     jni.MethodID
+	midCLKeySet         jni.MethodID
+	midCLKeyToString    jni.MethodID
+	midCLKeyAllocate1   jni.MethodID
+	midCLKeyAllocate2_1 jni.MethodID
+	midCLKeyGetValue    jni.MethodID
+
+	clsCLElement             *jni.GlobalRef
+	midCLElementCtor         jni.MethodID
+	midCLElementNotStarted   jni.MethodID
+	midCLElementSetLine      jni.MethodID
+	midCLElementGetLine      jni.MethodID
+	midCLElementSetStart     jni.MethodID
+	midCLElementGetStart     jni.MethodID
+	midCLElementGetEnd       jni.MethodID
+	midCLElementSetEnd       jni.MethodID
+	midCLElementToString     jni.MethodID
+	midCLElementContent      jni.MethodID
+	midCLElementIsDone       jni.MethodID
+	midCLElementSetContainer jni.MethodID
+	midCLElementGetContainer jni.MethodID
+	midCLElementIsStarted    jni.MethodID
+	midCLElementGetInt       jni.MethodID
+	midCLElementGetFloat     jni.MethodID
+
+	clsCLObject                   *jni.GlobalRef
+	midCLObjectCtor               jni.MethodID
+	midCLObjectToJSON             jni.MethodID
+	midCLObjectToFormattedJSON0   jni.MethodID
+	midCLObjectToFormattedJSON2_1 jni.MethodID
+	midCLObjectIterator           jni.MethodID
+	midCLObjectToString           jni.MethodID
+	midCLObjectAllocate           jni.MethodID
+
+	clsCLArray         *jni.GlobalRef
+	midCLArrayCtor     jni.MethodID
+	midCLArrayToString jni.MethodID
+	midCLArrayAllocate jni.MethodID
 
 	clsCLContainer                   *jni.GlobalRef
 	midCLContainerCtor               jni.MethodID
@@ -82,54 +130,6 @@ var (
 	midCLContainerGetOrNull1_1       jni.MethodID
 	midCLContainerGetStringOrNull1_1 jni.MethodID
 	midCLContainerAllocate           jni.MethodID
-
-	clsCLElement             *jni.GlobalRef
-	midCLElementCtor         jni.MethodID
-	midCLElementNotStarted   jni.MethodID
-	midCLElementSetLine      jni.MethodID
-	midCLElementGetLine      jni.MethodID
-	midCLElementSetStart     jni.MethodID
-	midCLElementGetStart     jni.MethodID
-	midCLElementGetEnd       jni.MethodID
-	midCLElementSetEnd       jni.MethodID
-	midCLElementToString     jni.MethodID
-	midCLElementContent      jni.MethodID
-	midCLElementIsDone       jni.MethodID
-	midCLElementSetContainer jni.MethodID
-	midCLElementGetContainer jni.MethodID
-	midCLElementIsStarted    jni.MethodID
-	midCLElementGetInt       jni.MethodID
-	midCLElementGetFloat     jni.MethodID
-
-	clsCLArray         *jni.GlobalRef
-	midCLArrayCtor     jni.MethodID
-	midCLArrayToString jni.MethodID
-	midCLArrayAllocate jni.MethodID
-
-	clsCLString         *jni.GlobalRef
-	midCLStringCtor     jni.MethodID
-	midCLStringToString jni.MethodID
-	midCLStringAllocate jni.MethodID
-
-	clsCLObject                   *jni.GlobalRef
-	midCLObjectCtor               jni.MethodID
-	midCLObjectToJSON             jni.MethodID
-	midCLObjectToFormattedJSON0   jni.MethodID
-	midCLObjectToFormattedJSON2_1 jni.MethodID
-	midCLObjectIterator           jni.MethodID
-	midCLObjectToString           jni.MethodID
-	midCLObjectAllocate           jni.MethodID
-
-	clsCLParser         *jni.GlobalRef
-	midCLParserCtor     jni.MethodID
-	midCLParserParse0_1 jni.MethodID
-	midCLParserToString jni.MethodID
-	midCLParserParse1   jni.MethodID
-
-	clsCLParsingException         *jni.GlobalRef
-	midCLParsingExceptionCtor     jni.MethodID
-	midCLParsingExceptionReason   jni.MethodID
-	midCLParsingExceptionToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -150,54 +150,26 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("androidx/constraintlayout/core/parser/CLKey")
+	c, err = env.FindClass("androidx/constraintlayout/core/parser/CLString")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCLKey = env.NewGlobalRef(&c.Object)
-		midCLKeyCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLKey)), "<init>", "([C)V")
+		clsCLString = env.NewGlobalRef(&c.Object)
+		midCLStringCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLString)), "<init>", "([C)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midCLKeyGetName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLKey)), "getName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLKeySet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLKey)), "set", "(Landroidx/constraintlayout/core/parser/CLElement;)V")
+		midCLStringToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLString)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCLKeyGetValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLKey)), "getValue", "()Landroidx/constraintlayout/core/parser/CLElement;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLKeyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLKey)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLKeyAllocate1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCLKey)), "allocate", "([C)Landroidx/constraintlayout/core/parser/CLElement;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLKeyAllocate2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCLKey)), "allocate", "(Ljava/lang/String;Landroidx/constraintlayout/core/parser/CLElement;)Landroidx/constraintlayout/core/parser/CLElement;")
+		midCLStringAllocate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCLString)), "allocate", "([C)Landroidx/constraintlayout/core/parser/CLElement;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -262,6 +234,41 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("androidx/constraintlayout/core/parser/CLParser")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCLParser = env.NewGlobalRef(&c.Object)
+		midCLParserCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLParser)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCLParserToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLParser)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLParserParse1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCLParser)), "parse", "(Ljava/lang/String;)Landroidx/constraintlayout/core/parser/CLObject;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLParserParse0_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCLParser)), "parse", "()Landroidx/constraintlayout/core/parser/CLObject;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("androidx/constraintlayout/core/parser/CLToken")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -310,6 +317,293 @@ func doInit(env *jni.Env) error {
 		}
 
 		midCLTokenAllocate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCLToken)), "allocate", "([C)Landroidx/constraintlayout/core/parser/CLElement;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/core/parser/CLParsingException")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCLParsingException = env.NewGlobalRef(&c.Object)
+		midCLParsingExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLParsingException)), "<init>", "(Ljava/lang/String;Landroidx/constraintlayout/core/parser/CLElement;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCLParsingExceptionReason, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLParsingException)), "reason", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLParsingExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLParsingException)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/core/parser/CLKey")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCLKey = env.NewGlobalRef(&c.Object)
+		midCLKeyCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLKey)), "<init>", "([C)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCLKeyGetName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLKey)), "getName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLKeySet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLKey)), "set", "(Landroidx/constraintlayout/core/parser/CLElement;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLKeyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLKey)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLKeyAllocate1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCLKey)), "allocate", "([C)Landroidx/constraintlayout/core/parser/CLElement;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLKeyAllocate2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCLKey)), "allocate", "(Ljava/lang/String;Landroidx/constraintlayout/core/parser/CLElement;)Landroidx/constraintlayout/core/parser/CLElement;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLKeyGetValue, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCLKey)), "getValue", "()Landroidx/constraintlayout/core/parser/CLElement;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/core/parser/CLElement")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCLElement = env.NewGlobalRef(&c.Object)
+		midCLElementCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "<init>", "([C)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCLElementNotStarted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "notStarted", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLElementSetLine, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "setLine", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLElementGetLine, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "getLine", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLElementSetStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "setStart", "(J)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLElementGetStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "getStart", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLElementGetEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "getEnd", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLElementSetEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "setEnd", "(J)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLElementToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLElementContent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "content", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLElementIsDone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "isDone", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLElementSetContainer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "setContainer", "(Landroidx/constraintlayout/core/parser/CLContainer;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLElementGetContainer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "getContainer", "()Landroidx/constraintlayout/core/parser/CLElement;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLElementIsStarted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "isStarted", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLElementGetInt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "getInt", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLElementGetFloat, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "getFloat", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/core/parser/CLObject")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCLObject = env.NewGlobalRef(&c.Object)
+		midCLObjectCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLObject)), "<init>", "([C)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCLObjectToJSON, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLObject)), "toJSON", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLObjectToFormattedJSON0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLObject)), "toFormattedJSON", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLObjectToFormattedJSON2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLObject)), "toFormattedJSON", "(II)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLObjectIterator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLObject)), "iterator", "()Ljava/util/Iterator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLObjectToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLObject)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLObjectAllocate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCLObject)), "allocate", "([C)Landroidx/constraintlayout/core/parser/CLObject;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/core/parser/CLArray")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCLArray = env.NewGlobalRef(&c.Object)
+		midCLArrayCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLArray)), "<init>", "([C)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCLArrayToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLArray)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCLArrayAllocate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCLArray)), "allocate", "([C)Landroidx/constraintlayout/core/parser/CLElement;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -534,300 +828,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midCLContainerAllocate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCLContainer)), "allocate", "([C)Landroidx/constraintlayout/core/parser/CLElement;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/core/parser/CLElement")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCLElement = env.NewGlobalRef(&c.Object)
-		midCLElementCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "<init>", "([C)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCLElementNotStarted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "notStarted", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLElementSetLine, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "setLine", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLElementGetLine, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "getLine", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLElementSetStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "setStart", "(J)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLElementGetStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "getStart", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLElementGetEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "getEnd", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLElementSetEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "setEnd", "(J)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLElementToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLElementContent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "content", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLElementIsDone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "isDone", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLElementSetContainer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "setContainer", "(Landroidx/constraintlayout/core/parser/CLContainer;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLElementGetContainer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "getContainer", "()Landroidx/constraintlayout/core/parser/CLElement;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLElementIsStarted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "isStarted", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLElementGetInt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "getInt", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLElementGetFloat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLElement)), "getFloat", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/core/parser/CLArray")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCLArray = env.NewGlobalRef(&c.Object)
-		midCLArrayCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLArray)), "<init>", "([C)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCLArrayToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLArray)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLArrayAllocate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCLArray)), "allocate", "([C)Landroidx/constraintlayout/core/parser/CLElement;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/core/parser/CLString")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCLString = env.NewGlobalRef(&c.Object)
-		midCLStringCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLString)), "<init>", "([C)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCLStringToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLString)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLStringAllocate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCLString)), "allocate", "([C)Landroidx/constraintlayout/core/parser/CLElement;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/core/parser/CLObject")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCLObject = env.NewGlobalRef(&c.Object)
-		midCLObjectCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLObject)), "<init>", "([C)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCLObjectToJSON, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLObject)), "toJSON", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLObjectToFormattedJSON0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLObject)), "toFormattedJSON", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLObjectToFormattedJSON2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLObject)), "toFormattedJSON", "(II)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLObjectIterator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLObject)), "iterator", "()Ljava/util/Iterator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLObjectToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLObject)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLObjectAllocate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCLObject)), "allocate", "([C)Landroidx/constraintlayout/core/parser/CLObject;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/core/parser/CLParser")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCLParser = env.NewGlobalRef(&c.Object)
-		midCLParserCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLParser)), "<init>", "(Ljava/lang/String;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCLParserParse0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLParser)), "parse", "()Landroidx/constraintlayout/core/parser/CLObject;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLParserToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLParser)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLParserParse1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCLParser)), "parse", "(Ljava/lang/String;)Landroidx/constraintlayout/core/parser/CLObject;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/core/parser/CLParsingException")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCLParsingException = env.NewGlobalRef(&c.Object)
-		midCLParsingExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLParsingException)), "<init>", "(Ljava/lang/String;Landroidx/constraintlayout/core/parser/CLElement;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCLParsingExceptionReason, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLParsingException)), "reason", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCLParsingExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCLParsingException)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

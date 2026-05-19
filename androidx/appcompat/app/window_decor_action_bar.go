@@ -30,6 +30,12 @@ func NewWindowDecorActionBar(vm *jni.VM, arg0 *jni.Object, arg1 bool) (*WindowDe
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWindowDecorActionBar == nil {
+			return fmt.Errorf("androidx.appcompat.app.WindowDecorActionBar is not available on this device")
+		}
+		if midWindowDecorActionBarCtor == nil {
+			return fmt.Errorf("androidx.appcompat.app.WindowDecorActionBar constructor (Landroid/app/Activity;Z)V is not available on this device")
+		}
 
 		var jArg1 uint8
 		if arg1 {
@@ -1382,29 +1388,6 @@ func (m *WindowDecorActionBar) GetHideOffset() (int32, error) {
 	return result, callErr
 }
 
-// SetHideOffset calls androidx.appcompat.app.WindowDecorActionBar.setHideOffset.
-func (m *WindowDecorActionBar) SetHideOffset(arg0 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midWindowDecorActionBarSetHideOffset == nil {
-			callErr = fmt.Errorf("androidx.appcompat.app.WindowDecorActionBar.setHideOffset is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midWindowDecorActionBarSetHideOffset, jni.IntValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // DoShow calls androidx.appcompat.app.WindowDecorActionBar.doShow.
 func (m *WindowDecorActionBar) DoShow(arg0 bool) error {
 
@@ -2113,34 +2096,6 @@ func (m *WindowDecorActionBar) SetDefaultDisplayHomeAsUpEnabled(arg0 bool) error
 	return callErr
 }
 
-// OnKeyShortcut calls androidx.appcompat.app.WindowDecorActionBar.onKeyShortcut.
-func (m *WindowDecorActionBar) OnKeyShortcut(arg0 int32, arg1 *jni.Object) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midWindowDecorActionBarOnKeyShortcut == nil {
-			callErr = fmt.Errorf("androidx.appcompat.app.WindowDecorActionBar.onKeyShortcut is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midWindowDecorActionBarOnKeyShortcut, jni.IntValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.appcompat.app.WindowDecorActionBar.toString.
 func (m *WindowDecorActionBar) ToString() (string, error) {
 	var result string
@@ -2163,6 +2118,57 @@ func (m *WindowDecorActionBar) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// SetHideOffset calls androidx.appcompat.app.WindowDecorActionBar.setHideOffset.
+func (m *WindowDecorActionBar) SetHideOffset(arg0 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midWindowDecorActionBarSetHideOffset == nil {
+			callErr = fmt.Errorf("androidx.appcompat.app.WindowDecorActionBar.setHideOffset is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)),
+			midWindowDecorActionBarSetHideOffset, jni.IntValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
+}
+
+// OnKeyShortcut calls androidx.appcompat.app.WindowDecorActionBar.onKeyShortcut.
+func (m *WindowDecorActionBar) OnKeyShortcut(arg0 int32, arg1 *jni.Object) (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midWindowDecorActionBarOnKeyShortcut == nil {
+			callErr = fmt.Errorf("androidx.appcompat.app.WindowDecorActionBar.onKeyShortcut is not available on this device")
+			return callErr
+		}
+
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)),
+			midWindowDecorActionBarOnKeyShortcut, jni.IntValue(arg0), jni.ObjectValue(arg1),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

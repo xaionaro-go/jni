@@ -32,6 +32,12 @@ func NewFlingAnimation(vm *jni.VM, arg0 *jni.Object) (*FlingAnimation, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFlingAnimation == nil {
+			return fmt.Errorf("androidx.dynamicanimation.animation.FlingAnimation is not available on this device")
+		}
+		if midFlingAnimationCtor == nil {
+			return fmt.Errorf("androidx.dynamicanimation.animation.FlingAnimation constructor (Landroidx/dynamicanimation/animation/FloatValueHolder;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFlingAnimation)), midFlingAnimationCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -104,8 +110,8 @@ func (m *FlingAnimation) GetFriction() (float32, error) {
 	return result, callErr
 }
 
-// SetMinValue1 calls androidx.dynamicanimation.animation.FlingAnimation.setMinValue.
-func (m *FlingAnimation) SetMinValue1(arg0 float32) (*jni.Object, error) {
+// SetMinValue calls androidx.dynamicanimation.animation.FlingAnimation.setMinValue.
+func (m *FlingAnimation) SetMinValue(arg0 float32) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -113,14 +119,14 @@ func (m *FlingAnimation) SetMinValue1(arg0 float32) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midFlingAnimationSetMinValue1 == nil {
+		if midFlingAnimationSetMinValue == nil {
 			callErr = fmt.Errorf("androidx.dynamicanimation.animation.FlingAnimation.setMinValue is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midFlingAnimationSetMinValue1, jni.FloatValue(arg0),
+			midFlingAnimationSetMinValue, jni.FloatValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -137,8 +143,8 @@ func (m *FlingAnimation) SetMinValue1(arg0 float32) (*jni.Object, error) {
 	return result, callErr
 }
 
-// SetMaxValue1 calls androidx.dynamicanimation.animation.FlingAnimation.setMaxValue.
-func (m *FlingAnimation) SetMaxValue1(arg0 float32) (*jni.Object, error) {
+// SetMaxValue calls androidx.dynamicanimation.animation.FlingAnimation.setMaxValue.
+func (m *FlingAnimation) SetMaxValue(arg0 float32) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -146,14 +152,14 @@ func (m *FlingAnimation) SetMaxValue1(arg0 float32) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midFlingAnimationSetMaxValue1 == nil {
+		if midFlingAnimationSetMaxValue == nil {
 			callErr = fmt.Errorf("androidx.dynamicanimation.animation.FlingAnimation.setMaxValue is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midFlingAnimationSetMaxValue1, jni.FloatValue(arg0),
+			midFlingAnimationSetMaxValue, jni.FloatValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -170,8 +176,8 @@ func (m *FlingAnimation) SetMaxValue1(arg0 float32) (*jni.Object, error) {
 	return result, callErr
 }
 
-// SetStartVelocity1 calls androidx.dynamicanimation.animation.FlingAnimation.setStartVelocity.
-func (m *FlingAnimation) SetStartVelocity1(arg0 float32) (*jni.Object, error) {
+// SetStartVelocity calls androidx.dynamicanimation.animation.FlingAnimation.setStartVelocity.
+func (m *FlingAnimation) SetStartVelocity(arg0 float32) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -179,113 +185,14 @@ func (m *FlingAnimation) SetStartVelocity1(arg0 float32) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midFlingAnimationSetStartVelocity1 == nil {
+		if midFlingAnimationSetStartVelocity == nil {
 			callErr = fmt.Errorf("androidx.dynamicanimation.animation.FlingAnimation.setStartVelocity is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midFlingAnimationSetStartVelocity1, jni.FloatValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetMinValue1_1 calls androidx.dynamicanimation.animation.FlingAnimation.setMinValue.
-func (m *FlingAnimation) SetMinValue1_1(arg0 float32) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFlingAnimationSetMinValue1_1 == nil {
-			callErr = fmt.Errorf("androidx.dynamicanimation.animation.FlingAnimation.setMinValue is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midFlingAnimationSetMinValue1_1, jni.FloatValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetMaxValue1_1 calls androidx.dynamicanimation.animation.FlingAnimation.setMaxValue.
-func (m *FlingAnimation) SetMaxValue1_1(arg0 float32) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFlingAnimationSetMaxValue1_1 == nil {
-			callErr = fmt.Errorf("androidx.dynamicanimation.animation.FlingAnimation.setMaxValue is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midFlingAnimationSetMaxValue1_1, jni.FloatValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetStartVelocity1_1 calls androidx.dynamicanimation.animation.FlingAnimation.setStartVelocity.
-func (m *FlingAnimation) SetStartVelocity1_1(arg0 float32) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFlingAnimationSetStartVelocity1_1 == nil {
-			callErr = fmt.Errorf("androidx.dynamicanimation.animation.FlingAnimation.setStartVelocity is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midFlingAnimationSetStartVelocity1_1, jni.FloatValue(arg0),
+			midFlingAnimationSetStartVelocity, jni.FloatValue(arg0),
 		)
 		if callErr != nil {
 			return callErr

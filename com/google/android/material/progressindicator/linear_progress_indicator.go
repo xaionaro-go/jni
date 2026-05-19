@@ -32,6 +32,12 @@ func NewLinearProgressIndicator(vm *jni.VM, arg0 *jni.Object) (*LinearProgressIn
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLinearProgressIndicator == nil {
+			return fmt.Errorf("com.google.android.material.progressindicator.LinearProgressIndicator is not available on this device")
+		}
+		if midLinearProgressIndicatorCtor == nil {
+			return fmt.Errorf("com.google.android.material.progressindicator.LinearProgressIndicator constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), midLinearProgressIndicatorCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -230,34 +236,6 @@ func (m *LinearProgressIndicator) SetIndicatorDirection(arg0 int32) error {
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midLinearProgressIndicatorSetIndicatorDirection, jni.IntValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// SetProgressCompat calls com.google.android.material.progressindicator.LinearProgressIndicator.setProgressCompat.
-func (m *LinearProgressIndicator) SetProgressCompat(arg0 int32, arg1 bool) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midLinearProgressIndicatorSetProgressCompat == nil {
-			callErr = fmt.Errorf("com.google.android.material.progressindicator.LinearProgressIndicator.setProgressCompat is not available on this device")
-			return callErr
-		}
-
-		var jArg1 uint8
-		if arg1 {
-			jArg1 = jniTrue
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midLinearProgressIndicatorSetProgressCompat, jni.IntValue(arg0), jni.BooleanValue(jArg1),
 		)
 		return callErr
 	})

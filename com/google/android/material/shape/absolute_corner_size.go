@@ -32,6 +32,12 @@ func NewAbsoluteCornerSize(vm *jni.VM, arg0 float32) (*AbsoluteCornerSize, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAbsoluteCornerSize == nil {
+			return fmt.Errorf("com.google.android.material.shape.AbsoluteCornerSize is not available on this device")
+		}
+		if midAbsoluteCornerSizeCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.AbsoluteCornerSize constructor (F)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAbsoluteCornerSize)), midAbsoluteCornerSizeCtor, jni.FloatValue(arg0))
 		if err != nil {

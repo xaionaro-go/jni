@@ -58,8 +58,19 @@ func Merge(spec *Spec, overlay *Overlay) (*MergedSpec, error) {
 		merged.Callbacks = append(merged.Callbacks, *mcb)
 	}
 
+	eligibilityByClass := abstractCallbackEligibilityByClass(spec.AbstractCallbackEligibility)
 	for _, acb := range spec.AbstractCallbacks {
-		macb := mergeAbstractCallback(&acb, overlay)
+		if eligibility, ok := eligibilityByClass[acb.JavaClass]; ok && !eligibility.Generated {
+			return nil, fmt.Errorf(
+				"abstract callback %s cannot be rendered: %s",
+				acb.JavaClass,
+				eligibility.Reason,
+			)
+		}
+		macb, err := mergeAbstractCallback(&acb, overlay)
+		if err != nil {
+			return nil, fmt.Errorf("merge abstract callback %s: %w", acb.JavaClass, err)
+		}
 		merged.AbstractCallbacks = append(merged.AbstractCallbacks, *macb)
 	}
 
@@ -357,11 +368,32 @@ func mergeCallback(cb *Callback, overlay *Overlay) (*MergedCallback, error) {
 	return mcb, nil
 }
 
-func mergeAbstractCallback(acb *AbstractCallback, overlay *Overlay) *MergedAbstractCallback {
+func abstractCallbackEligibilityByClass(
+	eligibilities []AbstractCallbackEligibility,
+) map[string]AbstractCallbackEligibility {
+	out := make(map[string]AbstractCallbackEligibility, len(eligibilities))
+	for _, eligibility := range eligibilities {
+		if eligibility.JavaClass == "" {
+			continue
+		}
+		out[eligibility.JavaClass] = eligibility
+	}
+	return out
+}
+
+func mergeAbstractCallback(
+	acb *AbstractCallback,
+	overlay *Overlay,
+) (*MergedAbstractCallback, error) {
+	if err := validateAbstractCallbackRenderable(acb); err != nil {
+		return nil, err
+	}
+
 	macb := &MergedAbstractCallback{
-		JavaClass:      acb.JavaClass,
-		JavaClassSlash: JavaClassToSlash(acb.JavaClass),
-		GoType:         acb.GoType,
+		JavaClass:       acb.JavaClass,
+		JavaClassSlash:  JavaClassToSlash(acb.JavaClass),
+		GoType:          acb.GoType,
+		TypeParamBounds: append([]string(nil), acb.TypeParamBounds...),
 	}
 
 	for _, m := range acb.Methods {
@@ -393,7 +425,66 @@ func mergeAbstractCallback(acb *AbstractCallback, overlay *Overlay) *MergedAbstr
 		})
 	}
 
-	return macb
+	return macb, nil
+}
+
+func validateAbstractCallbackRenderable(acb *AbstractCallback) error {
+	if acb.JavaClass == "" {
+		return fmt.Errorf("missing java_class")
+	}
+	if acb.JavaClass == "androidx.recyclerview.widget.RecyclerView$ViewHolder" {
+		return nil
+	}
+	if len(acb.Methods) == 0 {
+		return fmt.Errorf("no dispatch methods")
+	}
+	for _, method := range acb.Methods {
+		if strings.TrimSpace(method.JavaMethod) == "" {
+			return fmt.Errorf("empty java method")
+		}
+		if err := validateAdapterSourceType(method.Returns, true); err != nil {
+			return fmt.Errorf("method %s return type %q: %w", method.JavaMethod, method.Returns, err)
+		}
+		for _, param := range method.Params {
+			if err := validateAdapterSourceType(param, false); err != nil {
+				return fmt.Errorf("method %s param type %q: %w", method.JavaMethod, param, err)
+			}
+		}
+	}
+	return nil
+}
+
+func validateAdapterSourceType(javaType string, allowVoid bool) error {
+	javaType = strings.TrimSpace(javaType)
+	switch javaType {
+	case "":
+		if allowVoid {
+			return nil
+		}
+		return fmt.Errorf("empty type")
+	case "void":
+		if allowVoid {
+			return nil
+		}
+		return fmt.Errorf("void parameter")
+	}
+	if strings.Contains(javaType, " & ") {
+		return fmt.Errorf("compound type cannot be rendered")
+	}
+	if strings.Count(javaType, "<") != strings.Count(javaType, ">") {
+		return fmt.Errorf("malformed generic type")
+	}
+	base := javaType
+	if idx := strings.Index(base, "<"); idx >= 0 {
+		base = base[:idx]
+	}
+	for strings.HasSuffix(base, "[]") {
+		base = strings.TrimSuffix(base, "[]")
+	}
+	if len(base) == 1 && base[0] >= 'A' && base[0] <= 'Z' {
+		return fmt.Errorf("unresolved type variable")
+	}
+	return nil
 }
 
 // deriveJavaPackageDesc extracts the Java package name from the first

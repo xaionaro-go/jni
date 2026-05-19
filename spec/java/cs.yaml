@@ -5,6 +5,31 @@
 package: cs
 go_import: github.com/AndroidGoLab/jni/ranging/ble/cs
 classes:
+    - java_class: android.ranging.ble.cs.BleCsRangingCapabilities
+      go_type: BleCsRangingCapabilities
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getSupportedSecurityLevels
+          go_name: GetSupportedSecurityLevels
+          returns: java.util.Set<java.lang.Integer>
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
     - java_class: android.ranging.ble.cs.BleCsRangingParams
       go_type: BleCsRangingParams
       methods:
@@ -43,6 +68,7 @@ classes:
           go_name: HashCode
           returns: int
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -54,6 +80,10 @@ classes:
           error: true
     - java_class: android.ranging.ble.cs.BleCsRangingParams$Builder
       go_type: BleCsRangingParamsBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
       methods:
         - java_method: build
           go_name: Build
@@ -87,33 +117,15 @@ classes:
               go_name: arg0
           returns: android.ranging.ble.cs.BleCsRangingParams$Builder
           error: true
-    - java_class: android.ranging.ble.cs.BleCsRangingCapabilities
-      go_type: BleCsRangingCapabilities
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getSupportedSecurityLevels
-          go_name: GetSupportedSecurityLevels
-          returns: java.util.Set<java.lang.Integer>
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
 constants:
     - go_name: Creator
       value: "0"
+      go_type: int
+    - go_name: CsSecurityLevelFour
+      value: "4"
+      go_type: int
+    - go_name: CsSecurityLevelOne
+      value: "1"
       go_type: int
     - go_name: LocationTypeIndoor
       value: "1"
@@ -132,10 +144,4 @@ constants:
       go_type: int
     - go_name: SightTypeUnknown
       value: "0"
-      go_type: int
-    - go_name: CsSecurityLevelFour
-      value: "4"
-      go_type: int
-    - go_name: CsSecurityLevelOne
-      value: "1"
       go_type: int

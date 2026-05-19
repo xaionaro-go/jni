@@ -32,6 +32,12 @@ func NewSearchRecentSuggestionsProvider(vm *jni.VM) (*SearchRecentSuggestionsPro
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSearchRecentSuggestionsProvider == nil {
+			return fmt.Errorf("android.content.SearchRecentSuggestionsProvider is not available on this device")
+		}
+		if midSearchRecentSuggestionsProviderCtor == nil {
+			return fmt.Errorf("android.content.SearchRecentSuggestionsProvider constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSearchRecentSuggestionsProvider)), midSearchRecentSuggestionsProviderCtor)
 		if err != nil {
 			return err

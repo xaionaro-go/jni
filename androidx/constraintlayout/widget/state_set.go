@@ -32,6 +32,12 @@ func NewStateSet(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*StateSet, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStateSet == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.StateSet is not available on this device")
+		}
+		if midStateSetCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.StateSet constructor (Landroid/content/Context;Lorg/xmlpull/v1/XmlPullParser;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStateSet)), midStateSetCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

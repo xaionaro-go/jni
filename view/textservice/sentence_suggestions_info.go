@@ -32,6 +32,12 @@ func NewSentenceSuggestionsInfo(vm *jni.VM, arg0 *jni.Object) (*SentenceSuggesti
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSentenceSuggestionsInfo == nil {
+			return fmt.Errorf("android.view.textservice.SentenceSuggestionsInfo is not available on this device")
+		}
+		if midSentenceSuggestionsInfoCtor == nil {
+			return fmt.Errorf("android.view.textservice.SentenceSuggestionsInfo constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSentenceSuggestionsInfo)), midSentenceSuggestionsInfoCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -181,29 +187,6 @@ func (m *SentenceSuggestionsInfo) GetSuggestionsInfoAt(arg0 int32) (*jni.Object,
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.textservice.SentenceSuggestionsInfo.writeToParcel.
-func (m *SentenceSuggestionsInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSentenceSuggestionsInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.textservice.SentenceSuggestionsInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSentenceSuggestionsInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.view.textservice.SentenceSuggestionsInfo.toString.
 func (m *SentenceSuggestionsInfo) ToString() (string, error) {
 	var result string
@@ -229,4 +212,27 @@ func (m *SentenceSuggestionsInfo) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.textservice.SentenceSuggestionsInfo.writeToParcel.
+func (m *SentenceSuggestionsInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSentenceSuggestionsInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.textservice.SentenceSuggestionsInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSentenceSuggestionsInfo)),
+			midSentenceSuggestionsInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

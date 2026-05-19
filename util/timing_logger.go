@@ -32,6 +32,12 @@ func NewTimingLogger(vm *jni.VM, arg0 string, arg1 string) (*TimingLogger, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTimingLogger == nil {
+			return fmt.Errorf("android.util.TimingLogger is not available on this device")
+		}
+		if midTimingLoggerCtor == nil {
+			return fmt.Errorf("android.util.TimingLogger constructor (Ljava/lang/String;Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

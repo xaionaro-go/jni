@@ -23,6 +23,34 @@ type MagnificationConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMagnificationConfigBuilder creates a new android.accessibilityservice.MagnificationConfig$Builder instance.
+func NewMagnificationConfigBuilder(vm *jni.VM) (*MagnificationConfigBuilder, error) {
+	var t MagnificationConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMagnificationConfigBuilder == nil {
+			return fmt.Errorf("android.accessibilityservice.MagnificationConfig$Builder is not available on this device")
+		}
+		if midMagnificationConfigBuilderCtor == nil {
+			return fmt.Errorf("android.accessibilityservice.MagnificationConfig$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMagnificationConfigBuilder)), midMagnificationConfigBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.accessibilityservice.MagnificationConfig$Builder.build.
 func (m *MagnificationConfigBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

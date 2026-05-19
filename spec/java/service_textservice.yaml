@@ -76,18 +76,6 @@ classes:
           returns: android.view.textservice.SuggestionsInfo[]
           error: true
 abstract_callbacks:
-    - java_class: android.service.textservice.SpellCheckerService
-      go_type: SpellCheckerServiceCallback
-      methods:
-        - java_method: createSession
-          params: []
-          returns: android.service.textservice.SpellCheckerService$Session
-          go_field: CreateSession
-        - java_method: onBind
-          params:
-            - android.content.Intent
-          returns: android.os.IBinder
-          go_field: OnBind
     - java_class: android.service.textservice.SpellCheckerService$Session
       go_type: SpellCheckerServiceSessionCallback
       methods:
@@ -134,6 +122,13 @@ abstract_callbacks:
             - boolean
           returns: android.view.textservice.SuggestionsInfo[]
           go_field: OnGetSuggestionsMultiple
+abstract_callback_eligibility:
+    - java_class: android.service.textservice.SpellCheckerService
+      generated: false
+      reason: non_object_superclass
+    - java_class: android.service.textservice.SpellCheckerService$Session
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
     - go_name: ServiceInterface
       value: '"android.service.textservice.SpellCheckerService"'

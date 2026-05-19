@@ -23,6 +23,40 @@ type ChangeLogsRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewChangeLogsRequestBuilder creates a new android.health.connect.changelog.ChangeLogsRequest$Builder instance.
+func NewChangeLogsRequestBuilder(vm *jni.VM, arg0 string) (*ChangeLogsRequestBuilder, error) {
+	var t ChangeLogsRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsChangeLogsRequestBuilder == nil {
+			return fmt.Errorf("android.health.connect.changelog.ChangeLogsRequest$Builder is not available on this device")
+		}
+		if midChangeLogsRequestBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.changelog.ChangeLogsRequest$Builder constructor (Ljava/lang/String;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsChangeLogsRequestBuilder)), midChangeLogsRequestBuilderCtor, jni.ObjectValue(&jArg0.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.changelog.ChangeLogsRequest$Builder.build.
 func (m *ChangeLogsRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

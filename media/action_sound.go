@@ -32,6 +32,12 @@ func NewActionSound(vm *jni.VM) (*ActionSound, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsActionSound == nil {
+			return fmt.Errorf("android.media.MediaActionSound is not available on this device")
+		}
+		if midActionSoundCtor == nil {
+			return fmt.Errorf("android.media.MediaActionSound constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActionSound)), midActionSoundCtor)
 		if err != nil {
 			return err

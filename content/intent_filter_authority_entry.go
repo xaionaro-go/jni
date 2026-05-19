@@ -23,6 +23,46 @@ type IntentFilterAuthorityEntry struct {
 	Obj *jni.GlobalRef
 }
 
+// NewIntentFilterAuthorityEntry creates a new android.content.IntentFilter$AuthorityEntry instance.
+func NewIntentFilterAuthorityEntry(vm *jni.VM, arg0 string, arg1 string) (*IntentFilterAuthorityEntry, error) {
+	var t IntentFilterAuthorityEntry
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsIntentFilterAuthorityEntry == nil {
+			return fmt.Errorf("android.content.IntentFilter$AuthorityEntry is not available on this device")
+		}
+		if midIntentFilterAuthorityEntryCtor == nil {
+			return fmt.Errorf("android.content.IntentFilter$AuthorityEntry constructor (Ljava/lang/String;Ljava/lang/String;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIntentFilterAuthorityEntry)), midIntentFilterAuthorityEntryCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(&jArg1.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.content.IntentFilter$AuthorityEntry.equals.
 func (m *IntentFilterAuthorityEntry) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

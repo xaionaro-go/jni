@@ -23,23 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsModeAction              *jni.GlobalRef
-	midModeActionCtor          jni.MethodID
-	midModeActionGetActionType jni.MethodID
-	midModeActionGetNewMode    jni.MethodID
-	midModeActionToString      jni.MethodID
-
-	clsBooleanAction              *jni.GlobalRef
-	midBooleanActionCtor          jni.MethodID
-	midBooleanActionGetActionType jni.MethodID
-	midBooleanActionGetNewState   jni.MethodID
-	midBooleanActionToString      jni.MethodID
-
-	clsCommandAction              *jni.GlobalRef
-	midCommandActionCtor          jni.MethodID
-	midCommandActionGetActionType jni.MethodID
-	midCommandActionToString      jni.MethodID
-
 	clsControlAction                  *jni.GlobalRef
 	midControlActionGetActionType     jni.MethodID
 	midControlActionGetChallengeValue jni.MethodID
@@ -47,6 +30,23 @@ var (
 	midControlActionToString          jni.MethodID
 	midControlActionGetErrorAction    jni.MethodID
 	midControlActionIsValidResponse   jni.MethodID
+
+	clsBooleanAction              *jni.GlobalRef
+	midBooleanActionCtor          jni.MethodID
+	midBooleanActionGetActionType jni.MethodID
+	midBooleanActionGetNewState   jni.MethodID
+	midBooleanActionToString      jni.MethodID
+
+	clsModeAction              *jni.GlobalRef
+	midModeActionCtor          jni.MethodID
+	midModeActionGetActionType jni.MethodID
+	midModeActionGetNewMode    jni.MethodID
+	midModeActionToString      jni.MethodID
+
+	clsCommandAction              *jni.GlobalRef
+	midCommandActionCtor          jni.MethodID
+	midCommandActionGetActionType jni.MethodID
+	midCommandActionToString      jni.MethodID
 
 	clsFloatAction              *jni.GlobalRef
 	midFloatActionCtor          jni.MethodID
@@ -72,104 +72,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("android/service/controls/actions/ModeAction")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsModeAction = env.NewGlobalRef(&c.Object)
-		midModeActionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsModeAction)), "<init>", "(Ljava/lang/String;I)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midModeActionGetActionType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsModeAction)), "getActionType", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midModeActionGetNewMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsModeAction)), "getNewMode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midModeActionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsModeAction)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/service/controls/actions/BooleanAction")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBooleanAction = env.NewGlobalRef(&c.Object)
-		midBooleanActionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBooleanAction)), "<init>", "(Ljava/lang/String;Z)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midBooleanActionGetActionType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBooleanAction)), "getActionType", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBooleanActionGetNewState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBooleanAction)), "getNewState", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBooleanActionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBooleanAction)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/service/controls/actions/CommandAction")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCommandAction = env.NewGlobalRef(&c.Object)
-		midCommandActionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCommandAction)), "<init>", "(Ljava/lang/String;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCommandActionGetActionType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCommandAction)), "getActionType", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCommandActionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCommandAction)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("android/service/controls/actions/ControlAction")
 	if err != nil {
@@ -215,6 +117,104 @@ func doInit(env *jni.Env) error {
 		}
 
 		midControlActionIsValidResponse, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsControlAction)), "isValidResponse", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/service/controls/actions/BooleanAction")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBooleanAction = env.NewGlobalRef(&c.Object)
+		midBooleanActionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBooleanAction)), "<init>", "(Ljava/lang/String;Z)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midBooleanActionGetActionType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBooleanAction)), "getActionType", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBooleanActionGetNewState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBooleanAction)), "getNewState", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBooleanActionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBooleanAction)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/service/controls/actions/ModeAction")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsModeAction = env.NewGlobalRef(&c.Object)
+		midModeActionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsModeAction)), "<init>", "(Ljava/lang/String;I)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midModeActionGetActionType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsModeAction)), "getActionType", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midModeActionGetNewMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsModeAction)), "getNewMode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midModeActionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsModeAction)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/service/controls/actions/CommandAction")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCommandAction = env.NewGlobalRef(&c.Object)
+		midCommandActionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCommandAction)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCommandActionGetActionType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCommandAction)), "getActionType", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCommandActionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCommandAction)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

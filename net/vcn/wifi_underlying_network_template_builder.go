@@ -23,6 +23,34 @@ type WifiUnderlyingNetworkTemplateBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWifiUnderlyingNetworkTemplateBuilder creates a new android.net.vcn.VcnWifiUnderlyingNetworkTemplate$Builder instance.
+func NewWifiUnderlyingNetworkTemplateBuilder(vm *jni.VM) (*WifiUnderlyingNetworkTemplateBuilder, error) {
+	var t WifiUnderlyingNetworkTemplateBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWifiUnderlyingNetworkTemplateBuilder == nil {
+			return fmt.Errorf("android.net.vcn.VcnWifiUnderlyingNetworkTemplate$Builder is not available on this device")
+		}
+		if midWifiUnderlyingNetworkTemplateBuilderCtor == nil {
+			return fmt.Errorf("android.net.vcn.VcnWifiUnderlyingNetworkTemplate$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWifiUnderlyingNetworkTemplateBuilder)), midWifiUnderlyingNetworkTemplateBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.vcn.VcnWifiUnderlyingNetworkTemplate$Builder.build.
 func (m *WifiUnderlyingNetworkTemplateBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

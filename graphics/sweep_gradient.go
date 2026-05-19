@@ -32,6 +32,12 @@ func NewSweepGradient(vm *jni.VM, arg0 float32, arg1 float32, arg2 int32, arg3 i
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSweepGradient == nil {
+			return fmt.Errorf("android.graphics.SweepGradient is not available on this device")
+		}
+		if midSweepGradientCtor == nil {
+			return fmt.Errorf("android.graphics.SweepGradient constructor (FFII)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSweepGradient)), midSweepGradientCtor, jni.FloatValue(arg0), jni.FloatValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3))
 		if err != nil {

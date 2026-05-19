@@ -32,6 +32,12 @@ func NewQuantizerMap(vm *jni.VM) (*QuantizerMap, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsQuantizerMap == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.QuantizerMap is not available on this device")
+		}
+		if midQuantizerMapCtor == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.QuantizerMap constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsQuantizerMap)), midQuantizerMapCtor)
 		if err != nil {
 			return err

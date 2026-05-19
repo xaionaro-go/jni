@@ -21,6 +21,35 @@ type VoiceInteractorConfirmationRequest struct {
 	Obj *jni.GlobalRef
 }
 
+// NewVoiceInteractorConfirmationRequest creates a new android.app.VoiceInteractor$ConfirmationRequest instance.
+func NewVoiceInteractorConfirmationRequest(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*VoiceInteractorConfirmationRequest, error) {
+	var t VoiceInteractorConfirmationRequest
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsVoiceInteractorConfirmationRequest == nil {
+			return fmt.Errorf("android.app.VoiceInteractor$ConfirmationRequest is not available on this device")
+		}
+		if midVoiceInteractorConfirmationRequestCtor == nil {
+			return fmt.Errorf("android.app.VoiceInteractor$ConfirmationRequest constructor (Landroid/app/VoiceInteractor$Prompt;Landroid/os/Bundle;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVoiceInteractorConfirmationRequest)), midVoiceInteractorConfirmationRequestCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnConfirmationResult calls android.app.VoiceInteractor$ConfirmationRequest.onConfirmationResult.
 func (m *VoiceInteractorConfirmationRequest) OnConfirmationResult(arg0 bool, arg1 *jni.Object) error {
 

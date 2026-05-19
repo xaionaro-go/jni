@@ -32,6 +32,12 @@ func NewGradientDrawable(vm *jni.VM) (*GradientDrawable, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGradientDrawable == nil {
+			return fmt.Errorf("android.graphics.drawable.GradientDrawable is not available on this device")
+		}
+		if midGradientDrawableCtor == nil {
+			return fmt.Errorf("android.graphics.drawable.GradientDrawable constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGradientDrawable)), midGradientDrawableCtor)
 		if err != nil {
 			return err

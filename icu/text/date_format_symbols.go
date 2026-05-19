@@ -32,6 +32,12 @@ func NewDateFormatSymbols(vm *jni.VM) (*DateFormatSymbols, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDateFormatSymbols == nil {
+			return fmt.Errorf("android.icu.text.DateFormatSymbols is not available on this device")
+		}
+		if midDateFormatSymbolsCtor == nil {
+			return fmt.Errorf("android.icu.text.DateFormatSymbols constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDateFormatSymbols)), midDateFormatSymbolsCtor)
 		if err != nil {
 			return err

@@ -23,6 +23,34 @@ type ApnSettingBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewApnSettingBuilder creates a new android.telephony.data.ApnSetting$Builder instance.
+func NewApnSettingBuilder(vm *jni.VM) (*ApnSettingBuilder, error) {
+	var t ApnSettingBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsApnSettingBuilder == nil {
+			return fmt.Errorf("android.telephony.data.ApnSetting$Builder is not available on this device")
+		}
+		if midApnSettingBuilderCtor == nil {
+			return fmt.Errorf("android.telephony.data.ApnSetting$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsApnSettingBuilder)), midApnSettingBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.telephony.data.ApnSetting$Builder.build.
 func (m *ApnSettingBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

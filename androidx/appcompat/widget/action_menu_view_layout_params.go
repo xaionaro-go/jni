@@ -23,6 +23,35 @@ type ActionMenuViewLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewActionMenuViewLayoutParams creates a new androidx.appcompat.widget.ActionMenuView$LayoutParams instance.
+func NewActionMenuViewLayoutParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ActionMenuViewLayoutParams, error) {
+	var t ActionMenuViewLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsActionMenuViewLayoutParams == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ActionMenuView$LayoutParams is not available on this device")
+		}
+		if midActionMenuViewLayoutParamsCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ActionMenuView$LayoutParams constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActionMenuViewLayoutParams)), midActionMenuViewLayoutParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.appcompat.widget.ActionMenuView$LayoutParams.toString.
 func (m *ActionMenuViewLayoutParams) ToString() (string, error) {
 	var result string

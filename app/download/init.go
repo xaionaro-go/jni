@@ -37,11 +37,13 @@ var (
 	midManagerGetRecommendedMaxBytesOverMobile jni.MethodID
 
 	clsManagerQuery                  *jni.GlobalRef
+	midManagerQueryCtor              jni.MethodID
 	midManagerQuerySetFilterById     jni.MethodID
 	midManagerQuerySetFilterByStatus jni.MethodID
 	midManagerQueryToString          jni.MethodID
 
 	clsManagerRequest                                  *jni.GlobalRef
+	midManagerRequestCtor                              jni.MethodID
 	midManagerRequestAddRequestHeader                  jni.MethodID
 	midManagerRequestAllowScanningByMediaScanner       jni.MethodID
 	midManagerRequestSetAllowedNetworkTypes            jni.MethodID
@@ -173,6 +175,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsManagerQuery = env.NewGlobalRef(&c.Object)
+		midManagerQueryCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerQuery)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midManagerQuerySetFilterById, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerQuery)), "setFilterById", "([J)Landroid/app/DownloadManager$Query;")
 		if err != nil {
@@ -204,6 +210,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsManagerRequest = env.NewGlobalRef(&c.Object)
+		midManagerRequestCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerRequest)), "<init>", "(Landroid/net/Uri;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midManagerRequestAddRequestHeader, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerRequest)), "addRequestHeader", "(Ljava/lang/String;Ljava/lang/String;)Landroid/app/DownloadManager$Request;")
 		if err != nil {

@@ -23,12 +23,12 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsSQLiteDatabaseKt         *jni.GlobalRef
+	midSQLiteDatabaseKtToString jni.MethodID
+
 	clsSQLiteCursorCompat                         *jni.GlobalRef
 	midSQLiteCursorCompatToString                 jni.MethodID
 	midSQLiteCursorCompatSetFillWindowForwardOnly jni.MethodID
-
-	clsSQLiteDatabaseKt         *jni.GlobalRef
-	midSQLiteDatabaseKtToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -49,6 +49,23 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
+	c, err = env.FindClass("androidx/core/database/sqlite/SQLiteDatabaseKt")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSQLiteDatabaseKt = env.NewGlobalRef(&c.Object)
+
+		midSQLiteDatabaseKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSQLiteDatabaseKt)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("androidx/core/database/sqlite/SQLiteCursorCompat")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -65,23 +82,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midSQLiteCursorCompatSetFillWindowForwardOnly, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSQLiteCursorCompat)), "setFillWindowForwardOnly", "(Landroid/database/sqlite/SQLiteCursor;Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/database/sqlite/SQLiteDatabaseKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSQLiteDatabaseKt = env.NewGlobalRef(&c.Object)
-
-		midSQLiteDatabaseKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSQLiteDatabaseKt)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

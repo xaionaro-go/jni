@@ -23,6 +23,52 @@ type PropertyMapperPropertyConflictException struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPropertyMapperPropertyConflictException creates a new android.view.inspector.PropertyMapper$PropertyConflictException instance.
+func NewPropertyMapperPropertyConflictException(vm *jni.VM, arg0 string, arg1 string, arg2 string) (*PropertyMapperPropertyConflictException, error) {
+	var t PropertyMapperPropertyConflictException
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPropertyMapperPropertyConflictException == nil {
+			return fmt.Errorf("android.view.inspector.PropertyMapper$PropertyConflictException is not available on this device")
+		}
+		if midPropertyMapperPropertyConflictExceptionCtor == nil {
+			return fmt.Errorf("android.view.inspector.PropertyMapper$PropertyConflictException constructor (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		jArg2, err := env.NewStringUTF(arg2)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg2.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPropertyMapperPropertyConflictException)), midPropertyMapperPropertyConflictExceptionCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(&jArg1.Object), jni.ObjectValue(&jArg2.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.view.inspector.PropertyMapper$PropertyConflictException.toString.
 func (m *PropertyMapperPropertyConflictException) ToString() (string, error) {
 	var result string

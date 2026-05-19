@@ -3,11 +3,11 @@
 package consts
 
 const (
+	Creator                     int = 0
 	CategoryConversationActions int = 3
 	CategoryLanguageDetection   int = 4
 	CategoryLinkify             int = 2
 	CategorySelection           int = 1
-	Creator                     int = 0
 	TypeActionsGenerated        int = 20
 	TypeActionsShown            int = 6
 	TypeAutoSelection           int = 5
@@ -29,6 +29,13 @@ const (
 	TypeSmartAction             int = 13
 	TypeSmartSelectionMulti     int = 4
 	TypeSmartSelectionSingle    int = 3
+	ApplyStrategyIgnore         int = 0
+	ApplyStrategyReplace        int = 1
+	StatusDifferentText         int = 3
+	StatusLinksApplied          int = 0
+	StatusNoLinksApplied        int = 2
+	StatusNoLinksFound          int = 1
+	StatusUnsupportedCharacter  int = 4
 	PersonUserOthers            int = 0
 	PersonUserSelf              int = 0
 	ActionAbandon               int = 107
@@ -51,16 +58,19 @@ const (
 	InvocationManual            int = 1
 	InvocationUnknown           int = 0
 	NoOp                        int = 0
-	ApplyStrategyIgnore         int = 0
-	ApplyStrategyReplace        int = 1
-	StatusDifferentText         int = 3
-	StatusLinksApplied          int = 0
-	StatusNoLinksApplied        int = 2
-	StatusNoLinksFound          int = 1
-	StatusUnsupportedCharacter  int = 4
 )
 
 const (
+	TypeCallPhone                        string = "call_phone"
+	TypeCreateReminder                   string = "create_reminder"
+	TypeOpenUrl                          string = "open_url"
+	TypeSendEmail                        string = "send_email"
+	TypeSendSms                          string = "send_sms"
+	TypeShareLocation                    string = "share_location"
+	TypeTextReply                        string = "text_reply"
+	TypeTrackFlight                      string = "track_flight"
+	TypeViewCalendar                     string = "view_calendar"
+	TypeViewMap                          string = "view_map"
 	HintForInApp                         string = "in_app"
 	HintForNotification                  string = "notification"
 	ExtraFromTextClassifier              string = "android.view.textclassifier.extra.FROM_TEXT_CLASSIFIER"
@@ -88,14 +98,4 @@ const (
 	WidgetTypeUnknown                    string = "unknown"
 	WidgetTypeUnselectableTextview       string = "nosel-textview"
 	WidgetTypeWebview                    string = "webview"
-	TypeCallPhone                        string = "call_phone"
-	TypeCreateReminder                   string = "create_reminder"
-	TypeOpenUrl                          string = "open_url"
-	TypeSendEmail                        string = "send_email"
-	TypeSendSms                          string = "send_sms"
-	TypeShareLocation                    string = "share_location"
-	TypeTextReply                        string = "text_reply"
-	TypeTrackFlight                      string = "track_flight"
-	TypeViewCalendar                     string = "view_calendar"
-	TypeViewMap                          string = "view_map"
 )

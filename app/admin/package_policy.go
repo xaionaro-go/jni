@@ -32,6 +32,12 @@ func NewPackagePolicy(vm *jni.VM, arg0 int32) (*PackagePolicy, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPackagePolicy == nil {
+			return fmt.Errorf("android.app.admin.PackagePolicy is not available on this device")
+		}
+		if midPackagePolicyCtor == nil {
+			return fmt.Errorf("android.app.admin.PackagePolicy constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPackagePolicy)), midPackagePolicyCtor, jni.IntValue(arg0))
 		if err != nil {
@@ -181,29 +187,6 @@ func (m *PackagePolicy) HashCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.admin.PackagePolicy.writeToParcel.
-func (m *PackagePolicy) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midPackagePolicyWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.admin.PackagePolicy.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midPackagePolicyWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.admin.PackagePolicy.toString.
 func (m *PackagePolicy) ToString() (string, error) {
 	var result string
@@ -229,4 +212,27 @@ func (m *PackagePolicy) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.admin.PackagePolicy.writeToParcel.
+func (m *PackagePolicy) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midPackagePolicyWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.admin.PackagePolicy.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsPackagePolicy)),
+			midPackagePolicyWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

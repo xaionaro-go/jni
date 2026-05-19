@@ -84,8 +84,8 @@ func (m *Key) Copy(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// Clone0 calls androidx.constraintlayout.motion.widget.Key.clone.
-func (m *Key) Clone0() (*jni.Object, error) {
+// Clone calls androidx.constraintlayout.motion.widget.Key.clone.
+func (m *Key) Clone() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -93,13 +93,13 @@ func (m *Key) Clone0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midKeyClone0 == nil {
+		if midKeyClone == nil {
 			callErr = fmt.Errorf("androidx.constraintlayout.motion.widget.Key.clone is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midKeyClone0,
+			midKeyClone,
 		)
 		if callErr != nil {
 			return callErr
@@ -191,38 +191,6 @@ func (m *Key) GetFramePosition() (int32, error) {
 		)
 		if callErr != nil {
 			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Clone0_1 calls androidx.constraintlayout.motion.widget.Key.clone.
-func (m *Key) Clone0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midKeyClone0_1 == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.motion.widget.Key.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midKeyClone0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
 		}
 		return callErr
 	})

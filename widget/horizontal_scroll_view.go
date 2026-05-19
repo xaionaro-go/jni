@@ -32,6 +32,12 @@ func NewHorizontalScrollView(vm *jni.VM, arg0 *jni.Object) (*HorizontalScrollVie
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsHorizontalScrollView == nil {
+			return fmt.Errorf("android.widget.HorizontalScrollView is not available on this device")
+		}
+		if midHorizontalScrollViewCtor == nil {
+			return fmt.Errorf("android.widget.HorizontalScrollView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHorizontalScrollView)), midHorizontalScrollViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

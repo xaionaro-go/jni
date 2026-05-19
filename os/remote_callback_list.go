@@ -32,6 +32,12 @@ func NewRemoteCallbackList(vm *jni.VM) (*RemoteCallbackList, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRemoteCallbackList == nil {
+			return fmt.Errorf("android.os.RemoteCallbackList is not available on this device")
+		}
+		if midRemoteCallbackListCtor == nil {
+			return fmt.Errorf("android.os.RemoteCallbackList constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRemoteCallbackList)), midRemoteCallbackListCtor)
 		if err != nil {
 			return err

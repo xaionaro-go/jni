@@ -5,16 +5,6 @@
 package: adid
 go_import: github.com/AndroidGoLab/jni/adservices/adid
 classes:
-    - java_class: android.adservices.adid.AdIdManager
-      go_type: AdIdManager
-      static_methods:
-        - java_method: get
-          go_name: Get
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: android.adservices.adid.AdIdManager
-          error: true
     - java_class: android.adservices.adid.AdId
       go_type: AdId
       obtain: constructor
@@ -46,6 +36,16 @@ classes:
         - java_method: toString
           go_name: ToString
           returns: String
+          error: true
+    - java_class: android.adservices.adid.AdIdManager
+      go_type: AdIdManager
+      static_methods:
+        - java_method: get
+          go_name: Get
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: android.adservices.adid.AdIdManager
           error: true
 constants:
     - go_name: ZeroOut

@@ -32,6 +32,12 @@ func NewExerciseRoute(vm *jni.VM, arg0 *jni.Object) (*ExerciseRoute, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsExerciseRoute == nil {
+			return fmt.Errorf("android.health.connect.datatypes.ExerciseRoute is not available on this device")
+		}
+		if midExerciseRouteCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.ExerciseRoute constructor (Ljava/util/List;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExerciseRoute)), midExerciseRouteCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -156,29 +162,6 @@ func (m *ExerciseRoute) HashCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.health.connect.datatypes.ExerciseRoute.writeToParcel.
-func (m *ExerciseRoute) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midExerciseRouteWriteToParcel == nil {
-			callErr = fmt.Errorf("android.health.connect.datatypes.ExerciseRoute.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midExerciseRouteWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.health.connect.datatypes.ExerciseRoute.toString.
 func (m *ExerciseRoute) ToString() (string, error) {
 	var result string
@@ -204,4 +187,27 @@ func (m *ExerciseRoute) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.health.connect.datatypes.ExerciseRoute.writeToParcel.
+func (m *ExerciseRoute) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midExerciseRouteWriteToParcel == nil {
+			callErr = fmt.Errorf("android.health.connect.datatypes.ExerciseRoute.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsExerciseRoute)),
+			midExerciseRouteWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

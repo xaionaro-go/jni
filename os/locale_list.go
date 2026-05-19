@@ -32,6 +32,12 @@ func NewLocaleList(vm *jni.VM, arg0 *jni.Object) (*LocaleList, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLocaleList == nil {
+			return fmt.Errorf("android.os.LocaleList is not available on this device")
+		}
+		if midLocaleListCtor == nil {
+			return fmt.Errorf("android.os.LocaleList constructor ([Ljava/util/Locale;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLocaleList)), midLocaleListCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -322,29 +328,6 @@ func (m *LocaleList) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.os.LocaleList.writeToParcel.
-func (m *LocaleList) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midLocaleListWriteToParcel == nil {
-			callErr = fmt.Errorf("android.os.LocaleList.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midLocaleListWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ForLanguageTags calls android.os.LocaleList.forLanguageTags.
 func (m *LocaleList) ForLanguageTags(arg0 string) (*jni.Object, error) {
 	var result *jni.Object
@@ -552,6 +535,29 @@ func (m *LocaleList) SetDefault(arg0 *jni.Object) error {
 		callErr = env.CallStaticVoidMethod(
 			(*jni.Class)(unsafe.Pointer(clsLocaleList)),
 			midLocaleListSetDefault, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
+}
+
+// WriteToParcel calls android.os.LocaleList.writeToParcel.
+func (m *LocaleList) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midLocaleListWriteToParcel == nil {
+			callErr = fmt.Errorf("android.os.LocaleList.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsLocaleList)),
+			midLocaleListWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr
 	})

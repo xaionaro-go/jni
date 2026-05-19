@@ -5,51 +5,6 @@
 package: wallpaper
 go_import: github.com/AndroidGoLab/jni/app/wallpaper
 classes:
-    - java_class: android.app.wallpaper.WallpaperInstance
-      go_type: Instance
-      obtain: constructor
-      constructor_params:
-        - java_type: android.app.WallpaperInfo
-          go_name: arg0
-        - java_type: android.app.wallpaper.WallpaperDescription
-          go_name: arg1
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getDescription
-          go_name: GetDescription
-          returns: android.app.wallpaper.WallpaperDescription
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: String
-          error: true
-        - java_method: getInfo
-          go_name: GetInfo
-          returns: android.app.WallpaperInfo
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
     - java_class: android.app.wallpaper.WallpaperDescription
       go_type: Description
       methods:
@@ -108,6 +63,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -119,6 +75,7 @@ classes:
           error: true
     - java_class: android.app.wallpaper.WallpaperDescription$Builder
       go_type: DescriptionBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
@@ -165,6 +122,52 @@ classes:
             - java_type: java.lang.CharSequence
               go_name: arg0
           returns: android.app.wallpaper.WallpaperDescription$Builder
+          error: true
+    - java_class: android.app.wallpaper.WallpaperInstance
+      go_type: Instance
+      obtain: constructor
+      constructor_params:
+        - java_type: android.app.WallpaperInfo
+          go_name: arg0
+        - java_type: android.app.wallpaper.WallpaperDescription
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getDescription
+          go_name: GetDescription
+          returns: android.app.wallpaper.WallpaperDescription
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: String
+          error: true
+        - java_method: getInfo
+          go_name: GetInfo
+          returns: android.app.WallpaperInfo
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
           error: true
 constants:
     - go_name: Creator

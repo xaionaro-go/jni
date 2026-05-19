@@ -4,6 +4,7 @@ package consts
 
 const (
 	Creator               int = 0
+	UuidDefault           int = 0
 	ErrorAlreadyMounted   int = 24
 	ErrorCouldNotMount    int = 21
 	ErrorCouldNotUnmount  int = 22
@@ -12,7 +13,6 @@ const (
 	ErrorPermissionDenied int = 25
 	Mounted               int = 1
 	Unmounted             int = 2
-	UuidDefault           int = 0
 )
 
 const (

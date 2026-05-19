@@ -135,29 +135,6 @@ func (m *OverlayProperties) IsMixedColorSpacesSupported() (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.hardware.OverlayProperties.writeToParcel.
-func (m *OverlayProperties) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midOverlayPropertiesWriteToParcel == nil {
-			callErr = fmt.Errorf("android.hardware.OverlayProperties.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midOverlayPropertiesWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.hardware.OverlayProperties.toString.
 func (m *OverlayProperties) ToString() (string, error) {
 	var result string
@@ -183,4 +160,27 @@ func (m *OverlayProperties) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.hardware.OverlayProperties.writeToParcel.
+func (m *OverlayProperties) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midOverlayPropertiesWriteToParcel == nil {
+			callErr = fmt.Errorf("android.hardware.OverlayProperties.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsOverlayProperties)),
+			midOverlayPropertiesWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

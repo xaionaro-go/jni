@@ -32,6 +32,12 @@ func NewSQLiteAbortException(vm *jni.VM) (*SQLiteAbortException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSQLiteAbortException == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteAbortException is not available on this device")
+		}
+		if midSQLiteAbortExceptionCtor == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteAbortException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSQLiteAbortException)), midSQLiteAbortExceptionCtor)
 		if err != nil {
 			return err

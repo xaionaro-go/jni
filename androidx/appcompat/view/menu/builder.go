@@ -32,6 +32,12 @@ func NewBuilder(vm *jni.VM, arg0 *jni.Object) (*Builder, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBuilder == nil {
+			return fmt.Errorf("androidx.appcompat.view.menu.MenuBuilder is not available on this device")
+		}
+		if midBuilderCtor == nil {
+			return fmt.Errorf("androidx.appcompat.view.menu.MenuBuilder constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBuilder)), midBuilderCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -1896,33 +1902,6 @@ func (m *Builder) GetExpandedItem() (*jni.Object, error) {
 	return result, callErr
 }
 
-// SetOverrideVisibleItems calls androidx.appcompat.view.menu.MenuBuilder.setOverrideVisibleItems.
-func (m *Builder) SetOverrideVisibleItems(arg0 bool) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBuilderSetOverrideVisibleItems == nil {
-			callErr = fmt.Errorf("androidx.appcompat.view.menu.MenuBuilder.setOverrideVisibleItems is not available on this device")
-			return callErr
-		}
-		var jArg0 uint8
-		if arg0 {
-			jArg0 = jniTrue
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midBuilderSetOverrideVisibleItems, jni.BooleanValue(jArg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.appcompat.view.menu.MenuBuilder.toString.
 func (m *Builder) ToString() (string, error) {
 	var result string
@@ -1948,4 +1927,31 @@ func (m *Builder) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// SetOverrideVisibleItems calls androidx.appcompat.view.menu.MenuBuilder.setOverrideVisibleItems.
+func (m *Builder) SetOverrideVisibleItems(arg0 bool) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midBuilderSetOverrideVisibleItems == nil {
+			callErr = fmt.Errorf("androidx.appcompat.view.menu.MenuBuilder.setOverrideVisibleItems is not available on this device")
+			return callErr
+		}
+		var jArg0 uint8
+		if arg0 {
+			jArg0 = jniTrue
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsBuilder)),
+			midBuilderSetOverrideVisibleItems, jni.BooleanValue(jArg0),
+		)
+		return callErr
+	})
+	return callErr
 }

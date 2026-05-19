@@ -32,6 +32,12 @@ func NewBottomSheetDialogFragment(vm *jni.VM) (*BottomSheetDialogFragment, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBottomSheetDialogFragment == nil {
+			return fmt.Errorf("com.google.android.material.bottomsheet.BottomSheetDialogFragment is not available on this device")
+		}
+		if midBottomSheetDialogFragmentCtor == nil {
+			return fmt.Errorf("com.google.android.material.bottomsheet.BottomSheetDialogFragment constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBottomSheetDialogFragment)), midBottomSheetDialogFragmentCtor)
 		if err != nil {
 			return err
@@ -94,28 +100,6 @@ func (m *BottomSheetDialogFragment) Dismiss() error {
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midBottomSheetDialogFragmentDismiss,
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// DismissAllowingStateLoss calls com.google.android.material.bottomsheet.BottomSheetDialogFragment.dismissAllowingStateLoss.
-func (m *BottomSheetDialogFragment) DismissAllowingStateLoss() error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBottomSheetDialogFragmentDismissAllowingStateLoss == nil {
-			callErr = fmt.Errorf("com.google.android.material.bottomsheet.BottomSheetDialogFragment.dismissAllowingStateLoss is not available on this device")
-			return callErr
-		}
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midBottomSheetDialogFragmentDismissAllowingStateLoss,
 		)
 		return callErr
 	})

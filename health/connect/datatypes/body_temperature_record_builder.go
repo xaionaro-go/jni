@@ -23,6 +23,35 @@ type BodyTemperatureRecordBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewBodyTemperatureRecordBuilder creates a new android.health.connect.datatypes.BodyTemperatureRecord$Builder instance.
+func NewBodyTemperatureRecordBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 int32, arg3 *jni.Object) (*BodyTemperatureRecordBuilder, error) {
+	var t BodyTemperatureRecordBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsBodyTemperatureRecordBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.BodyTemperatureRecord$Builder is not available on this device")
+		}
+		if midBodyTemperatureRecordBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.BodyTemperatureRecord$Builder constructor (Landroid/health/connect/datatypes/Metadata;Ljava/time/Instant;ILandroid/health/connect/datatypes/units/Temperature;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBodyTemperatureRecordBuilder)), midBodyTemperatureRecordBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2), jni.ObjectValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.datatypes.BodyTemperatureRecord$Builder.build.
 func (m *BodyTemperatureRecordBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

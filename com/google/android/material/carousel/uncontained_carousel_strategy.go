@@ -32,6 +32,12 @@ func NewUncontainedCarouselStrategy(vm *jni.VM) (*UncontainedCarouselStrategy, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsUncontainedCarouselStrategy == nil {
+			return fmt.Errorf("com.google.android.material.carousel.UncontainedCarouselStrategy is not available on this device")
+		}
+		if midUncontainedCarouselStrategyCtor == nil {
+			return fmt.Errorf("com.google.android.material.carousel.UncontainedCarouselStrategy constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUncontainedCarouselStrategy)), midUncontainedCarouselStrategyCtor)
 		if err != nil {
 			return err

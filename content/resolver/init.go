@@ -25,7 +25,7 @@ var (
 
 	clsUri                             *jni.GlobalRef
 	midUriBuildUpon                    jni.MethodID
-	midUriCompareTo1                   jni.MethodID
+	midUriCompareTo                    jni.MethodID
 	midUriEquals                       jni.MethodID
 	midUriGetAuthority                 jni.MethodID
 	midUriGetBooleanQueryParameter     jni.MethodID
@@ -55,7 +55,6 @@ var (
 	midUriIsRelative                   jni.MethodID
 	midUriNormalizeScheme              jni.MethodID
 	midUriToString                     jni.MethodID
-	midUriCompareTo1_1                 jni.MethodID
 	midUriDecode                       jni.MethodID
 	midUriEncode1                      jni.MethodID
 	midUriEncode2_1                    jni.MethodID
@@ -66,6 +65,7 @@ var (
 	midUriWriteToParcel                jni.MethodID
 
 	clsUriBuilder                     *jni.GlobalRef
+	midUriBuilderCtor                 jni.MethodID
 	midUriBuilderAppendEncodedPath    jni.MethodID
 	midUriBuilderAppendPath           jni.MethodID
 	midUriBuilderAppendQueryParameter jni.MethodID
@@ -83,6 +83,50 @@ var (
 	midUriBuilderQuery                jni.MethodID
 	midUriBuilderScheme               jni.MethodID
 	midUriBuilderToString             jni.MethodID
+
+	clsCursor                          *jni.GlobalRef
+	midCursorClose                     jni.MethodID
+	midCursorCopyStringToBuffer        jni.MethodID
+	midCursorDeactivate                jni.MethodID
+	midCursorGetBlob                   jni.MethodID
+	midCursorGetColumnCount            jni.MethodID
+	midCursorGetColumnIndex            jni.MethodID
+	midCursorGetColumnIndexOrThrow     jni.MethodID
+	midCursorGetColumnName             jni.MethodID
+	midCursorGetColumnNames            jni.MethodID
+	midCursorGetCount                  jni.MethodID
+	midCursorGetDouble                 jni.MethodID
+	midCursorGetExtras                 jni.MethodID
+	midCursorGetFloat                  jni.MethodID
+	midCursorGetInt                    jni.MethodID
+	midCursorGetLong                   jni.MethodID
+	midCursorGetNotificationUri        jni.MethodID
+	midCursorGetPosition               jni.MethodID
+	midCursorGetShort                  jni.MethodID
+	midCursorGetString                 jni.MethodID
+	midCursorGetType                   jni.MethodID
+	midCursorGetWantsAllOnMoveCalls    jni.MethodID
+	midCursorIsAfterLast               jni.MethodID
+	midCursorIsBeforeFirst             jni.MethodID
+	midCursorIsClosed                  jni.MethodID
+	midCursorIsFirst                   jni.MethodID
+	midCursorIsLast                    jni.MethodID
+	midCursorIsNull                    jni.MethodID
+	midCursorMove                      jni.MethodID
+	midCursorMoveToFirst               jni.MethodID
+	midCursorMoveToLast                jni.MethodID
+	midCursorMoveToNext                jni.MethodID
+	midCursorMoveToPosition            jni.MethodID
+	midCursorMoveToPrevious            jni.MethodID
+	midCursorRegisterContentObserver   jni.MethodID
+	midCursorRegisterDataSetObserver   jni.MethodID
+	midCursorRequery                   jni.MethodID
+	midCursorRespond                   jni.MethodID
+	midCursorSetExtras                 jni.MethodID
+	midCursorSetNotificationUri        jni.MethodID
+	midCursorUnregisterContentObserver jni.MethodID
+	midCursorUnregisterDataSetObserver jni.MethodID
+	midCursorToString                  jni.MethodID
 
 	clsContentResolver                                        *jni.GlobalRef
 	midContentResolverAcquireContentProviderClient1           jni.MethodID
@@ -161,50 +205,6 @@ var (
 	midContentResolverMimeTypeInfoGetIcon               jni.MethodID
 	midContentResolverMimeTypeInfoGetLabel              jni.MethodID
 	midContentResolverMimeTypeInfoToString              jni.MethodID
-
-	clsCursor                          *jni.GlobalRef
-	midCursorClose                     jni.MethodID
-	midCursorCopyStringToBuffer        jni.MethodID
-	midCursorDeactivate                jni.MethodID
-	midCursorGetBlob                   jni.MethodID
-	midCursorGetColumnCount            jni.MethodID
-	midCursorGetColumnIndex            jni.MethodID
-	midCursorGetColumnIndexOrThrow     jni.MethodID
-	midCursorGetColumnName             jni.MethodID
-	midCursorGetColumnNames            jni.MethodID
-	midCursorGetCount                  jni.MethodID
-	midCursorGetDouble                 jni.MethodID
-	midCursorGetExtras                 jni.MethodID
-	midCursorGetFloat                  jni.MethodID
-	midCursorGetInt                    jni.MethodID
-	midCursorGetLong                   jni.MethodID
-	midCursorGetNotificationUri        jni.MethodID
-	midCursorGetPosition               jni.MethodID
-	midCursorGetShort                  jni.MethodID
-	midCursorGetString                 jni.MethodID
-	midCursorGetType                   jni.MethodID
-	midCursorGetWantsAllOnMoveCalls    jni.MethodID
-	midCursorIsAfterLast               jni.MethodID
-	midCursorIsBeforeFirst             jni.MethodID
-	midCursorIsClosed                  jni.MethodID
-	midCursorIsFirst                   jni.MethodID
-	midCursorIsLast                    jni.MethodID
-	midCursorIsNull                    jni.MethodID
-	midCursorMove                      jni.MethodID
-	midCursorMoveToFirst               jni.MethodID
-	midCursorMoveToLast                jni.MethodID
-	midCursorMoveToNext                jni.MethodID
-	midCursorMoveToPosition            jni.MethodID
-	midCursorMoveToPrevious            jni.MethodID
-	midCursorRegisterContentObserver   jni.MethodID
-	midCursorRegisterDataSetObserver   jni.MethodID
-	midCursorRequery                   jni.MethodID
-	midCursorRespond                   jni.MethodID
-	midCursorSetExtras                 jni.MethodID
-	midCursorSetNotificationUri        jni.MethodID
-	midCursorUnregisterContentObserver jni.MethodID
-	midCursorUnregisterDataSetObserver jni.MethodID
-	midCursorToString                  jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -240,7 +240,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midUriCompareTo1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUri)), "compareTo", "(Landroid/net/Uri;)I")
+		midUriCompareTo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUri)), "compareTo", "(Landroid/net/Uri;)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -450,13 +450,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midUriCompareTo1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUri)), "compareTo", "(Ljava/lang/Object;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midUriDecode, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsUri)), "decode", "(Ljava/lang/String;)Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -522,6 +515,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsUriBuilder = env.NewGlobalRef(&c.Object)
+		midUriBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUriBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midUriBuilderAppendEncodedPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUriBuilder)), "appendEncodedPath", "(Ljava/lang/String;)Landroid/net/Uri$Builder;")
 		if err != nil {
@@ -636,6 +633,310 @@ func doInit(env *jni.Env) error {
 		}
 
 		midUriBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUriBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/database/Cursor")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCursor = env.NewGlobalRef(&c.Object)
+
+		midCursorClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "close", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorCopyStringToBuffer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "copyStringToBuffer", "(ILandroid/database/CharArrayBuffer;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorDeactivate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "deactivate", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorGetBlob, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getBlob", "(I)[B")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorGetColumnCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getColumnCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorGetColumnIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getColumnIndex", "(Ljava/lang/String;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorGetColumnIndexOrThrow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getColumnIndexOrThrow", "(Ljava/lang/String;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorGetColumnName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getColumnName", "(I)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorGetColumnNames, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getColumnNames", "()[Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorGetCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorGetDouble, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getDouble", "(I)D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getExtras", "()Landroid/os/Bundle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorGetFloat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getFloat", "(I)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorGetInt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getInt", "(I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorGetLong, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getLong", "(I)J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorGetNotificationUri, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getNotificationUri", "()Landroid/net/Uri;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorGetPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getPosition", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorGetShort, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getShort", "(I)S")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorGetString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getString", "(I)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorGetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getType", "(I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorGetWantsAllOnMoveCalls, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getWantsAllOnMoveCalls", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorIsAfterLast, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "isAfterLast", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorIsBeforeFirst, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "isBeforeFirst", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorIsClosed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "isClosed", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorIsFirst, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "isFirst", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorIsLast, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "isLast", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorIsNull, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "isNull", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorMove, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "move", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorMoveToFirst, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "moveToFirst", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorMoveToLast, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "moveToLast", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorMoveToNext, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "moveToNext", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorMoveToPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "moveToPosition", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorMoveToPrevious, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "moveToPrevious", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorRegisterContentObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "registerContentObserver", "(Landroid/database/ContentObserver;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorRegisterDataSetObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "registerDataSetObserver", "(Landroid/database/DataSetObserver;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorRequery, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "requery", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorRespond, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "respond", "(Landroid/os/Bundle;)Landroid/os/Bundle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorSetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "setExtras", "(Landroid/os/Bundle;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorSetNotificationUri, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "setNotificationUri", "(Landroid/content/ContentResolver;Landroid/net/Uri;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorUnregisterContentObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "unregisterContentObserver", "(Landroid/database/ContentObserver;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorUnregisterDataSetObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "unregisterDataSetObserver", "(Landroid/database/DataSetObserver;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1174,310 +1475,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midContentResolverMimeTypeInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContentResolverMimeTypeInfo)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/database/Cursor")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCursor = env.NewGlobalRef(&c.Object)
-
-		midCursorClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "close", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorCopyStringToBuffer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "copyStringToBuffer", "(ILandroid/database/CharArrayBuffer;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorDeactivate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "deactivate", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorGetBlob, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getBlob", "(I)[B")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorGetColumnCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getColumnCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorGetColumnIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getColumnIndex", "(Ljava/lang/String;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorGetColumnIndexOrThrow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getColumnIndexOrThrow", "(Ljava/lang/String;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorGetColumnName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getColumnName", "(I)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorGetColumnNames, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getColumnNames", "()[Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorGetCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorGetDouble, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getDouble", "(I)D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getExtras", "()Landroid/os/Bundle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorGetFloat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getFloat", "(I)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorGetInt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getInt", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorGetLong, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getLong", "(I)J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorGetNotificationUri, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getNotificationUri", "()Landroid/net/Uri;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorGetPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getPosition", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorGetShort, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getShort", "(I)S")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorGetString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getString", "(I)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorGetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getType", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorGetWantsAllOnMoveCalls, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "getWantsAllOnMoveCalls", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorIsAfterLast, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "isAfterLast", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorIsBeforeFirst, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "isBeforeFirst", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorIsClosed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "isClosed", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorIsFirst, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "isFirst", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorIsLast, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "isLast", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorIsNull, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "isNull", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorMove, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "move", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorMoveToFirst, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "moveToFirst", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorMoveToLast, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "moveToLast", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorMoveToNext, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "moveToNext", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorMoveToPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "moveToPosition", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorMoveToPrevious, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "moveToPrevious", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorRegisterContentObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "registerContentObserver", "(Landroid/database/ContentObserver;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorRegisterDataSetObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "registerDataSetObserver", "(Landroid/database/DataSetObserver;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorRequery, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "requery", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorRespond, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "respond", "(Landroid/os/Bundle;)Landroid/os/Bundle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorSetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "setExtras", "(Landroid/os/Bundle;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorSetNotificationUri, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "setNotificationUri", "(Landroid/content/ContentResolver;Landroid/net/Uri;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorUnregisterContentObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "unregisterContentObserver", "(Landroid/database/ContentObserver;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorUnregisterDataSetObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "unregisterDataSetObserver", "(Landroid/database/DataSetObserver;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursor)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

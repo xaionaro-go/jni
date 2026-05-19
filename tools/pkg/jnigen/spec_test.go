@@ -101,10 +101,9 @@ func TestLoadSpec_FileNotFound(t *testing.T) {
 }
 
 func TestLoadSpec_RealSpec(t *testing.T) {
-	// Try loading the actual spec file if available.
 	specPath := filepath.Join(findRepoRoot(t), "spec", "jni.yaml")
-	if _, err := os.Stat(specPath); os.IsNotExist(err) {
-		t.Skip("real spec file not found")
+	if _, err := os.Stat(specPath); err != nil {
+		t.Fatalf("required real spec file not found at %s: %v", specPath, err)
 	}
 	spec, err := LoadSpec(specPath)
 	if err != nil {

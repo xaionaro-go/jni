@@ -32,6 +32,12 @@ func NewMaterialAlertDialogBuilder(vm *jni.VM, arg0 *jni.Object) (*MaterialAlert
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialAlertDialogBuilder == nil {
+			return fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder is not available on this device")
+		}
+		if midMaterialAlertDialogBuilderCtor == nil {
+			return fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), midMaterialAlertDialogBuilderCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -346,8 +352,8 @@ func (m *MaterialAlertDialogBuilder) SetTitle1_1(arg0 string) (*jni.Object, erro
 	return result, callErr
 }
 
-// SetCustomTitle1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setCustomTitle.
-func (m *MaterialAlertDialogBuilder) SetCustomTitle1(arg0 *jni.Object) (*jni.Object, error) {
+// SetCustomTitle calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setCustomTitle.
+func (m *MaterialAlertDialogBuilder) SetCustomTitle(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -355,14 +361,14 @@ func (m *MaterialAlertDialogBuilder) SetCustomTitle1(arg0 *jni.Object) (*jni.Obj
 			callErr = err
 			return err
 		}
-		if midMaterialAlertDialogBuilderSetCustomTitle1 == nil {
+		if midMaterialAlertDialogBuilderSetCustomTitle == nil {
 			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setCustomTitle is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midMaterialAlertDialogBuilderSetCustomTitle1, jni.ObjectValue(arg0),
+			midMaterialAlertDialogBuilderSetCustomTitle, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -516,8 +522,8 @@ func (m *MaterialAlertDialogBuilder) SetIcon1_1(arg0 *jni.Object) (*jni.Object, 
 	return result, callErr
 }
 
-// SetIconAttribute1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setIconAttribute.
-func (m *MaterialAlertDialogBuilder) SetIconAttribute1(arg0 int32) (*jni.Object, error) {
+// SetIconAttribute calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setIconAttribute.
+func (m *MaterialAlertDialogBuilder) SetIconAttribute(arg0 int32) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -525,14 +531,14 @@ func (m *MaterialAlertDialogBuilder) SetIconAttribute1(arg0 int32) (*jni.Object,
 			callErr = err
 			return err
 		}
-		if midMaterialAlertDialogBuilderSetIconAttribute1 == nil {
+		if midMaterialAlertDialogBuilderSetIconAttribute == nil {
 			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setIconAttribute is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midMaterialAlertDialogBuilderSetIconAttribute1, jni.IntValue(arg0),
+			midMaterialAlertDialogBuilderSetIconAttribute, jni.IntValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -620,8 +626,8 @@ func (m *MaterialAlertDialogBuilder) SetPositiveButton2_1(arg0 string, arg1 *jni
 	return result, callErr
 }
 
-// SetPositiveButtonIcon1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setPositiveButtonIcon.
-func (m *MaterialAlertDialogBuilder) SetPositiveButtonIcon1(arg0 *jni.Object) (*jni.Object, error) {
+// SetPositiveButtonIcon calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setPositiveButtonIcon.
+func (m *MaterialAlertDialogBuilder) SetPositiveButtonIcon(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -629,14 +635,14 @@ func (m *MaterialAlertDialogBuilder) SetPositiveButtonIcon1(arg0 *jni.Object) (*
 			callErr = err
 			return err
 		}
-		if midMaterialAlertDialogBuilderSetPositiveButtonIcon1 == nil {
+		if midMaterialAlertDialogBuilderSetPositiveButtonIcon == nil {
 			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setPositiveButtonIcon is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midMaterialAlertDialogBuilderSetPositiveButtonIcon1, jni.ObjectValue(arg0),
+			midMaterialAlertDialogBuilderSetPositiveButtonIcon, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -724,8 +730,8 @@ func (m *MaterialAlertDialogBuilder) SetNegativeButton2_1(arg0 string, arg1 *jni
 	return result, callErr
 }
 
-// SetNegativeButtonIcon1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setNegativeButtonIcon.
-func (m *MaterialAlertDialogBuilder) SetNegativeButtonIcon1(arg0 *jni.Object) (*jni.Object, error) {
+// SetNegativeButtonIcon calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setNegativeButtonIcon.
+func (m *MaterialAlertDialogBuilder) SetNegativeButtonIcon(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -733,14 +739,14 @@ func (m *MaterialAlertDialogBuilder) SetNegativeButtonIcon1(arg0 *jni.Object) (*
 			callErr = err
 			return err
 		}
-		if midMaterialAlertDialogBuilderSetNegativeButtonIcon1 == nil {
+		if midMaterialAlertDialogBuilderSetNegativeButtonIcon == nil {
 			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setNegativeButtonIcon is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midMaterialAlertDialogBuilderSetNegativeButtonIcon1, jni.ObjectValue(arg0),
+			midMaterialAlertDialogBuilderSetNegativeButtonIcon, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -828,8 +834,8 @@ func (m *MaterialAlertDialogBuilder) SetNeutralButton2_1(arg0 string, arg1 *jni.
 	return result, callErr
 }
 
-// SetNeutralButtonIcon1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setNeutralButtonIcon.
-func (m *MaterialAlertDialogBuilder) SetNeutralButtonIcon1(arg0 *jni.Object) (*jni.Object, error) {
+// SetNeutralButtonIcon calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setNeutralButtonIcon.
+func (m *MaterialAlertDialogBuilder) SetNeutralButtonIcon(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -837,14 +843,14 @@ func (m *MaterialAlertDialogBuilder) SetNeutralButtonIcon1(arg0 *jni.Object) (*j
 			callErr = err
 			return err
 		}
-		if midMaterialAlertDialogBuilderSetNeutralButtonIcon1 == nil {
+		if midMaterialAlertDialogBuilderSetNeutralButtonIcon == nil {
 			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setNeutralButtonIcon is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midMaterialAlertDialogBuilderSetNeutralButtonIcon1, jni.ObjectValue(arg0),
+			midMaterialAlertDialogBuilderSetNeutralButtonIcon, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -861,8 +867,8 @@ func (m *MaterialAlertDialogBuilder) SetNeutralButtonIcon1(arg0 *jni.Object) (*j
 	return result, callErr
 }
 
-// SetCancelable1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setCancelable.
-func (m *MaterialAlertDialogBuilder) SetCancelable1(arg0 bool) (*jni.Object, error) {
+// SetCancelable calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setCancelable.
+func (m *MaterialAlertDialogBuilder) SetCancelable(arg0 bool) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -870,7 +876,7 @@ func (m *MaterialAlertDialogBuilder) SetCancelable1(arg0 bool) (*jni.Object, err
 			callErr = err
 			return err
 		}
-		if midMaterialAlertDialogBuilderSetCancelable1 == nil {
+		if midMaterialAlertDialogBuilderSetCancelable == nil {
 			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setCancelable is not available on this device")
 			return callErr
 		}
@@ -881,7 +887,7 @@ func (m *MaterialAlertDialogBuilder) SetCancelable1(arg0 bool) (*jni.Object, err
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midMaterialAlertDialogBuilderSetCancelable1, jni.BooleanValue(jArg0),
+			midMaterialAlertDialogBuilderSetCancelable, jni.BooleanValue(jArg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -898,8 +904,8 @@ func (m *MaterialAlertDialogBuilder) SetCancelable1(arg0 bool) (*jni.Object, err
 	return result, callErr
 }
 
-// SetOnCancelListener1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setOnCancelListener.
-func (m *MaterialAlertDialogBuilder) SetOnCancelListener1(arg0 *jni.Object) (*jni.Object, error) {
+// SetOnCancelListener calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setOnCancelListener.
+func (m *MaterialAlertDialogBuilder) SetOnCancelListener(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -907,14 +913,14 @@ func (m *MaterialAlertDialogBuilder) SetOnCancelListener1(arg0 *jni.Object) (*jn
 			callErr = err
 			return err
 		}
-		if midMaterialAlertDialogBuilderSetOnCancelListener1 == nil {
+		if midMaterialAlertDialogBuilderSetOnCancelListener == nil {
 			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setOnCancelListener is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midMaterialAlertDialogBuilderSetOnCancelListener1, jni.ObjectValue(arg0),
+			midMaterialAlertDialogBuilderSetOnCancelListener, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -931,8 +937,8 @@ func (m *MaterialAlertDialogBuilder) SetOnCancelListener1(arg0 *jni.Object) (*jn
 	return result, callErr
 }
 
-// SetOnDismissListener1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setOnDismissListener.
-func (m *MaterialAlertDialogBuilder) SetOnDismissListener1(arg0 *jni.Object) (*jni.Object, error) {
+// SetOnDismissListener calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setOnDismissListener.
+func (m *MaterialAlertDialogBuilder) SetOnDismissListener(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -940,14 +946,14 @@ func (m *MaterialAlertDialogBuilder) SetOnDismissListener1(arg0 *jni.Object) (*j
 			callErr = err
 			return err
 		}
-		if midMaterialAlertDialogBuilderSetOnDismissListener1 == nil {
+		if midMaterialAlertDialogBuilderSetOnDismissListener == nil {
 			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setOnDismissListener is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midMaterialAlertDialogBuilderSetOnDismissListener1, jni.ObjectValue(arg0),
+			midMaterialAlertDialogBuilderSetOnDismissListener, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -964,8 +970,8 @@ func (m *MaterialAlertDialogBuilder) SetOnDismissListener1(arg0 *jni.Object) (*j
 	return result, callErr
 }
 
-// SetOnKeyListener1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setOnKeyListener.
-func (m *MaterialAlertDialogBuilder) SetOnKeyListener1(arg0 *jni.Object) (*jni.Object, error) {
+// SetOnKeyListener calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setOnKeyListener.
+func (m *MaterialAlertDialogBuilder) SetOnKeyListener(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -973,14 +979,14 @@ func (m *MaterialAlertDialogBuilder) SetOnKeyListener1(arg0 *jni.Object) (*jni.O
 			callErr = err
 			return err
 		}
-		if midMaterialAlertDialogBuilderSetOnKeyListener1 == nil {
+		if midMaterialAlertDialogBuilderSetOnKeyListener == nil {
 			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setOnKeyListener is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midMaterialAlertDialogBuilderSetOnKeyListener1, jni.ObjectValue(arg0),
+			midMaterialAlertDialogBuilderSetOnKeyListener, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1063,8 +1069,8 @@ func (m *MaterialAlertDialogBuilder) SetItems2_1(arg0 *jni.Object, arg1 *jni.Obj
 	return result, callErr
 }
 
-// SetAdapter2 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setAdapter.
-func (m *MaterialAlertDialogBuilder) SetAdapter2(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
+// SetAdapter calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setAdapter.
+func (m *MaterialAlertDialogBuilder) SetAdapter(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1072,14 +1078,14 @@ func (m *MaterialAlertDialogBuilder) SetAdapter2(arg0 *jni.Object, arg1 *jni.Obj
 			callErr = err
 			return err
 		}
-		if midMaterialAlertDialogBuilderSetAdapter2 == nil {
+		if midMaterialAlertDialogBuilderSetAdapter == nil {
 			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setAdapter is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midMaterialAlertDialogBuilderSetAdapter2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midMaterialAlertDialogBuilderSetAdapter, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr
@@ -1096,8 +1102,8 @@ func (m *MaterialAlertDialogBuilder) SetAdapter2(arg0 *jni.Object, arg1 *jni.Obj
 	return result, callErr
 }
 
-// SetCursor3 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setCursor.
-func (m *MaterialAlertDialogBuilder) SetCursor3(
+// SetCursor calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setCursor.
+func (m *MaterialAlertDialogBuilder) SetCursor(
 	arg0 *jni.Object,
 	arg1 *jni.Object,
 	arg2 string,
@@ -1109,7 +1115,7 @@ func (m *MaterialAlertDialogBuilder) SetCursor3(
 			callErr = err
 			return err
 		}
-		if midMaterialAlertDialogBuilderSetCursor3 == nil {
+		if midMaterialAlertDialogBuilderSetCursor == nil {
 			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setCursor is not available on this device")
 			return callErr
 		}
@@ -1122,7 +1128,7 @@ func (m *MaterialAlertDialogBuilder) SetCursor3(
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midMaterialAlertDialogBuilderSetCursor3, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(&jArg2.Object),
+			midMaterialAlertDialogBuilderSetCursor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(&jArg2.Object),
 		)
 		if callErr != nil {
 			return callErr
@@ -1418,8 +1424,8 @@ func (m *MaterialAlertDialogBuilder) SetSingleChoiceItems3_3(
 	return result, callErr
 }
 
-// SetOnItemSelectedListener1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setOnItemSelectedListener.
-func (m *MaterialAlertDialogBuilder) SetOnItemSelectedListener1(arg0 *jni.Object) (*jni.Object, error) {
+// SetOnItemSelectedListener calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setOnItemSelectedListener.
+func (m *MaterialAlertDialogBuilder) SetOnItemSelectedListener(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1427,14 +1433,14 @@ func (m *MaterialAlertDialogBuilder) SetOnItemSelectedListener1(arg0 *jni.Object
 			callErr = err
 			return err
 		}
-		if midMaterialAlertDialogBuilderSetOnItemSelectedListener1 == nil {
+		if midMaterialAlertDialogBuilderSetOnItemSelectedListener == nil {
 			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setOnItemSelectedListener is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midMaterialAlertDialogBuilderSetOnItemSelectedListener1, jni.ObjectValue(arg0),
+			midMaterialAlertDialogBuilderSetOnItemSelectedListener, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1501,1248 +1507,6 @@ func (m *MaterialAlertDialogBuilder) SetView1_1(arg0 *jni.Object) (*jni.Object, 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
 			midMaterialAlertDialogBuilderSetView1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetView1_2 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setView.
-func (m *MaterialAlertDialogBuilder) SetView1_2(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetView1_2 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setView is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetView1_2, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetView1_3 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setView.
-func (m *MaterialAlertDialogBuilder) SetView1_3(arg0 int32) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetView1_3 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setView is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetView1_3, jni.IntValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetOnItemSelectedListener1_1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setOnItemSelectedListener.
-func (m *MaterialAlertDialogBuilder) SetOnItemSelectedListener1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetOnItemSelectedListener1_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setOnItemSelectedListener is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetOnItemSelectedListener1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetSingleChoiceItems3_4 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setSingleChoiceItems.
-func (m *MaterialAlertDialogBuilder) SetSingleChoiceItems3_4(
-	arg0 *jni.Object,
-	arg1 int32,
-	arg2 *jni.Object,
-) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetSingleChoiceItems3_4 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setSingleChoiceItems is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetSingleChoiceItems3_4, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetSingleChoiceItems3_5 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setSingleChoiceItems.
-func (m *MaterialAlertDialogBuilder) SetSingleChoiceItems3_5(
-	arg0 *jni.Object,
-	arg1 int32,
-	arg2 *jni.Object,
-) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetSingleChoiceItems3_5 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setSingleChoiceItems is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetSingleChoiceItems3_5, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetSingleChoiceItems4_6 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setSingleChoiceItems.
-func (m *MaterialAlertDialogBuilder) SetSingleChoiceItems4_6(
-	arg0 *jni.Object,
-	arg1 int32,
-	arg2 string,
-	arg3 *jni.Object,
-) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetSingleChoiceItems4_6 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setSingleChoiceItems is not available on this device")
-			return callErr
-		}
-
-		jArg2, err := env.NewStringUTF(arg2)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg2.Object)
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetSingleChoiceItems4_6, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.ObjectValue(&jArg2.Object), jni.ObjectValue(arg3),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetSingleChoiceItems3_7 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setSingleChoiceItems.
-func (m *MaterialAlertDialogBuilder) SetSingleChoiceItems3_7(
-	arg0 int32,
-	arg1 int32,
-	arg2 *jni.Object,
-) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetSingleChoiceItems3_7 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setSingleChoiceItems is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetSingleChoiceItems3_7, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetMultiChoiceItems4_3 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setMultiChoiceItems.
-func (m *MaterialAlertDialogBuilder) SetMultiChoiceItems4_3(
-	arg0 *jni.Object,
-	arg1 string,
-	arg2 string,
-	arg3 *jni.Object,
-) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetMultiChoiceItems4_3 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setMultiChoiceItems is not available on this device")
-			return callErr
-		}
-
-		jArg1, err := env.NewStringUTF(arg1)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg1.Object)
-
-		jArg2, err := env.NewStringUTF(arg2)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg2.Object)
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetMultiChoiceItems4_3, jni.ObjectValue(arg0), jni.ObjectValue(&jArg1.Object), jni.ObjectValue(&jArg2.Object), jni.ObjectValue(arg3),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetMultiChoiceItems3_4 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setMultiChoiceItems.
-func (m *MaterialAlertDialogBuilder) SetMultiChoiceItems3_4(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetMultiChoiceItems3_4 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setMultiChoiceItems is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetMultiChoiceItems3_4, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetMultiChoiceItems3_5 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setMultiChoiceItems.
-func (m *MaterialAlertDialogBuilder) SetMultiChoiceItems3_5(
-	arg0 int32,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetMultiChoiceItems3_5 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setMultiChoiceItems is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetMultiChoiceItems3_5, jni.IntValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetCursor3_1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setCursor.
-func (m *MaterialAlertDialogBuilder) SetCursor3_1(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 string,
-) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetCursor3_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setCursor is not available on this device")
-			return callErr
-		}
-
-		jArg2, err := env.NewStringUTF(arg2)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg2.Object)
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetCursor3_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(&jArg2.Object),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetAdapter2_1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setAdapter.
-func (m *MaterialAlertDialogBuilder) SetAdapter2_1(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetAdapter2_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setAdapter is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetAdapter2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetItems2_2 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setItems.
-func (m *MaterialAlertDialogBuilder) SetItems2_2(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetItems2_2 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setItems is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetItems2_2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetItems2_3 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setItems.
-func (m *MaterialAlertDialogBuilder) SetItems2_3(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetItems2_3 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setItems is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetItems2_3, jni.IntValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetOnKeyListener1_1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setOnKeyListener.
-func (m *MaterialAlertDialogBuilder) SetOnKeyListener1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetOnKeyListener1_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setOnKeyListener is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetOnKeyListener1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetOnDismissListener1_1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setOnDismissListener.
-func (m *MaterialAlertDialogBuilder) SetOnDismissListener1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetOnDismissListener1_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setOnDismissListener is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetOnDismissListener1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetOnCancelListener1_1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setOnCancelListener.
-func (m *MaterialAlertDialogBuilder) SetOnCancelListener1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetOnCancelListener1_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setOnCancelListener is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetOnCancelListener1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetCancelable1_1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setCancelable.
-func (m *MaterialAlertDialogBuilder) SetCancelable1_1(arg0 bool) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetCancelable1_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setCancelable is not available on this device")
-			return callErr
-		}
-		var jArg0 uint8
-		if arg0 {
-			jArg0 = jniTrue
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetCancelable1_1, jni.BooleanValue(jArg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetNeutralButtonIcon1_1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setNeutralButtonIcon.
-func (m *MaterialAlertDialogBuilder) SetNeutralButtonIcon1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetNeutralButtonIcon1_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setNeutralButtonIcon is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetNeutralButtonIcon1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetNeutralButton2_2 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setNeutralButton.
-func (m *MaterialAlertDialogBuilder) SetNeutralButton2_2(arg0 string, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetNeutralButton2_2 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setNeutralButton is not available on this device")
-			return callErr
-		}
-		jArg0, err := env.NewStringUTF(arg0)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg0.Object)
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetNeutralButton2_2, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetNeutralButton2_3 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setNeutralButton.
-func (m *MaterialAlertDialogBuilder) SetNeutralButton2_3(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetNeutralButton2_3 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setNeutralButton is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetNeutralButton2_3, jni.IntValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetNegativeButtonIcon1_1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setNegativeButtonIcon.
-func (m *MaterialAlertDialogBuilder) SetNegativeButtonIcon1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetNegativeButtonIcon1_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setNegativeButtonIcon is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetNegativeButtonIcon1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetNegativeButton2_2 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setNegativeButton.
-func (m *MaterialAlertDialogBuilder) SetNegativeButton2_2(arg0 string, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetNegativeButton2_2 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setNegativeButton is not available on this device")
-			return callErr
-		}
-		jArg0, err := env.NewStringUTF(arg0)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg0.Object)
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetNegativeButton2_2, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetNegativeButton2_3 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setNegativeButton.
-func (m *MaterialAlertDialogBuilder) SetNegativeButton2_3(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetNegativeButton2_3 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setNegativeButton is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetNegativeButton2_3, jni.IntValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetPositiveButtonIcon1_1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setPositiveButtonIcon.
-func (m *MaterialAlertDialogBuilder) SetPositiveButtonIcon1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetPositiveButtonIcon1_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setPositiveButtonIcon is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetPositiveButtonIcon1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetPositiveButton2_2 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setPositiveButton.
-func (m *MaterialAlertDialogBuilder) SetPositiveButton2_2(arg0 string, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetPositiveButton2_2 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setPositiveButton is not available on this device")
-			return callErr
-		}
-		jArg0, err := env.NewStringUTF(arg0)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg0.Object)
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetPositiveButton2_2, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetPositiveButton2_3 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setPositiveButton.
-func (m *MaterialAlertDialogBuilder) SetPositiveButton2_3(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetPositiveButton2_3 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setPositiveButton is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetPositiveButton2_3, jni.IntValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetIconAttribute1_1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setIconAttribute.
-func (m *MaterialAlertDialogBuilder) SetIconAttribute1_1(arg0 int32) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetIconAttribute1_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setIconAttribute is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetIconAttribute1_1, jni.IntValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetIcon1_2 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setIcon.
-func (m *MaterialAlertDialogBuilder) SetIcon1_2(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetIcon1_2 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setIcon is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetIcon1_2, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetIcon1_3 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setIcon.
-func (m *MaterialAlertDialogBuilder) SetIcon1_3(arg0 int32) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetIcon1_3 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setIcon is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetIcon1_3, jni.IntValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetMessage1_2 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setMessage.
-func (m *MaterialAlertDialogBuilder) SetMessage1_2(arg0 string) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetMessage1_2 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setMessage is not available on this device")
-			return callErr
-		}
-		jArg0, err := env.NewStringUTF(arg0)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg0.Object)
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetMessage1_2, jni.ObjectValue(&jArg0.Object),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetMessage1_3 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setMessage.
-func (m *MaterialAlertDialogBuilder) SetMessage1_3(arg0 int32) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetMessage1_3 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setMessage is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetMessage1_3, jni.IntValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetCustomTitle1_1 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setCustomTitle.
-func (m *MaterialAlertDialogBuilder) SetCustomTitle1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetCustomTitle1_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setCustomTitle is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetCustomTitle1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetTitle1_2 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setTitle.
-func (m *MaterialAlertDialogBuilder) SetTitle1_2(arg0 string) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetTitle1_2 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setTitle is not available on this device")
-			return callErr
-		}
-		jArg0, err := env.NewStringUTF(arg0)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg0.Object)
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetTitle1_2, jni.ObjectValue(&jArg0.Object),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetTitle1_3 calls com.google.android.material.dialog.MaterialAlertDialogBuilder.setTitle.
-func (m *MaterialAlertDialogBuilder) SetTitle1_3(arg0 int32) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialAlertDialogBuilderSetTitle1_3 == nil {
-			callErr = fmt.Errorf("com.google.android.material.dialog.MaterialAlertDialogBuilder.setTitle is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialAlertDialogBuilderSetTitle1_3, jni.IntValue(arg0),
 		)
 		if callErr != nil {
 			return callErr

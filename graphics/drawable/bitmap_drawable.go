@@ -32,6 +32,12 @@ func NewBitmapDrawable(vm *jni.VM) (*BitmapDrawable, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBitmapDrawable == nil {
+			return fmt.Errorf("android.graphics.drawable.BitmapDrawable is not available on this device")
+		}
+		if midBitmapDrawableCtor == nil {
+			return fmt.Errorf("android.graphics.drawable.BitmapDrawable constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBitmapDrawable)), midBitmapDrawableCtor)
 		if err != nil {
 			return err

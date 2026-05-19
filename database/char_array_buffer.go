@@ -32,6 +32,12 @@ func NewCharArrayBuffer(vm *jni.VM, arg0 *jni.Object) (*CharArrayBuffer, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCharArrayBuffer == nil {
+			return fmt.Errorf("android.database.CharArrayBuffer is not available on this device")
+		}
+		if midCharArrayBufferCtor == nil {
+			return fmt.Errorf("android.database.CharArrayBuffer constructor ([C)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCharArrayBuffer)), midCharArrayBufferCtor, jni.ObjectValue(arg0))
 		if err != nil {

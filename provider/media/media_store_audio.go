@@ -23,6 +23,34 @@ type MediaStoreAudio struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMediaStoreAudio creates a new android.provider.MediaStore$Audio instance.
+func NewMediaStoreAudio(vm *jni.VM) (*MediaStoreAudio, error) {
+	var t MediaStoreAudio
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMediaStoreAudio == nil {
+			return fmt.Errorf("android.provider.MediaStore$Audio is not available on this device")
+		}
+		if midMediaStoreAudioCtor == nil {
+			return fmt.Errorf("android.provider.MediaStore$Audio constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMediaStoreAudio)), midMediaStoreAudioCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.provider.MediaStore$Audio.toString.
 func (m *MediaStoreAudio) ToString() (string, error) {
 	var result string

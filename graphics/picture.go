@@ -32,6 +32,12 @@ func NewPicture(vm *jni.VM) (*Picture, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPicture == nil {
+			return fmt.Errorf("android.graphics.Picture is not available on this device")
+		}
+		if midPictureCtor == nil {
+			return fmt.Errorf("android.graphics.Picture constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPicture)), midPictureCtor)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewWorkDuration(vm *jni.VM) (*WorkDuration, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWorkDuration == nil {
+			return fmt.Errorf("android.os.WorkDuration is not available on this device")
+		}
+		if midWorkDurationCtor == nil {
+			return fmt.Errorf("android.os.WorkDuration constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWorkDuration)), midWorkDurationCtor)
 		if err != nil {
 			return err

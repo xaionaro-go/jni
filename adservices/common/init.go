@@ -23,26 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsAdData                 *jni.GlobalRef
-	midAdDataDescribeContents jni.MethodID
-	midAdDataEquals           jni.MethodID
-	midAdDataGetAdCounterKeys jni.MethodID
-	midAdDataGetAdFilters     jni.MethodID
-	midAdDataGetAdRenderId    jni.MethodID
-	midAdDataGetMetadata      jni.MethodID
-	midAdDataGetRenderUri     jni.MethodID
-	midAdDataHashCode         jni.MethodID
-	midAdDataToString         jni.MethodID
-	midAdDataWriteToParcel    jni.MethodID
-
-	clsAdDataBuilder              *jni.GlobalRef
-	midAdDataBuilderBuild         jni.MethodID
-	midAdDataBuilderSetAdFilters  jni.MethodID
-	midAdDataBuilderSetAdRenderId jni.MethodID
-	midAdDataBuilderSetMetadata   jni.MethodID
-	midAdDataBuilderSetRenderUri  jni.MethodID
-	midAdDataBuilderToString      jni.MethodID
-
 	clsAppInstallFilters                 *jni.GlobalRef
 	midAppInstallFiltersDescribeContents jni.MethodID
 	midAppInstallFiltersEquals           jni.MethodID
@@ -52,6 +32,7 @@ var (
 	midAppInstallFiltersWriteToParcel    jni.MethodID
 
 	clsAppInstallFiltersBuilder         *jni.GlobalRef
+	midAppInstallFiltersBuilderCtor     jni.MethodID
 	midAppInstallFiltersBuilderBuild    jni.MethodID
 	midAppInstallFiltersBuilderToString jni.MethodID
 
@@ -67,24 +48,9 @@ var (
 	midFrequencyCapFiltersWriteToParcel                            jni.MethodID
 
 	clsFrequencyCapFiltersBuilder         *jni.GlobalRef
+	midFrequencyCapFiltersBuilderCtor     jni.MethodID
 	midFrequencyCapFiltersBuilderBuild    jni.MethodID
 	midFrequencyCapFiltersBuilderToString jni.MethodID
-
-	clsAdSelectionSignals                 *jni.GlobalRef
-	midAdSelectionSignalsDescribeContents jni.MethodID
-	midAdSelectionSignalsEquals           jni.MethodID
-	midAdSelectionSignalsHashCode         jni.MethodID
-	midAdSelectionSignalsToString         jni.MethodID
-	midAdSelectionSignalsWriteToParcel    jni.MethodID
-	midAdSelectionSignalsFromString       jni.MethodID
-
-	clsAdTechIdentifier                 *jni.GlobalRef
-	midAdTechIdentifierDescribeContents jni.MethodID
-	midAdTechIdentifierEquals           jni.MethodID
-	midAdTechIdentifierHashCode         jni.MethodID
-	midAdTechIdentifierToString         jni.MethodID
-	midAdTechIdentifierWriteToParcel    jni.MethodID
-	midAdTechIdentifierFromString       jni.MethodID
 
 	clsKeyedFrequencyCap                 *jni.GlobalRef
 	midKeyedFrequencyCapDescribeContents jni.MethodID
@@ -97,11 +63,44 @@ var (
 	midKeyedFrequencyCapWriteToParcel    jni.MethodID
 
 	clsKeyedFrequencyCapBuilder                *jni.GlobalRef
+	midKeyedFrequencyCapBuilderCtor            jni.MethodID
 	midKeyedFrequencyCapBuilderBuild           jni.MethodID
 	midKeyedFrequencyCapBuilderSetAdCounterKey jni.MethodID
 	midKeyedFrequencyCapBuilderSetInterval     jni.MethodID
 	midKeyedFrequencyCapBuilderSetMaxCount     jni.MethodID
 	midKeyedFrequencyCapBuilderToString        jni.MethodID
+
+	clsAdTechIdentifier                 *jni.GlobalRef
+	midAdTechIdentifierDescribeContents jni.MethodID
+	midAdTechIdentifierEquals           jni.MethodID
+	midAdTechIdentifierHashCode         jni.MethodID
+	midAdTechIdentifierToString         jni.MethodID
+	midAdTechIdentifierFromString       jni.MethodID
+	midAdTechIdentifierWriteToParcel    jni.MethodID
+
+	clsAdData                 *jni.GlobalRef
+	midAdDataDescribeContents jni.MethodID
+	midAdDataEquals           jni.MethodID
+	midAdDataGetAdCounterKeys jni.MethodID
+	midAdDataGetAdFilters     jni.MethodID
+	midAdDataGetAdRenderId    jni.MethodID
+	midAdDataGetMetadata      jni.MethodID
+	midAdDataGetRenderUri     jni.MethodID
+	midAdDataHashCode         jni.MethodID
+	midAdDataToString         jni.MethodID
+	midAdDataWriteToParcel    jni.MethodID
+
+	clsAdDataBuilder              *jni.GlobalRef
+	midAdDataBuilderCtor          jni.MethodID
+	midAdDataBuilderBuild         jni.MethodID
+	midAdDataBuilderSetAdFilters  jni.MethodID
+	midAdDataBuilderSetAdRenderId jni.MethodID
+	midAdDataBuilderSetMetadata   jni.MethodID
+	midAdDataBuilderSetRenderUri  jni.MethodID
+	midAdDataBuilderToString      jni.MethodID
+
+	clsAdServicesOutcomeReceiver         *jni.GlobalRef
+	midAdServicesOutcomeReceiverToString jni.MethodID
 
 	clsComponentAdData                 *jni.GlobalRef
 	midComponentAdDataCtor             jni.MethodID
@@ -113,6 +112,17 @@ var (
 	midComponentAdDataToString         jni.MethodID
 	midComponentAdDataWriteToParcel    jni.MethodID
 
+	clsAdServicesPermissions         *jni.GlobalRef
+	midAdServicesPermissionsToString jni.MethodID
+
+	clsAdSelectionSignals                 *jni.GlobalRef
+	midAdSelectionSignalsDescribeContents jni.MethodID
+	midAdSelectionSignalsEquals           jni.MethodID
+	midAdSelectionSignalsHashCode         jni.MethodID
+	midAdSelectionSignalsToString         jni.MethodID
+	midAdSelectionSignalsFromString       jni.MethodID
+	midAdSelectionSignalsWriteToParcel    jni.MethodID
+
 	clsAdFilters                       *jni.GlobalRef
 	midAdFiltersDescribeContents       jni.MethodID
 	midAdFiltersEquals                 jni.MethodID
@@ -123,16 +133,11 @@ var (
 	midAdFiltersWriteToParcel          jni.MethodID
 
 	clsAdFiltersBuilder                       *jni.GlobalRef
+	midAdFiltersBuilderCtor                   jni.MethodID
 	midAdFiltersBuilderBuild                  jni.MethodID
 	midAdFiltersBuilderSetAppInstallFilters   jni.MethodID
 	midAdFiltersBuilderSetFrequencyCapFilters jni.MethodID
 	midAdFiltersBuilderToString               jni.MethodID
-
-	clsAdServicesOutcomeReceiver         *jni.GlobalRef
-	midAdServicesOutcomeReceiverToString jni.MethodID
-
-	clsAdServicesPermissions         *jni.GlobalRef
-	midAdServicesPermissionsToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -152,138 +157,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("android/adservices/common/AdData")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAdData = env.NewGlobalRef(&c.Object)
-
-		midAdDataDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdData)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdDataEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdData)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdDataGetAdCounterKeys, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdData)), "getAdCounterKeys", "()Ljava/util/Set;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdDataGetAdFilters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdData)), "getAdFilters", "()Landroid/adservices/common/AdFilters;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdDataGetAdRenderId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdData)), "getAdRenderId", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdDataGetMetadata, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdData)), "getMetadata", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdDataGetRenderUri, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdData)), "getRenderUri", "()Landroid/net/Uri;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdDataHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdData)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdDataToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdData)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdDataWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdData)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/adservices/common/AdData$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAdDataBuilder = env.NewGlobalRef(&c.Object)
-
-		midAdDataBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdDataBuilder)), "build", "()Landroid/adservices/common/AdData;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdDataBuilderSetAdFilters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdDataBuilder)), "setAdFilters", "(Landroid/adservices/common/AdFilters;)Landroid/adservices/common/AdData$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdDataBuilderSetAdRenderId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdDataBuilder)), "setAdRenderId", "(Ljava/lang/String;)Landroid/adservices/common/AdData$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdDataBuilderSetMetadata, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdDataBuilder)), "setMetadata", "(Ljava/lang/String;)Landroid/adservices/common/AdData$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdDataBuilderSetRenderUri, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdDataBuilder)), "setRenderUri", "(Landroid/net/Uri;)Landroid/adservices/common/AdData$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdDataBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdDataBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("android/adservices/common/AppInstallFilters")
 	if err != nil {
@@ -328,7 +201,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midAppInstallFiltersWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppInstallFilters)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midAppInstallFiltersWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAppInstallFilters)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -344,6 +217,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsAppInstallFiltersBuilder = env.NewGlobalRef(&c.Object)
+		midAppInstallFiltersBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppInstallFiltersBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midAppInstallFiltersBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppInstallFiltersBuilder)), "build", "()Landroid/adservices/common/AppInstallFilters;")
 		if err != nil {
@@ -425,7 +302,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midFrequencyCapFiltersWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFrequencyCapFilters)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midFrequencyCapFiltersWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsFrequencyCapFilters)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -441,6 +318,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsFrequencyCapFiltersBuilder = env.NewGlobalRef(&c.Object)
+		midFrequencyCapFiltersBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFrequencyCapFiltersBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midFrequencyCapFiltersBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFrequencyCapFiltersBuilder)), "build", "()Landroid/adservices/common/FrequencyCapFilters;")
 		if err != nil {
@@ -450,110 +331,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midFrequencyCapFiltersBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFrequencyCapFiltersBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/adservices/common/AdSelectionSignals")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAdSelectionSignals = env.NewGlobalRef(&c.Object)
-
-		midAdSelectionSignalsDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdSelectionSignals)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdSelectionSignalsEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdSelectionSignals)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdSelectionSignalsHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdSelectionSignals)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdSelectionSignalsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdSelectionSignals)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdSelectionSignalsWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdSelectionSignals)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdSelectionSignalsFromString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAdSelectionSignals)), "fromString", "(Ljava/lang/String;)Landroid/adservices/common/AdSelectionSignals;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/adservices/common/AdTechIdentifier")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAdTechIdentifier = env.NewGlobalRef(&c.Object)
-
-		midAdTechIdentifierDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdTechIdentifier)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdTechIdentifierEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdTechIdentifier)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdTechIdentifierHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdTechIdentifier)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdTechIdentifierToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdTechIdentifier)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdTechIdentifierWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdTechIdentifier)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAdTechIdentifierFromString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAdTechIdentifier)), "fromString", "(Ljava/lang/String;)Landroid/adservices/common/AdTechIdentifier;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -619,7 +396,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midKeyedFrequencyCapWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsKeyedFrequencyCap)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midKeyedFrequencyCapWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsKeyedFrequencyCap)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -635,6 +412,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsKeyedFrequencyCapBuilder = env.NewGlobalRef(&c.Object)
+		midKeyedFrequencyCapBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsKeyedFrequencyCapBuilder)), "<init>", "(IILjava/time/Duration;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midKeyedFrequencyCapBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsKeyedFrequencyCapBuilder)), "build", "()Landroid/adservices/common/KeyedFrequencyCap;")
 		if err != nil {
@@ -665,6 +446,211 @@ func doInit(env *jni.Env) error {
 		}
 
 		midKeyedFrequencyCapBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsKeyedFrequencyCapBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/adservices/common/AdTechIdentifier")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAdTechIdentifier = env.NewGlobalRef(&c.Object)
+
+		midAdTechIdentifierDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdTechIdentifier)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdTechIdentifierEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdTechIdentifier)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdTechIdentifierHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdTechIdentifier)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdTechIdentifierToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdTechIdentifier)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdTechIdentifierFromString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAdTechIdentifier)), "fromString", "(Ljava/lang/String;)Landroid/adservices/common/AdTechIdentifier;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdTechIdentifierWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAdTechIdentifier)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/adservices/common/AdData")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAdData = env.NewGlobalRef(&c.Object)
+
+		midAdDataDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdData)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdDataEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdData)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdDataGetAdCounterKeys, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdData)), "getAdCounterKeys", "()Ljava/util/Set;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdDataGetAdFilters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdData)), "getAdFilters", "()Landroid/adservices/common/AdFilters;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdDataGetAdRenderId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdData)), "getAdRenderId", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdDataGetMetadata, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdData)), "getMetadata", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdDataGetRenderUri, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdData)), "getRenderUri", "()Landroid/net/Uri;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdDataHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdData)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdDataToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdData)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdDataWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAdData)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/adservices/common/AdData$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAdDataBuilder = env.NewGlobalRef(&c.Object)
+		midAdDataBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdDataBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAdDataBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdDataBuilder)), "build", "()Landroid/adservices/common/AdData;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdDataBuilderSetAdFilters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdDataBuilder)), "setAdFilters", "(Landroid/adservices/common/AdFilters;)Landroid/adservices/common/AdData$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdDataBuilderSetAdRenderId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdDataBuilder)), "setAdRenderId", "(Ljava/lang/String;)Landroid/adservices/common/AdData$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdDataBuilderSetMetadata, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdDataBuilder)), "setMetadata", "(Ljava/lang/String;)Landroid/adservices/common/AdData$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdDataBuilderSetRenderUri, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdDataBuilder)), "setRenderUri", "(Landroid/net/Uri;)Landroid/adservices/common/AdData$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdDataBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdDataBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/adservices/common/AdServicesOutcomeReceiver")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAdServicesOutcomeReceiver = env.NewGlobalRef(&c.Object)
+
+		midAdServicesOutcomeReceiverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdServicesOutcomeReceiver)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -727,7 +713,76 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midComponentAdDataWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComponentAdData)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midComponentAdDataWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsComponentAdData)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/adservices/common/AdServicesPermissions")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAdServicesPermissions = env.NewGlobalRef(&c.Object)
+
+		midAdServicesPermissionsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdServicesPermissions)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/adservices/common/AdSelectionSignals")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAdSelectionSignals = env.NewGlobalRef(&c.Object)
+
+		midAdSelectionSignalsDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdSelectionSignals)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdSelectionSignalsEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdSelectionSignals)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdSelectionSignalsHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdSelectionSignals)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdSelectionSignalsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdSelectionSignals)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdSelectionSignalsFromString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAdSelectionSignals)), "fromString", "(Ljava/lang/String;)Landroid/adservices/common/AdSelectionSignals;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAdSelectionSignalsWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAdSelectionSignals)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -786,7 +841,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midAdFiltersWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdFilters)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midAdFiltersWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAdFilters)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -802,6 +857,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsAdFiltersBuilder = env.NewGlobalRef(&c.Object)
+		midAdFiltersBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdFiltersBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midAdFiltersBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdFiltersBuilder)), "build", "()Landroid/adservices/common/AdFilters;")
 		if err != nil {
@@ -825,40 +884,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midAdFiltersBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdFiltersBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/adservices/common/AdServicesOutcomeReceiver")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAdServicesOutcomeReceiver = env.NewGlobalRef(&c.Object)
-
-		midAdServicesOutcomeReceiverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdServicesOutcomeReceiver)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/adservices/common/AdServicesPermissions")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAdServicesPermissions = env.NewGlobalRef(&c.Object)
-
-		midAdServicesPermissionsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAdServicesPermissions)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

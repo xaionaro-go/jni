@@ -224,6 +224,43 @@ classes:
           go_name: GetConstantState
           returns: android.graphics.drawable.Drawable$ConstantState
           error: true
+      static_methods:
+        - java_method: mutate
+          go_name: Mutate
+          returns: android.graphics.drawable.Drawable
+          error: true
+    - java_class: androidx.appcompat.graphics.drawable.StateListDrawableCompat
+      go_type: StateListDrawableCompat
+      obtain: constructor
+      methods:
+        - java_method: addState
+          go_name: AddState
+          params:
+            - java_type: '[I'
+              go_name: arg0
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: isStateful
+          go_name: IsStateful
+          returns: boolean
+          error: true
+        - java_method: inflate
+          go_name: Inflate
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.res.Resources
+              go_name: arg1
+            - java_type: org.xmlpull.v1.XmlPullParser
+              go_name: arg2
+            - java_type: android.util.AttributeSet
+              go_name: arg3
+            - java_type: android.content.res.Resources$Theme
+              go_name: arg4
+          returns: void
+          error: true
         - java_method: mutate
           go_name: Mutate
           returns: android.graphics.drawable.Drawable
@@ -374,12 +411,87 @@ classes:
               go_name: arg0
           returns: void
           error: true
+      static_methods:
         - java_method: getPaint
           go_name: GetPaint
           returns: android.graphics.Paint
           error: true
     - java_class: androidx.appcompat.graphics.drawable.DrawerArrowDrawable$ArrowDirection
       go_type: DrawerArrowDrawableArrowDirection
+    - java_class: androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat
+      go_type: AnimatedStateListDrawableCompat
+      obtain: constructor
+      methods:
+        - java_method: inflate
+          go_name: Inflate
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.res.Resources
+              go_name: arg1
+            - java_type: org.xmlpull.v1.XmlPullParser
+              go_name: arg2
+            - java_type: android.util.AttributeSet
+              go_name: arg3
+            - java_type: android.content.res.Resources$Theme
+              go_name: arg4
+          returns: void
+          error: true
+        - java_method: setVisible
+          go_name: SetVisible
+          params:
+            - java_type: boolean
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: addState
+          go_name: AddState
+          params:
+            - java_type: '[I'
+              go_name: arg0
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: isStateful
+          go_name: IsStateful
+          returns: boolean
+          error: true
+        - java_method: jumpToCurrentState
+          go_name: JumpToCurrentState
+          returns: void
+          error: true
+      static_methods:
+        - java_method: create
+          go_name: Create
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.content.res.Resources$Theme
+              go_name: arg2
+          returns: androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat
+          error: true
+        - java_method: createFromXmlInner
+          go_name: CreateFromXmlInner
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.res.Resources
+              go_name: arg1
+            - java_type: org.xmlpull.v1.XmlPullParser
+              go_name: arg2
+            - java_type: android.util.AttributeSet
+              go_name: arg3
+            - java_type: android.content.res.Resources$Theme
+              go_name: arg4
+          returns: androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat
+          error: true
     - java_class: androidx.appcompat.graphics.drawable.DrawableWrapperCompat
       go_type: WrapperCompat
       obtain: constructor
@@ -585,127 +697,6 @@ classes:
           go_name: SetDrawable
           params:
             - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat
-      go_type: AnimatedStateListDrawableCompat
-      obtain: constructor
-      methods:
-        - java_method: inflate
-          go_name: Inflate
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.res.Resources
-              go_name: arg1
-            - java_type: org.xmlpull.v1.XmlPullParser
-              go_name: arg2
-            - java_type: android.util.AttributeSet
-              go_name: arg3
-            - java_type: android.content.res.Resources$Theme
-              go_name: arg4
-          returns: void
-          error: true
-        - java_method: setVisible
-          go_name: SetVisible
-          params:
-            - java_type: boolean
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: addState
-          go_name: AddState
-          params:
-            - java_type: '[I'
-              go_name: arg0
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: isStateful
-          go_name: IsStateful
-          returns: boolean
-          error: true
-        - java_method: jumpToCurrentState
-          go_name: JumpToCurrentState
-          returns: void
-          error: true
-        - java_method: mutate
-          go_name: Mutate
-          returns: android.graphics.drawable.Drawable
-          error: true
-      static_methods:
-        - java_method: create
-          go_name: Create
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.content.res.Resources$Theme
-              go_name: arg2
-          returns: androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat
-          error: true
-        - java_method: createFromXmlInner
-          go_name: CreateFromXmlInner
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.res.Resources
-              go_name: arg1
-            - java_type: org.xmlpull.v1.XmlPullParser
-              go_name: arg2
-            - java_type: android.util.AttributeSet
-              go_name: arg3
-            - java_type: android.content.res.Resources$Theme
-              go_name: arg4
-          returns: androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat
-          error: true
-    - java_class: androidx.appcompat.graphics.drawable.StateListDrawableCompat
-      go_type: StateListDrawableCompat
-      obtain: constructor
-      methods:
-        - java_method: addState
-          go_name: AddState
-          params:
-            - java_type: '[I'
-              go_name: arg0
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: isStateful
-          go_name: IsStateful
-          returns: boolean
-          error: true
-        - java_method: inflate
-          go_name: Inflate
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.res.Resources
-              go_name: arg1
-            - java_type: org.xmlpull.v1.XmlPullParser
-              go_name: arg2
-            - java_type: android.util.AttributeSet
-              go_name: arg3
-            - java_type: android.content.res.Resources$Theme
-              go_name: arg4
-          returns: void
-          error: true
-        - java_method: mutate
-          go_name: Mutate
-          returns: android.graphics.drawable.Drawable
-          error: true
-        - java_method: applyTheme
-          go_name: ApplyTheme
-          params:
-            - java_type: android.content.res.Resources$Theme
               go_name: arg0
           returns: void
           error: true

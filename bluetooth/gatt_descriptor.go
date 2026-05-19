@@ -32,6 +32,12 @@ func NewGattDescriptor(vm *jni.VM, arg0 *jni.Object, arg1 int32) (*GattDescripto
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGattDescriptor == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothGattDescriptor is not available on this device")
+		}
+		if midGattDescriptorCtor == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothGattDescriptor constructor (Ljava/util/UUID;I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGattDescriptor)), midGattDescriptorCtor, jni.ObjectValue(arg0), jni.IntValue(arg1))
 		if err != nil {
@@ -220,29 +226,6 @@ func (m *GattDescriptor) SetValue(arg0 *jni.Object) (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.bluetooth.BluetoothGattDescriptor.writeToParcel.
-func (m *GattDescriptor) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midGattDescriptorWriteToParcel == nil {
-			callErr = fmt.Errorf("android.bluetooth.BluetoothGattDescriptor.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midGattDescriptorWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.bluetooth.BluetoothGattDescriptor.toString.
 func (m *GattDescriptor) ToString() (string, error) {
 	var result string
@@ -268,4 +251,27 @@ func (m *GattDescriptor) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.bluetooth.BluetoothGattDescriptor.writeToParcel.
+func (m *GattDescriptor) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midGattDescriptorWriteToParcel == nil {
+			callErr = fmt.Errorf("android.bluetooth.BluetoothGattDescriptor.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsGattDescriptor)),
+			midGattDescriptorWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

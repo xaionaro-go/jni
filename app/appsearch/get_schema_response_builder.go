@@ -23,6 +23,34 @@ type GetSchemaResponseBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGetSchemaResponseBuilder creates a new android.app.appsearch.GetSchemaResponse$Builder instance.
+func NewGetSchemaResponseBuilder(vm *jni.VM) (*GetSchemaResponseBuilder, error) {
+	var t GetSchemaResponseBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGetSchemaResponseBuilder == nil {
+			return fmt.Errorf("android.app.appsearch.GetSchemaResponse$Builder is not available on this device")
+		}
+		if midGetSchemaResponseBuilderCtor == nil {
+			return fmt.Errorf("android.app.appsearch.GetSchemaResponse$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGetSchemaResponseBuilder)), midGetSchemaResponseBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddSchema calls android.app.appsearch.GetSchemaResponse$Builder.addSchema.
 func (m *GetSchemaResponseBuilder) AddSchema(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewDownloadSessionCallback(vm *jni.VM) (*DownloadSessionCallback, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDownloadSessionCallback == nil {
+			return fmt.Errorf("android.telephony.mbms.MbmsDownloadSessionCallback is not available on this device")
+		}
+		if midDownloadSessionCallbackCtor == nil {
+			return fmt.Errorf("android.telephony.mbms.MbmsDownloadSessionCallback constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDownloadSessionCallback)), midDownloadSessionCallbackCtor)
 		if err != nil {
 			return err

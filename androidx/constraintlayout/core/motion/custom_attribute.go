@@ -32,6 +32,12 @@ func NewCustomAttribute(vm *jni.VM, arg0 string, arg1 *jni.Object) (*CustomAttri
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCustomAttribute == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.CustomAttribute is not available on this device")
+		}
+		if midCustomAttributeCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.CustomAttribute constructor (Ljava/lang/String;Landroidx/constraintlayout/core/motion/CustomAttribute$AttributeType;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

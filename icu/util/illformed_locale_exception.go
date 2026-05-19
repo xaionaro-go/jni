@@ -32,6 +32,12 @@ func NewIllformedLocaleException(vm *jni.VM) (*IllformedLocaleException, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsIllformedLocaleException == nil {
+			return fmt.Errorf("android.icu.util.IllformedLocaleException is not available on this device")
+		}
+		if midIllformedLocaleExceptionCtor == nil {
+			return fmt.Errorf("android.icu.util.IllformedLocaleException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIllformedLocaleException)), midIllformedLocaleExceptionCtor)
 		if err != nil {
 			return err

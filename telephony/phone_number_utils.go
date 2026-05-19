@@ -32,6 +32,12 @@ func NewPhoneNumberUtils(vm *jni.VM) (*PhoneNumberUtils, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPhoneNumberUtils == nil {
+			return fmt.Errorf("android.telephony.PhoneNumberUtils is not available on this device")
+		}
+		if midPhoneNumberUtilsCtor == nil {
+			return fmt.Errorf("android.telephony.PhoneNumberUtils constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPhoneNumberUtils)), midPhoneNumberUtilsCtor)
 		if err != nil {
 			return err

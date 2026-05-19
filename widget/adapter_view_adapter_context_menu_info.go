@@ -23,6 +23,35 @@ type AdapterViewAdapterContextMenuInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAdapterViewAdapterContextMenuInfo creates a new android.widget.AdapterView$AdapterContextMenuInfo instance.
+func NewAdapterViewAdapterContextMenuInfo(vm *jni.VM, arg0 *jni.Object, arg1 int32, arg2 int64) (*AdapterViewAdapterContextMenuInfo, error) {
+	var t AdapterViewAdapterContextMenuInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAdapterViewAdapterContextMenuInfo == nil {
+			return fmt.Errorf("android.widget.AdapterView$AdapterContextMenuInfo is not available on this device")
+		}
+		if midAdapterViewAdapterContextMenuInfoCtor == nil {
+			return fmt.Errorf("android.widget.AdapterView$AdapterContextMenuInfo constructor (Landroid/view/View;IJ)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAdapterViewAdapterContextMenuInfo)), midAdapterViewAdapterContextMenuInfoCtor, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.LongValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.widget.AdapterView$AdapterContextMenuInfo.toString.
 func (m *AdapterViewAdapterContextMenuInfo) ToString() (string, error) {
 	var result string

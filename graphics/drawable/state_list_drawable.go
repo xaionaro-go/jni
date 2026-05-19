@@ -32,6 +32,12 @@ func NewStateListDrawable(vm *jni.VM) (*StateListDrawable, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStateListDrawable == nil {
+			return fmt.Errorf("android.graphics.drawable.StateListDrawable is not available on this device")
+		}
+		if midStateListDrawableCtor == nil {
+			return fmt.Errorf("android.graphics.drawable.StateListDrawable constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStateListDrawable)), midStateListDrawableCtor)
 		if err != nil {
 			return err

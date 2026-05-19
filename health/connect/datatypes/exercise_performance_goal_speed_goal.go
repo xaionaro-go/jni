@@ -23,6 +23,35 @@ type ExercisePerformanceGoalSpeedGoal struct {
 	Obj *jni.GlobalRef
 }
 
+// NewExercisePerformanceGoalSpeedGoal creates a new android.health.connect.datatypes.ExercisePerformanceGoal$SpeedGoal instance.
+func NewExercisePerformanceGoalSpeedGoal(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ExercisePerformanceGoalSpeedGoal, error) {
+	var t ExercisePerformanceGoalSpeedGoal
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsExercisePerformanceGoalSpeedGoal == nil {
+			return fmt.Errorf("android.health.connect.datatypes.ExercisePerformanceGoal$SpeedGoal is not available on this device")
+		}
+		if midExercisePerformanceGoalSpeedGoalCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.ExercisePerformanceGoal$SpeedGoal constructor (Landroid/health/connect/datatypes/units/Velocity;Landroid/health/connect/datatypes/units/Velocity;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExercisePerformanceGoalSpeedGoal)), midExercisePerformanceGoalSpeedGoalCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.health.connect.datatypes.ExercisePerformanceGoal$SpeedGoal.equals.
 func (m *ExercisePerformanceGoalSpeedGoal) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

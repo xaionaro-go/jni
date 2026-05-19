@@ -32,6 +32,12 @@ func NewBooleanAction(vm *jni.VM, arg0 string, arg1 bool) (*BooleanAction, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBooleanAction == nil {
+			return fmt.Errorf("android.service.controls.actions.BooleanAction is not available on this device")
+		}
+		if midBooleanActionCtor == nil {
+			return fmt.Errorf("android.service.controls.actions.BooleanAction constructor (Ljava/lang/String;Z)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

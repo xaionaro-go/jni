@@ -32,6 +32,12 @@ func NewKeyboardView(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*KeyboardV
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsKeyboardView == nil {
+			return fmt.Errorf("android.inputmethodservice.KeyboardView is not available on this device")
+		}
+		if midKeyboardViewCtor == nil {
+			return fmt.Errorf("android.inputmethodservice.KeyboardView constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyboardView)), midKeyboardViewCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

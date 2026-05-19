@@ -83,31 +83,6 @@ func (m *HydrationRecord) GetVolume() (*jni.Object, error) {
 	return result, callErr
 }
 
-// HashCode calls android.health.connect.datatypes.HydrationRecord.hashCode.
-func (m *HydrationRecord) HashCode() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midHydrationRecordHashCode == nil {
-			callErr = fmt.Errorf("android.health.connect.datatypes.HydrationRecord.hashCode is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midHydrationRecordHashCode,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.health.connect.datatypes.HydrationRecord.toString.
 func (m *HydrationRecord) ToString() (string, error) {
 	var result string
@@ -130,6 +105,31 @@ func (m *HydrationRecord) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// HashCode calls android.health.connect.datatypes.HydrationRecord.hashCode.
+func (m *HydrationRecord) HashCode() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midHydrationRecordHashCode == nil {
+			callErr = fmt.Errorf("android.health.connect.datatypes.HydrationRecord.hashCode is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsHydrationRecord)),
+			midHydrationRecordHashCode,
+		)
+		if callErr != nil {
+			return callErr
+		}
 		return callErr
 	})
 	return result, callErr

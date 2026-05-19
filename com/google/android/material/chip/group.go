@@ -32,6 +32,12 @@ func NewGroup(vm *jni.VM, arg0 *jni.Object) (*Group, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGroup == nil {
+			return fmt.Errorf("com.google.android.material.chip.ChipGroup is not available on this device")
+		}
+		if midGroupCtor == nil {
+			return fmt.Errorf("com.google.android.material.chip.ChipGroup constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGroup)), midGroupCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -755,33 +761,6 @@ func (m *Group) SetSelectionRequired(arg0 bool) error {
 		return callErr
 	})
 	return callErr
-}
-
-// IsSelectionRequired calls com.google.android.material.chip.ChipGroup.isSelectionRequired.
-func (m *Group) IsSelectionRequired() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midGroupIsSelectionRequired == nil {
-			callErr = fmt.Errorf("com.google.android.material.chip.ChipGroup.isSelectionRequired is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midGroupIsSelectionRequired,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls com.google.android.material.chip.ChipGroup.toString.

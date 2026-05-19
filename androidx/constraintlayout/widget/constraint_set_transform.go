@@ -23,27 +23,32 @@ type ConstraintSetTransform struct {
 	Obj *jni.GlobalRef
 }
 
-// CopyFrom calls androidx.constraintlayout.widget.ConstraintSet$Transform.copyFrom.
-func (m *ConstraintSetTransform) CopyFrom(arg0 *jni.Object) error {
+// NewConstraintSetTransform creates a new androidx.constraintlayout.widget.ConstraintSet$Transform instance.
+func NewConstraintSetTransform(vm *jni.VM) (*ConstraintSetTransform, error) {
+	var t ConstraintSetTransform
+	t.VM = vm
 
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
+	err := vm.Do(func(env *jni.Env) error {
 		if err := ensureInit(env); err != nil {
-			callErr = err
 			return err
 		}
-		if midConstraintSetTransformCopyFrom == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet$Transform.copyFrom is not available on this device")
-			return callErr
+		if clsConstraintSetTransform == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet$Transform is not available on this device")
 		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midConstraintSetTransformCopyFrom, jni.ObjectValue(arg0),
-		)
-		return callErr
+		if midConstraintSetTransformCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet$Transform constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConstraintSetTransform)), midConstraintSetTransformCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
 	})
-	return callErr
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
 }
 
 // ToString calls androidx.constraintlayout.widget.ConstraintSet$Transform.toString.
@@ -71,4 +76,27 @@ func (m *ConstraintSetTransform) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// CopyFrom calls androidx.constraintlayout.widget.ConstraintSet$Transform.copyFrom.
+func (m *ConstraintSetTransform) CopyFrom(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midConstraintSetTransformCopyFrom == nil {
+			callErr = fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet$Transform.copyFrom is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsConstraintSetTransform)),
+			midConstraintSetTransformCopyFrom, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

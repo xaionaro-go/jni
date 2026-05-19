@@ -6,9 +6,9 @@ import "github.com/AndroidGoLab/jni/adservices/adselection/consts"
 
 const (
 	Creator                                 = consts.Creator
-	NoOutcome                               = consts.NoOutcome
+	Empty                                   = consts.Empty
 	FlagReportingDestinationBuyer           = consts.FlagReportingDestinationBuyer
 	FlagReportingDestinationComponentSeller = consts.FlagReportingDestinationComponentSeller
 	FlagReportingDestinationSeller          = consts.FlagReportingDestinationSeller
-	Empty                                   = consts.Empty
+	NoOutcome                               = consts.NoOutcome
 )

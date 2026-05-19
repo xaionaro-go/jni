@@ -80,14 +80,14 @@ func TestParseRejectsUnknownType(t *testing.T) {
 
 func TestParseRejectsMalformedShape(t *testing.T) {
 	cases := map[string]string{
-		"missing-hex":          "int layout activity_main",
-		"trailing-junk":        "int layout activity_main 0x1 extra",
-		"non-hex":              "int layout activity_main notahex",
-		"missing-prefix":       "layout activity_main 0x1",
-		"empty-array-value":    "int[] styleable AppBar { ,0x1 }",
-		"unclosed-array":       "int[] styleable AppBar { 0x1, 0x2",
-		"non-styleable-array":  "int[] attr foo { 0x1 }",
-		"non-hex-array-value":  "int[] styleable AppBar { 0x1, 42 }",
+		"missing-hex":         "int layout activity_main",
+		"trailing-junk":       "int layout activity_main 0x1 extra",
+		"non-hex":             "int layout activity_main notahex",
+		"missing-prefix":      "layout activity_main 0x1",
+		"empty-array-value":   "int[] styleable AppBar { ,0x1 }",
+		"unclosed-array":      "int[] styleable AppBar { 0x1, 0x2",
+		"non-styleable-array": "int[] attr foo { 0x1 }",
+		"non-hex-array-value": "int[] styleable AppBar { 0x1, 42 }",
 	}
 	for name, line := range cases {
 		t.Run(name, func(t *testing.T) {
@@ -214,37 +214,24 @@ func TestEmitRejectsEmptyPrefix(t *testing.T) {
 	}
 }
 
-func TestRoundTripRealRFile(t *testing.T) {
-	// Locate the real R.txt produced by the cycle-3 Material build. The test
-	// package lives at tools/pkg/rconsts; the example is at
-	// examples/_material_smoke/build/R.txt relative to the repo root.
-	wd, err := os.Getwd()
+func TestRoundTripRepresentativeRFile(t *testing.T) {
+	rTxt, err := os.Open(filepath.Join("testdata", "material_smoke_representative_R.txt"))
 	if err != nil {
-		t.Fatalf("getwd: %v", err)
+		t.Fatalf("open representative R.txt fixture: %v", err)
 	}
-	repoRoot := filepath.Clean(filepath.Join(wd, "..", "..", ".."))
-	rTxt := filepath.Join(repoRoot, "examples", "_material_smoke", "build", "R.txt")
-	if _, statErr := os.Stat(rTxt); os.IsNotExist(statErr) {
-		t.Skipf("R.txt not present at %s; cycle-3 build has not run", rTxt)
-	}
+	defer func() { _ = rTxt.Close() }()
 
-	f, err := os.Open(rTxt)
+	entries, err := Parse(rTxt)
 	if err != nil {
-		t.Fatalf("open R.txt: %v", err)
-	}
-	defer func() { _ = f.Close() }()
-
-	entries, err := Parse(f)
-	if err != nil {
-		t.Fatalf("Parse real R.txt: %v", err)
+		t.Fatalf("Parse representative R.txt: %v", err)
 	}
 	if len(entries) == 0 {
-		t.Fatalf("real R.txt yielded zero entries")
+		t.Fatalf("representative R.txt yielded zero entries")
 	}
 
 	var buf bytes.Buffer
 	if err := Emit(entries, "rgen", "R_", &buf); err != nil {
-		t.Fatalf("Emit real R.txt: %v", err)
+		t.Fatalf("Emit representative R.txt: %v", err)
 	}
 
 	// Persist the generated file in a throwaway module and run go vet against

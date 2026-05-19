@@ -32,6 +32,12 @@ func NewAbsoluteSizeSpan(vm *jni.VM, arg0 *jni.Object) (*AbsoluteSizeSpan, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAbsoluteSizeSpan == nil {
+			return fmt.Errorf("android.text.style.AbsoluteSizeSpan is not available on this device")
+		}
+		if midAbsoluteSizeSpanCtor == nil {
+			return fmt.Errorf("android.text.style.AbsoluteSizeSpan constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAbsoluteSizeSpan)), midAbsoluteSizeSpanCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -23,6 +23,34 @@ type StorageInfoBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewStorageInfoBuilder creates a new android.app.appsearch.StorageInfo$Builder instance.
+func NewStorageInfoBuilder(vm *jni.VM) (*StorageInfoBuilder, error) {
+	var t StorageInfoBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsStorageInfoBuilder == nil {
+			return fmt.Errorf("android.app.appsearch.StorageInfo$Builder is not available on this device")
+		}
+		if midStorageInfoBuilderCtor == nil {
+			return fmt.Errorf("android.app.appsearch.StorageInfo$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStorageInfoBuilder)), midStorageInfoBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.app.appsearch.StorageInfo$Builder.build.
 func (m *StorageInfoBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

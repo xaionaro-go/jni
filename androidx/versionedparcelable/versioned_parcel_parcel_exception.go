@@ -23,6 +23,35 @@ type VersionedParcelParcelException struct {
 	Obj *jni.GlobalRef
 }
 
+// NewVersionedParcelParcelException creates a new androidx.versionedparcelable.VersionedParcel$ParcelException instance.
+func NewVersionedParcelParcelException(vm *jni.VM, arg0 *jni.Object) (*VersionedParcelParcelException, error) {
+	var t VersionedParcelParcelException
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsVersionedParcelParcelException == nil {
+			return fmt.Errorf("androidx.versionedparcelable.VersionedParcel$ParcelException is not available on this device")
+		}
+		if midVersionedParcelParcelExceptionCtor == nil {
+			return fmt.Errorf("androidx.versionedparcelable.VersionedParcel$ParcelException constructor (Ljava/lang/Throwable;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVersionedParcelParcelException)), midVersionedParcelParcelExceptionCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.versionedparcelable.VersionedParcel$ParcelException.toString.
 func (m *VersionedParcelParcelException) ToString() (string, error) {
 	var result string

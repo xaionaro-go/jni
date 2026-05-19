@@ -4,25 +4,25 @@ package consts
 
 const (
 	Creator                    int = 0
-	ResultDisabled             int = 2
-	ResultDisallow             int = 7
-	ResultInternalError        int = 9
-	ResultInvalidRequest       int = 8
+	ResultDisallow             int = 4
+	ResultInternalError        int = 6
+	ResultInvalidRequest       int = 5
 	ResultOk                   int = 0
-	ResultRequireAppPermission int = 5
-	ResultRequireUserConsent   int = 6
-	ResultRestricted           int = 3
-	ResultUnavailable          int = 4
+	ResultRequireAppPermission int = 3
+	ResultUnavailable          int = 2
 	ResultUnsupported          int = 1
-	DeeplinkOnly               int = 2
-	ExpectPostConfirmation     int = 1
-	NoDirectAccess             int = 3
-	NoSensitivity              int = 0
 	TypeBoolean                int = 0
 	TypeDouble                 int = 2
 	TypeInt                    int = 4
 	TypeLong                   int = 1
 	TypeString                 int = 3
+	ResultDisabled             int = 2
+	ResultRequireUserConsent   int = 6
+	ResultRestricted           int = 3
+	DeeplinkOnly               int = 2
+	ExpectPostConfirmation     int = 1
+	NoDirectAccess             int = 3
+	NoSensitivity              int = 0
 )
 
 const (

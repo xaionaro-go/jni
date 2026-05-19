@@ -23,6 +23,34 @@ type ViewPagerSimpleOnPageChangeListener struct {
 	Obj *jni.GlobalRef
 }
 
+// NewViewPagerSimpleOnPageChangeListener creates a new androidx.viewpager.widget.ViewPager$SimpleOnPageChangeListener instance.
+func NewViewPagerSimpleOnPageChangeListener(vm *jni.VM) (*ViewPagerSimpleOnPageChangeListener, error) {
+	var t ViewPagerSimpleOnPageChangeListener
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsViewPagerSimpleOnPageChangeListener == nil {
+			return fmt.Errorf("androidx.viewpager.widget.ViewPager$SimpleOnPageChangeListener is not available on this device")
+		}
+		if midViewPagerSimpleOnPageChangeListenerCtor == nil {
+			return fmt.Errorf("androidx.viewpager.widget.ViewPager$SimpleOnPageChangeListener constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewPagerSimpleOnPageChangeListener)), midViewPagerSimpleOnPageChangeListenerCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnPageScrolled calls androidx.viewpager.widget.ViewPager$SimpleOnPageChangeListener.onPageScrolled.
 func (m *ViewPagerSimpleOnPageChangeListener) OnPageScrolled(
 	arg0 int32,

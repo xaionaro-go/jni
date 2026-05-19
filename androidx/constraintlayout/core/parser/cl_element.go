@@ -32,6 +32,12 @@ func NewCLElement(vm *jni.VM, arg0 *jni.Object) (*CLElement, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCLElement == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.parser.CLElement is not available on this device")
+		}
+		if midCLElementCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.parser.CLElement constructor ([C)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCLElement)), midCLElementCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -418,8 +424,8 @@ func (m *CLElement) GetFloat() (float32, error) {
 			callErr = fmt.Errorf("androidx.constraintlayout.core.parser.CLElement.getFloat is not available on this device")
 			return callErr
 		}
-		result, callErr = env.CallFloatMethod(
-			m.Obj,
+		result, callErr = env.CallStaticFloatMethod(
+			(*jni.Class)(unsafe.Pointer(clsCLElement)),
 			midCLElementGetFloat,
 		)
 		if callErr != nil {

@@ -32,6 +32,12 @@ func NewUserDictionary(vm *jni.VM) (*UserDictionary, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsUserDictionary == nil {
+			return fmt.Errorf("android.provider.UserDictionary is not available on this device")
+		}
+		if midUserDictionaryCtor == nil {
+			return fmt.Errorf("android.provider.UserDictionary constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUserDictionary)), midUserDictionaryCtor)
 		if err != nil {
 			return err

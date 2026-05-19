@@ -32,6 +32,12 @@ func NewSlide(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Slide, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSlide == nil {
+			return fmt.Errorf("androidx.transition.Slide is not available on this device")
+		}
+		if midSlideCtor == nil {
+			return fmt.Errorf("androidx.transition.Slide constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSlide)), midSlideCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -205,44 +211,6 @@ func (m *Slide) OnAppear(
 	return result, callErr
 }
 
-// OnDisappear calls androidx.transition.Slide.onDisappear.
-func (m *Slide) OnDisappear(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-	arg3 *jni.Object,
-) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSlideOnDisappear == nil {
-			callErr = fmt.Errorf("androidx.transition.Slide.onDisappear is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midSlideOnDisappear, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.transition.Slide.toString.
 func (m *Slide) ToString() (string, error) {
 	var result string
@@ -265,6 +233,44 @@ func (m *Slide) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// OnDisappear calls androidx.transition.Slide.onDisappear.
+func (m *Slide) OnDisappear(
+	arg0 *jni.Object,
+	arg1 *jni.Object,
+	arg2 *jni.Object,
+	arg3 *jni.Object,
+) (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSlideOnDisappear == nil {
+			callErr = fmt.Errorf("androidx.transition.Slide.onDisappear is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsSlide)),
+			midSlideOnDisappear, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
 		return callErr
 	})
 	return result, callErr

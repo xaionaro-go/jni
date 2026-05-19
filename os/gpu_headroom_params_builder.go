@@ -23,6 +23,34 @@ type GpuHeadroomParamsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGpuHeadroomParamsBuilder creates a new android.os.GpuHeadroomParams$Builder instance.
+func NewGpuHeadroomParamsBuilder(vm *jni.VM) (*GpuHeadroomParamsBuilder, error) {
+	var t GpuHeadroomParamsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGpuHeadroomParamsBuilder == nil {
+			return fmt.Errorf("android.os.GpuHeadroomParams$Builder is not available on this device")
+		}
+		if midGpuHeadroomParamsBuilderCtor == nil {
+			return fmt.Errorf("android.os.GpuHeadroomParams$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGpuHeadroomParamsBuilder)), midGpuHeadroomParamsBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.os.GpuHeadroomParams$Builder.build.
 func (m *GpuHeadroomParamsBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

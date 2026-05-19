@@ -23,22 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsRenderer                      *jni.GlobalRef
-	midRendererCtor                  jni.MethodID
-	midRendererSetShadowColor        jni.MethodID
-	midRendererDrawEdgeShadow        jni.MethodID
-	midRendererDrawCornerShadow      jni.MethodID
-	midRendererDrawInnerCornerShadow jni.MethodID
-	midRendererGetShadowPaint        jni.MethodID
-	midRendererToString              jni.MethodID
-
-	clsViewDelegate                       *jni.GlobalRef
-	midViewDelegateGetRadius              jni.MethodID
-	midViewDelegateSetShadowPadding       jni.MethodID
-	midViewDelegateSetBackgroundDrawable  jni.MethodID
-	midViewDelegateIsCompatPaddingEnabled jni.MethodID
-	midViewDelegateToString               jni.MethodID
-
 	clsDrawableWrapper                           *jni.GlobalRef
 	midDrawableWrapperCtor                       jni.MethodID
 	midDrawableWrapperSetAddPaddingForCorners    jni.MethodID
@@ -55,10 +39,26 @@ var (
 	midDrawableWrapperSetMaxShadowSize           jni.MethodID
 	midDrawableWrapperGetMaxShadowSize           jni.MethodID
 	midDrawableWrapperGetMinWidth                jni.MethodID
-	midDrawableWrapperGetMinHeight               jni.MethodID
 	midDrawableWrapperToString                   jni.MethodID
 	midDrawableWrapperCalculateVerticalPadding   jni.MethodID
 	midDrawableWrapperCalculateHorizontalPadding jni.MethodID
+	midDrawableWrapperGetMinHeight               jni.MethodID
+
+	clsViewDelegate                       *jni.GlobalRef
+	midViewDelegateGetRadius              jni.MethodID
+	midViewDelegateSetShadowPadding       jni.MethodID
+	midViewDelegateSetBackgroundDrawable  jni.MethodID
+	midViewDelegateIsCompatPaddingEnabled jni.MethodID
+	midViewDelegateToString               jni.MethodID
+
+	clsRenderer                      *jni.GlobalRef
+	midRendererCtor                  jni.MethodID
+	midRendererSetShadowColor        jni.MethodID
+	midRendererDrawEdgeShadow        jni.MethodID
+	midRendererDrawCornerShadow      jni.MethodID
+	midRendererDrawInnerCornerShadow jni.MethodID
+	midRendererToString              jni.MethodID
+	midRendererGetShadowPaint        jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -78,107 +78,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("com/google/android/material/shadow/ShadowRenderer")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRenderer = env.NewGlobalRef(&c.Object)
-		midRendererCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRenderer)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midRendererSetShadowColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRenderer)), "setShadowColor", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRendererDrawEdgeShadow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRenderer)), "drawEdgeShadow", "(Landroid/graphics/Canvas;Landroid/graphics/Matrix;Landroid/graphics/RectF;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRendererDrawCornerShadow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRenderer)), "drawCornerShadow", "(Landroid/graphics/Canvas;Landroid/graphics/Matrix;Landroid/graphics/RectF;IFF)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRendererDrawInnerCornerShadow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRenderer)), "drawInnerCornerShadow", "(Landroid/graphics/Canvas;Landroid/graphics/Matrix;Landroid/graphics/RectF;IFF[F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRendererGetShadowPaint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRenderer)), "getShadowPaint", "()Landroid/graphics/Paint;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRendererToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRenderer)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/shadow/ShadowViewDelegate")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewDelegate = env.NewGlobalRef(&c.Object)
-
-		midViewDelegateGetRadius, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewDelegate)), "getRadius", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewDelegateSetShadowPadding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewDelegate)), "setShadowPadding", "(IIII)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewDelegateSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewDelegate)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewDelegateIsCompatPaddingEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewDelegate)), "isCompatPaddingEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewDelegateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewDelegate)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("com/google/android/material/shadow/ShadowDrawableWrapper")
 	if err != nil {
@@ -290,13 +189,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midDrawableWrapperGetMinHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawableWrapper)), "getMinHeight", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midDrawableWrapperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawableWrapper)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -312,6 +204,114 @@ func doInit(env *jni.Env) error {
 		}
 
 		midDrawableWrapperCalculateHorizontalPadding, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDrawableWrapper)), "calculateHorizontalPadding", "(FFZ)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDrawableWrapperGetMinHeight, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDrawableWrapper)), "getMinHeight", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/shadow/ShadowViewDelegate")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewDelegate = env.NewGlobalRef(&c.Object)
+
+		midViewDelegateGetRadius, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewDelegate)), "getRadius", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewDelegateSetShadowPadding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewDelegate)), "setShadowPadding", "(IIII)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewDelegateSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewDelegate)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewDelegateIsCompatPaddingEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewDelegate)), "isCompatPaddingEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewDelegateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewDelegate)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/shadow/ShadowRenderer")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRenderer = env.NewGlobalRef(&c.Object)
+		midRendererCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRenderer)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midRendererSetShadowColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRenderer)), "setShadowColor", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRendererDrawEdgeShadow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRenderer)), "drawEdgeShadow", "(Landroid/graphics/Canvas;Landroid/graphics/Matrix;Landroid/graphics/RectF;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRendererDrawCornerShadow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRenderer)), "drawCornerShadow", "(Landroid/graphics/Canvas;Landroid/graphics/Matrix;Landroid/graphics/RectF;IFF)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRendererDrawInnerCornerShadow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRenderer)), "drawInnerCornerShadow", "(Landroid/graphics/Canvas;Landroid/graphics/Matrix;Landroid/graphics/RectF;IFF[F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRendererToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRenderer)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRendererGetShadowPaint, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRenderer)), "getShadowPaint", "()Landroid/graphics/Paint;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

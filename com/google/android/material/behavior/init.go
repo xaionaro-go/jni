@@ -29,7 +29,6 @@ var (
 	midHideBottomViewOnScrollBehaviorIsScrolledDown                     jni.MethodID
 	midHideBottomViewOnScrollBehaviorAddOnScrollStateChangedListener    jni.MethodID
 	midHideBottomViewOnScrollBehaviorRemoveOnScrollStateChangedListener jni.MethodID
-	midHideBottomViewOnScrollBehaviorClearOnScrollStateChangedListeners jni.MethodID
 	midHideBottomViewOnScrollBehaviorToString                           jni.MethodID
 
 	clsHideBottomViewOnScrollBehaviorOnScrollStateChangedListener               *jni.GlobalRef
@@ -48,9 +47,8 @@ var (
 	midSwipeDismissBehaviorSetStartAlphaSwipeDistance jni.MethodID
 	midSwipeDismissBehaviorSetEndAlphaSwipeDistance   jni.MethodID
 	midSwipeDismissBehaviorSetSensitivity             jni.MethodID
-	midSwipeDismissBehaviorCanSwipeDismissView        jni.MethodID
-	midSwipeDismissBehaviorGetDragState               jni.MethodID
 	midSwipeDismissBehaviorToString                   jni.MethodID
+	midSwipeDismissBehaviorCanSwipeDismissView        jni.MethodID
 
 	clsSwipeDismissBehaviorOnDismissListener                   *jni.GlobalRef
 	midSwipeDismissBehaviorOnDismissListenerOnDismiss          jni.MethodID
@@ -110,13 +108,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midHideBottomViewOnScrollBehaviorRemoveOnScrollStateChangedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHideBottomViewOnScrollBehavior)), "removeOnScrollStateChangedListener", "(Lcom/google/android/material/behavior/HideBottomViewOnScrollBehavior$OnScrollStateChangedListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHideBottomViewOnScrollBehaviorClearOnScrollStateChangedListeners, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHideBottomViewOnScrollBehavior)), "clearOnScrollStateChangedListeners", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -234,21 +225,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midSwipeDismissBehaviorCanSwipeDismissView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSwipeDismissBehavior)), "canSwipeDismissView", "(Landroid/view/View;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSwipeDismissBehaviorGetDragState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSwipeDismissBehavior)), "getDragState", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midSwipeDismissBehaviorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSwipeDismissBehavior)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSwipeDismissBehaviorCanSwipeDismissView, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSwipeDismissBehavior)), "canSwipeDismissView", "(Landroid/view/View;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

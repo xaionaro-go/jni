@@ -23,6 +23,35 @@ type SessionConfigurationBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSessionConfigurationBuilder creates a new android.net.ipsec.ike.IkeSessionConfiguration$Builder instance.
+func NewSessionConfigurationBuilder(vm *jni.VM, arg0 *jni.Object) (*SessionConfigurationBuilder, error) {
+	var t SessionConfigurationBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSessionConfigurationBuilder == nil {
+			return fmt.Errorf("android.net.ipsec.ike.IkeSessionConfiguration$Builder is not available on this device")
+		}
+		if midSessionConfigurationBuilderCtor == nil {
+			return fmt.Errorf("android.net.ipsec.ike.IkeSessionConfiguration$Builder constructor (Landroid/net/ipsec/ike/IkeSessionConnectionInfo;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSessionConfigurationBuilder)), midSessionConfigurationBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddIkeExtension calls android.net.ipsec.ike.IkeSessionConfiguration$Builder.addIkeExtension.
 func (m *SessionConfigurationBuilder) AddIkeExtension(arg0 int32) (*jni.Object, error) {
 	var result *jni.Object

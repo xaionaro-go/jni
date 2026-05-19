@@ -32,6 +32,12 @@ func NewRadioGroup(vm *jni.VM, arg0 *jni.Object) (*RadioGroup, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRadioGroup == nil {
+			return fmt.Errorf("android.widget.RadioGroup is not available on this device")
+		}
+		if midRadioGroupCtor == nil {
+			return fmt.Errorf("android.widget.RadioGroup constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRadioGroup)), midRadioGroupCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -141,8 +147,8 @@ func (m *RadioGroup) ClearCheck() error {
 	return callErr
 }
 
-// GenerateLayoutParams1 calls android.widget.RadioGroup.generateLayoutParams.
-func (m *RadioGroup) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, error) {
+// GenerateLayoutParams calls android.widget.RadioGroup.generateLayoutParams.
+func (m *RadioGroup) GenerateLayoutParams(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -150,14 +156,14 @@ func (m *RadioGroup) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, error
 			callErr = err
 			return err
 		}
-		if midRadioGroupGenerateLayoutParams1 == nil {
+		if midRadioGroupGenerateLayoutParams == nil {
 			callErr = fmt.Errorf("android.widget.RadioGroup.generateLayoutParams is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midRadioGroupGenerateLayoutParams1, jni.ObjectValue(arg0),
+			midRadioGroupGenerateLayoutParams, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -355,72 +361,6 @@ func (m *RadioGroup) SetOnHierarchyChangeListener(arg0 *jni.Object) error {
 		return callErr
 	})
 	return callErr
-}
-
-// GenerateLayoutParams1_1 calls android.widget.RadioGroup.generateLayoutParams.
-func (m *RadioGroup) GenerateLayoutParams1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRadioGroupGenerateLayoutParams1_1 == nil {
-			callErr = fmt.Errorf("android.widget.RadioGroup.generateLayoutParams is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midRadioGroupGenerateLayoutParams1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GenerateLayoutParams1_2 calls android.widget.RadioGroup.generateLayoutParams.
-func (m *RadioGroup) GenerateLayoutParams1_2(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRadioGroupGenerateLayoutParams1_2 == nil {
-			callErr = fmt.Errorf("android.widget.RadioGroup.generateLayoutParams is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midRadioGroupGenerateLayoutParams1_2, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls android.widget.RadioGroup.toString.

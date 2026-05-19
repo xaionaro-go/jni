@@ -23,8 +23,8 @@ type ScriptIntrinsicResize struct {
 	Obj *jni.GlobalRef
 }
 
-// ForEach_bicubic1 calls android.renderscript.ScriptIntrinsicResize.forEach_bicubic.
-func (m *ScriptIntrinsicResize) ForEach_bicubic1(arg0 *jni.Object) error {
+// ForEachBicubic1 calls android.renderscript.ScriptIntrinsicResize.forEach_bicubic.
+func (m *ScriptIntrinsicResize) ForEachBicubic1(arg0 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -32,22 +32,22 @@ func (m *ScriptIntrinsicResize) ForEach_bicubic1(arg0 *jni.Object) error {
 			callErr = err
 			return err
 		}
-		if midScriptIntrinsicResizeForEach_bicubic1 == nil {
+		if midScriptIntrinsicResizeForEachBicubic1 == nil {
 			callErr = fmt.Errorf("android.renderscript.ScriptIntrinsicResize.forEach_bicubic is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midScriptIntrinsicResizeForEach_bicubic1, jni.ObjectValue(arg0),
+			midScriptIntrinsicResizeForEachBicubic1, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})
 	return callErr
 }
 
-// ForEach_bicubic2_1 calls android.renderscript.ScriptIntrinsicResize.forEach_bicubic.
-func (m *ScriptIntrinsicResize) ForEach_bicubic2_1(arg0 *jni.Object, arg1 *jni.Object) error {
+// ForEachBicubic2_1 calls android.renderscript.ScriptIntrinsicResize.forEach_bicubic.
+func (m *ScriptIntrinsicResize) ForEachBicubic2_1(arg0 *jni.Object, arg1 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,22 +55,22 @@ func (m *ScriptIntrinsicResize) ForEach_bicubic2_1(arg0 *jni.Object, arg1 *jni.O
 			callErr = err
 			return err
 		}
-		if midScriptIntrinsicResizeForEach_bicubic2_1 == nil {
+		if midScriptIntrinsicResizeForEachBicubic2_1 == nil {
 			callErr = fmt.Errorf("android.renderscript.ScriptIntrinsicResize.forEach_bicubic is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midScriptIntrinsicResizeForEach_bicubic2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midScriptIntrinsicResizeForEachBicubic2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		return callErr
 	})
 	return callErr
 }
 
-// GetFieldID_Input calls android.renderscript.ScriptIntrinsicResize.getFieldID_Input.
-func (m *ScriptIntrinsicResize) GetFieldID_Input() (*jni.Object, error) {
+// GetFieldIDInput calls android.renderscript.ScriptIntrinsicResize.getFieldID_Input.
+func (m *ScriptIntrinsicResize) GetFieldIDInput() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -78,13 +78,13 @@ func (m *ScriptIntrinsicResize) GetFieldID_Input() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midScriptIntrinsicResizeGetFieldID_Input == nil {
+		if midScriptIntrinsicResizeGetFieldIDInput == nil {
 			callErr = fmt.Errorf("android.renderscript.ScriptIntrinsicResize.getFieldID_Input is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midScriptIntrinsicResizeGetFieldID_Input,
+			midScriptIntrinsicResizeGetFieldIDInput,
 		)
 		if callErr != nil {
 			return callErr
@@ -101,8 +101,8 @@ func (m *ScriptIntrinsicResize) GetFieldID_Input() (*jni.Object, error) {
 	return result, callErr
 }
 
-// GetKernelID_bicubic calls android.renderscript.ScriptIntrinsicResize.getKernelID_bicubic.
-func (m *ScriptIntrinsicResize) GetKernelID_bicubic() (*jni.Object, error) {
+// GetKernelIDBicubic calls android.renderscript.ScriptIntrinsicResize.getKernelID_bicubic.
+func (m *ScriptIntrinsicResize) GetKernelIDBicubic() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -110,13 +110,13 @@ func (m *ScriptIntrinsicResize) GetKernelID_bicubic() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midScriptIntrinsicResizeGetKernelID_bicubic == nil {
+		if midScriptIntrinsicResizeGetKernelIDBicubic == nil {
 			callErr = fmt.Errorf("android.renderscript.ScriptIntrinsicResize.getKernelID_bicubic is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midScriptIntrinsicResizeGetKernelID_bicubic,
+			midScriptIntrinsicResizeGetKernelIDBicubic,
 		)
 		if callErr != nil {
 			return callErr

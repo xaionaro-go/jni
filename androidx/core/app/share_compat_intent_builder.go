@@ -21,6 +21,35 @@ type ShareCompatIntentBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewShareCompatIntentBuilder creates a new androidx.core.app.ShareCompat$IntentBuilder instance.
+func NewShareCompatIntentBuilder(vm *jni.VM, arg0 *jni.Object) (*ShareCompatIntentBuilder, error) {
+	var t ShareCompatIntentBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsShareCompatIntentBuilder == nil {
+			return fmt.Errorf("androidx.core.app.ShareCompat$IntentBuilder is not available on this device")
+		}
+		if midShareCompatIntentBuilderCtor == nil {
+			return fmt.Errorf("androidx.core.app.ShareCompat$IntentBuilder constructor (Landroid/content/Context;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsShareCompatIntentBuilder)), midShareCompatIntentBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetIntent calls androidx.core.app.ShareCompat$IntentBuilder.getIntent.
 func (m *ShareCompatIntentBuilder) GetIntent() (*jni.Object, error) {
 	var result *jni.Object

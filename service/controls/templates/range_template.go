@@ -32,6 +32,12 @@ func NewRangeTemplate(vm *jni.VM, arg0 string, arg1 float32, arg2 float32, arg3 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRangeTemplate == nil {
+			return fmt.Errorf("android.service.controls.templates.RangeTemplate is not available on this device")
+		}
+		if midRangeTemplateCtor == nil {
+			return fmt.Errorf("android.service.controls.templates.RangeTemplate constructor (Ljava/lang/String;FFFFLjava/lang/CharSequence;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

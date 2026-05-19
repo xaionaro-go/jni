@@ -32,6 +32,12 @@ func NewExecuteInput(vm *jni.VM, arg0 string, arg1 *jni.Object) (*ExecuteInput, 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsExecuteInput == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.ExecuteInput is not available on this device")
+		}
+		if midExecuteInputCtor == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.ExecuteInput constructor (Ljava/lang/String;Landroid/os/PersistableBundle;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

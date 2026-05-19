@@ -23,6 +23,34 @@ type MmTelManagerCapabilityCallback struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMmTelManagerCapabilityCallback creates a new android.telephony.ims.ImsMmTelManager$CapabilityCallback instance.
+func NewMmTelManagerCapabilityCallback(vm *jni.VM) (*MmTelManagerCapabilityCallback, error) {
+	var t MmTelManagerCapabilityCallback
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMmTelManagerCapabilityCallback == nil {
+			return fmt.Errorf("android.telephony.ims.ImsMmTelManager$CapabilityCallback is not available on this device")
+		}
+		if midMmTelManagerCapabilityCallbackCtor == nil {
+			return fmt.Errorf("android.telephony.ims.ImsMmTelManager$CapabilityCallback constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMmTelManagerCapabilityCallback)), midMmTelManagerCapabilityCallbackCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnCapabilitiesStatusChanged calls android.telephony.ims.ImsMmTelManager$CapabilityCallback.onCapabilitiesStatusChanged.
 func (m *MmTelManagerCapabilityCallback) OnCapabilitiesStatusChanged(arg0 *jni.Object) error {
 

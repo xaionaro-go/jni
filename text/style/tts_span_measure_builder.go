@@ -23,6 +23,34 @@ type TtsSpanMeasureBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTtsSpanMeasureBuilder creates a new android.text.style.TtsSpan$MeasureBuilder instance.
+func NewTtsSpanMeasureBuilder(vm *jni.VM) (*TtsSpanMeasureBuilder, error) {
+	var t TtsSpanMeasureBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTtsSpanMeasureBuilder == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$MeasureBuilder is not available on this device")
+		}
+		if midTtsSpanMeasureBuilderCtor == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$MeasureBuilder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTtsSpanMeasureBuilder)), midTtsSpanMeasureBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetDenominator1 calls android.text.style.TtsSpan$MeasureBuilder.setDenominator.
 func (m *TtsSpanMeasureBuilder) SetDenominator1(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

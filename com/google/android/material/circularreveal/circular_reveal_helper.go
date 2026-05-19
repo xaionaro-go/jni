@@ -32,6 +32,12 @@ func NewCircularRevealHelper(vm *jni.VM, arg0 *jni.Object) (*CircularRevealHelpe
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCircularRevealHelper == nil {
+			return fmt.Errorf("com.google.android.material.circularreveal.CircularRevealHelper is not available on this device")
+		}
+		if midCircularRevealHelperCtor == nil {
+			return fmt.Errorf("com.google.android.material.circularreveal.CircularRevealHelper constructor (Lcom/google/android/material/circularreveal/CircularRevealHelper$Delegate;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), midCircularRevealHelperCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -271,33 +277,6 @@ func (m *CircularRevealHelper) Draw(arg0 *jni.Object) error {
 	return callErr
 }
 
-// IsOpaque calls com.google.android.material.circularreveal.CircularRevealHelper.isOpaque.
-func (m *CircularRevealHelper) IsOpaque() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCircularRevealHelperIsOpaque == nil {
-			callErr = fmt.Errorf("com.google.android.material.circularreveal.CircularRevealHelper.isOpaque is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midCircularRevealHelperIsOpaque,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.circularreveal.CircularRevealHelper.toString.
 func (m *CircularRevealHelper) ToString() (string, error) {
 	var result string
@@ -320,6 +299,33 @@ func (m *CircularRevealHelper) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// IsOpaque calls com.google.android.material.circularreveal.CircularRevealHelper.isOpaque.
+func (m *CircularRevealHelper) IsOpaque() (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCircularRevealHelperIsOpaque == nil {
+			callErr = fmt.Errorf("com.google.android.material.circularreveal.CircularRevealHelper.isOpaque is not available on this device")
+			return callErr
+		}
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)),
+			midCircularRevealHelperIsOpaque,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

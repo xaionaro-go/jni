@@ -32,6 +32,12 @@ func NewAndroidException(vm *jni.VM) (*AndroidException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAndroidException == nil {
+			return fmt.Errorf("android.util.AndroidException is not available on this device")
+		}
+		if midAndroidExceptionCtor == nil {
+			return fmt.Errorf("android.util.AndroidException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAndroidException)), midAndroidExceptionCtor)
 		if err != nil {
 			return err

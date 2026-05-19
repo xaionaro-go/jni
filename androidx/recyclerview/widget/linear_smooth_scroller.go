@@ -32,6 +32,12 @@ func NewLinearSmoothScroller(vm *jni.VM, arg0 *jni.Object) (*LinearSmoothScrolle
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLinearSmoothScroller == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.LinearSmoothScroller is not available on this device")
+		}
+		if midLinearSmoothScrollerCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.LinearSmoothScroller constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLinearSmoothScroller)), midLinearSmoothScrollerCtor, jni.ObjectValue(arg0))
 		if err != nil {

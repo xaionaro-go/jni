@@ -32,6 +32,12 @@ func NewTileService(vm *jni.VM) (*TileService, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTileService == nil {
+			return fmt.Errorf("android.service.quicksettings.TileService is not available on this device")
+		}
+		if midTileServiceCtor == nil {
+			return fmt.Errorf("android.service.quicksettings.TileService constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTileService)), midTileServiceCtor)
 		if err != nil {
 			return err

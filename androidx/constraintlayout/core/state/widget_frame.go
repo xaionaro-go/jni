@@ -32,6 +32,12 @@ func NewWidgetFrame(vm *jni.VM) (*WidgetFrame, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWidgetFrame == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.state.WidgetFrame is not available on this device")
+		}
+		if midWidgetFrameCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.state.WidgetFrame constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWidgetFrame)), midWidgetFrameCtor)
 		if err != nil {
 			return err
@@ -718,29 +724,6 @@ func (m *WidgetFrame) Serialize2_1(arg0 *jni.Object, arg1 bool) (*jni.Object, er
 	return result, callErr
 }
 
-// SetCustomValue calls androidx.constraintlayout.core.state.WidgetFrame.setCustomValue.
-func (m *WidgetFrame) SetCustomValue(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midWidgetFrameSetCustomValue == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.core.state.WidgetFrame.setCustomValue is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midWidgetFrameSetCustomValue, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.constraintlayout.core.state.WidgetFrame.toString.
 func (m *WidgetFrame) ToString() (string, error) {
 	var result string
@@ -793,6 +776,29 @@ func (m *WidgetFrame) Interpolate(
 		callErr = env.CallStaticVoidMethod(
 			(*jni.Class)(unsafe.Pointer(clsWidgetFrame)),
 			midWidgetFrameInterpolate, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3), jni.ObjectValue(arg4), jni.ObjectValue(arg5), jni.FloatValue(arg6),
+		)
+		return callErr
+	})
+	return callErr
+}
+
+// SetCustomValue calls androidx.constraintlayout.core.state.WidgetFrame.setCustomValue.
+func (m *WidgetFrame) SetCustomValue(arg0 *jni.Object, arg1 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midWidgetFrameSetCustomValue == nil {
+			callErr = fmt.Errorf("androidx.constraintlayout.core.state.WidgetFrame.setCustomValue is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsWidgetFrame)),
+			midWidgetFrameSetCustomValue, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		return callErr
 	})

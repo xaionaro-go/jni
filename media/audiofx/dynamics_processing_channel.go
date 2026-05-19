@@ -23,6 +23,35 @@ type DynamicsProcessingChannel struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDynamicsProcessingChannel creates a new android.media.audiofx.DynamicsProcessing$Channel instance.
+func NewDynamicsProcessingChannel(vm *jni.VM, arg0 *jni.Object) (*DynamicsProcessingChannel, error) {
+	var t DynamicsProcessingChannel
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDynamicsProcessingChannel == nil {
+			return fmt.Errorf("android.media.audiofx.DynamicsProcessing$Channel is not available on this device")
+		}
+		if midDynamicsProcessingChannelCtor == nil {
+			return fmt.Errorf("android.media.audiofx.DynamicsProcessing$Channel constructor (Landroid/media/audiofx/DynamicsProcessing$Channel;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDynamicsProcessingChannel)), midDynamicsProcessingChannelCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetInputGain calls android.media.audiofx.DynamicsProcessing$Channel.getInputGain.
 func (m *DynamicsProcessingChannel) GetInputGain() (float32, error) {
 	var result float32

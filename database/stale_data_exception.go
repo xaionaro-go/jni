@@ -32,6 +32,12 @@ func NewStaleDataException(vm *jni.VM) (*StaleDataException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStaleDataException == nil {
+			return fmt.Errorf("android.database.StaleDataException is not available on this device")
+		}
+		if midStaleDataExceptionCtor == nil {
+			return fmt.Errorf("android.database.StaleDataException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStaleDataException)), midStaleDataExceptionCtor)
 		if err != nil {
 			return err

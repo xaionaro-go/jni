@@ -23,6 +23,35 @@ type CyclingPedalingCadenceRecordBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCyclingPedalingCadenceRecordBuilder creates a new android.health.connect.datatypes.CyclingPedalingCadenceRecord$Builder instance.
+func NewCyclingPedalingCadenceRecordBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.Object, arg3 *jni.Object) (*CyclingPedalingCadenceRecordBuilder, error) {
+	var t CyclingPedalingCadenceRecordBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCyclingPedalingCadenceRecordBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.CyclingPedalingCadenceRecord$Builder is not available on this device")
+		}
+		if midCyclingPedalingCadenceRecordBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.CyclingPedalingCadenceRecord$Builder constructor (Landroid/health/connect/datatypes/Metadata;Ljava/time/Instant;Ljava/time/Instant;Ljava/util/List;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCyclingPedalingCadenceRecordBuilder)), midCyclingPedalingCadenceRecordBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.datatypes.CyclingPedalingCadenceRecord$Builder.build.
 func (m *CyclingPedalingCadenceRecordBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

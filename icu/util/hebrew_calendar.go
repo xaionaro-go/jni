@@ -32,6 +32,12 @@ func NewHebrewCalendar(vm *jni.VM) (*HebrewCalendar, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsHebrewCalendar == nil {
+			return fmt.Errorf("android.icu.util.HebrewCalendar is not available on this device")
+		}
+		if midHebrewCalendarCtor == nil {
+			return fmt.Errorf("android.icu.util.HebrewCalendar constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHebrewCalendar)), midHebrewCalendarCtor)
 		if err != nil {
 			return err

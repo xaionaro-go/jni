@@ -32,6 +32,12 @@ func NewLayerDrawable(vm *jni.VM, arg0 *jni.Object) (*LayerDrawable, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLayerDrawable == nil {
+			return fmt.Errorf("android.graphics.drawable.LayerDrawable is not available on this device")
+		}
+		if midLayerDrawableCtor == nil {
+			return fmt.Errorf("android.graphics.drawable.LayerDrawable constructor ([Landroid/graphics/drawable/Drawable;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLayerDrawable)), midLayerDrawableCtor, jni.ObjectValue(arg0))
 		if err != nil {

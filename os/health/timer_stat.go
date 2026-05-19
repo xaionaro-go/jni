@@ -32,6 +32,12 @@ func NewTimerStat(vm *jni.VM) (*TimerStat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTimerStat == nil {
+			return fmt.Errorf("android.os.health.TimerStat is not available on this device")
+		}
+		if midTimerStatCtor == nil {
+			return fmt.Errorf("android.os.health.TimerStat constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTimerStat)), midTimerStatCtor)
 		if err != nil {
 			return err
@@ -166,29 +172,6 @@ func (m *TimerStat) SetTime(arg0 int64) error {
 	return callErr
 }
 
-// WriteToParcel calls android.os.health.TimerStat.writeToParcel.
-func (m *TimerStat) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTimerStatWriteToParcel == nil {
-			callErr = fmt.Errorf("android.os.health.TimerStat.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midTimerStatWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.os.health.TimerStat.toString.
 func (m *TimerStat) ToString() (string, error) {
 	var result string
@@ -214,4 +197,27 @@ func (m *TimerStat) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.os.health.TimerStat.writeToParcel.
+func (m *TimerStat) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midTimerStatWriteToParcel == nil {
+			callErr = fmt.Errorf("android.os.health.TimerStat.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsTimerStat)),
+			midTimerStatWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

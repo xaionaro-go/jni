@@ -32,6 +32,12 @@ func NewTonemapCurve(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.O
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTonemapCurve == nil {
+			return fmt.Errorf("android.hardware.camera2.params.TonemapCurve is not available on this device")
+		}
+		if midTonemapCurveCtor == nil {
+			return fmt.Errorf("android.hardware.camera2.params.TonemapCurve constructor ([F[F[F)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTonemapCurve)), midTonemapCurveCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
 		if err != nil {

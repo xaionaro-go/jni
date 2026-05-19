@@ -23,6 +23,34 @@ type TtsSpanMoneyBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTtsSpanMoneyBuilder creates a new android.text.style.TtsSpan$MoneyBuilder instance.
+func NewTtsSpanMoneyBuilder(vm *jni.VM) (*TtsSpanMoneyBuilder, error) {
+	var t TtsSpanMoneyBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTtsSpanMoneyBuilder == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$MoneyBuilder is not available on this device")
+		}
+		if midTtsSpanMoneyBuilderCtor == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$MoneyBuilder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTtsSpanMoneyBuilder)), midTtsSpanMoneyBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetCurrency calls android.text.style.TtsSpan$MoneyBuilder.setCurrency.
 func (m *TtsSpanMoneyBuilder) SetCurrency(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

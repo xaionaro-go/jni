@@ -32,6 +32,12 @@ func NewVelocityMatrix(vm *jni.VM) (*VelocityMatrix, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsVelocityMatrix == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.VelocityMatrix is not available on this device")
+		}
+		if midVelocityMatrixCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.VelocityMatrix constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVelocityMatrix)), midVelocityMatrixCtor)
 		if err != nil {
 			return err
@@ -221,35 +227,6 @@ func (m *VelocityMatrix) SetScaleVelocity3_1(
 	return callErr
 }
 
-// ApplyTransform calls androidx.constraintlayout.core.motion.utils.VelocityMatrix.applyTransform.
-func (m *VelocityMatrix) ApplyTransform(
-	arg0 float32,
-	arg1 float32,
-	arg2 int32,
-	arg3 int32,
-	arg4 *jni.Object,
-) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midVelocityMatrixApplyTransform == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.core.motion.utils.VelocityMatrix.applyTransform is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midVelocityMatrixApplyTransform, jni.FloatValue(arg0), jni.FloatValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3), jni.ObjectValue(arg4),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.constraintlayout.core.motion.utils.VelocityMatrix.toString.
 func (m *VelocityMatrix) ToString() (string, error) {
 	var result string
@@ -275,4 +252,33 @@ func (m *VelocityMatrix) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// ApplyTransform calls androidx.constraintlayout.core.motion.utils.VelocityMatrix.applyTransform.
+func (m *VelocityMatrix) ApplyTransform(
+	arg0 float32,
+	arg1 float32,
+	arg2 int32,
+	arg3 int32,
+	arg4 *jni.Object,
+) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midVelocityMatrixApplyTransform == nil {
+			callErr = fmt.Errorf("androidx.constraintlayout.core.motion.utils.VelocityMatrix.applyTransform is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsVelocityMatrix)),
+			midVelocityMatrixApplyTransform, jni.FloatValue(arg0), jni.FloatValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3), jni.ObjectValue(arg4),
+		)
+		return callErr
+	})
+	return callErr
 }

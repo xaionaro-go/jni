@@ -32,6 +32,12 @@ func NewAuthenticatorDescription(vm *jni.VM, arg0 string, arg1 string, arg2 int3
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAuthenticatorDescription == nil {
+			return fmt.Errorf("android.accounts.AuthenticatorDescription is not available on this device")
+		}
+		if midAuthenticatorDescriptionCtor == nil {
+			return fmt.Errorf("android.accounts.AuthenticatorDescription constructor (Ljava/lang/String;Ljava/lang/String;IIII)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -162,29 +168,6 @@ func (m *AuthenticatorDescription) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.accounts.AuthenticatorDescription.writeToParcel.
-func (m *AuthenticatorDescription) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAuthenticatorDescriptionWriteToParcel == nil {
-			callErr = fmt.Errorf("android.accounts.AuthenticatorDescription.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAuthenticatorDescriptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // NewKey calls android.accounts.AuthenticatorDescription.newKey.
 func (m *AuthenticatorDescription) NewKey(arg0 string) (*jni.Object, error) {
 	var result *jni.Object
@@ -221,4 +204,27 @@ func (m *AuthenticatorDescription) NewKey(arg0 string) (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.accounts.AuthenticatorDescription.writeToParcel.
+func (m *AuthenticatorDescription) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midAuthenticatorDescriptionWriteToParcel == nil {
+			callErr = fmt.Errorf("android.accounts.AuthenticatorDescription.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAuthenticatorDescription)),
+			midAuthenticatorDescriptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

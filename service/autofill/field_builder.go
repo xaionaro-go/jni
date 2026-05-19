@@ -23,6 +23,34 @@ type FieldBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFieldBuilder creates a new android.service.autofill.Field$Builder instance.
+func NewFieldBuilder(vm *jni.VM) (*FieldBuilder, error) {
+	var t FieldBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFieldBuilder == nil {
+			return fmt.Errorf("android.service.autofill.Field$Builder is not available on this device")
+		}
+		if midFieldBuilderCtor == nil {
+			return fmt.Errorf("android.service.autofill.Field$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFieldBuilder)), midFieldBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.service.autofill.Field$Builder.build.
 func (m *FieldBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

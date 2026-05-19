@@ -32,6 +32,12 @@ func NewPausingDispatcher(vm *jni.VM) (*PausingDispatcher, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPausingDispatcher == nil {
+			return fmt.Errorf("androidx.lifecycle.PausingDispatcher is not available on this device")
+		}
+		if midPausingDispatcherCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.PausingDispatcher constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPausingDispatcher)), midPausingDispatcherCtor)
 		if err != nil {
 			return err

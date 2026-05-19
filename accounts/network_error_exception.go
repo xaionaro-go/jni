@@ -32,6 +32,12 @@ func NewNetworkErrorException(vm *jni.VM) (*NetworkErrorException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNetworkErrorException == nil {
+			return fmt.Errorf("android.accounts.NetworkErrorException is not available on this device")
+		}
+		if midNetworkErrorExceptionCtor == nil {
+			return fmt.Errorf("android.accounts.NetworkErrorException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNetworkErrorException)), midNetworkErrorExceptionCtor)
 		if err != nil {
 			return err

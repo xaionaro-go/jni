@@ -32,6 +32,12 @@ func NewChangeTransform(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Change
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsChangeTransform == nil {
+			return fmt.Errorf("android.transition.ChangeTransform is not available on this device")
+		}
+		if midChangeTransformCtor == nil {
+			return fmt.Errorf("android.transition.ChangeTransform constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsChangeTransform)), midChangeTransformCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

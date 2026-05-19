@@ -32,6 +32,12 @@ func NewAsyncListDiffer(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*AsyncL
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAsyncListDiffer == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.AsyncListDiffer is not available on this device")
+		}
+		if midAsyncListDifferCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.AsyncListDiffer constructor (Landroidx/recyclerview/widget/RecyclerView$Adapter;Landroidx/recyclerview/widget/DiffUtil$ItemCallback;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAsyncListDiffer)), midAsyncListDifferCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

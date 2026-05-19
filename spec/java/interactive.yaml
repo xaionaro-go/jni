@@ -5,6 +5,43 @@
 package: interactive
 go_import: github.com/AndroidGoLab/jni/media/tv/interactive
 classes:
+    - java_class: android.media.tv.interactive.AppLinkInfo
+      go_type: AppLinkInfo
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+        - java_type: String
+          go_name: arg2
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getComponentName
+          go_name: GetComponentName
+          returns: android.content.ComponentName
+          error: true
+        - java_method: getUri
+          go_name: GetUri
+          returns: android.net.Uri
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
     - java_class: android.media.tv.interactive.TvInteractiveAppView
       go_type: TvInteractiveAppView
       obtain: constructor
@@ -599,174 +636,6 @@ classes:
               go_name: arg1
             - java_type: android.os.Bundle
               go_name: arg2
-          returns: void
-          error: true
-    - java_class: android.media.tv.interactive.TvInteractiveAppServiceInfo
-      go_type: TvInteractiveAppServiceInfo
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: android.content.ComponentName
-          go_name: arg1
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getCustomSupportedTypes
-          go_name: GetCustomSupportedTypes
-          returns: java.util.List<java.lang.String>
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: String
-          error: true
-        - java_method: getServiceInfo
-          go_name: GetServiceInfo
-          returns: android.content.pm.ServiceInfo
-          error: true
-        - java_method: getSupportedTypes
-          go_name: GetSupportedTypes
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.media.tv.interactive.TvInteractiveAppManager
-      go_type: TvInteractiveAppManager
-      obtain: system_service
-      service_name: tv_interactive_app
-      close: true
-      methods:
-        - java_method: getAppLinkInfoList
-          go_name: GetAppLinkInfoList
-          returns: java.util.List<android.media.tv.interactive.AppLinkInfo>
-          error: true
-        - java_method: getTvInteractiveAppServiceList
-          go_name: GetTvInteractiveAppServiceList
-          returns: java.util.List<android.media.tv.interactive.TvInteractiveAppServiceInfo>
-          error: true
-        - java_method: registerAppLinkInfo
-          go_name: RegisterAppLinkInfo
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.media.tv.interactive.AppLinkInfo
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: registerCallback
-          go_name: RegisterCallback
-          params:
-            - java_type: java.util.concurrent.Executor
-              go_name: arg0
-            - java_type: android.media.tv.interactive.TvInteractiveAppManager$TvInteractiveAppCallback
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: sendAppLinkCommand
-          go_name: SendAppLinkCommand
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.os.Bundle
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: unregisterAppLinkInfo
-          go_name: UnregisterAppLinkInfo
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.media.tv.interactive.AppLinkInfo
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: unregisterCallback
-          go_name: UnregisterCallback
-          params:
-            - java_type: android.media.tv.interactive.TvInteractiveAppManager$TvInteractiveAppCallback
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.media.tv.interactive.TvInteractiveAppManager$TvInteractiveAppCallback
-      go_type: TvInteractiveAppManagerTvInteractiveAppCallback
-      methods:
-        - java_method: onInteractiveAppServiceAdded
-          go_name: OnInteractiveAppServiceAdded
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onInteractiveAppServiceRemoved
-          go_name: OnInteractiveAppServiceRemoved
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onInteractiveAppServiceUpdated
-          go_name: OnInteractiveAppServiceUpdated
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onTvInteractiveAppServiceStateChanged
-          go_name: OnTvInteractiveAppServiceStateChanged
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-    - java_class: android.media.tv.interactive.AppLinkInfo
-      go_type: AppLinkInfo
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-        - java_type: String
-          go_name: arg2
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getComponentName
-          go_name: GetComponentName
-          returns: android.content.ComponentName
-          error: true
-        - java_method: getUri
-          go_name: GetUri
-          returns: android.net.Uri
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
           returns: void
           error: true
     - java_class: android.media.tv.interactive.TvInteractiveAppService
@@ -1462,6 +1331,139 @@ classes:
               go_name: arg0
           returns: void
           error: true
+    - java_class: android.media.tv.interactive.TvInteractiveAppManager
+      go_type: TvInteractiveAppManager
+      obtain: system_service
+      service_name: tv_interactive_app
+      close: true
+      methods:
+        - java_method: getAppLinkInfoList
+          go_name: GetAppLinkInfoList
+          returns: java.util.List<android.media.tv.interactive.AppLinkInfo>
+          error: true
+        - java_method: getTvInteractiveAppServiceList
+          go_name: GetTvInteractiveAppServiceList
+          returns: java.util.List<android.media.tv.interactive.TvInteractiveAppServiceInfo>
+          error: true
+        - java_method: registerAppLinkInfo
+          go_name: RegisterAppLinkInfo
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.media.tv.interactive.AppLinkInfo
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: registerCallback
+          go_name: RegisterCallback
+          params:
+            - java_type: java.util.concurrent.Executor
+              go_name: arg0
+            - java_type: android.media.tv.interactive.TvInteractiveAppManager$TvInteractiveAppCallback
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: sendAppLinkCommand
+          go_name: SendAppLinkCommand
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.os.Bundle
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: unregisterAppLinkInfo
+          go_name: UnregisterAppLinkInfo
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.media.tv.interactive.AppLinkInfo
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: unregisterCallback
+          go_name: UnregisterCallback
+          params:
+            - java_type: android.media.tv.interactive.TvInteractiveAppManager$TvInteractiveAppCallback
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.media.tv.interactive.TvInteractiveAppManager$TvInteractiveAppCallback
+      go_type: TvInteractiveAppManagerTvInteractiveAppCallback
+      methods:
+        - java_method: onInteractiveAppServiceAdded
+          go_name: OnInteractiveAppServiceAdded
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onInteractiveAppServiceRemoved
+          go_name: OnInteractiveAppServiceRemoved
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onInteractiveAppServiceUpdated
+          go_name: OnInteractiveAppServiceUpdated
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onTvInteractiveAppServiceStateChanged
+          go_name: OnTvInteractiveAppServiceStateChanged
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+    - java_class: android.media.tv.interactive.TvInteractiveAppServiceInfo
+      go_type: TvInteractiveAppServiceInfo
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.content.ComponentName
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getCustomSupportedTypes
+          go_name: GetCustomSupportedTypes
+          returns: java.util.List<java.lang.String>
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: String
+          error: true
+        - java_method: getServiceInfo
+          go_name: GetServiceInfo
+          returns: android.content.pm.ServiceInfo
+          error: true
+        - java_method: getSupportedTypes
+          go_name: GetSupportedTypes
+          returns: int
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
 abstract_callbacks:
     - java_class: android.media.tv.interactive.TvInteractiveAppView$TvInteractiveAppCallback
       go_type: TvInteractiveAppViewTvInteractiveAppCallbackCallback
@@ -1657,500 +1659,23 @@ abstract_callbacks:
             - int
           returns: void
           go_field: OnTvInteractiveAppServiceStateChanged
+abstract_callback_eligibility:
+    - java_class: android.media.tv.interactive.TvInteractiveAppView$TvInteractiveAppCallback
+      generated: true
+      reason: supported_no_arg_constructor
     - java_class: android.media.tv.interactive.TvInteractiveAppService
-      go_type: TvInteractiveAppServiceCallback
-      methods:
-        - java_method: notifyStateChanged
-          params:
-            - int
-            - int
-            - int
-          returns: void
-          go_field: NotifyStateChanged
-        - java_method: onAppLinkCommand
-          params:
-            - android.os.Bundle
-          returns: void
-          go_field: OnAppLinkCommand
-        - java_method: onBind
-          params:
-            - android.content.Intent
-          returns: android.os.IBinder
-          go_field: OnBind
-        - java_method: onCreateSession
-          params:
-            - String
-            - int
-          returns: android.media.tv.interactive.TvInteractiveAppService$Session
-          go_field: OnCreateSession
-        - java_method: onRegisterAppLinkInfo
-          params:
-            - android.media.tv.interactive.AppLinkInfo
-          returns: void
-          go_field: OnRegisterAppLinkInfo
-        - java_method: onUnregisterAppLinkInfo
-          params:
-            - android.media.tv.interactive.AppLinkInfo
-          returns: void
-          go_field: OnUnregisterAppLinkInfo
+      generated: false
+      reason: non_object_superclass
     - java_class: android.media.tv.interactive.TvInteractiveAppService$Session
-      go_type: TvInteractiveAppServiceSessionCallback
-      methods:
-        - java_method: isMediaViewEnabled
-          params: []
-          returns: boolean
-          go_field: IsMediaViewEnabled
-        - java_method: layoutSurface
-          params:
-            - int
-            - int
-            - int
-            - int
-          returns: void
-          go_field: LayoutSurface
-        - java_method: notifyAdBufferReady
-          params:
-            - android.media.tv.AdBuffer
-          returns: void
-          go_field: NotifyAdBufferReady
-        - java_method: notifyBiInteractiveAppCreated
-          params:
-            - android.net.Uri
-            - String
-          returns: void
-          go_field: NotifyBiInteractiveAppCreated
-        - java_method: notifySessionStateChanged
-          params:
-            - int
-            - int
-          returns: void
-          go_field: NotifySessionStateChanged
-        - java_method: notifyTeletextAppStateChanged
-          params:
-            - int
-          returns: void
-          go_field: NotifyTeletextAppStateChanged
-        - java_method: onAdBufferConsumed
-          params:
-            - android.media.tv.AdBuffer
-          returns: void
-          go_field: OnAdBufferConsumed
-        - java_method: onAdResponse
-          params:
-            - android.media.tv.AdResponse
-          returns: void
-          go_field: OnAdResponse
-        - java_method: onAvailableSpeeds
-          params:
-            - float[]
-          returns: void
-          go_field: OnAvailableSpeeds
-        - java_method: onBroadcastInfoResponse
-          params:
-            - android.media.tv.BroadcastInfoResponse
-          returns: void
-          go_field: OnBroadcastInfoResponse
-        - java_method: onCertificate
-          params:
-            - String
-            - int
-            - android.net.http.SslCertificate
-          returns: void
-          go_field: OnCertificate
-        - java_method: onContentAllowed
-          params: []
-          returns: void
-          go_field: OnContentAllowed
-        - java_method: onContentBlocked
-          params:
-            - android.media.tv.TvContentRating
-          returns: void
-          go_field: OnContentBlocked
-        - java_method: onCreateBiInteractiveAppRequest
-          params:
-            - android.net.Uri
-            - android.os.Bundle
-          returns: void
-          go_field: OnCreateBiInteractiveAppRequest
-        - java_method: onCreateMediaView
-          params: []
-          returns: android.view.View
-          go_field: OnCreateMediaView
-        - java_method: onCurrentChannelLcn
-          params:
-            - int
-          returns: void
-          go_field: OnCurrentChannelLcn
-        - java_method: onCurrentChannelUri
-          params:
-            - android.net.Uri
-          returns: void
-          go_field: OnCurrentChannelUri
-        - java_method: onCurrentTvInputId
-          params:
-            - String
-          returns: void
-          go_field: OnCurrentTvInputId
-        - java_method: onCurrentVideoBounds
-          params:
-            - android.graphics.Rect
-          returns: void
-          go_field: OnCurrentVideoBounds
-        - java_method: onDestroyBiInteractiveAppRequest
-          params:
-            - String
-          returns: void
-          go_field: OnDestroyBiInteractiveAppRequest
-        - java_method: onError
-          params:
-            - String
-            - android.os.Bundle
-          returns: void
-          go_field: OnError
-        - java_method: onGenericMotionEvent
-          params:
-            - android.view.MotionEvent
-          returns: boolean
-          go_field: OnGenericMotionEvent
-        - java_method: onKeyDown
-          params:
-            - int
-            - android.view.KeyEvent
-          returns: boolean
-          go_field: OnKeyDown
-        - java_method: onKeyLongPress
-          params:
-            - int
-            - android.view.KeyEvent
-          returns: boolean
-          go_field: OnKeyLongPress
-        - java_method: onKeyMultiple
-          params:
-            - int
-            - int
-            - android.view.KeyEvent
-          returns: boolean
-          go_field: OnKeyMultiple
-        - java_method: onKeyUp
-          params:
-            - int
-            - android.view.KeyEvent
-          returns: boolean
-          go_field: OnKeyUp
-        - java_method: onMediaViewSizeChanged
-          params:
-            - int
-            - int
-          returns: void
-          go_field: OnMediaViewSizeChanged
-        - java_method: onRecordingConnectionFailed
-          params:
-            - String
-            - String
-          returns: void
-          go_field: OnRecordingConnectionFailed
-        - java_method: onRecordingDisconnected
-          params:
-            - String
-            - String
-          returns: void
-          go_field: OnRecordingDisconnected
-        - java_method: onRecordingError
-          params:
-            - String
-            - int
-          returns: void
-          go_field: OnRecordingError
-        - java_method: onRecordingScheduled
-          params:
-            - String
-            - String
-          returns: void
-          go_field: OnRecordingScheduled
-        - java_method: onRecordingStarted
-          params:
-            - String
-            - String
-          returns: void
-          go_field: OnRecordingStarted
-        - java_method: onRecordingStopped
-          params:
-            - String
-          returns: void
-          go_field: OnRecordingStopped
-        - java_method: onRecordingTuned
-          params:
-            - String
-            - android.net.Uri
-          returns: void
-          go_field: OnRecordingTuned
-        - java_method: onRelease
-          params: []
-          returns: void
-          go_field: OnRelease
-        - java_method: onResetInteractiveApp
-          params: []
-          returns: void
-          go_field: OnResetInteractiveApp
-        - java_method: onSetSurface
-          params:
-            - android.view.Surface
-          returns: boolean
-          go_field: OnSetSurface
-        - java_method: onSetTeletextAppEnabled
-          params:
-            - boolean
-          returns: void
-          go_field: OnSetTeletextAppEnabled
-        - java_method: onSignalStrength
-          params:
-            - int
-          returns: void
-          go_field: OnSignalStrength
-        - java_method: onSigningResult
-          params:
-            - String
-            - '[B'
-          returns: void
-          go_field: OnSigningResult
-        - java_method: onStartInteractiveApp
-          params: []
-          returns: void
-          go_field: OnStartInteractiveApp
-        - java_method: onStopInteractiveApp
-          params: []
-          returns: void
-          go_field: OnStopInteractiveApp
-        - java_method: onStreamVolume
-          params:
-            - float
-          returns: void
-          go_field: OnStreamVolume
-        - java_method: onSurfaceChanged
-          params:
-            - int
-            - int
-            - int
-          returns: void
-          go_field: OnSurfaceChanged
-        - java_method: onTimeShiftCurrentPositionChanged
-          params:
-            - String
-            - long
-          returns: void
-          go_field: OnTimeShiftCurrentPositionChanged
-        - java_method: onTimeShiftMode
-          params:
-            - int
-          returns: void
-          go_field: OnTimeShiftMode
-        - java_method: onTimeShiftPlaybackParams
-          params:
-            - android.media.PlaybackParams
-          returns: void
-          go_field: OnTimeShiftPlaybackParams
-        - java_method: onTimeShiftStartPositionChanged
-          params:
-            - String
-            - long
-          returns: void
-          go_field: OnTimeShiftStartPositionChanged
-        - java_method: onTimeShiftStatusChanged
-          params:
-            - String
-            - int
-          returns: void
-          go_field: OnTimeShiftStatusChanged
-        - java_method: onTouchEvent
-          params:
-            - android.view.MotionEvent
-          returns: boolean
-          go_field: OnTouchEvent
-        - java_method: onTrackSelected
-          params:
-            - int
-            - String
-          returns: void
-          go_field: OnTrackSelected
-        - java_method: onTrackballEvent
-          params:
-            - android.view.MotionEvent
-          returns: boolean
-          go_field: OnTrackballEvent
-        - java_method: onTuned
-          params:
-            - android.net.Uri
-          returns: void
-          go_field: OnTuned
-        - java_method: onTvMessage
-          params:
-            - int
-            - android.os.Bundle
-          returns: void
-          go_field: OnTvMessage
-        - java_method: onTvRecordingInfo
-          params:
-            - android.media.tv.TvRecordingInfo
-          returns: void
-          go_field: OnTvRecordingInfo
-        - java_method: onVideoAvailable
-          params: []
-          returns: void
-          go_field: OnVideoAvailable
-        - java_method: onVideoFreezeUpdated
-          params:
-            - boolean
-          returns: void
-          go_field: OnVideoFreezeUpdated
-        - java_method: onVideoUnavailable
-          params:
-            - int
-          returns: void
-          go_field: OnVideoUnavailable
-        - java_method: removeBroadcastInfo
-          params:
-            - int
-          returns: void
-          go_field: RemoveBroadcastInfo
-        - java_method: requestAd
-          params:
-            - android.media.tv.AdRequest
-          returns: void
-          go_field: RequestAd
-        - java_method: requestAvailableSpeeds
-          params: []
-          returns: void
-          go_field: RequestAvailableSpeeds
-        - java_method: requestBroadcastInfo
-          params:
-            - android.media.tv.BroadcastInfoRequest
-          returns: void
-          go_field: RequestBroadcastInfo
-        - java_method: requestCertificate
-          params:
-            - String
-            - int
-          returns: void
-          go_field: RequestCertificate
-        - java_method: requestCurrentChannelLcn
-          params: []
-          returns: void
-          go_field: RequestCurrentChannelLcn
-        - java_method: requestCurrentChannelUri
-          params: []
-          returns: void
-          go_field: RequestCurrentChannelUri
-        - java_method: requestCurrentTvInputId
-          params: []
-          returns: void
-          go_field: RequestCurrentTvInputId
-        - java_method: requestCurrentVideoBounds
-          params: []
-          returns: void
-          go_field: RequestCurrentVideoBounds
-        - java_method: requestScheduleRecording
-          params:
-            - String
-            - String
-            - android.net.Uri
-            - android.net.Uri
-            - android.os.Bundle
-          returns: void
-          go_field: RequestScheduleRecording
-        - java_method: requestScheduleRecording
-          params:
-            - String
-            - String
-            - android.net.Uri
-            - long
-            - long
-            - int
-            - android.os.Bundle
-          returns: void
-          go_field: RequestScheduleRecording
-        - java_method: requestSelectedTrackInfo
-          params: []
-          returns: void
-          go_field: RequestSelectedTrackInfo
-        - java_method: requestSigning
-          params:
-            - String
-            - String
-            - String
-            - '[B'
-          returns: void
-          go_field: RequestSigning
-        - java_method: requestSigning
-          params:
-            - String
-            - String
-            - String
-            - int
-            - '[B'
-          returns: void
-          go_field: RequestSigning
-        - java_method: requestStartRecording
-          params:
-            - String
-            - android.net.Uri
-          returns: void
-          go_field: RequestStartRecording
-        - java_method: requestStopRecording
-          params:
-            - String
-          returns: void
-          go_field: RequestStopRecording
-        - java_method: requestStreamVolume
-          params: []
-          returns: void
-          go_field: RequestStreamVolume
-        - java_method: requestTimeShiftMode
-          params: []
-          returns: void
-          go_field: RequestTimeShiftMode
-        - java_method: requestTrackInfoList
-          params: []
-          returns: void
-          go_field: RequestTrackInfoList
-        - java_method: requestTvRecordingInfo
-          params:
-            - String
-          returns: void
-          go_field: RequestTvRecordingInfo
-        - java_method: requestTvRecordingInfoList
-          params:
-            - int
-          returns: void
-          go_field: RequestTvRecordingInfoList
-        - java_method: sendPlaybackCommandRequest
-          params:
-            - String
-            - android.os.Bundle
-          returns: void
-          go_field: SendPlaybackCommandRequest
-        - java_method: sendTimeShiftCommandRequest
-          params:
-            - String
-            - android.os.Bundle
-          returns: void
-          go_field: SendTimeShiftCommandRequest
-        - java_method: setMediaViewEnabled
-          params:
-            - boolean
-          returns: void
-          go_field: SetMediaViewEnabled
-        - java_method: setTvRecordingInfo
-          params:
-            - String
-            - android.media.tv.TvRecordingInfo
-          returns: void
-          go_field: SetTvRecordingInfo
-        - java_method: setVideoBounds
-          params:
-            - android.graphics.Rect
-          returns: void
-          go_field: SetVideoBounds
+      generated: false
+      reason: implements_interface
+    - java_class: android.media.tv.interactive.TvInteractiveAppManager$TvInteractiveAppCallback
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
+    - go_name: Creator
+      value: "0"
+      go_type: int
     - go_name: BiInteractiveAppKeyAlias
       value: '"alias"'
       go_type: string
@@ -2169,24 +1694,87 @@ constants:
     - go_name: ErrorKeyMethodName
       value: '"method_name"'
       go_type: string
-    - go_name: Creator
-      value: "0"
-      go_type: int
-    - go_name: InteractiveAppTypeAtsc
-      value: "2"
-      go_type: int
-    - go_name: InteractiveAppTypeGinga
-      value: "4"
-      go_type: int
-    - go_name: InteractiveAppTypeHbbtv
+    - go_name: CommandParameterKeyChangeChannelQuietly
+      value: '"command_change_channel_quietly"'
+      go_type: string
+    - go_name: CommandParameterKeyChannelUri
+      value: '"command_channel_uri"'
+      go_type: string
+    - go_name: CommandParameterKeyInputId
+      value: '"command_input_id"'
+      go_type: string
+    - go_name: CommandParameterKeyPlaybackParams
+      value: '"command_playback_params"'
+      go_type: string
+    - go_name: CommandParameterKeyProgramUri
+      value: '"command_program_uri"'
+      go_type: string
+    - go_name: CommandParameterKeyStopMode
+      value: '"command_stop_mode"'
+      go_type: string
+    - go_name: CommandParameterKeyTimePosition
+      value: '"command_time_position"'
+      go_type: string
+    - go_name: CommandParameterKeyTimeShiftMode
+      value: '"command_time_shift_mode"'
+      go_type: string
+    - go_name: CommandParameterKeyTrackId
+      value: '"command_track_id"'
+      go_type: string
+    - go_name: CommandParameterKeyTrackType
+      value: '"command_track_type"'
+      go_type: string
+    - go_name: CommandParameterKeyVolume
+      value: '"command_volume"'
+      go_type: string
+    - go_name: CommandParameterValueStopModeBlank
       value: "1"
       go_type: int
-    - go_name: InteractiveAppTypeOther
-      value: "-2147483648"
+    - go_name: CommandParameterValueStopModeFreeze
+      value: "2"
       go_type: int
-    - go_name: InteractiveAppTypeTargetedAd
-      value: "8"
-      go_type: int
+    - go_name: PlaybackCommandTypeSelectTrack
+      value: '"select_track"'
+      go_type: string
+    - go_name: PlaybackCommandTypeSetStreamVolume
+      value: '"set_stream_volume"'
+      go_type: string
+    - go_name: PlaybackCommandTypeStop
+      value: '"stop"'
+      go_type: string
+    - go_name: PlaybackCommandTypeTune
+      value: '"tune"'
+      go_type: string
+    - go_name: PlaybackCommandTypeTuneNext
+      value: '"tune_next"'
+      go_type: string
+    - go_name: PlaybackCommandTypeTunePrev
+      value: '"tune_previous"'
+      go_type: string
+    - go_name: ServiceInterface
+      value: '"android.media.tv.interactive.TvInteractiveAppService"'
+      go_type: string
+    - go_name: ServiceMetaData
+      value: '"android.media.tv.interactive.app"'
+      go_type: string
+    - go_name: TimeShiftCommandTypePause
+      value: '"pause"'
+      go_type: string
+    - go_name: TimeShiftCommandTypePlay
+      value: '"play"'
+      go_type: string
+    - go_name: TimeShiftCommandTypeResume
+      value: '"resume"'
+      go_type: string
+    - go_name: TimeShiftCommandTypeSeekTo
+      value: '"seek_to"'
+      go_type: string
+    - go_name: TimeShiftCommandTypeSetMode
+      value: '"set_mode"'
+      go_type: string
+    - go_name: TimeShiftCommandTypeSetPlaybackParams
+      value: '"set_playback_params"'
+      go_type: string
     - go_name: ActionAppLinkCommand
       value: '"android.media.tv.interactive.action.APP_LINK_COMMAND"'
       go_type: string
@@ -2277,84 +1865,18 @@ constants:
     - go_name: TeletextAppStateShow
       value: "1"
       go_type: int
-    - go_name: CommandParameterKeyChangeChannelQuietly
-      value: '"command_change_channel_quietly"'
-      go_type: string
-    - go_name: CommandParameterKeyChannelUri
-      value: '"command_channel_uri"'
-      go_type: string
-    - go_name: CommandParameterKeyInputId
-      value: '"command_input_id"'
-      go_type: string
-    - go_name: CommandParameterKeyPlaybackParams
-      value: '"command_playback_params"'
-      go_type: string
-    - go_name: CommandParameterKeyProgramUri
-      value: '"command_program_uri"'
-      go_type: string
-    - go_name: CommandParameterKeyStopMode
-      value: '"command_stop_mode"'
-      go_type: string
-    - go_name: CommandParameterKeyTimePosition
-      value: '"command_time_position"'
-      go_type: string
-    - go_name: CommandParameterKeyTimeShiftMode
-      value: '"command_time_shift_mode"'
-      go_type: string
-    - go_name: CommandParameterKeyTrackId
-      value: '"command_track_id"'
-      go_type: string
-    - go_name: CommandParameterKeyTrackType
-      value: '"command_track_type"'
-      go_type: string
-    - go_name: CommandParameterKeyVolume
-      value: '"command_volume"'
-      go_type: string
-    - go_name: CommandParameterValueStopModeBlank
-      value: "1"
-      go_type: int
-    - go_name: CommandParameterValueStopModeFreeze
+    - go_name: InteractiveAppTypeAtsc
       value: "2"
       go_type: int
-    - go_name: PlaybackCommandTypeSelectTrack
-      value: '"select_track"'
-      go_type: string
-    - go_name: PlaybackCommandTypeSetStreamVolume
-      value: '"set_stream_volume"'
-      go_type: string
-    - go_name: PlaybackCommandTypeStop
-      value: '"stop"'
-      go_type: string
-    - go_name: PlaybackCommandTypeTune
-      value: '"tune"'
-      go_type: string
-    - go_name: PlaybackCommandTypeTuneNext
-      value: '"tune_next"'
-      go_type: string
-    - go_name: PlaybackCommandTypeTunePrev
-      value: '"tune_previous"'
-      go_type: string
-    - go_name: ServiceInterface
-      value: '"android.media.tv.interactive.TvInteractiveAppService"'
-      go_type: string
-    - go_name: ServiceMetaData
-      value: '"android.media.tv.interactive.app"'
-      go_type: string
-    - go_name: TimeShiftCommandTypePause
-      value: '"pause"'
-      go_type: string
-    - go_name: TimeShiftCommandTypePlay
-      value: '"play"'
-      go_type: string
-    - go_name: TimeShiftCommandTypeResume
-      value: '"resume"'
-      go_type: string
-    - go_name: TimeShiftCommandTypeSeekTo
-      value: '"seek_to"'
-      go_type: string
-    - go_name: TimeShiftCommandTypeSetMode
-      value: '"set_mode"'
-      go_type: string
-    - go_name: TimeShiftCommandTypeSetPlaybackParams
-      value: '"set_playback_params"'
-      go_type: string
+    - go_name: InteractiveAppTypeGinga
+      value: "4"
+      go_type: int
+    - go_name: InteractiveAppTypeHbbtv
+      value: "1"
+      go_type: int
+    - go_name: InteractiveAppTypeOther
+      value: "-2147483648"
+      go_type: int
+    - go_name: InteractiveAppTypeTargetedAd
+      value: "8"
+      go_type: int

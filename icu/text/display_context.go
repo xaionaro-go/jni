@@ -55,31 +55,6 @@ func (m *DisplayContext) Type() (*jni.Object, error) {
 	return result, callErr
 }
 
-// Value calls android.icu.text.DisplayContext.value.
-func (m *DisplayContext) Value() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDisplayContextValue == nil {
-			callErr = fmt.Errorf("android.icu.text.DisplayContext.value is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midDisplayContextValue,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.icu.text.DisplayContext.toString.
 func (m *DisplayContext) ToString() (string, error) {
 	var result string
@@ -171,6 +146,31 @@ func (m *DisplayContext) ValueOf(arg0 string) (*jni.Object, error) {
 			localRef := result
 			result = env.NewGlobalRef(localRef)
 			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// Value calls android.icu.text.DisplayContext.value.
+func (m *DisplayContext) Value() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDisplayContextValue == nil {
+			callErr = fmt.Errorf("android.icu.text.DisplayContext.value is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsDisplayContext)),
+			midDisplayContextValue,
+		)
+		if callErr != nil {
+			return callErr
 		}
 		return callErr
 	})

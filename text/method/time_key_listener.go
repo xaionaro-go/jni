@@ -32,6 +32,12 @@ func NewTimeKeyListener(vm *jni.VM) (*TimeKeyListener, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTimeKeyListener == nil {
+			return fmt.Errorf("android.text.method.TimeKeyListener is not available on this device")
+		}
+		if midTimeKeyListenerCtor == nil {
+			return fmt.Errorf("android.text.method.TimeKeyListener constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTimeKeyListener)), midTimeKeyListenerCtor)
 		if err != nil {
 			return err

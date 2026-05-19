@@ -23,6 +23,41 @@ type TypefaceBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTypefaceBuilder creates a new android.graphics.Typeface$Builder instance.
+func NewTypefaceBuilder(vm *jni.VM, arg0 *jni.Object, arg1 string) (*TypefaceBuilder, error) {
+	var t TypefaceBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTypefaceBuilder == nil {
+			return fmt.Errorf("android.graphics.Typeface$Builder is not available on this device")
+		}
+		if midTypefaceBuilderCtor == nil {
+			return fmt.Errorf("android.graphics.Typeface$Builder constructor (Landroid/content/res/AssetManager;Ljava/lang/String;)V is not available on this device")
+		}
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTypefaceBuilder)), midTypefaceBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(&jArg1.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.graphics.Typeface$Builder.build.
 func (m *TypefaceBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

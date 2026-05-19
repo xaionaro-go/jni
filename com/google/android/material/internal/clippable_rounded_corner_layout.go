@@ -32,6 +32,12 @@ func NewClippableRoundedCornerLayout(vm *jni.VM, arg0 *jni.Object) (*ClippableRo
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsClippableRoundedCornerLayout == nil {
+			return fmt.Errorf("com.google.android.material.internal.ClippableRoundedCornerLayout is not available on this device")
+		}
+		if midClippableRoundedCornerLayoutCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.ClippableRoundedCornerLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsClippableRoundedCornerLayout)), midClippableRoundedCornerLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {

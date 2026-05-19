@@ -23,12 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsTileServiceCompat                         *jni.GlobalRef
-	midTileServiceCompatToString                 jni.MethodID
-	midTileServiceCompatStartActivityAndCollapse jni.MethodID
-	midTileServiceCompatSetTileServiceWrapper    jni.MethodID
-	midTileServiceCompatClearTileServiceWrapper  jni.MethodID
-
 	clsPendingIntentActivityWrapper                 *jni.GlobalRef
 	midPendingIntentActivityWrapperCtor             jni.MethodID
 	midPendingIntentActivityWrapperGetContext       jni.MethodID
@@ -39,6 +33,12 @@ var (
 	midPendingIntentActivityWrapperIsMutable        jni.MethodID
 	midPendingIntentActivityWrapperGetPendingIntent jni.MethodID
 	midPendingIntentActivityWrapperToString         jni.MethodID
+
+	clsTileServiceCompat                         *jni.GlobalRef
+	midTileServiceCompatToString                 jni.MethodID
+	midTileServiceCompatStartActivityAndCollapse jni.MethodID
+	midTileServiceCompatSetTileServiceWrapper    jni.MethodID
+	midTileServiceCompatClearTileServiceWrapper  jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -58,44 +58,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("androidx/core/service/quicksettings/TileServiceCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTileServiceCompat = env.NewGlobalRef(&c.Object)
-
-		midTileServiceCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileServiceCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTileServiceCompatStartActivityAndCollapse, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTileServiceCompat)), "startActivityAndCollapse", "(Landroid/service/quicksettings/TileService;Landroidx/core/service/quicksettings/PendingIntentActivityWrapper;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTileServiceCompatSetTileServiceWrapper, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTileServiceCompat)), "setTileServiceWrapper", "(Landroidx/core/service/quicksettings/TileServiceCompat$TileServiceWrapper;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTileServiceCompatClearTileServiceWrapper, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTileServiceCompat)), "clearTileServiceWrapper", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("androidx/core/service/quicksettings/PendingIntentActivityWrapper")
 	if err != nil {
@@ -159,6 +121,44 @@ func doInit(env *jni.Env) error {
 		}
 
 		midPendingIntentActivityWrapperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPendingIntentActivityWrapper)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/service/quicksettings/TileServiceCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTileServiceCompat = env.NewGlobalRef(&c.Object)
+
+		midTileServiceCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileServiceCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTileServiceCompatStartActivityAndCollapse, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTileServiceCompat)), "startActivityAndCollapse", "(Landroid/service/quicksettings/TileService;Landroidx/core/service/quicksettings/PendingIntentActivityWrapper;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTileServiceCompatSetTileServiceWrapper, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTileServiceCompat)), "setTileServiceWrapper", "(Landroidx/core/service/quicksettings/TileServiceCompat$TileServiceWrapper;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTileServiceCompatClearTileServiceWrapper, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTileServiceCompat)), "clearTileServiceWrapper", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

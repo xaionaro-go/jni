@@ -32,6 +32,12 @@ func NewAmbientBacklightSettings(vm *jni.VM, arg0 int32, arg1 int32, arg2 int32,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAmbientBacklightSettings == nil {
+			return fmt.Errorf("android.media.quality.AmbientBacklightSettings is not available on this device")
+		}
+		if midAmbientBacklightSettingsCtor == nil {
+			return fmt.Errorf("android.media.quality.AmbientBacklightSettings constructor (IIIIIZI)V is not available on this device")
+		}
 
 		var jArg5 uint8
 		if arg5 {
@@ -294,8 +300,8 @@ func (m *AmbientBacklightSettings) WriteToParcel(arg0 *jni.Object, arg1 int32) e
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAmbientBacklightSettings)),
 			midAmbientBacklightSettingsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

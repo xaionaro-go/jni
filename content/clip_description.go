@@ -32,6 +32,12 @@ func NewClipDescription(vm *jni.VM, arg0 *jni.Object) (*ClipDescription, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsClipDescription == nil {
+			return fmt.Errorf("android.content.ClipDescription is not available on this device")
+		}
+		if midClipDescriptionCtor == nil {
+			return fmt.Errorf("android.content.ClipDescription constructor (Landroid/content/ClipDescription;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsClipDescription)), midClipDescriptionCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -417,29 +423,6 @@ func (m *ClipDescription) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.content.ClipDescription.writeToParcel.
-func (m *ClipDescription) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midClipDescriptionWriteToParcel == nil {
-			callErr = fmt.Errorf("android.content.ClipDescription.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midClipDescriptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // CompareMimeTypes calls android.content.ClipDescription.compareMimeTypes.
 func (m *ClipDescription) CompareMimeTypes(arg0 string, arg1 string) (bool, error) {
 	var result bool
@@ -477,4 +460,27 @@ func (m *ClipDescription) CompareMimeTypes(arg0 string, arg1 string) (bool, erro
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.content.ClipDescription.writeToParcel.
+func (m *ClipDescription) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midClipDescriptionWriteToParcel == nil {
+			callErr = fmt.Errorf("android.content.ClipDescription.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsClipDescription)),
+			midClipDescriptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

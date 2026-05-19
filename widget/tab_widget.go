@@ -32,6 +32,12 @@ func NewTabWidget(vm *jni.VM, arg0 *jni.Object) (*TabWidget, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTabWidget == nil {
+			return fmt.Errorf("android.widget.TabWidget is not available on this device")
+		}
+		if midTabWidgetCtor == nil {
+			return fmt.Errorf("android.widget.TabWidget constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTabWidget)), midTabWidgetCtor, jni.ObjectValue(arg0))
 		if err != nil {

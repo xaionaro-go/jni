@@ -32,6 +32,12 @@ func NewStroke(vm *jni.VM, arg0 *jni.Object) (*Stroke, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStroke == nil {
+			return fmt.Errorf("android.gesture.GestureStroke is not available on this device")
+		}
+		if midStrokeCtor == nil {
+			return fmt.Errorf("android.gesture.GestureStroke constructor (Ljava/util/ArrayList;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStroke)), midStrokeCtor, jni.ObjectValue(arg0))
 		if err != nil {

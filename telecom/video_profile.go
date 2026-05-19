@@ -32,6 +32,12 @@ func NewVideoProfile(vm *jni.VM, arg0 int32) (*VideoProfile, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsVideoProfile == nil {
+			return fmt.Errorf("android.telecom.VideoProfile is not available on this device")
+		}
+		if midVideoProfileCtor == nil {
+			return fmt.Errorf("android.telecom.VideoProfile constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVideoProfile)), midVideoProfileCtor, jni.IntValue(arg0))
 		if err != nil {
@@ -146,29 +152,6 @@ func (m *VideoProfile) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
-}
-
-// WriteToParcel calls android.telecom.VideoProfile.writeToParcel.
-func (m *VideoProfile) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midVideoProfileWriteToParcel == nil {
-			callErr = fmt.Errorf("android.telecom.VideoProfile.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midVideoProfileWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // IsAudioOnly calls android.telecom.VideoProfile.isAudioOnly.
@@ -365,4 +348,27 @@ func (m *VideoProfile) VideoStateToString(arg0 int32) (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.telecom.VideoProfile.writeToParcel.
+func (m *VideoProfile) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midVideoProfileWriteToParcel == nil {
+			callErr = fmt.Errorf("android.telecom.VideoProfile.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsVideoProfile)),
+			midVideoProfileWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

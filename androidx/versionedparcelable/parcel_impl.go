@@ -32,6 +32,12 @@ func NewParcelImpl(vm *jni.VM, arg0 *jni.Object) (*ParcelImpl, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsParcelImpl == nil {
+			return fmt.Errorf("androidx.versionedparcelable.ParcelImpl is not available on this device")
+		}
+		if midParcelImplCtor == nil {
+			return fmt.Errorf("androidx.versionedparcelable.ParcelImpl constructor (Landroidx/versionedparcelable/VersionedParcelable;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsParcelImpl)), midParcelImplCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -71,29 +77,6 @@ func (m *ParcelImpl) DescribeContents() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls androidx.versionedparcelable.ParcelImpl.writeToParcel.
-func (m *ParcelImpl) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midParcelImplWriteToParcel == nil {
-			callErr = fmt.Errorf("androidx.versionedparcelable.ParcelImpl.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midParcelImplWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.versionedparcelable.ParcelImpl.toString.
 func (m *ParcelImpl) ToString() (string, error) {
 	var result string
@@ -119,4 +102,27 @@ func (m *ParcelImpl) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls androidx.versionedparcelable.ParcelImpl.writeToParcel.
+func (m *ParcelImpl) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midParcelImplWriteToParcel == nil {
+			callErr = fmt.Errorf("androidx.versionedparcelable.ParcelImpl.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsParcelImpl)),
+			midParcelImplWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

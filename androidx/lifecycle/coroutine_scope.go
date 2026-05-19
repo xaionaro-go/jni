@@ -23,6 +23,38 @@ type CoroutineScope struct {
 	Obj *jni.GlobalRef
 }
 
+// GetLifecycleLifecycleCommon calls androidx.lifecycle.LifecycleCoroutineScope.getLifecycle$lifecycle_common.
+func (m *CoroutineScope) GetLifecycleLifecycleCommon() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCoroutineScopeGetLifecycleLifecycleCommon == nil {
+			callErr = fmt.Errorf("androidx.lifecycle.LifecycleCoroutineScope.getLifecycle$lifecycle_common is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallObjectMethod(
+			m.Obj,
+			midCoroutineScopeGetLifecycleLifecycleCommon,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
 // ToString calls androidx.lifecycle.LifecycleCoroutineScope.toString.
 func (m *CoroutineScope) ToString() (string, error) {
 	var result string

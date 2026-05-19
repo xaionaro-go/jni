@@ -63,6 +63,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -74,6 +75,7 @@ classes:
           error: true
     - java_class: android.location.provider.ProviderProperties$Builder
       go_type: PropertiesBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build

@@ -21,10 +21,6 @@ classes:
               go_name: arg1
           returns: void
           error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
 constants:
     - go_name: Creator
       value: "0"

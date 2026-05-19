@@ -32,6 +32,12 @@ func NewPathInterpolator(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*PathI
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPathInterpolator == nil {
+			return fmt.Errorf("android.view.animation.PathInterpolator is not available on this device")
+		}
+		if midPathInterpolatorCtor == nil {
+			return fmt.Errorf("android.view.animation.PathInterpolator constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPathInterpolator)), midPathInterpolatorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

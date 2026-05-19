@@ -32,6 +32,12 @@ func NewAtomicFile(vm *jni.VM, arg0 *jni.Object) (*AtomicFile, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAtomicFile == nil {
+			return fmt.Errorf("androidx.core.util.AtomicFile is not available on this device")
+		}
+		if midAtomicFileCtor == nil {
+			return fmt.Errorf("androidx.core.util.AtomicFile constructor (Ljava/io/File;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAtomicFile)), midAtomicFileCtor, jni.ObjectValue(arg0))
 		if err != nil {

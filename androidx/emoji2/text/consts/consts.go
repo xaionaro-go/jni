@@ -3,11 +3,7 @@
 package consts
 
 const (
-	EditorInfoMetaversionKey string = "android.support.text.emoji.emojiCompat_metadataVersion"
-	EditorInfoReplaceAllKey  string = "android.support.text.emoji.emojiCompat_replaceAll"
-)
-
-const (
+	MaxEmojiCount              int = 2147483647
 	LoadStateDefault           int = 3
 	LoadStateLoading           int = 0
 	LoadStateSucceeded         int = 1
@@ -20,5 +16,9 @@ const (
 	EmojiUnsupported           int = 0
 	EmojiSupported             int = 1
 	EmojiFallback              int = 2
-	MaxEmojiCount              int = 2147483647
+)
+
+const (
+	EditorInfoMetaversionKey string = "android.support.text.emoji.emojiCompat_metadataVersion"
+	EditorInfoReplaceAllKey  string = "android.support.text.emoji.emojiCompat_replaceAll"
 )

@@ -30,6 +30,12 @@ func NewDialogFragment(vm *jni.VM) (*DialogFragment, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDialogFragment == nil {
+			return fmt.Errorf("androidx.fragment.app.DialogFragment is not available on this device")
+		}
+		if midDialogFragmentCtor == nil {
+			return fmt.Errorf("androidx.fragment.app.DialogFragment constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDialogFragment)), midDialogFragmentCtor)
 		if err != nil {
 			return err
@@ -729,28 +735,6 @@ func (m *DialogFragment) OnStop() error {
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midDialogFragmentOnStop,
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// OnDestroyView calls androidx.fragment.app.DialogFragment.onDestroyView.
-func (m *DialogFragment) OnDestroyView() error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDialogFragmentOnDestroyView == nil {
-			callErr = fmt.Errorf("androidx.fragment.app.DialogFragment.onDestroyView is not available on this device")
-			return callErr
-		}
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midDialogFragmentOnDestroyView,
 		)
 		return callErr
 	})

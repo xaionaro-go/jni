@@ -32,6 +32,12 @@ func NewRuleBasedCollator(vm *jni.VM, arg0 string) (*RuleBasedCollator, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRuleBasedCollator == nil {
+			return fmt.Errorf("android.icu.text.RuleBasedCollator is not available on this device")
+		}
+		if midRuleBasedCollatorCtor == nil {
+			return fmt.Errorf("android.icu.text.RuleBasedCollator constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -83,8 +89,8 @@ func (m *RuleBasedCollator) Clone() (*jni.Object, error) {
 	return result, callErr
 }
 
-// CloneAsThawed0 calls android.icu.text.RuleBasedCollator.cloneAsThawed.
-func (m *RuleBasedCollator) CloneAsThawed0() (*jni.Object, error) {
+// CloneAsThawed calls android.icu.text.RuleBasedCollator.cloneAsThawed.
+func (m *RuleBasedCollator) CloneAsThawed() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -92,13 +98,13 @@ func (m *RuleBasedCollator) CloneAsThawed0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midRuleBasedCollatorCloneAsThawed0 == nil {
+		if midRuleBasedCollatorCloneAsThawed == nil {
 			callErr = fmt.Errorf("android.icu.text.RuleBasedCollator.cloneAsThawed is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midRuleBasedCollatorCloneAsThawed0,
+			midRuleBasedCollatorCloneAsThawed,
 		)
 		if callErr != nil {
 			return callErr
@@ -180,8 +186,8 @@ func (m *RuleBasedCollator) Equals(arg0 *jni.Object) (bool, error) {
 	return result, callErr
 }
 
-// Freeze0 calls android.icu.text.RuleBasedCollator.freeze.
-func (m *RuleBasedCollator) Freeze0() (*jni.Object, error) {
+// Freeze calls android.icu.text.RuleBasedCollator.freeze.
+func (m *RuleBasedCollator) Freeze() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -189,13 +195,13 @@ func (m *RuleBasedCollator) Freeze0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midRuleBasedCollatorFreeze0 == nil {
+		if midRuleBasedCollatorFreeze == nil {
 			callErr = fmt.Errorf("android.icu.text.RuleBasedCollator.freeze is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midRuleBasedCollatorFreeze0,
+			midRuleBasedCollatorFreeze,
 		)
 		if callErr != nil {
 			return callErr
@@ -1128,8 +1134,8 @@ func (m *RuleBasedCollator) SetLowerCaseFirst(arg0 bool) error {
 	return callErr
 }
 
-// SetMaxVariable1 calls android.icu.text.RuleBasedCollator.setMaxVariable.
-func (m *RuleBasedCollator) SetMaxVariable1(arg0 int32) (*jni.Object, error) {
+// SetMaxVariable calls android.icu.text.RuleBasedCollator.setMaxVariable.
+func (m *RuleBasedCollator) SetMaxVariable(arg0 int32) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1137,14 +1143,14 @@ func (m *RuleBasedCollator) SetMaxVariable1(arg0 int32) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midRuleBasedCollatorSetMaxVariable1 == nil {
+		if midRuleBasedCollatorSetMaxVariable == nil {
 			callErr = fmt.Errorf("android.icu.text.RuleBasedCollator.setMaxVariable is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midRuleBasedCollatorSetMaxVariable1, jni.IntValue(arg0),
+			midRuleBasedCollatorSetMaxVariable, jni.IntValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1303,135 +1309,6 @@ func (m *RuleBasedCollator) SetUpperCaseFirst(arg0 bool) error {
 		return callErr
 	})
 	return callErr
-}
-
-// SetMaxVariable1_1 calls android.icu.text.RuleBasedCollator.setMaxVariable.
-func (m *RuleBasedCollator) SetMaxVariable1_1(arg0 int32) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRuleBasedCollatorSetMaxVariable1_1 == nil {
-			callErr = fmt.Errorf("android.icu.text.RuleBasedCollator.setMaxVariable is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midRuleBasedCollatorSetMaxVariable1_1, jni.IntValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// CloneAsThawed0_1 calls android.icu.text.RuleBasedCollator.cloneAsThawed.
-func (m *RuleBasedCollator) CloneAsThawed0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRuleBasedCollatorCloneAsThawed0_1 == nil {
-			callErr = fmt.Errorf("android.icu.text.RuleBasedCollator.cloneAsThawed is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midRuleBasedCollatorCloneAsThawed0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Freeze0_1 calls android.icu.text.RuleBasedCollator.freeze.
-func (m *RuleBasedCollator) Freeze0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRuleBasedCollatorFreeze0_1 == nil {
-			callErr = fmt.Errorf("android.icu.text.RuleBasedCollator.freeze is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midRuleBasedCollatorFreeze0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// CloneAsThawed0_2 calls android.icu.text.RuleBasedCollator.cloneAsThawed.
-func (m *RuleBasedCollator) CloneAsThawed0_2() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRuleBasedCollatorCloneAsThawed0_2 == nil {
-			callErr = fmt.Errorf("android.icu.text.RuleBasedCollator.cloneAsThawed is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midRuleBasedCollatorCloneAsThawed0_2,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls android.icu.text.RuleBasedCollator.toString.

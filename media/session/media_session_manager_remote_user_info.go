@@ -23,6 +23,40 @@ type MediaSessionManagerRemoteUserInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMediaSessionManagerRemoteUserInfo creates a new android.media.session.MediaSessionManager$RemoteUserInfo instance.
+func NewMediaSessionManagerRemoteUserInfo(vm *jni.VM, arg0 string, arg1 int32, arg2 int32) (*MediaSessionManagerRemoteUserInfo, error) {
+	var t MediaSessionManagerRemoteUserInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMediaSessionManagerRemoteUserInfo == nil {
+			return fmt.Errorf("android.media.session.MediaSessionManager$RemoteUserInfo is not available on this device")
+		}
+		if midMediaSessionManagerRemoteUserInfoCtor == nil {
+			return fmt.Errorf("android.media.session.MediaSessionManager$RemoteUserInfo constructor (Ljava/lang/String;II)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMediaSessionManagerRemoteUserInfo)), midMediaSessionManagerRemoteUserInfoCtor, jni.ObjectValue(&jArg0.Object), jni.IntValue(arg1), jni.IntValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.media.session.MediaSessionManager$RemoteUserInfo.equals.
 func (m *MediaSessionManagerRemoteUserInfo) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

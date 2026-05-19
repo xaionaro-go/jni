@@ -32,6 +32,12 @@ func NewAmbientBacklightMetadata(vm *jni.VM, arg0 string, arg1 int32, arg2 int32
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAmbientBacklightMetadata == nil {
+			return fmt.Errorf("android.media.quality.AmbientBacklightMetadata is not available on this device")
+		}
+		if midAmbientBacklightMetadataCtor == nil {
+			return fmt.Errorf("android.media.quality.AmbientBacklightMetadata constructor (Ljava/lang/String;IIIII[I)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -301,8 +307,8 @@ func (m *AmbientBacklightMetadata) WriteToParcel(arg0 *jni.Object, arg1 int32) e
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAmbientBacklightMetadata)),
 			midAmbientBacklightMetadataWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

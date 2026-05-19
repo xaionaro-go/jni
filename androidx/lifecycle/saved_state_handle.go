@@ -32,6 +32,12 @@ func NewSavedStateHandle(vm *jni.VM) (*SavedStateHandle, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSavedStateHandle == nil {
+			return fmt.Errorf("androidx.lifecycle.SavedStateHandle is not available on this device")
+		}
+		if midSavedStateHandleCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.SavedStateHandle constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSavedStateHandle)), midSavedStateHandleCtor)
 		if err != nil {
 			return err

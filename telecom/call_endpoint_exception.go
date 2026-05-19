@@ -32,6 +32,12 @@ func NewCallEndpointException(vm *jni.VM, arg0 string, arg1 int32) (*CallEndpoin
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCallEndpointException == nil {
+			return fmt.Errorf("android.telecom.CallEndpointException is not available on this device")
+		}
+		if midCallEndpointExceptionCtor == nil {
+			return fmt.Errorf("android.telecom.CallEndpointException constructor (Ljava/lang/String;I)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -101,29 +107,6 @@ func (m *CallEndpointException) GetCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.telecom.CallEndpointException.writeToParcel.
-func (m *CallEndpointException) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCallEndpointExceptionWriteToParcel == nil {
-			callErr = fmt.Errorf("android.telecom.CallEndpointException.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midCallEndpointExceptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.telecom.CallEndpointException.toString.
 func (m *CallEndpointException) ToString() (string, error) {
 	var result string
@@ -149,4 +132,27 @@ func (m *CallEndpointException) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.telecom.CallEndpointException.writeToParcel.
+func (m *CallEndpointException) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCallEndpointExceptionWriteToParcel == nil {
+			callErr = fmt.Errorf("android.telecom.CallEndpointException.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsCallEndpointException)),
+			midCallEndpointExceptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

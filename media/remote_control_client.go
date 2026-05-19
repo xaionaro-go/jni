@@ -32,6 +32,12 @@ func NewRemoteControlClient(vm *jni.VM, arg0 *jni.Object) (*RemoteControlClient,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRemoteControlClient == nil {
+			return fmt.Errorf("android.media.RemoteControlClient is not available on this device")
+		}
+		if midRemoteControlClientCtor == nil {
+			return fmt.Errorf("android.media.RemoteControlClient constructor (Landroid/app/PendingIntent;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRemoteControlClient)), midRemoteControlClientCtor, jni.ObjectValue(arg0))
 		if err != nil {

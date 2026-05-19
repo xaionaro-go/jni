@@ -23,6 +23,34 @@ type AppInstallFiltersBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAppInstallFiltersBuilder creates a new android.adservices.common.AppInstallFilters$Builder instance.
+func NewAppInstallFiltersBuilder(vm *jni.VM) (*AppInstallFiltersBuilder, error) {
+	var t AppInstallFiltersBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAppInstallFiltersBuilder == nil {
+			return fmt.Errorf("android.adservices.common.AppInstallFilters$Builder is not available on this device")
+		}
+		if midAppInstallFiltersBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.common.AppInstallFilters$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppInstallFiltersBuilder)), midAppInstallFiltersBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.common.AppInstallFilters$Builder.build.
 func (m *AppInstallFiltersBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

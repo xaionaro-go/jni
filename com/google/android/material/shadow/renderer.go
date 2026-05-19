@@ -32,6 +32,12 @@ func NewRenderer(vm *jni.VM) (*Renderer, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRenderer == nil {
+			return fmt.Errorf("com.google.android.material.shadow.ShadowRenderer is not available on this device")
+		}
+		if midRendererCtor == nil {
+			return fmt.Errorf("com.google.android.material.shadow.ShadowRenderer constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRenderer)), midRendererCtor)
 		if err != nil {
 			return err
@@ -157,38 +163,6 @@ func (m *Renderer) DrawInnerCornerShadow(
 	return callErr
 }
 
-// GetShadowPaint calls com.google.android.material.shadow.ShadowRenderer.getShadowPaint.
-func (m *Renderer) GetShadowPaint() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRendererGetShadowPaint == nil {
-			callErr = fmt.Errorf("com.google.android.material.shadow.ShadowRenderer.getShadowPaint is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midRendererGetShadowPaint,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.shadow.ShadowRenderer.toString.
 func (m *Renderer) ToString() (string, error) {
 	var result string
@@ -211,6 +185,38 @@ func (m *Renderer) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetShadowPaint calls com.google.android.material.shadow.ShadowRenderer.getShadowPaint.
+func (m *Renderer) GetShadowPaint() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRendererGetShadowPaint == nil {
+			callErr = fmt.Errorf("com.google.android.material.shadow.ShadowRenderer.getShadowPaint is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsRenderer)),
+			midRendererGetShadowPaint,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
 		return callErr
 	})
 	return result, callErr

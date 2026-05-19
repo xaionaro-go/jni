@@ -32,6 +32,12 @@ func NewUserPresenceUnavailableException(vm *jni.VM) (*UserPresenceUnavailableEx
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsUserPresenceUnavailableException == nil {
+			return fmt.Errorf("android.security.keystore.UserPresenceUnavailableException is not available on this device")
+		}
+		if midUserPresenceUnavailableExceptionCtor == nil {
+			return fmt.Errorf("android.security.keystore.UserPresenceUnavailableException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUserPresenceUnavailableException)), midUserPresenceUnavailableExceptionCtor)
 		if err != nil {
 			return err

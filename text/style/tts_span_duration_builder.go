@@ -23,6 +23,34 @@ type TtsSpanDurationBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTtsSpanDurationBuilder creates a new android.text.style.TtsSpan$DurationBuilder instance.
+func NewTtsSpanDurationBuilder(vm *jni.VM) (*TtsSpanDurationBuilder, error) {
+	var t TtsSpanDurationBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTtsSpanDurationBuilder == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$DurationBuilder is not available on this device")
+		}
+		if midTtsSpanDurationBuilderCtor == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$DurationBuilder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTtsSpanDurationBuilder)), midTtsSpanDurationBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetHours calls android.text.style.TtsSpan$DurationBuilder.setHours.
 func (m *TtsSpanDurationBuilder) SetHours(arg0 int32) (*jni.Object, error) {
 	var result *jni.Object

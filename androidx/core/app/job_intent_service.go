@@ -182,33 +182,6 @@ func (m *JobIntentService) IsStopped() (bool, error) {
 	return result, callErr
 }
 
-// OnStopCurrentWork calls androidx.core.app.JobIntentService.onStopCurrentWork.
-func (m *JobIntentService) OnStopCurrentWork() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midJobIntentServiceOnStopCurrentWork == nil {
-			callErr = fmt.Errorf("androidx.core.app.JobIntentService.onStopCurrentWork is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midJobIntentServiceOnStopCurrentWork,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.core.app.JobIntentService.toString.
 func (m *JobIntentService) ToString() (string, error) {
 	var result string
@@ -262,4 +235,31 @@ func (m *JobIntentService) EnqueueWork(
 		return callErr
 	})
 	return callErr
+}
+
+// OnStopCurrentWork calls androidx.core.app.JobIntentService.onStopCurrentWork.
+func (m *JobIntentService) OnStopCurrentWork() (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midJobIntentServiceOnStopCurrentWork == nil {
+			callErr = fmt.Errorf("androidx.core.app.JobIntentService.onStopCurrentWork is not available on this device")
+			return callErr
+		}
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsJobIntentService)),
+			midJobIntentServiceOnStopCurrentWork,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
+		return callErr
+	})
+	return result, callErr
 }

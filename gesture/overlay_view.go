@@ -32,6 +32,12 @@ func NewOverlayView(vm *jni.VM, arg0 *jni.Object) (*OverlayView, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsOverlayView == nil {
+			return fmt.Errorf("android.gesture.GestureOverlayView is not available on this device")
+		}
+		if midOverlayViewCtor == nil {
+			return fmt.Errorf("android.gesture.GestureOverlayView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsOverlayView)), midOverlayViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

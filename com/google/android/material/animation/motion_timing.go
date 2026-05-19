@@ -32,6 +32,12 @@ func NewMotionTiming(vm *jni.VM, arg0 int64, arg1 int64) (*MotionTiming, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMotionTiming == nil {
+			return fmt.Errorf("com.google.android.material.animation.MotionTiming is not available on this device")
+		}
+		if midMotionTimingCtor == nil {
+			return fmt.Errorf("com.google.android.material.animation.MotionTiming constructor (JJ)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMotionTiming)), midMotionTimingCtor, jni.LongValue(arg0), jni.LongValue(arg1))
 		if err != nil {
@@ -176,31 +182,6 @@ func (m *MotionTiming) GetRepeatCount() (int32, error) {
 	return result, callErr
 }
 
-// GetRepeatMode calls com.google.android.material.animation.MotionTiming.getRepeatMode.
-func (m *MotionTiming) GetRepeatMode() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMotionTimingGetRepeatMode == nil {
-			callErr = fmt.Errorf("com.google.android.material.animation.MotionTiming.getRepeatMode is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midMotionTimingGetRepeatMode,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // Equals calls com.google.android.material.animation.MotionTiming.equals.
 func (m *MotionTiming) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool
@@ -276,6 +257,31 @@ func (m *MotionTiming) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetRepeatMode calls com.google.android.material.animation.MotionTiming.getRepeatMode.
+func (m *MotionTiming) GetRepeatMode() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midMotionTimingGetRepeatMode == nil {
+			callErr = fmt.Errorf("com.google.android.material.animation.MotionTiming.getRepeatMode is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsMotionTiming)),
+			midMotionTimingGetRepeatMode,
+		)
+		if callErr != nil {
+			return callErr
+		}
 		return callErr
 	})
 	return result, callErr

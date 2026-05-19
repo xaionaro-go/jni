@@ -23,6 +23,34 @@ type ViewOscillatorPathRotateSet struct {
 	Obj *jni.GlobalRef
 }
 
+// NewViewOscillatorPathRotateSet creates a new androidx.constraintlayout.motion.utils.ViewOscillator$PathRotateSet instance.
+func NewViewOscillatorPathRotateSet(vm *jni.VM) (*ViewOscillatorPathRotateSet, error) {
+	var t ViewOscillatorPathRotateSet
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsViewOscillatorPathRotateSet == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.utils.ViewOscillator$PathRotateSet is not available on this device")
+		}
+		if midViewOscillatorPathRotateSetCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.utils.ViewOscillator$PathRotateSet constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewOscillatorPathRotateSet)), midViewOscillatorPathRotateSetCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetProperty calls androidx.constraintlayout.motion.utils.ViewOscillator$PathRotateSet.setProperty.
 func (m *ViewOscillatorPathRotateSet) SetProperty(arg0 *jni.Object, arg1 float32) error {
 

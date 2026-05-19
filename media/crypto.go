@@ -32,6 +32,12 @@ func NewCrypto(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Crypto, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCrypto == nil {
+			return fmt.Errorf("android.media.MediaCrypto is not available on this device")
+		}
+		if midCryptoCtor == nil {
+			return fmt.Errorf("android.media.MediaCrypto constructor (Ljava/util/UUID;[B)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCrypto)), midCryptoCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

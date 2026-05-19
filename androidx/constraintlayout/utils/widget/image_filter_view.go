@@ -32,6 +32,12 @@ func NewImageFilterView(vm *jni.VM, arg0 *jni.Object) (*ImageFilterView, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsImageFilterView == nil {
+			return fmt.Errorf("androidx.constraintlayout.utils.widget.ImageFilterView is not available on this device")
+		}
+		if midImageFilterViewCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.utils.widget.ImageFilterView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsImageFilterView)), midImageFilterViewCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -660,34 +666,6 @@ func (m *ImageFilterView) Draw(arg0 *jni.Object) error {
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midImageFilterViewDraw, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// Layout calls androidx.constraintlayout.utils.widget.ImageFilterView.layout.
-func (m *ImageFilterView) Layout(
-	arg0 int32,
-	arg1 int32,
-	arg2 int32,
-	arg3 int32,
-) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midImageFilterViewLayout == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.utils.widget.ImageFilterView.layout is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midImageFilterViewLayout, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3),
 		)
 		return callErr
 	})

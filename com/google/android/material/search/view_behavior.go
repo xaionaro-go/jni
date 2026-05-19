@@ -23,40 +23,37 @@ type ViewBehavior struct {
 	Obj *jni.GlobalRef
 }
 
-// OnDependentViewChanged3 calls com.google.android.material.search.SearchView$Behavior.onDependentViewChanged.
-func (m *ViewBehavior) OnDependentViewChanged3(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
+// NewViewBehavior creates a new com.google.android.material.search.SearchView$Behavior instance.
+func NewViewBehavior(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ViewBehavior, error) {
+	var t ViewBehavior
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
 		if err := ensureInit(env); err != nil {
-			callErr = err
 			return err
 		}
-		if midViewBehaviorOnDependentViewChanged3 == nil {
-			callErr = fmt.Errorf("com.google.android.material.search.SearchView$Behavior.onDependentViewChanged is not available on this device")
-			return callErr
+		if clsViewBehavior == nil {
+			return fmt.Errorf("com.google.android.material.search.SearchView$Behavior is not available on this device")
+		}
+		if midViewBehaviorCtor == nil {
+			return fmt.Errorf("com.google.android.material.search.SearchView$Behavior constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
 		}
 
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midViewBehaviorOnDependentViewChanged3, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
-		)
-		if callErr != nil {
-			return callErr
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewBehavior)), midViewBehaviorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
 		}
-		result = resultRaw != 0
-		return callErr
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
 	})
-	return result, callErr
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
 }
 
-// OnDependentViewChanged3_1 calls com.google.android.material.search.SearchView$Behavior.onDependentViewChanged.
-func (m *ViewBehavior) OnDependentViewChanged3_1(
+// OnDependentViewChanged calls com.google.android.material.search.SearchView$Behavior.onDependentViewChanged.
+func (m *ViewBehavior) OnDependentViewChanged(
 	arg0 *jni.Object,
 	arg1 *jni.Object,
 	arg2 *jni.Object,
@@ -68,7 +65,7 @@ func (m *ViewBehavior) OnDependentViewChanged3_1(
 			callErr = err
 			return err
 		}
-		if midViewBehaviorOnDependentViewChanged3_1 == nil {
+		if midViewBehaviorOnDependentViewChanged == nil {
 			callErr = fmt.Errorf("com.google.android.material.search.SearchView$Behavior.onDependentViewChanged is not available on this device")
 			return callErr
 		}
@@ -76,7 +73,7 @@ func (m *ViewBehavior) OnDependentViewChanged3_1(
 		var resultRaw uint8
 		resultRaw, callErr = env.CallBooleanMethod(
 			m.Obj,
-			midViewBehaviorOnDependentViewChanged3_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
+			midViewBehaviorOnDependentViewChanged, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
 		)
 		if callErr != nil {
 			return callErr

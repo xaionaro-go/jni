@@ -32,6 +32,12 @@ func NewSwipeDismissBehavior(vm *jni.VM) (*SwipeDismissBehavior, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSwipeDismissBehavior == nil {
+			return fmt.Errorf("com.google.android.material.behavior.SwipeDismissBehavior is not available on this device")
+		}
+		if midSwipeDismissBehaviorCtor == nil {
+			return fmt.Errorf("com.google.android.material.behavior.SwipeDismissBehavior constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSwipeDismissBehavior)), midSwipeDismissBehaviorCtor)
 		if err != nil {
 			return err
@@ -215,59 +221,6 @@ func (m *SwipeDismissBehavior) SetSensitivity(arg0 float32) error {
 	return callErr
 }
 
-// CanSwipeDismissView calls com.google.android.material.behavior.SwipeDismissBehavior.canSwipeDismissView.
-func (m *SwipeDismissBehavior) CanSwipeDismissView(arg0 *jni.Object) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSwipeDismissBehaviorCanSwipeDismissView == nil {
-			callErr = fmt.Errorf("com.google.android.material.behavior.SwipeDismissBehavior.canSwipeDismissView is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midSwipeDismissBehaviorCanSwipeDismissView, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetDragState calls com.google.android.material.behavior.SwipeDismissBehavior.getDragState.
-func (m *SwipeDismissBehavior) GetDragState() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSwipeDismissBehaviorGetDragState == nil {
-			callErr = fmt.Errorf("com.google.android.material.behavior.SwipeDismissBehavior.getDragState is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midSwipeDismissBehaviorGetDragState,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.behavior.SwipeDismissBehavior.toString.
 func (m *SwipeDismissBehavior) ToString() (string, error) {
 	var result string
@@ -290,6 +243,34 @@ func (m *SwipeDismissBehavior) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// CanSwipeDismissView calls com.google.android.material.behavior.SwipeDismissBehavior.canSwipeDismissView.
+func (m *SwipeDismissBehavior) CanSwipeDismissView(arg0 *jni.Object) (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSwipeDismissBehaviorCanSwipeDismissView == nil {
+			callErr = fmt.Errorf("com.google.android.material.behavior.SwipeDismissBehavior.canSwipeDismissView is not available on this device")
+			return callErr
+		}
+
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsSwipeDismissBehavior)),
+			midSwipeDismissBehaviorCanSwipeDismissView, jni.ObjectValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

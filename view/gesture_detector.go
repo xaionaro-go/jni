@@ -32,6 +32,12 @@ func NewGestureDetector(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Gestur
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGestureDetector == nil {
+			return fmt.Errorf("android.view.GestureDetector is not available on this device")
+		}
+		if midGestureDetectorCtor == nil {
+			return fmt.Errorf("android.view.GestureDetector constructor (Landroid/content/Context;Landroid/view/GestureDetector$OnGestureListener;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGestureDetector)), midGestureDetectorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

@@ -23,6 +23,34 @@ type FontsContractFontRequestCallback struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFontsContractFontRequestCallback creates a new android.provider.FontsContract$FontRequestCallback instance.
+func NewFontsContractFontRequestCallback(vm *jni.VM) (*FontsContractFontRequestCallback, error) {
+	var t FontsContractFontRequestCallback
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFontsContractFontRequestCallback == nil {
+			return fmt.Errorf("android.provider.FontsContract$FontRequestCallback is not available on this device")
+		}
+		if midFontsContractFontRequestCallbackCtor == nil {
+			return fmt.Errorf("android.provider.FontsContract$FontRequestCallback constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFontsContractFontRequestCallback)), midFontsContractFontRequestCallbackCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnTypefaceRequestFailed calls android.provider.FontsContract$FontRequestCallback.onTypefaceRequestFailed.
 func (m *FontsContractFontRequestCallback) OnTypefaceRequestFailed(arg0 int32) error {
 

@@ -32,6 +32,12 @@ func NewExtractedTextRequest(vm *jni.VM) (*ExtractedTextRequest, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsExtractedTextRequest == nil {
+			return fmt.Errorf("android.view.inputmethod.ExtractedTextRequest is not available on this device")
+		}
+		if midExtractedTextRequestCtor == nil {
+			return fmt.Errorf("android.view.inputmethod.ExtractedTextRequest constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExtractedTextRequest)), midExtractedTextRequestCtor)
 		if err != nil {
 			return err
@@ -70,29 +76,6 @@ func (m *ExtractedTextRequest) DescribeContents() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.inputmethod.ExtractedTextRequest.writeToParcel.
-func (m *ExtractedTextRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midExtractedTextRequestWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.inputmethod.ExtractedTextRequest.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midExtractedTextRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.view.inputmethod.ExtractedTextRequest.toString.
 func (m *ExtractedTextRequest) ToString() (string, error) {
 	var result string
@@ -118,4 +101,27 @@ func (m *ExtractedTextRequest) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.inputmethod.ExtractedTextRequest.writeToParcel.
+func (m *ExtractedTextRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midExtractedTextRequestWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.inputmethod.ExtractedTextRequest.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsExtractedTextRequest)),
+			midExtractedTextRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

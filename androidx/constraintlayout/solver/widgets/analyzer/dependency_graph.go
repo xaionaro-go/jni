@@ -32,6 +32,12 @@ func NewDependencyGraph(vm *jni.VM, arg0 *jni.Object) (*DependencyGraph, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDependencyGraph == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.widgets.analyzer.DependencyGraph is not available on this device")
+		}
+		if midDependencyGraphCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.widgets.analyzer.DependencyGraph constructor (Landroidx/constraintlayout/solver/widgets/ConstraintWidgetContainer;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), midDependencyGraphCtor, jni.ObjectValue(arg0))
 		if err != nil {

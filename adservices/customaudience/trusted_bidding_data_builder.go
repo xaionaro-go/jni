@@ -23,6 +23,34 @@ type TrustedBiddingDataBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTrustedBiddingDataBuilder creates a new android.adservices.customaudience.TrustedBiddingData$Builder instance.
+func NewTrustedBiddingDataBuilder(vm *jni.VM) (*TrustedBiddingDataBuilder, error) {
+	var t TrustedBiddingDataBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTrustedBiddingDataBuilder == nil {
+			return fmt.Errorf("android.adservices.customaudience.TrustedBiddingData$Builder is not available on this device")
+		}
+		if midTrustedBiddingDataBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.customaudience.TrustedBiddingData$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTrustedBiddingDataBuilder)), midTrustedBiddingDataBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.customaudience.TrustedBiddingData$Builder.build.
 func (m *TrustedBiddingDataBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

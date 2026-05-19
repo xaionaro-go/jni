@@ -32,6 +32,12 @@ func NewSupportMenuInflater(vm *jni.VM, arg0 *jni.Object) (*SupportMenuInflater,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSupportMenuInflater == nil {
+			return fmt.Errorf("androidx.appcompat.view.SupportMenuInflater is not available on this device")
+		}
+		if midSupportMenuInflaterCtor == nil {
+			return fmt.Errorf("androidx.appcompat.view.SupportMenuInflater constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSupportMenuInflater)), midSupportMenuInflaterCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -44,29 +50,6 @@ func NewSupportMenuInflater(vm *jni.VM, arg0 *jni.Object) (*SupportMenuInflater,
 		return nil, err
 	}
 	return &t, nil
-}
-
-// Inflate calls androidx.appcompat.view.SupportMenuInflater.inflate.
-func (m *SupportMenuInflater) Inflate(arg0 int32, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSupportMenuInflaterInflate == nil {
-			callErr = fmt.Errorf("androidx.appcompat.view.SupportMenuInflater.inflate is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSupportMenuInflaterInflate, jni.IntValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // ToString calls androidx.appcompat.view.SupportMenuInflater.toString.
@@ -94,4 +77,27 @@ func (m *SupportMenuInflater) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// Inflate calls androidx.appcompat.view.SupportMenuInflater.inflate.
+func (m *SupportMenuInflater) Inflate(arg0 int32, arg1 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSupportMenuInflaterInflate == nil {
+			callErr = fmt.Errorf("androidx.appcompat.view.SupportMenuInflater.inflate is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSupportMenuInflater)),
+			midSupportMenuInflaterInflate, jni.IntValue(arg0), jni.ObjectValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

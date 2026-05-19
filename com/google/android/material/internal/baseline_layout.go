@@ -32,6 +32,12 @@ func NewBaselineLayout(vm *jni.VM, arg0 *jni.Object) (*BaselineLayout, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBaselineLayout == nil {
+			return fmt.Errorf("com.google.android.material.internal.BaselineLayout is not available on this device")
+		}
+		if midBaselineLayoutCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.BaselineLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBaselineLayout)), midBaselineLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {

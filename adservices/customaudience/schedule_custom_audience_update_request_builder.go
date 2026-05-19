@@ -23,6 +23,35 @@ type ScheduleCustomAudienceUpdateRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewScheduleCustomAudienceUpdateRequestBuilder creates a new android.adservices.customaudience.ScheduleCustomAudienceUpdateRequest$Builder instance.
+func NewScheduleCustomAudienceUpdateRequestBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ScheduleCustomAudienceUpdateRequestBuilder, error) {
+	var t ScheduleCustomAudienceUpdateRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsScheduleCustomAudienceUpdateRequestBuilder == nil {
+			return fmt.Errorf("android.adservices.customaudience.ScheduleCustomAudienceUpdateRequest$Builder is not available on this device")
+		}
+		if midScheduleCustomAudienceUpdateRequestBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.customaudience.ScheduleCustomAudienceUpdateRequest$Builder constructor (Landroid/net/Uri;Ljava/time/Duration;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScheduleCustomAudienceUpdateRequestBuilder)), midScheduleCustomAudienceUpdateRequestBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.customaudience.ScheduleCustomAudienceUpdateRequest$Builder.build.
 func (m *ScheduleCustomAudienceUpdateRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

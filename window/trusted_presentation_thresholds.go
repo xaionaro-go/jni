@@ -32,6 +32,12 @@ func NewTrustedPresentationThresholds(vm *jni.VM, arg0 float32, arg1 float32, ar
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTrustedPresentationThresholds == nil {
+			return fmt.Errorf("android.window.TrustedPresentationThresholds is not available on this device")
+		}
+		if midTrustedPresentationThresholdsCtor == nil {
+			return fmt.Errorf("android.window.TrustedPresentationThresholds constructor (FFI)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTrustedPresentationThresholds)), midTrustedPresentationThresholdsCtor, jni.FloatValue(arg0), jni.FloatValue(arg1), jni.IntValue(arg2))
 		if err != nil {
@@ -240,8 +246,8 @@ func (m *TrustedPresentationThresholds) WriteToParcel(arg0 *jni.Object, arg1 int
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsTrustedPresentationThresholds)),
 			midTrustedPresentationThresholdsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

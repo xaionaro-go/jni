@@ -5,549 +5,6 @@
 package: shape
 go_import: github.com/AndroidGoLab/jni/com/google/android/material/shape
 classes:
-    - java_class: com.google.android.material.shape.AdjustedCornerSize
-      go_type: AdjustedCornerSize
-      obtain: constructor
-      constructor_params:
-        - java_type: float
-          go_name: arg0
-        - java_type: com.google.android.material.shape.CornerSize
-          go_name: arg1
-      methods:
-        - java_method: getCornerSize
-          go_name: GetCornerSize
-          params:
-            - java_type: android.graphics.RectF
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-    - java_class: com.google.android.material.shape.ShapeAppearanceModel
-      go_type: AppearanceModel
-      obtain: constructor
-      methods:
-        - java_method: getTopLeftCorner
-          go_name: GetTopLeftCorner
-          returns: com.google.android.material.shape.CornerTreatment
-          error: true
-        - java_method: getTopRightCorner
-          go_name: GetTopRightCorner
-          returns: com.google.android.material.shape.CornerTreatment
-          error: true
-        - java_method: getBottomRightCorner
-          go_name: GetBottomRightCorner
-          returns: com.google.android.material.shape.CornerTreatment
-          error: true
-        - java_method: getBottomLeftCorner
-          go_name: GetBottomLeftCorner
-          returns: com.google.android.material.shape.CornerTreatment
-          error: true
-        - java_method: getTopLeftCornerSize
-          go_name: GetTopLeftCornerSize
-          returns: com.google.android.material.shape.CornerSize
-          error: true
-        - java_method: getTopRightCornerSize
-          go_name: GetTopRightCornerSize
-          returns: com.google.android.material.shape.CornerSize
-          error: true
-        - java_method: getBottomRightCornerSize
-          go_name: GetBottomRightCornerSize
-          returns: com.google.android.material.shape.CornerSize
-          error: true
-        - java_method: getBottomLeftCornerSize
-          go_name: GetBottomLeftCornerSize
-          returns: com.google.android.material.shape.CornerSize
-          error: true
-        - java_method: getLeftEdge
-          go_name: GetLeftEdge
-          returns: com.google.android.material.shape.EdgeTreatment
-          error: true
-        - java_method: getTopEdge
-          go_name: GetTopEdge
-          returns: com.google.android.material.shape.EdgeTreatment
-          error: true
-        - java_method: getRightEdge
-          go_name: GetRightEdge
-          returns: com.google.android.material.shape.EdgeTreatment
-          error: true
-        - java_method: getBottomEdge
-          go_name: GetBottomEdge
-          returns: com.google.android.material.shape.EdgeTreatment
-          error: true
-        - java_method: toBuilder
-          go_name: ToBuilder
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: withCornerSize
-          go_name: WithCornerSize1
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel
-          error: true
-        - java_method: withCornerSize
-          go_name: WithCornerSize1_1
-          params:
-            - java_type: com.google.android.material.shape.CornerSize
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel
-          error: true
-        - java_method: withTransformedCornerSizes
-          go_name: WithTransformedCornerSizes
-          params:
-            - java_type: com.google.android.material.shape.ShapeAppearanceModel$CornerSizeUnaryOperator
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel
-          error: true
-        - java_method: isRoundRect
-          go_name: IsRoundRect
-          params:
-            - java_type: android.graphics.RectF
-              go_name: arg0
-          returns: boolean
-          error: true
-      static_methods:
-        - java_method: builder
-          go_name: Builder0
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: builder
-          go_name: Builder4_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.util.AttributeSet
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: builder
-          go_name: Builder5_2
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.util.AttributeSet
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: builder
-          go_name: Builder5_3
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.util.AttributeSet
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: com.google.android.material.shape.CornerSize
-              go_name: arg4
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: builder
-          go_name: Builder3_4
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-    - java_class: com.google.android.material.shape.ShapeAppearanceModel$Builder
-      go_type: AppearanceModelBuilder
-      methods:
-        - java_method: setAllCorners
-          go_name: SetAllCorners2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setAllCorners
-          go_name: SetAllCorners1_1
-          params:
-            - java_type: com.google.android.material.shape.CornerTreatment
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setAllCornerSizes
-          go_name: SetAllCornerSizes1
-          params:
-            - java_type: com.google.android.material.shape.CornerSize
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setAllCornerSizes
-          go_name: SetAllCornerSizes1_1
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setTopLeftCornerSize
-          go_name: SetTopLeftCornerSize1
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setTopLeftCornerSize
-          go_name: SetTopLeftCornerSize1_1
-          params:
-            - java_type: com.google.android.material.shape.CornerSize
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setTopRightCornerSize
-          go_name: SetTopRightCornerSize1
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setTopRightCornerSize
-          go_name: SetTopRightCornerSize1_1
-          params:
-            - java_type: com.google.android.material.shape.CornerSize
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setBottomRightCornerSize
-          go_name: SetBottomRightCornerSize1
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setBottomRightCornerSize
-          go_name: SetBottomRightCornerSize1_1
-          params:
-            - java_type: com.google.android.material.shape.CornerSize
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setBottomLeftCornerSize
-          go_name: SetBottomLeftCornerSize1
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setBottomLeftCornerSize
-          go_name: SetBottomLeftCornerSize1_1
-          params:
-            - java_type: com.google.android.material.shape.CornerSize
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setTopLeftCorner
-          go_name: SetTopLeftCorner2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setTopLeftCorner
-          go_name: SetTopLeftCorner2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: com.google.android.material.shape.CornerSize
-              go_name: arg1
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setTopLeftCorner
-          go_name: SetTopLeftCorner1_2
-          params:
-            - java_type: com.google.android.material.shape.CornerTreatment
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setTopRightCorner
-          go_name: SetTopRightCorner2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setTopRightCorner
-          go_name: SetTopRightCorner2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: com.google.android.material.shape.CornerSize
-              go_name: arg1
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setTopRightCorner
-          go_name: SetTopRightCorner1_2
-          params:
-            - java_type: com.google.android.material.shape.CornerTreatment
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setBottomRightCorner
-          go_name: SetBottomRightCorner2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setBottomRightCorner
-          go_name: SetBottomRightCorner2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: com.google.android.material.shape.CornerSize
-              go_name: arg1
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setBottomRightCorner
-          go_name: SetBottomRightCorner1_2
-          params:
-            - java_type: com.google.android.material.shape.CornerTreatment
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setBottomLeftCorner
-          go_name: SetBottomLeftCorner2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setBottomLeftCorner
-          go_name: SetBottomLeftCorner2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: com.google.android.material.shape.CornerSize
-              go_name: arg1
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setBottomLeftCorner
-          go_name: SetBottomLeftCorner1_2
-          params:
-            - java_type: com.google.android.material.shape.CornerTreatment
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setAllEdges
-          go_name: SetAllEdges
-          params:
-            - java_type: com.google.android.material.shape.EdgeTreatment
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setLeftEdge
-          go_name: SetLeftEdge
-          params:
-            - java_type: com.google.android.material.shape.EdgeTreatment
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setTopEdge
-          go_name: SetTopEdge
-          params:
-            - java_type: com.google.android.material.shape.EdgeTreatment
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setRightEdge
-          go_name: SetRightEdge
-          params:
-            - java_type: com.google.android.material.shape.EdgeTreatment
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: setBottomEdge
-          go_name: SetBottomEdge
-          params:
-            - java_type: com.google.android.material.shape.EdgeTreatment
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: com.google.android.material.shape.ShapeAppearanceModel
-          error: true
-    - java_class: com.google.android.material.shape.ShapeAppearanceModel$CornerSizeUnaryOperator
-      go_type: AppearanceModelCornerSizeUnaryOperator
-      methods:
-        - java_method: apply
-          go_name: Apply
-          params:
-            - java_type: com.google.android.material.shape.CornerSize
-              go_name: arg0
-          returns: com.google.android.material.shape.CornerSize
-          error: true
-    - java_class: com.google.android.material.shape.ShapeableDelegate
-      go_type: ableDelegate
-      methods:
-        - java_method: isForceCompatClippingEnabled
-          go_name: IsForceCompatClippingEnabled
-          returns: boolean
-          error: true
-        - java_method: setForceCompatClippingEnabled
-          go_name: SetForceCompatClippingEnabled
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setOffsetZeroCornerEdgeBoundsEnabled
-          go_name: SetOffsetZeroCornerEdgeBoundsEnabled
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onShapeAppearanceChanged
-          go_name: OnShapeAppearanceChanged
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: com.google.android.material.shape.ShapeAppearanceModel
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onMaskChanged
-          go_name: OnMaskChanged
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.graphics.RectF
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: maybeClip
-          go_name: MaybeClip
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-            - java_type: com.google.android.material.canvas.CanvasCompat$CanvasOperation
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: create
-          go_name: Create
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeableDelegate
-          error: true
-    - java_class: com.google.android.material.shape.RelativeCornerSize
-      go_type: RelativeCornerSize
-      obtain: constructor
-      constructor_params:
-        - java_type: float
-          go_name: arg0
-      methods:
-        - java_method: getRelativePercent
-          go_name: GetRelativePercent
-          returns: float
-          error: true
-        - java_method: getCornerSize
-          go_name: GetCornerSize
-          params:
-            - java_type: android.graphics.RectF
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-      static_methods:
-        - java_method: createFromCornerSize
-          go_name: CreateFromCornerSize
-          params:
-            - java_type: android.graphics.RectF
-              go_name: arg0
-            - java_type: com.google.android.material.shape.CornerSize
-              go_name: arg1
-          returns: com.google.android.material.shape.RelativeCornerSize
-          error: true
-    - java_class: com.google.android.material.shape.TriangleEdgeTreatment
-      go_type: TriangleEdgeTreatment
-      obtain: constructor
-      constructor_params:
-        - java_type: float
-          go_name: arg0
-        - java_type: boolean
-          go_name: arg1
-      methods:
-        - java_method: getEdgePath
-          go_name: GetEdgePath
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: com.google.android.material.shape.ShapePath
-              go_name: arg3
-          returns: void
-          error: true
-    - java_class: com.google.android.material.shape.Shapeable
-      go_type: able
-      methods:
-        - java_method: setShapeAppearanceModel
-          go_name: SetShapeAppearanceModel
-          params:
-            - java_type: com.google.android.material.shape.ShapeAppearanceModel
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getShapeAppearanceModel
-          go_name: GetShapeAppearanceModel
-          returns: com.google.android.material.shape.ShapeAppearanceModel
-          error: true
     - java_class: com.google.android.material.shape.ClampedCornerSize
       go_type: ClampedCornerSize
       obtain: constructor
@@ -581,6 +38,23 @@ classes:
               go_name: arg0
           returns: com.google.android.material.shape.ClampedCornerSize
           error: true
+    - java_class: com.google.android.material.shape.CutCornerTreatment
+      go_type: CutCornerTreatment
+      obtain: constructor
+      methods:
+        - java_method: getCornerPath
+          go_name: GetCornerPath
+          params:
+            - java_type: com.google.android.material.shape.ShapePath
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+          returns: void
+          error: true
     - java_class: com.google.android.material.shape.MaterialShapeUtils
       go_type: MaterialShapeUtils
       static_methods:
@@ -607,109 +81,6 @@ classes:
               go_name: arg0
             - java_type: com.google.android.material.shape.MaterialShapeDrawable
               go_name: arg1
-          returns: void
-          error: true
-    - java_class: com.google.android.material.shape.CornerTreatment
-      go_type: CornerTreatment
-      obtain: constructor
-      methods:
-        - java_method: getCornerPath
-          go_name: GetCornerPath3
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: com.google.android.material.shape.ShapePath
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: getCornerPath
-          go_name: GetCornerPath4_1
-          params:
-            - java_type: com.google.android.material.shape.ShapePath
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: getCornerPath
-          go_name: GetCornerPath5_2
-          params:
-            - java_type: com.google.android.material.shape.ShapePath
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: android.graphics.RectF
-              go_name: arg3
-            - java_type: com.google.android.material.shape.CornerSize
-              go_name: arg4
-          returns: void
-          error: true
-    - java_class: com.google.android.material.shape.InterpolateOnScrollPositionChangeHelper
-      go_type: InterpolateOnScrollPositionChangeHelper
-      obtain: constructor
-      constructor_params:
-        - java_type: android.view.View
-          go_name: arg0
-        - java_type: com.google.android.material.shape.MaterialShapeDrawable
-          go_name: arg1
-        - java_type: android.widget.ScrollView
-          go_name: arg2
-      methods:
-        - java_method: setMaterialShapeDrawable
-          go_name: SetMaterialShapeDrawable
-          params:
-            - java_type: com.google.android.material.shape.MaterialShapeDrawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setContainingScrollView
-          go_name: SetContainingScrollView
-          params:
-            - java_type: android.widget.ScrollView
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: startListeningForScrollChanges
-          go_name: StartListeningForScrollChanges
-          params:
-            - java_type: android.view.ViewTreeObserver
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: stopListeningForScrollChanges
-          go_name: StopListeningForScrollChanges
-          params:
-            - java_type: android.view.ViewTreeObserver
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: updateInterpolationForScreenPosition
-          go_name: UpdateInterpolationForScreenPosition
-          returns: void
-          error: true
-    - java_class: com.google.android.material.shape.RoundedCornerTreatment
-      go_type: RoundedCornerTreatment
-      obtain: constructor
-      methods:
-        - java_method: getCornerPath
-          go_name: GetCornerPath
-          params:
-            - java_type: com.google.android.material.shape.ShapePath
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
           returns: void
           error: true
     - java_class: com.google.android.material.shape.ShapePathModel
@@ -812,14 +183,14 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: com.google.android.material.shape.CornerFamily
-      go_type: CornerFamily
-    - java_class: com.google.android.material.shape.MarkerEdgeTreatment
-      go_type: MarkerEdgeTreatment
+    - java_class: com.google.android.material.shape.TriangleEdgeTreatment
+      go_type: TriangleEdgeTreatment
       obtain: constructor
       constructor_params:
         - java_type: float
           go_name: arg0
+        - java_type: boolean
+          go_name: arg1
       methods:
         - java_method: getEdgePath
           go_name: GetEdgePath
@@ -832,216 +203,6 @@ classes:
               go_name: arg2
             - java_type: com.google.android.material.shape.ShapePath
               go_name: arg3
-          returns: void
-          error: true
-    - java_class: com.google.android.material.shape.CutCornerTreatment
-      go_type: CutCornerTreatment
-      obtain: constructor
-      methods:
-        - java_method: getCornerPath
-          go_name: GetCornerPath
-          params:
-            - java_type: com.google.android.material.shape.ShapePath
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-          returns: void
-          error: true
-    - java_class: com.google.android.material.shape.AbsoluteCornerSize
-      go_type: AbsoluteCornerSize
-      obtain: constructor
-      constructor_params:
-        - java_type: float
-          go_name: arg0
-      methods:
-        - java_method: getCornerSize
-          go_name: GetCornerSize1
-          params:
-            - java_type: android.graphics.RectF
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getCornerSize
-          go_name: GetCornerSize0_1
-          returns: float
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-    - java_class: com.google.android.material.shape.ShapePath
-      go_type: Path
-      obtain: constructor
-      methods:
-        - java_method: reset
-          go_name: Reset2
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: reset
-          go_name: Reset4_1
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: lineTo
-          go_name: LineTo2
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: lineTo
-          go_name: LineTo4_1
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: quadToPoint
-          go_name: QuadToPoint
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: cubicToPoint
-          go_name: CubicToPoint
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-            - java_type: float
-              go_name: arg4
-            - java_type: float
-              go_name: arg5
-          returns: void
-          error: true
-        - java_method: addArc
-          go_name: AddArc
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-            - java_type: float
-              go_name: arg4
-            - java_type: float
-              go_name: arg5
-          returns: void
-          error: true
-        - java_method: applyToPath
-          go_name: ApplyToPath
-          params:
-            - java_type: android.graphics.Matrix
-              go_name: arg0
-            - java_type: android.graphics.Path
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: com.google.android.material.shape.ShapePath$PathArcOperation
-      go_type: PathPathArcOperation
-      methods:
-        - java_method: applyToPath
-          go_name: ApplyToPath
-          params:
-            - java_type: android.graphics.Matrix
-              go_name: arg0
-            - java_type: android.graphics.Path
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: com.google.android.material.shape.ShapePath$PathCubicOperation
-      go_type: PathPathCubicOperation
-      methods:
-        - java_method: applyToPath
-          go_name: ApplyToPath
-          params:
-            - java_type: android.graphics.Matrix
-              go_name: arg0
-            - java_type: android.graphics.Path
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: com.google.android.material.shape.ShapePath$PathLineOperation
-      go_type: PathPathLineOperation
-      methods:
-        - java_method: applyToPath
-          go_name: ApplyToPath
-          params:
-            - java_type: android.graphics.Matrix
-              go_name: arg0
-            - java_type: android.graphics.Path
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: com.google.android.material.shape.ShapePath$PathOperation
-      go_type: PathPathOperation
-      methods:
-        - java_method: applyToPath
-          go_name: ApplyToPath
-          params:
-            - java_type: android.graphics.Matrix
-              go_name: arg0
-            - java_type: android.graphics.Path
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: com.google.android.material.shape.ShapePath$PathQuadOperation
-      go_type: PathPathQuadOperation
-      methods:
-        - java_method: applyToPath
-          go_name: ApplyToPath
-          params:
-            - java_type: android.graphics.Matrix
-              go_name: arg0
-            - java_type: android.graphics.Path
-              go_name: arg1
           returns: void
           error: true
     - java_class: com.google.android.material.shape.CornerSize
@@ -1511,10 +672,6 @@ classes:
           go_name: GetBottomRightCornerResolvedSize
           returns: float
           error: true
-        - java_method: isRoundRect
-          go_name: IsRoundRect
-          returns: boolean
-          error: true
       static_methods:
         - java_method: createWithElevationOverlay
           go_name: CreateWithElevationOverlay1
@@ -1545,8 +702,57 @@ classes:
           error: true
     - java_class: com.google.android.material.shape.MaterialShapeDrawable$CompatibilityShadowMode
       go_type: MaterialShapeDrawableCompatibilityShadowMode
+    - java_class: com.google.android.material.shape.CornerTreatment
+      go_type: CornerTreatment
+      obtain: constructor
+      methods:
+        - java_method: getCornerPath
+          go_name: GetCornerPath3
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: com.google.android.material.shape.ShapePath
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: getCornerPath
+          go_name: GetCornerPath4_1
+          params:
+            - java_type: com.google.android.material.shape.ShapePath
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: getCornerPath
+          go_name: GetCornerPath5_2
+          params:
+            - java_type: com.google.android.material.shape.ShapePath
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: android.graphics.RectF
+              go_name: arg3
+            - java_type: com.google.android.material.shape.CornerSize
+              go_name: arg4
+          returns: void
+          error: true
     - java_class: com.google.android.material.shape.MaterialShapeDrawable$MaterialShapeDrawableState
       go_type: MaterialShapeDrawableMaterialShapeDrawableState
+      obtain: constructor
+      constructor_params:
+        - java_type: com.google.android.material.shape.ShapeAppearanceModel
+          go_name: arg0
+        - java_type: com.google.android.material.elevation.ElevationOverlayProvider
+          go_name: arg1
       methods:
         - java_method: newDrawable
           go_name: NewDrawable
@@ -1556,23 +762,21 @@ classes:
           go_name: GetChangingConfigurations
           returns: int
           error: true
-    - java_class: com.google.android.material.shape.EdgeTreatment
-      go_type: EdgeTreatment
+    - java_class: com.google.android.material.shape.ShapePath
+      go_type: Path
       obtain: constructor
       methods:
-        - java_method: getEdgePath
-          go_name: GetEdgePath3
+        - java_method: reset
+          go_name: Reset2
           params:
             - java_type: float
               go_name: arg0
             - java_type: float
               go_name: arg1
-            - java_type: com.google.android.material.shape.ShapePath
-              go_name: arg2
           returns: void
           error: true
-        - java_method: getEdgePath
-          go_name: GetEdgePath4_1
+        - java_method: reset
+          go_name: Reset4_1
           params:
             - java_type: float
               go_name: arg0
@@ -1580,10 +784,144 @@ classes:
               go_name: arg1
             - java_type: float
               go_name: arg2
-            - java_type: com.google.android.material.shape.ShapePath
+            - java_type: float
               go_name: arg3
           returns: void
           error: true
+        - java_method: lineTo
+          go_name: LineTo2
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: lineTo
+          go_name: LineTo4_1
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: quadToPoint
+          go_name: QuadToPoint
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: cubicToPoint
+          go_name: CubicToPoint
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+            - java_type: float
+              go_name: arg4
+            - java_type: float
+              go_name: arg5
+          returns: void
+          error: true
+        - java_method: addArc
+          go_name: AddArc
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+            - java_type: float
+              go_name: arg4
+            - java_type: float
+              go_name: arg5
+          returns: void
+          error: true
+        - java_method: applyToPath
+          go_name: ApplyToPath
+          params:
+            - java_type: android.graphics.Matrix
+              go_name: arg0
+            - java_type: android.graphics.Path
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: com.google.android.material.shape.ShapePath$PathArcOperation
+      go_type: PathPathArcOperation
+      obtain: constructor
+      constructor_params:
+        - java_type: float
+          go_name: arg0
+        - java_type: float
+          go_name: arg1
+        - java_type: float
+          go_name: arg2
+        - java_type: float
+          go_name: arg3
+    - java_class: com.google.android.material.shape.ShapePath$PathCubicOperation
+      go_type: PathPathCubicOperation
+      obtain: constructor
+      constructor_params:
+        - java_type: float
+          go_name: arg0
+        - java_type: float
+          go_name: arg1
+        - java_type: float
+          go_name: arg2
+        - java_type: float
+          go_name: arg3
+        - java_type: float
+          go_name: arg4
+        - java_type: float
+          go_name: arg5
+      methods:
+        - java_method: applyToPath
+          go_name: ApplyToPath
+          params:
+            - java_type: android.graphics.Matrix
+              go_name: arg0
+            - java_type: android.graphics.Path
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: com.google.android.material.shape.ShapePath$PathLineOperation
+      go_type: PathPathLineOperation
+      obtain: constructor
+    - java_class: com.google.android.material.shape.ShapePath$PathOperation
+      go_type: PathPathOperation
+      methods:
+        - java_method: applyToPath
+          go_name: ApplyToPath
+          params:
+            - java_type: android.graphics.Matrix
+              go_name: arg0
+            - java_type: android.graphics.Path
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: com.google.android.material.shape.ShapePath$PathQuadOperation
+      go_type: PathPathQuadOperation
+      obtain: constructor
     - java_class: com.google.android.material.shape.ShapeAppearancePathProvider
       go_type: AppearancePathProvider
       obtain: constructor
@@ -1646,6 +984,579 @@ classes:
               go_name: arg2
           returns: void
           error: true
+    - java_class: com.google.android.material.shape.ShapeAppearanceModel
+      go_type: AppearanceModel
+      obtain: constructor
+      methods:
+        - java_method: getTopLeftCorner
+          go_name: GetTopLeftCorner
+          returns: com.google.android.material.shape.CornerTreatment
+          error: true
+        - java_method: getTopRightCorner
+          go_name: GetTopRightCorner
+          returns: com.google.android.material.shape.CornerTreatment
+          error: true
+        - java_method: getBottomRightCorner
+          go_name: GetBottomRightCorner
+          returns: com.google.android.material.shape.CornerTreatment
+          error: true
+        - java_method: getBottomLeftCorner
+          go_name: GetBottomLeftCorner
+          returns: com.google.android.material.shape.CornerTreatment
+          error: true
+        - java_method: getTopLeftCornerSize
+          go_name: GetTopLeftCornerSize
+          returns: com.google.android.material.shape.CornerSize
+          error: true
+        - java_method: getTopRightCornerSize
+          go_name: GetTopRightCornerSize
+          returns: com.google.android.material.shape.CornerSize
+          error: true
+        - java_method: getBottomRightCornerSize
+          go_name: GetBottomRightCornerSize
+          returns: com.google.android.material.shape.CornerSize
+          error: true
+        - java_method: getBottomLeftCornerSize
+          go_name: GetBottomLeftCornerSize
+          returns: com.google.android.material.shape.CornerSize
+          error: true
+        - java_method: getLeftEdge
+          go_name: GetLeftEdge
+          returns: com.google.android.material.shape.EdgeTreatment
+          error: true
+        - java_method: getTopEdge
+          go_name: GetTopEdge
+          returns: com.google.android.material.shape.EdgeTreatment
+          error: true
+        - java_method: getRightEdge
+          go_name: GetRightEdge
+          returns: com.google.android.material.shape.EdgeTreatment
+          error: true
+        - java_method: getBottomEdge
+          go_name: GetBottomEdge
+          returns: com.google.android.material.shape.EdgeTreatment
+          error: true
+        - java_method: toBuilder
+          go_name: ToBuilder
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: withCornerSize
+          go_name: WithCornerSize1
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel
+          error: true
+        - java_method: withCornerSize
+          go_name: WithCornerSize1_1
+          params:
+            - java_type: com.google.android.material.shape.CornerSize
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel
+          error: true
+        - java_method: withTransformedCornerSizes
+          go_name: WithTransformedCornerSizes
+          params:
+            - java_type: com.google.android.material.shape.ShapeAppearanceModel$CornerSizeUnaryOperator
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel
+          error: true
+      static_methods:
+        - java_method: builder
+          go_name: Builder0
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: builder
+          go_name: Builder4_1
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.util.AttributeSet
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: builder
+          go_name: Builder5_2
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.util.AttributeSet
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: builder
+          go_name: Builder5_3
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.util.AttributeSet
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: com.google.android.material.shape.CornerSize
+              go_name: arg4
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: builder
+          go_name: Builder3_4
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+    - java_class: com.google.android.material.shape.ShapeAppearanceModel$Builder
+      go_type: AppearanceModelBuilder
+      obtain: constructor
+      methods:
+        - java_method: setAllCorners
+          go_name: SetAllCorners2
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setAllCorners
+          go_name: SetAllCorners1_1
+          params:
+            - java_type: com.google.android.material.shape.CornerTreatment
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setAllCornerSizes
+          go_name: SetAllCornerSizes1
+          params:
+            - java_type: com.google.android.material.shape.CornerSize
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setAllCornerSizes
+          go_name: SetAllCornerSizes1_1
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setTopLeftCornerSize
+          go_name: SetTopLeftCornerSize1
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setTopLeftCornerSize
+          go_name: SetTopLeftCornerSize1_1
+          params:
+            - java_type: com.google.android.material.shape.CornerSize
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setTopRightCornerSize
+          go_name: SetTopRightCornerSize1
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setTopRightCornerSize
+          go_name: SetTopRightCornerSize1_1
+          params:
+            - java_type: com.google.android.material.shape.CornerSize
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setBottomRightCornerSize
+          go_name: SetBottomRightCornerSize1
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setBottomRightCornerSize
+          go_name: SetBottomRightCornerSize1_1
+          params:
+            - java_type: com.google.android.material.shape.CornerSize
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setBottomLeftCornerSize
+          go_name: SetBottomLeftCornerSize1
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setBottomLeftCornerSize
+          go_name: SetBottomLeftCornerSize1_1
+          params:
+            - java_type: com.google.android.material.shape.CornerSize
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setTopLeftCorner
+          go_name: SetTopLeftCorner2
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setTopLeftCorner
+          go_name: SetTopLeftCorner2_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: com.google.android.material.shape.CornerSize
+              go_name: arg1
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setTopLeftCorner
+          go_name: SetTopLeftCorner1_2
+          params:
+            - java_type: com.google.android.material.shape.CornerTreatment
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setTopRightCorner
+          go_name: SetTopRightCorner2
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setTopRightCorner
+          go_name: SetTopRightCorner2_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: com.google.android.material.shape.CornerSize
+              go_name: arg1
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setTopRightCorner
+          go_name: SetTopRightCorner1_2
+          params:
+            - java_type: com.google.android.material.shape.CornerTreatment
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setBottomRightCorner
+          go_name: SetBottomRightCorner2
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setBottomRightCorner
+          go_name: SetBottomRightCorner2_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: com.google.android.material.shape.CornerSize
+              go_name: arg1
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setBottomRightCorner
+          go_name: SetBottomRightCorner1_2
+          params:
+            - java_type: com.google.android.material.shape.CornerTreatment
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setBottomLeftCorner
+          go_name: SetBottomLeftCorner2
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setBottomLeftCorner
+          go_name: SetBottomLeftCorner2_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: com.google.android.material.shape.CornerSize
+              go_name: arg1
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setBottomLeftCorner
+          go_name: SetBottomLeftCorner1_2
+          params:
+            - java_type: com.google.android.material.shape.CornerTreatment
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setAllEdges
+          go_name: SetAllEdges
+          params:
+            - java_type: com.google.android.material.shape.EdgeTreatment
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setLeftEdge
+          go_name: SetLeftEdge
+          params:
+            - java_type: com.google.android.material.shape.EdgeTreatment
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setTopEdge
+          go_name: SetTopEdge
+          params:
+            - java_type: com.google.android.material.shape.EdgeTreatment
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setRightEdge
+          go_name: SetRightEdge
+          params:
+            - java_type: com.google.android.material.shape.EdgeTreatment
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+        - java_method: setBottomEdge
+          go_name: SetBottomEdge
+          params:
+            - java_type: com.google.android.material.shape.EdgeTreatment
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel$Builder
+          error: true
+    - java_class: com.google.android.material.shape.ShapeAppearanceModel$CornerSizeUnaryOperator
+      go_type: AppearanceModelCornerSizeUnaryOperator
+      methods:
+        - java_method: apply
+          go_name: Apply
+          params:
+            - java_type: com.google.android.material.shape.CornerSize
+              go_name: arg0
+          returns: com.google.android.material.shape.CornerSize
+          error: true
+    - java_class: com.google.android.material.shape.AbsoluteCornerSize
+      go_type: AbsoluteCornerSize
+      obtain: constructor
+      constructor_params:
+        - java_type: float
+          go_name: arg0
+      methods:
+        - java_method: getCornerSize
+          go_name: GetCornerSize1
+          params:
+            - java_type: android.graphics.RectF
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getCornerSize
+          go_name: GetCornerSize0_1
+          returns: float
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+    - java_class: com.google.android.material.shape.CornerFamily
+      go_type: CornerFamily
+    - java_class: com.google.android.material.shape.InterpolateOnScrollPositionChangeHelper
+      go_type: InterpolateOnScrollPositionChangeHelper
+      obtain: constructor
+      constructor_params:
+        - java_type: android.view.View
+          go_name: arg0
+        - java_type: com.google.android.material.shape.MaterialShapeDrawable
+          go_name: arg1
+        - java_type: android.widget.ScrollView
+          go_name: arg2
+      methods:
+        - java_method: setMaterialShapeDrawable
+          go_name: SetMaterialShapeDrawable
+          params:
+            - java_type: com.google.android.material.shape.MaterialShapeDrawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setContainingScrollView
+          go_name: SetContainingScrollView
+          params:
+            - java_type: android.widget.ScrollView
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: startListeningForScrollChanges
+          go_name: StartListeningForScrollChanges
+          params:
+            - java_type: android.view.ViewTreeObserver
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: stopListeningForScrollChanges
+          go_name: StopListeningForScrollChanges
+          params:
+            - java_type: android.view.ViewTreeObserver
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: updateInterpolationForScreenPosition
+          go_name: UpdateInterpolationForScreenPosition
+          returns: void
+          error: true
+    - java_class: com.google.android.material.shape.EdgeTreatment
+      go_type: EdgeTreatment
+      obtain: constructor
+      methods:
+        - java_method: getEdgePath
+          go_name: GetEdgePath3
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: com.google.android.material.shape.ShapePath
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: getEdgePath
+          go_name: GetEdgePath4_1
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: com.google.android.material.shape.ShapePath
+              go_name: arg3
+          returns: void
+          error: true
+    - java_class: com.google.android.material.shape.Shapeable
+      go_type: able
+      methods:
+        - java_method: setShapeAppearanceModel
+          go_name: SetShapeAppearanceModel
+          params:
+            - java_type: com.google.android.material.shape.ShapeAppearanceModel
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getShapeAppearanceModel
+          go_name: GetShapeAppearanceModel
+          returns: com.google.android.material.shape.ShapeAppearanceModel
+          error: true
+    - java_class: com.google.android.material.shape.MarkerEdgeTreatment
+      go_type: MarkerEdgeTreatment
+      obtain: constructor
+      constructor_params:
+        - java_type: float
+          go_name: arg0
+      methods:
+        - java_method: getEdgePath
+          go_name: GetEdgePath
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: com.google.android.material.shape.ShapePath
+              go_name: arg3
+          returns: void
+          error: true
+    - java_class: com.google.android.material.shape.RelativeCornerSize
+      go_type: RelativeCornerSize
+      obtain: constructor
+      constructor_params:
+        - java_type: float
+          go_name: arg0
+      methods:
+        - java_method: getRelativePercent
+          go_name: GetRelativePercent
+          returns: float
+          error: true
+        - java_method: getCornerSize
+          go_name: GetCornerSize
+          params:
+            - java_type: android.graphics.RectF
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+      static_methods:
+        - java_method: createFromCornerSize
+          go_name: CreateFromCornerSize
+          params:
+            - java_type: android.graphics.RectF
+              go_name: arg0
+            - java_type: com.google.android.material.shape.CornerSize
+              go_name: arg1
+          returns: com.google.android.material.shape.RelativeCornerSize
+          error: true
+    - java_class: com.google.android.material.shape.AdjustedCornerSize
+      go_type: AdjustedCornerSize
+      obtain: constructor
+      constructor_params:
+        - java_type: float
+          go_name: arg0
+        - java_type: com.google.android.material.shape.CornerSize
+          go_name: arg1
+      methods:
+        - java_method: getCornerSize
+          go_name: GetCornerSize
+          params:
+            - java_type: android.graphics.RectF
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
     - java_class: com.google.android.material.shape.OffsetEdgeTreatment
       go_type: OffsetEdgeTreatment
       obtain: constructor
@@ -1668,44 +1579,84 @@ classes:
               go_name: arg3
           returns: void
           error: true
-abstract_callbacks:
+    - java_class: com.google.android.material.shape.RoundedCornerTreatment
+      go_type: RoundedCornerTreatment
+      obtain: constructor
+      methods:
+        - java_method: getCornerPath
+          go_name: GetCornerPath
+          params:
+            - java_type: com.google.android.material.shape.ShapePath
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+          returns: void
+          error: true
     - java_class: com.google.android.material.shape.ShapeableDelegate
-      go_type: ableDelegateCallback
+      go_type: ableDelegate
       methods:
         - java_method: isForceCompatClippingEnabled
-          params: []
+          go_name: IsForceCompatClippingEnabled
           returns: boolean
-          go_field: IsForceCompatClippingEnabled
+          error: true
         - java_method: setForceCompatClippingEnabled
+          go_name: SetForceCompatClippingEnabled
           params:
-            - android.view.View
-            - boolean
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
           returns: void
-          go_field: SetForceCompatClippingEnabled
+          error: true
         - java_method: setOffsetZeroCornerEdgeBoundsEnabled
+          go_name: SetOffsetZeroCornerEdgeBoundsEnabled
           params:
-            - android.view.View
-            - boolean
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
           returns: void
-          go_field: SetOffsetZeroCornerEdgeBoundsEnabled
+          error: true
         - java_method: onShapeAppearanceChanged
+          go_name: OnShapeAppearanceChanged
           params:
-            - android.view.View
-            - com.google.android.material.shape.ShapeAppearanceModel
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: com.google.android.material.shape.ShapeAppearanceModel
+              go_name: arg1
           returns: void
-          go_field: OnShapeAppearanceChanged
+          error: true
         - java_method: onMaskChanged
+          go_name: OnMaskChanged
           params:
-            - android.view.View
-            - android.graphics.RectF
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.graphics.RectF
+              go_name: arg1
           returns: void
-          go_field: OnMaskChanged
+          error: true
         - java_method: maybeClip
+          go_name: MaybeClip
           params:
-            - android.graphics.Canvas
-            - com.google.android.material.canvas.CanvasCompat$CanvasOperation
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+            - java_type: com.google.android.material.canvas.CanvasCompat$CanvasOperation
+              go_name: arg1
           returns: void
-          go_field: MaybeClip
+          error: true
+      static_methods:
+        - java_method: create
+          go_name: Create
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeableDelegate
+          error: true
+abstract_callbacks:
     - java_class: com.google.android.material.shape.ShapePath$PathOperation
       go_type: PathPathOperationCallback
       methods:
@@ -1715,16 +1666,14 @@ abstract_callbacks:
             - android.graphics.Path
           returns: void
           go_field: ApplyToPath
+abstract_callback_eligibility:
+    - java_class: com.google.android.material.shape.ShapePath$PathOperation
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: com.google.android.material.shape.ShapeableDelegate
+      generated: false
+      reason: package_private_abstract_method
 constants:
-    - go_name: Pill
-      value: "0"
-      go_type: int
-    - go_name: Rounded
-      value: "0"
-      go_type: int
-    - go_name: Cut
-      value: "1"
-      go_type: int
     - go_name: ShadowCompatModeDefault
       value: "0"
       go_type: int
@@ -1733,4 +1682,13 @@ constants:
       go_type: int
     - go_name: ShadowCompatModeAlways
       value: "2"
+      go_type: int
+    - go_name: Pill
+      value: "0"
+      go_type: int
+    - go_name: Rounded
+      value: "0"
+      go_type: int
+    - go_name: Cut
+      value: "1"
       go_type: int

@@ -32,6 +32,12 @@ func NewHeaderViewListAdapter(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, ar
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsHeaderViewListAdapter == nil {
+			return fmt.Errorf("android.widget.HeaderViewListAdapter is not available on this device")
+		}
+		if midHeaderViewListAdapterCtor == nil {
+			return fmt.Errorf("android.widget.HeaderViewListAdapter constructor (Ljava/util/ArrayList;Ljava/util/ArrayList;Landroid/widget/ListAdapter;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHeaderViewListAdapter)), midHeaderViewListAdapterCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
 		if err != nil {

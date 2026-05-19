@@ -32,6 +32,12 @@ func NewPhoneStateListener(vm *jni.VM) (*PhoneStateListener, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPhoneStateListener == nil {
+			return fmt.Errorf("android.telephony.PhoneStateListener is not available on this device")
+		}
+		if midPhoneStateListenerCtor == nil {
+			return fmt.Errorf("android.telephony.PhoneStateListener constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPhoneStateListener)), midPhoneStateListenerCtor)
 		if err != nil {
 			return err

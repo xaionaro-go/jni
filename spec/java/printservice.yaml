@@ -5,48 +5,6 @@
 package: printservice
 go_import: github.com/AndroidGoLab/jni/printservice
 classes:
-    - java_class: android.printservice.CustomPrinterIconCallback
-      go_type: CustomPrinterIconCallback
-      methods:
-        - java_method: onCustomPrinterIconLoaded
-          go_name: OnCustomPrinterIconLoaded
-          params:
-            - java_type: android.graphics.drawable.Icon
-              go_name: arg0
-          returns: boolean
-          error: true
-    - java_class: android.printservice.PrintService
-      go_type: PrintService
-      methods:
-        - java_method: generatePrinterId
-          go_name: GeneratePrinterId
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.print.PrinterId
-          error: true
-        - java_method: getActivePrintJobs
-          go_name: GetActivePrintJobs
-          returns: java.util.List<android.printservice.PrintJob>
-          error: true
-        - java_method: onBind
-          go_name: OnBind
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
-          returns: android.os.IBinder
-          error: true
-    - java_class: android.printservice.PrintDocument
-      go_type: PrintDocument
-      methods:
-        - java_method: getData
-          go_name: GetData
-          returns: android.os.ParcelFileDescriptor
-          error: true
-        - java_method: getInfo
-          go_name: GetInfo
-          returns: android.print.PrintDocumentInfo
-          error: true
     - java_class: android.printservice.PrintJob
       go_type: PrintJob
       methods:
@@ -228,68 +186,55 @@ classes:
               go_name: arg0
           returns: void
           error: true
-abstract_callbacks:
+    - java_class: android.printservice.PrintDocument
+      go_type: PrintDocument
+      methods:
+        - java_method: getData
+          go_name: GetData
+          returns: android.os.ParcelFileDescriptor
+          error: true
+        - java_method: getInfo
+          go_name: GetInfo
+          returns: android.print.PrintDocumentInfo
+          error: true
+    - java_class: android.printservice.CustomPrinterIconCallback
+      go_type: CustomPrinterIconCallback
+      methods:
+        - java_method: onCustomPrinterIconLoaded
+          go_name: OnCustomPrinterIconLoaded
+          params:
+            - java_type: android.graphics.drawable.Icon
+              go_name: arg0
+          returns: boolean
+          error: true
     - java_class: android.printservice.PrintService
-      go_type: PrintServiceCallback
+      go_type: PrintService
       methods:
         - java_method: generatePrinterId
+          go_name: GeneratePrinterId
           params:
-            - String
+            - java_type: String
+              go_name: arg0
           returns: android.print.PrinterId
-          go_field: GeneratePrinterId
+          error: true
         - java_method: getActivePrintJobs
-          params: []
+          go_name: GetActivePrintJobs
           returns: java.util.List<android.printservice.PrintJob>
-          go_field: GetActivePrintJobs
+          error: true
         - java_method: onBind
+          go_name: OnBind
           params:
-            - android.content.Intent
+            - java_type: android.content.Intent
+              go_name: arg0
           returns: android.os.IBinder
-          go_field: OnBind
+          error: true
+abstract_callback_eligibility:
     - java_class: android.printservice.PrinterDiscoverySession
-      go_type: PrinterDiscoverySessionCallback
-      methods:
-        - java_method: getPrinters
-          params: []
-          returns: java.util.List<android.print.PrinterInfo>
-          go_field: GetPrinters
-        - java_method: getTrackedPrinters
-          params: []
-          returns: java.util.List<android.print.PrinterId>
-          go_field: GetTrackedPrinters
-        - java_method: isDestroyed
-          params: []
-          returns: boolean
-          go_field: IsDestroyed
-        - java_method: isPrinterDiscoveryStarted
-          params: []
-          returns: boolean
-          go_field: IsPrinterDiscoveryStarted
-        - java_method: onDestroy
-          params: []
-          returns: void
-          go_field: OnDestroy
-        - java_method: onRequestCustomPrinterIcon
-          params:
-            - android.print.PrinterId
-            - android.os.CancellationSignal
-            - android.printservice.CustomPrinterIconCallback
-          returns: void
-          go_field: OnRequestCustomPrinterIcon
-        - java_method: onStartPrinterStateTracking
-          params:
-            - android.print.PrinterId
-          returns: void
-          go_field: OnStartPrinterStateTracking
-        - java_method: onStopPrinterDiscovery
-          params: []
-          returns: void
-          go_field: OnStopPrinterDiscovery
-        - java_method: onStopPrinterStateTracking
-          params:
-            - android.print.PrinterId
-          returns: void
-          go_field: OnStopPrinterStateTracking
+      generated: false
+      reason: unsupported_abstract_method_signature
+    - java_class: android.printservice.PrintService
+      generated: false
+      reason: non_object_superclass
 constants:
     - go_name: ExtraCanSelectPrinter
       value: '"android.printservice.extra.CAN_SELECT_PRINTER"'

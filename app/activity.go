@@ -30,6 +30,12 @@ func NewActivity(vm *jni.VM) (*Activity, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsActivity == nil {
+			return fmt.Errorf("android.app.Activity is not available on this device")
+		}
+		if midActivityCtor == nil {
+			return fmt.Errorf("android.app.Activity constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivity)), midActivityCtor)
 		if err != nil {
 			return err
@@ -6992,29 +6998,6 @@ func (m *Activity) UnregisterForContextMenu(arg0 *jni.Object) error {
 	return callErr
 }
 
-// UnregisterScreenCaptureCallback calls android.app.Activity.unregisterScreenCaptureCallback.
-func (m *Activity) UnregisterScreenCaptureCallback(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityUnregisterScreenCaptureCallback == nil {
-			callErr = fmt.Errorf("android.app.Activity.unregisterScreenCaptureCallback is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midActivityUnregisterScreenCaptureCallback, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.Activity.toString.
 func (m *Activity) ToString() (string, error) {
 	var result string
@@ -7040,4 +7023,27 @@ func (m *Activity) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// UnregisterScreenCaptureCallback calls android.app.Activity.unregisterScreenCaptureCallback.
+func (m *Activity) UnregisterScreenCaptureCallback(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midActivityUnregisterScreenCaptureCallback == nil {
+			callErr = fmt.Errorf("android.app.Activity.unregisterScreenCaptureCallback is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsActivity)),
+			midActivityUnregisterScreenCaptureCallback, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -23,6 +23,35 @@ type ClipDataItem struct {
 	Obj *jni.GlobalRef
 }
 
+// NewClipDataItem creates a new android.content.ClipData$Item instance.
+func NewClipDataItem(vm *jni.VM, arg0 *jni.Object) (*ClipDataItem, error) {
+	var t ClipDataItem
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsClipDataItem == nil {
+			return fmt.Errorf("android.content.ClipData$Item is not available on this device")
+		}
+		if midClipDataItemCtor == nil {
+			return fmt.Errorf("android.content.ClipData$Item constructor (Landroid/content/Intent;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsClipDataItem)), midClipDataItemCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // CoerceToHtmlText calls android.content.ClipData$Item.coerceToHtmlText.
 func (m *ClipDataItem) CoerceToHtmlText(arg0 *jni.Object) (string, error) {
 	var result string

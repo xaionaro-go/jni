@@ -23,6 +23,34 @@ type FontsContractCompatFontRequestCallback struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFontsContractCompatFontRequestCallback creates a new androidx.core.provider.FontsContractCompat$FontRequestCallback instance.
+func NewFontsContractCompatFontRequestCallback(vm *jni.VM) (*FontsContractCompatFontRequestCallback, error) {
+	var t FontsContractCompatFontRequestCallback
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFontsContractCompatFontRequestCallback == nil {
+			return fmt.Errorf("androidx.core.provider.FontsContractCompat$FontRequestCallback is not available on this device")
+		}
+		if midFontsContractCompatFontRequestCallbackCtor == nil {
+			return fmt.Errorf("androidx.core.provider.FontsContractCompat$FontRequestCallback constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFontsContractCompatFontRequestCallback)), midFontsContractCompatFontRequestCallbackCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnTypefaceRetrieved calls androidx.core.provider.FontsContractCompat$FontRequestCallback.onTypefaceRetrieved.
 func (m *FontsContractCompatFontRequestCallback) OnTypefaceRetrieved(arg0 *jni.Object) error {
 

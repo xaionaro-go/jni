@@ -32,6 +32,12 @@ func NewAppFunctionException(vm *jni.VM, arg0 int32, arg1 string) (*AppFunctionE
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppFunctionException == nil {
+			return fmt.Errorf("android.app.appfunctions.AppFunctionException is not available on this device")
+		}
+		if midAppFunctionExceptionCtor == nil {
+			return fmt.Errorf("android.app.appfunctions.AppFunctionException constructor (ILjava/lang/String;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {
@@ -186,29 +192,6 @@ func (m *AppFunctionException) GetExtras() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.appfunctions.AppFunctionException.writeToParcel.
-func (m *AppFunctionException) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppFunctionExceptionWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.appfunctions.AppFunctionException.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAppFunctionExceptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.appfunctions.AppFunctionException.toString.
 func (m *AppFunctionException) ToString() (string, error) {
 	var result string
@@ -234,4 +217,27 @@ func (m *AppFunctionException) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.appfunctions.AppFunctionException.writeToParcel.
+func (m *AppFunctionException) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midAppFunctionExceptionWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.appfunctions.AppFunctionException.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAppFunctionException)),
+			midAppFunctionExceptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

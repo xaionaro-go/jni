@@ -23,8 +23,8 @@ type Volume struct {
 	Obj *jni.GlobalRef
 }
 
-// CompareTo1 calls android.health.connect.datatypes.units.Volume.compareTo.
-func (m *Volume) CompareTo1(arg0 *jni.Object) (int32, error) {
+// CompareTo calls android.health.connect.datatypes.units.Volume.compareTo.
+func (m *Volume) CompareTo(arg0 *jni.Object) (int32, error) {
 	var result int32
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -32,14 +32,14 @@ func (m *Volume) CompareTo1(arg0 *jni.Object) (int32, error) {
 			callErr = err
 			return err
 		}
-		if midVolumeCompareTo1 == nil {
+		if midVolumeCompareTo == nil {
 			callErr = fmt.Errorf("android.health.connect.datatypes.units.Volume.compareTo is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallIntMethod(
 			m.Obj,
-			midVolumeCompareTo1, jni.ObjectValue(arg0),
+			midVolumeCompareTo, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -149,32 +149,6 @@ func (m *Volume) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
-		return callErr
-	})
-	return result, callErr
-}
-
-// CompareTo1_1 calls android.health.connect.datatypes.units.Volume.compareTo.
-func (m *Volume) CompareTo1_1(arg0 *jni.Object) (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midVolumeCompareTo1_1 == nil {
-			callErr = fmt.Errorf("android.health.connect.datatypes.units.Volume.compareTo is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midVolumeCompareTo1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
 		return callErr
 	})
 	return result, callErr

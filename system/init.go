@@ -23,15 +23,76 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsStructMsghdr         *jni.GlobalRef
-	midStructMsghdrCtor     jni.MethodID
-	midStructMsghdrToString jni.MethodID
+	clsStructStatVfs         *jni.GlobalRef
+	midStructStatVfsCtor     jni.MethodID
+	midStructStatVfsToString jni.MethodID
+
+	clsStructStat         *jni.GlobalRef
+	midStructStatCtor     jni.MethodID
+	midStructStatToString jni.MethodID
+
+	clsStructCmsghdr         *jni.GlobalRef
+	midStructCmsghdrCtor     jni.MethodID
+	midStructCmsghdrToString jni.MethodID
 
 	clsVmSocketAddress           *jni.GlobalRef
 	midVmSocketAddressCtor       jni.MethodID
 	midVmSocketAddressGetSvmCid  jni.MethodID
 	midVmSocketAddressGetSvmPort jni.MethodID
 	midVmSocketAddressToString   jni.MethodID
+
+	clsStructTimespec          *jni.GlobalRef
+	midStructTimespecCtor      jni.MethodID
+	midStructTimespecCompareTo jni.MethodID
+	midStructTimespecEquals    jni.MethodID
+	midStructTimespecHashCode  jni.MethodID
+	midStructTimespecToString  jni.MethodID
+
+	clsStructMsghdr         *jni.GlobalRef
+	midStructMsghdrCtor     jni.MethodID
+	midStructMsghdrToString jni.MethodID
+
+	clsStructPollfd         *jni.GlobalRef
+	midStructPollfdCtor     jni.MethodID
+	midStructPollfdToString jni.MethodID
+
+	clsStructUtsname         *jni.GlobalRef
+	midStructUtsnameCtor     jni.MethodID
+	midStructUtsnameToString jni.MethodID
+
+	clsCleaner         *jni.GlobalRef
+	midCleanerToString jni.MethodID
+	midCleanerCleaner  jni.MethodID
+
+	clsErrnoException                         *jni.GlobalRef
+	midErrnoExceptionCtor                     jni.MethodID
+	midErrnoExceptionGetMessage               jni.MethodID
+	midErrnoExceptionRethrowAsIOException     jni.MethodID
+	midErrnoExceptionRethrowAsSocketException jni.MethodID
+	midErrnoExceptionToString                 jni.MethodID
+
+	clsOsConstants            *jni.GlobalRef
+	midOsConstantsToString    jni.MethodID
+	midOsConstantsSISBLK      jni.MethodID
+	midOsConstantsSISCHR      jni.MethodID
+	midOsConstantsSISDIR      jni.MethodID
+	midOsConstantsSISFIFO     jni.MethodID
+	midOsConstantsSISLNK      jni.MethodID
+	midOsConstantsSISREG      jni.MethodID
+	midOsConstantsSISSOCK     jni.MethodID
+	midOsConstantsWCOREDUMP   jni.MethodID
+	midOsConstantsWEXITSTATUS jni.MethodID
+	midOsConstantsWIFEXITED   jni.MethodID
+	midOsConstantsWIFSIGNALED jni.MethodID
+	midOsConstantsWIFSTOPPED  jni.MethodID
+	midOsConstantsWSTOPSIG    jni.MethodID
+	midOsConstantsWTERMSIG    jni.MethodID
+	midOsConstantsErrnoName   jni.MethodID
+	midOsConstantsGaiName     jni.MethodID
+
+	clsInt64Ref         *jni.GlobalRef
+	midInt64RefCtor     jni.MethodID
+	midInt64RefToString jni.MethodID
 
 	clsOs                  *jni.GlobalRef
 	midOsToString          jni.MethodID
@@ -57,7 +118,7 @@ var (
 	midOsFstatvfs          jni.MethodID
 	midOsFsync             jni.MethodID
 	midOsFtruncate         jni.MethodID
-	midOsGai_strerror      jni.MethodID
+	midOsGaiStrerror       jni.MethodID
 	midOsGetegid           jni.MethodID
 	midOsGetenv            jni.MethodID
 	midOsGeteuid           jni.MethodID
@@ -70,9 +131,9 @@ var (
 	midOsGettid            jni.MethodID
 	midOsGetuid            jni.MethodID
 	midOsGetxattr          jni.MethodID
-	midOsIf_indextoname    jni.MethodID
-	midOsIf_nametoindex    jni.MethodID
-	midOsInet_pton         jni.MethodID
+	midOsIfIndextoname     jni.MethodID
+	midOsIfNametoindex     jni.MethodID
+	midOsInetPton          jni.MethodID
 	midOsIsatty            jni.MethodID
 	midOsKill              jni.MethodID
 	midOsLchown            jni.MethodID
@@ -81,7 +142,7 @@ var (
 	midOsListxattr         jni.MethodID
 	midOsLseek             jni.MethodID
 	midOsLstat             jni.MethodID
-	midOsMemfd_create      jni.MethodID
+	midOsMemfdCreate       jni.MethodID
 	midOsMincore           jni.MethodID
 	midOsMkdir             jni.MethodID
 	midOsMkfifo            jni.MethodID
@@ -93,7 +154,7 @@ var (
 	midOsOpen              jni.MethodID
 	midOsPipe              jni.MethodID
 	midOsPoll              jni.MethodID
-	midOsPosix_fallocate   jni.MethodID
+	midOsPosixFallocate    jni.MethodID
 	midOsPrctl             jni.MethodID
 	midOsPread             jni.MethodID
 	midOsPwrite            jni.MethodID
@@ -135,74 +196,12 @@ var (
 	midOsWrite             jni.MethodID
 	midOsWritev            jni.MethodID
 
-	clsOsConstants            *jni.GlobalRef
-	midOsConstantsToString    jni.MethodID
-	midOsConstantsS_ISBLK     jni.MethodID
-	midOsConstantsS_ISCHR     jni.MethodID
-	midOsConstantsS_ISDIR     jni.MethodID
-	midOsConstantsS_ISFIFO    jni.MethodID
-	midOsConstantsS_ISLNK     jni.MethodID
-	midOsConstantsS_ISREG     jni.MethodID
-	midOsConstantsS_ISSOCK    jni.MethodID
-	midOsConstantsWCOREDUMP   jni.MethodID
-	midOsConstantsWEXITSTATUS jni.MethodID
-	midOsConstantsWIFEXITED   jni.MethodID
-	midOsConstantsWIFSIGNALED jni.MethodID
-	midOsConstantsWIFSTOPPED  jni.MethodID
-	midOsConstantsWSTOPSIG    jni.MethodID
-	midOsConstantsWTERMSIG    jni.MethodID
-	midOsConstantsErrnoName   jni.MethodID
-	midOsConstantsGaiName     jni.MethodID
-
-	clsStructCmsghdr         *jni.GlobalRef
-	midStructCmsghdrCtor     jni.MethodID
-	midStructCmsghdrToString jni.MethodID
-
-	clsStructStatVfs         *jni.GlobalRef
-	midStructStatVfsCtor     jni.MethodID
-	midStructStatVfsToString jni.MethodID
-
-	clsStructTimespec             *jni.GlobalRef
-	midStructTimespecCtor         jni.MethodID
-	midStructTimespecCompareTo1   jni.MethodID
-	midStructTimespecEquals       jni.MethodID
-	midStructTimespecHashCode     jni.MethodID
-	midStructTimespecToString     jni.MethodID
-	midStructTimespecCompareTo1_1 jni.MethodID
-
-	clsInt64Ref         *jni.GlobalRef
-	midInt64RefCtor     jni.MethodID
-	midInt64RefToString jni.MethodID
-
-	clsStructPollfd         *jni.GlobalRef
-	midStructPollfdCtor     jni.MethodID
-	midStructPollfdToString jni.MethodID
-
-	clsStructStat         *jni.GlobalRef
-	midStructStatCtor     jni.MethodID
-	midStructStatToString jni.MethodID
-
-	clsStructUtsname         *jni.GlobalRef
-	midStructUtsnameCtor     jni.MethodID
-	midStructUtsnameToString jni.MethodID
-
-	clsErrnoException                         *jni.GlobalRef
-	midErrnoExceptionCtor                     jni.MethodID
-	midErrnoExceptionGetMessage               jni.MethodID
-	midErrnoExceptionRethrowAsIOException     jni.MethodID
-	midErrnoExceptionRethrowAsSocketException jni.MethodID
-	midErrnoExceptionToString                 jni.MethodID
-
 	clsStructTimeval           *jni.GlobalRef
 	midStructTimevalEquals     jni.MethodID
 	midStructTimevalHashCode   jni.MethodID
 	midStructTimevalToMillis   jni.MethodID
 	midStructTimevalToString   jni.MethodID
 	midStructTimevalFromMillis jni.MethodID
-
-	clsCleaner         *jni.GlobalRef
-	midCleanerToString jni.MethodID
-	midCleanerCleaner  jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -223,19 +222,61 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("android/system/StructMsghdr")
+	c, err = env.FindClass("android/system/StructStatVfs")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsStructMsghdr = env.NewGlobalRef(&c.Object)
-		midStructMsghdrCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructMsghdr)), "<init>", "(Ljava/net/SocketAddress;[Ljava/nio/ByteBuffer;[Landroid/system/StructCmsghdr;I)V")
+		clsStructStatVfs = env.NewGlobalRef(&c.Object)
+		midStructStatVfsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructStatVfs)), "<init>", "(JJJJJJJJJJJ)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midStructMsghdrToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructMsghdr)), "toString", "()Ljava/lang/String;")
+		midStructStatVfsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructStatVfs)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/system/StructStat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStructStat = env.NewGlobalRef(&c.Object)
+		midStructStatCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructStat)), "<init>", "(JJIJIIJJLandroid/system/StructTimespec;Landroid/system/StructTimespec;Landroid/system/StructTimespec;JJ)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midStructStatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructStat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/system/StructCmsghdr")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStructCmsghdr = env.NewGlobalRef(&c.Object)
+		midStructCmsghdrCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructCmsghdr)), "<init>", "(II[B)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midStructCmsghdrToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructCmsghdr)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -271,6 +312,327 @@ func doInit(env *jni.Env) error {
 		}
 
 		midVmSocketAddressToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVmSocketAddress)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/system/StructTimespec")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStructTimespec = env.NewGlobalRef(&c.Object)
+		midStructTimespecCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructTimespec)), "<init>", "(JJ)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midStructTimespecCompareTo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructTimespec)), "compareTo", "(Landroid/system/StructTimespec;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStructTimespecEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructTimespec)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStructTimespecHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructTimespec)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStructTimespecToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructTimespec)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/system/StructMsghdr")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStructMsghdr = env.NewGlobalRef(&c.Object)
+		midStructMsghdrCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructMsghdr)), "<init>", "(Ljava/net/SocketAddress;[Ljava/nio/ByteBuffer;[Landroid/system/StructCmsghdr;I)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midStructMsghdrToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructMsghdr)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/system/StructPollfd")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStructPollfd = env.NewGlobalRef(&c.Object)
+		midStructPollfdCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructPollfd)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midStructPollfdToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructPollfd)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/system/StructUtsname")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStructUtsname = env.NewGlobalRef(&c.Object)
+		midStructUtsnameCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructUtsname)), "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midStructUtsnameToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructUtsname)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/system/SystemCleaner")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCleaner = env.NewGlobalRef(&c.Object)
+
+		midCleanerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCleaner)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCleanerCleaner, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCleaner)), "cleaner", "()Ljava/lang/ref/Cleaner;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/system/ErrnoException")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsErrnoException = env.NewGlobalRef(&c.Object)
+		midErrnoExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsErrnoException)), "<init>", "(Ljava/lang/String;I)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midErrnoExceptionGetMessage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsErrnoException)), "getMessage", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midErrnoExceptionRethrowAsIOException, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsErrnoException)), "rethrowAsIOException", "()Ljava/io/IOException;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midErrnoExceptionRethrowAsSocketException, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsErrnoException)), "rethrowAsSocketException", "()Ljava/net/SocketException;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midErrnoExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsErrnoException)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/system/OsConstants")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsOsConstants = env.NewGlobalRef(&c.Object)
+
+		midOsConstantsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOsConstantsSISBLK, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "S_ISBLK", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOsConstantsSISCHR, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "S_ISCHR", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOsConstantsSISDIR, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "S_ISDIR", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOsConstantsSISFIFO, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "S_ISFIFO", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOsConstantsSISLNK, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "S_ISLNK", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOsConstantsSISREG, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "S_ISREG", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOsConstantsSISSOCK, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "S_ISSOCK", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOsConstantsWCOREDUMP, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "WCOREDUMP", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOsConstantsWEXITSTATUS, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "WEXITSTATUS", "(I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOsConstantsWIFEXITED, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "WIFEXITED", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOsConstantsWIFSIGNALED, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "WIFSIGNALED", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOsConstantsWIFSTOPPED, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "WIFSTOPPED", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOsConstantsWSTOPSIG, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "WSTOPSIG", "(I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOsConstantsWTERMSIG, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "WTERMSIG", "(I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOsConstantsErrnoName, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "errnoName", "(I)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOsConstantsGaiName, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "gaiName", "(I)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/system/Int64Ref")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInt64Ref = env.NewGlobalRef(&c.Object)
+		midInt64RefCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInt64Ref)), "<init>", "(J)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midInt64RefToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInt64Ref)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -448,7 +810,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midOsGai_strerror, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOs)), "gai_strerror", "(I)Ljava/lang/String;")
+		midOsGaiStrerror, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOs)), "gai_strerror", "(I)Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -539,21 +901,21 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midOsIf_indextoname, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOs)), "if_indextoname", "(I)Ljava/lang/String;")
+		midOsIfIndextoname, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOs)), "if_indextoname", "(I)Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midOsIf_nametoindex, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOs)), "if_nametoindex", "(Ljava/lang/String;)I")
+		midOsIfNametoindex, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOs)), "if_nametoindex", "(Ljava/lang/String;)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midOsInet_pton, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOs)), "inet_pton", "(ILjava/lang/String;)Ljava/net/InetAddress;")
+		midOsInetPton, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOs)), "inet_pton", "(ILjava/lang/String;)Ljava/net/InetAddress;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -616,7 +978,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midOsMemfd_create, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOs)), "memfd_create", "(Ljava/lang/String;I)Ljava/io/FileDescriptor;")
+		midOsMemfdCreate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOs)), "memfd_create", "(Ljava/lang/String;I)Ljava/io/FileDescriptor;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -700,7 +1062,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midOsPosix_fallocate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOs)), "posix_fallocate", "(Ljava/io/FileDescriptor;JJ)V")
+		midOsPosixFallocate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOs)), "posix_fallocate", "(Ljava/io/FileDescriptor;JJ)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -989,352 +1351,6 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/system/OsConstants")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsOsConstants = env.NewGlobalRef(&c.Object)
-
-		midOsConstantsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOsConstantsS_ISBLK, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "S_ISBLK", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOsConstantsS_ISCHR, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "S_ISCHR", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOsConstantsS_ISDIR, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "S_ISDIR", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOsConstantsS_ISFIFO, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "S_ISFIFO", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOsConstantsS_ISLNK, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "S_ISLNK", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOsConstantsS_ISREG, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "S_ISREG", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOsConstantsS_ISSOCK, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "S_ISSOCK", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOsConstantsWCOREDUMP, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "WCOREDUMP", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOsConstantsWEXITSTATUS, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "WEXITSTATUS", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOsConstantsWIFEXITED, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "WIFEXITED", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOsConstantsWIFSIGNALED, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "WIFSIGNALED", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOsConstantsWIFSTOPPED, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "WIFSTOPPED", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOsConstantsWSTOPSIG, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "WSTOPSIG", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOsConstantsWTERMSIG, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "WTERMSIG", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOsConstantsErrnoName, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "errnoName", "(I)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOsConstantsGaiName, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOsConstants)), "gaiName", "(I)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/system/StructCmsghdr")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStructCmsghdr = env.NewGlobalRef(&c.Object)
-		midStructCmsghdrCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructCmsghdr)), "<init>", "(II[B)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midStructCmsghdrToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructCmsghdr)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/system/StructStatVfs")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStructStatVfs = env.NewGlobalRef(&c.Object)
-		midStructStatVfsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructStatVfs)), "<init>", "(JJJJJJJJJJJ)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midStructStatVfsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructStatVfs)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/system/StructTimespec")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStructTimespec = env.NewGlobalRef(&c.Object)
-		midStructTimespecCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructTimespec)), "<init>", "(JJ)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midStructTimespecCompareTo1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructTimespec)), "compareTo", "(Landroid/system/StructTimespec;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStructTimespecEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructTimespec)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStructTimespecHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructTimespec)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStructTimespecToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructTimespec)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStructTimespecCompareTo1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructTimespec)), "compareTo", "(Ljava/lang/Object;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/system/Int64Ref")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsInt64Ref = env.NewGlobalRef(&c.Object)
-		midInt64RefCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInt64Ref)), "<init>", "(J)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midInt64RefToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInt64Ref)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/system/StructPollfd")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStructPollfd = env.NewGlobalRef(&c.Object)
-		midStructPollfdCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructPollfd)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midStructPollfdToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructPollfd)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/system/StructStat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStructStat = env.NewGlobalRef(&c.Object)
-		midStructStatCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructStat)), "<init>", "(JJIJIIJJLandroid/system/StructTimespec;Landroid/system/StructTimespec;Landroid/system/StructTimespec;JJ)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midStructStatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructStat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/system/StructUtsname")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStructUtsname = env.NewGlobalRef(&c.Object)
-		midStructUtsnameCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructUtsname)), "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midStructUtsnameToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStructUtsname)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/system/ErrnoException")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsErrnoException = env.NewGlobalRef(&c.Object)
-		midErrnoExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsErrnoException)), "<init>", "(Ljava/lang/String;I)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midErrnoExceptionGetMessage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsErrnoException)), "getMessage", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midErrnoExceptionRethrowAsIOException, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsErrnoException)), "rethrowAsIOException", "()Ljava/io/IOException;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midErrnoExceptionRethrowAsSocketException, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsErrnoException)), "rethrowAsSocketException", "()Ljava/net/SocketException;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midErrnoExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsErrnoException)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("android/system/StructTimeval")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -1372,30 +1388,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midStructTimevalFromMillis, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsStructTimeval)), "fromMillis", "(J)Landroid/system/StructTimeval;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/system/SystemCleaner")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCleaner = env.NewGlobalRef(&c.Object)
-
-		midCleanerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCleaner)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCleanerCleaner, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCleaner)), "cleaner", "()Ljava/lang/ref/Cleaner;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

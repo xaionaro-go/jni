@@ -32,6 +32,12 @@ func NewMaterialCardView(vm *jni.VM, arg0 *jni.Object) (*MaterialCardView, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialCardView == nil {
+			return fmt.Errorf("com.google.android.material.card.MaterialCardView is not available on this device")
+		}
+		if midMaterialCardViewCtor == nil {
+			return fmt.Errorf("com.google.android.material.card.MaterialCardView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialCardView)), midMaterialCardViewCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -1411,29 +1417,6 @@ func (m *MaterialCardView) GetCheckedIconGravity() (int32, error) {
 		return callErr
 	})
 	return result, callErr
-}
-
-// SetCheckedIconGravity calls com.google.android.material.card.MaterialCardView.setCheckedIconGravity.
-func (m *MaterialCardView) SetCheckedIconGravity(arg0 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialCardViewSetCheckedIconGravity == nil {
-			callErr = fmt.Errorf("com.google.android.material.card.MaterialCardView.setCheckedIconGravity is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMaterialCardViewSetCheckedIconGravity, jni.IntValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // ToString calls com.google.android.material.card.MaterialCardView.toString.

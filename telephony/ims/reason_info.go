@@ -32,6 +32,12 @@ func NewReasonInfo(vm *jni.VM, arg0 int32, arg1 int32, arg2 string) (*ReasonInfo
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsReasonInfo == nil {
+			return fmt.Errorf("android.telephony.ims.ImsReasonInfo is not available on this device")
+		}
+		if midReasonInfoCtor == nil {
+			return fmt.Errorf("android.telephony.ims.ImsReasonInfo constructor (IILjava/lang/String;)V is not available on this device")
+		}
 
 		jArg2, err := env.NewStringUTF(arg2)
 		if err != nil {
@@ -195,8 +201,8 @@ func (m *ReasonInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsReasonInfo)),
 			midReasonInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

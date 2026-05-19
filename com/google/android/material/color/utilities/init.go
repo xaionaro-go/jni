@@ -23,44 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsToneDeltaPair                *jni.GlobalRef
-	midToneDeltaPairCtor            jni.MethodID
-	midToneDeltaPairGetRoleA        jni.MethodID
-	midToneDeltaPairGetRoleB        jni.MethodID
-	midToneDeltaPairGetDelta        jni.MethodID
-	midToneDeltaPairGetPolarity     jni.MethodID
-	midToneDeltaPairGetStayTogether jni.MethodID
-	midToneDeltaPairToString        jni.MethodID
-
-	clsContrastCurve            *jni.GlobalRef
-	midContrastCurveCtor        jni.MethodID
-	midContrastCurveGetContrast jni.MethodID
-	midContrastCurveToString    jni.MethodID
-
-	clsSchemeExpressive         *jni.GlobalRef
-	midSchemeExpressiveCtor     jni.MethodID
-	midSchemeExpressiveToString jni.MethodID
-
-	clsBlend          *jni.GlobalRef
-	midBlendToString  jni.MethodID
-	midBlendHarmonize jni.MethodID
-	midBlendHctHue    jni.MethodID
-	midBlendCam16Ucs  jni.MethodID
-
-	clsTemperatureCache                       *jni.GlobalRef
-	midTemperatureCacheCtor                   jni.MethodID
-	midTemperatureCacheGetComplement          jni.MethodID
-	midTemperatureCacheGetAnalogousColors0    jni.MethodID
-	midTemperatureCacheGetAnalogousColors2_1  jni.MethodID
-	midTemperatureCacheGetRelativeTemperature jni.MethodID
-	midTemperatureCacheToString               jni.MethodID
-	midTemperatureCacheRawTemperature         jni.MethodID
-
-	clsHctSolver           *jni.GlobalRef
-	midHctSolverToString   jni.MethodID
-	midHctSolverSolveToInt jni.MethodID
-	midHctSolverSolveToCam jni.MethodID
-
 	clsScheme                         *jni.GlobalRef
 	midSchemeCtor                     jni.MethodID
 	midSchemeGetPrimary               jni.MethodID
@@ -158,18 +120,95 @@ var (
 	midSchemeLightContent             jni.MethodID
 	midSchemeDarkContent              jni.MethodID
 
-	clsSchemeVibrant         *jni.GlobalRef
-	midSchemeVibrantCtor     jni.MethodID
-	midSchemeVibrantToString jni.MethodID
+	clsDynamicColor                           *jni.GlobalRef
+	midDynamicColorCtor                       jni.MethodID
+	midDynamicColorGetArgb                    jni.MethodID
+	midDynamicColorGetHct                     jni.MethodID
+	midDynamicColorGetTone                    jni.MethodID
+	midDynamicColorToString                   jni.MethodID
+	midDynamicColorFromArgb                   jni.MethodID
+	midDynamicColorForegroundTone             jni.MethodID
+	midDynamicColorEnableLightForeground      jni.MethodID
+	midDynamicColorTonePrefersLightForeground jni.MethodID
+	midDynamicColorToneAllowsLightForeground  jni.MethodID
+
+	clsScore         *jni.GlobalRef
+	midScoreToString jni.MethodID
+
+	clsMathUtils                      *jni.GlobalRef
+	midMathUtilsToString              jni.MethodID
+	midMathUtilsSignum                jni.MethodID
+	midMathUtilsLerp                  jni.MethodID
+	midMathUtilsClampInt              jni.MethodID
+	midMathUtilsClampDouble           jni.MethodID
+	midMathUtilsSanitizeDegreesInt    jni.MethodID
+	midMathUtilsSanitizeDegreesDouble jni.MethodID
+	midMathUtilsRotationDirection     jni.MethodID
+	midMathUtilsDifferenceDegrees     jni.MethodID
+	midMathUtilsMatrixMultiply        jni.MethodID
+
+	clsSchemeTonalSpot         *jni.GlobalRef
+	midSchemeTonalSpotCtor     jni.MethodID
+	midSchemeTonalSpotToString jni.MethodID
 
 	clsCorePalette          *jni.GlobalRef
 	midCorePaletteToString  jni.MethodID
 	midCorePaletteOf        jni.MethodID
 	midCorePaletteContentOf jni.MethodID
 
-	clsSchemeContent         *jni.GlobalRef
-	midSchemeContentCtor     jni.MethodID
-	midSchemeContentToString jni.MethodID
+	clsQuantizerWsmeans         *jni.GlobalRef
+	midQuantizerWsmeansToString jni.MethodID
+
+	clsContrast              *jni.GlobalRef
+	midContrastToString      jni.MethodID
+	midContrastRatioOfYs     jni.MethodID
+	midContrastRatioOfTones  jni.MethodID
+	midContrastLighter       jni.MethodID
+	midContrastLighterUnsafe jni.MethodID
+	midContrastDarker        jni.MethodID
+	midContrastDarkerUnsafe  jni.MethodID
+
+	clsTemperatureCache                       *jni.GlobalRef
+	midTemperatureCacheCtor                   jni.MethodID
+	midTemperatureCacheGetComplement          jni.MethodID
+	midTemperatureCacheGetAnalogousColors0    jni.MethodID
+	midTemperatureCacheGetAnalogousColors2_1  jni.MethodID
+	midTemperatureCacheGetRelativeTemperature jni.MethodID
+	midTemperatureCacheToString               jni.MethodID
+	midTemperatureCacheRawTemperature         jni.MethodID
+
+	clsToneDeltaPair                *jni.GlobalRef
+	midToneDeltaPairCtor            jni.MethodID
+	midToneDeltaPairGetRoleA        jni.MethodID
+	midToneDeltaPairGetRoleB        jni.MethodID
+	midToneDeltaPairGetDelta        jni.MethodID
+	midToneDeltaPairGetPolarity     jni.MethodID
+	midToneDeltaPairGetStayTogether jni.MethodID
+	midToneDeltaPairToString        jni.MethodID
+
+	clsQuantizerCelebi         *jni.GlobalRef
+	midQuantizerCelebiToString jni.MethodID
+
+	clsBlend          *jni.GlobalRef
+	midBlendToString  jni.MethodID
+	midBlendHarmonize jni.MethodID
+	midBlendHctHue    jni.MethodID
+	midBlendCam16Ucs  jni.MethodID
+
+	clsSchemeFidelity         *jni.GlobalRef
+	midSchemeFidelityCtor     jni.MethodID
+	midSchemeFidelityToString jni.MethodID
+
+	clsSchemeVibrant         *jni.GlobalRef
+	midSchemeVibrantCtor     jni.MethodID
+	midSchemeVibrantToString jni.MethodID
+
+	clsQuantizerResult         *jni.GlobalRef
+	midQuantizerResultToString jni.MethodID
+
+	clsSchemeExpressive         *jni.GlobalRef
+	midSchemeExpressiveCtor     jni.MethodID
+	midSchemeExpressiveToString jni.MethodID
 
 	clsMaterialDynamicColors                                        *jni.GlobalRef
 	midMaterialDynamicColorsCtor                                    jni.MethodID
@@ -235,8 +274,76 @@ var (
 	midMaterialDynamicColorsTextSecondaryAndTertiaryInverse         jni.MethodID
 	midMaterialDynamicColorsTextPrimaryInverseDisableOnly           jni.MethodID
 	midMaterialDynamicColorsTextSecondaryAndTertiaryInverseDisabled jni.MethodID
-	midMaterialDynamicColorsTextHintInverse                         jni.MethodID
 	midMaterialDynamicColorsToString                                jni.MethodID
+	midMaterialDynamicColorsTextHintInverse                         jni.MethodID
+
+	clsDynamicScheme              *jni.GlobalRef
+	midDynamicSchemeCtor          jni.MethodID
+	midDynamicSchemeToString      jni.MethodID
+	midDynamicSchemeGetRotatedHue jni.MethodID
+
+	clsSchemeNeutral         *jni.GlobalRef
+	midSchemeNeutralCtor     jni.MethodID
+	midSchemeNeutralToString jni.MethodID
+
+	clsSchemeMonochrome         *jni.GlobalRef
+	midSchemeMonochromeCtor     jni.MethodID
+	midSchemeMonochromeToString jni.MethodID
+
+	clsDislikeAnalyzer              *jni.GlobalRef
+	midDislikeAnalyzerToString      jni.MethodID
+	midDislikeAnalyzerIsDisliked    jni.MethodID
+	midDislikeAnalyzerFixIfDisliked jni.MethodID
+
+	clsHctSolver           *jni.GlobalRef
+	midHctSolverToString   jni.MethodID
+	midHctSolverSolveToInt jni.MethodID
+	midHctSolverSolveToCam jni.MethodID
+
+	clsPointProviderLab         *jni.GlobalRef
+	midPointProviderLabCtor     jni.MethodID
+	midPointProviderLabFromInt  jni.MethodID
+	midPointProviderLabToInt    jni.MethodID
+	midPointProviderLabDistance jni.MethodID
+	midPointProviderLabToString jni.MethodID
+
+	clsSchemeFruitSalad         *jni.GlobalRef
+	midSchemeFruitSaladCtor     jni.MethodID
+	midSchemeFruitSaladToString jni.MethodID
+
+	clsHct                    *jni.GlobalRef
+	midHctGetHue              jni.MethodID
+	midHctGetChroma           jni.MethodID
+	midHctGetTone             jni.MethodID
+	midHctToInt               jni.MethodID
+	midHctSetHue              jni.MethodID
+	midHctSetChroma           jni.MethodID
+	midHctSetTone             jni.MethodID
+	midHctInViewingConditions jni.MethodID
+	midHctToString            jni.MethodID
+	midHctFrom                jni.MethodID
+	midHctFromInt             jni.MethodID
+
+	clsTonePolarity         *jni.GlobalRef
+	midTonePolarityToString jni.MethodID
+	midTonePolarityValues   jni.MethodID
+	midTonePolarityValueOf  jni.MethodID
+
+	clsTonalPalette                 *jni.GlobalRef
+	midTonalPaletteTone             jni.MethodID
+	midTonalPaletteGetHct           jni.MethodID
+	midTonalPaletteGetChroma        jni.MethodID
+	midTonalPaletteGetHue           jni.MethodID
+	midTonalPaletteGetKeyColor      jni.MethodID
+	midTonalPaletteToString         jni.MethodID
+	midTonalPaletteFromInt          jni.MethodID
+	midTonalPaletteFromHct          jni.MethodID
+	midTonalPaletteFromHueAndChroma jni.MethodID
+
+	clsQuantizerMap         *jni.GlobalRef
+	midQuantizerMapCtor     jni.MethodID
+	midQuantizerMapQuantize jni.MethodID
+	midQuantizerMapToString jni.MethodID
 
 	clsViewingConditions                           *jni.GlobalRef
 	midViewingConditionsGetAw                      jni.MethodID
@@ -247,59 +354,6 @@ var (
 	midViewingConditionsToString                   jni.MethodID
 	midViewingConditionsMake                       jni.MethodID
 	midViewingConditionsDefaultWithBackgroundLstar jni.MethodID
-
-	clsSchemeFidelity         *jni.GlobalRef
-	midSchemeFidelityCtor     jni.MethodID
-	midSchemeFidelityToString jni.MethodID
-
-	clsCam16                           *jni.GlobalRef
-	midCam16GetHue                     jni.MethodID
-	midCam16GetChroma                  jni.MethodID
-	midCam16GetJ                       jni.MethodID
-	midCam16GetQ                       jni.MethodID
-	midCam16GetM                       jni.MethodID
-	midCam16GetS                       jni.MethodID
-	midCam16GetJstar                   jni.MethodID
-	midCam16GetAstar                   jni.MethodID
-	midCam16GetBstar                   jni.MethodID
-	midCam16ToInt                      jni.MethodID
-	midCam16ToString                   jni.MethodID
-	midCam16FromInt                    jni.MethodID
-	midCam16FromUcs                    jni.MethodID
-	midCam16FromUcsInViewingConditions jni.MethodID
-
-	clsQuantizerWsmeans         *jni.GlobalRef
-	midQuantizerWsmeansToString jni.MethodID
-
-	clsMathUtils                      *jni.GlobalRef
-	midMathUtilsToString              jni.MethodID
-	midMathUtilsSignum                jni.MethodID
-	midMathUtilsLerp                  jni.MethodID
-	midMathUtilsClampInt              jni.MethodID
-	midMathUtilsClampDouble           jni.MethodID
-	midMathUtilsSanitizeDegreesInt    jni.MethodID
-	midMathUtilsSanitizeDegreesDouble jni.MethodID
-	midMathUtilsRotationDirection     jni.MethodID
-	midMathUtilsDifferenceDegrees     jni.MethodID
-	midMathUtilsMatrixMultiply        jni.MethodID
-
-	clsSchemeRainbow         *jni.GlobalRef
-	midSchemeRainbowCtor     jni.MethodID
-	midSchemeRainbowToString jni.MethodID
-
-	clsQuantizerResult         *jni.GlobalRef
-	midQuantizerResultToString jni.MethodID
-
-	clsSchemeNeutral         *jni.GlobalRef
-	midSchemeNeutralCtor     jni.MethodID
-	midSchemeNeutralToString jni.MethodID
-
-	clsPointProviderLab         *jni.GlobalRef
-	midPointProviderLabCtor     jni.MethodID
-	midPointProviderLabFromInt  jni.MethodID
-	midPointProviderLabToInt    jni.MethodID
-	midPointProviderLabDistance jni.MethodID
-	midPointProviderLabToString jni.MethodID
 
 	clsColorUtils               *jni.GlobalRef
 	midColorUtilsToString       jni.MethodID
@@ -322,104 +376,50 @@ var (
 	midColorUtilsDelinearized   jni.MethodID
 	midColorUtilsWhitePointD65  jni.MethodID
 
-	clsSchemeTonalSpot         *jni.GlobalRef
-	midSchemeTonalSpotCtor     jni.MethodID
-	midSchemeTonalSpotToString jni.MethodID
+	clsVariant         *jni.GlobalRef
+	midVariantToString jni.MethodID
+	midVariantValues   jni.MethodID
+	midVariantValueOf  jni.MethodID
 
-	clsSchemeFruitSalad         *jni.GlobalRef
-	midSchemeFruitSaladCtor     jni.MethodID
-	midSchemeFruitSaladToString jni.MethodID
+	clsContrastCurve            *jni.GlobalRef
+	midContrastCurveCtor        jni.MethodID
+	midContrastCurveGetContrast jni.MethodID
+	midContrastCurveToString    jni.MethodID
 
-	clsDislikeAnalyzer              *jni.GlobalRef
-	midDislikeAnalyzerToString      jni.MethodID
-	midDislikeAnalyzerIsDisliked    jni.MethodID
-	midDislikeAnalyzerFixIfDisliked jni.MethodID
+	clsQuantizerWu         *jni.GlobalRef
+	midQuantizerWuCtor     jni.MethodID
+	midQuantizerWuToString jni.MethodID
+	midQuantizerWuQuantize jni.MethodID
+
+	clsCam16                           *jni.GlobalRef
+	midCam16GetHue                     jni.MethodID
+	midCam16GetChroma                  jni.MethodID
+	midCam16GetJ                       jni.MethodID
+	midCam16GetQ                       jni.MethodID
+	midCam16GetM                       jni.MethodID
+	midCam16GetS                       jni.MethodID
+	midCam16GetJstar                   jni.MethodID
+	midCam16GetAstar                   jni.MethodID
+	midCam16GetBstar                   jni.MethodID
+	midCam16ToString                   jni.MethodID
+	midCam16FromInt                    jni.MethodID
+	midCam16FromUcs                    jni.MethodID
+	midCam16FromUcsInViewingConditions jni.MethodID
+	midCam16ToInt                      jni.MethodID
+
+	clsSchemeRainbow         *jni.GlobalRef
+	midSchemeRainbowCtor     jni.MethodID
+	midSchemeRainbowToString jni.MethodID
+
+	clsSchemeContent         *jni.GlobalRef
+	midSchemeContentCtor     jni.MethodID
+	midSchemeContentToString jni.MethodID
 
 	clsPointProvider         *jni.GlobalRef
 	midPointProviderFromInt  jni.MethodID
 	midPointProviderToInt    jni.MethodID
 	midPointProviderDistance jni.MethodID
 	midPointProviderToString jni.MethodID
-
-	clsTonalPalette                 *jni.GlobalRef
-	midTonalPaletteTone             jni.MethodID
-	midTonalPaletteGetHct           jni.MethodID
-	midTonalPaletteGetChroma        jni.MethodID
-	midTonalPaletteGetHue           jni.MethodID
-	midTonalPaletteGetKeyColor      jni.MethodID
-	midTonalPaletteToString         jni.MethodID
-	midTonalPaletteFromInt          jni.MethodID
-	midTonalPaletteFromHct          jni.MethodID
-	midTonalPaletteFromHueAndChroma jni.MethodID
-
-	clsTonePolarity         *jni.GlobalRef
-	midTonePolarityToString jni.MethodID
-	midTonePolarityValues   jni.MethodID
-	midTonePolarityValueOf  jni.MethodID
-
-	clsContrast              *jni.GlobalRef
-	midContrastToString      jni.MethodID
-	midContrastRatioOfYs     jni.MethodID
-	midContrastRatioOfTones  jni.MethodID
-	midContrastLighter       jni.MethodID
-	midContrastLighterUnsafe jni.MethodID
-	midContrastDarker        jni.MethodID
-	midContrastDarkerUnsafe  jni.MethodID
-
-	clsDynamicScheme              *jni.GlobalRef
-	midDynamicSchemeCtor          jni.MethodID
-	midDynamicSchemeToString      jni.MethodID
-	midDynamicSchemeGetRotatedHue jni.MethodID
-
-	clsDynamicColor                           *jni.GlobalRef
-	midDynamicColorCtor                       jni.MethodID
-	midDynamicColorGetArgb                    jni.MethodID
-	midDynamicColorGetHct                     jni.MethodID
-	midDynamicColorGetTone                    jni.MethodID
-	midDynamicColorToString                   jni.MethodID
-	midDynamicColorFromArgb                   jni.MethodID
-	midDynamicColorForegroundTone             jni.MethodID
-	midDynamicColorEnableLightForeground      jni.MethodID
-	midDynamicColorTonePrefersLightForeground jni.MethodID
-	midDynamicColorToneAllowsLightForeground  jni.MethodID
-
-	clsScore         *jni.GlobalRef
-	midScoreToString jni.MethodID
-
-	clsQuantizerWu         *jni.GlobalRef
-	midQuantizerWuCtor     jni.MethodID
-	midQuantizerWuQuantize jni.MethodID
-	midQuantizerWuToString jni.MethodID
-
-	clsVariant         *jni.GlobalRef
-	midVariantToString jni.MethodID
-	midVariantValues   jni.MethodID
-	midVariantValueOf  jni.MethodID
-
-	clsQuantizerMap         *jni.GlobalRef
-	midQuantizerMapCtor     jni.MethodID
-	midQuantizerMapQuantize jni.MethodID
-	midQuantizerMapToString jni.MethodID
-
-	clsSchemeMonochrome         *jni.GlobalRef
-	midSchemeMonochromeCtor     jni.MethodID
-	midSchemeMonochromeToString jni.MethodID
-
-	clsQuantizerCelebi         *jni.GlobalRef
-	midQuantizerCelebiToString jni.MethodID
-
-	clsHct                    *jni.GlobalRef
-	midHctGetHue              jni.MethodID
-	midHctGetChroma           jni.MethodID
-	midHctGetTone             jni.MethodID
-	midHctToInt               jni.MethodID
-	midHctSetHue              jni.MethodID
-	midHctSetChroma           jni.MethodID
-	midHctSetTone             jni.MethodID
-	midHctInViewingConditions jni.MethodID
-	midHctToString            jni.MethodID
-	midHctFrom                jni.MethodID
-	midHctFromInt             jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -439,236 +439,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/ToneDeltaPair")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsToneDeltaPair = env.NewGlobalRef(&c.Object)
-		midToneDeltaPairCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToneDeltaPair)), "<init>", "(Lcom/google/android/material/color/utilities/DynamicColor;Lcom/google/android/material/color/utilities/DynamicColor;DLcom/google/android/material/color/utilities/TonePolarity;Z)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midToneDeltaPairGetRoleA, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToneDeltaPair)), "getRoleA", "()Lcom/google/android/material/color/utilities/DynamicColor;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midToneDeltaPairGetRoleB, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToneDeltaPair)), "getRoleB", "()Lcom/google/android/material/color/utilities/DynamicColor;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midToneDeltaPairGetDelta, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToneDeltaPair)), "getDelta", "()D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midToneDeltaPairGetPolarity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToneDeltaPair)), "getPolarity", "()Lcom/google/android/material/color/utilities/TonePolarity;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midToneDeltaPairGetStayTogether, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToneDeltaPair)), "getStayTogether", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midToneDeltaPairToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToneDeltaPair)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/ContrastCurve")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsContrastCurve = env.NewGlobalRef(&c.Object)
-		midContrastCurveCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrastCurve)), "<init>", "(DDDD)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midContrastCurveGetContrast, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrastCurve)), "getContrast", "(D)D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContrastCurveToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrastCurve)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/SchemeExpressive")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSchemeExpressive = env.NewGlobalRef(&c.Object)
-		midSchemeExpressiveCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeExpressive)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;ZD)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midSchemeExpressiveToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeExpressive)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/Blend")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBlend = env.NewGlobalRef(&c.Object)
-
-		midBlendToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBlend)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBlendHarmonize, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBlend)), "harmonize", "(II)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBlendHctHue, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBlend)), "hctHue", "(IID)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBlendCam16Ucs, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBlend)), "cam16Ucs", "(IID)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/TemperatureCache")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTemperatureCache = env.NewGlobalRef(&c.Object)
-		midTemperatureCacheCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTemperatureCache)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midTemperatureCacheGetComplement, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTemperatureCache)), "getComplement", "()Lcom/google/android/material/color/utilities/Hct;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTemperatureCacheGetAnalogousColors0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTemperatureCache)), "getAnalogousColors", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTemperatureCacheGetAnalogousColors2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTemperatureCache)), "getAnalogousColors", "(II)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTemperatureCacheGetRelativeTemperature, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTemperatureCache)), "getRelativeTemperature", "(Lcom/google/android/material/color/utilities/Hct;)D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTemperatureCacheToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTemperatureCache)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTemperatureCacheRawTemperature, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTemperatureCache)), "rawTemperature", "(Lcom/google/android/material/color/utilities/Hct;)D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/HctSolver")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsHctSolver = env.NewGlobalRef(&c.Object)
-
-		midHctSolverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHctSolver)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHctSolverSolveToInt, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHctSolver)), "solveToInt", "(DDD)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHctSolverSolveToCam, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHctSolver)), "solveToCam", "(DDD)Lcom/google/android/material/color/utilities/Cam16;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("com/google/android/material/color/utilities/Scheme")
 	if err != nil {
@@ -1342,19 +1112,193 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/color/utilities/SchemeVibrant")
+	c, err = env.FindClass("com/google/android/material/color/utilities/DynamicColor")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSchemeVibrant = env.NewGlobalRef(&c.Object)
-		midSchemeVibrantCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeVibrant)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;ZD)V")
+		clsDynamicColor = env.NewGlobalRef(&c.Object)
+		midDynamicColorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColor)), "<init>", "(Ljava/lang/String;Ljava/util/function/Function;Ljava/util/function/Function;ZLjava/util/function/Function;Ljava/util/function/Function;Lcom/google/android/material/color/utilities/ContrastCurve;Ljava/util/function/Function;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midSchemeVibrantToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeVibrant)), "toString", "()Ljava/lang/String;")
+		midDynamicColorGetArgb, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColor)), "getArgb", "(Lcom/google/android/material/color/utilities/DynamicScheme;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDynamicColorGetHct, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColor)), "getHct", "(Lcom/google/android/material/color/utilities/DynamicScheme;)Lcom/google/android/material/color/utilities/Hct;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDynamicColorGetTone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColor)), "getTone", "(Lcom/google/android/material/color/utilities/DynamicScheme;)D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDynamicColorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColor)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDynamicColorFromArgb, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColor)), "fromArgb", "(Ljava/lang/String;I)Lcom/google/android/material/color/utilities/DynamicColor;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDynamicColorForegroundTone, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColor)), "foregroundTone", "(DD)D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDynamicColorEnableLightForeground, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColor)), "enableLightForeground", "(D)D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDynamicColorTonePrefersLightForeground, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColor)), "tonePrefersLightForeground", "(D)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDynamicColorToneAllowsLightForeground, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColor)), "toneAllowsLightForeground", "(D)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/Score")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsScore = env.NewGlobalRef(&c.Object)
+
+		midScoreToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsScore)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/MathUtils")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMathUtils = env.NewGlobalRef(&c.Object)
+
+		midMathUtilsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMathUtils)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMathUtilsSignum, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMathUtils)), "signum", "(D)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMathUtilsLerp, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMathUtils)), "lerp", "(DDD)D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMathUtilsClampInt, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMathUtils)), "clampInt", "(III)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMathUtilsClampDouble, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMathUtils)), "clampDouble", "(DDD)D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMathUtilsSanitizeDegreesInt, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMathUtils)), "sanitizeDegreesInt", "(I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMathUtilsSanitizeDegreesDouble, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMathUtils)), "sanitizeDegreesDouble", "(D)D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMathUtilsRotationDirection, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMathUtils)), "rotationDirection", "(DD)D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMathUtilsDifferenceDegrees, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMathUtils)), "differenceDegrees", "(DD)D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMathUtilsMatrixMultiply, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMathUtils)), "matrixMultiply", "([D[[D)[D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/SchemeTonalSpot")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSchemeTonalSpot = env.NewGlobalRef(&c.Object)
+		midSchemeTonalSpotCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeTonalSpot)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;ZD)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSchemeTonalSpotToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeTonalSpot)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1394,19 +1338,321 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/color/utilities/SchemeContent")
+	c, err = env.FindClass("com/google/android/material/color/utilities/QuantizerWsmeans")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSchemeContent = env.NewGlobalRef(&c.Object)
-		midSchemeContentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeContent)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;ZD)V")
+		clsQuantizerWsmeans = env.NewGlobalRef(&c.Object)
+
+		midQuantizerWsmeansToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsQuantizerWsmeans)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/Contrast")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsContrast = env.NewGlobalRef(&c.Object)
+
+		midContrastToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContrastRatioOfYs, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "ratioOfYs", "(DD)D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContrastRatioOfTones, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "ratioOfTones", "(DD)D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContrastLighter, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "lighter", "(DD)D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContrastLighterUnsafe, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "lighterUnsafe", "(DD)D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContrastDarker, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "darker", "(DD)D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContrastDarkerUnsafe, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "darkerUnsafe", "(DD)D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/TemperatureCache")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTemperatureCache = env.NewGlobalRef(&c.Object)
+		midTemperatureCacheCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTemperatureCache)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midSchemeContentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeContent)), "toString", "()Ljava/lang/String;")
+		midTemperatureCacheGetComplement, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTemperatureCache)), "getComplement", "()Lcom/google/android/material/color/utilities/Hct;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTemperatureCacheGetAnalogousColors0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTemperatureCache)), "getAnalogousColors", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTemperatureCacheGetAnalogousColors2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTemperatureCache)), "getAnalogousColors", "(II)Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTemperatureCacheGetRelativeTemperature, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTemperatureCache)), "getRelativeTemperature", "(Lcom/google/android/material/color/utilities/Hct;)D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTemperatureCacheToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTemperatureCache)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTemperatureCacheRawTemperature, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTemperatureCache)), "rawTemperature", "(Lcom/google/android/material/color/utilities/Hct;)D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/ToneDeltaPair")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsToneDeltaPair = env.NewGlobalRef(&c.Object)
+		midToneDeltaPairCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToneDeltaPair)), "<init>", "(Lcom/google/android/material/color/utilities/DynamicColor;Lcom/google/android/material/color/utilities/DynamicColor;DLcom/google/android/material/color/utilities/TonePolarity;Z)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midToneDeltaPairGetRoleA, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToneDeltaPair)), "getRoleA", "()Lcom/google/android/material/color/utilities/DynamicColor;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midToneDeltaPairGetRoleB, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToneDeltaPair)), "getRoleB", "()Lcom/google/android/material/color/utilities/DynamicColor;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midToneDeltaPairGetDelta, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToneDeltaPair)), "getDelta", "()D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midToneDeltaPairGetPolarity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToneDeltaPair)), "getPolarity", "()Lcom/google/android/material/color/utilities/TonePolarity;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midToneDeltaPairGetStayTogether, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToneDeltaPair)), "getStayTogether", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midToneDeltaPairToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsToneDeltaPair)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/QuantizerCelebi")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsQuantizerCelebi = env.NewGlobalRef(&c.Object)
+
+		midQuantizerCelebiToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsQuantizerCelebi)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/Blend")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBlend = env.NewGlobalRef(&c.Object)
+
+		midBlendToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBlend)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBlendHarmonize, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBlend)), "harmonize", "(II)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBlendHctHue, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBlend)), "hctHue", "(IID)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBlendCam16Ucs, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBlend)), "cam16Ucs", "(IID)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/SchemeFidelity")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSchemeFidelity = env.NewGlobalRef(&c.Object)
+		midSchemeFidelityCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeFidelity)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;ZD)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSchemeFidelityToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeFidelity)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/SchemeVibrant")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSchemeVibrant = env.NewGlobalRef(&c.Object)
+		midSchemeVibrantCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeVibrant)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;ZD)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSchemeVibrantToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeVibrant)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/QuantizerResult")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsQuantizerResult = env.NewGlobalRef(&c.Object)
+
+		midQuantizerResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsQuantizerResult)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/SchemeExpressive")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSchemeExpressive = env.NewGlobalRef(&c.Object)
+		midSchemeExpressiveCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeExpressive)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;ZD)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSchemeExpressiveToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeExpressive)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1861,14 +2107,428 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMaterialDynamicColorsTextHintInverse, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDynamicColors)), "textHintInverse", "()Lcom/google/android/material/color/utilities/DynamicColor;")
+		midMaterialDynamicColorsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDynamicColors)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialDynamicColorsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDynamicColors)), "toString", "()Ljava/lang/String;")
+		midMaterialDynamicColorsTextHintInverse, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDynamicColors)), "textHintInverse", "()Lcom/google/android/material/color/utilities/DynamicColor;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/DynamicScheme")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDynamicScheme = env.NewGlobalRef(&c.Object)
+		midDynamicSchemeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicScheme)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;Lcom/google/android/material/color/utilities/Variant;ZDLcom/google/android/material/color/utilities/TonalPalette;Lcom/google/android/material/color/utilities/TonalPalette;Lcom/google/android/material/color/utilities/TonalPalette;Lcom/google/android/material/color/utilities/TonalPalette;Lcom/google/android/material/color/utilities/TonalPalette;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midDynamicSchemeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicScheme)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDynamicSchemeGetRotatedHue, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDynamicScheme)), "getRotatedHue", "(Lcom/google/android/material/color/utilities/Hct;[D[D)D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/SchemeNeutral")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSchemeNeutral = env.NewGlobalRef(&c.Object)
+		midSchemeNeutralCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeNeutral)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;ZD)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSchemeNeutralToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeNeutral)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/SchemeMonochrome")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSchemeMonochrome = env.NewGlobalRef(&c.Object)
+		midSchemeMonochromeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeMonochrome)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;ZD)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSchemeMonochromeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeMonochrome)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/DislikeAnalyzer")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDislikeAnalyzer = env.NewGlobalRef(&c.Object)
+
+		midDislikeAnalyzerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDislikeAnalyzer)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDislikeAnalyzerIsDisliked, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDislikeAnalyzer)), "isDisliked", "(Lcom/google/android/material/color/utilities/Hct;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDislikeAnalyzerFixIfDisliked, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDislikeAnalyzer)), "fixIfDisliked", "(Lcom/google/android/material/color/utilities/Hct;)Lcom/google/android/material/color/utilities/Hct;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/HctSolver")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsHctSolver = env.NewGlobalRef(&c.Object)
+
+		midHctSolverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHctSolver)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHctSolverSolveToInt, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHctSolver)), "solveToInt", "(DDD)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHctSolverSolveToCam, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHctSolver)), "solveToCam", "(DDD)Lcom/google/android/material/color/utilities/Cam16;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/PointProviderLab")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPointProviderLab = env.NewGlobalRef(&c.Object)
+		midPointProviderLabCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPointProviderLab)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midPointProviderLabFromInt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPointProviderLab)), "fromInt", "(I)[D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPointProviderLabToInt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPointProviderLab)), "toInt", "([D)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPointProviderLabDistance, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPointProviderLab)), "distance", "([D[D)D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPointProviderLabToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPointProviderLab)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/SchemeFruitSalad")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSchemeFruitSalad = env.NewGlobalRef(&c.Object)
+		midSchemeFruitSaladCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeFruitSalad)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;ZD)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSchemeFruitSaladToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeFruitSalad)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/Hct")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsHct = env.NewGlobalRef(&c.Object)
+
+		midHctGetHue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "getHue", "()D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHctGetChroma, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "getChroma", "()D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHctGetTone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "getTone", "()D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHctToInt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "toInt", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHctSetHue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "setHue", "(D)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHctSetChroma, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "setChroma", "(D)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHctSetTone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "setTone", "(D)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHctInViewingConditions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "inViewingConditions", "(Lcom/google/android/material/color/utilities/ViewingConditions;)Lcom/google/android/material/color/utilities/Hct;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHctToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHctFrom, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "from", "(DDD)Lcom/google/android/material/color/utilities/Hct;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHctFromInt, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "fromInt", "(I)Lcom/google/android/material/color/utilities/Hct;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/TonePolarity")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTonePolarity = env.NewGlobalRef(&c.Object)
+
+		midTonePolarityToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonePolarity)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTonePolarityValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTonePolarity)), "values", "()[Lcom/google/android/material/color/utilities/TonePolarity;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTonePolarityValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTonePolarity)), "valueOf", "(Ljava/lang/String;)Lcom/google/android/material/color/utilities/TonePolarity;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/TonalPalette")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTonalPalette = env.NewGlobalRef(&c.Object)
+
+		midTonalPaletteTone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonalPalette)), "tone", "(I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTonalPaletteGetHct, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonalPalette)), "getHct", "(D)Lcom/google/android/material/color/utilities/Hct;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTonalPaletteGetChroma, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonalPalette)), "getChroma", "()D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTonalPaletteGetHue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonalPalette)), "getHue", "()D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTonalPaletteGetKeyColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonalPalette)), "getKeyColor", "()Lcom/google/android/material/color/utilities/Hct;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTonalPaletteToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonalPalette)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTonalPaletteFromInt, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTonalPalette)), "fromInt", "(I)Lcom/google/android/material/color/utilities/TonalPalette;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTonalPaletteFromHct, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTonalPalette)), "fromHct", "(Lcom/google/android/material/color/utilities/Hct;)Lcom/google/android/material/color/utilities/TonalPalette;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTonalPaletteFromHueAndChroma, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTonalPalette)), "fromHueAndChroma", "(DD)Lcom/google/android/material/color/utilities/TonalPalette;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/QuantizerMap")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsQuantizerMap = env.NewGlobalRef(&c.Object)
+		midQuantizerMapCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsQuantizerMap)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midQuantizerMapQuantize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsQuantizerMap)), "quantize", "([II)Lcom/google/android/material/color/utilities/QuantizerResult;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midQuantizerMapToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsQuantizerMap)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1935,333 +2595,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midViewingConditionsDefaultWithBackgroundLstar, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewingConditions)), "defaultWithBackgroundLstar", "(D)Lcom/google/android/material/color/utilities/ViewingConditions;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/SchemeFidelity")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSchemeFidelity = env.NewGlobalRef(&c.Object)
-		midSchemeFidelityCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeFidelity)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;ZD)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midSchemeFidelityToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeFidelity)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/Cam16")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCam16 = env.NewGlobalRef(&c.Object)
-
-		midCam16GetHue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "getHue", "()D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCam16GetChroma, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "getChroma", "()D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCam16GetJ, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "getJ", "()D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCam16GetQ, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "getQ", "()D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCam16GetM, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "getM", "()D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCam16GetS, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "getS", "()D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCam16GetJstar, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "getJstar", "()D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCam16GetAstar, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "getAstar", "()D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCam16GetBstar, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "getBstar", "()D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCam16ToInt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "toInt", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCam16ToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCam16FromInt, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "fromInt", "(I)Lcom/google/android/material/color/utilities/Cam16;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCam16FromUcs, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "fromUcs", "(DDD)Lcom/google/android/material/color/utilities/Cam16;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCam16FromUcsInViewingConditions, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "fromUcsInViewingConditions", "(DDDLcom/google/android/material/color/utilities/ViewingConditions;)Lcom/google/android/material/color/utilities/Cam16;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/QuantizerWsmeans")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsQuantizerWsmeans = env.NewGlobalRef(&c.Object)
-
-		midQuantizerWsmeansToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsQuantizerWsmeans)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/MathUtils")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMathUtils = env.NewGlobalRef(&c.Object)
-
-		midMathUtilsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMathUtils)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMathUtilsSignum, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMathUtils)), "signum", "(D)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMathUtilsLerp, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMathUtils)), "lerp", "(DDD)D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMathUtilsClampInt, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMathUtils)), "clampInt", "(III)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMathUtilsClampDouble, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMathUtils)), "clampDouble", "(DDD)D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMathUtilsSanitizeDegreesInt, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMathUtils)), "sanitizeDegreesInt", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMathUtilsSanitizeDegreesDouble, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMathUtils)), "sanitizeDegreesDouble", "(D)D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMathUtilsRotationDirection, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMathUtils)), "rotationDirection", "(DD)D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMathUtilsDifferenceDegrees, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMathUtils)), "differenceDegrees", "(DD)D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMathUtilsMatrixMultiply, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMathUtils)), "matrixMultiply", "([D[[D)[D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/SchemeRainbow")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSchemeRainbow = env.NewGlobalRef(&c.Object)
-		midSchemeRainbowCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeRainbow)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;ZD)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midSchemeRainbowToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeRainbow)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/QuantizerResult")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsQuantizerResult = env.NewGlobalRef(&c.Object)
-
-		midQuantizerResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsQuantizerResult)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/SchemeNeutral")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSchemeNeutral = env.NewGlobalRef(&c.Object)
-		midSchemeNeutralCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeNeutral)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;ZD)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midSchemeNeutralToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeNeutral)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/PointProviderLab")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPointProviderLab = env.NewGlobalRef(&c.Object)
-		midPointProviderLabCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPointProviderLab)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midPointProviderLabFromInt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPointProviderLab)), "fromInt", "(I)[D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPointProviderLabToInt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPointProviderLab)), "toInt", "([D)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPointProviderLabDistance, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPointProviderLab)), "distance", "([D[D)D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPointProviderLabToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPointProviderLab)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2413,19 +2746,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/color/utilities/SchemeTonalSpot")
+	c, err = env.FindClass("com/google/android/material/color/utilities/Variant")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSchemeTonalSpot = env.NewGlobalRef(&c.Object)
-		midSchemeTonalSpotCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeTonalSpot)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;ZD)V")
+		clsVariant = env.NewGlobalRef(&c.Object)
+
+		midVariantToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariant)), "toString", "()Ljava/lang/String;")
 		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSchemeTonalSpotToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeTonalSpot)), "toString", "()Ljava/lang/String;")
+		midVariantValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsVariant)), "values", "()[Lcom/google/android/material/color/utilities/Variant;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVariantValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsVariant)), "valueOf", "(Ljava/lang/String;)Lcom/google/android/material/color/utilities/Variant;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2434,19 +2777,26 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/color/utilities/SchemeFruitSalad")
+	c, err = env.FindClass("com/google/android/material/color/utilities/ContrastCurve")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSchemeFruitSalad = env.NewGlobalRef(&c.Object)
-		midSchemeFruitSaladCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeFruitSalad)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;ZD)V")
+		clsContrastCurve = env.NewGlobalRef(&c.Object)
+		midContrastCurveCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrastCurve)), "<init>", "(DDDD)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midSchemeFruitSaladToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeFruitSalad)), "toString", "()Ljava/lang/String;")
+		midContrastCurveGetContrast, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrastCurve)), "getContrast", "(D)D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContrastCurveToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrastCurve)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2455,29 +2805,176 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/color/utilities/DislikeAnalyzer")
+	c, err = env.FindClass("com/google/android/material/color/utilities/QuantizerWu")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsDislikeAnalyzer = env.NewGlobalRef(&c.Object)
+		clsQuantizerWu = env.NewGlobalRef(&c.Object)
+		midQuantizerWuCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsQuantizerWu)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midDislikeAnalyzerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDislikeAnalyzer)), "toString", "()Ljava/lang/String;")
+		midQuantizerWuToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsQuantizerWu)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDislikeAnalyzerIsDisliked, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDislikeAnalyzer)), "isDisliked", "(Lcom/google/android/material/color/utilities/Hct;)Z")
+		midQuantizerWuQuantize, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsQuantizerWu)), "quantize", "([II)Lcom/google/android/material/color/utilities/QuantizerResult;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDislikeAnalyzerFixIfDisliked, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDislikeAnalyzer)), "fixIfDisliked", "(Lcom/google/android/material/color/utilities/Hct;)Lcom/google/android/material/color/utilities/Hct;")
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/Cam16")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCam16 = env.NewGlobalRef(&c.Object)
+
+		midCam16GetHue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "getHue", "()D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCam16GetChroma, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "getChroma", "()D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCam16GetJ, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "getJ", "()D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCam16GetQ, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "getQ", "()D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCam16GetM, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "getM", "()D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCam16GetS, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "getS", "()D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCam16GetJstar, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "getJstar", "()D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCam16GetAstar, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "getAstar", "()D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCam16GetBstar, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "getBstar", "()D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCam16ToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCam16FromInt, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "fromInt", "(I)Lcom/google/android/material/color/utilities/Cam16;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCam16FromUcs, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "fromUcs", "(DDD)Lcom/google/android/material/color/utilities/Cam16;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCam16FromUcsInViewingConditions, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "fromUcsInViewingConditions", "(DDDLcom/google/android/material/color/utilities/ViewingConditions;)Lcom/google/android/material/color/utilities/Cam16;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCam16ToInt, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCam16)), "toInt", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/SchemeRainbow")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSchemeRainbow = env.NewGlobalRef(&c.Object)
+		midSchemeRainbowCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeRainbow)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;ZD)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSchemeRainbowToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeRainbow)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/utilities/SchemeContent")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSchemeContent = env.NewGlobalRef(&c.Object)
+		midSchemeContentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeContent)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;ZD)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSchemeContentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeContent)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2516,503 +3013,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midPointProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPointProvider)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/TonalPalette")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTonalPalette = env.NewGlobalRef(&c.Object)
-
-		midTonalPaletteTone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonalPalette)), "tone", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTonalPaletteGetHct, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonalPalette)), "getHct", "(D)Lcom/google/android/material/color/utilities/Hct;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTonalPaletteGetChroma, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonalPalette)), "getChroma", "()D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTonalPaletteGetHue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonalPalette)), "getHue", "()D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTonalPaletteGetKeyColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonalPalette)), "getKeyColor", "()Lcom/google/android/material/color/utilities/Hct;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTonalPaletteToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonalPalette)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTonalPaletteFromInt, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTonalPalette)), "fromInt", "(I)Lcom/google/android/material/color/utilities/TonalPalette;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTonalPaletteFromHct, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTonalPalette)), "fromHct", "(Lcom/google/android/material/color/utilities/Hct;)Lcom/google/android/material/color/utilities/TonalPalette;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTonalPaletteFromHueAndChroma, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTonalPalette)), "fromHueAndChroma", "(DD)Lcom/google/android/material/color/utilities/TonalPalette;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/TonePolarity")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTonePolarity = env.NewGlobalRef(&c.Object)
-
-		midTonePolarityToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonePolarity)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTonePolarityValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTonePolarity)), "values", "()[Lcom/google/android/material/color/utilities/TonePolarity;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTonePolarityValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTonePolarity)), "valueOf", "(Ljava/lang/String;)Lcom/google/android/material/color/utilities/TonePolarity;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/Contrast")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsContrast = env.NewGlobalRef(&c.Object)
-
-		midContrastToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContrastRatioOfYs, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "ratioOfYs", "(DD)D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContrastRatioOfTones, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "ratioOfTones", "(DD)D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContrastLighter, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "lighter", "(DD)D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContrastLighterUnsafe, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "lighterUnsafe", "(DD)D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContrastDarker, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "darker", "(DD)D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContrastDarkerUnsafe, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "darkerUnsafe", "(DD)D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/DynamicScheme")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDynamicScheme = env.NewGlobalRef(&c.Object)
-		midDynamicSchemeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicScheme)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;Lcom/google/android/material/color/utilities/Variant;ZDLcom/google/android/material/color/utilities/TonalPalette;Lcom/google/android/material/color/utilities/TonalPalette;Lcom/google/android/material/color/utilities/TonalPalette;Lcom/google/android/material/color/utilities/TonalPalette;Lcom/google/android/material/color/utilities/TonalPalette;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midDynamicSchemeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicScheme)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDynamicSchemeGetRotatedHue, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDynamicScheme)), "getRotatedHue", "(Lcom/google/android/material/color/utilities/Hct;[D[D)D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/DynamicColor")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDynamicColor = env.NewGlobalRef(&c.Object)
-		midDynamicColorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColor)), "<init>", "(Ljava/lang/String;Ljava/util/function/Function;Ljava/util/function/Function;ZLjava/util/function/Function;Ljava/util/function/Function;Lcom/google/android/material/color/utilities/ContrastCurve;Ljava/util/function/Function;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midDynamicColorGetArgb, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColor)), "getArgb", "(Lcom/google/android/material/color/utilities/DynamicScheme;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDynamicColorGetHct, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColor)), "getHct", "(Lcom/google/android/material/color/utilities/DynamicScheme;)Lcom/google/android/material/color/utilities/Hct;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDynamicColorGetTone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColor)), "getTone", "(Lcom/google/android/material/color/utilities/DynamicScheme;)D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDynamicColorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColor)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDynamicColorFromArgb, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColor)), "fromArgb", "(Ljava/lang/String;I)Lcom/google/android/material/color/utilities/DynamicColor;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDynamicColorForegroundTone, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColor)), "foregroundTone", "(DD)D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDynamicColorEnableLightForeground, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColor)), "enableLightForeground", "(D)D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDynamicColorTonePrefersLightForeground, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColor)), "tonePrefersLightForeground", "(D)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDynamicColorToneAllowsLightForeground, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColor)), "toneAllowsLightForeground", "(D)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/Score")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsScore = env.NewGlobalRef(&c.Object)
-
-		midScoreToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsScore)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/QuantizerWu")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsQuantizerWu = env.NewGlobalRef(&c.Object)
-		midQuantizerWuCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsQuantizerWu)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midQuantizerWuQuantize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsQuantizerWu)), "quantize", "([II)Lcom/google/android/material/color/utilities/QuantizerResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midQuantizerWuToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsQuantizerWu)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/Variant")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsVariant = env.NewGlobalRef(&c.Object)
-
-		midVariantToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariant)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariantValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsVariant)), "values", "()[Lcom/google/android/material/color/utilities/Variant;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariantValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsVariant)), "valueOf", "(Ljava/lang/String;)Lcom/google/android/material/color/utilities/Variant;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/QuantizerMap")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsQuantizerMap = env.NewGlobalRef(&c.Object)
-		midQuantizerMapCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsQuantizerMap)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midQuantizerMapQuantize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsQuantizerMap)), "quantize", "([II)Lcom/google/android/material/color/utilities/QuantizerResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midQuantizerMapToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsQuantizerMap)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/SchemeMonochrome")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSchemeMonochrome = env.NewGlobalRef(&c.Object)
-		midSchemeMonochromeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeMonochrome)), "<init>", "(Lcom/google/android/material/color/utilities/Hct;ZD)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midSchemeMonochromeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemeMonochrome)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/QuantizerCelebi")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsQuantizerCelebi = env.NewGlobalRef(&c.Object)
-
-		midQuantizerCelebiToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsQuantizerCelebi)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/utilities/Hct")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsHct = env.NewGlobalRef(&c.Object)
-
-		midHctGetHue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "getHue", "()D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHctGetChroma, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "getChroma", "()D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHctGetTone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "getTone", "()D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHctToInt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "toInt", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHctSetHue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "setHue", "(D)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHctSetChroma, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "setChroma", "(D)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHctSetTone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "setTone", "(D)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHctInViewingConditions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "inViewingConditions", "(Lcom/google/android/material/color/utilities/ViewingConditions;)Lcom/google/android/material/color/utilities/Hct;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHctToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHctFrom, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "from", "(DDD)Lcom/google/android/material/color/utilities/Hct;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHctFromInt, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHct)), "fromInt", "(I)Lcom/google/android/material/color/utilities/Hct;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

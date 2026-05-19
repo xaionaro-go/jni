@@ -23,6 +23,34 @@ type IResultReceiverDefault struct {
 	Obj *jni.GlobalRef
 }
 
+// NewIResultReceiverDefault creates a new android.support.v4.os.IResultReceiver$Default instance.
+func NewIResultReceiverDefault(vm *jni.VM) (*IResultReceiverDefault, error) {
+	var t IResultReceiverDefault
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsIResultReceiverDefault == nil {
+			return fmt.Errorf("android.support.v4.os.IResultReceiver$Default is not available on this device")
+		}
+		if midIResultReceiverDefaultCtor == nil {
+			return fmt.Errorf("android.support.v4.os.IResultReceiver$Default constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIResultReceiverDefault)), midIResultReceiverDefaultCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Send calls android.support.v4.os.IResultReceiver$Default.send.
 func (m *IResultReceiverDefault) Send(arg0 int32, arg1 *jni.Object) error {
 

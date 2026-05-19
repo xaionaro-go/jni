@@ -32,6 +32,12 @@ func NewPackageIdentifier(vm *jni.VM, arg0 string, arg1 *jni.Object) (*PackageId
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPackageIdentifier == nil {
+			return fmt.Errorf("android.app.appsearch.PackageIdentifier is not available on this device")
+		}
+		if midPackageIdentifierCtor == nil {
+			return fmt.Errorf("android.app.appsearch.PackageIdentifier constructor (Ljava/lang/String;[B)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

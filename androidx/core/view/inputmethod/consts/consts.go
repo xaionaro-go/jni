@@ -3,7 +3,7 @@
 package consts
 
 const (
+	InputContentGrantReadUriPermission int = 1
 	ImeFlagNoPersonalizedLearning      int = 16777216
 	ImeFlagForceAscii                  int = -2147483648
-	InputContentGrantReadUriPermission int = 1
 )

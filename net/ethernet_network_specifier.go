@@ -32,6 +32,12 @@ func NewEthernetNetworkSpecifier(vm *jni.VM, arg0 string) (*EthernetNetworkSpeci
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEthernetNetworkSpecifier == nil {
+			return fmt.Errorf("android.net.EthernetNetworkSpecifier is not available on this device")
+		}
+		if midEthernetNetworkSpecifierCtor == nil {
+			return fmt.Errorf("android.net.EthernetNetworkSpecifier constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -225,8 +231,8 @@ func (m *EthernetNetworkSpecifier) WriteToParcel(arg0 *jni.Object, arg1 int32) e
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsEthernetNetworkSpecifier)),
 			midEthernetNetworkSpecifierWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

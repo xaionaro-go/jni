@@ -247,29 +247,6 @@ func (m *Buffer) IsClosed() (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.hardware.HardwareBuffer.writeToParcel.
-func (m *Buffer) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBufferWriteToParcel == nil {
-			callErr = fmt.Errorf("android.hardware.HardwareBuffer.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midBufferWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.hardware.HardwareBuffer.toString.
 func (m *Buffer) ToString() (string, error) {
 	var result string
@@ -368,4 +345,27 @@ func (m *Buffer) IsSupported(
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.hardware.HardwareBuffer.writeToParcel.
+func (m *Buffer) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midBufferWriteToParcel == nil {
+			callErr = fmt.Errorf("android.hardware.HardwareBuffer.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsBuffer)),
+			midBufferWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

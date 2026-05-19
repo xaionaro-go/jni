@@ -23,6 +23,34 @@ type DataRemovalRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDataRemovalRequestBuilder creates a new android.view.contentcapture.DataRemovalRequest$Builder instance.
+func NewDataRemovalRequestBuilder(vm *jni.VM) (*DataRemovalRequestBuilder, error) {
+	var t DataRemovalRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDataRemovalRequestBuilder == nil {
+			return fmt.Errorf("android.view.contentcapture.DataRemovalRequest$Builder is not available on this device")
+		}
+		if midDataRemovalRequestBuilderCtor == nil {
+			return fmt.Errorf("android.view.contentcapture.DataRemovalRequest$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDataRemovalRequestBuilder)), midDataRemovalRequestBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddLocusId calls android.view.contentcapture.DataRemovalRequest$Builder.addLocusId.
 func (m *DataRemovalRequestBuilder) AddLocusId(arg0 *jni.Object, arg1 int32) (*jni.Object, error) {
 	var result *jni.Object

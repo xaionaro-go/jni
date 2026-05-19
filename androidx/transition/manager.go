@@ -32,6 +32,12 @@ func NewManager(vm *jni.VM) (*Manager, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsManager == nil {
+			return fmt.Errorf("androidx.transition.TransitionManager is not available on this device")
+		}
+		if midManagerCtor == nil {
+			return fmt.Errorf("androidx.transition.TransitionManager constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsManager)), midManagerCtor)
 		if err != nil {
 			return err
@@ -62,33 +68,6 @@ func (m *Manager) SetTransition2(arg0 *jni.Object, arg1 *jni.Object) error {
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midManagerSetTransition2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// SetTransition3_1 calls androidx.transition.TransitionManager.setTransition.
-func (m *Manager) SetTransition3_1(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midManagerSetTransition3_1 == nil {
-			callErr = fmt.Errorf("androidx.transition.TransitionManager.setTransition is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midManagerSetTransition3_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
 		)
 		return callErr
 	})
@@ -143,6 +122,33 @@ func (m *Manager) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// SetTransition3_1 calls androidx.transition.TransitionManager.setTransition.
+func (m *Manager) SetTransition3_1(
+	arg0 *jni.Object,
+	arg1 *jni.Object,
+	arg2 *jni.Object,
+) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midManagerSetTransition3_1 == nil {
+			callErr = fmt.Errorf("androidx.transition.TransitionManager.setTransition is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsManager)),
+			midManagerSetTransition3_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
+		)
+		return callErr
+	})
+	return callErr
 }
 
 // Go1 calls androidx.transition.TransitionManager.go.

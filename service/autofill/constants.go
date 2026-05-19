@@ -12,9 +12,6 @@ const (
 	FlagCompatibilityModeRequest        = consts.FlagCompatibilityModeRequest
 	FlagManualRequest                   = consts.FlagManualRequest
 	FlagSupportsFillDialog              = consts.FlagSupportsFillDialog
-	ErrorNeedsUserAction                = consts.ErrorNeedsUserAction
-	ErrorOther                          = consts.ErrorOther
-	ErrorUnsupported                    = consts.ErrorUnsupported
 	FlagDelaySave                       = consts.FlagDelaySave
 	FlagDontSaveOnFinish                = consts.FlagDontSaveOnFinish
 	FlagSaveOnAllViewsInvisible         = consts.FlagSaveOnAllViewsInvisible
@@ -32,6 +29,9 @@ const (
 	SaveDataTypePassword                = consts.SaveDataTypePassword
 	SaveDataTypePaymentCard             = consts.SaveDataTypePaymentCard
 	SaveDataTypeUsername                = consts.SaveDataTypeUsername
+	ErrorNeedsUserAction                = consts.ErrorNeedsUserAction
+	ErrorOther                          = consts.ErrorOther
+	ErrorUnsupported                    = consts.ErrorUnsupported
 	NoSaveUiReasonDatasetMatch          = consts.NoSaveUiReasonDatasetMatch
 	NoSaveUiReasonFieldValidationFailed = consts.NoSaveUiReasonFieldValidationFailed
 	NoSaveUiReasonHasEmptyRequired      = consts.NoSaveUiReasonHasEmptyRequired
@@ -55,9 +55,9 @@ const (
 )
 
 const (
-	TypeOther         = consts.TypeOther
-	TypePasswords     = consts.TypePasswords
 	ExtraFillResponse = consts.ExtraFillResponse
 	ServiceInterface  = consts.ServiceInterface
 	ServiceMetaData   = consts.ServiceMetaData
+	TypeOther         = consts.TypeOther
+	TypePasswords     = consts.TypePasswords
 )

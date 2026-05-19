@@ -32,6 +32,12 @@ func NewCategory(vm *jni.VM, arg0 *jni.Object) (*Category, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCategory == nil {
+			return fmt.Errorf("android.preference.PreferenceCategory is not available on this device")
+		}
+		if midCategoryCtor == nil {
+			return fmt.Errorf("android.preference.PreferenceCategory constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCategory)), midCategoryCtor, jni.ObjectValue(arg0))
 		if err != nil {

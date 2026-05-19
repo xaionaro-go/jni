@@ -23,6 +23,34 @@ type DownloadCompletedOutputBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDownloadCompletedOutputBuilder creates a new android.adservices.ondevicepersonalization.DownloadCompletedOutput$Builder instance.
+func NewDownloadCompletedOutputBuilder(vm *jni.VM) (*DownloadCompletedOutputBuilder, error) {
+	var t DownloadCompletedOutputBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDownloadCompletedOutputBuilder == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.DownloadCompletedOutput$Builder is not available on this device")
+		}
+		if midDownloadCompletedOutputBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.DownloadCompletedOutput$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDownloadCompletedOutputBuilder)), midDownloadCompletedOutputBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddRetainedKey calls android.adservices.ondevicepersonalization.DownloadCompletedOutput$Builder.addRetainedKey.
 func (m *DownloadCompletedOutputBuilder) AddRetainedKey(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

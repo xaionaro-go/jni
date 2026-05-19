@@ -32,6 +32,12 @@ func NewState(vm *jni.VM) (*State, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsState == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.state.State is not available on this device")
+		}
+		if midStateCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.state.State constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsState)), midStateCtor)
 		if err != nil {
 			return err
@@ -633,29 +639,6 @@ func (m *State) Map(arg0 *jni.Object, arg1 *jni.Object) error {
 	return callErr
 }
 
-// Apply calls androidx.constraintlayout.solver.state.State.apply.
-func (m *State) Apply(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midStateApply == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.solver.state.State.apply is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midStateApply, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.constraintlayout.solver.state.State.toString.
 func (m *State) ToString() (string, error) {
 	var result string
@@ -681,4 +664,27 @@ func (m *State) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// Apply calls androidx.constraintlayout.solver.state.State.apply.
+func (m *State) Apply(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midStateApply == nil {
+			callErr = fmt.Errorf("androidx.constraintlayout.solver.state.State.apply is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsState)),
+			midStateApply, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

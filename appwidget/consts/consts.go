@@ -3,6 +3,22 @@
 package consts
 
 const (
+	Creator                            int = 0
+	ResizeBoth                         int = 3
+	ResizeHorizontal                   int = 1
+	ResizeNone                         int = 0
+	ResizeVertical                     int = 2
+	WidgetCategoryHomeScreen           int = 1
+	WidgetCategoryKeyguard             int = 2
+	WidgetCategoryNotKeyguard          int = 8
+	WidgetCategorySearchbox            int = 4
+	WidgetFeatureConfigurationOptional int = 4
+	WidgetFeatureHideFromPicker        int = 2
+	WidgetFeatureReconfigurable        int = 1
+	InvalidAppwidgetId                 int = 0
+)
+
+const (
 	ActionAppwidgetBind             string = "android.appwidget.action.APPWIDGET_BIND"
 	ActionAppwidgetConfigure        string = "android.appwidget.action.APPWIDGET_CONFIGURE"
 	ActionAppwidgetDeleted          string = "android.appwidget.action.APPWIDGET_DELETED"
@@ -31,20 +47,4 @@ const (
 	OptionAppwidgetMinWidth         string = "appWidgetMinWidth"
 	OptionAppwidgetRestoreCompleted string = "appWidgetRestoreCompleted"
 	OptionAppwidgetSizes            string = "appWidgetSizes"
-)
-
-const (
-	InvalidAppwidgetId                 int = 0
-	Creator                            int = 0
-	ResizeBoth                         int = 3
-	ResizeHorizontal                   int = 1
-	ResizeNone                         int = 0
-	ResizeVertical                     int = 2
-	WidgetCategoryHomeScreen           int = 1
-	WidgetCategoryKeyguard             int = 2
-	WidgetCategoryNotKeyguard          int = 8
-	WidgetCategorySearchbox            int = 4
-	WidgetFeatureConfigurationOptional int = 4
-	WidgetFeatureHideFromPicker        int = 2
-	WidgetFeatureReconfigurable        int = 1
 )

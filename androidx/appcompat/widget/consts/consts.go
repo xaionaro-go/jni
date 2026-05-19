@@ -3,10 +3,7 @@
 package consts
 
 const (
-	DefaultShareHistoryFileName string = "share_history.xml"
-)
-
-const (
+	MaxSdkWhereRequired      int = 20
 	Horizontal               int = 0
 	Vertical                 int = 1
 	ShowDividerNone          int = 0
@@ -14,8 +11,6 @@ const (
 	ShowDividerMiddle        int = 2
 	ShowDividerEnd           int = 4
 	Creator                  int = 0
-	MaxSdkWhereRequired      int = 20
-	InsetsNone               int = 0
 	PositionPromptAbove      int = 0
 	PositionPromptBelow      int = 1
 	MatchParent              int = -1
@@ -23,4 +18,9 @@ const (
 	InputMethodFromFocusable int = 0
 	InputMethodNeeded        int = 1
 	InputMethodNotNeeded     int = 2
+	InsetsNone               int = 0
+)
+
+const (
+	DefaultShareHistoryFileName string = "share_history.xml"
 )

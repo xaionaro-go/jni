@@ -32,6 +32,12 @@ func NewAnticipateOvershootInterpolator(vm *jni.VM, arg0 *jni.Object, arg1 *jni.
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAnticipateOvershootInterpolator == nil {
+			return fmt.Errorf("android.view.animation.AnticipateOvershootInterpolator is not available on this device")
+		}
+		if midAnticipateOvershootInterpolatorCtor == nil {
+			return fmt.Errorf("android.view.animation.AnticipateOvershootInterpolator constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAnticipateOvershootInterpolator)), midAnticipateOvershootInterpolatorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

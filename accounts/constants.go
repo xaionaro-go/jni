@@ -5,6 +5,23 @@ package accounts
 import "github.com/AndroidGoLab/jni/accounts/consts"
 
 const (
+	Creator                         = consts.Creator
+	ErrorCodeBadArguments           = consts.ErrorCodeBadArguments
+	ErrorCodeBadAuthentication      = consts.ErrorCodeBadAuthentication
+	ErrorCodeBadRequest             = consts.ErrorCodeBadRequest
+	ErrorCodeCanceled               = consts.ErrorCodeCanceled
+	ErrorCodeInvalidResponse        = consts.ErrorCodeInvalidResponse
+	ErrorCodeNetworkError           = consts.ErrorCodeNetworkError
+	ErrorCodeRemoteException        = consts.ErrorCodeRemoteException
+	ErrorCodeUnsupportedOperation   = consts.ErrorCodeUnsupportedOperation
+	VisibilityNotVisible            = consts.VisibilityNotVisible
+	VisibilityUndefined             = consts.VisibilityUndefined
+	VisibilityUserManagedNotVisible = consts.VisibilityUserManagedNotVisible
+	VisibilityUserManagedVisible    = consts.VisibilityUserManagedVisible
+	VisibilityVisible               = consts.VisibilityVisible
+)
+
+const (
 	KeyCustomTokenExpiry            = consts.KeyCustomTokenExpiry
 	ActionAccountRemoved            = consts.ActionAccountRemoved
 	ActionAuthenticatorIntent       = consts.ActionAuthenticatorIntent
@@ -34,21 +51,4 @@ const (
 	LoginAccountsChangedAction      = consts.LoginAccountsChangedAction
 	PackageNameKeyLegacyNotVisible  = consts.PackageNameKeyLegacyNotVisible
 	PackageNameKeyLegacyVisible     = consts.PackageNameKeyLegacyVisible
-)
-
-const (
-	ErrorCodeBadArguments           = consts.ErrorCodeBadArguments
-	ErrorCodeBadAuthentication      = consts.ErrorCodeBadAuthentication
-	ErrorCodeBadRequest             = consts.ErrorCodeBadRequest
-	ErrorCodeCanceled               = consts.ErrorCodeCanceled
-	ErrorCodeInvalidResponse        = consts.ErrorCodeInvalidResponse
-	ErrorCodeNetworkError           = consts.ErrorCodeNetworkError
-	ErrorCodeRemoteException        = consts.ErrorCodeRemoteException
-	ErrorCodeUnsupportedOperation   = consts.ErrorCodeUnsupportedOperation
-	VisibilityNotVisible            = consts.VisibilityNotVisible
-	VisibilityUndefined             = consts.VisibilityUndefined
-	VisibilityUserManagedNotVisible = consts.VisibilityUserManagedNotVisible
-	VisibilityUserManagedVisible    = consts.VisibilityUserManagedVisible
-	VisibilityVisible               = consts.VisibilityVisible
-	Creator                         = consts.Creator
 )

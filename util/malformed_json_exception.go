@@ -32,6 +32,12 @@ func NewMalformedJsonException(vm *jni.VM, arg0 string) (*MalformedJsonException
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMalformedJsonException == nil {
+			return fmt.Errorf("android.util.MalformedJsonException is not available on this device")
+		}
+		if midMalformedJsonExceptionCtor == nil {
+			return fmt.Errorf("android.util.MalformedJsonException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

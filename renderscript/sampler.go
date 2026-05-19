@@ -203,8 +203,8 @@ func (m *Sampler) ToString() (string, error) {
 	return result, callErr
 }
 
-// CLAMP_LINEAR calls android.renderscript.Sampler.CLAMP_LINEAR.
-func (m *Sampler) CLAMP_LINEAR(arg0 *jni.Object) (*jni.Object, error) {
+// CLAMPLINEAR calls android.renderscript.Sampler.CLAMP_LINEAR.
+func (m *Sampler) CLAMPLINEAR(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -212,14 +212,14 @@ func (m *Sampler) CLAMP_LINEAR(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midSamplerCLAMP_LINEAR == nil {
+		if midSamplerCLAMPLINEAR == nil {
 			callErr = fmt.Errorf("android.renderscript.Sampler.CLAMP_LINEAR is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsSampler)),
-			midSamplerCLAMP_LINEAR, jni.ObjectValue(arg0),
+			midSamplerCLAMPLINEAR, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -236,8 +236,8 @@ func (m *Sampler) CLAMP_LINEAR(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// CLAMP_LINEAR_MIP_LINEAR calls android.renderscript.Sampler.CLAMP_LINEAR_MIP_LINEAR.
-func (m *Sampler) CLAMP_LINEAR_MIP_LINEAR(arg0 *jni.Object) (*jni.Object, error) {
+// CLAMPLINEARMIPLINEAR calls android.renderscript.Sampler.CLAMP_LINEAR_MIP_LINEAR.
+func (m *Sampler) CLAMPLINEARMIPLINEAR(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -245,14 +245,14 @@ func (m *Sampler) CLAMP_LINEAR_MIP_LINEAR(arg0 *jni.Object) (*jni.Object, error)
 			callErr = err
 			return err
 		}
-		if midSamplerCLAMP_LINEAR_MIP_LINEAR == nil {
+		if midSamplerCLAMPLINEARMIPLINEAR == nil {
 			callErr = fmt.Errorf("android.renderscript.Sampler.CLAMP_LINEAR_MIP_LINEAR is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsSampler)),
-			midSamplerCLAMP_LINEAR_MIP_LINEAR, jni.ObjectValue(arg0),
+			midSamplerCLAMPLINEARMIPLINEAR, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -269,8 +269,8 @@ func (m *Sampler) CLAMP_LINEAR_MIP_LINEAR(arg0 *jni.Object) (*jni.Object, error)
 	return result, callErr
 }
 
-// CLAMP_NEAREST calls android.renderscript.Sampler.CLAMP_NEAREST.
-func (m *Sampler) CLAMP_NEAREST(arg0 *jni.Object) (*jni.Object, error) {
+// CLAMPNEAREST calls android.renderscript.Sampler.CLAMP_NEAREST.
+func (m *Sampler) CLAMPNEAREST(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -278,14 +278,14 @@ func (m *Sampler) CLAMP_NEAREST(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midSamplerCLAMP_NEAREST == nil {
+		if midSamplerCLAMPNEAREST == nil {
 			callErr = fmt.Errorf("android.renderscript.Sampler.CLAMP_NEAREST is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsSampler)),
-			midSamplerCLAMP_NEAREST, jni.ObjectValue(arg0),
+			midSamplerCLAMPNEAREST, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -302,8 +302,8 @@ func (m *Sampler) CLAMP_NEAREST(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// MIRRORED_REPEAT_LINEAR calls android.renderscript.Sampler.MIRRORED_REPEAT_LINEAR.
-func (m *Sampler) MIRRORED_REPEAT_LINEAR(arg0 *jni.Object) (*jni.Object, error) {
+// MIRROREDREPEATLINEAR calls android.renderscript.Sampler.MIRRORED_REPEAT_LINEAR.
+func (m *Sampler) MIRROREDREPEATLINEAR(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -311,14 +311,14 @@ func (m *Sampler) MIRRORED_REPEAT_LINEAR(arg0 *jni.Object) (*jni.Object, error) 
 			callErr = err
 			return err
 		}
-		if midSamplerMIRRORED_REPEAT_LINEAR == nil {
+		if midSamplerMIRROREDREPEATLINEAR == nil {
 			callErr = fmt.Errorf("android.renderscript.Sampler.MIRRORED_REPEAT_LINEAR is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsSampler)),
-			midSamplerMIRRORED_REPEAT_LINEAR, jni.ObjectValue(arg0),
+			midSamplerMIRROREDREPEATLINEAR, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -335,8 +335,8 @@ func (m *Sampler) MIRRORED_REPEAT_LINEAR(arg0 *jni.Object) (*jni.Object, error) 
 	return result, callErr
 }
 
-// MIRRORED_REPEAT_LINEAR_MIP_LINEAR calls android.renderscript.Sampler.MIRRORED_REPEAT_LINEAR_MIP_LINEAR.
-func (m *Sampler) MIRRORED_REPEAT_LINEAR_MIP_LINEAR(arg0 *jni.Object) (*jni.Object, error) {
+// MIRROREDREPEATLINEARMIPLINEAR calls android.renderscript.Sampler.MIRRORED_REPEAT_LINEAR_MIP_LINEAR.
+func (m *Sampler) MIRROREDREPEATLINEARMIPLINEAR(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -344,14 +344,14 @@ func (m *Sampler) MIRRORED_REPEAT_LINEAR_MIP_LINEAR(arg0 *jni.Object) (*jni.Obje
 			callErr = err
 			return err
 		}
-		if midSamplerMIRRORED_REPEAT_LINEAR_MIP_LINEAR == nil {
+		if midSamplerMIRROREDREPEATLINEARMIPLINEAR == nil {
 			callErr = fmt.Errorf("android.renderscript.Sampler.MIRRORED_REPEAT_LINEAR_MIP_LINEAR is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsSampler)),
-			midSamplerMIRRORED_REPEAT_LINEAR_MIP_LINEAR, jni.ObjectValue(arg0),
+			midSamplerMIRROREDREPEATLINEARMIPLINEAR, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -368,8 +368,8 @@ func (m *Sampler) MIRRORED_REPEAT_LINEAR_MIP_LINEAR(arg0 *jni.Object) (*jni.Obje
 	return result, callErr
 }
 
-// MIRRORED_REPEAT_NEAREST calls android.renderscript.Sampler.MIRRORED_REPEAT_NEAREST.
-func (m *Sampler) MIRRORED_REPEAT_NEAREST(arg0 *jni.Object) (*jni.Object, error) {
+// MIRROREDREPEATNEAREST calls android.renderscript.Sampler.MIRRORED_REPEAT_NEAREST.
+func (m *Sampler) MIRROREDREPEATNEAREST(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -377,14 +377,14 @@ func (m *Sampler) MIRRORED_REPEAT_NEAREST(arg0 *jni.Object) (*jni.Object, error)
 			callErr = err
 			return err
 		}
-		if midSamplerMIRRORED_REPEAT_NEAREST == nil {
+		if midSamplerMIRROREDREPEATNEAREST == nil {
 			callErr = fmt.Errorf("android.renderscript.Sampler.MIRRORED_REPEAT_NEAREST is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsSampler)),
-			midSamplerMIRRORED_REPEAT_NEAREST, jni.ObjectValue(arg0),
+			midSamplerMIRROREDREPEATNEAREST, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -401,8 +401,8 @@ func (m *Sampler) MIRRORED_REPEAT_NEAREST(arg0 *jni.Object) (*jni.Object, error)
 	return result, callErr
 }
 
-// WRAP_LINEAR calls android.renderscript.Sampler.WRAP_LINEAR.
-func (m *Sampler) WRAP_LINEAR(arg0 *jni.Object) (*jni.Object, error) {
+// WRAPLINEAR calls android.renderscript.Sampler.WRAP_LINEAR.
+func (m *Sampler) WRAPLINEAR(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -410,14 +410,14 @@ func (m *Sampler) WRAP_LINEAR(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midSamplerWRAP_LINEAR == nil {
+		if midSamplerWRAPLINEAR == nil {
 			callErr = fmt.Errorf("android.renderscript.Sampler.WRAP_LINEAR is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsSampler)),
-			midSamplerWRAP_LINEAR, jni.ObjectValue(arg0),
+			midSamplerWRAPLINEAR, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -434,8 +434,8 @@ func (m *Sampler) WRAP_LINEAR(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// WRAP_LINEAR_MIP_LINEAR calls android.renderscript.Sampler.WRAP_LINEAR_MIP_LINEAR.
-func (m *Sampler) WRAP_LINEAR_MIP_LINEAR(arg0 *jni.Object) (*jni.Object, error) {
+// WRAPLINEARMIPLINEAR calls android.renderscript.Sampler.WRAP_LINEAR_MIP_LINEAR.
+func (m *Sampler) WRAPLINEARMIPLINEAR(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -443,14 +443,14 @@ func (m *Sampler) WRAP_LINEAR_MIP_LINEAR(arg0 *jni.Object) (*jni.Object, error) 
 			callErr = err
 			return err
 		}
-		if midSamplerWRAP_LINEAR_MIP_LINEAR == nil {
+		if midSamplerWRAPLINEARMIPLINEAR == nil {
 			callErr = fmt.Errorf("android.renderscript.Sampler.WRAP_LINEAR_MIP_LINEAR is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsSampler)),
-			midSamplerWRAP_LINEAR_MIP_LINEAR, jni.ObjectValue(arg0),
+			midSamplerWRAPLINEARMIPLINEAR, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -467,8 +467,8 @@ func (m *Sampler) WRAP_LINEAR_MIP_LINEAR(arg0 *jni.Object) (*jni.Object, error) 
 	return result, callErr
 }
 
-// WRAP_NEAREST calls android.renderscript.Sampler.WRAP_NEAREST.
-func (m *Sampler) WRAP_NEAREST(arg0 *jni.Object) (*jni.Object, error) {
+// WRAPNEAREST calls android.renderscript.Sampler.WRAP_NEAREST.
+func (m *Sampler) WRAPNEAREST(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -476,14 +476,14 @@ func (m *Sampler) WRAP_NEAREST(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midSamplerWRAP_NEAREST == nil {
+		if midSamplerWRAPNEAREST == nil {
 			callErr = fmt.Errorf("android.renderscript.Sampler.WRAP_NEAREST is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsSampler)),
-			midSamplerWRAP_NEAREST, jni.ObjectValue(arg0),
+			midSamplerWRAPNEAREST, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr

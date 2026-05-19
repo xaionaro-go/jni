@@ -32,6 +32,12 @@ func NewBidiClassifier(vm *jni.VM, arg0 *jni.Object) (*BidiClassifier, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBidiClassifier == nil {
+			return fmt.Errorf("android.icu.text.BidiClassifier is not available on this device")
+		}
+		if midBidiClassifierCtor == nil {
+			return fmt.Errorf("android.icu.text.BidiClassifier constructor (Ljava/lang/Object;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBidiClassifier)), midBidiClassifierCtor, jni.ObjectValue(arg0))
 		if err != nil {

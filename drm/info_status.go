@@ -32,6 +32,12 @@ func NewInfoStatus(vm *jni.VM, arg0 int32, arg1 int32, arg2 *jni.Object, arg3 st
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInfoStatus == nil {
+			return fmt.Errorf("android.drm.DrmInfoStatus is not available on this device")
+		}
+		if midInfoStatusCtor == nil {
+			return fmt.Errorf("android.drm.DrmInfoStatus constructor (IILandroid/drm/ProcessedData;Ljava/lang/String;)V is not available on this device")
+		}
 
 		jArg3, err := env.NewStringUTF(arg3)
 		if err != nil {

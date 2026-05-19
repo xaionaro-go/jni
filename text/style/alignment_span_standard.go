@@ -23,6 +23,35 @@ type AlignmentSpanStandard struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAlignmentSpanStandard creates a new android.text.style.AlignmentSpan$Standard instance.
+func NewAlignmentSpanStandard(vm *jni.VM, arg0 *jni.Object) (*AlignmentSpanStandard, error) {
+	var t AlignmentSpanStandard
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAlignmentSpanStandard == nil {
+			return fmt.Errorf("android.text.style.AlignmentSpan$Standard is not available on this device")
+		}
+		if midAlignmentSpanStandardCtor == nil {
+			return fmt.Errorf("android.text.style.AlignmentSpan$Standard constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAlignmentSpanStandard)), midAlignmentSpanStandardCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.text.style.AlignmentSpan$Standard.describeContents.
 func (m *AlignmentSpanStandard) DescribeContents() (int32, error) {
 	var result int32

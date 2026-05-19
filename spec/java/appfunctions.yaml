@@ -5,21 +5,100 @@
 package: appfunctions
 go_import: github.com/AndroidGoLab/jni/app/appfunctions
 classes:
-    - java_class: android.app.appfunctions.AppFunctionService
-      go_type: AppFunctionService
+    - java_class: android.app.appfunctions.ExecuteAppFunctionRequest
+      go_type: ExecuteAppFunctionRequest
       methods:
-        - java_method: onBind
-          go_name: OnBind
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getExtras
+          go_name: GetExtras
+          returns: android.os.Bundle
+          error: true
+        - java_method: getFunctionIdentifier
+          go_name: GetFunctionIdentifier
+          returns: String
+          error: true
+        - java_method: getParameters
+          go_name: GetParameters
+          returns: android.app.appsearch.GenericDocument
+          error: true
+        - java_method: getTargetPackageName
+          go_name: GetTargetPackageName
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
           params:
-            - java_type: android.content.Intent
+            - java_type: android.os.Parcel
               go_name: arg0
-          returns: android.os.IBinder
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.appfunctions.ExecuteAppFunctionRequest$Builder
+      go_type: ExecuteAppFunctionRequestBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.app.appfunctions.ExecuteAppFunctionRequest
+          error: true
+        - java_method: setExtras
+          go_name: SetExtras
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: android.app.appfunctions.ExecuteAppFunctionRequest$Builder
+          error: true
+        - java_method: setParameters
+          go_name: SetParameters
+          params:
+            - java_type: android.app.appsearch.GenericDocument
+              go_name: arg0
+          returns: android.app.appfunctions.ExecuteAppFunctionRequest$Builder
           error: true
     - java_class: android.app.appfunctions.AppFunctionManager
       go_type: AppFunctionManager
       obtain: system_service
       service_name: app_function
       close: true
+    - java_class: android.app.appfunctions.ExecuteAppFunctionResponse
+      go_type: ExecuteAppFunctionResponse
+      obtain: constructor
+      constructor_params:
+        - java_type: android.app.appsearch.GenericDocument
+          go_name: arg0
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getExtras
+          go_name: GetExtras
+          returns: android.os.Bundle
+          error: true
+        - java_method: getResultDocument
+          go_name: GetResultDocument
+          returns: android.app.appsearch.GenericDocument
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
     - java_class: android.app.appfunctions.AppFunctionException
       go_type: AppFunctionException
       obtain: constructor
@@ -49,6 +128,7 @@ classes:
           go_name: GetExtras
           returns: android.os.Bundle
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -58,100 +138,24 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.app.appfunctions.ExecuteAppFunctionRequest
-      go_type: ExecuteAppFunctionRequest
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getExtras
-          go_name: GetExtras
-          returns: android.os.Bundle
-          error: true
-        - java_method: getFunctionIdentifier
-          go_name: GetFunctionIdentifier
-          returns: String
-          error: true
-        - java_method: getParameters
-          go_name: GetParameters
-          returns: android.app.appsearch.GenericDocument
-          error: true
-        - java_method: getTargetPackageName
-          go_name: GetTargetPackageName
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.appfunctions.ExecuteAppFunctionRequest$Builder
-      go_type: ExecuteAppFunctionRequestBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.app.appfunctions.ExecuteAppFunctionRequest
-          error: true
-        - java_method: setExtras
-          go_name: SetExtras
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: android.app.appfunctions.ExecuteAppFunctionRequest$Builder
-          error: true
-        - java_method: setParameters
-          go_name: SetParameters
-          params:
-            - java_type: android.app.appsearch.GenericDocument
-              go_name: arg0
-          returns: android.app.appfunctions.ExecuteAppFunctionRequest$Builder
-          error: true
-    - java_class: android.app.appfunctions.ExecuteAppFunctionResponse
-      go_type: ExecuteAppFunctionResponse
-      obtain: constructor
-      constructor_params:
-        - java_type: android.app.appsearch.GenericDocument
-          go_name: arg0
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getExtras
-          go_name: GetExtras
-          returns: android.os.Bundle
-          error: true
-        - java_method: getResultDocument
-          go_name: GetResultDocument
-          returns: android.app.appsearch.GenericDocument
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-abstract_callbacks:
     - java_class: android.app.appfunctions.AppFunctionService
-      go_type: AppFunctionServiceCallback
+      go_type: AppFunctionService
       methods:
         - java_method: onBind
+          go_name: OnBind
           params:
-            - android.content.Intent
+            - java_type: android.content.Intent
+              go_name: arg0
           returns: android.os.IBinder
-          go_field: OnBind
+          error: true
+abstract_callback_eligibility:
+    - java_class: android.app.appfunctions.AppFunctionService
+      generated: false
+      reason: non_object_superclass
 constants:
-    - go_name: ServiceInterface
-      value: '"android.app.appfunctions.AppFunctionService"'
-      go_type: string
+    - go_name: Creator
+      value: "0"
+      go_type: int
     - go_name: AppFunctionStateDefault
       value: "0"
       go_type: int
@@ -161,9 +165,9 @@ constants:
     - go_name: AppFunctionStateEnabled
       value: "1"
       go_type: int
-    - go_name: Creator
-      value: "0"
-      go_type: int
+    - go_name: PropertyReturnValue
+      value: '"androidAppfunctionsReturnValue"'
+      go_type: string
     - go_name: ErrorAppUnknownError
       value: "3000"
       go_type: int
@@ -200,6 +204,6 @@ constants:
     - go_name: ErrorSystemError
       value: "2000"
       go_type: int
-    - go_name: PropertyReturnValue
-      value: '"androidAppfunctionsReturnValue"'
+    - go_name: ServiceInterface
+      value: '"android.app.appfunctions.AppFunctionService"'
       go_type: string

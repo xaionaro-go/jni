@@ -23,6 +23,34 @@ type ActivityHeader struct {
 	Obj *jni.GlobalRef
 }
 
+// NewActivityHeader creates a new android.preference.PreferenceActivity$Header instance.
+func NewActivityHeader(vm *jni.VM) (*ActivityHeader, error) {
+	var t ActivityHeader
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsActivityHeader == nil {
+			return fmt.Errorf("android.preference.PreferenceActivity$Header is not available on this device")
+		}
+		if midActivityHeaderCtor == nil {
+			return fmt.Errorf("android.preference.PreferenceActivity$Header constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivityHeader)), midActivityHeaderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.preference.PreferenceActivity$Header.describeContents.
 func (m *ActivityHeader) DescribeContents() (int32, error) {
 	var result int32
@@ -203,29 +231,6 @@ func (m *ActivityHeader) ReadFromParcel(arg0 *jni.Object) error {
 	return callErr
 }
 
-// WriteToParcel calls android.preference.PreferenceActivity$Header.writeToParcel.
-func (m *ActivityHeader) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityHeaderWriteToParcel == nil {
-			callErr = fmt.Errorf("android.preference.PreferenceActivity$Header.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midActivityHeaderWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.preference.PreferenceActivity$Header.toString.
 func (m *ActivityHeader) ToString() (string, error) {
 	var result string
@@ -251,4 +256,27 @@ func (m *ActivityHeader) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.preference.PreferenceActivity$Header.writeToParcel.
+func (m *ActivityHeader) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midActivityHeaderWriteToParcel == nil {
+			callErr = fmt.Errorf("android.preference.PreferenceActivity$Header.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsActivityHeader)),
+			midActivityHeaderWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

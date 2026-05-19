@@ -48,29 +48,6 @@ func (m *SyncRequest) DescribeContents() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.content.SyncRequest.writeToParcel.
-func (m *SyncRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSyncRequestWriteToParcel == nil {
-			callErr = fmt.Errorf("android.content.SyncRequest.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSyncRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.content.SyncRequest.toString.
 func (m *SyncRequest) ToString() (string, error) {
 	var result string
@@ -96,4 +73,27 @@ func (m *SyncRequest) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.content.SyncRequest.writeToParcel.
+func (m *SyncRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSyncRequestWriteToParcel == nil {
+			callErr = fmt.Errorf("android.content.SyncRequest.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSyncRequest)),
+			midSyncRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

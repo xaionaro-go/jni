@@ -23,6 +23,34 @@ type InfoBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewInfoBuilder creates a new android.net.wifi.WifiInfo$Builder instance.
+func NewInfoBuilder(vm *jni.VM) (*InfoBuilder, error) {
+	var t InfoBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsInfoBuilder == nil {
+			return fmt.Errorf("android.net.wifi.WifiInfo$Builder is not available on this device")
+		}
+		if midInfoBuilderCtor == nil {
+			return fmt.Errorf("android.net.wifi.WifiInfo$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInfoBuilder)), midInfoBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.wifi.WifiInfo$Builder.build.
 func (m *InfoBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

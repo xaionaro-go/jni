@@ -23,6 +23,40 @@ type ColorSpaceRgb struct {
 	Obj *jni.GlobalRef
 }
 
+// NewColorSpaceRgb creates a new android.graphics.ColorSpace$Rgb instance.
+func NewColorSpaceRgb(vm *jni.VM, arg0 string, arg1 *jni.Object, arg2 *jni.Object) (*ColorSpaceRgb, error) {
+	var t ColorSpaceRgb
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsColorSpaceRgb == nil {
+			return fmt.Errorf("android.graphics.ColorSpace$Rgb is not available on this device")
+		}
+		if midColorSpaceRgbCtor == nil {
+			return fmt.Errorf("android.graphics.ColorSpace$Rgb constructor (Ljava/lang/String;[FLandroid/graphics/ColorSpace$Rgb$TransferParameters;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsColorSpaceRgb)), midColorSpaceRgbCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.graphics.ColorSpace$Rgb.equals.
 func (m *ColorSpaceRgb) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

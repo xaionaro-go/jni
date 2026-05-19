@@ -32,6 +32,12 @@ func NewKeyChain(vm *jni.VM) (*KeyChain, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsKeyChain == nil {
+			return fmt.Errorf("android.security.KeyChain is not available on this device")
+		}
+		if midKeyChainCtor == nil {
+			return fmt.Errorf("android.security.KeyChain constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyChain)), midKeyChainCtor)
 		if err != nil {
 			return err

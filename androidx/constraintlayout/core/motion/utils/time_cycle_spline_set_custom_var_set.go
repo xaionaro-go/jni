@@ -23,6 +23,40 @@ type TimeCycleSplineSetCustomVarSet struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTimeCycleSplineSetCustomVarSet creates a new androidx.constraintlayout.core.motion.utils.TimeCycleSplineSet$CustomVarSet instance.
+func NewTimeCycleSplineSetCustomVarSet(vm *jni.VM, arg0 string, arg1 *jni.Object) (*TimeCycleSplineSetCustomVarSet, error) {
+	var t TimeCycleSplineSetCustomVarSet
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTimeCycleSplineSetCustomVarSet == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.TimeCycleSplineSet$CustomVarSet is not available on this device")
+		}
+		if midTimeCycleSplineSetCustomVarSetCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.TimeCycleSplineSet$CustomVarSet constructor (Ljava/lang/String;Landroidx/constraintlayout/core/motion/utils/KeyFrameArray$CustomVar;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTimeCycleSplineSetCustomVarSet)), midTimeCycleSplineSetCustomVarSetCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Setup calls androidx.constraintlayout.core.motion.utils.TimeCycleSplineSet$CustomVarSet.setup.
 func (m *TimeCycleSplineSetCustomVarSet) Setup(arg0 int32) error {
 

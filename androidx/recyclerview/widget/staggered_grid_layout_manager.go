@@ -32,6 +32,12 @@ func NewStaggeredGridLayoutManager(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Objec
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStaggeredGridLayoutManager == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.StaggeredGridLayoutManager is not available on this device")
+		}
+		if midStaggeredGridLayoutManagerCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.StaggeredGridLayoutManager constructor (Landroid/content/Context;Landroid/util/AttributeSet;II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManager)), midStaggeredGridLayoutManagerCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3))
 		if err != nil {

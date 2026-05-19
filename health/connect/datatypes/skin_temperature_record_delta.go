@@ -23,6 +23,35 @@ type SkinTemperatureRecordDelta struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSkinTemperatureRecordDelta creates a new android.health.connect.datatypes.SkinTemperatureRecord$Delta instance.
+func NewSkinTemperatureRecordDelta(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*SkinTemperatureRecordDelta, error) {
+	var t SkinTemperatureRecordDelta
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSkinTemperatureRecordDelta == nil {
+			return fmt.Errorf("android.health.connect.datatypes.SkinTemperatureRecord$Delta is not available on this device")
+		}
+		if midSkinTemperatureRecordDeltaCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.SkinTemperatureRecord$Delta constructor (Landroid/health/connect/datatypes/units/TemperatureDelta;Ljava/time/Instant;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSkinTemperatureRecordDelta)), midSkinTemperatureRecordDeltaCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.health.connect.datatypes.SkinTemperatureRecord$Delta.equals.
 func (m *SkinTemperatureRecordDelta) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

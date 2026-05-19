@@ -32,6 +32,12 @@ func NewRSInvalidStateException(vm *jni.VM, arg0 string) (*RSInvalidStateExcepti
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRSInvalidStateException == nil {
+			return fmt.Errorf("android.renderscript.RSInvalidStateException is not available on this device")
+		}
+		if midRSInvalidStateExceptionCtor == nil {
+			return fmt.Errorf("android.renderscript.RSInvalidStateException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

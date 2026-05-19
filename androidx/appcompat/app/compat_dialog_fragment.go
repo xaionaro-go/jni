@@ -30,6 +30,12 @@ func NewCompatDialogFragment(vm *jni.VM) (*CompatDialogFragment, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCompatDialogFragment == nil {
+			return fmt.Errorf("androidx.appcompat.app.AppCompatDialogFragment is not available on this device")
+		}
+		if midCompatDialogFragmentCtor == nil {
+			return fmt.Errorf("androidx.appcompat.app.AppCompatDialogFragment constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCompatDialogFragment)), midCompatDialogFragmentCtor)
 		if err != nil {
 			return err

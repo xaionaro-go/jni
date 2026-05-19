@@ -694,29 +694,6 @@ func (m *ResponderLocation) ToLocation() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.net.wifi.rtt.ResponderLocation.writeToParcel.
-func (m *ResponderLocation) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midResponderLocationWriteToParcel == nil {
-			callErr = fmt.Errorf("android.net.wifi.rtt.ResponderLocation.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midResponderLocationWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.net.wifi.rtt.ResponderLocation.toString.
 func (m *ResponderLocation) ToString() (string, error) {
 	var result string
@@ -742,4 +719,27 @@ func (m *ResponderLocation) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.net.wifi.rtt.ResponderLocation.writeToParcel.
+func (m *ResponderLocation) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midResponderLocationWriteToParcel == nil {
+			callErr = fmt.Errorf("android.net.wifi.rtt.ResponderLocation.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsResponderLocation)),
+			midResponderLocationWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

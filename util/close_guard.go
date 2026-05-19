@@ -32,6 +32,12 @@ func NewCloseGuard(vm *jni.VM) (*CloseGuard, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCloseGuard == nil {
+			return fmt.Errorf("android.util.CloseGuard is not available on this device")
+		}
+		if midCloseGuardCtor == nil {
+			return fmt.Errorf("android.util.CloseGuard constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCloseGuard)), midCloseGuardCtor)
 		if err != nil {
 			return err

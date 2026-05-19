@@ -23,6 +23,35 @@ type AppSearchSchemaBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAppSearchSchemaBuilder creates a new android.app.appsearch.AppSearchSchema$Builder instance.
+func NewAppSearchSchemaBuilder(vm *jni.VM, arg0 *jni.Object) (*AppSearchSchemaBuilder, error) {
+	var t AppSearchSchemaBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAppSearchSchemaBuilder == nil {
+			return fmt.Errorf("android.app.appsearch.AppSearchSchema$Builder is not available on this device")
+		}
+		if midAppSearchSchemaBuilderCtor == nil {
+			return fmt.Errorf("android.app.appsearch.AppSearchSchema$Builder constructor (Landroid/app/appsearch/AppSearchSchema;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppSearchSchemaBuilder)), midAppSearchSchemaBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddParentType calls android.app.appsearch.AppSearchSchema$Builder.addParentType.
 func (m *AppSearchSchemaBuilder) AddParentType(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

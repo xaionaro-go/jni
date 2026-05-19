@@ -32,6 +32,12 @@ func NewIntEvaluator(vm *jni.VM) (*IntEvaluator, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsIntEvaluator == nil {
+			return fmt.Errorf("android.animation.IntEvaluator is not available on this device")
+		}
+		if midIntEvaluatorCtor == nil {
+			return fmt.Errorf("android.animation.IntEvaluator constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIntEvaluator)), midIntEvaluatorCtor)
 		if err != nil {
 			return err
@@ -45,8 +51,8 @@ func NewIntEvaluator(vm *jni.VM) (*IntEvaluator, error) {
 	return &t, nil
 }
 
-// Evaluate3 calls android.animation.IntEvaluator.evaluate.
-func (m *IntEvaluator) Evaluate3(
+// Evaluate calls android.animation.IntEvaluator.evaluate.
+func (m *IntEvaluator) Evaluate(
 	arg0 float32,
 	arg1 *jni.Object,
 	arg2 *jni.Object,
@@ -58,51 +64,14 @@ func (m *IntEvaluator) Evaluate3(
 			callErr = err
 			return err
 		}
-		if midIntEvaluatorEvaluate3 == nil {
+		if midIntEvaluatorEvaluate == nil {
 			callErr = fmt.Errorf("android.animation.IntEvaluator.evaluate is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midIntEvaluatorEvaluate3, jni.FloatValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Evaluate3_1 calls android.animation.IntEvaluator.evaluate.
-func (m *IntEvaluator) Evaluate3_1(
-	arg0 float32,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midIntEvaluatorEvaluate3_1 == nil {
-			callErr = fmt.Errorf("android.animation.IntEvaluator.evaluate is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midIntEvaluatorEvaluate3_1, jni.FloatValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
+			midIntEvaluatorEvaluate, jni.FloatValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
 		)
 		if callErr != nil {
 			return callErr

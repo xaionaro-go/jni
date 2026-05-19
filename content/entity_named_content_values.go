@@ -23,6 +23,35 @@ type EntityNamedContentValues struct {
 	Obj *jni.GlobalRef
 }
 
+// NewEntityNamedContentValues creates a new android.content.Entity$NamedContentValues instance.
+func NewEntityNamedContentValues(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*EntityNamedContentValues, error) {
+	var t EntityNamedContentValues
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsEntityNamedContentValues == nil {
+			return fmt.Errorf("android.content.Entity$NamedContentValues is not available on this device")
+		}
+		if midEntityNamedContentValuesCtor == nil {
+			return fmt.Errorf("android.content.Entity$NamedContentValues constructor (Landroid/net/Uri;Landroid/content/ContentValues;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEntityNamedContentValues)), midEntityNamedContentValuesCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.content.Entity$NamedContentValues.toString.
 func (m *EntityNamedContentValues) ToString() (string, error) {
 	var result string

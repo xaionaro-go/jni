@@ -32,6 +32,12 @@ func NewMotionButton(vm *jni.VM, arg0 *jni.Object) (*MotionButton, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMotionButton == nil {
+			return fmt.Errorf("androidx.constraintlayout.utils.widget.MotionButton is not available on this device")
+		}
+		if midMotionButtonCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.utils.widget.MotionButton constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMotionButton)), midMotionButtonCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -140,29 +146,6 @@ func (m *MotionButton) GetRound() (float32, error) {
 		return callErr
 	})
 	return result, callErr
-}
-
-// Draw calls androidx.constraintlayout.utils.widget.MotionButton.draw.
-func (m *MotionButton) Draw(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMotionButtonDraw == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.utils.widget.MotionButton.draw is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMotionButtonDraw, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // ToString calls androidx.constraintlayout.utils.widget.MotionButton.toString.

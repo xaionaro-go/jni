@@ -32,6 +32,12 @@ func NewPermissionGroupInfo(vm *jni.VM) (*PermissionGroupInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPermissionGroupInfo == nil {
+			return fmt.Errorf("android.content.pm.PermissionGroupInfo is not available on this device")
+		}
+		if midPermissionGroupInfoCtor == nil {
+			return fmt.Errorf("android.content.pm.PermissionGroupInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPermissionGroupInfo)), midPermissionGroupInfoCtor)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewRingtonePreference(vm *jni.VM, arg0 *jni.Object) (*RingtonePreference, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRingtonePreference == nil {
+			return fmt.Errorf("android.preference.RingtonePreference is not available on this device")
+		}
+		if midRingtonePreferenceCtor == nil {
+			return fmt.Errorf("android.preference.RingtonePreference constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRingtonePreference)), midRingtonePreferenceCtor, jni.ObjectValue(arg0))
 		if err != nil {

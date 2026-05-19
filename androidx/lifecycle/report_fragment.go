@@ -32,6 +32,12 @@ func NewReportFragment(vm *jni.VM) (*ReportFragment, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsReportFragment == nil {
+			return fmt.Errorf("androidx.lifecycle.ReportFragment is not available on this device")
+		}
+		if midReportFragmentCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.ReportFragment constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsReportFragment)), midReportFragmentCtor)
 		if err != nil {
 			return err
@@ -245,6 +251,29 @@ func (m *ReportFragment) InjectIfNeededIn(arg0 *jni.Object) error {
 		callErr = env.CallStaticVoidMethod(
 			(*jni.Class)(unsafe.Pointer(clsReportFragment)),
 			midReportFragmentInjectIfNeededIn, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
+}
+
+// DispatchLifecycleRuntimeRelease calls androidx.lifecycle.ReportFragment.dispatch$lifecycle_runtime_release.
+func (m *ReportFragment) DispatchLifecycleRuntimeRelease(arg0 *jni.Object, arg1 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midReportFragmentDispatchLifecycleRuntimeRelease == nil {
+			callErr = fmt.Errorf("androidx.lifecycle.ReportFragment.dispatch$lifecycle_runtime_release is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsReportFragment)),
+			midReportFragmentDispatchLifecycleRuntimeRelease, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		return callErr
 	})

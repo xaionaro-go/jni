@@ -5,6 +5,59 @@
 package: textservice
 go_import: github.com/AndroidGoLab/jni/view/textservice
 classes:
+    - java_class: android.view.textservice.SuggestionsInfo
+      go_type: SuggestionsInfo
+      obtain: constructor
+      constructor_params:
+        - java_type: android.os.Parcel
+          go_name: arg0
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getCookie
+          go_name: GetCookie
+          returns: int
+          error: true
+        - java_method: getSequence
+          go_name: GetSequence
+          returns: int
+          error: true
+        - java_method: getSuggestionAt
+          go_name: GetSuggestionAt
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getSuggestionsAttributes
+          go_name: GetSuggestionsAttributes
+          returns: int
+          error: true
+        - java_method: getSuggestionsCount
+          go_name: GetSuggestionsCount
+          returns: int
+          error: true
+        - java_method: setCookieAndSequence
+          go_name: SetCookieAndSequence
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
     - java_class: android.view.textservice.SpellCheckerSession
       go_type: SpellCheckerSession
       methods:
@@ -89,58 +142,122 @@ classes:
           go_name: ShouldReferToSpellCheckerLanguageSettings
           returns: boolean
           error: true
-    - java_class: android.view.textservice.SpellCheckerInfo
-      go_type: SpellCheckerInfo
+    - java_class: android.view.textservice.TextServicesManager
+      go_type: TextServicesManager
+      obtain: system_service
+      service_name: textservices
+      close: true
+      methods:
+        - java_method: getCurrentSpellCheckerInfo
+          go_name: GetCurrentSpellCheckerInfo
+          returns: android.view.textservice.SpellCheckerInfo
+          error: true
+        - java_method: getEnabledSpellCheckerInfos
+          go_name: GetEnabledSpellCheckerInfos
+          returns: java.util.List<android.view.textservice.SpellCheckerInfo>
+          error: true
+        - java_method: isSpellCheckerEnabled
+          go_name: IsSpellCheckerEnabled
+          returns: boolean
+          error: true
+        - java_method: newSpellCheckerSession
+          go_name: NewSpellCheckerSession4
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+            - java_type: java.util.Locale
+              go_name: arg1
+            - java_type: android.view.textservice.SpellCheckerSession$SpellCheckerSessionListener
+              go_name: arg2
+            - java_type: boolean
+              go_name: arg3
+          returns: android.view.textservice.SpellCheckerSession
+          error: true
+        - java_method: newSpellCheckerSession
+          go_name: NewSpellCheckerSession3_1
+          params:
+            - java_type: android.view.textservice.SpellCheckerSession$SpellCheckerSessionParams
+              go_name: arg0
+            - java_type: java.util.concurrent.Executor
+              go_name: arg1
+            - java_type: android.view.textservice.SpellCheckerSession$SpellCheckerSessionListener
+              go_name: arg2
+          returns: android.view.textservice.SpellCheckerSession
+          error: true
+    - java_class: android.view.textservice.TextInfo
+      go_type: TextInfo
+      obtain: constructor
+      constructor_params:
+        - java_type: android.os.Parcel
+          go_name: arg0
       methods:
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
-        - java_method: getComponent
-          go_name: GetComponent
-          returns: android.content.ComponentName
+        - java_method: getCharSequence
+          go_name: GetCharSequence
+          returns: java.lang.CharSequence
           error: true
-        - java_method: getId
-          go_name: GetId
+        - java_method: getCookie
+          go_name: GetCookie
+          returns: int
+          error: true
+        - java_method: getSequence
+          go_name: GetSequence
+          returns: int
+          error: true
+        - java_method: getText
+          go_name: GetText
           returns: String
           error: true
-        - java_method: getPackageName
-          go_name: GetPackageName
-          returns: String
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
           error: true
-        - java_method: getServiceInfo
-          go_name: GetServiceInfo
-          returns: android.content.pm.ServiceInfo
+    - java_class: android.view.textservice.SentenceSuggestionsInfo
+      go_type: SentenceSuggestionsInfo
+      obtain: constructor
+      constructor_params:
+        - java_type: android.os.Parcel
+          go_name: arg0
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
           error: true
-        - java_method: getSettingsActivity
-          go_name: GetSettingsActivity
-          returns: String
-          error: true
-        - java_method: getSubtypeAt
-          go_name: GetSubtypeAt
+        - java_method: getLengthAt
+          go_name: GetLengthAt
           params:
             - java_type: int
               go_name: arg0
-          returns: android.view.textservice.SpellCheckerSubtype
-          error: true
-        - java_method: getSubtypeCount
-          go_name: GetSubtypeCount
           returns: int
           error: true
-        - java_method: loadIcon
-          go_name: LoadIcon
+        - java_method: getOffsetAt
+          go_name: GetOffsetAt
           params:
-            - java_type: android.content.pm.PackageManager
+            - java_type: int
               go_name: arg0
-          returns: android.graphics.drawable.Drawable
+          returns: int
           error: true
-        - java_method: loadLabel
-          go_name: LoadLabel
+        - java_method: getSuggestionsCount
+          go_name: GetSuggestionsCount
+          returns: int
+          error: true
+        - java_method: getSuggestionsInfoAt
+          go_name: GetSuggestionsInfoAt
           params:
-            - java_type: android.content.pm.PackageManager
+            - java_type: int
               go_name: arg0
-          returns: java.lang.CharSequence
+          returns: android.view.textservice.SuggestionsInfo
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -217,6 +334,7 @@ classes:
           go_name: HashCode
           returns: int
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -226,172 +344,59 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.view.textservice.TextServicesManager
-      go_type: TextServicesManager
-      obtain: system_service
-      service_name: textservices
-      close: true
-      methods:
-        - java_method: getCurrentSpellCheckerInfo
-          go_name: GetCurrentSpellCheckerInfo
-          returns: android.view.textservice.SpellCheckerInfo
-          error: true
-        - java_method: getEnabledSpellCheckerInfos
-          go_name: GetEnabledSpellCheckerInfos
-          returns: java.util.List<android.view.textservice.SpellCheckerInfo>
-          error: true
-        - java_method: isSpellCheckerEnabled
-          go_name: IsSpellCheckerEnabled
-          returns: boolean
-          error: true
-        - java_method: newSpellCheckerSession
-          go_name: NewSpellCheckerSession4
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-            - java_type: java.util.Locale
-              go_name: arg1
-            - java_type: android.view.textservice.SpellCheckerSession$SpellCheckerSessionListener
-              go_name: arg2
-            - java_type: boolean
-              go_name: arg3
-          returns: android.view.textservice.SpellCheckerSession
-          error: true
-        - java_method: newSpellCheckerSession
-          go_name: NewSpellCheckerSession3_1
-          params:
-            - java_type: android.view.textservice.SpellCheckerSession$SpellCheckerSessionParams
-              go_name: arg0
-            - java_type: java.util.concurrent.Executor
-              go_name: arg1
-            - java_type: android.view.textservice.SpellCheckerSession$SpellCheckerSessionListener
-              go_name: arg2
-          returns: android.view.textservice.SpellCheckerSession
-          error: true
-    - java_class: android.view.textservice.SentenceSuggestionsInfo
-      go_type: SentenceSuggestionsInfo
-      obtain: constructor
-      constructor_params:
-        - java_type: android.os.Parcel
-          go_name: arg0
+    - java_class: android.view.textservice.SpellCheckerInfo
+      go_type: SpellCheckerInfo
       methods:
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
-        - java_method: getLengthAt
-          go_name: GetLengthAt
+        - java_method: getComponent
+          go_name: GetComponent
+          returns: android.content.ComponentName
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: String
+          error: true
+        - java_method: getPackageName
+          go_name: GetPackageName
+          returns: String
+          error: true
+        - java_method: getServiceInfo
+          go_name: GetServiceInfo
+          returns: android.content.pm.ServiceInfo
+          error: true
+        - java_method: getSettingsActivity
+          go_name: GetSettingsActivity
+          returns: String
+          error: true
+        - java_method: getSubtypeAt
+          go_name: GetSubtypeAt
           params:
             - java_type: int
               go_name: arg0
+          returns: android.view.textservice.SpellCheckerSubtype
+          error: true
+        - java_method: getSubtypeCount
+          go_name: GetSubtypeCount
           returns: int
           error: true
-        - java_method: getOffsetAt
-          go_name: GetOffsetAt
+        - java_method: loadIcon
+          go_name: LoadIcon
           params:
-            - java_type: int
+            - java_type: android.content.pm.PackageManager
               go_name: arg0
-          returns: int
+          returns: android.graphics.drawable.Drawable
           error: true
-        - java_method: getSuggestionsCount
-          go_name: GetSuggestionsCount
-          returns: int
-          error: true
-        - java_method: getSuggestionsInfoAt
-          go_name: GetSuggestionsInfoAt
+        - java_method: loadLabel
+          go_name: LoadLabel
           params:
-            - java_type: int
+            - java_type: android.content.pm.PackageManager
               go_name: arg0
-          returns: android.view.textservice.SuggestionsInfo
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.view.textservice.TextInfo
-      go_type: TextInfo
-      obtain: constructor
-      constructor_params:
-        - java_type: android.os.Parcel
-          go_name: arg0
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getCharSequence
-          go_name: GetCharSequence
           returns: java.lang.CharSequence
           error: true
-        - java_method: getCookie
-          go_name: GetCookie
-          returns: int
-          error: true
-        - java_method: getSequence
-          go_name: GetSequence
-          returns: int
-          error: true
-        - java_method: getText
-          go_name: GetText
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.view.textservice.SuggestionsInfo
-      go_type: SuggestionsInfo
-      obtain: constructor
-      constructor_params:
-        - java_type: android.os.Parcel
-          go_name: arg0
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getCookie
-          go_name: GetCookie
-          returns: int
-          error: true
-        - java_method: getSequence
-          go_name: GetSequence
-          returns: int
-          error: true
-        - java_method: getSuggestionAt
-          go_name: GetSuggestionAt
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getSuggestionsAttributes
-          go_name: GetSuggestionsAttributes
-          returns: int
-          error: true
-        - java_method: getSuggestionsCount
-          go_name: GetSuggestionsCount
-          returns: int
-          error: true
-        - java_method: setCookieAndSequence
-          go_name: SetCookieAndSequence
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -402,9 +407,6 @@ classes:
           returns: void
           error: true
 constants:
-    - go_name: ServiceMetaData
-      value: '"android.view.textservice.scs"'
-      go_type: string
     - go_name: Creator
       value: "0"
       go_type: int
@@ -423,3 +425,6 @@ constants:
     - go_name: ResultAttrLooksLikeTypo
       value: "2"
       go_type: int
+    - go_name: ServiceMetaData
+      value: '"android.view.textservice.scs"'
+      go_type: string

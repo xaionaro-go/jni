@@ -32,6 +32,12 @@ func NewAdapterListUpdateCallback(vm *jni.VM, arg0 *jni.Object) (*AdapterListUpd
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAdapterListUpdateCallback == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.AdapterListUpdateCallback is not available on this device")
+		}
+		if midAdapterListUpdateCallbackCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.AdapterListUpdateCallback constructor (Landroidx/recyclerview/widget/RecyclerView$Adapter;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAdapterListUpdateCallback)), midAdapterListUpdateCallbackCtor, jni.ObjectValue(arg0))
 		if err != nil {

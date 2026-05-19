@@ -32,6 +32,12 @@ func NewStub(vm *jni.VM, arg0 *jni.Object) (*Stub, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStub == nil {
+			return fmt.Errorf("android.view.ViewStub is not available on this device")
+		}
+		if midStubCtor == nil {
+			return fmt.Errorf("android.view.ViewStub constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStub)), midStubCtor, jni.ObjectValue(arg0))
 		if err != nil {

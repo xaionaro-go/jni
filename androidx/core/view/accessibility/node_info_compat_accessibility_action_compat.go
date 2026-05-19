@@ -23,6 +23,41 @@ type NodeInfoCompatAccessibilityActionCompat struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNodeInfoCompatAccessibilityActionCompat creates a new androidx.core.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityActionCompat instance.
+func NewNodeInfoCompatAccessibilityActionCompat(vm *jni.VM, arg0 int32, arg1 string) (*NodeInfoCompatAccessibilityActionCompat, error) {
+	var t NodeInfoCompatAccessibilityActionCompat
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNodeInfoCompatAccessibilityActionCompat == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityActionCompat is not available on this device")
+		}
+		if midNodeInfoCompatAccessibilityActionCompatCtor == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityActionCompat constructor (ILjava/lang/CharSequence;)V is not available on this device")
+		}
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNodeInfoCompatAccessibilityActionCompat)), midNodeInfoCompatAccessibilityActionCompatCtor, jni.IntValue(arg0), jni.ObjectValue(&jArg1.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetId calls androidx.core.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityActionCompat.getId.
 func (m *NodeInfoCompatAccessibilityActionCompat) GetId() (int32, error) {
 	var result int32
@@ -213,8 +248,8 @@ func (m *NodeInfoCompatAccessibilityActionCompat) ToString() (string, error) {
 			return callErr
 		}
 		var resultObj *jni.Object
-		resultObj, callErr = env.CallObjectMethod(
-			m.Obj,
+		resultObj, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsNodeInfoCompatAccessibilityActionCompat)),
 			midNodeInfoCompatAccessibilityActionCompatToString,
 		)
 		if callErr != nil {

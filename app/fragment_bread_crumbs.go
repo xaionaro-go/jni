@@ -30,6 +30,12 @@ func NewFragmentBreadCrumbs(vm *jni.VM, arg0 *jni.Object) (*FragmentBreadCrumbs,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFragmentBreadCrumbs == nil {
+			return fmt.Errorf("android.app.FragmentBreadCrumbs is not available on this device")
+		}
+		if midFragmentBreadCrumbsCtor == nil {
+			return fmt.Errorf("android.app.FragmentBreadCrumbs constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFragmentBreadCrumbs)), midFragmentBreadCrumbsCtor, jni.ObjectValue(arg0))
 		if err != nil {

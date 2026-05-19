@@ -5,435 +5,6 @@
 package: core
 go_import: github.com/AndroidGoLab/jni/androidx/constraintlayout/core
 classes:
-    - java_class: androidx.constraintlayout.core.GoalRow
-      go_type: GoalRow
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.constraintlayout.core.Cache
-          go_name: arg0
-      methods:
-        - java_method: addError
-          go_name: AddError
-          params:
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.core.SolverVariable
-      go_type: SolverVariable
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: androidx.constraintlayout.core.SolverVariable$Type
-          go_name: arg1
-      methods:
-        - java_method: addToRow
-          go_name: AddToRow
-          params:
-            - java_type: androidx.constraintlayout.core.ArrayRow
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeFromRow
-          go_name: RemoveFromRow
-          params:
-            - java_type: androidx.constraintlayout.core.ArrayRow
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: updateReferencesWithNewDefinition
-          go_name: UpdateReferencesWithNewDefinition
-          params:
-            - java_type: androidx.constraintlayout.core.LinearSystem
-              go_name: arg0
-            - java_type: androidx.constraintlayout.core.ArrayRow
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setFinalValue
-          go_name: SetFinalValue
-          params:
-            - java_type: androidx.constraintlayout.core.LinearSystem
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setSynonym
-          go_name: SetSynonym
-          params:
-            - java_type: androidx.constraintlayout.core.LinearSystem
-              go_name: arg0
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: reset
-          go_name: Reset
-          returns: void
-          error: true
-        - java_method: getName
-          go_name: GetName
-          returns: String
-          error: true
-        - java_method: setName
-          go_name: SetName
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setType
-          go_name: SetType
-          params:
-            - java_type: androidx.constraintlayout.core.SolverVariable$Type
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: compareTo
-          go_name: CompareTo1
-          params:
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: compareTo
-          go_name: CompareTo1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-    - java_class: androidx.constraintlayout.core.SolverVariable$Type
-      go_type: SolverVariableType
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: androidx.constraintlayout.core.SolverVariable$Type[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: androidx.constraintlayout.core.SolverVariable$Type
-          error: true
-    - java_class: androidx.constraintlayout.core.Metrics
-      go_type: Metrics
-      obtain: constructor
-      methods:
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: reset
-          go_name: Reset
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.core.Cache
-      go_type: Cache
-      obtain: constructor
-    - java_class: androidx.constraintlayout.core.LinearSystem
-      go_type: LinearSystem
-      obtain: constructor
-      methods:
-        - java_method: fillMetrics
-          go_name: FillMetrics
-          params:
-            - java_type: androidx.constraintlayout.core.Metrics
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: reset
-          go_name: Reset
-          returns: void
-          error: true
-        - java_method: createObjectVariable
-          go_name: CreateObjectVariable
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: androidx.constraintlayout.core.SolverVariable
-          error: true
-        - java_method: createRow
-          go_name: CreateRow
-          returns: androidx.constraintlayout.core.ArrayRow
-          error: true
-        - java_method: createSlackVariable
-          go_name: CreateSlackVariable
-          returns: androidx.constraintlayout.core.SolverVariable
-          error: true
-        - java_method: createExtraVariable
-          go_name: CreateExtraVariable
-          returns: androidx.constraintlayout.core.SolverVariable
-          error: true
-        - java_method: createErrorVariable
-          go_name: CreateErrorVariable
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: androidx.constraintlayout.core.SolverVariable
-          error: true
-        - java_method: getObjectVariableValue
-          go_name: GetObjectVariableValue
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: minimize
-          go_name: Minimize
-          returns: void
-          error: true
-        - java_method: addConstraint
-          go_name: AddConstraint
-          params:
-            - java_type: androidx.constraintlayout.core.ArrayRow
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeRow
-          go_name: RemoveRow
-          params:
-            - java_type: androidx.constraintlayout.core.ArrayRow
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: displayReadableRows
-          go_name: DisplayReadableRows
-          returns: void
-          error: true
-        - java_method: displayVariablesReadableRows
-          go_name: DisplayVariablesReadableRows
-          returns: void
-          error: true
-        - java_method: getMemoryUsed
-          go_name: GetMemoryUsed
-          returns: int
-          error: true
-        - java_method: getNumEquations
-          go_name: GetNumEquations
-          returns: int
-          error: true
-        - java_method: getNumVariables
-          go_name: GetNumVariables
-          returns: int
-          error: true
-        - java_method: getCache
-          go_name: GetCache
-          returns: androidx.constraintlayout.core.Cache
-          error: true
-        - java_method: addGreaterThan
-          go_name: AddGreaterThan
-          params:
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg0
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: addGreaterBarrier
-          go_name: AddGreaterBarrier
-          params:
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg0
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: boolean
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: addLowerThan
-          go_name: AddLowerThan
-          params:
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg0
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: addLowerBarrier
-          go_name: AddLowerBarrier
-          params:
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg0
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: boolean
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: addCentering
-          go_name: AddCentering
-          params:
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg0
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg4
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg5
-            - java_type: int
-              go_name: arg6
-            - java_type: int
-              go_name: arg7
-          returns: void
-          error: true
-        - java_method: addRatio
-          go_name: AddRatio
-          params:
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg0
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg1
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg2
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg3
-            - java_type: float
-              go_name: arg4
-            - java_type: int
-              go_name: arg5
-          returns: void
-          error: true
-        - java_method: addSynonym
-          go_name: AddSynonym
-          params:
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg0
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: addEquality
-          go_name: AddEquality4
-          params:
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg0
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: androidx.constraintlayout.core.ArrayRow
-          error: true
-        - java_method: addEquality
-          go_name: AddEquality2_1
-          params:
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: addCenterPoint
-          go_name: AddCenterPoint
-          params:
-            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
-              go_name: arg0
-            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-      static_methods:
-        - java_method: getMetrics
-          go_name: GetMetrics
-          returns: androidx.constraintlayout.core.Metrics
-          error: true
-        - java_method: createRowDimensionPercent
-          go_name: CreateRowDimensionPercent
-          params:
-            - java_type: androidx.constraintlayout.core.LinearSystem
-              go_name: arg0
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg1
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-          returns: androidx.constraintlayout.core.ArrayRow
-          error: true
-    - java_class: androidx.constraintlayout.core.PriorityGoalRow
-      go_type: PriorityGoalRow
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.constraintlayout.core.Cache
-          go_name: arg0
-      methods:
-        - java_method: clear
-          go_name: Clear
-          returns: void
-          error: true
-        - java_method: isEmpty
-          go_name: IsEmpty
-          returns: boolean
-          error: true
-        - java_method: getPivotCandidate
-          go_name: GetPivotCandidate
-          params:
-            - java_type: androidx.constraintlayout.core.LinearSystem
-              go_name: arg0
-            - java_type: boolean[]
-              go_name: arg1
-          returns: androidx.constraintlayout.core.SolverVariable
-          error: true
-        - java_method: addError
-          go_name: AddError
-          params:
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: updateFromRow
-          go_name: UpdateFromRow
-          params:
-            - java_type: androidx.constraintlayout.core.LinearSystem
-              go_name: arg0
-            - java_type: androidx.constraintlayout.core.ArrayRow
-              go_name: arg1
-            - java_type: boolean
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
     - java_class: androidx.constraintlayout.core.ArrayRow
       go_type: ArrayRow
       obtain: constructor
@@ -773,112 +344,409 @@ classes:
               go_name: arg1
           returns: float
           error: true
-    - java_class: androidx.constraintlayout.core.SolverVariableValues
-      go_type: SolverVariableValues
+    - java_class: androidx.constraintlayout.core.Cache
+      go_type: Cache
+      obtain: constructor
+    - java_class: androidx.constraintlayout.core.LinearSystem
+      go_type: LinearSystem
+      obtain: constructor
       methods:
-        - java_method: getCurrentSize
-          go_name: GetCurrentSize
-          returns: int
-          error: true
-        - java_method: getVariable
-          go_name: GetVariable
+        - java_method: fillMetrics
+          go_name: FillMetrics
           params:
-            - java_type: int
+            - java_type: androidx.constraintlayout.core.Metrics
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: reset
+          go_name: Reset
+          returns: void
+          error: true
+        - java_method: createObjectVariable
+          go_name: CreateObjectVariable
+          params:
+            - java_type: java.lang.Object
               go_name: arg0
           returns: androidx.constraintlayout.core.SolverVariable
           error: true
-        - java_method: getVariableValue
-          go_name: GetVariableValue
+        - java_method: createRow
+          go_name: CreateRow
+          returns: androidx.constraintlayout.core.ArrayRow
+          error: true
+        - java_method: createSlackVariable
+          go_name: CreateSlackVariable
+          returns: androidx.constraintlayout.core.SolverVariable
+          error: true
+        - java_method: createExtraVariable
+          go_name: CreateExtraVariable
+          returns: androidx.constraintlayout.core.SolverVariable
+          error: true
+        - java_method: createErrorVariable
+          go_name: CreateErrorVariable
           params:
             - java_type: int
               go_name: arg0
-          returns: float
+            - java_type: String
+              go_name: arg1
+          returns: androidx.constraintlayout.core.SolverVariable
           error: true
-        - java_method: contains
-          go_name: Contains
+        - java_method: getObjectVariableValue
+          go_name: GetObjectVariableValue
           params:
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: indexOf
-          go_name: IndexOf
-          params:
-            - java_type: androidx.constraintlayout.core.SolverVariable
+            - java_type: java.lang.Object
               go_name: arg0
           returns: int
           error: true
-        - java_method: get
-          go_name: Get
+        - java_method: minimize
+          go_name: Minimize
+          returns: void
+          error: true
+        - java_method: addConstraint
+          go_name: AddConstraint
+          params:
+            - java_type: androidx.constraintlayout.core.ArrayRow
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: removeRow
+          go_name: RemoveRow
+          params:
+            - java_type: androidx.constraintlayout.core.ArrayRow
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: displayReadableRows
+          go_name: DisplayReadableRows
+          returns: void
+          error: true
+        - java_method: displayVariablesReadableRows
+          go_name: DisplayVariablesReadableRows
+          returns: void
+          error: true
+        - java_method: getMemoryUsed
+          go_name: GetMemoryUsed
+          returns: int
+          error: true
+        - java_method: getNumEquations
+          go_name: GetNumEquations
+          returns: int
+          error: true
+        - java_method: getNumVariables
+          go_name: GetNumVariables
+          returns: int
+          error: true
+        - java_method: getCache
+          go_name: GetCache
+          returns: androidx.constraintlayout.core.Cache
+          error: true
+        - java_method: addGreaterThan
+          go_name: AddGreaterThan
           params:
             - java_type: androidx.constraintlayout.core.SolverVariable
               go_name: arg0
-          returns: float
-          error: true
-        - java_method: display
-          go_name: Display
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
           returns: void
           error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
+        - java_method: addGreaterBarrier
+          go_name: AddGreaterBarrier
+          params:
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg0
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: boolean
+              go_name: arg3
+          returns: void
           error: true
+        - java_method: addLowerThan
+          go_name: AddLowerThan
+          params:
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg0
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: addLowerBarrier
+          go_name: AddLowerBarrier
+          params:
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg0
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: boolean
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: addCentering
+          go_name: AddCentering
+          params:
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg0
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg4
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg5
+            - java_type: int
+              go_name: arg6
+            - java_type: int
+              go_name: arg7
+          returns: void
+          error: true
+        - java_method: addRatio
+          go_name: AddRatio
+          params:
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg0
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg1
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg2
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg3
+            - java_type: float
+              go_name: arg4
+            - java_type: int
+              go_name: arg5
+          returns: void
+          error: true
+        - java_method: addSynonym
+          go_name: AddSynonym
+          params:
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg0
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: addEquality
+          go_name: AddEquality4
+          params:
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg0
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: androidx.constraintlayout.core.ArrayRow
+          error: true
+        - java_method: addEquality
+          go_name: AddEquality2_1
+          params:
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+      static_methods:
+        - java_method: getMetrics
+          go_name: GetMetrics
+          returns: androidx.constraintlayout.core.Metrics
+          error: true
+        - java_method: createRowDimensionPercent
+          go_name: CreateRowDimensionPercent
+          params:
+            - java_type: androidx.constraintlayout.core.LinearSystem
+              go_name: arg0
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg1
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+          returns: androidx.constraintlayout.core.ArrayRow
+          error: true
+        - java_method: addCenterPoint
+          go_name: AddCenterPoint
+          params:
+            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
+              go_name: arg0
+            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.core.PriorityGoalRow
+      go_type: PriorityGoalRow
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.constraintlayout.core.Cache
+          go_name: arg0
+      methods:
         - java_method: clear
           go_name: Clear
           returns: void
           error: true
-        - java_method: put
-          go_name: Put
+        - java_method: isEmpty
+          go_name: IsEmpty
+          returns: boolean
+          error: true
+        - java_method: getPivotCandidate
+          go_name: GetPivotCandidate
+          params:
+            - java_type: androidx.constraintlayout.core.LinearSystem
+              go_name: arg0
+            - java_type: boolean[]
+              go_name: arg1
+          returns: androidx.constraintlayout.core.SolverVariable
+          error: true
+        - java_method: addError
+          go_name: AddError
           params:
             - java_type: androidx.constraintlayout.core.SolverVariable
               go_name: arg0
-            - java_type: float
-              go_name: arg1
           returns: void
           error: true
-        - java_method: sizeInBytes
-          go_name: SizeInBytes
-          returns: int
-          error: true
-        - java_method: remove
-          go_name: Remove
+        - java_method: updateFromRow
+          go_name: UpdateFromRow
           params:
-            - java_type: androidx.constraintlayout.core.SolverVariable
+            - java_type: androidx.constraintlayout.core.LinearSystem
               go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: float
-          error: true
-        - java_method: add
-          go_name: Add
-          params:
-            - java_type: androidx.constraintlayout.core.SolverVariable
-              go_name: arg0
-            - java_type: float
+            - java_type: androidx.constraintlayout.core.ArrayRow
               go_name: arg1
             - java_type: boolean
               go_name: arg2
           returns: void
           error: true
-        - java_method: use
-          go_name: Use
+    - java_class: androidx.constraintlayout.core.Metrics
+      go_type: Metrics
+      obtain: constructor
+      methods:
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: reset
+          go_name: Reset
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.core.SolverVariable
+      go_type: SolverVariable
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: androidx.constraintlayout.core.SolverVariable$Type
+          go_name: arg1
+      methods:
+        - java_method: addToRow
+          go_name: AddToRow
           params:
             - java_type: androidx.constraintlayout.core.ArrayRow
               go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: float
-          error: true
-        - java_method: invert
-          go_name: Invert
           returns: void
           error: true
-        - java_method: divideByAmount
-          go_name: DivideByAmount
+        - java_method: removeFromRow
+          go_name: RemoveFromRow
           params:
-            - java_type: float
+            - java_type: androidx.constraintlayout.core.ArrayRow
               go_name: arg0
           returns: void
+          error: true
+        - java_method: updateReferencesWithNewDefinition
+          go_name: UpdateReferencesWithNewDefinition
+          params:
+            - java_type: androidx.constraintlayout.core.LinearSystem
+              go_name: arg0
+            - java_type: androidx.constraintlayout.core.ArrayRow
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setFinalValue
+          go_name: SetFinalValue
+          params:
+            - java_type: androidx.constraintlayout.core.LinearSystem
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setSynonym
+          go_name: SetSynonym
+          params:
+            - java_type: androidx.constraintlayout.core.LinearSystem
+              go_name: arg0
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: reset
+          go_name: Reset
+          returns: void
+          error: true
+        - java_method: getName
+          go_name: GetName
+          returns: String
+          error: true
+        - java_method: setName
+          go_name: SetName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setType
+          go_name: SetType
+          params:
+            - java_type: androidx.constraintlayout.core.SolverVariable$Type
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: compareTo
+          go_name: CompareTo
+          params:
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: androidx.constraintlayout.core.SolverVariable$Type
+      go_type: SolverVariableType
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: androidx.constraintlayout.core.SolverVariable$Type[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: androidx.constraintlayout.core.SolverVariable$Type
           error: true
     - java_class: androidx.constraintlayout.core.ArrayLinkedVariables
       go_type: ArrayLinkedVariables
@@ -1008,11 +876,143 @@ classes:
           go_name: Display
           returns: void
           error: true
+      static_methods:
         - java_method: toString
           go_name: ToString
           returns: String
           error: true
+    - java_class: androidx.constraintlayout.core.SolverVariableValues
+      go_type: SolverVariableValues
+      methods:
+        - java_method: getCurrentSize
+          go_name: GetCurrentSize
+          returns: int
+          error: true
+        - java_method: getVariable
+          go_name: GetVariable
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.constraintlayout.core.SolverVariable
+          error: true
+        - java_method: getVariableValue
+          go_name: GetVariableValue
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: contains
+          go_name: Contains
+          params:
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: indexOf
+          go_name: IndexOf
+          params:
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: get
+          go_name: Get
+          params:
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: display
+          go_name: Display
+          returns: void
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: clear
+          go_name: Clear
+          returns: void
+          error: true
+        - java_method: put
+          go_name: Put
+          params:
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: sizeInBytes
+          go_name: SizeInBytes
+          returns: int
+          error: true
+        - java_method: remove
+          go_name: Remove
+          params:
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: float
+          error: true
+        - java_method: add
+          go_name: Add
+          params:
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: boolean
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: use
+          go_name: Use
+          params:
+            - java_type: androidx.constraintlayout.core.ArrayRow
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: float
+          error: true
+        - java_method: invert
+          go_name: Invert
+          returns: void
+          error: true
+      static_methods:
+        - java_method: divideByAmount
+          go_name: DivideByAmount
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.core.GoalRow
+      go_type: GoalRow
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.constraintlayout.core.Cache
+          go_name: arg0
+      methods:
+        - java_method: addError
+          go_name: AddError
+          params:
+            - java_type: androidx.constraintlayout.core.SolverVariable
+              go_name: arg0
+          returns: void
+          error: true
 constants:
+    - go_name: FullDebug
+      value: "false"
+      go_type: bool
+    - go_name: Debug
+      value: "false"
+      go_type: bool
+    - go_name: Measure
+      value: "false"
+      go_type: bool
     - go_name: StrengthNone
       value: "0"
       go_type: int
@@ -1055,12 +1055,3 @@ constants:
     - go_name: Unknown
       value: "0"
       go_type: int
-    - go_name: FullDebug
-      value: "false"
-      go_type: bool
-    - go_name: Debug
-      value: "false"
-      go_type: bool
-    - go_name: Measure
-      value: "false"
-      go_type: bool

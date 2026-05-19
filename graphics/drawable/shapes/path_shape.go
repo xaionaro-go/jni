@@ -32,6 +32,12 @@ func NewPathShape(vm *jni.VM, arg0 *jni.Object, arg1 float32, arg2 float32) (*Pa
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPathShape == nil {
+			return fmt.Errorf("android.graphics.drawable.shapes.PathShape is not available on this device")
+		}
+		if midPathShapeCtor == nil {
+			return fmt.Errorf("android.graphics.drawable.shapes.PathShape constructor (Landroid/graphics/Path;FF)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPathShape)), midPathShapeCtor, jni.ObjectValue(arg0), jni.FloatValue(arg1), jni.FloatValue(arg2))
 		if err != nil {
@@ -46,8 +52,8 @@ func NewPathShape(vm *jni.VM, arg0 *jni.Object, arg1 float32, arg2 float32) (*Pa
 	return &t, nil
 }
 
-// Clone0 calls android.graphics.drawable.shapes.PathShape.clone.
-func (m *PathShape) Clone0() (*jni.Object, error) {
+// Clone calls android.graphics.drawable.shapes.PathShape.clone.
+func (m *PathShape) Clone() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,13 +61,13 @@ func (m *PathShape) Clone0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midPathShapeClone0 == nil {
+		if midPathShapeClone == nil {
 			callErr = fmt.Errorf("android.graphics.drawable.shapes.PathShape.clone is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midPathShapeClone0,
+			midPathShapeClone,
 		)
 		if callErr != nil {
 			return callErr
@@ -148,70 +154,6 @@ func (m *PathShape) HashCode() (int32, error) {
 		)
 		if callErr != nil {
 			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Clone0_1 calls android.graphics.drawable.shapes.PathShape.clone.
-func (m *PathShape) Clone0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midPathShapeClone0_1 == nil {
-			callErr = fmt.Errorf("android.graphics.drawable.shapes.PathShape.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midPathShapeClone0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Clone0_2 calls android.graphics.drawable.shapes.PathShape.clone.
-func (m *PathShape) Clone0_2() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midPathShapeClone0_2 == nil {
-			callErr = fmt.Errorf("android.graphics.drawable.shapes.PathShape.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midPathShapeClone0_2,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
 		}
 		return callErr
 	})

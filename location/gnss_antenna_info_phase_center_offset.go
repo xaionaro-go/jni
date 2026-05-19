@@ -23,6 +23,35 @@ type GnssAntennaInfoPhaseCenterOffset struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGnssAntennaInfoPhaseCenterOffset creates a new android.location.GnssAntennaInfo$PhaseCenterOffset instance.
+func NewGnssAntennaInfoPhaseCenterOffset(vm *jni.VM, arg0 float64, arg1 float64, arg2 float64, arg3 float64, arg4 float64, arg5 float64) (*GnssAntennaInfoPhaseCenterOffset, error) {
+	var t GnssAntennaInfoPhaseCenterOffset
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGnssAntennaInfoPhaseCenterOffset == nil {
+			return fmt.Errorf("android.location.GnssAntennaInfo$PhaseCenterOffset is not available on this device")
+		}
+		if midGnssAntennaInfoPhaseCenterOffsetCtor == nil {
+			return fmt.Errorf("android.location.GnssAntennaInfo$PhaseCenterOffset constructor (DDDDDD)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGnssAntennaInfoPhaseCenterOffset)), midGnssAntennaInfoPhaseCenterOffsetCtor, jni.DoubleValue(arg0), jni.DoubleValue(arg1), jni.DoubleValue(arg2), jni.DoubleValue(arg3), jni.DoubleValue(arg4), jni.DoubleValue(arg5))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.location.GnssAntennaInfo$PhaseCenterOffset.describeContents.
 func (m *GnssAntennaInfoPhaseCenterOffset) DescribeContents() (int32, error) {
 	var result int32
@@ -292,8 +321,8 @@ func (m *GnssAntennaInfoPhaseCenterOffset) WriteToParcel(arg0 *jni.Object, arg1 
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsGnssAntennaInfoPhaseCenterOffset)),
 			midGnssAntennaInfoPhaseCenterOffsetWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

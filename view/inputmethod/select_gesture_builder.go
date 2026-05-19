@@ -23,6 +23,34 @@ type SelectGestureBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSelectGestureBuilder creates a new android.view.inputmethod.SelectGesture$Builder instance.
+func NewSelectGestureBuilder(vm *jni.VM) (*SelectGestureBuilder, error) {
+	var t SelectGestureBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSelectGestureBuilder == nil {
+			return fmt.Errorf("android.view.inputmethod.SelectGesture$Builder is not available on this device")
+		}
+		if midSelectGestureBuilderCtor == nil {
+			return fmt.Errorf("android.view.inputmethod.SelectGesture$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSelectGestureBuilder)), midSelectGestureBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.view.inputmethod.SelectGesture$Builder.build.
 func (m *SelectGestureBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

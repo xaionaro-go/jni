@@ -32,6 +32,12 @@ func NewMemoryFile(vm *jni.VM, arg0 string, arg1 int32) (*MemoryFile, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMemoryFile == nil {
+			return fmt.Errorf("android.os.MemoryFile is not available on this device")
+		}
+		if midMemoryFileCtor == nil {
+			return fmt.Errorf("android.os.MemoryFile constructor (Ljava/lang/String;I)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

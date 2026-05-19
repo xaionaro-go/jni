@@ -173,29 +173,6 @@ func (m *ExternalStorageStats) GetVideoBytes() (int64, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.usage.ExternalStorageStats.writeToParcel.
-func (m *ExternalStorageStats) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midExternalStorageStatsWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.usage.ExternalStorageStats.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midExternalStorageStatsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.usage.ExternalStorageStats.toString.
 func (m *ExternalStorageStats) ToString() (string, error) {
 	var result string
@@ -221,4 +198,27 @@ func (m *ExternalStorageStats) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.usage.ExternalStorageStats.writeToParcel.
+func (m *ExternalStorageStats) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midExternalStorageStatsWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.usage.ExternalStorageStats.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsExternalStorageStats)),
+			midExternalStorageStatsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

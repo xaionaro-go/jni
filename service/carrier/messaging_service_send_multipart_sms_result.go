@@ -23,6 +23,35 @@ type MessagingServiceSendMultipartSmsResult struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMessagingServiceSendMultipartSmsResult creates a new android.service.carrier.CarrierMessagingService$SendMultipartSmsResult instance.
+func NewMessagingServiceSendMultipartSmsResult(vm *jni.VM, arg0 int32, arg1 *jni.Object) (*MessagingServiceSendMultipartSmsResult, error) {
+	var t MessagingServiceSendMultipartSmsResult
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMessagingServiceSendMultipartSmsResult == nil {
+			return fmt.Errorf("android.service.carrier.CarrierMessagingService$SendMultipartSmsResult is not available on this device")
+		}
+		if midMessagingServiceSendMultipartSmsResultCtor == nil {
+			return fmt.Errorf("android.service.carrier.CarrierMessagingService$SendMultipartSmsResult constructor (I[I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendMultipartSmsResult)), midMessagingServiceSendMultipartSmsResultCtor, jni.IntValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetMessageRefs calls android.service.carrier.CarrierMessagingService$SendMultipartSmsResult.getMessageRefs.
 func (m *MessagingServiceSendMultipartSmsResult) GetMessageRefs() (*jni.Object, error) {
 	var result *jni.Object

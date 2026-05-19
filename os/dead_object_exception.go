@@ -32,6 +32,12 @@ func NewDeadObjectException(vm *jni.VM) (*DeadObjectException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDeadObjectException == nil {
+			return fmt.Errorf("android.os.DeadObjectException is not available on this device")
+		}
+		if midDeadObjectExceptionCtor == nil {
+			return fmt.Errorf("android.os.DeadObjectException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDeadObjectException)), midDeadObjectExceptionCtor)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewTextureView(vm *jni.VM, arg0 *jni.Object) (*TextureView, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTextureView == nil {
+			return fmt.Errorf("android.view.TextureView is not available on this device")
+		}
+		if midTextureViewCtor == nil {
+			return fmt.Errorf("android.view.TextureView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextureView)), midTextureViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

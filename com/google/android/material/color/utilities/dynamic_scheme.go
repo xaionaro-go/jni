@@ -32,6 +32,12 @@ func NewDynamicScheme(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 bool,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDynamicScheme == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.DynamicScheme is not available on this device")
+		}
+		if midDynamicSchemeCtor == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.DynamicScheme constructor (Lcom/google/android/material/color/utilities/Hct;Lcom/google/android/material/color/utilities/Variant;ZDLcom/google/android/material/color/utilities/TonalPalette;Lcom/google/android/material/color/utilities/TonalPalette;Lcom/google/android/material/color/utilities/TonalPalette;Lcom/google/android/material/color/utilities/TonalPalette;Lcom/google/android/material/color/utilities/TonalPalette;)V is not available on this device")
+		}
 
 		var jArg2 uint8
 		if arg2 {

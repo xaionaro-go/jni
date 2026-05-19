@@ -32,6 +32,12 @@ func NewDeadSystemException(vm *jni.VM) (*DeadSystemException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDeadSystemException == nil {
+			return fmt.Errorf("android.os.DeadSystemException is not available on this device")
+		}
+		if midDeadSystemExceptionCtor == nil {
+			return fmt.Errorf("android.os.DeadSystemException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDeadSystemException)), midDeadSystemExceptionCtor)
 		if err != nil {
 			return err

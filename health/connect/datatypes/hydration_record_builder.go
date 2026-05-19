@@ -23,6 +23,35 @@ type HydrationRecordBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewHydrationRecordBuilder creates a new android.health.connect.datatypes.HydrationRecord$Builder instance.
+func NewHydrationRecordBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.Object, arg3 *jni.Object) (*HydrationRecordBuilder, error) {
+	var t HydrationRecordBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsHydrationRecordBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.HydrationRecord$Builder is not available on this device")
+		}
+		if midHydrationRecordBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.HydrationRecord$Builder constructor (Landroid/health/connect/datatypes/Metadata;Ljava/time/Instant;Ljava/time/Instant;Landroid/health/connect/datatypes/units/Volume;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHydrationRecordBuilder)), midHydrationRecordBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.datatypes.HydrationRecord$Builder.build.
 func (m *HydrationRecordBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

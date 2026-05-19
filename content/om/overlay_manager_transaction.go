@@ -121,29 +121,6 @@ func (m *OverlayManagerTransaction) UnregisterFabricatedOverlay(arg0 *jni.Object
 	return callErr
 }
 
-// WriteToParcel calls android.content.om.OverlayManagerTransaction.writeToParcel.
-func (m *OverlayManagerTransaction) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midOverlayManagerTransactionWriteToParcel == nil {
-			callErr = fmt.Errorf("android.content.om.OverlayManagerTransaction.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midOverlayManagerTransactionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // NewInstance calls android.content.om.OverlayManagerTransaction.newInstance.
 func (m *OverlayManagerTransaction) NewInstance() (*jni.Object, error) {
 	var result *jni.Object
@@ -174,4 +151,27 @@ func (m *OverlayManagerTransaction) NewInstance() (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.content.om.OverlayManagerTransaction.writeToParcel.
+func (m *OverlayManagerTransaction) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midOverlayManagerTransactionWriteToParcel == nil {
+			callErr = fmt.Errorf("android.content.om.OverlayManagerTransaction.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsOverlayManagerTransaction)),
+			midOverlayManagerTransactionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

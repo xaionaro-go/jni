@@ -32,6 +32,12 @@ func NewMaterialAttributes(vm *jni.VM) (*MaterialAttributes, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialAttributes == nil {
+			return fmt.Errorf("com.google.android.material.resources.MaterialAttributes is not available on this device")
+		}
+		if midMaterialAttributesCtor == nil {
+			return fmt.Errorf("com.google.android.material.resources.MaterialAttributes constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialAttributes)), midMaterialAttributesCtor)
 		if err != nil {
 			return err

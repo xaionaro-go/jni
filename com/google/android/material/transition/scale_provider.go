@@ -32,6 +32,12 @@ func NewScaleProvider(vm *jni.VM) (*ScaleProvider, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsScaleProvider == nil {
+			return fmt.Errorf("com.google.android.material.transition.ScaleProvider is not available on this device")
+		}
+		if midScaleProviderCtor == nil {
+			return fmt.Errorf("com.google.android.material.transition.ScaleProvider constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScaleProvider)), midScaleProviderCtor)
 		if err != nil {
 			return err

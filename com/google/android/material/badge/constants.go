@@ -5,14 +5,14 @@ package badge
 import "github.com/AndroidGoLab/jni/com/google/android/material/badge/consts"
 
 const (
+	UseCompatParent = consts.UseCompatParent
+)
+
+const (
 	Creator                  = consts.Creator
 	TopEnd                   = consts.TopEnd
 	TopStart                 = consts.TopStart
 	BottomEnd                = consts.BottomEnd
 	BottomStart              = consts.BottomStart
 	BadgeContentNotTruncated = consts.BadgeContentNotTruncated
-)
-
-const (
-	UseCompatParent = consts.UseCompatParent
 )

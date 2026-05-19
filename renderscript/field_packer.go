@@ -32,6 +32,12 @@ func NewFieldPacker(vm *jni.VM, arg0 *jni.Object) (*FieldPacker, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFieldPacker == nil {
+			return fmt.Errorf("android.renderscript.FieldPacker is not available on this device")
+		}
+		if midFieldPackerCtor == nil {
+			return fmt.Errorf("android.renderscript.FieldPacker constructor ([B)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFieldPacker)), midFieldPackerCtor, jni.ObjectValue(arg0))
 		if err != nil {

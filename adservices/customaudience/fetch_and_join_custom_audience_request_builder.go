@@ -23,6 +23,35 @@ type FetchAndJoinCustomAudienceRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFetchAndJoinCustomAudienceRequestBuilder creates a new android.adservices.customaudience.FetchAndJoinCustomAudienceRequest$Builder instance.
+func NewFetchAndJoinCustomAudienceRequestBuilder(vm *jni.VM, arg0 *jni.Object) (*FetchAndJoinCustomAudienceRequestBuilder, error) {
+	var t FetchAndJoinCustomAudienceRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFetchAndJoinCustomAudienceRequestBuilder == nil {
+			return fmt.Errorf("android.adservices.customaudience.FetchAndJoinCustomAudienceRequest$Builder is not available on this device")
+		}
+		if midFetchAndJoinCustomAudienceRequestBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.customaudience.FetchAndJoinCustomAudienceRequest$Builder constructor (Landroid/net/Uri;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFetchAndJoinCustomAudienceRequestBuilder)), midFetchAndJoinCustomAudienceRequestBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.customaudience.FetchAndJoinCustomAudienceRequest$Builder.build.
 func (m *FetchAndJoinCustomAudienceRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

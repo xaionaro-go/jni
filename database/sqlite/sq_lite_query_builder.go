@@ -32,6 +32,12 @@ func NewSQLiteQueryBuilder(vm *jni.VM) (*SQLiteQueryBuilder, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSQLiteQueryBuilder == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteQueryBuilder is not available on this device")
+		}
+		if midSQLiteQueryBuilderCtor == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteQueryBuilder constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSQLiteQueryBuilder)), midSQLiteQueryBuilderCtor)
 		if err != nil {
 			return err

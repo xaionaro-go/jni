@@ -231,29 +231,6 @@ func (m *VibrationAttributes) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.os.VibrationAttributes.writeToParcel.
-func (m *VibrationAttributes) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midVibrationAttributesWriteToParcel == nil {
-			callErr = fmt.Errorf("android.os.VibrationAttributes.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midVibrationAttributesWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // CreateForUsage calls android.os.VibrationAttributes.createForUsage.
 func (m *VibrationAttributes) CreateForUsage(arg0 int32) (*jni.Object, error) {
 	var result *jni.Object
@@ -285,4 +262,27 @@ func (m *VibrationAttributes) CreateForUsage(arg0 int32) (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.os.VibrationAttributes.writeToParcel.
+func (m *VibrationAttributes) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midVibrationAttributesWriteToParcel == nil {
+			callErr = fmt.Errorf("android.os.VibrationAttributes.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsVibrationAttributes)),
+			midVibrationAttributesWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

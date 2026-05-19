@@ -23,6 +23,34 @@ type ZenPolicyBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewZenPolicyBuilder creates a new android.service.notification.ZenPolicy$Builder instance.
+func NewZenPolicyBuilder(vm *jni.VM) (*ZenPolicyBuilder, error) {
+	var t ZenPolicyBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsZenPolicyBuilder == nil {
+			return fmt.Errorf("android.service.notification.ZenPolicy$Builder is not available on this device")
+		}
+		if midZenPolicyBuilderCtor == nil {
+			return fmt.Errorf("android.service.notification.ZenPolicy$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), midZenPolicyBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AllowAlarms calls android.service.notification.ZenPolicy$Builder.allowAlarms.
 func (m *ZenPolicyBuilder) AllowAlarms(arg0 bool) (*jni.Object, error) {
 	var result *jni.Object

@@ -233,13 +233,6 @@ classes:
           go_name: OnSaveInstanceState
           returns: android.os.Parcelable
           error: true
-        - java_method: onRestoreInstanceState
-          go_name: OnRestoreInstanceState
-          params:
-            - java_type: android.os.Parcelable
-              go_name: arg0
-          returns: void
-          error: true
     - java_class: com.google.android.material.checkbox.MaterialCheckBox$CheckedState
       go_type: MaterialCheckBoxCheckedState
     - java_class: com.google.android.material.checkbox.MaterialCheckBox$OnCheckedStateChangedListener

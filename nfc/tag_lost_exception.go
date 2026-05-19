@@ -32,6 +32,12 @@ func NewTagLostException(vm *jni.VM) (*TagLostException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTagLostException == nil {
+			return fmt.Errorf("android.nfc.TagLostException is not available on this device")
+		}
+		if midTagLostExceptionCtor == nil {
+			return fmt.Errorf("android.nfc.TagLostException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTagLostException)), midTagLostExceptionCtor)
 		if err != nil {
 			return err

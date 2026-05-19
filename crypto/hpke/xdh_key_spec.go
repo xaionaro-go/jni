@@ -32,6 +32,12 @@ func NewXdhKeySpec(vm *jni.VM, arg0 *jni.Object) (*XdhKeySpec, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsXdhKeySpec == nil {
+			return fmt.Errorf("android.crypto.hpke.XdhKeySpec is not available on this device")
+		}
+		if midXdhKeySpecCtor == nil {
+			return fmt.Errorf("android.crypto.hpke.XdhKeySpec constructor ([B)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsXdhKeySpec)), midXdhKeySpecCtor, jni.ObjectValue(arg0))
 		if err != nil {

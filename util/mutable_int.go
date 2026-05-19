@@ -32,6 +32,12 @@ func NewMutableInt(vm *jni.VM, arg0 int32) (*MutableInt, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMutableInt == nil {
+			return fmt.Errorf("android.util.MutableInt is not available on this device")
+		}
+		if midMutableIntCtor == nil {
+			return fmt.Errorf("android.util.MutableInt constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMutableInt)), midMutableIntCtor, jni.IntValue(arg0))
 		if err != nil {

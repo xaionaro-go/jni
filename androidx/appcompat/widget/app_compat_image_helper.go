@@ -32,6 +32,12 @@ func NewAppCompatImageHelper(vm *jni.VM, arg0 *jni.Object) (*AppCompatImageHelpe
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppCompatImageHelper == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatImageHelper is not available on this device")
+		}
+		if midAppCompatImageHelperCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatImageHelper constructor (Landroid/widget/ImageView;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppCompatImageHelper)), midAppCompatImageHelperCtor, jni.ObjectValue(arg0))
 		if err != nil {

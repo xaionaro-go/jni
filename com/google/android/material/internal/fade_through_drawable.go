@@ -32,6 +32,12 @@ func NewFadeThroughDrawable(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Fa
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFadeThroughDrawable == nil {
+			return fmt.Errorf("com.google.android.material.internal.FadeThroughDrawable is not available on this device")
+		}
+		if midFadeThroughDrawableCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.FadeThroughDrawable constructor (Landroid/graphics/drawable/Drawable;Landroid/graphics/drawable/Drawable;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFadeThroughDrawable)), midFadeThroughDrawableCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

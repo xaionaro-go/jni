@@ -23,15 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsUtilsCompat                    *jni.GlobalRef
-	midUtilsCompatToString            jni.MethodID
-	midUtilsCompatConcatenateWhere    jni.MethodID
-	midUtilsCompatAppendSelectionArgs jni.MethodID
-
-	clsCursorWindowCompat         *jni.GlobalRef
-	midCursorWindowCompatToString jni.MethodID
-	midCursorWindowCompatCreate   jni.MethodID
-
 	clsCursorKt                *jni.GlobalRef
 	midCursorKtToString        jni.MethodID
 	midCursorKtGetBlobOrNull   jni.MethodID
@@ -41,6 +32,15 @@ var (
 	midCursorKtGetLongOrNull   jni.MethodID
 	midCursorKtGetShortOrNull  jni.MethodID
 	midCursorKtGetStringOrNull jni.MethodID
+
+	clsCursorWindowCompat         *jni.GlobalRef
+	midCursorWindowCompatToString jni.MethodID
+	midCursorWindowCompatCreate   jni.MethodID
+
+	clsUtilsCompat                    *jni.GlobalRef
+	midUtilsCompatToString            jni.MethodID
+	midUtilsCompatConcatenateWhere    jni.MethodID
+	midUtilsCompatAppendSelectionArgs jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -60,61 +60,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("androidx/core/database/DatabaseUtilsCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsUtilsCompat = env.NewGlobalRef(&c.Object)
-
-		midUtilsCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUtilsCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midUtilsCompatConcatenateWhere, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsUtilsCompat)), "concatenateWhere", "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midUtilsCompatAppendSelectionArgs, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsUtilsCompat)), "appendSelectionArgs", "([Ljava/lang/String;[Ljava/lang/String;)[Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/database/CursorWindowCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCursorWindowCompat = env.NewGlobalRef(&c.Object)
-
-		midCursorWindowCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorWindowCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorWindowCompatCreate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCursorWindowCompat)), "create", "(Ljava/lang/String;J)Landroid/database/CursorWindow;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("androidx/core/database/CursorKt")
 	if err != nil {
@@ -174,6 +119,61 @@ func doInit(env *jni.Env) error {
 		}
 
 		midCursorKtGetStringOrNull, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCursorKt)), "getStringOrNull", "(Landroid/database/Cursor;I)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/database/CursorWindowCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCursorWindowCompat = env.NewGlobalRef(&c.Object)
+
+		midCursorWindowCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorWindowCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorWindowCompatCreate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCursorWindowCompat)), "create", "(Ljava/lang/String;J)Landroid/database/CursorWindow;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/database/DatabaseUtilsCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsUtilsCompat = env.NewGlobalRef(&c.Object)
+
+		midUtilsCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUtilsCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midUtilsCompatConcatenateWhere, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsUtilsCompat)), "concatenateWhere", "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midUtilsCompatAppendSelectionArgs, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsUtilsCompat)), "appendSelectionArgs", "([Ljava/lang/String;[Ljava/lang/String;)[Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

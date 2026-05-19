@@ -32,6 +32,12 @@ func NewPrintWriterPrinter(vm *jni.VM, arg0 *jni.Object) (*PrintWriterPrinter, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPrintWriterPrinter == nil {
+			return fmt.Errorf("android.util.PrintWriterPrinter is not available on this device")
+		}
+		if midPrintWriterPrinterCtor == nil {
+			return fmt.Errorf("android.util.PrintWriterPrinter constructor (Ljava/io/PrintWriter;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPrintWriterPrinter)), midPrintWriterPrinterCtor, jni.ObjectValue(arg0))
 		if err != nil {

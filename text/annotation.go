@@ -32,6 +32,12 @@ func NewAnnotation(vm *jni.VM, arg0 *jni.Object) (*Annotation, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAnnotation == nil {
+			return fmt.Errorf("android.text.Annotation is not available on this device")
+		}
+		if midAnnotationCtor == nil {
+			return fmt.Errorf("android.text.Annotation constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAnnotation)), midAnnotationCtor, jni.ObjectValue(arg0))
 		if err != nil {

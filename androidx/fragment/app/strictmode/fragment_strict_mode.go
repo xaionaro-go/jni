@@ -78,29 +78,6 @@ func (m *FragmentStrictMode) SetDefaultPolicy(arg0 *jni.Object) error {
 	return callErr
 }
 
-// OnPolicyViolation calls androidx.fragment.app.strictmode.FragmentStrictMode.onPolicyViolation.
-func (m *FragmentStrictMode) OnPolicyViolation(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFragmentStrictModeOnPolicyViolation == nil {
-			callErr = fmt.Errorf("androidx.fragment.app.strictmode.FragmentStrictMode.onPolicyViolation is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midFragmentStrictModeOnPolicyViolation, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.fragment.app.strictmode.FragmentStrictMode.toString.
 func (m *FragmentStrictMode) ToString() (string, error) {
 	var result string
@@ -344,6 +321,29 @@ func (m *FragmentStrictMode) OnWrongFragmentContainer(arg0 *jni.Object, arg1 *jn
 		callErr = env.CallStaticVoidMethod(
 			(*jni.Class)(unsafe.Pointer(clsFragmentStrictMode)),
 			midFragmentStrictModeOnWrongFragmentContainer, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
+}
+
+// OnPolicyViolation calls androidx.fragment.app.strictmode.FragmentStrictMode.onPolicyViolation.
+func (m *FragmentStrictMode) OnPolicyViolation(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midFragmentStrictModeOnPolicyViolation == nil {
+			callErr = fmt.Errorf("androidx.fragment.app.strictmode.FragmentStrictMode.onPolicyViolation is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsFragmentStrictMode)),
+			midFragmentStrictModeOnPolicyViolation, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})

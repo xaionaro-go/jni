@@ -23,6 +23,34 @@ type VERSION struct {
 	Obj *jni.GlobalRef
 }
 
+// NewVERSION creates a new android.os.Build$VERSION instance.
+func NewVERSION(vm *jni.VM) (*VERSION, error) {
+	var t VERSION
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsVERSION == nil {
+			return fmt.Errorf("android.os.Build$VERSION is not available on this device")
+		}
+		if midVERSIONCtor == nil {
+			return fmt.Errorf("android.os.Build$VERSION constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVERSION)), midVERSIONCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.os.Build$VERSION.toString.
 func (m *VERSION) ToString() (string, error) {
 	var result string

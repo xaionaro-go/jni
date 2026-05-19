@@ -30,6 +30,12 @@ func NewRemoteAction(vm *jni.VM, arg0 *jni.Object, arg1 string, arg2 string, arg
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRemoteAction == nil {
+			return fmt.Errorf("android.app.RemoteAction is not available on this device")
+		}
+		if midRemoteActionCtor == nil {
+			return fmt.Errorf("android.app.RemoteAction constructor (Landroid/graphics/drawable/Icon;Ljava/lang/CharSequence;Ljava/lang/CharSequence;Landroid/app/PendingIntent;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {
@@ -56,8 +62,8 @@ func NewRemoteAction(vm *jni.VM, arg0 *jni.Object, arg1 string, arg2 string, arg
 	return &t, nil
 }
 
-// Clone0 calls android.app.RemoteAction.clone.
-func (m *RemoteAction) Clone0() (*jni.Object, error) {
+// Clone calls android.app.RemoteAction.clone.
+func (m *RemoteAction) Clone() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -65,13 +71,13 @@ func (m *RemoteAction) Clone0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midRemoteActionClone0 == nil {
+		if midRemoteActionClone == nil {
 			callErr = fmt.Errorf("android.app.RemoteAction.clone is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midRemoteActionClone0,
+			midRemoteActionClone,
 		)
 		if callErr != nil {
 			return callErr
@@ -451,38 +457,6 @@ func (m *RemoteAction) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 		return callErr
 	})
 	return callErr
-}
-
-// Clone0_1 calls android.app.RemoteAction.clone.
-func (m *RemoteAction) Clone0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRemoteActionClone0_1 == nil {
-			callErr = fmt.Errorf("android.app.RemoteAction.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midRemoteActionClone0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls android.app.RemoteAction.toString.

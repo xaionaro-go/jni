@@ -417,44 +417,6 @@ func (m *BidiFormatter) UnicodeWrap1_6(arg0 string) (string, error) {
 	return result, callErr
 }
 
-// UnicodeWrap1_7 calls androidx.core.text.BidiFormatter.unicodeWrap.
-func (m *BidiFormatter) UnicodeWrap1_7(arg0 string) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBidiFormatterUnicodeWrap1_7 == nil {
-			callErr = fmt.Errorf("androidx.core.text.BidiFormatter.unicodeWrap is not available on this device")
-			return callErr
-		}
-		jArg0, err := env.NewStringUTF(arg0)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg0.Object)
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midBidiFormatterUnicodeWrap1_7, jni.ObjectValue(&jArg0.Object),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.core.text.BidiFormatter.toString.
 func (m *BidiFormatter) ToString() (string, error) {
 	var result string
@@ -568,6 +530,44 @@ func (m *BidiFormatter) GetInstance1_2(arg0 *jni.Object) (*jni.Object, error) {
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsBidiFormatter)),
 			midBidiFormatterGetInstance1_2, jni.ObjectValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// UnicodeWrap1_7 calls androidx.core.text.BidiFormatter.unicodeWrap.
+func (m *BidiFormatter) UnicodeWrap1_7(arg0 string) (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midBidiFormatterUnicodeWrap1_7 == nil {
+			callErr = fmt.Errorf("androidx.core.text.BidiFormatter.unicodeWrap is not available on this device")
+			return callErr
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsBidiFormatter)),
+			midBidiFormatterUnicodeWrap1_7, jni.ObjectValue(&jArg0.Object),
 		)
 		if callErr != nil {
 			return callErr

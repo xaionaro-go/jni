@@ -32,6 +32,12 @@ func NewInputConfiguration(vm *jni.VM, arg0 int32, arg1 int32, arg2 int32) (*Inp
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInputConfiguration == nil {
+			return fmt.Errorf("android.hardware.camera2.params.InputConfiguration is not available on this device")
+		}
+		if midInputConfigurationCtor == nil {
+			return fmt.Errorf("android.hardware.camera2.params.InputConfiguration constructor (III)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInputConfiguration)), midInputConfigurationCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2))
 		if err != nil {

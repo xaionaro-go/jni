@@ -32,6 +32,12 @@ func NewDocument(vm *jni.VM) (*Document, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDocument == nil {
+			return fmt.Errorf("android.graphics.pdf.PdfDocument is not available on this device")
+		}
+		if midDocumentCtor == nil {
+			return fmt.Errorf("android.graphics.pdf.PdfDocument constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDocument)), midDocumentCtor)
 		if err != nil {
 			return err

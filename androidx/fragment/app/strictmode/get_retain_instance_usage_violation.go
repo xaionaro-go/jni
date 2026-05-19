@@ -32,6 +32,12 @@ func NewGetRetainInstanceUsageViolation(vm *jni.VM, arg0 *jni.Object) (*GetRetai
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGetRetainInstanceUsageViolation == nil {
+			return fmt.Errorf("androidx.fragment.app.strictmode.GetRetainInstanceUsageViolation is not available on this device")
+		}
+		if midGetRetainInstanceUsageViolationCtor == nil {
+			return fmt.Errorf("androidx.fragment.app.strictmode.GetRetainInstanceUsageViolation constructor (Landroidx/fragment/app/Fragment;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGetRetainInstanceUsageViolation)), midGetRetainInstanceUsageViolationCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -23,6 +23,35 @@ type DynamicsProcessingEq struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDynamicsProcessingEq creates a new android.media.audiofx.DynamicsProcessing$Eq instance.
+func NewDynamicsProcessingEq(vm *jni.VM, arg0 *jni.Object) (*DynamicsProcessingEq, error) {
+	var t DynamicsProcessingEq
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDynamicsProcessingEq == nil {
+			return fmt.Errorf("android.media.audiofx.DynamicsProcessing$Eq is not available on this device")
+		}
+		if midDynamicsProcessingEqCtor == nil {
+			return fmt.Errorf("android.media.audiofx.DynamicsProcessing$Eq constructor (Landroid/media/audiofx/DynamicsProcessing$Eq;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDynamicsProcessingEq)), midDynamicsProcessingEqCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetBand calls android.media.audiofx.DynamicsProcessing$Eq.getBand.
 func (m *DynamicsProcessingEq) GetBand(arg0 int32) (*jni.Object, error) {
 	var result *jni.Object

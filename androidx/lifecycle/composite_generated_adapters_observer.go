@@ -32,6 +32,12 @@ func NewCompositeGeneratedAdaptersObserver(vm *jni.VM, arg0 *jni.Object) (*Compo
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCompositeGeneratedAdaptersObserver == nil {
+			return fmt.Errorf("androidx.lifecycle.CompositeGeneratedAdaptersObserver is not available on this device")
+		}
+		if midCompositeGeneratedAdaptersObserverCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.CompositeGeneratedAdaptersObserver constructor ([Landroidx/lifecycle/GeneratedAdapter;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCompositeGeneratedAdaptersObserver)), midCompositeGeneratedAdaptersObserverCtor, jni.ObjectValue(arg0))
 		if err != nil {

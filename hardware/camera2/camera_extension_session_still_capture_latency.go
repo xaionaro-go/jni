@@ -23,6 +23,35 @@ type CameraExtensionSessionStillCaptureLatency struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCameraExtensionSessionStillCaptureLatency creates a new android.hardware.camera2.CameraExtensionSession$StillCaptureLatency instance.
+func NewCameraExtensionSessionStillCaptureLatency(vm *jni.VM, arg0 int64, arg1 int64) (*CameraExtensionSessionStillCaptureLatency, error) {
+	var t CameraExtensionSessionStillCaptureLatency
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCameraExtensionSessionStillCaptureLatency == nil {
+			return fmt.Errorf("android.hardware.camera2.CameraExtensionSession$StillCaptureLatency is not available on this device")
+		}
+		if midCameraExtensionSessionStillCaptureLatencyCtor == nil {
+			return fmt.Errorf("android.hardware.camera2.CameraExtensionSession$StillCaptureLatency constructor (JJ)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCameraExtensionSessionStillCaptureLatency)), midCameraExtensionSessionStillCaptureLatencyCtor, jni.LongValue(arg0), jni.LongValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.hardware.camera2.CameraExtensionSession$StillCaptureLatency.equals.
 func (m *CameraExtensionSessionStillCaptureLatency) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

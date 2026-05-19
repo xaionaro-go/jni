@@ -32,6 +32,12 @@ func NewConstrainedFieldPosition(vm *jni.VM) (*ConstrainedFieldPosition, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsConstrainedFieldPosition == nil {
+			return fmt.Errorf("android.icu.text.ConstrainedFieldPosition is not available on this device")
+		}
+		if midConstrainedFieldPositionCtor == nil {
+			return fmt.Errorf("android.icu.text.ConstrainedFieldPosition constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConstrainedFieldPosition)), midConstrainedFieldPositionCtor)
 		if err != nil {
 			return err

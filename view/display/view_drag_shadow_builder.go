@@ -23,6 +23,34 @@ type ViewDragShadowBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewViewDragShadowBuilder creates a new android.view.View$DragShadowBuilder instance.
+func NewViewDragShadowBuilder(vm *jni.VM) (*ViewDragShadowBuilder, error) {
+	var t ViewDragShadowBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsViewDragShadowBuilder == nil {
+			return fmt.Errorf("android.view.View$DragShadowBuilder is not available on this device")
+		}
+		if midViewDragShadowBuilderCtor == nil {
+			return fmt.Errorf("android.view.View$DragShadowBuilder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewDragShadowBuilder)), midViewDragShadowBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetView calls android.view.View$DragShadowBuilder.getView.
 func (m *ViewDragShadowBuilder) GetView() (*jni.Object, error) {
 	var result *jni.Object

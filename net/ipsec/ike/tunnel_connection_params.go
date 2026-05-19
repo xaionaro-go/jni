@@ -32,6 +32,12 @@ func NewTunnelConnectionParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTunnelConnectionParams == nil {
+			return fmt.Errorf("android.net.ipsec.ike.IkeTunnelConnectionParams is not available on this device")
+		}
+		if midTunnelConnectionParamsCtor == nil {
+			return fmt.Errorf("android.net.ipsec.ike.IkeTunnelConnectionParams constructor (Landroid/net/ipsec/ike/IkeSessionParams;Landroid/net/ipsec/ike/TunnelModeChildSessionParams;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTunnelConnectionParams)), midTunnelConnectionParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

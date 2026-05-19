@@ -32,6 +32,12 @@ func NewMloLink(vm *jni.VM) (*MloLink, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMloLink == nil {
+			return fmt.Errorf("android.net.wifi.MloLink is not available on this device")
+		}
+		if midMloLinkCtor == nil {
+			return fmt.Errorf("android.net.wifi.MloLink constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMloLink)), midMloLinkCtor)
 		if err != nil {
 			return err
@@ -403,8 +409,8 @@ func (m *MloLink) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsMloLink)),
 			midMloLinkWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

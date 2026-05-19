@@ -23,8 +23,36 @@ type ActivityResultContractsOpenMultipleDocuments struct {
 	Obj *jni.GlobalRef
 }
 
-// CreateIntent2 calls androidx.activity.result.contract.ActivityResultContracts$OpenMultipleDocuments.createIntent.
-func (m *ActivityResultContractsOpenMultipleDocuments) CreateIntent2(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
+// NewActivityResultContractsOpenMultipleDocuments creates a new androidx.activity.result.contract.ActivityResultContracts$OpenMultipleDocuments instance.
+func NewActivityResultContractsOpenMultipleDocuments(vm *jni.VM) (*ActivityResultContractsOpenMultipleDocuments, error) {
+	var t ActivityResultContractsOpenMultipleDocuments
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsActivityResultContractsOpenMultipleDocuments == nil {
+			return fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$OpenMultipleDocuments is not available on this device")
+		}
+		if midActivityResultContractsOpenMultipleDocumentsCtor == nil {
+			return fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$OpenMultipleDocuments constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenMultipleDocuments)), midActivityResultContractsOpenMultipleDocumentsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
+// CreateIntent calls androidx.activity.result.contract.ActivityResultContracts$OpenMultipleDocuments.createIntent.
+func (m *ActivityResultContractsOpenMultipleDocuments) CreateIntent(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -32,14 +60,14 @@ func (m *ActivityResultContractsOpenMultipleDocuments) CreateIntent2(arg0 *jni.O
 			callErr = err
 			return err
 		}
-		if midActivityResultContractsOpenMultipleDocumentsCreateIntent2 == nil {
+		if midActivityResultContractsOpenMultipleDocumentsCreateIntent == nil {
 			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$OpenMultipleDocuments.createIntent is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActivityResultContractsOpenMultipleDocumentsCreateIntent2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midActivityResultContractsOpenMultipleDocumentsCreateIntent, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr
@@ -56,8 +84,8 @@ func (m *ActivityResultContractsOpenMultipleDocuments) CreateIntent2(arg0 *jni.O
 	return result, callErr
 }
 
-// GetSynchronousResult2 calls androidx.activity.result.contract.ActivityResultContracts$OpenMultipleDocuments.getSynchronousResult.
-func (m *ActivityResultContractsOpenMultipleDocuments) GetSynchronousResult2(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
+// GetSynchronousResult calls androidx.activity.result.contract.ActivityResultContracts$OpenMultipleDocuments.getSynchronousResult.
+func (m *ActivityResultContractsOpenMultipleDocuments) GetSynchronousResult(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -65,14 +93,14 @@ func (m *ActivityResultContractsOpenMultipleDocuments) GetSynchronousResult2(arg
 			callErr = err
 			return err
 		}
-		if midActivityResultContractsOpenMultipleDocumentsGetSynchronousResult2 == nil {
+		if midActivityResultContractsOpenMultipleDocumentsGetSynchronousResult == nil {
 			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$OpenMultipleDocuments.getSynchronousResult is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActivityResultContractsOpenMultipleDocumentsGetSynchronousResult2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midActivityResultContractsOpenMultipleDocumentsGetSynchronousResult, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr
@@ -89,8 +117,8 @@ func (m *ActivityResultContractsOpenMultipleDocuments) GetSynchronousResult2(arg
 	return result, callErr
 }
 
-// ParseResult2 calls androidx.activity.result.contract.ActivityResultContracts$OpenMultipleDocuments.parseResult.
-func (m *ActivityResultContractsOpenMultipleDocuments) ParseResult2(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
+// ParseResult calls androidx.activity.result.contract.ActivityResultContracts$OpenMultipleDocuments.parseResult.
+func (m *ActivityResultContractsOpenMultipleDocuments) ParseResult(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -98,113 +126,14 @@ func (m *ActivityResultContractsOpenMultipleDocuments) ParseResult2(arg0 int32, 
 			callErr = err
 			return err
 		}
-		if midActivityResultContractsOpenMultipleDocumentsParseResult2 == nil {
+		if midActivityResultContractsOpenMultipleDocumentsParseResult == nil {
 			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$OpenMultipleDocuments.parseResult is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActivityResultContractsOpenMultipleDocumentsParseResult2, jni.IntValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// CreateIntent2_1 calls androidx.activity.result.contract.ActivityResultContracts$OpenMultipleDocuments.createIntent.
-func (m *ActivityResultContractsOpenMultipleDocuments) CreateIntent2_1(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsOpenMultipleDocumentsCreateIntent2_1 == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$OpenMultipleDocuments.createIntent is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsOpenMultipleDocumentsCreateIntent2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetSynchronousResult2_1 calls androidx.activity.result.contract.ActivityResultContracts$OpenMultipleDocuments.getSynchronousResult.
-func (m *ActivityResultContractsOpenMultipleDocuments) GetSynchronousResult2_1(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsOpenMultipleDocumentsGetSynchronousResult2_1 == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$OpenMultipleDocuments.getSynchronousResult is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsOpenMultipleDocumentsGetSynchronousResult2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// ParseResult2_1 calls androidx.activity.result.contract.ActivityResultContracts$OpenMultipleDocuments.parseResult.
-func (m *ActivityResultContractsOpenMultipleDocuments) ParseResult2_1(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsOpenMultipleDocumentsParseResult2_1 == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$OpenMultipleDocuments.parseResult is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsOpenMultipleDocumentsParseResult2_1, jni.IntValue(arg0), jni.ObjectValue(arg1),
+			midActivityResultContractsOpenMultipleDocumentsParseResult, jni.IntValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr

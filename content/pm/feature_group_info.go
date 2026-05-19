@@ -32,6 +32,12 @@ func NewFeatureGroupInfo(vm *jni.VM) (*FeatureGroupInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFeatureGroupInfo == nil {
+			return fmt.Errorf("android.content.pm.FeatureGroupInfo is not available on this device")
+		}
+		if midFeatureGroupInfoCtor == nil {
+			return fmt.Errorf("android.content.pm.FeatureGroupInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFeatureGroupInfo)), midFeatureGroupInfoCtor)
 		if err != nil {
 			return err

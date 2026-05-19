@@ -3,14 +3,14 @@
 package consts
 
 const (
-	ModeIn             int = 1
-	ModeOut            int = 2
-	OrderingTogether   int = 0
-	OrderingSequential int = 1
 	MatchInstance      int = 1
 	MatchName          int = 2
 	MatchId            int = 3
 	MatchItemId        int = 4
+	ModeIn             int = 1
+	ModeOut            int = 2
+	OrderingTogether   int = 0
+	OrderingSequential int = 1
 	In                 int = 1
 	Out                int = 2
 )

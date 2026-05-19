@@ -32,6 +32,12 @@ func NewNavigationSubMenu(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNavigationSubMenu == nil {
+			return fmt.Errorf("com.google.android.material.internal.NavigationSubMenu is not available on this device")
+		}
+		if midNavigationSubMenuCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.NavigationSubMenu constructor (Landroid/content/Context;Lcom/google/android/material/internal/NavigationMenu;Landroidx/appcompat/view/menu/MenuItemImpl;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNavigationSubMenu)), midNavigationSubMenuCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
 		if err != nil {

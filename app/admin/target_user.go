@@ -51,31 +51,6 @@ func (m *TargetUser) Equals(arg0 *jni.Object) (bool, error) {
 	return result, callErr
 }
 
-// HashCode calls android.app.admin.TargetUser.hashCode.
-func (m *TargetUser) HashCode() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTargetUserHashCode == nil {
-			callErr = fmt.Errorf("android.app.admin.TargetUser.hashCode is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midTargetUserHashCode,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.app.admin.TargetUser.toString.
 func (m *TargetUser) ToString() (string, error) {
 	var result string
@@ -98,6 +73,31 @@ func (m *TargetUser) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// HashCode calls android.app.admin.TargetUser.hashCode.
+func (m *TargetUser) HashCode() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midTargetUserHashCode == nil {
+			callErr = fmt.Errorf("android.app.admin.TargetUser.hashCode is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsTargetUser)),
+			midTargetUserHashCode,
+		)
+		if callErr != nil {
+			return callErr
+		}
 		return callErr
 	})
 	return result, callErr

@@ -23,6 +23,35 @@ type TableRowLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTableRowLayoutParams creates a new android.widget.TableRow$LayoutParams instance.
+func NewTableRowLayoutParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*TableRowLayoutParams, error) {
+	var t TableRowLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTableRowLayoutParams == nil {
+			return fmt.Errorf("android.widget.TableRow$LayoutParams is not available on this device")
+		}
+		if midTableRowLayoutParamsCtor == nil {
+			return fmt.Errorf("android.widget.TableRow$LayoutParams constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTableRowLayoutParams)), midTableRowLayoutParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.widget.TableRow$LayoutParams.toString.
 func (m *TableRowLayoutParams) ToString() (string, error) {
 	var result string

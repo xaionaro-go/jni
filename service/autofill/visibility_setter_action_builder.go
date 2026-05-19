@@ -23,6 +23,35 @@ type VisibilitySetterActionBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewVisibilitySetterActionBuilder creates a new android.service.autofill.VisibilitySetterAction$Builder instance.
+func NewVisibilitySetterActionBuilder(vm *jni.VM, arg0 int32, arg1 int32) (*VisibilitySetterActionBuilder, error) {
+	var t VisibilitySetterActionBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsVisibilitySetterActionBuilder == nil {
+			return fmt.Errorf("android.service.autofill.VisibilitySetterAction$Builder is not available on this device")
+		}
+		if midVisibilitySetterActionBuilderCtor == nil {
+			return fmt.Errorf("android.service.autofill.VisibilitySetterAction$Builder constructor (II)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVisibilitySetterActionBuilder)), midVisibilitySetterActionBuilderCtor, jni.IntValue(arg0), jni.IntValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.service.autofill.VisibilitySetterAction$Builder.build.
 func (m *VisibilitySetterActionBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewSimpleDateFormat(vm *jni.VM) (*SimpleDateFormat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSimpleDateFormat == nil {
+			return fmt.Errorf("android.icu.text.SimpleDateFormat is not available on this device")
+		}
+		if midSimpleDateFormatCtor == nil {
+			return fmt.Errorf("android.icu.text.SimpleDateFormat constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSimpleDateFormat)), midSimpleDateFormatCtor)
 		if err != nil {
 			return err

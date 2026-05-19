@@ -32,6 +32,12 @@ func NewSavedStateRegistryController(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Obj
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSavedStateRegistryController == nil {
+			return fmt.Errorf("androidx.savedstate.SavedStateRegistryController is not available on this device")
+		}
+		if midSavedStateRegistryControllerCtor == nil {
+			return fmt.Errorf("androidx.savedstate.SavedStateRegistryController constructor (Landroidx/savedstate/SavedStateRegistryOwner;Lkotlin/jvm/internal/DefaultConstructorMarker;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSavedStateRegistryController)), midSavedStateRegistryControllerCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

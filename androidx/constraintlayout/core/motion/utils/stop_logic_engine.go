@@ -32,6 +32,12 @@ func NewStopLogicEngine(vm *jni.VM) (*StopLogicEngine, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStopLogicEngine == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.StopLogicEngine is not available on this device")
+		}
+		if midStopLogicEngineCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.StopLogicEngine constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStopLogicEngine)), midStopLogicEngineCtor)
 		if err != nil {
 			return err

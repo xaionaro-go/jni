@@ -32,6 +32,12 @@ func NewScrollCaptureSession(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsScrollCaptureSession == nil {
+			return fmt.Errorf("android.view.ScrollCaptureSession is not available on this device")
+		}
+		if midScrollCaptureSessionCtor == nil {
+			return fmt.Errorf("android.view.ScrollCaptureSession constructor (Landroid/view/Surface;Landroid/graphics/Rect;Landroid/graphics/Point;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScrollCaptureSession)), midScrollCaptureSessionCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
 		if err != nil {

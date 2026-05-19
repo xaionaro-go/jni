@@ -32,6 +32,12 @@ func NewClickableSpanCompat(vm *jni.VM, arg0 int32, arg1 *jni.Object, arg2 int32
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsClickableSpanCompat == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityClickableSpanCompat is not available on this device")
+		}
+		if midClickableSpanCompatCtor == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityClickableSpanCompat constructor (ILandroidx/core/view/accessibility/AccessibilityNodeInfoCompat;I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsClickableSpanCompat)), midClickableSpanCompatCtor, jni.IntValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2))
 		if err != nil {

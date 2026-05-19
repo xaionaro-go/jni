@@ -30,6 +30,12 @@ func NewCompatDialog(vm *jni.VM, arg0 *jni.Object) (*CompatDialog, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCompatDialog == nil {
+			return fmt.Errorf("androidx.appcompat.app.AppCompatDialog is not available on this device")
+		}
+		if midCompatDialogCtor == nil {
+			return fmt.Errorf("androidx.appcompat.app.AppCompatDialog constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCompatDialog)), midCompatDialogCtor, jni.ObjectValue(arg0))
 		if err != nil {

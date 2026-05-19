@@ -21,6 +21,34 @@ type PendingIntentCanceledException struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPendingIntentCanceledException creates a new android.app.PendingIntent$CanceledException instance.
+func NewPendingIntentCanceledException(vm *jni.VM) (*PendingIntentCanceledException, error) {
+	var t PendingIntentCanceledException
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPendingIntentCanceledException == nil {
+			return fmt.Errorf("android.app.PendingIntent$CanceledException is not available on this device")
+		}
+		if midPendingIntentCanceledExceptionCtor == nil {
+			return fmt.Errorf("android.app.PendingIntent$CanceledException constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPendingIntentCanceledException)), midPendingIntentCanceledExceptionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.app.PendingIntent$CanceledException.toString.
 func (m *PendingIntentCanceledException) ToString() (string, error) {
 	var result string

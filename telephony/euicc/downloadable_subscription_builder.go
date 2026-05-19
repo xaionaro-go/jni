@@ -23,6 +23,35 @@ type DownloadableSubscriptionBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDownloadableSubscriptionBuilder creates a new android.telephony.euicc.DownloadableSubscription$Builder instance.
+func NewDownloadableSubscriptionBuilder(vm *jni.VM, arg0 *jni.Object) (*DownloadableSubscriptionBuilder, error) {
+	var t DownloadableSubscriptionBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDownloadableSubscriptionBuilder == nil {
+			return fmt.Errorf("android.telephony.euicc.DownloadableSubscription$Builder is not available on this device")
+		}
+		if midDownloadableSubscriptionBuilderCtor == nil {
+			return fmt.Errorf("android.telephony.euicc.DownloadableSubscription$Builder constructor (Landroid/telephony/euicc/DownloadableSubscription;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDownloadableSubscriptionBuilder)), midDownloadableSubscriptionBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.telephony.euicc.DownloadableSubscription$Builder.build.
 func (m *DownloadableSubscriptionBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

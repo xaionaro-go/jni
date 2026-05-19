@@ -32,6 +32,12 @@ func NewGLES20(vm *jni.VM) (*GLES20, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGLES20 == nil {
+			return fmt.Errorf("android.opengl.GLES20 is not available on this device")
+		}
+		if midGLES20Ctor == nil {
+			return fmt.Errorf("android.opengl.GLES20 constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGLES20)), midGLES20Ctor)
 		if err != nil {
 			return err

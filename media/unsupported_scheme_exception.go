@@ -32,6 +32,12 @@ func NewUnsupportedSchemeException(vm *jni.VM, arg0 string) (*UnsupportedSchemeE
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsUnsupportedSchemeException == nil {
+			return fmt.Errorf("android.media.UnsupportedSchemeException is not available on this device")
+		}
+		if midUnsupportedSchemeExceptionCtor == nil {
+			return fmt.Errorf("android.media.UnsupportedSchemeException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

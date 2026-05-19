@@ -32,6 +32,12 @@ func NewUnicodeSetIterator(vm *jni.VM) (*UnicodeSetIterator, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsUnicodeSetIterator == nil {
+			return fmt.Errorf("android.icu.text.UnicodeSetIterator is not available on this device")
+		}
+		if midUnicodeSetIteratorCtor == nil {
+			return fmt.Errorf("android.icu.text.UnicodeSetIterator constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUnicodeSetIterator)), midUnicodeSetIteratorCtor)
 		if err != nil {
 			return err
@@ -171,38 +177,6 @@ func (m *UnicodeSetIterator) Reset1_1(arg0 *jni.Object) error {
 	return callErr
 }
 
-// SkipToStrings calls android.icu.text.UnicodeSetIterator.skipToStrings.
-func (m *UnicodeSetIterator) SkipToStrings() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midUnicodeSetIteratorSkipToStrings == nil {
-			callErr = fmt.Errorf("android.icu.text.UnicodeSetIterator.skipToStrings is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midUnicodeSetIteratorSkipToStrings,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.icu.text.UnicodeSetIterator.toString.
 func (m *UnicodeSetIterator) ToString() (string, error) {
 	var result string
@@ -225,6 +199,38 @@ func (m *UnicodeSetIterator) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// SkipToStrings calls android.icu.text.UnicodeSetIterator.skipToStrings.
+func (m *UnicodeSetIterator) SkipToStrings() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midUnicodeSetIteratorSkipToStrings == nil {
+			callErr = fmt.Errorf("android.icu.text.UnicodeSetIterator.skipToStrings is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsUnicodeSetIterator)),
+			midUnicodeSetIteratorSkipToStrings,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
 		return callErr
 	})
 	return result, callErr

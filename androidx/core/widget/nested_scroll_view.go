@@ -32,6 +32,12 @@ func NewNestedScrollView(vm *jni.VM, arg0 *jni.Object) (*NestedScrollView, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNestedScrollView == nil {
+			return fmt.Errorf("androidx.core.widget.NestedScrollView is not available on this device")
+		}
+		if midNestedScrollViewCtor == nil {
+			return fmt.Errorf("androidx.core.widget.NestedScrollView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNestedScrollView)), midNestedScrollViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

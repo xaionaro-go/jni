@@ -5,82 +5,6 @@ package display
 import "github.com/AndroidGoLab/jni/view/display/consts"
 
 const (
-	Density140                                      = consts.Density140
-	Density180                                      = consts.Density180
-	Density200                                      = consts.Density200
-	Density220                                      = consts.Density220
-	Density260                                      = consts.Density260
-	Density280                                      = consts.Density280
-	Density300                                      = consts.Density300
-	Density340                                      = consts.Density340
-	Density360                                      = consts.Density360
-	Density390                                      = consts.Density390
-	Density400                                      = consts.Density400
-	Density420                                      = consts.Density420
-	Density440                                      = consts.Density440
-	Density450                                      = consts.Density450
-	Density520                                      = consts.Density520
-	Density560                                      = consts.Density560
-	Density600                                      = consts.Density600
-	DensityDefault                                  = consts.DensityDefault
-	DensityDeviceStable                             = consts.DensityDeviceStable
-	DensityHigh                                     = consts.DensityHigh
-	DensityLow                                      = consts.DensityLow
-	DensityMedium                                   = consts.DensityMedium
-	DensityTv                                       = consts.DensityTv
-	DensityXhigh                                    = consts.DensityXhigh
-	DensityXxhigh                                   = consts.DensityXxhigh
-	DensityXxxhigh                                  = consts.DensityXxxhigh
-	SurfaceLifecycleDefault                         = consts.SurfaceLifecycleDefault
-	SurfaceLifecycleFollowsAttachment               = consts.SurfaceLifecycleFollowsAttachment
-	SurfaceLifecycleFollowsVisibility               = consts.SurfaceLifecycleFollowsVisibility
-	ChangeFrameRateAlways                           = consts.ChangeFrameRateAlways
-	ChangeFrameRateOnlyIfSeamless                   = consts.ChangeFrameRateOnlyIfSeamless
-	Creator                                         = consts.Creator
-	FrameRateCompatibilityAtLeast                   = consts.FrameRateCompatibilityAtLeast
-	FrameRateCompatibilityDefault                   = consts.FrameRateCompatibilityDefault
-	FrameRateCompatibilityFixedSource               = consts.FrameRateCompatibilityFixedSource
-	Rotation0                                       = consts.Rotation0
-	Rotation180                                     = consts.Rotation180
-	Rotation270                                     = consts.Rotation270
-	Rotation90                                      = consts.Rotation90
-	SurfaceTypeGpu                                  = consts.SurfaceTypeGpu
-	SurfaceTypeHardware                             = consts.SurfaceTypeHardware
-	SurfaceTypeNormal                               = consts.SurfaceTypeNormal
-	SurfaceTypePushBuffers                          = consts.SurfaceTypePushBuffers
-	DefaultDisplay                                  = consts.DefaultDisplay
-	FlagPresentation                                = consts.FlagPresentation
-	FlagPrivate                                     = consts.FlagPrivate
-	FlagRound                                       = consts.FlagRound
-	FlagSecure                                      = consts.FlagSecure
-	FlagSupportsProtectedBuffers                    = consts.FlagSupportsProtectedBuffers
-	FrameRateCategoryHigh                           = consts.FrameRateCategoryHigh
-	FrameRateCategoryNormal                         = consts.FrameRateCategoryNormal
-	InvalidDisplay                                  = consts.InvalidDisplay
-	StateDoze                                       = consts.StateDoze
-	StateDozeSuspend                                = consts.StateDozeSuspend
-	StateOff                                        = consts.StateOff
-	StateOn                                         = consts.StateOn
-	StateOnSuspend                                  = consts.StateOnSuspend
-	StateUnknown                                    = consts.StateUnknown
-	StateVr                                         = consts.StateVr
-	HdrTypeDolbyVision                              = consts.HdrTypeDolbyVision
-	HdrTypeHdr10                                    = consts.HdrTypeHdr10
-	HdrTypeHdr10Plus                                = consts.HdrTypeHdr10Plus
-	HdrTypeHlg                                      = consts.HdrTypeHlg
-	HdrTypeInvalid                                  = consts.HdrTypeInvalid
-	FocusAfterDescendants                           = consts.FocusAfterDescendants
-	FocusBeforeDescendants                          = consts.FocusBeforeDescendants
-	FocusBlockDescendants                           = consts.FocusBlockDescendants
-	LayoutModeClipBounds                            = consts.LayoutModeClipBounds
-	LayoutModeOpticalBounds                         = consts.LayoutModeOpticalBounds
-	PersistentAllCaches                             = consts.PersistentAllCaches
-	PersistentAnimationCache                        = consts.PersistentAnimationCache
-	PersistentNoCache                               = consts.PersistentNoCache
-	PersistentScrollingCache                        = consts.PersistentScrollingCache
-	FillParent                                      = consts.FillParent
-	MatchParent                                     = consts.MatchParent
-	WrapContent                                     = consts.WrapContent
 	AccessibilityDataSensitiveAuto                  = consts.AccessibilityDataSensitiveAuto
 	AccessibilityDataSensitiveNo                    = consts.AccessibilityDataSensitiveNo
 	AccessibilityDataSensitiveYes                   = consts.AccessibilityDataSensitiveYes
@@ -208,9 +132,44 @@ const (
 	TextDirectionLtr                                = consts.TextDirectionLtr
 	TextDirectionRtl                                = consts.TextDirectionRtl
 	Visible                                         = consts.Visible
+	Creator                                         = consts.Creator
 	AtMost                                          = consts.AtMost
 	Exactly                                         = consts.Exactly
 	Unspecified                                     = consts.Unspecified
+	DefaultDisplay                                  = consts.DefaultDisplay
+	FlagPresentation                                = consts.FlagPresentation
+	FlagPrivate                                     = consts.FlagPrivate
+	FlagRound                                       = consts.FlagRound
+	FlagSecure                                      = consts.FlagSecure
+	FlagSupportsProtectedBuffers                    = consts.FlagSupportsProtectedBuffers
+	FrameRateCategoryHigh                           = consts.FrameRateCategoryHigh
+	FrameRateCategoryNormal                         = consts.FrameRateCategoryNormal
+	InvalidDisplay                                  = consts.InvalidDisplay
+	StateDoze                                       = consts.StateDoze
+	StateDozeSuspend                                = consts.StateDozeSuspend
+	StateOff                                        = consts.StateOff
+	StateOn                                         = consts.StateOn
+	StateOnSuspend                                  = consts.StateOnSuspend
+	StateUnknown                                    = consts.StateUnknown
+	StateVr                                         = consts.StateVr
+	HdrTypeDolbyVision                              = consts.HdrTypeDolbyVision
+	HdrTypeHdr10                                    = consts.HdrTypeHdr10
+	HdrTypeHdr10Plus                                = consts.HdrTypeHdr10Plus
+	HdrTypeHlg                                      = consts.HdrTypeHlg
+	HdrTypeInvalid                                  = consts.HdrTypeInvalid
+	SurfaceTypeGpu                                  = consts.SurfaceTypeGpu
+	SurfaceTypeHardware                             = consts.SurfaceTypeHardware
+	SurfaceTypeNormal                               = consts.SurfaceTypeNormal
+	SurfaceTypePushBuffers                          = consts.SurfaceTypePushBuffers
+	ChangeFrameRateAlways                           = consts.ChangeFrameRateAlways
+	ChangeFrameRateOnlyIfSeamless                   = consts.ChangeFrameRateOnlyIfSeamless
+	FrameRateCompatibilityAtLeast                   = consts.FrameRateCompatibilityAtLeast
+	FrameRateCompatibilityDefault                   = consts.FrameRateCompatibilityDefault
+	FrameRateCompatibilityFixedSource               = consts.FrameRateCompatibilityFixedSource
+	Rotation0                                       = consts.Rotation0
+	Rotation180                                     = consts.Rotation180
+	Rotation270                                     = consts.Rotation270
+	Rotation90                                      = consts.Rotation90
 	CompatSmallCoverScreenOptIn                     = consts.CompatSmallCoverScreenOptIn
 	ScreenRecordingStateNotVisible                  = consts.ScreenRecordingStateNotVisible
 	ScreenRecordingStateVisible                     = consts.ScreenRecordingStateVisible
@@ -313,21 +272,47 @@ const (
 	TypeSystemOverlay                               = consts.TypeSystemOverlay
 	TypeToast                                       = consts.TypeToast
 	TypeWallpaper                                   = consts.TypeWallpaper
-)
-
-const (
-	InvalidLuminance                       = consts.InvalidLuminance
-	RequestedFrameRateCategoryHigh         = consts.RequestedFrameRateCategoryHigh
-	RequestedFrameRateCategoryLow          = consts.RequestedFrameRateCategoryLow
-	RequestedFrameRateCategoryNormal       = consts.RequestedFrameRateCategoryNormal
-	RequestedFrameRateCategoryNoPreference = consts.RequestedFrameRateCategoryNoPreference
-	BrightnessOverrideFull                 = consts.BrightnessOverrideFull
-	BrightnessOverrideNone                 = consts.BrightnessOverrideNone
-	BrightnessOverrideOff                  = consts.BrightnessOverrideOff
-)
-
-var (
-	RequestedFrameRateCategoryDefault = consts.RequestedFrameRateCategoryDefault
+	SurfaceLifecycleDefault                         = consts.SurfaceLifecycleDefault
+	SurfaceLifecycleFollowsAttachment               = consts.SurfaceLifecycleFollowsAttachment
+	SurfaceLifecycleFollowsVisibility               = consts.SurfaceLifecycleFollowsVisibility
+	FocusAfterDescendants                           = consts.FocusAfterDescendants
+	FocusBeforeDescendants                          = consts.FocusBeforeDescendants
+	FocusBlockDescendants                           = consts.FocusBlockDescendants
+	LayoutModeClipBounds                            = consts.LayoutModeClipBounds
+	LayoutModeOpticalBounds                         = consts.LayoutModeOpticalBounds
+	PersistentAllCaches                             = consts.PersistentAllCaches
+	PersistentAnimationCache                        = consts.PersistentAnimationCache
+	PersistentNoCache                               = consts.PersistentNoCache
+	PersistentScrollingCache                        = consts.PersistentScrollingCache
+	FillParent                                      = consts.FillParent
+	MatchParent                                     = consts.MatchParent
+	WrapContent                                     = consts.WrapContent
+	Density140                                      = consts.Density140
+	Density180                                      = consts.Density180
+	Density200                                      = consts.Density200
+	Density220                                      = consts.Density220
+	Density260                                      = consts.Density260
+	Density280                                      = consts.Density280
+	Density300                                      = consts.Density300
+	Density340                                      = consts.Density340
+	Density360                                      = consts.Density360
+	Density390                                      = consts.Density390
+	Density400                                      = consts.Density400
+	Density420                                      = consts.Density420
+	Density440                                      = consts.Density440
+	Density450                                      = consts.Density450
+	Density520                                      = consts.Density520
+	Density560                                      = consts.Density560
+	Density600                                      = consts.Density600
+	DensityDefault                                  = consts.DensityDefault
+	DensityDeviceStable                             = consts.DensityDeviceStable
+	DensityHigh                                     = consts.DensityHigh
+	DensityLow                                      = consts.DensityLow
+	DensityMedium                                   = consts.DensityMedium
+	DensityTv                                       = consts.DensityTv
+	DensityXhigh                                    = consts.DensityXhigh
+	DensityXxhigh                                   = consts.DensityXxhigh
+	DensityXxxhigh                                  = consts.DensityXxxhigh
 )
 
 const (
@@ -361,4 +346,19 @@ const (
 	PropertyCompatEnableFakeFocus                                 = consts.PropertyCompatEnableFakeFocus
 	PropertyCompatIgnoreRequestedOrientation                      = consts.PropertyCompatIgnoreRequestedOrientation
 	PropertySupportsMultiInstanceSystemUi                         = consts.PropertySupportsMultiInstanceSystemUi
+)
+
+const (
+	RequestedFrameRateCategoryHigh         = consts.RequestedFrameRateCategoryHigh
+	RequestedFrameRateCategoryLow          = consts.RequestedFrameRateCategoryLow
+	RequestedFrameRateCategoryNormal       = consts.RequestedFrameRateCategoryNormal
+	RequestedFrameRateCategoryNoPreference = consts.RequestedFrameRateCategoryNoPreference
+	InvalidLuminance                       = consts.InvalidLuminance
+	BrightnessOverrideFull                 = consts.BrightnessOverrideFull
+	BrightnessOverrideNone                 = consts.BrightnessOverrideNone
+	BrightnessOverrideOff                  = consts.BrightnessOverrideOff
+)
+
+var (
+	RequestedFrameRateCategoryDefault = consts.RequestedFrameRateCategoryDefault
 )

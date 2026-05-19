@@ -32,6 +32,12 @@ func NewFadeThroughUpdateListener(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFadeThroughUpdateListener == nil {
+			return fmt.Errorf("com.google.android.material.internal.FadeThroughUpdateListener is not available on this device")
+		}
+		if midFadeThroughUpdateListenerCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.FadeThroughUpdateListener constructor (Landroid/view/View;Landroid/view/View;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFadeThroughUpdateListener)), midFadeThroughUpdateListenerCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

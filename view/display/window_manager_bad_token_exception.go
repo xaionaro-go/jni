@@ -23,6 +23,34 @@ type WindowManagerBadTokenException struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWindowManagerBadTokenException creates a new android.view.WindowManager$BadTokenException instance.
+func NewWindowManagerBadTokenException(vm *jni.VM) (*WindowManagerBadTokenException, error) {
+	var t WindowManagerBadTokenException
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWindowManagerBadTokenException == nil {
+			return fmt.Errorf("android.view.WindowManager$BadTokenException is not available on this device")
+		}
+		if midWindowManagerBadTokenExceptionCtor == nil {
+			return fmt.Errorf("android.view.WindowManager$BadTokenException constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWindowManagerBadTokenException)), midWindowManagerBadTokenExceptionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.view.WindowManager$BadTokenException.toString.
 func (m *WindowManagerBadTokenException) ToString() (string, error) {
 	var result string

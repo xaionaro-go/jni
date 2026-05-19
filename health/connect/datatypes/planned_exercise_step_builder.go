@@ -23,6 +23,35 @@ type PlannedExerciseStepBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPlannedExerciseStepBuilder creates a new android.health.connect.datatypes.PlannedExerciseStep$Builder instance.
+func NewPlannedExerciseStepBuilder(vm *jni.VM, arg0 int32, arg1 int32, arg2 *jni.Object) (*PlannedExerciseStepBuilder, error) {
+	var t PlannedExerciseStepBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPlannedExerciseStepBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.PlannedExerciseStep$Builder is not available on this device")
+		}
+		if midPlannedExerciseStepBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.PlannedExerciseStep$Builder constructor (IILandroid/health/connect/datatypes/ExerciseCompletionGoal;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPlannedExerciseStepBuilder)), midPlannedExerciseStepBuilderCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddPerformanceGoal calls android.health.connect.datatypes.PlannedExerciseStep$Builder.addPerformanceGoal.
 func (m *PlannedExerciseStepBuilder) AddPerformanceGoal(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewMediaController(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*MediaC
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMediaController == nil {
+			return fmt.Errorf("android.media.session.MediaController is not available on this device")
+		}
+		if midMediaControllerCtor == nil {
+			return fmt.Errorf("android.media.session.MediaController constructor (Landroid/content/Context;Landroid/media/session/MediaSession$Token;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMediaController)), midMediaControllerCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

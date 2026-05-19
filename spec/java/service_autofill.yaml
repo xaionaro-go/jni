@@ -29,20 +29,52 @@ classes:
               go_name: arg0
           returns: android.service.autofill.Validator
           error: true
-    - java_class: android.service.autofill.LuhnChecksumValidator
-      go_type: LuhnChecksumValidator
-      obtain: constructor
-      constructor_params:
-        - java_type: android.view.autofill.AutofillId...
-          go_name: arg0
+    - java_class: android.service.autofill.UserData
+      go_type: UserData
       methods:
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
+        - java_method: getFieldClassificationAlgorithm
+          go_name: GetFieldClassificationAlgorithm
+          returns: String
+          error: true
+        - java_method: getFieldClassificationAlgorithmForCategory
+          go_name: GetFieldClassificationAlgorithmForCategory
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: String
+          error: true
         - java_method: toString
           go_name: ToString
           returns: String
+          error: true
+      static_methods:
+        - java_method: getMaxCategoryCount
+          go_name: GetMaxCategoryCount
+          returns: int
+          error: true
+        - java_method: getMaxFieldClassificationIdsSize
+          go_name: GetMaxFieldClassificationIdsSize
+          returns: int
+          error: true
+        - java_method: getMaxUserDataSize
+          go_name: GetMaxUserDataSize
+          returns: int
+          error: true
+        - java_method: getMaxValueLength
+          go_name: GetMaxValueLength
+          returns: int
+          error: true
+        - java_method: getMinValueLength
+          go_name: GetMinValueLength
+          returns: int
           error: true
         - java_method: writeToParcel
           go_name: WriteToParcel
@@ -53,142 +85,49 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.service.autofill.DateTransformation
-      go_type: DateTransformation
-      obtain: constructor
-      constructor_params:
-        - java_type: android.view.autofill.AutofillId
-          go_name: arg0
-        - java_type: android.icu.text.DateFormat
-          go_name: arg1
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.service.autofill.DateValueSanitizer
-      go_type: DateValueSanitizer
-      obtain: constructor
-      constructor_params:
-        - java_type: android.icu.text.DateFormat
-          go_name: arg0
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.service.autofill.Sanitizer
-      go_type: Sanitizer
-    - java_class: android.service.autofill.SavedDatasetsInfo
-      go_type: SavedDatasetsInfo
+    - java_class: android.service.autofill.UserData$Builder
+      go_type: UserDataBuilder
       obtain: constructor
       constructor_params:
         - java_type: String
           go_name: arg0
-        - java_type: int
+        - java_type: String
           go_name: arg1
+        - java_type: String
+          go_name: arg2
       methods:
-        - java_method: equals
-          go_name: Equals
+        - java_method: add
+          go_name: Add
           params:
-            - java_type: java.lang.Object
+            - java_type: String
               go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getCount
-          go_name: GetCount
-          returns: int
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: String
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.service.autofill.VisibilitySetterAction
-      go_type: VisibilitySetterAction
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
+            - java_type: String
               go_name: arg1
-          returns: void
+          returns: android.service.autofill.UserData$Builder
           error: true
-    - java_class: android.service.autofill.VisibilitySetterAction$Builder
-      go_type: VisibilitySetterActionBuilder
-      methods:
         - java_method: build
           go_name: Build
-          returns: android.service.autofill.VisibilitySetterAction
+          returns: android.service.autofill.UserData
           error: true
-        - java_method: setVisibility
-          go_name: SetVisibility
+        - java_method: setFieldClassificationAlgorithm
+          go_name: SetFieldClassificationAlgorithm
           params:
-            - java_type: int
+            - java_type: String
               go_name: arg0
-            - java_type: int
+            - java_type: android.os.Bundle
               go_name: arg1
-          returns: android.service.autofill.VisibilitySetterAction$Builder
+          returns: android.service.autofill.UserData$Builder
           error: true
-    - java_class: android.service.autofill.FillCallback
-      go_type: FillCallback
-      methods:
-        - java_method: onFailure
-          go_name: OnFailure
+        - java_method: setFieldClassificationAlgorithmForCategory
+          go_name: SetFieldClassificationAlgorithmForCategory
           params:
-            - java_type: java.lang.CharSequence
+            - java_type: String
               go_name: arg0
-          returns: void
-          error: true
-        - java_method: onSuccess
-          go_name: OnSuccess
-          params:
-            - java_type: android.service.autofill.FillResponse
-              go_name: arg0
-          returns: void
+            - java_type: String
+              go_name: arg1
+            - java_type: android.os.Bundle
+              go_name: arg2
+          returns: android.service.autofill.UserData$Builder
           error: true
     - java_class: android.service.autofill.FillResponse
       go_type: FillResponse
@@ -201,6 +140,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -212,6 +152,7 @@ classes:
           error: true
     - java_class: android.service.autofill.FillResponse$Builder
       go_type: FillResponseBuilder
+      obtain: constructor
       methods:
         - java_method: addDataset
           go_name: AddDataset
@@ -386,33 +327,33 @@ classes:
               go_name: arg0
           returns: android.service.autofill.FillResponse$Builder
           error: true
-    - java_class: android.service.autofill.Transformation
-      go_type: Transformation
-    - java_class: android.service.autofill.TextValueSanitizer
-      go_type: TextValueSanitizer
-      obtain: constructor
-      constructor_params:
-        - java_type: java.util.regex.Pattern
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
+    - java_class: android.service.autofill.Sanitizer
+      go_type: Sanitizer
+    - java_class: android.service.autofill.FieldClassification
+      go_type: FieldClassification
       methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
+        - java_method: getMatches
+          go_name: GetMatches
+          returns: java.util.List<android.service.autofill.FieldClassification$Match>
           error: true
         - java_method: toString
           go_name: ToString
           returns: String
           error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
+    - java_class: android.service.autofill.FieldClassification$Match
+      go_type: FieldClassificationMatch
+      methods:
+        - java_method: getCategoryId
+          go_name: GetCategoryId
+          returns: String
+          error: true
+        - java_method: getScore
+          go_name: GetScore
+          returns: float
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
           error: true
     - java_class: android.service.autofill.FillRequest
       go_type: FillRequest
@@ -453,106 +394,76 @@ classes:
           go_name: ToString
           returns: String
           error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.service.autofill.UserData
-      go_type: UserData
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getFieldClassificationAlgorithm
-          go_name: GetFieldClassificationAlgorithm
-          returns: String
-          error: true
-        - java_method: getFieldClassificationAlgorithmForCategory
-          go_name: GetFieldClassificationAlgorithmForCategory
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: String
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
       static_methods:
-        - java_method: getMaxCategoryCount
-          go_name: GetMaxCategoryCount
-          returns: int
-          error: true
-        - java_method: getMaxFieldClassificationIdsSize
-          go_name: GetMaxFieldClassificationIdsSize
-          returns: int
-          error: true
-        - java_method: getMaxUserDataSize
-          go_name: GetMaxUserDataSize
-          returns: int
-          error: true
-        - java_method: getMaxValueLength
-          go_name: GetMaxValueLength
-          returns: int
-          error: true
-        - java_method: getMinValueLength
-          go_name: GetMinValueLength
-          returns: int
-          error: true
-    - java_class: android.service.autofill.UserData$Builder
-      go_type: UserDataBuilder
-      methods:
-        - java_method: add
-          go_name: Add
+        - java_method: writeToParcel
+          go_name: WriteToParcel
           params:
-            - java_type: String
+            - java_type: android.os.Parcel
               go_name: arg0
-            - java_type: String
+            - java_type: int
               go_name: arg1
-          returns: android.service.autofill.UserData$Builder
+          returns: void
           error: true
+    - java_class: android.service.autofill.Field
+      go_type: Field
+      methods:
+        - java_method: getFilter
+          go_name: GetFilter
+          returns: java.util.regex.Pattern
+          error: true
+        - java_method: getPresentations
+          go_name: GetPresentations
+          returns: android.service.autofill.Presentations
+          error: true
+        - java_method: getValue
+          go_name: GetValue
+          returns: android.view.autofill.AutofillValue
+          error: true
+    - java_class: android.service.autofill.Field$Builder
+      go_type: FieldBuilder
+      obtain: constructor
+      methods:
         - java_method: build
           go_name: Build
-          returns: android.service.autofill.UserData
+          returns: android.service.autofill.Field
           error: true
-        - java_method: setFieldClassificationAlgorithm
-          go_name: SetFieldClassificationAlgorithm
+        - java_method: setFilter
+          go_name: SetFilter
           params:
-            - java_type: String
+            - java_type: java.util.regex.Pattern
               go_name: arg0
-            - java_type: android.os.Bundle
-              go_name: arg1
-          returns: android.service.autofill.UserData$Builder
+          returns: android.service.autofill.Field$Builder
           error: true
-        - java_method: setFieldClassificationAlgorithmForCategory
-          go_name: SetFieldClassificationAlgorithmForCategory
+        - java_method: setPresentations
+          go_name: SetPresentations
           params:
-            - java_type: String
+            - java_type: android.service.autofill.Presentations
               go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: android.os.Bundle
-              go_name: arg2
-          returns: android.service.autofill.UserData$Builder
+          returns: android.service.autofill.Field$Builder
+          error: true
+        - java_method: setValue
+          go_name: SetValue
+          params:
+            - java_type: android.view.autofill.AutofillValue
+              go_name: arg0
+          returns: android.service.autofill.Field$Builder
+          error: true
+    - java_class: android.service.autofill.FillCallback
+      go_type: FillCallback
+      methods:
+        - java_method: onFailure
+          go_name: OnFailure
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onSuccess
+          go_name: OnSuccess
+          params:
+            - java_type: android.service.autofill.FillResponse
+              go_name: arg0
+          returns: void
           error: true
     - java_class: android.service.autofill.InlinePresentation
       go_type: InlinePresentation
@@ -596,15 +507,6 @@ classes:
           go_name: ToString
           returns: String
           error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
       static_methods:
         - java_method: createTooltipPresentation
           go_name: CreateTooltipPresentation
@@ -615,53 +517,6 @@ classes:
               go_name: arg1
           returns: android.service.autofill.InlinePresentation
           error: true
-    - java_class: android.service.autofill.FieldClassification
-      go_type: FieldClassification
-      methods:
-        - java_method: getMatches
-          go_name: GetMatches
-          returns: java.util.List<android.service.autofill.FieldClassification$Match>
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.service.autofill.FieldClassification$Match
-      go_type: FieldClassificationMatch
-      methods:
-        - java_method: getCategoryId
-          go_name: GetCategoryId
-          returns: String
-          error: true
-        - java_method: getScore
-          go_name: GetScore
-          returns: float
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.service.autofill.SavedDatasetsInfoCallback
-      go_type: SavedDatasetsInfoCallback
-      methods:
-        - java_method: onError
-          go_name: OnError
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.service.autofill.CharSequenceTransformation
-      go_type: CharSequenceTransformation
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -670,207 +525,6 @@ classes:
             - java_type: int
               go_name: arg1
           returns: void
-          error: true
-    - java_class: android.service.autofill.CharSequenceTransformation$Builder
-      go_type: CharSequenceTransformationBuilder
-      methods:
-        - java_method: addField
-          go_name: AddField
-          params:
-            - java_type: android.view.autofill.AutofillId
-              go_name: arg0
-            - java_type: java.util.regex.Pattern
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: android.service.autofill.CharSequenceTransformation$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.service.autofill.CharSequenceTransformation
-          error: true
-    - java_class: android.service.autofill.FillContext
-      go_type: FillContext
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getFocusedId
-          go_name: GetFocusedId
-          returns: android.view.autofill.AutofillId
-          error: true
-        - java_method: getRequestId
-          go_name: GetRequestId
-          returns: int
-          error: true
-        - java_method: getStructure
-          go_name: GetStructure
-          returns: android.app.assist.AssistStructure
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.service.autofill.CustomDescription
-      go_type: CustomDescription
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.service.autofill.CustomDescription$Builder
-      go_type: CustomDescriptionBuilder
-      methods:
-        - java_method: addChild
-          go_name: AddChild
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.service.autofill.Transformation
-              go_name: arg1
-          returns: android.service.autofill.CustomDescription$Builder
-          error: true
-        - java_method: addOnClickAction
-          go_name: AddOnClickAction
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.service.autofill.OnClickAction
-              go_name: arg1
-          returns: android.service.autofill.CustomDescription$Builder
-          error: true
-        - java_method: batchUpdate
-          go_name: BatchUpdate
-          params:
-            - java_type: android.service.autofill.Validator
-              go_name: arg0
-            - java_type: android.service.autofill.BatchUpdates
-              go_name: arg1
-          returns: android.service.autofill.CustomDescription$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.service.autofill.CustomDescription
-          error: true
-    - java_class: android.service.autofill.BatchUpdates
-      go_type: BatchUpdates
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.service.autofill.BatchUpdates$Builder
-      go_type: BatchUpdatesBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.service.autofill.BatchUpdates
-          error: true
-        - java_method: transformChild
-          go_name: TransformChild
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.service.autofill.Transformation
-              go_name: arg1
-          returns: android.service.autofill.BatchUpdates$Builder
-          error: true
-        - java_method: updateTemplate
-          go_name: UpdateTemplate
-          params:
-            - java_type: android.widget.RemoteViews
-              go_name: arg0
-          returns: android.service.autofill.BatchUpdates$Builder
-          error: true
-    - java_class: android.service.autofill.Presentations
-      go_type: Presentations
-      methods:
-        - java_method: getDialogPresentation
-          go_name: GetDialogPresentation
-          returns: android.widget.RemoteViews
-          error: true
-        - java_method: getInlinePresentation
-          go_name: GetInlinePresentation
-          returns: android.service.autofill.InlinePresentation
-          error: true
-        - java_method: getInlineTooltipPresentation
-          go_name: GetInlineTooltipPresentation
-          returns: android.service.autofill.InlinePresentation
-          error: true
-        - java_method: getMenuPresentation
-          go_name: GetMenuPresentation
-          returns: android.widget.RemoteViews
-          error: true
-    - java_class: android.service.autofill.Presentations$Builder
-      go_type: PresentationsBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.service.autofill.Presentations
-          error: true
-        - java_method: setDialogPresentation
-          go_name: SetDialogPresentation
-          params:
-            - java_type: android.widget.RemoteViews
-              go_name: arg0
-          returns: android.service.autofill.Presentations$Builder
-          error: true
-        - java_method: setInlinePresentation
-          go_name: SetInlinePresentation
-          params:
-            - java_type: android.service.autofill.InlinePresentation
-              go_name: arg0
-          returns: android.service.autofill.Presentations$Builder
-          error: true
-        - java_method: setInlineTooltipPresentation
-          go_name: SetInlineTooltipPresentation
-          params:
-            - java_type: android.service.autofill.InlinePresentation
-              go_name: arg0
-          returns: android.service.autofill.Presentations$Builder
-          error: true
-        - java_method: setMenuPresentation
-          go_name: SetMenuPresentation
-          params:
-            - java_type: android.widget.RemoteViews
-              go_name: arg0
-          returns: android.service.autofill.Presentations$Builder
           error: true
     - java_class: android.service.autofill.AutofillService
       go_type: Service
@@ -932,77 +586,72 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.service.autofill.SaveCallback
-      go_type: SaveCallback
+    - java_class: android.service.autofill.CustomDescription
+      go_type: CustomDescription
       methods:
-        - java_method: onFailure
-          go_name: OnFailure
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
           params:
-            - java_type: java.lang.CharSequence
+            - java_type: android.os.Parcel
               go_name: arg0
+            - java_type: int
+              go_name: arg1
           returns: void
           error: true
-        - java_method: onSuccess
-          go_name: OnSuccess0
-          returns: void
-          error: true
-        - java_method: onSuccess
-          go_name: OnSuccess1_1
-          params:
-            - java_type: android.content.IntentSender
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.service.autofill.Field
-      go_type: Field
-      methods:
-        - java_method: getFilter
-          go_name: GetFilter
-          returns: java.util.regex.Pattern
-          error: true
-        - java_method: getPresentations
-          go_name: GetPresentations
-          returns: android.service.autofill.Presentations
-          error: true
-        - java_method: getValue
-          go_name: GetValue
-          returns: android.view.autofill.AutofillValue
-          error: true
-    - java_class: android.service.autofill.Field$Builder
-      go_type: FieldBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.service.autofill.Field
-          error: true
-        - java_method: setFilter
-          go_name: SetFilter
-          params:
-            - java_type: java.util.regex.Pattern
-              go_name: arg0
-          returns: android.service.autofill.Field$Builder
-          error: true
-        - java_method: setPresentations
-          go_name: SetPresentations
-          params:
-            - java_type: android.service.autofill.Presentations
-              go_name: arg0
-          returns: android.service.autofill.Field$Builder
-          error: true
-        - java_method: setValue
-          go_name: SetValue
-          params:
-            - java_type: android.view.autofill.AutofillValue
-              go_name: arg0
-          returns: android.service.autofill.Field$Builder
-          error: true
-    - java_class: android.service.autofill.RegexValidator
-      go_type: RegexValidator
+    - java_class: android.service.autofill.CustomDescription$Builder
+      go_type: CustomDescriptionBuilder
       obtain: constructor
       constructor_params:
-        - java_type: android.view.autofill.AutofillId
+        - java_type: android.widget.RemoteViews
           go_name: arg0
+      methods:
+        - java_method: addChild
+          go_name: AddChild
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.service.autofill.Transformation
+              go_name: arg1
+          returns: android.service.autofill.CustomDescription$Builder
+          error: true
+        - java_method: addOnClickAction
+          go_name: AddOnClickAction
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.service.autofill.OnClickAction
+              go_name: arg1
+          returns: android.service.autofill.CustomDescription$Builder
+          error: true
+        - java_method: batchUpdate
+          go_name: BatchUpdate
+          params:
+            - java_type: android.service.autofill.Validator
+              go_name: arg0
+            - java_type: android.service.autofill.BatchUpdates
+              go_name: arg1
+          returns: android.service.autofill.CustomDescription$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.service.autofill.CustomDescription
+          error: true
+    - java_class: android.service.autofill.TextValueSanitizer
+      go_type: TextValueSanitizer
+      obtain: constructor
+      constructor_params:
         - java_type: java.util.regex.Pattern
+          go_name: arg0
+        - java_type: String
           go_name: arg1
       methods:
         - java_method: describeContents
@@ -1013,6 +662,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -1021,6 +671,347 @@ classes:
             - java_type: int
               go_name: arg1
           returns: void
+          error: true
+    - java_class: android.service.autofill.LuhnChecksumValidator
+      go_type: LuhnChecksumValidator
+      obtain: constructor
+      constructor_params:
+        - java_type: android.view.autofill.AutofillId...
+          go_name: arg0
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.service.autofill.BatchUpdates
+      go_type: BatchUpdates
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.service.autofill.BatchUpdates$Builder
+      go_type: BatchUpdatesBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.service.autofill.BatchUpdates
+          error: true
+        - java_method: transformChild
+          go_name: TransformChild
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.service.autofill.Transformation
+              go_name: arg1
+          returns: android.service.autofill.BatchUpdates$Builder
+          error: true
+        - java_method: updateTemplate
+          go_name: UpdateTemplate
+          params:
+            - java_type: android.widget.RemoteViews
+              go_name: arg0
+          returns: android.service.autofill.BatchUpdates$Builder
+          error: true
+    - java_class: android.service.autofill.CharSequenceTransformation
+      go_type: CharSequenceTransformation
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.service.autofill.CharSequenceTransformation$Builder
+      go_type: CharSequenceTransformationBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.view.autofill.AutofillId
+          go_name: arg0
+        - java_type: java.util.regex.Pattern
+          go_name: arg1
+        - java_type: String
+          go_name: arg2
+      methods:
+        - java_method: addField
+          go_name: AddField
+          params:
+            - java_type: android.view.autofill.AutofillId
+              go_name: arg0
+            - java_type: java.util.regex.Pattern
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+          returns: android.service.autofill.CharSequenceTransformation$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.service.autofill.CharSequenceTransformation
+          error: true
+    - java_class: android.service.autofill.DateTransformation
+      go_type: DateTransformation
+      obtain: constructor
+      constructor_params:
+        - java_type: android.view.autofill.AutofillId
+          go_name: arg0
+        - java_type: android.icu.text.DateFormat
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.service.autofill.Presentations
+      go_type: Presentations
+      methods:
+        - java_method: getDialogPresentation
+          go_name: GetDialogPresentation
+          returns: android.widget.RemoteViews
+          error: true
+        - java_method: getInlinePresentation
+          go_name: GetInlinePresentation
+          returns: android.service.autofill.InlinePresentation
+          error: true
+        - java_method: getInlineTooltipPresentation
+          go_name: GetInlineTooltipPresentation
+          returns: android.service.autofill.InlinePresentation
+          error: true
+        - java_method: getMenuPresentation
+          go_name: GetMenuPresentation
+          returns: android.widget.RemoteViews
+          error: true
+    - java_class: android.service.autofill.Presentations$Builder
+      go_type: PresentationsBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.service.autofill.Presentations
+          error: true
+        - java_method: setDialogPresentation
+          go_name: SetDialogPresentation
+          params:
+            - java_type: android.widget.RemoteViews
+              go_name: arg0
+          returns: android.service.autofill.Presentations$Builder
+          error: true
+        - java_method: setInlinePresentation
+          go_name: SetInlinePresentation
+          params:
+            - java_type: android.service.autofill.InlinePresentation
+              go_name: arg0
+          returns: android.service.autofill.Presentations$Builder
+          error: true
+        - java_method: setInlineTooltipPresentation
+          go_name: SetInlineTooltipPresentation
+          params:
+            - java_type: android.service.autofill.InlinePresentation
+              go_name: arg0
+          returns: android.service.autofill.Presentations$Builder
+          error: true
+        - java_method: setMenuPresentation
+          go_name: SetMenuPresentation
+          params:
+            - java_type: android.widget.RemoteViews
+              go_name: arg0
+          returns: android.service.autofill.Presentations$Builder
+          error: true
+    - java_class: android.service.autofill.SaveInfo
+      go_type: SaveInfo
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.service.autofill.SaveInfo$Builder
+      go_type: SaveInfoBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+      methods:
+        - java_method: addSanitizer
+          go_name: AddSanitizer
+          params:
+            - java_type: android.service.autofill.Sanitizer
+              go_name: arg0
+            - java_type: android.view.autofill.AutofillId...
+              go_name: arg1
+          returns: android.service.autofill.SaveInfo$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.service.autofill.SaveInfo
+          error: true
+        - java_method: setCustomDescription
+          go_name: SetCustomDescription
+          params:
+            - java_type: android.service.autofill.CustomDescription
+              go_name: arg0
+          returns: android.service.autofill.SaveInfo$Builder
+          error: true
+        - java_method: setDescription
+          go_name: SetDescription
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.service.autofill.SaveInfo$Builder
+          error: true
+        - java_method: setFlags
+          go_name: SetFlags
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.service.autofill.SaveInfo$Builder
+          error: true
+        - java_method: setNegativeAction
+          go_name: SetNegativeAction
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.content.IntentSender
+              go_name: arg1
+          returns: android.service.autofill.SaveInfo$Builder
+          error: true
+        - java_method: setOptionalIds
+          go_name: SetOptionalIds
+          params:
+            - java_type: android.view.autofill.AutofillId[]
+              go_name: arg0
+          returns: android.service.autofill.SaveInfo$Builder
+          error: true
+        - java_method: setPositiveAction
+          go_name: SetPositiveAction
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.service.autofill.SaveInfo$Builder
+          error: true
+        - java_method: setTriggerId
+          go_name: SetTriggerId
+          params:
+            - java_type: android.view.autofill.AutofillId
+              go_name: arg0
+          returns: android.service.autofill.SaveInfo$Builder
+          error: true
+        - java_method: setValidator
+          go_name: SetValidator
+          params:
+            - java_type: android.service.autofill.Validator
+              go_name: arg0
+          returns: android.service.autofill.SaveInfo$Builder
+          error: true
+    - java_class: android.service.autofill.VisibilitySetterAction
+      go_type: VisibilitySetterAction
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.service.autofill.VisibilitySetterAction$Builder
+      go_type: VisibilitySetterActionBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.service.autofill.VisibilitySetterAction
+          error: true
+        - java_method: setVisibility
+          go_name: SetVisibility
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.service.autofill.VisibilitySetterAction$Builder
           error: true
     - java_class: android.service.autofill.SaveRequest
       go_type: SaveRequest
@@ -1041,6 +1032,196 @@ classes:
           go_name: GetFillContexts
           returns: java.util.List<android.service.autofill.FillContext>
           error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.service.autofill.SavedDatasetsInfoCallback
+      go_type: SavedDatasetsInfoCallback
+      methods:
+        - java_method: onError
+          go_name: OnError
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.service.autofill.SavedDatasetsInfo
+      go_type: SavedDatasetsInfo
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getCount
+          go_name: GetCount
+          returns: int
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: String
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.service.autofill.RegexValidator
+      go_type: RegexValidator
+      obtain: constructor
+      constructor_params:
+        - java_type: android.view.autofill.AutofillId
+          go_name: arg0
+        - java_type: java.util.regex.Pattern
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.service.autofill.OnClickAction
+      go_type: OnClickAction
+    - java_class: android.service.autofill.Validator
+      go_type: Validator
+    - java_class: android.service.autofill.ImageTransformation
+      go_type: ImageTransformation
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.service.autofill.ImageTransformation$Builder
+      go_type: ImageTransformationBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.view.autofill.AutofillId
+          go_name: arg0
+        - java_type: java.util.regex.Pattern
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+      methods:
+        - java_method: addOption
+          go_name: AddOption2
+          params:
+            - java_type: java.util.regex.Pattern
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.service.autofill.ImageTransformation$Builder
+          error: true
+        - java_method: addOption
+          go_name: AddOption3_1
+          params:
+            - java_type: java.util.regex.Pattern
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: java.lang.CharSequence
+              go_name: arg2
+          returns: android.service.autofill.ImageTransformation$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.service.autofill.ImageTransformation
+          error: true
+    - java_class: android.service.autofill.Transformation
+      go_type: Transformation
+    - java_class: android.service.autofill.FillContext
+      go_type: FillContext
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getFocusedId
+          go_name: GetFocusedId
+          returns: android.view.autofill.AutofillId
+          error: true
+        - java_method: getRequestId
+          go_name: GetRequestId
+          returns: int
+          error: true
+        - java_method: getStructure
+          go_name: GetStructure
+          returns: android.app.assist.AssistStructure
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.service.autofill.DateValueSanitizer
+      go_type: DateValueSanitizer
+      obtain: constructor
+      constructor_params:
+        - java_type: android.icu.text.DateFormat
+          go_name: arg0
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -1061,6 +1242,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -1070,8 +1252,85 @@ classes:
               go_name: arg1
           returns: void
           error: true
+    - java_class: android.service.autofill.FillEventHistory
+      go_type: FillEventHistory
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getClientState
+          go_name: GetClientState
+          returns: android.os.Bundle
+          error: true
+        - java_method: getEvents
+          go_name: GetEvents
+          returns: java.util.List<android.service.autofill.FillEventHistory$Event>
+          error: true
+        - java_method: getSessionId
+          go_name: GetSessionId
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.service.autofill.FillEventHistory$Event
+      go_type: FillEventHistoryEvent
+      methods:
+        - java_method: getClientState
+          go_name: GetClientState
+          returns: android.os.Bundle
+          error: true
+        - java_method: getDatasetId
+          go_name: GetDatasetId
+          returns: String
+          error: true
+        - java_method: getFocusedId
+          go_name: GetFocusedId
+          returns: android.view.autofill.AutofillId
+          error: true
+        - java_method: getIgnoredDatasetIds
+          go_name: GetIgnoredDatasetIds
+          returns: java.util.Set<java.lang.String>
+          error: true
+        - java_method: getNoSaveUiReason
+          go_name: GetNoSaveUiReason
+          returns: int
+          error: true
+        - java_method: getSelectedDatasetIds
+          go_name: GetSelectedDatasetIds
+          returns: java.util.Set<java.lang.String>
+          error: true
+        - java_method: getShownDatasetIds
+          go_name: GetShownDatasetIds
+          returns: java.util.Set<java.lang.String>
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: int
+          error: true
+        - java_method: getUiType
+          go_name: GetUiType
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
     - java_class: android.service.autofill.Dataset$Builder
       go_type: DatasetBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
@@ -1236,284 +1495,35 @@ classes:
               go_name: arg5
           returns: android.service.autofill.Dataset$Builder
           error: true
-    - java_class: android.service.autofill.OnClickAction
-      go_type: OnClickAction
-    - java_class: android.service.autofill.SaveInfo
-      go_type: SaveInfo
+    - java_class: android.service.autofill.SaveCallback
+      go_type: SaveCallback
       methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.service.autofill.SaveInfo$Builder
-      go_type: SaveInfoBuilder
-      methods:
-        - java_method: addSanitizer
-          go_name: AddSanitizer
-          params:
-            - java_type: android.service.autofill.Sanitizer
-              go_name: arg0
-            - java_type: android.view.autofill.AutofillId...
-              go_name: arg1
-          returns: android.service.autofill.SaveInfo$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.service.autofill.SaveInfo
-          error: true
-        - java_method: setCustomDescription
-          go_name: SetCustomDescription
-          params:
-            - java_type: android.service.autofill.CustomDescription
-              go_name: arg0
-          returns: android.service.autofill.SaveInfo$Builder
-          error: true
-        - java_method: setDescription
-          go_name: SetDescription
+        - java_method: onFailure
+          go_name: OnFailure
           params:
             - java_type: java.lang.CharSequence
               go_name: arg0
-          returns: android.service.autofill.SaveInfo$Builder
+          returns: void
           error: true
-        - java_method: setFlags
-          go_name: SetFlags
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.service.autofill.SaveInfo$Builder
+        - java_method: onSuccess
+          go_name: OnSuccess0
+          returns: void
           error: true
-        - java_method: setNegativeAction
-          go_name: SetNegativeAction
+        - java_method: onSuccess
+          go_name: OnSuccess1_1
           params:
-            - java_type: int
-              go_name: arg0
             - java_type: android.content.IntentSender
-              go_name: arg1
-          returns: android.service.autofill.SaveInfo$Builder
-          error: true
-        - java_method: setOptionalIds
-          go_name: SetOptionalIds
-          params:
-            - java_type: android.view.autofill.AutofillId[]
               go_name: arg0
-          returns: android.service.autofill.SaveInfo$Builder
-          error: true
-        - java_method: setPositiveAction
-          go_name: SetPositiveAction
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.service.autofill.SaveInfo$Builder
-          error: true
-        - java_method: setTriggerId
-          go_name: SetTriggerId
-          params:
-            - java_type: android.view.autofill.AutofillId
-              go_name: arg0
-          returns: android.service.autofill.SaveInfo$Builder
-          error: true
-        - java_method: setValidator
-          go_name: SetValidator
-          params:
-            - java_type: android.service.autofill.Validator
-              go_name: arg0
-          returns: android.service.autofill.SaveInfo$Builder
-          error: true
-    - java_class: android.service.autofill.ImageTransformation
-      go_type: ImageTransformation
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
           returns: void
           error: true
-    - java_class: android.service.autofill.Validator
-      go_type: Validator
-    - java_class: android.service.autofill.ImageTransformation$Builder
-      go_type: ImageTransformationBuilder
-      methods:
-        - java_method: addOption
-          go_name: AddOption2
-          params:
-            - java_type: java.util.regex.Pattern
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.service.autofill.ImageTransformation$Builder
-          error: true
-        - java_method: addOption
-          go_name: AddOption3_1
-          params:
-            - java_type: java.util.regex.Pattern
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: java.lang.CharSequence
-              go_name: arg2
-          returns: android.service.autofill.ImageTransformation$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.service.autofill.ImageTransformation
-          error: true
-    - java_class: android.service.autofill.FillEventHistory
-      go_type: FillEventHistory
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getClientState
-          go_name: GetClientState
-          returns: android.os.Bundle
-          error: true
-        - java_method: getEvents
-          go_name: GetEvents
-          returns: java.util.List<android.service.autofill.FillEventHistory$Event>
-          error: true
-        - java_method: getSessionId
-          go_name: GetSessionId
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.service.autofill.FillEventHistory$Event
-      go_type: FillEventHistoryEvent
-      methods:
-        - java_method: getClientState
-          go_name: GetClientState
-          returns: android.os.Bundle
-          error: true
-        - java_method: getDatasetId
-          go_name: GetDatasetId
-          returns: String
-          error: true
-        - java_method: getFocusedId
-          go_name: GetFocusedId
-          returns: android.view.autofill.AutofillId
-          error: true
-        - java_method: getIgnoredDatasetIds
-          go_name: GetIgnoredDatasetIds
-          returns: java.util.Set<java.lang.String>
-          error: true
-        - java_method: getNoSaveUiReason
-          go_name: GetNoSaveUiReason
-          returns: int
-          error: true
-        - java_method: getSelectedDatasetIds
-          go_name: GetSelectedDatasetIds
-          returns: java.util.Set<java.lang.String>
-          error: true
-        - java_method: getShownDatasetIds
-          go_name: GetShownDatasetIds
-          returns: java.util.Set<java.lang.String>
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: int
-          error: true
-        - java_method: getUiType
-          go_name: GetUiType
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-abstract_callbacks:
+abstract_callback_eligibility:
     - java_class: android.service.autofill.AutofillService
-      go_type: ServiceCallback
-      methods:
-        - java_method: getFillEventHistory
-          params: []
-          returns: android.service.autofill.FillEventHistory
-          go_field: GetFillEventHistory
-        - java_method: onBind
-          params:
-            - android.content.Intent
-          returns: android.os.IBinder
-          go_field: OnBind
-        - java_method: onConnected
-          params: []
-          returns: void
-          go_field: OnConnected
-        - java_method: onCreate
-          params: []
-          returns: void
-          go_field: OnCreate
-        - java_method: onDisconnected
-          params: []
-          returns: void
-          go_field: OnDisconnected
-        - java_method: onFillRequest
-          params:
-            - android.service.autofill.FillRequest
-            - android.os.CancellationSignal
-            - android.service.autofill.FillCallback
-          returns: void
-          go_field: OnFillRequest
-        - java_method: onSaveRequest
-          params:
-            - android.service.autofill.SaveRequest
-            - android.service.autofill.SaveCallback
-          returns: void
-          go_field: OnSaveRequest
-        - java_method: onSavedDatasetsInfoRequest
-          params:
-            - android.service.autofill.SavedDatasetsInfoCallback
-          returns: void
-          go_field: OnSavedDatasetsInfoRequest
-        - java_method: onSessionDestroyed
-          params:
-            - android.service.autofill.FillEventHistory
-          returns: void
-          go_field: OnSessionDestroyed
+      generated: false
+      reason: non_object_superclass
 constants:
     - go_name: Creator
       value: "0"
       go_type: int
-    - go_name: TypeOther
-      value: '"other"'
-      go_type: string
-    - go_name: TypePasswords
-      value: '"passwords"'
-      go_type: string
     - go_name: FlagDelayFill
       value: "4"
       go_type: int
@@ -1531,15 +1541,6 @@ constants:
       go_type: int
     - go_name: FlagSupportsFillDialog
       value: "64"
-      go_type: int
-    - go_name: ErrorNeedsUserAction
-      value: "2"
-      go_type: int
-    - go_name: ErrorOther
-      value: "0"
-      go_type: int
-    - go_name: ErrorUnsupported
-      value: "1"
       go_type: int
     - go_name: ExtraFillResponse
       value: '"android.service.autofill.extra.FILL_RESPONSE"'
@@ -1601,6 +1602,21 @@ constants:
     - go_name: SaveDataTypeUsername
       value: "8"
       go_type: int
+    - go_name: ErrorNeedsUserAction
+      value: "2"
+      go_type: int
+    - go_name: ErrorOther
+      value: "0"
+      go_type: int
+    - go_name: ErrorUnsupported
+      value: "1"
+      go_type: int
+    - go_name: TypeOther
+      value: '"other"'
+      go_type: string
+    - go_name: TypePasswords
+      value: '"passwords"'
+      go_type: string
     - go_name: NoSaveUiReasonDatasetMatch
       value: "6"
       go_type: int

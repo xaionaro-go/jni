@@ -32,6 +32,12 @@ func NewMatrix(vm *jni.VM) (*Matrix, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMatrix == nil {
+			return fmt.Errorf("android.opengl.Matrix is not available on this device")
+		}
+		if midMatrixCtor == nil {
+			return fmt.Errorf("android.opengl.Matrix constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMatrix)), midMatrixCtor)
 		if err != nil {
 			return err

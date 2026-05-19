@@ -23,6 +23,34 @@ type SurfaceTextureOutOfResourcesException struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSurfaceTextureOutOfResourcesException creates a new android.graphics.SurfaceTexture$OutOfResourcesException instance.
+func NewSurfaceTextureOutOfResourcesException(vm *jni.VM) (*SurfaceTextureOutOfResourcesException, error) {
+	var t SurfaceTextureOutOfResourcesException
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSurfaceTextureOutOfResourcesException == nil {
+			return fmt.Errorf("android.graphics.SurfaceTexture$OutOfResourcesException is not available on this device")
+		}
+		if midSurfaceTextureOutOfResourcesExceptionCtor == nil {
+			return fmt.Errorf("android.graphics.SurfaceTexture$OutOfResourcesException constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSurfaceTextureOutOfResourcesException)), midSurfaceTextureOutOfResourcesExceptionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.graphics.SurfaceTexture$OutOfResourcesException.toString.
 func (m *SurfaceTextureOutOfResourcesException) ToString() (string, error) {
 	var result string

@@ -32,6 +32,12 @@ func NewCheckableImageButton(vm *jni.VM, arg0 *jni.Object) (*CheckableImageButto
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCheckableImageButton == nil {
+			return fmt.Errorf("com.google.android.material.internal.CheckableImageButton is not available on this device")
+		}
+		if midCheckableImageButtonCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.CheckableImageButton constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCheckableImageButton)), midCheckableImageButtonCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -263,33 +269,6 @@ func (m *CheckableImageButton) SetPressable(arg0 bool) error {
 	return callErr
 }
 
-// IsPressable calls com.google.android.material.internal.CheckableImageButton.isPressable.
-func (m *CheckableImageButton) IsPressable() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCheckableImageButtonIsPressable == nil {
-			callErr = fmt.Errorf("com.google.android.material.internal.CheckableImageButton.isPressable is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midCheckableImageButtonIsPressable,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.internal.CheckableImageButton.toString.
 func (m *CheckableImageButton) ToString() (string, error) {
 	var result string
@@ -312,6 +291,33 @@ func (m *CheckableImageButton) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// IsPressable calls com.google.android.material.internal.CheckableImageButton.isPressable.
+func (m *CheckableImageButton) IsPressable() (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCheckableImageButtonIsPressable == nil {
+			callErr = fmt.Errorf("com.google.android.material.internal.CheckableImageButton.isPressable is not available on this device")
+			return callErr
+		}
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsCheckableImageButton)),
+			midCheckableImageButtonIsPressable,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

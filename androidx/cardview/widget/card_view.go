@@ -32,6 +32,12 @@ func NewCardView(vm *jni.VM, arg0 *jni.Object) (*CardView, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCardView == nil {
+			return fmt.Errorf("androidx.cardview.widget.CardView is not available on this device")
+		}
+		if midCardViewCtor == nil {
+			return fmt.Errorf("androidx.cardview.widget.CardView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCardView)), midCardViewCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -577,33 +583,6 @@ func (m *CardView) GetPreventCornerOverlap() (bool, error) {
 		return callErr
 	})
 	return result, callErr
-}
-
-// SetPreventCornerOverlap calls androidx.cardview.widget.CardView.setPreventCornerOverlap.
-func (m *CardView) SetPreventCornerOverlap(arg0 bool) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCardViewSetPreventCornerOverlap == nil {
-			callErr = fmt.Errorf("androidx.cardview.widget.CardView.setPreventCornerOverlap is not available on this device")
-			return callErr
-		}
-		var jArg0 uint8
-		if arg0 {
-			jArg0 = jniTrue
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midCardViewSetPreventCornerOverlap, jni.BooleanValue(jArg0),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // ToString calls androidx.cardview.widget.CardView.toString.

@@ -23,6 +23,34 @@ type SchemaVisibilityConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSchemaVisibilityConfigBuilder creates a new android.app.appsearch.SchemaVisibilityConfig$Builder instance.
+func NewSchemaVisibilityConfigBuilder(vm *jni.VM) (*SchemaVisibilityConfigBuilder, error) {
+	var t SchemaVisibilityConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSchemaVisibilityConfigBuilder == nil {
+			return fmt.Errorf("android.app.appsearch.SchemaVisibilityConfig$Builder is not available on this device")
+		}
+		if midSchemaVisibilityConfigBuilderCtor == nil {
+			return fmt.Errorf("android.app.appsearch.SchemaVisibilityConfig$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSchemaVisibilityConfigBuilder)), midSchemaVisibilityConfigBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddAllowedPackage calls android.app.appsearch.SchemaVisibilityConfig$Builder.addAllowedPackage.
 func (m *SchemaVisibilityConfigBuilder) AddAllowedPackage(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

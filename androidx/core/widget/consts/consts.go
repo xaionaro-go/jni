@@ -7,15 +7,15 @@ const (
 )
 
 const (
-	AutoSizeTextTypeNone    int = 0
-	AutoSizeTextTypeUniform int = 1
-	EdgeTypeInside          int = 0
-	EdgeTypeInsideExtend    int = 1
-	EdgeTypeOutside         int = 2
-)
-
-const (
 	RelativeUnspecified float32 = 0.0
 	NoMax               float32 = 3.4028235e38
 	NoMin               float32 = 0.0
+)
+
+const (
+	EdgeTypeInside          int = 0
+	EdgeTypeInsideExtend    int = 1
+	EdgeTypeOutside         int = 2
+	AutoSizeTextTypeNone    int = 0
+	AutoSizeTextTypeUniform int = 1
 )

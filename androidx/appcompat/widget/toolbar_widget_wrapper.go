@@ -32,6 +32,12 @@ func NewToolbarWidgetWrapper(vm *jni.VM, arg0 *jni.Object, arg1 bool) (*ToolbarW
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsToolbarWidgetWrapper == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ToolbarWidgetWrapper is not available on this device")
+		}
+		if midToolbarWidgetWrapperCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ToolbarWidgetWrapper constructor (Landroidx/appcompat/widget/Toolbar;Z)V is not available on this device")
+		}
 
 		var jArg1 uint8
 		if arg1 {

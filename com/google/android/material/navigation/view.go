@@ -32,6 +32,12 @@ func NewView(vm *jni.VM, arg0 *jni.Object) (*View, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsView == nil {
+			return fmt.Errorf("com.google.android.material.navigation.NavigationView is not available on this device")
+		}
+		if midViewCtor == nil {
+			return fmt.Errorf("com.google.android.material.navigation.NavigationView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsView)), midViewCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -1296,28 +1302,6 @@ func (m *View) HandleBackInvoked() error {
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midViewHandleBackInvoked,
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// CancelBackProgress calls com.google.android.material.navigation.NavigationView.cancelBackProgress.
-func (m *View) CancelBackProgress() error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midViewCancelBackProgress == nil {
-			callErr = fmt.Errorf("com.google.android.material.navigation.NavigationView.cancelBackProgress is not available on this device")
-			return callErr
-		}
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midViewCancelBackProgress,
 		)
 		return callErr
 	})

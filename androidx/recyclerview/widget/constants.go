@@ -5,33 +5,10 @@ package widget
 import "github.com/AndroidGoLab/jni/androidx/recyclerview/widget/consts"
 
 const (
-	DefaultSpanCount                 = consts.DefaultSpanCount
-	InvalidSpanId                    = consts.InvalidSpanId
 	Horizontal                       = consts.Horizontal
 	Vertical                         = consts.Vertical
-	NoPosition                       = consts.NoPosition
-	InvalidType                      = consts.InvalidType
-	TouchSlopDefault                 = consts.TouchSlopDefault
-	TouchSlopPaging                  = consts.TouchSlopPaging
-	UndefinedDuration                = consts.UndefinedDuration
-	ScrollStateIdle                  = consts.ScrollStateIdle
-	ScrollStateDragging              = consts.ScrollStateDragging
-	ScrollStateSettling              = consts.ScrollStateSettling
-	DirectionLeft                    = consts.DirectionLeft
-	DirectionTop                     = consts.DirectionTop
-	DirectionRight                   = consts.DirectionRight
-	DirectionBottom                  = consts.DirectionBottom
-	FlagChanged                      = consts.FlagChanged
-	FlagRemoved                      = consts.FlagRemoved
-	FlagInvalidated                  = consts.FlagInvalidated
-	FlagMoved                        = consts.FlagMoved
-	FlagAppearedInPreLayout          = consts.FlagAppearedInPreLayout
-	Creator                          = consts.Creator
-	HintScrollNone                   = consts.HintScrollNone
-	HintScrollDesc                   = consts.HintScrollDesc
-	HintScrollAsc                    = consts.HintScrollAsc
-	Default                          = consts.Default
 	InvalidOffset                    = consts.InvalidOffset
+	Creator                          = consts.Creator
 	Up                               = consts.Up
 	Down                             = consts.Down
 	Left                             = consts.Left
@@ -46,13 +23,36 @@ const (
 	AnimationTypeDrag                = consts.AnimationTypeDrag
 	DefaultDragAnimationDuration     = consts.DefaultDragAnimationDuration
 	DefaultSwipeAnimationDuration    = consts.DefaultSwipeAnimationDuration
-	InvalidPosition                  = consts.InvalidPosition
 	GapHandlingNone                  = consts.GapHandlingNone
 	GapHandlingLazy                  = consts.GapHandlingLazy
 	GapHandlingMoveItemsBetweenSpans = consts.GapHandlingMoveItemsBetweenSpans
+	InvalidSpanId                    = consts.InvalidSpanId
+	HintScrollNone                   = consts.HintScrollNone
+	HintScrollDesc                   = consts.HintScrollDesc
+	HintScrollAsc                    = consts.HintScrollAsc
+	NoPosition                       = consts.NoPosition
+	InvalidType                      = consts.InvalidType
+	TouchSlopDefault                 = consts.TouchSlopDefault
+	TouchSlopPaging                  = consts.TouchSlopPaging
+	UndefinedDuration                = consts.UndefinedDuration
+	ScrollStateIdle                  = consts.ScrollStateIdle
+	ScrollStateDragging              = consts.ScrollStateDragging
+	ScrollStateSettling              = consts.ScrollStateSettling
+	Default                          = consts.Default
+	DirectionLeft                    = consts.DirectionLeft
+	DirectionTop                     = consts.DirectionTop
+	DirectionRight                   = consts.DirectionRight
+	DirectionBottom                  = consts.DirectionBottom
+	FlagChanged                      = consts.FlagChanged
+	FlagRemoved                      = consts.FlagRemoved
+	FlagInvalidated                  = consts.FlagInvalidated
+	FlagMoved                        = consts.FlagMoved
+	FlagAppearedInPreLayout          = consts.FlagAppearedInPreLayout
+	InvalidPosition                  = consts.InvalidPosition
 	SnapToStart                      = consts.SnapToStart
 	SnapToEnd                        = consts.SnapToEnd
 	SnapToAny                        = consts.SnapToAny
+	DefaultSpanCount                 = consts.DefaultSpanCount
 )
 
 const (

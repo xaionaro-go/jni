@@ -23,6 +23,34 @@ type NetworkEventBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNetworkEventBuilder creates a new android.media.metrics.NetworkEvent$Builder instance.
+func NewNetworkEventBuilder(vm *jni.VM) (*NetworkEventBuilder, error) {
+	var t NetworkEventBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNetworkEventBuilder == nil {
+			return fmt.Errorf("android.media.metrics.NetworkEvent$Builder is not available on this device")
+		}
+		if midNetworkEventBuilderCtor == nil {
+			return fmt.Errorf("android.media.metrics.NetworkEvent$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNetworkEventBuilder)), midNetworkEventBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.media.metrics.NetworkEvent$Builder.build.
 func (m *NetworkEventBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

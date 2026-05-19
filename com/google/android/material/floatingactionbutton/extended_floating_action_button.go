@@ -32,6 +32,12 @@ func NewExtendedFloatingActionButton(vm *jni.VM, arg0 *jni.Object) (*ExtendedFlo
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsExtendedFloatingActionButton == nil {
+			return fmt.Errorf("com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton is not available on this device")
+		}
+		if midExtendedFloatingActionButtonCtor == nil {
+			return fmt.Errorf("com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExtendedFloatingActionButton)), midExtendedFloatingActionButtonCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -908,29 +914,6 @@ func (m *ExtendedFloatingActionButton) SetShrinkMotionSpec(arg0 *jni.Object) err
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midExtendedFloatingActionButtonSetShrinkMotionSpec, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// SetShrinkMotionSpecResource calls com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton.setShrinkMotionSpecResource.
-func (m *ExtendedFloatingActionButton) SetShrinkMotionSpecResource(arg0 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midExtendedFloatingActionButtonSetShrinkMotionSpecResource == nil {
-			callErr = fmt.Errorf("com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton.setShrinkMotionSpecResource is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midExtendedFloatingActionButtonSetShrinkMotionSpecResource, jni.IntValue(arg0),
 		)
 		return callErr
 	})

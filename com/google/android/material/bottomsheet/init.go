@@ -23,71 +23,58 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsBottomSheetDragHandleView                            *jni.GlobalRef
-	midBottomSheetDragHandleViewCtor                        jni.MethodID
-	midBottomSheetDragHandleViewOnAccessibilityStateChanged jni.MethodID
-	midBottomSheetDragHandleViewToString                    jni.MethodID
-
-	clsBottomSheetDialogFragment                         *jni.GlobalRef
-	midBottomSheetDialogFragmentCtor                     jni.MethodID
-	midBottomSheetDialogFragmentOnCreateDialog           jni.MethodID
-	midBottomSheetDialogFragmentDismiss                  jni.MethodID
-	midBottomSheetDialogFragmentDismissAllowingStateLoss jni.MethodID
-	midBottomSheetDialogFragmentToString                 jni.MethodID
-
-	clsBottomSheetBehavior                                             *jni.GlobalRef
-	midBottomSheetBehaviorCtor                                         jni.MethodID
-	midBottomSheetBehaviorOnAttachedToLayoutParams                     jni.MethodID
-	midBottomSheetBehaviorOnDetachedFromLayoutParams                   jni.MethodID
-	midBottomSheetBehaviorIsFitToContents                              jni.MethodID
-	midBottomSheetBehaviorSetFitToContents                             jni.MethodID
-	midBottomSheetBehaviorSetMaxWidth                                  jni.MethodID
-	midBottomSheetBehaviorGetMaxWidth                                  jni.MethodID
-	midBottomSheetBehaviorSetMaxHeight                                 jni.MethodID
-	midBottomSheetBehaviorGetMaxHeight                                 jni.MethodID
-	midBottomSheetBehaviorSetPeekHeight1                               jni.MethodID
-	midBottomSheetBehaviorSetPeekHeight2_1                             jni.MethodID
-	midBottomSheetBehaviorGetPeekHeight                                jni.MethodID
-	midBottomSheetBehaviorSetHalfExpandedRatio                         jni.MethodID
-	midBottomSheetBehaviorGetHalfExpandedRatio                         jni.MethodID
-	midBottomSheetBehaviorSetExpandedOffset                            jni.MethodID
-	midBottomSheetBehaviorGetExpandedOffset                            jni.MethodID
-	midBottomSheetBehaviorCalculateSlideOffset                         jni.MethodID
-	midBottomSheetBehaviorSetHideable                                  jni.MethodID
-	midBottomSheetBehaviorIsHideable                                   jni.MethodID
-	midBottomSheetBehaviorSetSkipCollapsed                             jni.MethodID
-	midBottomSheetBehaviorGetSkipCollapsed                             jni.MethodID
-	midBottomSheetBehaviorSetDraggable                                 jni.MethodID
-	midBottomSheetBehaviorIsDraggable                                  jni.MethodID
-	midBottomSheetBehaviorSetSignificantVelocityThreshold              jni.MethodID
-	midBottomSheetBehaviorGetSignificantVelocityThreshold              jni.MethodID
-	midBottomSheetBehaviorSetSaveFlags                                 jni.MethodID
-	midBottomSheetBehaviorGetSaveFlags                                 jni.MethodID
-	midBottomSheetBehaviorSetHideFriction                              jni.MethodID
-	midBottomSheetBehaviorGetHideFriction                              jni.MethodID
-	midBottomSheetBehaviorSetBottomSheetCallback                       jni.MethodID
-	midBottomSheetBehaviorAddBottomSheetCallback                       jni.MethodID
-	midBottomSheetBehaviorRemoveBottomSheetCallback                    jni.MethodID
-	midBottomSheetBehaviorSetState                                     jni.MethodID
-	midBottomSheetBehaviorSetGestureInsetBottomIgnored                 jni.MethodID
-	midBottomSheetBehaviorIsGestureInsetBottomIgnored                  jni.MethodID
-	midBottomSheetBehaviorSetShouldRemoveExpandedCorners               jni.MethodID
-	midBottomSheetBehaviorIsShouldRemoveExpandedCorners                jni.MethodID
-	midBottomSheetBehaviorGetState                                     jni.MethodID
-	midBottomSheetBehaviorStartBackProgress                            jni.MethodID
-	midBottomSheetBehaviorUpdateBackProgress                           jni.MethodID
-	midBottomSheetBehaviorHandleBackInvoked                            jni.MethodID
-	midBottomSheetBehaviorCancelBackProgress                           jni.MethodID
-	midBottomSheetBehaviorDisableShapeAnimations                       jni.MethodID
-	midBottomSheetBehaviorIsNestedScrollingCheckEnabled                jni.MethodID
-	midBottomSheetBehaviorShouldSkipHalfExpandedStateWhenDragging      jni.MethodID
-	midBottomSheetBehaviorShouldSkipSmoothAnimation                    jni.MethodID
-	midBottomSheetBehaviorIsHideableWhenDragging                       jni.MethodID
-	midBottomSheetBehaviorShouldExpandOnUpwardDrag                     jni.MethodID
-	midBottomSheetBehaviorSetHideableInternal                          jni.MethodID
-	midBottomSheetBehaviorGetLastStableState                           jni.MethodID
-	midBottomSheetBehaviorSetUpdateImportantForAccessibilityOnSiblings jni.MethodID
-	midBottomSheetBehaviorToString                                     jni.MethodID
+	clsBottomSheetBehavior                                        *jni.GlobalRef
+	midBottomSheetBehaviorCtor                                    jni.MethodID
+	midBottomSheetBehaviorOnAttachedToLayoutParams                jni.MethodID
+	midBottomSheetBehaviorOnDetachedFromLayoutParams              jni.MethodID
+	midBottomSheetBehaviorIsFitToContents                         jni.MethodID
+	midBottomSheetBehaviorSetFitToContents                        jni.MethodID
+	midBottomSheetBehaviorSetMaxWidth                             jni.MethodID
+	midBottomSheetBehaviorGetMaxWidth                             jni.MethodID
+	midBottomSheetBehaviorSetMaxHeight                            jni.MethodID
+	midBottomSheetBehaviorGetMaxHeight                            jni.MethodID
+	midBottomSheetBehaviorSetPeekHeight1                          jni.MethodID
+	midBottomSheetBehaviorSetPeekHeight2_1                        jni.MethodID
+	midBottomSheetBehaviorGetPeekHeight                           jni.MethodID
+	midBottomSheetBehaviorSetHalfExpandedRatio                    jni.MethodID
+	midBottomSheetBehaviorGetHalfExpandedRatio                    jni.MethodID
+	midBottomSheetBehaviorSetExpandedOffset                       jni.MethodID
+	midBottomSheetBehaviorGetExpandedOffset                       jni.MethodID
+	midBottomSheetBehaviorCalculateSlideOffset                    jni.MethodID
+	midBottomSheetBehaviorSetHideable                             jni.MethodID
+	midBottomSheetBehaviorIsHideable                              jni.MethodID
+	midBottomSheetBehaviorSetSkipCollapsed                        jni.MethodID
+	midBottomSheetBehaviorGetSkipCollapsed                        jni.MethodID
+	midBottomSheetBehaviorSetDraggable                            jni.MethodID
+	midBottomSheetBehaviorIsDraggable                             jni.MethodID
+	midBottomSheetBehaviorSetSignificantVelocityThreshold         jni.MethodID
+	midBottomSheetBehaviorGetSignificantVelocityThreshold         jni.MethodID
+	midBottomSheetBehaviorSetSaveFlags                            jni.MethodID
+	midBottomSheetBehaviorGetSaveFlags                            jni.MethodID
+	midBottomSheetBehaviorSetHideFriction                         jni.MethodID
+	midBottomSheetBehaviorGetHideFriction                         jni.MethodID
+	midBottomSheetBehaviorSetBottomSheetCallback                  jni.MethodID
+	midBottomSheetBehaviorAddBottomSheetCallback                  jni.MethodID
+	midBottomSheetBehaviorRemoveBottomSheetCallback               jni.MethodID
+	midBottomSheetBehaviorSetState                                jni.MethodID
+	midBottomSheetBehaviorSetGestureInsetBottomIgnored            jni.MethodID
+	midBottomSheetBehaviorIsGestureInsetBottomIgnored             jni.MethodID
+	midBottomSheetBehaviorSetShouldRemoveExpandedCorners          jni.MethodID
+	midBottomSheetBehaviorIsShouldRemoveExpandedCorners           jni.MethodID
+	midBottomSheetBehaviorGetState                                jni.MethodID
+	midBottomSheetBehaviorStartBackProgress                       jni.MethodID
+	midBottomSheetBehaviorUpdateBackProgress                      jni.MethodID
+	midBottomSheetBehaviorHandleBackInvoked                       jni.MethodID
+	midBottomSheetBehaviorCancelBackProgress                      jni.MethodID
+	midBottomSheetBehaviorDisableShapeAnimations                  jni.MethodID
+	midBottomSheetBehaviorIsNestedScrollingCheckEnabled           jni.MethodID
+	midBottomSheetBehaviorShouldSkipHalfExpandedStateWhenDragging jni.MethodID
+	midBottomSheetBehaviorShouldSkipSmoothAnimation               jni.MethodID
+	midBottomSheetBehaviorIsHideableWhenDragging                  jni.MethodID
+	midBottomSheetBehaviorShouldExpandOnUpwardDrag                jni.MethodID
+	midBottomSheetBehaviorSetHideableInternal                     jni.MethodID
+	midBottomSheetBehaviorToString                                jni.MethodID
+	midBottomSheetBehaviorGetLastStableState                      jni.MethodID
 
 	clsBottomSheetBehaviorBottomSheetCallback               *jni.GlobalRef
 	midBottomSheetBehaviorBottomSheetCallbackOnStateChanged jni.MethodID
@@ -98,14 +85,19 @@ var (
 	midBottomSheetBehaviorSaveFlagsToString jni.MethodID
 
 	clsBottomSheetBehaviorSavedState              *jni.GlobalRef
-	midBottomSheetBehaviorSavedStateWriteToParcel jni.MethodID
+	midBottomSheetBehaviorSavedStateCtor          jni.MethodID
 	midBottomSheetBehaviorSavedStateToString      jni.MethodID
+	midBottomSheetBehaviorSavedStateWriteToParcel jni.MethodID
 
 	clsBottomSheetBehaviorStableState         *jni.GlobalRef
 	midBottomSheetBehaviorStableStateToString jni.MethodID
 
 	clsBottomSheetBehaviorState         *jni.GlobalRef
 	midBottomSheetBehaviorStateToString jni.MethodID
+
+	clsBottomSheetDragHandleView         *jni.GlobalRef
+	midBottomSheetDragHandleViewCtor     jni.MethodID
+	midBottomSheetDragHandleViewToString jni.MethodID
 
 	clsBottomSheetDialog                          *jni.GlobalRef
 	midBottomSheetDialogCtor                      jni.MethodID
@@ -122,7 +114,12 @@ var (
 	midBottomSheetDialogGetDismissWithAnimation   jni.MethodID
 	midBottomSheetDialogGetEdgeToEdgeEnabled      jni.MethodID
 	midBottomSheetDialogToString                  jni.MethodID
-	midBottomSheetDialogSetLightStatusBar         jni.MethodID
+
+	clsBottomSheetDialogFragment               *jni.GlobalRef
+	midBottomSheetDialogFragmentCtor           jni.MethodID
+	midBottomSheetDialogFragmentOnCreateDialog jni.MethodID
+	midBottomSheetDialogFragmentDismiss        jni.MethodID
+	midBottomSheetDialogFragmentToString       jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -142,76 +139,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("com/google/android/material/bottomsheet/BottomSheetDragHandleView")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBottomSheetDragHandleView = env.NewGlobalRef(&c.Object)
-		midBottomSheetDragHandleViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetDragHandleView)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midBottomSheetDragHandleViewOnAccessibilityStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetDragHandleView)), "onAccessibilityStateChanged", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBottomSheetDragHandleViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetDragHandleView)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/bottomsheet/BottomSheetDialogFragment")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBottomSheetDialogFragment = env.NewGlobalRef(&c.Object)
-		midBottomSheetDialogFragmentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetDialogFragment)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midBottomSheetDialogFragmentOnCreateDialog, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetDialogFragment)), "onCreateDialog", "(Landroid/os/Bundle;)Landroid/app/Dialog;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBottomSheetDialogFragmentDismiss, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetDialogFragment)), "dismiss", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBottomSheetDialogFragmentDismissAllowingStateLoss, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetDialogFragment)), "dismissAllowingStateLoss", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBottomSheetDialogFragmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetDialogFragment)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("com/google/android/material/bottomsheet/BottomSheetBehavior")
 	if err != nil {
@@ -561,21 +488,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midBottomSheetBehaviorGetLastStableState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetBehavior)), "getLastStableState", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBottomSheetBehaviorSetUpdateImportantForAccessibilityOnSiblings, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetBehavior)), "setUpdateImportantForAccessibilityOnSiblings", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midBottomSheetBehaviorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetBehavior)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBottomSheetBehaviorGetLastStableState, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetBehavior)), "getLastStableState", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -639,15 +559,19 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsBottomSheetBehaviorSavedState = env.NewGlobalRef(&c.Object)
+		midBottomSheetBehaviorSavedStateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetBehaviorSavedState)), "<init>", "(Landroid/os/Parcel;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midBottomSheetBehaviorSavedStateWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetBehaviorSavedState)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midBottomSheetBehaviorSavedStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetBehaviorSavedState)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midBottomSheetBehaviorSavedStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetBehaviorSavedState)), "toString", "()Ljava/lang/String;")
+		midBottomSheetBehaviorSavedStateWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetBehaviorSavedState)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -682,6 +606,27 @@ func doInit(env *jni.Env) error {
 		clsBottomSheetBehaviorState = env.NewGlobalRef(&c.Object)
 
 		midBottomSheetBehaviorStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetBehaviorState)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/bottomsheet/BottomSheetDragHandleView")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBottomSheetDragHandleView = env.NewGlobalRef(&c.Object)
+		midBottomSheetDragHandleViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetDragHandleView)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midBottomSheetDragHandleViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetDragHandleView)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -793,7 +738,35 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midBottomSheetDialogSetLightStatusBar, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetDialog)), "setLightStatusBar", "(Landroid/view/View;Z)V")
+	}
+
+	c, err = env.FindClass("com/google/android/material/bottomsheet/BottomSheetDialogFragment")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBottomSheetDialogFragment = env.NewGlobalRef(&c.Object)
+		midBottomSheetDialogFragmentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetDialogFragment)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midBottomSheetDialogFragmentOnCreateDialog, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetDialogFragment)), "onCreateDialog", "(Landroid/os/Bundle;)Landroid/app/Dialog;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBottomSheetDialogFragmentDismiss, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetDialogFragment)), "dismiss", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBottomSheetDialogFragmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomSheetDialogFragment)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

@@ -3,28 +3,10 @@
 package consts
 
 const (
-	WifiModeCellularPreferred              int = 1
-	WifiModeWifiOnly                       int = 0
-	WifiModeWifiPreferred                  int = 2
-	CapabilityTypeNone                     int = 0
-	CapabilityTypeOptionsUce               int = 1
-	CapabilityTypePresenceUce              int = 2
-	Creator                                int = 0
-	MethodPublish                          int = 2
-	MethodRegister                         int = 1
-	MethodSubscribe                        int = 3
-	MethodUnknown                          int = 0
-	ReasonImsServiceDisconnected           int = 3
-	ReasonImsServiceNotReady               int = 6
-	ReasonNoImsServiceConfigured           int = 4
-	ReasonSubscriptionInactive             int = 5
-	ReasonUnknownPermanentError            int = 2
-	ReasonUnknownTemporaryError            int = 1
 	CodeErrorInvalidSubscription           int = 3
 	CodeErrorServiceUnavailable            int = 1
 	CodeErrorUnspecified                   int = 0
 	CodeErrorUnsupportedOperation          int = 2
-	AttrEpdgOverCellInternet               int = 1
 	CodeAccessClassBlocked                 int = 1512
 	CodeAnsweredElsewhere                  int = 1014
 	CodeBlacklistedCallId                  int = 506
@@ -196,18 +178,36 @@ const (
 	CodeUtSsModifiedToSs                   int = 824
 	CodeUtSsModifiedToUssd                 int = 823
 	CodeWifiLost                           int = 1407
+	Creator                                int = 0
 	ExtraCodeCallRetryBySettings           int = 3
 	ExtraCodeCallRetryEmergency            int = 4
 	ExtraCodeCallRetryNormal               int = 1
 	ExtraCodeCallRetrySilentRedial         int = 2
+	ReasonImsServiceDisconnected           int = 3
+	ReasonImsServiceNotReady               int = 6
+	ReasonNoImsServiceConfigured           int = 4
+	ReasonSubscriptionInactive             int = 5
+	ReasonUnknownPermanentError            int = 2
+	ReasonUnknownTemporaryError            int = 1
+	MethodPublish                          int = 2
+	MethodRegister                         int = 1
+	MethodSubscribe                        int = 3
+	MethodUnknown                          int = 0
 	RegistrationStateNotRegistered         int = 0
 	RegistrationStateRegistered            int = 2
 	RegistrationStateRegistering           int = 1
+	WifiModeCellularPreferred              int = 1
+	WifiModeWifiOnly                       int = 0
+	WifiModeWifiPreferred                  int = 2
+	AttrEpdgOverCellInternet               int = 1
+	CapabilityTypeNone                     int = 0
+	CapabilityTypeOptionsUce               int = 1
+	CapabilityTypePresenceUce              int = 2
 )
 
 const (
-	ActionShowCapabilityDiscoveryOptIn string = "android.telephony.ims.action.SHOW_CAPABILITY_DISCOVERY_OPT_IN"
 	ActionWfcImsRegistrationError      string = "android.telephony.ims.action.WFC_IMS_REGISTRATION_ERROR"
 	ExtraWfcRegistrationFailureMessage string = "android.telephony.ims.extra.WFC_REGISTRATION_FAILURE_MESSAGE"
 	ExtraWfcRegistrationFailureTitle   string = "android.telephony.ims.extra.WFC_REGISTRATION_FAILURE_TITLE"
+	ActionShowCapabilityDiscoveryOptIn string = "android.telephony.ims.action.SHOW_CAPABILITY_DISCOVERY_OPT_IN"
 )

@@ -23,6 +23,41 @@ type MeshSpecificationVarying struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMeshSpecificationVarying creates a new android.graphics.MeshSpecification$Varying instance.
+func NewMeshSpecificationVarying(vm *jni.VM, arg0 int32, arg1 string) (*MeshSpecificationVarying, error) {
+	var t MeshSpecificationVarying
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMeshSpecificationVarying == nil {
+			return fmt.Errorf("android.graphics.MeshSpecification$Varying is not available on this device")
+		}
+		if midMeshSpecificationVaryingCtor == nil {
+			return fmt.Errorf("android.graphics.MeshSpecification$Varying constructor (ILjava/lang/String;)V is not available on this device")
+		}
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMeshSpecificationVarying)), midMeshSpecificationVaryingCtor, jni.IntValue(arg0), jni.ObjectValue(&jArg1.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetName calls android.graphics.MeshSpecification$Varying.getName.
 func (m *MeshSpecificationVarying) GetName() (string, error) {
 	var result string

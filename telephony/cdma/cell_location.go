@@ -32,6 +32,12 @@ func NewCellLocation(vm *jni.VM) (*CellLocation, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCellLocation == nil {
+			return fmt.Errorf("android.telephony.cdma.CdmaCellLocation is not available on this device")
+		}
+		if midCellLocationCtor == nil {
+			return fmt.Errorf("android.telephony.cdma.CdmaCellLocation constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCellLocation)), midCellLocationCtor)
 		if err != nil {
 			return err

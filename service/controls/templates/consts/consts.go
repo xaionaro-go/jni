@@ -3,15 +3,6 @@
 package consts
 
 const (
-	TypeError        int = -1
-	TypeNoTemplate   int = 0
-	TypeRange        int = 2
-	TypeStateless    int = 8
-	TypeTemperature  int = 7
-	TypeThumbnail    int = 3
-	TypeToggle       int = 1
-	TypeToggleRange  int = 6
-	Creator          int = 0
 	FlagModeCool     int = 8
 	FlagModeEco      int = 32
 	FlagModeHeat     int = 4
@@ -23,4 +14,13 @@ const (
 	ModeHeatCool     int = 4
 	ModeOff          int = 1
 	ModeUnknown      int = 0
+	TypeError        int = -1
+	TypeNoTemplate   int = 0
+	TypeRange        int = 2
+	TypeStateless    int = 8
+	TypeTemperature  int = 7
+	TypeThumbnail    int = 3
+	TypeToggle       int = 1
+	TypeToggleRange  int = 6
+	Creator          int = 0
 )

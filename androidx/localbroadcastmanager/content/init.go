@@ -27,9 +27,9 @@ var (
 	midLocalBroadcastManagerRegisterReceiver   jni.MethodID
 	midLocalBroadcastManagerUnregisterReceiver jni.MethodID
 	midLocalBroadcastManagerSendBroadcast      jni.MethodID
-	midLocalBroadcastManagerSendBroadcastSync  jni.MethodID
 	midLocalBroadcastManagerToString           jni.MethodID
 	midLocalBroadcastManagerGetInstance        jni.MethodID
+	midLocalBroadcastManagerSendBroadcastSync  jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -79,13 +79,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midLocalBroadcastManagerSendBroadcastSync, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalBroadcastManager)), "sendBroadcastSync", "(Landroid/content/Intent;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midLocalBroadcastManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalBroadcastManager)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -94,6 +87,13 @@ func doInit(env *jni.Env) error {
 		}
 
 		midLocalBroadcastManagerGetInstance, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocalBroadcastManager)), "getInstance", "(Landroid/content/Context;)Landroidx/localbroadcastmanager/content/LocalBroadcastManager;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocalBroadcastManagerSendBroadcastSync, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocalBroadcastManager)), "sendBroadcastSync", "(Landroid/content/Intent;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

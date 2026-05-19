@@ -32,6 +32,12 @@ func NewRemoveBlobResponse(vm *jni.VM, arg0 *jni.Object) (*RemoveBlobResponse, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRemoveBlobResponse == nil {
+			return fmt.Errorf("android.app.appsearch.RemoveBlobResponse is not available on this device")
+		}
+		if midRemoveBlobResponseCtor == nil {
+			return fmt.Errorf("android.app.appsearch.RemoveBlobResponse constructor (Landroid/app/appsearch/AppSearchBatchResult;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRemoveBlobResponse)), midRemoveBlobResponseCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -71,29 +77,6 @@ func (m *RemoveBlobResponse) DescribeContents() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.appsearch.RemoveBlobResponse.writeToParcel.
-func (m *RemoveBlobResponse) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRemoveBlobResponseWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.appsearch.RemoveBlobResponse.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midRemoveBlobResponseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.appsearch.RemoveBlobResponse.toString.
 func (m *RemoveBlobResponse) ToString() (string, error) {
 	var result string
@@ -119,4 +102,27 @@ func (m *RemoveBlobResponse) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.appsearch.RemoveBlobResponse.writeToParcel.
+func (m *RemoveBlobResponse) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRemoveBlobResponseWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.appsearch.RemoveBlobResponse.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsRemoveBlobResponse)),
+			midRemoveBlobResponseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

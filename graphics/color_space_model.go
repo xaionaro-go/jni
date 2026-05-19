@@ -23,31 +23,6 @@ type ColorSpaceModel struct {
 	Obj *jni.GlobalRef
 }
 
-// GetComponentCount calls android.graphics.ColorSpace$Model.getComponentCount.
-func (m *ColorSpaceModel) GetComponentCount() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midColorSpaceModelGetComponentCount == nil {
-			callErr = fmt.Errorf("android.graphics.ColorSpace$Model.getComponentCount is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midColorSpaceModelGetComponentCount,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.graphics.ColorSpace$Model.toString.
 func (m *ColorSpaceModel) ToString() (string, error) {
 	var result string
@@ -139,6 +114,31 @@ func (m *ColorSpaceModel) ValueOf(arg0 string) (*jni.Object, error) {
 			localRef := result
 			result = env.NewGlobalRef(localRef)
 			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetComponentCount calls android.graphics.ColorSpace$Model.getComponentCount.
+func (m *ColorSpaceModel) GetComponentCount() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midColorSpaceModelGetComponentCount == nil {
+			callErr = fmt.Errorf("android.graphics.ColorSpace$Model.getComponentCount is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsColorSpaceModel)),
+			midColorSpaceModelGetComponentCount,
+		)
+		if callErr != nil {
+			return callErr
 		}
 		return callErr
 	})

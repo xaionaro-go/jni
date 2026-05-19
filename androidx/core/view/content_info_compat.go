@@ -196,38 +196,6 @@ func (m *ContentInfoCompat) GetLinkUri() (*jni.Object, error) {
 	return result, callErr
 }
 
-// GetExtras calls androidx.core.view.ContentInfoCompat.getExtras.
-func (m *ContentInfoCompat) GetExtras() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midContentInfoCompatGetExtras == nil {
-			callErr = fmt.Errorf("androidx.core.view.ContentInfoCompat.getExtras is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midContentInfoCompatGetExtras,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToContentInfoCompat calls androidx.core.view.ContentInfoCompat.toContentInfoCompat.
 func (m *ContentInfoCompat) ToContentInfoCompat(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
@@ -245,6 +213,38 @@ func (m *ContentInfoCompat) ToContentInfoCompat(arg0 *jni.Object) (*jni.Object, 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsContentInfoCompat)),
 			midContentInfoCompatToContentInfoCompat, jni.ObjectValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetExtras calls androidx.core.view.ContentInfoCompat.getExtras.
+func (m *ContentInfoCompat) GetExtras() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midContentInfoCompatGetExtras == nil {
+			callErr = fmt.Errorf("androidx.core.view.ContentInfoCompat.getExtras is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsContentInfoCompat)),
+			midContentInfoCompatGetExtras,
 		)
 		if callErr != nil {
 			return callErr

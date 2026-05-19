@@ -32,6 +32,12 @@ func NewShareActionProvider(vm *jni.VM, arg0 *jni.Object) (*ShareActionProvider,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsShareActionProvider == nil {
+			return fmt.Errorf("android.widget.ShareActionProvider is not available on this device")
+		}
+		if midShareActionProviderCtor == nil {
+			return fmt.Errorf("android.widget.ShareActionProvider constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsShareActionProvider)), midShareActionProviderCtor, jni.ObjectValue(arg0))
 		if err != nil {

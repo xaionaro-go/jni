@@ -3408,29 +3408,6 @@ func (m *Drawable) GetMaxWidth() (int32, error) {
 	return result, callErr
 }
 
-// SetMaxWidth calls com.google.android.material.chip.ChipDrawable.setMaxWidth.
-func (m *Drawable) SetMaxWidth(arg0 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDrawableSetMaxWidth == nil {
-			callErr = fmt.Errorf("com.google.android.material.chip.ChipDrawable.setMaxWidth is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midDrawableSetMaxWidth, jni.IntValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls com.google.android.material.chip.ChipDrawable.toString.
 func (m *Drawable) ToString() (string, error) {
 	var result string
@@ -3527,4 +3504,27 @@ func (m *Drawable) CreateFromResource(arg0 *jni.Object, arg1 int32) (*jni.Object
 		return callErr
 	})
 	return result, callErr
+}
+
+// SetMaxWidth calls com.google.android.material.chip.ChipDrawable.setMaxWidth.
+func (m *Drawable) SetMaxWidth(arg0 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDrawableSetMaxWidth == nil {
+			callErr = fmt.Errorf("com.google.android.material.chip.ChipDrawable.setMaxWidth is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsDrawable)),
+			midDrawableSetMaxWidth, jni.IntValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

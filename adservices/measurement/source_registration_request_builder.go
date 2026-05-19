@@ -23,6 +23,35 @@ type SourceRegistrationRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSourceRegistrationRequestBuilder creates a new android.adservices.measurement.SourceRegistrationRequest$Builder instance.
+func NewSourceRegistrationRequestBuilder(vm *jni.VM, arg0 *jni.Object) (*SourceRegistrationRequestBuilder, error) {
+	var t SourceRegistrationRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSourceRegistrationRequestBuilder == nil {
+			return fmt.Errorf("android.adservices.measurement.SourceRegistrationRequest$Builder is not available on this device")
+		}
+		if midSourceRegistrationRequestBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.measurement.SourceRegistrationRequest$Builder constructor (Ljava/util/List;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSourceRegistrationRequestBuilder)), midSourceRegistrationRequestBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.measurement.SourceRegistrationRequest$Builder.build.
 func (m *SourceRegistrationRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewPorterDuffColorFilter(vm *jni.VM, arg0 int32, arg1 *jni.Object) (*Porter
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPorterDuffColorFilter == nil {
+			return fmt.Errorf("android.graphics.PorterDuffColorFilter is not available on this device")
+		}
+		if midPorterDuffColorFilterCtor == nil {
+			return fmt.Errorf("android.graphics.PorterDuffColorFilter constructor (ILandroid/graphics/PorterDuff$Mode;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPorterDuffColorFilter)), midPorterDuffColorFilterCtor, jni.IntValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

@@ -70,6 +70,7 @@ var (
 	midContractDataColumnsWithJoinsToString jni.MethodID
 
 	clsContractDataUsageFeedback         *jni.GlobalRef
+	midContractDataUsageFeedbackCtor     jni.MethodID
 	midContractDataUsageFeedbackToString jni.MethodID
 
 	clsContractDataUsageStatColumns         *jni.GlobalRef
@@ -104,6 +105,7 @@ var (
 	midContractGroupsColumnsToString jni.MethodID
 
 	clsContractIntents         *jni.GlobalRef
+	midContractIntentsCtor     jni.MethodID
 	midContractIntentsToString jni.MethodID
 
 	clsContractPhoneLookup         *jni.GlobalRef
@@ -116,11 +118,13 @@ var (
 	midContractPhoneticNameStyleToString jni.MethodID
 
 	clsContractPinnedPositions         *jni.GlobalRef
+	midContractPinnedPositionsCtor     jni.MethodID
 	midContractPinnedPositionsToString jni.MethodID
 	midContractPinnedPositionsPin      jni.MethodID
 	midContractPinnedPositionsUndemote jni.MethodID
 
 	clsContractPresence         *jni.GlobalRef
+	midContractPresenceCtor     jni.MethodID
 	midContractPresenceToString jni.MethodID
 
 	clsContractPresenceColumns         *jni.GlobalRef
@@ -139,6 +143,7 @@ var (
 	midContractProviderStatusToString jni.MethodID
 
 	clsContractQuickContact                    *jni.GlobalRef
+	midContractQuickContactCtor                jni.MethodID
 	midContractQuickContactToString            jni.MethodID
 	midContractQuickContactShowQuickContact5   jni.MethodID
 	midContractQuickContactShowQuickContact5_1 jni.MethodID
@@ -159,6 +164,7 @@ var (
 	midContractRawContactsEntityToString jni.MethodID
 
 	clsContractSearchSnippets         *jni.GlobalRef
+	midContractSearchSnippetsCtor     jni.MethodID
 	midContractSearchSnippetsToString jni.MethodID
 
 	clsContractSettings                  *jni.GlobalRef
@@ -176,8 +182,8 @@ var (
 	midContractSimAccountGetEfType        jni.MethodID
 	midContractSimAccountGetSimSlotIndex  jni.MethodID
 	midContractSimAccountHashCode         jni.MethodID
-	midContractSimAccountWriteToParcel    jni.MethodID
 	midContractSimAccountToString         jni.MethodID
+	midContractSimAccountWriteToParcel    jni.MethodID
 
 	clsContractSimContacts               *jni.GlobalRef
 	midContractSimContactsToString       jni.MethodID
@@ -497,6 +503,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsContractDataUsageFeedback = env.NewGlobalRef(&c.Object)
+		midContractDataUsageFeedbackCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContractDataUsageFeedback)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midContractDataUsageFeedbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContractDataUsageFeedback)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -695,6 +705,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsContractIntents = env.NewGlobalRef(&c.Object)
+		midContractIntentsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContractIntents)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midContractIntentsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContractIntents)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -763,6 +777,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsContractPinnedPositions = env.NewGlobalRef(&c.Object)
+		midContractPinnedPositionsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContractPinnedPositions)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midContractPinnedPositionsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContractPinnedPositions)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -794,6 +812,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsContractPresence = env.NewGlobalRef(&c.Object)
+		midContractPresenceCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContractPresence)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midContractPresenceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContractPresence)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -900,6 +922,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsContractQuickContact = env.NewGlobalRef(&c.Object)
+		midContractQuickContactCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContractQuickContact)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midContractQuickContactToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContractQuickContact)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -1024,6 +1050,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsContractSearchSnippets = env.NewGlobalRef(&c.Object)
+		midContractSearchSnippetsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContractSearchSnippets)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midContractSearchSnippetsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContractSearchSnippets)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -1132,14 +1162,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midContractSimAccountWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContractSimAccount)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midContractSimAccountToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContractSimAccount)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midContractSimAccountToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContractSimAccount)), "toString", "()Ljava/lang/String;")
+		midContractSimAccountWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContractSimAccount)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

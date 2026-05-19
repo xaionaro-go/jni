@@ -32,6 +32,12 @@ func NewCursorJoiner(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.O
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCursorJoiner == nil {
+			return fmt.Errorf("android.database.CursorJoiner is not available on this device")
+		}
+		if midCursorJoinerCtor == nil {
+			return fmt.Errorf("android.database.CursorJoiner constructor (Landroid/database/Cursor;[Ljava/lang/String;Landroid/database/Cursor;[Ljava/lang/String;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCursorJoiner)), midCursorJoinerCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3))
 		if err != nil {
@@ -105,8 +111,8 @@ func (m *CursorJoiner) Iterator() (*jni.Object, error) {
 	return result, callErr
 }
 
-// Next0 calls android.database.CursorJoiner.next.
-func (m *CursorJoiner) Next0() (*jni.Object, error) {
+// Next calls android.database.CursorJoiner.next.
+func (m *CursorJoiner) Next() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -114,13 +120,13 @@ func (m *CursorJoiner) Next0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midCursorJoinerNext0 == nil {
+		if midCursorJoinerNext == nil {
 			callErr = fmt.Errorf("android.database.CursorJoiner.next is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midCursorJoinerNext0,
+			midCursorJoinerNext,
 		)
 		if callErr != nil {
 			return callErr
@@ -157,38 +163,6 @@ func (m *CursorJoiner) Remove() error {
 		return callErr
 	})
 	return callErr
-}
-
-// Next0_1 calls android.database.CursorJoiner.next.
-func (m *CursorJoiner) Next0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCursorJoinerNext0_1 == nil {
-			callErr = fmt.Errorf("android.database.CursorJoiner.next is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCursorJoinerNext0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls android.database.CursorJoiner.toString.

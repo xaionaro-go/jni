@@ -23,6 +23,35 @@ type TextInputLayoutAccessibilityDelegate struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTextInputLayoutAccessibilityDelegate creates a new com.google.android.material.textfield.TextInputLayout$AccessibilityDelegate instance.
+func NewTextInputLayoutAccessibilityDelegate(vm *jni.VM, arg0 *jni.Object) (*TextInputLayoutAccessibilityDelegate, error) {
+	var t TextInputLayoutAccessibilityDelegate
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTextInputLayoutAccessibilityDelegate == nil {
+			return fmt.Errorf("com.google.android.material.textfield.TextInputLayout$AccessibilityDelegate is not available on this device")
+		}
+		if midTextInputLayoutAccessibilityDelegateCtor == nil {
+			return fmt.Errorf("com.google.android.material.textfield.TextInputLayout$AccessibilityDelegate constructor (Lcom/google/android/material/textfield/TextInputLayout;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextInputLayoutAccessibilityDelegate)), midTextInputLayoutAccessibilityDelegateCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnInitializeAccessibilityNodeInfo calls com.google.android.material.textfield.TextInputLayout$AccessibilityDelegate.onInitializeAccessibilityNodeInfo.
 func (m *TextInputLayoutAccessibilityDelegate) OnInitializeAccessibilityNodeInfo(arg0 *jni.Object, arg1 *jni.Object) error {
 

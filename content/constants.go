@@ -5,16 +5,17 @@ package content
 import "github.com/AndroidGoLab/jni/content/consts"
 
 const (
-	ClassificationComplete          = consts.ClassificationComplete
-	ClassificationNotComplete       = consts.ClassificationNotComplete
-	ClassificationNotPerformed      = consts.ClassificationNotPerformed
-	Creator                         = consts.Creator
 	Button1                         = consts.Button1
 	Button2                         = consts.Button2
 	Button3                         = consts.Button3
 	ButtonNegative                  = consts.ButtonNegative
 	ButtonNeutral                   = consts.ButtonNeutral
 	ButtonPositive                  = consts.ButtonPositive
+	NoMatch                         = consts.NoMatch
+	LogSyncDetails                  = consts.LogSyncDetails
+	ActionAllow                     = consts.ActionAllow
+	ActionBlock                     = consts.ActionBlock
+	Creator                         = consts.Creator
 	TrimMemoryBackground            = consts.TrimMemoryBackground
 	TrimMemoryComplete              = consts.TrimMemoryComplete
 	TrimMemoryModerate              = consts.TrimMemoryModerate
@@ -24,15 +25,18 @@ const (
 	TrimMemoryUiHidden              = consts.TrimMemoryUiHidden
 	DatabaseMode2lines              = consts.DatabaseMode2lines
 	DatabaseModeQueries             = consts.DatabaseModeQueries
-	NoMatch                         = consts.NoMatch
-	TypeBoolean                     = consts.TypeBoolean
-	TypeBundle                      = consts.TypeBundle
-	TypeBundleArray                 = consts.TypeBundleArray
-	TypeChoice                      = consts.TypeChoice
-	TypeInteger                     = consts.TypeInteger
-	TypeMultiSelect                 = consts.TypeMultiSelect
-	TypeNull                        = consts.TypeNull
-	TypeString                      = consts.TypeString
+	Fragment                        = consts.Fragment
+	Path                            = consts.Path
+	Query                           = consts.Query
+	AlreadyInProgress               = consts.AlreadyInProgress
+	ResultApproved                  = consts.ResultApproved
+	ResultDenied                    = consts.ResultDenied
+	ResultError                     = consts.ResultError
+	ResultErrorBadRequest           = consts.ResultErrorBadRequest
+	ResultErrorInternal             = consts.ResultErrorInternal
+	ResultErrorNetwork              = consts.ResultErrorNetwork
+	ResultNoResponse                = consts.ResultNoResponse
+	ResultUnknownRequest            = consts.ResultUnknownRequest
 	MatchAdjustmentMask             = consts.MatchAdjustmentMask
 	MatchAdjustmentNormal           = consts.MatchAdjustmentNormal
 	MatchCategoryEmpty              = consts.MatchCategoryEmpty
@@ -49,32 +53,24 @@ const (
 	NoMatchType                     = consts.NoMatchType
 	SystemHighPriority              = consts.SystemHighPriority
 	SystemLowPriority               = consts.SystemLowPriority
-	AlreadyInProgress               = consts.AlreadyInProgress
-	Fragment                        = consts.Fragment
-	Path                            = consts.Path
-	Query                           = consts.Query
-	ActionAllow                     = consts.ActionAllow
-	ActionBlock                     = consts.ActionBlock
-	LogSyncDetails                  = consts.LogSyncDetails
-	ResultApproved                  = consts.ResultApproved
-	ResultDenied                    = consts.ResultDenied
-	ResultError                     = consts.ResultError
-	ResultErrorBadRequest           = consts.ResultErrorBadRequest
-	ResultErrorInternal             = consts.ResultErrorInternal
-	ResultErrorNetwork              = consts.ResultErrorNetwork
-	ResultNoResponse                = consts.ResultNoResponse
-	ResultUnknownRequest            = consts.ResultUnknownRequest
+	TypeBoolean                     = consts.TypeBoolean
+	TypeBundle                      = consts.TypeBundle
+	TypeBundleArray                 = consts.TypeBundleArray
+	TypeChoice                      = consts.TypeChoice
+	TypeInteger                     = consts.TypeInteger
+	TypeMultiSelect                 = consts.TypeMultiSelect
+	TypeNull                        = consts.TypeNull
+	TypeString                      = consts.TypeString
+	ClassificationComplete          = consts.ClassificationComplete
+	ClassificationNotComplete       = consts.ClassificationNotComplete
+	ClassificationNotPerformed      = consts.ClassificationNotPerformed
 )
 
 const (
-	ExtraIsRemoteDevice              = consts.ExtraIsRemoteDevice
-	ExtraIsSensitive                 = consts.ExtraIsSensitive
-	MimetypeTextHtml                 = consts.MimetypeTextHtml
-	MimetypeTextIntent               = consts.MimetypeTextIntent
-	MimetypeTextPlain                = consts.MimetypeTextPlain
-	MimetypeTextUrilist              = consts.MimetypeTextUrilist
-	MimetypeUnknown                  = consts.MimetypeUnknown
-	Tag                              = consts.Tag
+	InvalidTime = consts.InvalidTime
+)
+
+const (
 	FeatureDelete                    = consts.FeatureDelete
 	FeatureDownload                  = consts.FeatureDownload
 	FeatureEdit                      = consts.FeatureEdit
@@ -103,8 +99,12 @@ const (
 	ResponseKeyMessage               = consts.ResponseKeyMessage
 	ResponseKeyResponseTimestamp     = consts.ResponseKeyResponseTimestamp
 	ResponseKeyResult                = consts.ResponseKeyResult
-)
-
-const (
-	InvalidTime = consts.InvalidTime
+	ExtraIsRemoteDevice              = consts.ExtraIsRemoteDevice
+	ExtraIsSensitive                 = consts.ExtraIsSensitive
+	MimetypeTextHtml                 = consts.MimetypeTextHtml
+	MimetypeTextIntent               = consts.MimetypeTextIntent
+	MimetypeTextPlain                = consts.MimetypeTextPlain
+	MimetypeTextUrilist              = consts.MimetypeTextUrilist
+	MimetypeUnknown                  = consts.MimetypeUnknown
+	Tag                              = consts.Tag
 )

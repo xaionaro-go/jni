@@ -165,6 +165,12 @@ classes:
           error: true
     - java_class: androidx.slidingpanelayout.widget.SlidingPaneLayout$LayoutParams
       go_type: SlidingPaneLayoutLayoutParams
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.util.AttributeSet
+          go_name: arg1
     - java_class: androidx.slidingpanelayout.widget.SlidingPaneLayout$PanelSlideListener
       go_type: SlidingPaneLayoutPanelSlideListener
       methods:
@@ -193,6 +199,7 @@ classes:
           error: true
     - java_class: androidx.slidingpanelayout.widget.SlidingPaneLayout$SimplePanelSlideListener
       go_type: SlidingPaneLayoutSimplePanelSlideListener
+      obtain: constructor
       methods:
         - java_method: onPanelSlide
           go_name: OnPanelSlide

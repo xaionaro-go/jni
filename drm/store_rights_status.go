@@ -23,6 +23,34 @@ type StoreRightsStatus struct {
 	Obj *jni.GlobalRef
 }
 
+// NewStoreRightsStatus creates a new android.drm.DrmStore$RightsStatus instance.
+func NewStoreRightsStatus(vm *jni.VM) (*StoreRightsStatus, error) {
+	var t StoreRightsStatus
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsStoreRightsStatus == nil {
+			return fmt.Errorf("android.drm.DrmStore$RightsStatus is not available on this device")
+		}
+		if midStoreRightsStatusCtor == nil {
+			return fmt.Errorf("android.drm.DrmStore$RightsStatus constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStoreRightsStatus)), midStoreRightsStatusCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.drm.DrmStore$RightsStatus.toString.
 func (m *StoreRightsStatus) ToString() (string, error) {
 	var result string

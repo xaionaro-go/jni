@@ -5,199 +5,82 @@
 package: le
 go_import: github.com/AndroidGoLab/jni/bluetooth/le
 classes:
-    - java_class: android.bluetooth.le.ScanCallback
-      go_type: ScanCallback
+    - java_class: android.bluetooth.le.BluetoothLeAdvertiser
+      go_type: BluetoothLeAdvertiser
       methods:
-        - java_method: onScanFailed
-          go_name: OnScanFailed
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onScanResult
-          go_name: OnScanResult
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.bluetooth.le.ScanResult
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.bluetooth.le.PeriodicAdvertisingParameters
-      go_type: PeriodicAdvertisingParameters
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getIncludeTxPower
-          go_name: GetIncludeTxPower
-          returns: boolean
-          error: true
-        - java_method: getInterval
-          go_name: GetInterval
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.bluetooth.le.PeriodicAdvertisingParameters$Builder
-      go_type: PeriodicAdvertisingParametersBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.bluetooth.le.PeriodicAdvertisingParameters
-          error: true
-        - java_method: setIncludeTxPower
-          go_name: SetIncludeTxPower
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.bluetooth.le.PeriodicAdvertisingParameters$Builder
-          error: true
-        - java_method: setInterval
-          go_name: SetInterval
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.bluetooth.le.PeriodicAdvertisingParameters$Builder
-          error: true
-    - java_class: android.bluetooth.le.AdvertiseData
-      go_type: AdvertiseData
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getIncludeDeviceName
-          go_name: GetIncludeDeviceName
-          returns: boolean
-          error: true
-        - java_method: getIncludeTxPowerLevel
-          go_name: GetIncludeTxPowerLevel
-          returns: boolean
-          error: true
-        - java_method: getManufacturerSpecificData
-          go_name: GetManufacturerSpecificData
-          returns: android.util.SparseArray<byte[]>
-          error: true
-        - java_method: getServiceSolicitationUuids
-          go_name: GetServiceSolicitationUuids
-          returns: java.util.List<android.os.ParcelUuid>
-          error: true
-        - java_method: getServiceUuids
-          go_name: GetServiceUuids
-          returns: java.util.List<android.os.ParcelUuid>
-          error: true
-        - java_method: getTransportDiscoveryData
-          go_name: GetTransportDiscoveryData
-          returns: java.util.List<android.bluetooth.le.TransportDiscoveryData>
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.bluetooth.le.AdvertiseData$Builder
-      go_type: AdvertiseDataBuilder
-      methods:
-        - java_method: addManufacturerData
-          go_name: AddManufacturerData
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: '[B'
-              go_name: arg1
-          returns: android.bluetooth.le.AdvertiseData$Builder
-          error: true
-        - java_method: addServiceData
-          go_name: AddServiceData
-          params:
-            - java_type: android.os.ParcelUuid
-              go_name: arg0
-            - java_type: '[B'
-              go_name: arg1
-          returns: android.bluetooth.le.AdvertiseData$Builder
-          error: true
-        - java_method: addServiceSolicitationUuid
-          go_name: AddServiceSolicitationUuid
-          params:
-            - java_type: android.os.ParcelUuid
-              go_name: arg0
-          returns: android.bluetooth.le.AdvertiseData$Builder
-          error: true
-        - java_method: addServiceUuid
-          go_name: AddServiceUuid
-          params:
-            - java_type: android.os.ParcelUuid
-              go_name: arg0
-          returns: android.bluetooth.le.AdvertiseData$Builder
-          error: true
-        - java_method: addTransportDiscoveryData
-          go_name: AddTransportDiscoveryData
-          params:
-            - java_type: android.bluetooth.le.TransportDiscoveryData
-              go_name: arg0
-          returns: android.bluetooth.le.AdvertiseData$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.bluetooth.le.AdvertiseData
-          error: true
-        - java_method: setIncludeDeviceName
-          go_name: SetIncludeDeviceName
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.bluetooth.le.AdvertiseData$Builder
-          error: true
-        - java_method: setIncludeTxPowerLevel
-          go_name: SetIncludeTxPowerLevel
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.bluetooth.le.AdvertiseData$Builder
-          error: true
-    - java_class: android.bluetooth.le.AdvertiseCallback
-      go_type: AdvertiseCallback
-      methods:
-        - java_method: onStartFailure
-          go_name: OnStartFailure
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onStartSuccess
-          go_name: OnStartSuccess
+        - java_method: startAdvertising
+          go_name: StartAdvertising3
           params:
             - java_type: android.bluetooth.le.AdvertiseSettings
+              go_name: arg0
+            - java_type: android.bluetooth.le.AdvertiseData
+              go_name: arg1
+            - java_type: android.bluetooth.le.AdvertiseCallback
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: startAdvertising
+          go_name: StartAdvertising4_1
+          params:
+            - java_type: android.bluetooth.le.AdvertiseSettings
+              go_name: arg0
+            - java_type: android.bluetooth.le.AdvertiseData
+              go_name: arg1
+            - java_type: android.bluetooth.le.AdvertiseData
+              go_name: arg2
+            - java_type: android.bluetooth.le.AdvertiseCallback
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: startAdvertisingSet
+          go_name: StartAdvertisingSet6
+          params:
+            - java_type: android.bluetooth.le.AdvertisingSetParameters
+              go_name: arg0
+            - java_type: android.bluetooth.le.AdvertiseData
+              go_name: arg1
+            - java_type: android.bluetooth.le.AdvertiseData
+              go_name: arg2
+            - java_type: android.bluetooth.le.PeriodicAdvertisingParameters
+              go_name: arg3
+            - java_type: android.bluetooth.le.AdvertiseData
+              go_name: arg4
+            - java_type: android.bluetooth.le.AdvertisingSetCallback
+              go_name: arg5
+          returns: void
+          error: true
+        - java_method: startAdvertisingSet
+          go_name: StartAdvertisingSet8_1
+          params:
+            - java_type: android.bluetooth.le.AdvertisingSetParameters
+              go_name: arg0
+            - java_type: android.bluetooth.le.AdvertiseData
+              go_name: arg1
+            - java_type: android.bluetooth.le.AdvertiseData
+              go_name: arg2
+            - java_type: android.bluetooth.le.PeriodicAdvertisingParameters
+              go_name: arg3
+            - java_type: android.bluetooth.le.AdvertiseData
+              go_name: arg4
+            - java_type: int
+              go_name: arg5
+            - java_type: int
+              go_name: arg6
+            - java_type: android.bluetooth.le.AdvertisingSetCallback
+              go_name: arg7
+          returns: void
+          error: true
+        - java_method: stopAdvertising
+          go_name: StopAdvertising
+          params:
+            - java_type: android.bluetooth.le.AdvertiseCallback
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: stopAdvertisingSet
+          go_name: StopAdvertisingSet
+          params:
+            - java_type: android.bluetooth.le.AdvertisingSetCallback
               go_name: arg0
           returns: void
           error: true
@@ -252,6 +135,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -263,6 +147,7 @@ classes:
           error: true
     - java_class: android.bluetooth.le.AdvertisingSetParameters$Builder
       go_type: AdvertisingSetParametersBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
@@ -338,102 +223,8 @@ classes:
               go_name: arg0
           returns: android.bluetooth.le.AdvertisingSetParameters$Builder
           error: true
-    - java_class: android.bluetooth.le.AdvertisingSetCallback
-      go_type: AdvertisingSetCallback
-      methods:
-        - java_method: onAdvertisingDataSet
-          go_name: OnAdvertisingDataSet
-          params:
-            - java_type: android.bluetooth.le.AdvertisingSet
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onAdvertisingEnabled
-          go_name: OnAdvertisingEnabled
-          params:
-            - java_type: android.bluetooth.le.AdvertisingSet
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onAdvertisingParametersUpdated
-          go_name: OnAdvertisingParametersUpdated
-          params:
-            - java_type: android.bluetooth.le.AdvertisingSet
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onAdvertisingSetStarted
-          go_name: OnAdvertisingSetStarted
-          params:
-            - java_type: android.bluetooth.le.AdvertisingSet
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onAdvertisingSetStopped
-          go_name: OnAdvertisingSetStopped
-          params:
-            - java_type: android.bluetooth.le.AdvertisingSet
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onPeriodicAdvertisingDataSet
-          go_name: OnPeriodicAdvertisingDataSet
-          params:
-            - java_type: android.bluetooth.le.AdvertisingSet
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onPeriodicAdvertisingEnabled
-          go_name: OnPeriodicAdvertisingEnabled
-          params:
-            - java_type: android.bluetooth.le.AdvertisingSet
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onPeriodicAdvertisingParametersUpdated
-          go_name: OnPeriodicAdvertisingParametersUpdated
-          params:
-            - java_type: android.bluetooth.le.AdvertisingSet
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onScanResponseDataSet
-          go_name: OnScanResponseDataSet
-          params:
-            - java_type: android.bluetooth.le.AdvertisingSet
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.bluetooth.le.TransportDiscoveryData
-      go_type: TransportDiscoveryData
-      obtain: constructor
-      constructor_params:
-        - java_type: '[B'
-          go_name: arg0
+    - java_class: android.bluetooth.le.AdvertiseData
+      go_type: AdvertiseData
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -446,30 +237,39 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getTransportBlocks
-          go_name: GetTransportBlocks
-          returns: java.util.List<android.bluetooth.le.TransportBlock>
+        - java_method: getIncludeDeviceName
+          go_name: GetIncludeDeviceName
+          returns: boolean
           error: true
-        - java_method: getTransportDataType
-          go_name: GetTransportDataType
-          returns: int
+        - java_method: getIncludeTxPowerLevel
+          go_name: GetIncludeTxPowerLevel
+          returns: boolean
+          error: true
+        - java_method: getManufacturerSpecificData
+          go_name: GetManufacturerSpecificData
+          returns: android.util.SparseArray<byte[]>
+          error: true
+        - java_method: getServiceSolicitationUuids
+          go_name: GetServiceSolicitationUuids
+          returns: java.util.List<android.os.ParcelUuid>
+          error: true
+        - java_method: getServiceUuids
+          go_name: GetServiceUuids
+          returns: java.util.List<android.os.ParcelUuid>
+          error: true
+        - java_method: getTransportDiscoveryData
+          go_name: GetTransportDiscoveryData
+          returns: java.util.List<android.bluetooth.le.TransportDiscoveryData>
           error: true
         - java_method: hashCode
           go_name: HashCode
           returns: int
           error: true
-        - java_method: toByteArray
-          go_name: ToByteArray
-          returns: '[B'
-          error: true
         - java_method: toString
           go_name: ToString
           returns: String
           error: true
-        - java_method: totalBytes
-          go_name: TotalBytes
-          returns: int
-          error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -479,90 +279,81 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.bluetooth.le.BluetoothLeScanner
-      go_type: BluetoothLeScanner
+    - java_class: android.bluetooth.le.AdvertiseData$Builder
+      go_type: AdvertiseDataBuilder
+      obtain: constructor
       methods:
-        - java_method: flushPendingScanResults
-          go_name: FlushPendingScanResults
+        - java_method: addManufacturerData
+          go_name: AddManufacturerData
           params:
-            - java_type: android.bluetooth.le.ScanCallback
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: startScan
-          go_name: StartScan
-          params:
-            - java_type: android.bluetooth.le.ScanCallback
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: stopScan
-          go_name: StopScan1
-          params:
-            - java_type: android.app.PendingIntent
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: stopScan
-          go_name: StopScan1_1
-          params:
-            - java_type: android.bluetooth.le.ScanCallback
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.bluetooth.le.AdvertisingSet
-      go_type: AdvertisingSet
-      methods:
-        - java_method: enableAdvertising
-          go_name: EnableAdvertising
-          params:
-            - java_type: boolean
-              go_name: arg0
             - java_type: int
+              go_name: arg0
+            - java_type: '[B'
               go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
+          returns: android.bluetooth.le.AdvertiseData$Builder
           error: true
-        - java_method: setAdvertisingData
-          go_name: SetAdvertisingData
+        - java_method: addServiceData
+          go_name: AddServiceData
           params:
-            - java_type: android.bluetooth.le.AdvertiseData
+            - java_type: android.os.ParcelUuid
               go_name: arg0
-          returns: void
+            - java_type: '[B'
+              go_name: arg1
+          returns: android.bluetooth.le.AdvertiseData$Builder
           error: true
-        - java_method: setAdvertisingParameters
-          go_name: SetAdvertisingParameters
+        - java_method: addServiceSolicitationUuid
+          go_name: AddServiceSolicitationUuid
           params:
-            - java_type: android.bluetooth.le.AdvertisingSetParameters
+            - java_type: android.os.ParcelUuid
               go_name: arg0
-          returns: void
+          returns: android.bluetooth.le.AdvertiseData$Builder
           error: true
-        - java_method: setPeriodicAdvertisingData
-          go_name: SetPeriodicAdvertisingData
+        - java_method: addServiceUuid
+          go_name: AddServiceUuid
           params:
-            - java_type: android.bluetooth.le.AdvertiseData
+            - java_type: android.os.ParcelUuid
               go_name: arg0
-          returns: void
+          returns: android.bluetooth.le.AdvertiseData$Builder
           error: true
-        - java_method: setPeriodicAdvertisingEnabled
-          go_name: SetPeriodicAdvertisingEnabled
+        - java_method: addTransportDiscoveryData
+          go_name: AddTransportDiscoveryData
+          params:
+            - java_type: android.bluetooth.le.TransportDiscoveryData
+              go_name: arg0
+          returns: android.bluetooth.le.AdvertiseData$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.bluetooth.le.AdvertiseData
+          error: true
+        - java_method: setIncludeDeviceName
+          go_name: SetIncludeDeviceName
           params:
             - java_type: boolean
               go_name: arg0
-          returns: void
+          returns: android.bluetooth.le.AdvertiseData$Builder
           error: true
-        - java_method: setPeriodicAdvertisingParameters
-          go_name: SetPeriodicAdvertisingParameters
+        - java_method: setIncludeTxPowerLevel
+          go_name: SetIncludeTxPowerLevel
           params:
-            - java_type: android.bluetooth.le.PeriodicAdvertisingParameters
+            - java_type: boolean
+              go_name: arg0
+          returns: android.bluetooth.le.AdvertiseData$Builder
+          error: true
+    - java_class: android.bluetooth.le.AdvertiseCallback
+      go_type: AdvertiseCallback
+      methods:
+        - java_method: onStartFailure
+          go_name: OnStartFailure
+          params:
+            - java_type: int
               go_name: arg0
           returns: void
           error: true
-        - java_method: setScanResponseData
-          go_name: SetScanResponseData
+        - java_method: onStartSuccess
+          go_name: OnStartSuccess
           params:
-            - java_type: android.bluetooth.le.AdvertiseData
+            - java_type: android.bluetooth.le.AdvertiseSettings
               go_name: arg0
           returns: void
           error: true
@@ -655,6 +446,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -666,6 +458,7 @@ classes:
           error: true
     - java_class: android.bluetooth.le.ScanFilter$Builder
       go_type: ScanFilterBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
@@ -775,262 +568,24 @@ classes:
               go_name: arg1
           returns: android.bluetooth.le.ScanFilter$Builder
           error: true
-    - java_class: android.bluetooth.le.ScanSettings
-      go_type: ScanSettings
+    - java_class: android.bluetooth.le.ScanCallback
+      go_type: ScanCallback
       methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getCallbackType
-          go_name: GetCallbackType
-          returns: int
-          error: true
-        - java_method: getLegacy
-          go_name: GetLegacy
-          returns: boolean
-          error: true
-        - java_method: getPhy
-          go_name: GetPhy
-          returns: int
-          error: true
-        - java_method: getReportDelayMillis
-          go_name: GetReportDelayMillis
-          returns: long
-          error: true
-        - java_method: getScanMode
-          go_name: GetScanMode
-          returns: int
-          error: true
-        - java_method: getScanResultType
-          go_name: GetScanResultType
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
+        - java_method: onScanFailed
+          go_name: OnScanFailed
           params:
-            - java_type: android.os.Parcel
-              go_name: arg0
             - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onScanResult
+          go_name: OnScanResult
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.bluetooth.le.ScanResult
               go_name: arg1
           returns: void
-          error: true
-    - java_class: android.bluetooth.le.ScanSettings$Builder
-      go_type: ScanSettingsBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.bluetooth.le.ScanSettings
-          error: true
-        - java_method: setCallbackType
-          go_name: SetCallbackType
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.bluetooth.le.ScanSettings$Builder
-          error: true
-        - java_method: setLegacy
-          go_name: SetLegacy
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.bluetooth.le.ScanSettings$Builder
-          error: true
-        - java_method: setMatchMode
-          go_name: SetMatchMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.bluetooth.le.ScanSettings$Builder
-          error: true
-        - java_method: setNumOfMatches
-          go_name: SetNumOfMatches
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.bluetooth.le.ScanSettings$Builder
-          error: true
-        - java_method: setPhy
-          go_name: SetPhy
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.bluetooth.le.ScanSettings$Builder
-          error: true
-        - java_method: setReportDelay
-          go_name: SetReportDelay
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.bluetooth.le.ScanSettings$Builder
-          error: true
-        - java_method: setScanMode
-          go_name: SetScanMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.bluetooth.le.ScanSettings$Builder
-          error: true
-    - java_class: android.bluetooth.le.BluetoothLeAdvertiser
-      go_type: BluetoothLeAdvertiser
-      methods:
-        - java_method: startAdvertising
-          go_name: StartAdvertising3
-          params:
-            - java_type: android.bluetooth.le.AdvertiseSettings
-              go_name: arg0
-            - java_type: android.bluetooth.le.AdvertiseData
-              go_name: arg1
-            - java_type: android.bluetooth.le.AdvertiseCallback
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: startAdvertising
-          go_name: StartAdvertising4_1
-          params:
-            - java_type: android.bluetooth.le.AdvertiseSettings
-              go_name: arg0
-            - java_type: android.bluetooth.le.AdvertiseData
-              go_name: arg1
-            - java_type: android.bluetooth.le.AdvertiseData
-              go_name: arg2
-            - java_type: android.bluetooth.le.AdvertiseCallback
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: startAdvertisingSet
-          go_name: StartAdvertisingSet6
-          params:
-            - java_type: android.bluetooth.le.AdvertisingSetParameters
-              go_name: arg0
-            - java_type: android.bluetooth.le.AdvertiseData
-              go_name: arg1
-            - java_type: android.bluetooth.le.AdvertiseData
-              go_name: arg2
-            - java_type: android.bluetooth.le.PeriodicAdvertisingParameters
-              go_name: arg3
-            - java_type: android.bluetooth.le.AdvertiseData
-              go_name: arg4
-            - java_type: android.bluetooth.le.AdvertisingSetCallback
-              go_name: arg5
-          returns: void
-          error: true
-        - java_method: startAdvertisingSet
-          go_name: StartAdvertisingSet8_1
-          params:
-            - java_type: android.bluetooth.le.AdvertisingSetParameters
-              go_name: arg0
-            - java_type: android.bluetooth.le.AdvertiseData
-              go_name: arg1
-            - java_type: android.bluetooth.le.AdvertiseData
-              go_name: arg2
-            - java_type: android.bluetooth.le.PeriodicAdvertisingParameters
-              go_name: arg3
-            - java_type: android.bluetooth.le.AdvertiseData
-              go_name: arg4
-            - java_type: int
-              go_name: arg5
-            - java_type: int
-              go_name: arg6
-            - java_type: android.bluetooth.le.AdvertisingSetCallback
-              go_name: arg7
-          returns: void
-          error: true
-        - java_method: stopAdvertising
-          go_name: StopAdvertising
-          params:
-            - java_type: android.bluetooth.le.AdvertiseCallback
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: stopAdvertisingSet
-          go_name: StopAdvertisingSet
-          params:
-            - java_type: android.bluetooth.le.AdvertisingSetCallback
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.bluetooth.le.AdvertiseSettings
-      go_type: AdvertiseSettings
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getMode
-          go_name: GetMode
-          returns: int
-          error: true
-        - java_method: getTimeout
-          go_name: GetTimeout
-          returns: int
-          error: true
-        - java_method: getTxPowerLevel
-          go_name: GetTxPowerLevel
-          returns: int
-          error: true
-        - java_method: isConnectable
-          go_name: IsConnectable
-          returns: boolean
-          error: true
-        - java_method: isDiscoverable
-          go_name: IsDiscoverable
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.bluetooth.le.AdvertiseSettings$Builder
-      go_type: AdvertiseSettingsBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.bluetooth.le.AdvertiseSettings
-          error: true
-        - java_method: setAdvertiseMode
-          go_name: SetAdvertiseMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.bluetooth.le.AdvertiseSettings$Builder
-          error: true
-        - java_method: setConnectable
-          go_name: SetConnectable
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.bluetooth.le.AdvertiseSettings$Builder
-          error: true
-        - java_method: setDiscoverable
-          go_name: SetDiscoverable
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.bluetooth.le.AdvertiseSettings$Builder
-          error: true
-        - java_method: setTimeout
-          go_name: SetTimeout
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.bluetooth.le.AdvertiseSettings$Builder
-          error: true
-        - java_method: setTxPowerLevel
-          go_name: SetTxPowerLevel
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.bluetooth.le.AdvertiseSettings$Builder
           error: true
     - java_class: android.bluetooth.le.ScanResult
       go_type: ScanResult
@@ -1112,6 +667,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -1119,6 +675,374 @@ classes:
               go_name: arg0
             - java_type: int
               go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.bluetooth.le.TransportDiscoveryData
+      go_type: TransportDiscoveryData
+      obtain: constructor
+      constructor_params:
+        - java_type: '[B'
+          go_name: arg0
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getTransportBlocks
+          go_name: GetTransportBlocks
+          returns: java.util.List<android.bluetooth.le.TransportBlock>
+          error: true
+        - java_method: getTransportDataType
+          go_name: GetTransportDataType
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toByteArray
+          go_name: ToByteArray
+          returns: '[B'
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: totalBytes
+          go_name: TotalBytes
+          returns: int
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.bluetooth.le.ScanSettings
+      go_type: ScanSettings
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getCallbackType
+          go_name: GetCallbackType
+          returns: int
+          error: true
+        - java_method: getLegacy
+          go_name: GetLegacy
+          returns: boolean
+          error: true
+        - java_method: getPhy
+          go_name: GetPhy
+          returns: int
+          error: true
+        - java_method: getReportDelayMillis
+          go_name: GetReportDelayMillis
+          returns: long
+          error: true
+        - java_method: getScanMode
+          go_name: GetScanMode
+          returns: int
+          error: true
+        - java_method: getScanResultType
+          go_name: GetScanResultType
+          returns: int
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.bluetooth.le.ScanSettings$Builder
+      go_type: ScanSettingsBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.bluetooth.le.ScanSettings
+          error: true
+        - java_method: setCallbackType
+          go_name: SetCallbackType
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.bluetooth.le.ScanSettings$Builder
+          error: true
+        - java_method: setLegacy
+          go_name: SetLegacy
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.bluetooth.le.ScanSettings$Builder
+          error: true
+        - java_method: setMatchMode
+          go_name: SetMatchMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.bluetooth.le.ScanSettings$Builder
+          error: true
+        - java_method: setNumOfMatches
+          go_name: SetNumOfMatches
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.bluetooth.le.ScanSettings$Builder
+          error: true
+        - java_method: setPhy
+          go_name: SetPhy
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.bluetooth.le.ScanSettings$Builder
+          error: true
+        - java_method: setReportDelay
+          go_name: SetReportDelay
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.bluetooth.le.ScanSettings$Builder
+          error: true
+        - java_method: setScanMode
+          go_name: SetScanMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.bluetooth.le.ScanSettings$Builder
+          error: true
+    - java_class: android.bluetooth.le.AdvertiseSettings
+      go_type: AdvertiseSettings
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getMode
+          go_name: GetMode
+          returns: int
+          error: true
+        - java_method: getTimeout
+          go_name: GetTimeout
+          returns: int
+          error: true
+        - java_method: getTxPowerLevel
+          go_name: GetTxPowerLevel
+          returns: int
+          error: true
+        - java_method: isConnectable
+          go_name: IsConnectable
+          returns: boolean
+          error: true
+        - java_method: isDiscoverable
+          go_name: IsDiscoverable
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.bluetooth.le.AdvertiseSettings$Builder
+      go_type: AdvertiseSettingsBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.bluetooth.le.AdvertiseSettings
+          error: true
+        - java_method: setAdvertiseMode
+          go_name: SetAdvertiseMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.bluetooth.le.AdvertiseSettings$Builder
+          error: true
+        - java_method: setConnectable
+          go_name: SetConnectable
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.bluetooth.le.AdvertiseSettings$Builder
+          error: true
+        - java_method: setDiscoverable
+          go_name: SetDiscoverable
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.bluetooth.le.AdvertiseSettings$Builder
+          error: true
+        - java_method: setTimeout
+          go_name: SetTimeout
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.bluetooth.le.AdvertiseSettings$Builder
+          error: true
+        - java_method: setTxPowerLevel
+          go_name: SetTxPowerLevel
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.bluetooth.le.AdvertiseSettings$Builder
+          error: true
+    - java_class: android.bluetooth.le.BluetoothLeScanner
+      go_type: BluetoothLeScanner
+      methods:
+        - java_method: flushPendingScanResults
+          go_name: FlushPendingScanResults
+          params:
+            - java_type: android.bluetooth.le.ScanCallback
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: startScan
+          go_name: StartScan
+          params:
+            - java_type: android.bluetooth.le.ScanCallback
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: stopScan
+          go_name: StopScan1
+          params:
+            - java_type: android.app.PendingIntent
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: stopScan
+          go_name: StopScan1_1
+          params:
+            - java_type: android.bluetooth.le.ScanCallback
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.bluetooth.le.PeriodicAdvertisingParameters
+      go_type: PeriodicAdvertisingParameters
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getIncludeTxPower
+          go_name: GetIncludeTxPower
+          returns: boolean
+          error: true
+        - java_method: getInterval
+          go_name: GetInterval
+          returns: int
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.bluetooth.le.PeriodicAdvertisingParameters$Builder
+      go_type: PeriodicAdvertisingParametersBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.bluetooth.le.PeriodicAdvertisingParameters
+          error: true
+        - java_method: setIncludeTxPower
+          go_name: SetIncludeTxPower
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.bluetooth.le.PeriodicAdvertisingParameters$Builder
+          error: true
+        - java_method: setInterval
+          go_name: SetInterval
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.bluetooth.le.PeriodicAdvertisingParameters$Builder
+          error: true
+    - java_class: android.bluetooth.le.AdvertisingSet
+      go_type: AdvertisingSet
+      methods:
+        - java_method: enableAdvertising
+          go_name: EnableAdvertising
+          params:
+            - java_type: boolean
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: setAdvertisingData
+          go_name: SetAdvertisingData
+          params:
+            - java_type: android.bluetooth.le.AdvertiseData
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setAdvertisingParameters
+          go_name: SetAdvertisingParameters
+          params:
+            - java_type: android.bluetooth.le.AdvertisingSetParameters
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setPeriodicAdvertisingData
+          go_name: SetPeriodicAdvertisingData
+          params:
+            - java_type: android.bluetooth.le.AdvertiseData
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setPeriodicAdvertisingEnabled
+          go_name: SetPeriodicAdvertisingEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setPeriodicAdvertisingParameters
+          go_name: SetPeriodicAdvertisingParameters
+          params:
+            - java_type: android.bluetooth.le.PeriodicAdvertisingParameters
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setScanResponseData
+          go_name: SetScanResponseData
+          params:
+            - java_type: android.bluetooth.le.AdvertiseData
+              go_name: arg0
           returns: void
           error: true
     - java_class: android.bluetooth.le.TransportBlock
@@ -1173,10 +1097,101 @@ classes:
           go_name: TotalBytes
           returns: int
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
             - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.bluetooth.le.AdvertisingSetCallback
+      go_type: AdvertisingSetCallback
+      methods:
+        - java_method: onAdvertisingDataSet
+          go_name: OnAdvertisingDataSet
+          params:
+            - java_type: android.bluetooth.le.AdvertisingSet
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onAdvertisingEnabled
+          go_name: OnAdvertisingEnabled
+          params:
+            - java_type: android.bluetooth.le.AdvertisingSet
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onAdvertisingParametersUpdated
+          go_name: OnAdvertisingParametersUpdated
+          params:
+            - java_type: android.bluetooth.le.AdvertisingSet
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onAdvertisingSetStarted
+          go_name: OnAdvertisingSetStarted
+          params:
+            - java_type: android.bluetooth.le.AdvertisingSet
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onAdvertisingSetStopped
+          go_name: OnAdvertisingSetStopped
+          params:
+            - java_type: android.bluetooth.le.AdvertisingSet
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onPeriodicAdvertisingDataSet
+          go_name: OnPeriodicAdvertisingDataSet
+          params:
+            - java_type: android.bluetooth.le.AdvertisingSet
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onPeriodicAdvertisingEnabled
+          go_name: OnPeriodicAdvertisingEnabled
+          params:
+            - java_type: android.bluetooth.le.AdvertisingSet
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onPeriodicAdvertisingParametersUpdated
+          go_name: OnPeriodicAdvertisingParametersUpdated
+          params:
+            - java_type: android.bluetooth.le.AdvertisingSet
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onScanResponseDataSet
+          go_name: OnScanResponseDataSet
+          params:
+            - java_type: android.bluetooth.le.AdvertisingSet
               go_name: arg0
             - java_type: int
               go_name: arg1
@@ -1232,6 +1247,19 @@ classes:
           returns: String
           error: true
 abstract_callbacks:
+    - java_class: android.bluetooth.le.AdvertiseCallback
+      go_type: AdvertiseCallbackCallback
+      methods:
+        - java_method: onStartFailure
+          params:
+            - int
+          returns: void
+          go_field: OnStartFailure
+        - java_method: onStartSuccess
+          params:
+            - android.bluetooth.le.AdvertiseSettings
+          returns: void
+          go_field: OnStartSuccess
     - java_class: android.bluetooth.le.ScanCallback
       go_type: ScanCallbackCallback
       methods:
@@ -1246,19 +1274,6 @@ abstract_callbacks:
             - android.bluetooth.le.ScanResult
           returns: void
           go_field: OnScanResult
-    - java_class: android.bluetooth.le.AdvertiseCallback
-      go_type: AdvertiseCallbackCallback
-      methods:
-        - java_method: onStartFailure
-          params:
-            - int
-          returns: void
-          go_field: OnStartFailure
-        - java_method: onStartSuccess
-          params:
-            - android.bluetooth.le.AdvertiseSettings
-          returns: void
-          go_field: OnStartSuccess
     - java_class: android.bluetooth.le.AdvertisingSetCallback
       go_type: AdvertisingSetCallbackCallback
       methods:
@@ -1319,42 +1334,19 @@ abstract_callbacks:
             - int
           returns: void
           go_field: OnScanResponseDataSet
+abstract_callback_eligibility:
+    - java_class: android.bluetooth.le.AdvertiseCallback
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.bluetooth.le.ScanCallback
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.bluetooth.le.AdvertisingSetCallback
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
-    - go_name: ScanFailedAlreadyStarted
-      value: "1"
-      go_type: int
-    - go_name: ScanFailedApplicationRegistrationFailed
-      value: "2"
-      go_type: int
-    - go_name: ScanFailedFeatureUnsupported
-      value: "4"
-      go_type: int
-    - go_name: ScanFailedInternalError
-      value: "3"
-      go_type: int
-    - go_name: ScanFailedOutOfHardwareResources
-      value: "5"
-      go_type: int
-    - go_name: ScanFailedScanningTooFrequently
-      value: "6"
-      go_type: int
     - go_name: Creator
       value: "0"
-      go_type: int
-    - go_name: AdvertiseFailedAlreadyStarted
-      value: "3"
-      go_type: int
-    - go_name: AdvertiseFailedDataTooLarge
-      value: "1"
-      go_type: int
-    - go_name: AdvertiseFailedFeatureUnsupported
-      value: "5"
-      go_type: int
-    - go_name: AdvertiseFailedInternalError
-      value: "4"
-      go_type: int
-    - go_name: AdvertiseFailedTooManyAdvertisers
-      value: "2"
       go_type: int
     - go_name: IntervalHigh
       value: "1600"
@@ -1389,18 +1381,57 @@ constants:
     - go_name: TxPowerUltraLow
       value: "-21"
       go_type: int
-    - go_name: AdvertiseSuccess
+    - go_name: AdvertiseFailedAlreadyStarted
+      value: "3"
+      go_type: int
+    - go_name: AdvertiseFailedDataTooLarge
+      value: "1"
+      go_type: int
+    - go_name: AdvertiseFailedFeatureUnsupported
+      value: "5"
+      go_type: int
+    - go_name: AdvertiseFailedInternalError
+      value: "4"
+      go_type: int
+    - go_name: AdvertiseFailedTooManyAdvertisers
+      value: "2"
+      go_type: int
+    - go_name: ScanFailedAlreadyStarted
+      value: "1"
+      go_type: int
+    - go_name: ScanFailedApplicationRegistrationFailed
+      value: "2"
+      go_type: int
+    - go_name: ScanFailedFeatureUnsupported
+      value: "4"
+      go_type: int
+    - go_name: ScanFailedInternalError
+      value: "3"
+      go_type: int
+    - go_name: ScanFailedOutOfHardwareResources
+      value: "5"
+      go_type: int
+    - go_name: ScanFailedScanningTooFrequently
+      value: "6"
+      go_type: int
+    - go_name: DataComplete
       value: "0"
       go_type: int
-    - go_name: ExtraCallbackType
-      value: '"android.bluetooth.le.extra.CALLBACK_TYPE"'
-      go_type: string
-    - go_name: ExtraErrorCode
-      value: '"android.bluetooth.le.extra.ERROR_CODE"'
-      go_type: string
-    - go_name: ExtraListScanResult
-      value: '"android.bluetooth.le.extra.LIST_SCAN_RESULT"'
-      go_type: string
+    - go_name: DataTruncated
+      value: "2"
+      go_type: int
+    - go_name: PeriodicIntervalNotPresent
+      value: "0"
+      go_type: int
+    - go_name: PhyUnused
+      value: "0"
+      go_type: int
+    - go_name: SidNotPresent
+      value: "255"
+      go_type: int
+    - go_name: TxPowerNotPresent
+      value: "127"
+      go_type: int
     - go_name: AutoBatchMinReportDelayMillis
       value: "600000"
       go_type: int64
@@ -1467,23 +1498,17 @@ constants:
     - go_name: AdvertiseTxPowerUltraLow
       value: "0"
       go_type: int
-    - go_name: DataComplete
+    - go_name: ExtraCallbackType
+      value: '"android.bluetooth.le.extra.CALLBACK_TYPE"'
+      go_type: string
+    - go_name: ExtraErrorCode
+      value: '"android.bluetooth.le.extra.ERROR_CODE"'
+      go_type: string
+    - go_name: ExtraListScanResult
+      value: '"android.bluetooth.le.extra.LIST_SCAN_RESULT"'
+      go_type: string
+    - go_name: AdvertiseSuccess
       value: "0"
-      go_type: int
-    - go_name: DataTruncated
-      value: "2"
-      go_type: int
-    - go_name: PeriodicIntervalNotPresent
-      value: "0"
-      go_type: int
-    - go_name: PhyUnused
-      value: "0"
-      go_type: int
-    - go_name: SidNotPresent
-      value: "255"
-      go_type: int
-    - go_name: TxPowerNotPresent
-      value: "127"
       go_type: int
     - go_name: DataType3dInformationData
       value: "61"

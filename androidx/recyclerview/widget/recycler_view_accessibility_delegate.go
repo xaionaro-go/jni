@@ -32,6 +32,12 @@ func NewRecyclerViewAccessibilityDelegate(vm *jni.VM, arg0 *jni.Object) (*Recycl
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRecyclerViewAccessibilityDelegate == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate is not available on this device")
+		}
+		if midRecyclerViewAccessibilityDelegateCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate constructor (Landroidx/recyclerview/widget/RecyclerView;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegate)), midRecyclerViewAccessibilityDelegateCtor, jni.ObjectValue(arg0))
 		if err != nil {

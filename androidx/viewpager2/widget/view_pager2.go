@@ -32,6 +32,12 @@ func NewViewPager2(vm *jni.VM, arg0 *jni.Object) (*ViewPager2, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsViewPager2 == nil {
+			return fmt.Errorf("androidx.viewpager2.widget.ViewPager2 is not available on this device")
+		}
+		if midViewPager2Ctor == nil {
+			return fmt.Errorf("androidx.viewpager2.widget.ViewPager2 constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewPager2)), midViewPager2Ctor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -886,29 +892,6 @@ func (m *ViewPager2) RemoveItemDecorationAt(arg0 int32) error {
 	return callErr
 }
 
-// RemoveItemDecoration calls androidx.viewpager2.widget.ViewPager2.removeItemDecoration.
-func (m *ViewPager2) RemoveItemDecoration(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midViewPager2RemoveItemDecoration == nil {
-			callErr = fmt.Errorf("androidx.viewpager2.widget.ViewPager2.removeItemDecoration is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midViewPager2RemoveItemDecoration, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.viewpager2.widget.ViewPager2.toString.
 func (m *ViewPager2) ToString() (string, error) {
 	var result string
@@ -934,4 +917,27 @@ func (m *ViewPager2) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// RemoveItemDecoration calls androidx.viewpager2.widget.ViewPager2.removeItemDecoration.
+func (m *ViewPager2) RemoveItemDecoration(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midViewPager2RemoveItemDecoration == nil {
+			callErr = fmt.Errorf("androidx.viewpager2.widget.ViewPager2.removeItemDecoration is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsViewPager2)),
+			midViewPager2RemoveItemDecoration, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -32,6 +32,12 @@ func NewDirect(vm *jni.VM) (*Direct, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDirect == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.analyzer.Direct is not available on this device")
+		}
+		if midDirectCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.analyzer.Direct constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDirect)), midDirectCtor)
 		if err != nil {
 			return err

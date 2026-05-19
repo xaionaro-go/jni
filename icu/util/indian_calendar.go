@@ -32,6 +32,12 @@ func NewIndianCalendar(vm *jni.VM) (*IndianCalendar, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsIndianCalendar == nil {
+			return fmt.Errorf("android.icu.util.IndianCalendar is not available on this device")
+		}
+		if midIndianCalendarCtor == nil {
+			return fmt.Errorf("android.icu.util.IndianCalendar constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIndianCalendar)), midIndianCalendarCtor)
 		if err != nil {
 			return err

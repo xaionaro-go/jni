@@ -23,6 +23,34 @@ type SessionListener struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSessionListener creates a new android.net.sip.SipSession$Listener instance.
+func NewSessionListener(vm *jni.VM) (*SessionListener, error) {
+	var t SessionListener
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSessionListener == nil {
+			return fmt.Errorf("android.net.sip.SipSession$Listener is not available on this device")
+		}
+		if midSessionListenerCtor == nil {
+			return fmt.Errorf("android.net.sip.SipSession$Listener constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSessionListener)), midSessionListenerCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnCallBusy calls android.net.sip.SipSession$Listener.onCallBusy.
 func (m *SessionListener) OnCallBusy(arg0 *jni.Object) error {
 

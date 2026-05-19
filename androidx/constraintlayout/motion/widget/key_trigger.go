@@ -32,6 +32,12 @@ func NewKeyTrigger(vm *jni.VM) (*KeyTrigger, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsKeyTrigger == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.KeyTrigger is not available on this device")
+		}
+		if midKeyTriggerCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.KeyTrigger constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyTrigger)), midKeyTriggerCtor)
 		if err != nil {
 			return err
@@ -152,8 +158,8 @@ func (m *KeyTrigger) Copy(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// Clone0 calls androidx.constraintlayout.motion.widget.KeyTrigger.clone.
-func (m *KeyTrigger) Clone0() (*jni.Object, error) {
+// Clone calls androidx.constraintlayout.motion.widget.KeyTrigger.clone.
+func (m *KeyTrigger) Clone() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -161,45 +167,13 @@ func (m *KeyTrigger) Clone0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midKeyTriggerClone0 == nil {
+		if midKeyTriggerClone == nil {
 			callErr = fmt.Errorf("androidx.constraintlayout.motion.widget.KeyTrigger.clone is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midKeyTriggerClone0,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Clone0_1 calls androidx.constraintlayout.motion.widget.KeyTrigger.clone.
-func (m *KeyTrigger) Clone0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midKeyTriggerClone0_1 == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.motion.widget.KeyTrigger.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midKeyTriggerClone0_1,
+			midKeyTriggerClone,
 		)
 		if callErr != nil {
 			return callErr

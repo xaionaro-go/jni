@@ -32,6 +32,12 @@ func NewMenuPopupWindow(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 int
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMenuPopupWindow == nil {
+			return fmt.Errorf("androidx.appcompat.widget.MenuPopupWindow is not available on this device")
+		}
+		if midMenuPopupWindowCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.MenuPopupWindow constructor (Landroid/content/Context;Landroid/util/AttributeSet;II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMenuPopupWindow)), midMenuPopupWindowCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3))
 		if err != nil {
@@ -165,29 +171,6 @@ func (m *MenuPopupWindow) OnItemHoverEnter(arg0 *jni.Object, arg1 *jni.Object) e
 	return callErr
 }
 
-// OnItemHoverExit calls androidx.appcompat.widget.MenuPopupWindow.onItemHoverExit.
-func (m *MenuPopupWindow) OnItemHoverExit(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMenuPopupWindowOnItemHoverExit == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.MenuPopupWindow.onItemHoverExit is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMenuPopupWindowOnItemHoverExit, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.appcompat.widget.MenuPopupWindow.toString.
 func (m *MenuPopupWindow) ToString() (string, error) {
 	var result string
@@ -213,4 +196,27 @@ func (m *MenuPopupWindow) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// OnItemHoverExit calls androidx.appcompat.widget.MenuPopupWindow.onItemHoverExit.
+func (m *MenuPopupWindow) OnItemHoverExit(arg0 *jni.Object, arg1 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midMenuPopupWindowOnItemHoverExit == nil {
+			callErr = fmt.Errorf("androidx.appcompat.widget.MenuPopupWindow.onItemHoverExit is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsMenuPopupWindow)),
+			midMenuPopupWindowOnItemHoverExit, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

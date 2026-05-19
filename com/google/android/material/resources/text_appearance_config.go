@@ -32,6 +32,12 @@ func NewTextAppearanceConfig(vm *jni.VM) (*TextAppearanceConfig, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTextAppearanceConfig == nil {
+			return fmt.Errorf("com.google.android.material.resources.TextAppearanceConfig is not available on this device")
+		}
+		if midTextAppearanceConfigCtor == nil {
+			return fmt.Errorf("com.google.android.material.resources.TextAppearanceConfig constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextAppearanceConfig)), midTextAppearanceConfigCtor)
 		if err != nil {
 			return err

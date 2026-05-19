@@ -32,6 +32,12 @@ func NewFabTransformationSheetBehavior(vm *jni.VM, arg0 *jni.Object, arg1 *jni.O
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFabTransformationSheetBehavior == nil {
+			return fmt.Errorf("com.google.android.material.transformation.FabTransformationSheetBehavior is not available on this device")
+		}
+		if midFabTransformationSheetBehaviorCtor == nil {
+			return fmt.Errorf("com.google.android.material.transformation.FabTransformationSheetBehavior constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFabTransformationSheetBehavior)), midFabTransformationSheetBehaviorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

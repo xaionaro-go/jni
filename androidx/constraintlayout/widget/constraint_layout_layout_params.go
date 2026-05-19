@@ -23,6 +23,35 @@ type ConstraintLayoutLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewConstraintLayoutLayoutParams creates a new androidx.constraintlayout.widget.ConstraintLayout$LayoutParams instance.
+func NewConstraintLayoutLayoutParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ConstraintLayoutLayoutParams, error) {
+	var t ConstraintLayoutLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsConstraintLayoutLayoutParams == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.ConstraintLayout$LayoutParams is not available on this device")
+		}
+		if midConstraintLayoutLayoutParamsCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.ConstraintLayout$LayoutParams constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConstraintLayoutLayoutParams)), midConstraintLayoutLayoutParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetConstraintWidget calls androidx.constraintlayout.widget.ConstraintLayout$LayoutParams.getConstraintWidget.
 func (m *ConstraintLayoutLayoutParams) GetConstraintWidget() (*jni.Object, error) {
 	var result *jni.Object

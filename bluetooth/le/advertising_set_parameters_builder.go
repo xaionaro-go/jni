@@ -23,6 +23,34 @@ type AdvertisingSetParametersBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAdvertisingSetParametersBuilder creates a new android.bluetooth.le.AdvertisingSetParameters$Builder instance.
+func NewAdvertisingSetParametersBuilder(vm *jni.VM) (*AdvertisingSetParametersBuilder, error) {
+	var t AdvertisingSetParametersBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAdvertisingSetParametersBuilder == nil {
+			return fmt.Errorf("android.bluetooth.le.AdvertisingSetParameters$Builder is not available on this device")
+		}
+		if midAdvertisingSetParametersBuilderCtor == nil {
+			return fmt.Errorf("android.bluetooth.le.AdvertisingSetParameters$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAdvertisingSetParametersBuilder)), midAdvertisingSetParametersBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.bluetooth.le.AdvertisingSetParameters$Builder.build.
 func (m *AdvertisingSetParametersBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

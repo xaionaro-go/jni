@@ -23,6 +23,34 @@ type AdFiltersBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAdFiltersBuilder creates a new android.adservices.common.AdFilters$Builder instance.
+func NewAdFiltersBuilder(vm *jni.VM) (*AdFiltersBuilder, error) {
+	var t AdFiltersBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAdFiltersBuilder == nil {
+			return fmt.Errorf("android.adservices.common.AdFilters$Builder is not available on this device")
+		}
+		if midAdFiltersBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.common.AdFilters$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAdFiltersBuilder)), midAdFiltersBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.common.AdFilters$Builder.build.
 func (m *AdFiltersBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

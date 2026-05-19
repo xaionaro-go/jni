@@ -23,6 +23,13 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsProcessCompat                 *jni.GlobalRef
+	midProcessCompatToString         jni.MethodID
+	midProcessCompatIsApplicationUid jni.MethodID
+
+	clsParcelableCompatCreatorCallbacks         *jni.GlobalRef
+	midParcelableCompatCreatorCallbacksToString jni.MethodID
+
 	clsTraceCompat                  *jni.GlobalRef
 	midTraceCompatToString          jni.MethodID
 	midTraceCompatIsEnabled         jni.MethodID
@@ -32,108 +39,33 @@ var (
 	midTraceCompatEndAsyncSection   jni.MethodID
 	midTraceCompatSetCounter        jni.MethodID
 
-	clsParcelableCompatCreatorCallbacks         *jni.GlobalRef
-	midParcelableCompatCreatorCallbacksToString jni.MethodID
+	clsParcelableCompat         *jni.GlobalRef
+	midParcelableCompatToString jni.MethodID
 
 	clsUserHandleCompat                    *jni.GlobalRef
 	midUserHandleCompatToString            jni.MethodID
 	midUserHandleCompatGetUserHandleForUid jni.MethodID
 
-	clsOperationCanceledException         *jni.GlobalRef
-	midOperationCanceledExceptionCtor     jni.MethodID
-	midOperationCanceledExceptionToString jni.MethodID
-
 	clsHandlerKt         *jni.GlobalRef
 	midHandlerKtToString jni.MethodID
 
-	clsParcelCompat             *jni.GlobalRef
-	midParcelCompatToString     jni.MethodID
-	midParcelCompatReadBoolean  jni.MethodID
-	midParcelCompatWriteBoolean jni.MethodID
-
-	clsUserManagerCompat               *jni.GlobalRef
-	midUserManagerCompatToString       jni.MethodID
-	midUserManagerCompatIsUserUnlocked jni.MethodID
-
-	clsCancellationSignal                            *jni.GlobalRef
-	midCancellationSignalCtor                        jni.MethodID
-	midCancellationSignalIsCanceled                  jni.MethodID
-	midCancellationSignalThrowIfCanceled             jni.MethodID
-	midCancellationSignalCancel                      jni.MethodID
-	midCancellationSignalSetOnCancelListener         jni.MethodID
-	midCancellationSignalGetCancellationSignalObject jni.MethodID
-	midCancellationSignalToString                    jni.MethodID
-
-	clsCancellationSignalOnCancelListener         *jni.GlobalRef
-	midCancellationSignalOnCancelListenerOnCancel jni.MethodID
-	midCancellationSignalOnCancelListenerToString jni.MethodID
-
-	clsPersistableBundleKt                    *jni.GlobalRef
-	midPersistableBundleKtToString            jni.MethodID
-	midPersistableBundleKtPersistableBundleOf jni.MethodID
-
-	clsBundleCompat          *jni.GlobalRef
-	midBundleCompatToString  jni.MethodID
-	midBundleCompatGetBinder jni.MethodID
-	midBundleCompatPutBinder jni.MethodID
-
-	clsProcessCompat                 *jni.GlobalRef
-	midProcessCompatToString         jni.MethodID
-	midProcessCompatIsApplicationUid jni.MethodID
-
-	clsExecutorCompat         *jni.GlobalRef
-	midExecutorCompatToString jni.MethodID
-
-	clsConfigurationCompat           *jni.GlobalRef
-	midConfigurationCompatToString   jni.MethodID
-	midConfigurationCompatGetLocales jni.MethodID
-	midConfigurationCompatSetLocales jni.MethodID
-
-	clsBundleKt         *jni.GlobalRef
-	midBundleKtToString jni.MethodID
-	midBundleKtBundleOf jni.MethodID
-
-	clsOutcomeReceiverKt         *jni.GlobalRef
-	midOutcomeReceiverKtToString jni.MethodID
-
-	clsParcelableCompat         *jni.GlobalRef
-	midParcelableCompatToString jni.MethodID
+	clsEnvironmentCompat                *jni.GlobalRef
+	midEnvironmentCompatToString        jni.MethodID
+	midEnvironmentCompatGetStorageState jni.MethodID
 
 	clsMessageCompat                *jni.GlobalRef
 	midMessageCompatToString        jni.MethodID
 	midMessageCompatSetAsynchronous jni.MethodID
 	midMessageCompatIsAsynchronous  jni.MethodID
 
-	clsHandlerCompat            *jni.GlobalRef
-	midHandlerCompatToString    jni.MethodID
-	midHandlerCompatCreateAsync jni.MethodID
+	clsBundleCompat          *jni.GlobalRef
+	midBundleCompatToString  jni.MethodID
+	midBundleCompatGetBinder jni.MethodID
+	midBundleCompatPutBinder jni.MethodID
 
-	clsLocaleListCompat                         *jni.GlobalRef
-	midLocaleListCompatUnwrap                   jni.MethodID
-	midLocaleListCompatGet                      jni.MethodID
-	midLocaleListCompatIsEmpty                  jni.MethodID
-	midLocaleListCompatSize                     jni.MethodID
-	midLocaleListCompatIndexOf                  jni.MethodID
-	midLocaleListCompatToLanguageTags           jni.MethodID
-	midLocaleListCompatGetFirstMatch            jni.MethodID
-	midLocaleListCompatEquals                   jni.MethodID
-	midLocaleListCompatHashCode                 jni.MethodID
-	midLocaleListCompatToString                 jni.MethodID
-	midLocaleListCompatWrap1                    jni.MethodID
-	midLocaleListCompatWrap1_1                  jni.MethodID
-	midLocaleListCompatCreate                   jni.MethodID
-	midLocaleListCompatGetEmptyLocaleList       jni.MethodID
-	midLocaleListCompatForLanguageTags          jni.MethodID
-	midLocaleListCompatGetAdjustedDefault       jni.MethodID
-	midLocaleListCompatGetDefault               jni.MethodID
-	midLocaleListCompatMatchesLanguageAndScript jni.MethodID
-
-	clsTraceKt         *jni.GlobalRef
-	midTraceKtToString jni.MethodID
-
-	clsEnvironmentCompat                *jni.GlobalRef
-	midEnvironmentCompatToString        jni.MethodID
-	midEnvironmentCompatGetStorageState jni.MethodID
+	clsPersistableBundleKt                    *jni.GlobalRef
+	midPersistableBundleKtToString            jni.MethodID
+	midPersistableBundleKtPersistableBundleOf jni.MethodID
 
 	clsBuildCompat                            *jni.GlobalRef
 	midBuildCompatToString                    jni.MethodID
@@ -153,6 +85,74 @@ var (
 
 	clsBuildCompatPrereleaseSdkCheck         *jni.GlobalRef
 	midBuildCompatPrereleaseSdkCheckToString jni.MethodID
+
+	clsLocaleListCompat                         *jni.GlobalRef
+	midLocaleListCompatUnwrap                   jni.MethodID
+	midLocaleListCompatGet                      jni.MethodID
+	midLocaleListCompatIsEmpty                  jni.MethodID
+	midLocaleListCompatSize                     jni.MethodID
+	midLocaleListCompatIndexOf                  jni.MethodID
+	midLocaleListCompatToLanguageTags           jni.MethodID
+	midLocaleListCompatGetFirstMatch            jni.MethodID
+	midLocaleListCompatEquals                   jni.MethodID
+	midLocaleListCompatHashCode                 jni.MethodID
+	midLocaleListCompatWrap1                    jni.MethodID
+	midLocaleListCompatWrap1_1                  jni.MethodID
+	midLocaleListCompatCreate                   jni.MethodID
+	midLocaleListCompatGetEmptyLocaleList       jni.MethodID
+	midLocaleListCompatForLanguageTags          jni.MethodID
+	midLocaleListCompatGetAdjustedDefault       jni.MethodID
+	midLocaleListCompatGetDefault               jni.MethodID
+	midLocaleListCompatMatchesLanguageAndScript jni.MethodID
+	midLocaleListCompatToString                 jni.MethodID
+
+	clsConfigurationCompat           *jni.GlobalRef
+	midConfigurationCompatToString   jni.MethodID
+	midConfigurationCompatGetLocales jni.MethodID
+	midConfigurationCompatSetLocales jni.MethodID
+
+	clsTraceKt         *jni.GlobalRef
+	midTraceKtToString jni.MethodID
+
+	clsParcelCompat             *jni.GlobalRef
+	midParcelCompatToString     jni.MethodID
+	midParcelCompatReadBoolean  jni.MethodID
+	midParcelCompatWriteBoolean jni.MethodID
+
+	clsUserManagerCompat               *jni.GlobalRef
+	midUserManagerCompatToString       jni.MethodID
+	midUserManagerCompatIsUserUnlocked jni.MethodID
+
+	clsExecutorCompat         *jni.GlobalRef
+	midExecutorCompatToString jni.MethodID
+
+	clsHandlerCompat            *jni.GlobalRef
+	midHandlerCompatToString    jni.MethodID
+	midHandlerCompatCreateAsync jni.MethodID
+
+	clsBundleKt         *jni.GlobalRef
+	midBundleKtToString jni.MethodID
+	midBundleKtBundleOf jni.MethodID
+
+	clsOutcomeReceiverKt         *jni.GlobalRef
+	midOutcomeReceiverKtToString jni.MethodID
+
+	clsOperationCanceledException         *jni.GlobalRef
+	midOperationCanceledExceptionCtor     jni.MethodID
+	midOperationCanceledExceptionToString jni.MethodID
+
+	clsCancellationSignal                            *jni.GlobalRef
+	midCancellationSignalCtor                        jni.MethodID
+	midCancellationSignalIsCanceled                  jni.MethodID
+	midCancellationSignalThrowIfCanceled             jni.MethodID
+	midCancellationSignalCancel                      jni.MethodID
+	midCancellationSignalSetOnCancelListener         jni.MethodID
+	midCancellationSignalGetCancellationSignalObject jni.MethodID
+	midCancellationSignalToString                    jni.MethodID
+
+	clsCancellationSignalOnCancelListener         *jni.GlobalRef
+	midCancellationSignalOnCancelListenerOnCancel jni.MethodID
+	midCancellationSignalOnCancelListenerToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -172,6 +172,47 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("androidx/core/os/ProcessCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsProcessCompat = env.NewGlobalRef(&c.Object)
+
+		midProcessCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProcessCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProcessCompatIsApplicationUid, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsProcessCompat)), "isApplicationUid", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/os/ParcelableCompatCreatorCallbacks")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsParcelableCompatCreatorCallbacks = env.NewGlobalRef(&c.Object)
+
+		midParcelableCompatCreatorCallbacksToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsParcelableCompatCreatorCallbacks)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("androidx/core/os/TraceCompat")
 	if err != nil {
@@ -232,15 +273,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/os/ParcelableCompatCreatorCallbacks")
+	c, err = env.FindClass("androidx/core/os/ParcelableCompat")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsParcelableCompatCreatorCallbacks = env.NewGlobalRef(&c.Object)
+		clsParcelableCompat = env.NewGlobalRef(&c.Object)
 
-		midParcelableCompatCreatorCallbacksToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsParcelableCompatCreatorCallbacks)), "toString", "()Ljava/lang/String;")
+		midParcelableCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsParcelableCompat)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -273,27 +314,6 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/os/OperationCanceledException")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsOperationCanceledException = env.NewGlobalRef(&c.Object)
-		midOperationCanceledExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOperationCanceledException)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midOperationCanceledExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOperationCanceledException)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("androidx/core/os/HandlerKt")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -311,318 +331,22 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/os/ParcelCompat")
+	c, err = env.FindClass("androidx/core/os/EnvironmentCompat")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsParcelCompat = env.NewGlobalRef(&c.Object)
+		clsEnvironmentCompat = env.NewGlobalRef(&c.Object)
 
-		midParcelCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsParcelCompat)), "toString", "()Ljava/lang/String;")
+		midEnvironmentCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEnvironmentCompat)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midParcelCompatReadBoolean, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsParcelCompat)), "readBoolean", "(Landroid/os/Parcel;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midParcelCompatWriteBoolean, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsParcelCompat)), "writeBoolean", "(Landroid/os/Parcel;Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/os/UserManagerCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsUserManagerCompat = env.NewGlobalRef(&c.Object)
-
-		midUserManagerCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUserManagerCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midUserManagerCompatIsUserUnlocked, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsUserManagerCompat)), "isUserUnlocked", "(Landroid/content/Context;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/os/CancellationSignal")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCancellationSignal = env.NewGlobalRef(&c.Object)
-		midCancellationSignalCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellationSignal)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCancellationSignalIsCanceled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellationSignal)), "isCanceled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCancellationSignalThrowIfCanceled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellationSignal)), "throwIfCanceled", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCancellationSignalCancel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellationSignal)), "cancel", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCancellationSignalSetOnCancelListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellationSignal)), "setOnCancelListener", "(Landroidx/core/os/CancellationSignal$OnCancelListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCancellationSignalGetCancellationSignalObject, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellationSignal)), "getCancellationSignalObject", "()Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCancellationSignalToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellationSignal)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/os/CancellationSignal$OnCancelListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCancellationSignalOnCancelListener = env.NewGlobalRef(&c.Object)
-
-		midCancellationSignalOnCancelListenerOnCancel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellationSignalOnCancelListener)), "onCancel", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCancellationSignalOnCancelListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellationSignalOnCancelListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/os/PersistableBundleKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPersistableBundleKt = env.NewGlobalRef(&c.Object)
-
-		midPersistableBundleKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPersistableBundleKt)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPersistableBundleKtPersistableBundleOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPersistableBundleKt)), "persistableBundleOf", "()Landroid/os/PersistableBundle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/os/BundleCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBundleCompat = env.NewGlobalRef(&c.Object)
-
-		midBundleCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBundleCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBundleCompatGetBinder, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBundleCompat)), "getBinder", "(Landroid/os/Bundle;Ljava/lang/String;)Landroid/os/IBinder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBundleCompatPutBinder, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBundleCompat)), "putBinder", "(Landroid/os/Bundle;Ljava/lang/String;Landroid/os/IBinder;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/os/ProcessCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsProcessCompat = env.NewGlobalRef(&c.Object)
-
-		midProcessCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProcessCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProcessCompatIsApplicationUid, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsProcessCompat)), "isApplicationUid", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/os/ExecutorCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsExecutorCompat = env.NewGlobalRef(&c.Object)
-
-		midExecutorCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExecutorCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/os/ConfigurationCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsConfigurationCompat = env.NewGlobalRef(&c.Object)
-
-		midConfigurationCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfigurationCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConfigurationCompatGetLocales, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsConfigurationCompat)), "getLocales", "(Landroid/content/res/Configuration;)Landroidx/core/os/LocaleListCompat;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConfigurationCompatSetLocales, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsConfigurationCompat)), "setLocales", "(Landroid/content/res/Configuration;Landroidx/core/os/LocaleListCompat;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/os/BundleKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBundleKt = env.NewGlobalRef(&c.Object)
-
-		midBundleKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBundleKt)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBundleKtBundleOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBundleKt)), "bundleOf", "()Landroid/os/Bundle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/os/OutcomeReceiverKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsOutcomeReceiverKt = env.NewGlobalRef(&c.Object)
-
-		midOutcomeReceiverKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOutcomeReceiverKt)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/os/ParcelableCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsParcelableCompat = env.NewGlobalRef(&c.Object)
-
-		midParcelableCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsParcelableCompat)), "toString", "()Ljava/lang/String;")
+		midEnvironmentCompatGetStorageState, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEnvironmentCompat)), "getStorageState", "(Ljava/io/File;)Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -662,22 +386,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/os/HandlerCompat")
+	c, err = env.FindClass("androidx/core/os/BundleCompat")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsHandlerCompat = env.NewGlobalRef(&c.Object)
+		clsBundleCompat = env.NewGlobalRef(&c.Object)
 
-		midHandlerCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHandlerCompat)), "toString", "()Ljava/lang/String;")
+		midBundleCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBundleCompat)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midHandlerCompatCreateAsync, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHandlerCompat)), "createAsync", "(Landroid/os/Looper;)Landroid/os/Handler;")
+		midBundleCompatGetBinder, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBundleCompat)), "getBinder", "(Landroid/os/Bundle;Ljava/lang/String;)Landroid/os/IBinder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBundleCompatPutBinder, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBundleCompat)), "putBinder", "(Landroid/os/Bundle;Ljava/lang/String;Landroid/os/IBinder;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -686,175 +417,22 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/os/LocaleListCompat")
+	c, err = env.FindClass("androidx/core/os/PersistableBundleKt")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsLocaleListCompat = env.NewGlobalRef(&c.Object)
+		clsPersistableBundleKt = env.NewGlobalRef(&c.Object)
 
-		midLocaleListCompatUnwrap, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "unwrap", "()Ljava/lang/Object;")
+		midPersistableBundleKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPersistableBundleKt)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLocaleListCompatGet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "get", "(I)Ljava/util/Locale;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocaleListCompatIsEmpty, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "isEmpty", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocaleListCompatSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "size", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocaleListCompatIndexOf, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "indexOf", "(Ljava/util/Locale;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocaleListCompatToLanguageTags, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "toLanguageTags", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocaleListCompatGetFirstMatch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "getFirstMatch", "([Ljava/lang/String;)Ljava/util/Locale;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocaleListCompatEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocaleListCompatHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocaleListCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocaleListCompatWrap1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "wrap", "(Ljava/lang/Object;)Landroidx/core/os/LocaleListCompat;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocaleListCompatWrap1_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "wrap", "(Landroid/os/LocaleList;)Landroidx/core/os/LocaleListCompat;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocaleListCompatCreate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "create", "([Ljava/util/Locale;)Landroidx/core/os/LocaleListCompat;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocaleListCompatGetEmptyLocaleList, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "getEmptyLocaleList", "()Landroidx/core/os/LocaleListCompat;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocaleListCompatForLanguageTags, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "forLanguageTags", "(Ljava/lang/String;)Landroidx/core/os/LocaleListCompat;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocaleListCompatGetAdjustedDefault, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "getAdjustedDefault", "()Landroidx/core/os/LocaleListCompat;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocaleListCompatGetDefault, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "getDefault", "()Landroidx/core/os/LocaleListCompat;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocaleListCompatMatchesLanguageAndScript, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "matchesLanguageAndScript", "(Ljava/util/Locale;Ljava/util/Locale;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/os/TraceKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTraceKt = env.NewGlobalRef(&c.Object)
-
-		midTraceKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTraceKt)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/os/EnvironmentCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsEnvironmentCompat = env.NewGlobalRef(&c.Object)
-
-		midEnvironmentCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEnvironmentCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEnvironmentCompatGetStorageState, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEnvironmentCompat)), "getStorageState", "(Ljava/io/File;)Ljava/lang/String;")
+		midPersistableBundleKtPersistableBundleOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPersistableBundleKt)), "persistableBundleOf", "()Landroid/os/PersistableBundle;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -980,6 +558,428 @@ func doInit(env *jni.Env) error {
 		clsBuildCompatPrereleaseSdkCheck = env.NewGlobalRef(&c.Object)
 
 		midBuildCompatPrereleaseSdkCheckToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuildCompatPrereleaseSdkCheck)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/os/LocaleListCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLocaleListCompat = env.NewGlobalRef(&c.Object)
+
+		midLocaleListCompatUnwrap, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "unwrap", "()Ljava/lang/Object;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocaleListCompatGet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "get", "(I)Ljava/util/Locale;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocaleListCompatIsEmpty, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "isEmpty", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocaleListCompatSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "size", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocaleListCompatIndexOf, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "indexOf", "(Ljava/util/Locale;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocaleListCompatToLanguageTags, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "toLanguageTags", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocaleListCompatGetFirstMatch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "getFirstMatch", "([Ljava/lang/String;)Ljava/util/Locale;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocaleListCompatEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocaleListCompatHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocaleListCompatWrap1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "wrap", "(Ljava/lang/Object;)Landroidx/core/os/LocaleListCompat;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocaleListCompatWrap1_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "wrap", "(Landroid/os/LocaleList;)Landroidx/core/os/LocaleListCompat;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocaleListCompatCreate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "create", "([Ljava/util/Locale;)Landroidx/core/os/LocaleListCompat;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocaleListCompatGetEmptyLocaleList, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "getEmptyLocaleList", "()Landroidx/core/os/LocaleListCompat;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocaleListCompatForLanguageTags, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "forLanguageTags", "(Ljava/lang/String;)Landroidx/core/os/LocaleListCompat;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocaleListCompatGetAdjustedDefault, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "getAdjustedDefault", "()Landroidx/core/os/LocaleListCompat;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocaleListCompatGetDefault, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "getDefault", "()Landroidx/core/os/LocaleListCompat;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocaleListCompatMatchesLanguageAndScript, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "matchesLanguageAndScript", "(Ljava/util/Locale;Ljava/util/Locale;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocaleListCompatToString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocaleListCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/os/ConfigurationCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsConfigurationCompat = env.NewGlobalRef(&c.Object)
+
+		midConfigurationCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfigurationCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConfigurationCompatGetLocales, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsConfigurationCompat)), "getLocales", "(Landroid/content/res/Configuration;)Landroidx/core/os/LocaleListCompat;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConfigurationCompatSetLocales, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsConfigurationCompat)), "setLocales", "(Landroid/content/res/Configuration;Landroidx/core/os/LocaleListCompat;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/os/TraceKt")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTraceKt = env.NewGlobalRef(&c.Object)
+
+		midTraceKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTraceKt)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/os/ParcelCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsParcelCompat = env.NewGlobalRef(&c.Object)
+
+		midParcelCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsParcelCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midParcelCompatReadBoolean, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsParcelCompat)), "readBoolean", "(Landroid/os/Parcel;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midParcelCompatWriteBoolean, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsParcelCompat)), "writeBoolean", "(Landroid/os/Parcel;Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/os/UserManagerCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsUserManagerCompat = env.NewGlobalRef(&c.Object)
+
+		midUserManagerCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUserManagerCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midUserManagerCompatIsUserUnlocked, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsUserManagerCompat)), "isUserUnlocked", "(Landroid/content/Context;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/os/ExecutorCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsExecutorCompat = env.NewGlobalRef(&c.Object)
+
+		midExecutorCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExecutorCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/os/HandlerCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsHandlerCompat = env.NewGlobalRef(&c.Object)
+
+		midHandlerCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHandlerCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHandlerCompatCreateAsync, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHandlerCompat)), "createAsync", "(Landroid/os/Looper;)Landroid/os/Handler;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/os/BundleKt")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBundleKt = env.NewGlobalRef(&c.Object)
+
+		midBundleKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBundleKt)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBundleKtBundleOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBundleKt)), "bundleOf", "()Landroid/os/Bundle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/os/OutcomeReceiverKt")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsOutcomeReceiverKt = env.NewGlobalRef(&c.Object)
+
+		midOutcomeReceiverKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOutcomeReceiverKt)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/os/OperationCanceledException")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsOperationCanceledException = env.NewGlobalRef(&c.Object)
+		midOperationCanceledExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOperationCanceledException)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midOperationCanceledExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOperationCanceledException)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/os/CancellationSignal")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCancellationSignal = env.NewGlobalRef(&c.Object)
+		midCancellationSignalCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellationSignal)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCancellationSignalIsCanceled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellationSignal)), "isCanceled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCancellationSignalThrowIfCanceled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellationSignal)), "throwIfCanceled", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCancellationSignalCancel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellationSignal)), "cancel", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCancellationSignalSetOnCancelListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellationSignal)), "setOnCancelListener", "(Landroidx/core/os/CancellationSignal$OnCancelListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCancellationSignalGetCancellationSignalObject, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellationSignal)), "getCancellationSignalObject", "()Ljava/lang/Object;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCancellationSignalToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellationSignal)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/os/CancellationSignal$OnCancelListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCancellationSignalOnCancelListener = env.NewGlobalRef(&c.Object)
+
+		midCancellationSignalOnCancelListenerOnCancel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellationSignalOnCancelListener)), "onCancel", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCancellationSignalOnCancelListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellationSignalOnCancelListener)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

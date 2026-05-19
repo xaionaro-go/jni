@@ -32,6 +32,12 @@ func NewPagerTitleStrip(vm *jni.VM, arg0 *jni.Object) (*PagerTitleStrip, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPagerTitleStrip == nil {
+			return fmt.Errorf("androidx.viewpager.widget.PagerTitleStrip is not available on this device")
+		}
+		if midPagerTitleStripCtor == nil {
+			return fmt.Errorf("androidx.viewpager.widget.PagerTitleStrip constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPagerTitleStrip)), midPagerTitleStripCtor, jni.ObjectValue(arg0))
 		if err != nil {

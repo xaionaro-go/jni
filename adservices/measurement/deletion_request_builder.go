@@ -23,6 +23,34 @@ type DeletionRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDeletionRequestBuilder creates a new android.adservices.measurement.DeletionRequest$Builder instance.
+func NewDeletionRequestBuilder(vm *jni.VM) (*DeletionRequestBuilder, error) {
+	var t DeletionRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDeletionRequestBuilder == nil {
+			return fmt.Errorf("android.adservices.measurement.DeletionRequest$Builder is not available on this device")
+		}
+		if midDeletionRequestBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.measurement.DeletionRequest$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDeletionRequestBuilder)), midDeletionRequestBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.measurement.DeletionRequest$Builder.build.
 func (m *DeletionRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

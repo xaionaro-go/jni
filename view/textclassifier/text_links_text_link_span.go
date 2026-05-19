@@ -23,6 +23,35 @@ type TextLinksTextLinkSpan struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTextLinksTextLinkSpan creates a new android.view.textclassifier.TextLinks$TextLinkSpan instance.
+func NewTextLinksTextLinkSpan(vm *jni.VM, arg0 *jni.Object) (*TextLinksTextLinkSpan, error) {
+	var t TextLinksTextLinkSpan
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTextLinksTextLinkSpan == nil {
+			return fmt.Errorf("android.view.textclassifier.TextLinks$TextLinkSpan is not available on this device")
+		}
+		if midTextLinksTextLinkSpanCtor == nil {
+			return fmt.Errorf("android.view.textclassifier.TextLinks$TextLinkSpan constructor (Landroid/view/textclassifier/TextLinks$TextLink;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextLinksTextLinkSpan)), midTextLinksTextLinkSpanCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetTextLink calls android.view.textclassifier.TextLinks$TextLinkSpan.getTextLink.
 func (m *TextLinksTextLinkSpan) GetTextLink() (*jni.Object, error) {
 	var result *jni.Object

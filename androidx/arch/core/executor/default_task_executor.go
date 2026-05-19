@@ -32,6 +32,12 @@ func NewDefaultTaskExecutor(vm *jni.VM) (*DefaultTaskExecutor, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDefaultTaskExecutor == nil {
+			return fmt.Errorf("androidx.arch.core.executor.DefaultTaskExecutor is not available on this device")
+		}
+		if midDefaultTaskExecutorCtor == nil {
+			return fmt.Errorf("androidx.arch.core.executor.DefaultTaskExecutor constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDefaultTaskExecutor)), midDefaultTaskExecutorCtor)
 		if err != nil {
 			return err

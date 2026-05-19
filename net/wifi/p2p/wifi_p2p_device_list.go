@@ -32,6 +32,12 @@ func NewWifiP2pDeviceList(vm *jni.VM) (*WifiP2pDeviceList, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWifiP2pDeviceList == nil {
+			return fmt.Errorf("android.net.wifi.p2p.WifiP2pDeviceList is not available on this device")
+		}
+		if midWifiP2pDeviceListCtor == nil {
+			return fmt.Errorf("android.net.wifi.p2p.WifiP2pDeviceList constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWifiP2pDeviceList)), midWifiP2pDeviceListCtor)
 		if err != nil {
 			return err
@@ -181,8 +187,8 @@ func (m *WifiP2pDeviceList) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsWifiP2pDeviceList)),
 			midWifiP2pDeviceListWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

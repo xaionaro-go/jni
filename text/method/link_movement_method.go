@@ -32,6 +32,12 @@ func NewLinkMovementMethod(vm *jni.VM) (*LinkMovementMethod, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLinkMovementMethod == nil {
+			return fmt.Errorf("android.text.method.LinkMovementMethod is not available on this device")
+		}
+		if midLinkMovementMethodCtor == nil {
+			return fmt.Errorf("android.text.method.LinkMovementMethod constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLinkMovementMethod)), midLinkMovementMethodCtor)
 		if err != nil {
 			return err

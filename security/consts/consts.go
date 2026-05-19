@@ -3,6 +3,7 @@
 package consts
 
 const (
+	Creator                           int = 0
 	ErrorAttestationChallengeTooLarge int = 9
 	ErrorAttestationKeysUnavailable   int = 16
 	ErrorIdAttestationFailure         int = 8
@@ -23,7 +24,6 @@ const (
 	RetryNever                        int = 1
 	RetryWhenConnectivityAvailable    int = 3
 	RetryWithExponentialBackoff       int = 2
-	Creator                           int = 0
 )
 
 const (

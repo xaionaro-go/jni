@@ -23,6 +23,35 @@ type SurfaceControlViewHostSurfacePackage struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSurfaceControlViewHostSurfacePackage creates a new android.view.SurfaceControlViewHost$SurfacePackage instance.
+func NewSurfaceControlViewHostSurfacePackage(vm *jni.VM, arg0 *jni.Object) (*SurfaceControlViewHostSurfacePackage, error) {
+	var t SurfaceControlViewHostSurfacePackage
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSurfaceControlViewHostSurfacePackage == nil {
+			return fmt.Errorf("android.view.SurfaceControlViewHost$SurfacePackage is not available on this device")
+		}
+		if midSurfaceControlViewHostSurfacePackageCtor == nil {
+			return fmt.Errorf("android.view.SurfaceControlViewHost$SurfacePackage constructor (Landroid/view/SurfaceControlViewHost$SurfacePackage;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSurfaceControlViewHostSurfacePackage)), midSurfaceControlViewHostSurfacePackageCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.view.SurfaceControlViewHost$SurfacePackage.describeContents.
 func (m *SurfaceControlViewHostSurfacePackage) DescribeContents() (int32, error) {
 	var result int32
@@ -220,8 +249,8 @@ func (m *SurfaceControlViewHostSurfacePackage) WriteToParcel(arg0 *jni.Object, a
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSurfaceControlViewHostSurfacePackage)),
 			midSurfaceControlViewHostSurfacePackageWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

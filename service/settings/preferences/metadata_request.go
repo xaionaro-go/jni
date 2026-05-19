@@ -48,29 +48,6 @@ func (m *MetadataRequest) DescribeContents() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.service.settings.preferences.MetadataRequest.writeToParcel.
-func (m *MetadataRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMetadataRequestWriteToParcel == nil {
-			callErr = fmt.Errorf("android.service.settings.preferences.MetadataRequest.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMetadataRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.service.settings.preferences.MetadataRequest.toString.
 func (m *MetadataRequest) ToString() (string, error) {
 	var result string
@@ -96,4 +73,27 @@ func (m *MetadataRequest) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.service.settings.preferences.MetadataRequest.writeToParcel.
+func (m *MetadataRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midMetadataRequestWriteToParcel == nil {
+			callErr = fmt.Errorf("android.service.settings.preferences.MetadataRequest.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsMetadataRequest)),
+			midMetadataRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

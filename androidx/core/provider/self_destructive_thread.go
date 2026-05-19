@@ -32,6 +32,12 @@ func NewSelfDestructiveThread(vm *jni.VM, arg0 string, arg1 int32, arg2 int32) (
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSelfDestructiveThread == nil {
+			return fmt.Errorf("androidx.core.provider.SelfDestructiveThread is not available on this device")
+		}
+		if midSelfDestructiveThreadCtor == nil {
+			return fmt.Errorf("androidx.core.provider.SelfDestructiveThread constructor (Ljava/lang/String;II)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

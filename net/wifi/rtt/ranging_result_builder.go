@@ -23,6 +23,34 @@ type RangingResultBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRangingResultBuilder creates a new android.net.wifi.rtt.RangingResult$Builder instance.
+func NewRangingResultBuilder(vm *jni.VM) (*RangingResultBuilder, error) {
+	var t RangingResultBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRangingResultBuilder == nil {
+			return fmt.Errorf("android.net.wifi.rtt.RangingResult$Builder is not available on this device")
+		}
+		if midRangingResultBuilderCtor == nil {
+			return fmt.Errorf("android.net.wifi.rtt.RangingResult$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRangingResultBuilder)), midRangingResultBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.wifi.rtt.RangingResult$Builder.build.
 func (m *RangingResultBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

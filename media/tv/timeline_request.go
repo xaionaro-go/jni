@@ -32,6 +32,12 @@ func NewTimelineRequest(vm *jni.VM, arg0 int32, arg1 int32, arg2 int32) (*Timeli
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTimelineRequest == nil {
+			return fmt.Errorf("android.media.tv.TimelineRequest is not available on this device")
+		}
+		if midTimelineRequestCtor == nil {
+			return fmt.Errorf("android.media.tv.TimelineRequest constructor (III)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTimelineRequest)), midTimelineRequestCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2))
 		if err != nil {
@@ -123,29 +129,6 @@ func (m *TimelineRequest) GetSelector() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.media.tv.TimelineRequest.writeToParcel.
-func (m *TimelineRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTimelineRequestWriteToParcel == nil {
-			callErr = fmt.Errorf("android.media.tv.TimelineRequest.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midTimelineRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.media.tv.TimelineRequest.toString.
 func (m *TimelineRequest) ToString() (string, error) {
 	var result string
@@ -171,4 +154,27 @@ func (m *TimelineRequest) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.media.tv.TimelineRequest.writeToParcel.
+func (m *TimelineRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midTimelineRequestWriteToParcel == nil {
+			callErr = fmt.Errorf("android.media.tv.TimelineRequest.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsTimelineRequest)),
+			midTimelineRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

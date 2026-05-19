@@ -3,10 +3,10 @@
 package consts
 
 const (
-	Pill                    int = 0
-	Rounded                 int = 0
-	Cut                     int = 1
 	ShadowCompatModeDefault int = 0
 	ShadowCompatModeNever   int = 1
 	ShadowCompatModeAlways  int = 2
+	Pill                    int = 0
+	Rounded                 int = 0
+	Cut                     int = 1
 )

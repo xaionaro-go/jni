@@ -23,38 +23,6 @@ type IUnusedAppRestrictionsBackportCallback struct {
 	Obj *jni.GlobalRef
 }
 
-// OnIsPermissionRevocationEnabledForAppResult calls androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportCallback.onIsPermissionRevocationEnabledForAppResult.
-func (m *IUnusedAppRestrictionsBackportCallback) OnIsPermissionRevocationEnabledForAppResult(arg0 bool, arg1 bool) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midIUnusedAppRestrictionsBackportCallbackOnIsPermissionRevocationEnabledForAppResult == nil {
-			callErr = fmt.Errorf("androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportCallback.onIsPermissionRevocationEnabledForAppResult is not available on this device")
-			return callErr
-		}
-		var jArg0 uint8
-		if arg0 {
-			jArg0 = jniTrue
-		}
-
-		var jArg1 uint8
-		if arg1 {
-			jArg1 = jniTrue
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midIUnusedAppRestrictionsBackportCallbackOnIsPermissionRevocationEnabledForAppResult, jni.BooleanValue(jArg0), jni.BooleanValue(jArg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportCallback.toString.
 func (m *IUnusedAppRestrictionsBackportCallback) ToString() (string, error) {
 	var result string
@@ -80,4 +48,36 @@ func (m *IUnusedAppRestrictionsBackportCallback) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// OnIsPermissionRevocationEnabledForAppResult calls androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportCallback.onIsPermissionRevocationEnabledForAppResult.
+func (m *IUnusedAppRestrictionsBackportCallback) OnIsPermissionRevocationEnabledForAppResult(arg0 bool, arg1 bool) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midIUnusedAppRestrictionsBackportCallbackOnIsPermissionRevocationEnabledForAppResult == nil {
+			callErr = fmt.Errorf("androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportCallback.onIsPermissionRevocationEnabledForAppResult is not available on this device")
+			return callErr
+		}
+		var jArg0 uint8
+		if arg0 {
+			jArg0 = jniTrue
+		}
+
+		var jArg1 uint8
+		if arg1 {
+			jArg1 = jniTrue
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsIUnusedAppRestrictionsBackportCallback)),
+			midIUnusedAppRestrictionsBackportCallbackOnIsPermissionRevocationEnabledForAppResult, jni.BooleanValue(jArg0), jni.BooleanValue(jArg1),
+		)
+		return callErr
+	})
+	return callErr
 }

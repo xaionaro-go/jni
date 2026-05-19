@@ -32,6 +32,12 @@ func NewTransition(vm *jni.VM) (*Transition, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTransition == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.state.Transition is not available on this device")
+		}
+		if midTransitionCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.state.Transition constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTransition)), midTransitionCtor)
 		if err != nil {
 			return err

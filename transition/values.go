@@ -32,6 +32,12 @@ func NewValues(vm *jni.VM) (*Values, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsValues == nil {
+			return fmt.Errorf("android.transition.TransitionValues is not available on this device")
+		}
+		if midValuesCtor == nil {
+			return fmt.Errorf("android.transition.TransitionValues constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsValues)), midValuesCtor)
 		if err != nil {
 			return err

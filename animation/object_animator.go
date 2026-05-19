@@ -32,6 +32,12 @@ func NewObjectAnimator(vm *jni.VM) (*ObjectAnimator, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsObjectAnimator == nil {
+			return fmt.Errorf("android.animation.ObjectAnimator is not available on this device")
+		}
+		if midObjectAnimatorCtor == nil {
+			return fmt.Errorf("android.animation.ObjectAnimator constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsObjectAnimator)), midObjectAnimatorCtor)
 		if err != nil {
 			return err
@@ -45,8 +51,8 @@ func NewObjectAnimator(vm *jni.VM) (*ObjectAnimator, error) {
 	return &t, nil
 }
 
-// Clone0 calls android.animation.ObjectAnimator.clone.
-func (m *ObjectAnimator) Clone0() (*jni.Object, error) {
+// Clone calls android.animation.ObjectAnimator.clone.
+func (m *ObjectAnimator) Clone() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -54,13 +60,13 @@ func (m *ObjectAnimator) Clone0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midObjectAnimatorClone0 == nil {
+		if midObjectAnimatorClone == nil {
 			callErr = fmt.Errorf("android.animation.ObjectAnimator.clone is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midObjectAnimatorClone0,
+			midObjectAnimatorClone,
 		)
 		if callErr != nil {
 			return callErr
@@ -163,8 +169,8 @@ func (m *ObjectAnimator) SetAutoCancel(arg0 bool) error {
 	return callErr
 }
 
-// SetDuration1 calls android.animation.ObjectAnimator.setDuration.
-func (m *ObjectAnimator) SetDuration1(arg0 int64) (*jni.Object, error) {
+// SetDuration calls android.animation.ObjectAnimator.setDuration.
+func (m *ObjectAnimator) SetDuration(arg0 int64) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -172,14 +178,14 @@ func (m *ObjectAnimator) SetDuration1(arg0 int64) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midObjectAnimatorSetDuration1 == nil {
+		if midObjectAnimatorSetDuration == nil {
 			callErr = fmt.Errorf("android.animation.ObjectAnimator.setDuration is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midObjectAnimatorSetDuration1, jni.LongValue(arg0),
+			midObjectAnimatorSetDuration, jni.LongValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -427,168 +433,6 @@ func (m *ObjectAnimator) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetDuration1_1 calls android.animation.ObjectAnimator.setDuration.
-func (m *ObjectAnimator) SetDuration1_1(arg0 int64) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midObjectAnimatorSetDuration1_1 == nil {
-			callErr = fmt.Errorf("android.animation.ObjectAnimator.setDuration is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midObjectAnimatorSetDuration1_1, jni.LongValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Clone0_1 calls android.animation.ObjectAnimator.clone.
-func (m *ObjectAnimator) Clone0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midObjectAnimatorClone0_1 == nil {
-			callErr = fmt.Errorf("android.animation.ObjectAnimator.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midObjectAnimatorClone0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetDuration1_2 calls android.animation.ObjectAnimator.setDuration.
-func (m *ObjectAnimator) SetDuration1_2(arg0 int64) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midObjectAnimatorSetDuration1_2 == nil {
-			callErr = fmt.Errorf("android.animation.ObjectAnimator.setDuration is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midObjectAnimatorSetDuration1_2, jni.LongValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Clone0_2 calls android.animation.ObjectAnimator.clone.
-func (m *ObjectAnimator) Clone0_2() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midObjectAnimatorClone0_2 == nil {
-			callErr = fmt.Errorf("android.animation.ObjectAnimator.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midObjectAnimatorClone0_2,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Clone0_3 calls android.animation.ObjectAnimator.clone.
-func (m *ObjectAnimator) Clone0_3() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midObjectAnimatorClone0_3 == nil {
-			callErr = fmt.Errorf("android.animation.ObjectAnimator.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midObjectAnimatorClone0_3,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
 		return callErr
 	})
 	return result, callErr

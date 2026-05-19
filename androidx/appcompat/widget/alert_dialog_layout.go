@@ -32,6 +32,12 @@ func NewAlertDialogLayout(vm *jni.VM, arg0 *jni.Object) (*AlertDialogLayout, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAlertDialogLayout == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AlertDialogLayout is not available on this device")
+		}
+		if midAlertDialogLayoutCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AlertDialogLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAlertDialogLayout)), midAlertDialogLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {

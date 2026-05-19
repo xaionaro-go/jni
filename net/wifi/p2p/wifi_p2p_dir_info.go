@@ -32,6 +32,12 @@ func NewWifiP2pDirInfo(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWifiP2pDirInfo == nil {
+			return fmt.Errorf("android.net.wifi.p2p.WifiP2pDirInfo is not available on this device")
+		}
+		if midWifiP2pDirInfoCtor == nil {
+			return fmt.Errorf("android.net.wifi.p2p.WifiP2pDirInfo constructor (Landroid/net/MacAddress;[B[B)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWifiP2pDirInfo)), midWifiP2pDirInfoCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
 		if err != nil {
@@ -208,8 +214,8 @@ func (m *WifiP2pDirInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsWifiP2pDirInfo)),
 			midWifiP2pDirInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

@@ -32,6 +32,12 @@ func NewVirtualizer(vm *jni.VM, arg0 int32, arg1 int32) (*Virtualizer, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsVirtualizer == nil {
+			return fmt.Errorf("android.media.audiofx.Virtualizer is not available on this device")
+		}
+		if midVirtualizerCtor == nil {
+			return fmt.Errorf("android.media.audiofx.Virtualizer constructor (II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVirtualizer)), midVirtualizerCtor, jni.IntValue(arg0), jni.IntValue(arg1))
 		if err != nil {

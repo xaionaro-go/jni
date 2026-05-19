@@ -32,6 +32,12 @@ func NewProviderInfo(vm *jni.VM) (*ProviderInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsProviderInfo == nil {
+			return fmt.Errorf("android.content.pm.ProviderInfo is not available on this device")
+		}
+		if midProviderInfoCtor == nil {
+			return fmt.Errorf("android.content.pm.ProviderInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsProviderInfo)), midProviderInfoCtor)
 		if err != nil {
 			return err

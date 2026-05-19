@@ -32,6 +32,12 @@ func NewSQLiteDiskIOException(vm *jni.VM) (*SQLiteDiskIOException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSQLiteDiskIOException == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteDiskIOException is not available on this device")
+		}
+		if midSQLiteDiskIOExceptionCtor == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteDiskIOException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSQLiteDiskIOException)), midSQLiteDiskIOExceptionCtor)
 		if err != nil {
 			return err

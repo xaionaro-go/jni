@@ -32,6 +32,12 @@ func NewAlignHorizontallyReference(vm *jni.VM, arg0 *jni.Object) (*AlignHorizont
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAlignHorizontallyReference == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.state.helpers.AlignHorizontallyReference is not available on this device")
+		}
+		if midAlignHorizontallyReferenceCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.state.helpers.AlignHorizontallyReference constructor (Landroidx/constraintlayout/core/state/State;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAlignHorizontallyReference)), midAlignHorizontallyReferenceCtor, jni.ObjectValue(arg0))
 		if err != nil {

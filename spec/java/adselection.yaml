@@ -5,19 +5,9 @@
 package: adselection
 go_import: github.com/AndroidGoLab/jni/adservices/adselection
 classes:
-    - java_class: android.adservices.adselection.AdWithBid
-      go_type: AdWithBid
-      obtain: constructor
-      constructor_params:
-        - java_type: android.adservices.common.AdData
-          go_name: arg0
-        - java_type: double
-          go_name: arg1
+    - java_class: android.adservices.adselection.UpdateAdCounterHistogramRequest
+      go_type: UpdateAdCounterHistogramRequest
       methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
         - java_method: equals
           go_name: Equals
           params:
@@ -25,82 +15,172 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getAdData
-          go_name: GetAdData
-          returns: android.adservices.common.AdData
-          error: true
-        - java_method: getBid
-          go_name: GetBid
-          returns: double
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
+        - java_method: getAdEventType
+          go_name: GetAdEventType
           returns: int
           error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
+        - java_method: getAdSelectionId
+          go_name: GetAdSelectionId
+          returns: long
           error: true
-    - java_class: android.adservices.adselection.PerBuyerConfiguration
-      go_type: PerBuyerConfiguration
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getBuyer
-          go_name: GetBuyer
+        - java_method: getCallerAdTech
+          go_name: GetCallerAdTech
           returns: android.adservices.common.AdTechIdentifier
           error: true
-        - java_method: getTargetInputSizeBytes
-          go_name: GetTargetInputSizeBytes
-          returns: int
-          error: true
         - java_method: hashCode
           go_name: HashCode
           returns: int
           error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
+        - java_method: toString
+          go_name: ToString
+          returns: String
           error: true
-    - java_class: android.adservices.adselection.PerBuyerConfiguration$Builder
-      go_type: PerBuyerConfigurationBuilder
+    - java_class: android.adservices.adselection.UpdateAdCounterHistogramRequest$Builder
+      go_type: UpdateAdCounterHistogramRequestBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: long
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: android.adservices.common.AdTechIdentifier
+          go_name: arg2
       methods:
         - java_method: build
           go_name: Build
-          returns: android.adservices.adselection.PerBuyerConfiguration
+          returns: android.adservices.adselection.UpdateAdCounterHistogramRequest
           error: true
-        - java_method: setBuyer
-          go_name: SetBuyer
-          params:
-            - java_type: android.adservices.common.AdTechIdentifier
-              go_name: arg0
-          returns: android.adservices.adselection.PerBuyerConfiguration$Builder
-          error: true
-        - java_method: setTargetInputSizeBytes
-          go_name: SetTargetInputSizeBytes
+        - java_method: setAdEventType
+          go_name: SetAdEventType
           params:
             - java_type: int
               go_name: arg0
-          returns: android.adservices.adselection.PerBuyerConfiguration$Builder
+          returns: android.adservices.adselection.UpdateAdCounterHistogramRequest$Builder
+          error: true
+        - java_method: setAdSelectionId
+          go_name: SetAdSelectionId
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.adservices.adselection.UpdateAdCounterHistogramRequest$Builder
+          error: true
+        - java_method: setCallerAdTech
+          go_name: SetCallerAdTech
+          params:
+            - java_type: android.adservices.common.AdTechIdentifier
+              go_name: arg0
+          returns: android.adservices.adselection.UpdateAdCounterHistogramRequest$Builder
+          error: true
+    - java_class: android.adservices.adselection.AdSelectionFromOutcomesConfig
+      go_type: AdSelectionFromOutcomesConfig
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getAdSelectionIds
+          go_name: GetAdSelectionIds
+          returns: java.util.List<java.lang.Long>
+          error: true
+        - java_method: getSelectionLogicUri
+          go_name: GetSelectionLogicUri
+          returns: android.net.Uri
+          error: true
+        - java_method: getSelectionSignals
+          go_name: GetSelectionSignals
+          returns: android.adservices.common.AdSelectionSignals
+          error: true
+        - java_method: getSeller
+          go_name: GetSeller
+          returns: android.adservices.common.AdTechIdentifier
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.adservices.adselection.AdSelectionFromOutcomesConfig$Builder
+      go_type: AdSelectionFromOutcomesConfigBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.adservices.adselection.AdSelectionFromOutcomesConfig
+          error: true
+        - java_method: setSelectionLogicUri
+          go_name: SetSelectionLogicUri
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+          returns: android.adservices.adselection.AdSelectionFromOutcomesConfig$Builder
+          error: true
+        - java_method: setSelectionSignals
+          go_name: SetSelectionSignals
+          params:
+            - java_type: android.adservices.common.AdSelectionSignals
+              go_name: arg0
+          returns: android.adservices.adselection.AdSelectionFromOutcomesConfig$Builder
+          error: true
+        - java_method: setSeller
+          go_name: SetSeller
+          params:
+            - java_type: android.adservices.common.AdTechIdentifier
+              go_name: arg0
+          returns: android.adservices.adselection.AdSelectionFromOutcomesConfig$Builder
+          error: true
+    - java_class: android.adservices.adselection.GetAdSelectionDataOutcome
+      go_type: GetAdSelectionDataOutcome
+      methods:
+        - java_method: getAdSelectionData
+          go_name: GetAdSelectionData
+          returns: '[B'
+          error: true
+        - java_method: getAdSelectionDataId
+          go_name: GetAdSelectionDataId
+          returns: long
+          error: true
+        - java_method: getAdSelectionId
+          go_name: GetAdSelectionId
+          returns: long
+          error: true
+    - java_class: android.adservices.adselection.AddAdSelectionFromOutcomesOverrideRequest
+      go_type: AddAdSelectionFromOutcomesOverrideRequest
+      obtain: constructor
+      constructor_params:
+        - java_type: android.adservices.adselection.AdSelectionFromOutcomesConfig
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+        - java_type: android.adservices.common.AdSelectionSignals
+          go_name: arg2
+      methods:
+        - java_method: getAdSelectionFromOutcomesConfig
+          go_name: GetAdSelectionFromOutcomesConfig
+          returns: android.adservices.adselection.AdSelectionFromOutcomesConfig
+          error: true
+        - java_method: getOutcomeSelectionLogicJs
+          go_name: GetOutcomeSelectionLogicJs
+          returns: String
+          error: true
+        - java_method: getOutcomeSelectionTrustedSignals
+          go_name: GetOutcomeSelectionTrustedSignals
+          returns: android.adservices.common.AdSelectionSignals
           error: true
     - java_class: android.adservices.adselection.GetAdSelectionDataRequest
       go_type: GetAdSelectionDataRequest
@@ -119,6 +199,7 @@ classes:
           error: true
     - java_class: android.adservices.adselection.GetAdSelectionDataRequest$Builder
       go_type: GetAdSelectionDataRequestBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
@@ -171,6 +252,7 @@ classes:
           go_name: HashCode
           returns: int
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -182,6 +264,7 @@ classes:
           error: true
     - java_class: android.adservices.adselection.SellerConfiguration$Builder
       go_type: SellerConfigurationBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
@@ -193,6 +276,332 @@ classes:
             - java_type: int
               go_name: arg0
           returns: android.adservices.adselection.SellerConfiguration$Builder
+          error: true
+    - java_class: android.adservices.adselection.TestAdSelectionManager
+      go_type: TestAdSelectionManager
+    - java_class: android.adservices.adselection.PerBuyerDecisionLogic
+      go_type: PerBuyerDecisionLogic
+      obtain: constructor
+      constructor_params:
+        - java_type: java.util.Map<android.adservices.common.AdTechIdentifier, android.adservices.adselection.DecisionLogic>
+          go_name: arg0
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.adservices.adselection.PerBuyerConfiguration
+      go_type: PerBuyerConfiguration
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getBuyer
+          go_name: GetBuyer
+          returns: android.adservices.common.AdTechIdentifier
+          error: true
+        - java_method: getTargetInputSizeBytes
+          go_name: GetTargetInputSizeBytes
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.adservices.adselection.PerBuyerConfiguration$Builder
+      go_type: PerBuyerConfigurationBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.adservices.adselection.PerBuyerConfiguration
+          error: true
+        - java_method: setBuyer
+          go_name: SetBuyer
+          params:
+            - java_type: android.adservices.common.AdTechIdentifier
+              go_name: arg0
+          returns: android.adservices.adselection.PerBuyerConfiguration$Builder
+          error: true
+        - java_method: setTargetInputSizeBytes
+          go_name: SetTargetInputSizeBytes
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.adservices.adselection.PerBuyerConfiguration$Builder
+          error: true
+    - java_class: android.adservices.adselection.PersistAdSelectionResultRequest
+      go_type: PersistAdSelectionResultRequest
+      methods:
+        - java_method: getAdSelectionDataId
+          go_name: GetAdSelectionDataId
+          returns: long
+          error: true
+        - java_method: getAdSelectionId
+          go_name: GetAdSelectionId
+          returns: long
+          error: true
+        - java_method: getAdSelectionResult
+          go_name: GetAdSelectionResult
+          returns: '[B'
+          error: true
+        - java_method: getSeller
+          go_name: GetSeller
+          returns: android.adservices.common.AdTechIdentifier
+          error: true
+    - java_class: android.adservices.adselection.PersistAdSelectionResultRequest$Builder
+      go_type: PersistAdSelectionResultRequestBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.adservices.adselection.PersistAdSelectionResultRequest
+          error: true
+        - java_method: setAdSelectionDataId
+          go_name: SetAdSelectionDataId
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.adservices.adselection.PersistAdSelectionResultRequest$Builder
+          error: true
+        - java_method: setAdSelectionId
+          go_name: SetAdSelectionId
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.adservices.adselection.PersistAdSelectionResultRequest$Builder
+          error: true
+        - java_method: setAdSelectionResult
+          go_name: SetAdSelectionResult
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: android.adservices.adselection.PersistAdSelectionResultRequest$Builder
+          error: true
+        - java_method: setSeller
+          go_name: SetSeller
+          params:
+            - java_type: android.adservices.common.AdTechIdentifier
+              go_name: arg0
+          returns: android.adservices.adselection.PersistAdSelectionResultRequest$Builder
+          error: true
+    - java_class: android.adservices.adselection.RemoveAdSelectionOverrideRequest
+      go_type: RemoveAdSelectionOverrideRequest
+      obtain: constructor
+      constructor_params:
+        - java_type: android.adservices.adselection.AdSelectionConfig
+          go_name: arg0
+      methods:
+        - java_method: getAdSelectionConfig
+          go_name: GetAdSelectionConfig
+          returns: android.adservices.adselection.AdSelectionConfig
+          error: true
+    - java_class: android.adservices.adselection.AddAdSelectionOverrideRequest
+      go_type: AddAdSelectionOverrideRequest
+      obtain: constructor
+      constructor_params:
+        - java_type: android.adservices.adselection.AdSelectionConfig
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+        - java_type: android.adservices.common.AdSelectionSignals
+          go_name: arg2
+      methods:
+        - java_method: getAdSelectionConfig
+          go_name: GetAdSelectionConfig
+          returns: android.adservices.adselection.AdSelectionConfig
+          error: true
+        - java_method: getDecisionLogicJs
+          go_name: GetDecisionLogicJs
+          returns: String
+          error: true
+        - java_method: getPerBuyerDecisionLogic
+          go_name: GetPerBuyerDecisionLogic
+          returns: android.adservices.adselection.PerBuyerDecisionLogic
+          error: true
+        - java_method: getTrustedScoringSignals
+          go_name: GetTrustedScoringSignals
+          returns: android.adservices.common.AdSelectionSignals
+          error: true
+    - java_class: android.adservices.adselection.SetAppInstallAdvertisersRequest
+      go_type: SetAppInstallAdvertisersRequest
+      methods:
+        - java_method: getAdvertisers
+          go_name: GetAdvertisers
+          returns: java.util.Set<android.adservices.common.AdTechIdentifier>
+          error: true
+    - java_class: android.adservices.adselection.SetAppInstallAdvertisersRequest$Builder
+      go_type: SetAppInstallAdvertisersRequestBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.adservices.adselection.SetAppInstallAdvertisersRequest
+          error: true
+    - java_class: android.adservices.adselection.DecisionLogic
+      go_type: DecisionLogic
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getLogic
+          go_name: GetLogic
+          returns: String
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.adservices.adselection.RemoveAdSelectionFromOutcomesOverrideRequest
+      go_type: RemoveAdSelectionFromOutcomesOverrideRequest
+      obtain: constructor
+      constructor_params:
+        - java_type: android.adservices.adselection.AdSelectionFromOutcomesConfig
+          go_name: arg0
+      methods:
+        - java_method: getAdSelectionFromOutcomesConfig
+          go_name: GetAdSelectionFromOutcomesConfig
+          returns: android.adservices.adselection.AdSelectionFromOutcomesConfig
+          error: true
+    - java_class: android.adservices.adselection.ReportEventRequest
+      go_type: ReportEventRequest
+      methods:
+        - java_method: getAdSelectionId
+          go_name: GetAdSelectionId
+          returns: long
+          error: true
+        - java_method: getData
+          go_name: GetData
+          returns: String
+          error: true
+        - java_method: getInputEvent
+          go_name: GetInputEvent
+          returns: android.view.InputEvent
+          error: true
+        - java_method: getKey
+          go_name: GetKey
+          returns: String
+          error: true
+        - java_method: getReportingDestinations
+          go_name: GetReportingDestinations
+          returns: int
+          error: true
+    - java_class: android.adservices.adselection.ReportEventRequest$Builder
+      go_type: ReportEventRequestBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: long
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+        - java_type: String
+          go_name: arg2
+        - java_type: int
+          go_name: arg3
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.adservices.adselection.ReportEventRequest
+          error: true
+        - java_method: setAdSelectionId
+          go_name: SetAdSelectionId
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.adservices.adselection.ReportEventRequest$Builder
+          error: true
+        - java_method: setData
+          go_name: SetData
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.adservices.adselection.ReportEventRequest$Builder
+          error: true
+        - java_method: setInputEvent
+          go_name: SetInputEvent
+          params:
+            - java_type: android.view.InputEvent
+              go_name: arg0
+          returns: android.adservices.adselection.ReportEventRequest$Builder
+          error: true
+        - java_method: setKey
+          go_name: SetKey
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.adservices.adselection.ReportEventRequest$Builder
+          error: true
+        - java_method: setReportingDestinations
+          go_name: SetReportingDestinations
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.adservices.adselection.ReportEventRequest$Builder
           error: true
     - java_class: android.adservices.adselection.AdSelectionConfig
       go_type: AdSelectionConfig
@@ -236,6 +645,7 @@ classes:
           go_name: HashCode
           returns: int
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -247,6 +657,7 @@ classes:
           error: true
     - java_class: android.adservices.adselection.AdSelectionConfig$Builder
       go_type: AdSelectionConfigBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
@@ -287,6 +698,63 @@ classes:
               go_name: arg0
           returns: android.adservices.adselection.AdSelectionConfig$Builder
           error: true
+    - java_class: android.adservices.adselection.AdWithBid
+      go_type: AdWithBid
+      obtain: constructor
+      constructor_params:
+        - java_type: android.adservices.common.AdData
+          go_name: arg0
+        - java_type: double
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getAdData
+          go_name: GetAdData
+          returns: android.adservices.common.AdData
+          error: true
+        - java_method: getBid
+          go_name: GetBid
+          returns: double
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.adservices.adselection.ReportImpressionRequest
+      go_type: ReportImpressionRequest
+      obtain: constructor
+      constructor_params:
+        - java_type: long
+          go_name: arg0
+      methods:
+        - java_method: getAdSelectionConfig
+          go_name: GetAdSelectionConfig
+          returns: android.adservices.adselection.AdSelectionConfig
+          error: true
+        - java_method: getAdSelectionId
+          go_name: GetAdSelectionId
+          returns: long
+          error: true
     - java_class: android.adservices.adselection.AdSelectionOutcome
       go_type: AdSelectionOutcome
       methods:
@@ -317,23 +785,14 @@ classes:
           go_name: HasOutcome
           returns: boolean
           error: true
+      static_methods:
         - java_method: hashCode
           go_name: HashCode
           returns: int
           error: true
-    - java_class: android.adservices.adselection.RemoveAdSelectionOverrideRequest
-      go_type: RemoveAdSelectionOverrideRequest
-      obtain: constructor
-      constructor_params:
-        - java_type: android.adservices.adselection.AdSelectionConfig
-          go_name: arg0
-      methods:
-        - java_method: getAdSelectionConfig
-          go_name: GetAdSelectionConfig
-          returns: android.adservices.adselection.AdSelectionConfig
-          error: true
     - java_class: android.adservices.adselection.AdSelectionOutcome$Builder
       go_type: AdSelectionOutcomeBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
@@ -353,8 +812,6 @@ classes:
               go_name: arg0
           returns: android.adservices.adselection.AdSelectionOutcome$Builder
           error: true
-    - java_class: android.adservices.adselection.TestAdSelectionManager
-      go_type: TestAdSelectionManager
     - java_class: android.adservices.adselection.SignedContextualAds
       go_type: SignedContextualAds
       methods:
@@ -393,6 +850,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -404,6 +862,7 @@ classes:
           error: true
     - java_class: android.adservices.adselection.SignedContextualAds$Builder
       go_type: SignedContextualAdsBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
@@ -430,70 +889,6 @@ classes:
               go_name: arg0
           returns: android.adservices.adselection.SignedContextualAds$Builder
           error: true
-    - java_class: android.adservices.adselection.AddAdSelectionOverrideRequest
-      go_type: AddAdSelectionOverrideRequest
-      obtain: constructor
-      constructor_params:
-        - java_type: android.adservices.adselection.AdSelectionConfig
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-        - java_type: android.adservices.common.AdSelectionSignals
-          go_name: arg2
-      methods:
-        - java_method: getAdSelectionConfig
-          go_name: GetAdSelectionConfig
-          returns: android.adservices.adselection.AdSelectionConfig
-          error: true
-        - java_method: getDecisionLogicJs
-          go_name: GetDecisionLogicJs
-          returns: String
-          error: true
-        - java_method: getPerBuyerDecisionLogic
-          go_name: GetPerBuyerDecisionLogic
-          returns: android.adservices.adselection.PerBuyerDecisionLogic
-          error: true
-        - java_method: getTrustedScoringSignals
-          go_name: GetTrustedScoringSignals
-          returns: android.adservices.common.AdSelectionSignals
-          error: true
-    - java_class: android.adservices.adselection.SetAppInstallAdvertisersRequest
-      go_type: SetAppInstallAdvertisersRequest
-      methods:
-        - java_method: getAdvertisers
-          go_name: GetAdvertisers
-          returns: java.util.Set<android.adservices.common.AdTechIdentifier>
-          error: true
-    - java_class: android.adservices.adselection.SetAppInstallAdvertisersRequest$Builder
-      go_type: SetAppInstallAdvertisersRequestBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.adservices.adselection.SetAppInstallAdvertisersRequest
-          error: true
-    - java_class: android.adservices.adselection.AddAdSelectionFromOutcomesOverrideRequest
-      go_type: AddAdSelectionFromOutcomesOverrideRequest
-      obtain: constructor
-      constructor_params:
-        - java_type: android.adservices.adselection.AdSelectionFromOutcomesConfig
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-        - java_type: android.adservices.common.AdSelectionSignals
-          go_name: arg2
-      methods:
-        - java_method: getAdSelectionFromOutcomesConfig
-          go_name: GetAdSelectionFromOutcomesConfig
-          returns: android.adservices.adselection.AdSelectionFromOutcomesConfig
-          error: true
-        - java_method: getOutcomeSelectionLogicJs
-          go_name: GetOutcomeSelectionLogicJs
-          returns: String
-          error: true
-        - java_method: getOutcomeSelectionTrustedSignals
-          go_name: GetOutcomeSelectionTrustedSignals
-          returns: android.adservices.common.AdSelectionSignals
-          error: true
     - java_class: android.adservices.adselection.AdSelectionManager
       go_type: AdSelectionManager
       methods:
@@ -509,370 +904,11 @@ classes:
               go_name: arg0
           returns: android.adservices.adselection.AdSelectionManager
           error: true
-    - java_class: android.adservices.adselection.PersistAdSelectionResultRequest
-      go_type: PersistAdSelectionResultRequest
-      methods:
-        - java_method: getAdSelectionDataId
-          go_name: GetAdSelectionDataId
-          returns: long
-          error: true
-        - java_method: getAdSelectionId
-          go_name: GetAdSelectionId
-          returns: long
-          error: true
-        - java_method: getAdSelectionResult
-          go_name: GetAdSelectionResult
-          returns: '[B'
-          error: true
-        - java_method: getSeller
-          go_name: GetSeller
-          returns: android.adservices.common.AdTechIdentifier
-          error: true
-    - java_class: android.adservices.adselection.PersistAdSelectionResultRequest$Builder
-      go_type: PersistAdSelectionResultRequestBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.adservices.adselection.PersistAdSelectionResultRequest
-          error: true
-        - java_method: setAdSelectionDataId
-          go_name: SetAdSelectionDataId
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.adservices.adselection.PersistAdSelectionResultRequest$Builder
-          error: true
-        - java_method: setAdSelectionId
-          go_name: SetAdSelectionId
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.adservices.adselection.PersistAdSelectionResultRequest$Builder
-          error: true
-        - java_method: setAdSelectionResult
-          go_name: SetAdSelectionResult
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: android.adservices.adselection.PersistAdSelectionResultRequest$Builder
-          error: true
-        - java_method: setSeller
-          go_name: SetSeller
-          params:
-            - java_type: android.adservices.common.AdTechIdentifier
-              go_name: arg0
-          returns: android.adservices.adselection.PersistAdSelectionResultRequest$Builder
-          error: true
-    - java_class: android.adservices.adselection.RemoveAdSelectionFromOutcomesOverrideRequest
-      go_type: RemoveAdSelectionFromOutcomesOverrideRequest
-      obtain: constructor
-      constructor_params:
-        - java_type: android.adservices.adselection.AdSelectionFromOutcomesConfig
-          go_name: arg0
-      methods:
-        - java_method: getAdSelectionFromOutcomesConfig
-          go_name: GetAdSelectionFromOutcomesConfig
-          returns: android.adservices.adselection.AdSelectionFromOutcomesConfig
-          error: true
-    - java_class: android.adservices.adselection.DecisionLogic
-      go_type: DecisionLogic
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getLogic
-          go_name: GetLogic
-          returns: String
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.adservices.adselection.AdSelectionFromOutcomesConfig
-      go_type: AdSelectionFromOutcomesConfig
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getAdSelectionIds
-          go_name: GetAdSelectionIds
-          returns: java.util.List<java.lang.Long>
-          error: true
-        - java_method: getSelectionLogicUri
-          go_name: GetSelectionLogicUri
-          returns: android.net.Uri
-          error: true
-        - java_method: getSelectionSignals
-          go_name: GetSelectionSignals
-          returns: android.adservices.common.AdSelectionSignals
-          error: true
-        - java_method: getSeller
-          go_name: GetSeller
-          returns: android.adservices.common.AdTechIdentifier
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.adservices.adselection.AdSelectionFromOutcomesConfig$Builder
-      go_type: AdSelectionFromOutcomesConfigBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.adservices.adselection.AdSelectionFromOutcomesConfig
-          error: true
-        - java_method: setSelectionLogicUri
-          go_name: SetSelectionLogicUri
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-          returns: android.adservices.adselection.AdSelectionFromOutcomesConfig$Builder
-          error: true
-        - java_method: setSelectionSignals
-          go_name: SetSelectionSignals
-          params:
-            - java_type: android.adservices.common.AdSelectionSignals
-              go_name: arg0
-          returns: android.adservices.adselection.AdSelectionFromOutcomesConfig$Builder
-          error: true
-        - java_method: setSeller
-          go_name: SetSeller
-          params:
-            - java_type: android.adservices.common.AdTechIdentifier
-              go_name: arg0
-          returns: android.adservices.adselection.AdSelectionFromOutcomesConfig$Builder
-          error: true
-    - java_class: android.adservices.adselection.GetAdSelectionDataOutcome
-      go_type: GetAdSelectionDataOutcome
-      methods:
-        - java_method: getAdSelectionData
-          go_name: GetAdSelectionData
-          returns: '[B'
-          error: true
-        - java_method: getAdSelectionDataId
-          go_name: GetAdSelectionDataId
-          returns: long
-          error: true
-        - java_method: getAdSelectionId
-          go_name: GetAdSelectionId
-          returns: long
-          error: true
-    - java_class: android.adservices.adselection.ReportEventRequest
-      go_type: ReportEventRequest
-      methods:
-        - java_method: getAdSelectionId
-          go_name: GetAdSelectionId
-          returns: long
-          error: true
-        - java_method: getData
-          go_name: GetData
-          returns: String
-          error: true
-        - java_method: getInputEvent
-          go_name: GetInputEvent
-          returns: android.view.InputEvent
-          error: true
-        - java_method: getKey
-          go_name: GetKey
-          returns: String
-          error: true
-        - java_method: getReportingDestinations
-          go_name: GetReportingDestinations
-          returns: int
-          error: true
-    - java_class: android.adservices.adselection.ReportEventRequest$Builder
-      go_type: ReportEventRequestBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.adservices.adselection.ReportEventRequest
-          error: true
-        - java_method: setAdSelectionId
-          go_name: SetAdSelectionId
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.adservices.adselection.ReportEventRequest$Builder
-          error: true
-        - java_method: setData
-          go_name: SetData
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.adservices.adselection.ReportEventRequest$Builder
-          error: true
-        - java_method: setInputEvent
-          go_name: SetInputEvent
-          params:
-            - java_type: android.view.InputEvent
-              go_name: arg0
-          returns: android.adservices.adselection.ReportEventRequest$Builder
-          error: true
-        - java_method: setKey
-          go_name: SetKey
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.adservices.adselection.ReportEventRequest$Builder
-          error: true
-        - java_method: setReportingDestinations
-          go_name: SetReportingDestinations
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.adservices.adselection.ReportEventRequest$Builder
-          error: true
-    - java_class: android.adservices.adselection.PerBuyerDecisionLogic
-      go_type: PerBuyerDecisionLogic
-      obtain: constructor
-      constructor_params:
-        - java_type: java.util.Map<android.adservices.common.AdTechIdentifier, android.adservices.adselection.DecisionLogic>
-          go_name: arg0
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.adservices.adselection.UpdateAdCounterHistogramRequest
-      go_type: UpdateAdCounterHistogramRequest
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getAdEventType
-          go_name: GetAdEventType
-          returns: int
-          error: true
-        - java_method: getAdSelectionId
-          go_name: GetAdSelectionId
-          returns: long
-          error: true
-        - java_method: getCallerAdTech
-          go_name: GetCallerAdTech
-          returns: android.adservices.common.AdTechIdentifier
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.adservices.adselection.UpdateAdCounterHistogramRequest$Builder
-      go_type: UpdateAdCounterHistogramRequestBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.adservices.adselection.UpdateAdCounterHistogramRequest
-          error: true
-        - java_method: setAdEventType
-          go_name: SetAdEventType
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.adservices.adselection.UpdateAdCounterHistogramRequest$Builder
-          error: true
-        - java_method: setAdSelectionId
-          go_name: SetAdSelectionId
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.adservices.adselection.UpdateAdCounterHistogramRequest$Builder
-          error: true
-        - java_method: setCallerAdTech
-          go_name: SetCallerAdTech
-          params:
-            - java_type: android.adservices.common.AdTechIdentifier
-              go_name: arg0
-          returns: android.adservices.adselection.UpdateAdCounterHistogramRequest$Builder
-          error: true
-    - java_class: android.adservices.adselection.ReportImpressionRequest
-      go_type: ReportImpressionRequest
-      obtain: constructor
-      constructor_params:
-        - java_type: long
-          go_name: arg0
-      methods:
-        - java_method: getAdSelectionConfig
-          go_name: GetAdSelectionConfig
-          returns: android.adservices.adselection.AdSelectionConfig
-          error: true
-        - java_method: getAdSelectionId
-          go_name: GetAdSelectionId
-          returns: long
-          error: true
 constants:
     - go_name: Creator
       value: "0"
       go_type: int
-    - go_name: NoOutcome
+    - go_name: Empty
       value: "0"
       go_type: int
     - go_name: FlagReportingDestinationBuyer
@@ -884,6 +920,6 @@ constants:
     - go_name: FlagReportingDestinationSeller
       value: "1"
       go_type: int
-    - go_name: Empty
+    - go_name: NoOutcome
       value: "0"
       go_type: int

@@ -23,6 +23,41 @@ type CharSequenceTransformationBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCharSequenceTransformationBuilder creates a new android.service.autofill.CharSequenceTransformation$Builder instance.
+func NewCharSequenceTransformationBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 string) (*CharSequenceTransformationBuilder, error) {
+	var t CharSequenceTransformationBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCharSequenceTransformationBuilder == nil {
+			return fmt.Errorf("android.service.autofill.CharSequenceTransformation$Builder is not available on this device")
+		}
+		if midCharSequenceTransformationBuilderCtor == nil {
+			return fmt.Errorf("android.service.autofill.CharSequenceTransformation$Builder constructor (Landroid/view/autofill/AutofillId;Ljava/util/regex/Pattern;Ljava/lang/String;)V is not available on this device")
+		}
+
+		jArg2, err := env.NewStringUTF(arg2)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg2.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCharSequenceTransformationBuilder)), midCharSequenceTransformationBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(&jArg2.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddField calls android.service.autofill.CharSequenceTransformation$Builder.addField.
 func (m *CharSequenceTransformationBuilder) AddField(
 	arg0 *jni.Object,

@@ -32,6 +32,12 @@ func NewLineBreakConfigSpan(vm *jni.VM, arg0 *jni.Object) (*LineBreakConfigSpan,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLineBreakConfigSpan == nil {
+			return fmt.Errorf("android.text.style.LineBreakConfigSpan is not available on this device")
+		}
+		if midLineBreakConfigSpanCtor == nil {
+			return fmt.Errorf("android.text.style.LineBreakConfigSpan constructor (Landroid/graphics/text/LineBreakConfig;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLineBreakConfigSpan)), midLineBreakConfigSpanCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -208,29 +214,6 @@ func (m *LineBreakConfigSpan) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.text.style.LineBreakConfigSpan.writeToParcel.
-func (m *LineBreakConfigSpan) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midLineBreakConfigSpanWriteToParcel == nil {
-			callErr = fmt.Errorf("android.text.style.LineBreakConfigSpan.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midLineBreakConfigSpanWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // CreateNoBreakSpan calls android.text.style.LineBreakConfigSpan.createNoBreakSpan.
 func (m *LineBreakConfigSpan) CreateNoBreakSpan() (*jni.Object, error) {
 	var result *jni.Object
@@ -293,4 +276,27 @@ func (m *LineBreakConfigSpan) CreateNoHyphenationSpan() (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.text.style.LineBreakConfigSpan.writeToParcel.
+func (m *LineBreakConfigSpan) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midLineBreakConfigSpanWriteToParcel == nil {
+			callErr = fmt.Errorf("android.text.style.LineBreakConfigSpan.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsLineBreakConfigSpan)),
+			midLineBreakConfigSpanWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

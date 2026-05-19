@@ -32,6 +32,12 @@ func NewMetadataRetriever(vm *jni.VM) (*MetadataRetriever, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMetadataRetriever == nil {
+			return fmt.Errorf("android.media.MediaMetadataRetriever is not available on this device")
+		}
+		if midMetadataRetrieverCtor == nil {
+			return fmt.Errorf("android.media.MediaMetadataRetriever constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMetadataRetriever)), midMetadataRetrieverCtor)
 		if err != nil {
 			return err

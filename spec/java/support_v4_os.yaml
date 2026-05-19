@@ -5,67 +5,9 @@
 package: os
 go_import: github.com/AndroidGoLab/jni/support/v4/os
 classes:
-    - java_class: android.support.v4.os.IResultReceiver
-      go_type: IResultReceiver
-      methods:
-        - java_method: send
-          go_name: Send
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.os.Bundle
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.support.v4.os.IResultReceiver$Default
-      go_type: IResultReceiverDefault
-      methods:
-        - java_method: send
-          go_name: Send
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.os.Bundle
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: asBinder
-          go_name: AsBinder
-          returns: android.os.IBinder
-          error: true
-    - java_class: android.support.v4.os.IResultReceiver$Stub
-      go_type: IResultReceiverStub
-      methods:
-        - java_method: asBinder
-          go_name: AsBinder
-          returns: android.os.IBinder
-          error: true
-        - java_method: onTransact
-          go_name: OnTransact
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.os.Parcel
-              go_name: arg1
-            - java_type: android.os.Parcel
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: boolean
-          error: true
-      static_methods:
-        - java_method: asInterface
-          go_name: AsInterface
-          params:
-            - java_type: android.os.IBinder
-              go_name: arg0
-          returns: android.support.v4.os.IResultReceiver
-          error: true
-    - java_class: android.support.v4.os.IResultReceiver$_Parcel
-      go_type: IResultReceiver_Parcel
     - java_class: android.support.v4.os.IResultReceiver2
       go_type: IResultReceiver2
-      methods:
+      static_methods:
         - java_method: send
           go_name: Send
           params:
@@ -77,6 +19,7 @@ classes:
           error: true
     - java_class: android.support.v4.os.IResultReceiver2$Default
       go_type: IResultReceiver2Default
+      obtain: constructor
       methods:
         - java_method: send
           go_name: Send
@@ -121,6 +64,7 @@ classes:
           error: true
     - java_class: android.support.v4.os.IResultReceiver2$_Parcel
       go_type: IResultReceiver2_Parcel
+      obtain: constructor
     - java_class: android.support.v4.os.ResultReceiver
       go_type: ResultReceiver
       obtain: constructor
@@ -141,6 +85,7 @@ classes:
           go_name: DescribeContents
           returns: int
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -150,37 +95,73 @@ classes:
               go_name: arg1
           returns: void
           error: true
-abstract_callbacks:
+    - java_class: android.support.v4.os.IResultReceiver
+      go_type: IResultReceiver
+      static_methods:
+        - java_method: send
+          go_name: Send
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.os.Bundle
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.support.v4.os.IResultReceiver$Default
+      go_type: IResultReceiverDefault
+      obtain: constructor
+      methods:
+        - java_method: send
+          go_name: Send
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.os.Bundle
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: asBinder
+          go_name: AsBinder
+          returns: android.os.IBinder
+          error: true
     - java_class: android.support.v4.os.IResultReceiver$Stub
-      go_type: IResultReceiverStubCallback
+      go_type: IResultReceiverStub
       methods:
         - java_method: asBinder
-          params: []
+          go_name: AsBinder
           returns: android.os.IBinder
-          go_field: AsBinder
+          error: true
         - java_method: onTransact
+          go_name: OnTransact
           params:
-            - int
-            - android.os.Parcel
-            - android.os.Parcel
-            - int
+            - java_type: int
+              go_name: arg0
+            - java_type: android.os.Parcel
+              go_name: arg1
+            - java_type: android.os.Parcel
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
           returns: boolean
-          go_field: OnTransact
+          error: true
+      static_methods:
+        - java_method: asInterface
+          go_name: AsInterface
+          params:
+            - java_type: android.os.IBinder
+              go_name: arg0
+          returns: android.support.v4.os.IResultReceiver
+          error: true
+    - java_class: android.support.v4.os.IResultReceiver$_Parcel
+      go_type: IResultReceiver_Parcel
+      obtain: constructor
+abstract_callback_eligibility:
     - java_class: android.support.v4.os.IResultReceiver2$Stub
-      go_type: IResultReceiver2StubCallback
-      methods:
-        - java_method: asBinder
-          params: []
-          returns: android.os.IBinder
-          go_field: AsBinder
-        - java_method: onTransact
-          params:
-            - int
-            - android.os.Parcel
-            - android.os.Parcel
-            - int
-          returns: boolean
-          go_field: OnTransact
+      generated: false
+      reason: implements_interface
+    - java_class: android.support.v4.os.IResultReceiver$Stub
+      generated: false
+      reason: implements_interface
 constants:
     - go_name: Descriptor
       value: '""'

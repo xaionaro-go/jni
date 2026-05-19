@@ -23,6 +23,35 @@ type CalendarWeekData struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCalendarWeekData creates a new android.icu.util.Calendar$WeekData instance.
+func NewCalendarWeekData(vm *jni.VM, arg0 int32, arg1 int32, arg2 int32, arg3 int32, arg4 int32, arg5 int32) (*CalendarWeekData, error) {
+	var t CalendarWeekData
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCalendarWeekData == nil {
+			return fmt.Errorf("android.icu.util.Calendar$WeekData is not available on this device")
+		}
+		if midCalendarWeekDataCtor == nil {
+			return fmt.Errorf("android.icu.util.Calendar$WeekData constructor (IIIIII)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCalendarWeekData)), midCalendarWeekDataCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3), jni.IntValue(arg4), jni.IntValue(arg5))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.icu.util.Calendar$WeekData.equals.
 func (m *CalendarWeekData) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

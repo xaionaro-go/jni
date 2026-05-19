@@ -30,6 +30,12 @@ func NewInstrumentation(vm *jni.VM) (*Instrumentation, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInstrumentation == nil {
+			return fmt.Errorf("android.app.Instrumentation is not available on this device")
+		}
+		if midInstrumentationCtor == nil {
+			return fmt.Errorf("android.app.Instrumentation constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInstrumentation)), midInstrumentationCtor)
 		if err != nil {
 			return err

@@ -21,6 +21,34 @@ type LauncherActivityListItem struct {
 	Obj *jni.GlobalRef
 }
 
+// NewLauncherActivityListItem creates a new android.app.LauncherActivity$ListItem instance.
+func NewLauncherActivityListItem(vm *jni.VM) (*LauncherActivityListItem, error) {
+	var t LauncherActivityListItem
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsLauncherActivityListItem == nil {
+			return fmt.Errorf("android.app.LauncherActivity$ListItem is not available on this device")
+		}
+		if midLauncherActivityListItemCtor == nil {
+			return fmt.Errorf("android.app.LauncherActivity$ListItem constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLauncherActivityListItem)), midLauncherActivityListItemCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.app.LauncherActivity$ListItem.toString.
 func (m *LauncherActivityListItem) ToString() (string, error) {
 	var result string

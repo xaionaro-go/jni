@@ -32,6 +32,12 @@ func NewCondition(vm *jni.VM, arg0 *jni.Object, arg1 string, arg2 int32) (*Condi
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCondition == nil {
+			return fmt.Errorf("android.service.notification.Condition is not available on this device")
+		}
+		if midConditionCtor == nil {
+			return fmt.Errorf("android.service.notification.Condition constructor (Landroid/net/Uri;Ljava/lang/String;I)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {
@@ -189,29 +195,6 @@ func (m *Condition) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.service.notification.Condition.writeToParcel.
-func (m *Condition) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midConditionWriteToParcel == nil {
-			callErr = fmt.Errorf("android.service.notification.Condition.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midConditionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // IsValidId calls android.service.notification.Condition.isValidId.
 func (m *Condition) IsValidId(arg0 *jni.Object, arg1 string) (bool, error) {
 	var result bool
@@ -333,4 +316,27 @@ func (m *Condition) StateToString(arg0 int32) (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.service.notification.Condition.writeToParcel.
+func (m *Condition) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midConditionWriteToParcel == nil {
+			callErr = fmt.Errorf("android.service.notification.Condition.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsCondition)),
+			midConditionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

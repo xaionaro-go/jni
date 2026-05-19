@@ -32,6 +32,12 @@ func NewMultiSelectListPreference(vm *jni.VM, arg0 *jni.Object) (*MultiSelectLis
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMultiSelectListPreference == nil {
+			return fmt.Errorf("android.preference.MultiSelectListPreference is not available on this device")
+		}
+		if midMultiSelectListPreferenceCtor == nil {
+			return fmt.Errorf("android.preference.MultiSelectListPreference constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMultiSelectListPreference)), midMultiSelectListPreferenceCtor, jni.ObjectValue(arg0))
 		if err != nil {

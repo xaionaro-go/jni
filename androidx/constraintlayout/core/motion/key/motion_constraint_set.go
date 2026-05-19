@@ -32,6 +32,12 @@ func NewMotionConstraintSet(vm *jni.VM) (*MotionConstraintSet, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMotionConstraintSet == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.key.MotionConstraintSet is not available on this device")
+		}
+		if midMotionConstraintSetCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.key.MotionConstraintSet constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMotionConstraintSet)), midMotionConstraintSetCtor)
 		if err != nil {
 			return err

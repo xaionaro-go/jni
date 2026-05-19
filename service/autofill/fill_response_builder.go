@@ -23,6 +23,34 @@ type FillResponseBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFillResponseBuilder creates a new android.service.autofill.FillResponse$Builder instance.
+func NewFillResponseBuilder(vm *jni.VM) (*FillResponseBuilder, error) {
+	var t FillResponseBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFillResponseBuilder == nil {
+			return fmt.Errorf("android.service.autofill.FillResponse$Builder is not available on this device")
+		}
+		if midFillResponseBuilderCtor == nil {
+			return fmt.Errorf("android.service.autofill.FillResponse$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFillResponseBuilder)), midFillResponseBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddDataset calls android.service.autofill.FillResponse$Builder.addDataset.
 func (m *FillResponseBuilder) AddDataset(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

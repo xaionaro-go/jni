@@ -32,6 +32,12 @@ func NewGLU(vm *jni.VM) (*GLU, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGLU == nil {
+			return fmt.Errorf("android.opengl.GLU is not available on this device")
+		}
+		if midGLUCtor == nil {
+			return fmt.Errorf("android.opengl.GLU constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGLU)), midGLUCtor)
 		if err != nil {
 			return err

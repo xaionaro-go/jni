@@ -4,12 +4,12 @@ package consts
 
 const (
 	Creator                 int = 0
+	CsSecurityLevelFour     int = 4
+	CsSecurityLevelOne      int = 1
 	LocationTypeIndoor      int = 1
 	LocationTypeOutdoor     int = 2
 	LocationTypeUnknown     int = 0
 	SightTypeLineOfSight    int = 1
 	SightTypeNonLineOfSight int = 2
 	SightTypeUnknown        int = 0
-	CsSecurityLevelFour     int = 4
-	CsSecurityLevelOne      int = 1
 )

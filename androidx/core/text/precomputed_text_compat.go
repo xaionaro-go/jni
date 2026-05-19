@@ -407,33 +407,6 @@ func (m *PrecomputedTextCompat) SubSequence(arg0 int32, arg1 int32) (*jni.Object
 	return result, callErr
 }
 
-// ToString calls androidx.core.text.PrecomputedTextCompat.toString.
-func (m *PrecomputedTextCompat) ToString() (string, error) {
-	var result string
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midPrecomputedTextCompatToString == nil {
-			callErr = fmt.Errorf("androidx.core.text.PrecomputedTextCompat.toString is not available on this device")
-			return callErr
-		}
-		var resultObj *jni.Object
-		resultObj, callErr = env.CallObjectMethod(
-			m.Obj,
-			midPrecomputedTextCompatToString,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
-		return callErr
-	})
-	return result, callErr
-}
-
 // Create calls androidx.core.text.PrecomputedTextCompat.create.
 func (m *PrecomputedTextCompat) Create(arg0 string, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
@@ -509,6 +482,33 @@ func (m *PrecomputedTextCompat) GetTextFuture(
 			result = env.NewGlobalRef(localRef)
 			env.DeleteLocalRef(localRef)
 		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// ToString calls androidx.core.text.PrecomputedTextCompat.toString.
+func (m *PrecomputedTextCompat) ToString() (string, error) {
+	var result string
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midPrecomputedTextCompatToString == nil {
+			callErr = fmt.Errorf("androidx.core.text.PrecomputedTextCompat.toString is not available on this device")
+			return callErr
+		}
+		var resultObj *jni.Object
+		resultObj, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsPrecomputedTextCompat)),
+			midPrecomputedTextCompatToString,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
 		return callErr
 	})
 	return result, callErr

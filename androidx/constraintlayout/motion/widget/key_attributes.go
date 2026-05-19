@@ -32,6 +32,12 @@ func NewKeyAttributes(vm *jni.VM) (*KeyAttributes, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsKeyAttributes == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.KeyAttributes is not available on this device")
+		}
+		if midKeyAttributesCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.KeyAttributes constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyAttributes)), midKeyAttributesCtor)
 		if err != nil {
 			return err
@@ -129,8 +135,8 @@ func (m *KeyAttributes) Copy(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// Clone0 calls androidx.constraintlayout.motion.widget.KeyAttributes.clone.
-func (m *KeyAttributes) Clone0() (*jni.Object, error) {
+// Clone calls androidx.constraintlayout.motion.widget.KeyAttributes.clone.
+func (m *KeyAttributes) Clone() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -138,45 +144,13 @@ func (m *KeyAttributes) Clone0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midKeyAttributesClone0 == nil {
+		if midKeyAttributesClone == nil {
 			callErr = fmt.Errorf("androidx.constraintlayout.motion.widget.KeyAttributes.clone is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midKeyAttributesClone0,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Clone0_1 calls androidx.constraintlayout.motion.widget.KeyAttributes.clone.
-func (m *KeyAttributes) Clone0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midKeyAttributesClone0_1 == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.motion.widget.KeyAttributes.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midKeyAttributesClone0_1,
+			midKeyAttributesClone,
 		)
 		if callErr != nil {
 			return callErr

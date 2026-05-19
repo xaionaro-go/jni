@@ -23,6 +23,52 @@ type UserDataBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewUserDataBuilder creates a new android.service.autofill.UserData$Builder instance.
+func NewUserDataBuilder(vm *jni.VM, arg0 string, arg1 string, arg2 string) (*UserDataBuilder, error) {
+	var t UserDataBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsUserDataBuilder == nil {
+			return fmt.Errorf("android.service.autofill.UserData$Builder is not available on this device")
+		}
+		if midUserDataBuilderCtor == nil {
+			return fmt.Errorf("android.service.autofill.UserData$Builder constructor (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		jArg2, err := env.NewStringUTF(arg2)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg2.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUserDataBuilder)), midUserDataBuilderCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(&jArg1.Object), jni.ObjectValue(&jArg2.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Add calls android.service.autofill.UserData$Builder.add.
 func (m *UserDataBuilder) Add(arg0 string, arg1 string) (*jni.Object, error) {
 	var result *jni.Object

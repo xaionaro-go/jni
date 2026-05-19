@@ -3,9 +3,6 @@
 package consts
 
 const (
-	X                         int = 0
-	Y                         int = 1
-	Z                         int = 2
 	TransitionDirectionAuto   int = 0
 	TransitionDirectionEnter  int = 1
 	TransitionDirectionReturn int = 2
@@ -16,4 +13,7 @@ const (
 	FitModeAuto               int = 0
 	FitModeWidth              int = 1
 	FitModeHeight             int = 2
+	X                         int = 0
+	Y                         int = 1
+	Z                         int = 2
 )

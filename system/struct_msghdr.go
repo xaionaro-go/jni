@@ -32,6 +32,12 @@ func NewStructMsghdr(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.O
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStructMsghdr == nil {
+			return fmt.Errorf("android.system.StructMsghdr is not available on this device")
+		}
+		if midStructMsghdrCtor == nil {
+			return fmt.Errorf("android.system.StructMsghdr constructor (Ljava/net/SocketAddress;[Ljava/nio/ByteBuffer;[Landroid/system/StructCmsghdr;I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStructMsghdr)), midStructMsghdrCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.IntValue(arg3))
 		if err != nil {

@@ -171,6 +171,150 @@ func TestMerge_Callbacks(t *testing.T) {
 	}
 }
 
+func TestMerge_FailsOnIneligibleAbstractCallback(t *testing.T) {
+	spec := &Spec{
+		Package:  "test",
+		GoImport: "github.com/example/test",
+		AbstractCallbacks: []AbstractCallback{
+			{
+				JavaClass: "androidx.dynamicanimation.animation.DynamicAnimation",
+				GoType:    "DynamicAnimationCallback",
+				Methods: []AbstractCallbackMethod{
+					{
+						JavaMethod: "setStartValue",
+						GoField:    "SetStartValue",
+						Params:     []string{"float"},
+						Returns:    "void",
+					},
+				},
+			},
+		},
+		AbstractCallbackEligibility: []AbstractCallbackEligibility{
+			{
+				JavaClass: "androidx.dynamicanimation.animation.DynamicAnimation",
+				Generated: false,
+				Reason:    "unsupported_constructor",
+			},
+		},
+	}
+
+	_, err := Merge(spec, &Overlay{})
+	if err == nil {
+		t.Fatal("expected Merge to fail for stale ineligible abstract callback")
+	}
+	if !strings.Contains(err.Error(), "androidx.dynamicanimation.animation.DynamicAnimation") {
+		t.Fatalf("error %q does not include class name", err)
+	}
+	if !strings.Contains(err.Error(), "unsupported_constructor") {
+		t.Fatalf("error %q does not include eligibility reason", err)
+	}
+}
+
+func TestMerge_MergesStructurallyRenderableInventoryClass(t *testing.T) {
+	spec := &Spec{
+		Package:  "test",
+		GoImport: "github.com/example/test",
+		AbstractCallbacks: []AbstractCallback{
+			{
+				JavaClass: "android.icu.util.TimeZone",
+				GoType:    "TimeZoneCallback",
+				Methods: []AbstractCallbackMethod{
+					{
+						JavaMethod: "getOffset",
+						GoField:    "GetOffset",
+						Params:     []string{"long"},
+						Returns:    "int",
+					},
+				},
+			},
+		},
+		AbstractCallbackEligibility: []AbstractCallbackEligibility{
+			{
+				JavaClass: "android.icu.util.TimeZone",
+				Generated: true,
+				Reason:    "supported_no_arg_constructor",
+			},
+		},
+	}
+
+	merged, err := Merge(spec, &Overlay{})
+	if err != nil {
+		t.Fatalf("Merge: %v", err)
+	}
+	if len(merged.AbstractCallbacks) != 1 {
+		t.Fatalf("len(AbstractCallbacks) = %d, want 1", len(merged.AbstractCallbacks))
+	}
+	if merged.AbstractCallbacks[0].JavaClass != "android.icu.util.TimeZone" {
+		t.Errorf("JavaClass = %q, want TimeZone", merged.AbstractCallbacks[0].JavaClass)
+	}
+}
+
+func TestMerge_FailsOnUnrenderableAbstractCallback(t *testing.T) {
+	spec := &Spec{
+		Package:  "test",
+		GoImport: "github.com/example/test",
+		AbstractCallbacks: []AbstractCallback{
+			{
+				JavaClass: "com.example.EmptyAbstract",
+				GoType:    "EmptyAbstractCallback",
+			},
+		},
+		AbstractCallbackEligibility: []AbstractCallbackEligibility{
+			{
+				JavaClass: "com.example.EmptyAbstract",
+				Generated: true,
+				Reason:    "supported_no_arg_constructor",
+			},
+		},
+	}
+
+	_, err := Merge(spec, &Overlay{})
+	if err == nil {
+		t.Fatal("expected Merge to fail for non-special abstract callback without methods")
+	}
+	if !strings.Contains(err.Error(), "no dispatch methods") {
+		t.Fatalf("error %q does not explain missing methods", err)
+	}
+}
+
+func TestMerge_AllowsGenericAbstractCallbackReturnType(t *testing.T) {
+	spec := &Spec{
+		Package:  "test",
+		GoImport: "github.com/example/test",
+		AbstractCallbacks: []AbstractCallback{
+			{
+				JavaClass: "com.example.GenericReturn",
+				GoType:    "GenericReturnCallback",
+				Methods: []AbstractCallbackMethod{
+					{
+						JavaMethod: "getWindows",
+						GoField:    "GetWindows",
+						Returns:    "java.util.List<android.view.accessibility.AccessibilityWindowInfo>",
+					},
+				},
+			},
+		},
+		AbstractCallbackEligibility: []AbstractCallbackEligibility{
+			{
+				JavaClass: "com.example.GenericReturn",
+				Generated: true,
+				Reason:    "supported_no_arg_constructor",
+			},
+		},
+	}
+
+	merged, err := Merge(spec, &Overlay{})
+	if err != nil {
+		t.Fatalf("Merge: %v", err)
+	}
+	if len(merged.AbstractCallbacks) != 1 {
+		t.Fatalf("len(AbstractCallbacks) = %d, want 1", len(merged.AbstractCallbacks))
+	}
+	if got := merged.AbstractCallbacks[0].Methods[0].JavaReturnType(); got != "java.util.List<android.view.accessibility.AccessibilityWindowInfo>" {
+		t.Errorf("JavaReturnType = %q", got)
+	}
+}
+
 func TestMerge_Constants(t *testing.T) {
 	spec := &Spec{
 		Package:  "test",
@@ -709,6 +853,13 @@ func TestMerge_AbstractCallbackConstantCollision(t *testing.T) {
 			{
 				JavaClass: "com.example.Callback",
 				GoType:    "Callback",
+				Methods: []AbstractCallbackMethod{
+					{
+						JavaMethod: "onEvent",
+						GoField:    "OnEvent",
+						Returns:    "void",
+					},
+				},
 			},
 		},
 		Constants: []Constant{

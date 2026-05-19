@@ -23,6 +23,35 @@ type MediaBrowserMediaItem struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMediaBrowserMediaItem creates a new android.media.browse.MediaBrowser$MediaItem instance.
+func NewMediaBrowserMediaItem(vm *jni.VM, arg0 *jni.Object, arg1 int32) (*MediaBrowserMediaItem, error) {
+	var t MediaBrowserMediaItem
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMediaBrowserMediaItem == nil {
+			return fmt.Errorf("android.media.browse.MediaBrowser$MediaItem is not available on this device")
+		}
+		if midMediaBrowserMediaItemCtor == nil {
+			return fmt.Errorf("android.media.browse.MediaBrowser$MediaItem constructor (Landroid/media/MediaDescription;I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMediaBrowserMediaItem)), midMediaBrowserMediaItemCtor, jni.ObjectValue(arg0), jni.IntValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.media.browse.MediaBrowser$MediaItem.describeContents.
 func (m *MediaBrowserMediaItem) DescribeContents() (int32, error) {
 	var result int32
@@ -227,8 +256,8 @@ func (m *MediaBrowserMediaItem) WriteToParcel(arg0 *jni.Object, arg1 int32) erro
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsMediaBrowserMediaItem)),
 			midMediaBrowserMediaItemWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

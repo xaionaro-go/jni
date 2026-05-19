@@ -32,6 +32,12 @@ func NewCurrencyAmount(vm *jni.VM, arg0 float64, arg1 *jni.Object) (*CurrencyAmo
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCurrencyAmount == nil {
+			return fmt.Errorf("android.icu.util.CurrencyAmount is not available on this device")
+		}
+		if midCurrencyAmountCtor == nil {
+			return fmt.Errorf("android.icu.util.CurrencyAmount constructor (DLandroid/icu/util/Currency;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCurrencyAmount)), midCurrencyAmountCtor, jni.DoubleValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

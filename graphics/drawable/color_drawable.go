@@ -32,6 +32,12 @@ func NewColorDrawable(vm *jni.VM) (*ColorDrawable, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsColorDrawable == nil {
+			return fmt.Errorf("android.graphics.drawable.ColorDrawable is not available on this device")
+		}
+		if midColorDrawableCtor == nil {
+			return fmt.Errorf("android.graphics.drawable.ColorDrawable constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsColorDrawable)), midColorDrawableCtor)
 		if err != nil {
 			return err

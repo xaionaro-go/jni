@@ -23,6 +23,35 @@ type UpdateAdCounterHistogramRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewUpdateAdCounterHistogramRequestBuilder creates a new android.adservices.adselection.UpdateAdCounterHistogramRequest$Builder instance.
+func NewUpdateAdCounterHistogramRequestBuilder(vm *jni.VM, arg0 int64, arg1 int32, arg2 *jni.Object) (*UpdateAdCounterHistogramRequestBuilder, error) {
+	var t UpdateAdCounterHistogramRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsUpdateAdCounterHistogramRequestBuilder == nil {
+			return fmt.Errorf("android.adservices.adselection.UpdateAdCounterHistogramRequest$Builder is not available on this device")
+		}
+		if midUpdateAdCounterHistogramRequestBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.adselection.UpdateAdCounterHistogramRequest$Builder constructor (JILandroid/adservices/common/AdTechIdentifier;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUpdateAdCounterHistogramRequestBuilder)), midUpdateAdCounterHistogramRequestBuilderCtor, jni.LongValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.adselection.UpdateAdCounterHistogramRequest$Builder.build.
 func (m *UpdateAdCounterHistogramRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

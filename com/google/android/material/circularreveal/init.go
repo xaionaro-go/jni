@@ -23,81 +23,33 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsCircularRevealWidget                                 *jni.GlobalRef
-	midCircularRevealWidgetDraw                             jni.MethodID
-	midCircularRevealWidgetIsOpaque                         jni.MethodID
-	midCircularRevealWidgetBuildCircularRevealCache         jni.MethodID
-	midCircularRevealWidgetDestroyCircularRevealCache       jni.MethodID
-	midCircularRevealWidgetGetRevealInfo                    jni.MethodID
-	midCircularRevealWidgetSetRevealInfo                    jni.MethodID
-	midCircularRevealWidgetGetCircularRevealScrimColor      jni.MethodID
-	midCircularRevealWidgetSetCircularRevealScrimColor      jni.MethodID
-	midCircularRevealWidgetGetCircularRevealOverlayDrawable jni.MethodID
-	midCircularRevealWidgetSetCircularRevealOverlayDrawable jni.MethodID
-	midCircularRevealWidgetToString                         jni.MethodID
+	clsCircularRevealHelper                                 *jni.GlobalRef
+	midCircularRevealHelperCtor                             jni.MethodID
+	midCircularRevealHelperBuildCircularRevealCache         jni.MethodID
+	midCircularRevealHelperDestroyCircularRevealCache       jni.MethodID
+	midCircularRevealHelperSetRevealInfo                    jni.MethodID
+	midCircularRevealHelperGetRevealInfo                    jni.MethodID
+	midCircularRevealHelperSetCircularRevealScrimColor      jni.MethodID
+	midCircularRevealHelperGetCircularRevealScrimColor      jni.MethodID
+	midCircularRevealHelperGetCircularRevealOverlayDrawable jni.MethodID
+	midCircularRevealHelperSetCircularRevealOverlayDrawable jni.MethodID
+	midCircularRevealHelperDraw                             jni.MethodID
+	midCircularRevealHelperToString                         jni.MethodID
+	midCircularRevealHelperIsOpaque                         jni.MethodID
 
-	clsCircularRevealWidgetCircularRevealEvaluator            *jni.GlobalRef
-	midCircularRevealWidgetCircularRevealEvaluatorEvaluate3   jni.MethodID
-	midCircularRevealWidgetCircularRevealEvaluatorEvaluate3_1 jni.MethodID
-	midCircularRevealWidgetCircularRevealEvaluatorToString    jni.MethodID
+	clsCircularRevealHelperDelegate               *jni.GlobalRef
+	midCircularRevealHelperDelegateActualDraw     jni.MethodID
+	midCircularRevealHelperDelegateActualIsOpaque jni.MethodID
+	midCircularRevealHelperDelegateToString       jni.MethodID
 
-	clsCircularRevealWidgetCircularRevealProperty         *jni.GlobalRef
-	midCircularRevealWidgetCircularRevealPropertyGet1     jni.MethodID
-	midCircularRevealWidgetCircularRevealPropertySet2     jni.MethodID
-	midCircularRevealWidgetCircularRevealPropertyGet1_1   jni.MethodID
-	midCircularRevealWidgetCircularRevealPropertySet2_1   jni.MethodID
-	midCircularRevealWidgetCircularRevealPropertyToString jni.MethodID
-
-	clsCircularRevealWidgetCircularRevealScrimColorProperty         *jni.GlobalRef
-	midCircularRevealWidgetCircularRevealScrimColorPropertyGet1     jni.MethodID
-	midCircularRevealWidgetCircularRevealScrimColorPropertySet2     jni.MethodID
-	midCircularRevealWidgetCircularRevealScrimColorPropertyGet1_1   jni.MethodID
-	midCircularRevealWidgetCircularRevealScrimColorPropertySet2_1   jni.MethodID
-	midCircularRevealWidgetCircularRevealScrimColorPropertyToString jni.MethodID
-
-	clsCircularRevealWidgetRevealInfo          *jni.GlobalRef
-	midCircularRevealWidgetRevealInfoSet3      jni.MethodID
-	midCircularRevealWidgetRevealInfoSet1_1    jni.MethodID
-	midCircularRevealWidgetRevealInfoIsInvalid jni.MethodID
-	midCircularRevealWidgetRevealInfoToString  jni.MethodID
+	clsCircularRevealHelperStrategy         *jni.GlobalRef
+	midCircularRevealHelperStrategyToString jni.MethodID
 
 	clsCircularRevealCompat                             *jni.GlobalRef
 	midCircularRevealCompatToString                     jni.MethodID
 	midCircularRevealCompatCreateCircularReveal4        jni.MethodID
 	midCircularRevealCompatCreateCircularReveal5_1      jni.MethodID
 	midCircularRevealCompatCreateCircularRevealListener jni.MethodID
-
-	clsCircularRevealFrameLayout                                 *jni.GlobalRef
-	midCircularRevealFrameLayoutCtor                             jni.MethodID
-	midCircularRevealFrameLayoutBuildCircularRevealCache         jni.MethodID
-	midCircularRevealFrameLayoutDestroyCircularRevealCache       jni.MethodID
-	midCircularRevealFrameLayoutGetRevealInfo                    jni.MethodID
-	midCircularRevealFrameLayoutSetRevealInfo                    jni.MethodID
-	midCircularRevealFrameLayoutGetCircularRevealScrimColor      jni.MethodID
-	midCircularRevealFrameLayoutSetCircularRevealScrimColor      jni.MethodID
-	midCircularRevealFrameLayoutGetCircularRevealOverlayDrawable jni.MethodID
-	midCircularRevealFrameLayoutSetCircularRevealOverlayDrawable jni.MethodID
-	midCircularRevealFrameLayoutDraw                             jni.MethodID
-	midCircularRevealFrameLayoutActualDraw                       jni.MethodID
-	midCircularRevealFrameLayoutIsOpaque                         jni.MethodID
-	midCircularRevealFrameLayoutActualIsOpaque                   jni.MethodID
-	midCircularRevealFrameLayoutToString                         jni.MethodID
-
-	clsCircularRevealGridLayout                                 *jni.GlobalRef
-	midCircularRevealGridLayoutCtor                             jni.MethodID
-	midCircularRevealGridLayoutBuildCircularRevealCache         jni.MethodID
-	midCircularRevealGridLayoutDestroyCircularRevealCache       jni.MethodID
-	midCircularRevealGridLayoutGetRevealInfo                    jni.MethodID
-	midCircularRevealGridLayoutSetRevealInfo                    jni.MethodID
-	midCircularRevealGridLayoutGetCircularRevealScrimColor      jni.MethodID
-	midCircularRevealGridLayoutSetCircularRevealScrimColor      jni.MethodID
-	midCircularRevealGridLayoutGetCircularRevealOverlayDrawable jni.MethodID
-	midCircularRevealGridLayoutSetCircularRevealOverlayDrawable jni.MethodID
-	midCircularRevealGridLayoutDraw                             jni.MethodID
-	midCircularRevealGridLayoutActualDraw                       jni.MethodID
-	midCircularRevealGridLayoutIsOpaque                         jni.MethodID
-	midCircularRevealGridLayoutActualIsOpaque                   jni.MethodID
-	midCircularRevealGridLayoutToString                         jni.MethodID
 
 	clsCircularRevealRelativeLayout                                 *jni.GlobalRef
 	midCircularRevealRelativeLayoutCtor                             jni.MethodID
@@ -115,27 +67,71 @@ var (
 	midCircularRevealRelativeLayoutActualIsOpaque                   jni.MethodID
 	midCircularRevealRelativeLayoutToString                         jni.MethodID
 
-	clsCircularRevealHelper                                 *jni.GlobalRef
-	midCircularRevealHelperCtor                             jni.MethodID
-	midCircularRevealHelperBuildCircularRevealCache         jni.MethodID
-	midCircularRevealHelperDestroyCircularRevealCache       jni.MethodID
-	midCircularRevealHelperSetRevealInfo                    jni.MethodID
-	midCircularRevealHelperGetRevealInfo                    jni.MethodID
-	midCircularRevealHelperSetCircularRevealScrimColor      jni.MethodID
-	midCircularRevealHelperGetCircularRevealScrimColor      jni.MethodID
-	midCircularRevealHelperGetCircularRevealOverlayDrawable jni.MethodID
-	midCircularRevealHelperSetCircularRevealOverlayDrawable jni.MethodID
-	midCircularRevealHelperDraw                             jni.MethodID
-	midCircularRevealHelperIsOpaque                         jni.MethodID
-	midCircularRevealHelperToString                         jni.MethodID
+	clsCircularRevealWidget                                 *jni.GlobalRef
+	midCircularRevealWidgetDraw                             jni.MethodID
+	midCircularRevealWidgetIsOpaque                         jni.MethodID
+	midCircularRevealWidgetBuildCircularRevealCache         jni.MethodID
+	midCircularRevealWidgetDestroyCircularRevealCache       jni.MethodID
+	midCircularRevealWidgetGetRevealInfo                    jni.MethodID
+	midCircularRevealWidgetSetRevealInfo                    jni.MethodID
+	midCircularRevealWidgetGetCircularRevealScrimColor      jni.MethodID
+	midCircularRevealWidgetSetCircularRevealScrimColor      jni.MethodID
+	midCircularRevealWidgetGetCircularRevealOverlayDrawable jni.MethodID
+	midCircularRevealWidgetSetCircularRevealOverlayDrawable jni.MethodID
+	midCircularRevealWidgetToString                         jni.MethodID
 
-	clsCircularRevealHelperDelegate               *jni.GlobalRef
-	midCircularRevealHelperDelegateActualDraw     jni.MethodID
-	midCircularRevealHelperDelegateActualIsOpaque jni.MethodID
-	midCircularRevealHelperDelegateToString       jni.MethodID
+	clsCircularRevealWidgetCircularRevealEvaluator         *jni.GlobalRef
+	midCircularRevealWidgetCircularRevealEvaluatorCtor     jni.MethodID
+	midCircularRevealWidgetCircularRevealEvaluatorEvaluate jni.MethodID
+	midCircularRevealWidgetCircularRevealEvaluatorToString jni.MethodID
 
-	clsCircularRevealHelperStrategy         *jni.GlobalRef
-	midCircularRevealHelperStrategyToString jni.MethodID
+	clsCircularRevealWidgetCircularRevealProperty         *jni.GlobalRef
+	midCircularRevealWidgetCircularRevealPropertyGet      jni.MethodID
+	midCircularRevealWidgetCircularRevealPropertySet      jni.MethodID
+	midCircularRevealWidgetCircularRevealPropertyToString jni.MethodID
+
+	clsCircularRevealWidgetCircularRevealScrimColorProperty         *jni.GlobalRef
+	midCircularRevealWidgetCircularRevealScrimColorPropertyGet      jni.MethodID
+	midCircularRevealWidgetCircularRevealScrimColorPropertySet      jni.MethodID
+	midCircularRevealWidgetCircularRevealScrimColorPropertyToString jni.MethodID
+
+	clsCircularRevealWidgetRevealInfo         *jni.GlobalRef
+	midCircularRevealWidgetRevealInfoCtor     jni.MethodID
+	midCircularRevealWidgetRevealInfoSet3     jni.MethodID
+	midCircularRevealWidgetRevealInfoSet1_1   jni.MethodID
+	midCircularRevealWidgetRevealInfoToString jni.MethodID
+
+	clsCircularRevealGridLayout                                 *jni.GlobalRef
+	midCircularRevealGridLayoutCtor                             jni.MethodID
+	midCircularRevealGridLayoutBuildCircularRevealCache         jni.MethodID
+	midCircularRevealGridLayoutDestroyCircularRevealCache       jni.MethodID
+	midCircularRevealGridLayoutGetRevealInfo                    jni.MethodID
+	midCircularRevealGridLayoutSetRevealInfo                    jni.MethodID
+	midCircularRevealGridLayoutGetCircularRevealScrimColor      jni.MethodID
+	midCircularRevealGridLayoutSetCircularRevealScrimColor      jni.MethodID
+	midCircularRevealGridLayoutGetCircularRevealOverlayDrawable jni.MethodID
+	midCircularRevealGridLayoutSetCircularRevealOverlayDrawable jni.MethodID
+	midCircularRevealGridLayoutDraw                             jni.MethodID
+	midCircularRevealGridLayoutActualDraw                       jni.MethodID
+	midCircularRevealGridLayoutIsOpaque                         jni.MethodID
+	midCircularRevealGridLayoutActualIsOpaque                   jni.MethodID
+	midCircularRevealGridLayoutToString                         jni.MethodID
+
+	clsCircularRevealFrameLayout                                 *jni.GlobalRef
+	midCircularRevealFrameLayoutCtor                             jni.MethodID
+	midCircularRevealFrameLayoutBuildCircularRevealCache         jni.MethodID
+	midCircularRevealFrameLayoutDestroyCircularRevealCache       jni.MethodID
+	midCircularRevealFrameLayoutGetRevealInfo                    jni.MethodID
+	midCircularRevealFrameLayoutSetRevealInfo                    jni.MethodID
+	midCircularRevealFrameLayoutGetCircularRevealScrimColor      jni.MethodID
+	midCircularRevealFrameLayoutSetCircularRevealScrimColor      jni.MethodID
+	midCircularRevealFrameLayoutGetCircularRevealOverlayDrawable jni.MethodID
+	midCircularRevealFrameLayoutSetCircularRevealOverlayDrawable jni.MethodID
+	midCircularRevealFrameLayoutDraw                             jni.MethodID
+	midCircularRevealFrameLayoutActualDraw                       jni.MethodID
+	midCircularRevealFrameLayoutIsOpaque                         jni.MethodID
+	midCircularRevealFrameLayoutActualIsOpaque                   jni.MethodID
+	midCircularRevealFrameLayoutToString                         jni.MethodID
 
 	clsCircularRevealLinearLayout                                 *jni.GlobalRef
 	midCircularRevealLinearLayoutCtor                             jni.MethodID
@@ -172,85 +168,89 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("com/google/android/material/circularreveal/CircularRevealWidget")
+	c, err = env.FindClass("com/google/android/material/circularreveal/CircularRevealHelper")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCircularRevealWidget = env.NewGlobalRef(&c.Object)
+		clsCircularRevealHelper = env.NewGlobalRef(&c.Object)
+		midCircularRevealHelperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "<init>", "(Lcom/google/android/material/circularreveal/CircularRevealHelper$Delegate;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midCircularRevealWidgetDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "draw", "(Landroid/graphics/Canvas;)V")
+		midCircularRevealHelperBuildCircularRevealCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "buildCircularRevealCache", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealWidgetIsOpaque, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "isOpaque", "()Z")
+		midCircularRevealHelperDestroyCircularRevealCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "destroyCircularRevealCache", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealWidgetBuildCircularRevealCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "buildCircularRevealCache", "()V")
+		midCircularRevealHelperSetRevealInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "setRevealInfo", "(Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealWidgetDestroyCircularRevealCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "destroyCircularRevealCache", "()V")
+		midCircularRevealHelperGetRevealInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "getRevealInfo", "()Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealWidgetGetRevealInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "getRevealInfo", "()Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;")
+		midCircularRevealHelperSetCircularRevealScrimColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "setCircularRevealScrimColor", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealWidgetSetRevealInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "setRevealInfo", "(Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;)V")
+		midCircularRevealHelperGetCircularRevealScrimColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "getCircularRevealScrimColor", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealWidgetGetCircularRevealScrimColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "getCircularRevealScrimColor", "()I")
+		midCircularRevealHelperGetCircularRevealOverlayDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "getCircularRevealOverlayDrawable", "()Landroid/graphics/drawable/Drawable;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealWidgetSetCircularRevealScrimColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "setCircularRevealScrimColor", "(I)V")
+		midCircularRevealHelperSetCircularRevealOverlayDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "setCircularRevealOverlayDrawable", "(Landroid/graphics/drawable/Drawable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealWidgetGetCircularRevealOverlayDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "getCircularRevealOverlayDrawable", "()Landroid/graphics/drawable/Drawable;")
+		midCircularRevealHelperDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "draw", "(Landroid/graphics/Canvas;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealWidgetSetCircularRevealOverlayDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "setCircularRevealOverlayDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		midCircularRevealHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealWidgetToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "toString", "()Ljava/lang/String;")
+		midCircularRevealHelperIsOpaque, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "isOpaque", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -259,29 +259,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/circularreveal/CircularRevealWidget$CircularRevealEvaluator")
+	c, err = env.FindClass("com/google/android/material/circularreveal/CircularRevealHelper$Delegate")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCircularRevealWidgetCircularRevealEvaluator = env.NewGlobalRef(&c.Object)
+		clsCircularRevealHelperDelegate = env.NewGlobalRef(&c.Object)
 
-		midCircularRevealWidgetCircularRevealEvaluatorEvaluate3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealEvaluator)), "evaluate", "(FLcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;)Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;")
+		midCircularRevealHelperDelegateActualDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelperDelegate)), "actualDraw", "(Landroid/graphics/Canvas;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealWidgetCircularRevealEvaluatorEvaluate3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealEvaluator)), "evaluate", "(FLjava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;")
+		midCircularRevealHelperDelegateActualIsOpaque, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelperDelegate)), "actualIsOpaque", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealWidgetCircularRevealEvaluatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealEvaluator)), "toString", "()Ljava/lang/String;")
+		midCircularRevealHelperDelegateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelperDelegate)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -290,126 +290,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/circularreveal/CircularRevealWidget$CircularRevealProperty")
+	c, err = env.FindClass("com/google/android/material/circularreveal/CircularRevealHelper$Strategy")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCircularRevealWidgetCircularRevealProperty = env.NewGlobalRef(&c.Object)
+		clsCircularRevealHelperStrategy = env.NewGlobalRef(&c.Object)
 
-		midCircularRevealWidgetCircularRevealPropertyGet1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealProperty)), "get", "(Lcom/google/android/material/circularreveal/CircularRevealWidget;)Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealWidgetCircularRevealPropertySet2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealProperty)), "set", "(Lcom/google/android/material/circularreveal/CircularRevealWidget;Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealWidgetCircularRevealPropertyGet1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealProperty)), "get", "(Ljava/lang/Object;)Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealWidgetCircularRevealPropertySet2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealProperty)), "set", "(Ljava/lang/Object;Ljava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealWidgetCircularRevealPropertyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealProperty)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/circularreveal/CircularRevealWidget$CircularRevealScrimColorProperty")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCircularRevealWidgetCircularRevealScrimColorProperty = env.NewGlobalRef(&c.Object)
-
-		midCircularRevealWidgetCircularRevealScrimColorPropertyGet1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealScrimColorProperty)), "get", "(Lcom/google/android/material/circularreveal/CircularRevealWidget;)Ljava/lang/Integer;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealWidgetCircularRevealScrimColorPropertySet2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealScrimColorProperty)), "set", "(Lcom/google/android/material/circularreveal/CircularRevealWidget;Ljava/lang/Integer;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealWidgetCircularRevealScrimColorPropertyGet1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealScrimColorProperty)), "get", "(Ljava/lang/Object;)Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealWidgetCircularRevealScrimColorPropertySet2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealScrimColorProperty)), "set", "(Ljava/lang/Object;Ljava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealWidgetCircularRevealScrimColorPropertyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealScrimColorProperty)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/circularreveal/CircularRevealWidget$RevealInfo")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCircularRevealWidgetRevealInfo = env.NewGlobalRef(&c.Object)
-
-		midCircularRevealWidgetRevealInfoSet3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetRevealInfo)), "set", "(FFF)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealWidgetRevealInfoSet1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetRevealInfo)), "set", "(Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealWidgetRevealInfoIsInvalid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetRevealInfo)), "isInvalid", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealWidgetRevealInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetRevealInfo)), "toString", "()Ljava/lang/String;")
+		midCircularRevealHelperStrategyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelperStrategy)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -448,216 +337,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midCircularRevealCompatCreateCircularRevealListener, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealCompat)), "createCircularRevealListener", "(Lcom/google/android/material/circularreveal/CircularRevealWidget;)Landroid/animation/Animator$AnimatorListener;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/circularreveal/CircularRevealFrameLayout")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCircularRevealFrameLayout = env.NewGlobalRef(&c.Object)
-		midCircularRevealFrameLayoutCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCircularRevealFrameLayoutBuildCircularRevealCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "buildCircularRevealCache", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealFrameLayoutDestroyCircularRevealCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "destroyCircularRevealCache", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealFrameLayoutGetRevealInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "getRevealInfo", "()Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealFrameLayoutSetRevealInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "setRevealInfo", "(Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealFrameLayoutGetCircularRevealScrimColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "getCircularRevealScrimColor", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealFrameLayoutSetCircularRevealScrimColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "setCircularRevealScrimColor", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealFrameLayoutGetCircularRevealOverlayDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "getCircularRevealOverlayDrawable", "()Landroid/graphics/drawable/Drawable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealFrameLayoutSetCircularRevealOverlayDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "setCircularRevealOverlayDrawable", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealFrameLayoutDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "draw", "(Landroid/graphics/Canvas;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealFrameLayoutActualDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "actualDraw", "(Landroid/graphics/Canvas;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealFrameLayoutIsOpaque, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "isOpaque", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealFrameLayoutActualIsOpaque, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "actualIsOpaque", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealFrameLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/circularreveal/CircularRevealGridLayout")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCircularRevealGridLayout = env.NewGlobalRef(&c.Object)
-		midCircularRevealGridLayoutCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCircularRevealGridLayoutBuildCircularRevealCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "buildCircularRevealCache", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealGridLayoutDestroyCircularRevealCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "destroyCircularRevealCache", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealGridLayoutGetRevealInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "getRevealInfo", "()Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealGridLayoutSetRevealInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "setRevealInfo", "(Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealGridLayoutGetCircularRevealScrimColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "getCircularRevealScrimColor", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealGridLayoutSetCircularRevealScrimColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "setCircularRevealScrimColor", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealGridLayoutGetCircularRevealOverlayDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "getCircularRevealOverlayDrawable", "()Landroid/graphics/drawable/Drawable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealGridLayoutSetCircularRevealOverlayDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "setCircularRevealOverlayDrawable", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealGridLayoutDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "draw", "(Landroid/graphics/Canvas;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealGridLayoutActualDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "actualDraw", "(Landroid/graphics/Canvas;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealGridLayoutIsOpaque, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "isOpaque", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealGridLayoutActualIsOpaque, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "actualIsOpaque", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealGridLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -771,89 +450,85 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/circularreveal/CircularRevealHelper")
+	c, err = env.FindClass("com/google/android/material/circularreveal/CircularRevealWidget")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCircularRevealHelper = env.NewGlobalRef(&c.Object)
-		midCircularRevealHelperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "<init>", "(Lcom/google/android/material/circularreveal/CircularRevealHelper$Delegate;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsCircularRevealWidget = env.NewGlobalRef(&c.Object)
 
-		midCircularRevealHelperBuildCircularRevealCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "buildCircularRevealCache", "()V")
+		midCircularRevealWidgetDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "draw", "(Landroid/graphics/Canvas;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealHelperDestroyCircularRevealCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "destroyCircularRevealCache", "()V")
+		midCircularRevealWidgetIsOpaque, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "isOpaque", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealHelperSetRevealInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "setRevealInfo", "(Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;)V")
+		midCircularRevealWidgetBuildCircularRevealCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "buildCircularRevealCache", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealHelperGetRevealInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "getRevealInfo", "()Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;")
+		midCircularRevealWidgetDestroyCircularRevealCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "destroyCircularRevealCache", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealHelperSetCircularRevealScrimColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "setCircularRevealScrimColor", "(I)V")
+		midCircularRevealWidgetGetRevealInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "getRevealInfo", "()Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealHelperGetCircularRevealScrimColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "getCircularRevealScrimColor", "()I")
+		midCircularRevealWidgetSetRevealInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "setRevealInfo", "(Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealHelperGetCircularRevealOverlayDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "getCircularRevealOverlayDrawable", "()Landroid/graphics/drawable/Drawable;")
+		midCircularRevealWidgetGetCircularRevealScrimColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "getCircularRevealScrimColor", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealHelperSetCircularRevealOverlayDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "setCircularRevealOverlayDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		midCircularRevealWidgetSetCircularRevealScrimColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "setCircularRevealScrimColor", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealHelperDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "draw", "(Landroid/graphics/Canvas;)V")
+		midCircularRevealWidgetGetCircularRevealOverlayDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "getCircularRevealOverlayDrawable", "()Landroid/graphics/drawable/Drawable;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealHelperIsOpaque, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "isOpaque", "()Z")
+		midCircularRevealWidgetSetCircularRevealOverlayDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "setCircularRevealOverlayDrawable", "(Landroid/graphics/drawable/Drawable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelper)), "toString", "()Ljava/lang/String;")
+		midCircularRevealWidgetToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidget)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -862,29 +537,26 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/circularreveal/CircularRevealHelper$Delegate")
+	c, err = env.FindClass("com/google/android/material/circularreveal/CircularRevealWidget$CircularRevealEvaluator")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCircularRevealHelperDelegate = env.NewGlobalRef(&c.Object)
+		clsCircularRevealWidgetCircularRevealEvaluator = env.NewGlobalRef(&c.Object)
+		midCircularRevealWidgetCircularRevealEvaluatorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealEvaluator)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midCircularRevealHelperDelegateActualDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelperDelegate)), "actualDraw", "(Landroid/graphics/Canvas;)V")
+		midCircularRevealWidgetCircularRevealEvaluatorEvaluate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealEvaluator)), "evaluate", "(FLcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;)Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularRevealHelperDelegateActualIsOpaque, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelperDelegate)), "actualIsOpaque", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularRevealHelperDelegateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelperDelegate)), "toString", "()Ljava/lang/String;")
+		midCircularRevealWidgetCircularRevealEvaluatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealEvaluator)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -893,15 +565,305 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/circularreveal/CircularRevealHelper$Strategy")
+	c, err = env.FindClass("com/google/android/material/circularreveal/CircularRevealWidget$CircularRevealProperty")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCircularRevealHelperStrategy = env.NewGlobalRef(&c.Object)
+		clsCircularRevealWidgetCircularRevealProperty = env.NewGlobalRef(&c.Object)
 
-		midCircularRevealHelperStrategyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealHelperStrategy)), "toString", "()Ljava/lang/String;")
+		midCircularRevealWidgetCircularRevealPropertyGet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealProperty)), "get", "(Lcom/google/android/material/circularreveal/CircularRevealWidget;)Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealWidgetCircularRevealPropertySet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealProperty)), "set", "(Lcom/google/android/material/circularreveal/CircularRevealWidget;Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealWidgetCircularRevealPropertyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealProperty)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/circularreveal/CircularRevealWidget$CircularRevealScrimColorProperty")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCircularRevealWidgetCircularRevealScrimColorProperty = env.NewGlobalRef(&c.Object)
+
+		midCircularRevealWidgetCircularRevealScrimColorPropertyGet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealScrimColorProperty)), "get", "(Lcom/google/android/material/circularreveal/CircularRevealWidget;)Ljava/lang/Integer;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealWidgetCircularRevealScrimColorPropertySet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealScrimColorProperty)), "set", "(Lcom/google/android/material/circularreveal/CircularRevealWidget;Ljava/lang/Integer;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealWidgetCircularRevealScrimColorPropertyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetCircularRevealScrimColorProperty)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/circularreveal/CircularRevealWidget$RevealInfo")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCircularRevealWidgetRevealInfo = env.NewGlobalRef(&c.Object)
+		midCircularRevealWidgetRevealInfoCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetRevealInfo)), "<init>", "(FFF)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCircularRevealWidgetRevealInfoSet3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetRevealInfo)), "set", "(FFF)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealWidgetRevealInfoSet1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetRevealInfo)), "set", "(Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealWidgetRevealInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetRevealInfo)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/circularreveal/CircularRevealGridLayout")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCircularRevealGridLayout = env.NewGlobalRef(&c.Object)
+		midCircularRevealGridLayoutCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCircularRevealGridLayoutBuildCircularRevealCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "buildCircularRevealCache", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealGridLayoutDestroyCircularRevealCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "destroyCircularRevealCache", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealGridLayoutGetRevealInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "getRevealInfo", "()Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealGridLayoutSetRevealInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "setRevealInfo", "(Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealGridLayoutGetCircularRevealScrimColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "getCircularRevealScrimColor", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealGridLayoutSetCircularRevealScrimColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "setCircularRevealScrimColor", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealGridLayoutGetCircularRevealOverlayDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "getCircularRevealOverlayDrawable", "()Landroid/graphics/drawable/Drawable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealGridLayoutSetCircularRevealOverlayDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "setCircularRevealOverlayDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealGridLayoutDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "draw", "(Landroid/graphics/Canvas;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealGridLayoutActualDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "actualDraw", "(Landroid/graphics/Canvas;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealGridLayoutIsOpaque, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "isOpaque", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealGridLayoutActualIsOpaque, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "actualIsOpaque", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealGridLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealGridLayout)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/circularreveal/CircularRevealFrameLayout")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCircularRevealFrameLayout = env.NewGlobalRef(&c.Object)
+		midCircularRevealFrameLayoutCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCircularRevealFrameLayoutBuildCircularRevealCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "buildCircularRevealCache", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealFrameLayoutDestroyCircularRevealCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "destroyCircularRevealCache", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealFrameLayoutGetRevealInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "getRevealInfo", "()Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealFrameLayoutSetRevealInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "setRevealInfo", "(Lcom/google/android/material/circularreveal/CircularRevealWidget$RevealInfo;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealFrameLayoutGetCircularRevealScrimColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "getCircularRevealScrimColor", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealFrameLayoutSetCircularRevealScrimColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "setCircularRevealScrimColor", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealFrameLayoutGetCircularRevealOverlayDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "getCircularRevealOverlayDrawable", "()Landroid/graphics/drawable/Drawable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealFrameLayoutSetCircularRevealOverlayDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "setCircularRevealOverlayDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealFrameLayoutDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "draw", "(Landroid/graphics/Canvas;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealFrameLayoutActualDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "actualDraw", "(Landroid/graphics/Canvas;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealFrameLayoutIsOpaque, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "isOpaque", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealFrameLayoutActualIsOpaque, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "actualIsOpaque", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularRevealFrameLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularRevealFrameLayout)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

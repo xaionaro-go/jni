@@ -23,6 +23,34 @@ type AssociationRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAssociationRequestBuilder creates a new android.companion.AssociationRequest$Builder instance.
+func NewAssociationRequestBuilder(vm *jni.VM) (*AssociationRequestBuilder, error) {
+	var t AssociationRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAssociationRequestBuilder == nil {
+			return fmt.Errorf("android.companion.AssociationRequest$Builder is not available on this device")
+		}
+		if midAssociationRequestBuilderCtor == nil {
+			return fmt.Errorf("android.companion.AssociationRequest$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAssociationRequestBuilder)), midAssociationRequestBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.companion.AssociationRequest$Builder.build.
 func (m *AssociationRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

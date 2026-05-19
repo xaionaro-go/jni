@@ -23,6 +23,41 @@ type CallAttributesBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCallAttributesBuilder creates a new android.telecom.CallAttributes$Builder instance.
+func NewCallAttributesBuilder(vm *jni.VM, arg0 *jni.Object, arg1 int32, arg2 string, arg3 *jni.Object) (*CallAttributesBuilder, error) {
+	var t CallAttributesBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCallAttributesBuilder == nil {
+			return fmt.Errorf("android.telecom.CallAttributes$Builder is not available on this device")
+		}
+		if midCallAttributesBuilderCtor == nil {
+			return fmt.Errorf("android.telecom.CallAttributes$Builder constructor (Landroid/telecom/PhoneAccountHandle;ILjava/lang/CharSequence;Landroid/net/Uri;)V is not available on this device")
+		}
+
+		jArg2, err := env.NewStringUTF(arg2)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg2.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCallAttributesBuilder)), midCallAttributesBuilderCtor, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.ObjectValue(&jArg2.Object), jni.ObjectValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.telecom.CallAttributes$Builder.build.
 func (m *CallAttributesBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

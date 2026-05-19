@@ -30,6 +30,12 @@ func NewCoreComponentFactory(vm *jni.VM) (*CoreComponentFactory, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCoreComponentFactory == nil {
+			return fmt.Errorf("androidx.core.app.CoreComponentFactory is not available on this device")
+		}
+		if midCoreComponentFactoryCtor == nil {
+			return fmt.Errorf("androidx.core.app.CoreComponentFactory constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCoreComponentFactory)), midCoreComponentFactoryCtor)
 		if err != nil {
 			return err
@@ -207,6 +213,33 @@ func (m *CoreComponentFactory) InstantiateProvider(arg0 *jni.Object, arg1 string
 	return result, callErr
 }
 
+// ToString calls androidx.core.app.CoreComponentFactory.toString.
+func (m *CoreComponentFactory) ToString() (string, error) {
+	var result string
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCoreComponentFactoryToString == nil {
+			callErr = fmt.Errorf("androidx.core.app.CoreComponentFactory.toString is not available on this device")
+			return callErr
+		}
+		var resultObj *jni.Object
+		resultObj, callErr = env.CallObjectMethod(
+			m.Obj,
+			midCoreComponentFactoryToString,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
 // InstantiateService calls androidx.core.app.CoreComponentFactory.instantiateService.
 func (m *CoreComponentFactory) InstantiateService(
 	arg0 *jni.Object,
@@ -231,8 +264,8 @@ func (m *CoreComponentFactory) InstantiateService(
 		}
 		defer env.DeleteLocalRef(&jArg1.Object)
 
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsCoreComponentFactory)),
 			midCoreComponentFactoryInstantiateService, jni.ObjectValue(arg0), jni.ObjectValue(&jArg1.Object), jni.ObjectValue(arg2),
 		)
 		if callErr != nil {
@@ -245,33 +278,6 @@ func (m *CoreComponentFactory) InstantiateService(
 			result = env.NewGlobalRef(localRef)
 			env.DeleteLocalRef(localRef)
 		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// ToString calls androidx.core.app.CoreComponentFactory.toString.
-func (m *CoreComponentFactory) ToString() (string, error) {
-	var result string
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCoreComponentFactoryToString == nil {
-			callErr = fmt.Errorf("androidx.core.app.CoreComponentFactory.toString is not available on this device")
-			return callErr
-		}
-		var resultObj *jni.Object
-		resultObj, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCoreComponentFactoryToString,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
 		return callErr
 	})
 	return result, callErr

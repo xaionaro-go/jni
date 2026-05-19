@@ -48,7 +48,6 @@ var (
 	midShapeableImageViewSetStrokeWidth            jni.MethodID
 	midShapeableImageViewSetStrokeWidthResource    jni.MethodID
 	midShapeableImageViewGetStrokeWidth            jni.MethodID
-	midShapeableImageViewSetStrokeColor            jni.MethodID
 	midShapeableImageViewToString                  jni.MethodID
 )
 
@@ -237,13 +236,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midShapeableImageViewGetStrokeWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShapeableImageView)), "getStrokeWidth", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midShapeableImageViewSetStrokeColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShapeableImageView)), "setStrokeColor", "(Landroid/content/res/ColorStateList;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

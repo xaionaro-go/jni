@@ -32,6 +32,12 @@ func NewMaterialTextInputPicker(vm *jni.VM) (*MaterialTextInputPicker, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialTextInputPicker == nil {
+			return fmt.Errorf("com.google.android.material.datepicker.MaterialTextInputPicker is not available on this device")
+		}
+		if midMaterialTextInputPickerCtor == nil {
+			return fmt.Errorf("com.google.android.material.datepicker.MaterialTextInputPicker constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialTextInputPicker)), midMaterialTextInputPickerCtor)
 		if err != nil {
 			return err

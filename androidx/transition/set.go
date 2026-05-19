@@ -32,6 +32,12 @@ func NewSet(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Set, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSet == nil {
+			return fmt.Errorf("androidx.transition.TransitionSet is not available on this device")
+		}
+		if midSetCtor == nil {
+			return fmt.Errorf("androidx.transition.TransitionSet constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSet)), midSetCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -195,8 +201,8 @@ func (m *Set) GetTransitionAt(arg0 int32) (*jni.Object, error) {
 	return result, callErr
 }
 
-// SetDuration1 calls androidx.transition.TransitionSet.setDuration.
-func (m *Set) SetDuration1(arg0 int64) (*jni.Object, error) {
+// SetDuration calls androidx.transition.TransitionSet.setDuration.
+func (m *Set) SetDuration(arg0 int64) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -204,14 +210,14 @@ func (m *Set) SetDuration1(arg0 int64) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midSetSetDuration1 == nil {
+		if midSetSetDuration == nil {
 			callErr = fmt.Errorf("androidx.transition.TransitionSet.setDuration is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midSetSetDuration1, jni.LongValue(arg0),
+			midSetSetDuration, jni.LongValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -228,8 +234,8 @@ func (m *Set) SetDuration1(arg0 int64) (*jni.Object, error) {
 	return result, callErr
 }
 
-// SetStartDelay1 calls androidx.transition.TransitionSet.setStartDelay.
-func (m *Set) SetStartDelay1(arg0 int64) (*jni.Object, error) {
+// SetStartDelay calls androidx.transition.TransitionSet.setStartDelay.
+func (m *Set) SetStartDelay(arg0 int64) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -237,14 +243,14 @@ func (m *Set) SetStartDelay1(arg0 int64) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midSetSetStartDelay1 == nil {
+		if midSetSetStartDelay == nil {
 			callErr = fmt.Errorf("androidx.transition.TransitionSet.setStartDelay is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midSetSetStartDelay1, jni.LongValue(arg0),
+			midSetSetStartDelay, jni.LongValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -261,8 +267,8 @@ func (m *Set) SetStartDelay1(arg0 int64) (*jni.Object, error) {
 	return result, callErr
 }
 
-// SetInterpolator1 calls androidx.transition.TransitionSet.setInterpolator.
-func (m *Set) SetInterpolator1(arg0 *jni.Object) (*jni.Object, error) {
+// SetInterpolator calls androidx.transition.TransitionSet.setInterpolator.
+func (m *Set) SetInterpolator(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -270,14 +276,14 @@ func (m *Set) SetInterpolator1(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midSetSetInterpolator1 == nil {
+		if midSetSetInterpolator == nil {
 			callErr = fmt.Errorf("androidx.transition.TransitionSet.setInterpolator is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midSetSetInterpolator1, jni.ObjectValue(arg0),
+			midSetSetInterpolator, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -398,8 +404,8 @@ func (m *Set) AddTarget1_2(arg0 string) (*jni.Object, error) {
 	return result, callErr
 }
 
-// AddListener1 calls androidx.transition.TransitionSet.addListener.
-func (m *Set) AddListener1(arg0 *jni.Object) (*jni.Object, error) {
+// AddListener calls androidx.transition.TransitionSet.addListener.
+func (m *Set) AddListener(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -407,14 +413,14 @@ func (m *Set) AddListener1(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midSetAddListener1 == nil {
+		if midSetAddListener == nil {
 			callErr = fmt.Errorf("androidx.transition.TransitionSet.addListener is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midSetAddListener1, jni.ObjectValue(arg0),
+			midSetAddListener, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -654,8 +660,8 @@ func (m *Set) ExcludeTarget2_2(arg0 int32, arg1 bool) (*jni.Object, error) {
 	return result, callErr
 }
 
-// RemoveListener1 calls androidx.transition.TransitionSet.removeListener.
-func (m *Set) RemoveListener1(arg0 *jni.Object) (*jni.Object, error) {
+// RemoveListener calls androidx.transition.TransitionSet.removeListener.
+func (m *Set) RemoveListener(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -663,14 +669,14 @@ func (m *Set) RemoveListener1(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midSetRemoveListener1 == nil {
+		if midSetRemoveListener == nil {
 			callErr = fmt.Errorf("androidx.transition.TransitionSet.removeListener is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midSetRemoveListener1, jni.ObjectValue(arg0),
+			midSetRemoveListener, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -908,8 +914,8 @@ func (m *Set) SetEpicenterCallback(arg0 *jni.Object) error {
 	return callErr
 }
 
-// Clone0 calls androidx.transition.TransitionSet.clone.
-func (m *Set) Clone0() (*jni.Object, error) {
+// Clone calls androidx.transition.TransitionSet.clone.
+func (m *Set) Clone() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -917,484 +923,13 @@ func (m *Set) Clone0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midSetClone0 == nil {
+		if midSetClone == nil {
 			callErr = fmt.Errorf("androidx.transition.TransitionSet.clone is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midSetClone0,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// RemoveListener1_1 calls androidx.transition.TransitionSet.removeListener.
-func (m *Set) RemoveListener1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSetRemoveListener1_1 == nil {
-			callErr = fmt.Errorf("androidx.transition.TransitionSet.removeListener is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midSetRemoveListener1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// AddListener1_1 calls androidx.transition.TransitionSet.addListener.
-func (m *Set) AddListener1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSetAddListener1_1 == nil {
-			callErr = fmt.Errorf("androidx.transition.TransitionSet.addListener is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midSetAddListener1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// RemoveTarget1_3 calls androidx.transition.TransitionSet.removeTarget.
-func (m *Set) RemoveTarget1_3(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSetRemoveTarget1_3 == nil {
-			callErr = fmt.Errorf("androidx.transition.TransitionSet.removeTarget is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midSetRemoveTarget1_3, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// RemoveTarget1_4 calls androidx.transition.TransitionSet.removeTarget.
-func (m *Set) RemoveTarget1_4(arg0 string) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSetRemoveTarget1_4 == nil {
-			callErr = fmt.Errorf("androidx.transition.TransitionSet.removeTarget is not available on this device")
-			return callErr
-		}
-		jArg0, err := env.NewStringUTF(arg0)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg0.Object)
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midSetRemoveTarget1_4, jni.ObjectValue(&jArg0.Object),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// RemoveTarget1_5 calls androidx.transition.TransitionSet.removeTarget.
-func (m *Set) RemoveTarget1_5(arg0 int32) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSetRemoveTarget1_5 == nil {
-			callErr = fmt.Errorf("androidx.transition.TransitionSet.removeTarget is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midSetRemoveTarget1_5, jni.IntValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// RemoveTarget1_6 calls androidx.transition.TransitionSet.removeTarget.
-func (m *Set) RemoveTarget1_6(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSetRemoveTarget1_6 == nil {
-			callErr = fmt.Errorf("androidx.transition.TransitionSet.removeTarget is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midSetRemoveTarget1_6, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// AddTarget1_3 calls androidx.transition.TransitionSet.addTarget.
-func (m *Set) AddTarget1_3(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSetAddTarget1_3 == nil {
-			callErr = fmt.Errorf("androidx.transition.TransitionSet.addTarget is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midSetAddTarget1_3, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// AddTarget1_4 calls androidx.transition.TransitionSet.addTarget.
-func (m *Set) AddTarget1_4(arg0 string) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSetAddTarget1_4 == nil {
-			callErr = fmt.Errorf("androidx.transition.TransitionSet.addTarget is not available on this device")
-			return callErr
-		}
-		jArg0, err := env.NewStringUTF(arg0)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg0.Object)
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midSetAddTarget1_4, jni.ObjectValue(&jArg0.Object),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// AddTarget1_5 calls androidx.transition.TransitionSet.addTarget.
-func (m *Set) AddTarget1_5(arg0 int32) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSetAddTarget1_5 == nil {
-			callErr = fmt.Errorf("androidx.transition.TransitionSet.addTarget is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midSetAddTarget1_5, jni.IntValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// AddTarget1_6 calls androidx.transition.TransitionSet.addTarget.
-func (m *Set) AddTarget1_6(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSetAddTarget1_6 == nil {
-			callErr = fmt.Errorf("androidx.transition.TransitionSet.addTarget is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midSetAddTarget1_6, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetInterpolator1_1 calls androidx.transition.TransitionSet.setInterpolator.
-func (m *Set) SetInterpolator1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSetSetInterpolator1_1 == nil {
-			callErr = fmt.Errorf("androidx.transition.TransitionSet.setInterpolator is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midSetSetInterpolator1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetStartDelay1_1 calls androidx.transition.TransitionSet.setStartDelay.
-func (m *Set) SetStartDelay1_1(arg0 int64) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSetSetStartDelay1_1 == nil {
-			callErr = fmt.Errorf("androidx.transition.TransitionSet.setStartDelay is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midSetSetStartDelay1_1, jni.LongValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetDuration1_1 calls androidx.transition.TransitionSet.setDuration.
-func (m *Set) SetDuration1_1(arg0 int64) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSetSetDuration1_1 == nil {
-			callErr = fmt.Errorf("androidx.transition.TransitionSet.setDuration is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midSetSetDuration1_1, jni.LongValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Clone0_1 calls androidx.transition.TransitionSet.clone.
-func (m *Set) Clone0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSetClone0_1 == nil {
-			callErr = fmt.Errorf("androidx.transition.TransitionSet.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midSetClone0_1,
+			midSetClone,
 		)
 		if callErr != nil {
 			return callErr

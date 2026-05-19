@@ -32,6 +32,12 @@ func NewInfo(vm *jni.VM, arg0 string) (*Info, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInfo == nil {
+			return fmt.Errorf("android.telephony.euicc.EuiccInfo is not available on this device")
+		}
+		if midInfoCtor == nil {
+			return fmt.Errorf("android.telephony.euicc.EuiccInfo constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -103,29 +109,6 @@ func (m *Info) GetOsVersion() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.telephony.euicc.EuiccInfo.writeToParcel.
-func (m *Info) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.telephony.euicc.EuiccInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.telephony.euicc.EuiccInfo.toString.
 func (m *Info) ToString() (string, error) {
 	var result string
@@ -151,4 +134,27 @@ func (m *Info) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.telephony.euicc.EuiccInfo.writeToParcel.
+func (m *Info) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.telephony.euicc.EuiccInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsInfo)),
+			midInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

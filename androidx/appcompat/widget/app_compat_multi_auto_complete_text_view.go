@@ -32,6 +32,12 @@ func NewAppCompatMultiAutoCompleteTextView(vm *jni.VM, arg0 *jni.Object) (*AppCo
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppCompatMultiAutoCompleteTextView == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView is not available on this device")
+		}
+		if midAppCompatMultiAutoCompleteTextViewCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)), midAppCompatMultiAutoCompleteTextViewCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -501,29 +507,6 @@ func (m *AppCompatMultiAutoCompleteTextView) GetSupportCompoundDrawablesTintMode
 	return result, callErr
 }
 
-// SetSupportCompoundDrawablesTintMode calls androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView.setSupportCompoundDrawablesTintMode.
-func (m *AppCompatMultiAutoCompleteTextView) SetSupportCompoundDrawablesTintMode(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppCompatMultiAutoCompleteTextViewSetSupportCompoundDrawablesTintMode == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView.setSupportCompoundDrawablesTintMode is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAppCompatMultiAutoCompleteTextViewSetSupportCompoundDrawablesTintMode, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView.toString.
 func (m *AppCompatMultiAutoCompleteTextView) ToString() (string, error) {
 	var result string
@@ -549,4 +532,27 @@ func (m *AppCompatMultiAutoCompleteTextView) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// SetSupportCompoundDrawablesTintMode calls androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView.setSupportCompoundDrawablesTintMode.
+func (m *AppCompatMultiAutoCompleteTextView) SetSupportCompoundDrawablesTintMode(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midAppCompatMultiAutoCompleteTextViewSetSupportCompoundDrawablesTintMode == nil {
+			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView.setSupportCompoundDrawablesTintMode is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextView)),
+			midAppCompatMultiAutoCompleteTextViewSetSupportCompoundDrawablesTintMode, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -32,6 +32,12 @@ func NewEGL14(vm *jni.VM) (*EGL14, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEGL14 == nil {
+			return fmt.Errorf("android.opengl.EGL14 is not available on this device")
+		}
+		if midEGL14Ctor == nil {
+			return fmt.Errorf("android.opengl.EGL14 constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEGL14)), midEGL14Ctor)
 		if err != nil {
 			return err

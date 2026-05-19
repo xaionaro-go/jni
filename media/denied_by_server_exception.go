@@ -32,6 +32,12 @@ func NewDeniedByServerException(vm *jni.VM, arg0 string) (*DeniedByServerExcepti
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDeniedByServerException == nil {
+			return fmt.Errorf("android.media.DeniedByServerException is not available on this device")
+		}
+		if midDeniedByServerExceptionCtor == nil {
+			return fmt.Errorf("android.media.DeniedByServerException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

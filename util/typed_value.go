@@ -32,6 +32,12 @@ func NewTypedValue(vm *jni.VM) (*TypedValue, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTypedValue == nil {
+			return fmt.Errorf("android.util.TypedValue is not available on this device")
+		}
+		if midTypedValueCtor == nil {
+			return fmt.Errorf("android.util.TypedValue constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTypedValue)), midTypedValueCtor)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewBottomSheetDialog(vm *jni.VM, arg0 *jni.Object) (*BottomSheetDialog, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBottomSheetDialog == nil {
+			return fmt.Errorf("com.google.android.material.bottomsheet.BottomSheetDialog is not available on this device")
+		}
+		if midBottomSheetDialogCtor == nil {
+			return fmt.Errorf("com.google.android.material.bottomsheet.BottomSheetDialog constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBottomSheetDialog)), midBottomSheetDialogCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -373,32 +379,4 @@ func (m *BottomSheetDialog) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
-}
-
-// SetLightStatusBar calls com.google.android.material.bottomsheet.BottomSheetDialog.setLightStatusBar.
-func (m *BottomSheetDialog) SetLightStatusBar(arg0 *jni.Object, arg1 bool) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBottomSheetDialogSetLightStatusBar == nil {
-			callErr = fmt.Errorf("com.google.android.material.bottomsheet.BottomSheetDialog.setLightStatusBar is not available on this device")
-			return callErr
-		}
-
-		var jArg1 uint8
-		if arg1 {
-			jArg1 = jniTrue
-		}
-
-		callErr = env.CallStaticVoidMethod(
-			(*jni.Class)(unsafe.Pointer(clsBottomSheetDialog)),
-			midBottomSheetDialogSetLightStatusBar, jni.ObjectValue(arg0), jni.BooleanValue(jArg1),
-		)
-		return callErr
-	})
-	return callErr
 }

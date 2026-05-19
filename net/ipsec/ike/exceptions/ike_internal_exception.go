@@ -32,6 +32,12 @@ func NewIkeInternalException(vm *jni.VM, arg0 string, arg1 *jni.Object) (*IkeInt
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsIkeInternalException == nil {
+			return fmt.Errorf("android.net.ipsec.ike.exceptions.IkeInternalException is not available on this device")
+		}
+		if midIkeInternalExceptionCtor == nil {
+			return fmt.Errorf("android.net.ipsec.ike.exceptions.IkeInternalException constructor (Ljava/lang/String;Ljava/lang/Throwable;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

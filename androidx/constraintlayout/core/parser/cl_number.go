@@ -32,6 +32,12 @@ func NewCLNumber(vm *jni.VM, arg0 *jni.Object) (*CLNumber, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCLNumber == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.parser.CLNumber is not available on this device")
+		}
+		if midCLNumberCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.parser.CLNumber constructor ([C)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCLNumber)), midCLNumberCtor, jni.ObjectValue(arg0))
 		if err != nil {

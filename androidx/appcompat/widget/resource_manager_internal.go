@@ -32,6 +32,12 @@ func NewResourceManagerInternal(vm *jni.VM) (*ResourceManagerInternal, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsResourceManagerInternal == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ResourceManagerInternal is not available on this device")
+		}
+		if midResourceManagerInternalCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ResourceManagerInternal constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsResourceManagerInternal)), midResourceManagerInternalCtor)
 		if err != nil {
 			return err

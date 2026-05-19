@@ -23,6 +23,34 @@ type PairingConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPairingConfigBuilder creates a new android.net.wifi.aware.AwarePairingConfig$Builder instance.
+func NewPairingConfigBuilder(vm *jni.VM) (*PairingConfigBuilder, error) {
+	var t PairingConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPairingConfigBuilder == nil {
+			return fmt.Errorf("android.net.wifi.aware.AwarePairingConfig$Builder is not available on this device")
+		}
+		if midPairingConfigBuilderCtor == nil {
+			return fmt.Errorf("android.net.wifi.aware.AwarePairingConfig$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPairingConfigBuilder)), midPairingConfigBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.wifi.aware.AwarePairingConfig$Builder.build.
 func (m *PairingConfigBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

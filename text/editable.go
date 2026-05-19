@@ -416,29 +416,6 @@ func (m *Editable) Replace5_1(
 	return result, callErr
 }
 
-// SetFilters calls android.text.Editable.setFilters.
-func (m *Editable) SetFilters(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midEditableSetFilters == nil {
-			callErr = fmt.Errorf("android.text.Editable.setFilters is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midEditableSetFilters, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.text.Editable.toString.
 func (m *Editable) ToString() (string, error) {
 	var result string

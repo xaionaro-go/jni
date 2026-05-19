@@ -32,6 +32,12 @@ func NewRfc822Token(vm *jni.VM, arg0 string, arg1 string, arg2 string) (*Rfc822T
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRfc822Token == nil {
+			return fmt.Errorf("android.text.util.Rfc822Token is not available on this device")
+		}
+		if midRfc822TokenCtor == nil {
+			return fmt.Errorf("android.text.util.Rfc822Token constructor (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

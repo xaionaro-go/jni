@@ -32,6 +32,12 @@ func NewKeyEvent(vm *jni.VM, arg0 *jni.Object) (*KeyEvent, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsKeyEvent == nil {
+			return fmt.Errorf("android.view.KeyEvent is not available on this device")
+		}
+		if midKeyEventCtor == nil {
+			return fmt.Errorf("android.view.KeyEvent constructor (Landroid/view/KeyEvent;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyEvent)), midKeyEventCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -1126,29 +1132,6 @@ func (m *KeyEvent) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.KeyEvent.writeToParcel.
-func (m *KeyEvent) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midKeyEventWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.KeyEvent.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midKeyEventWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ChangeAction calls android.view.KeyEvent.changeAction.
 func (m *KeyEvent) ChangeAction(arg0 *jni.Object, arg1 int32) (*jni.Object, error) {
 	var result *jni.Object
@@ -1589,4 +1572,27 @@ func (m *KeyEvent) NormalizeMetaState(arg0 int32) (int32, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.KeyEvent.writeToParcel.
+func (m *KeyEvent) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midKeyEventWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.KeyEvent.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsKeyEvent)),
+			midKeyEventWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

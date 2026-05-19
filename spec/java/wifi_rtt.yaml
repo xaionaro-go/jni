@@ -5,30 +5,160 @@
 package: wifi_rtt
 go_import: github.com/AndroidGoLab/jni/net/wifi/rtt
 classes:
-    - java_class: android.net.wifi.rtt.WifiRttManager
-      go_type: WifiRttManager
-      obtain: system_service
-      service_name: wifirtt
-      close: true
+    - java_class: android.net.wifi.rtt.PasnConfig
+      go_type: PasnConfig
       methods:
-        - java_method: getRttCharacteristics
-          go_name: GetRttCharacteristics
-          returns: android.os.Bundle
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
           error: true
-        - java_method: isAvailable
-          go_name: IsAvailable
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
           returns: boolean
           error: true
-        - java_method: startRanging
-          go_name: StartRanging
+        - java_method: getBaseAkms
+          go_name: GetBaseAkms
+          returns: int
+          error: true
+        - java_method: getCiphers
+          go_name: GetCiphers
+          returns: int
+          error: true
+        - java_method: getPasnComebackCookie
+          go_name: GetPasnComebackCookie
+          returns: '[B'
+          error: true
+        - java_method: getPassword
+          go_name: GetPassword
+          returns: String
+          error: true
+        - java_method: getWifiSsid
+          go_name: GetWifiSsid
+          returns: android.net.wifi.WifiSsid
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
           params:
-            - java_type: android.net.wifi.rtt.RangingRequest
+            - java_type: android.os.Parcel
               go_name: arg0
-            - java_type: java.util.concurrent.Executor
+            - java_type: int
               go_name: arg1
-            - java_type: android.net.wifi.rtt.RangingResultCallback
-              go_name: arg2
           returns: void
+          error: true
+    - java_class: android.net.wifi.rtt.PasnConfig$Builder
+      go_type: PasnConfigBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.net.wifi.rtt.PasnConfig
+          error: true
+        - java_method: setPasnComebackCookie
+          go_name: SetPasnComebackCookie
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: android.net.wifi.rtt.PasnConfig$Builder
+          error: true
+        - java_method: setPassword
+          go_name: SetPassword
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.wifi.rtt.PasnConfig$Builder
+          error: true
+        - java_method: setWifiSsid
+          go_name: SetWifiSsid
+          params:
+            - java_type: android.net.wifi.WifiSsid
+              go_name: arg0
+          returns: android.net.wifi.rtt.PasnConfig$Builder
+          error: true
+    - java_class: android.net.wifi.rtt.SecureRangingConfig
+      go_type: SecureRangingConfig
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getPasnConfig
+          go_name: GetPasnConfig
+          returns: android.net.wifi.rtt.PasnConfig
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: isRangingFrameProtectionEnabled
+          go_name: IsRangingFrameProtectionEnabled
+          returns: boolean
+          error: true
+        - java_method: isSecureHeLtfEnabled
+          go_name: IsSecureHeLtfEnabled
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.wifi.rtt.SecureRangingConfig$Builder
+      go_type: SecureRangingConfigBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.net.wifi.rtt.PasnConfig
+          go_name: arg0
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.net.wifi.rtt.SecureRangingConfig
+          error: true
+        - java_method: setRangingFrameProtectionEnabled
+          go_name: SetRangingFrameProtectionEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.net.wifi.rtt.SecureRangingConfig$Builder
+          error: true
+        - java_method: setSecureHeLtfEnabled
+          go_name: SetSecureHeLtfEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.net.wifi.rtt.SecureRangingConfig$Builder
           error: true
     - java_class: android.net.wifi.rtt.RangingResult
       go_type: RangingResult
@@ -164,6 +294,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -175,6 +306,7 @@ classes:
           error: true
     - java_class: android.net.wifi.rtt.RangingResult$Builder
       go_type: RangingResultBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
@@ -482,208 +614,16 @@ classes:
           go_name: ToLocation
           returns: android.location.Location
           error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.wifi.rtt.PasnConfig
-      go_type: PasnConfig
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getBaseAkms
-          go_name: GetBaseAkms
-          returns: int
-          error: true
-        - java_method: getCiphers
-          go_name: GetCiphers
-          returns: int
-          error: true
-        - java_method: getPasnComebackCookie
-          go_name: GetPasnComebackCookie
-          returns: '[B'
-          error: true
-        - java_method: getPassword
-          go_name: GetPassword
-          returns: String
-          error: true
-        - java_method: getWifiSsid
-          go_name: GetWifiSsid
-          returns: android.net.wifi.WifiSsid
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.wifi.rtt.PasnConfig$Builder
-      go_type: PasnConfigBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.net.wifi.rtt.PasnConfig
-          error: true
-        - java_method: setPasnComebackCookie
-          go_name: SetPasnComebackCookie
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: android.net.wifi.rtt.PasnConfig$Builder
-          error: true
-        - java_method: setPassword
-          go_name: SetPassword
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.wifi.rtt.PasnConfig$Builder
-          error: true
-        - java_method: setWifiSsid
-          go_name: SetWifiSsid
-          params:
-            - java_type: android.net.wifi.WifiSsid
-              go_name: arg0
-          returns: android.net.wifi.rtt.PasnConfig$Builder
-          error: true
-    - java_class: android.net.wifi.rtt.RangingRequest
-      go_type: RangingRequest
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getRttBurstSize
-          go_name: GetRttBurstSize
-          returns: int
-          error: true
-        - java_method: getSecurityMode
-          go_name: GetSecurityMode
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
       static_methods:
-        - java_method: getDefaultRttBurstSize
-          go_name: GetDefaultRttBurstSize
-          returns: int
-          error: true
-        - java_method: getMaxPeers
-          go_name: GetMaxPeers
-          returns: int
-          error: true
-        - java_method: getMaxRttBurstSize
-          go_name: GetMaxRttBurstSize
-          returns: int
-          error: true
-        - java_method: getMinRttBurstSize
-          go_name: GetMinRttBurstSize
-          returns: int
-          error: true
-    - java_class: android.net.wifi.rtt.RangingRequest$Builder
-      go_type: RangingRequestBuilder
-      methods:
-        - java_method: addAccessPoint
-          go_name: AddAccessPoint
+        - java_method: writeToParcel
+          go_name: WriteToParcel
           params:
-            - java_type: android.net.wifi.ScanResult
+            - java_type: android.os.Parcel
               go_name: arg0
-          returns: android.net.wifi.rtt.RangingRequest$Builder
-          error: true
-        - java_method: addNon80211mcCapableAccessPoint
-          go_name: AddNon80211mcCapableAccessPoint
-          params:
-            - java_type: android.net.wifi.ScanResult
-              go_name: arg0
-          returns: android.net.wifi.rtt.RangingRequest$Builder
-          error: true
-        - java_method: addResponder
-          go_name: AddResponder
-          params:
-            - java_type: android.net.wifi.rtt.ResponderConfig
-              go_name: arg0
-          returns: android.net.wifi.rtt.RangingRequest$Builder
-          error: true
-        - java_method: addWifiAwarePeer
-          go_name: AddWifiAwarePeer1
-          params:
-            - java_type: android.net.MacAddress
-              go_name: arg0
-          returns: android.net.wifi.rtt.RangingRequest$Builder
-          error: true
-        - java_method: addWifiAwarePeer
-          go_name: AddWifiAwarePeer1_1
-          params:
-            - java_type: android.net.wifi.aware.PeerHandle
-              go_name: arg0
-          returns: android.net.wifi.rtt.RangingRequest$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.net.wifi.rtt.RangingRequest
-          error: true
-        - java_method: setRttBurstSize
-          go_name: SetRttBurstSize
-          params:
             - java_type: int
-              go_name: arg0
-          returns: android.net.wifi.rtt.RangingRequest$Builder
+              go_name: arg1
+          returns: void
           error: true
-        - java_method: setSecurityMode
-          go_name: SetSecurityMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.wifi.rtt.RangingRequest$Builder
-          error: true
-    - java_class: android.net.wifi.rtt.CivicLocationKeys
-      go_type: CivicLocationKeys
     - java_class: android.net.wifi.rtt.RangingResultCallback
       go_type: RangingResultCallback
       methods:
@@ -694,70 +634,8 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.net.wifi.rtt.SecureRangingConfig
-      go_type: SecureRangingConfig
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getPasnConfig
-          go_name: GetPasnConfig
-          returns: android.net.wifi.rtt.PasnConfig
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: isRangingFrameProtectionEnabled
-          go_name: IsRangingFrameProtectionEnabled
-          returns: boolean
-          error: true
-        - java_method: isSecureHeLtfEnabled
-          go_name: IsSecureHeLtfEnabled
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.wifi.rtt.SecureRangingConfig$Builder
-      go_type: SecureRangingConfigBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.net.wifi.rtt.SecureRangingConfig
-          error: true
-        - java_method: setRangingFrameProtectionEnabled
-          go_name: SetRangingFrameProtectionEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.net.wifi.rtt.SecureRangingConfig$Builder
-          error: true
-        - java_method: setSecureHeLtfEnabled
-          go_name: SetSecureHeLtfEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.net.wifi.rtt.SecureRangingConfig$Builder
-          error: true
+    - java_class: android.net.wifi.rtt.CivicLocationKeys
+      go_type: CivicLocationKeys
     - java_class: android.net.wifi.rtt.ResponderConfig
       go_type: ResponderConfig
       methods:
@@ -820,6 +698,14 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
+        - java_method: fromScanResult
+          go_name: FromScanResult
+          params:
+            - java_type: android.net.wifi.ScanResult
+              go_name: arg0
+          returns: android.net.wifi.rtt.ResponderConfig
+          error: true
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -829,16 +715,9 @@ classes:
               go_name: arg1
           returns: void
           error: true
-      static_methods:
-        - java_method: fromScanResult
-          go_name: FromScanResult
-          params:
-            - java_type: android.net.wifi.ScanResult
-              go_name: arg0
-          returns: android.net.wifi.rtt.ResponderConfig
-          error: true
     - java_class: android.net.wifi.rtt.ResponderConfig$Builder
       go_type: ResponderConfigBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
@@ -914,43 +793,191 @@ classes:
               go_name: arg0
           returns: android.net.wifi.rtt.ResponderConfig$Builder
           error: true
-abstract_callbacks:
-    - java_class: android.net.wifi.rtt.RangingResultCallback
-      go_type: RangingResultCallbackCallback
+    - java_class: android.net.wifi.rtt.RangingRequest
+      go_type: RangingRequest
       methods:
-        - java_method: onRangingFailure
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
           params:
-            - int
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getRttBurstSize
+          go_name: GetRttBurstSize
+          returns: int
+          error: true
+        - java_method: getSecurityMode
+          go_name: GetSecurityMode
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: getDefaultRttBurstSize
+          go_name: GetDefaultRttBurstSize
+          returns: int
+          error: true
+        - java_method: getMaxPeers
+          go_name: GetMaxPeers
+          returns: int
+          error: true
+        - java_method: getMaxRttBurstSize
+          go_name: GetMaxRttBurstSize
+          returns: int
+          error: true
+        - java_method: getMinRttBurstSize
+          go_name: GetMinRttBurstSize
+          returns: int
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
           returns: void
-          go_field: OnRangingFailure
+          error: true
+    - java_class: android.net.wifi.rtt.RangingRequest$Builder
+      go_type: RangingRequestBuilder
+      obtain: constructor
+      methods:
+        - java_method: addAccessPoint
+          go_name: AddAccessPoint
+          params:
+            - java_type: android.net.wifi.ScanResult
+              go_name: arg0
+          returns: android.net.wifi.rtt.RangingRequest$Builder
+          error: true
+        - java_method: addNon80211mcCapableAccessPoint
+          go_name: AddNon80211mcCapableAccessPoint
+          params:
+            - java_type: android.net.wifi.ScanResult
+              go_name: arg0
+          returns: android.net.wifi.rtt.RangingRequest$Builder
+          error: true
+        - java_method: addResponder
+          go_name: AddResponder
+          params:
+            - java_type: android.net.wifi.rtt.ResponderConfig
+              go_name: arg0
+          returns: android.net.wifi.rtt.RangingRequest$Builder
+          error: true
+        - java_method: addWifiAwarePeer
+          go_name: AddWifiAwarePeer1
+          params:
+            - java_type: android.net.MacAddress
+              go_name: arg0
+          returns: android.net.wifi.rtt.RangingRequest$Builder
+          error: true
+        - java_method: addWifiAwarePeer
+          go_name: AddWifiAwarePeer1_1
+          params:
+            - java_type: android.net.wifi.aware.PeerHandle
+              go_name: arg0
+          returns: android.net.wifi.rtt.RangingRequest$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.net.wifi.rtt.RangingRequest
+          error: true
+        - java_method: setRttBurstSize
+          go_name: SetRttBurstSize
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.wifi.rtt.RangingRequest$Builder
+          error: true
+        - java_method: setSecurityMode
+          go_name: SetSecurityMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.wifi.rtt.RangingRequest$Builder
+          error: true
+    - java_class: android.net.wifi.rtt.WifiRttManager
+      go_type: WifiRttManager
+      obtain: system_service
+      service_name: wifirtt
+      close: true
+      methods:
+        - java_method: getRttCharacteristics
+          go_name: GetRttCharacteristics
+          returns: android.os.Bundle
+          error: true
+        - java_method: isAvailable
+          go_name: IsAvailable
+          returns: boolean
+          error: true
+        - java_method: startRanging
+          go_name: StartRanging
+          params:
+            - java_type: android.net.wifi.rtt.RangingRequest
+              go_name: arg0
+            - java_type: java.util.concurrent.Executor
+              go_name: arg1
+            - java_type: android.net.wifi.rtt.RangingResultCallback
+              go_name: arg2
+          returns: void
+          error: true
+abstract_callback_eligibility:
+    - java_class: android.net.wifi.rtt.RangingResultCallback
+      generated: false
+      reason: unsupported_abstract_method_signature
 constants:
-    - go_name: ActionWifiRttStateChanged
-      value: '"android.net.wifi.rtt.action.WIFI_RTT_STATE_CHANGED"'
-      go_type: string
-    - go_name: CharacteristicsKeyBooleanLci
-      value: '"key_lci"'
-      go_type: string
-    - go_name: CharacteristicsKeyBooleanLcr
-      value: '"key_lcr"'
-      go_type: string
-    - go_name: CharacteristicsKeyBooleanNtbInitiator
-      value: '"key_ntb_initiator"'
-      go_type: string
-    - go_name: CharacteristicsKeyBooleanOneSidedRtt
-      value: '"key_one_sided_rtt"'
-      go_type: string
-    - go_name: CharacteristicsKeyBooleanRangingFrameProtectionSupported
-      value: '"key_rnm_mfp_supported"'
-      go_type: string
-    - go_name: CharacteristicsKeyBooleanSecureHeLtfSupported
-      value: '"key_secure_he_ltf_supported"'
-      go_type: string
-    - go_name: CharacteristicsKeyBooleanStaResponder
-      value: '"key_sta_responder"'
-      go_type: string
-    - go_name: CharacteristicsKeyIntMaxSupportedSecureHeLtfProtoVersion
-      value: '"key_max_supported_secure_he_ltf_proto_ver"'
-      go_type: string
+    - go_name: AkmFilsEapSha256
+      value: "64"
+      go_type: int
+    - go_name: AkmFilsEapSha384
+      value: "128"
+      go_type: int
+    - go_name: AkmFtEapSha256
+      value: "4"
+      go_type: int
+    - go_name: AkmFtEapSha384
+      value: "16"
+      go_type: int
+    - go_name: AkmFtPskSha256
+      value: "8"
+      go_type: int
+    - go_name: AkmFtPskSha384
+      value: "32"
+      go_type: int
+    - go_name: AkmNone
+      value: "0"
+      go_type: int
+    - go_name: AkmPasn
+      value: "1"
+      go_type: int
+    - go_name: AkmSae
+      value: "2"
+      go_type: int
+    - go_name: CipherCcmp128
+      value: "1"
+      go_type: int
+    - go_name: CipherCcmp256
+      value: "2"
+      go_type: int
+    - go_name: CipherGcmp128
+      value: "4"
+      go_type: int
+    - go_name: CipherGcmp256
+      value: "8"
+      go_type: int
+    - go_name: CipherNone
+      value: "0"
+      go_type: int
     - go_name: Creator
       value: "0"
       go_type: int
@@ -1002,55 +1029,10 @@ constants:
     - go_name: LocationVariable
       value: "1"
       go_type: int
-    - go_name: AkmFilsEapSha256
-      value: "64"
-      go_type: int
-    - go_name: AkmFilsEapSha384
-      value: "128"
-      go_type: int
-    - go_name: AkmFtEapSha256
-      value: "4"
-      go_type: int
-    - go_name: AkmFtEapSha384
-      value: "16"
-      go_type: int
-    - go_name: AkmFtPskSha256
-      value: "8"
-      go_type: int
-    - go_name: AkmFtPskSha384
-      value: "32"
-      go_type: int
-    - go_name: AkmNone
-      value: "0"
-      go_type: int
-    - go_name: AkmPasn
+    - go_name: StatusCodeFail
       value: "1"
       go_type: int
-    - go_name: AkmSae
-      value: "2"
-      go_type: int
-    - go_name: CipherCcmp128
-      value: "1"
-      go_type: int
-    - go_name: CipherCcmp256
-      value: "2"
-      go_type: int
-    - go_name: CipherGcmp128
-      value: "4"
-      go_type: int
-    - go_name: CipherGcmp256
-      value: "8"
-      go_type: int
-    - go_name: CipherNone
-      value: "0"
-      go_type: int
-    - go_name: SecurityModeOpen
-      value: "0"
-      go_type: int
-    - go_name: SecurityModeOpportunistic
-      value: "1"
-      go_type: int
-    - go_name: SecurityModeSecureAuth
+    - go_name: StatusCodeFailRttNotAvailable
       value: "2"
       go_type: int
     - go_name: AdditionalCode
@@ -1149,15 +1131,45 @@ constants:
     - go_name: TypeOfPlace
       value: "29"
       go_type: int
-    - go_name: StatusCodeFail
-      value: "1"
-      go_type: int
-    - go_name: StatusCodeFailRttNotAvailable
-      value: "2"
-      go_type: int
     - go_name: ResponderAp
       value: "0"
       go_type: int
     - go_name: ResponderSta
       value: "1"
       go_type: int
+    - go_name: SecurityModeOpen
+      value: "0"
+      go_type: int
+    - go_name: SecurityModeOpportunistic
+      value: "1"
+      go_type: int
+    - go_name: SecurityModeSecureAuth
+      value: "2"
+      go_type: int
+    - go_name: ActionWifiRttStateChanged
+      value: '"android.net.wifi.rtt.action.WIFI_RTT_STATE_CHANGED"'
+      go_type: string
+    - go_name: CharacteristicsKeyBooleanLci
+      value: '"key_lci"'
+      go_type: string
+    - go_name: CharacteristicsKeyBooleanLcr
+      value: '"key_lcr"'
+      go_type: string
+    - go_name: CharacteristicsKeyBooleanNtbInitiator
+      value: '"key_ntb_initiator"'
+      go_type: string
+    - go_name: CharacteristicsKeyBooleanOneSidedRtt
+      value: '"key_one_sided_rtt"'
+      go_type: string
+    - go_name: CharacteristicsKeyBooleanRangingFrameProtectionSupported
+      value: '"key_rnm_mfp_supported"'
+      go_type: string
+    - go_name: CharacteristicsKeyBooleanSecureHeLtfSupported
+      value: '"key_secure_he_ltf_supported"'
+      go_type: string
+    - go_name: CharacteristicsKeyBooleanStaResponder
+      value: '"key_sta_responder"'
+      go_type: string
+    - go_name: CharacteristicsKeyIntMaxSupportedSecureHeLtfProtoVersion
+      value: '"key_max_supported_secure_he_ltf_proto_ver"'
+      go_type: string

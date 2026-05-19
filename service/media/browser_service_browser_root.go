@@ -23,6 +23,40 @@ type BrowserServiceBrowserRoot struct {
 	Obj *jni.GlobalRef
 }
 
+// NewBrowserServiceBrowserRoot creates a new android.service.media.MediaBrowserService$BrowserRoot instance.
+func NewBrowserServiceBrowserRoot(vm *jni.VM, arg0 string, arg1 *jni.Object) (*BrowserServiceBrowserRoot, error) {
+	var t BrowserServiceBrowserRoot
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsBrowserServiceBrowserRoot == nil {
+			return fmt.Errorf("android.service.media.MediaBrowserService$BrowserRoot is not available on this device")
+		}
+		if midBrowserServiceBrowserRootCtor == nil {
+			return fmt.Errorf("android.service.media.MediaBrowserService$BrowserRoot constructor (Ljava/lang/String;Landroid/os/Bundle;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBrowserServiceBrowserRoot)), midBrowserServiceBrowserRootCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetExtras calls android.service.media.MediaBrowserService$BrowserRoot.getExtras.
 func (m *BrowserServiceBrowserRoot) GetExtras() (*jni.Object, error) {
 	var result *jni.Object

@@ -23,6 +23,34 @@ type SetBlobVisibilityRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSetBlobVisibilityRequestBuilder creates a new android.app.appsearch.SetBlobVisibilityRequest$Builder instance.
+func NewSetBlobVisibilityRequestBuilder(vm *jni.VM) (*SetBlobVisibilityRequestBuilder, error) {
+	var t SetBlobVisibilityRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSetBlobVisibilityRequestBuilder == nil {
+			return fmt.Errorf("android.app.appsearch.SetBlobVisibilityRequest$Builder is not available on this device")
+		}
+		if midSetBlobVisibilityRequestBuilderCtor == nil {
+			return fmt.Errorf("android.app.appsearch.SetBlobVisibilityRequest$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSetBlobVisibilityRequestBuilder)), midSetBlobVisibilityRequestBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddNamespaceVisibleToConfig calls android.app.appsearch.SetBlobVisibilityRequest$Builder.addNamespaceVisibleToConfig.
 func (m *SetBlobVisibilityRequestBuilder) AddNamespaceVisibleToConfig(arg0 string, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

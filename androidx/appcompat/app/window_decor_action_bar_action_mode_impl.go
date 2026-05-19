@@ -21,6 +21,35 @@ type WindowDecorActionBarActionModeImpl struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWindowDecorActionBarActionModeImpl creates a new androidx.appcompat.app.WindowDecorActionBar$ActionModeImpl instance.
+func NewWindowDecorActionBarActionModeImpl(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.Object) (*WindowDecorActionBarActionModeImpl, error) {
+	var t WindowDecorActionBarActionModeImpl
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWindowDecorActionBarActionModeImpl == nil {
+			return fmt.Errorf("androidx.appcompat.app.WindowDecorActionBar$ActionModeImpl is not available on this device")
+		}
+		if midWindowDecorActionBarActionModeImplCtor == nil {
+			return fmt.Errorf("androidx.appcompat.app.WindowDecorActionBar$ActionModeImpl constructor (Landroidx/appcompat/app/WindowDecorActionBar;Landroid/content/Context;Landroidx/appcompat/view/ActionMode$Callback;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), midWindowDecorActionBarActionModeImplCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetMenuInflater calls androidx.appcompat.app.WindowDecorActionBar$ActionModeImpl.getMenuInflater.
 func (m *WindowDecorActionBarActionModeImpl) GetMenuInflater() (*jni.Object, error) {
 	var result *jni.Object

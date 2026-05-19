@@ -21,6 +21,34 @@ type ActivityManagerMemoryInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewActivityManagerMemoryInfo creates a new android.app.ActivityManager$MemoryInfo instance.
+func NewActivityManagerMemoryInfo(vm *jni.VM) (*ActivityManagerMemoryInfo, error) {
+	var t ActivityManagerMemoryInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsActivityManagerMemoryInfo == nil {
+			return fmt.Errorf("android.app.ActivityManager$MemoryInfo is not available on this device")
+		}
+		if midActivityManagerMemoryInfoCtor == nil {
+			return fmt.Errorf("android.app.ActivityManager$MemoryInfo constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivityManagerMemoryInfo)), midActivityManagerMemoryInfoCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.app.ActivityManager$MemoryInfo.describeContents.
 func (m *ActivityManagerMemoryInfo) DescribeContents() (int32, error) {
 	var result int32
@@ -69,29 +97,6 @@ func (m *ActivityManagerMemoryInfo) ReadFromParcel(arg0 *jni.Object) error {
 	return callErr
 }
 
-// WriteToParcel calls android.app.ActivityManager$MemoryInfo.writeToParcel.
-func (m *ActivityManagerMemoryInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityManagerMemoryInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.ActivityManager$MemoryInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midActivityManagerMemoryInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.ActivityManager$MemoryInfo.toString.
 func (m *ActivityManagerMemoryInfo) ToString() (string, error) {
 	var result string
@@ -117,4 +122,27 @@ func (m *ActivityManagerMemoryInfo) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.ActivityManager$MemoryInfo.writeToParcel.
+func (m *ActivityManagerMemoryInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midActivityManagerMemoryInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.ActivityManager$MemoryInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsActivityManagerMemoryInfo)),
+			midActivityManagerMemoryInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

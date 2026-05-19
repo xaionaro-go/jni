@@ -288,6 +288,14 @@ classes:
           error: true
     - java_class: android.app.NotificationManager$Policy
       go_type: ManagerPolicy
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -307,15 +315,6 @@ classes:
         - java_method: toString
           go_name: ToString
           returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
           error: true
       static_methods:
         - java_method: priorityCategoriesToString
@@ -339,12 +338,372 @@ classes:
               go_name: arg0
           returns: String
           error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.service.notification.StatusBarNotification
+      go_type: StatusBarNotification
+      obtain: constructor
+      constructor_params:
+        - java_type: android.os.Parcel
+          go_name: arg0
+      methods:
+        - java_method: clone
+          go_name: Clone
+          returns: android.service.notification.StatusBarNotification
+          error: true
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getGroupKey
+          go_name: GetGroupKey
+          returns: String
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: int
+          error: true
+        - java_method: getKey
+          go_name: GetKey
+          returns: String
+          error: true
+        - java_method: getNotification
+          go_name: GetNotification
+          returns: android.app.Notification
+          error: true
+        - java_method: getOpPkg
+          go_name: GetOpPkg
+          returns: String
+          error: true
+        - java_method: getOverrideGroupKey
+          go_name: GetOverrideGroupKey
+          returns: String
+          error: true
+        - java_method: getPackageName
+          go_name: GetPackageName
+          returns: String
+          error: true
+        - java_method: getPostTime
+          go_name: GetPostTime
+          returns: long
+          error: true
+        - java_method: getTag
+          go_name: GetTag
+          returns: String
+          error: true
+        - java_method: getUid
+          go_name: GetUid
+          returns: int
+          error: true
+        - java_method: getUser
+          go_name: GetUser
+          returns: android.os.UserHandle
+          error: true
+        - java_method: getUserId
+          go_name: GetUserId
+          returns: int
+          error: true
+        - java_method: isAppGroup
+          go_name: IsAppGroup
+          returns: boolean
+          error: true
+        - java_method: isClearable
+          go_name: IsClearable
+          returns: boolean
+          error: true
+        - java_method: isGroup
+          go_name: IsGroup
+          returns: boolean
+          error: true
+        - java_method: isOngoing
+          go_name: IsOngoing
+          returns: boolean
+          error: true
+        - java_method: setOverrideGroupKey
+          go_name: SetOverrideGroupKey
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.NotificationChannel
+      go_type: Channel
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: java.lang.CharSequence
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+      methods:
+        - java_method: canBubble
+          go_name: CanBubble
+          returns: boolean
+          error: true
+        - java_method: canBypassDnd
+          go_name: CanBypassDnd
+          returns: boolean
+          error: true
+        - java_method: canShowBadge
+          go_name: CanShowBadge
+          returns: boolean
+          error: true
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: enableLights
+          go_name: EnableLights
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: enableVibration
+          go_name: EnableVibration
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getAudioAttributes
+          go_name: GetAudioAttributes
+          returns: android.media.AudioAttributes
+          error: true
+        - java_method: getConversationId
+          go_name: GetConversationId
+          returns: String
+          error: true
+        - java_method: getDescription
+          go_name: GetDescription
+          returns: String
+          error: true
+        - java_method: getGroup
+          go_name: GetGroup
+          returns: String
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: String
+          error: true
+        - java_method: getImportance
+          go_name: GetImportance
+          returns: int
+          error: true
+        - java_method: getLightColor
+          go_name: GetLightColor
+          returns: int
+          error: true
+        - java_method: getLockscreenVisibility
+          go_name: GetLockscreenVisibility
+          returns: int
+          error: true
+        - java_method: getName
+          go_name: GetName
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getParentChannelId
+          go_name: GetParentChannelId
+          returns: String
+          error: true
+        - java_method: getSound
+          go_name: GetSound
+          returns: android.net.Uri
+          error: true
+        - java_method: getVibrationEffect
+          go_name: GetVibrationEffect
+          returns: android.os.VibrationEffect
+          error: true
+        - java_method: getVibrationPattern
+          go_name: GetVibrationPattern
+          returns: '[J'
+          error: true
+        - java_method: hasUserSetImportance
+          go_name: HasUserSetImportance
+          returns: boolean
+          error: true
+        - java_method: hasUserSetSound
+          go_name: HasUserSetSound
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: isBlockable
+          go_name: IsBlockable
+          returns: boolean
+          error: true
+        - java_method: isConversation
+          go_name: IsConversation
+          returns: boolean
+          error: true
+        - java_method: isDemoted
+          go_name: IsDemoted
+          returns: boolean
+          error: true
+        - java_method: isImportantConversation
+          go_name: IsImportantConversation
+          returns: boolean
+          error: true
+        - java_method: setAllowBubbles
+          go_name: SetAllowBubbles
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setBlockable
+          go_name: SetBlockable
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setBypassDnd
+          go_name: SetBypassDnd
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setConversationId
+          go_name: SetConversationId
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setDescription
+          go_name: SetDescription
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setGroup
+          go_name: SetGroup
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setImportance
+          go_name: SetImportance
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setLightColor
+          go_name: SetLightColor
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setLockscreenVisibility
+          go_name: SetLockscreenVisibility
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setName
+          go_name: SetName
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setShowBadge
+          go_name: SetShowBadge
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSound
+          go_name: SetSound
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+            - java_type: android.media.AudioAttributes
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setVibrationEffect
+          go_name: SetVibrationEffect
+          params:
+            - java_type: android.os.VibrationEffect
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setVibrationPattern
+          go_name: SetVibrationPattern
+          params:
+            - java_type: '[J'
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: shouldShowLights
+          go_name: ShouldShowLights
+          returns: boolean
+          error: true
+        - java_method: shouldVibrate
+          go_name: ShouldVibrate
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
     - java_class: android.app.Notification
       go_type: Notification
       obtain: constructor
       methods:
         - java_method: clone
-          go_name: Clone0
+          go_name: Clone
           returns: android.app.Notification
           error: true
         - java_method: describeContents
@@ -432,15 +791,19 @@ classes:
               go_name: arg1
           returns: void
           error: true
-        - java_method: clone
-          go_name: Clone0_1
-          returns: java.lang.Object
-          error: true
     - java_class: android.app.Notification$Action
       go_type: Action
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: java.lang.CharSequence
+          go_name: arg1
+        - java_type: android.app.PendingIntent
+          go_name: arg2
       methods:
         - java_method: clone
-          go_name: Clone0
+          go_name: Clone
           returns: android.app.Notification$Action
           error: true
         - java_method: describeContents
@@ -488,12 +851,9 @@ classes:
               go_name: arg1
           returns: void
           error: true
-        - java_method: clone
-          go_name: Clone0_1
-          returns: java.lang.Object
-          error: true
     - java_class: android.app.Notification$BigPictureStyle
       go_type: BigPictureStyle
+      obtain: constructor
       methods:
         - java_method: bigLargeIcon
           go_name: BigLargeIcon1
@@ -553,6 +913,7 @@ classes:
           error: true
     - java_class: android.app.Notification$BigTextStyle
       go_type: BigTextStyle
+      obtain: constructor
       methods:
         - java_method: bigText
           go_name: BigText
@@ -622,6 +983,7 @@ classes:
           go_name: IsNotificationSuppressed
           returns: boolean
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -633,6 +995,10 @@ classes:
           error: true
     - java_class: android.app.Notification$Builder
       go_type: Builder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
       methods:
         - java_method: addAction
           go_name: AddAction1
@@ -1223,6 +1589,7 @@ classes:
           error: true
     - java_class: android.app.Notification$CarExtender
       go_type: CarExtender
+      obtain: constructor
       methods:
         - java_method: extend
           go_name: Extend
@@ -1266,8 +1633,10 @@ classes:
           error: true
     - java_class: android.app.Notification$DecoratedCustomViewStyle
       go_type: DecoratedCustomViewStyle
+      obtain: constructor
     - java_class: android.app.Notification$DecoratedMediaCustomViewStyle
       go_type: DecoratedMediaCustomViewStyle
+      obtain: constructor
     - java_class: android.app.Notification$Extender
       go_type: Extender
       methods:
@@ -1280,6 +1649,7 @@ classes:
           error: true
     - java_class: android.app.Notification$InboxStyle
       go_type: InboxStyle
+      obtain: constructor
       methods:
         - java_method: addLine
           go_name: AddLine
@@ -1304,6 +1674,7 @@ classes:
           error: true
     - java_class: android.app.Notification$MediaStyle
       go_type: MediaStyle
+      obtain: constructor
       methods:
         - java_method: setMediaSession
           go_name: SetMediaSession
@@ -1332,6 +1703,10 @@ classes:
           error: true
     - java_class: android.app.Notification$MessagingStyle
       go_type: MessagingStyle
+      obtain: constructor
+      constructor_params:
+        - java_type: android.app.Person
+          go_name: arg0
       methods:
         - java_method: addHistoricMessage
           go_name: AddHistoricMessage
@@ -1409,6 +1784,7 @@ classes:
           error: true
     - java_class: android.app.Notification$ProgressStyle
       go_type: ProgressStyle
+      obtain: constructor
       methods:
         - java_method: addProgressPoint
           go_name: AddProgressPoint
@@ -1518,6 +1894,7 @@ classes:
           error: true
     - java_class: android.app.Notification$TvExtender
       go_type: TvExtender
+      obtain: constructor
       methods:
         - java_method: extend
           go_name: Extend
@@ -1576,6 +1953,7 @@ classes:
           error: true
     - java_class: android.app.Notification$WearableExtender
       go_type: WearableExtender
+      obtain: constructor
       methods:
         - java_method: addAction
           go_name: AddAction
@@ -1600,7 +1978,7 @@ classes:
           returns: android.app.Notification$WearableExtender
           error: true
         - java_method: clone
-          go_name: Clone0
+          go_name: Clone
           returns: android.app.Notification$WearableExtender
           error: true
         - java_method: extend
@@ -1805,364 +2183,6 @@ classes:
               go_name: arg0
           returns: android.app.Notification$WearableExtender
           error: true
-        - java_method: clone
-          go_name: Clone0_1
-          returns: java.lang.Object
-          error: true
-    - java_class: android.app.NotificationChannel
-      go_type: Channel
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: java.lang.CharSequence
-          go_name: arg1
-        - java_type: int
-          go_name: arg2
-      methods:
-        - java_method: canBubble
-          go_name: CanBubble
-          returns: boolean
-          error: true
-        - java_method: canBypassDnd
-          go_name: CanBypassDnd
-          returns: boolean
-          error: true
-        - java_method: canShowBadge
-          go_name: CanShowBadge
-          returns: boolean
-          error: true
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: enableLights
-          go_name: EnableLights
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: enableVibration
-          go_name: EnableVibration
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getAudioAttributes
-          go_name: GetAudioAttributes
-          returns: android.media.AudioAttributes
-          error: true
-        - java_method: getConversationId
-          go_name: GetConversationId
-          returns: String
-          error: true
-        - java_method: getDescription
-          go_name: GetDescription
-          returns: String
-          error: true
-        - java_method: getGroup
-          go_name: GetGroup
-          returns: String
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: String
-          error: true
-        - java_method: getImportance
-          go_name: GetImportance
-          returns: int
-          error: true
-        - java_method: getLightColor
-          go_name: GetLightColor
-          returns: int
-          error: true
-        - java_method: getLockscreenVisibility
-          go_name: GetLockscreenVisibility
-          returns: int
-          error: true
-        - java_method: getName
-          go_name: GetName
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getParentChannelId
-          go_name: GetParentChannelId
-          returns: String
-          error: true
-        - java_method: getSound
-          go_name: GetSound
-          returns: android.net.Uri
-          error: true
-        - java_method: getVibrationEffect
-          go_name: GetVibrationEffect
-          returns: android.os.VibrationEffect
-          error: true
-        - java_method: getVibrationPattern
-          go_name: GetVibrationPattern
-          returns: '[J'
-          error: true
-        - java_method: hasUserSetImportance
-          go_name: HasUserSetImportance
-          returns: boolean
-          error: true
-        - java_method: hasUserSetSound
-          go_name: HasUserSetSound
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: isBlockable
-          go_name: IsBlockable
-          returns: boolean
-          error: true
-        - java_method: isConversation
-          go_name: IsConversation
-          returns: boolean
-          error: true
-        - java_method: isDemoted
-          go_name: IsDemoted
-          returns: boolean
-          error: true
-        - java_method: isImportantConversation
-          go_name: IsImportantConversation
-          returns: boolean
-          error: true
-        - java_method: setAllowBubbles
-          go_name: SetAllowBubbles
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setBlockable
-          go_name: SetBlockable
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setBypassDnd
-          go_name: SetBypassDnd
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setConversationId
-          go_name: SetConversationId
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setDescription
-          go_name: SetDescription
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setGroup
-          go_name: SetGroup
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setImportance
-          go_name: SetImportance
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLightColor
-          go_name: SetLightColor
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLockscreenVisibility
-          go_name: SetLockscreenVisibility
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setName
-          go_name: SetName
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setShowBadge
-          go_name: SetShowBadge
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSound
-          go_name: SetSound
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-            - java_type: android.media.AudioAttributes
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setVibrationEffect
-          go_name: SetVibrationEffect
-          params:
-            - java_type: android.os.VibrationEffect
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setVibrationPattern
-          go_name: SetVibrationPattern
-          params:
-            - java_type: '[J'
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: shouldShowLights
-          go_name: ShouldShowLights
-          returns: boolean
-          error: true
-        - java_method: shouldVibrate
-          go_name: ShouldVibrate
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.service.notification.StatusBarNotification
-      go_type: StatusBarNotification
-      obtain: constructor
-      constructor_params:
-        - java_type: android.os.Parcel
-          go_name: arg0
-      methods:
-        - java_method: clone
-          go_name: Clone0
-          returns: android.service.notification.StatusBarNotification
-          error: true
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getGroupKey
-          go_name: GetGroupKey
-          returns: String
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: int
-          error: true
-        - java_method: getKey
-          go_name: GetKey
-          returns: String
-          error: true
-        - java_method: getNotification
-          go_name: GetNotification
-          returns: android.app.Notification
-          error: true
-        - java_method: getOpPkg
-          go_name: GetOpPkg
-          returns: String
-          error: true
-        - java_method: getOverrideGroupKey
-          go_name: GetOverrideGroupKey
-          returns: String
-          error: true
-        - java_method: getPackageName
-          go_name: GetPackageName
-          returns: String
-          error: true
-        - java_method: getPostTime
-          go_name: GetPostTime
-          returns: long
-          error: true
-        - java_method: getTag
-          go_name: GetTag
-          returns: String
-          error: true
-        - java_method: getUid
-          go_name: GetUid
-          returns: int
-          error: true
-        - java_method: getUser
-          go_name: GetUser
-          returns: android.os.UserHandle
-          error: true
-        - java_method: getUserId
-          go_name: GetUserId
-          returns: int
-          error: true
-        - java_method: isAppGroup
-          go_name: IsAppGroup
-          returns: boolean
-          error: true
-        - java_method: isClearable
-          go_name: IsClearable
-          returns: boolean
-          error: true
-        - java_method: isGroup
-          go_name: IsGroup
-          returns: boolean
-          error: true
-        - java_method: isOngoing
-          go_name: IsOngoing
-          returns: boolean
-          error: true
-        - java_method: setOverrideGroupKey
-          go_name: SetOverrideGroupKey
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: clone
-          go_name: Clone0_1
-          returns: java.lang.Object
-          error: true
 abstract_callbacks:
     - java_class: android.app.Notification$Style
       go_type: StyleCallback
@@ -2176,6 +2196,10 @@ abstract_callbacks:
             - android.app.Notification$Builder
           returns: void
           go_field: SetBuilder
+abstract_callback_eligibility:
+    - java_class: android.app.Notification$Style
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
     - go_name: ActionAppBlockStateChanged
       value: '"android.app.action.APP_BLOCK_STATE_CHANGED"'
@@ -2369,6 +2393,30 @@ constants:
     - go_name: SuppressedEffectStatusBar
       value: "32"
       go_type: int
+    - go_name: DefaultChannelId
+      value: '"miscellaneous"'
+      go_type: string
+    - go_name: EditConversation
+      value: '"conversation"'
+      go_type: string
+    - go_name: EditImportance
+      value: '"importance"'
+      go_type: string
+    - go_name: EditLauncher
+      value: '"launcher"'
+      go_type: string
+    - go_name: EditLockedDevice
+      value: '"locked"'
+      go_type: string
+    - go_name: EditSound
+      value: '"sound"'
+      go_type: string
+    - go_name: EditVibration
+      value: '"vibration"'
+      go_type: string
+    - go_name: EditZen
+      value: '"zen"'
+      go_type: string
     - go_name: AudioAttributesDefault
       value: "0"
       go_type: int
@@ -2771,27 +2819,3 @@ constants:
     - go_name: UnsetActionIndex
       value: "-1"
       go_type: int
-    - go_name: DefaultChannelId
-      value: '"miscellaneous"'
-      go_type: string
-    - go_name: EditConversation
-      value: '"conversation"'
-      go_type: string
-    - go_name: EditImportance
-      value: '"importance"'
-      go_type: string
-    - go_name: EditLauncher
-      value: '"launcher"'
-      go_type: string
-    - go_name: EditLockedDevice
-      value: '"locked"'
-      go_type: string
-    - go_name: EditSound
-      value: '"sound"'
-      go_type: string
-    - go_name: EditVibration
-      value: '"vibration"'
-      go_type: string
-    - go_name: EditZen
-      value: '"zen"'
-      go_type: string

@@ -54,6 +54,7 @@ var (
 	midSlidingPaneLayoutToString               jni.MethodID
 
 	clsSlidingPaneLayoutLayoutParams         *jni.GlobalRef
+	midSlidingPaneLayoutLayoutParamsCtor     jni.MethodID
 	midSlidingPaneLayoutLayoutParamsToString jni.MethodID
 
 	clsSlidingPaneLayoutPanelSlideListener              *jni.GlobalRef
@@ -63,6 +64,7 @@ var (
 	midSlidingPaneLayoutPanelSlideListenerToString      jni.MethodID
 
 	clsSlidingPaneLayoutSimplePanelSlideListener              *jni.GlobalRef
+	midSlidingPaneLayoutSimplePanelSlideListenerCtor          jni.MethodID
 	midSlidingPaneLayoutSimplePanelSlideListenerOnPanelSlide  jni.MethodID
 	midSlidingPaneLayoutSimplePanelSlideListenerOnPanelOpened jni.MethodID
 	midSlidingPaneLayoutSimplePanelSlideListenerOnPanelClosed jni.MethodID
@@ -297,6 +299,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsSlidingPaneLayoutLayoutParams = env.NewGlobalRef(&c.Object)
+		midSlidingPaneLayoutLayoutParamsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlidingPaneLayoutLayoutParams)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midSlidingPaneLayoutLayoutParamsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlidingPaneLayoutLayoutParams)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -352,6 +358,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsSlidingPaneLayoutSimplePanelSlideListener = env.NewGlobalRef(&c.Object)
+		midSlidingPaneLayoutSimplePanelSlideListenerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlidingPaneLayoutSimplePanelSlideListener)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midSlidingPaneLayoutSimplePanelSlideListenerOnPanelSlide, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlidingPaneLayoutSimplePanelSlideListener)), "onPanelSlide", "(Landroid/view/View;F)V")
 		if err != nil {

@@ -32,6 +32,12 @@ func NewExecuteAppFunctionResponse(vm *jni.VM, arg0 *jni.Object) (*ExecuteAppFun
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsExecuteAppFunctionResponse == nil {
+			return fmt.Errorf("android.app.appfunctions.ExecuteAppFunctionResponse is not available on this device")
+		}
+		if midExecuteAppFunctionResponseCtor == nil {
+			return fmt.Errorf("android.app.appfunctions.ExecuteAppFunctionResponse constructor (Landroid/app/appsearch/GenericDocument;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExecuteAppFunctionResponse)), midExecuteAppFunctionResponseCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -135,29 +141,6 @@ func (m *ExecuteAppFunctionResponse) GetResultDocument() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.appfunctions.ExecuteAppFunctionResponse.writeToParcel.
-func (m *ExecuteAppFunctionResponse) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midExecuteAppFunctionResponseWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.appfunctions.ExecuteAppFunctionResponse.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midExecuteAppFunctionResponseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.appfunctions.ExecuteAppFunctionResponse.toString.
 func (m *ExecuteAppFunctionResponse) ToString() (string, error) {
 	var result string
@@ -183,4 +166,27 @@ func (m *ExecuteAppFunctionResponse) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.appfunctions.ExecuteAppFunctionResponse.writeToParcel.
+func (m *ExecuteAppFunctionResponse) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midExecuteAppFunctionResponseWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.appfunctions.ExecuteAppFunctionResponse.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsExecuteAppFunctionResponse)),
+			midExecuteAppFunctionResponseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

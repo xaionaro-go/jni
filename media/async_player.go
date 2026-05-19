@@ -32,6 +32,12 @@ func NewAsyncPlayer(vm *jni.VM, arg0 string) (*AsyncPlayer, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAsyncPlayer == nil {
+			return fmt.Errorf("android.media.AsyncPlayer is not available on this device")
+		}
+		if midAsyncPlayerCtor == nil {
+			return fmt.Errorf("android.media.AsyncPlayer constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

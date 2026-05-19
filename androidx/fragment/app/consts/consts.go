@@ -3,14 +3,14 @@
 package consts
 
 const (
-	Creator                           int = 0
+	BehaviorSetUserVisibleHint        int = 0
+	BehaviorResumeOnlyCurrentFragment int = 1
 	StyleNormal                       int = 0
 	StyleNoTitle                      int = 1
 	StyleNoFrame                      int = 2
 	StyleNoInput                      int = 3
-	BehaviorSetUserVisibleHint        int = 0
-	BehaviorResumeOnlyCurrentFragment int = 1
 	PopBackStackInclusive             int = 1
+	Creator                           int = 0
 	Instance                          int = 0
 	TransitEnterMask                  int = 4096
 	TransitExitMask                   int = 8192

@@ -23,6 +23,35 @@ type RemoteViewsRemoteViewOutlineProvider struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRemoteViewsRemoteViewOutlineProvider creates a new android.widget.RemoteViews$RemoteViewOutlineProvider instance.
+func NewRemoteViewsRemoteViewOutlineProvider(vm *jni.VM, arg0 float32) (*RemoteViewsRemoteViewOutlineProvider, error) {
+	var t RemoteViewsRemoteViewOutlineProvider
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRemoteViewsRemoteViewOutlineProvider == nil {
+			return fmt.Errorf("android.widget.RemoteViews$RemoteViewOutlineProvider is not available on this device")
+		}
+		if midRemoteViewsRemoteViewOutlineProviderCtor == nil {
+			return fmt.Errorf("android.widget.RemoteViews$RemoteViewOutlineProvider constructor (F)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRemoteViewsRemoteViewOutlineProvider)), midRemoteViewsRemoteViewOutlineProviderCtor, jni.FloatValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetOutline calls android.widget.RemoteViews$RemoteViewOutlineProvider.getOutline.
 func (m *RemoteViewsRemoteViewOutlineProvider) GetOutline(arg0 *jni.Object, arg1 *jni.Object) error {
 

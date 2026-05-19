@@ -23,36 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsCustomSupport                     *jni.GlobalRef
-	midCustomSupportCtor                 jni.MethodID
-	midCustomSupportToString             jni.MethodID
-	midCustomSupportSetInterpolatedValue jni.MethodID
-
-	clsViewTimeCycle            *jni.GlobalRef
-	midViewTimeCycleSetProperty jni.MethodID
-	midViewTimeCycleGet         jni.MethodID
-	midViewTimeCycleToString    jni.MethodID
-	midViewTimeCycleMakeSpline  jni.MethodID
-
-	clsViewTimeCycleCustomSet            *jni.GlobalRef
-	midViewTimeCycleCustomSetSetup       jni.MethodID
-	midViewTimeCycleCustomSetSetPoint5   jni.MethodID
-	midViewTimeCycleCustomSetSetPoint5_1 jni.MethodID
-	midViewTimeCycleCustomSetSetProperty jni.MethodID
-	midViewTimeCycleCustomSetToString    jni.MethodID
-
-	clsViewTimeCyclePathRotate              *jni.GlobalRef
-	midViewTimeCyclePathRotateSetProperty   jni.MethodID
-	midViewTimeCyclePathRotateSetPathRotate jni.MethodID
-	midViewTimeCyclePathRotateToString      jni.MethodID
-
-	clsViewState         *jni.GlobalRef
-	midViewStateCtor     jni.MethodID
-	midViewStateGetState jni.MethodID
-	midViewStateWidth    jni.MethodID
-	midViewStateHeight   jni.MethodID
-	midViewStateToString jni.MethodID
-
 	clsStopLogic                 *jni.GlobalRef
 	midStopLogicCtor             jni.MethodID
 	midStopLogicDebug            jni.MethodID
@@ -64,32 +34,67 @@ var (
 	midStopLogicIsStopped        jni.MethodID
 	midStopLogicToString         jni.MethodID
 
+	clsViewOscillator            *jni.GlobalRef
+	midViewOscillatorSetProperty jni.MethodID
+	midViewOscillatorToString    jni.MethodID
+	midViewOscillatorMakeSpline  jni.MethodID
+
+	clsViewOscillatorPathRotateSet              *jni.GlobalRef
+	midViewOscillatorPathRotateSetCtor          jni.MethodID
+	midViewOscillatorPathRotateSetSetProperty   jni.MethodID
+	midViewOscillatorPathRotateSetSetPathRotate jni.MethodID
+	midViewOscillatorPathRotateSetToString      jni.MethodID
+
+	clsViewTimeCycle            *jni.GlobalRef
+	midViewTimeCycleSetProperty jni.MethodID
+	midViewTimeCycleGet         jni.MethodID
+	midViewTimeCycleToString    jni.MethodID
+	midViewTimeCycleMakeSpline  jni.MethodID
+
+	clsViewTimeCycleCustomSet            *jni.GlobalRef
+	midViewTimeCycleCustomSetCtor        jni.MethodID
+	midViewTimeCycleCustomSetSetup       jni.MethodID
+	midViewTimeCycleCustomSetSetPoint5   jni.MethodID
+	midViewTimeCycleCustomSetSetPoint5_1 jni.MethodID
+	midViewTimeCycleCustomSetSetProperty jni.MethodID
+	midViewTimeCycleCustomSetToString    jni.MethodID
+
+	clsViewTimeCyclePathRotate              *jni.GlobalRef
+	midViewTimeCyclePathRotateCtor          jni.MethodID
+	midViewTimeCyclePathRotateSetProperty   jni.MethodID
+	midViewTimeCyclePathRotateSetPathRotate jni.MethodID
+	midViewTimeCyclePathRotateToString      jni.MethodID
+
 	clsViewSpline            *jni.GlobalRef
 	midViewSplineSetProperty jni.MethodID
 	midViewSplineToString    jni.MethodID
 	midViewSplineMakeSpline  jni.MethodID
 
 	clsViewSplineCustomSet            *jni.GlobalRef
+	midViewSplineCustomSetCtor        jni.MethodID
 	midViewSplineCustomSetSetup       jni.MethodID
 	midViewSplineCustomSetSetPoint2   jni.MethodID
 	midViewSplineCustomSetSetPoint2_1 jni.MethodID
 	midViewSplineCustomSetSetProperty jni.MethodID
 	midViewSplineCustomSetToString    jni.MethodID
 
-	clsViewOscillator            *jni.GlobalRef
-	midViewOscillatorSetProperty jni.MethodID
-	midViewOscillatorToString    jni.MethodID
-	midViewOscillatorMakeSpline  jni.MethodID
-
 	clsViewSplinePathRotate              *jni.GlobalRef
+	midViewSplinePathRotateCtor          jni.MethodID
 	midViewSplinePathRotateSetProperty   jni.MethodID
 	midViewSplinePathRotateSetPathRotate jni.MethodID
 	midViewSplinePathRotateToString      jni.MethodID
 
-	clsViewOscillatorPathRotateSet              *jni.GlobalRef
-	midViewOscillatorPathRotateSetSetProperty   jni.MethodID
-	midViewOscillatorPathRotateSetSetPathRotate jni.MethodID
-	midViewOscillatorPathRotateSetToString      jni.MethodID
+	clsCustomSupport                     *jni.GlobalRef
+	midCustomSupportCtor                 jni.MethodID
+	midCustomSupportToString             jni.MethodID
+	midCustomSupportSetInterpolatedValue jni.MethodID
+
+	clsViewState         *jni.GlobalRef
+	midViewStateCtor     jni.MethodID
+	midViewStateGetState jni.MethodID
+	midViewStateWidth    jni.MethodID
+	midViewStateHeight   jni.MethodID
+	midViewStateToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -109,190 +114,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("androidx/constraintlayout/motion/utils/CustomSupport")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCustomSupport = env.NewGlobalRef(&c.Object)
-		midCustomSupportCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomSupport)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCustomSupportToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomSupport)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCustomSupportSetInterpolatedValue, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCustomSupport)), "setInterpolatedValue", "(Landroidx/constraintlayout/widget/ConstraintAttribute;Landroid/view/View;[F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/motion/utils/ViewTimeCycle")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewTimeCycle = env.NewGlobalRef(&c.Object)
-
-		midViewTimeCycleSetProperty, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCycle)), "setProperty", "(Landroid/view/View;FJLandroidx/constraintlayout/core/motion/utils/KeyCache;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewTimeCycleGet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCycle)), "get", "(FJLandroid/view/View;Landroidx/constraintlayout/core/motion/utils/KeyCache;)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewTimeCycleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCycle)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewTimeCycleMakeSpline, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCycle)), "makeSpline", "(Ljava/lang/String;J)Landroidx/constraintlayout/motion/utils/ViewTimeCycle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/motion/utils/ViewTimeCycle$CustomSet")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewTimeCycleCustomSet = env.NewGlobalRef(&c.Object)
-
-		midViewTimeCycleCustomSetSetup, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCycleCustomSet)), "setup", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewTimeCycleCustomSetSetPoint5, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCycleCustomSet)), "setPoint", "(IFFIF)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewTimeCycleCustomSetSetPoint5_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCycleCustomSet)), "setPoint", "(ILandroidx/constraintlayout/widget/ConstraintAttribute;FIF)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewTimeCycleCustomSetSetProperty, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCycleCustomSet)), "setProperty", "(Landroid/view/View;FJLandroidx/constraintlayout/core/motion/utils/KeyCache;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewTimeCycleCustomSetToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCycleCustomSet)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/motion/utils/ViewTimeCycle$PathRotate")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewTimeCyclePathRotate = env.NewGlobalRef(&c.Object)
-
-		midViewTimeCyclePathRotateSetProperty, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCyclePathRotate)), "setProperty", "(Landroid/view/View;FJLandroidx/constraintlayout/core/motion/utils/KeyCache;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewTimeCyclePathRotateSetPathRotate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCyclePathRotate)), "setPathRotate", "(Landroid/view/View;Landroidx/constraintlayout/core/motion/utils/KeyCache;FJDD)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewTimeCyclePathRotateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCyclePathRotate)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/motion/utils/ViewState")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewState = env.NewGlobalRef(&c.Object)
-		midViewStateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewState)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midViewStateGetState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewState)), "getState", "(Landroid/view/View;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewStateWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewState)), "width", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewStateHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewState)), "height", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewState)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("androidx/constraintlayout/motion/utils/StopLogic")
 	if err != nil {
@@ -364,6 +185,194 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("androidx/constraintlayout/motion/utils/ViewOscillator")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewOscillator = env.NewGlobalRef(&c.Object)
+
+		midViewOscillatorSetProperty, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewOscillator)), "setProperty", "(Landroid/view/View;F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewOscillatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewOscillator)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewOscillatorMakeSpline, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewOscillator)), "makeSpline", "(Ljava/lang/String;)Landroidx/constraintlayout/motion/utils/ViewOscillator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/motion/utils/ViewOscillator$PathRotateSet")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewOscillatorPathRotateSet = env.NewGlobalRef(&c.Object)
+		midViewOscillatorPathRotateSetCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewOscillatorPathRotateSet)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midViewOscillatorPathRotateSetSetProperty, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewOscillatorPathRotateSet)), "setProperty", "(Landroid/view/View;F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewOscillatorPathRotateSetSetPathRotate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewOscillatorPathRotateSet)), "setPathRotate", "(Landroid/view/View;FDD)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewOscillatorPathRotateSetToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewOscillatorPathRotateSet)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/motion/utils/ViewTimeCycle")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewTimeCycle = env.NewGlobalRef(&c.Object)
+
+		midViewTimeCycleSetProperty, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCycle)), "setProperty", "(Landroid/view/View;FJLandroidx/constraintlayout/core/motion/utils/KeyCache;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewTimeCycleGet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCycle)), "get", "(FJLandroid/view/View;Landroidx/constraintlayout/core/motion/utils/KeyCache;)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewTimeCycleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCycle)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewTimeCycleMakeSpline, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCycle)), "makeSpline", "(Ljava/lang/String;J)Landroidx/constraintlayout/motion/utils/ViewTimeCycle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/motion/utils/ViewTimeCycle$CustomSet")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewTimeCycleCustomSet = env.NewGlobalRef(&c.Object)
+		midViewTimeCycleCustomSetCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCycleCustomSet)), "<init>", "(Ljava/lang/String;Landroid/util/SparseArray;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midViewTimeCycleCustomSetSetup, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCycleCustomSet)), "setup", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewTimeCycleCustomSetSetPoint5, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCycleCustomSet)), "setPoint", "(IFFIF)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewTimeCycleCustomSetSetPoint5_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCycleCustomSet)), "setPoint", "(ILandroidx/constraintlayout/widget/ConstraintAttribute;FIF)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewTimeCycleCustomSetSetProperty, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCycleCustomSet)), "setProperty", "(Landroid/view/View;FJLandroidx/constraintlayout/core/motion/utils/KeyCache;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewTimeCycleCustomSetToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCycleCustomSet)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/motion/utils/ViewTimeCycle$PathRotate")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewTimeCyclePathRotate = env.NewGlobalRef(&c.Object)
+		midViewTimeCyclePathRotateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCyclePathRotate)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midViewTimeCyclePathRotateSetProperty, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCyclePathRotate)), "setProperty", "(Landroid/view/View;FJLandroidx/constraintlayout/core/motion/utils/KeyCache;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewTimeCyclePathRotateSetPathRotate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCyclePathRotate)), "setPathRotate", "(Landroid/view/View;Landroidx/constraintlayout/core/motion/utils/KeyCache;FJDD)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewTimeCyclePathRotateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTimeCyclePathRotate)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("androidx/constraintlayout/motion/utils/ViewSpline")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -402,6 +411,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsViewSplineCustomSet = env.NewGlobalRef(&c.Object)
+		midViewSplineCustomSetCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewSplineCustomSet)), "<init>", "(Ljava/lang/String;Landroid/util/SparseArray;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midViewSplineCustomSetSetup, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewSplineCustomSet)), "setup", "(I)V")
 		if err != nil {
@@ -440,37 +453,6 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/constraintlayout/motion/utils/ViewOscillator")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewOscillator = env.NewGlobalRef(&c.Object)
-
-		midViewOscillatorSetProperty, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewOscillator)), "setProperty", "(Landroid/view/View;F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewOscillatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewOscillator)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewOscillatorMakeSpline, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewOscillator)), "makeSpline", "(Ljava/lang/String;)Landroidx/constraintlayout/motion/utils/ViewOscillator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("androidx/constraintlayout/motion/utils/ViewSpline$PathRotate")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -478,6 +460,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsViewSplinePathRotate = env.NewGlobalRef(&c.Object)
+		midViewSplinePathRotateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewSplinePathRotate)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midViewSplinePathRotateSetProperty, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewSplinePathRotate)), "setProperty", "(Landroid/view/View;F)V")
 		if err != nil {
@@ -502,29 +488,68 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/constraintlayout/motion/utils/ViewOscillator$PathRotateSet")
+	c, err = env.FindClass("androidx/constraintlayout/motion/utils/CustomSupport")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsViewOscillatorPathRotateSet = env.NewGlobalRef(&c.Object)
+		clsCustomSupport = env.NewGlobalRef(&c.Object)
+		midCustomSupportCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomSupport)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midViewOscillatorPathRotateSetSetProperty, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewOscillatorPathRotateSet)), "setProperty", "(Landroid/view/View;F)V")
+		midCustomSupportToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomSupport)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midViewOscillatorPathRotateSetSetPathRotate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewOscillatorPathRotateSet)), "setPathRotate", "(Landroid/view/View;FDD)V")
+		midCustomSupportSetInterpolatedValue, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCustomSupport)), "setInterpolatedValue", "(Landroidx/constraintlayout/widget/ConstraintAttribute;Landroid/view/View;[F)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midViewOscillatorPathRotateSetToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewOscillatorPathRotateSet)), "toString", "()Ljava/lang/String;")
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/motion/utils/ViewState")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewState = env.NewGlobalRef(&c.Object)
+		midViewStateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewState)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midViewStateGetState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewState)), "getState", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewStateWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewState)), "width", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewStateHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewState)), "height", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewState)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

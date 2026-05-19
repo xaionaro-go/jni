@@ -20,6 +20,14 @@ classes:
           go_name: GetEncodedActivationCode
           returns: String
           error: true
+      static_methods:
+        - java_method: forActivationCode
+          go_name: ForActivationCode
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.telephony.euicc.DownloadableSubscription
+          error: true
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -29,16 +37,12 @@ classes:
               go_name: arg1
           returns: void
           error: true
-      static_methods:
-        - java_method: forActivationCode
-          go_name: ForActivationCode
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.telephony.euicc.DownloadableSubscription
-          error: true
     - java_class: android.telephony.euicc.DownloadableSubscription$Builder
       go_type: DownloadableSubscriptionBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.telephony.euicc.DownloadableSubscription
+          go_name: arg0
       methods:
         - java_method: build
           go_name: Build
@@ -57,6 +61,31 @@ classes:
             - java_type: String
               go_name: arg0
           returns: android.telephony.euicc.DownloadableSubscription$Builder
+          error: true
+    - java_class: android.telephony.euicc.EuiccInfo
+      go_type: Info
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getOsVersion
+          go_name: GetOsVersion
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
           error: true
     - java_class: android.telephony.euicc.EuiccManager
       go_type: Manager
@@ -156,30 +185,6 @@ classes:
               go_name: arg1
             - java_type: android.app.PendingIntent
               go_name: arg2
-          returns: void
-          error: true
-    - java_class: android.telephony.euicc.EuiccInfo
-      go_type: Info
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getOsVersion
-          go_name: GetOsVersion
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
           returns: void
           error: true
 constants:

@@ -32,6 +32,12 @@ func NewStackView(vm *jni.VM, arg0 *jni.Object) (*StackView, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStackView == nil {
+			return fmt.Errorf("android.widget.StackView is not available on this device")
+		}
+		if midStackViewCtor == nil {
+			return fmt.Errorf("android.widget.StackView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStackView)), midStackViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

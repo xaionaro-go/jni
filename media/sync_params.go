@@ -32,6 +32,12 @@ func NewSyncParams(vm *jni.VM) (*SyncParams, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSyncParams == nil {
+			return fmt.Errorf("android.media.SyncParams is not available on this device")
+		}
+		if midSyncParamsCtor == nil {
+			return fmt.Errorf("android.media.SyncParams constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSyncParams)), midSyncParamsCtor)
 		if err != nil {
 			return err

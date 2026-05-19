@@ -23,6 +23,35 @@ type RangingParamsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRangingParamsBuilder creates a new android.ranging.uwb.UwbRangingParams$Builder instance.
+func NewRangingParamsBuilder(vm *jni.VM, arg0 int32, arg1 int32, arg2 *jni.Object, arg3 *jni.Object) (*RangingParamsBuilder, error) {
+	var t RangingParamsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRangingParamsBuilder == nil {
+			return fmt.Errorf("android.ranging.uwb.UwbRangingParams$Builder is not available on this device")
+		}
+		if midRangingParamsBuilderCtor == nil {
+			return fmt.Errorf("android.ranging.uwb.UwbRangingParams$Builder constructor (IILandroid/ranging/uwb/UwbAddress;Landroid/ranging/uwb/UwbAddress;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRangingParamsBuilder)), midRangingParamsBuilderCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.ranging.uwb.UwbRangingParams$Builder.build.
 func (m *RangingParamsBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

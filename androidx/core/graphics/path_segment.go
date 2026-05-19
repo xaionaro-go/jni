@@ -32,6 +32,12 @@ func NewPathSegment(vm *jni.VM, arg0 *jni.Object, arg1 float32, arg2 *jni.Object
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPathSegment == nil {
+			return fmt.Errorf("androidx.core.graphics.PathSegment is not available on this device")
+		}
+		if midPathSegmentCtor == nil {
+			return fmt.Errorf("androidx.core.graphics.PathSegment constructor (Landroid/graphics/PointF;FLandroid/graphics/PointF;F)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPathSegment)), midPathSegmentCtor, jni.ObjectValue(arg0), jni.FloatValue(arg1), jni.ObjectValue(arg2), jni.FloatValue(arg3))
 		if err != nil {

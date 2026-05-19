@@ -32,6 +32,12 @@ func NewLinearLayout(vm *jni.VM, arg0 *jni.Object) (*LinearLayout, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLinearLayout == nil {
+			return fmt.Errorf("android.widget.LinearLayout is not available on this device")
+		}
+		if midLinearLayoutCtor == nil {
+			return fmt.Errorf("android.widget.LinearLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLinearLayout)), midLinearLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -46,8 +52,8 @@ func NewLinearLayout(vm *jni.VM, arg0 *jni.Object) (*LinearLayout, error) {
 	return &t, nil
 }
 
-// GenerateLayoutParams1 calls android.widget.LinearLayout.generateLayoutParams.
-func (m *LinearLayout) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, error) {
+// GenerateLayoutParams calls android.widget.LinearLayout.generateLayoutParams.
+func (m *LinearLayout) GenerateLayoutParams(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,14 +61,14 @@ func (m *LinearLayout) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, err
 			callErr = err
 			return err
 		}
-		if midLinearLayoutGenerateLayoutParams1 == nil {
+		if midLinearLayoutGenerateLayoutParams == nil {
 			callErr = fmt.Errorf("android.widget.LinearLayout.generateLayoutParams is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midLinearLayoutGenerateLayoutParams1, jni.ObjectValue(arg0),
+			midLinearLayoutGenerateLayoutParams, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -678,39 +684,6 @@ func (m *LinearLayout) ShouldDelayChildPressedState() (bool, error) {
 			return callErr
 		}
 		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// GenerateLayoutParams1_1 calls android.widget.LinearLayout.generateLayoutParams.
-func (m *LinearLayout) GenerateLayoutParams1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midLinearLayoutGenerateLayoutParams1_1 == nil {
-			callErr = fmt.Errorf("android.widget.LinearLayout.generateLayoutParams is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midLinearLayoutGenerateLayoutParams1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
 		return callErr
 	})
 	return result, callErr

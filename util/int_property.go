@@ -23,29 +23,6 @@ type IntProperty struct {
 	Obj *jni.GlobalRef
 }
 
-// Set calls android.util.IntProperty.set.
-func (m *IntProperty) Set(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midIntPropertySet == nil {
-			callErr = fmt.Errorf("android.util.IntProperty.set is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midIntPropertySet, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.util.IntProperty.toString.
 func (m *IntProperty) ToString() (string, error) {
 	var result string

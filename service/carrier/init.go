@@ -27,8 +27,46 @@ var (
 	midMessagePduCtor             jni.MethodID
 	midMessagePduDescribeContents jni.MethodID
 	midMessagePduGetPdus          jni.MethodID
-	midMessagePduWriteToParcel    jni.MethodID
 	midMessagePduToString         jni.MethodID
+	midMessagePduWriteToParcel    jni.MethodID
+
+	clsService                              *jni.GlobalRef
+	midServiceNotifyCarrierNetworkChange1   jni.MethodID
+	midServiceNotifyCarrierNetworkChange2_1 jni.MethodID
+	midServiceOnBind                        jni.MethodID
+	midServiceOnLoadConfig1                 jni.MethodID
+	midServiceOnLoadConfig2_1               jni.MethodID
+	midServiceToString                      jni.MethodID
+
+	clsMessagingClientService         *jni.GlobalRef
+	midMessagingClientServiceCtor     jni.MethodID
+	midMessagingClientServiceOnBind   jni.MethodID
+	midMessagingClientServiceToString jni.MethodID
+
+	clsMessagingService         *jni.GlobalRef
+	midMessagingServiceOnBind   jni.MethodID
+	midMessagingServiceToString jni.MethodID
+
+	clsMessagingServiceResultCallback         *jni.GlobalRef
+	midMessagingServiceResultCallbackToString jni.MethodID
+
+	clsMessagingServiceSendMmsResult               *jni.GlobalRef
+	midMessagingServiceSendMmsResultCtor           jni.MethodID
+	midMessagingServiceSendMmsResultGetSendConfPdu jni.MethodID
+	midMessagingServiceSendMmsResultGetSendStatus  jni.MethodID
+	midMessagingServiceSendMmsResultToString       jni.MethodID
+
+	clsMessagingServiceSendMultipartSmsResult               *jni.GlobalRef
+	midMessagingServiceSendMultipartSmsResultCtor           jni.MethodID
+	midMessagingServiceSendMultipartSmsResultGetMessageRefs jni.MethodID
+	midMessagingServiceSendMultipartSmsResultGetSendStatus  jni.MethodID
+	midMessagingServiceSendMultipartSmsResultToString       jni.MethodID
+
+	clsMessagingServiceSendSmsResult              *jni.GlobalRef
+	midMessagingServiceSendSmsResultCtor          jni.MethodID
+	midMessagingServiceSendSmsResultGetMessageRef jni.MethodID
+	midMessagingServiceSendSmsResultGetSendStatus jni.MethodID
+	midMessagingServiceSendSmsResultToString      jni.MethodID
 
 	clsIdentifier                     *jni.GlobalRef
 	midIdentifierCtor                 jni.MethodID
@@ -45,41 +83,6 @@ var (
 	midIdentifierHashCode             jni.MethodID
 	midIdentifierToString             jni.MethodID
 	midIdentifierWriteToParcel        jni.MethodID
-
-	clsService                              *jni.GlobalRef
-	midServiceNotifyCarrierNetworkChange1   jni.MethodID
-	midServiceNotifyCarrierNetworkChange2_1 jni.MethodID
-	midServiceOnBind                        jni.MethodID
-	midServiceOnLoadConfig1                 jni.MethodID
-	midServiceOnLoadConfig2_1               jni.MethodID
-	midServiceToString                      jni.MethodID
-
-	clsMessagingService         *jni.GlobalRef
-	midMessagingServiceOnBind   jni.MethodID
-	midMessagingServiceToString jni.MethodID
-
-	clsMessagingServiceResultCallback         *jni.GlobalRef
-	midMessagingServiceResultCallbackToString jni.MethodID
-
-	clsMessagingServiceSendMmsResult               *jni.GlobalRef
-	midMessagingServiceSendMmsResultGetSendConfPdu jni.MethodID
-	midMessagingServiceSendMmsResultGetSendStatus  jni.MethodID
-	midMessagingServiceSendMmsResultToString       jni.MethodID
-
-	clsMessagingServiceSendMultipartSmsResult               *jni.GlobalRef
-	midMessagingServiceSendMultipartSmsResultGetMessageRefs jni.MethodID
-	midMessagingServiceSendMultipartSmsResultGetSendStatus  jni.MethodID
-	midMessagingServiceSendMultipartSmsResultToString       jni.MethodID
-
-	clsMessagingServiceSendSmsResult              *jni.GlobalRef
-	midMessagingServiceSendSmsResultGetMessageRef jni.MethodID
-	midMessagingServiceSendSmsResultGetSendStatus jni.MethodID
-	midMessagingServiceSendSmsResultToString      jni.MethodID
-
-	clsMessagingClientService         *jni.GlobalRef
-	midMessagingClientServiceCtor     jni.MethodID
-	midMessagingClientServiceOnBind   jni.MethodID
-	midMessagingClientServiceToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -126,14 +129,240 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMessagePduWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagePdu)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midMessagePduToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagePdu)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMessagePduToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagePdu)), "toString", "()Ljava/lang/String;")
+		midMessagePduWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMessagePdu)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/service/carrier/CarrierService")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsService = env.NewGlobalRef(&c.Object)
+
+		midServiceNotifyCarrierNetworkChange1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsService)), "notifyCarrierNetworkChange", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midServiceNotifyCarrierNetworkChange2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsService)), "notifyCarrierNetworkChange", "(IZ)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midServiceOnBind, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsService)), "onBind", "(Landroid/content/Intent;)Landroid/os/IBinder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midServiceOnLoadConfig1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsService)), "onLoadConfig", "(Landroid/service/carrier/CarrierIdentifier;)Landroid/os/PersistableBundle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midServiceOnLoadConfig2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsService)), "onLoadConfig", "(ILandroid/service/carrier/CarrierIdentifier;)Landroid/os/PersistableBundle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsService)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/service/carrier/CarrierMessagingClientService")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMessagingClientService = env.NewGlobalRef(&c.Object)
+		midMessagingClientServiceCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingClientService)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMessagingClientServiceOnBind, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingClientService)), "onBind", "(Landroid/content/Intent;)Landroid/os/IBinder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMessagingClientServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingClientService)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/service/carrier/CarrierMessagingService")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMessagingService = env.NewGlobalRef(&c.Object)
+
+		midMessagingServiceOnBind, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingService)), "onBind", "(Landroid/content/Intent;)Landroid/os/IBinder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMessagingServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingService)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/service/carrier/CarrierMessagingService$ResultCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMessagingServiceResultCallback = env.NewGlobalRef(&c.Object)
+
+		midMessagingServiceResultCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceResultCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/service/carrier/CarrierMessagingService$SendMmsResult")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMessagingServiceSendMmsResult = env.NewGlobalRef(&c.Object)
+		midMessagingServiceSendMmsResultCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendMmsResult)), "<init>", "(I[B)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMessagingServiceSendMmsResultGetSendConfPdu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendMmsResult)), "getSendConfPdu", "()[B")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMessagingServiceSendMmsResultGetSendStatus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendMmsResult)), "getSendStatus", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMessagingServiceSendMmsResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendMmsResult)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/service/carrier/CarrierMessagingService$SendMultipartSmsResult")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMessagingServiceSendMultipartSmsResult = env.NewGlobalRef(&c.Object)
+		midMessagingServiceSendMultipartSmsResultCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendMultipartSmsResult)), "<init>", "(I[I)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMessagingServiceSendMultipartSmsResultGetMessageRefs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendMultipartSmsResult)), "getMessageRefs", "()[I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMessagingServiceSendMultipartSmsResultGetSendStatus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendMultipartSmsResult)), "getSendStatus", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMessagingServiceSendMultipartSmsResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendMultipartSmsResult)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/service/carrier/CarrierMessagingService$SendSmsResult")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMessagingServiceSendSmsResult = env.NewGlobalRef(&c.Object)
+		midMessagingServiceSendSmsResultCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendSmsResult)), "<init>", "(II)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMessagingServiceSendSmsResultGetMessageRef, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendSmsResult)), "getMessageRef", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMessagingServiceSendSmsResultGetSendStatus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendSmsResult)), "getSendStatus", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMessagingServiceSendSmsResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendSmsResult)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -238,221 +467,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midIdentifierWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIdentifier)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/service/carrier/CarrierService")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsService = env.NewGlobalRef(&c.Object)
-
-		midServiceNotifyCarrierNetworkChange1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsService)), "notifyCarrierNetworkChange", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midServiceNotifyCarrierNetworkChange2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsService)), "notifyCarrierNetworkChange", "(IZ)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midServiceOnBind, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsService)), "onBind", "(Landroid/content/Intent;)Landroid/os/IBinder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midServiceOnLoadConfig1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsService)), "onLoadConfig", "(Landroid/service/carrier/CarrierIdentifier;)Landroid/os/PersistableBundle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midServiceOnLoadConfig2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsService)), "onLoadConfig", "(ILandroid/service/carrier/CarrierIdentifier;)Landroid/os/PersistableBundle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsService)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/service/carrier/CarrierMessagingService")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMessagingService = env.NewGlobalRef(&c.Object)
-
-		midMessagingServiceOnBind, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingService)), "onBind", "(Landroid/content/Intent;)Landroid/os/IBinder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMessagingServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingService)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/service/carrier/CarrierMessagingService$ResultCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMessagingServiceResultCallback = env.NewGlobalRef(&c.Object)
-
-		midMessagingServiceResultCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceResultCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/service/carrier/CarrierMessagingService$SendMmsResult")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMessagingServiceSendMmsResult = env.NewGlobalRef(&c.Object)
-
-		midMessagingServiceSendMmsResultGetSendConfPdu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendMmsResult)), "getSendConfPdu", "()[B")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMessagingServiceSendMmsResultGetSendStatus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendMmsResult)), "getSendStatus", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMessagingServiceSendMmsResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendMmsResult)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/service/carrier/CarrierMessagingService$SendMultipartSmsResult")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMessagingServiceSendMultipartSmsResult = env.NewGlobalRef(&c.Object)
-
-		midMessagingServiceSendMultipartSmsResultGetMessageRefs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendMultipartSmsResult)), "getMessageRefs", "()[I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMessagingServiceSendMultipartSmsResultGetSendStatus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendMultipartSmsResult)), "getSendStatus", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMessagingServiceSendMultipartSmsResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendMultipartSmsResult)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/service/carrier/CarrierMessagingService$SendSmsResult")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMessagingServiceSendSmsResult = env.NewGlobalRef(&c.Object)
-
-		midMessagingServiceSendSmsResultGetMessageRef, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendSmsResult)), "getMessageRef", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMessagingServiceSendSmsResultGetSendStatus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendSmsResult)), "getSendStatus", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMessagingServiceSendSmsResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendSmsResult)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/service/carrier/CarrierMessagingClientService")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMessagingClientService = env.NewGlobalRef(&c.Object)
-		midMessagingClientServiceCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingClientService)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMessagingClientServiceOnBind, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingClientService)), "onBind", "(Landroid/content/Intent;)Landroid/os/IBinder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMessagingClientServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessagingClientService)), "toString", "()Ljava/lang/String;")
+		midIdentifierWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsIdentifier)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

@@ -32,6 +32,12 @@ func NewNumberingSystem(vm *jni.VM) (*NumberingSystem, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNumberingSystem == nil {
+			return fmt.Errorf("android.icu.text.NumberingSystem is not available on this device")
+		}
+		if midNumberingSystemCtor == nil {
+			return fmt.Errorf("android.icu.text.NumberingSystem constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNumberingSystem)), midNumberingSystemCtor)
 		if err != nil {
 			return err

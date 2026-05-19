@@ -32,6 +32,12 @@ func NewFloatValueHolder(vm *jni.VM) (*FloatValueHolder, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFloatValueHolder == nil {
+			return fmt.Errorf("androidx.dynamicanimation.animation.FloatValueHolder is not available on this device")
+		}
+		if midFloatValueHolderCtor == nil {
+			return fmt.Errorf("androidx.dynamicanimation.animation.FloatValueHolder constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFloatValueHolder)), midFloatValueHolderCtor)
 		if err != nil {
 			return err

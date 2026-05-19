@@ -32,6 +32,12 @@ func NewViewModelLazy(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsViewModelLazy == nil {
+			return fmt.Errorf("androidx.lifecycle.ViewModelLazy is not available on this device")
+		}
+		if midViewModelLazyCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.ViewModelLazy constructor (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewModelLazy)), midViewModelLazyCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3))
 		if err != nil {
@@ -46,8 +52,8 @@ func NewViewModelLazy(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.
 	return &t, nil
 }
 
-// GetValue0 calls androidx.lifecycle.ViewModelLazy.getValue.
-func (m *ViewModelLazy) GetValue0() (*jni.Object, error) {
+// GetValue calls androidx.lifecycle.ViewModelLazy.getValue.
+func (m *ViewModelLazy) GetValue() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,13 +61,13 @@ func (m *ViewModelLazy) GetValue0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midViewModelLazyGetValue0 == nil {
+		if midViewModelLazyGetValue == nil {
 			callErr = fmt.Errorf("androidx.lifecycle.ViewModelLazy.getValue is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midViewModelLazyGetValue0,
+			midViewModelLazyGetValue,
 		)
 		if callErr != nil {
 			return callErr
@@ -100,38 +106,6 @@ func (m *ViewModelLazy) IsInitialized() (bool, error) {
 			return callErr
 		}
 		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetValue0_1 calls androidx.lifecycle.ViewModelLazy.getValue.
-func (m *ViewModelLazy) GetValue0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midViewModelLazyGetValue0_1 == nil {
-			callErr = fmt.Errorf("androidx.lifecycle.ViewModelLazy.getValue is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midViewModelLazyGetValue0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
 		return callErr
 	})
 	return result, callErr

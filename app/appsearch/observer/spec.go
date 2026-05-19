@@ -80,29 +80,6 @@ func (m *Spec) GetFilterSchemas() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.appsearch.observer.ObserverSpec.writeToParcel.
-func (m *Spec) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSpecWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.appsearch.observer.ObserverSpec.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSpecWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.appsearch.observer.ObserverSpec.toString.
 func (m *Spec) ToString() (string, error) {
 	var result string
@@ -128,4 +105,27 @@ func (m *Spec) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.appsearch.observer.ObserverSpec.writeToParcel.
+func (m *Spec) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSpecWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.appsearch.observer.ObserverSpec.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSpec)),
+			midSpecWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

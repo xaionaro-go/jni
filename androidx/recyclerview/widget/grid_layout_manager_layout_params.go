@@ -23,6 +23,35 @@ type GridLayoutManagerLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGridLayoutManagerLayoutParams creates a new androidx.recyclerview.widget.GridLayoutManager$LayoutParams instance.
+func NewGridLayoutManagerLayoutParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*GridLayoutManagerLayoutParams, error) {
+	var t GridLayoutManagerLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGridLayoutManagerLayoutParams == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.GridLayoutManager$LayoutParams is not available on this device")
+		}
+		if midGridLayoutManagerLayoutParamsCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.GridLayoutManager$LayoutParams constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerLayoutParams)), midGridLayoutManagerLayoutParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetSpanIndex calls androidx.recyclerview.widget.GridLayoutManager$LayoutParams.getSpanIndex.
 func (m *GridLayoutManagerLayoutParams) GetSpanIndex() (int32, error) {
 	var result int32

@@ -32,6 +32,12 @@ func NewMaterialStyledDatePickerDialog(vm *jni.VM, arg0 *jni.Object) (*MaterialS
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialStyledDatePickerDialog == nil {
+			return fmt.Errorf("com.google.android.material.datepicker.MaterialStyledDatePickerDialog is not available on this device")
+		}
+		if midMaterialStyledDatePickerDialogCtor == nil {
+			return fmt.Errorf("com.google.android.material.datepicker.MaterialStyledDatePickerDialog constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialStyledDatePickerDialog)), midMaterialStyledDatePickerDialogCtor, jni.ObjectValue(arg0))
 		if err != nil {

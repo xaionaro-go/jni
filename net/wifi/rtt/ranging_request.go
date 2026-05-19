@@ -178,29 +178,6 @@ func (m *RangingRequest) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.net.wifi.rtt.RangingRequest.writeToParcel.
-func (m *RangingRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRangingRequestWriteToParcel == nil {
-			callErr = fmt.Errorf("android.net.wifi.rtt.RangingRequest.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midRangingRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // GetDefaultRttBurstSize calls android.net.wifi.rtt.RangingRequest.getDefaultRttBurstSize.
 func (m *RangingRequest) GetDefaultRttBurstSize() (int32, error) {
 	var result int32
@@ -299,4 +276,27 @@ func (m *RangingRequest) GetMinRttBurstSize() (int32, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.net.wifi.rtt.RangingRequest.writeToParcel.
+func (m *RangingRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRangingRequestWriteToParcel == nil {
+			callErr = fmt.Errorf("android.net.wifi.rtt.RangingRequest.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsRangingRequest)),
+			midRangingRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

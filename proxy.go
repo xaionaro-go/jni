@@ -477,8 +477,6 @@ func newProxyImpl(
 		// Proxy.newProxyInstance only works with interfaces. For abstract
 		// classes, try to find a pre-compiled adapter class that extends the
 		// abstract class and delegates to GoAbstractDispatch.invoke().
-		// Adapter naming convention: simple class name + "Adapter" in
-		// package "center.dx.jni.generated".
 		if len(ifaces) == 1 {
 			adapterObj := tryAbstractAdapter(e, ifaces[0], invHandler)
 			if adapterObj != 0 {
@@ -507,8 +505,10 @@ func newProxyImpl(
 // and delegate all method calls to GoAbstractDispatch.invoke(handlerID, ...).
 //
 // It searches for adapter classes using these naming conventions:
-//  1. "center/dx/jni/generated/<SimpleClassName>Adapter"
-//  2. "center/dx/gatt/internal/Go<SimpleClassName>"
+//  1. "center/dx/jni/generated/<TargetPackage>/<SimpleClassName>Adapter"
+//  2. "center/dx/jni/generated/<SimpleClassName>Adapter"
+//  3. "center/dx/jni/generated/Go<SimpleClassName>Adapter"
+//  4. "center/dx/gatt/internal/Go<SimpleClassName>"
 //
 // The adapter constructor must accept a single long parameter (handlerID).
 // Returns 0 if no adapter is found.
@@ -541,20 +541,7 @@ func tryAbstractAdapter(
 
 	fullName := e.GoString((*String)(unsafe.Pointer(&Object{ref: nameObj})))
 
-	// Extract simple class name.
-	simpleName := fullName
-	if idx := strings.LastIndex(fullName, "."); idx >= 0 {
-		simpleName = fullName[idx+1:]
-	}
-
-	// Try adapter class names. The first pattern matches adapters generated
-	// by javagen (e.g. ScanCallbackAdapter). The second pattern matches
-	// the legacy hand-written naming in the gatt repo.
-	adapterNames := []string{
-		"center/dx/jni/generated/" + simpleName + "Adapter",
-		"center/dx/jni/generated/Go" + simpleName + "Adapter",
-		"center/dx/gatt/internal/Go" + simpleName,
-	}
+	adapterNames := abstractAdapterCandidateNames(fullName)
 
 	for _, name := range adapterNames {
 		adapterCls := findClassWithFallback(e.ptr, newCString(name), strings.ReplaceAll(name, "/", "."))
@@ -587,6 +574,31 @@ func tryAbstractAdapter(
 	}
 
 	return 0
+}
+
+func abstractAdapterCandidateNames(fullName string) []string {
+	simpleName := fullName
+	packageName := ""
+	if idx := strings.LastIndex(fullName, "."); idx >= 0 {
+		packageName = fullName[:idx]
+		simpleName = fullName[idx+1:]
+	}
+
+	const generatedPrefix = "center/dx/jni/generated"
+	adapterNames := make([]string, 0, 4)
+	if packageName != "" {
+		adapterNames = append(
+			adapterNames,
+			generatedPrefix+"/"+strings.ReplaceAll(packageName, ".", "/")+"/"+simpleName+"Adapter",
+		)
+	}
+	adapterNames = append(
+		adapterNames,
+		generatedPrefix+"/"+simpleName+"Adapter",
+		generatedPrefix+"/Go"+simpleName+"Adapter",
+		"center/dx/gatt/internal/Go"+simpleName,
+	)
+	return adapterNames
 }
 
 // throwGoError throws a Java RuntimeException with the given Go error

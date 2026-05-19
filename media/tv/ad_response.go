@@ -32,6 +32,12 @@ func NewAdResponse(vm *jni.VM, arg0 int32, arg1 int32, arg2 int64) (*AdResponse,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAdResponse == nil {
+			return fmt.Errorf("android.media.tv.AdResponse is not available on this device")
+		}
+		if midAdResponseCtor == nil {
+			return fmt.Errorf("android.media.tv.AdResponse constructor (IIJ)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAdResponse)), midAdResponseCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.LongValue(arg2))
 		if err != nil {
@@ -146,29 +152,6 @@ func (m *AdResponse) GetResponseType() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.media.tv.AdResponse.writeToParcel.
-func (m *AdResponse) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAdResponseWriteToParcel == nil {
-			callErr = fmt.Errorf("android.media.tv.AdResponse.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAdResponseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.media.tv.AdResponse.toString.
 func (m *AdResponse) ToString() (string, error) {
 	var result string
@@ -194,4 +177,27 @@ func (m *AdResponse) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.media.tv.AdResponse.writeToParcel.
+func (m *AdResponse) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midAdResponseWriteToParcel == nil {
+			callErr = fmt.Errorf("android.media.tv.AdResponse.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAdResponse)),
+			midAdResponseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

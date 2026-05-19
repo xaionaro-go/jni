@@ -23,6 +23,40 @@ type ViewTimeCycleCustomSet struct {
 	Obj *jni.GlobalRef
 }
 
+// NewViewTimeCycleCustomSet creates a new androidx.constraintlayout.motion.utils.ViewTimeCycle$CustomSet instance.
+func NewViewTimeCycleCustomSet(vm *jni.VM, arg0 string, arg1 *jni.Object) (*ViewTimeCycleCustomSet, error) {
+	var t ViewTimeCycleCustomSet
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsViewTimeCycleCustomSet == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.utils.ViewTimeCycle$CustomSet is not available on this device")
+		}
+		if midViewTimeCycleCustomSetCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.utils.ViewTimeCycle$CustomSet constructor (Ljava/lang/String;Landroid/util/SparseArray;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewTimeCycleCustomSet)), midViewTimeCycleCustomSetCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Setup calls androidx.constraintlayout.motion.utils.ViewTimeCycle$CustomSet.setup.
 func (m *ViewTimeCycleCustomSet) Setup(arg0 int32) error {
 

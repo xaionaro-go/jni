@@ -32,6 +32,12 @@ func NewDefaultItemAnimator(vm *jni.VM) (*DefaultItemAnimator, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDefaultItemAnimator == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.DefaultItemAnimator is not available on this device")
+		}
+		if midDefaultItemAnimatorCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.DefaultItemAnimator constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDefaultItemAnimator)), midDefaultItemAnimatorCtor)
 		if err != nil {
 			return err

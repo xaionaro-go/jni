@@ -3,10 +3,10 @@
 package consts
 
 const (
-	Creator int = 0
+	ActionQueryKeyboardLayouts string = "android.hardware.input.action.QUERY_KEYBOARD_LAYOUTS"
+	MetaDataKeyboardLayouts    string = "android.hardware.input.metadata.KEYBOARD_LAYOUTS"
 )
 
 const (
-	ActionQueryKeyboardLayouts string = "android.hardware.input.action.QUERY_KEYBOARD_LAYOUTS"
-	MetaDataKeyboardLayouts    string = "android.hardware.input.metadata.KEYBOARD_LAYOUTS"
+	Creator int = 0
 )

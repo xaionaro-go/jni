@@ -23,6 +23,34 @@ type SpecBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSpecBuilder creates a new android.app.appsearch.observer.ObserverSpec$Builder instance.
+func NewSpecBuilder(vm *jni.VM) (*SpecBuilder, error) {
+	var t SpecBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSpecBuilder == nil {
+			return fmt.Errorf("android.app.appsearch.observer.ObserverSpec$Builder is not available on this device")
+		}
+		if midSpecBuilderCtor == nil {
+			return fmt.Errorf("android.app.appsearch.observer.ObserverSpec$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSpecBuilder)), midSpecBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddFilterSchemas calls android.app.appsearch.observer.ObserverSpec$Builder.addFilterSchemas.
 func (m *SpecBuilder) AddFilterSchemas(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

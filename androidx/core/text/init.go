@@ -23,26 +23,31 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsStringKt           *jni.GlobalRef
-	midStringKtToString   jni.MethodID
-	midStringKtHtmlEncode jni.MethodID
-
-	clsDirectionHeuristicCompat         *jni.GlobalRef
-	midDirectionHeuristicCompatIsRtl3   jni.MethodID
-	midDirectionHeuristicCompatIsRtl3_1 jni.MethodID
-	midDirectionHeuristicCompatToString jni.MethodID
-
-	clsSpannableStringBuilderKt         *jni.GlobalRef
-	midSpannableStringBuilderKtToString jni.MethodID
-
-	clsICUCompat                     *jni.GlobalRef
-	midICUCompatToString             jni.MethodID
-	midICUCompatMaximizeAndGetScript jni.MethodID
-
 	clsHtmlCompat         *jni.GlobalRef
 	midHtmlCompatToString jni.MethodID
 	midHtmlCompatFromHtml jni.MethodID
 	midHtmlCompatToHtml   jni.MethodID
+
+	clsDirectionHeuristicsCompat         *jni.GlobalRef
+	midDirectionHeuristicsCompatToString jni.MethodID
+
+	clsHtmlKt         *jni.GlobalRef
+	midHtmlKtToString jni.MethodID
+	midHtmlKtToHtml   jni.MethodID
+
+	clsLocaleKt                   *jni.GlobalRef
+	midLocaleKtToString           jni.MethodID
+	midLocaleKtGetLayoutDirection jni.MethodID
+
+	clsSpannableStringKt            *jni.GlobalRef
+	midSpannableStringKtToString    jni.MethodID
+	midSpannableStringKtToSpannable jni.MethodID
+	midSpannableStringKtClearSpans  jni.MethodID
+	midSpannableStringKtSet4        jni.MethodID
+	midSpannableStringKtSet3_1      jni.MethodID
+
+	clsSpannableStringBuilderKt         *jni.GlobalRef
+	midSpannableStringBuilderKtToString jni.MethodID
 
 	clsPrecomputedTextCompat                   *jni.GlobalRef
 	midPrecomputedTextCompatGetPrecomputedText jni.MethodID
@@ -59,11 +64,12 @@ var (
 	midPrecomputedTextCompatLength             jni.MethodID
 	midPrecomputedTextCompatCharAt             jni.MethodID
 	midPrecomputedTextCompatSubSequence        jni.MethodID
-	midPrecomputedTextCompatToString           jni.MethodID
 	midPrecomputedTextCompatCreate             jni.MethodID
 	midPrecomputedTextCompatGetTextFuture      jni.MethodID
+	midPrecomputedTextCompatToString           jni.MethodID
 
 	clsPrecomputedTextCompatParams                           *jni.GlobalRef
+	midPrecomputedTextCompatParamsCtor                       jni.MethodID
 	midPrecomputedTextCompatParamsGetTextPaint               jni.MethodID
 	midPrecomputedTextCompatParamsGetTextDirection           jni.MethodID
 	midPrecomputedTextCompatParamsGetBreakStrategy           jni.MethodID
@@ -72,6 +78,18 @@ var (
 	midPrecomputedTextCompatParamsEquals                     jni.MethodID
 	midPrecomputedTextCompatParamsHashCode                   jni.MethodID
 	midPrecomputedTextCompatParamsToString                   jni.MethodID
+
+	clsStringKt           *jni.GlobalRef
+	midStringKtToString   jni.MethodID
+	midStringKtHtmlEncode jni.MethodID
+
+	clsSpannedStringKt         *jni.GlobalRef
+	midSpannedStringKtToString jni.MethodID
+
+	clsUtilsCompat                             *jni.GlobalRef
+	midUtilsCompatToString                     jni.MethodID
+	midUtilsCompatHtmlEncode                   jni.MethodID
+	midUtilsCompatGetLayoutDirectionFromLocale jni.MethodID
 
 	clsBidiFormatter               *jni.GlobalRef
 	midBidiFormatterIsRtlContext   jni.MethodID
@@ -85,49 +103,32 @@ var (
 	midBidiFormatterUnicodeWrap2_4 jni.MethodID
 	midBidiFormatterUnicodeWrap2_5 jni.MethodID
 	midBidiFormatterUnicodeWrap1_6 jni.MethodID
-	midBidiFormatterUnicodeWrap1_7 jni.MethodID
 	midBidiFormatterToString       jni.MethodID
 	midBidiFormatterGetInstance0   jni.MethodID
 	midBidiFormatterGetInstance1_1 jni.MethodID
 	midBidiFormatterGetInstance1_2 jni.MethodID
+	midBidiFormatterUnicodeWrap1_7 jni.MethodID
 
 	clsBidiFormatterBuilder                          *jni.GlobalRef
+	midBidiFormatterBuilderCtor                      jni.MethodID
 	midBidiFormatterBuilderStereoReset               jni.MethodID
 	midBidiFormatterBuilderSetTextDirectionHeuristic jni.MethodID
 	midBidiFormatterBuilderBuild                     jni.MethodID
 	midBidiFormatterBuilderToString                  jni.MethodID
 
-	clsSpannableStringKt            *jni.GlobalRef
-	midSpannableStringKtToString    jni.MethodID
-	midSpannableStringKtToSpannable jni.MethodID
-	midSpannableStringKtClearSpans  jni.MethodID
-	midSpannableStringKtSet4        jni.MethodID
-	midSpannableStringKtSet3_1      jni.MethodID
-
-	clsLocaleKt                   *jni.GlobalRef
-	midLocaleKtToString           jni.MethodID
-	midLocaleKtGetLayoutDirection jni.MethodID
-
-	clsDirectionHeuristicsCompat         *jni.GlobalRef
-	midDirectionHeuristicsCompatToString jni.MethodID
-
-	clsSpannedStringKt          *jni.GlobalRef
-	midSpannedStringKtToString  jni.MethodID
-	midSpannedStringKtToSpanned jni.MethodID
-
-	clsHtmlKt         *jni.GlobalRef
-	midHtmlKtToString jni.MethodID
-	midHtmlKtToHtml   jni.MethodID
+	clsICUCompat                     *jni.GlobalRef
+	midICUCompatToString             jni.MethodID
+	midICUCompatMaximizeAndGetScript jni.MethodID
 
 	clsCharSequenceKt              *jni.GlobalRef
 	midCharSequenceKtToString      jni.MethodID
 	midCharSequenceKtIsDigitsOnly  jni.MethodID
 	midCharSequenceKtTrimmedLength jni.MethodID
 
-	clsUtilsCompat                             *jni.GlobalRef
-	midUtilsCompatToString                     jni.MethodID
-	midUtilsCompatHtmlEncode                   jni.MethodID
-	midUtilsCompatGetLayoutDirectionFromLocale jni.MethodID
+	clsDirectionHeuristicCompat         *jni.GlobalRef
+	midDirectionHeuristicCompatIsRtl3   jni.MethodID
+	midDirectionHeuristicCompatIsRtl3_1 jni.MethodID
+	midDirectionHeuristicCompatToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -147,102 +148,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("androidx/core/text/StringKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStringKt = env.NewGlobalRef(&c.Object)
-
-		midStringKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStringKt)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStringKtHtmlEncode, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsStringKt)), "htmlEncode", "(Ljava/lang/String;)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/text/TextDirectionHeuristicCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDirectionHeuristicCompat = env.NewGlobalRef(&c.Object)
-
-		midDirectionHeuristicCompatIsRtl3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDirectionHeuristicCompat)), "isRtl", "([CII)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDirectionHeuristicCompatIsRtl3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDirectionHeuristicCompat)), "isRtl", "(Ljava/lang/CharSequence;II)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDirectionHeuristicCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDirectionHeuristicCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/text/SpannableStringBuilderKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSpannableStringBuilderKt = env.NewGlobalRef(&c.Object)
-
-		midSpannableStringBuilderKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpannableStringBuilderKt)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/text/ICUCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsICUCompat = env.NewGlobalRef(&c.Object)
-
-		midICUCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsICUCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midICUCompatMaximizeAndGetScript, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsICUCompat)), "maximizeAndGetScript", "(Ljava/util/Locale;)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("androidx/core/text/HtmlCompat")
 	if err != nil {
@@ -267,6 +172,133 @@ func doInit(env *jni.Env) error {
 		}
 
 		midHtmlCompatToHtml, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHtmlCompat)), "toHtml", "(Landroid/text/Spanned;I)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/text/TextDirectionHeuristicsCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDirectionHeuristicsCompat = env.NewGlobalRef(&c.Object)
+
+		midDirectionHeuristicsCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDirectionHeuristicsCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/text/HtmlKt")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsHtmlKt = env.NewGlobalRef(&c.Object)
+
+		midHtmlKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHtmlKt)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHtmlKtToHtml, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHtmlKt)), "toHtml", "(Landroid/text/Spanned;I)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/text/LocaleKt")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLocaleKt = env.NewGlobalRef(&c.Object)
+
+		midLocaleKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocaleKt)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocaleKtGetLayoutDirection, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocaleKt)), "getLayoutDirection", "(Ljava/util/Locale;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/text/SpannableStringKt")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSpannableStringKt = env.NewGlobalRef(&c.Object)
+
+		midSpannableStringKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpannableStringKt)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSpannableStringKtToSpannable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSpannableStringKt)), "toSpannable", "(Ljava/lang/CharSequence;)Landroid/text/Spannable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSpannableStringKtClearSpans, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSpannableStringKt)), "clearSpans", "(Landroid/text/Spannable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSpannableStringKtSet4, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSpannableStringKt)), "set", "(Landroid/text/Spannable;IILjava/lang/Object;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSpannableStringKtSet3_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSpannableStringKt)), "set", "(Landroid/text/Spannable;Lkotlin/ranges/IntRange;Ljava/lang/Object;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/text/SpannableStringBuilderKt")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSpannableStringBuilderKt = env.NewGlobalRef(&c.Object)
+
+		midSpannableStringBuilderKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpannableStringBuilderKt)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -381,13 +413,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midPrecomputedTextCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPrecomputedTextCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midPrecomputedTextCompatCreate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecomputedTextCompat)), "create", "(Ljava/lang/CharSequence;Landroidx/core/text/PrecomputedTextCompat$Params;)Landroidx/core/text/PrecomputedTextCompat;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -396,6 +421,13 @@ func doInit(env *jni.Env) error {
 		}
 
 		midPrecomputedTextCompatGetTextFuture, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecomputedTextCompat)), "getTextFuture", "(Ljava/lang/CharSequence;Landroidx/core/text/PrecomputedTextCompat$Params;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/Future;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPrecomputedTextCompatToString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecomputedTextCompat)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -411,6 +443,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsPrecomputedTextCompatParams = env.NewGlobalRef(&c.Object)
+		midPrecomputedTextCompatParamsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPrecomputedTextCompatParams)), "<init>", "(Landroid/text/PrecomputedText$Params;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midPrecomputedTextCompatParamsGetTextPaint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPrecomputedTextCompatParams)), "getTextPaint", "()Landroid/text/TextPaint;")
 		if err != nil {
@@ -462,6 +498,78 @@ func doInit(env *jni.Env) error {
 		}
 
 		midPrecomputedTextCompatParamsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPrecomputedTextCompatParams)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/text/StringKt")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStringKt = env.NewGlobalRef(&c.Object)
+
+		midStringKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStringKt)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStringKtHtmlEncode, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsStringKt)), "htmlEncode", "(Ljava/lang/String;)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/text/SpannedStringKt")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSpannedStringKt = env.NewGlobalRef(&c.Object)
+
+		midSpannedStringKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpannedStringKt)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/text/TextUtilsCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsUtilsCompat = env.NewGlobalRef(&c.Object)
+
+		midUtilsCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUtilsCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midUtilsCompatHtmlEncode, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsUtilsCompat)), "htmlEncode", "(Ljava/lang/String;)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midUtilsCompatGetLayoutDirectionFromLocale, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsUtilsCompat)), "getLayoutDirectionFromLocale", "(Ljava/util/Locale;)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -555,13 +663,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midBidiFormatterUnicodeWrap1_7, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBidiFormatter)), "unicodeWrap", "(Ljava/lang/CharSequence;)Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midBidiFormatterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBidiFormatter)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -590,6 +691,13 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
+		midBidiFormatterUnicodeWrap1_7, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBidiFormatter)), "unicodeWrap", "(Ljava/lang/CharSequence;)Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
 	}
 
 	c, err = env.FindClass("androidx/core/text/BidiFormatter$Builder")
@@ -599,6 +707,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsBidiFormatterBuilder = env.NewGlobalRef(&c.Object)
+		midBidiFormatterBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBidiFormatterBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midBidiFormatterBuilderStereoReset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBidiFormatterBuilder)), "stereoReset", "(Z)Landroidx/core/text/BidiFormatter$Builder;")
 		if err != nil {
@@ -630,132 +742,22 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/text/SpannableStringKt")
+	c, err = env.FindClass("androidx/core/text/ICUCompat")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSpannableStringKt = env.NewGlobalRef(&c.Object)
+		clsICUCompat = env.NewGlobalRef(&c.Object)
 
-		midSpannableStringKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpannableStringKt)), "toString", "()Ljava/lang/String;")
+		midICUCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsICUCompat)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSpannableStringKtToSpannable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSpannableStringKt)), "toSpannable", "(Ljava/lang/CharSequence;)Landroid/text/Spannable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSpannableStringKtClearSpans, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSpannableStringKt)), "clearSpans", "(Landroid/text/Spannable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSpannableStringKtSet4, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSpannableStringKt)), "set", "(Landroid/text/Spannable;IILjava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSpannableStringKtSet3_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSpannableStringKt)), "set", "(Landroid/text/Spannable;Lkotlin/ranges/IntRange;Ljava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/text/LocaleKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLocaleKt = env.NewGlobalRef(&c.Object)
-
-		midLocaleKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocaleKt)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocaleKtGetLayoutDirection, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocaleKt)), "getLayoutDirection", "(Ljava/util/Locale;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/text/TextDirectionHeuristicsCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDirectionHeuristicsCompat = env.NewGlobalRef(&c.Object)
-
-		midDirectionHeuristicsCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDirectionHeuristicsCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/text/SpannedStringKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSpannedStringKt = env.NewGlobalRef(&c.Object)
-
-		midSpannedStringKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpannedStringKt)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSpannedStringKtToSpanned, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSpannedStringKt)), "toSpanned", "(Ljava/lang/CharSequence;)Landroid/text/Spanned;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/text/HtmlKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsHtmlKt = env.NewGlobalRef(&c.Object)
-
-		midHtmlKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHtmlKt)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHtmlKtToHtml, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHtmlKt)), "toHtml", "(Landroid/text/Spanned;I)Ljava/lang/String;")
+		midICUCompatMaximizeAndGetScript, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsICUCompat)), "maximizeAndGetScript", "(Ljava/util/Locale;)Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -795,29 +797,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/text/TextUtilsCompat")
+	c, err = env.FindClass("androidx/core/text/TextDirectionHeuristicCompat")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsUtilsCompat = env.NewGlobalRef(&c.Object)
+		clsDirectionHeuristicCompat = env.NewGlobalRef(&c.Object)
 
-		midUtilsCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUtilsCompat)), "toString", "()Ljava/lang/String;")
+		midDirectionHeuristicCompatIsRtl3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDirectionHeuristicCompat)), "isRtl", "([CII)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midUtilsCompatHtmlEncode, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsUtilsCompat)), "htmlEncode", "(Ljava/lang/String;)Ljava/lang/String;")
+		midDirectionHeuristicCompatIsRtl3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDirectionHeuristicCompat)), "isRtl", "(Ljava/lang/CharSequence;II)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midUtilsCompatGetLayoutDirectionFromLocale, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsUtilsCompat)), "getLayoutDirectionFromLocale", "(Ljava/util/Locale;)I")
+		midDirectionHeuristicCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDirectionHeuristicCompat)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

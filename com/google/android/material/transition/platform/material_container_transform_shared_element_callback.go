@@ -32,6 +32,12 @@ func NewMaterialContainerTransformSharedElementCallback(vm *jni.VM) (*MaterialCo
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialContainerTransformSharedElementCallback == nil {
+			return fmt.Errorf("com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback is not available on this device")
+		}
+		if midMaterialContainerTransformSharedElementCallbackCtor == nil {
+			return fmt.Errorf("com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallback)), midMaterialContainerTransformSharedElementCallbackCtor)
 		if err != nil {
 			return err
@@ -249,33 +255,6 @@ func (m *MaterialContainerTransformSharedElementCallback) IsSharedElementReenter
 		return callErr
 	})
 	return result, callErr
-}
-
-// SetSharedElementReenterTransitionEnabled calls com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback.setSharedElementReenterTransitionEnabled.
-func (m *MaterialContainerTransformSharedElementCallback) SetSharedElementReenterTransitionEnabled(arg0 bool) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialContainerTransformSharedElementCallbackSetSharedElementReenterTransitionEnabled == nil {
-			callErr = fmt.Errorf("com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback.setSharedElementReenterTransitionEnabled is not available on this device")
-			return callErr
-		}
-		var jArg0 uint8
-		if arg0 {
-			jArg0 = jniTrue
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMaterialContainerTransformSharedElementCallbackSetSharedElementReenterTransitionEnabled, jni.BooleanValue(jArg0),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // ToString calls com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback.toString.

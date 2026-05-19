@@ -23,6 +23,34 @@ type DatasetBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDatasetBuilder creates a new android.service.autofill.Dataset$Builder instance.
+func NewDatasetBuilder(vm *jni.VM) (*DatasetBuilder, error) {
+	var t DatasetBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDatasetBuilder == nil {
+			return fmt.Errorf("android.service.autofill.Dataset$Builder is not available on this device")
+		}
+		if midDatasetBuilderCtor == nil {
+			return fmt.Errorf("android.service.autofill.Dataset$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDatasetBuilder)), midDatasetBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.service.autofill.Dataset$Builder.build.
 func (m *DatasetBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -23,50 +23,32 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsSetTargetFragmentUsageViolation                  *jni.GlobalRef
-	midSetTargetFragmentUsageViolationCtor              jni.MethodID
-	midSetTargetFragmentUsageViolationGetTargetFragment jni.MethodID
-	midSetTargetFragmentUsageViolationGetRequestCode    jni.MethodID
-	midSetTargetFragmentUsageViolationToString          jni.MethodID
-
-	clsGetTargetFragmentRequestCodeUsageViolation         *jni.GlobalRef
-	midGetTargetFragmentRequestCodeUsageViolationCtor     jni.MethodID
-	midGetTargetFragmentRequestCodeUsageViolationToString jni.MethodID
-
-	clsRetainInstanceUsageViolation         *jni.GlobalRef
-	midRetainInstanceUsageViolationToString jni.MethodID
-
-	clsFragmentTagUsageViolation                   *jni.GlobalRef
-	midFragmentTagUsageViolationCtor               jni.MethodID
-	midFragmentTagUsageViolationGetParentContainer jni.MethodID
-	midFragmentTagUsageViolationToString           jni.MethodID
-
-	clsViolation            *jni.GlobalRef
-	midViolationGetFragment jni.MethodID
-	midViolationToString    jni.MethodID
-
-	clsGetRetainInstanceUsageViolation         *jni.GlobalRef
-	midGetRetainInstanceUsageViolationCtor     jni.MethodID
-	midGetRetainInstanceUsageViolationToString jni.MethodID
+	clsWrongFragmentContainerViolation             *jni.GlobalRef
+	midWrongFragmentContainerViolationCtor         jni.MethodID
+	midWrongFragmentContainerViolationGetContainer jni.MethodID
+	midWrongFragmentContainerViolationToString     jni.MethodID
 
 	clsSetUserVisibleHintViolation                *jni.GlobalRef
 	midSetUserVisibleHintViolationCtor            jni.MethodID
 	midSetUserVisibleHintViolationIsVisibleToUser jni.MethodID
 	midSetUserVisibleHintViolationToString        jni.MethodID
 
-	clsSetRetainInstanceUsageViolation         *jni.GlobalRef
-	midSetRetainInstanceUsageViolationCtor     jni.MethodID
-	midSetRetainInstanceUsageViolationToString jni.MethodID
+	clsSetTargetFragmentUsageViolation                  *jni.GlobalRef
+	midSetTargetFragmentUsageViolationCtor              jni.MethodID
+	midSetTargetFragmentUsageViolationGetTargetFragment jni.MethodID
+	midSetTargetFragmentUsageViolationGetRequestCode    jni.MethodID
+	midSetTargetFragmentUsageViolationToString          jni.MethodID
 
-	clsWrongFragmentContainerViolation             *jni.GlobalRef
-	midWrongFragmentContainerViolationCtor         jni.MethodID
-	midWrongFragmentContainerViolationGetContainer jni.MethodID
-	midWrongFragmentContainerViolationToString     jni.MethodID
+	clsViolation            *jni.GlobalRef
+	midViolationGetFragment jni.MethodID
+	midViolationToString    jni.MethodID
+
+	clsTargetFragmentUsageViolation         *jni.GlobalRef
+	midTargetFragmentUsageViolationToString jni.MethodID
 
 	clsFragmentStrictMode                                    *jni.GlobalRef
 	midFragmentStrictModeGetDefaultPolicy                    jni.MethodID
 	midFragmentStrictModeSetDefaultPolicy                    jni.MethodID
-	midFragmentStrictModeOnPolicyViolation                   jni.MethodID
 	midFragmentStrictModeToString                            jni.MethodID
 	midFragmentStrictModeOnFragmentReuse                     jni.MethodID
 	midFragmentStrictModeOnFragmentTagUsage                  jni.MethodID
@@ -77,6 +59,7 @@ var (
 	midFragmentStrictModeOnGetTargetFragmentUsage            jni.MethodID
 	midFragmentStrictModeOnGetTargetFragmentRequestCodeUsage jni.MethodID
 	midFragmentStrictModeOnWrongFragmentContainer            jni.MethodID
+	midFragmentStrictModeOnPolicyViolation                   jni.MethodID
 
 	clsFragmentStrictModeFlag         *jni.GlobalRef
 	midFragmentStrictModeFlagToString jni.MethodID
@@ -87,16 +70,36 @@ var (
 	midFragmentStrictModeOnViolationListenerOnViolation jni.MethodID
 	midFragmentStrictModeOnViolationListenerToString    jni.MethodID
 
+	clsFragmentStrictModePolicy                           *jni.GlobalRef
+	midFragmentStrictModePolicyCtor                       jni.MethodID
+	midFragmentStrictModePolicyGetFlagsFragmentRelease    jni.MethodID
+	midFragmentStrictModePolicyToString                   jni.MethodID
+	midFragmentStrictModePolicyGetListenerFragmentRelease jni.MethodID
+
+	clsRetainInstanceUsageViolation         *jni.GlobalRef
+	midRetainInstanceUsageViolationToString jni.MethodID
+
+	clsGetRetainInstanceUsageViolation         *jni.GlobalRef
+	midGetRetainInstanceUsageViolationCtor     jni.MethodID
+	midGetRetainInstanceUsageViolationToString jni.MethodID
+
+	clsFragmentTagUsageViolation                   *jni.GlobalRef
+	midFragmentTagUsageViolationCtor               jni.MethodID
+	midFragmentTagUsageViolationGetParentContainer jni.MethodID
+	midFragmentTagUsageViolationToString           jni.MethodID
+
+	clsGetTargetFragmentRequestCodeUsageViolation         *jni.GlobalRef
+	midGetTargetFragmentRequestCodeUsageViolationCtor     jni.MethodID
+	midGetTargetFragmentRequestCodeUsageViolationToString jni.MethodID
+
+	clsSetRetainInstanceUsageViolation         *jni.GlobalRef
+	midSetRetainInstanceUsageViolationCtor     jni.MethodID
+	midSetRetainInstanceUsageViolationToString jni.MethodID
+
 	clsFragmentReuseViolation                      *jni.GlobalRef
 	midFragmentReuseViolationCtor                  jni.MethodID
 	midFragmentReuseViolationGetPreviousFragmentId jni.MethodID
 	midFragmentReuseViolationToString              jni.MethodID
-
-	clsFragmentStrictModePolicy         *jni.GlobalRef
-	midFragmentStrictModePolicyToString jni.MethodID
-
-	clsTargetFragmentUsageViolation         *jni.GlobalRef
-	midTargetFragmentUsageViolationToString jni.MethodID
 
 	clsGetTargetFragmentUsageViolation         *jni.GlobalRef
 	midGetTargetFragmentUsageViolationCtor     jni.MethodID
@@ -121,144 +124,26 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("androidx/fragment/app/strictmode/SetTargetFragmentUsageViolation")
+	c, err = env.FindClass("androidx/fragment/app/strictmode/WrongFragmentContainerViolation")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSetTargetFragmentUsageViolation = env.NewGlobalRef(&c.Object)
-		midSetTargetFragmentUsageViolationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetTargetFragmentUsageViolation)), "<init>", "(Landroidx/fragment/app/Fragment;Landroidx/fragment/app/Fragment;I)V")
+		clsWrongFragmentContainerViolation = env.NewGlobalRef(&c.Object)
+		midWrongFragmentContainerViolationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWrongFragmentContainerViolation)), "<init>", "(Landroidx/fragment/app/Fragment;Landroid/view/ViewGroup;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midSetTargetFragmentUsageViolationGetTargetFragment, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetTargetFragmentUsageViolation)), "getTargetFragment", "()Landroidx/fragment/app/Fragment;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetTargetFragmentUsageViolationGetRequestCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetTargetFragmentUsageViolation)), "getRequestCode", "()I")
+		midWrongFragmentContainerViolationGetContainer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWrongFragmentContainerViolation)), "getContainer", "()Landroid/view/ViewGroup;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSetTargetFragmentUsageViolationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetTargetFragmentUsageViolation)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/fragment/app/strictmode/GetTargetFragmentRequestCodeUsageViolation")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsGetTargetFragmentRequestCodeUsageViolation = env.NewGlobalRef(&c.Object)
-		midGetTargetFragmentRequestCodeUsageViolationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTargetFragmentRequestCodeUsageViolation)), "<init>", "(Landroidx/fragment/app/Fragment;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midGetTargetFragmentRequestCodeUsageViolationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTargetFragmentRequestCodeUsageViolation)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/fragment/app/strictmode/RetainInstanceUsageViolation")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRetainInstanceUsageViolation = env.NewGlobalRef(&c.Object)
-
-		midRetainInstanceUsageViolationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRetainInstanceUsageViolation)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/fragment/app/strictmode/FragmentTagUsageViolation")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFragmentTagUsageViolation = env.NewGlobalRef(&c.Object)
-		midFragmentTagUsageViolationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentTagUsageViolation)), "<init>", "(Landroidx/fragment/app/Fragment;Landroid/view/ViewGroup;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midFragmentTagUsageViolationGetParentContainer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentTagUsageViolation)), "getParentContainer", "()Landroid/view/ViewGroup;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFragmentTagUsageViolationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentTagUsageViolation)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/fragment/app/strictmode/Violation")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViolation = env.NewGlobalRef(&c.Object)
-
-		midViolationGetFragment, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViolation)), "getFragment", "()Landroidx/fragment/app/Fragment;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViolationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViolation)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/fragment/app/strictmode/GetRetainInstanceUsageViolation")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsGetRetainInstanceUsageViolation = env.NewGlobalRef(&c.Object)
-		midGetRetainInstanceUsageViolationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetRetainInstanceUsageViolation)), "<init>", "(Landroidx/fragment/app/Fragment;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midGetRetainInstanceUsageViolationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetRetainInstanceUsageViolation)), "toString", "()Ljava/lang/String;")
+		midWrongFragmentContainerViolationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWrongFragmentContainerViolation)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -295,19 +180,33 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/fragment/app/strictmode/SetRetainInstanceUsageViolation")
+	c, err = env.FindClass("androidx/fragment/app/strictmode/SetTargetFragmentUsageViolation")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSetRetainInstanceUsageViolation = env.NewGlobalRef(&c.Object)
-		midSetRetainInstanceUsageViolationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetRetainInstanceUsageViolation)), "<init>", "(Landroidx/fragment/app/Fragment;)V")
+		clsSetTargetFragmentUsageViolation = env.NewGlobalRef(&c.Object)
+		midSetTargetFragmentUsageViolationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetTargetFragmentUsageViolation)), "<init>", "(Landroidx/fragment/app/Fragment;Landroidx/fragment/app/Fragment;I)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midSetRetainInstanceUsageViolationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetRetainInstanceUsageViolation)), "toString", "()Ljava/lang/String;")
+		midSetTargetFragmentUsageViolationGetTargetFragment, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetTargetFragmentUsageViolation)), "getTargetFragment", "()Landroidx/fragment/app/Fragment;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetTargetFragmentUsageViolationGetRequestCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetTargetFragmentUsageViolation)), "getRequestCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetTargetFragmentUsageViolationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetTargetFragmentUsageViolation)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -316,26 +215,39 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/fragment/app/strictmode/WrongFragmentContainerViolation")
+	c, err = env.FindClass("androidx/fragment/app/strictmode/Violation")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsWrongFragmentContainerViolation = env.NewGlobalRef(&c.Object)
-		midWrongFragmentContainerViolationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWrongFragmentContainerViolation)), "<init>", "(Landroidx/fragment/app/Fragment;Landroid/view/ViewGroup;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsViolation = env.NewGlobalRef(&c.Object)
 
-		midWrongFragmentContainerViolationGetContainer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWrongFragmentContainerViolation)), "getContainer", "()Landroid/view/ViewGroup;")
+		midViolationGetFragment, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViolation)), "getFragment", "()Landroidx/fragment/app/Fragment;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midWrongFragmentContainerViolationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWrongFragmentContainerViolation)), "toString", "()Ljava/lang/String;")
+		midViolationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViolation)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/fragment/app/strictmode/TargetFragmentUsageViolation")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTargetFragmentUsageViolation = env.NewGlobalRef(&c.Object)
+
+		midTargetFragmentUsageViolationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTargetFragmentUsageViolation)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -360,13 +272,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midFragmentStrictModeSetDefaultPolicy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStrictMode)), "setDefaultPolicy", "(Landroidx/fragment/app/strictmode/FragmentStrictMode$Policy;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFragmentStrictModeOnPolicyViolation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStrictMode)), "onPolicyViolation", "(Landroidx/fragment/app/strictmode/Violation;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -443,6 +348,13 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
+		midFragmentStrictModeOnPolicyViolation, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStrictMode)), "onPolicyViolation", "(Landroidx/fragment/app/strictmode/Violation;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
 	}
 
 	c, err = env.FindClass("androidx/fragment/app/strictmode/FragmentStrictMode$Flag")
@@ -500,6 +412,149 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("androidx/fragment/app/strictmode/FragmentStrictMode$Policy")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFragmentStrictModePolicy = env.NewGlobalRef(&c.Object)
+		midFragmentStrictModePolicyCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStrictModePolicy)), "<init>", "(Ljava/util/Set;Landroidx/fragment/app/strictmode/FragmentStrictMode$OnViolationListener;Ljava/util/Map;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midFragmentStrictModePolicyGetFlagsFragmentRelease, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStrictModePolicy)), "getFlags$fragment_release", "()Ljava/util/Set;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFragmentStrictModePolicyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStrictModePolicy)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFragmentStrictModePolicyGetListenerFragmentRelease, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStrictModePolicy)), "getListener$fragment_release", "()Landroidx/fragment/app/strictmode/FragmentStrictMode$OnViolationListener;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/fragment/app/strictmode/RetainInstanceUsageViolation")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRetainInstanceUsageViolation = env.NewGlobalRef(&c.Object)
+
+		midRetainInstanceUsageViolationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRetainInstanceUsageViolation)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/fragment/app/strictmode/GetRetainInstanceUsageViolation")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsGetRetainInstanceUsageViolation = env.NewGlobalRef(&c.Object)
+		midGetRetainInstanceUsageViolationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetRetainInstanceUsageViolation)), "<init>", "(Landroidx/fragment/app/Fragment;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midGetRetainInstanceUsageViolationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetRetainInstanceUsageViolation)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/fragment/app/strictmode/FragmentTagUsageViolation")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFragmentTagUsageViolation = env.NewGlobalRef(&c.Object)
+		midFragmentTagUsageViolationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentTagUsageViolation)), "<init>", "(Landroidx/fragment/app/Fragment;Landroid/view/ViewGroup;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midFragmentTagUsageViolationGetParentContainer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentTagUsageViolation)), "getParentContainer", "()Landroid/view/ViewGroup;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFragmentTagUsageViolationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentTagUsageViolation)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/fragment/app/strictmode/GetTargetFragmentRequestCodeUsageViolation")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsGetTargetFragmentRequestCodeUsageViolation = env.NewGlobalRef(&c.Object)
+		midGetTargetFragmentRequestCodeUsageViolationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTargetFragmentRequestCodeUsageViolation)), "<init>", "(Landroidx/fragment/app/Fragment;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midGetTargetFragmentRequestCodeUsageViolationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTargetFragmentRequestCodeUsageViolation)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/fragment/app/strictmode/SetRetainInstanceUsageViolation")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSetRetainInstanceUsageViolation = env.NewGlobalRef(&c.Object)
+		midSetRetainInstanceUsageViolationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetRetainInstanceUsageViolation)), "<init>", "(Landroidx/fragment/app/Fragment;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSetRetainInstanceUsageViolationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetRetainInstanceUsageViolation)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("androidx/fragment/app/strictmode/FragmentReuseViolation")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -520,40 +575,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midFragmentReuseViolationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentReuseViolation)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/fragment/app/strictmode/FragmentStrictMode$Policy")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFragmentStrictModePolicy = env.NewGlobalRef(&c.Object)
-
-		midFragmentStrictModePolicyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFragmentStrictModePolicy)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/fragment/app/strictmode/TargetFragmentUsageViolation")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTargetFragmentUsageViolation = env.NewGlobalRef(&c.Object)
-
-		midTargetFragmentUsageViolationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTargetFragmentUsageViolation)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

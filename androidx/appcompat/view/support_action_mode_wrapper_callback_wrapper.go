@@ -23,6 +23,35 @@ type SupportActionModeWrapperCallbackWrapper struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSupportActionModeWrapperCallbackWrapper creates a new androidx.appcompat.view.SupportActionModeWrapper$CallbackWrapper instance.
+func NewSupportActionModeWrapperCallbackWrapper(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*SupportActionModeWrapperCallbackWrapper, error) {
+	var t SupportActionModeWrapperCallbackWrapper
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSupportActionModeWrapperCallbackWrapper == nil {
+			return fmt.Errorf("androidx.appcompat.view.SupportActionModeWrapper$CallbackWrapper is not available on this device")
+		}
+		if midSupportActionModeWrapperCallbackWrapperCtor == nil {
+			return fmt.Errorf("androidx.appcompat.view.SupportActionModeWrapper$CallbackWrapper constructor (Landroid/content/Context;Landroid/view/ActionMode$Callback;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapperCallbackWrapper)), midSupportActionModeWrapperCallbackWrapperCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnCreateActionMode calls androidx.appcompat.view.SupportActionModeWrapper$CallbackWrapper.onCreateActionMode.
 func (m *SupportActionModeWrapperCallbackWrapper) OnCreateActionMode(arg0 *jni.Object, arg1 *jni.Object) (bool, error) {
 	var result bool

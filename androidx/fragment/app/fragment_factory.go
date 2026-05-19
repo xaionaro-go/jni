@@ -30,6 +30,12 @@ func NewFragmentFactory(vm *jni.VM) (*FragmentFactory, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFragmentFactory == nil {
+			return fmt.Errorf("androidx.fragment.app.FragmentFactory is not available on this device")
+		}
+		if midFragmentFactoryCtor == nil {
+			return fmt.Errorf("androidx.fragment.app.FragmentFactory constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFragmentFactory)), midFragmentFactoryCtor)
 		if err != nil {
 			return err
@@ -41,45 +47,6 @@ func NewFragmentFactory(vm *jni.VM) (*FragmentFactory, error) {
 		return nil, err
 	}
 	return &t, nil
-}
-
-// Instantiate calls androidx.fragment.app.FragmentFactory.instantiate.
-func (m *FragmentFactory) Instantiate(arg0 *jni.Object, arg1 string) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFragmentFactoryInstantiate == nil {
-			callErr = fmt.Errorf("androidx.fragment.app.FragmentFactory.instantiate is not available on this device")
-			return callErr
-		}
-
-		jArg1, err := env.NewStringUTF(arg1)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg1.Object)
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midFragmentFactoryInstantiate, jni.ObjectValue(arg0), jni.ObjectValue(&jArg1.Object),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls androidx.fragment.app.FragmentFactory.toString.
@@ -104,6 +71,45 @@ func (m *FragmentFactory) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// Instantiate calls androidx.fragment.app.FragmentFactory.instantiate.
+func (m *FragmentFactory) Instantiate(arg0 *jni.Object, arg1 string) (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midFragmentFactoryInstantiate == nil {
+			callErr = fmt.Errorf("androidx.fragment.app.FragmentFactory.instantiate is not available on this device")
+			return callErr
+		}
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsFragmentFactory)),
+			midFragmentFactoryInstantiate, jni.ObjectValue(arg0), jni.ObjectValue(&jArg1.Object),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
 		return callErr
 	})
 	return result, callErr

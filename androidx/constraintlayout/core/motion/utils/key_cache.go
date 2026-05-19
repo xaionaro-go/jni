@@ -32,6 +32,12 @@ func NewKeyCache(vm *jni.VM) (*KeyCache, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsKeyCache == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.KeyCache is not available on this device")
+		}
+		if midKeyCacheCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.KeyCache constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyCache)), midKeyCacheCtor)
 		if err != nil {
 			return err

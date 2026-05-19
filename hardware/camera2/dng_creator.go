@@ -32,6 +32,12 @@ func NewDngCreator(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*DngCreator,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDngCreator == nil {
+			return fmt.Errorf("android.hardware.camera2.DngCreator is not available on this device")
+		}
+		if midDngCreatorCtor == nil {
+			return fmt.Errorf("android.hardware.camera2.DngCreator constructor (Landroid/hardware/camera2/CameraCharacteristics;Landroid/hardware/camera2/CaptureResult;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDngCreator)), midDngCreatorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

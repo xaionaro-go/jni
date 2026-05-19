@@ -30,6 +30,12 @@ func NewComponentActivity(vm *jni.VM) (*ComponentActivity, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsComponentActivity == nil {
+			return fmt.Errorf("androidx.core.app.ComponentActivity is not available on this device")
+		}
+		if midComponentActivityCtor == nil {
+			return fmt.Errorf("androidx.core.app.ComponentActivity constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsComponentActivity)), midComponentActivityCtor)
 		if err != nil {
 			return err
@@ -60,6 +66,29 @@ func (m *ComponentActivity) PutExtraData(arg0 *jni.Object) error {
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midComponentActivityPutExtraData, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
+}
+
+// OnSaveInstanceState calls androidx.core.app.ComponentActivity.onSaveInstanceState.
+func (m *ComponentActivity) OnSaveInstanceState(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midComponentActivityOnSaveInstanceState == nil {
+			callErr = fmt.Errorf("androidx.core.app.ComponentActivity.onSaveInstanceState is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallVoidMethod(
+			m.Obj,
+			midComponentActivityOnSaveInstanceState, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})

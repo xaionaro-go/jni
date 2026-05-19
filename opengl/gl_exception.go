@@ -32,6 +32,12 @@ func NewGLException(vm *jni.VM, arg0 int32) (*GLException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGLException == nil {
+			return fmt.Errorf("android.opengl.GLException is not available on this device")
+		}
+		if midGLExceptionCtor == nil {
+			return fmt.Errorf("android.opengl.GLException constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGLException)), midGLExceptionCtor, jni.IntValue(arg0))
 		if err != nil {

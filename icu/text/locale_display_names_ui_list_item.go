@@ -23,6 +23,47 @@ type LocaleDisplayNamesUiListItem struct {
 	Obj *jni.GlobalRef
 }
 
+// NewLocaleDisplayNamesUiListItem creates a new android.icu.text.LocaleDisplayNames$UiListItem instance.
+func NewLocaleDisplayNamesUiListItem(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 string, arg3 string) (*LocaleDisplayNamesUiListItem, error) {
+	var t LocaleDisplayNamesUiListItem
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsLocaleDisplayNamesUiListItem == nil {
+			return fmt.Errorf("android.icu.text.LocaleDisplayNames$UiListItem is not available on this device")
+		}
+		if midLocaleDisplayNamesUiListItemCtor == nil {
+			return fmt.Errorf("android.icu.text.LocaleDisplayNames$UiListItem constructor (Landroid/icu/util/ULocale;Landroid/icu/util/ULocale;Ljava/lang/String;Ljava/lang/String;)V is not available on this device")
+		}
+
+		jArg2, err := env.NewStringUTF(arg2)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg2.Object)
+
+		jArg3, err := env.NewStringUTF(arg3)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg3.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLocaleDisplayNamesUiListItem)), midLocaleDisplayNamesUiListItemCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(&jArg2.Object), jni.ObjectValue(&jArg3.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.icu.text.LocaleDisplayNames$UiListItem.equals.
 func (m *LocaleDisplayNamesUiListItem) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

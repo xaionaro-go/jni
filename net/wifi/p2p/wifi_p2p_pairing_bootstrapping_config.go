@@ -32,6 +32,12 @@ func NewWifiP2pPairingBootstrappingConfig(vm *jni.VM, arg0 int32, arg1 string) (
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWifiP2pPairingBootstrappingConfig == nil {
+			return fmt.Errorf("android.net.wifi.p2p.WifiP2pPairingBootstrappingConfig is not available on this device")
+		}
+		if midWifiP2pPairingBootstrappingConfigCtor == nil {
+			return fmt.Errorf("android.net.wifi.p2p.WifiP2pPairingBootstrappingConfig constructor (ILjava/lang/String;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {
@@ -118,8 +124,8 @@ func (m *WifiP2pPairingBootstrappingConfig) WriteToParcel(arg0 *jni.Object, arg1
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsWifiP2pPairingBootstrappingConfig)),
 			midWifiP2pPairingBootstrappingConfigWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

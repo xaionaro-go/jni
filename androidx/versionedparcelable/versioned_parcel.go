@@ -1101,8 +1101,8 @@ func (m *VersionedParcel) WriteDoubleArray(arg0 *jni.Object, arg1 int32) error {
 	return callErr
 }
 
-// ReadDoubleArray calls androidx.versionedparcelable.VersionedParcel.readDoubleArray.
-func (m *VersionedParcel) ReadDoubleArray(arg0 *jni.Object, arg1 int32) (*jni.Object, error) {
+// ReadDoubleArray2 calls androidx.versionedparcelable.VersionedParcel.readDoubleArray.
+func (m *VersionedParcel) ReadDoubleArray2(arg0 *jni.Object, arg1 int32) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1110,14 +1110,46 @@ func (m *VersionedParcel) ReadDoubleArray(arg0 *jni.Object, arg1 int32) (*jni.Ob
 			callErr = err
 			return err
 		}
-		if midVersionedParcelReadDoubleArray == nil {
+		if midVersionedParcelReadDoubleArray2 == nil {
 			callErr = fmt.Errorf("androidx.versionedparcelable.VersionedParcel.readDoubleArray is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midVersionedParcelReadDoubleArray, jni.ObjectValue(arg0), jni.IntValue(arg1),
+			midVersionedParcelReadDoubleArray2, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// ReadDoubleArray0_1 calls androidx.versionedparcelable.VersionedParcel.readDoubleArray.
+func (m *VersionedParcel) ReadDoubleArray0_1() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midVersionedParcelReadDoubleArray0_1 == nil {
+			callErr = fmt.Errorf("androidx.versionedparcelable.VersionedParcel.readDoubleArray is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallObjectMethod(
+			m.Obj,
+			midVersionedParcelReadDoubleArray0_1,
 		)
 		if callErr != nil {
 			return callErr

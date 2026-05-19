@@ -32,6 +32,12 @@ func NewPendingIntentActivityWrapper(vm *jni.VM, arg0 *jni.Object, arg1 int32, a
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPendingIntentActivityWrapper == nil {
+			return fmt.Errorf("androidx.core.service.quicksettings.PendingIntentActivityWrapper is not available on this device")
+		}
+		if midPendingIntentActivityWrapperCtor == nil {
+			return fmt.Errorf("androidx.core.service.quicksettings.PendingIntentActivityWrapper constructor (Landroid/content/Context;ILandroid/content/Intent;IZ)V is not available on this device")
+		}
 
 		var jArg4 uint8
 		if arg4 {

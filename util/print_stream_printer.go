@@ -32,6 +32,12 @@ func NewPrintStreamPrinter(vm *jni.VM, arg0 *jni.Object) (*PrintStreamPrinter, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPrintStreamPrinter == nil {
+			return fmt.Errorf("android.util.PrintStreamPrinter is not available on this device")
+		}
+		if midPrintStreamPrinterCtor == nil {
+			return fmt.Errorf("android.util.PrintStreamPrinter constructor (Ljava/io/PrintStream;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPrintStreamPrinter)), midPrintStreamPrinterCtor, jni.ObjectValue(arg0))
 		if err != nil {

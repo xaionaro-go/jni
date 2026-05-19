@@ -31,15 +31,6 @@ var (
 	midVisibleActivityInfoToString         jni.MethodID
 	midVisibleActivityInfoWriteToParcel    jni.MethodID
 
-	clsInteractionSessionService                       *jni.GlobalRef
-	midInteractionSessionServiceOnBind                 jni.MethodID
-	midInteractionSessionServiceOnConfigurationChanged jni.MethodID
-	midInteractionSessionServiceOnCreate               jni.MethodID
-	midInteractionSessionServiceOnLowMemory            jni.MethodID
-	midInteractionSessionServiceOnNewSession           jni.MethodID
-	midInteractionSessionServiceOnTrimMemory           jni.MethodID
-	midInteractionSessionServiceToString               jni.MethodID
-
 	clsInteractionSession                                  *jni.GlobalRef
 	midInteractionSessionCtor                              jni.MethodID
 	midInteractionSessionCloseSystemDialogs                jni.MethodID
@@ -136,6 +127,7 @@ var (
 	midInteractionSessionConfirmationRequestToString               jni.MethodID
 
 	clsInteractionSessionInsets         *jni.GlobalRef
+	midInteractionSessionInsetsCtor     jni.MethodID
 	midInteractionSessionInsetsToString jni.MethodID
 
 	clsInteractionSessionPickOptionRequest                                 *jni.GlobalRef
@@ -156,6 +148,15 @@ var (
 
 	clsInteractionSessionVisibleActivityCallback         *jni.GlobalRef
 	midInteractionSessionVisibleActivityCallbackToString jni.MethodID
+
+	clsInteractionSessionService                       *jni.GlobalRef
+	midInteractionSessionServiceOnBind                 jni.MethodID
+	midInteractionSessionServiceOnConfigurationChanged jni.MethodID
+	midInteractionSessionServiceOnCreate               jni.MethodID
+	midInteractionSessionServiceOnLowMemory            jni.MethodID
+	midInteractionSessionServiceOnNewSession           jni.MethodID
+	midInteractionSessionServiceOnTrimMemory           jni.MethodID
+	midInteractionSessionServiceToString               jni.MethodID
 
 	clsInteractionService                                *jni.GlobalRef
 	midInteractionServiceCtor                            jni.MethodID
@@ -234,66 +235,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midVisibleActivityInfoWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibleActivityInfo)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/service/voice/VoiceInteractionSessionService")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsInteractionSessionService = env.NewGlobalRef(&c.Object)
-
-		midInteractionSessionServiceOnBind, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInteractionSessionService)), "onBind", "(Landroid/content/Intent;)Landroid/os/IBinder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInteractionSessionServiceOnConfigurationChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInteractionSessionService)), "onConfigurationChanged", "(Landroid/content/res/Configuration;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInteractionSessionServiceOnCreate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInteractionSessionService)), "onCreate", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInteractionSessionServiceOnLowMemory, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInteractionSessionService)), "onLowMemory", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInteractionSessionServiceOnNewSession, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInteractionSessionService)), "onNewSession", "(Landroid/os/Bundle;)Landroid/service/voice/VoiceInteractionSession;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInteractionSessionServiceOnTrimMemory, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInteractionSessionService)), "onTrimMemory", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInteractionSessionServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInteractionSessionService)), "toString", "()Ljava/lang/String;")
+		midVisibleActivityInfoWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsVisibleActivityInfo)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -943,6 +885,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsInteractionSessionInsets = env.NewGlobalRef(&c.Object)
+		midInteractionSessionInsetsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInteractionSessionInsets)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midInteractionSessionInsetsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInteractionSessionInsets)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -1066,6 +1012,65 @@ func doInit(env *jni.Env) error {
 		clsInteractionSessionVisibleActivityCallback = env.NewGlobalRef(&c.Object)
 
 		midInteractionSessionVisibleActivityCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInteractionSessionVisibleActivityCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/service/voice/VoiceInteractionSessionService")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInteractionSessionService = env.NewGlobalRef(&c.Object)
+
+		midInteractionSessionServiceOnBind, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInteractionSessionService)), "onBind", "(Landroid/content/Intent;)Landroid/os/IBinder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInteractionSessionServiceOnConfigurationChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInteractionSessionService)), "onConfigurationChanged", "(Landroid/content/res/Configuration;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInteractionSessionServiceOnCreate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInteractionSessionService)), "onCreate", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInteractionSessionServiceOnLowMemory, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInteractionSessionService)), "onLowMemory", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInteractionSessionServiceOnNewSession, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInteractionSessionService)), "onNewSession", "(Landroid/os/Bundle;)Landroid/service/voice/VoiceInteractionSession;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInteractionSessionServiceOnTrimMemory, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInteractionSessionService)), "onTrimMemory", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInteractionSessionServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInteractionSessionService)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

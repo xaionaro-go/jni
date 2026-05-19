@@ -114,8 +114,8 @@ func (m *WifiP2pUsdBasedLocalServiceAdvertisementConfig) WriteToParcel(arg0 *jni
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsWifiP2pUsdBasedLocalServiceAdvertisementConfig)),
 			midWifiP2pUsdBasedLocalServiceAdvertisementConfigWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

@@ -23,6 +23,34 @@ type CodecConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCodecConfigBuilder creates a new android.bluetooth.BluetoothCodecConfig$Builder instance.
+func NewCodecConfigBuilder(vm *jni.VM) (*CodecConfigBuilder, error) {
+	var t CodecConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCodecConfigBuilder == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothCodecConfig$Builder is not available on this device")
+		}
+		if midCodecConfigBuilderCtor == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothCodecConfig$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), midCodecConfigBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.bluetooth.BluetoothCodecConfig$Builder.build.
 func (m *CodecConfigBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

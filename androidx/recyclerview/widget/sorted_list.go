@@ -32,6 +32,12 @@ func NewSortedList(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*SortedList,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSortedList == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.SortedList is not available on this device")
+		}
+		if midSortedListCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.SortedList constructor (Ljava/lang/Class;Landroidx/recyclerview/widget/SortedList$Callback;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSortedList)), midSortedListCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

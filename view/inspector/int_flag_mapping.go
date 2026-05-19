@@ -32,6 +32,12 @@ func NewIntFlagMapping(vm *jni.VM) (*IntFlagMapping, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsIntFlagMapping == nil {
+			return fmt.Errorf("android.view.inspector.IntFlagMapping is not available on this device")
+		}
+		if midIntFlagMappingCtor == nil {
+			return fmt.Errorf("android.view.inspector.IntFlagMapping constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIntFlagMapping)), midIntFlagMappingCtor)
 		if err != nil {
 			return err

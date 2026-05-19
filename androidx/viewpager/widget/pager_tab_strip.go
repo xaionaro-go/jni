@@ -32,6 +32,12 @@ func NewPagerTabStrip(vm *jni.VM, arg0 *jni.Object) (*PagerTabStrip, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPagerTabStrip == nil {
+			return fmt.Errorf("androidx.viewpager.widget.PagerTabStrip is not available on this device")
+		}
+		if midPagerTabStripCtor == nil {
+			return fmt.Errorf("androidx.viewpager.widget.PagerTabStrip constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPagerTabStrip)), midPagerTabStripCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -36,10 +36,6 @@ classes:
               go_name: arg0
           returns: void
           error: true
-        - java_method: clearOnScrollStateChangedListeners
-          go_name: ClearOnScrollStateChangedListeners
-          returns: void
-          error: true
     - java_class: com.google.android.material.behavior.HideBottomViewOnScrollBehavior$OnScrollStateChangedListener
       go_type: HideBottomViewOnScrollBehaviorOnScrollStateChangedListener
       methods:
@@ -104,16 +100,13 @@ classes:
               go_name: arg0
           returns: void
           error: true
+      static_methods:
         - java_method: canSwipeDismissView
           go_name: CanSwipeDismissView
           params:
             - java_type: android.view.View
               go_name: arg0
           returns: boolean
-          error: true
-        - java_method: getDragState
-          go_name: GetDragState
-          returns: int
           error: true
     - java_class: com.google.android.material.behavior.SwipeDismissBehavior$OnDismissListener
       go_type: SwipeDismissBehaviorOnDismissListener

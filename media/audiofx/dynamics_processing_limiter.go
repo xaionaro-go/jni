@@ -23,6 +23,35 @@ type DynamicsProcessingLimiter struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDynamicsProcessingLimiter creates a new android.media.audiofx.DynamicsProcessing$Limiter instance.
+func NewDynamicsProcessingLimiter(vm *jni.VM, arg0 *jni.Object) (*DynamicsProcessingLimiter, error) {
+	var t DynamicsProcessingLimiter
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDynamicsProcessingLimiter == nil {
+			return fmt.Errorf("android.media.audiofx.DynamicsProcessing$Limiter is not available on this device")
+		}
+		if midDynamicsProcessingLimiterCtor == nil {
+			return fmt.Errorf("android.media.audiofx.DynamicsProcessing$Limiter constructor (Landroid/media/audiofx/DynamicsProcessing$Limiter;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDynamicsProcessingLimiter)), midDynamicsProcessingLimiterCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetAttackTime calls android.media.audiofx.DynamicsProcessing$Limiter.getAttackTime.
 func (m *DynamicsProcessingLimiter) GetAttackTime() (float32, error) {
 	var result float32

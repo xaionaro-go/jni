@@ -32,6 +32,12 @@ func NewProxy(vm *jni.VM) (*Proxy, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsProxy == nil {
+			return fmt.Errorf("android.net.Proxy is not available on this device")
+		}
+		if midProxyCtor == nil {
+			return fmt.Errorf("android.net.Proxy constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsProxy)), midProxyCtor)
 		if err != nil {
 			return err

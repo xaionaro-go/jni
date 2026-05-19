@@ -827,29 +827,6 @@ func (m *Manager) UnmountObb(
 	return result, callErr
 }
 
-// UnregisterStorageVolumeCallback calls android.os.storage.StorageManager.unregisterStorageVolumeCallback.
-func (m *Manager) UnregisterStorageVolumeCallback(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midManagerUnregisterStorageVolumeCallback == nil {
-			callErr = fmt.Errorf("android.os.storage.StorageManager.unregisterStorageVolumeCallback is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midManagerUnregisterStorageVolumeCallback, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.os.storage.StorageManager.toString.
 func (m *Manager) ToString() (string, error) {
 	var result string
@@ -875,4 +852,27 @@ func (m *Manager) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// UnregisterStorageVolumeCallback calls android.os.storage.StorageManager.unregisterStorageVolumeCallback.
+func (m *Manager) UnregisterStorageVolumeCallback(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midManagerUnregisterStorageVolumeCallback == nil {
+			callErr = fmt.Errorf("android.os.storage.StorageManager.unregisterStorageVolumeCallback is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsManager)),
+			midManagerUnregisterStorageVolumeCallback, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

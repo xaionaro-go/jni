@@ -32,6 +32,12 @@ func NewSynthesisRequest(vm *jni.VM, arg0 string, arg1 *jni.Object) (*SynthesisR
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSynthesisRequest == nil {
+			return fmt.Errorf("android.speech.tts.SynthesisRequest is not available on this device")
+		}
+		if midSynthesisRequestCtor == nil {
+			return fmt.Errorf("android.speech.tts.SynthesisRequest constructor (Ljava/lang/CharSequence;Landroid/os/Bundle;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

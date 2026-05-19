@@ -23,6 +23,34 @@ type LeAudioCodecConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewLeAudioCodecConfigBuilder creates a new android.bluetooth.BluetoothLeAudioCodecConfig$Builder instance.
+func NewLeAudioCodecConfigBuilder(vm *jni.VM) (*LeAudioCodecConfigBuilder, error) {
+	var t LeAudioCodecConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsLeAudioCodecConfigBuilder == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothLeAudioCodecConfig$Builder is not available on this device")
+		}
+		if midLeAudioCodecConfigBuilderCtor == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothLeAudioCodecConfig$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), midLeAudioCodecConfigBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.bluetooth.BluetoothLeAudioCodecConfig$Builder.build.
 func (m *LeAudioCodecConfigBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -23,6 +23,34 @@ type MaterialContainerTransformSharedElementCallbackShapeableViewShapeProvider s
 	Obj *jni.GlobalRef
 }
 
+// NewMaterialContainerTransformSharedElementCallbackShapeableViewShapeProvider creates a new com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback$ShapeableViewShapeProvider instance.
+func NewMaterialContainerTransformSharedElementCallbackShapeableViewShapeProvider(vm *jni.VM) (*MaterialContainerTransformSharedElementCallbackShapeableViewShapeProvider, error) {
+	var t MaterialContainerTransformSharedElementCallbackShapeableViewShapeProvider
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMaterialContainerTransformSharedElementCallbackShapeableViewShapeProvider == nil {
+			return fmt.Errorf("com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback$ShapeableViewShapeProvider is not available on this device")
+		}
+		if midMaterialContainerTransformSharedElementCallbackShapeableViewShapeProviderCtor == nil {
+			return fmt.Errorf("com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback$ShapeableViewShapeProvider constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformSharedElementCallbackShapeableViewShapeProvider)), midMaterialContainerTransformSharedElementCallbackShapeableViewShapeProviderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ProvideShape calls com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback$ShapeableViewShapeProvider.provideShape.
 func (m *MaterialContainerTransformSharedElementCallbackShapeableViewShapeProvider) ProvideShape(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

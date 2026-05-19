@@ -32,6 +32,12 @@ func NewAutoTransition(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*AutoTra
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAutoTransition == nil {
+			return fmt.Errorf("androidx.transition.AutoTransition is not available on this device")
+		}
+		if midAutoTransitionCtor == nil {
+			return fmt.Errorf("androidx.transition.AutoTransition constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAutoTransition)), midAutoTransitionCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

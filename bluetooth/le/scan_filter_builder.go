@@ -23,6 +23,34 @@ type ScanFilterBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewScanFilterBuilder creates a new android.bluetooth.le.ScanFilter$Builder instance.
+func NewScanFilterBuilder(vm *jni.VM) (*ScanFilterBuilder, error) {
+	var t ScanFilterBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsScanFilterBuilder == nil {
+			return fmt.Errorf("android.bluetooth.le.ScanFilter$Builder is not available on this device")
+		}
+		if midScanFilterBuilderCtor == nil {
+			return fmt.Errorf("android.bluetooth.le.ScanFilter$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScanFilterBuilder)), midScanFilterBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.bluetooth.le.ScanFilter$Builder.build.
 func (m *ScanFilterBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

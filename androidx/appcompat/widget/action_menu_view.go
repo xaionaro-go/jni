@@ -32,6 +32,12 @@ func NewActionMenuView(vm *jni.VM, arg0 *jni.Object) (*ActionMenuView, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsActionMenuView == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ActionMenuView is not available on this device")
+		}
+		if midActionMenuViewCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ActionMenuView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActionMenuView)), midActionMenuViewCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -294,8 +300,8 @@ func (m *ActionMenuView) SetOverflowReserved(arg0 bool) error {
 	return callErr
 }
 
-// GenerateLayoutParams1 calls androidx.appcompat.widget.ActionMenuView.generateLayoutParams.
-func (m *ActionMenuView) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, error) {
+// GenerateLayoutParams calls androidx.appcompat.widget.ActionMenuView.generateLayoutParams.
+func (m *ActionMenuView) GenerateLayoutParams(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -303,14 +309,14 @@ func (m *ActionMenuView) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, e
 			callErr = err
 			return err
 		}
-		if midActionMenuViewGenerateLayoutParams1 == nil {
+		if midActionMenuViewGenerateLayoutParams == nil {
 			callErr = fmt.Errorf("androidx.appcompat.widget.ActionMenuView.generateLayoutParams is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActionMenuViewGenerateLayoutParams1, jni.ObjectValue(arg0),
+			midActionMenuViewGenerateLayoutParams, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -705,72 +711,6 @@ func (m *ActionMenuView) SetExpandedActionViewsExclusive(arg0 bool) error {
 		return callErr
 	})
 	return callErr
-}
-
-// GenerateLayoutParams1_1 calls androidx.appcompat.widget.ActionMenuView.generateLayoutParams.
-func (m *ActionMenuView) GenerateLayoutParams1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActionMenuViewGenerateLayoutParams1_1 == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.ActionMenuView.generateLayoutParams is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActionMenuViewGenerateLayoutParams1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GenerateLayoutParams1_2 calls androidx.appcompat.widget.ActionMenuView.generateLayoutParams.
-func (m *ActionMenuView) GenerateLayoutParams1_2(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActionMenuViewGenerateLayoutParams1_2 == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.ActionMenuView.generateLayoutParams is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActionMenuViewGenerateLayoutParams1_2, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls androidx.appcompat.widget.ActionMenuView.toString.

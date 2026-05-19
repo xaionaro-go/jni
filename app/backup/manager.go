@@ -32,6 +32,12 @@ func NewManager(vm *jni.VM, arg0 *jni.Object) (*Manager, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsManager == nil {
+			return fmt.Errorf("android.app.backup.BackupManager is not available on this device")
+		}
+		if midManagerCtor == nil {
+			return fmt.Errorf("android.app.backup.BackupManager constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsManager)), midManagerCtor, jni.ObjectValue(arg0))
 		if err != nil {

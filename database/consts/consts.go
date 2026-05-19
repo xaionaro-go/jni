@@ -3,10 +3,10 @@
 package consts
 
 const (
+	Creator             int = 0
 	Both                int = 0
 	Left                int = 0
 	Right               int = 0
-	Creator             int = 0
 	StatementAbort      int = 6
 	StatementAttach     int = 3
 	StatementBegin      int = 4

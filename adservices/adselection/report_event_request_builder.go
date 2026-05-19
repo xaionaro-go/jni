@@ -23,6 +23,47 @@ type ReportEventRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewReportEventRequestBuilder creates a new android.adservices.adselection.ReportEventRequest$Builder instance.
+func NewReportEventRequestBuilder(vm *jni.VM, arg0 int64, arg1 string, arg2 string, arg3 int32) (*ReportEventRequestBuilder, error) {
+	var t ReportEventRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsReportEventRequestBuilder == nil {
+			return fmt.Errorf("android.adservices.adselection.ReportEventRequest$Builder is not available on this device")
+		}
+		if midReportEventRequestBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.adselection.ReportEventRequest$Builder constructor (JLjava/lang/String;Ljava/lang/String;I)V is not available on this device")
+		}
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		jArg2, err := env.NewStringUTF(arg2)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg2.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsReportEventRequestBuilder)), midReportEventRequestBuilderCtor, jni.LongValue(arg0), jni.ObjectValue(&jArg1.Object), jni.ObjectValue(&jArg2.Object), jni.IntValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.adselection.ReportEventRequest$Builder.build.
 func (m *ReportEventRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

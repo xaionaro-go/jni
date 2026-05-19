@@ -23,45 +23,46 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsPdfPageLinkContent                 *jni.GlobalRef
-	midPdfPageLinkContentCtor             jni.MethodID
-	midPdfPageLinkContentDescribeContents jni.MethodID
-	midPdfPageLinkContentGetBounds        jni.MethodID
-	midPdfPageLinkContentGetUri           jni.MethodID
-	midPdfPageLinkContentWriteToParcel    jni.MethodID
-	midPdfPageLinkContentToString         jni.MethodID
-
-	clsPdfPageTextContent                 *jni.GlobalRef
-	midPdfPageTextContentCtor             jni.MethodID
-	midPdfPageTextContentDescribeContents jni.MethodID
-	midPdfPageTextContentGetBounds        jni.MethodID
-	midPdfPageTextContentGetText          jni.MethodID
-	midPdfPageTextContentWriteToParcel    jni.MethodID
-	midPdfPageTextContentToString         jni.MethodID
+	clsPdfPageImageContent                 *jni.GlobalRef
+	midPdfPageImageContentCtor             jni.MethodID
+	midPdfPageImageContentDescribeContents jni.MethodID
+	midPdfPageImageContentGetAltText       jni.MethodID
+	midPdfPageImageContentToString         jni.MethodID
+	midPdfPageImageContentWriteToParcel    jni.MethodID
 
 	clsPdfPageGotoLinkContent                 *jni.GlobalRef
 	midPdfPageGotoLinkContentCtor             jni.MethodID
 	midPdfPageGotoLinkContentDescribeContents jni.MethodID
 	midPdfPageGotoLinkContentGetBounds        jni.MethodID
 	midPdfPageGotoLinkContentGetDestination   jni.MethodID
-	midPdfPageGotoLinkContentWriteToParcel    jni.MethodID
 	midPdfPageGotoLinkContentToString         jni.MethodID
-
-	clsPdfPageImageContent                 *jni.GlobalRef
-	midPdfPageImageContentCtor             jni.MethodID
-	midPdfPageImageContentDescribeContents jni.MethodID
-	midPdfPageImageContentGetAltText       jni.MethodID
-	midPdfPageImageContentWriteToParcel    jni.MethodID
-	midPdfPageImageContentToString         jni.MethodID
+	midPdfPageGotoLinkContentWriteToParcel    jni.MethodID
 
 	clsPdfPageGotoLinkContentDestination                 *jni.GlobalRef
+	midPdfPageGotoLinkContentDestinationCtor             jni.MethodID
 	midPdfPageGotoLinkContentDestinationDescribeContents jni.MethodID
 	midPdfPageGotoLinkContentDestinationGetPageNumber    jni.MethodID
 	midPdfPageGotoLinkContentDestinationGetXCoordinate   jni.MethodID
 	midPdfPageGotoLinkContentDestinationGetYCoordinate   jni.MethodID
 	midPdfPageGotoLinkContentDestinationGetZoom          jni.MethodID
-	midPdfPageGotoLinkContentDestinationWriteToParcel    jni.MethodID
 	midPdfPageGotoLinkContentDestinationToString         jni.MethodID
+	midPdfPageGotoLinkContentDestinationWriteToParcel    jni.MethodID
+
+	clsPdfPageTextContent                 *jni.GlobalRef
+	midPdfPageTextContentCtor             jni.MethodID
+	midPdfPageTextContentDescribeContents jni.MethodID
+	midPdfPageTextContentGetBounds        jni.MethodID
+	midPdfPageTextContentGetText          jni.MethodID
+	midPdfPageTextContentToString         jni.MethodID
+	midPdfPageTextContentWriteToParcel    jni.MethodID
+
+	clsPdfPageLinkContent                 *jni.GlobalRef
+	midPdfPageLinkContentCtor             jni.MethodID
+	midPdfPageLinkContentDescribeContents jni.MethodID
+	midPdfPageLinkContentGetBounds        jni.MethodID
+	midPdfPageLinkContentGetUri           jni.MethodID
+	midPdfPageLinkContentToString         jni.MethodID
+	midPdfPageLinkContentWriteToParcel    jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -82,96 +83,40 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("android/graphics/pdf/content/PdfPageLinkContent")
+	c, err = env.FindClass("android/graphics/pdf/content/PdfPageImageContent")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsPdfPageLinkContent = env.NewGlobalRef(&c.Object)
-		midPdfPageLinkContentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageLinkContent)), "<init>", "(Ljava/util/List;Landroid/net/Uri;)V")
+		clsPdfPageImageContent = env.NewGlobalRef(&c.Object)
+		midPdfPageImageContentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageImageContent)), "<init>", "(Ljava/lang/String;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midPdfPageLinkContentDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageLinkContent)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPdfPageLinkContentGetBounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageLinkContent)), "getBounds", "()Ljava/util/List;")
+		midPdfPageImageContentDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageImageContent)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPdfPageLinkContentGetUri, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageLinkContent)), "getUri", "()Landroid/net/Uri;")
+		midPdfPageImageContentGetAltText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageImageContent)), "getAltText", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPdfPageLinkContentWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageLinkContent)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midPdfPageImageContentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageImageContent)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPdfPageLinkContentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageLinkContent)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/graphics/pdf/content/PdfPageTextContent")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPdfPageTextContent = env.NewGlobalRef(&c.Object)
-		midPdfPageTextContentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageTextContent)), "<init>", "(Ljava/lang/String;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midPdfPageTextContentDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageTextContent)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPdfPageTextContentGetBounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageTextContent)), "getBounds", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPdfPageTextContentGetText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageTextContent)), "getText", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPdfPageTextContentWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageTextContent)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPdfPageTextContentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageTextContent)), "toString", "()Ljava/lang/String;")
+		midPdfPageImageContentWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageImageContent)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -213,13 +158,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midPdfPageGotoLinkContentWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageGotoLinkContent)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midPdfPageGotoLinkContentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageGotoLinkContent)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -227,42 +165,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("android/graphics/pdf/content/PdfPageImageContent")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPdfPageImageContent = env.NewGlobalRef(&c.Object)
-		midPdfPageImageContentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageImageContent)), "<init>", "(Ljava/lang/String;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midPdfPageImageContentDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageImageContent)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPdfPageImageContentGetAltText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageImageContent)), "getAltText", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPdfPageImageContentWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageImageContent)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPdfPageImageContentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageImageContent)), "toString", "()Ljava/lang/String;")
+		midPdfPageGotoLinkContentWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageGotoLinkContent)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -278,6 +181,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsPdfPageGotoLinkContentDestination = env.NewGlobalRef(&c.Object)
+		midPdfPageGotoLinkContentDestinationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageGotoLinkContentDestination)), "<init>", "(IFFF)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midPdfPageGotoLinkContentDestinationDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageGotoLinkContentDestination)), "describeContents", "()I")
 		if err != nil {
@@ -314,14 +221,112 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midPdfPageGotoLinkContentDestinationWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageGotoLinkContentDestination)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midPdfPageGotoLinkContentDestinationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageGotoLinkContentDestination)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPdfPageGotoLinkContentDestinationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageGotoLinkContentDestination)), "toString", "()Ljava/lang/String;")
+		midPdfPageGotoLinkContentDestinationWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageGotoLinkContentDestination)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/graphics/pdf/content/PdfPageTextContent")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPdfPageTextContent = env.NewGlobalRef(&c.Object)
+		midPdfPageTextContentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageTextContent)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midPdfPageTextContentDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageTextContent)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPdfPageTextContentGetBounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageTextContent)), "getBounds", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPdfPageTextContentGetText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageTextContent)), "getText", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPdfPageTextContentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageTextContent)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPdfPageTextContentWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageTextContent)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/graphics/pdf/content/PdfPageLinkContent")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPdfPageLinkContent = env.NewGlobalRef(&c.Object)
+		midPdfPageLinkContentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageLinkContent)), "<init>", "(Ljava/util/List;Landroid/net/Uri;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midPdfPageLinkContentDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageLinkContent)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPdfPageLinkContentGetBounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageLinkContent)), "getBounds", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPdfPageLinkContentGetUri, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageLinkContent)), "getUri", "()Landroid/net/Uri;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPdfPageLinkContentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageLinkContent)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPdfPageLinkContentWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPdfPageLinkContent)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

@@ -32,6 +32,12 @@ func NewPackageStats(vm *jni.VM, arg0 *jni.Object) (*PackageStats, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPackageStats == nil {
+			return fmt.Errorf("android.content.pm.PackageStats is not available on this device")
+		}
+		if midPackageStatsCtor == nil {
+			return fmt.Errorf("android.content.pm.PackageStats constructor (Landroid/content/pm/PackageStats;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPackageStats)), midPackageStatsCtor, jni.ObjectValue(arg0))
 		if err != nil {

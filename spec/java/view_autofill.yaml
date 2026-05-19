@@ -5,26 +5,97 @@
 package: autofill
 go_import: github.com/AndroidGoLab/jni/view/autofill
 classes:
-    - java_class: android.view.autofill.VirtualViewFillInfo
-      go_type: VirtualViewFillInfo
+    - java_class: android.view.autofill.AutofillValue
+      go_type: Value
       methods:
-        - java_method: getAutofillHints
-          go_name: GetAutofillHints
-          returns: java.lang.String[]
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
           error: true
-    - java_class: android.view.autofill.VirtualViewFillInfo$Builder
-      go_type: VirtualViewFillInfoBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.view.autofill.VirtualViewFillInfo
-          error: true
-        - java_method: setAutofillHints
-          go_name: SetAutofillHints
+        - java_method: equals
+          go_name: Equals
           params:
-            - java_type: java.lang.String...
+            - java_type: java.lang.Object
               go_name: arg0
-          returns: android.view.autofill.VirtualViewFillInfo$Builder
+          returns: boolean
+          error: true
+        - java_method: getDateValue
+          go_name: GetDateValue
+          returns: long
+          error: true
+        - java_method: getListValue
+          go_name: GetListValue
+          returns: int
+          error: true
+        - java_method: getTextValue
+          go_name: GetTextValue
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getToggleValue
+          go_name: GetToggleValue
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: isDate
+          go_name: IsDate
+          returns: boolean
+          error: true
+        - java_method: isList
+          go_name: IsList
+          returns: boolean
+          error: true
+        - java_method: isText
+          go_name: IsText
+          returns: boolean
+          error: true
+        - java_method: isToggle
+          go_name: IsToggle
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: forDate
+          go_name: ForDate
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.view.autofill.AutofillValue
+          error: true
+        - java_method: forList
+          go_name: ForList
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.view.autofill.AutofillValue
+          error: true
+        - java_method: forText
+          go_name: ForText
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.view.autofill.AutofillValue
+          error: true
+        - java_method: forToggle
+          go_name: ForToggle
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.view.autofill.AutofillValue
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
           error: true
     - java_class: android.view.autofill.AutofillManager
       go_type: Manager
@@ -289,15 +360,6 @@ classes:
           go_name: ToString
           returns: String
           error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
       static_methods:
         - java_method: create
           go_name: Create
@@ -308,60 +370,6 @@ classes:
               go_name: arg1
           returns: android.view.autofill.AutofillId
           error: true
-    - java_class: android.view.autofill.AutofillValue
-      go_type: Value
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getDateValue
-          go_name: GetDateValue
-          returns: long
-          error: true
-        - java_method: getListValue
-          go_name: GetListValue
-          returns: int
-          error: true
-        - java_method: getTextValue
-          go_name: GetTextValue
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getToggleValue
-          go_name: GetToggleValue
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: isDate
-          go_name: IsDate
-          returns: boolean
-          error: true
-        - java_method: isList
-          go_name: IsList
-          returns: boolean
-          error: true
-        - java_method: isText
-          go_name: IsText
-          returns: boolean
-          error: true
-        - java_method: isToggle
-          go_name: IsToggle
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -371,34 +379,27 @@ classes:
               go_name: arg1
           returns: void
           error: true
-      static_methods:
-        - java_method: forDate
-          go_name: ForDate
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.view.autofill.AutofillValue
+    - java_class: android.view.autofill.VirtualViewFillInfo
+      go_type: VirtualViewFillInfo
+      methods:
+        - java_method: getAutofillHints
+          go_name: GetAutofillHints
+          returns: java.lang.String[]
           error: true
-        - java_method: forList
-          go_name: ForList
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.view.autofill.AutofillValue
+    - java_class: android.view.autofill.VirtualViewFillInfo$Builder
+      go_type: VirtualViewFillInfoBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.view.autofill.VirtualViewFillInfo
           error: true
-        - java_method: forText
-          go_name: ForText
+        - java_method: setAutofillHints
+          go_name: SetAutofillHints
           params:
-            - java_type: java.lang.CharSequence
+            - java_type: java.lang.String...
               go_name: arg0
-          returns: android.view.autofill.AutofillValue
-          error: true
-        - java_method: forToggle
-          go_name: ForToggle
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.view.autofill.AutofillValue
+          returns: android.view.autofill.VirtualViewFillInfo$Builder
           error: true
 abstract_callbacks:
     - java_class: android.view.autofill.AutofillManager$AutofillCallback
@@ -417,7 +418,14 @@ abstract_callbacks:
             - int
           returns: void
           go_field: OnAutofillEvent
+abstract_callback_eligibility:
+    - java_class: android.view.autofill.AutofillManager$AutofillCallback
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
+    - go_name: Creator
+      value: "0"
+      go_type: int
     - go_name: ExtraAssistStructure
       value: '"android.view.autofill.extra.ASSIST_STRUCTURE"'
       go_type: string
@@ -441,7 +449,4 @@ constants:
       go_type: int
     - go_name: EventInputUnavailable
       value: "3"
-      go_type: int
-    - go_name: Creator
-      value: "0"
       go_type: int

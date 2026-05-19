@@ -436,8 +436,8 @@ func (m *VariableValues) DivideByAmount(arg0 float32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsVariableValues)),
 			midVariableValuesDivideByAmount, jni.FloatValue(arg0),
 		)
 		return callErr

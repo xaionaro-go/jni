@@ -1334,8 +1334,8 @@ func (m *Transition) ToString() (string, error) {
 	return result, callErr
 }
 
-// Clone0 calls androidx.transition.Transition.clone.
-func (m *Transition) Clone0() (*jni.Object, error) {
+// Clone calls androidx.transition.Transition.clone.
+func (m *Transition) Clone() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1343,13 +1343,13 @@ func (m *Transition) Clone0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midTransitionClone0 == nil {
+		if midTransitionClone == nil {
 			callErr = fmt.Errorf("androidx.transition.Transition.clone is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midTransitionClone0,
+			midTransitionClone,
 		)
 		if callErr != nil {
 			return callErr
@@ -1388,38 +1388,6 @@ func (m *Transition) GetName() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
-		return callErr
-	})
-	return result, callErr
-}
-
-// Clone0_1 calls androidx.transition.Transition.clone.
-func (m *Transition) Clone0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTransitionClone0_1 == nil {
-			callErr = fmt.Errorf("androidx.transition.Transition.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midTransitionClone0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
 		return callErr
 	})
 	return result, callErr

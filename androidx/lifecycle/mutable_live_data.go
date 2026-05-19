@@ -32,6 +32,12 @@ func NewMutableLiveData(vm *jni.VM) (*MutableLiveData, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMutableLiveData == nil {
+			return fmt.Errorf("androidx.lifecycle.MutableLiveData is not available on this device")
+		}
+		if midMutableLiveDataCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.MutableLiveData constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMutableLiveData)), midMutableLiveDataCtor)
 		if err != nil {
 			return err

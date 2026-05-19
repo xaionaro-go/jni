@@ -32,6 +32,12 @@ func NewConfirmationNotAvailableException(vm *jni.VM) (*ConfirmationNotAvailable
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsConfirmationNotAvailableException == nil {
+			return fmt.Errorf("android.security.ConfirmationNotAvailableException is not available on this device")
+		}
+		if midConfirmationNotAvailableExceptionCtor == nil {
+			return fmt.Errorf("android.security.ConfirmationNotAvailableException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConfirmationNotAvailableException)), midConfirmationNotAvailableExceptionCtor)
 		if err != nil {
 			return err

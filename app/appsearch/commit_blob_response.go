@@ -32,6 +32,12 @@ func NewCommitBlobResponse(vm *jni.VM, arg0 *jni.Object) (*CommitBlobResponse, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCommitBlobResponse == nil {
+			return fmt.Errorf("android.app.appsearch.CommitBlobResponse is not available on this device")
+		}
+		if midCommitBlobResponseCtor == nil {
+			return fmt.Errorf("android.app.appsearch.CommitBlobResponse constructor (Landroid/app/appsearch/AppSearchBatchResult;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCommitBlobResponse)), midCommitBlobResponseCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -71,29 +77,6 @@ func (m *CommitBlobResponse) DescribeContents() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.appsearch.CommitBlobResponse.writeToParcel.
-func (m *CommitBlobResponse) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCommitBlobResponseWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.appsearch.CommitBlobResponse.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midCommitBlobResponseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.appsearch.CommitBlobResponse.toString.
 func (m *CommitBlobResponse) ToString() (string, error) {
 	var result string
@@ -119,4 +102,27 @@ func (m *CommitBlobResponse) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.appsearch.CommitBlobResponse.writeToParcel.
+func (m *CommitBlobResponse) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCommitBlobResponseWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.appsearch.CommitBlobResponse.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsCommitBlobResponse)),
+			midCommitBlobResponseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

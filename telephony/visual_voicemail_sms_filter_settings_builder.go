@@ -23,6 +23,34 @@ type VisualVoicemailSmsFilterSettingsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewVisualVoicemailSmsFilterSettingsBuilder creates a new android.telephony.VisualVoicemailSmsFilterSettings$Builder instance.
+func NewVisualVoicemailSmsFilterSettingsBuilder(vm *jni.VM) (*VisualVoicemailSmsFilterSettingsBuilder, error) {
+	var t VisualVoicemailSmsFilterSettingsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsVisualVoicemailSmsFilterSettingsBuilder == nil {
+			return fmt.Errorf("android.telephony.VisualVoicemailSmsFilterSettings$Builder is not available on this device")
+		}
+		if midVisualVoicemailSmsFilterSettingsBuilderCtor == nil {
+			return fmt.Errorf("android.telephony.VisualVoicemailSmsFilterSettings$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVisualVoicemailSmsFilterSettingsBuilder)), midVisualVoicemailSmsFilterSettingsBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.telephony.VisualVoicemailSmsFilterSettings$Builder.build.
 func (m *VisualVoicemailSmsFilterSettingsBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewDatePicker(vm *jni.VM, arg0 *jni.Object) (*DatePicker, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDatePicker == nil {
+			return fmt.Errorf("android.widget.DatePicker is not available on this device")
+		}
+		if midDatePickerCtor == nil {
+			return fmt.Errorf("android.widget.DatePicker constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDatePicker)), midDatePickerCtor, jni.ObjectValue(arg0))
 		if err != nil {

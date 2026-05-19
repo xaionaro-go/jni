@@ -3,6 +3,26 @@
 package consts
 
 const (
+	Left                         int = 0
+	Right                        int = 1
+	Top                          int = 2
+	Bottom                       int = 3
+	OptimizationNone             int = 0
+	OptimizationDirect           int = 1
+	OptimizationBarrier          int = 2
+	OptimizationChain            int = 4
+	OptimizationDimensions       int = 8
+	OptimizationRatio            int = 16
+	OptimizationGroups           int = 32
+	OptimizationGraph            int = 64
+	OptimizationGraphWrap        int = 128
+	OptimizationEngine           int = 256
+	OptimizationStandard         int = 263
+	None                         int = 0
+	Baseline                     int = 0
+	Center                       int = 0
+	CenterX                      int = 0
+	CenterY                      int = 0
 	MatchConstraintSpread        int = 0
 	MatchConstraintWrap          int = 1
 	MatchConstraintPercent       int = 2
@@ -26,30 +46,6 @@ const (
 	WrapContent                  int = 0
 	MatchConstraint              int = 0
 	MatchParent                  int = 0
-	None                         int = 0
-	Left                         int = 0
-	Top                          int = 0
-	Right                        int = 0
-	Bottom                       int = 0
-	Baseline                     int = 0
-	Center                       int = 0
-	CenterX                      int = 0
-	CenterY                      int = 0
-	RelativePercent              int = 0
-	RelativeBegin                int = 1
-	RelativeEnd                  int = 2
-	RelativeUnknwon              int = -1
-	OptimizationNone             int = 0
-	OptimizationDirect           int = 1
-	OptimizationBarrier          int = 2
-	OptimizationChain            int = 4
-	OptimizationDimensions       int = 8
-	OptimizationRatio            int = 16
-	OptimizationGroups           int = 32
-	OptimizationGraph            int = 64
-	OptimizationGraphWrap        int = 128
-	OptimizationEngine           int = 256
-	OptimizationStandard         int = 263
 	HorizontalAlignStart         int = 0
 	HorizontalAlignEnd           int = 1
 	HorizontalAlignCenter        int = 2
@@ -60,4 +56,8 @@ const (
 	WrapNone                     int = 0
 	WrapChain                    int = 1
 	WrapAligned                  int = 2
+	RelativePercent              int = 0
+	RelativeBegin                int = 1
+	RelativeEnd                  int = 2
+	RelativeUnknwon              int = -1
 )

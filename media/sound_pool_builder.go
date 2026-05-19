@@ -23,6 +23,34 @@ type SoundPoolBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSoundPoolBuilder creates a new android.media.SoundPool$Builder instance.
+func NewSoundPoolBuilder(vm *jni.VM) (*SoundPoolBuilder, error) {
+	var t SoundPoolBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSoundPoolBuilder == nil {
+			return fmt.Errorf("android.media.SoundPool$Builder is not available on this device")
+		}
+		if midSoundPoolBuilderCtor == nil {
+			return fmt.Errorf("android.media.SoundPool$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSoundPoolBuilder)), midSoundPoolBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.media.SoundPool$Builder.build.
 func (m *SoundPoolBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

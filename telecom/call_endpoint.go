@@ -32,6 +32,12 @@ func NewCallEndpoint(vm *jni.VM, arg0 string, arg1 int32, arg2 *jni.Object) (*Ca
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCallEndpoint == nil {
+			return fmt.Errorf("android.telecom.CallEndpoint is not available on this device")
+		}
+		if midCallEndpointCtor == nil {
+			return fmt.Errorf("android.telecom.CallEndpoint constructor (Ljava/lang/CharSequence;ILandroid/os/ParcelUuid;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -259,8 +265,8 @@ func (m *CallEndpoint) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsCallEndpoint)),
 			midCallEndpointWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

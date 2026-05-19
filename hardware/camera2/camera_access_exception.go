@@ -32,6 +32,12 @@ func NewCameraAccessException(vm *jni.VM, arg0 int32) (*CameraAccessException, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCameraAccessException == nil {
+			return fmt.Errorf("android.hardware.camera2.CameraAccessException is not available on this device")
+		}
+		if midCameraAccessExceptionCtor == nil {
+			return fmt.Errorf("android.hardware.camera2.CameraAccessException constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCameraAccessException)), midCameraAccessExceptionCtor, jni.IntValue(arg0))
 		if err != nil {

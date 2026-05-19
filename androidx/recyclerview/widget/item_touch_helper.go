@@ -32,6 +32,12 @@ func NewItemTouchHelper(vm *jni.VM, arg0 *jni.Object) (*ItemTouchHelper, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsItemTouchHelper == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.ItemTouchHelper is not available on this device")
+		}
+		if midItemTouchHelperCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.ItemTouchHelper constructor (Landroidx/recyclerview/widget/ItemTouchHelper$Callback;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsItemTouchHelper)), midItemTouchHelperCtor, jni.ObjectValue(arg0))
 		if err != nil {

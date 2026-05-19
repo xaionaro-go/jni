@@ -32,6 +32,12 @@ func NewPaintDrawable(vm *jni.VM) (*PaintDrawable, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPaintDrawable == nil {
+			return fmt.Errorf("android.graphics.drawable.PaintDrawable is not available on this device")
+		}
+		if midPaintDrawableCtor == nil {
+			return fmt.Errorf("android.graphics.drawable.PaintDrawable constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPaintDrawable)), midPaintDrawableCtor)
 		if err != nil {
 			return err

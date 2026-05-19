@@ -32,6 +32,12 @@ func NewFloat4(vm *jni.VM) (*Float4, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFloat4 == nil {
+			return fmt.Errorf("android.renderscript.Float4 is not available on this device")
+		}
+		if midFloat4Ctor == nil {
+			return fmt.Errorf("android.renderscript.Float4 constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFloat4)), midFloat4Ctor)
 		if err != nil {
 			return err

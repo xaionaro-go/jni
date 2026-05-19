@@ -23,6 +23,35 @@ type KeyedFrequencyCapBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewKeyedFrequencyCapBuilder creates a new android.adservices.common.KeyedFrequencyCap$Builder instance.
+func NewKeyedFrequencyCapBuilder(vm *jni.VM, arg0 int32, arg1 int32, arg2 *jni.Object) (*KeyedFrequencyCapBuilder, error) {
+	var t KeyedFrequencyCapBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsKeyedFrequencyCapBuilder == nil {
+			return fmt.Errorf("android.adservices.common.KeyedFrequencyCap$Builder is not available on this device")
+		}
+		if midKeyedFrequencyCapBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.common.KeyedFrequencyCap$Builder constructor (IILjava/time/Duration;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyedFrequencyCapBuilder)), midKeyedFrequencyCapBuilderCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.common.KeyedFrequencyCap$Builder.build.
 func (m *KeyedFrequencyCapBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

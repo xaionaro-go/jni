@@ -32,6 +32,12 @@ func NewJsonWriter(vm *jni.VM, arg0 *jni.Object) (*JsonWriter, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsJsonWriter == nil {
+			return fmt.Errorf("android.util.JsonWriter is not available on this device")
+		}
+		if midJsonWriterCtor == nil {
+			return fmt.Errorf("android.util.JsonWriter constructor (Ljava/io/Writer;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsJsonWriter)), midJsonWriterCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -5,520 +5,180 @@
 package: internal
 go_import: github.com/AndroidGoLab/jni/com/google/android/material/internal
 classes:
-    - java_class: com.google.android.material.internal.CheckableGroup
-      go_type: CheckableGroup
+    - java_class: com.google.android.material.internal.TextScale
+      go_type: TextScale
       obtain: constructor
       methods:
-        - java_method: setSingleSelection
-          go_name: SetSingleSelection
+        - java_method: captureStartValues
+          go_name: CaptureStartValues
           params:
-            - java_type: boolean
+            - java_type: androidx.transition.TransitionValues
               go_name: arg0
           returns: void
           error: true
-        - java_method: isSingleSelection
-          go_name: IsSingleSelection
-          returns: boolean
-          error: true
-        - java_method: setSelectionRequired
-          go_name: SetSelectionRequired
+        - java_method: captureEndValues
+          go_name: CaptureEndValues
           params:
-            - java_type: boolean
+            - java_type: androidx.transition.TransitionValues
               go_name: arg0
           returns: void
           error: true
-        - java_method: isSelectionRequired
-          go_name: IsSelectionRequired
-          returns: boolean
-          error: true
-        - java_method: setOnCheckedStateChangeListener
-          go_name: SetOnCheckedStateChangeListener
-          params:
-            - java_type: com.google.android.material.internal.CheckableGroup$OnCheckedStateChangeListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: check
-          go_name: Check
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: uncheck
-          go_name: Uncheck
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: clearCheck
-          go_name: ClearCheck
-          returns: void
-          error: true
-        - java_method: getSingleCheckedId
-          go_name: GetSingleCheckedId
-          returns: int
-          error: true
-        - java_method: getCheckedIds
-          go_name: GetCheckedIds
-          returns: java.util.Set<java.lang.Integer>
-          error: true
-        - java_method: getCheckedIdsSortedByChildOrder
-          go_name: GetCheckedIdsSortedByChildOrder
+        - java_method: createAnimator
+          go_name: CreateAnimator
           params:
             - java_type: android.view.ViewGroup
               go_name: arg0
-          returns: java.util.List<java.lang.Integer>
-          error: true
-    - java_class: com.google.android.material.internal.CheckableGroup$OnCheckedStateChangeListener
-      go_type: CheckableGroupOnCheckedStateChangeListener
-    - java_class: com.google.android.material.internal.EdgeToEdgeUtils
-      go_type: EdgeToEdgeUtils
-      static_methods:
-        - java_method: applyEdgeToEdge
-          go_name: ApplyEdgeToEdge2
-          params:
-            - java_type: android.view.Window
-              go_name: arg0
-            - java_type: boolean
+            - java_type: androidx.transition.TransitionValues
               go_name: arg1
-          returns: void
-          error: true
-        - java_method: applyEdgeToEdge
-          go_name: ApplyEdgeToEdge4_1
-          params:
-            - java_type: android.view.Window
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-            - java_type: java.lang.Integer
+            - java_type: androidx.transition.TransitionValues
               go_name: arg2
-            - java_type: java.lang.Integer
-              go_name: arg3
-          returns: void
+          returns: android.animation.Animator
           error: true
-        - java_method: setLightStatusBar
-          go_name: SetLightStatusBar
-          params:
-            - java_type: android.view.Window
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setLightNavigationBar
-          go_name: SetLightNavigationBar
-          params:
-            - java_type: android.view.Window
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: com.google.android.material.internal.TouchObserverFrameLayout
-      go_type: TouchObserverFrameLayout
+    - java_class: com.google.android.material.internal.NavigationMenuItemView
+      go_type: NavigationMenuItemView
       obtain: constructor
       constructor_params:
         - java_type: android.content.Context
           go_name: arg0
       methods:
-        - java_method: onInterceptTouchEvent
-          go_name: OnInterceptTouchEvent
+        - java_method: initialize
+          go_name: Initialize2
           params:
-            - java_type: android.view.MotionEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: setOnTouchListener
-          go_name: SetOnTouchListener
-          params:
-            - java_type: android.view.View$OnTouchListener
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: com.google.android.material.internal.FadeThroughDrawable
-      go_type: FadeThroughDrawable
-      obtain: constructor
-      constructor_params:
-        - java_type: android.graphics.drawable.Drawable
-          go_name: arg0
-        - java_type: android.graphics.drawable.Drawable
-          go_name: arg1
-      methods:
-        - java_method: draw
-          go_name: Draw
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setBounds
-          go_name: SetBounds
-          params:
-            - java_type: int
+            - java_type: androidx.appcompat.view.menu.MenuItemImpl
               go_name: arg0
             - java_type: int
               go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
           returns: void
           error: true
-        - java_method: getIntrinsicWidth
-          go_name: GetIntrinsicWidth
-          returns: int
-          error: true
-        - java_method: getIntrinsicHeight
-          go_name: GetIntrinsicHeight
-          returns: int
-          error: true
-        - java_method: getMinimumWidth
-          go_name: GetMinimumWidth
-          returns: int
-          error: true
-        - java_method: getMinimumHeight
-          go_name: GetMinimumHeight
-          returns: int
-          error: true
-        - java_method: setAlpha
-          go_name: SetAlpha
+        - java_method: initialize
+          go_name: Initialize2_1
           params:
-            - java_type: int
+            - java_type: androidx.appcompat.view.menu.MenuItemImpl
               go_name: arg0
-          returns: void
-          error: true
-        - java_method: setColorFilter
-          go_name: SetColorFilter
-          params:
-            - java_type: android.graphics.ColorFilter
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getOpacity
-          go_name: GetOpacity
-          returns: int
-          error: true
-        - java_method: isStateful
-          go_name: IsStateful
-          returns: boolean
-          error: true
-        - java_method: setState
-          go_name: SetState
-          params:
-            - java_type: '[I'
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: setProgress
-          go_name: SetProgress
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: com.google.android.material.internal.NavigationMenu
-      go_type: NavigationMenu
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: addSubMenu
-          go_name: AddSubMenu
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
+            - java_type: boolean
               go_name: arg1
-            - java_type: int
-              go_name: arg2
+          returns: void
+          error: true
+        - java_method: recycle
+          go_name: Recycle
+          returns: void
+          error: true
+        - java_method: getItemData
+          go_name: GetItemData
+          returns: androidx.appcompat.view.menu.MenuItemImpl
+          error: true
+        - java_method: setTitle
+          go_name: SetTitle
+          params:
             - java_type: java.lang.CharSequence
-              go_name: arg3
-          returns: android.view.SubMenu
-          error: true
-    - java_class: com.google.android.material.internal.ClippableRoundedCornerLayout
-      go_type: ClippableRoundedCornerLayout
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: resetClipBoundsAndCornerRadius
-          go_name: ResetClipBoundsAndCornerRadius
-          returns: void
-          error: true
-        - java_method: getCornerRadius
-          go_name: GetCornerRadius
-          returns: float
-          error: true
-        - java_method: updateCornerRadius
-          go_name: UpdateCornerRadius
-          params:
-            - java_type: float
               go_name: arg0
           returns: void
           error: true
-        - java_method: updateClipBoundsAndCornerRadius
-          go_name: UpdateClipBoundsAndCornerRadius2
+        - java_method: setCheckable
+          go_name: SetCheckable
           params:
-            - java_type: android.graphics.Rect
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: updateClipBoundsAndCornerRadius
-          go_name: UpdateClipBoundsAndCornerRadius5_1
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-            - java_type: float
-              go_name: arg4
-          returns: void
-          error: true
-        - java_method: updateClipBoundsAndCornerRadius
-          go_name: UpdateClipBoundsAndCornerRadius2_2
-          params:
-            - java_type: android.graphics.RectF
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: com.google.android.material.internal.MultiViewUpdateListener
-      go_type: MultiViewUpdateListener
-      obtain: constructor
-      constructor_params:
-        - java_type: com.google.android.material.internal.MultiViewUpdateListener$Listener
-          go_name: arg0
-        - java_type: android.view.View...
-          go_name: arg1
-      methods:
-        - java_method: onAnimationUpdate
-          go_name: OnAnimationUpdate
-          params:
-            - java_type: android.animation.ValueAnimator
-              go_name: arg0
-          returns: void
-          error: true
-      static_methods:
-        - java_method: alphaListener
-          go_name: AlphaListener
-          params:
-            - java_type: android.view.View...
-              go_name: arg0
-          returns: com.google.android.material.internal.MultiViewUpdateListener
-          error: true
-        - java_method: scaleListener
-          go_name: ScaleListener
-          params:
-            - java_type: android.view.View...
-              go_name: arg0
-          returns: com.google.android.material.internal.MultiViewUpdateListener
-          error: true
-        - java_method: translationXListener
-          go_name: TranslationXListener
-          params:
-            - java_type: android.view.View...
-              go_name: arg0
-          returns: com.google.android.material.internal.MultiViewUpdateListener
-          error: true
-        - java_method: translationYListener
-          go_name: TranslationYListener
-          params:
-            - java_type: android.view.View...
-              go_name: arg0
-          returns: com.google.android.material.internal.MultiViewUpdateListener
-          error: true
-    - java_class: com.google.android.material.internal.VisibilityAwareImageButton
-      go_type: VisibilityAwareImageButton
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: setVisibility
-          go_name: SetVisibility
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: internalSetVisibility
-          go_name: InternalSetVisibility
-          params:
-            - java_type: int
-              go_name: arg0
             - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getUserSetVisibility
-          go_name: GetUserSetVisibility
-          returns: int
-          error: true
-    - java_class: com.google.android.material.internal.ForegroundLinearLayout
-      go_type: ForegroundLinearLayout
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: getForegroundGravity
-          go_name: GetForegroundGravity
-          returns: int
-          error: true
-        - java_method: setForegroundGravity
-          go_name: SetForegroundGravity
-          params:
-            - java_type: int
               go_name: arg0
           returns: void
           error: true
-        - java_method: jumpDrawablesToCurrentState
-          go_name: JumpDrawablesToCurrentState
+        - java_method: setChecked
+          go_name: SetChecked
+          params:
+            - java_type: boolean
+              go_name: arg0
           returns: void
           error: true
-        - java_method: setForeground
-          go_name: SetForeground
+        - java_method: setShortcut
+          go_name: SetShortcut
+          params:
+            - java_type: boolean
+              go_name: arg0
+            - java_type: char
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setIcon
+          go_name: SetIcon
           params:
             - java_type: android.graphics.drawable.Drawable
               go_name: arg0
           returns: void
           error: true
-        - java_method: getForeground
-          go_name: GetForeground
-          returns: android.graphics.drawable.Drawable
-          error: true
-        - java_method: draw
-          go_name: Draw
+        - java_method: setIconSize
+          go_name: SetIconSize
           params:
-            - java_type: android.graphics.Canvas
+            - java_type: int
               go_name: arg0
           returns: void
           error: true
-        - java_method: drawableHotspotChanged
-          go_name: DrawableHotspotChanged
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: com.google.android.material.internal.TextDrawableHelper
-      go_type: TextDrawableHelper
-      obtain: constructor
-      constructor_params:
-        - java_type: com.google.android.material.internal.TextDrawableHelper$TextDrawableDelegate
-          go_name: arg0
-      methods:
-        - java_method: setDelegate
-          go_name: SetDelegate
-          params:
-            - java_type: com.google.android.material.internal.TextDrawableHelper$TextDrawableDelegate
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getTextPaint
-          go_name: GetTextPaint
-          returns: android.text.TextPaint
-          error: true
-        - java_method: setTextWidthDirty
-          go_name: SetTextWidthDirty
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isTextWidthDirty
-          go_name: IsTextWidthDirty
+        - java_method: prefersCondensedTitle
+          go_name: PrefersCondensedTitle
           returns: boolean
           error: true
-        - java_method: setTextSizeDirty
-          go_name: SetTextSizeDirty
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getTextWidth
-          go_name: GetTextWidth
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getTextHeight
-          go_name: GetTextHeight
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getTextAppearance
-          go_name: GetTextAppearance
-          returns: com.google.android.material.resources.TextAppearance
+        - java_method: showsIcon
+          go_name: ShowsIcon
+          returns: boolean
           error: true
         - java_method: setTextAppearance
           go_name: SetTextAppearance
           params:
-            - java_type: com.google.android.material.resources.TextAppearance
+            - java_type: int
               go_name: arg0
-            - java_type: android.content.Context
-              go_name: arg1
           returns: void
           error: true
-        - java_method: updateTextPaintDrawState
-          go_name: UpdateTextPaintDrawState
+        - java_method: setTextColor
+          go_name: SetTextColor
           params:
-            - java_type: android.content.Context
+            - java_type: android.content.res.ColorStateList
               go_name: arg0
           returns: void
           error: true
-    - java_class: com.google.android.material.internal.TextDrawableHelper$TextDrawableDelegate
-      go_type: TextDrawableHelperTextDrawableDelegate
-      methods:
-        - java_method: getState
-          go_name: GetState
-          returns: '[I'
-          error: true
-        - java_method: onTextSizeChange
-          go_name: OnTextSizeChange
-          returns: void
-          error: true
-        - java_method: onStateChange
-          go_name: OnStateChange
-          params:
-            - java_type: '[I'
-              go_name: arg0
-          returns: boolean
-          error: true
-    - java_class: com.google.android.material.internal.NavigationSubMenu
-      go_type: NavigationSubMenu
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: com.google.android.material.internal.NavigationMenu
-          go_name: arg1
-        - java_type: androidx.appcompat.view.menu.MenuItemImpl
-          go_name: arg2
-      methods:
-        - java_method: onItemsChanged
-          go_name: OnItemsChanged
+        - java_method: setNeedsEmptyIcon
+          go_name: SetNeedsEmptyIcon
           params:
             - java_type: boolean
               go_name: arg0
           returns: void
+          error: true
+        - java_method: setHorizontalPadding
+          go_name: SetHorizontalPadding
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setIconPadding
+          go_name: SetIconPadding
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
+        - java_method: setMaxLines
+          go_name: SetMaxLines
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: com.google.android.material.internal.NavigationMenuView
+      go_type: NavigationMenuView
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: initialize
+          go_name: Initialize
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getWindowAnimations
+          go_name: GetWindowAnimations
+          returns: int
           error: true
     - java_class: com.google.android.material.internal.ScrimInsetsFrameLayout
       go_type: ScrimInsetsFrameLayout
@@ -569,66 +229,8 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: com.google.android.material.internal.StateListAnimator
-      go_type: StateListAnimator
-      obtain: constructor
-      methods:
-        - java_method: addState
-          go_name: AddState
-          params:
-            - java_type: '[I'
-              go_name: arg0
-            - java_type: android.animation.ValueAnimator
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setState
-          go_name: SetState
-          params:
-            - java_type: '[I'
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: jumpToCurrentState
-          go_name: JumpToCurrentState
-          returns: void
-          error: true
-    - java_class: com.google.android.material.internal.ManufacturerUtils
-      go_type: ManufacturerUtils
-      static_methods:
-        - java_method: isMeizuDevice
-          go_name: IsMeizuDevice
-          returns: boolean
-          error: true
-        - java_method: isLGEDevice
-          go_name: IsLGEDevice
-          returns: boolean
-          error: true
-        - java_method: isSamsungDevice
-          go_name: IsSamsungDevice
-          returns: boolean
-          error: true
-        - java_method: isDateInputKeyboardMissingSeparatorCharacters
-          go_name: IsDateInputKeyboardMissingSeparatorCharacters
-          returns: boolean
-          error: true
-    - java_class: com.google.android.material.internal.ParcelableSparseArray
-      go_type: ParcelableSparseArray
-      obtain: constructor
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
+    - java_class: com.google.android.material.internal.WindowUtils
+      go_type: WindowUtils
     - java_class: com.google.android.material.internal.ThemeEnforcement
       go_type: ThemeEnforcement
       static_methods:
@@ -701,50 +303,292 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-    - java_class: com.google.android.material.internal.ViewOverlayImpl
-      go_type: ViewOverlayImpl
+    - java_class: com.google.android.material.internal.ManufacturerUtils
+      go_type: ManufacturerUtils
+      static_methods:
+        - java_method: isMeizuDevice
+          go_name: IsMeizuDevice
+          returns: boolean
+          error: true
+        - java_method: isLGEDevice
+          go_name: IsLGEDevice
+          returns: boolean
+          error: true
+        - java_method: isSamsungDevice
+          go_name: IsSamsungDevice
+          returns: boolean
+          error: true
+        - java_method: isDateInputKeyboardMissingSeparatorCharacters
+          go_name: IsDateInputKeyboardMissingSeparatorCharacters
+          returns: boolean
+          error: true
+    - java_class: com.google.android.material.internal.ParcelableSparseArray
+      go_type: ParcelableSparseArray
+      obtain: constructor
       methods:
-        - java_method: add
-          go_name: Add
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
           params:
-            - java_type: android.graphics.drawable.Drawable
+            - java_type: android.os.Parcel
               go_name: arg0
+            - java_type: int
+              go_name: arg1
           returns: void
           error: true
-        - java_method: remove
-          go_name: Remove
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
+    - java_class: com.google.android.material.internal.ExpandCollapseAnimationHelper
+      go_type: ExpandCollapseAnimationHelper
+      obtain: constructor
+      constructor_params:
+        - java_type: android.view.View
+          go_name: arg0
+        - java_type: android.view.View
+          go_name: arg1
+      methods:
+        - java_method: getExpandAnimator
+          go_name: GetExpandAnimator
+          returns: android.animation.Animator
           error: true
-    - java_class: com.google.android.material.internal.NavigationMenuView
-      go_type: NavigationMenuView
+        - java_method: getCollapseAnimator
+          go_name: GetCollapseAnimator
+          returns: android.animation.Animator
+          error: true
+        - java_method: setDuration
+          go_name: SetDuration
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: com.google.android.material.internal.ExpandCollapseAnimationHelper
+          error: true
+        - java_method: addListener
+          go_name: AddListener
+          params:
+            - java_type: android.animation.AnimatorListenerAdapter
+              go_name: arg0
+          returns: com.google.android.material.internal.ExpandCollapseAnimationHelper
+          error: true
+        - java_method: addEndAnchoredViews
+          go_name: AddEndAnchoredViews
+          params:
+            - java_type: android.view.View...
+              go_name: arg0
+          returns: com.google.android.material.internal.ExpandCollapseAnimationHelper
+          error: true
+        - java_method: setAdditionalUpdateListener
+          go_name: SetAdditionalUpdateListener
+          params:
+            - java_type: android.animation.ValueAnimator$AnimatorUpdateListener
+              go_name: arg0
+          returns: com.google.android.material.internal.ExpandCollapseAnimationHelper
+          error: true
+        - java_method: setCollapsedViewOffsetY
+          go_name: SetCollapsedViewOffsetY
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: com.google.android.material.internal.ExpandCollapseAnimationHelper
+          error: true
+    - java_class: com.google.android.material.internal.RectEvaluator
+      go_type: RectEvaluator
+      obtain: constructor
+      constructor_params:
+        - java_type: android.graphics.Rect
+          go_name: arg0
+      methods:
+        - java_method: evaluate
+          go_name: Evaluate
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: android.graphics.Rect
+              go_name: arg1
+            - java_type: android.graphics.Rect
+              go_name: arg2
+          returns: android.graphics.Rect
+          error: true
+    - java_class: com.google.android.material.internal.CheckableImageButton
+      go_type: CheckableImageButton
       obtain: constructor
       constructor_params:
         - java_type: android.content.Context
           go_name: arg0
       methods:
-        - java_method: initialize
-          go_name: Initialize
+        - java_method: setChecked
+          go_name: SetChecked
           params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
+            - java_type: boolean
               go_name: arg0
           returns: void
           error: true
-        - java_method: getWindowAnimations
-          go_name: GetWindowAnimations
-          returns: int
+        - java_method: isChecked
+          go_name: IsChecked
+          returns: boolean
           error: true
-    - java_class: com.google.android.material.internal.MaterialCheckable
-      go_type: MaterialCheckable
+        - java_method: toggle
+          go_name: Toggle
+          returns: void
+          error: true
+        - java_method: setPressed
+          go_name: SetPressed
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onCreateDrawableState
+          go_name: OnCreateDrawableState
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: '[I'
+          error: true
+        - java_method: setCheckable
+          go_name: SetCheckable
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isCheckable
+          go_name: IsCheckable
+          returns: boolean
+          error: true
+        - java_method: setPressable
+          go_name: SetPressable
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
+        - java_method: isPressable
+          go_name: IsPressable
+          returns: boolean
+          error: true
+    - java_class: com.google.android.material.internal.NavigationMenu
+      go_type: NavigationMenu
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
       methods:
-        - java_method: getId
-          go_name: GetId
+        - java_method: addSubMenu
+          go_name: AddSubMenu
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: java.lang.CharSequence
+              go_name: arg3
+          returns: android.view.SubMenu
+          error: true
+    - java_class: com.google.android.material.internal.NavigationSubMenu
+      go_type: NavigationSubMenu
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: com.google.android.material.internal.NavigationMenu
+          go_name: arg1
+        - java_type: androidx.appcompat.view.menu.MenuItemImpl
+          go_name: arg2
+      methods:
+        - java_method: onItemsChanged
+          go_name: OnItemsChanged
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: com.google.android.material.internal.VisibilityAwareImageButton
+      go_type: VisibilityAwareImageButton
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: setVisibility
+          go_name: SetVisibility
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: internalSetVisibility
+          go_name: InternalSetVisibility
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getUserSetVisibility
+          go_name: GetUserSetVisibility
           returns: int
           error: true
-    - java_class: com.google.android.material.internal.MaterialCheckable$OnCheckedChangeListener
-      go_type: MaterialCheckableOnCheckedChangeListener
+    - java_class: com.google.android.material.internal.ClippableRoundedCornerLayout
+      go_type: ClippableRoundedCornerLayout
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: resetClipBoundsAndCornerRadius
+          go_name: ResetClipBoundsAndCornerRadius
+          returns: void
+          error: true
+        - java_method: getCornerRadius
+          go_name: GetCornerRadius
+          returns: float
+          error: true
+        - java_method: updateCornerRadius
+          go_name: UpdateCornerRadius
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: updateClipBoundsAndCornerRadius
+          go_name: UpdateClipBoundsAndCornerRadius2
+          params:
+            - java_type: android.graphics.Rect
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: updateClipBoundsAndCornerRadius
+          go_name: UpdateClipBoundsAndCornerRadius5_1
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+            - java_type: float
+              go_name: arg4
+          returns: void
+          error: true
+        - java_method: updateClipBoundsAndCornerRadius
+          go_name: UpdateClipBoundsAndCornerRadius2_2
+          params:
+            - java_type: android.graphics.RectF
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: void
+          error: true
     - java_class: com.google.android.material.internal.CollapsingTextHelper
       go_type: CollapsingTextHelper
       obtain: constructor
@@ -1120,292 +964,155 @@ classes:
           go_name: GetExpandedTextColor
           returns: android.content.res.ColorStateList
           error: true
+      static_methods:
         - java_method: getCollapsedTextColor
           go_name: GetCollapsedTextColor
           returns: android.content.res.ColorStateList
           error: true
-    - java_class: com.google.android.material.internal.ContextUtils
-      go_type: ContextUtils
+    - java_class: com.google.android.material.internal.CheckableGroup
+      go_type: CheckableGroup
       obtain: constructor
-      static_methods:
-        - java_method: getActivity
-          go_name: GetActivity
+      methods:
+        - java_method: setSingleSelection
+          go_name: SetSingleSelection
           params:
-            - java_type: android.content.Context
+            - java_type: boolean
               go_name: arg0
-          returns: android.app.Activity
+          returns: void
           error: true
-    - java_class: com.google.android.material.internal.NavigationMenuItemView
-      go_type: NavigationMenuItemView
+        - java_method: isSingleSelection
+          go_name: IsSingleSelection
+          returns: boolean
+          error: true
+        - java_method: setSelectionRequired
+          go_name: SetSelectionRequired
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isSelectionRequired
+          go_name: IsSelectionRequired
+          returns: boolean
+          error: true
+        - java_method: setOnCheckedStateChangeListener
+          go_name: SetOnCheckedStateChangeListener
+          params:
+            - java_type: com.google.android.material.internal.CheckableGroup$OnCheckedStateChangeListener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: check
+          go_name: Check
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: uncheck
+          go_name: Uncheck
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: clearCheck
+          go_name: ClearCheck
+          returns: void
+          error: true
+        - java_method: getSingleCheckedId
+          go_name: GetSingleCheckedId
+          returns: int
+          error: true
+        - java_method: getCheckedIds
+          go_name: GetCheckedIds
+          returns: java.util.Set<java.lang.Integer>
+          error: true
+    - java_class: com.google.android.material.internal.CheckableGroup$OnCheckedStateChangeListener
+      go_type: CheckableGroupOnCheckedStateChangeListener
+    - java_class: com.google.android.material.internal.MultiViewUpdateListener
+      go_type: MultiViewUpdateListener
+      obtain: constructor
+      constructor_params:
+        - java_type: com.google.android.material.internal.MultiViewUpdateListener$Listener
+          go_name: arg0
+        - java_type: android.view.View...
+          go_name: arg1
+      methods:
+        - java_method: onAnimationUpdate
+          go_name: OnAnimationUpdate
+          params:
+            - java_type: android.animation.ValueAnimator
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
+        - java_method: alphaListener
+          go_name: AlphaListener
+          params:
+            - java_type: android.view.View...
+              go_name: arg0
+          returns: com.google.android.material.internal.MultiViewUpdateListener
+          error: true
+        - java_method: scaleListener
+          go_name: ScaleListener
+          params:
+            - java_type: android.view.View...
+              go_name: arg0
+          returns: com.google.android.material.internal.MultiViewUpdateListener
+          error: true
+        - java_method: translationXListener
+          go_name: TranslationXListener
+          params:
+            - java_type: android.view.View...
+              go_name: arg0
+          returns: com.google.android.material.internal.MultiViewUpdateListener
+          error: true
+        - java_method: translationYListener
+          go_name: TranslationYListener
+          params:
+            - java_type: android.view.View...
+              go_name: arg0
+          returns: com.google.android.material.internal.MultiViewUpdateListener
+          error: true
+    - java_class: com.google.android.material.internal.TouchObserverFrameLayout
+      go_type: TouchObserverFrameLayout
       obtain: constructor
       constructor_params:
         - java_type: android.content.Context
           go_name: arg0
       methods:
-        - java_method: initialize
-          go_name: Initialize2
+        - java_method: onInterceptTouchEvent
+          go_name: OnInterceptTouchEvent
           params:
-            - java_type: androidx.appcompat.view.menu.MenuItemImpl
+            - java_type: android.view.MotionEvent
               go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: initialize
-          go_name: Initialize2_1
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuItemImpl
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: recycle
-          go_name: Recycle
-          returns: void
-          error: true
-        - java_method: getItemData
-          go_name: GetItemData
-          returns: androidx.appcompat.view.menu.MenuItemImpl
-          error: true
-        - java_method: setTitle
-          go_name: SetTitle
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCheckable
-          go_name: SetCheckable
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setChecked
-          go_name: SetChecked
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setShortcut
-          go_name: SetShortcut
-          params:
-            - java_type: boolean
-              go_name: arg0
-            - java_type: char
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setIcon
-          go_name: SetIcon
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setIconSize
-          go_name: SetIconSize
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: prefersCondensedTitle
-          go_name: PrefersCondensedTitle
           returns: boolean
           error: true
-        - java_method: showsIcon
-          go_name: ShowsIcon
-          returns: boolean
-          error: true
-        - java_method: setTextAppearance
-          go_name: SetTextAppearance
+        - java_method: setOnTouchListener
+          go_name: SetOnTouchListener
           params:
-            - java_type: int
+            - java_type: android.view.View$OnTouchListener
               go_name: arg0
           returns: void
           error: true
-        - java_method: setTextColor
-          go_name: SetTextColor
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setNeedsEmptyIcon
-          go_name: SetNeedsEmptyIcon
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setHorizontalPadding
-          go_name: SetHorizontalPadding
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setIconPadding
-          go_name: SetIconPadding
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setMaxLines
-          go_name: SetMaxLines
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: com.google.android.material.internal.TextWatcherAdapter
-      go_type: TextWatcherAdapter
+    - java_class: com.google.android.material.internal.ParcelableSparseBooleanArray
+      go_type: ParcelableSparseBooleanArray
       obtain: constructor
       methods:
-        - java_method: beforeTextChanged
-          go_name: BeforeTextChanged
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: onTextChanged
-          go_name: OnTextChanged
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: afterTextChanged
-          go_name: AfterTextChanged
-          params:
-            - java_type: android.text.Editable
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: com.google.android.material.internal.ReversableAnimatedValueInterpolator
-      go_type: ReversableAnimatedValueInterpolator
-      obtain: constructor
-      constructor_params:
-        - java_type: android.animation.TimeInterpolator
-          go_name: arg0
-      methods:
-        - java_method: getInterpolation
-          go_name: GetInterpolation
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: float
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
           error: true
       static_methods:
-        - java_method: of
-          go_name: Of
+        - java_method: writeToParcel
+          go_name: WriteToParcel
           params:
-            - java_type: boolean
+            - java_type: android.os.Parcel
               go_name: arg0
-            - java_type: android.animation.TimeInterpolator
-              go_name: arg1
-          returns: android.animation.TimeInterpolator
-          error: true
-    - java_class: com.google.android.material.internal.DescendantOffsetUtils
-      go_type: DescendantOffsetUtils
-      obtain: constructor
-      static_methods:
-        - java_method: offsetDescendantRect
-          go_name: OffsetDescendantRect
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: android.graphics.Rect
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: getDescendantRect
-          go_name: GetDescendantRect
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: android.graphics.Rect
-              go_name: arg2
-          returns: void
-          error: true
-    - java_class: com.google.android.material.internal.CheckableImageButton
-      go_type: CheckableImageButton
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: setChecked
-          go_name: SetChecked
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isChecked
-          go_name: IsChecked
-          returns: boolean
-          error: true
-        - java_method: toggle
-          go_name: Toggle
-          returns: void
-          error: true
-        - java_method: setPressed
-          go_name: SetPressed
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onCreateDrawableState
-          go_name: OnCreateDrawableState
-          params:
             - java_type: int
-              go_name: arg0
-          returns: '[I'
-          error: true
-        - java_method: setCheckable
-          go_name: SetCheckable
-          params:
-            - java_type: boolean
-              go_name: arg0
+              go_name: arg1
           returns: void
-          error: true
-        - java_method: isCheckable
-          go_name: IsCheckable
-          returns: boolean
-          error: true
-        - java_method: setPressable
-          go_name: SetPressable
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isPressable
-          go_name: IsPressable
-          returns: boolean
           error: true
     - java_class: com.google.android.material.internal.ViewUtils
       go_type: ViewUtils
@@ -1630,22 +1337,6 @@ classes:
               go_name: arg0
           returns: java.lang.Integer
           error: true
-    - java_class: com.google.android.material.internal.FadeThroughUpdateListener
-      go_type: FadeThroughUpdateListener
-      obtain: constructor
-      constructor_params:
-        - java_type: android.view.View
-          go_name: arg0
-        - java_type: android.view.View
-          go_name: arg1
-      methods:
-        - java_method: onAnimationUpdate
-          go_name: OnAnimationUpdate
-          params:
-            - java_type: android.animation.ValueAnimator
-              go_name: arg0
-          returns: void
-          error: true
     - java_class: com.google.android.material.internal.ViewUtils$OnApplyWindowInsetsListener
       go_type: ViewUtilsOnApplyWindowInsetsListener
       methods:
@@ -1662,6 +1353,16 @@ classes:
           error: true
     - java_class: com.google.android.material.internal.ViewUtils$RelativePadding
       go_type: ViewUtilsRelativePadding
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+        - java_type: int
+          go_name: arg3
       methods:
         - java_method: applyToView
           go_name: ApplyToView
@@ -1669,93 +1370,6 @@ classes:
             - java_type: android.view.View
               go_name: arg0
           returns: void
-          error: true
-    - java_class: com.google.android.material.internal.ExpandCollapseAnimationHelper
-      go_type: ExpandCollapseAnimationHelper
-      obtain: constructor
-      constructor_params:
-        - java_type: android.view.View
-          go_name: arg0
-        - java_type: android.view.View
-          go_name: arg1
-      methods:
-        - java_method: getExpandAnimator
-          go_name: GetExpandAnimator
-          returns: android.animation.Animator
-          error: true
-        - java_method: getCollapseAnimator
-          go_name: GetCollapseAnimator
-          returns: android.animation.Animator
-          error: true
-        - java_method: setDuration
-          go_name: SetDuration
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: com.google.android.material.internal.ExpandCollapseAnimationHelper
-          error: true
-        - java_method: addListener
-          go_name: AddListener
-          params:
-            - java_type: android.animation.AnimatorListenerAdapter
-              go_name: arg0
-          returns: com.google.android.material.internal.ExpandCollapseAnimationHelper
-          error: true
-        - java_method: addEndAnchoredViews
-          go_name: AddEndAnchoredViews
-          params:
-            - java_type: android.view.View...
-              go_name: arg0
-          returns: com.google.android.material.internal.ExpandCollapseAnimationHelper
-          error: true
-        - java_method: setAdditionalUpdateListener
-          go_name: SetAdditionalUpdateListener
-          params:
-            - java_type: android.animation.ValueAnimator$AnimatorUpdateListener
-              go_name: arg0
-          returns: com.google.android.material.internal.ExpandCollapseAnimationHelper
-          error: true
-        - java_method: setCollapsedViewOffsetY
-          go_name: SetCollapsedViewOffsetY
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: com.google.android.material.internal.ExpandCollapseAnimationHelper
-          error: true
-        - java_method: setExpandedViewOffsetY
-          go_name: SetExpandedViewOffsetY
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: com.google.android.material.internal.ExpandCollapseAnimationHelper
-          error: true
-    - java_class: com.google.android.material.internal.StaticLayoutBuilderConfigurer
-      go_type: StaticLayoutBuilderConfigurer
-      methods:
-        - java_method: configure
-          go_name: Configure
-          params:
-            - java_type: android.text.StaticLayout$Builder
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: com.google.android.material.internal.BaselineLayout
-      go_type: BaselineLayout
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: getBaseline
-          go_name: GetBaseline
-          returns: int
-          error: true
-    - java_class: com.google.android.material.internal.Experimental
-      go_type: Experimental
-      methods:
-        - java_method: value
-          go_name: Value
-          returns: String
           error: true
     - java_class: com.google.android.material.internal.ToolbarUtils
       go_type: ToolbarUtils
@@ -1811,15 +1425,395 @@ classes:
               go_name: arg1
           returns: androidx.appcompat.view.menu.ActionMenuItemView
           error: true
-    - java_class: com.google.android.material.internal.WindowUtils
-      go_type: WindowUtils
+    - java_class: com.google.android.material.internal.ViewOverlayImpl
+      go_type: ViewOverlayImpl
+      methods:
+        - java_method: add
+          go_name: Add
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: remove
+          go_name: Remove
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: com.google.android.material.internal.ForegroundLinearLayout
+      go_type: ForegroundLinearLayout
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: getForegroundGravity
+          go_name: GetForegroundGravity
+          returns: int
+          error: true
+        - java_method: setForegroundGravity
+          go_name: SetForegroundGravity
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: jumpDrawablesToCurrentState
+          go_name: JumpDrawablesToCurrentState
+          returns: void
+          error: true
+        - java_method: setForeground
+          go_name: SetForeground
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getForeground
+          go_name: GetForeground
+          returns: android.graphics.drawable.Drawable
+          error: true
+        - java_method: draw
+          go_name: Draw
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: drawableHotspotChanged
+          go_name: DrawableHotspotChanged
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: com.google.android.material.internal.StateListAnimator
+      go_type: StateListAnimator
+      obtain: constructor
+      methods:
+        - java_method: addState
+          go_name: AddState
+          params:
+            - java_type: '[I'
+              go_name: arg0
+            - java_type: android.animation.ValueAnimator
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setState
+          go_name: SetState
+          params:
+            - java_type: '[I'
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: jumpToCurrentState
+          go_name: JumpToCurrentState
+          returns: void
+          error: true
+    - java_class: com.google.android.material.internal.MaterialCheckable
+      go_type: MaterialCheckable
+      methods:
+        - java_method: getId
+          go_name: GetId
+          returns: int
+          error: true
+    - java_class: com.google.android.material.internal.MaterialCheckable$OnCheckedChangeListener
+      go_type: MaterialCheckableOnCheckedChangeListener
+    - java_class: com.google.android.material.internal.StaticLayoutBuilderConfigurer
+      go_type: StaticLayoutBuilderConfigurer
+      methods:
+        - java_method: configure
+          go_name: Configure
+          params:
+            - java_type: android.text.StaticLayout$Builder
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: com.google.android.material.internal.BaselineLayout
+      go_type: BaselineLayout
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: getBaseline
+          go_name: GetBaseline
+          returns: int
+          error: true
+    - java_class: com.google.android.material.internal.FlowLayout
+      go_type: FlowLayout
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: isSingleLine
+          go_name: IsSingleLine
+          returns: boolean
+          error: true
+        - java_method: setSingleLine
+          go_name: SetSingleLine
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getRowIndex
+          go_name: GetRowIndex
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: int
+          error: true
+    - java_class: com.google.android.material.internal.Experimental
+      go_type: Experimental
+      methods:
+        - java_method: value
+          go_name: Value
+          returns: String
+          error: true
+    - java_class: com.google.android.material.internal.FadeThroughUpdateListener
+      go_type: FadeThroughUpdateListener
+      obtain: constructor
+      constructor_params:
+        - java_type: android.view.View
+          go_name: arg0
+        - java_type: android.view.View
+          go_name: arg1
+      methods:
+        - java_method: onAnimationUpdate
+          go_name: OnAnimationUpdate
+          params:
+            - java_type: android.animation.ValueAnimator
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: com.google.android.material.internal.DescendantOffsetUtils
+      go_type: DescendantOffsetUtils
+      obtain: constructor
       static_methods:
-        - java_method: getCurrentWindowBounds
-          go_name: GetCurrentWindowBounds
+        - java_method: offsetDescendantRect
+          go_name: OffsetDescendantRect
+          params:
+            - java_type: android.view.ViewGroup
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
+            - java_type: android.graphics.Rect
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: getDescendantRect
+          go_name: GetDescendantRect
+          params:
+            - java_type: android.view.ViewGroup
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
+            - java_type: android.graphics.Rect
+              go_name: arg2
+          returns: void
+          error: true
+    - java_class: com.google.android.material.internal.ReversableAnimatedValueInterpolator
+      go_type: ReversableAnimatedValueInterpolator
+      obtain: constructor
+      constructor_params:
+        - java_type: android.animation.TimeInterpolator
+          go_name: arg0
+      methods:
+        - java_method: getInterpolation
+          go_name: GetInterpolation
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: float
+          error: true
+      static_methods:
+        - java_method: of
+          go_name: Of
+          params:
+            - java_type: boolean
+              go_name: arg0
+            - java_type: android.animation.TimeInterpolator
+              go_name: arg1
+          returns: android.animation.TimeInterpolator
+          error: true
+    - java_class: com.google.android.material.internal.EdgeToEdgeUtils
+      go_type: EdgeToEdgeUtils
+      static_methods:
+        - java_method: applyEdgeToEdge
+          go_name: ApplyEdgeToEdge2
+          params:
+            - java_type: android.view.Window
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: applyEdgeToEdge
+          go_name: ApplyEdgeToEdge4_1
+          params:
+            - java_type: android.view.Window
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+            - java_type: java.lang.Integer
+              go_name: arg2
+            - java_type: java.lang.Integer
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: setLightStatusBar
+          go_name: SetLightStatusBar
+          params:
+            - java_type: android.view.Window
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setLightNavigationBar
+          go_name: SetLightNavigationBar
+          params:
+            - java_type: android.view.Window
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: com.google.android.material.internal.TextDrawableHelper
+      go_type: TextDrawableHelper
+      obtain: constructor
+      constructor_params:
+        - java_type: com.google.android.material.internal.TextDrawableHelper$TextDrawableDelegate
+          go_name: arg0
+      methods:
+        - java_method: setDelegate
+          go_name: SetDelegate
+          params:
+            - java_type: com.google.android.material.internal.TextDrawableHelper$TextDrawableDelegate
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getTextPaint
+          go_name: GetTextPaint
+          returns: android.text.TextPaint
+          error: true
+        - java_method: setTextWidthDirty
+          go_name: SetTextWidthDirty
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isTextWidthDirty
+          go_name: IsTextWidthDirty
+          returns: boolean
+          error: true
+        - java_method: setTextSizeDirty
+          go_name: SetTextSizeDirty
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getTextWidth
+          go_name: GetTextWidth
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getTextHeight
+          go_name: GetTextHeight
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getTextAppearance
+          go_name: GetTextAppearance
+          returns: com.google.android.material.resources.TextAppearance
+          error: true
+        - java_method: setTextAppearance
+          go_name: SetTextAppearance
+          params:
+            - java_type: com.google.android.material.resources.TextAppearance
+              go_name: arg0
+            - java_type: android.content.Context
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: com.google.android.material.internal.TextWatcherAdapter
+      go_type: TextWatcherAdapter
+      obtain: constructor
+      methods:
+        - java_method: beforeTextChanged
+          go_name: BeforeTextChanged
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: onTextChanged
+          go_name: OnTextChanged
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: afterTextChanged
+          go_name: AfterTextChanged
+          params:
+            - java_type: android.text.Editable
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: com.google.android.material.internal.TextDrawableHelper$TextDrawableDelegate
+      go_type: TextDrawableHelperTextDrawableDelegate
+      methods:
+        - java_method: getState
+          go_name: GetState
+          returns: '[I'
+          error: true
+        - java_method: onTextSizeChange
+          go_name: OnTextSizeChange
+          returns: void
+          error: true
+        - java_method: onStateChange
+          go_name: OnStateChange
+          params:
+            - java_type: '[I'
+              go_name: arg0
+          returns: boolean
+          error: true
+    - java_class: com.google.android.material.internal.ContextUtils
+      go_type: ContextUtils
+      obtain: constructor
+      static_methods:
+        - java_method: getActivity
+          go_name: GetActivity
           params:
             - java_type: android.content.Context
               go_name: arg0
-          returns: android.graphics.Rect
+          returns: android.app.Activity
           error: true
     - java_class: com.google.android.material.internal.NavigationMenuPresenter
       go_type: NavigationMenuPresenter
@@ -2146,13 +2140,6 @@ classes:
               go_name: arg0
           returns: void
           error: true
-        - java_method: setOverScrollMode
-          go_name: SetOverScrollMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
     - java_class: com.google.android.material.internal.ParcelableSparseIntArray
       go_type: ParcelableSparseIntArray
       obtain: constructor
@@ -2161,6 +2148,7 @@ classes:
           go_name: DescribeContents
           returns: int
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -2170,104 +2158,85 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: com.google.android.material.internal.TextScale
-      go_type: TextScale
-      obtain: constructor
-      methods:
-        - java_method: captureStartValues
-          go_name: CaptureStartValues
-          params:
-            - java_type: androidx.transition.TransitionValues
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: captureEndValues
-          go_name: CaptureEndValues
-          params:
-            - java_type: androidx.transition.TransitionValues
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: createAnimator
-          go_name: CreateAnimator
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-            - java_type: androidx.transition.TransitionValues
-              go_name: arg1
-            - java_type: androidx.transition.TransitionValues
-              go_name: arg2
-          returns: android.animation.Animator
-          error: true
-    - java_class: com.google.android.material.internal.FlowLayout
-      go_type: FlowLayout
+    - java_class: com.google.android.material.internal.FadeThroughDrawable
+      go_type: FadeThroughDrawable
       obtain: constructor
       constructor_params:
-        - java_type: android.content.Context
+        - java_type: android.graphics.drawable.Drawable
           go_name: arg0
+        - java_type: android.graphics.drawable.Drawable
+          go_name: arg1
       methods:
-        - java_method: isSingleLine
-          go_name: IsSingleLine
+        - java_method: draw
+          go_name: Draw
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setBounds
+          go_name: SetBounds
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: getIntrinsicWidth
+          go_name: GetIntrinsicWidth
+          returns: int
+          error: true
+        - java_method: getIntrinsicHeight
+          go_name: GetIntrinsicHeight
+          returns: int
+          error: true
+        - java_method: getMinimumWidth
+          go_name: GetMinimumWidth
+          returns: int
+          error: true
+        - java_method: getMinimumHeight
+          go_name: GetMinimumHeight
+          returns: int
+          error: true
+        - java_method: setAlpha
+          go_name: SetAlpha
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setColorFilter
+          go_name: SetColorFilter
+          params:
+            - java_type: android.graphics.ColorFilter
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getOpacity
+          go_name: GetOpacity
+          returns: int
+          error: true
+        - java_method: isStateful
+          go_name: IsStateful
           returns: boolean
           error: true
-        - java_method: setSingleLine
-          go_name: SetSingleLine
+        - java_method: setState
+          go_name: SetState
           params:
-            - java_type: boolean
+            - java_type: '[I'
               go_name: arg0
-          returns: void
+          returns: boolean
           error: true
-        - java_method: getRowIndex
-          go_name: GetRowIndex
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: int
-          error: true
-    - java_class: com.google.android.material.internal.RectEvaluator
-      go_type: RectEvaluator
-      obtain: constructor
-      constructor_params:
-        - java_type: android.graphics.Rect
-          go_name: arg0
-      methods:
-        - java_method: evaluate
-          go_name: Evaluate3
+        - java_method: setProgress
+          go_name: SetProgress
           params:
             - java_type: float
               go_name: arg0
-            - java_type: android.graphics.Rect
-              go_name: arg1
-            - java_type: android.graphics.Rect
-              go_name: arg2
-          returns: android.graphics.Rect
-          error: true
-        - java_method: evaluate
-          go_name: Evaluate3_1
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-            - java_type: java.lang.Object
-              go_name: arg2
-          returns: java.lang.Object
-          error: true
-    - java_class: com.google.android.material.internal.ParcelableSparseBooleanArray
-      go_type: ParcelableSparseBooleanArray
-      obtain: constructor
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
           returns: void
           error: true
 constants:

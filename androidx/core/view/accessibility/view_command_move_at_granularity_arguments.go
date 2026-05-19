@@ -23,6 +23,34 @@ type ViewCommandMoveAtGranularityArguments struct {
 	Obj *jni.GlobalRef
 }
 
+// NewViewCommandMoveAtGranularityArguments creates a new androidx.core.view.accessibility.AccessibilityViewCommand$MoveAtGranularityArguments instance.
+func NewViewCommandMoveAtGranularityArguments(vm *jni.VM) (*ViewCommandMoveAtGranularityArguments, error) {
+	var t ViewCommandMoveAtGranularityArguments
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsViewCommandMoveAtGranularityArguments == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityViewCommand$MoveAtGranularityArguments is not available on this device")
+		}
+		if midViewCommandMoveAtGranularityArgumentsCtor == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityViewCommand$MoveAtGranularityArguments constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewCommandMoveAtGranularityArguments)), midViewCommandMoveAtGranularityArgumentsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetGranularity calls androidx.core.view.accessibility.AccessibilityViewCommand$MoveAtGranularityArguments.getGranularity.
 func (m *ViewCommandMoveAtGranularityArguments) GetGranularity() (int32, error) {
 	var result int32

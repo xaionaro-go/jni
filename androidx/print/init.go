@@ -34,9 +34,9 @@ var (
 	midHelperPrintBitmap2        jni.MethodID
 	midHelperPrintBitmap3_1      jni.MethodID
 	midHelperPrintBitmap2_2      jni.MethodID
-	midHelperPrintBitmap3_3      jni.MethodID
 	midHelperToString            jni.MethodID
 	midHelperSystemSupportsPrint jni.MethodID
+	midHelperPrintBitmap3_3      jni.MethodID
 
 	clsHelperOnPrintFinishCallback         *jni.GlobalRef
 	midHelperOnPrintFinishCallbackOnFinish jni.MethodID
@@ -136,13 +136,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midHelperPrintBitmap3_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHelper)), "printBitmap", "(Ljava/lang/String;Landroid/net/Uri;Landroidx/print/PrintHelper$OnPrintFinishCallback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHelper)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -151,6 +144,13 @@ func doInit(env *jni.Env) error {
 		}
 
 		midHelperSystemSupportsPrint, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHelper)), "systemSupportsPrint", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHelperPrintBitmap3_3, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHelper)), "printBitmap", "(Ljava/lang/String;Landroid/net/Uri;Landroidx/print/PrintHelper$OnPrintFinishCallback;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

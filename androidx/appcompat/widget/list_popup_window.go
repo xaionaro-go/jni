@@ -32,6 +32,12 @@ func NewListPopupWindow(vm *jni.VM, arg0 *jni.Object) (*ListPopupWindow, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsListPopupWindow == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ListPopupWindow is not available on this device")
+		}
+		if midListPopupWindowCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ListPopupWindow constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsListPopupWindow)), midListPopupWindowCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -1393,33 +1399,6 @@ func (m *ListPopupWindow) CreateDragToOpenListener(arg0 *jni.Object) (*jni.Objec
 	return result, callErr
 }
 
-// SetOverlapAnchor calls androidx.appcompat.widget.ListPopupWindow.setOverlapAnchor.
-func (m *ListPopupWindow) SetOverlapAnchor(arg0 bool) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midListPopupWindowSetOverlapAnchor == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.ListPopupWindow.setOverlapAnchor is not available on this device")
-			return callErr
-		}
-		var jArg0 uint8
-		if arg0 {
-			jArg0 = jniTrue
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midListPopupWindowSetOverlapAnchor, jni.BooleanValue(jArg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.appcompat.widget.ListPopupWindow.toString.
 func (m *ListPopupWindow) ToString() (string, error) {
 	var result string
@@ -1445,4 +1424,31 @@ func (m *ListPopupWindow) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// SetOverlapAnchor calls androidx.appcompat.widget.ListPopupWindow.setOverlapAnchor.
+func (m *ListPopupWindow) SetOverlapAnchor(arg0 bool) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midListPopupWindowSetOverlapAnchor == nil {
+			callErr = fmt.Errorf("androidx.appcompat.widget.ListPopupWindow.setOverlapAnchor is not available on this device")
+			return callErr
+		}
+		var jArg0 uint8
+		if arg0 {
+			jArg0 = jniTrue
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsListPopupWindow)),
+			midListPopupWindowSetOverlapAnchor, jni.BooleanValue(jArg0),
+		)
+		return callErr
+	})
+	return callErr
 }

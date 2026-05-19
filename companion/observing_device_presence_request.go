@@ -199,8 +199,8 @@ func (m *ObservingDevicePresenceRequest) WriteToParcel(arg0 *jni.Object, arg1 in
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsObservingDevicePresenceRequest)),
 			midObservingDevicePresenceRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

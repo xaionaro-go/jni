@@ -32,6 +32,12 @@ func NewEasyEditSpan(vm *jni.VM) (*EasyEditSpan, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEasyEditSpan == nil {
+			return fmt.Errorf("android.text.style.EasyEditSpan is not available on this device")
+		}
+		if midEasyEditSpanCtor == nil {
+			return fmt.Errorf("android.text.style.EasyEditSpan constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEasyEditSpan)), midEasyEditSpanCtor)
 		if err != nil {
 			return err

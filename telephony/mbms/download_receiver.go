@@ -32,6 +32,12 @@ func NewDownloadReceiver(vm *jni.VM) (*DownloadReceiver, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDownloadReceiver == nil {
+			return fmt.Errorf("android.telephony.mbms.MbmsDownloadReceiver is not available on this device")
+		}
+		if midDownloadReceiverCtor == nil {
+			return fmt.Errorf("android.telephony.mbms.MbmsDownloadReceiver constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDownloadReceiver)), midDownloadReceiverCtor)
 		if err != nil {
 			return err

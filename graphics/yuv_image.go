@@ -32,6 +32,12 @@ func NewYuvImage(vm *jni.VM, arg0 *jni.Object, arg1 int32, arg2 int32, arg3 int3
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsYuvImage == nil {
+			return fmt.Errorf("android.graphics.YuvImage is not available on this device")
+		}
+		if midYuvImageCtor == nil {
+			return fmt.Errorf("android.graphics.YuvImage constructor ([BIII[I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsYuvImage)), midYuvImageCtor, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3), jni.ObjectValue(arg4))
 		if err != nil {

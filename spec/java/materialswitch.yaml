@@ -161,6 +161,7 @@ classes:
               go_name: arg0
           returns: void
           error: true
+      static_methods:
         - java_method: getTrackDecorationTintMode
           go_name: GetTrackDecorationTintMode
           returns: android.graphics.PorterDuff$Mode

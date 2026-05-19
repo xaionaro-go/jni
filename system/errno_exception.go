@@ -32,6 +32,12 @@ func NewErrnoException(vm *jni.VM, arg0 string, arg1 int32) (*ErrnoException, er
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsErrnoException == nil {
+			return fmt.Errorf("android.system.ErrnoException is not available on this device")
+		}
+		if midErrnoExceptionCtor == nil {
+			return fmt.Errorf("android.system.ErrnoException constructor (Ljava/lang/String;I)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

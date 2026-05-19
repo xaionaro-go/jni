@@ -23,6 +23,34 @@ type InputMethodSubtypeInputMethodSubtypeBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewInputMethodSubtypeInputMethodSubtypeBuilder creates a new android.view.inputmethod.InputMethodSubtype$InputMethodSubtypeBuilder instance.
+func NewInputMethodSubtypeInputMethodSubtypeBuilder(vm *jni.VM) (*InputMethodSubtypeInputMethodSubtypeBuilder, error) {
+	var t InputMethodSubtypeInputMethodSubtypeBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsInputMethodSubtypeInputMethodSubtypeBuilder == nil {
+			return fmt.Errorf("android.view.inputmethod.InputMethodSubtype$InputMethodSubtypeBuilder is not available on this device")
+		}
+		if midInputMethodSubtypeInputMethodSubtypeBuilderCtor == nil {
+			return fmt.Errorf("android.view.inputmethod.InputMethodSubtype$InputMethodSubtypeBuilder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInputMethodSubtypeInputMethodSubtypeBuilder)), midInputMethodSubtypeInputMethodSubtypeBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.view.inputmethod.InputMethodSubtype$InputMethodSubtypeBuilder.build.
 func (m *InputMethodSubtypeInputMethodSubtypeBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

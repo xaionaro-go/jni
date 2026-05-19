@@ -3,6 +3,34 @@
 package consts
 
 const (
+	AllSaveFlag                         int = 31
+	Aa                                  int = 0
+	Bw                                  int = 0
+	Triangles                           int = 0
+	TriangleFan                         int = 0
+	TriangleStrip                       int = 0
+	Bold                                int = 1
+	BoldItalic                          int = 3
+	Default                             int = 0
+	DefaultBold                         int = 0
+	Italic                              int = 2
+	Monospace                           int = 0
+	Normal                              int = 0
+	SansSerif                           int = 0
+	Serif                               int = 0
+	FlagRenderHighlightAnnotations      int = 4
+	FlagRenderTextAnnotations           int = 2
+	RenderModeForDisplay                int = 1
+	RenderModeForPrint                  int = 2
+	Creator                             int = 0
+	ModeAppend                          int = 33554432
+	ModeCreate                          int = 134217728
+	ModeReadOnly                        int = 268435456
+	ModeReadWrite                       int = 805306368
+	ModeTruncate                        int = 67108864
+	ModeWorldReadable                   int = 1
+	ModeWorldWriteable                  int = 2
+	ModeWriteOnly                       int = 536870912
 	DocumentLinearizedTypeLinearized    int = 1
 	DocumentLinearizedTypeNonLinearized int = 0
 	PdfFormTypeAcroForm                 int = 1
@@ -50,15 +78,6 @@ const (
 	Fill                                int = 0
 	FillAndStroke                       int = 0
 	Stroke                              int = 0
-	Creator                             int = 0
-	ModeAppend                          int = 33554432
-	ModeCreate                          int = 134217728
-	ModeReadOnly                        int = 268435456
-	ModeReadWrite                       int = 805306368
-	ModeTruncate                        int = 67108864
-	ModeWorldReadable                   int = 1
-	ModeWorldWriteable                  int = 2
-	ModeWriteOnly                       int = 536870912
 	DensityNone                         int = 0
 	Jpeg                                int = 0
 	Png                                 int = 0
@@ -72,23 +91,4 @@ const (
 	Rgba1010102                         int = 0
 	RgbaF16                             int = 0
 	Rgb565                              int = 0
-	AllSaveFlag                         int = 31
-	Aa                                  int = 0
-	Bw                                  int = 0
-	Triangles                           int = 0
-	TriangleFan                         int = 0
-	TriangleStrip                       int = 0
-	FlagRenderHighlightAnnotations      int = 4
-	FlagRenderTextAnnotations           int = 2
-	RenderModeForDisplay                int = 1
-	RenderModeForPrint                  int = 2
-	Bold                                int = 1
-	BoldItalic                          int = 3
-	Default                             int = 0
-	DefaultBold                         int = 0
-	Italic                              int = 2
-	Monospace                           int = 0
-	Normal                              int = 0
-	SansSerif                           int = 0
-	Serif                               int = 0
 )

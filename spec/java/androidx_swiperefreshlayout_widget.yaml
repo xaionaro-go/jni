@@ -325,6 +325,7 @@ classes:
               go_name: arg1
           returns: boolean
           error: true
+      static_methods:
         - java_method: onTouchEvent
           go_name: OnTouchEvent
           params:
@@ -524,6 +525,7 @@ classes:
           go_name: Start
           returns: void
           error: true
+      static_methods:
         - java_method: stop
           go_name: Stop
           returns: void

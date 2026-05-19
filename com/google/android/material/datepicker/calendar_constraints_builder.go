@@ -23,6 +23,34 @@ type CalendarConstraintsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCalendarConstraintsBuilder creates a new com.google.android.material.datepicker.CalendarConstraints$Builder instance.
+func NewCalendarConstraintsBuilder(vm *jni.VM) (*CalendarConstraintsBuilder, error) {
+	var t CalendarConstraintsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCalendarConstraintsBuilder == nil {
+			return fmt.Errorf("com.google.android.material.datepicker.CalendarConstraints$Builder is not available on this device")
+		}
+		if midCalendarConstraintsBuilderCtor == nil {
+			return fmt.Errorf("com.google.android.material.datepicker.CalendarConstraints$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCalendarConstraintsBuilder)), midCalendarConstraintsBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetStart calls com.google.android.material.datepicker.CalendarConstraints$Builder.setStart.
 func (m *CalendarConstraintsBuilder) SetStart(arg0 int64) (*jni.Object, error) {
 	var result *jni.Object
@@ -188,38 +216,6 @@ func (m *CalendarConstraintsBuilder) SetValidator(arg0 *jni.Object) (*jni.Object
 	return result, callErr
 }
 
-// Build calls com.google.android.material.datepicker.CalendarConstraints$Builder.build.
-func (m *CalendarConstraintsBuilder) Build() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCalendarConstraintsBuilderBuild == nil {
-			callErr = fmt.Errorf("com.google.android.material.datepicker.CalendarConstraints$Builder.build is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCalendarConstraintsBuilderBuild,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.datepicker.CalendarConstraints$Builder.toString.
 func (m *CalendarConstraintsBuilder) ToString() (string, error) {
 	var result string
@@ -242,6 +238,38 @@ func (m *CalendarConstraintsBuilder) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// Build calls com.google.android.material.datepicker.CalendarConstraints$Builder.build.
+func (m *CalendarConstraintsBuilder) Build() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCalendarConstraintsBuilderBuild == nil {
+			callErr = fmt.Errorf("com.google.android.material.datepicker.CalendarConstraints$Builder.build is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsCalendarConstraintsBuilder)),
+			midCalendarConstraintsBuilderBuild,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
 		return callErr
 	})
 	return result, callErr

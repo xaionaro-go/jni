@@ -23,6 +23,35 @@ type Ikev2VpnProfileBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewIkev2VpnProfileBuilder creates a new android.net.Ikev2VpnProfile$Builder instance.
+func NewIkev2VpnProfileBuilder(vm *jni.VM, arg0 *jni.Object) (*Ikev2VpnProfileBuilder, error) {
+	var t Ikev2VpnProfileBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsIkev2VpnProfileBuilder == nil {
+			return fmt.Errorf("android.net.Ikev2VpnProfile$Builder is not available on this device")
+		}
+		if midIkev2VpnProfileBuilderCtor == nil {
+			return fmt.Errorf("android.net.Ikev2VpnProfile$Builder constructor (Landroid/net/ipsec/ike/IkeTunnelConnectionParams;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIkev2VpnProfileBuilder)), midIkev2VpnProfileBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.Ikev2VpnProfile$Builder.build.
 func (m *Ikev2VpnProfileBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

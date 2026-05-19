@@ -24,10 +24,11 @@ var (
 	initErr  error
 
 	clsIUnusedAppRestrictionsBackportService                                    *jni.GlobalRef
-	midIUnusedAppRestrictionsBackportServiceIsPermissionRevocationEnabledForApp jni.MethodID
 	midIUnusedAppRestrictionsBackportServiceToString                            jni.MethodID
+	midIUnusedAppRestrictionsBackportServiceIsPermissionRevocationEnabledForApp jni.MethodID
 
 	clsIUnusedAppRestrictionsBackportServiceDefault                                    *jni.GlobalRef
+	midIUnusedAppRestrictionsBackportServiceDefaultCtor                                jni.MethodID
 	midIUnusedAppRestrictionsBackportServiceDefaultIsPermissionRevocationEnabledForApp jni.MethodID
 	midIUnusedAppRestrictionsBackportServiceDefaultAsBinder                            jni.MethodID
 	midIUnusedAppRestrictionsBackportServiceDefaultToString                            jni.MethodID
@@ -39,10 +40,11 @@ var (
 	midIUnusedAppRestrictionsBackportServiceStubAsInterface jni.MethodID
 
 	clsIUnusedAppRestrictionsBackportCallback                                            *jni.GlobalRef
-	midIUnusedAppRestrictionsBackportCallbackOnIsPermissionRevocationEnabledForAppResult jni.MethodID
 	midIUnusedAppRestrictionsBackportCallbackToString                                    jni.MethodID
+	midIUnusedAppRestrictionsBackportCallbackOnIsPermissionRevocationEnabledForAppResult jni.MethodID
 
 	clsIUnusedAppRestrictionsBackportCallbackDefault                                            *jni.GlobalRef
+	midIUnusedAppRestrictionsBackportCallbackDefaultCtor                                        jni.MethodID
 	midIUnusedAppRestrictionsBackportCallbackDefaultOnIsPermissionRevocationEnabledForAppResult jni.MethodID
 	midIUnusedAppRestrictionsBackportCallbackDefaultAsBinder                                    jni.MethodID
 	midIUnusedAppRestrictionsBackportCallbackDefaultToString                                    jni.MethodID
@@ -80,14 +82,14 @@ func doInit(env *jni.Env) error {
 	} else {
 		clsIUnusedAppRestrictionsBackportService = env.NewGlobalRef(&c.Object)
 
-		midIUnusedAppRestrictionsBackportServiceIsPermissionRevocationEnabledForApp, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIUnusedAppRestrictionsBackportService)), "isPermissionRevocationEnabledForApp", "(Landroidx/core/app/unusedapprestrictions/IUnusedAppRestrictionsBackportCallback;)V")
+		midIUnusedAppRestrictionsBackportServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIUnusedAppRestrictionsBackportService)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midIUnusedAppRestrictionsBackportServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIUnusedAppRestrictionsBackportService)), "toString", "()Ljava/lang/String;")
+		midIUnusedAppRestrictionsBackportServiceIsPermissionRevocationEnabledForApp, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsIUnusedAppRestrictionsBackportService)), "isPermissionRevocationEnabledForApp", "(Landroidx/core/app/unusedapprestrictions/IUnusedAppRestrictionsBackportCallback;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -103,6 +105,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsIUnusedAppRestrictionsBackportServiceDefault = env.NewGlobalRef(&c.Object)
+		midIUnusedAppRestrictionsBackportServiceDefaultCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIUnusedAppRestrictionsBackportServiceDefault)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midIUnusedAppRestrictionsBackportServiceDefaultIsPermissionRevocationEnabledForApp, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIUnusedAppRestrictionsBackportServiceDefault)), "isPermissionRevocationEnabledForApp", "(Landroidx/core/app/unusedapprestrictions/IUnusedAppRestrictionsBackportCallback;)V")
 		if err != nil {
@@ -173,14 +179,14 @@ func doInit(env *jni.Env) error {
 	} else {
 		clsIUnusedAppRestrictionsBackportCallback = env.NewGlobalRef(&c.Object)
 
-		midIUnusedAppRestrictionsBackportCallbackOnIsPermissionRevocationEnabledForAppResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIUnusedAppRestrictionsBackportCallback)), "onIsPermissionRevocationEnabledForAppResult", "(ZZ)V")
+		midIUnusedAppRestrictionsBackportCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIUnusedAppRestrictionsBackportCallback)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midIUnusedAppRestrictionsBackportCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIUnusedAppRestrictionsBackportCallback)), "toString", "()Ljava/lang/String;")
+		midIUnusedAppRestrictionsBackportCallbackOnIsPermissionRevocationEnabledForAppResult, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsIUnusedAppRestrictionsBackportCallback)), "onIsPermissionRevocationEnabledForAppResult", "(ZZ)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -196,6 +202,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsIUnusedAppRestrictionsBackportCallbackDefault = env.NewGlobalRef(&c.Object)
+		midIUnusedAppRestrictionsBackportCallbackDefaultCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIUnusedAppRestrictionsBackportCallbackDefault)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midIUnusedAppRestrictionsBackportCallbackDefaultOnIsPermissionRevocationEnabledForAppResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIUnusedAppRestrictionsBackportCallbackDefault)), "onIsPermissionRevocationEnabledForAppResult", "(ZZ)V")
 		if err != nil {

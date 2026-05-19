@@ -5,6 +5,106 @@
 package: motion
 go_import: github.com/AndroidGoLab/jni/com/google/android/material/motion
 classes:
+    - java_class: com.google.android.material.motion.MaterialBackHandler
+      go_type: MaterialBackHandler
+      methods:
+        - java_method: startBackProgress
+          go_name: StartBackProgress
+          params:
+            - java_type: androidx.activity.BackEventCompat
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: updateBackProgress
+          go_name: UpdateBackProgress
+          params:
+            - java_type: androidx.activity.BackEventCompat
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: handleBackInvoked
+          go_name: HandleBackInvoked
+          returns: void
+          error: true
+        - java_method: cancelBackProgress
+          go_name: CancelBackProgress
+          returns: void
+          error: true
+    - java_class: com.google.android.material.motion.MaterialBottomContainerBackHelper
+      go_type: MaterialBottomContainerBackHelper
+      obtain: constructor
+      constructor_params:
+        - java_type: android.view.View
+          go_name: arg0
+      methods:
+        - java_method: startBackProgress
+          go_name: StartBackProgress
+          params:
+            - java_type: androidx.activity.BackEventCompat
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: updateBackProgress
+          go_name: UpdateBackProgress1
+          params:
+            - java_type: androidx.activity.BackEventCompat
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: updateBackProgress
+          go_name: UpdateBackProgress1_1
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: finishBackProgressPersistent
+          go_name: FinishBackProgressPersistent
+          params:
+            - java_type: androidx.activity.BackEventCompat
+              go_name: arg0
+            - java_type: android.animation.Animator$AnimatorListener
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: finishBackProgressNotPersistent
+          go_name: FinishBackProgressNotPersistent
+          params:
+            - java_type: androidx.activity.BackEventCompat
+              go_name: arg0
+            - java_type: android.animation.Animator$AnimatorListener
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: cancelBackProgress
+          go_name: CancelBackProgress
+          returns: void
+          error: true
+    - java_class: com.google.android.material.motion.MotionUtils
+      go_type: Utils
+      static_methods:
+        - java_method: resolveThemeDuration
+          go_name: ResolveThemeDuration
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: int
+          error: true
+        - java_method: resolveThemeInterpolator
+          go_name: ResolveThemeInterpolator
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.animation.TimeInterpolator
+              go_name: arg2
+          returns: android.animation.TimeInterpolator
+          error: true
     - java_class: com.google.android.material.motion.MaterialBackOrchestrator
       go_type: MaterialBackOrchestrator
       obtain: constructor
@@ -81,105 +181,19 @@ classes:
           go_name: CancelBackProgress
           returns: void
           error: true
-    - java_class: com.google.android.material.motion.MotionUtils
-      go_type: Utils
-      static_methods:
-        - java_method: resolveThemeDuration
-          go_name: ResolveThemeDuration
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: int
-          error: true
-        - java_method: resolveThemeInterpolator
-          go_name: ResolveThemeInterpolator
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.animation.TimeInterpolator
-              go_name: arg2
-          returns: android.animation.TimeInterpolator
-          error: true
-    - java_class: com.google.android.material.motion.MaterialBottomContainerBackHelper
-      go_type: MaterialBottomContainerBackHelper
-      obtain: constructor
-      constructor_params:
-        - java_type: android.view.View
-          go_name: arg0
+    - java_class: com.google.android.material.motion.MaterialBackAnimationHelper
+      go_type: MaterialBackAnimationHelper
       methods:
-        - java_method: startBackProgress
-          go_name: StartBackProgress
-          params:
-            - java_type: androidx.activity.BackEventCompat
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: updateBackProgress
-          go_name: UpdateBackProgress1
-          params:
-            - java_type: androidx.activity.BackEventCompat
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: updateBackProgress
-          go_name: UpdateBackProgress1_1
+        - java_method: interpolateProgress
+          go_name: InterpolateProgress
           params:
             - java_type: float
               go_name: arg0
-          returns: void
+          returns: float
           error: true
-        - java_method: finishBackProgressPersistent
-          go_name: FinishBackProgressPersistent
-          params:
-            - java_type: androidx.activity.BackEventCompat
-              go_name: arg0
-            - java_type: android.animation.Animator$AnimatorListener
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: finishBackProgressNotPersistent
-          go_name: FinishBackProgressNotPersistent
-          params:
-            - java_type: androidx.activity.BackEventCompat
-              go_name: arg0
-            - java_type: android.animation.Animator$AnimatorListener
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: cancelBackProgress
-          go_name: CancelBackProgress
-          returns: void
-          error: true
-    - java_class: com.google.android.material.motion.MaterialBackHandler
-      go_type: MaterialBackHandler
-      methods:
-        - java_method: startBackProgress
-          go_name: StartBackProgress
-          params:
-            - java_type: androidx.activity.BackEventCompat
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: updateBackProgress
-          go_name: UpdateBackProgress
-          params:
-            - java_type: androidx.activity.BackEventCompat
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: handleBackInvoked
-          go_name: HandleBackInvoked
-          returns: void
-          error: true
-        - java_method: cancelBackProgress
-          go_name: CancelBackProgress
-          returns: void
+        - java_method: onHandleBackInvoked
+          go_name: OnHandleBackInvoked
+          returns: androidx.activity.BackEventCompat
           error: true
     - java_class: com.google.android.material.motion.MaterialMainContainerBackHelper
       go_type: MaterialMainContainerBackHelper
@@ -258,30 +272,7 @@ classes:
           go_name: GetExpandedCornerSize
           returns: int
           error: true
+abstract_callback_eligibility:
     - java_class: com.google.android.material.motion.MaterialBackAnimationHelper
-      go_type: MaterialBackAnimationHelper
-      methods:
-        - java_method: interpolateProgress
-          go_name: InterpolateProgress
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: onHandleBackInvoked
-          go_name: OnHandleBackInvoked
-          returns: androidx.activity.BackEventCompat
-          error: true
-abstract_callbacks:
-    - java_class: com.google.android.material.motion.MaterialBackAnimationHelper
-      go_type: MaterialBackAnimationHelperCallback
-      methods:
-        - java_method: interpolateProgress
-          params:
-            - float
-          returns: float
-          go_field: InterpolateProgress
-        - java_method: onHandleBackInvoked
-          params: []
-          returns: androidx.activity.BackEventCompat
-          go_field: OnHandleBackInvoked
+      generated: false
+      reason: unsupported_constructor

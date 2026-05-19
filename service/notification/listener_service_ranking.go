@@ -23,6 +23,34 @@ type ListenerServiceRanking struct {
 	Obj *jni.GlobalRef
 }
 
+// NewListenerServiceRanking creates a new android.service.notification.NotificationListenerService$Ranking instance.
+func NewListenerServiceRanking(vm *jni.VM) (*ListenerServiceRanking, error) {
+	var t ListenerServiceRanking
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsListenerServiceRanking == nil {
+			return fmt.Errorf("android.service.notification.NotificationListenerService$Ranking is not available on this device")
+		}
+		if midListenerServiceRankingCtor == nil {
+			return fmt.Errorf("android.service.notification.NotificationListenerService$Ranking constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsListenerServiceRanking)), midListenerServiceRankingCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // CanBubble calls android.service.notification.NotificationListenerService$Ranking.canBubble.
 func (m *ListenerServiceRanking) CanBubble() (bool, error) {
 	var result bool

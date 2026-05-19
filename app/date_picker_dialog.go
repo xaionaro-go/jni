@@ -30,6 +30,12 @@ func NewDatePickerDialog(vm *jni.VM, arg0 *jni.Object) (*DatePickerDialog, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDatePickerDialog == nil {
+			return fmt.Errorf("android.app.DatePickerDialog is not available on this device")
+		}
+		if midDatePickerDialogCtor == nil {
+			return fmt.Errorf("android.app.DatePickerDialog constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDatePickerDialog)), midDatePickerDialogCtor, jni.ObjectValue(arg0))
 		if err != nil {

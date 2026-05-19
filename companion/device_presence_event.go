@@ -32,6 +32,12 @@ func NewDevicePresenceEvent(vm *jni.VM, arg0 int32, arg1 int32, arg2 *jni.Object
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDevicePresenceEvent == nil {
+			return fmt.Errorf("android.companion.DevicePresenceEvent is not available on this device")
+		}
+		if midDevicePresenceEventCtor == nil {
+			return fmt.Errorf("android.companion.DevicePresenceEvent constructor (IILandroid/os/ParcelUuid;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDevicePresenceEvent)), midDevicePresenceEventCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2))
 		if err != nil {
@@ -247,8 +253,8 @@ func (m *DevicePresenceEvent) WriteToParcel(arg0 *jni.Object, arg1 int32) error 
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsDevicePresenceEvent)),
 			midDevicePresenceEventWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

@@ -23,43 +23,18 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsVerticalWidgetRun              *jni.GlobalRef
-	midVerticalWidgetRunCtor          jni.MethodID
-	midVerticalWidgetRunToString      jni.MethodID
-	midVerticalWidgetRunUpdate        jni.MethodID
-	midVerticalWidgetRunApplyToWidget jni.MethodID
-
-	clsChainRun                 *jni.GlobalRef
-	midChainRunCtor             jni.MethodID
-	midChainRunToString         jni.MethodID
-	midChainRunGetWrapDimension jni.MethodID
-	midChainRunUpdate           jni.MethodID
-	midChainRunApplyToWidget    jni.MethodID
-
-	clsHorizontalWidgetRun              *jni.GlobalRef
-	midHorizontalWidgetRunCtor          jni.MethodID
-	midHorizontalWidgetRunToString      jni.MethodID
-	midHorizontalWidgetRunUpdate        jni.MethodID
-	midHorizontalWidgetRunApplyToWidget jni.MethodID
-
-	clsBasicMeasure                *jni.GlobalRef
-	midBasicMeasureCtor            jni.MethodID
-	midBasicMeasureUpdateHierarchy jni.MethodID
-	midBasicMeasureSolverMeasure   jni.MethodID
-	midBasicMeasureToString        jni.MethodID
-
-	clsBasicMeasureMeasureType         *jni.GlobalRef
-	midBasicMeasureMeasureTypeToString jni.MethodID
-	midBasicMeasureMeasureTypeValues   jni.MethodID
-	midBasicMeasureMeasureTypeValueOf  jni.MethodID
-
-	clsBasicMeasureMeasure         *jni.GlobalRef
-	midBasicMeasureMeasureToString jni.MethodID
-
-	clsBasicMeasureMeasurer            *jni.GlobalRef
-	midBasicMeasureMeasurerMeasure     jni.MethodID
-	midBasicMeasureMeasurerDidMeasures jni.MethodID
-	midBasicMeasureMeasurerToString    jni.MethodID
+	clsDependencyGraph                             *jni.GlobalRef
+	midDependencyGraphCtor                         jni.MethodID
+	midDependencyGraphSetMeasurer                  jni.MethodID
+	midDependencyGraphDefineTerminalWidgets        jni.MethodID
+	midDependencyGraphDirectMeasure                jni.MethodID
+	midDependencyGraphDirectMeasureSetup           jni.MethodID
+	midDependencyGraphDirectMeasureWithOrientation jni.MethodID
+	midDependencyGraphMeasureWidgets               jni.MethodID
+	midDependencyGraphInvalidateGraph              jni.MethodID
+	midDependencyGraphInvalidateMeasures           jni.MethodID
+	midDependencyGraphBuildGraph                   jni.MethodID
+	midDependencyGraphToString                     jni.MethodID
 
 	clsDependency         *jni.GlobalRef
 	midDependencyUpdate   jni.MethodID
@@ -74,18 +49,32 @@ var (
 	midWidgetRunIsResolved          jni.MethodID
 	midWidgetRunToString            jni.MethodID
 
-	clsDependencyGraph                             *jni.GlobalRef
-	midDependencyGraphCtor                         jni.MethodID
-	midDependencyGraphSetMeasurer                  jni.MethodID
-	midDependencyGraphDefineTerminalWidgets        jni.MethodID
-	midDependencyGraphDirectMeasure                jni.MethodID
-	midDependencyGraphDirectMeasureSetup           jni.MethodID
-	midDependencyGraphDirectMeasureWithOrientation jni.MethodID
-	midDependencyGraphMeasureWidgets               jni.MethodID
-	midDependencyGraphInvalidateGraph              jni.MethodID
-	midDependencyGraphInvalidateMeasures           jni.MethodID
-	midDependencyGraphBuildGraph                   jni.MethodID
-	midDependencyGraphToString                     jni.MethodID
+	clsChainRun                 *jni.GlobalRef
+	midChainRunCtor             jni.MethodID
+	midChainRunToString         jni.MethodID
+	midChainRunGetWrapDimension jni.MethodID
+	midChainRunUpdate           jni.MethodID
+	midChainRunApplyToWidget    jni.MethodID
+
+	clsBasicMeasure                *jni.GlobalRef
+	midBasicMeasureCtor            jni.MethodID
+	midBasicMeasureUpdateHierarchy jni.MethodID
+	midBasicMeasureSolverMeasure   jni.MethodID
+	midBasicMeasureToString        jni.MethodID
+
+	clsBasicMeasureMeasureType         *jni.GlobalRef
+	midBasicMeasureMeasureTypeToString jni.MethodID
+	midBasicMeasureMeasureTypeValues   jni.MethodID
+	midBasicMeasureMeasureTypeValueOf  jni.MethodID
+
+	clsBasicMeasureMeasure         *jni.GlobalRef
+	midBasicMeasureMeasureCtor     jni.MethodID
+	midBasicMeasureMeasureToString jni.MethodID
+
+	clsBasicMeasureMeasurer            *jni.GlobalRef
+	midBasicMeasureMeasurerMeasure     jni.MethodID
+	midBasicMeasureMeasurerDidMeasures jni.MethodID
+	midBasicMeasureMeasurerToString    jni.MethodID
 
 	clsDependencyNode              *jni.GlobalRef
 	midDependencyNodeCtor          jni.MethodID
@@ -95,6 +84,18 @@ var (
 	midDependencyNodeAddDependency jni.MethodID
 	midDependencyNodeName          jni.MethodID
 	midDependencyNodeClear         jni.MethodID
+
+	clsVerticalWidgetRun              *jni.GlobalRef
+	midVerticalWidgetRunCtor          jni.MethodID
+	midVerticalWidgetRunToString      jni.MethodID
+	midVerticalWidgetRunUpdate        jni.MethodID
+	midVerticalWidgetRunApplyToWidget jni.MethodID
+
+	clsHorizontalWidgetRun              *jni.GlobalRef
+	midHorizontalWidgetRunCtor          jni.MethodID
+	midHorizontalWidgetRunToString      jni.MethodID
+	midHorizontalWidgetRunUpdate        jni.MethodID
+	midHorizontalWidgetRunApplyToWidget jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -115,224 +116,82 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("androidx/constraintlayout/solver/widgets/analyzer/VerticalWidgetRun")
+	c, err = env.FindClass("androidx/constraintlayout/solver/widgets/analyzer/DependencyGraph")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsVerticalWidgetRun = env.NewGlobalRef(&c.Object)
-		midVerticalWidgetRunCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVerticalWidgetRun)), "<init>", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidget;)V")
+		clsDependencyGraph = env.NewGlobalRef(&c.Object)
+		midDependencyGraphCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "<init>", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidgetContainer;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midVerticalWidgetRunToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVerticalWidgetRun)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVerticalWidgetRunUpdate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVerticalWidgetRun)), "update", "(Landroidx/constraintlayout/solver/widgets/analyzer/Dependency;)V")
+		midDependencyGraphSetMeasurer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "setMeasurer", "(Landroidx/constraintlayout/solver/widgets/analyzer/BasicMeasure$Measurer;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midVerticalWidgetRunApplyToWidget, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVerticalWidgetRun)), "applyToWidget", "()V")
+		midDependencyGraphDefineTerminalWidgets, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "defineTerminalWidgets", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidget$DimensionBehaviour;Landroidx/constraintlayout/solver/widgets/ConstraintWidget$DimensionBehaviour;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/solver/widgets/analyzer/ChainRun")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsChainRun = env.NewGlobalRef(&c.Object)
-		midChainRunCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChainRun)), "<init>", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidget;I)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midChainRunToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChainRun)), "toString", "()Ljava/lang/String;")
+		midDependencyGraphDirectMeasure, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "directMeasure", "(Z)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midChainRunGetWrapDimension, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChainRun)), "getWrapDimension", "()J")
+		midDependencyGraphDirectMeasureSetup, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "directMeasureSetup", "(Z)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midChainRunUpdate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChainRun)), "update", "(Landroidx/constraintlayout/solver/widgets/analyzer/Dependency;)V")
+		midDependencyGraphDirectMeasureWithOrientation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "directMeasureWithOrientation", "(ZI)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midChainRunApplyToWidget, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChainRun)), "applyToWidget", "()V")
+		midDependencyGraphMeasureWidgets, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "measureWidgets", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/solver/widgets/analyzer/HorizontalWidgetRun")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsHorizontalWidgetRun = env.NewGlobalRef(&c.Object)
-		midHorizontalWidgetRunCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHorizontalWidgetRun)), "<init>", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidget;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midHorizontalWidgetRunToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHorizontalWidgetRun)), "toString", "()Ljava/lang/String;")
+		midDependencyGraphInvalidateGraph, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "invalidateGraph", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midHorizontalWidgetRunUpdate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHorizontalWidgetRun)), "update", "(Landroidx/constraintlayout/solver/widgets/analyzer/Dependency;)V")
+		midDependencyGraphInvalidateMeasures, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "invalidateMeasures", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midHorizontalWidgetRunApplyToWidget, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHorizontalWidgetRun)), "applyToWidget", "()V")
+		midDependencyGraphBuildGraph, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "buildGraph", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/solver/widgets/analyzer/BasicMeasure")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBasicMeasure = env.NewGlobalRef(&c.Object)
-		midBasicMeasureCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasure)), "<init>", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidgetContainer;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midBasicMeasureUpdateHierarchy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasure)), "updateHierarchy", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidgetContainer;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBasicMeasureSolverMeasure, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasure)), "solverMeasure", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidgetContainer;IIIIIIIII)J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBasicMeasureToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasure)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/solver/widgets/analyzer/BasicMeasure$MeasureType")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBasicMeasureMeasureType = env.NewGlobalRef(&c.Object)
-
-		midBasicMeasureMeasureTypeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasureMeasureType)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBasicMeasureMeasureTypeValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasureMeasureType)), "values", "()[Landroidx/constraintlayout/solver/widgets/analyzer/BasicMeasure$MeasureType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBasicMeasureMeasureTypeValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasureMeasureType)), "valueOf", "(Ljava/lang/String;)Landroidx/constraintlayout/solver/widgets/analyzer/BasicMeasure$MeasureType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/solver/widgets/analyzer/BasicMeasure$Measure")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBasicMeasureMeasure = env.NewGlobalRef(&c.Object)
-
-		midBasicMeasureMeasureToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasureMeasure)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/solver/widgets/analyzer/BasicMeasure$Measurer")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBasicMeasureMeasurer = env.NewGlobalRef(&c.Object)
-
-		midBasicMeasureMeasurerMeasure, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasureMeasurer)), "measure", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidget;Landroidx/constraintlayout/solver/widgets/analyzer/BasicMeasure$Measure;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBasicMeasureMeasurerDidMeasures, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasureMeasurer)), "didMeasures", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBasicMeasureMeasurerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasureMeasurer)), "toString", "()Ljava/lang/String;")
+		midDependencyGraphToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -424,82 +283,158 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/constraintlayout/solver/widgets/analyzer/DependencyGraph")
+	c, err = env.FindClass("androidx/constraintlayout/solver/widgets/analyzer/ChainRun")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsDependencyGraph = env.NewGlobalRef(&c.Object)
-		midDependencyGraphCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "<init>", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidgetContainer;)V")
+		clsChainRun = env.NewGlobalRef(&c.Object)
+		midChainRunCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChainRun)), "<init>", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidget;I)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midDependencyGraphSetMeasurer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "setMeasurer", "(Landroidx/constraintlayout/solver/widgets/analyzer/BasicMeasure$Measurer;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDependencyGraphDefineTerminalWidgets, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "defineTerminalWidgets", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidget$DimensionBehaviour;Landroidx/constraintlayout/solver/widgets/ConstraintWidget$DimensionBehaviour;)V")
+		midChainRunToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChainRun)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDependencyGraphDirectMeasure, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "directMeasure", "(Z)Z")
+		midChainRunGetWrapDimension, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChainRun)), "getWrapDimension", "()J")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDependencyGraphDirectMeasureSetup, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "directMeasureSetup", "(Z)Z")
+		midChainRunUpdate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChainRun)), "update", "(Landroidx/constraintlayout/solver/widgets/analyzer/Dependency;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDependencyGraphDirectMeasureWithOrientation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "directMeasureWithOrientation", "(ZI)Z")
+		midChainRunApplyToWidget, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChainRun)), "applyToWidget", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDependencyGraphMeasureWidgets, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "measureWidgets", "()V")
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/solver/widgets/analyzer/BasicMeasure")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBasicMeasure = env.NewGlobalRef(&c.Object)
+		midBasicMeasureCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasure)), "<init>", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidgetContainer;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midBasicMeasureUpdateHierarchy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasure)), "updateHierarchy", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidgetContainer;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDependencyGraphInvalidateGraph, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "invalidateGraph", "()V")
+		midBasicMeasureSolverMeasure, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasure)), "solverMeasure", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidgetContainer;IIIIIIIII)J")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDependencyGraphInvalidateMeasures, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "invalidateMeasures", "()V")
+		midBasicMeasureToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasure)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDependencyGraphBuildGraph, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "buildGraph", "()V")
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/solver/widgets/analyzer/BasicMeasure$MeasureType")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBasicMeasureMeasureType = env.NewGlobalRef(&c.Object)
+
+		midBasicMeasureMeasureTypeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasureMeasureType)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDependencyGraphToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyGraph)), "toString", "()Ljava/lang/String;")
+		midBasicMeasureMeasureTypeValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasureMeasureType)), "values", "()[Landroidx/constraintlayout/solver/widgets/analyzer/BasicMeasure$MeasureType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBasicMeasureMeasureTypeValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasureMeasureType)), "valueOf", "(Ljava/lang/String;)Landroidx/constraintlayout/solver/widgets/analyzer/BasicMeasure$MeasureType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/solver/widgets/analyzer/BasicMeasure$Measure")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBasicMeasureMeasure = env.NewGlobalRef(&c.Object)
+		midBasicMeasureMeasureCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasureMeasure)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midBasicMeasureMeasureToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasureMeasure)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/solver/widgets/analyzer/BasicMeasure$Measurer")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBasicMeasureMeasurer = env.NewGlobalRef(&c.Object)
+
+		midBasicMeasureMeasurerMeasure, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasureMeasurer)), "measure", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidget;Landroidx/constraintlayout/solver/widgets/analyzer/BasicMeasure$Measure;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBasicMeasureMeasurerDidMeasures, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasureMeasurer)), "didMeasures", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBasicMeasureMeasurerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBasicMeasureMeasurer)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -556,6 +491,76 @@ func doInit(env *jni.Env) error {
 		}
 
 		midDependencyNodeClear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDependencyNode)), "clear", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/solver/widgets/analyzer/VerticalWidgetRun")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsVerticalWidgetRun = env.NewGlobalRef(&c.Object)
+		midVerticalWidgetRunCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVerticalWidgetRun)), "<init>", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidget;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midVerticalWidgetRunToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVerticalWidgetRun)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVerticalWidgetRunUpdate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVerticalWidgetRun)), "update", "(Landroidx/constraintlayout/solver/widgets/analyzer/Dependency;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVerticalWidgetRunApplyToWidget, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVerticalWidgetRun)), "applyToWidget", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/solver/widgets/analyzer/HorizontalWidgetRun")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsHorizontalWidgetRun = env.NewGlobalRef(&c.Object)
+		midHorizontalWidgetRunCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHorizontalWidgetRun)), "<init>", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidget;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midHorizontalWidgetRunToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHorizontalWidgetRun)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHorizontalWidgetRunUpdate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHorizontalWidgetRun)), "update", "(Landroidx/constraintlayout/solver/widgets/analyzer/Dependency;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHorizontalWidgetRunApplyToWidget, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHorizontalWidgetRun)), "applyToWidget", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

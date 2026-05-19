@@ -3,15 +3,15 @@
 package consts
 
 const (
+	ShowAsActionNever              int = 0
+	ShowAsActionIfRoom             int = 1
+	ShowAsActionAlways             int = 2
+	ShowAsActionWithText           int = 4
+	ShowAsActionCollapseActionView int = 8
 	UserMask                       int = 65535
 	UserShift                      int = 0
 	CategoryMask                   int = -65536
 	CategoryShift                  int = 16
 	SupportedModifiersMask         int = 69647
 	FlagKeepOpenOnSubmenuOpened    int = 4
-	ShowAsActionNever              int = 0
-	ShowAsActionIfRoom             int = 1
-	ShowAsActionAlways             int = 2
-	ShowAsActionWithText           int = 4
-	ShowAsActionCollapseActionView int = 8
 )

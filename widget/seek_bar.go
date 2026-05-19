@@ -32,6 +32,12 @@ func NewSeekBar(vm *jni.VM, arg0 *jni.Object) (*SeekBar, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSeekBar == nil {
+			return fmt.Errorf("android.widget.SeekBar is not available on this device")
+		}
+		if midSeekBarCtor == nil {
+			return fmt.Errorf("android.widget.SeekBar constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSeekBar)), midSeekBarCtor, jni.ObjectValue(arg0))
 		if err != nil {

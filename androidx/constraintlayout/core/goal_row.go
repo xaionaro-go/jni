@@ -32,6 +32,12 @@ func NewGoalRow(vm *jni.VM, arg0 *jni.Object) (*GoalRow, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGoalRow == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.GoalRow is not available on this device")
+		}
+		if midGoalRowCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.GoalRow constructor (Landroidx/constraintlayout/core/Cache;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGoalRow)), midGoalRowCtor, jni.ObjectValue(arg0))
 		if err != nil {

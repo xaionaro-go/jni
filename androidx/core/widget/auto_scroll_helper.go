@@ -527,34 +527,6 @@ func (m *AutoScrollHelper) CanTargetScrollHorizontally(arg0 int32) (bool, error)
 	return result, callErr
 }
 
-// CanTargetScrollVertically calls androidx.core.widget.AutoScrollHelper.canTargetScrollVertically.
-func (m *AutoScrollHelper) CanTargetScrollVertically(arg0 int32) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAutoScrollHelperCanTargetScrollVertically == nil {
-			callErr = fmt.Errorf("androidx.core.widget.AutoScrollHelper.canTargetScrollVertically is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midAutoScrollHelperCanTargetScrollVertically, jni.IntValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.core.widget.AutoScrollHelper.toString.
 func (m *AutoScrollHelper) ToString() (string, error) {
 	var result string
@@ -577,6 +549,34 @@ func (m *AutoScrollHelper) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// CanTargetScrollVertically calls androidx.core.widget.AutoScrollHelper.canTargetScrollVertically.
+func (m *AutoScrollHelper) CanTargetScrollVertically(arg0 int32) (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midAutoScrollHelperCanTargetScrollVertically == nil {
+			callErr = fmt.Errorf("androidx.core.widget.AutoScrollHelper.canTargetScrollVertically is not available on this device")
+			return callErr
+		}
+
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsAutoScrollHelper)),
+			midAutoScrollHelperCanTargetScrollVertically, jni.IntValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

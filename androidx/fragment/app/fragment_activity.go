@@ -30,6 +30,12 @@ func NewFragmentActivity(vm *jni.VM) (*FragmentActivity, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFragmentActivity == nil {
+			return fmt.Errorf("androidx.fragment.app.FragmentActivity is not available on this device")
+		}
+		if midFragmentActivityCtor == nil {
+			return fmt.Errorf("androidx.fragment.app.FragmentActivity constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFragmentActivity)), midFragmentActivityCtor)
 		if err != nil {
 			return err

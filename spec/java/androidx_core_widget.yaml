@@ -5,69 +5,27 @@
 package: widget
 go_import: github.com/AndroidGoLab/jni/androidx/core/widget
 classes:
-    - java_class: androidx.core.widget.ListViewAutoScrollHelper
-      go_type: ListViewAutoScrollHelper
+    - java_class: androidx.core.widget.ContentLoadingProgressBar
+      go_type: ContentLoadingProgressBar
       obtain: constructor
       constructor_params:
-        - java_type: android.widget.ListView
+        - java_type: android.content.Context
           go_name: arg0
       methods:
-        - java_method: scrollTargetBy
-          go_name: ScrollTargetBy
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
+        - java_method: onAttachedToWindow
+          go_name: OnAttachedToWindow
           returns: void
           error: true
-        - java_method: canTargetScrollHorizontally
-          go_name: CanTargetScrollHorizontally
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: canTargetScrollVertically
-          go_name: CanTargetScrollVertically
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-    - java_class: androidx.core.widget.ImageViewCompat
-      go_type: ImageViewCompat
-      static_methods:
-        - java_method: getImageTintList
-          go_name: GetImageTintList
-          params:
-            - java_type: android.widget.ImageView
-              go_name: arg0
-          returns: android.content.res.ColorStateList
-          error: true
-        - java_method: setImageTintList
-          go_name: SetImageTintList
-          params:
-            - java_type: android.widget.ImageView
-              go_name: arg0
-            - java_type: android.content.res.ColorStateList
-              go_name: arg1
+        - java_method: onDetachedFromWindow
+          go_name: OnDetachedFromWindow
           returns: void
           error: true
-        - java_method: getImageTintMode
-          go_name: GetImageTintMode
-          params:
-            - java_type: android.widget.ImageView
-              go_name: arg0
-          returns: android.graphics.PorterDuff$Mode
+        - java_method: hide
+          go_name: Hide
+          returns: void
           error: true
-        - java_method: setImageTintMode
-          go_name: SetImageTintMode
-          params:
-            - java_type: android.widget.ImageView
-              go_name: arg0
-            - java_type: android.graphics.PorterDuff$Mode
-              go_name: arg1
+        - java_method: show
+          go_name: Show
           returns: void
           error: true
     - java_class: androidx.core.widget.NestedScrollView
@@ -669,26 +627,125 @@ classes:
               go_name: arg4
           returns: void
           error: true
-    - java_class: androidx.core.widget.ListPopupWindowCompat
-      go_type: ListPopupWindowCompat
+    - java_class: androidx.core.widget.TextViewKt
+      go_type: TextViewKt
+    - java_class: androidx.core.widget.AutoSizeableTextView
+      go_type: AutoSizeableTextView
+      methods:
+        - java_method: setAutoSizeTextTypeWithDefaults
+          go_name: SetAutoSizeTextTypeWithDefaults
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setAutoSizeTextTypeUniformWithConfiguration
+          go_name: SetAutoSizeTextTypeUniformWithConfiguration
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: setAutoSizeTextTypeUniformWithPresetSizes
+          go_name: SetAutoSizeTextTypeUniformWithPresetSizes
+          params:
+            - java_type: '[I'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getAutoSizeTextType
+          go_name: GetAutoSizeTextType
+          returns: int
+          error: true
+        - java_method: getAutoSizeStepGranularity
+          go_name: GetAutoSizeStepGranularity
+          returns: int
+          error: true
+        - java_method: getAutoSizeMinTextSize
+          go_name: GetAutoSizeMinTextSize
+          returns: int
+          error: true
+        - java_method: getAutoSizeMaxTextSize
+          go_name: GetAutoSizeMaxTextSize
+          returns: int
+          error: true
       static_methods:
-        - java_method: createDragToOpenListener
-          go_name: CreateDragToOpenListener2
+        - java_method: getAutoSizeTextAvailableSizes
+          go_name: GetAutoSizeTextAvailableSizes
+          returns: '[I'
+          error: true
+    - java_class: androidx.core.widget.PopupMenuCompat
+      go_type: PopupMenuCompat
+      static_methods:
+        - java_method: getDragToOpenListener
+          go_name: GetDragToOpenListener
           params:
             - java_type: java.lang.Object
               go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
           returns: android.view.View$OnTouchListener
           error: true
-        - java_method: createDragToOpenListener
-          go_name: CreateDragToOpenListener2_1
+    - java_class: androidx.core.widget.TextViewOnReceiveContentListener
+      go_type: TextViewOnReceiveContentListener
+      obtain: constructor
+      methods:
+        - java_method: onReceiveContent
+          go_name: OnReceiveContent
           params:
-            - java_type: android.widget.ListPopupWindow
-              go_name: arg0
             - java_type: android.view.View
+              go_name: arg0
+            - java_type: androidx.core.view.ContentInfoCompat
               go_name: arg1
-          returns: android.view.View$OnTouchListener
+          returns: androidx.core.view.ContentInfoCompat
+          error: true
+    - java_class: androidx.core.widget.CompoundButtonCompat
+      go_type: CompoundButtonCompat
+      static_methods:
+        - java_method: setButtonTintList
+          go_name: SetButtonTintList
+          params:
+            - java_type: android.widget.CompoundButton
+              go_name: arg0
+            - java_type: android.content.res.ColorStateList
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getButtonTintList
+          go_name: GetButtonTintList
+          params:
+            - java_type: android.widget.CompoundButton
+              go_name: arg0
+          returns: android.content.res.ColorStateList
+          error: true
+        - java_method: setButtonTintMode
+          go_name: SetButtonTintMode
+          params:
+            - java_type: android.widget.CompoundButton
+              go_name: arg0
+            - java_type: android.graphics.PorterDuff$Mode
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getButtonTintMode
+          go_name: GetButtonTintMode
+          params:
+            - java_type: android.widget.CompoundButton
+              go_name: arg0
+          returns: android.graphics.PorterDuff$Mode
+          error: true
+        - java_method: getButtonDrawable
+          go_name: GetButtonDrawable
+          params:
+            - java_type: android.widget.CompoundButton
+              go_name: arg0
+          returns: android.graphics.drawable.Drawable
           error: true
     - java_class: androidx.core.widget.ListViewCompat
       go_type: ListViewCompat
@@ -711,68 +768,35 @@ classes:
               go_name: arg1
           returns: boolean
           error: true
-    - java_class: androidx.core.widget.TintableCompoundButton
-      go_type: TintableCompoundButton
-      methods:
-        - java_method: setSupportButtonTintList
-          go_name: SetSupportButtonTintList
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getSupportButtonTintList
-          go_name: GetSupportButtonTintList
-          returns: android.content.res.ColorStateList
-          error: true
-        - java_method: setSupportButtonTintMode
-          go_name: SetSupportButtonTintMode
-          params:
-            - java_type: android.graphics.PorterDuff$Mode
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getSupportButtonTintMode
-          go_name: GetSupportButtonTintMode
-          returns: android.graphics.PorterDuff$Mode
-          error: true
-    - java_class: androidx.core.widget.TextViewOnReceiveContentListener
-      go_type: TextViewOnReceiveContentListener
+    - java_class: androidx.core.widget.ListViewAutoScrollHelper
+      go_type: ListViewAutoScrollHelper
       obtain: constructor
+      constructor_params:
+        - java_type: android.widget.ListView
+          go_name: arg0
       methods:
-        - java_method: onReceiveContent
-          go_name: OnReceiveContent
+        - java_method: scrollTargetBy
+          go_name: ScrollTargetBy
           params:
-            - java_type: android.view.View
+            - java_type: int
               go_name: arg0
-            - java_type: androidx.core.view.ContentInfoCompat
+            - java_type: int
               go_name: arg1
-          returns: androidx.core.view.ContentInfoCompat
-          error: true
-    - java_class: androidx.core.widget.TintableCompoundDrawablesView
-      go_type: TintableCompoundDrawablesView
-      methods:
-        - java_method: setSupportCompoundDrawablesTintList
-          go_name: SetSupportCompoundDrawablesTintList
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
           returns: void
           error: true
-        - java_method: getSupportCompoundDrawablesTintList
-          go_name: GetSupportCompoundDrawablesTintList
-          returns: android.content.res.ColorStateList
-          error: true
-        - java_method: setSupportCompoundDrawablesTintMode
-          go_name: SetSupportCompoundDrawablesTintMode
+        - java_method: canTargetScrollHorizontally
+          go_name: CanTargetScrollHorizontally
           params:
-            - java_type: android.graphics.PorterDuff$Mode
+            - java_type: int
               go_name: arg0
-          returns: void
+          returns: boolean
           error: true
-        - java_method: getSupportCompoundDrawablesTintMode
-          go_name: GetSupportCompoundDrawablesTintMode
-          returns: android.graphics.PorterDuff$Mode
+        - java_method: canTargetScrollVertically
+          go_name: CanTargetScrollVertically
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
           error: true
     - java_class: androidx.core.widget.PopupWindowCompat
       go_type: PopupWindowCompat
@@ -824,192 +848,154 @@ classes:
               go_name: arg0
           returns: int
           error: true
-    - java_class: androidx.core.widget.AutoSizeableTextView
-      go_type: AutoSizeableTextView
-      methods:
-        - java_method: setAutoSizeTextTypeWithDefaults
-          go_name: SetAutoSizeTextTypeWithDefaults
+    - java_class: androidx.core.widget.ListPopupWindowCompat
+      go_type: ListPopupWindowCompat
+      static_methods:
+        - java_method: createDragToOpenListener
+          go_name: CreateDragToOpenListener2
           params:
-            - java_type: int
+            - java_type: java.lang.Object
               go_name: arg0
-          returns: void
-          error: true
-        - java_method: setAutoSizeTextTypeUniformWithConfiguration
-          go_name: SetAutoSizeTextTypeUniformWithConfiguration
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
+            - java_type: android.view.View
               go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
+          returns: android.view.View$OnTouchListener
           error: true
-        - java_method: setAutoSizeTextTypeUniformWithPresetSizes
-          go_name: SetAutoSizeTextTypeUniformWithPresetSizes
+        - java_method: createDragToOpenListener
+          go_name: CreateDragToOpenListener2_1
           params:
-            - java_type: '[I'
+            - java_type: android.widget.ListPopupWindow
               go_name: arg0
-            - java_type: int
+            - java_type: android.view.View
               go_name: arg1
-          returns: void
+          returns: android.view.View$OnTouchListener
           error: true
-        - java_method: getAutoSizeTextType
-          go_name: GetAutoSizeTextType
-          returns: int
-          error: true
-        - java_method: getAutoSizeStepGranularity
-          go_name: GetAutoSizeStepGranularity
-          returns: int
-          error: true
-        - java_method: getAutoSizeMinTextSize
-          go_name: GetAutoSizeMinTextSize
-          returns: int
-          error: true
-        - java_method: getAutoSizeMaxTextSize
-          go_name: GetAutoSizeMaxTextSize
-          returns: int
-          error: true
-        - java_method: getAutoSizeTextAvailableSizes
-          go_name: GetAutoSizeTextAvailableSizes
-          returns: '[I'
-          error: true
-    - java_class: androidx.core.widget.TintableImageSourceView
-      go_type: TintableImageSourceView
+    - java_class: androidx.core.widget.TintableCompoundButton
+      go_type: TintableCompoundButton
       methods:
-        - java_method: setSupportImageTintList
-          go_name: SetSupportImageTintList
+        - java_method: setSupportButtonTintList
+          go_name: SetSupportButtonTintList
           params:
             - java_type: android.content.res.ColorStateList
               go_name: arg0
           returns: void
           error: true
-        - java_method: getSupportImageTintList
-          go_name: GetSupportImageTintList
+        - java_method: getSupportButtonTintList
+          go_name: GetSupportButtonTintList
           returns: android.content.res.ColorStateList
           error: true
-        - java_method: setSupportImageTintMode
-          go_name: SetSupportImageTintMode
+        - java_method: setSupportButtonTintMode
+          go_name: SetSupportButtonTintMode
           params:
             - java_type: android.graphics.PorterDuff$Mode
               go_name: arg0
           returns: void
           error: true
-        - java_method: getSupportImageTintMode
-          go_name: GetSupportImageTintMode
+        - java_method: getSupportButtonTintMode
+          go_name: GetSupportButtonTintMode
           returns: android.graphics.PorterDuff$Mode
           error: true
-    - java_class: androidx.core.widget.EdgeEffectCompat
-      go_type: EdgeEffectCompat
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
+    - java_class: androidx.core.widget.TintableCheckedTextView
+      go_type: TintableCheckedTextView
       methods:
-        - java_method: setSize
-          go_name: SetSize
+        - java_method: setSupportCheckMarkTintList
+          go_name: SetSupportCheckMarkTintList
           params:
-            - java_type: int
+            - java_type: android.content.res.ColorStateList
               go_name: arg0
-            - java_type: int
-              go_name: arg1
           returns: void
           error: true
-        - java_method: isFinished
-          go_name: IsFinished
-          returns: boolean
+        - java_method: getSupportCheckMarkTintList
+          go_name: GetSupportCheckMarkTintList
+          returns: android.content.res.ColorStateList
           error: true
-        - java_method: finish
-          go_name: Finish
+        - java_method: setSupportCheckMarkTintMode
+          go_name: SetSupportCheckMarkTintMode
+          params:
+            - java_type: android.graphics.PorterDuff$Mode
+              go_name: arg0
           returns: void
           error: true
-        - java_method: onPull
-          go_name: OnPull1
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: boolean
+        - java_method: getSupportCheckMarkTintMode
+          go_name: GetSupportCheckMarkTintMode
+          returns: android.graphics.PorterDuff$Mode
           error: true
-        - java_method: onPull
-          go_name: OnPull2_1
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: onRelease
-          go_name: OnRelease
-          returns: boolean
-          error: true
-        - java_method: onAbsorb
-          go_name: OnAbsorb
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: draw
-          go_name: Draw
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: boolean
-          error: true
+    - java_class: androidx.core.widget.ImageViewCompat
+      go_type: ImageViewCompat
       static_methods:
-        - java_method: create
-          go_name: Create
+        - java_method: getImageTintList
+          go_name: GetImageTintList
           params:
-            - java_type: android.content.Context
+            - java_type: android.widget.ImageView
               go_name: arg0
-            - java_type: android.util.AttributeSet
-              go_name: arg1
-          returns: android.widget.EdgeEffect
+          returns: android.content.res.ColorStateList
           error: true
-        - java_method: getDistance
-          go_name: GetDistance
+        - java_method: setImageTintList
+          go_name: SetImageTintList
           params:
-            - java_type: android.widget.EdgeEffect
+            - java_type: android.widget.ImageView
               go_name: arg0
-          returns: float
-          error: true
-        - java_method: onPull
-          go_name: OnPull3_2
-          params:
-            - java_type: android.widget.EdgeEffect
-              go_name: arg0
-            - java_type: float
+            - java_type: android.content.res.ColorStateList
               go_name: arg1
-            - java_type: float
-              go_name: arg2
           returns: void
           error: true
-        - java_method: onPullDistance
-          go_name: OnPullDistance
+        - java_method: getImageTintMode
+          go_name: GetImageTintMode
           params:
-            - java_type: android.widget.EdgeEffect
+            - java_type: android.widget.ImageView
               go_name: arg0
-            - java_type: float
+          returns: android.graphics.PorterDuff$Mode
+          error: true
+        - java_method: setImageTintMode
+          go_name: SetImageTintMode
+          params:
+            - java_type: android.widget.ImageView
+              go_name: arg0
+            - java_type: android.graphics.PorterDuff$Mode
               go_name: arg1
-            - java_type: float
-              go_name: arg2
-          returns: float
+          returns: void
           error: true
-    - java_class: androidx.core.widget.PopupMenuCompat
-      go_type: PopupMenuCompat
+    - java_class: androidx.core.widget.CheckedTextViewCompat
+      go_type: CheckedTextViewCompat
       static_methods:
-        - java_method: getDragToOpenListener
-          go_name: GetDragToOpenListener
+        - java_method: setCheckMarkTintList
+          go_name: SetCheckMarkTintList
           params:
-            - java_type: java.lang.Object
+            - java_type: android.widget.CheckedTextView
               go_name: arg0
-          returns: android.view.View$OnTouchListener
+            - java_type: android.content.res.ColorStateList
+              go_name: arg1
+          returns: void
           error: true
-    - java_class: androidx.core.widget.TextViewKt
-      go_type: TextViewKt
+        - java_method: getCheckMarkTintList
+          go_name: GetCheckMarkTintList
+          params:
+            - java_type: android.widget.CheckedTextView
+              go_name: arg0
+          returns: android.content.res.ColorStateList
+          error: true
+        - java_method: setCheckMarkTintMode
+          go_name: SetCheckMarkTintMode
+          params:
+            - java_type: android.widget.CheckedTextView
+              go_name: arg0
+            - java_type: android.graphics.PorterDuff$Mode
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getCheckMarkTintMode
+          go_name: GetCheckMarkTintMode
+          params:
+            - java_type: android.widget.CheckedTextView
+              go_name: arg0
+          returns: android.graphics.PorterDuff$Mode
+          error: true
+        - java_method: getCheckMarkDrawable
+          go_name: GetCheckMarkDrawable
+          params:
+            - java_type: android.widget.CheckedTextView
+              go_name: arg0
+          returns: android.graphics.drawable.Drawable
+          error: true
     - java_class: androidx.core.widget.ScrollerCompat
       go_type: ScrollerCompat
       methods:
@@ -1178,6 +1164,137 @@ classes:
             - java_type: android.view.animation.Interpolator
               go_name: arg1
           returns: androidx.core.widget.ScrollerCompat
+          error: true
+    - java_class: androidx.core.widget.AutoScrollHelper
+      go_type: AutoScrollHelper
+      methods:
+        - java_method: setEnabled
+          go_name: SetEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: androidx.core.widget.AutoScrollHelper
+          error: true
+        - java_method: isEnabled
+          go_name: IsEnabled
+          returns: boolean
+          error: true
+        - java_method: setExclusive
+          go_name: SetExclusive
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: androidx.core.widget.AutoScrollHelper
+          error: true
+        - java_method: isExclusive
+          go_name: IsExclusive
+          returns: boolean
+          error: true
+        - java_method: setMaximumVelocity
+          go_name: SetMaximumVelocity
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: androidx.core.widget.AutoScrollHelper
+          error: true
+        - java_method: setMinimumVelocity
+          go_name: SetMinimumVelocity
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: androidx.core.widget.AutoScrollHelper
+          error: true
+        - java_method: setRelativeVelocity
+          go_name: SetRelativeVelocity
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: androidx.core.widget.AutoScrollHelper
+          error: true
+        - java_method: setEdgeType
+          go_name: SetEdgeType
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.core.widget.AutoScrollHelper
+          error: true
+        - java_method: setRelativeEdges
+          go_name: SetRelativeEdges
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: androidx.core.widget.AutoScrollHelper
+          error: true
+        - java_method: setMaximumEdges
+          go_name: SetMaximumEdges
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: androidx.core.widget.AutoScrollHelper
+          error: true
+        - java_method: setActivationDelay
+          go_name: SetActivationDelay
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.core.widget.AutoScrollHelper
+          error: true
+        - java_method: setRampUpDuration
+          go_name: SetRampUpDuration
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.core.widget.AutoScrollHelper
+          error: true
+        - java_method: setRampDownDuration
+          go_name: SetRampDownDuration
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.core.widget.AutoScrollHelper
+          error: true
+        - java_method: onTouch
+          go_name: OnTouch
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.view.MotionEvent
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: scrollTargetBy
+          go_name: ScrollTargetBy
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: canTargetScrollHorizontally
+          go_name: CanTargetScrollHorizontally
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+      static_methods:
+        - java_method: canTargetScrollVertically
+          go_name: CanTargetScrollVertically
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
           error: true
     - java_class: androidx.core.widget.TextViewCompat
       go_type: TextViewCompat
@@ -1463,138 +1580,15 @@ classes:
           error: true
     - java_class: androidx.core.widget.TextViewCompat$AutoSizeTextType
       go_type: TextViewCompatAutoSizeTextType
-    - java_class: androidx.core.widget.ContentLoadingProgressBar
-      go_type: ContentLoadingProgressBar
+    - java_class: androidx.core.widget.EdgeEffectCompat
+      go_type: EdgeEffectCompat
       obtain: constructor
       constructor_params:
         - java_type: android.content.Context
           go_name: arg0
       methods:
-        - java_method: onAttachedToWindow
-          go_name: OnAttachedToWindow
-          returns: void
-          error: true
-        - java_method: onDetachedFromWindow
-          go_name: OnDetachedFromWindow
-          returns: void
-          error: true
-        - java_method: hide
-          go_name: Hide
-          returns: void
-          error: true
-        - java_method: show
-          go_name: Show
-          returns: void
-          error: true
-    - java_class: androidx.core.widget.AutoScrollHelper
-      go_type: AutoScrollHelper
-      methods:
-        - java_method: setEnabled
-          go_name: SetEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: androidx.core.widget.AutoScrollHelper
-          error: true
-        - java_method: isEnabled
-          go_name: IsEnabled
-          returns: boolean
-          error: true
-        - java_method: setExclusive
-          go_name: SetExclusive
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: androidx.core.widget.AutoScrollHelper
-          error: true
-        - java_method: isExclusive
-          go_name: IsExclusive
-          returns: boolean
-          error: true
-        - java_method: setMaximumVelocity
-          go_name: SetMaximumVelocity
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: androidx.core.widget.AutoScrollHelper
-          error: true
-        - java_method: setMinimumVelocity
-          go_name: SetMinimumVelocity
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: androidx.core.widget.AutoScrollHelper
-          error: true
-        - java_method: setRelativeVelocity
-          go_name: SetRelativeVelocity
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: androidx.core.widget.AutoScrollHelper
-          error: true
-        - java_method: setEdgeType
-          go_name: SetEdgeType
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.core.widget.AutoScrollHelper
-          error: true
-        - java_method: setRelativeEdges
-          go_name: SetRelativeEdges
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: androidx.core.widget.AutoScrollHelper
-          error: true
-        - java_method: setMaximumEdges
-          go_name: SetMaximumEdges
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: androidx.core.widget.AutoScrollHelper
-          error: true
-        - java_method: setActivationDelay
-          go_name: SetActivationDelay
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.core.widget.AutoScrollHelper
-          error: true
-        - java_method: setRampUpDuration
-          go_name: SetRampUpDuration
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.core.widget.AutoScrollHelper
-          error: true
-        - java_method: setRampDownDuration
-          go_name: SetRampDownDuration
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.core.widget.AutoScrollHelper
-          error: true
-        - java_method: onTouch
-          go_name: OnTouch
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.view.MotionEvent
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: scrollTargetBy
-          go_name: ScrollTargetBy
+        - java_method: setSize
+          go_name: SetSize
           params:
             - java_type: int
               go_name: arg0
@@ -1602,233 +1596,145 @@ classes:
               go_name: arg1
           returns: void
           error: true
-        - java_method: canTargetScrollHorizontally
-          go_name: CanTargetScrollHorizontally
+        - java_method: isFinished
+          go_name: IsFinished
+          returns: boolean
+          error: true
+        - java_method: finish
+          go_name: Finish
+          returns: void
+          error: true
+        - java_method: onPull
+          go_name: OnPull1
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onPull
+          go_name: OnPull2_1
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: onRelease
+          go_name: OnRelease
+          returns: boolean
+          error: true
+        - java_method: onAbsorb
+          go_name: OnAbsorb
           params:
             - java_type: int
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: canTargetScrollVertically
-          go_name: CanTargetScrollVertically
+        - java_method: draw
+          go_name: Draw
           params:
-            - java_type: int
+            - java_type: android.graphics.Canvas
               go_name: arg0
           returns: boolean
           error: true
-    - java_class: androidx.core.widget.CheckedTextViewCompat
-      go_type: CheckedTextViewCompat
       static_methods:
-        - java_method: setCheckMarkTintList
-          go_name: SetCheckMarkTintList
+        - java_method: create
+          go_name: Create
           params:
-            - java_type: android.widget.CheckedTextView
+            - java_type: android.content.Context
               go_name: arg0
-            - java_type: android.content.res.ColorStateList
+            - java_type: android.util.AttributeSet
               go_name: arg1
+          returns: android.widget.EdgeEffect
+          error: true
+        - java_method: getDistance
+          go_name: GetDistance
+          params:
+            - java_type: android.widget.EdgeEffect
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: onPull
+          go_name: OnPull3_2
+          params:
+            - java_type: android.widget.EdgeEffect
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
           returns: void
           error: true
-        - java_method: getCheckMarkTintList
-          go_name: GetCheckMarkTintList
+        - java_method: onPullDistance
+          go_name: OnPullDistance
           params:
-            - java_type: android.widget.CheckedTextView
+            - java_type: android.widget.EdgeEffect
               go_name: arg0
-          returns: android.content.res.ColorStateList
-          error: true
-        - java_method: setCheckMarkTintMode
-          go_name: SetCheckMarkTintMode
-          params:
-            - java_type: android.widget.CheckedTextView
-              go_name: arg0
-            - java_type: android.graphics.PorterDuff$Mode
+            - java_type: float
               go_name: arg1
-          returns: void
+            - java_type: float
+              go_name: arg2
+          returns: float
           error: true
-        - java_method: getCheckMarkTintMode
-          go_name: GetCheckMarkTintMode
-          params:
-            - java_type: android.widget.CheckedTextView
-              go_name: arg0
-          returns: android.graphics.PorterDuff$Mode
-          error: true
-        - java_method: getCheckMarkDrawable
-          go_name: GetCheckMarkDrawable
-          params:
-            - java_type: android.widget.CheckedTextView
-              go_name: arg0
-          returns: android.graphics.drawable.Drawable
-          error: true
-    - java_class: androidx.core.widget.CompoundButtonCompat
-      go_type: CompoundButtonCompat
-      static_methods:
-        - java_method: setButtonTintList
-          go_name: SetButtonTintList
-          params:
-            - java_type: android.widget.CompoundButton
-              go_name: arg0
-            - java_type: android.content.res.ColorStateList
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getButtonTintList
-          go_name: GetButtonTintList
-          params:
-            - java_type: android.widget.CompoundButton
-              go_name: arg0
-          returns: android.content.res.ColorStateList
-          error: true
-        - java_method: setButtonTintMode
-          go_name: SetButtonTintMode
-          params:
-            - java_type: android.widget.CompoundButton
-              go_name: arg0
-            - java_type: android.graphics.PorterDuff$Mode
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getButtonTintMode
-          go_name: GetButtonTintMode
-          params:
-            - java_type: android.widget.CompoundButton
-              go_name: arg0
-          returns: android.graphics.PorterDuff$Mode
-          error: true
-        - java_method: getButtonDrawable
-          go_name: GetButtonDrawable
-          params:
-            - java_type: android.widget.CompoundButton
-              go_name: arg0
-          returns: android.graphics.drawable.Drawable
-          error: true
-    - java_class: androidx.core.widget.TintableCheckedTextView
-      go_type: TintableCheckedTextView
+    - java_class: androidx.core.widget.TintableImageSourceView
+      go_type: TintableImageSourceView
       methods:
-        - java_method: setSupportCheckMarkTintList
-          go_name: SetSupportCheckMarkTintList
+        - java_method: setSupportImageTintList
+          go_name: SetSupportImageTintList
           params:
             - java_type: android.content.res.ColorStateList
               go_name: arg0
           returns: void
           error: true
-        - java_method: getSupportCheckMarkTintList
-          go_name: GetSupportCheckMarkTintList
+        - java_method: getSupportImageTintList
+          go_name: GetSupportImageTintList
           returns: android.content.res.ColorStateList
           error: true
-        - java_method: setSupportCheckMarkTintMode
-          go_name: SetSupportCheckMarkTintMode
+        - java_method: setSupportImageTintMode
+          go_name: SetSupportImageTintMode
           params:
             - java_type: android.graphics.PorterDuff$Mode
               go_name: arg0
           returns: void
           error: true
-        - java_method: getSupportCheckMarkTintMode
-          go_name: GetSupportCheckMarkTintMode
+        - java_method: getSupportImageTintMode
+          go_name: GetSupportImageTintMode
           returns: android.graphics.PorterDuff$Mode
           error: true
-abstract_callbacks:
+    - java_class: androidx.core.widget.TintableCompoundDrawablesView
+      go_type: TintableCompoundDrawablesView
+      methods:
+        - java_method: setSupportCompoundDrawablesTintList
+          go_name: SetSupportCompoundDrawablesTintList
+          params:
+            - java_type: android.content.res.ColorStateList
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getSupportCompoundDrawablesTintList
+          go_name: GetSupportCompoundDrawablesTintList
+          returns: android.content.res.ColorStateList
+          error: true
+        - java_method: setSupportCompoundDrawablesTintMode
+          go_name: SetSupportCompoundDrawablesTintMode
+          params:
+            - java_type: android.graphics.PorterDuff$Mode
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getSupportCompoundDrawablesTintMode
+          go_name: GetSupportCompoundDrawablesTintMode
+          returns: android.graphics.PorterDuff$Mode
+          error: true
+abstract_callback_eligibility:
     - java_class: androidx.core.widget.AutoScrollHelper
-      go_type: AutoScrollHelperCallback
-      methods:
-        - java_method: setEnabled
-          params:
-            - boolean
-          returns: androidx.core.widget.AutoScrollHelper
-          go_field: SetEnabled
-        - java_method: isEnabled
-          params: []
-          returns: boolean
-          go_field: IsEnabled
-        - java_method: setExclusive
-          params:
-            - boolean
-          returns: androidx.core.widget.AutoScrollHelper
-          go_field: SetExclusive
-        - java_method: isExclusive
-          params: []
-          returns: boolean
-          go_field: IsExclusive
-        - java_method: setMaximumVelocity
-          params:
-            - float
-            - float
-          returns: androidx.core.widget.AutoScrollHelper
-          go_field: SetMaximumVelocity
-        - java_method: setMinimumVelocity
-          params:
-            - float
-            - float
-          returns: androidx.core.widget.AutoScrollHelper
-          go_field: SetMinimumVelocity
-        - java_method: setRelativeVelocity
-          params:
-            - float
-            - float
-          returns: androidx.core.widget.AutoScrollHelper
-          go_field: SetRelativeVelocity
-        - java_method: setEdgeType
-          params:
-            - int
-          returns: androidx.core.widget.AutoScrollHelper
-          go_field: SetEdgeType
-        - java_method: setRelativeEdges
-          params:
-            - float
-            - float
-          returns: androidx.core.widget.AutoScrollHelper
-          go_field: SetRelativeEdges
-        - java_method: setMaximumEdges
-          params:
-            - float
-            - float
-          returns: androidx.core.widget.AutoScrollHelper
-          go_field: SetMaximumEdges
-        - java_method: setActivationDelay
-          params:
-            - int
-          returns: androidx.core.widget.AutoScrollHelper
-          go_field: SetActivationDelay
-        - java_method: setRampUpDuration
-          params:
-            - int
-          returns: androidx.core.widget.AutoScrollHelper
-          go_field: SetRampUpDuration
-        - java_method: setRampDownDuration
-          params:
-            - int
-          returns: androidx.core.widget.AutoScrollHelper
-          go_field: SetRampDownDuration
-        - java_method: onTouch
-          params:
-            - android.view.View
-            - android.view.MotionEvent
-          returns: boolean
-          go_field: OnTouch
-        - java_method: scrollTargetBy
-          params:
-            - int
-            - int
-          returns: void
-          go_field: ScrollTargetBy
-        - java_method: canTargetScrollHorizontally
-          params:
-            - int
-          returns: boolean
-          go_field: CanTargetScrollHorizontally
-        - java_method: canTargetScrollVertically
-          params:
-            - int
-          returns: boolean
-          go_field: CanTargetScrollVertically
+      generated: false
+      reason: implements_interface
 constants:
     - go_name: PlatformSupportsAutosize
       value: "false"
       go_type: bool
-    - go_name: AutoSizeTextTypeNone
-      value: "0"
-      go_type: int
-    - go_name: AutoSizeTextTypeUniform
-      value: "1"
-      go_type: int
     - go_name: RelativeUnspecified
       value: "0.0"
       go_type: float32
@@ -1846,4 +1752,10 @@ constants:
       go_type: int
     - go_name: EdgeTypeOutside
       value: "2"
+      go_type: int
+    - go_name: AutoSizeTextTypeNone
+      value: "0"
+      go_type: int
+    - go_name: AutoSizeTextTypeUniform
+      value: "1"
       go_type: int

@@ -23,8 +23,8 @@ type VersionInfo struct {
 	Obj *jni.GlobalRef
 }
 
-// CompareTo1 calls android.icu.util.VersionInfo.compareTo.
-func (m *VersionInfo) CompareTo1(arg0 *jni.Object) (int32, error) {
+// CompareTo calls android.icu.util.VersionInfo.compareTo.
+func (m *VersionInfo) CompareTo(arg0 *jni.Object) (int32, error) {
 	var result int32
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -32,14 +32,14 @@ func (m *VersionInfo) CompareTo1(arg0 *jni.Object) (int32, error) {
 			callErr = err
 			return err
 		}
-		if midVersionInfoCompareTo1 == nil {
+		if midVersionInfoCompareTo == nil {
 			callErr = fmt.Errorf("android.icu.util.VersionInfo.compareTo is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallIntMethod(
 			m.Obj,
-			midVersionInfoCompareTo1, jni.ObjectValue(arg0),
+			midVersionInfoCompareTo, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -224,32 +224,6 @@ func (m *VersionInfo) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
-		return callErr
-	})
-	return result, callErr
-}
-
-// CompareTo1_1 calls android.icu.util.VersionInfo.compareTo.
-func (m *VersionInfo) CompareTo1_1(arg0 *jni.Object) (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midVersionInfoCompareTo1_1 == nil {
-			callErr = fmt.Errorf("android.icu.util.VersionInfo.compareTo is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midVersionInfoCompareTo1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
 		return callErr
 	})
 	return result, callErr

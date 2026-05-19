@@ -23,6 +23,35 @@ type StaggeredGridLayoutManagerLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewStaggeredGridLayoutManagerLayoutParams creates a new androidx.recyclerview.widget.StaggeredGridLayoutManager$LayoutParams instance.
+func NewStaggeredGridLayoutManagerLayoutParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*StaggeredGridLayoutManagerLayoutParams, error) {
+	var t StaggeredGridLayoutManagerLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsStaggeredGridLayoutManagerLayoutParams == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.StaggeredGridLayoutManager$LayoutParams is not available on this device")
+		}
+		if midStaggeredGridLayoutManagerLayoutParamsCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.StaggeredGridLayoutManager$LayoutParams constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStaggeredGridLayoutManagerLayoutParams)), midStaggeredGridLayoutManagerLayoutParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetFullSpan calls androidx.recyclerview.widget.StaggeredGridLayoutManager$LayoutParams.setFullSpan.
 func (m *StaggeredGridLayoutManagerLayoutParams) SetFullSpan(arg0 bool) error {
 

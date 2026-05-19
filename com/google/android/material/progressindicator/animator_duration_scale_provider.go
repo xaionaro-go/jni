@@ -32,6 +32,12 @@ func NewAnimatorDurationScaleProvider(vm *jni.VM) (*AnimatorDurationScaleProvide
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAnimatorDurationScaleProvider == nil {
+			return fmt.Errorf("com.google.android.material.progressindicator.AnimatorDurationScaleProvider is not available on this device")
+		}
+		if midAnimatorDurationScaleProviderCtor == nil {
+			return fmt.Errorf("com.google.android.material.progressindicator.AnimatorDurationScaleProvider constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAnimatorDurationScaleProvider)), midAnimatorDurationScaleProviderCtor)
 		if err != nil {
 			return err

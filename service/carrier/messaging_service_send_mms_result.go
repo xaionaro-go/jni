@@ -23,6 +23,35 @@ type MessagingServiceSendMmsResult struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMessagingServiceSendMmsResult creates a new android.service.carrier.CarrierMessagingService$SendMmsResult instance.
+func NewMessagingServiceSendMmsResult(vm *jni.VM, arg0 int32, arg1 *jni.Object) (*MessagingServiceSendMmsResult, error) {
+	var t MessagingServiceSendMmsResult
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMessagingServiceSendMmsResult == nil {
+			return fmt.Errorf("android.service.carrier.CarrierMessagingService$SendMmsResult is not available on this device")
+		}
+		if midMessagingServiceSendMmsResultCtor == nil {
+			return fmt.Errorf("android.service.carrier.CarrierMessagingService$SendMmsResult constructor (I[B)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendMmsResult)), midMessagingServiceSendMmsResultCtor, jni.IntValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetSendConfPdu calls android.service.carrier.CarrierMessagingService$SendMmsResult.getSendConfPdu.
 func (m *MessagingServiceSendMmsResult) GetSendConfPdu() (*jni.Object, error) {
 	var result *jni.Object

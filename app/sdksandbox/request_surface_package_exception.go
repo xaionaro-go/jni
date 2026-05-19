@@ -32,6 +32,12 @@ func NewRequestSurfacePackageException(vm *jni.VM, arg0 int32, arg1 string) (*Re
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRequestSurfacePackageException == nil {
+			return fmt.Errorf("android.app.sdksandbox.RequestSurfacePackageException is not available on this device")
+		}
+		if midRequestSurfacePackageExceptionCtor == nil {
+			return fmt.Errorf("android.app.sdksandbox.RequestSurfacePackageException constructor (ILjava/lang/String;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {

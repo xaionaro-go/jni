@@ -23,6 +23,34 @@ type MediaBrowserConnectionCallback struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMediaBrowserConnectionCallback creates a new android.media.browse.MediaBrowser$ConnectionCallback instance.
+func NewMediaBrowserConnectionCallback(vm *jni.VM) (*MediaBrowserConnectionCallback, error) {
+	var t MediaBrowserConnectionCallback
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMediaBrowserConnectionCallback == nil {
+			return fmt.Errorf("android.media.browse.MediaBrowser$ConnectionCallback is not available on this device")
+		}
+		if midMediaBrowserConnectionCallbackCtor == nil {
+			return fmt.Errorf("android.media.browse.MediaBrowser$ConnectionCallback constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMediaBrowserConnectionCallback)), midMediaBrowserConnectionCallbackCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnConnected calls android.media.browse.MediaBrowser$ConnectionCallback.onConnected.
 func (m *MediaBrowserConnectionCallback) OnConnected() error {
 

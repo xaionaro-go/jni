@@ -32,6 +32,12 @@ func NewTouchDelegate(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*TouchDel
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTouchDelegate == nil {
+			return fmt.Errorf("android.view.TouchDelegate is not available on this device")
+		}
+		if midTouchDelegateCtor == nil {
+			return fmt.Errorf("android.view.TouchDelegate constructor (Landroid/graphics/Rect;Landroid/view/View;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTouchDelegate)), midTouchDelegateCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

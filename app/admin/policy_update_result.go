@@ -32,6 +32,12 @@ func NewPolicyUpdateResult(vm *jni.VM, arg0 int32) (*PolicyUpdateResult, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPolicyUpdateResult == nil {
+			return fmt.Errorf("android.app.admin.PolicyUpdateResult is not available on this device")
+		}
+		if midPolicyUpdateResultCtor == nil {
+			return fmt.Errorf("android.app.admin.PolicyUpdateResult constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPolicyUpdateResult)), midPolicyUpdateResultCtor, jni.IntValue(arg0))
 		if err != nil {

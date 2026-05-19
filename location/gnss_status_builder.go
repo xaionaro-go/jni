@@ -23,6 +23,34 @@ type GnssStatusBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGnssStatusBuilder creates a new android.location.GnssStatus$Builder instance.
+func NewGnssStatusBuilder(vm *jni.VM) (*GnssStatusBuilder, error) {
+	var t GnssStatusBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGnssStatusBuilder == nil {
+			return fmt.Errorf("android.location.GnssStatus$Builder is not available on this device")
+		}
+		if midGnssStatusBuilderCtor == nil {
+			return fmt.Errorf("android.location.GnssStatus$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGnssStatusBuilder)), midGnssStatusBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddSatellite calls android.location.GnssStatus$Builder.addSatellite.
 func (m *GnssStatusBuilder) AddSatellite(
 	arg0 int32,

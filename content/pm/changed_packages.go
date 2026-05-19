@@ -32,6 +32,12 @@ func NewChangedPackages(vm *jni.VM, arg0 int32, arg1 *jni.Object) (*ChangedPacka
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsChangedPackages == nil {
+			return fmt.Errorf("android.content.pm.ChangedPackages is not available on this device")
+		}
+		if midChangedPackagesCtor == nil {
+			return fmt.Errorf("android.content.pm.ChangedPackages constructor (ILjava/util/List;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsChangedPackages)), midChangedPackagesCtor, jni.IntValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

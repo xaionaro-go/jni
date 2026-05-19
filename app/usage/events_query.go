@@ -162,29 +162,6 @@ func (m *EventsQuery) GetPackageNames() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.usage.UsageEventsQuery.writeToParcel.
-func (m *EventsQuery) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midEventsQueryWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.usage.UsageEventsQuery.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midEventsQueryWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.usage.UsageEventsQuery.toString.
 func (m *EventsQuery) ToString() (string, error) {
 	var result string
@@ -210,4 +187,27 @@ func (m *EventsQuery) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.usage.UsageEventsQuery.writeToParcel.
+func (m *EventsQuery) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midEventsQueryWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.usage.UsageEventsQuery.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsEventsQuery)),
+			midEventsQueryWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

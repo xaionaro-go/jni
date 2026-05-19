@@ -32,6 +32,12 @@ func NewAppWidgetHost(vm *jni.VM, arg0 *jni.Object, arg1 int32) (*AppWidgetHost,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppWidgetHost == nil {
+			return fmt.Errorf("android.appwidget.AppWidgetHost is not available on this device")
+		}
+		if midAppWidgetHostCtor == nil {
+			return fmt.Errorf("android.appwidget.AppWidgetHost constructor (Landroid/content/Context;I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppWidgetHost)), midAppWidgetHostCtor, jni.ObjectValue(arg0), jni.IntValue(arg1))
 		if err != nil {

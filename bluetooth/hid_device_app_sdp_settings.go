@@ -32,6 +32,12 @@ func NewHidDeviceAppSdpSettings(vm *jni.VM, arg0 string, arg1 string, arg2 strin
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsHidDeviceAppSdpSettings == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothHidDeviceAppSdpSettings is not available on this device")
+		}
+		if midHidDeviceAppSdpSettingsCtor == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothHidDeviceAppSdpSettings constructor (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;B[B)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -226,29 +232,6 @@ func (m *HidDeviceAppSdpSettings) GetSubclass() (int8, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.bluetooth.BluetoothHidDeviceAppSdpSettings.writeToParcel.
-func (m *HidDeviceAppSdpSettings) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midHidDeviceAppSdpSettingsWriteToParcel == nil {
-			callErr = fmt.Errorf("android.bluetooth.BluetoothHidDeviceAppSdpSettings.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midHidDeviceAppSdpSettingsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.bluetooth.BluetoothHidDeviceAppSdpSettings.toString.
 func (m *HidDeviceAppSdpSettings) ToString() (string, error) {
 	var result string
@@ -274,4 +257,27 @@ func (m *HidDeviceAppSdpSettings) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.bluetooth.BluetoothHidDeviceAppSdpSettings.writeToParcel.
+func (m *HidDeviceAppSdpSettings) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midHidDeviceAppSdpSettingsWriteToParcel == nil {
+			callErr = fmt.Errorf("android.bluetooth.BluetoothHidDeviceAppSdpSettings.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsHidDeviceAppSdpSettings)),
+			midHidDeviceAppSdpSettingsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

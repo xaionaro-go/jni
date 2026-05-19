@@ -6,14 +6,6 @@ import "github.com/AndroidGoLab/jni/net/wifi/aware/consts"
 
 const (
 	Creator                                    = consts.Creator
-	WifiAwareDataPathRoleInitiator             = consts.WifiAwareDataPathRoleInitiator
-	WifiAwareDataPathRoleResponder             = consts.WifiAwareDataPathRoleResponder
-	WifiAwareDiscoveryLostReasonPeerNotVisible = consts.WifiAwareDiscoveryLostReasonPeerNotVisible
-	WifiAwareDiscoveryLostReasonUnknown        = consts.WifiAwareDiscoveryLostReasonUnknown
-	PublishTypeSolicited                       = consts.PublishTypeSolicited
-	PublishTypeUnsolicited                     = consts.PublishTypeUnsolicited
-	SubscribeTypeActive                        = consts.SubscribeTypeActive
-	SubscribeTypePassive                       = consts.SubscribeTypePassive
 	WifiAwareCipherSuiteNcsPk128               = consts.WifiAwareCipherSuiteNcsPk128
 	WifiAwareCipherSuiteNcsPk256               = consts.WifiAwareCipherSuiteNcsPk256
 	WifiAwareCipherSuiteNcsPkPasn128           = consts.WifiAwareCipherSuiteNcsPkPasn128
@@ -23,6 +15,14 @@ const (
 	WifiAwareCipherSuiteNone                   = consts.WifiAwareCipherSuiteNone
 	ClusterChangeEventJoined                   = consts.ClusterChangeEventJoined
 	ClusterChangeEventStarted                  = consts.ClusterChangeEventStarted
+	PublishTypeSolicited                       = consts.PublishTypeSolicited
+	PublishTypeUnsolicited                     = consts.PublishTypeUnsolicited
+	WifiAwareDataPathRoleInitiator             = consts.WifiAwareDataPathRoleInitiator
+	WifiAwareDataPathRoleResponder             = consts.WifiAwareDataPathRoleResponder
+	WifiAwareDiscoveryLostReasonPeerNotVisible = consts.WifiAwareDiscoveryLostReasonPeerNotVisible
+	WifiAwareDiscoveryLostReasonUnknown        = consts.WifiAwareDiscoveryLostReasonUnknown
+	SubscribeTypeActive                        = consts.SubscribeTypeActive
+	SubscribeTypePassive                       = consts.SubscribeTypePassive
 	PairingBootstrappingNfcReader              = consts.PairingBootstrappingNfcReader
 	PairingBootstrappingNfcTag                 = consts.PairingBootstrappingNfcTag
 	PairingBootstrappingOpportunistic          = consts.PairingBootstrappingOpportunistic

@@ -32,6 +32,12 @@ func NewUnicodeSet(vm *jni.VM) (*UnicodeSet, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsUnicodeSet == nil {
+			return fmt.Errorf("android.icu.text.UnicodeSet is not available on this device")
+		}
+		if midUnicodeSetCtor == nil {
+			return fmt.Errorf("android.icu.text.UnicodeSet constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUnicodeSet)), midUnicodeSetCtor)
 		if err != nil {
 			return err
@@ -45,8 +51,8 @@ func NewUnicodeSet(vm *jni.VM) (*UnicodeSet, error) {
 	return &t, nil
 }
 
-// _generatePattern2 calls android.icu.text.UnicodeSet._generatePattern.
-func (m *UnicodeSet) _generatePattern2(arg0 *jni.Object, arg1 bool) (*jni.Object, error) {
+// GeneratePattern2 calls android.icu.text.UnicodeSet._generatePattern.
+func (m *UnicodeSet) GeneratePattern2(arg0 *jni.Object, arg1 bool) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -54,7 +60,7 @@ func (m *UnicodeSet) _generatePattern2(arg0 *jni.Object, arg1 bool) (*jni.Object
 			callErr = err
 			return err
 		}
-		if midUnicodeSet_generatePattern2 == nil {
+		if midUnicodeSetGeneratePattern2 == nil {
 			callErr = fmt.Errorf("android.icu.text.UnicodeSet._generatePattern is not available on this device")
 			return callErr
 		}
@@ -66,7 +72,7 @@ func (m *UnicodeSet) _generatePattern2(arg0 *jni.Object, arg1 bool) (*jni.Object
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midUnicodeSet_generatePattern2, jni.ObjectValue(arg0), jni.BooleanValue(jArg1),
+			midUnicodeSetGeneratePattern2, jni.ObjectValue(arg0), jni.BooleanValue(jArg1),
 		)
 		if callErr != nil {
 			return callErr
@@ -83,8 +89,8 @@ func (m *UnicodeSet) _generatePattern2(arg0 *jni.Object, arg1 bool) (*jni.Object
 	return result, callErr
 }
 
-// _generatePattern3_1 calls android.icu.text.UnicodeSet._generatePattern.
-func (m *UnicodeSet) _generatePattern3_1(
+// GeneratePattern3_1 calls android.icu.text.UnicodeSet._generatePattern.
+func (m *UnicodeSet) GeneratePattern3_1(
 	arg0 *jni.Object,
 	arg1 bool,
 	arg2 bool,
@@ -96,7 +102,7 @@ func (m *UnicodeSet) _generatePattern3_1(
 			callErr = err
 			return err
 		}
-		if midUnicodeSet_generatePattern3_1 == nil {
+		if midUnicodeSetGeneratePattern3_1 == nil {
 			callErr = fmt.Errorf("android.icu.text.UnicodeSet._generatePattern is not available on this device")
 			return callErr
 		}
@@ -113,7 +119,7 @@ func (m *UnicodeSet) _generatePattern3_1(
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midUnicodeSet_generatePattern3_1, jni.ObjectValue(arg0), jni.BooleanValue(jArg1), jni.BooleanValue(jArg2),
+			midUnicodeSetGeneratePattern3_1, jni.ObjectValue(arg0), jni.BooleanValue(jArg1), jni.BooleanValue(jArg2),
 		)
 		if callErr != nil {
 			return callErr
@@ -695,8 +701,8 @@ func (m *UnicodeSet) Clone() (*jni.Object, error) {
 	return result, callErr
 }
 
-// CloneAsThawed0 calls android.icu.text.UnicodeSet.cloneAsThawed.
-func (m *UnicodeSet) CloneAsThawed0() (*jni.Object, error) {
+// CloneAsThawed calls android.icu.text.UnicodeSet.cloneAsThawed.
+func (m *UnicodeSet) CloneAsThawed() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -704,13 +710,13 @@ func (m *UnicodeSet) CloneAsThawed0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midUnicodeSetCloneAsThawed0 == nil {
+		if midUnicodeSetCloneAsThawed == nil {
 			callErr = fmt.Errorf("android.icu.text.UnicodeSet.cloneAsThawed is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midUnicodeSetCloneAsThawed0,
+			midUnicodeSetCloneAsThawed,
 		)
 		if callErr != nil {
 			return callErr
@@ -1407,8 +1413,8 @@ func (m *UnicodeSet) Equals(arg0 *jni.Object) (bool, error) {
 	return result, callErr
 }
 
-// Freeze0 calls android.icu.text.UnicodeSet.freeze.
-func (m *UnicodeSet) Freeze0() (*jni.Object, error) {
+// Freeze calls android.icu.text.UnicodeSet.freeze.
+func (m *UnicodeSet) Freeze() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1416,13 +1422,13 @@ func (m *UnicodeSet) Freeze0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midUnicodeSetFreeze0 == nil {
+		if midUnicodeSetFreeze == nil {
 			callErr = fmt.Errorf("android.icu.text.UnicodeSet.freeze is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midUnicodeSetFreeze0,
+			midUnicodeSetFreeze,
 		)
 		if callErr != nil {
 			return callErr
@@ -2467,96 +2473,6 @@ func (m *UnicodeSet) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
-		return callErr
-	})
-	return result, callErr
-}
-
-// CompareTo1_2 calls android.icu.text.UnicodeSet.compareTo.
-func (m *UnicodeSet) CompareTo1_2(arg0 *jni.Object) (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midUnicodeSetCompareTo1_2 == nil {
-			callErr = fmt.Errorf("android.icu.text.UnicodeSet.compareTo is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midUnicodeSetCompareTo1_2, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Freeze0_1 calls android.icu.text.UnicodeSet.freeze.
-func (m *UnicodeSet) Freeze0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midUnicodeSetFreeze0_1 == nil {
-			callErr = fmt.Errorf("android.icu.text.UnicodeSet.freeze is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midUnicodeSetFreeze0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// CloneAsThawed0_1 calls android.icu.text.UnicodeSet.cloneAsThawed.
-func (m *UnicodeSet) CloneAsThawed0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midUnicodeSetCloneAsThawed0_1 == nil {
-			callErr = fmt.Errorf("android.icu.text.UnicodeSet.cloneAsThawed is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midUnicodeSetCloneAsThawed0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
 		return callErr
 	})
 	return result, callErr

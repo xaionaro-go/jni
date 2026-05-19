@@ -32,6 +32,12 @@ func NewExpandCollapseAnimationHelper(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Ob
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsExpandCollapseAnimationHelper == nil {
+			return fmt.Errorf("com.google.android.material.internal.ExpandCollapseAnimationHelper is not available on this device")
+		}
+		if midExpandCollapseAnimationHelperCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.ExpandCollapseAnimationHelper constructor (Landroid/view/View;Landroid/view/View;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExpandCollapseAnimationHelper)), midExpandCollapseAnimationHelperCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -259,39 +265,6 @@ func (m *ExpandCollapseAnimationHelper) SetCollapsedViewOffsetY(arg0 int32) (*jn
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
 			midExpandCollapseAnimationHelperSetCollapsedViewOffsetY, jni.IntValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetExpandedViewOffsetY calls com.google.android.material.internal.ExpandCollapseAnimationHelper.setExpandedViewOffsetY.
-func (m *ExpandCollapseAnimationHelper) SetExpandedViewOffsetY(arg0 int32) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midExpandCollapseAnimationHelperSetExpandedViewOffsetY == nil {
-			callErr = fmt.Errorf("com.google.android.material.internal.ExpandCollapseAnimationHelper.setExpandedViewOffsetY is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midExpandCollapseAnimationHelperSetExpandedViewOffsetY, jni.IntValue(arg0),
 		)
 		if callErr != nil {
 			return callErr

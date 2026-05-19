@@ -32,6 +32,12 @@ func NewWidgetGroup(vm *jni.VM, arg0 int32) (*WidgetGroup, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWidgetGroup == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.analyzer.WidgetGroup is not available on this device")
+		}
+		if midWidgetGroupCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.analyzer.WidgetGroup constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWidgetGroup)), midWidgetGroupCtor, jni.IntValue(arg0))
 		if err != nil {

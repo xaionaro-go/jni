@@ -32,6 +32,12 @@ func NewAlphabeticIndex(vm *jni.VM, arg0 *jni.Object) (*AlphabeticIndex, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAlphabeticIndex == nil {
+			return fmt.Errorf("android.icu.text.AlphabeticIndex is not available on this device")
+		}
+		if midAlphabeticIndexCtor == nil {
+			return fmt.Errorf("android.icu.text.AlphabeticIndex constructor (Landroid/icu/text/RuleBasedCollator;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAlphabeticIndex)), midAlphabeticIndexCtor, jni.ObjectValue(arg0))
 		if err != nil {

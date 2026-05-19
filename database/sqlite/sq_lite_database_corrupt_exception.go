@@ -32,6 +32,12 @@ func NewSQLiteDatabaseCorruptException(vm *jni.VM) (*SQLiteDatabaseCorruptExcept
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSQLiteDatabaseCorruptException == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteDatabaseCorruptException is not available on this device")
+		}
+		if midSQLiteDatabaseCorruptExceptionCtor == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteDatabaseCorruptException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSQLiteDatabaseCorruptException)), midSQLiteDatabaseCorruptExceptionCtor)
 		if err != nil {
 			return err

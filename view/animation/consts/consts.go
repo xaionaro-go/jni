@@ -3,19 +3,6 @@
 package consts
 
 const (
-	DirectionBottomToTop    int = 2
-	DirectionHorizontalMask int = 1
-	DirectionLeftToRight    int = 0
-	DirectionRightToLeft    int = 1
-	DirectionTopToBottom    int = 0
-	DirectionVerticalMask   int = 2
-	PriorityColumn          int = 1
-	PriorityNone            int = 0
-	PriorityRow             int = 2
-	TypeAlpha               int = 1
-	TypeBoth                int = 3
-	TypeIdentity            int = 0
-	TypeMatrix              int = 2
 	Absolute                int = 0
 	Infinite                int = -1
 	RelativeToParent        int = 2
@@ -26,7 +13,20 @@ const (
 	ZorderBottom            int = -1
 	ZorderNormal            int = 0
 	ZorderTop               int = 1
+	TypeAlpha               int = 1
+	TypeBoth                int = 3
+	TypeIdentity            int = 0
+	TypeMatrix              int = 2
 	OrderNormal             int = 0
 	OrderRandom             int = 2
 	OrderReverse            int = 1
+	DirectionBottomToTop    int = 2
+	DirectionHorizontalMask int = 1
+	DirectionLeftToRight    int = 0
+	DirectionRightToLeft    int = 1
+	DirectionTopToBottom    int = 0
+	DirectionVerticalMask   int = 2
+	PriorityColumn          int = 1
+	PriorityNone            int = 0
+	PriorityRow             int = 2
 )

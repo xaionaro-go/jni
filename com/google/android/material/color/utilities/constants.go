@@ -5,11 +5,19 @@ package utilities
 import "github.com/AndroidGoLab/jni/com/google/android/material/color/utilities/consts"
 
 const (
-	Default    = consts.Default
+	RatioMin = consts.RatioMin
+	RatioMax = consts.RatioMax
+	Ratio30  = consts.Ratio30
+	Ratio45  = consts.Ratio45
+	Ratio70  = consts.Ratio70
+)
+
+const (
 	Darker     = consts.Darker
 	Lighter    = consts.Lighter
 	Nearer     = consts.Nearer
 	Farther    = consts.Farther
+	Default    = consts.Default
 	Monochrome = consts.Monochrome
 	Neutral    = consts.Neutral
 	TonalSpot  = consts.TonalSpot
@@ -19,12 +27,4 @@ const (
 	Content    = consts.Content
 	Rainbow    = consts.Rainbow
 	FruitSalad = consts.FruitSalad
-)
-
-const (
-	RatioMin = consts.RatioMin
-	RatioMax = consts.RatioMax
-	Ratio30  = consts.Ratio30
-	Ratio45  = consts.Ratio45
-	Ratio70  = consts.Ratio70
 )

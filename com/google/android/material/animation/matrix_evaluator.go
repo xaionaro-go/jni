@@ -32,6 +32,12 @@ func NewMatrixEvaluator(vm *jni.VM) (*MatrixEvaluator, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMatrixEvaluator == nil {
+			return fmt.Errorf("com.google.android.material.animation.MatrixEvaluator is not available on this device")
+		}
+		if midMatrixEvaluatorCtor == nil {
+			return fmt.Errorf("com.google.android.material.animation.MatrixEvaluator constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMatrixEvaluator)), midMatrixEvaluatorCtor)
 		if err != nil {
 			return err
@@ -45,8 +51,8 @@ func NewMatrixEvaluator(vm *jni.VM) (*MatrixEvaluator, error) {
 	return &t, nil
 }
 
-// Evaluate3 calls com.google.android.material.animation.MatrixEvaluator.evaluate.
-func (m *MatrixEvaluator) Evaluate3(
+// Evaluate calls com.google.android.material.animation.MatrixEvaluator.evaluate.
+func (m *MatrixEvaluator) Evaluate(
 	arg0 float32,
 	arg1 *jni.Object,
 	arg2 *jni.Object,
@@ -58,51 +64,14 @@ func (m *MatrixEvaluator) Evaluate3(
 			callErr = err
 			return err
 		}
-		if midMatrixEvaluatorEvaluate3 == nil {
+		if midMatrixEvaluatorEvaluate == nil {
 			callErr = fmt.Errorf("com.google.android.material.animation.MatrixEvaluator.evaluate is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midMatrixEvaluatorEvaluate3, jni.FloatValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Evaluate3_1 calls com.google.android.material.animation.MatrixEvaluator.evaluate.
-func (m *MatrixEvaluator) Evaluate3_1(
-	arg0 float32,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMatrixEvaluatorEvaluate3_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.animation.MatrixEvaluator.evaluate is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMatrixEvaluatorEvaluate3_1, jni.FloatValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
+			midMatrixEvaluatorEvaluate, jni.FloatValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
 		)
 		if callErr != nil {
 			return callErr

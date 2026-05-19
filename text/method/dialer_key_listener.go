@@ -32,6 +32,12 @@ func NewDialerKeyListener(vm *jni.VM) (*DialerKeyListener, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDialerKeyListener == nil {
+			return fmt.Errorf("android.text.method.DialerKeyListener is not available on this device")
+		}
+		if midDialerKeyListenerCtor == nil {
+			return fmt.Errorf("android.text.method.DialerKeyListener constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDialerKeyListener)), midDialerKeyListenerCtor)
 		if err != nil {
 			return err

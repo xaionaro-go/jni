@@ -23,13 +23,29 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsChangeLogsResponse                    *jni.GlobalRef
+	midChangeLogsResponseDescribeContents    jni.MethodID
+	midChangeLogsResponseGetDeletedLogs      jni.MethodID
+	midChangeLogsResponseGetNextChangesToken jni.MethodID
+	midChangeLogsResponseGetUpsertedRecords  jni.MethodID
+	midChangeLogsResponseHasMorePages        jni.MethodID
+	midChangeLogsResponseToString            jni.MethodID
+	midChangeLogsResponseWriteToParcel       jni.MethodID
+
+	clsChangeLogsResponseDeletedLog                   *jni.GlobalRef
+	midChangeLogsResponseDeletedLogCtor               jni.MethodID
+	midChangeLogsResponseDeletedLogGetDeletedRecordId jni.MethodID
+	midChangeLogsResponseDeletedLogGetDeletedTime     jni.MethodID
+	midChangeLogsResponseDeletedLogToString           jni.MethodID
+
 	clsChangeLogTokenRequest                     *jni.GlobalRef
 	midChangeLogTokenRequestDescribeContents     jni.MethodID
 	midChangeLogTokenRequestGetDataOriginFilters jni.MethodID
-	midChangeLogTokenRequestWriteToParcel        jni.MethodID
 	midChangeLogTokenRequestToString             jni.MethodID
+	midChangeLogTokenRequestWriteToParcel        jni.MethodID
 
 	clsChangeLogTokenRequestBuilder                    *jni.GlobalRef
+	midChangeLogTokenRequestBuilderCtor                jni.MethodID
 	midChangeLogTokenRequestBuilderAddDataOriginFilter jni.MethodID
 	midChangeLogTokenRequestBuilderBuild               jni.MethodID
 	midChangeLogTokenRequestBuilderToString            jni.MethodID
@@ -37,31 +53,18 @@ var (
 	clsChangeLogTokenResponse                 *jni.GlobalRef
 	midChangeLogTokenResponseDescribeContents jni.MethodID
 	midChangeLogTokenResponseGetToken         jni.MethodID
-	midChangeLogTokenResponseWriteToParcel    jni.MethodID
 	midChangeLogTokenResponseToString         jni.MethodID
-
-	clsChangeLogsResponse                    *jni.GlobalRef
-	midChangeLogsResponseDescribeContents    jni.MethodID
-	midChangeLogsResponseGetDeletedLogs      jni.MethodID
-	midChangeLogsResponseGetNextChangesToken jni.MethodID
-	midChangeLogsResponseGetUpsertedRecords  jni.MethodID
-	midChangeLogsResponseHasMorePages        jni.MethodID
-	midChangeLogsResponseWriteToParcel       jni.MethodID
-	midChangeLogsResponseToString            jni.MethodID
-
-	clsChangeLogsResponseDeletedLog                   *jni.GlobalRef
-	midChangeLogsResponseDeletedLogGetDeletedRecordId jni.MethodID
-	midChangeLogsResponseDeletedLogGetDeletedTime     jni.MethodID
-	midChangeLogsResponseDeletedLogToString           jni.MethodID
+	midChangeLogTokenResponseWriteToParcel    jni.MethodID
 
 	clsChangeLogsRequest                 *jni.GlobalRef
 	midChangeLogsRequestDescribeContents jni.MethodID
 	midChangeLogsRequestGetPageSize      jni.MethodID
 	midChangeLogsRequestGetToken         jni.MethodID
-	midChangeLogsRequestWriteToParcel    jni.MethodID
 	midChangeLogsRequestToString         jni.MethodID
+	midChangeLogsRequestWriteToParcel    jni.MethodID
 
 	clsChangeLogsRequestBuilder            *jni.GlobalRef
+	midChangeLogsRequestBuilderCtor        jni.MethodID
 	midChangeLogsRequestBuilderBuild       jni.MethodID
 	midChangeLogsRequestBuilderSetPageSize jni.MethodID
 	midChangeLogsRequestBuilderToString    jni.MethodID
@@ -85,6 +88,100 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
+	c, err = env.FindClass("android/health/connect/changelog/ChangeLogsResponse")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsChangeLogsResponse = env.NewGlobalRef(&c.Object)
+
+		midChangeLogsResponseDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsResponse)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeLogsResponseGetDeletedLogs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsResponse)), "getDeletedLogs", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeLogsResponseGetNextChangesToken, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsResponse)), "getNextChangesToken", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeLogsResponseGetUpsertedRecords, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsResponse)), "getUpsertedRecords", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeLogsResponseHasMorePages, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsResponse)), "hasMorePages", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeLogsResponseToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsResponse)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeLogsResponseWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsResponse)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/health/connect/changelog/ChangeLogsResponse$DeletedLog")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsChangeLogsResponseDeletedLog = env.NewGlobalRef(&c.Object)
+		midChangeLogsResponseDeletedLogCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsResponseDeletedLog)), "<init>", "(Ljava/lang/String;J)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midChangeLogsResponseDeletedLogGetDeletedRecordId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsResponseDeletedLog)), "getDeletedRecordId", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeLogsResponseDeletedLogGetDeletedTime, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsResponseDeletedLog)), "getDeletedTime", "()Ljava/time/Instant;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeLogsResponseDeletedLogToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsResponseDeletedLog)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("android/health/connect/changelog/ChangeLogTokenRequest")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -107,14 +204,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midChangeLogTokenRequestWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogTokenRequest)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midChangeLogTokenRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogTokenRequest)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midChangeLogTokenRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogTokenRequest)), "toString", "()Ljava/lang/String;")
+		midChangeLogTokenRequestWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogTokenRequest)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -130,6 +227,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsChangeLogTokenRequestBuilder = env.NewGlobalRef(&c.Object)
+		midChangeLogTokenRequestBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogTokenRequestBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midChangeLogTokenRequestBuilderAddDataOriginFilter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogTokenRequestBuilder)), "addDataOriginFilter", "(Landroid/health/connect/datatypes/DataOrigin;)Landroid/health/connect/changelog/ChangeLogTokenRequest$Builder;")
 		if err != nil {
@@ -176,13 +277,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midChangeLogTokenResponseWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogTokenResponse)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midChangeLogTokenResponseToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogTokenResponse)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -190,90 +284,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("android/health/connect/changelog/ChangeLogsResponse")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsChangeLogsResponse = env.NewGlobalRef(&c.Object)
-
-		midChangeLogsResponseDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsResponse)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeLogsResponseGetDeletedLogs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsResponse)), "getDeletedLogs", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeLogsResponseGetNextChangesToken, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsResponse)), "getNextChangesToken", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeLogsResponseGetUpsertedRecords, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsResponse)), "getUpsertedRecords", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeLogsResponseHasMorePages, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsResponse)), "hasMorePages", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeLogsResponseWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsResponse)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeLogsResponseToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsResponse)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/health/connect/changelog/ChangeLogsResponse$DeletedLog")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsChangeLogsResponseDeletedLog = env.NewGlobalRef(&c.Object)
-
-		midChangeLogsResponseDeletedLogGetDeletedRecordId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsResponseDeletedLog)), "getDeletedRecordId", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeLogsResponseDeletedLogGetDeletedTime, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsResponseDeletedLog)), "getDeletedTime", "()Ljava/time/Instant;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeLogsResponseDeletedLogToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsResponseDeletedLog)), "toString", "()Ljava/lang/String;")
+		midChangeLogTokenResponseWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogTokenResponse)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -311,14 +322,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midChangeLogsRequestWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsRequest)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midChangeLogsRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsRequest)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midChangeLogsRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsRequest)), "toString", "()Ljava/lang/String;")
+		midChangeLogsRequestWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsRequest)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -334,6 +345,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsChangeLogsRequestBuilder = env.NewGlobalRef(&c.Object)
+		midChangeLogsRequestBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsRequestBuilder)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midChangeLogsRequestBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeLogsRequestBuilder)), "build", "()Landroid/health/connect/changelog/ChangeLogsRequest;")
 		if err != nil {

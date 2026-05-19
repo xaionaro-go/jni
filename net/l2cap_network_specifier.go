@@ -309,8 +309,8 @@ func (m *L2capNetworkSpecifier) WriteToParcel(arg0 *jni.Object, arg1 int32) erro
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsL2capNetworkSpecifier)),
 			midL2capNetworkSpecifierWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

@@ -32,6 +32,12 @@ func NewRestrictionEntry(vm *jni.VM, arg0 *jni.Object) (*RestrictionEntry, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRestrictionEntry == nil {
+			return fmt.Errorf("android.content.RestrictionEntry is not available on this device")
+		}
+		if midRestrictionEntryCtor == nil {
+			return fmt.Errorf("android.content.RestrictionEntry constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRestrictionEntry)), midRestrictionEntryCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -759,29 +765,6 @@ func (m *RestrictionEntry) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.content.RestrictionEntry.writeToParcel.
-func (m *RestrictionEntry) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRestrictionEntryWriteToParcel == nil {
-			callErr = fmt.Errorf("android.content.RestrictionEntry.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midRestrictionEntryWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // CreateBundleArrayEntry calls android.content.RestrictionEntry.createBundleArrayEntry.
 func (m *RestrictionEntry) CreateBundleArrayEntry(arg0 string, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
@@ -856,4 +839,27 @@ func (m *RestrictionEntry) CreateBundleEntry(arg0 string, arg1 *jni.Object) (*jn
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.content.RestrictionEntry.writeToParcel.
+func (m *RestrictionEntry) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRestrictionEntryWriteToParcel == nil {
+			callErr = fmt.Errorf("android.content.RestrictionEntry.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsRestrictionEntry)),
+			midRestrictionEntryWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

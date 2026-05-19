@@ -591,29 +591,6 @@ func (m *MifareClassic) Transfer(arg0 int32) error {
 	return callErr
 }
 
-// WriteBlock calls android.nfc.tech.MifareClassic.writeBlock.
-func (m *MifareClassic) WriteBlock(arg0 int32, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMifareClassicWriteBlock == nil {
-			callErr = fmt.Errorf("android.nfc.tech.MifareClassic.writeBlock is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMifareClassicWriteBlock, jni.IntValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.nfc.tech.MifareClassic.toString.
 func (m *MifareClassic) ToString() (string, error) {
 	var result string
@@ -672,4 +649,27 @@ func (m *MifareClassic) Get(arg0 *jni.Object) (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteBlock calls android.nfc.tech.MifareClassic.writeBlock.
+func (m *MifareClassic) WriteBlock(arg0 int32, arg1 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midMifareClassicWriteBlock == nil {
+			callErr = fmt.Errorf("android.nfc.tech.MifareClassic.writeBlock is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsMifareClassic)),
+			midMifareClassicWriteBlock, jni.IntValue(arg0), jni.ObjectValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

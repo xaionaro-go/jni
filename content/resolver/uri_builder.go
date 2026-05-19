@@ -23,6 +23,34 @@ type UriBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewUriBuilder creates a new android.net.Uri$Builder instance.
+func NewUriBuilder(vm *jni.VM) (*UriBuilder, error) {
+	var t UriBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsUriBuilder == nil {
+			return fmt.Errorf("android.net.Uri$Builder is not available on this device")
+		}
+		if midUriBuilderCtor == nil {
+			return fmt.Errorf("android.net.Uri$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUriBuilder)), midUriBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AppendEncodedPath calls android.net.Uri$Builder.appendEncodedPath.
 func (m *UriBuilder) AppendEncodedPath(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

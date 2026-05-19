@@ -6,40 +6,8 @@ import "github.com/AndroidGoLab/jni/app/job/consts"
 
 const (
 	Creator                                  = consts.Creator
-	BackoffPolicyExponential                 = consts.BackoffPolicyExponential
-	BackoffPolicyLinear                      = consts.BackoffPolicyLinear
-	NetworkBytesUnknown                      = consts.NetworkBytesUnknown
-	NetworkTypeAny                           = consts.NetworkTypeAny
-	NetworkTypeCellular                      = consts.NetworkTypeCellular
-	NetworkTypeMetered                       = consts.NetworkTypeMetered
-	NetworkTypeNone                          = consts.NetworkTypeNone
-	NetworkTypeNotRoaming                    = consts.NetworkTypeNotRoaming
-	NetworkTypeUnmetered                     = consts.NetworkTypeUnmetered
-	PriorityDefault                          = consts.PriorityDefault
-	PriorityHigh                             = consts.PriorityHigh
-	PriorityLow                              = consts.PriorityLow
-	PriorityMax                              = consts.PriorityMax
-	PriorityMin                              = consts.PriorityMin
-	FlagNotifyForDescendants                 = consts.FlagNotifyForDescendants
 	JobEndNotificationPolicyDetach           = consts.JobEndNotificationPolicyDetach
 	JobEndNotificationPolicyRemove           = consts.JobEndNotificationPolicyRemove
-	StopReasonAppStandby                     = consts.StopReasonAppStandby
-	StopReasonBackgroundRestriction          = consts.StopReasonBackgroundRestriction
-	StopReasonCancelledByApp                 = consts.StopReasonCancelledByApp
-	StopReasonConstraintBatteryNotLow        = consts.StopReasonConstraintBatteryNotLow
-	StopReasonConstraintCharging             = consts.StopReasonConstraintCharging
-	StopReasonConstraintConnectivity         = consts.StopReasonConstraintConnectivity
-	StopReasonConstraintDeviceIdle           = consts.StopReasonConstraintDeviceIdle
-	StopReasonConstraintStorageNotLow        = consts.StopReasonConstraintStorageNotLow
-	StopReasonDeviceState                    = consts.StopReasonDeviceState
-	StopReasonEstimatedAppLaunchTimeChanged  = consts.StopReasonEstimatedAppLaunchTimeChanged
-	StopReasonPreempt                        = consts.StopReasonPreempt
-	StopReasonQuota                          = consts.StopReasonQuota
-	StopReasonSystemProcessing               = consts.StopReasonSystemProcessing
-	StopReasonTimeout                        = consts.StopReasonTimeout
-	StopReasonTimeoutAbandoned               = consts.StopReasonTimeoutAbandoned
-	StopReasonUndefined                      = consts.StopReasonUndefined
-	StopReasonUser                           = consts.StopReasonUser
 	PendingJobReasonApp                      = consts.PendingJobReasonApp
 	PendingJobReasonAppStandby               = consts.PendingJobReasonAppStandby
 	PendingJobReasonBackgroundRestriction    = consts.PendingJobReasonBackgroundRestriction
@@ -61,13 +29,45 @@ const (
 	PendingJobReasonUser                     = consts.PendingJobReasonUser
 	ResultFailure                            = consts.ResultFailure
 	ResultSuccess                            = consts.ResultSuccess
+	StopReasonAppStandby                     = consts.StopReasonAppStandby
+	StopReasonBackgroundRestriction          = consts.StopReasonBackgroundRestriction
+	StopReasonCancelledByApp                 = consts.StopReasonCancelledByApp
+	StopReasonConstraintBatteryNotLow        = consts.StopReasonConstraintBatteryNotLow
+	StopReasonConstraintCharging             = consts.StopReasonConstraintCharging
+	StopReasonConstraintConnectivity         = consts.StopReasonConstraintConnectivity
+	StopReasonConstraintDeviceIdle           = consts.StopReasonConstraintDeviceIdle
+	StopReasonConstraintStorageNotLow        = consts.StopReasonConstraintStorageNotLow
+	StopReasonDeviceState                    = consts.StopReasonDeviceState
+	StopReasonEstimatedAppLaunchTimeChanged  = consts.StopReasonEstimatedAppLaunchTimeChanged
+	StopReasonPreempt                        = consts.StopReasonPreempt
+	StopReasonQuota                          = consts.StopReasonQuota
+	StopReasonSystemProcessing               = consts.StopReasonSystemProcessing
+	StopReasonTimeout                        = consts.StopReasonTimeout
+	StopReasonTimeoutAbandoned               = consts.StopReasonTimeoutAbandoned
+	StopReasonUndefined                      = consts.StopReasonUndefined
+	StopReasonUser                           = consts.StopReasonUser
+	BackoffPolicyExponential                 = consts.BackoffPolicyExponential
+	BackoffPolicyLinear                      = consts.BackoffPolicyLinear
+	NetworkBytesUnknown                      = consts.NetworkBytesUnknown
+	NetworkTypeAny                           = consts.NetworkTypeAny
+	NetworkTypeCellular                      = consts.NetworkTypeCellular
+	NetworkTypeMetered                       = consts.NetworkTypeMetered
+	NetworkTypeNone                          = consts.NetworkTypeNone
+	NetworkTypeNotRoaming                    = consts.NetworkTypeNotRoaming
+	NetworkTypeUnmetered                     = consts.NetworkTypeUnmetered
+	PriorityDefault                          = consts.PriorityDefault
+	PriorityHigh                             = consts.PriorityHigh
+	PriorityLow                              = consts.PriorityLow
+	PriorityMax                              = consts.PriorityMax
+	PriorityMin                              = consts.PriorityMin
+	FlagNotifyForDescendants                 = consts.FlagNotifyForDescendants
+)
+
+const (
+	PermissionBind = consts.PermissionBind
 )
 
 const (
 	DefaultInitialBackoffMillis = consts.DefaultInitialBackoffMillis
 	MaxBackoffDelayMillis       = consts.MaxBackoffDelayMillis
-)
-
-const (
-	PermissionBind = consts.PermissionBind
 )

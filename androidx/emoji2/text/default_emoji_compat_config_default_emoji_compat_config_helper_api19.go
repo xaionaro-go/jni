@@ -23,6 +23,34 @@ type DefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19 struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19 creates a new androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper_API19 instance.
+func NewDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19(vm *jni.VM) (*DefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19, error) {
+	var t DefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19 == nil {
+			return fmt.Errorf("androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper_API19 is not available on this device")
+		}
+		if midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19Ctor == nil {
+			return fmt.Errorf("androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper_API19 constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19)), midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19Ctor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // QueryIntentContentProviders calls androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper_API19.queryIntentContentProviders.
 func (m *DefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19) QueryIntentContentProviders(
 	arg0 *jni.Object,

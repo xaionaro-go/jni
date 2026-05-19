@@ -5,6 +5,26 @@ package widgets
 import "github.com/AndroidGoLab/jni/androidx/constraintlayout/solver/widgets/consts"
 
 const (
+	Left                         = consts.Left
+	Right                        = consts.Right
+	Top                          = consts.Top
+	Bottom                       = consts.Bottom
+	OptimizationNone             = consts.OptimizationNone
+	OptimizationDirect           = consts.OptimizationDirect
+	OptimizationBarrier          = consts.OptimizationBarrier
+	OptimizationChain            = consts.OptimizationChain
+	OptimizationDimensions       = consts.OptimizationDimensions
+	OptimizationRatio            = consts.OptimizationRatio
+	OptimizationGroups           = consts.OptimizationGroups
+	OptimizationGraph            = consts.OptimizationGraph
+	OptimizationGraphWrap        = consts.OptimizationGraphWrap
+	OptimizationEngine           = consts.OptimizationEngine
+	OptimizationStandard         = consts.OptimizationStandard
+	None                         = consts.None
+	Baseline                     = consts.Baseline
+	Center                       = consts.Center
+	CenterX                      = consts.CenterX
+	CenterY                      = consts.CenterY
 	MatchConstraintSpread        = consts.MatchConstraintSpread
 	MatchConstraintWrap          = consts.MatchConstraintWrap
 	MatchConstraintPercent       = consts.MatchConstraintPercent
@@ -28,30 +48,6 @@ const (
 	WrapContent                  = consts.WrapContent
 	MatchConstraint              = consts.MatchConstraint
 	MatchParent                  = consts.MatchParent
-	None                         = consts.None
-	Left                         = consts.Left
-	Top                          = consts.Top
-	Right                        = consts.Right
-	Bottom                       = consts.Bottom
-	Baseline                     = consts.Baseline
-	Center                       = consts.Center
-	CenterX                      = consts.CenterX
-	CenterY                      = consts.CenterY
-	RelativePercent              = consts.RelativePercent
-	RelativeBegin                = consts.RelativeBegin
-	RelativeEnd                  = consts.RelativeEnd
-	RelativeUnknwon              = consts.RelativeUnknwon
-	OptimizationNone             = consts.OptimizationNone
-	OptimizationDirect           = consts.OptimizationDirect
-	OptimizationBarrier          = consts.OptimizationBarrier
-	OptimizationChain            = consts.OptimizationChain
-	OptimizationDimensions       = consts.OptimizationDimensions
-	OptimizationRatio            = consts.OptimizationRatio
-	OptimizationGroups           = consts.OptimizationGroups
-	OptimizationGraph            = consts.OptimizationGraph
-	OptimizationGraphWrap        = consts.OptimizationGraphWrap
-	OptimizationEngine           = consts.OptimizationEngine
-	OptimizationStandard         = consts.OptimizationStandard
 	HorizontalAlignStart         = consts.HorizontalAlignStart
 	HorizontalAlignEnd           = consts.HorizontalAlignEnd
 	HorizontalAlignCenter        = consts.HorizontalAlignCenter
@@ -62,4 +58,8 @@ const (
 	WrapNone                     = consts.WrapNone
 	WrapChain                    = consts.WrapChain
 	WrapAligned                  = consts.WrapAligned
+	RelativePercent              = consts.RelativePercent
+	RelativeBegin                = consts.RelativeBegin
+	RelativeEnd                  = consts.RelativeEnd
+	RelativeUnknwon              = consts.RelativeUnknwon
 )

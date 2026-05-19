@@ -5,561 +5,41 @@
 package: menu
 go_import: github.com/AndroidGoLab/jni/androidx/appcompat/view/menu
 classes:
-    - java_class: androidx.appcompat.view.menu.MenuItemImpl
-      go_type: ItemImpl
+    - java_class: androidx.appcompat.view.menu.ActionMenuItemView
+      go_type: ActionMenuItemView
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
       methods:
-        - java_method: invoke
-          go_name: Invoke
-          returns: boolean
-          error: true
-        - java_method: isEnabled
-          go_name: IsEnabled
-          returns: boolean
-          error: true
-        - java_method: setEnabled
-          go_name: SetEnabled
+        - java_method: onConfigurationChanged
+          go_name: OnConfigurationChanged
           params:
-            - java_type: boolean
+            - java_type: android.content.res.Configuration
               go_name: arg0
-          returns: android.view.MenuItem
+          returns: void
           error: true
-        - java_method: getGroupId
-          go_name: GetGroupId
-          returns: int
+        - java_method: getAccessibilityClassName
+          go_name: GetAccessibilityClassName
+          returns: java.lang.CharSequence
           error: true
-        - java_method: getItemId
-          go_name: GetItemId
-          returns: int
-          error: true
-        - java_method: getOrder
-          go_name: GetOrder
-          returns: int
-          error: true
-        - java_method: getOrdering
-          go_name: GetOrdering
-          returns: int
-          error: true
-        - java_method: getIntent
-          go_name: GetIntent
-          returns: android.content.Intent
-          error: true
-        - java_method: setIntent
-          go_name: SetIntent
+        - java_method: setPadding
+          go_name: SetPadding
           params:
-            - java_type: android.content.Intent
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setCallback
-          go_name: SetCallback
-          params:
-            - java_type: java.lang.Runnable
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getAlphabeticShortcut
-          go_name: GetAlphabeticShortcut
-          returns: char
-          error: true
-        - java_method: setAlphabeticShortcut
-          go_name: SetAlphabeticShortcut1
-          params:
-            - java_type: char
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setAlphabeticShortcut
-          go_name: SetAlphabeticShortcut2_1
-          params:
-            - java_type: char
+            - java_type: int
               go_name: arg0
             - java_type: int
-              go_name: arg1
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getAlphabeticModifiers
-          go_name: GetAlphabeticModifiers
-          returns: int
-          error: true
-        - java_method: getNumericShortcut
-          go_name: GetNumericShortcut
-          returns: char
-          error: true
-        - java_method: getNumericModifiers
-          go_name: GetNumericModifiers
-          returns: int
-          error: true
-        - java_method: setNumericShortcut
-          go_name: SetNumericShortcut1
-          params:
-            - java_type: char
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setNumericShortcut
-          go_name: SetNumericShortcut2_1
-          params:
-            - java_type: char
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setShortcut
-          go_name: SetShortcut2
-          params:
-            - java_type: char
-              go_name: arg0
-            - java_type: char
-              go_name: arg1
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setShortcut
-          go_name: SetShortcut4_1
-          params:
-            - java_type: char
-              go_name: arg0
-            - java_type: char
               go_name: arg1
             - java_type: int
               go_name: arg2
             - java_type: int
               go_name: arg3
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getSubMenu
-          go_name: GetSubMenu
-          returns: android.view.SubMenu
-          error: true
-        - java_method: hasSubMenu
-          go_name: HasSubMenu
-          returns: boolean
-          error: true
-        - java_method: setSubMenu
-          go_name: SetSubMenu
-          params:
-            - java_type: androidx.appcompat.view.menu.SubMenuBuilder
-              go_name: arg0
           returns: void
           error: true
-        - java_method: getTitle
-          go_name: GetTitle
-          returns: java.lang.CharSequence
+        - java_method: getItemData
+          go_name: GetItemData
+          returns: androidx.appcompat.view.menu.MenuItemImpl
           error: true
-        - java_method: setTitle
-          go_name: SetTitle1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setTitle
-          go_name: SetTitle1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getTitleCondensed
-          go_name: GetTitleCondensed
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: setTitleCondensed
-          go_name: SetTitleCondensed
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getIcon
-          go_name: GetIcon
-          returns: android.graphics.drawable.Drawable
-          error: true
-        - java_method: setIcon
-          go_name: SetIcon1
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setIcon
-          go_name: SetIcon1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setIconTintList
-          go_name: SetIconTintList
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getIconTintList
-          go_name: GetIconTintList
-          returns: android.content.res.ColorStateList
-          error: true
-        - java_method: setIconTintMode
-          go_name: SetIconTintMode
-          params:
-            - java_type: android.graphics.PorterDuff$Mode
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getIconTintMode
-          go_name: GetIconTintMode
-          returns: android.graphics.PorterDuff$Mode
-          error: true
-        - java_method: isCheckable
-          go_name: IsCheckable
-          returns: boolean
-          error: true
-        - java_method: setCheckable
-          go_name: SetCheckable
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setExclusiveCheckable
-          go_name: SetExclusiveCheckable
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isExclusiveCheckable
-          go_name: IsExclusiveCheckable
-          returns: boolean
-          error: true
-        - java_method: isChecked
-          go_name: IsChecked
-          returns: boolean
-          error: true
-        - java_method: setChecked
-          go_name: SetChecked
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: isVisible
-          go_name: IsVisible
-          returns: boolean
-          error: true
-        - java_method: setVisible
-          go_name: SetVisible
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setOnMenuItemClickListener
-          go_name: SetOnMenuItemClickListener
-          params:
-            - java_type: android.view.MenuItem$OnMenuItemClickListener
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: getMenuInfo
-          go_name: GetMenuInfo
-          returns: android.view.ContextMenu$ContextMenuInfo
-          error: true
-        - java_method: actionFormatChanged
-          go_name: ActionFormatChanged
-          returns: void
-          error: true
-        - java_method: shouldShowIcon
-          go_name: ShouldShowIcon
-          returns: boolean
-          error: true
-        - java_method: isActionButton
-          go_name: IsActionButton
-          returns: boolean
-          error: true
-        - java_method: requestsActionButton
-          go_name: RequestsActionButton
-          returns: boolean
-          error: true
-        - java_method: requiresActionButton
-          go_name: RequiresActionButton
-          returns: boolean
-          error: true
-        - java_method: requiresOverflow
-          go_name: RequiresOverflow
-          returns: boolean
-          error: true
-        - java_method: setIsActionButton
-          go_name: SetIsActionButton
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: showsTextAsAction
-          go_name: ShowsTextAsAction
-          returns: boolean
-          error: true
-        - java_method: setShowAsAction
-          go_name: SetShowAsAction
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setActionView
-          go_name: SetActionView1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: androidx.core.internal.view.SupportMenuItem
-          error: true
-        - java_method: setActionView
-          go_name: SetActionView1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.core.internal.view.SupportMenuItem
-          error: true
-        - java_method: getActionView
-          go_name: GetActionView
-          returns: android.view.View
-          error: true
-        - java_method: setActionProvider
-          go_name: SetActionProvider
-          params:
-            - java_type: android.view.ActionProvider
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getActionProvider
-          go_name: GetActionProvider
-          returns: android.view.ActionProvider
-          error: true
-        - java_method: getSupportActionProvider
-          go_name: GetSupportActionProvider
-          returns: androidx.core.view.ActionProvider
-          error: true
-        - java_method: setSupportActionProvider
-          go_name: SetSupportActionProvider
-          params:
-            - java_type: androidx.core.view.ActionProvider
-              go_name: arg0
-          returns: androidx.core.internal.view.SupportMenuItem
-          error: true
-        - java_method: setShowAsActionFlags
-          go_name: SetShowAsActionFlags1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.core.internal.view.SupportMenuItem
-          error: true
-        - java_method: expandActionView
-          go_name: ExpandActionView
-          returns: boolean
-          error: true
-        - java_method: collapseActionView
-          go_name: CollapseActionView
-          returns: boolean
-          error: true
-        - java_method: hasCollapsibleActionView
-          go_name: HasCollapsibleActionView
-          returns: boolean
-          error: true
-        - java_method: setActionViewExpanded
-          go_name: SetActionViewExpanded
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isActionViewExpanded
-          go_name: IsActionViewExpanded
-          returns: boolean
-          error: true
-        - java_method: setOnActionExpandListener
-          go_name: SetOnActionExpandListener
-          params:
-            - java_type: android.view.MenuItem$OnActionExpandListener
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setContentDescription
-          go_name: SetContentDescription1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: androidx.core.internal.view.SupportMenuItem
-          error: true
-        - java_method: getContentDescription
-          go_name: GetContentDescription
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: setTooltipText
-          go_name: SetTooltipText1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: androidx.core.internal.view.SupportMenuItem
-          error: true
-        - java_method: getTooltipText
-          go_name: GetTooltipText
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: setActionView
-          go_name: SetActionView1_2
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setActionView
-          go_name: SetActionView1_3
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setShowAsActionFlags
-          go_name: SetShowAsActionFlags1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setTooltipText
-          go_name: SetTooltipText1_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setContentDescription
-          go_name: SetContentDescription1_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-    - java_class: androidx.appcompat.view.menu.MenuPresenter
-      go_type: Presenter
-      methods:
-        - java_method: initForMenu
-          go_name: InitForMenu
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getMenuView
-          go_name: GetMenuView
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-          returns: androidx.appcompat.view.menu.MenuView
-          error: true
-        - java_method: updateMenuView
-          go_name: UpdateMenuView
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCallback
-          go_name: SetCallback
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuPresenter$Callback
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onSubMenuSelected
-          go_name: OnSubMenuSelected
-          params:
-            - java_type: androidx.appcompat.view.menu.SubMenuBuilder
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onCloseMenu
-          go_name: OnCloseMenu
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: flagActionItems
-          go_name: FlagActionItems
-          returns: boolean
-          error: true
-        - java_method: expandItemActionView
-          go_name: ExpandItemActionView
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg0
-            - java_type: androidx.appcompat.view.menu.MenuItemImpl
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: collapseItemActionView
-          go_name: CollapseItemActionView
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg0
-            - java_type: androidx.appcompat.view.menu.MenuItemImpl
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: int
-          error: true
-        - java_method: onSaveInstanceState
-          go_name: OnSaveInstanceState
-          returns: android.os.Parcelable
-          error: true
-        - java_method: onRestoreInstanceState
-          go_name: OnRestoreInstanceState
-          params:
-            - java_type: android.os.Parcelable
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.appcompat.view.menu.MenuPresenter$Callback
-      go_type: PresenterCallback
-      methods:
-        - java_method: onCloseMenu
-          go_name: OnCloseMenu
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onOpenSubMenu
-          go_name: OnOpenSubMenu
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg0
-          returns: boolean
-          error: true
-    - java_class: androidx.appcompat.view.menu.ListMenuItemView
-      go_type: ListMenuItemView
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: android.util.AttributeSet
-          go_name: arg1
-      methods:
         - java_method: initialize
           go_name: Initialize
           params:
@@ -569,23 +49,37 @@ classes:
               go_name: arg1
           returns: void
           error: true
-        - java_method: setForceShowIcon
-          go_name: SetForceShowIcon
+        - java_method: onTouchEvent
+          go_name: OnTouchEvent
           params:
-            - java_type: boolean
+            - java_type: android.view.MotionEvent
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onClick
+          go_name: OnClick
+          params:
+            - java_type: android.view.View
               go_name: arg0
           returns: void
           error: true
-        - java_method: setTitle
-          go_name: SetTitle
+        - java_method: setItemInvoker
+          go_name: SetItemInvoker
           params:
-            - java_type: java.lang.CharSequence
+            - java_type: androidx.appcompat.view.menu.MenuBuilder$ItemInvoker
               go_name: arg0
           returns: void
           error: true
-        - java_method: getItemData
-          go_name: GetItemData
-          returns: androidx.appcompat.view.menu.MenuItemImpl
+        - java_method: setPopupCallback
+          go_name: SetPopupCallback
+          params:
+            - java_type: androidx.appcompat.view.menu.ActionMenuItemView$PopupCallback
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: prefersCondensedTitle
+          go_name: PrefersCondensedTitle
+          returns: boolean
           error: true
         - java_method: setCheckable
           go_name: SetCheckable
@@ -600,6 +94,24 @@ classes:
             - java_type: boolean
               go_name: arg0
           returns: void
+          error: true
+        - java_method: setExpandedFormat
+          go_name: SetExpandedFormat
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setIcon
+          go_name: SetIcon
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: hasText
+          go_name: HasText
+          returns: boolean
           error: true
         - java_method: setShortcut
           go_name: SetShortcut
@@ -610,341 +122,24 @@ classes:
               go_name: arg1
           returns: void
           error: true
-        - java_method: setIcon
-          go_name: SetIcon
+        - java_method: setTitle
+          go_name: SetTitle
           params:
-            - java_type: android.graphics.drawable.Drawable
+            - java_type: java.lang.CharSequence
               go_name: arg0
           returns: void
-          error: true
-        - java_method: prefersCondensedTitle
-          go_name: PrefersCondensedTitle
-          returns: boolean
           error: true
         - java_method: showsIcon
           go_name: ShowsIcon
           returns: boolean
           error: true
-        - java_method: setGroupDividerEnabled
-          go_name: SetGroupDividerEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: adjustListItemSelectionBounds
-          go_name: AdjustListItemSelectionBounds
-          params:
-            - java_type: android.graphics.Rect
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.appcompat.view.menu.BaseMenuPresenter
-      go_type: BaseMenuPresenter
-      methods:
-        - java_method: initForMenu
-          go_name: InitForMenu
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getMenuView
-          go_name: GetMenuView
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-          returns: androidx.appcompat.view.menu.MenuView
-          error: true
-        - java_method: updateMenuView
-          go_name: UpdateMenuView
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCallback
-          go_name: SetCallback
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuPresenter$Callback
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getCallback
-          go_name: GetCallback
-          returns: androidx.appcompat.view.menu.MenuPresenter$Callback
-          error: true
-        - java_method: createItemView
-          go_name: CreateItemView
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-          returns: androidx.appcompat.view.menu.MenuView$ItemView
-          error: true
-        - java_method: getItemView
-          go_name: GetItemView
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuItemImpl
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: android.view.ViewGroup
-              go_name: arg2
-          returns: android.view.View
-          error: true
-        - java_method: bindItemView
-          go_name: BindItemView
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuItemImpl
-              go_name: arg0
-            - java_type: androidx.appcompat.view.menu.MenuView$ItemView
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: shouldIncludeItem
-          go_name: ShouldIncludeItem
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: androidx.appcompat.view.menu.MenuItemImpl
-              go_name: arg1
+        - java_method: needsDividerBefore
+          go_name: NeedsDividerBefore
           returns: boolean
           error: true
-        - java_method: onCloseMenu
-          go_name: OnCloseMenu
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onSubMenuSelected
-          go_name: OnSubMenuSelected
-          params:
-            - java_type: androidx.appcompat.view.menu.SubMenuBuilder
-              go_name: arg0
+        - java_method: needsDividerAfter
+          go_name: NeedsDividerAfter
           returns: boolean
-          error: true
-        - java_method: flagActionItems
-          go_name: FlagActionItems
-          returns: boolean
-          error: true
-        - java_method: expandItemActionView
-          go_name: ExpandItemActionView
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg0
-            - java_type: androidx.appcompat.view.menu.MenuItemImpl
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: collapseItemActionView
-          go_name: CollapseItemActionView
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg0
-            - java_type: androidx.appcompat.view.menu.MenuItemImpl
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: int
-          error: true
-        - java_method: setId
-          go_name: SetId
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.appcompat.view.menu.MenuAdapter
-      go_type: Adapter
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.appcompat.view.menu.MenuBuilder
-          go_name: arg0
-        - java_type: android.view.LayoutInflater
-          go_name: arg1
-        - java_type: boolean
-          go_name: arg2
-        - java_type: int
-          go_name: arg3
-      methods:
-        - java_method: getForceShowIcon
-          go_name: GetForceShowIcon
-          returns: boolean
-          error: true
-        - java_method: setForceShowIcon
-          go_name: SetForceShowIcon
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getCount
-          go_name: GetCount
-          returns: int
-          error: true
-        - java_method: getAdapterMenu
-          go_name: GetAdapterMenu
-          returns: androidx.appcompat.view.menu.MenuBuilder
-          error: true
-        - java_method: getItem
-          go_name: GetItem1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.appcompat.view.menu.MenuItemImpl
-          error: true
-        - java_method: getItemId
-          go_name: GetItemId
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: long
-          error: true
-        - java_method: getView
-          go_name: GetView
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: android.view.ViewGroup
-              go_name: arg2
-          returns: android.view.View
-          error: true
-        - java_method: notifyDataSetChanged
-          go_name: NotifyDataSetChanged
-          returns: void
-          error: true
-        - java_method: getItem
-          go_name: GetItem1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: java.lang.Object
-          error: true
-    - java_class: androidx.appcompat.view.menu.ListMenuPresenter
-      go_type: ListMenuPresenter
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-      methods:
-        - java_method: initForMenu
-          go_name: InitForMenu
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getMenuView
-          go_name: GetMenuView
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-          returns: androidx.appcompat.view.menu.MenuView
-          error: true
-        - java_method: getAdapter
-          go_name: GetAdapter
-          returns: android.widget.ListAdapter
-          error: true
-        - java_method: updateMenuView
-          go_name: UpdateMenuView
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCallback
-          go_name: SetCallback
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuPresenter$Callback
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onSubMenuSelected
-          go_name: OnSubMenuSelected
-          params:
-            - java_type: androidx.appcompat.view.menu.SubMenuBuilder
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onCloseMenu
-          go_name: OnCloseMenu
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setItemIndexOffset
-          go_name: SetItemIndexOffset
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: flagActionItems
-          go_name: FlagActionItems
-          returns: boolean
-          error: true
-        - java_method: expandItemActionView
-          go_name: ExpandItemActionView
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg0
-            - java_type: androidx.appcompat.view.menu.MenuItemImpl
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: collapseItemActionView
-          go_name: CollapseItemActionView
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg0
-            - java_type: androidx.appcompat.view.menu.MenuItemImpl
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: saveHierarchyState
-          go_name: SaveHierarchyState
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: restoreHierarchyState
-          go_name: RestoreHierarchyState
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setId
-          go_name: SetId
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: int
-          error: true
-        - java_method: onSaveInstanceState
-          go_name: OnSaveInstanceState
-          returns: android.os.Parcelable
           error: true
         - java_method: onRestoreInstanceState
           go_name: OnRestoreInstanceState
@@ -953,862 +148,12 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: androidx.appcompat.view.menu.MenuView
-      go_type: View
+    - java_class: androidx.appcompat.view.menu.ActionMenuItemView$PopupCallback
+      go_type: ActionMenuItemViewPopupCallback
       methods:
-        - java_method: initialize
-          go_name: Initialize
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getWindowAnimations
-          go_name: GetWindowAnimations
-          returns: int
-          error: true
-    - java_class: androidx.appcompat.view.menu.MenuView$ItemView
-      go_type: ViewItemView
-      methods:
-        - java_method: initialize
-          go_name: Initialize
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuItemImpl
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getItemData
-          go_name: GetItemData
-          returns: androidx.appcompat.view.menu.MenuItemImpl
-          error: true
-        - java_method: setTitle
-          go_name: SetTitle
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setEnabled
-          go_name: SetEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCheckable
-          go_name: SetCheckable
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setChecked
-          go_name: SetChecked
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setShortcut
-          go_name: SetShortcut
-          params:
-            - java_type: boolean
-              go_name: arg0
-            - java_type: char
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setIcon
-          go_name: SetIcon
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: prefersCondensedTitle
-          go_name: PrefersCondensedTitle
-          returns: boolean
-          error: true
-        - java_method: showsIcon
-          go_name: ShowsIcon
-          returns: boolean
-          error: true
-    - java_class: androidx.appcompat.view.menu.MenuItemWrapperICS
-      go_type: ItemWrapperICS
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: androidx.core.internal.view.SupportMenuItem
-          go_name: arg1
-      methods:
-        - java_method: getItemId
-          go_name: GetItemId
-          returns: int
-          error: true
-        - java_method: getGroupId
-          go_name: GetGroupId
-          returns: int
-          error: true
-        - java_method: getOrder
-          go_name: GetOrder
-          returns: int
-          error: true
-        - java_method: setTitle
-          go_name: SetTitle1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setTitle
-          go_name: SetTitle1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getTitle
-          go_name: GetTitle
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: setTitleCondensed
-          go_name: SetTitleCondensed
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getTitleCondensed
-          go_name: GetTitleCondensed
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: setIcon
-          go_name: SetIcon1
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setIcon
-          go_name: SetIcon1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getIcon
-          go_name: GetIcon
-          returns: android.graphics.drawable.Drawable
-          error: true
-        - java_method: setIntent
-          go_name: SetIntent
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getIntent
-          go_name: GetIntent
-          returns: android.content.Intent
-          error: true
-        - java_method: setShortcut
-          go_name: SetShortcut2
-          params:
-            - java_type: char
-              go_name: arg0
-            - java_type: char
-              go_name: arg1
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setShortcut
-          go_name: SetShortcut4_1
-          params:
-            - java_type: char
-              go_name: arg0
-            - java_type: char
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setNumericShortcut
-          go_name: SetNumericShortcut1
-          params:
-            - java_type: char
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setNumericShortcut
-          go_name: SetNumericShortcut2_1
-          params:
-            - java_type: char
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getNumericShortcut
-          go_name: GetNumericShortcut
-          returns: char
-          error: true
-        - java_method: getNumericModifiers
-          go_name: GetNumericModifiers
-          returns: int
-          error: true
-        - java_method: setAlphabeticShortcut
-          go_name: SetAlphabeticShortcut1
-          params:
-            - java_type: char
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setAlphabeticShortcut
-          go_name: SetAlphabeticShortcut2_1
-          params:
-            - java_type: char
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getAlphabeticShortcut
-          go_name: GetAlphabeticShortcut
-          returns: char
-          error: true
-        - java_method: getAlphabeticModifiers
-          go_name: GetAlphabeticModifiers
-          returns: int
-          error: true
-        - java_method: setCheckable
-          go_name: SetCheckable
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: isCheckable
-          go_name: IsCheckable
-          returns: boolean
-          error: true
-        - java_method: setChecked
-          go_name: SetChecked
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: isChecked
-          go_name: IsChecked
-          returns: boolean
-          error: true
-        - java_method: setVisible
-          go_name: SetVisible
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: isVisible
-          go_name: IsVisible
-          returns: boolean
-          error: true
-        - java_method: setEnabled
-          go_name: SetEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: isEnabled
-          go_name: IsEnabled
-          returns: boolean
-          error: true
-        - java_method: hasSubMenu
-          go_name: HasSubMenu
-          returns: boolean
-          error: true
-        - java_method: getSubMenu
-          go_name: GetSubMenu
-          returns: android.view.SubMenu
-          error: true
-        - java_method: setOnMenuItemClickListener
-          go_name: SetOnMenuItemClickListener
-          params:
-            - java_type: android.view.MenuItem$OnMenuItemClickListener
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getMenuInfo
-          go_name: GetMenuInfo
-          returns: android.view.ContextMenu$ContextMenuInfo
-          error: true
-        - java_method: setShowAsAction
-          go_name: SetShowAsAction
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setShowAsActionFlags
-          go_name: SetShowAsActionFlags
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setActionView
-          go_name: SetActionView1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setActionView
-          go_name: SetActionView1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getActionView
-          go_name: GetActionView
-          returns: android.view.View
-          error: true
-        - java_method: setActionProvider
-          go_name: SetActionProvider
-          params:
-            - java_type: android.view.ActionProvider
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getActionProvider
-          go_name: GetActionProvider
-          returns: android.view.ActionProvider
-          error: true
-        - java_method: expandActionView
-          go_name: ExpandActionView
-          returns: boolean
-          error: true
-        - java_method: collapseActionView
-          go_name: CollapseActionView
-          returns: boolean
-          error: true
-        - java_method: isActionViewExpanded
-          go_name: IsActionViewExpanded
-          returns: boolean
-          error: true
-        - java_method: setOnActionExpandListener
-          go_name: SetOnActionExpandListener
-          params:
-            - java_type: android.view.MenuItem$OnActionExpandListener
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setContentDescription
-          go_name: SetContentDescription
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getContentDescription
-          go_name: GetContentDescription
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: setTooltipText
-          go_name: SetTooltipText
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getTooltipText
-          go_name: GetTooltipText
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: setIconTintList
-          go_name: SetIconTintList
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getIconTintList
-          go_name: GetIconTintList
-          returns: android.content.res.ColorStateList
-          error: true
-        - java_method: setIconTintMode
-          go_name: SetIconTintMode
-          params:
-            - java_type: android.graphics.PorterDuff$Mode
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getIconTintMode
-          go_name: GetIconTintMode
-          returns: android.graphics.PorterDuff$Mode
-          error: true
-        - java_method: setExclusiveCheckable
-          go_name: SetExclusiveCheckable
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.appcompat.view.menu.ExpandedMenuView
-      go_type: ExpandedMenuView
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: android.util.AttributeSet
-          go_name: arg1
-      methods:
-        - java_method: initialize
-          go_name: Initialize
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: invokeItem
-          go_name: InvokeItem
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuItemImpl
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onItemClick
-          go_name: OnItemClick
-          params:
-            - java_type: android.widget.AdapterView
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: long
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: getWindowAnimations
-          go_name: GetWindowAnimations
-          returns: int
-          error: true
-    - java_class: androidx.appcompat.view.menu.ShowableListMenu
-      go_type: ShowableListMenu
-      methods:
-        - java_method: show
-          go_name: Show
-          returns: void
-          error: true
-        - java_method: dismiss
-          go_name: Dismiss
-          returns: void
-          error: true
-        - java_method: isShowing
-          go_name: IsShowing
-          returns: boolean
-          error: true
-        - java_method: getListView
-          go_name: GetListView
-          returns: android.widget.ListView
-          error: true
-    - java_class: androidx.appcompat.view.menu.ActionMenuItem
-      go_type: ActionMenuItem
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-        - java_type: int
-          go_name: arg2
-        - java_type: int
-          go_name: arg3
-        - java_type: int
-          go_name: arg4
-        - java_type: java.lang.CharSequence
-          go_name: arg5
-      methods:
-        - java_method: getAlphabeticShortcut
-          go_name: GetAlphabeticShortcut
-          returns: char
-          error: true
-        - java_method: getAlphabeticModifiers
-          go_name: GetAlphabeticModifiers
-          returns: int
-          error: true
-        - java_method: getGroupId
-          go_name: GetGroupId
-          returns: int
-          error: true
-        - java_method: getIcon
-          go_name: GetIcon
-          returns: android.graphics.drawable.Drawable
-          error: true
-        - java_method: getIntent
-          go_name: GetIntent
-          returns: android.content.Intent
-          error: true
-        - java_method: getItemId
-          go_name: GetItemId
-          returns: int
-          error: true
-        - java_method: getMenuInfo
-          go_name: GetMenuInfo
-          returns: android.view.ContextMenu$ContextMenuInfo
-          error: true
-        - java_method: getNumericShortcut
-          go_name: GetNumericShortcut
-          returns: char
-          error: true
-        - java_method: getNumericModifiers
-          go_name: GetNumericModifiers
-          returns: int
-          error: true
-        - java_method: getOrder
-          go_name: GetOrder
-          returns: int
-          error: true
-        - java_method: getSubMenu
-          go_name: GetSubMenu
-          returns: android.view.SubMenu
-          error: true
-        - java_method: getTitle
-          go_name: GetTitle
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getTitleCondensed
-          go_name: GetTitleCondensed
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: hasSubMenu
-          go_name: HasSubMenu
-          returns: boolean
-          error: true
-        - java_method: isCheckable
-          go_name: IsCheckable
-          returns: boolean
-          error: true
-        - java_method: isChecked
-          go_name: IsChecked
-          returns: boolean
-          error: true
-        - java_method: isEnabled
-          go_name: IsEnabled
-          returns: boolean
-          error: true
-        - java_method: isVisible
-          go_name: IsVisible
-          returns: boolean
-          error: true
-        - java_method: setAlphabeticShortcut
-          go_name: SetAlphabeticShortcut1
-          params:
-            - java_type: char
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setAlphabeticShortcut
-          go_name: SetAlphabeticShortcut2_1
-          params:
-            - java_type: char
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setCheckable
-          go_name: SetCheckable
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setExclusiveCheckable
-          go_name: SetExclusiveCheckable
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: androidx.appcompat.view.menu.ActionMenuItem
-          error: true
-        - java_method: setChecked
-          go_name: SetChecked
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setEnabled
-          go_name: SetEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setIcon
-          go_name: SetIcon1
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setIcon
-          go_name: SetIcon1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setIntent
-          go_name: SetIntent
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setNumericShortcut
-          go_name: SetNumericShortcut1
-          params:
-            - java_type: char
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setNumericShortcut
-          go_name: SetNumericShortcut2_1
-          params:
-            - java_type: char
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setOnMenuItemClickListener
-          go_name: SetOnMenuItemClickListener
-          params:
-            - java_type: android.view.MenuItem$OnMenuItemClickListener
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setShortcut
-          go_name: SetShortcut2
-          params:
-            - java_type: char
-              go_name: arg0
-            - java_type: char
-              go_name: arg1
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setShortcut
-          go_name: SetShortcut4_1
-          params:
-            - java_type: char
-              go_name: arg0
-            - java_type: char
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setTitle
-          go_name: SetTitle1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setTitle
-          go_name: SetTitle1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setTitleCondensed
-          go_name: SetTitleCondensed
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setVisible
-          go_name: SetVisible
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: invoke
-          go_name: Invoke
-          returns: boolean
-          error: true
-        - java_method: setShowAsAction
-          go_name: SetShowAsAction
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: requiresActionButton
-          go_name: RequiresActionButton
-          returns: boolean
-          error: true
-        - java_method: requiresOverflow
-          go_name: RequiresOverflow
-          returns: boolean
-          error: true
-        - java_method: setActionView
-          go_name: SetActionView1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: androidx.core.internal.view.SupportMenuItem
-          error: true
-        - java_method: getActionView
-          go_name: GetActionView
-          returns: android.view.View
-          error: true
-        - java_method: setActionProvider
-          go_name: SetActionProvider
-          params:
-            - java_type: android.view.ActionProvider
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getActionProvider
-          go_name: GetActionProvider
-          returns: android.view.ActionProvider
-          error: true
-        - java_method: setActionView
-          go_name: SetActionView1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.core.internal.view.SupportMenuItem
-          error: true
-        - java_method: getSupportActionProvider
-          go_name: GetSupportActionProvider
-          returns: androidx.core.view.ActionProvider
-          error: true
-        - java_method: setSupportActionProvider
-          go_name: SetSupportActionProvider
-          params:
-            - java_type: androidx.core.view.ActionProvider
-              go_name: arg0
-          returns: androidx.core.internal.view.SupportMenuItem
-          error: true
-        - java_method: setShowAsActionFlags
-          go_name: SetShowAsActionFlags1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.core.internal.view.SupportMenuItem
-          error: true
-        - java_method: expandActionView
-          go_name: ExpandActionView
-          returns: boolean
-          error: true
-        - java_method: collapseActionView
-          go_name: CollapseActionView
-          returns: boolean
-          error: true
-        - java_method: isActionViewExpanded
-          go_name: IsActionViewExpanded
-          returns: boolean
-          error: true
-        - java_method: setOnActionExpandListener
-          go_name: SetOnActionExpandListener
-          params:
-            - java_type: android.view.MenuItem$OnActionExpandListener
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setContentDescription
-          go_name: SetContentDescription1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: androidx.core.internal.view.SupportMenuItem
-          error: true
-        - java_method: getContentDescription
-          go_name: GetContentDescription
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: setTooltipText
-          go_name: SetTooltipText1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: androidx.core.internal.view.SupportMenuItem
-          error: true
-        - java_method: getTooltipText
-          go_name: GetTooltipText
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: setIconTintList
-          go_name: SetIconTintList
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getIconTintList
-          go_name: GetIconTintList
-          returns: android.content.res.ColorStateList
-          error: true
-        - java_method: setIconTintMode
-          go_name: SetIconTintMode
-          params:
-            - java_type: android.graphics.PorterDuff$Mode
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: getIconTintMode
-          go_name: GetIconTintMode
-          returns: android.graphics.PorterDuff$Mode
-          error: true
-        - java_method: setActionView
-          go_name: SetActionView1_2
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setActionView
-          go_name: SetActionView1_3
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setShowAsActionFlags
-          go_name: SetShowAsActionFlags1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setTooltipText
-          go_name: SetTooltipText1_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setContentDescription
-          go_name: SetContentDescription1_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.view.MenuItem
+        - java_method: getPopup
+          go_name: GetPopup
+          returns: androidx.appcompat.view.menu.ShowableListMenu
           error: true
     - java_class: androidx.appcompat.view.menu.MenuBuilder
       go_type: Builder
@@ -2270,6 +615,7 @@ classes:
           go_name: GetExpandedItem
           returns: androidx.appcompat.view.menu.MenuItemImpl
           error: true
+      static_methods:
         - java_method: setOverrideVisibleItems
           go_name: SetOverrideVisibleItems
           params:
@@ -2306,28 +652,739 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-    - java_class: androidx.appcompat.view.menu.MenuPopupHelper
-      go_type: PopupHelper
+    - java_class: androidx.appcompat.view.menu.MenuView
+      go_type: View
+      methods:
+        - java_method: initialize
+          go_name: Initialize
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getWindowAnimations
+          go_name: GetWindowAnimations
+          returns: int
+          error: true
+    - java_class: androidx.appcompat.view.menu.MenuView$ItemView
+      go_type: ViewItemView
+      methods:
+        - java_method: initialize
+          go_name: Initialize
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuItemImpl
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getItemData
+          go_name: GetItemData
+          returns: androidx.appcompat.view.menu.MenuItemImpl
+          error: true
+        - java_method: setTitle
+          go_name: SetTitle
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setEnabled
+          go_name: SetEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCheckable
+          go_name: SetCheckable
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setChecked
+          go_name: SetChecked
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setShortcut
+          go_name: SetShortcut
+          params:
+            - java_type: boolean
+              go_name: arg0
+            - java_type: char
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setIcon
+          go_name: SetIcon
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: prefersCondensedTitle
+          go_name: PrefersCondensedTitle
+          returns: boolean
+          error: true
+        - java_method: showsIcon
+          go_name: ShowsIcon
+          returns: boolean
+          error: true
+    - java_class: androidx.appcompat.view.menu.MenuItemImpl
+      go_type: ItemImpl
+      methods:
+        - java_method: invoke
+          go_name: Invoke
+          returns: boolean
+          error: true
+        - java_method: isEnabled
+          go_name: IsEnabled
+          returns: boolean
+          error: true
+        - java_method: setEnabled
+          go_name: SetEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getGroupId
+          go_name: GetGroupId
+          returns: int
+          error: true
+        - java_method: getItemId
+          go_name: GetItemId
+          returns: int
+          error: true
+        - java_method: getOrder
+          go_name: GetOrder
+          returns: int
+          error: true
+        - java_method: getOrdering
+          go_name: GetOrdering
+          returns: int
+          error: true
+        - java_method: getIntent
+          go_name: GetIntent
+          returns: android.content.Intent
+          error: true
+        - java_method: setIntent
+          go_name: SetIntent
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setCallback
+          go_name: SetCallback
+          params:
+            - java_type: java.lang.Runnable
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getAlphabeticShortcut
+          go_name: GetAlphabeticShortcut
+          returns: char
+          error: true
+        - java_method: setAlphabeticShortcut
+          go_name: SetAlphabeticShortcut1
+          params:
+            - java_type: char
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setAlphabeticShortcut
+          go_name: SetAlphabeticShortcut2_1
+          params:
+            - java_type: char
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getAlphabeticModifiers
+          go_name: GetAlphabeticModifiers
+          returns: int
+          error: true
+        - java_method: getNumericShortcut
+          go_name: GetNumericShortcut
+          returns: char
+          error: true
+        - java_method: getNumericModifiers
+          go_name: GetNumericModifiers
+          returns: int
+          error: true
+        - java_method: setNumericShortcut
+          go_name: SetNumericShortcut1
+          params:
+            - java_type: char
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setNumericShortcut
+          go_name: SetNumericShortcut2_1
+          params:
+            - java_type: char
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setShortcut
+          go_name: SetShortcut2
+          params:
+            - java_type: char
+              go_name: arg0
+            - java_type: char
+              go_name: arg1
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setShortcut
+          go_name: SetShortcut4_1
+          params:
+            - java_type: char
+              go_name: arg0
+            - java_type: char
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getSubMenu
+          go_name: GetSubMenu
+          returns: android.view.SubMenu
+          error: true
+        - java_method: hasSubMenu
+          go_name: HasSubMenu
+          returns: boolean
+          error: true
+        - java_method: setSubMenu
+          go_name: SetSubMenu
+          params:
+            - java_type: androidx.appcompat.view.menu.SubMenuBuilder
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getTitle
+          go_name: GetTitle
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: setTitle
+          go_name: SetTitle1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setTitle
+          go_name: SetTitle1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getTitleCondensed
+          go_name: GetTitleCondensed
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: setTitleCondensed
+          go_name: SetTitleCondensed
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getIcon
+          go_name: GetIcon
+          returns: android.graphics.drawable.Drawable
+          error: true
+        - java_method: setIcon
+          go_name: SetIcon1
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setIcon
+          go_name: SetIcon1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setIconTintList
+          go_name: SetIconTintList
+          params:
+            - java_type: android.content.res.ColorStateList
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getIconTintList
+          go_name: GetIconTintList
+          returns: android.content.res.ColorStateList
+          error: true
+        - java_method: setIconTintMode
+          go_name: SetIconTintMode
+          params:
+            - java_type: android.graphics.PorterDuff$Mode
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getIconTintMode
+          go_name: GetIconTintMode
+          returns: android.graphics.PorterDuff$Mode
+          error: true
+        - java_method: isCheckable
+          go_name: IsCheckable
+          returns: boolean
+          error: true
+        - java_method: setCheckable
+          go_name: SetCheckable
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setExclusiveCheckable
+          go_name: SetExclusiveCheckable
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isExclusiveCheckable
+          go_name: IsExclusiveCheckable
+          returns: boolean
+          error: true
+        - java_method: isChecked
+          go_name: IsChecked
+          returns: boolean
+          error: true
+        - java_method: setChecked
+          go_name: SetChecked
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: isVisible
+          go_name: IsVisible
+          returns: boolean
+          error: true
+        - java_method: setVisible
+          go_name: SetVisible
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setOnMenuItemClickListener
+          go_name: SetOnMenuItemClickListener
+          params:
+            - java_type: android.view.MenuItem$OnMenuItemClickListener
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: getMenuInfo
+          go_name: GetMenuInfo
+          returns: android.view.ContextMenu$ContextMenuInfo
+          error: true
+        - java_method: actionFormatChanged
+          go_name: ActionFormatChanged
+          returns: void
+          error: true
+        - java_method: shouldShowIcon
+          go_name: ShouldShowIcon
+          returns: boolean
+          error: true
+        - java_method: isActionButton
+          go_name: IsActionButton
+          returns: boolean
+          error: true
+        - java_method: requestsActionButton
+          go_name: RequestsActionButton
+          returns: boolean
+          error: true
+        - java_method: requiresActionButton
+          go_name: RequiresActionButton
+          returns: boolean
+          error: true
+        - java_method: requiresOverflow
+          go_name: RequiresOverflow
+          returns: boolean
+          error: true
+        - java_method: setIsActionButton
+          go_name: SetIsActionButton
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: showsTextAsAction
+          go_name: ShowsTextAsAction
+          returns: boolean
+          error: true
+        - java_method: setShowAsAction
+          go_name: SetShowAsAction
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setActionView
+          go_name: SetActionView1
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: androidx.core.internal.view.SupportMenuItem
+          error: true
+        - java_method: setActionView
+          go_name: SetActionView1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.core.internal.view.SupportMenuItem
+          error: true
+        - java_method: getActionView
+          go_name: GetActionView
+          returns: android.view.View
+          error: true
+        - java_method: setActionProvider
+          go_name: SetActionProvider
+          params:
+            - java_type: android.view.ActionProvider
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getActionProvider
+          go_name: GetActionProvider
+          returns: android.view.ActionProvider
+          error: true
+        - java_method: getSupportActionProvider
+          go_name: GetSupportActionProvider
+          returns: androidx.core.view.ActionProvider
+          error: true
+        - java_method: setSupportActionProvider
+          go_name: SetSupportActionProvider
+          params:
+            - java_type: androidx.core.view.ActionProvider
+              go_name: arg0
+          returns: androidx.core.internal.view.SupportMenuItem
+          error: true
+        - java_method: setShowAsActionFlags
+          go_name: SetShowAsActionFlags
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.core.internal.view.SupportMenuItem
+          error: true
+        - java_method: expandActionView
+          go_name: ExpandActionView
+          returns: boolean
+          error: true
+        - java_method: collapseActionView
+          go_name: CollapseActionView
+          returns: boolean
+          error: true
+        - java_method: hasCollapsibleActionView
+          go_name: HasCollapsibleActionView
+          returns: boolean
+          error: true
+        - java_method: setActionViewExpanded
+          go_name: SetActionViewExpanded
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isActionViewExpanded
+          go_name: IsActionViewExpanded
+          returns: boolean
+          error: true
+        - java_method: setOnActionExpandListener
+          go_name: SetOnActionExpandListener
+          params:
+            - java_type: android.view.MenuItem$OnActionExpandListener
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setContentDescription
+          go_name: SetContentDescription
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: androidx.core.internal.view.SupportMenuItem
+          error: true
+        - java_method: getContentDescription
+          go_name: GetContentDescription
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: setTooltipText
+          go_name: SetTooltipText
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: androidx.core.internal.view.SupportMenuItem
+          error: true
+        - java_method: getTooltipText
+          go_name: GetTooltipText
+          returns: java.lang.CharSequence
+          error: true
+    - java_class: androidx.appcompat.view.menu.ListMenuPresenter
+      go_type: ListMenuPresenter
       obtain: constructor
       constructor_params:
         - java_type: android.content.Context
           go_name: arg0
-        - java_type: androidx.appcompat.view.menu.MenuBuilder
+        - java_type: int
           go_name: arg1
       methods:
-        - java_method: setOnDismissListener
-          go_name: SetOnDismissListener
+        - java_method: initForMenu
+          go_name: InitForMenu
           params:
-            - java_type: android.widget.PopupWindow$OnDismissListener
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getMenuView
+          go_name: GetMenuView
+          params:
+            - java_type: android.view.ViewGroup
+              go_name: arg0
+          returns: androidx.appcompat.view.menu.MenuView
+          error: true
+        - java_method: getAdapter
+          go_name: GetAdapter
+          returns: android.widget.ListAdapter
+          error: true
+        - java_method: updateMenuView
+          go_name: UpdateMenuView
+          params:
+            - java_type: boolean
               go_name: arg0
           returns: void
           error: true
-        - java_method: setAnchorView
-          go_name: SetAnchorView
+        - java_method: setCallback
+          go_name: SetCallback
           params:
-            - java_type: android.view.View
+            - java_type: androidx.appcompat.view.menu.MenuPresenter$Callback
               go_name: arg0
           returns: void
+          error: true
+        - java_method: onSubMenuSelected
+          go_name: OnSubMenuSelected
+          params:
+            - java_type: androidx.appcompat.view.menu.SubMenuBuilder
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onCloseMenu
+          go_name: OnCloseMenu
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setItemIndexOffset
+          go_name: SetItemIndexOffset
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: flagActionItems
+          go_name: FlagActionItems
+          returns: boolean
+          error: true
+        - java_method: expandItemActionView
+          go_name: ExpandItemActionView
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg0
+            - java_type: androidx.appcompat.view.menu.MenuItemImpl
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: collapseItemActionView
+          go_name: CollapseItemActionView
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg0
+            - java_type: androidx.appcompat.view.menu.MenuItemImpl
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: saveHierarchyState
+          go_name: SaveHierarchyState
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: restoreHierarchyState
+          go_name: RestoreHierarchyState
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setId
+          go_name: SetId
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: int
+          error: true
+        - java_method: onSaveInstanceState
+          go_name: OnSaveInstanceState
+          returns: android.os.Parcelable
+          error: true
+        - java_method: onRestoreInstanceState
+          go_name: OnRestoreInstanceState
+          params:
+            - java_type: android.os.Parcelable
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: androidx.appcompat.view.menu.MenuPresenter
+      go_type: Presenter
+      methods:
+        - java_method: initForMenu
+          go_name: InitForMenu
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getMenuView
+          go_name: GetMenuView
+          params:
+            - java_type: android.view.ViewGroup
+              go_name: arg0
+          returns: androidx.appcompat.view.menu.MenuView
+          error: true
+        - java_method: updateMenuView
+          go_name: UpdateMenuView
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCallback
+          go_name: SetCallback
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuPresenter$Callback
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onSubMenuSelected
+          go_name: OnSubMenuSelected
+          params:
+            - java_type: androidx.appcompat.view.menu.SubMenuBuilder
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onCloseMenu
+          go_name: OnCloseMenu
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: flagActionItems
+          go_name: FlagActionItems
+          returns: boolean
+          error: true
+        - java_method: expandItemActionView
+          go_name: ExpandItemActionView
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg0
+            - java_type: androidx.appcompat.view.menu.MenuItemImpl
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: collapseItemActionView
+          go_name: CollapseItemActionView
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg0
+            - java_type: androidx.appcompat.view.menu.MenuItemImpl
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: int
+          error: true
+        - java_method: onSaveInstanceState
+          go_name: OnSaveInstanceState
+          returns: android.os.Parcelable
+          error: true
+        - java_method: onRestoreInstanceState
+          go_name: OnRestoreInstanceState
+          params:
+            - java_type: android.os.Parcelable
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: androidx.appcompat.view.menu.MenuPresenter$Callback
+      go_type: PresenterCallback
+      methods:
+        - java_method: onCloseMenu
+          go_name: OnCloseMenu
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onOpenSubMenu
+          go_name: OnOpenSubMenu
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg0
+          returns: boolean
+          error: true
+    - java_class: androidx.appcompat.view.menu.MenuAdapter
+      go_type: Adapter
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.appcompat.view.menu.MenuBuilder
+          go_name: arg0
+        - java_type: android.view.LayoutInflater
+          go_name: arg1
+        - java_type: boolean
+          go_name: arg2
+        - java_type: int
+          go_name: arg3
+      methods:
+        - java_method: getForceShowIcon
+          go_name: GetForceShowIcon
+          returns: boolean
           error: true
         - java_method: setForceShowIcon
           go_name: SetForceShowIcon
@@ -2336,195 +1393,42 @@ classes:
               go_name: arg0
           returns: void
           error: true
-        - java_method: setGravity
-          go_name: SetGravity
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getGravity
-          go_name: GetGravity
+        - java_method: getCount
+          go_name: GetCount
           returns: int
           error: true
-        - java_method: show
-          go_name: Show0
-          returns: void
-          error: true
-        - java_method: show
-          go_name: Show2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getPopup
-          go_name: GetPopup
-          returns: androidx.appcompat.view.menu.MenuPopup
-          error: true
-        - java_method: tryShow
-          go_name: TryShow0
-          returns: boolean
-          error: true
-        - java_method: tryShow
-          go_name: TryShow2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: dismiss
-          go_name: Dismiss
-          returns: void
-          error: true
-        - java_method: isShowing
-          go_name: IsShowing
-          returns: boolean
-          error: true
-        - java_method: setPresenterCallback
-          go_name: SetPresenterCallback
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuPresenter$Callback
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getListView
-          go_name: GetListView
-          returns: android.widget.ListView
-          error: true
-    - java_class: androidx.appcompat.view.menu.SubMenuBuilder
-      go_type: SubMenuBuilder
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: androidx.appcompat.view.menu.MenuBuilder
-          go_name: arg1
-        - java_type: androidx.appcompat.view.menu.MenuItemImpl
-          go_name: arg2
-      methods:
-        - java_method: setQwertyMode
-          go_name: SetQwertyMode
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isQwertyMode
-          go_name: IsQwertyMode
-          returns: boolean
-          error: true
-        - java_method: setShortcutsVisible
-          go_name: SetShortcutsVisible
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isShortcutsVisible
-          go_name: IsShortcutsVisible
-          returns: boolean
-          error: true
-        - java_method: getParentMenu
-          go_name: GetParentMenu
-          returns: android.view.Menu
+        - java_method: getAdapterMenu
+          go_name: GetAdapterMenu
+          returns: androidx.appcompat.view.menu.MenuBuilder
           error: true
         - java_method: getItem
           go_name: GetItem
-          returns: android.view.MenuItem
-          error: true
-        - java_method: setCallback
-          go_name: SetCallback
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder$Callback
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getRootMenu
-          go_name: GetRootMenu
-          returns: androidx.appcompat.view.menu.MenuBuilder
-          error: true
-        - java_method: setIcon
-          go_name: SetIcon1
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: android.view.SubMenu
-          error: true
-        - java_method: setIcon
-          go_name: SetIcon1_1
           params:
             - java_type: int
               go_name: arg0
-          returns: android.view.SubMenu
+          returns: androidx.appcompat.view.menu.MenuItemImpl
           error: true
-        - java_method: setHeaderIcon
-          go_name: SetHeaderIcon1
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: android.view.SubMenu
-          error: true
-        - java_method: setHeaderIcon
-          go_name: SetHeaderIcon1_1
+        - java_method: getItemId
+          go_name: GetItemId
           params:
             - java_type: int
               go_name: arg0
-          returns: android.view.SubMenu
+          returns: long
           error: true
-        - java_method: setHeaderTitle
-          go_name: SetHeaderTitle1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.view.SubMenu
-          error: true
-        - java_method: setHeaderTitle
-          go_name: SetHeaderTitle1_1
+        - java_method: getView
+          go_name: GetView
           params:
             - java_type: int
               go_name: arg0
-          returns: android.view.SubMenu
-          error: true
-        - java_method: setHeaderView
-          go_name: SetHeaderView
-          params:
             - java_type: android.view.View
-              go_name: arg0
-          returns: android.view.SubMenu
+              go_name: arg1
+            - java_type: android.view.ViewGroup
+              go_name: arg2
+          returns: android.view.View
           error: true
-        - java_method: expandItemActionView
-          go_name: ExpandItemActionView
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuItemImpl
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: collapseItemActionView
-          go_name: CollapseItemActionView
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuItemImpl
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getActionViewStatesKey
-          go_name: GetActionViewStatesKey
-          returns: String
-          error: true
-        - java_method: setGroupDividerEnabled
-          go_name: SetGroupDividerEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
+        - java_method: notifyDataSetChanged
+          go_name: NotifyDataSetChanged
           returns: void
-          error: true
-        - java_method: isGroupDividerEnabled
-          go_name: IsGroupDividerEnabled
-          returns: boolean
           error: true
     - java_class: androidx.appcompat.view.menu.MenuWrapperICS
       go_type: WrapperICS
@@ -2745,41 +1649,976 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: androidx.appcompat.view.menu.ActionMenuItemView
-      go_type: ActionMenuItemView
+    - java_class: androidx.appcompat.view.menu.SubMenuBuilder
+      go_type: SubMenuBuilder
       obtain: constructor
       constructor_params:
         - java_type: android.content.Context
           go_name: arg0
+        - java_type: androidx.appcompat.view.menu.MenuBuilder
+          go_name: arg1
+        - java_type: androidx.appcompat.view.menu.MenuItemImpl
+          go_name: arg2
       methods:
-        - java_method: onConfigurationChanged
-          go_name: OnConfigurationChanged
+        - java_method: setQwertyMode
+          go_name: SetQwertyMode
           params:
-            - java_type: android.content.res.Configuration
+            - java_type: boolean
               go_name: arg0
           returns: void
           error: true
-        - java_method: getAccessibilityClassName
-          go_name: GetAccessibilityClassName
-          returns: java.lang.CharSequence
+        - java_method: isQwertyMode
+          go_name: IsQwertyMode
+          returns: boolean
           error: true
-        - java_method: setPadding
-          go_name: SetPadding
+        - java_method: setShortcutsVisible
+          go_name: SetShortcutsVisible
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isShortcutsVisible
+          go_name: IsShortcutsVisible
+          returns: boolean
+          error: true
+        - java_method: getParentMenu
+          go_name: GetParentMenu
+          returns: android.view.Menu
+          error: true
+        - java_method: getItem
+          go_name: GetItem
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setCallback
+          go_name: SetCallback
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuBuilder$Callback
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getRootMenu
+          go_name: GetRootMenu
+          returns: androidx.appcompat.view.menu.MenuBuilder
+          error: true
+        - java_method: setIcon
+          go_name: SetIcon1
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: android.view.SubMenu
+          error: true
+        - java_method: setIcon
+          go_name: SetIcon1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.view.SubMenu
+          error: true
+        - java_method: setHeaderIcon
+          go_name: SetHeaderIcon1
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: android.view.SubMenu
+          error: true
+        - java_method: setHeaderIcon
+          go_name: SetHeaderIcon1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.view.SubMenu
+          error: true
+        - java_method: setHeaderTitle
+          go_name: SetHeaderTitle1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.view.SubMenu
+          error: true
+        - java_method: setHeaderTitle
+          go_name: SetHeaderTitle1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.view.SubMenu
+          error: true
+        - java_method: setHeaderView
+          go_name: SetHeaderView
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: android.view.SubMenu
+          error: true
+        - java_method: expandItemActionView
+          go_name: ExpandItemActionView
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuItemImpl
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: collapseItemActionView
+          go_name: CollapseItemActionView
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuItemImpl
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getActionViewStatesKey
+          go_name: GetActionViewStatesKey
+          returns: String
+          error: true
+        - java_method: setGroupDividerEnabled
+          go_name: SetGroupDividerEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isGroupDividerEnabled
+          go_name: IsGroupDividerEnabled
+          returns: boolean
+          error: true
+    - java_class: androidx.appcompat.view.menu.ShowableListMenu
+      go_type: ShowableListMenu
+      methods:
+        - java_method: show
+          go_name: Show
+          returns: void
+          error: true
+        - java_method: dismiss
+          go_name: Dismiss
+          returns: void
+          error: true
+        - java_method: isShowing
+          go_name: IsShowing
+          returns: boolean
+          error: true
+        - java_method: getListView
+          go_name: GetListView
+          returns: android.widget.ListView
+          error: true
+    - java_class: androidx.appcompat.view.menu.MenuPopupHelper
+      go_type: PopupHelper
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: androidx.appcompat.view.menu.MenuBuilder
+          go_name: arg1
+      methods:
+        - java_method: setOnDismissListener
+          go_name: SetOnDismissListener
+          params:
+            - java_type: android.widget.PopupWindow$OnDismissListener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setAnchorView
+          go_name: SetAnchorView
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setForceShowIcon
+          go_name: SetForceShowIcon
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setGravity
+          go_name: SetGravity
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getGravity
+          go_name: GetGravity
+          returns: int
+          error: true
+        - java_method: show
+          go_name: Show0
+          returns: void
+          error: true
+        - java_method: show
+          go_name: Show2_1
           params:
             - java_type: int
               go_name: arg0
             - java_type: int
               go_name: arg1
+          returns: void
+          error: true
+        - java_method: getPopup
+          go_name: GetPopup
+          returns: androidx.appcompat.view.menu.MenuPopup
+          error: true
+        - java_method: tryShow
+          go_name: TryShow0
+          returns: boolean
+          error: true
+        - java_method: tryShow
+          go_name: TryShow2_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: dismiss
+          go_name: Dismiss
+          returns: void
+          error: true
+        - java_method: isShowing
+          go_name: IsShowing
+          returns: boolean
+          error: true
+        - java_method: setPresenterCallback
+          go_name: SetPresenterCallback
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuPresenter$Callback
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getListView
+          go_name: GetListView
+          returns: android.widget.ListView
+          error: true
+    - java_class: androidx.appcompat.view.menu.ExpandedMenuView
+      go_type: ExpandedMenuView
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.util.AttributeSet
+          go_name: arg1
+      methods:
+        - java_method: initialize
+          go_name: Initialize
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: invokeItem
+          go_name: InvokeItem
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuItemImpl
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onItemClick
+          go_name: OnItemClick
+          params:
+            - java_type: android.widget.AdapterView
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: long
+              go_name: arg3
+          returns: void
+          error: true
+      static_methods:
+        - java_method: getWindowAnimations
+          go_name: GetWindowAnimations
+          returns: int
+          error: true
+    - java_class: androidx.appcompat.view.menu.ActionMenuItem
+      go_type: ActionMenuItem
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+        - java_type: int
+          go_name: arg3
+        - java_type: int
+          go_name: arg4
+        - java_type: java.lang.CharSequence
+          go_name: arg5
+      methods:
+        - java_method: getAlphabeticShortcut
+          go_name: GetAlphabeticShortcut
+          returns: char
+          error: true
+        - java_method: getAlphabeticModifiers
+          go_name: GetAlphabeticModifiers
+          returns: int
+          error: true
+        - java_method: getGroupId
+          go_name: GetGroupId
+          returns: int
+          error: true
+        - java_method: getIcon
+          go_name: GetIcon
+          returns: android.graphics.drawable.Drawable
+          error: true
+        - java_method: getIntent
+          go_name: GetIntent
+          returns: android.content.Intent
+          error: true
+        - java_method: getItemId
+          go_name: GetItemId
+          returns: int
+          error: true
+        - java_method: getMenuInfo
+          go_name: GetMenuInfo
+          returns: android.view.ContextMenu$ContextMenuInfo
+          error: true
+        - java_method: getNumericShortcut
+          go_name: GetNumericShortcut
+          returns: char
+          error: true
+        - java_method: getNumericModifiers
+          go_name: GetNumericModifiers
+          returns: int
+          error: true
+        - java_method: getOrder
+          go_name: GetOrder
+          returns: int
+          error: true
+        - java_method: getSubMenu
+          go_name: GetSubMenu
+          returns: android.view.SubMenu
+          error: true
+        - java_method: getTitle
+          go_name: GetTitle
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getTitleCondensed
+          go_name: GetTitleCondensed
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: hasSubMenu
+          go_name: HasSubMenu
+          returns: boolean
+          error: true
+        - java_method: isCheckable
+          go_name: IsCheckable
+          returns: boolean
+          error: true
+        - java_method: isChecked
+          go_name: IsChecked
+          returns: boolean
+          error: true
+        - java_method: isEnabled
+          go_name: IsEnabled
+          returns: boolean
+          error: true
+        - java_method: isVisible
+          go_name: IsVisible
+          returns: boolean
+          error: true
+        - java_method: setAlphabeticShortcut
+          go_name: SetAlphabeticShortcut1
+          params:
+            - java_type: char
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setAlphabeticShortcut
+          go_name: SetAlphabeticShortcut2_1
+          params:
+            - java_type: char
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setCheckable
+          go_name: SetCheckable
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setExclusiveCheckable
+          go_name: SetExclusiveCheckable
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: androidx.appcompat.view.menu.ActionMenuItem
+          error: true
+        - java_method: setChecked
+          go_name: SetChecked
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setEnabled
+          go_name: SetEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setIcon
+          go_name: SetIcon1
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setIcon
+          go_name: SetIcon1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setIntent
+          go_name: SetIntent
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setNumericShortcut
+          go_name: SetNumericShortcut1
+          params:
+            - java_type: char
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setNumericShortcut
+          go_name: SetNumericShortcut2_1
+          params:
+            - java_type: char
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setOnMenuItemClickListener
+          go_name: SetOnMenuItemClickListener
+          params:
+            - java_type: android.view.MenuItem$OnMenuItemClickListener
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setShortcut
+          go_name: SetShortcut2
+          params:
+            - java_type: char
+              go_name: arg0
+            - java_type: char
+              go_name: arg1
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setShortcut
+          go_name: SetShortcut4_1
+          params:
+            - java_type: char
+              go_name: arg0
+            - java_type: char
+              go_name: arg1
             - java_type: int
               go_name: arg2
             - java_type: int
               go_name: arg3
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setTitle
+          go_name: SetTitle1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setTitle
+          go_name: SetTitle1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setTitleCondensed
+          go_name: SetTitleCondensed
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setVisible
+          go_name: SetVisible
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: invoke
+          go_name: Invoke
+          returns: boolean
+          error: true
+        - java_method: setShowAsAction
+          go_name: SetShowAsAction
+          params:
+            - java_type: int
+              go_name: arg0
           returns: void
           error: true
-        - java_method: getItemData
-          go_name: GetItemData
-          returns: androidx.appcompat.view.menu.MenuItemImpl
+        - java_method: requiresActionButton
+          go_name: RequiresActionButton
+          returns: boolean
           error: true
+        - java_method: requiresOverflow
+          go_name: RequiresOverflow
+          returns: boolean
+          error: true
+        - java_method: setActionView
+          go_name: SetActionView1
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: androidx.core.internal.view.SupportMenuItem
+          error: true
+        - java_method: getActionView
+          go_name: GetActionView
+          returns: android.view.View
+          error: true
+        - java_method: setActionProvider
+          go_name: SetActionProvider
+          params:
+            - java_type: android.view.ActionProvider
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getActionProvider
+          go_name: GetActionProvider
+          returns: android.view.ActionProvider
+          error: true
+        - java_method: setActionView
+          go_name: SetActionView1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.core.internal.view.SupportMenuItem
+          error: true
+        - java_method: getSupportActionProvider
+          go_name: GetSupportActionProvider
+          returns: androidx.core.view.ActionProvider
+          error: true
+        - java_method: setSupportActionProvider
+          go_name: SetSupportActionProvider
+          params:
+            - java_type: androidx.core.view.ActionProvider
+              go_name: arg0
+          returns: androidx.core.internal.view.SupportMenuItem
+          error: true
+        - java_method: setShowAsActionFlags
+          go_name: SetShowAsActionFlags
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.core.internal.view.SupportMenuItem
+          error: true
+        - java_method: expandActionView
+          go_name: ExpandActionView
+          returns: boolean
+          error: true
+        - java_method: collapseActionView
+          go_name: CollapseActionView
+          returns: boolean
+          error: true
+        - java_method: isActionViewExpanded
+          go_name: IsActionViewExpanded
+          returns: boolean
+          error: true
+        - java_method: setOnActionExpandListener
+          go_name: SetOnActionExpandListener
+          params:
+            - java_type: android.view.MenuItem$OnActionExpandListener
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setContentDescription
+          go_name: SetContentDescription
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: androidx.core.internal.view.SupportMenuItem
+          error: true
+        - java_method: getContentDescription
+          go_name: GetContentDescription
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: setTooltipText
+          go_name: SetTooltipText
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: androidx.core.internal.view.SupportMenuItem
+          error: true
+        - java_method: getTooltipText
+          go_name: GetTooltipText
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: setIconTintList
+          go_name: SetIconTintList
+          params:
+            - java_type: android.content.res.ColorStateList
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getIconTintList
+          go_name: GetIconTintList
+          returns: android.content.res.ColorStateList
+          error: true
+        - java_method: setIconTintMode
+          go_name: SetIconTintMode
+          params:
+            - java_type: android.graphics.PorterDuff$Mode
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getIconTintMode
+          go_name: GetIconTintMode
+          returns: android.graphics.PorterDuff$Mode
+          error: true
+    - java_class: androidx.appcompat.view.menu.MenuItemWrapperICS
+      go_type: ItemWrapperICS
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: androidx.core.internal.view.SupportMenuItem
+          go_name: arg1
+      methods:
+        - java_method: getItemId
+          go_name: GetItemId
+          returns: int
+          error: true
+        - java_method: getGroupId
+          go_name: GetGroupId
+          returns: int
+          error: true
+        - java_method: getOrder
+          go_name: GetOrder
+          returns: int
+          error: true
+        - java_method: setTitle
+          go_name: SetTitle1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setTitle
+          go_name: SetTitle1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getTitle
+          go_name: GetTitle
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: setTitleCondensed
+          go_name: SetTitleCondensed
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getTitleCondensed
+          go_name: GetTitleCondensed
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: setIcon
+          go_name: SetIcon1
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setIcon
+          go_name: SetIcon1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getIcon
+          go_name: GetIcon
+          returns: android.graphics.drawable.Drawable
+          error: true
+        - java_method: setIntent
+          go_name: SetIntent
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getIntent
+          go_name: GetIntent
+          returns: android.content.Intent
+          error: true
+        - java_method: setShortcut
+          go_name: SetShortcut2
+          params:
+            - java_type: char
+              go_name: arg0
+            - java_type: char
+              go_name: arg1
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setShortcut
+          go_name: SetShortcut4_1
+          params:
+            - java_type: char
+              go_name: arg0
+            - java_type: char
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setNumericShortcut
+          go_name: SetNumericShortcut1
+          params:
+            - java_type: char
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setNumericShortcut
+          go_name: SetNumericShortcut2_1
+          params:
+            - java_type: char
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getNumericShortcut
+          go_name: GetNumericShortcut
+          returns: char
+          error: true
+        - java_method: getNumericModifiers
+          go_name: GetNumericModifiers
+          returns: int
+          error: true
+        - java_method: setAlphabeticShortcut
+          go_name: SetAlphabeticShortcut1
+          params:
+            - java_type: char
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setAlphabeticShortcut
+          go_name: SetAlphabeticShortcut2_1
+          params:
+            - java_type: char
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getAlphabeticShortcut
+          go_name: GetAlphabeticShortcut
+          returns: char
+          error: true
+        - java_method: getAlphabeticModifiers
+          go_name: GetAlphabeticModifiers
+          returns: int
+          error: true
+        - java_method: setCheckable
+          go_name: SetCheckable
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: isCheckable
+          go_name: IsCheckable
+          returns: boolean
+          error: true
+        - java_method: setChecked
+          go_name: SetChecked
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: isChecked
+          go_name: IsChecked
+          returns: boolean
+          error: true
+        - java_method: setVisible
+          go_name: SetVisible
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: isVisible
+          go_name: IsVisible
+          returns: boolean
+          error: true
+        - java_method: setEnabled
+          go_name: SetEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: isEnabled
+          go_name: IsEnabled
+          returns: boolean
+          error: true
+        - java_method: hasSubMenu
+          go_name: HasSubMenu
+          returns: boolean
+          error: true
+        - java_method: getSubMenu
+          go_name: GetSubMenu
+          returns: android.view.SubMenu
+          error: true
+        - java_method: setOnMenuItemClickListener
+          go_name: SetOnMenuItemClickListener
+          params:
+            - java_type: android.view.MenuItem$OnMenuItemClickListener
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getMenuInfo
+          go_name: GetMenuInfo
+          returns: android.view.ContextMenu$ContextMenuInfo
+          error: true
+        - java_method: setShowAsAction
+          go_name: SetShowAsAction
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setShowAsActionFlags
+          go_name: SetShowAsActionFlags
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setActionView
+          go_name: SetActionView1
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setActionView
+          go_name: SetActionView1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getActionView
+          go_name: GetActionView
+          returns: android.view.View
+          error: true
+        - java_method: setActionProvider
+          go_name: SetActionProvider
+          params:
+            - java_type: android.view.ActionProvider
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getActionProvider
+          go_name: GetActionProvider
+          returns: android.view.ActionProvider
+          error: true
+        - java_method: expandActionView
+          go_name: ExpandActionView
+          returns: boolean
+          error: true
+        - java_method: collapseActionView
+          go_name: CollapseActionView
+          returns: boolean
+          error: true
+        - java_method: isActionViewExpanded
+          go_name: IsActionViewExpanded
+          returns: boolean
+          error: true
+        - java_method: setOnActionExpandListener
+          go_name: SetOnActionExpandListener
+          params:
+            - java_type: android.view.MenuItem$OnActionExpandListener
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: setContentDescription
+          go_name: SetContentDescription
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getContentDescription
+          go_name: GetContentDescription
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: setTooltipText
+          go_name: SetTooltipText
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getTooltipText
+          go_name: GetTooltipText
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: setIconTintList
+          go_name: SetIconTintList
+          params:
+            - java_type: android.content.res.ColorStateList
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getIconTintList
+          go_name: GetIconTintList
+          returns: android.content.res.ColorStateList
+          error: true
+        - java_method: setIconTintMode
+          go_name: SetIconTintMode
+          params:
+            - java_type: android.graphics.PorterDuff$Mode
+              go_name: arg0
+          returns: android.view.MenuItem
+          error: true
+        - java_method: getIconTintMode
+          go_name: GetIconTintMode
+          returns: android.graphics.PorterDuff$Mode
+          error: true
+        - java_method: setExclusiveCheckable
+          go_name: SetExclusiveCheckable
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: androidx.appcompat.view.menu.ListMenuItemView
+      go_type: ListMenuItemView
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.util.AttributeSet
+          go_name: arg1
+      methods:
         - java_method: initialize
           go_name: Initialize
           params:
@@ -2789,37 +2628,23 @@ classes:
               go_name: arg1
           returns: void
           error: true
-        - java_method: onTouchEvent
-          go_name: OnTouchEvent
+        - java_method: setForceShowIcon
+          go_name: SetForceShowIcon
           params:
-            - java_type: android.view.MotionEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onClick
-          go_name: OnClick
-          params:
-            - java_type: android.view.View
+            - java_type: boolean
               go_name: arg0
           returns: void
           error: true
-        - java_method: setItemInvoker
-          go_name: SetItemInvoker
+        - java_method: setTitle
+          go_name: SetTitle
           params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder$ItemInvoker
+            - java_type: java.lang.CharSequence
               go_name: arg0
           returns: void
           error: true
-        - java_method: setPopupCallback
-          go_name: SetPopupCallback
-          params:
-            - java_type: androidx.appcompat.view.menu.ActionMenuItemView$PopupCallback
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: prefersCondensedTitle
-          go_name: PrefersCondensedTitle
-          returns: boolean
+        - java_method: getItemData
+          go_name: GetItemData
+          returns: androidx.appcompat.view.menu.MenuItemImpl
           error: true
         - java_method: setCheckable
           go_name: SetCheckable
@@ -2835,24 +2660,6 @@ classes:
               go_name: arg0
           returns: void
           error: true
-        - java_method: setExpandedFormat
-          go_name: SetExpandedFormat
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setIcon
-          go_name: SetIcon
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: hasText
-          go_name: HasText
-          returns: boolean
-          error: true
         - java_method: setShortcut
           go_name: SetShortcut
           params:
@@ -2862,128 +2669,158 @@ classes:
               go_name: arg1
           returns: void
           error: true
-        - java_method: setTitle
-          go_name: SetTitle
+        - java_method: setIcon
+          go_name: SetIcon
           params:
-            - java_type: java.lang.CharSequence
+            - java_type: android.graphics.drawable.Drawable
               go_name: arg0
           returns: void
+          error: true
+        - java_method: prefersCondensedTitle
+          go_name: PrefersCondensedTitle
+          returns: boolean
           error: true
         - java_method: showsIcon
           go_name: ShowsIcon
           returns: boolean
           error: true
-        - java_method: needsDividerBefore
-          go_name: NeedsDividerBefore
-          returns: boolean
-          error: true
-        - java_method: needsDividerAfter
-          go_name: NeedsDividerAfter
-          returns: boolean
-          error: true
-        - java_method: onRestoreInstanceState
-          go_name: OnRestoreInstanceState
+        - java_method: setGroupDividerEnabled
+          go_name: SetGroupDividerEnabled
           params:
-            - java_type: android.os.Parcelable
+            - java_type: boolean
               go_name: arg0
           returns: void
           error: true
-    - java_class: androidx.appcompat.view.menu.ActionMenuItemView$PopupCallback
-      go_type: ActionMenuItemViewPopupCallback
-      methods:
-        - java_method: getPopup
-          go_name: GetPopup
-          returns: androidx.appcompat.view.menu.ShowableListMenu
+        - java_method: adjustListItemSelectionBounds
+          go_name: AdjustListItemSelectionBounds
+          params:
+            - java_type: android.graphics.Rect
+              go_name: arg0
+          returns: void
           error: true
-abstract_callbacks:
     - java_class: androidx.appcompat.view.menu.BaseMenuPresenter
-      go_type: BaseMenuPresenterCallback
+      go_type: BaseMenuPresenter
       methods:
         - java_method: initForMenu
+          go_name: InitForMenu
           params:
-            - android.content.Context
-            - androidx.appcompat.view.menu.MenuBuilder
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg1
           returns: void
-          go_field: InitForMenu
+          error: true
         - java_method: getMenuView
+          go_name: GetMenuView
           params:
-            - android.view.ViewGroup
+            - java_type: android.view.ViewGroup
+              go_name: arg0
           returns: androidx.appcompat.view.menu.MenuView
-          go_field: GetMenuView
+          error: true
         - java_method: updateMenuView
+          go_name: UpdateMenuView
           params:
-            - boolean
+            - java_type: boolean
+              go_name: arg0
           returns: void
-          go_field: UpdateMenuView
+          error: true
         - java_method: setCallback
+          go_name: SetCallback
           params:
-            - androidx.appcompat.view.menu.MenuPresenter$Callback
+            - java_type: androidx.appcompat.view.menu.MenuPresenter$Callback
+              go_name: arg0
           returns: void
-          go_field: SetCallback
+          error: true
         - java_method: getCallback
-          params: []
+          go_name: GetCallback
           returns: androidx.appcompat.view.menu.MenuPresenter$Callback
-          go_field: GetCallback
+          error: true
         - java_method: createItemView
+          go_name: CreateItemView
           params:
-            - android.view.ViewGroup
+            - java_type: android.view.ViewGroup
+              go_name: arg0
           returns: androidx.appcompat.view.menu.MenuView$ItemView
-          go_field: CreateItemView
+          error: true
         - java_method: getItemView
+          go_name: GetItemView
           params:
-            - androidx.appcompat.view.menu.MenuItemImpl
-            - android.view.View
-            - android.view.ViewGroup
+            - java_type: androidx.appcompat.view.menu.MenuItemImpl
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
+            - java_type: android.view.ViewGroup
+              go_name: arg2
           returns: android.view.View
-          go_field: GetItemView
+          error: true
         - java_method: bindItemView
+          go_name: BindItemView
           params:
-            - androidx.appcompat.view.menu.MenuItemImpl
-            - androidx.appcompat.view.menu.MenuView$ItemView
+            - java_type: androidx.appcompat.view.menu.MenuItemImpl
+              go_name: arg0
+            - java_type: androidx.appcompat.view.menu.MenuView$ItemView
+              go_name: arg1
           returns: void
-          go_field: BindItemView
+          error: true
         - java_method: shouldIncludeItem
+          go_name: ShouldIncludeItem
           params:
-            - int
-            - androidx.appcompat.view.menu.MenuItemImpl
+            - java_type: int
+              go_name: arg0
+            - java_type: androidx.appcompat.view.menu.MenuItemImpl
+              go_name: arg1
           returns: boolean
-          go_field: ShouldIncludeItem
+          error: true
         - java_method: onCloseMenu
+          go_name: OnCloseMenu
           params:
-            - androidx.appcompat.view.menu.MenuBuilder
-            - boolean
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
           returns: void
-          go_field: OnCloseMenu
+          error: true
         - java_method: onSubMenuSelected
+          go_name: OnSubMenuSelected
           params:
-            - androidx.appcompat.view.menu.SubMenuBuilder
+            - java_type: androidx.appcompat.view.menu.SubMenuBuilder
+              go_name: arg0
           returns: boolean
-          go_field: OnSubMenuSelected
+          error: true
         - java_method: flagActionItems
-          params: []
+          go_name: FlagActionItems
           returns: boolean
-          go_field: FlagActionItems
+          error: true
         - java_method: expandItemActionView
+          go_name: ExpandItemActionView
           params:
-            - androidx.appcompat.view.menu.MenuBuilder
-            - androidx.appcompat.view.menu.MenuItemImpl
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg0
+            - java_type: androidx.appcompat.view.menu.MenuItemImpl
+              go_name: arg1
           returns: boolean
-          go_field: ExpandItemActionView
+          error: true
         - java_method: collapseItemActionView
+          go_name: CollapseItemActionView
           params:
-            - androidx.appcompat.view.menu.MenuBuilder
-            - androidx.appcompat.view.menu.MenuItemImpl
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg0
+            - java_type: androidx.appcompat.view.menu.MenuItemImpl
+              go_name: arg1
           returns: boolean
-          go_field: CollapseItemActionView
+          error: true
         - java_method: getId
-          params: []
+          go_name: GetId
           returns: int
-          go_field: GetId
+          error: true
         - java_method: setId
+          go_name: SetId
           params:
-            - int
+            - java_type: int
+              go_name: arg0
           returns: void
-          go_field: SetId
+          error: true
+abstract_callbacks:
     - java_class: androidx.appcompat.view.menu.ActionMenuItemView$PopupCallback
       go_type: ActionMenuItemViewPopupCallbackCallback
       methods:
@@ -2991,6 +2828,13 @@ abstract_callbacks:
           params: []
           returns: androidx.appcompat.view.menu.ShowableListMenu
           go_field: GetPopup
+abstract_callback_eligibility:
+    - java_class: androidx.appcompat.view.menu.ActionMenuItemView$PopupCallback
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: androidx.appcompat.view.menu.BaseMenuPresenter
+      generated: false
+      reason: implements_interface
 constants:
     - go_name: ViewsTag
       value: '"android:menu:list"'

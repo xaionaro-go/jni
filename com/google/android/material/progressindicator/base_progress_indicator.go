@@ -167,8 +167,8 @@ func (m *BaseProgressIndicator) SetIndeterminateDrawable(arg0 *jni.Object) error
 	return callErr
 }
 
-// GetProgressDrawable0 calls com.google.android.material.progressindicator.BaseProgressIndicator.getProgressDrawable.
-func (m *BaseProgressIndicator) GetProgressDrawable0() (*jni.Object, error) {
+// GetProgressDrawable calls com.google.android.material.progressindicator.BaseProgressIndicator.getProgressDrawable.
+func (m *BaseProgressIndicator) GetProgressDrawable() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -176,13 +176,13 @@ func (m *BaseProgressIndicator) GetProgressDrawable0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midBaseProgressIndicatorGetProgressDrawable0 == nil {
+		if midBaseProgressIndicatorGetProgressDrawable == nil {
 			callErr = fmt.Errorf("com.google.android.material.progressindicator.BaseProgressIndicator.getProgressDrawable is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midBaseProgressIndicatorGetProgressDrawable0,
+			midBaseProgressIndicatorGetProgressDrawable,
 		)
 		if callErr != nil {
 			return callErr
@@ -199,8 +199,8 @@ func (m *BaseProgressIndicator) GetProgressDrawable0() (*jni.Object, error) {
 	return result, callErr
 }
 
-// GetIndeterminateDrawable0 calls com.google.android.material.progressindicator.BaseProgressIndicator.getIndeterminateDrawable.
-func (m *BaseProgressIndicator) GetIndeterminateDrawable0() (*jni.Object, error) {
+// GetIndeterminateDrawable calls com.google.android.material.progressindicator.BaseProgressIndicator.getIndeterminateDrawable.
+func (m *BaseProgressIndicator) GetIndeterminateDrawable() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -208,13 +208,13 @@ func (m *BaseProgressIndicator) GetIndeterminateDrawable0() (*jni.Object, error)
 			callErr = err
 			return err
 		}
-		if midBaseProgressIndicatorGetIndeterminateDrawable0 == nil {
+		if midBaseProgressIndicatorGetIndeterminateDrawable == nil {
 			callErr = fmt.Errorf("com.google.android.material.progressindicator.BaseProgressIndicator.getIndeterminateDrawable is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midBaseProgressIndicatorGetIndeterminateDrawable0,
+			midBaseProgressIndicatorGetIndeterminateDrawable,
 		)
 		if callErr != nil {
 			return callErr
@@ -646,70 +646,6 @@ func (m *BaseProgressIndicator) SetAnimatorDurationScaleProvider(arg0 *jni.Objec
 		return callErr
 	})
 	return callErr
-}
-
-// GetProgressDrawable0_1 calls com.google.android.material.progressindicator.BaseProgressIndicator.getProgressDrawable.
-func (m *BaseProgressIndicator) GetProgressDrawable0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBaseProgressIndicatorGetProgressDrawable0_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.progressindicator.BaseProgressIndicator.getProgressDrawable is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midBaseProgressIndicatorGetProgressDrawable0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetIndeterminateDrawable0_1 calls com.google.android.material.progressindicator.BaseProgressIndicator.getIndeterminateDrawable.
-func (m *BaseProgressIndicator) GetIndeterminateDrawable0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBaseProgressIndicatorGetIndeterminateDrawable0_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.progressindicator.BaseProgressIndicator.getIndeterminateDrawable is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midBaseProgressIndicatorGetIndeterminateDrawable0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls com.google.android.material.progressindicator.BaseProgressIndicator.toString.

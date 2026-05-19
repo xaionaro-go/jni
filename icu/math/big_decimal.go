@@ -32,6 +32,12 @@ func NewBigDecimal(vm *jni.VM, arg0 *jni.Object) (*BigDecimal, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBigDecimal == nil {
+			return fmt.Errorf("android.icu.math.BigDecimal is not available on this device")
+		}
+		if midBigDecimalCtor == nil {
+			return fmt.Errorf("android.icu.math.BigDecimal constructor ([C)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBigDecimal)), midBigDecimalCtor, jni.ObjectValue(arg0))
 		if err != nil {

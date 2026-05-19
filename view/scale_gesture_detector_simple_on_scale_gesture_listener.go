@@ -23,6 +23,34 @@ type ScaleGestureDetectorSimpleOnScaleGestureListener struct {
 	Obj *jni.GlobalRef
 }
 
+// NewScaleGestureDetectorSimpleOnScaleGestureListener creates a new android.view.ScaleGestureDetector$SimpleOnScaleGestureListener instance.
+func NewScaleGestureDetectorSimpleOnScaleGestureListener(vm *jni.VM) (*ScaleGestureDetectorSimpleOnScaleGestureListener, error) {
+	var t ScaleGestureDetectorSimpleOnScaleGestureListener
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsScaleGestureDetectorSimpleOnScaleGestureListener == nil {
+			return fmt.Errorf("android.view.ScaleGestureDetector$SimpleOnScaleGestureListener is not available on this device")
+		}
+		if midScaleGestureDetectorSimpleOnScaleGestureListenerCtor == nil {
+			return fmt.Errorf("android.view.ScaleGestureDetector$SimpleOnScaleGestureListener constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScaleGestureDetectorSimpleOnScaleGestureListener)), midScaleGestureDetectorSimpleOnScaleGestureListenerCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnScale calls android.view.ScaleGestureDetector$SimpleOnScaleGestureListener.onScale.
 func (m *ScaleGestureDetectorSimpleOnScaleGestureListener) OnScale(arg0 *jni.Object) (bool, error) {
 	var result bool

@@ -21,6 +21,40 @@ type FragmentInstantiationException struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFragmentInstantiationException creates a new android.app.Fragment$InstantiationException instance.
+func NewFragmentInstantiationException(vm *jni.VM, arg0 string, arg1 *jni.Object) (*FragmentInstantiationException, error) {
+	var t FragmentInstantiationException
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFragmentInstantiationException == nil {
+			return fmt.Errorf("android.app.Fragment$InstantiationException is not available on this device")
+		}
+		if midFragmentInstantiationExceptionCtor == nil {
+			return fmt.Errorf("android.app.Fragment$InstantiationException constructor (Ljava/lang/String;Ljava/lang/Exception;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFragmentInstantiationException)), midFragmentInstantiationExceptionCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.app.Fragment$InstantiationException.toString.
 func (m *FragmentInstantiationException) ToString() (string, error) {
 	var result string

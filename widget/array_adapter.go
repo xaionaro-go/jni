@@ -32,6 +32,12 @@ func NewArrayAdapter(vm *jni.VM, arg0 *jni.Object, arg1 int32) (*ArrayAdapter, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsArrayAdapter == nil {
+			return fmt.Errorf("android.widget.ArrayAdapter is not available on this device")
+		}
+		if midArrayAdapterCtor == nil {
+			return fmt.Errorf("android.widget.ArrayAdapter constructor (Landroid/content/Context;I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsArrayAdapter)), midArrayAdapterCtor, jni.ObjectValue(arg0), jni.IntValue(arg1))
 		if err != nil {

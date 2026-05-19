@@ -32,6 +32,12 @@ func NewTextAppearanceSpan(vm *jni.VM, arg0 *jni.Object, arg1 int32) (*TextAppea
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTextAppearanceSpan == nil {
+			return fmt.Errorf("android.text.style.TextAppearanceSpan is not available on this device")
+		}
+		if midTextAppearanceSpanCtor == nil {
+			return fmt.Errorf("android.text.style.TextAppearanceSpan constructor (Landroid/content/Context;I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextAppearanceSpan)), midTextAppearanceSpanCtor, jni.ObjectValue(arg0), jni.IntValue(arg1))
 		if err != nil {

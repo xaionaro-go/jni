@@ -32,6 +32,12 @@ func NewContentFrameLayout(vm *jni.VM, arg0 *jni.Object) (*ContentFrameLayout, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsContentFrameLayout == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ContentFrameLayout is not available on this device")
+		}
+		if midContentFrameLayoutCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ContentFrameLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContentFrameLayout)), midContentFrameLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {

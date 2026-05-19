@@ -32,6 +32,12 @@ func NewCryptoException(vm *jni.VM, arg0 string) (*CryptoException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCryptoException == nil {
+			return fmt.Errorf("android.media.MediaCryptoException is not available on this device")
+		}
+		if midCryptoExceptionCtor == nil {
+			return fmt.Errorf("android.media.MediaCryptoException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

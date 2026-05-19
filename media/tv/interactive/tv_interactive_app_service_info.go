@@ -32,6 +32,12 @@ func NewTvInteractiveAppServiceInfo(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Obje
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTvInteractiveAppServiceInfo == nil {
+			return fmt.Errorf("android.media.tv.interactive.TvInteractiveAppServiceInfo is not available on this device")
+		}
+		if midTvInteractiveAppServiceInfoCtor == nil {
+			return fmt.Errorf("android.media.tv.interactive.TvInteractiveAppServiceInfo constructor (Landroid/content/Context;Landroid/content/ComponentName;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTvInteractiveAppServiceInfo)), midTvInteractiveAppServiceInfoCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -187,29 +193,6 @@ func (m *TvInteractiveAppServiceInfo) GetSupportedTypes() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.media.tv.interactive.TvInteractiveAppServiceInfo.writeToParcel.
-func (m *TvInteractiveAppServiceInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTvInteractiveAppServiceInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.media.tv.interactive.TvInteractiveAppServiceInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midTvInteractiveAppServiceInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.media.tv.interactive.TvInteractiveAppServiceInfo.toString.
 func (m *TvInteractiveAppServiceInfo) ToString() (string, error) {
 	var result string
@@ -235,4 +218,27 @@ func (m *TvInteractiveAppServiceInfo) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.media.tv.interactive.TvInteractiveAppServiceInfo.writeToParcel.
+func (m *TvInteractiveAppServiceInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midTvInteractiveAppServiceInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.media.tv.interactive.TvInteractiveAppServiceInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsTvInteractiveAppServiceInfo)),
+			midTvInteractiveAppServiceInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

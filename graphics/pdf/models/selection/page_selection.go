@@ -32,6 +32,12 @@ func NewPageSelection(vm *jni.VM, arg0 int32, arg1 *jni.Object, arg2 *jni.Object
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPageSelection == nil {
+			return fmt.Errorf("android.graphics.pdf.models.selection.PageSelection is not available on this device")
+		}
+		if midPageSelectionCtor == nil {
+			return fmt.Errorf("android.graphics.pdf.models.selection.PageSelection constructor (ILandroid/graphics/pdf/models/selection/SelectionBoundary;Landroid/graphics/pdf/models/selection/SelectionBoundary;Ljava/util/List;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPageSelection)), midPageSelectionCtor, jni.IntValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3))
 		if err != nil {
@@ -192,29 +198,6 @@ func (m *PageSelection) GetStop() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.graphics.pdf.models.selection.PageSelection.writeToParcel.
-func (m *PageSelection) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midPageSelectionWriteToParcel == nil {
-			callErr = fmt.Errorf("android.graphics.pdf.models.selection.PageSelection.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midPageSelectionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.graphics.pdf.models.selection.PageSelection.toString.
 func (m *PageSelection) ToString() (string, error) {
 	var result string
@@ -240,4 +223,27 @@ func (m *PageSelection) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.graphics.pdf.models.selection.PageSelection.writeToParcel.
+func (m *PageSelection) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midPageSelectionWriteToParcel == nil {
+			callErr = fmt.Errorf("android.graphics.pdf.models.selection.PageSelection.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsPageSelection)),
+			midPageSelectionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

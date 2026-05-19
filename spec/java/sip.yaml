@@ -5,6 +5,600 @@
 package: sip
 go_import: github.com/AndroidGoLab/jni/net/sip
 classes:
+    - java_class: android.net.sip.SipException
+      go_type: Exception
+      obtain: constructor
+    - java_class: android.net.sip.SipAudioCall
+      go_type: AudioCall
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.net.sip.SipProfile
+          go_name: arg1
+      methods:
+        - java_method: answerCall
+          go_name: AnswerCall
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: attachCall
+          go_name: AttachCall
+          params:
+            - java_type: android.net.sip.SipSession
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: continueCall
+          go_name: ContinueCall
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: endCall
+          go_name: EndCall
+          returns: void
+          error: true
+        - java_method: getLocalProfile
+          go_name: GetLocalProfile
+          returns: android.net.sip.SipProfile
+          error: true
+        - java_method: getPeerProfile
+          go_name: GetPeerProfile
+          returns: android.net.sip.SipProfile
+          error: true
+        - java_method: getState
+          go_name: GetState
+          returns: int
+          error: true
+        - java_method: holdCall
+          go_name: HoldCall
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isInCall
+          go_name: IsInCall
+          returns: boolean
+          error: true
+        - java_method: isMuted
+          go_name: IsMuted
+          returns: boolean
+          error: true
+        - java_method: isOnHold
+          go_name: IsOnHold
+          returns: boolean
+          error: true
+        - java_method: makeCall
+          go_name: MakeCall
+          params:
+            - java_type: android.net.sip.SipProfile
+              go_name: arg0
+            - java_type: android.net.sip.SipSession
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: sendDtmf
+          go_name: SendDtmf1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: sendDtmf
+          go_name: SendDtmf2_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.os.Message
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setListener
+          go_name: SetListener1
+          params:
+            - java_type: android.net.sip.SipAudioCall$Listener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setListener
+          go_name: SetListener2_1
+          params:
+            - java_type: android.net.sip.SipAudioCall$Listener
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setSpeakerMode
+          go_name: SetSpeakerMode
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: startAudio
+          go_name: StartAudio
+          returns: void
+          error: true
+        - java_method: toggleMute
+          go_name: ToggleMute
+          returns: void
+          error: true
+    - java_class: android.net.sip.SipAudioCall$Listener
+      go_type: AudioCallListener
+      obtain: constructor
+      methods:
+        - java_method: onCallBusy
+          go_name: OnCallBusy
+          params:
+            - java_type: android.net.sip.SipAudioCall
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onCallEnded
+          go_name: OnCallEnded
+          params:
+            - java_type: android.net.sip.SipAudioCall
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onCallEstablished
+          go_name: OnCallEstablished
+          params:
+            - java_type: android.net.sip.SipAudioCall
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onCallHeld
+          go_name: OnCallHeld
+          params:
+            - java_type: android.net.sip.SipAudioCall
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onCalling
+          go_name: OnCalling
+          params:
+            - java_type: android.net.sip.SipAudioCall
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onChanged
+          go_name: OnChanged
+          params:
+            - java_type: android.net.sip.SipAudioCall
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onError
+          go_name: OnError
+          params:
+            - java_type: android.net.sip.SipAudioCall
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onReadyToCall
+          go_name: OnReadyToCall
+          params:
+            - java_type: android.net.sip.SipAudioCall
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onRinging
+          go_name: OnRinging
+          params:
+            - java_type: android.net.sip.SipAudioCall
+              go_name: arg0
+            - java_type: android.net.sip.SipProfile
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onRingingBack
+          go_name: OnRingingBack
+          params:
+            - java_type: android.net.sip.SipAudioCall
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.net.sip.SipSession
+      go_type: Session
+      methods:
+        - java_method: answerCall
+          go_name: AnswerCall
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: changeCall
+          go_name: ChangeCall
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: endCall
+          go_name: EndCall
+          returns: void
+          error: true
+        - java_method: getCallId
+          go_name: GetCallId
+          returns: String
+          error: true
+        - java_method: getLocalIp
+          go_name: GetLocalIp
+          returns: String
+          error: true
+        - java_method: getLocalProfile
+          go_name: GetLocalProfile
+          returns: android.net.sip.SipProfile
+          error: true
+        - java_method: getPeerProfile
+          go_name: GetPeerProfile
+          returns: android.net.sip.SipProfile
+          error: true
+        - java_method: getState
+          go_name: GetState
+          returns: int
+          error: true
+        - java_method: isInCall
+          go_name: IsInCall
+          returns: boolean
+          error: true
+        - java_method: makeCall
+          go_name: MakeCall
+          params:
+            - java_type: android.net.sip.SipProfile
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: register
+          go_name: Register
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setListener
+          go_name: SetListener
+          params:
+            - java_type: android.net.sip.SipSession$Listener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: unregister
+          go_name: Unregister
+          returns: void
+          error: true
+    - java_class: android.net.sip.SipSession$Listener
+      go_type: SessionListener
+      obtain: constructor
+      methods:
+        - java_method: onCallBusy
+          go_name: OnCallBusy
+          params:
+            - java_type: android.net.sip.SipSession
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onCallChangeFailed
+          go_name: OnCallChangeFailed
+          params:
+            - java_type: android.net.sip.SipSession
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onCallEnded
+          go_name: OnCallEnded
+          params:
+            - java_type: android.net.sip.SipSession
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onCallEstablished
+          go_name: OnCallEstablished
+          params:
+            - java_type: android.net.sip.SipSession
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onCalling
+          go_name: OnCalling
+          params:
+            - java_type: android.net.sip.SipSession
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onError
+          go_name: OnError
+          params:
+            - java_type: android.net.sip.SipSession
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onRegistering
+          go_name: OnRegistering
+          params:
+            - java_type: android.net.sip.SipSession
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onRegistrationDone
+          go_name: OnRegistrationDone
+          params:
+            - java_type: android.net.sip.SipSession
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onRegistrationFailed
+          go_name: OnRegistrationFailed
+          params:
+            - java_type: android.net.sip.SipSession
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onRegistrationTimeout
+          go_name: OnRegistrationTimeout
+          params:
+            - java_type: android.net.sip.SipSession
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onRinging
+          go_name: OnRinging
+          params:
+            - java_type: android.net.sip.SipSession
+              go_name: arg0
+            - java_type: android.net.sip.SipProfile
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onRingingBack
+          go_name: OnRingingBack
+          params:
+            - java_type: android.net.sip.SipSession
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.net.sip.SipSession$State
+      go_type: SessionState
+      static_methods:
+        - java_method: toString
+          go_name: ToString
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+    - java_class: android.net.sip.SipErrorCode
+      go_type: ErrorCode
+      static_methods:
+        - java_method: toString
+          go_name: ToString
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+    - java_class: android.net.sip.SipProfile
+      go_type: Profile
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getAuthUserName
+          go_name: GetAuthUserName
+          returns: String
+          error: true
+        - java_method: getAutoRegistration
+          go_name: GetAutoRegistration
+          returns: boolean
+          error: true
+        - java_method: getDisplayName
+          go_name: GetDisplayName
+          returns: String
+          error: true
+        - java_method: getPassword
+          go_name: GetPassword
+          returns: String
+          error: true
+        - java_method: getPort
+          go_name: GetPort
+          returns: int
+          error: true
+        - java_method: getProfileName
+          go_name: GetProfileName
+          returns: String
+          error: true
+        - java_method: getProtocol
+          go_name: GetProtocol
+          returns: String
+          error: true
+        - java_method: getProxyAddress
+          go_name: GetProxyAddress
+          returns: String
+          error: true
+        - java_method: getSendKeepAlive
+          go_name: GetSendKeepAlive
+          returns: boolean
+          error: true
+        - java_method: getSipDomain
+          go_name: GetSipDomain
+          returns: String
+          error: true
+        - java_method: getUriString
+          go_name: GetUriString
+          returns: String
+          error: true
+        - java_method: getUserName
+          go_name: GetUserName
+          returns: String
+          error: true
+        - java_method: setCallingUid
+          go_name: SetCallingUid
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.sip.SipProfile$Builder
+      go_type: ProfileBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.net.sip.SipProfile
+          go_name: arg0
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.net.sip.SipProfile
+          error: true
+        - java_method: setAuthUserName
+          go_name: SetAuthUserName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.sip.SipProfile$Builder
+          error: true
+        - java_method: setAutoRegistration
+          go_name: SetAutoRegistration
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.net.sip.SipProfile$Builder
+          error: true
+        - java_method: setDisplayName
+          go_name: SetDisplayName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.sip.SipProfile$Builder
+          error: true
+        - java_method: setOutboundProxy
+          go_name: SetOutboundProxy
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.sip.SipProfile$Builder
+          error: true
+        - java_method: setPassword
+          go_name: SetPassword
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.sip.SipProfile$Builder
+          error: true
+        - java_method: setPort
+          go_name: SetPort
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.sip.SipProfile$Builder
+          error: true
+        - java_method: setProfileName
+          go_name: SetProfileName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.sip.SipProfile$Builder
+          error: true
+        - java_method: setProtocol
+          go_name: SetProtocol
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.sip.SipProfile$Builder
+          error: true
+        - java_method: setSendKeepAlive
+          go_name: SetSendKeepAlive
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.net.sip.SipProfile$Builder
+          error: true
+    - java_class: android.net.sip.SipRegistrationListener
+      go_type: RegistrationListener
+      methods:
+        - java_method: onRegistering
+          go_name: OnRegistering
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onRegistrationDone
+          go_name: OnRegistrationDone
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onRegistrationFailed
+          go_name: OnRegistrationFailed
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+          returns: void
+          error: true
     - java_class: android.net.sip.SipManager
       go_type: Manager
       methods:
@@ -177,606 +771,7 @@ classes:
               go_name: arg0
           returns: android.net.sip.SipManager
           error: true
-    - java_class: android.net.sip.SipException
-      go_type: Exception
-      obtain: constructor
-    - java_class: android.net.sip.SipAudioCall
-      go_type: AudioCall
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: android.net.sip.SipProfile
-          go_name: arg1
-      methods:
-        - java_method: answerCall
-          go_name: AnswerCall
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: attachCall
-          go_name: AttachCall
-          params:
-            - java_type: android.net.sip.SipSession
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: continueCall
-          go_name: ContinueCall
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: endCall
-          go_name: EndCall
-          returns: void
-          error: true
-        - java_method: getLocalProfile
-          go_name: GetLocalProfile
-          returns: android.net.sip.SipProfile
-          error: true
-        - java_method: getPeerProfile
-          go_name: GetPeerProfile
-          returns: android.net.sip.SipProfile
-          error: true
-        - java_method: getState
-          go_name: GetState
-          returns: int
-          error: true
-        - java_method: holdCall
-          go_name: HoldCall
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isInCall
-          go_name: IsInCall
-          returns: boolean
-          error: true
-        - java_method: isMuted
-          go_name: IsMuted
-          returns: boolean
-          error: true
-        - java_method: isOnHold
-          go_name: IsOnHold
-          returns: boolean
-          error: true
-        - java_method: makeCall
-          go_name: MakeCall
-          params:
-            - java_type: android.net.sip.SipProfile
-              go_name: arg0
-            - java_type: android.net.sip.SipSession
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: sendDtmf
-          go_name: SendDtmf1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: sendDtmf
-          go_name: SendDtmf2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.os.Message
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setListener
-          go_name: SetListener1
-          params:
-            - java_type: android.net.sip.SipAudioCall$Listener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setListener
-          go_name: SetListener2_1
-          params:
-            - java_type: android.net.sip.SipAudioCall$Listener
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setSpeakerMode
-          go_name: SetSpeakerMode
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: startAudio
-          go_name: StartAudio
-          returns: void
-          error: true
-        - java_method: toggleMute
-          go_name: ToggleMute
-          returns: void
-          error: true
-    - java_class: android.net.sip.SipAudioCall$Listener
-      go_type: AudioCallListener
-      methods:
-        - java_method: onCallBusy
-          go_name: OnCallBusy
-          params:
-            - java_type: android.net.sip.SipAudioCall
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onCallEnded
-          go_name: OnCallEnded
-          params:
-            - java_type: android.net.sip.SipAudioCall
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onCallEstablished
-          go_name: OnCallEstablished
-          params:
-            - java_type: android.net.sip.SipAudioCall
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onCallHeld
-          go_name: OnCallHeld
-          params:
-            - java_type: android.net.sip.SipAudioCall
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onCalling
-          go_name: OnCalling
-          params:
-            - java_type: android.net.sip.SipAudioCall
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onChanged
-          go_name: OnChanged
-          params:
-            - java_type: android.net.sip.SipAudioCall
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onError
-          go_name: OnError
-          params:
-            - java_type: android.net.sip.SipAudioCall
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onReadyToCall
-          go_name: OnReadyToCall
-          params:
-            - java_type: android.net.sip.SipAudioCall
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onRinging
-          go_name: OnRinging
-          params:
-            - java_type: android.net.sip.SipAudioCall
-              go_name: arg0
-            - java_type: android.net.sip.SipProfile
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onRingingBack
-          go_name: OnRingingBack
-          params:
-            - java_type: android.net.sip.SipAudioCall
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.net.sip.SipProfile
-      go_type: Profile
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getAuthUserName
-          go_name: GetAuthUserName
-          returns: String
-          error: true
-        - java_method: getAutoRegistration
-          go_name: GetAutoRegistration
-          returns: boolean
-          error: true
-        - java_method: getDisplayName
-          go_name: GetDisplayName
-          returns: String
-          error: true
-        - java_method: getPassword
-          go_name: GetPassword
-          returns: String
-          error: true
-        - java_method: getPort
-          go_name: GetPort
-          returns: int
-          error: true
-        - java_method: getProfileName
-          go_name: GetProfileName
-          returns: String
-          error: true
-        - java_method: getProtocol
-          go_name: GetProtocol
-          returns: String
-          error: true
-        - java_method: getProxyAddress
-          go_name: GetProxyAddress
-          returns: String
-          error: true
-        - java_method: getSendKeepAlive
-          go_name: GetSendKeepAlive
-          returns: boolean
-          error: true
-        - java_method: getSipDomain
-          go_name: GetSipDomain
-          returns: String
-          error: true
-        - java_method: getUriString
-          go_name: GetUriString
-          returns: String
-          error: true
-        - java_method: getUserName
-          go_name: GetUserName
-          returns: String
-          error: true
-        - java_method: setCallingUid
-          go_name: SetCallingUid
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.sip.SipProfile$Builder
-      go_type: ProfileBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.net.sip.SipProfile
-          error: true
-        - java_method: setAuthUserName
-          go_name: SetAuthUserName
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.sip.SipProfile$Builder
-          error: true
-        - java_method: setAutoRegistration
-          go_name: SetAutoRegistration
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.net.sip.SipProfile$Builder
-          error: true
-        - java_method: setDisplayName
-          go_name: SetDisplayName
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.sip.SipProfile$Builder
-          error: true
-        - java_method: setOutboundProxy
-          go_name: SetOutboundProxy
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.sip.SipProfile$Builder
-          error: true
-        - java_method: setPassword
-          go_name: SetPassword
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.sip.SipProfile$Builder
-          error: true
-        - java_method: setPort
-          go_name: SetPort
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.sip.SipProfile$Builder
-          error: true
-        - java_method: setProfileName
-          go_name: SetProfileName
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.sip.SipProfile$Builder
-          error: true
-        - java_method: setProtocol
-          go_name: SetProtocol
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.sip.SipProfile$Builder
-          error: true
-        - java_method: setSendKeepAlive
-          go_name: SetSendKeepAlive
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.net.sip.SipProfile$Builder
-          error: true
-    - java_class: android.net.sip.SipSession
-      go_type: Session
-      methods:
-        - java_method: answerCall
-          go_name: AnswerCall
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: changeCall
-          go_name: ChangeCall
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: endCall
-          go_name: EndCall
-          returns: void
-          error: true
-        - java_method: getCallId
-          go_name: GetCallId
-          returns: String
-          error: true
-        - java_method: getLocalIp
-          go_name: GetLocalIp
-          returns: String
-          error: true
-        - java_method: getLocalProfile
-          go_name: GetLocalProfile
-          returns: android.net.sip.SipProfile
-          error: true
-        - java_method: getPeerProfile
-          go_name: GetPeerProfile
-          returns: android.net.sip.SipProfile
-          error: true
-        - java_method: getState
-          go_name: GetState
-          returns: int
-          error: true
-        - java_method: isInCall
-          go_name: IsInCall
-          returns: boolean
-          error: true
-        - java_method: makeCall
-          go_name: MakeCall
-          params:
-            - java_type: android.net.sip.SipProfile
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: register
-          go_name: Register
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setListener
-          go_name: SetListener
-          params:
-            - java_type: android.net.sip.SipSession$Listener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: unregister
-          go_name: Unregister
-          returns: void
-          error: true
-    - java_class: android.net.sip.SipSession$Listener
-      go_type: SessionListener
-      methods:
-        - java_method: onCallBusy
-          go_name: OnCallBusy
-          params:
-            - java_type: android.net.sip.SipSession
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onCallChangeFailed
-          go_name: OnCallChangeFailed
-          params:
-            - java_type: android.net.sip.SipSession
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onCallEnded
-          go_name: OnCallEnded
-          params:
-            - java_type: android.net.sip.SipSession
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onCallEstablished
-          go_name: OnCallEstablished
-          params:
-            - java_type: android.net.sip.SipSession
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onCalling
-          go_name: OnCalling
-          params:
-            - java_type: android.net.sip.SipSession
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onError
-          go_name: OnError
-          params:
-            - java_type: android.net.sip.SipSession
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onRegistering
-          go_name: OnRegistering
-          params:
-            - java_type: android.net.sip.SipSession
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onRegistrationDone
-          go_name: OnRegistrationDone
-          params:
-            - java_type: android.net.sip.SipSession
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onRegistrationFailed
-          go_name: OnRegistrationFailed
-          params:
-            - java_type: android.net.sip.SipSession
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onRegistrationTimeout
-          go_name: OnRegistrationTimeout
-          params:
-            - java_type: android.net.sip.SipSession
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onRinging
-          go_name: OnRinging
-          params:
-            - java_type: android.net.sip.SipSession
-              go_name: arg0
-            - java_type: android.net.sip.SipProfile
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onRingingBack
-          go_name: OnRingingBack
-          params:
-            - java_type: android.net.sip.SipSession
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.net.sip.SipSession$State
-      go_type: SessionState
-      static_methods:
-        - java_method: toString
-          go_name: ToString
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-    - java_class: android.net.sip.SipRegistrationListener
-      go_type: RegistrationListener
-      methods:
-        - java_method: onRegistering
-          go_name: OnRegistering
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onRegistrationDone
-          go_name: OnRegistrationDone
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onRegistrationFailed
-          go_name: OnRegistrationFailed
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: void
-          error: true
-    - java_class: android.net.sip.SipErrorCode
-      go_type: ErrorCode
-      static_methods:
-        - java_method: toString
-          go_name: ToString
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
 constants:
-    - go_name: ExtraCallId
-      value: '"android:sipCallID"'
-      go_type: string
-    - go_name: ExtraOfferSd
-      value: '"android:sipOfferSD"'
-      go_type: string
-    - go_name: IncomingCallResultCode
-      value: "101"
-      go_type: int
-    - go_name: Creator
-      value: "0"
-      go_type: int
     - go_name: Deregistering
       value: "2"
       go_type: int
@@ -848,4 +843,16 @@ constants:
       go_type: int
     - go_name: TransactionTerminted
       value: "-3"
+      go_type: int
+    - go_name: Creator
+      value: "0"
+      go_type: int
+    - go_name: ExtraCallId
+      value: '"android:sipCallID"'
+      go_type: string
+    - go_name: ExtraOfferSd
+      value: '"android:sipOfferSD"'
+      go_type: string
+    - go_name: IncomingCallResultCode
+      value: "101"
       go_type: int

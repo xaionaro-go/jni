@@ -32,6 +32,12 @@ func NewCycleInterpolator(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Cycl
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCycleInterpolator == nil {
+			return fmt.Errorf("android.view.animation.CycleInterpolator is not available on this device")
+		}
+		if midCycleInterpolatorCtor == nil {
+			return fmt.Errorf("android.view.animation.CycleInterpolator constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCycleInterpolator)), midCycleInterpolatorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

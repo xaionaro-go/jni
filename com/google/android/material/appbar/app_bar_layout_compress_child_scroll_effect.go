@@ -23,6 +23,34 @@ type AppBarLayoutCompressChildScrollEffect struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAppBarLayoutCompressChildScrollEffect creates a new com.google.android.material.appbar.AppBarLayout$CompressChildScrollEffect instance.
+func NewAppBarLayoutCompressChildScrollEffect(vm *jni.VM) (*AppBarLayoutCompressChildScrollEffect, error) {
+	var t AppBarLayoutCompressChildScrollEffect
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAppBarLayoutCompressChildScrollEffect == nil {
+			return fmt.Errorf("com.google.android.material.appbar.AppBarLayout$CompressChildScrollEffect is not available on this device")
+		}
+		if midAppBarLayoutCompressChildScrollEffectCtor == nil {
+			return fmt.Errorf("com.google.android.material.appbar.AppBarLayout$CompressChildScrollEffect constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppBarLayoutCompressChildScrollEffect)), midAppBarLayoutCompressChildScrollEffectCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnOffsetChanged calls com.google.android.material.appbar.AppBarLayout$CompressChildScrollEffect.onOffsetChanged.
 func (m *AppBarLayoutCompressChildScrollEffect) OnOffsetChanged(
 	arg0 *jni.Object,

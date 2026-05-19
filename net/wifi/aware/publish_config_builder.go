@@ -23,6 +23,34 @@ type PublishConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPublishConfigBuilder creates a new android.net.wifi.aware.PublishConfig$Builder instance.
+func NewPublishConfigBuilder(vm *jni.VM) (*PublishConfigBuilder, error) {
+	var t PublishConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPublishConfigBuilder == nil {
+			return fmt.Errorf("android.net.wifi.aware.PublishConfig$Builder is not available on this device")
+		}
+		if midPublishConfigBuilderCtor == nil {
+			return fmt.Errorf("android.net.wifi.aware.PublishConfig$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPublishConfigBuilder)), midPublishConfigBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.wifi.aware.PublishConfig$Builder.build.
 func (m *PublishConfigBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

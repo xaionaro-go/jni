@@ -32,6 +32,12 @@ func NewLogWriter(vm *jni.VM, arg0 string) (*LogWriter, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLogWriter == nil {
+			return fmt.Errorf("androidx.core.util.LogWriter is not available on this device")
+		}
+		if midLogWriterCtor == nil {
+			return fmt.Errorf("androidx.core.util.LogWriter constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

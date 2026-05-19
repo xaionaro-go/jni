@@ -23,6 +23,51 @@ type DateIntervalInfoPatternInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDateIntervalInfoPatternInfo creates a new android.icu.text.DateIntervalInfo$PatternInfo instance.
+func NewDateIntervalInfoPatternInfo(vm *jni.VM, arg0 string, arg1 string, arg2 bool) (*DateIntervalInfoPatternInfo, error) {
+	var t DateIntervalInfoPatternInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDateIntervalInfoPatternInfo == nil {
+			return fmt.Errorf("android.icu.text.DateIntervalInfo$PatternInfo is not available on this device")
+		}
+		if midDateIntervalInfoPatternInfoCtor == nil {
+			return fmt.Errorf("android.icu.text.DateIntervalInfo$PatternInfo constructor (Ljava/lang/String;Ljava/lang/String;Z)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		var jArg2 uint8
+		if arg2 {
+			jArg2 = jniTrue
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDateIntervalInfoPatternInfo)), midDateIntervalInfoPatternInfoCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(&jArg1.Object), jni.BooleanValue(jArg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.icu.text.DateIntervalInfo$PatternInfo.equals.
 func (m *DateIntervalInfoPatternInfo) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

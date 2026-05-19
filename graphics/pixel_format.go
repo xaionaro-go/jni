@@ -32,6 +32,12 @@ func NewPixelFormat(vm *jni.VM) (*PixelFormat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPixelFormat == nil {
+			return fmt.Errorf("android.graphics.PixelFormat is not available on this device")
+		}
+		if midPixelFormatCtor == nil {
+			return fmt.Errorf("android.graphics.PixelFormat constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPixelFormat)), midPixelFormatCtor)
 		if err != nil {
 			return err

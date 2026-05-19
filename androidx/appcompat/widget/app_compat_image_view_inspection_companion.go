@@ -23,6 +23,34 @@ type AppCompatImageViewInspectionCompanion struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAppCompatImageViewInspectionCompanion creates a new androidx.appcompat.widget.AppCompatImageView$InspectionCompanion instance.
+func NewAppCompatImageViewInspectionCompanion(vm *jni.VM) (*AppCompatImageViewInspectionCompanion, error) {
+	var t AppCompatImageViewInspectionCompanion
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAppCompatImageViewInspectionCompanion == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatImageView$InspectionCompanion is not available on this device")
+		}
+		if midAppCompatImageViewInspectionCompanionCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatImageView$InspectionCompanion constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppCompatImageViewInspectionCompanion)), midAppCompatImageViewInspectionCompanionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // MapProperties calls androidx.appcompat.widget.AppCompatImageView$InspectionCompanion.mapProperties.
 func (m *AppCompatImageViewInspectionCompanion) MapProperties(arg0 *jni.Object) error {
 
@@ -46,8 +74,8 @@ func (m *AppCompatImageViewInspectionCompanion) MapProperties(arg0 *jni.Object) 
 	return callErr
 }
 
-// ReadProperties2 calls androidx.appcompat.widget.AppCompatImageView$InspectionCompanion.readProperties.
-func (m *AppCompatImageViewInspectionCompanion) ReadProperties2(arg0 *jni.Object, arg1 *jni.Object) error {
+// ReadProperties calls androidx.appcompat.widget.AppCompatImageView$InspectionCompanion.readProperties.
+func (m *AppCompatImageViewInspectionCompanion) ReadProperties(arg0 *jni.Object, arg1 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,37 +83,14 @@ func (m *AppCompatImageViewInspectionCompanion) ReadProperties2(arg0 *jni.Object
 			callErr = err
 			return err
 		}
-		if midAppCompatImageViewInspectionCompanionReadProperties2 == nil {
+		if midAppCompatImageViewInspectionCompanionReadProperties == nil {
 			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatImageView$InspectionCompanion.readProperties is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midAppCompatImageViewInspectionCompanionReadProperties2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// ReadProperties2_1 calls androidx.appcompat.widget.AppCompatImageView$InspectionCompanion.readProperties.
-func (m *AppCompatImageViewInspectionCompanion) ReadProperties2_1(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppCompatImageViewInspectionCompanionReadProperties2_1 == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatImageView$InspectionCompanion.readProperties is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAppCompatImageViewInspectionCompanionReadProperties2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midAppCompatImageViewInspectionCompanionReadProperties, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		return callErr
 	})

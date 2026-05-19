@@ -32,6 +32,12 @@ func NewAdjustedCornerSize(vm *jni.VM, arg0 float32, arg1 *jni.Object) (*Adjuste
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAdjustedCornerSize == nil {
+			return fmt.Errorf("com.google.android.material.shape.AdjustedCornerSize is not available on this device")
+		}
+		if midAdjustedCornerSizeCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.AdjustedCornerSize constructor (FLcom/google/android/material/shape/CornerSize;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAdjustedCornerSize)), midAdjustedCornerSizeCtor, jni.FloatValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

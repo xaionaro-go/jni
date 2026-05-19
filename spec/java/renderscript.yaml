@@ -5,1034 +5,8 @@
 package: renderscript
 go_import: github.com/AndroidGoLab/jni/renderscript
 classes:
-    - java_class: android.renderscript.Long2
-      go_type: Long2
-      obtain: constructor
-    - java_class: android.renderscript.ScriptIntrinsicLUT
-      go_type: ScriptIntrinsicLUT
-      methods:
-        - java_method: destroy
-          go_name: Destroy
-          returns: void
-          error: true
-        - java_method: forEach
-          go_name: ForEach2
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: forEach
-          go_name: ForEach3_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: getKernelID
-          go_name: GetKernelID
-          returns: android.renderscript.Script$KernelID
-          error: true
-        - java_method: setAlpha
-          go_name: SetAlpha
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setBlue
-          go_name: SetBlue
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setGreen
-          go_name: SetGreen
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setRed
-          go_name: SetRed
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: create
-          go_name: Create
-          params:
-            - java_type: android.renderscript.RenderScript
-              go_name: arg0
-            - java_type: android.renderscript.Element
-              go_name: arg1
-          returns: android.renderscript.ScriptIntrinsicLUT
-          error: true
-    - java_class: android.renderscript.ScriptIntrinsicConvolve5x5
-      go_type: ScriptIntrinsicConvolve5x5
-      methods:
-        - java_method: forEach
-          go_name: ForEach1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: forEach
-          go_name: ForEach2_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getFieldID_Input
-          go_name: GetFieldID_Input
-          returns: android.renderscript.Script$FieldID
-          error: true
-        - java_method: getKernelID
-          go_name: GetKernelID
-          returns: android.renderscript.Script$KernelID
-          error: true
-        - java_method: setCoefficients
-          go_name: SetCoefficients
-          params:
-            - java_type: float[]
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setInput
-          go_name: SetInput
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-          returns: void
-          error: true
-      static_methods:
-        - java_method: create
-          go_name: Create
-          params:
-            - java_type: android.renderscript.RenderScript
-              go_name: arg0
-            - java_type: android.renderscript.Element
-              go_name: arg1
-          returns: android.renderscript.ScriptIntrinsicConvolve5x5
-          error: true
-    - java_class: android.renderscript.Double4
-      go_type: Double4
-      obtain: constructor
-    - java_class: android.renderscript.Matrix4f
-      go_type: Matrix4f
-      obtain: constructor
-      methods:
-        - java_method: get
-          go_name: Get
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: float
-          error: true
-        - java_method: getArray
-          go_name: GetArray
-          returns: float[]
-          error: true
-        - java_method: inverse
-          go_name: Inverse
-          returns: boolean
-          error: true
-        - java_method: inverseTranspose
-          go_name: InverseTranspose
-          returns: boolean
-          error: true
-        - java_method: load
-          go_name: Load
-          params:
-            - java_type: android.renderscript.Matrix4f
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: loadFrustum
-          go_name: LoadFrustum
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-            - java_type: float
-              go_name: arg4
-            - java_type: float
-              go_name: arg5
-          returns: void
-          error: true
-        - java_method: loadIdentity
-          go_name: LoadIdentity
-          returns: void
-          error: true
-        - java_method: loadMultiply
-          go_name: LoadMultiply
-          params:
-            - java_type: android.renderscript.Matrix4f
-              go_name: arg0
-            - java_type: android.renderscript.Matrix4f
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: loadOrtho
-          go_name: LoadOrtho
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-            - java_type: float
-              go_name: arg4
-            - java_type: float
-              go_name: arg5
-          returns: void
-          error: true
-        - java_method: loadOrthoWindow
-          go_name: LoadOrthoWindow
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: loadPerspective
-          go_name: LoadPerspective
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: loadProjectionNormalized
-          go_name: LoadProjectionNormalized
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: loadRotate
-          go_name: LoadRotate
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: loadScale
-          go_name: LoadScale
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: loadTranslate
-          go_name: LoadTranslate
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: multiply
-          go_name: Multiply
-          params:
-            - java_type: android.renderscript.Matrix4f
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: rotate
-          go_name: Rotate
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: scale
-          go_name: Scale
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: set
-          go_name: Set
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: translate
-          go_name: Translate
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: transpose
-          go_name: Transpose
-          returns: void
-          error: true
     - java_class: android.renderscript.ScriptIntrinsic
       go_type: ScriptIntrinsic
-    - java_class: android.renderscript.Matrix2f
-      go_type: Matrix2f
-      obtain: constructor
-      methods:
-        - java_method: get
-          go_name: Get
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: float
-          error: true
-        - java_method: getArray
-          go_name: GetArray
-          returns: float[]
-          error: true
-        - java_method: load
-          go_name: Load
-          params:
-            - java_type: android.renderscript.Matrix2f
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: loadIdentity
-          go_name: LoadIdentity
-          returns: void
-          error: true
-        - java_method: loadMultiply
-          go_name: LoadMultiply
-          params:
-            - java_type: android.renderscript.Matrix2f
-              go_name: arg0
-            - java_type: android.renderscript.Matrix2f
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: loadRotate
-          go_name: LoadRotate
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: loadScale
-          go_name: LoadScale
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: multiply
-          go_name: Multiply
-          params:
-            - java_type: android.renderscript.Matrix2f
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: rotate
-          go_name: Rotate
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: scale
-          go_name: Scale
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: set
-          go_name: Set
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: transpose
-          go_name: Transpose
-          returns: void
-          error: true
-    - java_class: android.renderscript.ScriptIntrinsicBlend
-      go_type: ScriptIntrinsicBlend
-      methods:
-        - java_method: forEachAdd
-          go_name: ForEachAdd2
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: forEachAdd
-          go_name: ForEachAdd3_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: forEachClear
-          go_name: ForEachClear2
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: forEachClear
-          go_name: ForEachClear3_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: forEachDst
-          go_name: ForEachDst2
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: forEachDst
-          go_name: ForEachDst3_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: forEachDstAtop
-          go_name: ForEachDstAtop2
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: forEachDstAtop
-          go_name: ForEachDstAtop3_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: forEachDstIn
-          go_name: ForEachDstIn2
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: forEachDstIn
-          go_name: ForEachDstIn3_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: forEachDstOut
-          go_name: ForEachDstOut2
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: forEachDstOut
-          go_name: ForEachDstOut3_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: forEachDstOver
-          go_name: ForEachDstOver2
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: forEachDstOver
-          go_name: ForEachDstOver3_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: forEachMultiply
-          go_name: ForEachMultiply2
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: forEachMultiply
-          go_name: ForEachMultiply3_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: forEachSrc
-          go_name: ForEachSrc2
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: forEachSrc
-          go_name: ForEachSrc3_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: forEachSrcAtop
-          go_name: ForEachSrcAtop2
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: forEachSrcAtop
-          go_name: ForEachSrcAtop3_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: forEachSrcIn
-          go_name: ForEachSrcIn2
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: forEachSrcIn
-          go_name: ForEachSrcIn3_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: forEachSrcOut
-          go_name: ForEachSrcOut2
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: forEachSrcOut
-          go_name: ForEachSrcOut3_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: forEachSrcOver
-          go_name: ForEachSrcOver2
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: forEachSrcOver
-          go_name: ForEachSrcOver3_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: forEachSubtract
-          go_name: ForEachSubtract2
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: forEachSubtract
-          go_name: ForEachSubtract3_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: forEachXor
-          go_name: ForEachXor2
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: forEachXor
-          go_name: ForEachXor3_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: getKernelIDAdd
-          go_name: GetKernelIDAdd
-          returns: android.renderscript.Script$KernelID
-          error: true
-        - java_method: getKernelIDClear
-          go_name: GetKernelIDClear
-          returns: android.renderscript.Script$KernelID
-          error: true
-        - java_method: getKernelIDDst
-          go_name: GetKernelIDDst
-          returns: android.renderscript.Script$KernelID
-          error: true
-        - java_method: getKernelIDDstAtop
-          go_name: GetKernelIDDstAtop
-          returns: android.renderscript.Script$KernelID
-          error: true
-        - java_method: getKernelIDDstIn
-          go_name: GetKernelIDDstIn
-          returns: android.renderscript.Script$KernelID
-          error: true
-        - java_method: getKernelIDDstOut
-          go_name: GetKernelIDDstOut
-          returns: android.renderscript.Script$KernelID
-          error: true
-        - java_method: getKernelIDDstOver
-          go_name: GetKernelIDDstOver
-          returns: android.renderscript.Script$KernelID
-          error: true
-        - java_method: getKernelIDMultiply
-          go_name: GetKernelIDMultiply
-          returns: android.renderscript.Script$KernelID
-          error: true
-        - java_method: getKernelIDSrc
-          go_name: GetKernelIDSrc
-          returns: android.renderscript.Script$KernelID
-          error: true
-        - java_method: getKernelIDSrcAtop
-          go_name: GetKernelIDSrcAtop
-          returns: android.renderscript.Script$KernelID
-          error: true
-        - java_method: getKernelIDSrcIn
-          go_name: GetKernelIDSrcIn
-          returns: android.renderscript.Script$KernelID
-          error: true
-        - java_method: getKernelIDSrcOut
-          go_name: GetKernelIDSrcOut
-          returns: android.renderscript.Script$KernelID
-          error: true
-        - java_method: getKernelIDSrcOver
-          go_name: GetKernelIDSrcOver
-          returns: android.renderscript.Script$KernelID
-          error: true
-        - java_method: getKernelIDSubtract
-          go_name: GetKernelIDSubtract
-          returns: android.renderscript.Script$KernelID
-          error: true
-        - java_method: getKernelIDXor
-          go_name: GetKernelIDXor
-          returns: android.renderscript.Script$KernelID
-          error: true
-      static_methods:
-        - java_method: create
-          go_name: Create
-          params:
-            - java_type: android.renderscript.RenderScript
-              go_name: arg0
-            - java_type: android.renderscript.Element
-              go_name: arg1
-          returns: android.renderscript.ScriptIntrinsicBlend
-          error: true
-    - java_class: android.renderscript.Script
-      go_type: Script
-      methods:
-        - java_method: bindAllocation
-          go_name: BindAllocation
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getVarB
-          go_name: GetVarB
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getVarD
-          go_name: GetVarD
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: double
-          error: true
-        - java_method: getVarF
-          go_name: GetVarF
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getVarI
-          go_name: GetVarI
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getVarJ
-          go_name: GetVarJ
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: long
-          error: true
-        - java_method: getVarV
-          go_name: GetVarV
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.renderscript.FieldPacker
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setTimeZone
-          go_name: SetTimeZone
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setVar
-          go_name: SetVar2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.renderscript.BaseObj
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setVar
-          go_name: SetVar2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.renderscript.FieldPacker
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setVar
-          go_name: SetVar4_2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.renderscript.FieldPacker
-              go_name: arg1
-            - java_type: android.renderscript.Element
-              go_name: arg2
-            - java_type: '[I'
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: setVar
-          go_name: SetVar2_3
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setVar
-          go_name: SetVar2_4
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: double
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setVar
-          go_name: SetVar2_5
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setVar
-          go_name: SetVar2_6
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setVar
-          go_name: SetVar2_7
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.renderscript.Script$Builder
-      go_type: ScriptBuilder
-    - java_class: android.renderscript.Script$FieldBase
-      go_type: ScriptFieldBase
-      methods:
-        - java_method: getAllocation
-          go_name: GetAllocation
-          returns: android.renderscript.Allocation
-          error: true
-        - java_method: getElement
-          go_name: GetElement
-          returns: android.renderscript.Element
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: android.renderscript.Type
-          error: true
-        - java_method: updateAllocation
-          go_name: UpdateAllocation
-          returns: void
-          error: true
-    - java_class: android.renderscript.Script$FieldID
-      go_type: ScriptFieldID
-    - java_class: android.renderscript.Script$InvokeID
-      go_type: ScriptInvokeID
-    - java_class: android.renderscript.Script$KernelID
-      go_type: ScriptKernelID
-    - java_class: android.renderscript.Int4
-      go_type: Int4
-      obtain: constructor
-    - java_class: android.renderscript.Script$LaunchOptions
-      go_type: ScriptLaunchOptions
-      methods:
-        - java_method: getXEnd
-          go_name: GetXEnd
-          returns: int
-          error: true
-        - java_method: getXStart
-          go_name: GetXStart
-          returns: int
-          error: true
-        - java_method: getYEnd
-          go_name: GetYEnd
-          returns: int
-          error: true
-        - java_method: getYStart
-          go_name: GetYStart
-          returns: int
-          error: true
-        - java_method: getZEnd
-          go_name: GetZEnd
-          returns: int
-          error: true
-        - java_method: getZStart
-          go_name: GetZStart
-          returns: int
-          error: true
-        - java_method: setX
-          go_name: SetX
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.renderscript.Script$LaunchOptions
-          error: true
-        - java_method: setY
-          go_name: SetY
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.renderscript.Script$LaunchOptions
-          error: true
-        - java_method: setZ
-          go_name: SetZ
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.renderscript.Script$LaunchOptions
-          error: true
-    - java_class: android.renderscript.Short4
-      go_type: Short4
-      obtain: constructor
     - java_class: android.renderscript.FieldPacker
       go_type: FieldPacker
       obtain: constructor
@@ -1503,21 +477,259 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.renderscript.Short3
-      go_type: Short3
+    - java_class: android.renderscript.ScriptIntrinsicResize
+      go_type: ScriptIntrinsicResize
+      methods:
+        - java_method: forEach_bicubic
+          go_name: ForEachBicubic1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: forEach_bicubic
+          go_name: ForEachBicubic2_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getFieldID_Input
+          go_name: GetFieldIDInput
+          returns: android.renderscript.Script$FieldID
+          error: true
+        - java_method: getKernelID_bicubic
+          go_name: GetKernelIDBicubic
+          returns: android.renderscript.Script$KernelID
+          error: true
+        - java_method: setInput
+          go_name: SetInput
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
+        - java_method: create
+          go_name: Create
+          params:
+            - java_type: android.renderscript.RenderScript
+              go_name: arg0
+          returns: android.renderscript.ScriptIntrinsicResize
+          error: true
+    - java_class: android.renderscript.Matrix3f
+      go_type: Matrix3f
       obtain: constructor
-    - java_class: android.renderscript.RSInvalidStateException
-      go_type: RSInvalidStateException
+      methods:
+        - java_method: get
+          go_name: Get
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: float
+          error: true
+        - java_method: getArray
+          go_name: GetArray
+          returns: float[]
+          error: true
+        - java_method: load
+          go_name: Load
+          params:
+            - java_type: android.renderscript.Matrix3f
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: loadIdentity
+          go_name: LoadIdentity
+          returns: void
+          error: true
+        - java_method: loadMultiply
+          go_name: LoadMultiply
+          params:
+            - java_type: android.renderscript.Matrix3f
+              go_name: arg0
+            - java_type: android.renderscript.Matrix3f
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: loadRotate
+          go_name: LoadRotate1
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: loadRotate
+          go_name: LoadRotate4_1
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: loadScale
+          go_name: LoadScale2
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: loadScale
+          go_name: LoadScale3_1
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: loadTranslate
+          go_name: LoadTranslate
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: multiply
+          go_name: Multiply
+          params:
+            - java_type: android.renderscript.Matrix3f
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: rotate
+          go_name: Rotate1
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: rotate
+          go_name: Rotate4_1
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: scale
+          go_name: Scale2
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: scale
+          go_name: Scale3_1
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: set
+          go_name: Set
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: translate
+          go_name: Translate
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: transpose
+          go_name: Transpose
+          returns: void
+          error: true
+    - java_class: android.renderscript.Byte3
+      go_type: Byte3
       obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-    - java_class: android.renderscript.Byte2
-      go_type: Byte2
-      obtain: constructor
-    - java_class: android.renderscript.Float2
-      go_type: Float2
-      obtain: constructor
+    - java_class: android.renderscript.ScriptIntrinsicConvolve5x5
+      go_type: ScriptIntrinsicConvolve5x5
+      methods:
+        - java_method: forEach
+          go_name: ForEach1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: forEach
+          go_name: ForEach2_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getFieldID_Input
+          go_name: GetFieldIDInput
+          returns: android.renderscript.Script$FieldID
+          error: true
+        - java_method: getKernelID
+          go_name: GetKernelID
+          returns: android.renderscript.Script$KernelID
+          error: true
+        - java_method: setCoefficients
+          go_name: SetCoefficients
+          params:
+            - java_type: float[]
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setInput
+          go_name: SetInput
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
+        - java_method: create
+          go_name: Create
+          params:
+            - java_type: android.renderscript.RenderScript
+              go_name: arg0
+            - java_type: android.renderscript.Element
+              go_name: arg1
+          returns: android.renderscript.ScriptIntrinsicConvolve5x5
+          error: true
     - java_class: android.renderscript.Sampler
       go_type: Sampler
       methods:
@@ -1543,63 +755,63 @@ classes:
           error: true
       static_methods:
         - java_method: CLAMP_LINEAR
-          go_name: CLAMP_LINEAR
+          go_name: CLAMPLINEAR
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Sampler
           error: true
         - java_method: CLAMP_LINEAR_MIP_LINEAR
-          go_name: CLAMP_LINEAR_MIP_LINEAR
+          go_name: CLAMPLINEARMIPLINEAR
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Sampler
           error: true
         - java_method: CLAMP_NEAREST
-          go_name: CLAMP_NEAREST
+          go_name: CLAMPNEAREST
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Sampler
           error: true
         - java_method: MIRRORED_REPEAT_LINEAR
-          go_name: MIRRORED_REPEAT_LINEAR
+          go_name: MIRROREDREPEATLINEAR
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Sampler
           error: true
         - java_method: MIRRORED_REPEAT_LINEAR_MIP_LINEAR
-          go_name: MIRRORED_REPEAT_LINEAR_MIP_LINEAR
+          go_name: MIRROREDREPEATLINEARMIPLINEAR
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Sampler
           error: true
         - java_method: MIRRORED_REPEAT_NEAREST
-          go_name: MIRRORED_REPEAT_NEAREST
+          go_name: MIRROREDREPEATNEAREST
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Sampler
           error: true
         - java_method: WRAP_LINEAR
-          go_name: WRAP_LINEAR
+          go_name: WRAPLINEAR
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Sampler
           error: true
         - java_method: WRAP_LINEAR_MIP_LINEAR
-          go_name: WRAP_LINEAR_MIP_LINEAR
+          go_name: WRAPLINEARMIPLINEAR
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Sampler
           error: true
         - java_method: WRAP_NEAREST
-          go_name: WRAP_NEAREST
+          go_name: WRAPNEAREST
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
@@ -1607,6 +819,10 @@ classes:
           error: true
     - java_class: android.renderscript.Sampler$Builder
       go_type: SamplerBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.renderscript.RenderScript
+          go_name: arg0
       methods:
         - java_method: create
           go_name: Create
@@ -1661,9 +877,208 @@ classes:
               go_name: arg0
           returns: android.renderscript.Sampler$Value
           error: true
-    - java_class: android.renderscript.Double3
-      go_type: Double3
+    - java_class: android.renderscript.Matrix4f
+      go_type: Matrix4f
       obtain: constructor
+      methods:
+        - java_method: get
+          go_name: Get
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: float
+          error: true
+        - java_method: getArray
+          go_name: GetArray
+          returns: float[]
+          error: true
+        - java_method: inverse
+          go_name: Inverse
+          returns: boolean
+          error: true
+        - java_method: inverseTranspose
+          go_name: InverseTranspose
+          returns: boolean
+          error: true
+        - java_method: load
+          go_name: Load
+          params:
+            - java_type: android.renderscript.Matrix4f
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: loadFrustum
+          go_name: LoadFrustum
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+            - java_type: float
+              go_name: arg4
+            - java_type: float
+              go_name: arg5
+          returns: void
+          error: true
+        - java_method: loadIdentity
+          go_name: LoadIdentity
+          returns: void
+          error: true
+        - java_method: loadMultiply
+          go_name: LoadMultiply
+          params:
+            - java_type: android.renderscript.Matrix4f
+              go_name: arg0
+            - java_type: android.renderscript.Matrix4f
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: loadOrtho
+          go_name: LoadOrtho
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+            - java_type: float
+              go_name: arg4
+            - java_type: float
+              go_name: arg5
+          returns: void
+          error: true
+        - java_method: loadOrthoWindow
+          go_name: LoadOrthoWindow
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: loadPerspective
+          go_name: LoadPerspective
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: loadProjectionNormalized
+          go_name: LoadProjectionNormalized
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: loadRotate
+          go_name: LoadRotate
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: loadScale
+          go_name: LoadScale
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: loadTranslate
+          go_name: LoadTranslate
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: multiply
+          go_name: Multiply
+          params:
+            - java_type: android.renderscript.Matrix4f
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: rotate
+          go_name: Rotate
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: scale
+          go_name: Scale
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: set
+          go_name: Set
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: translate
+          go_name: Translate
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: transpose
+          go_name: Transpose
+          returns: void
+          error: true
     - java_class: android.renderscript.ScriptIntrinsicBLAS
       go_type: ScriptIntrinsicBLAS
       methods:
@@ -3494,811 +2909,8 @@ classes:
               go_name: arg0
           returns: android.renderscript.ScriptIntrinsicBLAS
           error: true
-    - java_class: android.renderscript.ScriptIntrinsicResize
-      go_type: ScriptIntrinsicResize
-      methods:
-        - java_method: forEach_bicubic
-          go_name: ForEach_bicubic1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: forEach_bicubic
-          go_name: ForEach_bicubic2_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getFieldID_Input
-          go_name: GetFieldID_Input
-          returns: android.renderscript.Script$FieldID
-          error: true
-        - java_method: getKernelID_bicubic
-          go_name: GetKernelID_bicubic
-          returns: android.renderscript.Script$KernelID
-          error: true
-        - java_method: setInput
-          go_name: SetInput
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-          returns: void
-          error: true
-      static_methods:
-        - java_method: create
-          go_name: Create
-          params:
-            - java_type: android.renderscript.RenderScript
-              go_name: arg0
-          returns: android.renderscript.ScriptIntrinsicResize
-          error: true
-    - java_class: android.renderscript.Long4
-      go_type: Long4
-      obtain: constructor
-    - java_class: android.renderscript.Matrix3f
-      go_type: Matrix3f
-      obtain: constructor
-      methods:
-        - java_method: get
-          go_name: Get
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: float
-          error: true
-        - java_method: getArray
-          go_name: GetArray
-          returns: float[]
-          error: true
-        - java_method: load
-          go_name: Load
-          params:
-            - java_type: android.renderscript.Matrix3f
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: loadIdentity
-          go_name: LoadIdentity
-          returns: void
-          error: true
-        - java_method: loadMultiply
-          go_name: LoadMultiply
-          params:
-            - java_type: android.renderscript.Matrix3f
-              go_name: arg0
-            - java_type: android.renderscript.Matrix3f
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: loadRotate
-          go_name: LoadRotate1
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: loadRotate
-          go_name: LoadRotate4_1
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: loadScale
-          go_name: LoadScale2
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: loadScale
-          go_name: LoadScale3_1
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: loadTranslate
-          go_name: LoadTranslate
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: multiply
-          go_name: Multiply
-          params:
-            - java_type: android.renderscript.Matrix3f
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: rotate
-          go_name: Rotate1
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: rotate
-          go_name: Rotate4_1
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: scale
-          go_name: Scale2
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: scale
-          go_name: Scale3_1
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: set
-          go_name: Set
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: translate
-          go_name: Translate
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: transpose
-          go_name: Transpose
-          returns: void
-          error: true
-    - java_class: android.renderscript.Long3
-      go_type: Long3
-      obtain: constructor
-    - java_class: android.renderscript.ScriptIntrinsicConvolve3x3
-      go_type: ScriptIntrinsicConvolve3x3
-      methods:
-        - java_method: forEach
-          go_name: ForEach1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: forEach
-          go_name: ForEach2_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getFieldID_Input
-          go_name: GetFieldID_Input
-          returns: android.renderscript.Script$FieldID
-          error: true
-        - java_method: getKernelID
-          go_name: GetKernelID
-          returns: android.renderscript.Script$KernelID
-          error: true
-        - java_method: setCoefficients
-          go_name: SetCoefficients
-          params:
-            - java_type: float[]
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setInput
-          go_name: SetInput
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-          returns: void
-          error: true
-      static_methods:
-        - java_method: create
-          go_name: Create
-          params:
-            - java_type: android.renderscript.RenderScript
-              go_name: arg0
-            - java_type: android.renderscript.Element
-              go_name: arg1
-          returns: android.renderscript.ScriptIntrinsicConvolve3x3
-          error: true
-    - java_class: android.renderscript.ScriptIntrinsicYuvToRGB
-      go_type: ScriptIntrinsicYuvToRGB
-      methods:
-        - java_method: forEach
-          go_name: ForEach
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getFieldID_Input
-          go_name: GetFieldID_Input
-          returns: android.renderscript.Script$FieldID
-          error: true
-        - java_method: getKernelID
-          go_name: GetKernelID
-          returns: android.renderscript.Script$KernelID
-          error: true
-        - java_method: setInput
-          go_name: SetInput
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-          returns: void
-          error: true
-      static_methods:
-        - java_method: create
-          go_name: Create
-          params:
-            - java_type: android.renderscript.RenderScript
-              go_name: arg0
-            - java_type: android.renderscript.Element
-              go_name: arg1
-          returns: android.renderscript.ScriptIntrinsicYuvToRGB
-          error: true
-    - java_class: android.renderscript.RSIllegalArgumentException
-      go_type: RSIllegalArgumentException
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-    - java_class: android.renderscript.AllocationAdapter
-      go_type: AllocationAdapter
-      methods:
-        - java_method: setFace
-          go_name: SetFace
-          params:
-            - java_type: android.renderscript.Type$CubemapFace
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLOD
-          go_name: SetLOD
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setX
-          go_name: SetX
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setY
-          go_name: SetY
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setZ
-          go_name: SetZ
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-      static_methods:
-        - java_method: create1D
-          go_name: Create1D
-          params:
-            - java_type: android.renderscript.RenderScript
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-          returns: android.renderscript.AllocationAdapter
-          error: true
-        - java_method: create2D
-          go_name: Create2D
-          params:
-            - java_type: android.renderscript.RenderScript
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-          returns: android.renderscript.AllocationAdapter
-          error: true
-        - java_method: createTyped
-          go_name: CreateTyped
-          params:
-            - java_type: android.renderscript.RenderScript
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-            - java_type: android.renderscript.Type
-              go_name: arg2
-          returns: android.renderscript.AllocationAdapter
-          error: true
-    - java_class: android.renderscript.RenderScript
-      go_type: RenderScript
-      methods:
-        - java_method: contextDump
-          go_name: ContextDump
-          returns: void
-          error: true
-        - java_method: destroy
-          go_name: Destroy
-          returns: void
-          error: true
-        - java_method: finish
-          go_name: Finish
-          returns: void
-          error: true
-        - java_method: getApplicationContext
-          go_name: GetApplicationContext
-          returns: android.content.Context
-          error: true
-        - java_method: getErrorHandler
-          go_name: GetErrorHandler
-          returns: android.renderscript.RenderScript$RSErrorHandler
-          error: true
-        - java_method: getMessageHandler
-          go_name: GetMessageHandler
-          returns: android.renderscript.RenderScript$RSMessageHandler
-          error: true
-        - java_method: sendMessage
-          go_name: SendMessage
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: '[I'
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setPriority
-          go_name: SetPriority
-          params:
-            - java_type: android.renderscript.RenderScript$Priority
-              go_name: arg0
-          returns: void
-          error: true
-      static_methods:
-        - java_method: create
-          go_name: Create1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: android.renderscript.RenderScript
-          error: true
-        - java_method: create
-          go_name: Create2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.renderscript.RenderScript$ContextType
-              go_name: arg1
-          returns: android.renderscript.RenderScript
-          error: true
-        - java_method: create
-          go_name: Create3_2
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.renderscript.RenderScript$ContextType
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: android.renderscript.RenderScript
-          error: true
-        - java_method: createMultiContext
-          go_name: CreateMultiContext
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.renderscript.RenderScript$ContextType
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: android.renderscript.RenderScript
-          error: true
-        - java_method: getMinorVersion
-          go_name: GetMinorVersion
-          returns: long
-          error: true
-        - java_method: releaseAllContexts
-          go_name: ReleaseAllContexts
-          returns: void
-          error: true
-    - java_class: android.renderscript.ScriptIntrinsicColorMatrix
-      go_type: ScriptIntrinsicColorMatrix
-      methods:
-        - java_method: forEach
-          go_name: ForEach2
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: forEach
-          go_name: ForEach3_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
-              go_name: arg1
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: getKernelID
-          go_name: GetKernelID
-          returns: android.renderscript.Script$KernelID
-          error: true
-        - java_method: setAdd
-          go_name: SetAdd1
-          params:
-            - java_type: android.renderscript.Float4
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setAdd
-          go_name: SetAdd4_1
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: setColorMatrix
-          go_name: SetColorMatrix1
-          params:
-            - java_type: android.renderscript.Matrix3f
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setColorMatrix
-          go_name: SetColorMatrix1_1
-          params:
-            - java_type: android.renderscript.Matrix4f
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setGreyscale
-          go_name: SetGreyscale
-          returns: void
-          error: true
-        - java_method: setRGBtoYUV
-          go_name: SetRGBtoYUV
-          returns: void
-          error: true
-        - java_method: setYUVtoRGB
-          go_name: SetYUVtoRGB
-          returns: void
-          error: true
-      static_methods:
-        - java_method: create
-          go_name: Create1
-          params:
-            - java_type: android.renderscript.RenderScript
-              go_name: arg0
-          returns: android.renderscript.ScriptIntrinsicColorMatrix
-          error: true
-        - java_method: create
-          go_name: Create2_1
-          params:
-            - java_type: android.renderscript.RenderScript
-              go_name: arg0
-            - java_type: android.renderscript.Element
-              go_name: arg1
-          returns: android.renderscript.ScriptIntrinsicColorMatrix
-          error: true
-    - java_class: android.renderscript.ScriptIntrinsicHistogram
-      go_type: ScriptIntrinsicHistogram
-      methods:
-        - java_method: forEach
-          go_name: ForEach1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: forEach
-          go_name: ForEach2_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: forEach_Dot
-          go_name: ForEach_Dot1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: forEach_Dot
-          go_name: ForEach_Dot2_1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-            - java_type: android.renderscript.Script$LaunchOptions
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getFieldID_Input
-          go_name: GetFieldID_Input
-          returns: android.renderscript.Script$FieldID
-          error: true
-        - java_method: getKernelID_Separate
-          go_name: GetKernelID_Separate
-          returns: android.renderscript.Script$KernelID
-          error: true
-        - java_method: setDotCoefficients
-          go_name: SetDotCoefficients
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: setOutput
-          go_name: SetOutput
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
-          returns: void
-          error: true
-      static_methods:
-        - java_method: create
-          go_name: Create
-          params:
-            - java_type: android.renderscript.RenderScript
-              go_name: arg0
-            - java_type: android.renderscript.Element
-              go_name: arg1
-          returns: android.renderscript.ScriptIntrinsicHistogram
-          error: true
-    - java_class: android.renderscript.RenderScript$ContextType
-      go_type: RenderScriptContextType
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.renderscript.RenderScript$ContextType[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.renderscript.RenderScript$ContextType
-          error: true
-    - java_class: android.renderscript.RenderScript$Priority
-      go_type: RenderScriptPriority
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.renderscript.RenderScript$Priority[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.renderscript.RenderScript$Priority
-          error: true
-    - java_class: android.renderscript.RenderScript$RSErrorHandler
-      go_type: RenderScriptRSErrorHandler
-      methods:
-        - java_method: run
-          go_name: Run
-          returns: void
-          error: true
-    - java_class: android.renderscript.RenderScript$RSMessageHandler
-      go_type: RenderScriptRSMessageHandler
-      methods:
-        - java_method: run
-          go_name: Run
-          returns: void
-          error: true
-    - java_class: android.renderscript.Short2
-      go_type: Short2
-      obtain: constructor
-    - java_class: android.renderscript.Type
-      go_type: Type
-      methods:
-        - java_method: getCount
-          go_name: GetCount
-          returns: int
-          error: true
-        - java_method: getElement
-          go_name: GetElement
-          returns: android.renderscript.Element
-          error: true
-        - java_method: getX
-          go_name: GetX
-          returns: int
-          error: true
-        - java_method: getY
-          go_name: GetY
-          returns: int
-          error: true
-        - java_method: getYuv
-          go_name: GetYuv
-          returns: int
-          error: true
-        - java_method: getZ
-          go_name: GetZ
-          returns: int
-          error: true
-        - java_method: hasFaces
-          go_name: HasFaces
-          returns: boolean
-          error: true
-        - java_method: hasMipmaps
-          go_name: HasMipmaps
-          returns: boolean
-          error: true
-      static_methods:
-        - java_method: createX
-          go_name: CreateX
-          params:
-            - java_type: android.renderscript.RenderScript
-              go_name: arg0
-            - java_type: android.renderscript.Element
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: android.renderscript.Type
-          error: true
-        - java_method: createXY
-          go_name: CreateXY
-          params:
-            - java_type: android.renderscript.RenderScript
-              go_name: arg0
-            - java_type: android.renderscript.Element
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: android.renderscript.Type
-          error: true
-        - java_method: createXYZ
-          go_name: CreateXYZ
-          params:
-            - java_type: android.renderscript.RenderScript
-              go_name: arg0
-            - java_type: android.renderscript.Element
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-          returns: android.renderscript.Type
-          error: true
-    - java_class: android.renderscript.Type$Builder
-      go_type: TypeBuilder
-      methods:
-        - java_method: create
-          go_name: Create
-          returns: android.renderscript.Type
-          error: true
-        - java_method: setFaces
-          go_name: SetFaces
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.renderscript.Type$Builder
-          error: true
-        - java_method: setMipmaps
-          go_name: SetMipmaps
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.renderscript.Type$Builder
-          error: true
-        - java_method: setX
-          go_name: SetX
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.renderscript.Type$Builder
-          error: true
-        - java_method: setY
-          go_name: SetY
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.renderscript.Type$Builder
-          error: true
-        - java_method: setYuvFormat
-          go_name: SetYuvFormat
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.renderscript.Type$Builder
-          error: true
-        - java_method: setZ
-          go_name: SetZ
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.renderscript.Type$Builder
-          error: true
-    - java_class: android.renderscript.Type$CubemapFace
-      go_type: TypeCubemapFace
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.renderscript.Type$CubemapFace[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.renderscript.Type$CubemapFace
-          error: true
-    - java_class: android.renderscript.Float3
-      go_type: Float3
+    - java_class: android.renderscript.Double2
+      go_type: Double2
       obtain: constructor
     - java_class: android.renderscript.Allocation
       go_type: Allocation
@@ -5241,15 +3853,388 @@ classes:
               go_name: arg0
           returns: void
           error: true
+    - java_class: android.renderscript.Double3
+      go_type: Double3
+      obtain: constructor
+    - java_class: android.renderscript.Long2
+      go_type: Long2
+      obtain: constructor
+    - java_class: android.renderscript.ScriptIntrinsicHistogram
+      go_type: ScriptIntrinsicHistogram
+      methods:
+        - java_method: forEach
+          go_name: ForEach1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: forEach
+          go_name: ForEach2_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: forEach_Dot
+          go_name: ForEachDot1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: forEach_Dot
+          go_name: ForEachDot2_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getFieldID_Input
+          go_name: GetFieldIDInput
+          returns: android.renderscript.Script$FieldID
+          error: true
+        - java_method: getKernelID_Separate
+          go_name: GetKernelIDSeparate
+          returns: android.renderscript.Script$KernelID
+          error: true
+        - java_method: setDotCoefficients
+          go_name: SetDotCoefficients
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: setOutput
+          go_name: SetOutput
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
+        - java_method: create
+          go_name: Create
+          params:
+            - java_type: android.renderscript.RenderScript
+              go_name: arg0
+            - java_type: android.renderscript.Element
+              go_name: arg1
+          returns: android.renderscript.ScriptIntrinsicHistogram
+          error: true
+    - java_class: android.renderscript.Float3
+      go_type: Float3
+      obtain: constructor
+    - java_class: android.renderscript.ScriptIntrinsic3DLUT
+      go_type: ScriptIntrinsic3DLUT
+      methods:
+        - java_method: forEach
+          go_name: ForEach2
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: forEach
+          go_name: ForEach3_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: getKernelID
+          go_name: GetKernelID
+          returns: android.renderscript.Script$KernelID
+          error: true
+        - java_method: setLUT
+          go_name: SetLUT
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
+        - java_method: create
+          go_name: Create
+          params:
+            - java_type: android.renderscript.RenderScript
+              go_name: arg0
+            - java_type: android.renderscript.Element
+              go_name: arg1
+          returns: android.renderscript.ScriptIntrinsic3DLUT
+          error: true
     - java_class: android.renderscript.RSRuntimeException
       go_type: RSRuntimeException
       obtain: constructor
       constructor_params:
         - java_type: String
           go_name: arg0
-    - java_class: android.renderscript.Float4
-      go_type: Float4
+    - java_class: android.renderscript.ScriptIntrinsicBlur
+      go_type: ScriptIntrinsicBlur
+      methods:
+        - java_method: forEach
+          go_name: ForEach1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: forEach
+          go_name: ForEach2_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getFieldID_Input
+          go_name: GetFieldIDInput
+          returns: android.renderscript.Script$FieldID
+          error: true
+        - java_method: getKernelID
+          go_name: GetKernelID
+          returns: android.renderscript.Script$KernelID
+          error: true
+        - java_method: setInput
+          go_name: SetInput
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setRadius
+          go_name: SetRadius
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
+        - java_method: create
+          go_name: Create
+          params:
+            - java_type: android.renderscript.RenderScript
+              go_name: arg0
+            - java_type: android.renderscript.Element
+              go_name: arg1
+          returns: android.renderscript.ScriptIntrinsicBlur
+          error: true
+    - java_class: android.renderscript.ScriptGroup
+      go_type: ScriptGroup
+      methods:
+        - java_method: destroy
+          go_name: Destroy
+          returns: void
+          error: true
+        - java_method: execute
+          go_name: Execute0
+          returns: void
+          error: true
+        - java_method: execute
+          go_name: Execute1_1
+          params:
+            - java_type: java.lang.Object...
+              go_name: arg0
+          returns: java.lang.Object[]
+          error: true
+        - java_method: setInput
+          go_name: SetInput
+          params:
+            - java_type: android.renderscript.Script$KernelID
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setOutput
+          go_name: SetOutput
+          params:
+            - java_type: android.renderscript.Script$KernelID
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.renderscript.ScriptGroup$Binding
+      go_type: ScriptGroupBinding
       obtain: constructor
+      constructor_params:
+        - java_type: android.renderscript.Script$FieldID
+          go_name: arg0
+        - java_type: java.lang.Object
+          go_name: arg1
+    - java_class: android.renderscript.ScriptGroup$Builder
+      go_type: ScriptGroupBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.renderscript.RenderScript
+          go_name: arg0
+      methods:
+        - java_method: addConnection
+          go_name: AddConnection3
+          params:
+            - java_type: android.renderscript.Type
+              go_name: arg0
+            - java_type: android.renderscript.Script$KernelID
+              go_name: arg1
+            - java_type: android.renderscript.Script$FieldID
+              go_name: arg2
+          returns: android.renderscript.ScriptGroup$Builder
+          error: true
+        - java_method: addConnection
+          go_name: AddConnection3_1
+          params:
+            - java_type: android.renderscript.Type
+              go_name: arg0
+            - java_type: android.renderscript.Script$KernelID
+              go_name: arg1
+            - java_type: android.renderscript.Script$KernelID
+              go_name: arg2
+          returns: android.renderscript.ScriptGroup$Builder
+          error: true
+        - java_method: addKernel
+          go_name: AddKernel
+          params:
+            - java_type: android.renderscript.Script$KernelID
+              go_name: arg0
+          returns: android.renderscript.ScriptGroup$Builder
+          error: true
+        - java_method: create
+          go_name: Create
+          returns: android.renderscript.ScriptGroup
+          error: true
+    - java_class: android.renderscript.ScriptGroup$Builder2
+      go_type: ScriptGroupBuilder2
+      obtain: constructor
+      constructor_params:
+        - java_type: android.renderscript.RenderScript
+          go_name: arg0
+      methods:
+        - java_method: addInput
+          go_name: AddInput
+          returns: android.renderscript.ScriptGroup$Input
+          error: true
+        - java_method: addInvoke
+          go_name: AddInvoke
+          params:
+            - java_type: android.renderscript.Script$InvokeID
+              go_name: arg0
+            - java_type: java.lang.Object...
+              go_name: arg1
+          returns: android.renderscript.ScriptGroup$Closure
+          error: true
+        - java_method: addKernel
+          go_name: AddKernel
+          params:
+            - java_type: android.renderscript.Script$KernelID
+              go_name: arg0
+            - java_type: android.renderscript.Type
+              go_name: arg1
+            - java_type: java.lang.Object...
+              go_name: arg2
+          returns: android.renderscript.ScriptGroup$Closure
+          error: true
+        - java_method: create
+          go_name: Create
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.renderscript.ScriptGroup$Future...
+              go_name: arg1
+          returns: android.renderscript.ScriptGroup
+          error: true
+    - java_class: android.renderscript.ScriptGroup$Closure
+      go_type: ScriptGroupClosure
+      methods:
+        - java_method: destroy
+          go_name: Destroy
+          returns: void
+          error: true
+        - java_method: getGlobal
+          go_name: GetGlobal
+          params:
+            - java_type: android.renderscript.Script$FieldID
+              go_name: arg0
+          returns: android.renderscript.ScriptGroup$Future
+          error: true
+        - java_method: getReturn
+          go_name: GetReturn
+          returns: android.renderscript.ScriptGroup$Future
+          error: true
+    - java_class: android.renderscript.ScriptGroup$Future
+      go_type: ScriptGroupFuture
+    - java_class: android.renderscript.ScriptGroup$Input
+      go_type: ScriptGroupInput
+    - java_class: android.renderscript.ScriptC
+      go_type: ScriptC
+    - java_class: android.renderscript.ScriptIntrinsicConvolve3x3
+      go_type: ScriptIntrinsicConvolve3x3
+      methods:
+        - java_method: forEach
+          go_name: ForEach1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: forEach
+          go_name: ForEach2_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getFieldID_Input
+          go_name: GetFieldIDInput
+          returns: android.renderscript.Script$FieldID
+          error: true
+        - java_method: getKernelID
+          go_name: GetKernelID
+          returns: android.renderscript.Script$KernelID
+          error: true
+        - java_method: setCoefficients
+          go_name: SetCoefficients
+          params:
+            - java_type: float[]
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setInput
+          go_name: SetInput
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
+        - java_method: create
+          go_name: Create
+          params:
+            - java_type: android.renderscript.RenderScript
+              go_name: arg0
+            - java_type: android.renderscript.Element
+              go_name: arg1
+          returns: android.renderscript.ScriptIntrinsicConvolve3x3
+          error: true
     - java_class: android.renderscript.Element
       go_type: Element
       methods:
@@ -5321,7 +4306,7 @@ classes:
           returns: android.renderscript.Element
           error: true
         - java_method: A_8
-          go_name: A_8
+          go_name: A8
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
@@ -5349,21 +4334,21 @@ classes:
           returns: android.renderscript.Element
           error: true
         - java_method: F16_2
-          go_name: F16_2
+          go_name: F162
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: F16_3
-          go_name: F16_3
+          go_name: F163
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: F16_4
-          go_name: F16_4
+          go_name: F164
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
@@ -5377,21 +4362,21 @@ classes:
           returns: android.renderscript.Element
           error: true
         - java_method: F32_2
-          go_name: F32_2
+          go_name: F322
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: F32_3
-          go_name: F32_3
+          go_name: F323
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: F32_4
-          go_name: F32_4
+          go_name: F324
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
@@ -5405,21 +4390,21 @@ classes:
           returns: android.renderscript.Element
           error: true
         - java_method: F64_2
-          go_name: F64_2
+          go_name: F642
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: F64_3
-          go_name: F64_3
+          go_name: F643
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: F64_4
-          go_name: F64_4
+          go_name: F644
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
@@ -5440,21 +4425,21 @@ classes:
           returns: android.renderscript.Element
           error: true
         - java_method: I16_2
-          go_name: I16_2
+          go_name: I162
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: I16_3
-          go_name: I16_3
+          go_name: I163
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: I16_4
-          go_name: I16_4
+          go_name: I164
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
@@ -5468,21 +4453,21 @@ classes:
           returns: android.renderscript.Element
           error: true
         - java_method: I32_2
-          go_name: I32_2
+          go_name: I322
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: I32_3
-          go_name: I32_3
+          go_name: I323
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: I32_4
-          go_name: I32_4
+          go_name: I324
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
@@ -5496,21 +4481,21 @@ classes:
           returns: android.renderscript.Element
           error: true
         - java_method: I64_2
-          go_name: I64_2
+          go_name: I642
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: I64_3
-          go_name: I64_3
+          go_name: I643
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: I64_4
-          go_name: I64_4
+          go_name: I644
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
@@ -5524,49 +4509,49 @@ classes:
           returns: android.renderscript.Element
           error: true
         - java_method: I8_2
-          go_name: I8_2
+          go_name: I82
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: I8_3
-          go_name: I8_3
+          go_name: I83
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: I8_4
-          go_name: I8_4
+          go_name: I84
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: MATRIX4X4
-          go_name: MATRIX4X4
+          go_name: MATRIX4X41
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: MATRIX_2X2
-          go_name: MATRIX_2X2
+          go_name: MATRIX2X2
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: MATRIX_3X3
-          go_name: MATRIX_3X3
+          go_name: MATRIX3X3
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: MATRIX_4X4
-          go_name: MATRIX_4X4
+          go_name: MATRIX4X41_1
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
@@ -5580,63 +4565,63 @@ classes:
           returns: android.renderscript.Element
           error: true
         - java_method: PROGRAM_FRAGMENT
-          go_name: PROGRAM_FRAGMENT
+          go_name: PROGRAMFRAGMENT
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: PROGRAM_RASTER
-          go_name: PROGRAM_RASTER
+          go_name: PROGRAMRASTER
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: PROGRAM_STORE
-          go_name: PROGRAM_STORE
+          go_name: PROGRAMSTORE
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: PROGRAM_VERTEX
-          go_name: PROGRAM_VERTEX
+          go_name: PROGRAMVERTEX
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: RGBA_4444
-          go_name: RGBA_4444
+          go_name: RGBA4444
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: RGBA_5551
-          go_name: RGBA_5551
+          go_name: RGBA5551
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: RGBA_8888
-          go_name: RGBA_8888
+          go_name: RGBA8888
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: RGB_565
-          go_name: RGB_565
+          go_name: RGB565
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: RGB_888
-          go_name: RGB_888
+          go_name: RGB888
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
@@ -5671,21 +4656,21 @@ classes:
           returns: android.renderscript.Element
           error: true
         - java_method: U16_2
-          go_name: U16_2
+          go_name: U162
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: U16_3
-          go_name: U16_3
+          go_name: U163
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: U16_4
-          go_name: U16_4
+          go_name: U164
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
@@ -5699,21 +4684,21 @@ classes:
           returns: android.renderscript.Element
           error: true
         - java_method: U32_2
-          go_name: U32_2
+          go_name: U322
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: U32_3
-          go_name: U32_3
+          go_name: U323
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: U32_4
-          go_name: U32_4
+          go_name: U324
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
@@ -5727,21 +4712,21 @@ classes:
           returns: android.renderscript.Element
           error: true
         - java_method: U64_2
-          go_name: U64_2
+          go_name: U642
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: U64_3
-          go_name: U64_3
+          go_name: U643
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: U64_4
-          go_name: U64_4
+          go_name: U644
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
@@ -5755,21 +4740,21 @@ classes:
           returns: android.renderscript.Element
           error: true
         - java_method: U8_2
-          go_name: U8_2
+          go_name: U82
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: U8_3
-          go_name: U8_3
+          go_name: U83
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
           returns: android.renderscript.Element
           error: true
         - java_method: U8_4
-          go_name: U8_4
+          go_name: U84
           params:
             - java_type: android.renderscript.RenderScript
               go_name: arg0
@@ -5806,6 +4791,10 @@ classes:
           error: true
     - java_class: android.renderscript.Element$Builder
       go_type: ElementBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.renderscript.RenderScript
+          go_name: arg0
       methods:
         - java_method: add
           go_name: Add2
@@ -5862,51 +4851,716 @@ classes:
     - java_class: android.renderscript.Byte4
       go_type: Byte4
       obtain: constructor
+    - java_class: android.renderscript.Float2
+      go_type: Float2
+      obtain: constructor
+    - java_class: android.renderscript.ScriptIntrinsicBlend
+      go_type: ScriptIntrinsicBlend
+      methods:
+        - java_method: forEachAdd
+          go_name: ForEachAdd2
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: forEachAdd
+          go_name: ForEachAdd3_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: forEachClear
+          go_name: ForEachClear2
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: forEachClear
+          go_name: ForEachClear3_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: forEachDst
+          go_name: ForEachDst2
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: forEachDst
+          go_name: ForEachDst3_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: forEachDstAtop
+          go_name: ForEachDstAtop2
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: forEachDstAtop
+          go_name: ForEachDstAtop3_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: forEachDstIn
+          go_name: ForEachDstIn2
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: forEachDstIn
+          go_name: ForEachDstIn3_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: forEachDstOut
+          go_name: ForEachDstOut2
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: forEachDstOut
+          go_name: ForEachDstOut3_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: forEachDstOver
+          go_name: ForEachDstOver2
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: forEachDstOver
+          go_name: ForEachDstOver3_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: forEachMultiply
+          go_name: ForEachMultiply2
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: forEachMultiply
+          go_name: ForEachMultiply3_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: forEachSrc
+          go_name: ForEachSrc2
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: forEachSrc
+          go_name: ForEachSrc3_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: forEachSrcAtop
+          go_name: ForEachSrcAtop2
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: forEachSrcAtop
+          go_name: ForEachSrcAtop3_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: forEachSrcIn
+          go_name: ForEachSrcIn2
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: forEachSrcIn
+          go_name: ForEachSrcIn3_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: forEachSrcOut
+          go_name: ForEachSrcOut2
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: forEachSrcOut
+          go_name: ForEachSrcOut3_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: forEachSrcOver
+          go_name: ForEachSrcOver2
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: forEachSrcOver
+          go_name: ForEachSrcOver3_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: forEachSubtract
+          go_name: ForEachSubtract2
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: forEachSubtract
+          go_name: ForEachSubtract3_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: forEachXor
+          go_name: ForEachXor2
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: forEachXor
+          go_name: ForEachXor3_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: getKernelIDAdd
+          go_name: GetKernelIDAdd
+          returns: android.renderscript.Script$KernelID
+          error: true
+        - java_method: getKernelIDClear
+          go_name: GetKernelIDClear
+          returns: android.renderscript.Script$KernelID
+          error: true
+        - java_method: getKernelIDDst
+          go_name: GetKernelIDDst
+          returns: android.renderscript.Script$KernelID
+          error: true
+        - java_method: getKernelIDDstAtop
+          go_name: GetKernelIDDstAtop
+          returns: android.renderscript.Script$KernelID
+          error: true
+        - java_method: getKernelIDDstIn
+          go_name: GetKernelIDDstIn
+          returns: android.renderscript.Script$KernelID
+          error: true
+        - java_method: getKernelIDDstOut
+          go_name: GetKernelIDDstOut
+          returns: android.renderscript.Script$KernelID
+          error: true
+        - java_method: getKernelIDDstOver
+          go_name: GetKernelIDDstOver
+          returns: android.renderscript.Script$KernelID
+          error: true
+        - java_method: getKernelIDMultiply
+          go_name: GetKernelIDMultiply
+          returns: android.renderscript.Script$KernelID
+          error: true
+        - java_method: getKernelIDSrc
+          go_name: GetKernelIDSrc
+          returns: android.renderscript.Script$KernelID
+          error: true
+        - java_method: getKernelIDSrcAtop
+          go_name: GetKernelIDSrcAtop
+          returns: android.renderscript.Script$KernelID
+          error: true
+        - java_method: getKernelIDSrcIn
+          go_name: GetKernelIDSrcIn
+          returns: android.renderscript.Script$KernelID
+          error: true
+        - java_method: getKernelIDSrcOut
+          go_name: GetKernelIDSrcOut
+          returns: android.renderscript.Script$KernelID
+          error: true
+        - java_method: getKernelIDSrcOver
+          go_name: GetKernelIDSrcOver
+          returns: android.renderscript.Script$KernelID
+          error: true
+        - java_method: getKernelIDSubtract
+          go_name: GetKernelIDSubtract
+          returns: android.renderscript.Script$KernelID
+          error: true
+        - java_method: getKernelIDXor
+          go_name: GetKernelIDXor
+          returns: android.renderscript.Script$KernelID
+          error: true
+      static_methods:
+        - java_method: create
+          go_name: Create
+          params:
+            - java_type: android.renderscript.RenderScript
+              go_name: arg0
+            - java_type: android.renderscript.Element
+              go_name: arg1
+          returns: android.renderscript.ScriptIntrinsicBlend
+          error: true
+    - java_class: android.renderscript.Int2
+      go_type: Int2
+      obtain: constructor
+    - java_class: android.renderscript.Long4
+      go_type: Long4
+      obtain: constructor
     - java_class: android.renderscript.RSDriverException
       go_type: RSDriverException
       obtain: constructor
       constructor_params:
         - java_type: String
           go_name: arg0
-    - java_class: android.renderscript.ScriptIntrinsicBlur
-      go_type: ScriptIntrinsicBlur
+    - java_class: android.renderscript.Double4
+      go_type: Double4
+      obtain: constructor
+    - java_class: android.renderscript.Short2
+      go_type: Short2
+      obtain: constructor
+    - java_class: android.renderscript.Short3
+      go_type: Short3
+      obtain: constructor
+    - java_class: android.renderscript.Byte2
+      go_type: Byte2
+      obtain: constructor
+    - java_class: android.renderscript.Int3
+      go_type: Int3
+      obtain: constructor
+    - java_class: android.renderscript.RenderScript
+      go_type: RenderScript
       methods:
-        - java_method: forEach
-          go_name: ForEach1
-          params:
-            - java_type: android.renderscript.Allocation
-              go_name: arg0
+        - java_method: contextDump
+          go_name: ContextDump
           returns: void
           error: true
-        - java_method: forEach
-          go_name: ForEach2_1
+        - java_method: destroy
+          go_name: Destroy
+          returns: void
+          error: true
+        - java_method: finish
+          go_name: Finish
+          returns: void
+          error: true
+        - java_method: getApplicationContext
+          go_name: GetApplicationContext
+          returns: android.content.Context
+          error: true
+        - java_method: getErrorHandler
+          go_name: GetErrorHandler
+          returns: android.renderscript.RenderScript$RSErrorHandler
+          error: true
+        - java_method: getMessageHandler
+          go_name: GetMessageHandler
+          returns: android.renderscript.RenderScript$RSMessageHandler
+          error: true
+        - java_method: sendMessage
+          go_name: SendMessage
           params:
-            - java_type: android.renderscript.Allocation
+            - java_type: int
               go_name: arg0
-            - java_type: android.renderscript.Script$LaunchOptions
+            - java_type: '[I'
               go_name: arg1
           returns: void
           error: true
-        - java_method: getFieldID_Input
-          go_name: GetFieldID_Input
-          returns: android.renderscript.Script$FieldID
+        - java_method: setPriority
+          go_name: SetPriority
+          params:
+            - java_type: android.renderscript.RenderScript$Priority
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
+        - java_method: create
+          go_name: Create1
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: android.renderscript.RenderScript
+          error: true
+        - java_method: create
+          go_name: Create2_1
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.renderscript.RenderScript$ContextType
+              go_name: arg1
+          returns: android.renderscript.RenderScript
+          error: true
+        - java_method: create
+          go_name: Create3_2
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.renderscript.RenderScript$ContextType
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: android.renderscript.RenderScript
+          error: true
+        - java_method: createMultiContext
+          go_name: CreateMultiContext
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.renderscript.RenderScript$ContextType
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: android.renderscript.RenderScript
+          error: true
+        - java_method: getMinorVersion
+          go_name: GetMinorVersion
+          returns: long
+          error: true
+        - java_method: releaseAllContexts
+          go_name: ReleaseAllContexts
+          returns: void
+          error: true
+    - java_class: android.renderscript.Short4
+      go_type: Short4
+      obtain: constructor
+    - java_class: android.renderscript.RenderScript$ContextType
+      go_type: RenderScriptContextType
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.renderscript.RenderScript$ContextType[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.renderscript.RenderScript$ContextType
+          error: true
+    - java_class: android.renderscript.RenderScript$Priority
+      go_type: RenderScriptPriority
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.renderscript.RenderScript$Priority[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.renderscript.RenderScript$Priority
+          error: true
+    - java_class: android.renderscript.RenderScript$RSErrorHandler
+      go_type: RenderScriptRSErrorHandler
+      obtain: constructor
+      methods:
+        - java_method: run
+          go_name: Run
+          returns: void
+          error: true
+    - java_class: android.renderscript.RenderScript$RSMessageHandler
+      go_type: RenderScriptRSMessageHandler
+      obtain: constructor
+      methods:
+        - java_method: run
+          go_name: Run
+          returns: void
+          error: true
+    - java_class: android.renderscript.Long3
+      go_type: Long3
+      obtain: constructor
+    - java_class: android.renderscript.RSInvalidStateException
+      go_type: RSInvalidStateException
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+    - java_class: android.renderscript.Matrix2f
+      go_type: Matrix2f
+      obtain: constructor
+      methods:
+        - java_method: get
+          go_name: Get
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: float
+          error: true
+        - java_method: getArray
+          go_name: GetArray
+          returns: float[]
+          error: true
+        - java_method: load
+          go_name: Load
+          params:
+            - java_type: android.renderscript.Matrix2f
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: loadIdentity
+          go_name: LoadIdentity
+          returns: void
+          error: true
+        - java_method: loadMultiply
+          go_name: LoadMultiply
+          params:
+            - java_type: android.renderscript.Matrix2f
+              go_name: arg0
+            - java_type: android.renderscript.Matrix2f
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: loadRotate
+          go_name: LoadRotate
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: loadScale
+          go_name: LoadScale
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: multiply
+          go_name: Multiply
+          params:
+            - java_type: android.renderscript.Matrix2f
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: rotate
+          go_name: Rotate
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: scale
+          go_name: Scale
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: set
+          go_name: Set
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: transpose
+          go_name: Transpose
+          returns: void
+          error: true
+    - java_class: android.renderscript.Float4
+      go_type: Float4
+      obtain: constructor
+    - java_class: android.renderscript.ScriptIntrinsicLUT
+      go_type: ScriptIntrinsicLUT
+      methods:
+        - java_method: destroy
+          go_name: Destroy
+          returns: void
+          error: true
+        - java_method: forEach
+          go_name: ForEach2
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: forEach
+          go_name: ForEach3_1
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+            - java_type: android.renderscript.Script$LaunchOptions
+              go_name: arg2
+          returns: void
           error: true
         - java_method: getKernelID
           go_name: GetKernelID
           returns: android.renderscript.Script$KernelID
           error: true
-        - java_method: setInput
-          go_name: SetInput
+        - java_method: setAlpha
+          go_name: SetAlpha
           params:
-            - java_type: android.renderscript.Allocation
+            - java_type: int
               go_name: arg0
+            - java_type: int
+              go_name: arg1
           returns: void
           error: true
-        - java_method: setRadius
-          go_name: SetRadius
+        - java_method: setBlue
+          go_name: SetBlue
           params:
-            - java_type: float
+            - java_type: int
               go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setGreen
+          go_name: SetGreen
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setRed
+          go_name: SetRed
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
           returns: void
           error: true
       static_methods:
@@ -5917,7 +5571,7 @@ classes:
               go_name: arg0
             - java_type: android.renderscript.Element
               go_name: arg1
-          returns: android.renderscript.ScriptIntrinsicBlur
+          returns: android.renderscript.ScriptIntrinsicLUT
           error: true
     - java_class: android.renderscript.BaseObj
       go_type: BaseObj
@@ -5948,154 +5602,158 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.renderscript.Int2
-      go_type: Int2
+    - java_class: android.renderscript.RSIllegalArgumentException
+      go_type: RSIllegalArgumentException
       obtain: constructor
-    - java_class: android.renderscript.ScriptC
-      go_type: ScriptC
-    - java_class: android.renderscript.Double2
-      go_type: Double2
-      obtain: constructor
-    - java_class: android.renderscript.Int3
-      go_type: Int3
-      obtain: constructor
-    - java_class: android.renderscript.Byte3
-      go_type: Byte3
-      obtain: constructor
-    - java_class: android.renderscript.ScriptGroup
-      go_type: ScriptGroup
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+    - java_class: android.renderscript.Type
+      go_type: Type
       methods:
-        - java_method: destroy
-          go_name: Destroy
-          returns: void
+        - java_method: getCount
+          go_name: GetCount
+          returns: int
           error: true
-        - java_method: execute
-          go_name: Execute0
-          returns: void
+        - java_method: getElement
+          go_name: GetElement
+          returns: android.renderscript.Element
           error: true
-        - java_method: execute
-          go_name: Execute1_1
+        - java_method: getX
+          go_name: GetX
+          returns: int
+          error: true
+        - java_method: getY
+          go_name: GetY
+          returns: int
+          error: true
+        - java_method: getYuv
+          go_name: GetYuv
+          returns: int
+          error: true
+        - java_method: getZ
+          go_name: GetZ
+          returns: int
+          error: true
+        - java_method: hasFaces
+          go_name: HasFaces
+          returns: boolean
+          error: true
+        - java_method: hasMipmaps
+          go_name: HasMipmaps
+          returns: boolean
+          error: true
+      static_methods:
+        - java_method: createX
+          go_name: CreateX
           params:
-            - java_type: java.lang.Object...
+            - java_type: android.renderscript.RenderScript
               go_name: arg0
-          returns: java.lang.Object[]
-          error: true
-        - java_method: setInput
-          go_name: SetInput
-          params:
-            - java_type: android.renderscript.Script$KernelID
-              go_name: arg0
-            - java_type: android.renderscript.Allocation
+            - java_type: android.renderscript.Element
               go_name: arg1
-          returns: void
+            - java_type: int
+              go_name: arg2
+          returns: android.renderscript.Type
           error: true
-        - java_method: setOutput
-          go_name: SetOutput
+        - java_method: createXY
+          go_name: CreateXY
           params:
-            - java_type: android.renderscript.Script$KernelID
+            - java_type: android.renderscript.RenderScript
               go_name: arg0
-            - java_type: android.renderscript.Allocation
+            - java_type: android.renderscript.Element
               go_name: arg1
-          returns: void
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: android.renderscript.Type
           error: true
-    - java_class: android.renderscript.ScriptGroup$Binding
-      go_type: ScriptGroupBinding
-    - java_class: android.renderscript.ScriptGroup$Builder
-      go_type: ScriptGroupBuilder
+        - java_method: createXYZ
+          go_name: CreateXYZ
+          params:
+            - java_type: android.renderscript.RenderScript
+              go_name: arg0
+            - java_type: android.renderscript.Element
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+          returns: android.renderscript.Type
+          error: true
+    - java_class: android.renderscript.Type$Builder
+      go_type: TypeBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.renderscript.RenderScript
+          go_name: arg0
+        - java_type: android.renderscript.Element
+          go_name: arg1
       methods:
-        - java_method: addConnection
-          go_name: AddConnection3
-          params:
-            - java_type: android.renderscript.Type
-              go_name: arg0
-            - java_type: android.renderscript.Script$KernelID
-              go_name: arg1
-            - java_type: android.renderscript.Script$FieldID
-              go_name: arg2
-          returns: android.renderscript.ScriptGroup$Builder
-          error: true
-        - java_method: addConnection
-          go_name: AddConnection3_1
-          params:
-            - java_type: android.renderscript.Type
-              go_name: arg0
-            - java_type: android.renderscript.Script$KernelID
-              go_name: arg1
-            - java_type: android.renderscript.Script$KernelID
-              go_name: arg2
-          returns: android.renderscript.ScriptGroup$Builder
-          error: true
-        - java_method: addKernel
-          go_name: AddKernel
-          params:
-            - java_type: android.renderscript.Script$KernelID
-              go_name: arg0
-          returns: android.renderscript.ScriptGroup$Builder
-          error: true
         - java_method: create
           go_name: Create
-          returns: android.renderscript.ScriptGroup
+          returns: android.renderscript.Type
           error: true
-    - java_class: android.renderscript.ScriptGroup$Builder2
-      go_type: ScriptGroupBuilder2
-      methods:
-        - java_method: addInput
-          go_name: AddInput
-          returns: android.renderscript.ScriptGroup$Input
-          error: true
-        - java_method: addInvoke
-          go_name: AddInvoke
+        - java_method: setFaces
+          go_name: SetFaces
           params:
-            - java_type: android.renderscript.Script$InvokeID
+            - java_type: boolean
               go_name: arg0
-            - java_type: java.lang.Object...
-              go_name: arg1
-          returns: android.renderscript.ScriptGroup$Closure
+          returns: android.renderscript.Type$Builder
           error: true
-        - java_method: addKernel
-          go_name: AddKernel
+        - java_method: setMipmaps
+          go_name: SetMipmaps
           params:
-            - java_type: android.renderscript.Script$KernelID
+            - java_type: boolean
               go_name: arg0
-            - java_type: android.renderscript.Type
-              go_name: arg1
-            - java_type: java.lang.Object...
-              go_name: arg2
-          returns: android.renderscript.ScriptGroup$Closure
+          returns: android.renderscript.Type$Builder
           error: true
-        - java_method: create
-          go_name: Create
+        - java_method: setX
+          go_name: SetX
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.renderscript.Type$Builder
+          error: true
+        - java_method: setY
+          go_name: SetY
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.renderscript.Type$Builder
+          error: true
+        - java_method: setYuvFormat
+          go_name: SetYuvFormat
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.renderscript.Type$Builder
+          error: true
+        - java_method: setZ
+          go_name: SetZ
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.renderscript.Type$Builder
+          error: true
+    - java_class: android.renderscript.Type$CubemapFace
+      go_type: TypeCubemapFace
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.renderscript.Type$CubemapFace[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
           params:
             - java_type: String
               go_name: arg0
-            - java_type: android.renderscript.ScriptGroup$Future...
-              go_name: arg1
-          returns: android.renderscript.ScriptGroup
+          returns: android.renderscript.Type$CubemapFace
           error: true
-    - java_class: android.renderscript.ScriptGroup$Closure
-      go_type: ScriptGroupClosure
-      methods:
-        - java_method: destroy
-          go_name: Destroy
-          returns: void
-          error: true
-        - java_method: getGlobal
-          go_name: GetGlobal
-          params:
-            - java_type: android.renderscript.Script$FieldID
-              go_name: arg0
-          returns: android.renderscript.ScriptGroup$Future
-          error: true
-        - java_method: getReturn
-          go_name: GetReturn
-          returns: android.renderscript.ScriptGroup$Future
-          error: true
-    - java_class: android.renderscript.ScriptGroup$Future
-      go_type: ScriptGroupFuture
-    - java_class: android.renderscript.ScriptGroup$Input
-      go_type: ScriptGroupInput
-    - java_class: android.renderscript.ScriptIntrinsic3DLUT
-      go_type: ScriptIntrinsic3DLUT
+    - java_class: android.renderscript.ScriptIntrinsicColorMatrix
+      go_type: ScriptIntrinsicColorMatrix
       methods:
         - java_method: forEach
           go_name: ForEach2
@@ -6121,8 +5779,160 @@ classes:
           go_name: GetKernelID
           returns: android.renderscript.Script$KernelID
           error: true
-        - java_method: setLUT
-          go_name: SetLUT
+        - java_method: setAdd
+          go_name: SetAdd1
+          params:
+            - java_type: android.renderscript.Float4
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setAdd
+          go_name: SetAdd4_1
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: setColorMatrix
+          go_name: SetColorMatrix1
+          params:
+            - java_type: android.renderscript.Matrix3f
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setColorMatrix
+          go_name: SetColorMatrix1_1
+          params:
+            - java_type: android.renderscript.Matrix4f
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setGreyscale
+          go_name: SetGreyscale
+          returns: void
+          error: true
+        - java_method: setRGBtoYUV
+          go_name: SetRGBtoYUV
+          returns: void
+          error: true
+        - java_method: setYUVtoRGB
+          go_name: SetYUVtoRGB
+          returns: void
+          error: true
+      static_methods:
+        - java_method: create
+          go_name: Create1
+          params:
+            - java_type: android.renderscript.RenderScript
+              go_name: arg0
+          returns: android.renderscript.ScriptIntrinsicColorMatrix
+          error: true
+        - java_method: create
+          go_name: Create2_1
+          params:
+            - java_type: android.renderscript.RenderScript
+              go_name: arg0
+            - java_type: android.renderscript.Element
+              go_name: arg1
+          returns: android.renderscript.ScriptIntrinsicColorMatrix
+          error: true
+    - java_class: android.renderscript.Int4
+      go_type: Int4
+      obtain: constructor
+    - java_class: android.renderscript.AllocationAdapter
+      go_type: AllocationAdapter
+      methods:
+        - java_method: setFace
+          go_name: SetFace
+          params:
+            - java_type: android.renderscript.Type$CubemapFace
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setLOD
+          go_name: SetLOD
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setX
+          go_name: SetX
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setY
+          go_name: SetY
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setZ
+          go_name: SetZ
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
+        - java_method: create1D
+          go_name: Create1D
+          params:
+            - java_type: android.renderscript.RenderScript
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+          returns: android.renderscript.AllocationAdapter
+          error: true
+        - java_method: create2D
+          go_name: Create2D
+          params:
+            - java_type: android.renderscript.RenderScript
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+          returns: android.renderscript.AllocationAdapter
+          error: true
+        - java_method: createTyped
+          go_name: CreateTyped
+          params:
+            - java_type: android.renderscript.RenderScript
+              go_name: arg0
+            - java_type: android.renderscript.Allocation
+              go_name: arg1
+            - java_type: android.renderscript.Type
+              go_name: arg2
+          returns: android.renderscript.AllocationAdapter
+          error: true
+    - java_class: android.renderscript.ScriptIntrinsicYuvToRGB
+      go_type: ScriptIntrinsicYuvToRGB
+      methods:
+        - java_method: forEach
+          go_name: ForEach
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getFieldID_Input
+          go_name: GetFieldIDInput
+          returns: android.renderscript.Script$FieldID
+          error: true
+        - java_method: getKernelID
+          go_name: GetKernelID
+          returns: android.renderscript.Script$KernelID
+          error: true
+        - java_method: setInput
+          go_name: SetInput
           params:
             - java_type: android.renderscript.Allocation
               go_name: arg0
@@ -6136,8 +5946,233 @@ classes:
               go_name: arg0
             - java_type: android.renderscript.Element
               go_name: arg1
-          returns: android.renderscript.ScriptIntrinsic3DLUT
+          returns: android.renderscript.ScriptIntrinsicYuvToRGB
           error: true
+    - java_class: android.renderscript.Script
+      go_type: Script
+      methods:
+        - java_method: bindAllocation
+          go_name: BindAllocation
+          params:
+            - java_type: android.renderscript.Allocation
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getVarB
+          go_name: GetVarB
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getVarD
+          go_name: GetVarD
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: double
+          error: true
+        - java_method: getVarF
+          go_name: GetVarF
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getVarI
+          go_name: GetVarI
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getVarJ
+          go_name: GetVarJ
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: long
+          error: true
+        - java_method: getVarV
+          go_name: GetVarV
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.renderscript.FieldPacker
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setTimeZone
+          go_name: SetTimeZone
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setVar
+          go_name: SetVar2
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.renderscript.BaseObj
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setVar
+          go_name: SetVar2_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.renderscript.FieldPacker
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setVar
+          go_name: SetVar4_2
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.renderscript.FieldPacker
+              go_name: arg1
+            - java_type: android.renderscript.Element
+              go_name: arg2
+            - java_type: '[I'
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: setVar
+          go_name: SetVar2_3
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setVar
+          go_name: SetVar2_4
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: double
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setVar
+          go_name: SetVar2_5
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setVar
+          go_name: SetVar2_6
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setVar
+          go_name: SetVar2_7
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.renderscript.Script$Builder
+      go_type: ScriptBuilder
+    - java_class: android.renderscript.Script$FieldBase
+      go_type: ScriptFieldBase
+      methods:
+        - java_method: getAllocation
+          go_name: GetAllocation
+          returns: android.renderscript.Allocation
+          error: true
+        - java_method: getElement
+          go_name: GetElement
+          returns: android.renderscript.Element
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: android.renderscript.Type
+          error: true
+        - java_method: updateAllocation
+          go_name: UpdateAllocation
+          returns: void
+          error: true
+    - java_class: android.renderscript.Script$FieldID
+      go_type: ScriptFieldID
+    - java_class: android.renderscript.Script$InvokeID
+      go_type: ScriptInvokeID
+    - java_class: android.renderscript.Script$KernelID
+      go_type: ScriptKernelID
+    - java_class: android.renderscript.Script$LaunchOptions
+      go_type: ScriptLaunchOptions
+      obtain: constructor
+      methods:
+        - java_method: getXEnd
+          go_name: GetXEnd
+          returns: int
+          error: true
+        - java_method: getXStart
+          go_name: GetXStart
+          returns: int
+          error: true
+        - java_method: getYEnd
+          go_name: GetYEnd
+          returns: int
+          error: true
+        - java_method: getYStart
+          go_name: GetYStart
+          returns: int
+          error: true
+        - java_method: getZEnd
+          go_name: GetZEnd
+          returns: int
+          error: true
+        - java_method: getZStart
+          go_name: GetZStart
+          returns: int
+          error: true
+        - java_method: setX
+          go_name: SetX
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.renderscript.Script$LaunchOptions
+          error: true
+        - java_method: setY
+          go_name: SetY
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.renderscript.Script$LaunchOptions
+          error: true
+        - java_method: setZ
+          go_name: SetZ
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.renderscript.Script$LaunchOptions
+          error: true
+abstract_callback_eligibility:
+    - java_class: android.renderscript.ScriptIntrinsic
+      generated: false
+      reason: unsupported_constructor
 constants:
     - go_name: Clamp
       value: "0"
@@ -6186,54 +6221,6 @@ constants:
       go_type: int
     - go_name: Upper
       value: "121"
-      go_type: int
-    - go_name: CreateFlagLowLatency
-      value: "2"
-      go_type: int
-    - go_name: CreateFlagLowPower
-      value: "4"
-      go_type: int
-    - go_name: CreateFlagNone
-      value: "0"
-      go_type: int
-    - go_name: Debug
-      value: "0"
-      go_type: int
-    - go_name: Normal
-      value: "0"
-      go_type: int
-    - go_name: Profile
-      value: "0"
-      go_type: int
-    - go_name: Low
-      value: "0"
-      go_type: int
-    - go_name: NegativeX
-      value: "0"
-      go_type: int
-    - go_name: NegativeY
-      value: "0"
-      go_type: int
-    - go_name: NegativeZ
-      value: "0"
-      go_type: int
-    - go_name: PositiveX
-      value: "0"
-      go_type: int
-    - go_name: PositiveY
-      value: "0"
-      go_type: int
-    - go_name: PositiveZ
-      value: "0"
-      go_type: int
-    - go_name: PositveX
-      value: "0"
-      go_type: int
-    - go_name: PositveY
-      value: "0"
-      go_type: int
-    - go_name: PositveZ
-      value: "0"
       go_type: int
     - go_name: UsageGraphicsConstants
       value: "8"
@@ -6380,5 +6367,53 @@ constants:
       value: "0"
       go_type: int
     - go_name: Unsigned8
+      value: "0"
+      go_type: int
+    - go_name: CreateFlagLowLatency
+      value: "2"
+      go_type: int
+    - go_name: CreateFlagLowPower
+      value: "4"
+      go_type: int
+    - go_name: CreateFlagNone
+      value: "0"
+      go_type: int
+    - go_name: Debug
+      value: "0"
+      go_type: int
+    - go_name: Normal
+      value: "0"
+      go_type: int
+    - go_name: Profile
+      value: "0"
+      go_type: int
+    - go_name: Low
+      value: "0"
+      go_type: int
+    - go_name: NegativeX
+      value: "0"
+      go_type: int
+    - go_name: NegativeY
+      value: "0"
+      go_type: int
+    - go_name: NegativeZ
+      value: "0"
+      go_type: int
+    - go_name: PositiveX
+      value: "0"
+      go_type: int
+    - go_name: PositiveY
+      value: "0"
+      go_type: int
+    - go_name: PositiveZ
+      value: "0"
+      go_type: int
+    - go_name: PositveX
+      value: "0"
+      go_type: int
+    - go_name: PositveY
+      value: "0"
+      go_type: int
+    - go_name: PositveZ
       value: "0"
       go_type: int

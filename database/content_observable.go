@@ -32,6 +32,12 @@ func NewContentObservable(vm *jni.VM) (*ContentObservable, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsContentObservable == nil {
+			return fmt.Errorf("android.database.ContentObservable is not available on this device")
+		}
+		if midContentObservableCtor == nil {
+			return fmt.Errorf("android.database.ContentObservable constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContentObservable)), midContentObservableCtor)
 		if err != nil {
 			return err
@@ -126,8 +132,8 @@ func (m *ContentObservable) NotifyChange(arg0 bool) error {
 	return callErr
 }
 
-// RegisterObserver1 calls android.database.ContentObservable.registerObserver.
-func (m *ContentObservable) RegisterObserver1(arg0 *jni.Object) error {
+// RegisterObserver calls android.database.ContentObservable.registerObserver.
+func (m *ContentObservable) RegisterObserver(arg0 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -135,37 +141,14 @@ func (m *ContentObservable) RegisterObserver1(arg0 *jni.Object) error {
 			callErr = err
 			return err
 		}
-		if midContentObservableRegisterObserver1 == nil {
+		if midContentObservableRegisterObserver == nil {
 			callErr = fmt.Errorf("android.database.ContentObservable.registerObserver is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midContentObservableRegisterObserver1, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// RegisterObserver1_1 calls android.database.ContentObservable.registerObserver.
-func (m *ContentObservable) RegisterObserver1_1(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midContentObservableRegisterObserver1_1 == nil {
-			callErr = fmt.Errorf("android.database.ContentObservable.registerObserver is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midContentObservableRegisterObserver1_1, jni.ObjectValue(arg0),
+			midContentObservableRegisterObserver, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})

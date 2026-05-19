@@ -23,6 +23,41 @@ type FontBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFontBuilder creates a new android.graphics.fonts.Font$Builder instance.
+func NewFontBuilder(vm *jni.VM, arg0 *jni.Object, arg1 string) (*FontBuilder, error) {
+	var t FontBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFontBuilder == nil {
+			return fmt.Errorf("android.graphics.fonts.Font$Builder is not available on this device")
+		}
+		if midFontBuilderCtor == nil {
+			return fmt.Errorf("android.graphics.fonts.Font$Builder constructor (Landroid/content/res/AssetManager;Ljava/lang/String;)V is not available on this device")
+		}
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFontBuilder)), midFontBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(&jArg1.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.graphics.fonts.Font$Builder.build.
 func (m *FontBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

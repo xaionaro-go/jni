@@ -32,6 +32,12 @@ func NewTouchObserverFrameLayout(vm *jni.VM, arg0 *jni.Object) (*TouchObserverFr
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTouchObserverFrameLayout == nil {
+			return fmt.Errorf("com.google.android.material.internal.TouchObserverFrameLayout is not available on this device")
+		}
+		if midTouchObserverFrameLayoutCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.TouchObserverFrameLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTouchObserverFrameLayout)), midTouchObserverFrameLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -5,6 +5,34 @@ package pdf
 import "github.com/AndroidGoLab/jni/graphics/pdf/consts"
 
 const (
+	AllSaveFlag                         = consts.AllSaveFlag
+	Aa                                  = consts.Aa
+	Bw                                  = consts.Bw
+	Triangles                           = consts.Triangles
+	TriangleFan                         = consts.TriangleFan
+	TriangleStrip                       = consts.TriangleStrip
+	Bold                                = consts.Bold
+	BoldItalic                          = consts.BoldItalic
+	Default                             = consts.Default
+	DefaultBold                         = consts.DefaultBold
+	Italic                              = consts.Italic
+	Monospace                           = consts.Monospace
+	Normal                              = consts.Normal
+	SansSerif                           = consts.SansSerif
+	Serif                               = consts.Serif
+	FlagRenderHighlightAnnotations      = consts.FlagRenderHighlightAnnotations
+	FlagRenderTextAnnotations           = consts.FlagRenderTextAnnotations
+	RenderModeForDisplay                = consts.RenderModeForDisplay
+	RenderModeForPrint                  = consts.RenderModeForPrint
+	Creator                             = consts.Creator
+	ModeAppend                          = consts.ModeAppend
+	ModeCreate                          = consts.ModeCreate
+	ModeReadOnly                        = consts.ModeReadOnly
+	ModeReadWrite                       = consts.ModeReadWrite
+	ModeTruncate                        = consts.ModeTruncate
+	ModeWorldReadable                   = consts.ModeWorldReadable
+	ModeWorldWriteable                  = consts.ModeWorldWriteable
+	ModeWriteOnly                       = consts.ModeWriteOnly
 	DocumentLinearizedTypeLinearized    = consts.DocumentLinearizedTypeLinearized
 	DocumentLinearizedTypeNonLinearized = consts.DocumentLinearizedTypeNonLinearized
 	PdfFormTypeAcroForm                 = consts.PdfFormTypeAcroForm
@@ -52,15 +80,6 @@ const (
 	Fill                                = consts.Fill
 	FillAndStroke                       = consts.FillAndStroke
 	Stroke                              = consts.Stroke
-	Creator                             = consts.Creator
-	ModeAppend                          = consts.ModeAppend
-	ModeCreate                          = consts.ModeCreate
-	ModeReadOnly                        = consts.ModeReadOnly
-	ModeReadWrite                       = consts.ModeReadWrite
-	ModeTruncate                        = consts.ModeTruncate
-	ModeWorldReadable                   = consts.ModeWorldReadable
-	ModeWorldWriteable                  = consts.ModeWorldWriteable
-	ModeWriteOnly                       = consts.ModeWriteOnly
 	DensityNone                         = consts.DensityNone
 	Jpeg                                = consts.Jpeg
 	Png                                 = consts.Png
@@ -74,23 +93,4 @@ const (
 	Rgba1010102                         = consts.Rgba1010102
 	RgbaF16                             = consts.RgbaF16
 	Rgb565                              = consts.Rgb565
-	AllSaveFlag                         = consts.AllSaveFlag
-	Aa                                  = consts.Aa
-	Bw                                  = consts.Bw
-	Triangles                           = consts.Triangles
-	TriangleFan                         = consts.TriangleFan
-	TriangleStrip                       = consts.TriangleStrip
-	FlagRenderHighlightAnnotations      = consts.FlagRenderHighlightAnnotations
-	FlagRenderTextAnnotations           = consts.FlagRenderTextAnnotations
-	RenderModeForDisplay                = consts.RenderModeForDisplay
-	RenderModeForPrint                  = consts.RenderModeForPrint
-	Bold                                = consts.Bold
-	BoldItalic                          = consts.BoldItalic
-	Default                             = consts.Default
-	DefaultBold                         = consts.DefaultBold
-	Italic                              = consts.Italic
-	Monospace                           = consts.Monospace
-	Normal                              = consts.Normal
-	SansSerif                           = consts.SansSerif
-	Serif                               = consts.Serif
 )

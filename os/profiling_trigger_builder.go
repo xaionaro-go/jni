@@ -23,6 +23,35 @@ type ProfilingTriggerBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewProfilingTriggerBuilder creates a new android.os.ProfilingTrigger$Builder instance.
+func NewProfilingTriggerBuilder(vm *jni.VM, arg0 int32) (*ProfilingTriggerBuilder, error) {
+	var t ProfilingTriggerBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsProfilingTriggerBuilder == nil {
+			return fmt.Errorf("android.os.ProfilingTrigger$Builder is not available on this device")
+		}
+		if midProfilingTriggerBuilderCtor == nil {
+			return fmt.Errorf("android.os.ProfilingTrigger$Builder constructor (I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsProfilingTriggerBuilder)), midProfilingTriggerBuilderCtor, jni.IntValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.os.ProfilingTrigger$Builder.build.
 func (m *ProfilingTriggerBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

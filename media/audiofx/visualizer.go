@@ -32,6 +32,12 @@ func NewVisualizer(vm *jni.VM, arg0 int32) (*Visualizer, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsVisualizer == nil {
+			return fmt.Errorf("android.media.audiofx.Visualizer is not available on this device")
+		}
+		if midVisualizerCtor == nil {
+			return fmt.Errorf("android.media.audiofx.Visualizer constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVisualizer)), midVisualizerCtor, jni.IntValue(arg0))
 		if err != nil {

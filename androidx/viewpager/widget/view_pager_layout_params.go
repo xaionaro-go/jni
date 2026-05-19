@@ -23,6 +23,35 @@ type ViewPagerLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewViewPagerLayoutParams creates a new androidx.viewpager.widget.ViewPager$LayoutParams instance.
+func NewViewPagerLayoutParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ViewPagerLayoutParams, error) {
+	var t ViewPagerLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsViewPagerLayoutParams == nil {
+			return fmt.Errorf("androidx.viewpager.widget.ViewPager$LayoutParams is not available on this device")
+		}
+		if midViewPagerLayoutParamsCtor == nil {
+			return fmt.Errorf("androidx.viewpager.widget.ViewPager$LayoutParams constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewPagerLayoutParams)), midViewPagerLayoutParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.viewpager.widget.ViewPager$LayoutParams.toString.
 func (m *ViewPagerLayoutParams) ToString() (string, error) {
 	var result string

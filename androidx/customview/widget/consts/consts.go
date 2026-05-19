@@ -3,6 +3,8 @@
 package consts
 
 const (
+	InvalidId           int = -2147483648
+	HostId              int = -1
 	InvalidPointer      int = -1
 	StateIdle           int = 0
 	StateDragging       int = 1
@@ -15,6 +17,4 @@ const (
 	DirectionHorizontal int = 1
 	DirectionVertical   int = 2
 	DirectionAll        int = 3
-	InvalidId           int = -2147483648
-	HostId              int = -1
 )

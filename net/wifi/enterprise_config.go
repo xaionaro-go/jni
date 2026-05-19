@@ -32,6 +32,12 @@ func NewEnterpriseConfig(vm *jni.VM) (*EnterpriseConfig, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEnterpriseConfig == nil {
+			return fmt.Errorf("android.net.wifi.WifiEnterpriseConfig is not available on this device")
+		}
+		if midEnterpriseConfigCtor == nil {
+			return fmt.Errorf("android.net.wifi.WifiEnterpriseConfig constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEnterpriseConfig)), midEnterpriseConfigCtor)
 		if err != nil {
 			return err
@@ -1219,8 +1225,8 @@ func (m *EnterpriseConfig) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsEnterpriseConfig)),
 			midEnterpriseConfigWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

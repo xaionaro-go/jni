@@ -32,6 +32,12 @@ func NewChineseCalendar(vm *jni.VM) (*ChineseCalendar, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsChineseCalendar == nil {
+			return fmt.Errorf("android.icu.util.ChineseCalendar is not available on this device")
+		}
+		if midChineseCalendarCtor == nil {
+			return fmt.Errorf("android.icu.util.ChineseCalendar constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsChineseCalendar)), midChineseCalendarCtor)
 		if err != nil {
 			return err

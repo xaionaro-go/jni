@@ -32,6 +32,12 @@ func NewMediaStore(vm *jni.VM) (*MediaStore, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMediaStore == nil {
+			return fmt.Errorf("android.provider.MediaStore is not available on this device")
+		}
+		if midMediaStoreCtor == nil {
+			return fmt.Errorf("android.provider.MediaStore constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMediaStore)), midMediaStoreCtor)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewBeginGetCredentialResponse(vm *jni.VM) (*BeginGetCredentialResponse, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBeginGetCredentialResponse == nil {
+			return fmt.Errorf("android.service.credentials.BeginGetCredentialResponse is not available on this device")
+		}
+		if midBeginGetCredentialResponseCtor == nil {
+			return fmt.Errorf("android.service.credentials.BeginGetCredentialResponse constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBeginGetCredentialResponse)), midBeginGetCredentialResponseCtor)
 		if err != nil {
 			return err
@@ -198,29 +204,6 @@ func (m *BeginGetCredentialResponse) GetRemoteCredentialEntry() (*jni.Object, er
 	return result, callErr
 }
 
-// WriteToParcel calls android.service.credentials.BeginGetCredentialResponse.writeToParcel.
-func (m *BeginGetCredentialResponse) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBeginGetCredentialResponseWriteToParcel == nil {
-			callErr = fmt.Errorf("android.service.credentials.BeginGetCredentialResponse.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midBeginGetCredentialResponseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.service.credentials.BeginGetCredentialResponse.toString.
 func (m *BeginGetCredentialResponse) ToString() (string, error) {
 	var result string
@@ -246,4 +229,27 @@ func (m *BeginGetCredentialResponse) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.service.credentials.BeginGetCredentialResponse.writeToParcel.
+func (m *BeginGetCredentialResponse) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midBeginGetCredentialResponseWriteToParcel == nil {
+			callErr = fmt.Errorf("android.service.credentials.BeginGetCredentialResponse.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsBeginGetCredentialResponse)),
+			midBeginGetCredentialResponseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

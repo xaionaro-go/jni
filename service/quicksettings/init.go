@@ -23,6 +23,26 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsTile                          *jni.GlobalRef
+	midTileDescribeContents          jni.MethodID
+	midTileGetActivityLaunchForClick jni.MethodID
+	midTileGetContentDescription     jni.MethodID
+	midTileGetIcon                   jni.MethodID
+	midTileGetLabel                  jni.MethodID
+	midTileGetState                  jni.MethodID
+	midTileGetStateDescription       jni.MethodID
+	midTileGetSubtitle               jni.MethodID
+	midTileSetActivityLaunchForClick jni.MethodID
+	midTileSetContentDescription     jni.MethodID
+	midTileSetIcon                   jni.MethodID
+	midTileSetLabel                  jni.MethodID
+	midTileSetState                  jni.MethodID
+	midTileSetStateDescription       jni.MethodID
+	midTileSetSubtitle               jni.MethodID
+	midTileUpdateTile                jni.MethodID
+	midTileToString                  jni.MethodID
+	midTileWriteToParcel             jni.MethodID
+
 	clsTileService                            *jni.GlobalRef
 	midTileServiceCtor                        jni.MethodID
 	midTileServiceGetQsTile                   jni.MethodID
@@ -41,26 +61,6 @@ var (
 	midTileServiceUnlockAndRun                jni.MethodID
 	midTileServiceToString                    jni.MethodID
 	midTileServiceRequestListeningState       jni.MethodID
-
-	clsTile                          *jni.GlobalRef
-	midTileDescribeContents          jni.MethodID
-	midTileGetActivityLaunchForClick jni.MethodID
-	midTileGetContentDescription     jni.MethodID
-	midTileGetIcon                   jni.MethodID
-	midTileGetLabel                  jni.MethodID
-	midTileGetState                  jni.MethodID
-	midTileGetStateDescription       jni.MethodID
-	midTileGetSubtitle               jni.MethodID
-	midTileSetActivityLaunchForClick jni.MethodID
-	midTileSetContentDescription     jni.MethodID
-	midTileSetIcon                   jni.MethodID
-	midTileSetLabel                  jni.MethodID
-	midTileSetState                  jni.MethodID
-	midTileSetStateDescription       jni.MethodID
-	midTileSetSubtitle               jni.MethodID
-	midTileUpdateTile                jni.MethodID
-	midTileWriteToParcel             jni.MethodID
-	midTileToString                  jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -80,132 +80,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("android/service/quicksettings/TileService")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTileService = env.NewGlobalRef(&c.Object)
-		midTileServiceCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midTileServiceGetQsTile, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "getQsTile", "()Landroid/service/quicksettings/Tile;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTileServiceIsLocked, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "isLocked", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTileServiceIsSecure, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "isSecure", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTileServiceOnBind, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "onBind", "(Landroid/content/Intent;)Landroid/os/IBinder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTileServiceOnClick, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "onClick", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTileServiceOnDestroy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "onDestroy", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTileServiceOnStartListening, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "onStartListening", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTileServiceOnStopListening, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "onStopListening", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTileServiceOnTileAdded, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "onTileAdded", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTileServiceOnTileRemoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "onTileRemoved", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTileServiceShowDialog, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "showDialog", "(Landroid/app/Dialog;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTileServiceStartActivityAndCollapse1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "startActivityAndCollapse", "(Landroid/app/PendingIntent;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTileServiceStartActivityAndCollapse1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "startActivityAndCollapse", "(Landroid/content/Intent;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTileServiceUnlockAndRun, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "unlockAndRun", "(Ljava/lang/Runnable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTileServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTileServiceRequestListeningState, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "requestListeningState", "(Landroid/content/Context;Landroid/content/ComponentName;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("android/service/quicksettings/Tile")
 	if err != nil {
@@ -327,14 +201,140 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midTileWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTile)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midTileToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTile)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midTileToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTile)), "toString", "()Ljava/lang/String;")
+		midTileWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTile)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/service/quicksettings/TileService")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTileService = env.NewGlobalRef(&c.Object)
+		midTileServiceCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midTileServiceGetQsTile, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "getQsTile", "()Landroid/service/quicksettings/Tile;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTileServiceIsLocked, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "isLocked", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTileServiceIsSecure, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "isSecure", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTileServiceOnBind, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "onBind", "(Landroid/content/Intent;)Landroid/os/IBinder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTileServiceOnClick, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "onClick", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTileServiceOnDestroy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "onDestroy", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTileServiceOnStartListening, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "onStartListening", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTileServiceOnStopListening, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "onStopListening", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTileServiceOnTileAdded, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "onTileAdded", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTileServiceOnTileRemoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "onTileRemoved", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTileServiceShowDialog, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "showDialog", "(Landroid/app/Dialog;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTileServiceStartActivityAndCollapse1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "startActivityAndCollapse", "(Landroid/app/PendingIntent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTileServiceStartActivityAndCollapse1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "startActivityAndCollapse", "(Landroid/content/Intent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTileServiceUnlockAndRun, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "unlockAndRun", "(Ljava/lang/Runnable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTileServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTileServiceRequestListeningState, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTileService)), "requestListeningState", "(Landroid/content/Context;Landroid/content/ComponentName;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

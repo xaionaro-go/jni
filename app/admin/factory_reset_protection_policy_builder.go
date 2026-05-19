@@ -23,6 +23,34 @@ type FactoryResetProtectionPolicyBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFactoryResetProtectionPolicyBuilder creates a new android.app.admin.FactoryResetProtectionPolicy$Builder instance.
+func NewFactoryResetProtectionPolicyBuilder(vm *jni.VM) (*FactoryResetProtectionPolicyBuilder, error) {
+	var t FactoryResetProtectionPolicyBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFactoryResetProtectionPolicyBuilder == nil {
+			return fmt.Errorf("android.app.admin.FactoryResetProtectionPolicy$Builder is not available on this device")
+		}
+		if midFactoryResetProtectionPolicyBuilderCtor == nil {
+			return fmt.Errorf("android.app.admin.FactoryResetProtectionPolicy$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFactoryResetProtectionPolicyBuilder)), midFactoryResetProtectionPolicyBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.app.admin.FactoryResetProtectionPolicy$Builder.build.
 func (m *FactoryResetProtectionPolicyBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

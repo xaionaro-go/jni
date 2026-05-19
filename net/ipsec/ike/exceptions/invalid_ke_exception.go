@@ -32,6 +32,12 @@ func NewInvalidKeException(vm *jni.VM, arg0 int32) (*InvalidKeException, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInvalidKeException == nil {
+			return fmt.Errorf("android.net.ipsec.ike.exceptions.InvalidKeException is not available on this device")
+		}
+		if midInvalidKeExceptionCtor == nil {
+			return fmt.Errorf("android.net.ipsec.ike.exceptions.InvalidKeException constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInvalidKeException)), midInvalidKeExceptionCtor, jni.IntValue(arg0))
 		if err != nil {

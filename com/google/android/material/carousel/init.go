@@ -23,6 +23,25 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsHeroCarouselStrategy         *jni.GlobalRef
+	midHeroCarouselStrategyCtor     jni.MethodID
+	midHeroCarouselStrategyToString jni.MethodID
+
+	clsStrategy                    *jni.GlobalRef
+	midStrategySetSmallItemSizeMin jni.MethodID
+	midStrategySetSmallItemSizeMax jni.MethodID
+	midStrategyGetSmallItemSizeMin jni.MethodID
+	midStrategyGetSmallItemSizeMax jni.MethodID
+	midStrategyToString            jni.MethodID
+
+	clsFullScreenCarouselStrategy         *jni.GlobalRef
+	midFullScreenCarouselStrategyCtor     jni.MethodID
+	midFullScreenCarouselStrategyToString jni.MethodID
+
+	clsMultiBrowseCarouselStrategy         *jni.GlobalRef
+	midMultiBrowseCarouselStrategyCtor     jni.MethodID
+	midMultiBrowseCarouselStrategyToString jni.MethodID
+
 	clsSnapHelper                             *jni.GlobalRef
 	midSnapHelperCtor                         jni.MethodID
 	midSnapHelperAttachToRecyclerView         jni.MethodID
@@ -67,35 +86,11 @@ var (
 	midLayoutManagerSetOrientation                 jni.MethodID
 	midLayoutManagerOnItemsAdded                   jni.MethodID
 	midLayoutManagerOnItemsRemoved                 jni.MethodID
-	midLayoutManagerSetDebuggingEnabled            jni.MethodID
 	midLayoutManagerToString                       jni.MethodID
-
-	clsFullScreenCarouselStrategy         *jni.GlobalRef
-	midFullScreenCarouselStrategyCtor     jni.MethodID
-	midFullScreenCarouselStrategyToString jni.MethodID
-
-	clsStrategy                    *jni.GlobalRef
-	midStrategySetSmallItemSizeMin jni.MethodID
-	midStrategySetSmallItemSizeMax jni.MethodID
-	midStrategyGetSmallItemSizeMin jni.MethodID
-	midStrategyGetSmallItemSizeMax jni.MethodID
-	midStrategyToString            jni.MethodID
 
 	clsUncontainedCarouselStrategy         *jni.GlobalRef
 	midUncontainedCarouselStrategyCtor     jni.MethodID
 	midUncontainedCarouselStrategyToString jni.MethodID
-
-	clsMultiBrowseCarouselStrategy         *jni.GlobalRef
-	midMultiBrowseCarouselStrategyCtor     jni.MethodID
-	midMultiBrowseCarouselStrategyToString jni.MethodID
-
-	clsOnMaskChangedListener              *jni.GlobalRef
-	midOnMaskChangedListenerOnMaskChanged jni.MethodID
-	midOnMaskChangedListenerToString      jni.MethodID
-
-	clsHeroCarouselStrategy         *jni.GlobalRef
-	midHeroCarouselStrategyCtor     jni.MethodID
-	midHeroCarouselStrategyToString jni.MethodID
 
 	clsMaskableFrameLayout                         *jni.GlobalRef
 	midMaskableFrameLayoutCtor                     jni.MethodID
@@ -110,6 +105,10 @@ var (
 	midMaskableFrameLayoutSetForceCompatClipping   jni.MethodID
 	midMaskableFrameLayoutOnTouchEvent             jni.MethodID
 	midMaskableFrameLayoutToString                 jni.MethodID
+
+	clsOnMaskChangedListener              *jni.GlobalRef
+	midOnMaskChangedListenerOnMaskChanged jni.MethodID
+	midOnMaskChangedListenerToString      jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -129,6 +128,114 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("com/google/android/material/carousel/HeroCarouselStrategy")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsHeroCarouselStrategy = env.NewGlobalRef(&c.Object)
+		midHeroCarouselStrategyCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeroCarouselStrategy)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midHeroCarouselStrategyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeroCarouselStrategy)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/carousel/CarouselStrategy")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStrategy = env.NewGlobalRef(&c.Object)
+
+		midStrategySetSmallItemSizeMin, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStrategy)), "setSmallItemSizeMin", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStrategySetSmallItemSizeMax, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStrategy)), "setSmallItemSizeMax", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStrategyGetSmallItemSizeMin, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStrategy)), "getSmallItemSizeMin", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStrategyGetSmallItemSizeMax, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStrategy)), "getSmallItemSizeMax", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStrategyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStrategy)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/carousel/FullScreenCarouselStrategy")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFullScreenCarouselStrategy = env.NewGlobalRef(&c.Object)
+		midFullScreenCarouselStrategyCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFullScreenCarouselStrategy)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midFullScreenCarouselStrategyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFullScreenCarouselStrategy)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/carousel/MultiBrowseCarouselStrategy")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMultiBrowseCarouselStrategy = env.NewGlobalRef(&c.Object)
+		midMultiBrowseCarouselStrategyCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiBrowseCarouselStrategy)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMultiBrowseCarouselStrategyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiBrowseCarouselStrategy)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("com/google/android/material/carousel/CarouselSnapHelper")
 	if err != nil {
@@ -429,80 +536,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midLayoutManagerSetDebuggingEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLayoutManager)), "setDebuggingEnabled", "(Landroidx/recyclerview/widget/RecyclerView;Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midLayoutManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLayoutManager)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/carousel/FullScreenCarouselStrategy")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFullScreenCarouselStrategy = env.NewGlobalRef(&c.Object)
-		midFullScreenCarouselStrategyCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFullScreenCarouselStrategy)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midFullScreenCarouselStrategyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFullScreenCarouselStrategy)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/carousel/CarouselStrategy")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStrategy = env.NewGlobalRef(&c.Object)
-
-		midStrategySetSmallItemSizeMin, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStrategy)), "setSmallItemSizeMin", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStrategySetSmallItemSizeMax, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStrategy)), "setSmallItemSizeMax", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStrategyGetSmallItemSizeMin, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStrategy)), "getSmallItemSizeMin", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStrategyGetSmallItemSizeMax, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStrategy)), "getSmallItemSizeMax", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStrategyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStrategy)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -524,72 +558,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midUncontainedCarouselStrategyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUncontainedCarouselStrategy)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/carousel/MultiBrowseCarouselStrategy")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMultiBrowseCarouselStrategy = env.NewGlobalRef(&c.Object)
-		midMultiBrowseCarouselStrategyCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiBrowseCarouselStrategy)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMultiBrowseCarouselStrategyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiBrowseCarouselStrategy)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/carousel/OnMaskChangedListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsOnMaskChangedListener = env.NewGlobalRef(&c.Object)
-
-		midOnMaskChangedListenerOnMaskChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnMaskChangedListener)), "onMaskChanged", "(Landroid/graphics/RectF;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOnMaskChangedListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnMaskChangedListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/carousel/HeroCarouselStrategy")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsHeroCarouselStrategy = env.NewGlobalRef(&c.Object)
-		midHeroCarouselStrategyCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeroCarouselStrategy)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midHeroCarouselStrategyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeroCarouselStrategy)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -681,6 +649,30 @@ func doInit(env *jni.Env) error {
 		}
 
 		midMaskableFrameLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaskableFrameLayout)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/carousel/OnMaskChangedListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsOnMaskChangedListener = env.NewGlobalRef(&c.Object)
+
+		midOnMaskChangedListenerOnMaskChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnMaskChangedListener)), "onMaskChanged", "(Landroid/graphics/RectF;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOnMaskChangedListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnMaskChangedListener)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

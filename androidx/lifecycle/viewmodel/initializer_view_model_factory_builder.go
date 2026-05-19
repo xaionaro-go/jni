@@ -32,6 +32,12 @@ func NewInitializerViewModelFactoryBuilder(vm *jni.VM) (*InitializerViewModelFac
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInitializerViewModelFactoryBuilder == nil {
+			return fmt.Errorf("androidx.lifecycle.viewmodel.InitializerViewModelFactoryBuilder is not available on this device")
+		}
+		if midInitializerViewModelFactoryBuilderCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.viewmodel.InitializerViewModelFactoryBuilder constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInitializerViewModelFactoryBuilder)), midInitializerViewModelFactoryBuilderCtor)
 		if err != nil {
 			return err

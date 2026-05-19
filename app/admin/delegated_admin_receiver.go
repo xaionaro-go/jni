@@ -32,6 +32,12 @@ func NewDelegatedAdminReceiver(vm *jni.VM) (*DelegatedAdminReceiver, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDelegatedAdminReceiver == nil {
+			return fmt.Errorf("android.app.admin.DelegatedAdminReceiver is not available on this device")
+		}
+		if midDelegatedAdminReceiverCtor == nil {
+			return fmt.Errorf("android.app.admin.DelegatedAdminReceiver constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDelegatedAdminReceiver)), midDelegatedAdminReceiverCtor)
 		if err != nil {
 			return err

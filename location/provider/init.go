@@ -40,6 +40,7 @@ var (
 	midPropertiesWriteToParcel           jni.MethodID
 
 	clsPropertiesBuilder                           *jni.GlobalRef
+	midPropertiesBuilderCtor                       jni.MethodID
 	midPropertiesBuilderBuild                      jni.MethodID
 	midPropertiesBuilderSetAccuracy                jni.MethodID
 	midPropertiesBuilderSetHasAltitudeSupport      jni.MethodID
@@ -170,7 +171,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midPropertiesWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProperties)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midPropertiesWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsProperties)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -186,6 +187,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsPropertiesBuilder = env.NewGlobalRef(&c.Object)
+		midPropertiesBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertiesBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midPropertiesBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertiesBuilder)), "build", "()Landroid/location/provider/ProviderProperties;")
 		if err != nil {

@@ -23,6 +23,35 @@ type RecreatorSavedStateProvider struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRecreatorSavedStateProvider creates a new androidx.savedstate.Recreator$SavedStateProvider instance.
+func NewRecreatorSavedStateProvider(vm *jni.VM, arg0 *jni.Object) (*RecreatorSavedStateProvider, error) {
+	var t RecreatorSavedStateProvider
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRecreatorSavedStateProvider == nil {
+			return fmt.Errorf("androidx.savedstate.Recreator$SavedStateProvider is not available on this device")
+		}
+		if midRecreatorSavedStateProviderCtor == nil {
+			return fmt.Errorf("androidx.savedstate.Recreator$SavedStateProvider constructor (Landroidx/savedstate/SavedStateRegistry;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRecreatorSavedStateProvider)), midRecreatorSavedStateProviderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SaveState calls androidx.savedstate.Recreator$SavedStateProvider.saveState.
 func (m *RecreatorSavedStateProvider) SaveState() (*jni.Object, error) {
 	var result *jni.Object

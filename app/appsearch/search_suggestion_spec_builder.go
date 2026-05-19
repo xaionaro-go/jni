@@ -23,6 +23,35 @@ type SearchSuggestionSpecBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSearchSuggestionSpecBuilder creates a new android.app.appsearch.SearchSuggestionSpec$Builder instance.
+func NewSearchSuggestionSpecBuilder(vm *jni.VM, arg0 int32) (*SearchSuggestionSpecBuilder, error) {
+	var t SearchSuggestionSpecBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSearchSuggestionSpecBuilder == nil {
+			return fmt.Errorf("android.app.appsearch.SearchSuggestionSpec$Builder is not available on this device")
+		}
+		if midSearchSuggestionSpecBuilderCtor == nil {
+			return fmt.Errorf("android.app.appsearch.SearchSuggestionSpec$Builder constructor (I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpecBuilder)), midSearchSuggestionSpecBuilderCtor, jni.IntValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddFilterDocumentIds calls android.app.appsearch.SearchSuggestionSpec$Builder.addFilterDocumentIds.
 func (m *SearchSuggestionSpecBuilder) AddFilterDocumentIds(arg0 string, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

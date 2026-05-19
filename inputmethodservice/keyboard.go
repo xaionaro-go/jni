@@ -32,6 +32,12 @@ func NewKeyboard(vm *jni.VM, arg0 *jni.Object, arg1 int32) (*Keyboard, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsKeyboard == nil {
+			return fmt.Errorf("android.inputmethodservice.Keyboard is not available on this device")
+		}
+		if midKeyboardCtor == nil {
+			return fmt.Errorf("android.inputmethodservice.Keyboard constructor (Landroid/content/Context;I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyboard)), midKeyboardCtor, jni.ObjectValue(arg0), jni.IntValue(arg1))
 		if err != nil {

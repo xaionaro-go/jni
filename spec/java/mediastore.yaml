@@ -210,6 +210,7 @@ classes:
           error: true
     - java_class: android.provider.MediaStore$Audio
       go_type: MediaStoreAudio
+      obtain: constructor
       static_methods:
         - java_method: keyFor
           go_name: KeyFor
@@ -241,6 +242,7 @@ classes:
           error: true
     - java_class: android.provider.MediaStore$Files
       go_type: MediaStoreFiles
+      obtain: constructor
       static_methods:
         - java_method: getContentUri
           go_name: GetContentUri1
@@ -260,12 +262,14 @@ classes:
           error: true
     - java_class: android.provider.MediaStore$Images
       go_type: MediaStoreImages
+      obtain: constructor
     - java_class: android.provider.MediaStore$MediaColumns
       go_type: MediaStoreMediaColumns
     - java_class: android.provider.MediaStore$PickerMediaColumns
       go_type: MediaStorePickerMediaColumns
     - java_class: android.provider.MediaStore$Video
       go_type: MediaStoreVideo
+      obtain: constructor
       static_methods:
         - java_method: query
           go_name: Query

@@ -3,6 +3,8 @@
 package consts
 
 const (
+	ParamStrength                   int = 1
+	ParamStrengthSupported          int = 0
 	ParamPreset                     int = 0
 	PresetLargehall                 int = 5
 	PresetLargeroom                 int = 3
@@ -11,12 +13,6 @@ const (
 	PresetNone                      int = 0
 	PresetPlate                     int = 6
 	PresetSmallroom                 int = 1
-	ParamStrength                   int = 1
-	ParamStrengthSupported          int = 0
-	VirtualizationModeAuto          int = 1
-	VirtualizationModeBinaural      int = 2
-	VirtualizationModeOff           int = 0
-	VirtualizationModeTransaural    int = 3
 	AlreadyExists                   int = -2
 	Error                           int = -1
 	ErrorBadValue                   int = -4
@@ -32,6 +28,31 @@ const (
 	StateInitialized                int = 1
 	StateUninitialized              int = 0
 	Success                         int = 0
+	ParamDecayHfRatio               int = 3
+	ParamDecayTime                  int = 2
+	ParamDensity                    int = 9
+	ParamDiffusion                  int = 8
+	ParamReflectionsDelay           int = 5
+	ParamReflectionsLevel           int = 4
+	ParamReverbDelay                int = 7
+	ParamReverbLevel                int = 6
+	ParamRoomHfLevel                int = 1
+	ParamRoomLevel                  int = 0
+	VirtualizationModeAuto          int = 1
+	VirtualizationModeBinaural      int = 2
+	VirtualizationModeOff           int = 0
+	VirtualizationModeTransaural    int = 3
+	ParamTargetGainMb               int = 0
+	ParamBandFreqRange              int = 4
+	ParamBandLevel                  int = 2
+	ParamCenterFreq                 int = 3
+	ParamCurrentPreset              int = 6
+	ParamGetBand                    int = 5
+	ParamGetNumOfPresets            int = 7
+	ParamGetPresetName              int = 8
+	ParamLevelRange                 int = 1
+	ParamNumBands                   int = 0
+	ParamStringSizeMax              int = 32
 	ContentTypeGame                 int = 2
 	ContentTypeMovie                int = 1
 	ContentTypeMusic                int = 0
@@ -47,29 +68,8 @@ const (
 	EffectTypeNs                    int = 0
 	EffectTypePresetReverb          int = 0
 	EffectTypeVirtualizer           int = 0
-	ParamTargetGainMb               int = 0
-	ParamDecayHfRatio               int = 3
-	ParamDecayTime                  int = 2
-	ParamDensity                    int = 9
-	ParamDiffusion                  int = 8
-	ParamReflectionsDelay           int = 5
-	ParamReflectionsLevel           int = 4
-	ParamReverbDelay                int = 7
-	ParamReverbLevel                int = 6
-	ParamRoomHfLevel                int = 1
-	ParamRoomLevel                  int = 0
 	VariantFavorFrequencyResolution int = 0
 	VariantFavorTimeResolution      int = 1
-	ParamBandFreqRange              int = 4
-	ParamBandLevel                  int = 2
-	ParamCenterFreq                 int = 3
-	ParamCurrentPreset              int = 6
-	ParamGetBand                    int = 5
-	ParamGetNumOfPresets            int = 7
-	ParamGetPresetName              int = 8
-	ParamLevelRange                 int = 1
-	ParamNumBands                   int = 0
-	ParamStringSizeMax              int = 32
 )
 
 const (

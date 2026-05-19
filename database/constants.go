@@ -5,10 +5,10 @@ package database
 import "github.com/AndroidGoLab/jni/database/consts"
 
 const (
+	Creator             = consts.Creator
 	Both                = consts.Both
 	Left                = consts.Left
 	Right               = consts.Right
-	Creator             = consts.Creator
 	StatementAbort      = consts.StatementAbort
 	StatementAttach     = consts.StatementAttach
 	StatementBegin      = consts.StatementBegin

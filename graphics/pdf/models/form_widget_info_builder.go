@@ -23,6 +23,47 @@ type FormWidgetInfoBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFormWidgetInfoBuilder creates a new android.graphics.pdf.models.FormWidgetInfo$Builder instance.
+func NewFormWidgetInfoBuilder(vm *jni.VM, arg0 int32, arg1 int32, arg2 *jni.Object, arg3 string, arg4 string) (*FormWidgetInfoBuilder, error) {
+	var t FormWidgetInfoBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFormWidgetInfoBuilder == nil {
+			return fmt.Errorf("android.graphics.pdf.models.FormWidgetInfo$Builder is not available on this device")
+		}
+		if midFormWidgetInfoBuilderCtor == nil {
+			return fmt.Errorf("android.graphics.pdf.models.FormWidgetInfo$Builder constructor (IILandroid/graphics/Rect;Ljava/lang/String;Ljava/lang/String;)V is not available on this device")
+		}
+
+		jArg3, err := env.NewStringUTF(arg3)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg3.Object)
+
+		jArg4, err := env.NewStringUTF(arg4)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg4.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFormWidgetInfoBuilder)), midFormWidgetInfoBuilderCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(&jArg3.Object), jni.ObjectValue(&jArg4.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.graphics.pdf.models.FormWidgetInfo$Builder.build.
 func (m *FormWidgetInfoBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

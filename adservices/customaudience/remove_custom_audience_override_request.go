@@ -32,6 +32,12 @@ func NewRemoveCustomAudienceOverrideRequest(vm *jni.VM, arg0 *jni.Object, arg1 s
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRemoveCustomAudienceOverrideRequest == nil {
+			return fmt.Errorf("android.adservices.customaudience.RemoveCustomAudienceOverrideRequest is not available on this device")
+		}
+		if midRemoveCustomAudienceOverrideRequestCtor == nil {
+			return fmt.Errorf("android.adservices.customaudience.RemoveCustomAudienceOverrideRequest constructor (Landroid/adservices/common/AdTechIdentifier;Ljava/lang/String;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {

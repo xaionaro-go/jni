@@ -23,6 +23,13 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsEmojiSpan                      *jni.GlobalRef
+	midEmojiSpanGetSize               jni.MethodID
+	midEmojiSpanGetTypefaceRasterizer jni.MethodID
+	midEmojiSpanGetHeight             jni.MethodID
+	midEmojiSpanGetId                 jni.MethodID
+	midEmojiSpanToString              jni.MethodID
+
 	clsSpannableBuilder                   *jni.GlobalRef
 	midSpannableBuilderSubSequence        jni.MethodID
 	midSpannableBuilderSetSpan            jni.MethodID
@@ -37,23 +44,42 @@ var (
 	midSpannableBuilderReplace5_1         jni.MethodID
 	midSpannableBuilderInsert2            jni.MethodID
 	midSpannableBuilderInsert4_1          jni.MethodID
-	midSpannableBuilderDelete2            jni.MethodID
+	midSpannableBuilderDelete             jni.MethodID
 	midSpannableBuilderAppend1            jni.MethodID
 	midSpannableBuilderAppend1_1          jni.MethodID
 	midSpannableBuilderAppend3_2          jni.MethodID
 	midSpannableBuilderAppend3_3          jni.MethodID
-	midSpannableBuilderAppend1_4          jni.MethodID
-	midSpannableBuilderAppend3_5          jni.MethodID
-	midSpannableBuilderAppend1_6          jni.MethodID
-	midSpannableBuilderDelete2_1          jni.MethodID
-	midSpannableBuilderInsert2_2          jni.MethodID
-	midSpannableBuilderInsert4_3          jni.MethodID
-	midSpannableBuilderReplace3_2         jni.MethodID
-	midSpannableBuilderReplace5_3         jni.MethodID
-	midSpannableBuilderAppend1_7          jni.MethodID
-	midSpannableBuilderAppend3_8          jni.MethodID
-	midSpannableBuilderAppend1_9          jni.MethodID
 	midSpannableBuilderToString           jni.MethodID
+
+	clsEmojiDefaults         *jni.GlobalRef
+	midEmojiDefaultsToString jni.MethodID
+
+	clsDefaultEmojiCompatConfig         *jni.GlobalRef
+	midDefaultEmojiCompatConfigToString jni.MethodID
+	midDefaultEmojiCompatConfigCreate   jni.MethodID
+
+	clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactory         *jni.GlobalRef
+	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactoryCtor     jni.MethodID
+	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactoryCreate   jni.MethodID
+	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactoryToString jni.MethodID
+
+	clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper                            *jni.GlobalRef
+	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelperCtor                        jni.MethodID
+	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelperGetSigningSignatures        jni.MethodID
+	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelperQueryIntentContentProviders jni.MethodID
+	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelperGetProviderInfo             jni.MethodID
+	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelperToString                    jni.MethodID
+
+	clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19                            *jni.GlobalRef
+	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19Ctor                        jni.MethodID
+	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19QueryIntentContentProviders jni.MethodID
+	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19GetProviderInfo             jni.MethodID
+	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19ToString                    jni.MethodID
+
+	clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API28                     *jni.GlobalRef
+	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API28Ctor                 jni.MethodID
+	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API28GetSigningSignatures jni.MethodID
+	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API28ToString             jni.MethodID
 
 	clsMetadataRepo                  *jni.GlobalRef
 	midMetadataRepoGetEmojiCharArray jni.MethodID
@@ -62,6 +88,11 @@ var (
 	midMetadataRepoCreate1           jni.MethodID
 	midMetadataRepoCreate2_1         jni.MethodID
 	midMetadataRepoCreate2_2         jni.MethodID
+
+	clsEmojiCompatInitializer         *jni.GlobalRef
+	midEmojiCompatInitializerCtor     jni.MethodID
+	midEmojiCompatInitializerCreate   jni.MethodID
+	midEmojiCompatInitializerToString jni.MethodID
 
 	clsTypefaceEmojiRasterizer                        *jni.GlobalRef
 	midTypefaceEmojiRasterizerDraw                    jni.MethodID
@@ -84,6 +115,34 @@ var (
 	clsTypefaceEmojiRasterizerHasGlyph         *jni.GlobalRef
 	midTypefaceEmojiRasterizerHasGlyphToString jni.MethodID
 
+	clsFontRequestEmojiCompatConfig                   *jni.GlobalRef
+	midFontRequestEmojiCompatConfigCtor               jni.MethodID
+	midFontRequestEmojiCompatConfigSetLoadingExecutor jni.MethodID
+	midFontRequestEmojiCompatConfigToString           jni.MethodID
+	midFontRequestEmojiCompatConfigSetRetryPolicy     jni.MethodID
+
+	clsFontRequestEmojiCompatConfigExponentialBackoffRetryPolicy              *jni.GlobalRef
+	midFontRequestEmojiCompatConfigExponentialBackoffRetryPolicyCtor          jni.MethodID
+	midFontRequestEmojiCompatConfigExponentialBackoffRetryPolicyGetRetryDelay jni.MethodID
+	midFontRequestEmojiCompatConfigExponentialBackoffRetryPolicyToString      jni.MethodID
+
+	clsFontRequestEmojiCompatConfigFontProviderHelper                   *jni.GlobalRef
+	midFontRequestEmojiCompatConfigFontProviderHelperCtor               jni.MethodID
+	midFontRequestEmojiCompatConfigFontProviderHelperFetchFonts         jni.MethodID
+	midFontRequestEmojiCompatConfigFontProviderHelperBuildTypeface      jni.MethodID
+	midFontRequestEmojiCompatConfigFontProviderHelperRegisterObserver   jni.MethodID
+	midFontRequestEmojiCompatConfigFontProviderHelperUnregisterObserver jni.MethodID
+	midFontRequestEmojiCompatConfigFontProviderHelperToString           jni.MethodID
+
+	clsFontRequestEmojiCompatConfigRetryPolicy              *jni.GlobalRef
+	midFontRequestEmojiCompatConfigRetryPolicyGetRetryDelay jni.MethodID
+	midFontRequestEmojiCompatConfigRetryPolicyToString      jni.MethodID
+
+	clsTypefaceEmojiSpan         *jni.GlobalRef
+	midTypefaceEmojiSpanCtor     jni.MethodID
+	midTypefaceEmojiSpanDraw     jni.MethodID
+	midTypefaceEmojiSpanToString jni.MethodID
+
 	clsEmojiCompat                               *jni.GlobalRef
 	midEmojiCompatLoad                           jni.MethodID
 	midEmojiCompatRegisterInitCallback           jni.MethodID
@@ -101,7 +160,6 @@ var (
 	midEmojiCompatProcess4_2                     jni.MethodID
 	midEmojiCompatProcess5_3                     jni.MethodID
 	midEmojiCompatGetAssetSignature              jni.MethodID
-	midEmojiCompatUpdateEditorInfo               jni.MethodID
 	midEmojiCompatToString                       jni.MethodID
 	midEmojiCompatInit1                          jni.MethodID
 	midEmojiCompatInit2_1                        jni.MethodID
@@ -117,25 +175,6 @@ var (
 	clsEmojiCompatCodepointSequenceMatchResult         *jni.GlobalRef
 	midEmojiCompatCodepointSequenceMatchResultToString jni.MethodID
 
-	clsDefaultEmojiCompatConfig         *jni.GlobalRef
-	midDefaultEmojiCompatConfigToString jni.MethodID
-	midDefaultEmojiCompatConfigCreate   jni.MethodID
-
-	clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactory         *jni.GlobalRef
-	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactoryCreate   jni.MethodID
-	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactoryToString jni.MethodID
-
-	clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper                            *jni.GlobalRef
-	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelperGetSigningSignatures        jni.MethodID
-	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelperQueryIntentContentProviders jni.MethodID
-	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelperGetProviderInfo             jni.MethodID
-	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelperToString                    jni.MethodID
-
-	clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19                            *jni.GlobalRef
-	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19QueryIntentContentProviders jni.MethodID
-	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19GetProviderInfo             jni.MethodID
-	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19ToString                    jni.MethodID
-
 	clsEmojiCompatConfig                             *jni.GlobalRef
 	midEmojiCompatConfigRegisterInitCallback         jni.MethodID
 	midEmojiCompatConfigUnregisterInitCallback       jni.MethodID
@@ -149,12 +188,9 @@ var (
 	midEmojiCompatConfigToString                     jni.MethodID
 
 	clsEmojiCompatDefaultSpanFactory           *jni.GlobalRef
+	midEmojiCompatDefaultSpanFactoryCtor       jni.MethodID
 	midEmojiCompatDefaultSpanFactoryCreateSpan jni.MethodID
 	midEmojiCompatDefaultSpanFactoryToString   jni.MethodID
-
-	clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API28                     *jni.GlobalRef
-	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API28GetSigningSignatures jni.MethodID
-	midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API28ToString             jni.MethodID
 
 	clsEmojiCompatGlyphChecker         *jni.GlobalRef
 	midEmojiCompatGlyphCheckerHasGlyph jni.MethodID
@@ -183,48 +219,6 @@ var (
 	clsEmojiCompatSpanFactory           *jni.GlobalRef
 	midEmojiCompatSpanFactoryCreateSpan jni.MethodID
 	midEmojiCompatSpanFactoryToString   jni.MethodID
-
-	clsEmojiCompatInitializer          *jni.GlobalRef
-	midEmojiCompatInitializerCtor      jni.MethodID
-	midEmojiCompatInitializerCreate1   jni.MethodID
-	midEmojiCompatInitializerCreate1_1 jni.MethodID
-	midEmojiCompatInitializerToString  jni.MethodID
-
-	clsEmojiSpan                      *jni.GlobalRef
-	midEmojiSpanGetSize               jni.MethodID
-	midEmojiSpanGetTypefaceRasterizer jni.MethodID
-	midEmojiSpanGetHeight             jni.MethodID
-	midEmojiSpanGetId                 jni.MethodID
-	midEmojiSpanToString              jni.MethodID
-
-	clsEmojiDefaults         *jni.GlobalRef
-	midEmojiDefaultsToString jni.MethodID
-
-	clsFontRequestEmojiCompatConfig                   *jni.GlobalRef
-	midFontRequestEmojiCompatConfigCtor               jni.MethodID
-	midFontRequestEmojiCompatConfigSetLoadingExecutor jni.MethodID
-	midFontRequestEmojiCompatConfigSetRetryPolicy     jni.MethodID
-	midFontRequestEmojiCompatConfigToString           jni.MethodID
-
-	clsFontRequestEmojiCompatConfigExponentialBackoffRetryPolicy              *jni.GlobalRef
-	midFontRequestEmojiCompatConfigExponentialBackoffRetryPolicyGetRetryDelay jni.MethodID
-	midFontRequestEmojiCompatConfigExponentialBackoffRetryPolicyToString      jni.MethodID
-
-	clsTypefaceEmojiSpan         *jni.GlobalRef
-	midTypefaceEmojiSpanCtor     jni.MethodID
-	midTypefaceEmojiSpanDraw     jni.MethodID
-	midTypefaceEmojiSpanToString jni.MethodID
-
-	clsFontRequestEmojiCompatConfigFontProviderHelper                   *jni.GlobalRef
-	midFontRequestEmojiCompatConfigFontProviderHelperFetchFonts         jni.MethodID
-	midFontRequestEmojiCompatConfigFontProviderHelperBuildTypeface      jni.MethodID
-	midFontRequestEmojiCompatConfigFontProviderHelperRegisterObserver   jni.MethodID
-	midFontRequestEmojiCompatConfigFontProviderHelperUnregisterObserver jni.MethodID
-	midFontRequestEmojiCompatConfigFontProviderHelperToString           jni.MethodID
-
-	clsFontRequestEmojiCompatConfigRetryPolicy              *jni.GlobalRef
-	midFontRequestEmojiCompatConfigRetryPolicyGetRetryDelay jni.MethodID
-	midFontRequestEmojiCompatConfigRetryPolicyToString      jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -244,6 +238,51 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("androidx/emoji2/text/EmojiSpan")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsEmojiSpan = env.NewGlobalRef(&c.Object)
+
+		midEmojiSpanGetSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiSpan)), "getSize", "(Landroid/graphics/Paint;Ljava/lang/CharSequence;IILandroid/graphics/Paint$FontMetricsInt;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEmojiSpanGetTypefaceRasterizer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiSpan)), "getTypefaceRasterizer", "()Landroidx/emoji2/text/TypefaceEmojiRasterizer;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEmojiSpanGetHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiSpan)), "getHeight", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEmojiSpanGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiSpan)), "getId", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEmojiSpanToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiSpan)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("androidx/emoji2/text/SpannableBuilder")
 	if err != nil {
@@ -344,7 +383,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midSpannableBuilderDelete2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpannableBuilder)), "delete", "(II)Landroid/text/SpannableStringBuilder;")
+		midSpannableBuilderDelete, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpannableBuilder)), "delete", "(II)Landroid/text/SpannableStringBuilder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -379,84 +418,181 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midSpannableBuilderAppend1_4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpannableBuilder)), "append", "(C)Landroid/text/Editable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSpannableBuilderAppend3_5, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpannableBuilder)), "append", "(Ljava/lang/CharSequence;II)Landroid/text/Editable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSpannableBuilderAppend1_6, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpannableBuilder)), "append", "(Ljava/lang/CharSequence;)Landroid/text/Editable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSpannableBuilderDelete2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpannableBuilder)), "delete", "(II)Landroid/text/Editable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSpannableBuilderInsert2_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpannableBuilder)), "insert", "(ILjava/lang/CharSequence;)Landroid/text/Editable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSpannableBuilderInsert4_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpannableBuilder)), "insert", "(ILjava/lang/CharSequence;II)Landroid/text/Editable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSpannableBuilderReplace3_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpannableBuilder)), "replace", "(IILjava/lang/CharSequence;)Landroid/text/Editable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSpannableBuilderReplace5_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpannableBuilder)), "replace", "(IILjava/lang/CharSequence;II)Landroid/text/Editable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSpannableBuilderAppend1_7, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpannableBuilder)), "append", "(C)Ljava/lang/Appendable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSpannableBuilderAppend3_8, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpannableBuilder)), "append", "(Ljava/lang/CharSequence;II)Ljava/lang/Appendable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSpannableBuilderAppend1_9, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpannableBuilder)), "append", "(Ljava/lang/CharSequence;)Ljava/lang/Appendable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midSpannableBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpannableBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/emoji2/text/EmojiDefaults")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsEmojiDefaults = env.NewGlobalRef(&c.Object)
+
+		midEmojiDefaultsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiDefaults)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/emoji2/text/DefaultEmojiCompatConfig")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDefaultEmojiCompatConfig = env.NewGlobalRef(&c.Object)
+
+		midDefaultEmojiCompatConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfig)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDefaultEmojiCompatConfigCreate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfig)), "create", "(Landroid/content/Context;)Landroidx/emoji2/text/FontRequestEmojiCompatConfig;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/emoji2/text/DefaultEmojiCompatConfig$DefaultEmojiCompatConfigFactory")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactory = env.NewGlobalRef(&c.Object)
+		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactoryCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactory)), "<init>", "(Landroidx/emoji2/text/DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactoryCreate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactory)), "create", "(Landroid/content/Context;)Landroidx/emoji2/text/EmojiCompat$Config;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactory)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/emoji2/text/DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper = env.NewGlobalRef(&c.Object)
+		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelperGetSigningSignatures, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper)), "getSigningSignatures", "(Landroid/content/pm/PackageManager;Ljava/lang/String;)[Landroid/content/pm/Signature;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelperQueryIntentContentProviders, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper)), "queryIntentContentProviders", "(Landroid/content/pm/PackageManager;Landroid/content/Intent;I)Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelperGetProviderInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper)), "getProviderInfo", "(Landroid/content/pm/ResolveInfo;)Landroid/content/pm/ProviderInfo;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/emoji2/text/DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper_API19")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19 = env.NewGlobalRef(&c.Object)
+		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19Ctor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19QueryIntentContentProviders, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19)), "queryIntentContentProviders", "(Landroid/content/pm/PackageManager;Landroid/content/Intent;I)Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19GetProviderInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19)), "getProviderInfo", "(Landroid/content/pm/ResolveInfo;)Landroid/content/pm/ProviderInfo;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19ToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/emoji2/text/DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper_API28")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API28 = env.NewGlobalRef(&c.Object)
+		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API28Ctor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API28)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API28GetSigningSignatures, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API28)), "getSigningSignatures", "(Landroid/content/pm/PackageManager;Ljava/lang/String;)[Landroid/content/pm/Signature;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API28ToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API28)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -509,6 +645,34 @@ func doInit(env *jni.Env) error {
 		}
 
 		midMetadataRepoCreate2_2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMetadataRepo)), "create", "(Landroid/content/res/AssetManager;Ljava/lang/String;)Landroidx/emoji2/text/MetadataRepo;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/emoji2/text/EmojiCompatInitializer")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsEmojiCompatInitializer = env.NewGlobalRef(&c.Object)
+		midEmojiCompatInitializerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiCompatInitializer)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midEmojiCompatInitializerCreate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiCompatInitializer)), "create", "(Landroid/content/Context;)Ljava/lang/Boolean;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEmojiCompatInitializerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiCompatInitializer)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -630,7 +794,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midTypefaceEmojiRasterizerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceEmojiRasterizer)), "toString", "()Ljava/lang/String;")
+		midTypefaceEmojiRasterizerToString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceEmojiRasterizer)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -648,6 +812,170 @@ func doInit(env *jni.Env) error {
 		clsTypefaceEmojiRasterizerHasGlyph = env.NewGlobalRef(&c.Object)
 
 		midTypefaceEmojiRasterizerHasGlyphToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceEmojiRasterizerHasGlyph)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/emoji2/text/FontRequestEmojiCompatConfig")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFontRequestEmojiCompatConfig = env.NewGlobalRef(&c.Object)
+		midFontRequestEmojiCompatConfigCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfig)), "<init>", "(Landroid/content/Context;Landroidx/core/provider/FontRequest;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midFontRequestEmojiCompatConfigSetLoadingExecutor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfig)), "setLoadingExecutor", "(Ljava/util/concurrent/Executor;)Landroidx/emoji2/text/FontRequestEmojiCompatConfig;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFontRequestEmojiCompatConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfig)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFontRequestEmojiCompatConfigSetRetryPolicy, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfig)), "setRetryPolicy", "(Landroidx/emoji2/text/FontRequestEmojiCompatConfig$RetryPolicy;)Landroidx/emoji2/text/FontRequestEmojiCompatConfig;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/emoji2/text/FontRequestEmojiCompatConfig$ExponentialBackoffRetryPolicy")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFontRequestEmojiCompatConfigExponentialBackoffRetryPolicy = env.NewGlobalRef(&c.Object)
+		midFontRequestEmojiCompatConfigExponentialBackoffRetryPolicyCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigExponentialBackoffRetryPolicy)), "<init>", "(J)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midFontRequestEmojiCompatConfigExponentialBackoffRetryPolicyGetRetryDelay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigExponentialBackoffRetryPolicy)), "getRetryDelay", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFontRequestEmojiCompatConfigExponentialBackoffRetryPolicyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigExponentialBackoffRetryPolicy)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/emoji2/text/FontRequestEmojiCompatConfig$FontProviderHelper")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFontRequestEmojiCompatConfigFontProviderHelper = env.NewGlobalRef(&c.Object)
+		midFontRequestEmojiCompatConfigFontProviderHelperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigFontProviderHelper)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midFontRequestEmojiCompatConfigFontProviderHelperFetchFonts, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigFontProviderHelper)), "fetchFonts", "(Landroid/content/Context;Landroidx/core/provider/FontRequest;)Landroidx/core/provider/FontsContractCompat$FontFamilyResult;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFontRequestEmojiCompatConfigFontProviderHelperBuildTypeface, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigFontProviderHelper)), "buildTypeface", "(Landroid/content/Context;Landroidx/core/provider/FontsContractCompat$FontInfo;)Landroid/graphics/Typeface;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFontRequestEmojiCompatConfigFontProviderHelperRegisterObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigFontProviderHelper)), "registerObserver", "(Landroid/content/Context;Landroid/net/Uri;Landroid/database/ContentObserver;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFontRequestEmojiCompatConfigFontProviderHelperUnregisterObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigFontProviderHelper)), "unregisterObserver", "(Landroid/content/Context;Landroid/database/ContentObserver;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFontRequestEmojiCompatConfigFontProviderHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigFontProviderHelper)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/emoji2/text/FontRequestEmojiCompatConfig$RetryPolicy")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFontRequestEmojiCompatConfigRetryPolicy = env.NewGlobalRef(&c.Object)
+
+		midFontRequestEmojiCompatConfigRetryPolicyGetRetryDelay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigRetryPolicy)), "getRetryDelay", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFontRequestEmojiCompatConfigRetryPolicyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigRetryPolicy)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/emoji2/text/TypefaceEmojiSpan")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTypefaceEmojiSpan = env.NewGlobalRef(&c.Object)
+		midTypefaceEmojiSpanCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceEmojiSpan)), "<init>", "(Landroidx/emoji2/text/TypefaceEmojiRasterizer;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midTypefaceEmojiSpanDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceEmojiSpan)), "draw", "(Landroid/graphics/Canvas;Ljava/lang/CharSequence;IIFIIILandroid/graphics/Paint;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTypefaceEmojiSpanToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceEmojiSpan)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -776,13 +1104,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midEmojiCompatUpdateEditorInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiCompat)), "updateEditorInfo", "(Landroid/view/inputmethod/EditorInfo;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midEmojiCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiCompat)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -879,123 +1200,6 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/emoji2/text/DefaultEmojiCompatConfig")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDefaultEmojiCompatConfig = env.NewGlobalRef(&c.Object)
-
-		midDefaultEmojiCompatConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfig)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDefaultEmojiCompatConfigCreate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfig)), "create", "(Landroid/content/Context;)Landroidx/emoji2/text/FontRequestEmojiCompatConfig;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/emoji2/text/DefaultEmojiCompatConfig$DefaultEmojiCompatConfigFactory")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactory = env.NewGlobalRef(&c.Object)
-
-		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactoryCreate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactory)), "create", "(Landroid/content/Context;)Landroidx/emoji2/text/EmojiCompat$Config;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactory)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/emoji2/text/DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper = env.NewGlobalRef(&c.Object)
-
-		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelperGetSigningSignatures, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper)), "getSigningSignatures", "(Landroid/content/pm/PackageManager;Ljava/lang/String;)[Landroid/content/pm/Signature;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelperQueryIntentContentProviders, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper)), "queryIntentContentProviders", "(Landroid/content/pm/PackageManager;Landroid/content/Intent;I)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelperGetProviderInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper)), "getProviderInfo", "(Landroid/content/pm/ResolveInfo;)Landroid/content/pm/ProviderInfo;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/emoji2/text/DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper_API19")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19 = env.NewGlobalRef(&c.Object)
-
-		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19QueryIntentContentProviders, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19)), "queryIntentContentProviders", "(Landroid/content/pm/PackageManager;Landroid/content/Intent;I)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19GetProviderInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19)), "getProviderInfo", "(Landroid/content/pm/ResolveInfo;)Landroid/content/pm/ProviderInfo;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19ToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API19)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("androidx/emoji2/text/EmojiCompat$Config")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -1083,6 +1287,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsEmojiCompatDefaultSpanFactory = env.NewGlobalRef(&c.Object)
+		midEmojiCompatDefaultSpanFactoryCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiCompatDefaultSpanFactory)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midEmojiCompatDefaultSpanFactoryCreateSpan, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiCompatDefaultSpanFactory)), "createSpan", "(Landroidx/emoji2/text/TypefaceEmojiRasterizer;)Landroidx/emoji2/text/EmojiSpan;")
 		if err != nil {
@@ -1092,30 +1300,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midEmojiCompatDefaultSpanFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiCompatDefaultSpanFactory)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/emoji2/text/DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper_API28")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API28 = env.NewGlobalRef(&c.Object)
-
-		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API28GetSigningSignatures, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API28)), "getSigningSignatures", "(Landroid/content/pm/PackageManager;Ljava/lang/String;)[Landroid/content/pm/Signature;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API28ToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigHelper_API28)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1284,259 +1468,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midEmojiCompatSpanFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiCompatSpanFactory)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/emoji2/text/EmojiCompatInitializer")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsEmojiCompatInitializer = env.NewGlobalRef(&c.Object)
-		midEmojiCompatInitializerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiCompatInitializer)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midEmojiCompatInitializerCreate1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiCompatInitializer)), "create", "(Landroid/content/Context;)Ljava/lang/Boolean;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmojiCompatInitializerCreate1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiCompatInitializer)), "create", "(Landroid/content/Context;)Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmojiCompatInitializerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiCompatInitializer)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/emoji2/text/EmojiSpan")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsEmojiSpan = env.NewGlobalRef(&c.Object)
-
-		midEmojiSpanGetSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiSpan)), "getSize", "(Landroid/graphics/Paint;Ljava/lang/CharSequence;IILandroid/graphics/Paint$FontMetricsInt;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmojiSpanGetTypefaceRasterizer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiSpan)), "getTypefaceRasterizer", "()Landroidx/emoji2/text/TypefaceEmojiRasterizer;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmojiSpanGetHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiSpan)), "getHeight", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmojiSpanGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiSpan)), "getId", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmojiSpanToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiSpan)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/emoji2/text/EmojiDefaults")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsEmojiDefaults = env.NewGlobalRef(&c.Object)
-
-		midEmojiDefaultsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmojiDefaults)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/emoji2/text/FontRequestEmojiCompatConfig")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFontRequestEmojiCompatConfig = env.NewGlobalRef(&c.Object)
-		midFontRequestEmojiCompatConfigCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfig)), "<init>", "(Landroid/content/Context;Landroidx/core/provider/FontRequest;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midFontRequestEmojiCompatConfigSetLoadingExecutor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfig)), "setLoadingExecutor", "(Ljava/util/concurrent/Executor;)Landroidx/emoji2/text/FontRequestEmojiCompatConfig;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontRequestEmojiCompatConfigSetRetryPolicy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfig)), "setRetryPolicy", "(Landroidx/emoji2/text/FontRequestEmojiCompatConfig$RetryPolicy;)Landroidx/emoji2/text/FontRequestEmojiCompatConfig;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontRequestEmojiCompatConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfig)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/emoji2/text/FontRequestEmojiCompatConfig$ExponentialBackoffRetryPolicy")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFontRequestEmojiCompatConfigExponentialBackoffRetryPolicy = env.NewGlobalRef(&c.Object)
-
-		midFontRequestEmojiCompatConfigExponentialBackoffRetryPolicyGetRetryDelay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigExponentialBackoffRetryPolicy)), "getRetryDelay", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontRequestEmojiCompatConfigExponentialBackoffRetryPolicyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigExponentialBackoffRetryPolicy)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/emoji2/text/TypefaceEmojiSpan")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTypefaceEmojiSpan = env.NewGlobalRef(&c.Object)
-		midTypefaceEmojiSpanCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceEmojiSpan)), "<init>", "(Landroidx/emoji2/text/TypefaceEmojiRasterizer;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midTypefaceEmojiSpanDraw, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceEmojiSpan)), "draw", "(Landroid/graphics/Canvas;Ljava/lang/CharSequence;IIFIIILandroid/graphics/Paint;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTypefaceEmojiSpanToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceEmojiSpan)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/emoji2/text/FontRequestEmojiCompatConfig$FontProviderHelper")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFontRequestEmojiCompatConfigFontProviderHelper = env.NewGlobalRef(&c.Object)
-
-		midFontRequestEmojiCompatConfigFontProviderHelperFetchFonts, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigFontProviderHelper)), "fetchFonts", "(Landroid/content/Context;Landroidx/core/provider/FontRequest;)Landroidx/core/provider/FontsContractCompat$FontFamilyResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontRequestEmojiCompatConfigFontProviderHelperBuildTypeface, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigFontProviderHelper)), "buildTypeface", "(Landroid/content/Context;Landroidx/core/provider/FontsContractCompat$FontInfo;)Landroid/graphics/Typeface;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontRequestEmojiCompatConfigFontProviderHelperRegisterObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigFontProviderHelper)), "registerObserver", "(Landroid/content/Context;Landroid/net/Uri;Landroid/database/ContentObserver;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontRequestEmojiCompatConfigFontProviderHelperUnregisterObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigFontProviderHelper)), "unregisterObserver", "(Landroid/content/Context;Landroid/database/ContentObserver;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontRequestEmojiCompatConfigFontProviderHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigFontProviderHelper)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/emoji2/text/FontRequestEmojiCompatConfig$RetryPolicy")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFontRequestEmojiCompatConfigRetryPolicy = env.NewGlobalRef(&c.Object)
-
-		midFontRequestEmojiCompatConfigRetryPolicyGetRetryDelay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigRetryPolicy)), "getRetryDelay", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontRequestEmojiCompatConfigRetryPolicyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequestEmojiCompatConfigRetryPolicy)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

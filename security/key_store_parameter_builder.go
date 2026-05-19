@@ -23,6 +23,35 @@ type KeyStoreParameterBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewKeyStoreParameterBuilder creates a new android.security.KeyStoreParameter$Builder instance.
+func NewKeyStoreParameterBuilder(vm *jni.VM, arg0 *jni.Object) (*KeyStoreParameterBuilder, error) {
+	var t KeyStoreParameterBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsKeyStoreParameterBuilder == nil {
+			return fmt.Errorf("android.security.KeyStoreParameter$Builder is not available on this device")
+		}
+		if midKeyStoreParameterBuilderCtor == nil {
+			return fmt.Errorf("android.security.KeyStoreParameter$Builder constructor (Landroid/content/Context;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyStoreParameterBuilder)), midKeyStoreParameterBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.security.KeyStoreParameter$Builder.build.
 func (m *KeyStoreParameterBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

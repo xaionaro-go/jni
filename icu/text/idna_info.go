@@ -23,6 +23,34 @@ type IDNAInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewIDNAInfo creates a new android.icu.text.IDNA$Info instance.
+func NewIDNAInfo(vm *jni.VM) (*IDNAInfo, error) {
+	var t IDNAInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsIDNAInfo == nil {
+			return fmt.Errorf("android.icu.text.IDNA$Info is not available on this device")
+		}
+		if midIDNAInfoCtor == nil {
+			return fmt.Errorf("android.icu.text.IDNA$Info constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIDNAInfo)), midIDNAInfoCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetErrors calls android.icu.text.IDNA$Info.getErrors.
 func (m *IDNAInfo) GetErrors() (*jni.Object, error) {
 	var result *jni.Object

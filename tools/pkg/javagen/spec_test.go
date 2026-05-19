@@ -224,7 +224,7 @@ func TestLoadSpec_RealSpecs(t *testing.T) {
 		t.Fatalf("glob: %v", err)
 	}
 	if len(specs) == 0 {
-		t.Skip("no real spec files found")
+		t.Fatalf("required real spec files not found in %s", specsDir)
 	}
 
 	for _, specPath := range specs {

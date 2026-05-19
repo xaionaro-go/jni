@@ -32,6 +32,12 @@ func NewDescrambler(vm *jni.VM, arg0 int32) (*Descrambler, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDescrambler == nil {
+			return fmt.Errorf("android.media.MediaDescrambler is not available on this device")
+		}
+		if midDescramblerCtor == nil {
+			return fmt.Errorf("android.media.MediaDescrambler constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDescrambler)), midDescramblerCtor, jni.IntValue(arg0))
 		if err != nil {

@@ -23,6 +23,34 @@ type ViewCommandMoveWindowArguments struct {
 	Obj *jni.GlobalRef
 }
 
+// NewViewCommandMoveWindowArguments creates a new androidx.core.view.accessibility.AccessibilityViewCommand$MoveWindowArguments instance.
+func NewViewCommandMoveWindowArguments(vm *jni.VM) (*ViewCommandMoveWindowArguments, error) {
+	var t ViewCommandMoveWindowArguments
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsViewCommandMoveWindowArguments == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityViewCommand$MoveWindowArguments is not available on this device")
+		}
+		if midViewCommandMoveWindowArgumentsCtor == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityViewCommand$MoveWindowArguments constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewCommandMoveWindowArguments)), midViewCommandMoveWindowArgumentsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetX calls androidx.core.view.accessibility.AccessibilityViewCommand$MoveWindowArguments.getX.
 func (m *ViewCommandMoveWindowArguments) GetX() (int32, error) {
 	var result int32

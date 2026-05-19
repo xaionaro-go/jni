@@ -32,6 +32,12 @@ func NewReversableAnimatedValueInterpolator(vm *jni.VM, arg0 *jni.Object) (*Reve
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsReversableAnimatedValueInterpolator == nil {
+			return fmt.Errorf("com.google.android.material.internal.ReversableAnimatedValueInterpolator is not available on this device")
+		}
+		if midReversableAnimatedValueInterpolatorCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.ReversableAnimatedValueInterpolator constructor (Landroid/animation/TimeInterpolator;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsReversableAnimatedValueInterpolator)), midReversableAnimatedValueInterpolatorCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -23,6 +23,35 @@ type Session2ServiceMediaNotification struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSession2ServiceMediaNotification creates a new android.media.MediaSession2Service$MediaNotification instance.
+func NewSession2ServiceMediaNotification(vm *jni.VM, arg0 int32, arg1 *jni.Object) (*Session2ServiceMediaNotification, error) {
+	var t Session2ServiceMediaNotification
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSession2ServiceMediaNotification == nil {
+			return fmt.Errorf("android.media.MediaSession2Service$MediaNotification is not available on this device")
+		}
+		if midSession2ServiceMediaNotificationCtor == nil {
+			return fmt.Errorf("android.media.MediaSession2Service$MediaNotification constructor (ILandroid/app/Notification;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSession2ServiceMediaNotification)), midSession2ServiceMediaNotificationCtor, jni.IntValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetNotification calls android.media.MediaSession2Service$MediaNotification.getNotification.
 func (m *Session2ServiceMediaNotification) GetNotification() (*jni.Object, error) {
 	var result *jni.Object

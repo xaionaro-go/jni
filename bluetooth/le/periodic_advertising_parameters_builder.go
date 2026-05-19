@@ -23,6 +23,34 @@ type PeriodicAdvertisingParametersBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPeriodicAdvertisingParametersBuilder creates a new android.bluetooth.le.PeriodicAdvertisingParameters$Builder instance.
+func NewPeriodicAdvertisingParametersBuilder(vm *jni.VM) (*PeriodicAdvertisingParametersBuilder, error) {
+	var t PeriodicAdvertisingParametersBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPeriodicAdvertisingParametersBuilder == nil {
+			return fmt.Errorf("android.bluetooth.le.PeriodicAdvertisingParameters$Builder is not available on this device")
+		}
+		if midPeriodicAdvertisingParametersBuilderCtor == nil {
+			return fmt.Errorf("android.bluetooth.le.PeriodicAdvertisingParameters$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPeriodicAdvertisingParametersBuilder)), midPeriodicAdvertisingParametersBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.bluetooth.le.PeriodicAdvertisingParameters$Builder.build.
 func (m *PeriodicAdvertisingParametersBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

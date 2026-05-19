@@ -23,15 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsHostUsiVersion                 *jni.GlobalRef
-	midHostUsiVersionDescribeContents jni.MethodID
-	midHostUsiVersionEquals           jni.MethodID
-	midHostUsiVersionGetMajorVersion  jni.MethodID
-	midHostUsiVersionGetMinorVersion  jni.MethodID
-	midHostUsiVersionHashCode         jni.MethodID
-	midHostUsiVersionToString         jni.MethodID
-	midHostUsiVersionWriteToParcel    jni.MethodID
-
 	clsManager                                   *jni.GlobalRef
 	midManagerGetHostUsiVersion                  jni.MethodID
 	midManagerGetInputDevice                     jni.MethodID
@@ -48,6 +39,15 @@ var (
 	midManagerInputDeviceListenerOnInputDeviceChanged jni.MethodID
 	midManagerInputDeviceListenerOnInputDeviceRemoved jni.MethodID
 	midManagerInputDeviceListenerToString             jni.MethodID
+
+	clsHostUsiVersion                 *jni.GlobalRef
+	midHostUsiVersionDescribeContents jni.MethodID
+	midHostUsiVersionEquals           jni.MethodID
+	midHostUsiVersionGetMajorVersion  jni.MethodID
+	midHostUsiVersionGetMinorVersion  jni.MethodID
+	midHostUsiVersionHashCode         jni.MethodID
+	midHostUsiVersionToString         jni.MethodID
+	midHostUsiVersionWriteToParcel    jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -67,65 +67,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("android/hardware/input/HostUsiVersion")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsHostUsiVersion = env.NewGlobalRef(&c.Object)
-
-		midHostUsiVersionDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHostUsiVersion)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHostUsiVersionEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHostUsiVersion)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHostUsiVersionGetMajorVersion, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHostUsiVersion)), "getMajorVersion", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHostUsiVersionGetMinorVersion, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHostUsiVersion)), "getMinorVersion", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHostUsiVersionHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHostUsiVersion)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHostUsiVersionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHostUsiVersion)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHostUsiVersionWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHostUsiVersion)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("android/hardware/input/InputManager")
 	if err != nil {
@@ -230,6 +171,65 @@ func doInit(env *jni.Env) error {
 		}
 
 		midManagerInputDeviceListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerInputDeviceListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/input/HostUsiVersion")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsHostUsiVersion = env.NewGlobalRef(&c.Object)
+
+		midHostUsiVersionDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHostUsiVersion)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHostUsiVersionEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHostUsiVersion)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHostUsiVersionGetMajorVersion, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHostUsiVersion)), "getMajorVersion", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHostUsiVersionGetMinorVersion, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHostUsiVersion)), "getMinorVersion", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHostUsiVersionHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHostUsiVersion)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHostUsiVersionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHostUsiVersion)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHostUsiVersionWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHostUsiVersion)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

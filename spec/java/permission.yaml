@@ -10,8 +10,10 @@ classes:
       obtain: constructor
     - java_class: android.Manifest$permission
       go_type: Manifestpermission
+      obtain: constructor
     - java_class: android.Manifest$permission_group
       go_type: Manifestpermission_group
+      obtain: constructor
 constants:
     - go_name: AcceptHandover
       value: '"android.permission.ACCEPT_HANDOVER"'

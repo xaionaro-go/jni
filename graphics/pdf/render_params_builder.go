@@ -23,6 +23,35 @@ type RenderParamsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRenderParamsBuilder creates a new android.graphics.pdf.RenderParams$Builder instance.
+func NewRenderParamsBuilder(vm *jni.VM, arg0 int32) (*RenderParamsBuilder, error) {
+	var t RenderParamsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRenderParamsBuilder == nil {
+			return fmt.Errorf("android.graphics.pdf.RenderParams$Builder is not available on this device")
+		}
+		if midRenderParamsBuilderCtor == nil {
+			return fmt.Errorf("android.graphics.pdf.RenderParams$Builder constructor (I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRenderParamsBuilder)), midRenderParamsBuilderCtor, jni.IntValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.graphics.pdf.RenderParams$Builder.build.
 func (m *RenderParamsBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -105,32 +105,6 @@ func (m *BreakIterator) First() (int32, error) {
 	return result, callErr
 }
 
-// Following calls android.icu.text.BreakIterator.following.
-func (m *BreakIterator) Following(arg0 int32) (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBreakIteratorFollowing == nil {
-			callErr = fmt.Errorf("android.icu.text.BreakIterator.following is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midBreakIteratorFollowing, jni.IntValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // GetRuleStatus calls android.icu.text.BreakIterator.getRuleStatus.
 func (m *BreakIterator) GetRuleStatus() (int32, error) {
 	var result int32
@@ -470,6 +444,32 @@ func (m *BreakIterator) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// Following calls android.icu.text.BreakIterator.following.
+func (m *BreakIterator) Following(arg0 int32) (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midBreakIteratorFollowing == nil {
+			callErr = fmt.Errorf("android.icu.text.BreakIterator.following is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsBreakIterator)),
+			midBreakIteratorFollowing, jni.IntValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
 		return callErr
 	})
 	return result, callErr

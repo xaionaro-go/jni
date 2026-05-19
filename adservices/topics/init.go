@@ -23,38 +23,9 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsTopic                   *jni.GlobalRef
-	midTopicCtor               jni.MethodID
-	midTopicEquals             jni.MethodID
-	midTopicGetModelVersion    jni.MethodID
-	midTopicGetTaxonomyVersion jni.MethodID
-	midTopicGetTopicId         jni.MethodID
-	midTopicHashCode           jni.MethodID
-	midTopicToString           jni.MethodID
-
 	clsManager         *jni.GlobalRef
 	midManagerToString jni.MethodID
 	midManagerGet      jni.MethodID
-
-	clsEncryptedTopic                   *jni.GlobalRef
-	midEncryptedTopicCtor               jni.MethodID
-	midEncryptedTopicEquals             jni.MethodID
-	midEncryptedTopicGetEncapsulatedKey jni.MethodID
-	midEncryptedTopicGetEncryptedTopic  jni.MethodID
-	midEncryptedTopicGetKeyIdentifier   jni.MethodID
-	midEncryptedTopicHashCode           jni.MethodID
-	midEncryptedTopicToString           jni.MethodID
-
-	clsGetTopicsRequest                        *jni.GlobalRef
-	midGetTopicsRequestGetAdsSdkName           jni.MethodID
-	midGetTopicsRequestShouldRecordObservation jni.MethodID
-	midGetTopicsRequestToString                jni.MethodID
-
-	clsGetTopicsRequestBuilder                           *jni.GlobalRef
-	midGetTopicsRequestBuilderBuild                      jni.MethodID
-	midGetTopicsRequestBuilderSetAdsSdkName              jni.MethodID
-	midGetTopicsRequestBuilderSetShouldRecordObservation jni.MethodID
-	midGetTopicsRequestBuilderToString                   jni.MethodID
 
 	clsGetTopicsResponse                   *jni.GlobalRef
 	midGetTopicsResponseEquals             jni.MethodID
@@ -64,8 +35,39 @@ var (
 	midGetTopicsResponseToString           jni.MethodID
 
 	clsGetTopicsResponseBuilder         *jni.GlobalRef
+	midGetTopicsResponseBuilderCtor     jni.MethodID
 	midGetTopicsResponseBuilderBuild    jni.MethodID
 	midGetTopicsResponseBuilderToString jni.MethodID
+
+	clsGetTopicsRequest                        *jni.GlobalRef
+	midGetTopicsRequestGetAdsSdkName           jni.MethodID
+	midGetTopicsRequestShouldRecordObservation jni.MethodID
+	midGetTopicsRequestToString                jni.MethodID
+
+	clsGetTopicsRequestBuilder                           *jni.GlobalRef
+	midGetTopicsRequestBuilderCtor                       jni.MethodID
+	midGetTopicsRequestBuilderBuild                      jni.MethodID
+	midGetTopicsRequestBuilderSetAdsSdkName              jni.MethodID
+	midGetTopicsRequestBuilderSetShouldRecordObservation jni.MethodID
+	midGetTopicsRequestBuilderToString                   jni.MethodID
+
+	clsTopic                   *jni.GlobalRef
+	midTopicCtor               jni.MethodID
+	midTopicEquals             jni.MethodID
+	midTopicGetModelVersion    jni.MethodID
+	midTopicGetTaxonomyVersion jni.MethodID
+	midTopicGetTopicId         jni.MethodID
+	midTopicHashCode           jni.MethodID
+	midTopicToString           jni.MethodID
+
+	clsEncryptedTopic                   *jni.GlobalRef
+	midEncryptedTopicCtor               jni.MethodID
+	midEncryptedTopicEquals             jni.MethodID
+	midEncryptedTopicGetEncapsulatedKey jni.MethodID
+	midEncryptedTopicGetEncryptedTopic  jni.MethodID
+	midEncryptedTopicGetKeyIdentifier   jni.MethodID
+	midEncryptedTopicHashCode           jni.MethodID
+	midEncryptedTopicToString           jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -86,62 +88,6 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("android/adservices/topics/Topic")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTopic = env.NewGlobalRef(&c.Object)
-		midTopicCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTopic)), "<init>", "(JJI)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midTopicEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTopic)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTopicGetModelVersion, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTopic)), "getModelVersion", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTopicGetTaxonomyVersion, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTopic)), "getTaxonomyVersion", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTopicGetTopicId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTopic)), "getTopicId", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTopicHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTopic)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTopicToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTopic)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("android/adservices/topics/TopicsManager")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -158,131 +104,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midManagerGet, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "get", "(Landroid/content/Context;)Landroid/adservices/topics/TopicsManager;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/adservices/topics/EncryptedTopic")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsEncryptedTopic = env.NewGlobalRef(&c.Object)
-		midEncryptedTopicCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEncryptedTopic)), "<init>", "([BLjava/lang/String;[B)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midEncryptedTopicEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEncryptedTopic)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEncryptedTopicGetEncapsulatedKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEncryptedTopic)), "getEncapsulatedKey", "()[B")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEncryptedTopicGetEncryptedTopic, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEncryptedTopic)), "getEncryptedTopic", "()[B")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEncryptedTopicGetKeyIdentifier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEncryptedTopic)), "getKeyIdentifier", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEncryptedTopicHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEncryptedTopic)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEncryptedTopicToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEncryptedTopic)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/adservices/topics/GetTopicsRequest")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsGetTopicsRequest = env.NewGlobalRef(&c.Object)
-
-		midGetTopicsRequestGetAdsSdkName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTopicsRequest)), "getAdsSdkName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGetTopicsRequestShouldRecordObservation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTopicsRequest)), "shouldRecordObservation", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGetTopicsRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTopicsRequest)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/adservices/topics/GetTopicsRequest$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsGetTopicsRequestBuilder = env.NewGlobalRef(&c.Object)
-
-		midGetTopicsRequestBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTopicsRequestBuilder)), "build", "()Landroid/adservices/topics/GetTopicsRequest;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGetTopicsRequestBuilderSetAdsSdkName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTopicsRequestBuilder)), "setAdsSdkName", "(Ljava/lang/String;)Landroid/adservices/topics/GetTopicsRequest$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGetTopicsRequestBuilderSetShouldRecordObservation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTopicsRequestBuilder)), "setShouldRecordObservation", "(Z)Landroid/adservices/topics/GetTopicsRequest$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGetTopicsRequestBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTopicsRequestBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -343,6 +164,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsGetTopicsResponseBuilder = env.NewGlobalRef(&c.Object)
+		midGetTopicsResponseBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTopicsResponseBuilder)), "<init>", "(Ljava/util/List;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midGetTopicsResponseBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTopicsResponseBuilder)), "build", "()Landroid/adservices/topics/GetTopicsResponse;")
 		if err != nil {
@@ -352,6 +177,191 @@ func doInit(env *jni.Env) error {
 		}
 
 		midGetTopicsResponseBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTopicsResponseBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/adservices/topics/GetTopicsRequest")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsGetTopicsRequest = env.NewGlobalRef(&c.Object)
+
+		midGetTopicsRequestGetAdsSdkName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTopicsRequest)), "getAdsSdkName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGetTopicsRequestShouldRecordObservation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTopicsRequest)), "shouldRecordObservation", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGetTopicsRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTopicsRequest)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/adservices/topics/GetTopicsRequest$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsGetTopicsRequestBuilder = env.NewGlobalRef(&c.Object)
+		midGetTopicsRequestBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTopicsRequestBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midGetTopicsRequestBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTopicsRequestBuilder)), "build", "()Landroid/adservices/topics/GetTopicsRequest;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGetTopicsRequestBuilderSetAdsSdkName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTopicsRequestBuilder)), "setAdsSdkName", "(Ljava/lang/String;)Landroid/adservices/topics/GetTopicsRequest$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGetTopicsRequestBuilderSetShouldRecordObservation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTopicsRequestBuilder)), "setShouldRecordObservation", "(Z)Landroid/adservices/topics/GetTopicsRequest$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGetTopicsRequestBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetTopicsRequestBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/adservices/topics/Topic")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTopic = env.NewGlobalRef(&c.Object)
+		midTopicCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTopic)), "<init>", "(JJI)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midTopicEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTopic)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTopicGetModelVersion, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTopic)), "getModelVersion", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTopicGetTaxonomyVersion, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTopic)), "getTaxonomyVersion", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTopicGetTopicId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTopic)), "getTopicId", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTopicHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTopic)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTopicToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTopic)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/adservices/topics/EncryptedTopic")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsEncryptedTopic = env.NewGlobalRef(&c.Object)
+		midEncryptedTopicCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEncryptedTopic)), "<init>", "([BLjava/lang/String;[B)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midEncryptedTopicEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEncryptedTopic)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEncryptedTopicGetEncapsulatedKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEncryptedTopic)), "getEncapsulatedKey", "()[B")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEncryptedTopicGetEncryptedTopic, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEncryptedTopic)), "getEncryptedTopic", "()[B")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEncryptedTopicGetKeyIdentifier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEncryptedTopic)), "getKeyIdentifier", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEncryptedTopicHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEncryptedTopic)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEncryptedTopicToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEncryptedTopic)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

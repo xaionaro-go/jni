@@ -32,6 +32,12 @@ func NewCursorAnchorInfo(vm *jni.VM, arg0 *jni.Object) (*CursorAnchorInfo, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCursorAnchorInfo == nil {
+			return fmt.Errorf("android.view.inputmethod.CursorAnchorInfo is not available on this device")
+		}
+		if midCursorAnchorInfoCtor == nil {
+			return fmt.Errorf("android.view.inputmethod.CursorAnchorInfo constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCursorAnchorInfo)), midCursorAnchorInfoCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -584,8 +590,8 @@ func (m *CursorAnchorInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsCursorAnchorInfo)),
 			midCursorAnchorInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

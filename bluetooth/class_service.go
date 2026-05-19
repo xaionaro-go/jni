@@ -23,6 +23,34 @@ type ClassService struct {
 	Obj *jni.GlobalRef
 }
 
+// NewClassService creates a new android.bluetooth.BluetoothClass$Service instance.
+func NewClassService(vm *jni.VM) (*ClassService, error) {
+	var t ClassService
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsClassService == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothClass$Service is not available on this device")
+		}
+		if midClassServiceCtor == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothClass$Service constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsClassService)), midClassServiceCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.bluetooth.BluetoothClass$Service.toString.
 func (m *ClassService) ToString() (string, error) {
 	var result string

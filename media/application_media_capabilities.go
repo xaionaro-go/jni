@@ -302,29 +302,6 @@ func (m *ApplicationMediaCapabilities) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.media.ApplicationMediaCapabilities.writeToParcel.
-func (m *ApplicationMediaCapabilities) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midApplicationMediaCapabilitiesWriteToParcel == nil {
-			callErr = fmt.Errorf("android.media.ApplicationMediaCapabilities.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midApplicationMediaCapabilitiesWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // CreateFromXml calls android.media.ApplicationMediaCapabilities.createFromXml.
 func (m *ApplicationMediaCapabilities) CreateFromXml(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
@@ -356,4 +333,27 @@ func (m *ApplicationMediaCapabilities) CreateFromXml(arg0 *jni.Object) (*jni.Obj
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.media.ApplicationMediaCapabilities.writeToParcel.
+func (m *ApplicationMediaCapabilities) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midApplicationMediaCapabilitiesWriteToParcel == nil {
+			callErr = fmt.Errorf("android.media.ApplicationMediaCapabilities.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsApplicationMediaCapabilities)),
+			midApplicationMediaCapabilitiesWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

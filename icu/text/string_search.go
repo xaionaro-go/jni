@@ -32,6 +32,12 @@ func NewStringSearch(vm *jni.VM, arg0 string, arg1 string) (*StringSearch, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStringSearch == nil {
+			return fmt.Errorf("android.icu.text.StringSearch is not available on this device")
+		}
+		if midStringSearchCtor == nil {
+			return fmt.Errorf("android.icu.text.StringSearch constructor (Ljava/lang/String;Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

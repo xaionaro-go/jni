@@ -32,6 +32,12 @@ func NewMotionKeyTimeCycle(vm *jni.VM) (*MotionKeyTimeCycle, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMotionKeyTimeCycle == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.key.MotionKeyTimeCycle is not available on this device")
+		}
+		if midMotionKeyTimeCycleCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.key.MotionKeyTimeCycle constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMotionKeyTimeCycle)), midMotionKeyTimeCycleCtor)
 		if err != nil {
 			return err
@@ -168,8 +174,8 @@ func (m *MotionKeyTimeCycle) SetValue2_3(arg0 int32, arg1 bool) (bool, error) {
 	return result, callErr
 }
 
-// Copy1 calls androidx.constraintlayout.core.motion.key.MotionKeyTimeCycle.copy.
-func (m *MotionKeyTimeCycle) Copy1(arg0 *jni.Object) (*jni.Object, error) {
+// Copy calls androidx.constraintlayout.core.motion.key.MotionKeyTimeCycle.copy.
+func (m *MotionKeyTimeCycle) Copy(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -177,14 +183,14 @@ func (m *MotionKeyTimeCycle) Copy1(arg0 *jni.Object) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midMotionKeyTimeCycleCopy1 == nil {
+		if midMotionKeyTimeCycleCopy == nil {
 			callErr = fmt.Errorf("androidx.constraintlayout.core.motion.key.MotionKeyTimeCycle.copy is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midMotionKeyTimeCycleCopy1, jni.ObjectValue(arg0),
+			midMotionKeyTimeCycleCopy, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -201,8 +207,8 @@ func (m *MotionKeyTimeCycle) Copy1(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// Clone0 calls androidx.constraintlayout.core.motion.key.MotionKeyTimeCycle.clone.
-func (m *MotionKeyTimeCycle) Clone0() (*jni.Object, error) {
+// Clone calls androidx.constraintlayout.core.motion.key.MotionKeyTimeCycle.clone.
+func (m *MotionKeyTimeCycle) Clone() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -210,13 +216,13 @@ func (m *MotionKeyTimeCycle) Clone0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midMotionKeyTimeCycleClone0 == nil {
+		if midMotionKeyTimeCycleClone == nil {
 			callErr = fmt.Errorf("androidx.constraintlayout.core.motion.key.MotionKeyTimeCycle.clone is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midMotionKeyTimeCycleClone0,
+			midMotionKeyTimeCycleClone,
 		)
 		if callErr != nil {
 			return callErr
@@ -258,71 +264,6 @@ func (m *MotionKeyTimeCycle) GetId(arg0 string) (int32, error) {
 		)
 		if callErr != nil {
 			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Copy1_1 calls androidx.constraintlayout.core.motion.key.MotionKeyTimeCycle.copy.
-func (m *MotionKeyTimeCycle) Copy1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMotionKeyTimeCycleCopy1_1 == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.core.motion.key.MotionKeyTimeCycle.copy is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMotionKeyTimeCycleCopy1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Clone0_1 calls androidx.constraintlayout.core.motion.key.MotionKeyTimeCycle.clone.
-func (m *MotionKeyTimeCycle) Clone0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMotionKeyTimeCycleClone0_1 == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.core.motion.key.MotionKeyTimeCycle.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMotionKeyTimeCycleClone0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
 		}
 		return callErr
 	})

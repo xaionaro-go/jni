@@ -32,6 +32,12 @@ func NewArrowKeyMovementMethod(vm *jni.VM) (*ArrowKeyMovementMethod, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsArrowKeyMovementMethod == nil {
+			return fmt.Errorf("android.text.method.ArrowKeyMovementMethod is not available on this device")
+		}
+		if midArrowKeyMovementMethodCtor == nil {
+			return fmt.Errorf("android.text.method.ArrowKeyMovementMethod constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsArrowKeyMovementMethod)), midArrowKeyMovementMethodCtor)
 		if err != nil {
 			return err

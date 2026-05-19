@@ -32,6 +32,12 @@ func NewLightingColorFilter(vm *jni.VM, arg0 int32, arg1 int32) (*LightingColorF
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLightingColorFilter == nil {
+			return fmt.Errorf("android.graphics.LightingColorFilter is not available on this device")
+		}
+		if midLightingColorFilterCtor == nil {
+			return fmt.Errorf("android.graphics.LightingColorFilter constructor (II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLightingColorFilter)), midLightingColorFilterCtor, jni.IntValue(arg0), jni.IntValue(arg1))
 		if err != nil {

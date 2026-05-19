@@ -23,6 +23,35 @@ type EditingEndedEventBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewEditingEndedEventBuilder creates a new android.media.metrics.EditingEndedEvent$Builder instance.
+func NewEditingEndedEventBuilder(vm *jni.VM, arg0 int32) (*EditingEndedEventBuilder, error) {
+	var t EditingEndedEventBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsEditingEndedEventBuilder == nil {
+			return fmt.Errorf("android.media.metrics.EditingEndedEvent$Builder is not available on this device")
+		}
+		if midEditingEndedEventBuilderCtor == nil {
+			return fmt.Errorf("android.media.metrics.EditingEndedEvent$Builder constructor (I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEditingEndedEventBuilder)), midEditingEndedEventBuilderCtor, jni.IntValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddInputMediaItemInfo calls android.media.metrics.EditingEndedEvent$Builder.addInputMediaItemInfo.
 func (m *EditingEndedEventBuilder) AddInputMediaItemInfo(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

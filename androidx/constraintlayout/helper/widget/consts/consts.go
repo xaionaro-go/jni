@@ -3,6 +3,15 @@
 package consts
 
 const (
+	Tag string = "FadeMove"
+)
+
+const (
+	Auto                  int = -1
+	North                 int = 0
+	South                 int = 1
+	East                  int = 2
+	West                  int = 3
 	Horizontal            int = 0
 	Vertical              int = 1
 	WrapNone              int = 0
@@ -20,13 +29,4 @@ const (
 	VerticalAlignBaseline int = 3
 	TouchUpImmediateStop  int = 1
 	TouchUpCarryOn        int = 2
-	Auto                  int = -1
-	North                 int = 0
-	South                 int = 1
-	East                  int = 2
-	West                  int = 3
-)
-
-const (
-	Tag string = "FadeMove"
 )

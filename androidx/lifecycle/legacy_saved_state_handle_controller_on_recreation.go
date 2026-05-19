@@ -23,6 +23,34 @@ type LegacySavedStateHandleControllerOnRecreation struct {
 	Obj *jni.GlobalRef
 }
 
+// NewLegacySavedStateHandleControllerOnRecreation creates a new androidx.lifecycle.LegacySavedStateHandleController$OnRecreation instance.
+func NewLegacySavedStateHandleControllerOnRecreation(vm *jni.VM) (*LegacySavedStateHandleControllerOnRecreation, error) {
+	var t LegacySavedStateHandleControllerOnRecreation
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsLegacySavedStateHandleControllerOnRecreation == nil {
+			return fmt.Errorf("androidx.lifecycle.LegacySavedStateHandleController$OnRecreation is not available on this device")
+		}
+		if midLegacySavedStateHandleControllerOnRecreationCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.LegacySavedStateHandleController$OnRecreation constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLegacySavedStateHandleControllerOnRecreation)), midLegacySavedStateHandleControllerOnRecreationCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnRecreated calls androidx.lifecycle.LegacySavedStateHandleController$OnRecreation.onRecreated.
 func (m *LegacySavedStateHandleControllerOnRecreation) OnRecreated(arg0 *jni.Object) error {
 

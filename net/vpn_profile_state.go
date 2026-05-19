@@ -32,6 +32,12 @@ func NewVpnProfileState(vm *jni.VM, arg0 int32, arg1 string, arg2 bool, arg3 boo
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsVpnProfileState == nil {
+			return fmt.Errorf("android.net.VpnProfileState is not available on this device")
+		}
+		if midVpnProfileStateCtor == nil {
+			return fmt.Errorf("android.net.VpnProfileState constructor (ILjava/lang/String;ZZ)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {
@@ -287,8 +293,8 @@ func (m *VpnProfileState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsVpnProfileState)),
 			midVpnProfileStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

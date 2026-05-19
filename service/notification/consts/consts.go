@@ -16,16 +16,6 @@ const (
 	StateAllow                         int = 1
 	StateDisallow                      int = 2
 	StateUnset                         int = 0
-	FlagRelevantAlways                 int = 2
-	FlagRelevantNow                    int = 1
-	SourceContext                      int = 3
-	SourceSchedule                     int = 2
-	SourceUnknown                      int = 0
-	SourceUserAction                   int = 1
-	StateError                         int = 3
-	StateFalse                         int = 0
-	StateTrue                          int = 1
-	StateUnknown                       int = 2
 	FlagFilterTypeAlerting             int = 2
 	FlagFilterTypeConversations        int = 1
 	FlagFilterTypeOngoing              int = 8
@@ -70,10 +60,19 @@ const (
 	UserSentimentNeutral               int = 0
 	UserSentimentPositive              int = 1
 	VisibilityNoOverride               int = -1000
+	FlagRelevantAlways                 int = 2
+	FlagRelevantNow                    int = 1
+	SourceContext                      int = 3
+	SourceSchedule                     int = 2
+	SourceUnknown                      int = 0
+	SourceUserAction                   int = 1
+	StateError                         int = 3
+	StateFalse                         int = 0
+	StateTrue                          int = 1
+	StateUnknown                       int = 2
 )
 
 const (
-	Scheme                        string = "condition"
 	ActionSettingsHome            string = "android.service.notification.action.SETTINGS_HOME"
 	MetaDataDefaultAutobind       string = "android.service.notification.default_autobind_listenerservice"
 	MetaDataDefaultFilterTypes    string = "android.service.notification.default_filter_types"
@@ -83,4 +82,5 @@ const (
 	MetaDataConfigurationActivity string = "android.service.zen.automatic.configurationActivity"
 	MetaDataRuleInstanceLimit     string = "android.service.zen.automatic.ruleInstanceLimit"
 	MetaDataRuleType              string = "android.service.zen.automatic.ruleType"
+	Scheme                        string = "condition"
 )

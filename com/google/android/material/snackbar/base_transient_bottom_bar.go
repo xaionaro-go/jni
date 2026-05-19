@@ -353,33 +353,6 @@ func (m *BaseTransientBottomBar) IsShown() (bool, error) {
 	return result, callErr
 }
 
-// IsShownOrQueued calls com.google.android.material.snackbar.BaseTransientBottomBar.isShownOrQueued.
-func (m *BaseTransientBottomBar) IsShownOrQueued() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBaseTransientBottomBarIsShownOrQueued == nil {
-			callErr = fmt.Errorf("com.google.android.material.snackbar.BaseTransientBottomBar.isShownOrQueued is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midBaseTransientBottomBarIsShownOrQueued,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.snackbar.BaseTransientBottomBar.toString.
 func (m *BaseTransientBottomBar) ToString() (string, error) {
 	var result string

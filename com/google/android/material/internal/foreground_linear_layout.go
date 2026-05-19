@@ -32,6 +32,12 @@ func NewForegroundLinearLayout(vm *jni.VM, arg0 *jni.Object) (*ForegroundLinearL
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsForegroundLinearLayout == nil {
+			return fmt.Errorf("com.google.android.material.internal.ForegroundLinearLayout is not available on this device")
+		}
+		if midForegroundLinearLayoutCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.ForegroundLinearLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsForegroundLinearLayout)), midForegroundLinearLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -5,24 +5,12 @@
 package: bottomnavigation
 go_import: github.com/AndroidGoLab/jni/com/google/android/material/bottomnavigation
 classes:
-    - java_class: com.google.android.material.bottomnavigation.BottomNavigationMenuView
-      go_type: BottomNavigationMenuView
+    - java_class: com.google.android.material.bottomnavigation.BottomNavigationItemView
+      go_type: BottomNavigationItemView
       obtain: constructor
       constructor_params:
         - java_type: android.content.Context
           go_name: arg0
-      methods:
-        - java_method: setItemHorizontalTranslationEnabled
-          go_name: SetItemHorizontalTranslationEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isItemHorizontalTranslationEnabled
-          go_name: IsItemHorizontalTranslationEnabled
-          returns: boolean
-          error: true
     - java_class: com.google.android.material.bottomnavigation.LabelVisibilityMode
       go_type: LabelVisibilityMode
     - java_class: com.google.android.material.bottomnavigation.BottomNavigationView
@@ -65,12 +53,24 @@ classes:
       go_type: BottomNavigationViewOnNavigationItemReselectedListener
     - java_class: com.google.android.material.bottomnavigation.BottomNavigationView$OnNavigationItemSelectedListener
       go_type: BottomNavigationViewOnNavigationItemSelectedListener
-    - java_class: com.google.android.material.bottomnavigation.BottomNavigationItemView
-      go_type: BottomNavigationItemView
+    - java_class: com.google.android.material.bottomnavigation.BottomNavigationMenuView
+      go_type: BottomNavigationMenuView
       obtain: constructor
       constructor_params:
         - java_type: android.content.Context
           go_name: arg0
+      methods:
+        - java_method: setItemHorizontalTranslationEnabled
+          go_name: SetItemHorizontalTranslationEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isItemHorizontalTranslationEnabled
+          go_name: IsItemHorizontalTranslationEnabled
+          returns: boolean
+          error: true
 constants:
     - go_name: LabelVisibilityAuto
       value: "-1"

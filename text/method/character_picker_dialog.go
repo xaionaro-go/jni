@@ -32,6 +32,12 @@ func NewCharacterPickerDialog(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, ar
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCharacterPickerDialog == nil {
+			return fmt.Errorf("android.text.method.CharacterPickerDialog is not available on this device")
+		}
+		if midCharacterPickerDialogCtor == nil {
+			return fmt.Errorf("android.text.method.CharacterPickerDialog constructor (Landroid/content/Context;Landroid/view/View;Landroid/text/Editable;Ljava/lang/String;Z)V is not available on this device")
+		}
 
 		jArg3, err := env.NewStringUTF(arg3)
 		if err != nil {

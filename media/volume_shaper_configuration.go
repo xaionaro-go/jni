@@ -242,29 +242,6 @@ func (m *VolumeShaperConfiguration) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.media.VolumeShaper$Configuration.writeToParcel.
-func (m *VolumeShaperConfiguration) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midVolumeShaperConfigurationWriteToParcel == nil {
-			callErr = fmt.Errorf("android.media.VolumeShaper$Configuration.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midVolumeShaperConfigurationWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // GetMaximumCurvePoints calls android.media.VolumeShaper$Configuration.getMaximumCurvePoints.
 func (m *VolumeShaperConfiguration) GetMaximumCurvePoints() (int32, error) {
 	var result int32
@@ -288,4 +265,27 @@ func (m *VolumeShaperConfiguration) GetMaximumCurvePoints() (int32, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.media.VolumeShaper$Configuration.writeToParcel.
+func (m *VolumeShaperConfiguration) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midVolumeShaperConfigurationWriteToParcel == nil {
+			callErr = fmt.Errorf("android.media.VolumeShaper$Configuration.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsVolumeShaperConfiguration)),
+			midVolumeShaperConfigurationWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

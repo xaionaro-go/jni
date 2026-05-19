@@ -32,6 +32,12 @@ func NewViewModelStore(vm *jni.VM) (*ViewModelStore, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsViewModelStore == nil {
+			return fmt.Errorf("androidx.lifecycle.ViewModelStore is not available on this device")
+		}
+		if midViewModelStoreCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.ViewModelStore constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewModelStore)), midViewModelStoreCtor)
 		if err != nil {
 			return err

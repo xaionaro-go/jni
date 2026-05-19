@@ -34,6 +34,7 @@ var (
 	midUpdateSignalsRequestToString     jni.MethodID
 
 	clsUpdateSignalsRequestBuilder             *jni.GlobalRef
+	midUpdateSignalsRequestBuilderCtor         jni.MethodID
 	midUpdateSignalsRequestBuilderBuild        jni.MethodID
 	midUpdateSignalsRequestBuilderSetUpdateUri jni.MethodID
 	midUpdateSignalsRequestBuilderToString     jni.MethodID
@@ -126,6 +127,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsUpdateSignalsRequestBuilder = env.NewGlobalRef(&c.Object)
+		midUpdateSignalsRequestBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUpdateSignalsRequestBuilder)), "<init>", "(Landroid/net/Uri;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midUpdateSignalsRequestBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUpdateSignalsRequestBuilder)), "build", "()Landroid/adservices/signals/UpdateSignalsRequest;")
 		if err != nil {

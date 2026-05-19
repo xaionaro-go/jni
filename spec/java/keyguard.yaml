@@ -141,3 +141,7 @@ abstract_callbacks:
           params: []
           returns: void
           go_field: OnDismissSucceeded
+abstract_callback_eligibility:
+    - java_class: android.app.KeyguardManager$KeyguardDismissCallback
+      generated: true
+      reason: supported_no_arg_constructor

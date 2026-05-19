@@ -32,6 +32,12 @@ func NewBatchingListUpdateCallback(vm *jni.VM, arg0 *jni.Object) (*BatchingListU
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBatchingListUpdateCallback == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.BatchingListUpdateCallback is not available on this device")
+		}
+		if midBatchingListUpdateCallbackCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.BatchingListUpdateCallback constructor (Landroidx/recyclerview/widget/ListUpdateCallback;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBatchingListUpdateCallback)), midBatchingListUpdateCallbackCtor, jni.ObjectValue(arg0))
 		if err != nil {

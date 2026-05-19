@@ -14,9 +14,9 @@ const (
 )
 
 const (
-	Creator                        = consts.Creator
 	ChooserResultCopy              = consts.ChooserResultCopy
 	ChooserResultEdit              = consts.ChooserResultEdit
 	ChooserResultSelectedComponent = consts.ChooserResultSelectedComponent
 	ChooserResultUnknown           = consts.ChooserResultUnknown
+	Creator                        = consts.Creator
 )

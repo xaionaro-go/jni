@@ -23,6 +23,34 @@ type BitmapFactoryOptions struct {
 	Obj *jni.GlobalRef
 }
 
+// NewBitmapFactoryOptions creates a new android.graphics.BitmapFactory$Options instance.
+func NewBitmapFactoryOptions(vm *jni.VM) (*BitmapFactoryOptions, error) {
+	var t BitmapFactoryOptions
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsBitmapFactoryOptions == nil {
+			return fmt.Errorf("android.graphics.BitmapFactory$Options is not available on this device")
+		}
+		if midBitmapFactoryOptionsCtor == nil {
+			return fmt.Errorf("android.graphics.BitmapFactory$Options constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBitmapFactoryOptions)), midBitmapFactoryOptionsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // RequestCancelDecode calls android.graphics.BitmapFactory$Options.requestCancelDecode.
 func (m *BitmapFactoryOptions) RequestCancelDecode() error {
 

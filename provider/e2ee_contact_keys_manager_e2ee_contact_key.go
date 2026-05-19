@@ -370,29 +370,6 @@ func (m *E2eeContactKeysManagerE2eeContactKey) HashCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.provider.E2eeContactKeysManager$E2eeContactKey.writeToParcel.
-func (m *E2eeContactKeysManagerE2eeContactKey) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midE2eeContactKeysManagerE2eeContactKeyWriteToParcel == nil {
-			callErr = fmt.Errorf("android.provider.E2eeContactKeysManager$E2eeContactKey.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midE2eeContactKeysManagerE2eeContactKeyWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.provider.E2eeContactKeysManager$E2eeContactKey.toString.
 func (m *E2eeContactKeysManagerE2eeContactKey) ToString() (string, error) {
 	var result string
@@ -418,4 +395,27 @@ func (m *E2eeContactKeysManagerE2eeContactKey) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.provider.E2eeContactKeysManager$E2eeContactKey.writeToParcel.
+func (m *E2eeContactKeysManagerE2eeContactKey) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midE2eeContactKeysManagerE2eeContactKeyWriteToParcel == nil {
+			callErr = fmt.Errorf("android.provider.E2eeContactKeysManager$E2eeContactKey.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsE2eeContactKeysManagerE2eeContactKey)),
+			midE2eeContactKeysManagerE2eeContactKeyWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

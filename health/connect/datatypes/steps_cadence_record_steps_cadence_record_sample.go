@@ -23,6 +23,35 @@ type StepsCadenceRecordStepsCadenceRecordSample struct {
 	Obj *jni.GlobalRef
 }
 
+// NewStepsCadenceRecordStepsCadenceRecordSample creates a new android.health.connect.datatypes.StepsCadenceRecord$StepsCadenceRecordSample instance.
+func NewStepsCadenceRecordStepsCadenceRecordSample(vm *jni.VM, arg0 float64, arg1 *jni.Object) (*StepsCadenceRecordStepsCadenceRecordSample, error) {
+	var t StepsCadenceRecordStepsCadenceRecordSample
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsStepsCadenceRecordStepsCadenceRecordSample == nil {
+			return fmt.Errorf("android.health.connect.datatypes.StepsCadenceRecord$StepsCadenceRecordSample is not available on this device")
+		}
+		if midStepsCadenceRecordStepsCadenceRecordSampleCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.StepsCadenceRecord$StepsCadenceRecordSample constructor (DLjava/time/Instant;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStepsCadenceRecordStepsCadenceRecordSample)), midStepsCadenceRecordStepsCadenceRecordSampleCtor, jni.DoubleValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.health.connect.datatypes.StepsCadenceRecord$StepsCadenceRecordSample.equals.
 func (m *StepsCadenceRecordStepsCadenceRecordSample) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

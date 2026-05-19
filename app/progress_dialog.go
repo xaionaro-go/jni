@@ -30,6 +30,12 @@ func NewProgressDialog(vm *jni.VM, arg0 *jni.Object) (*ProgressDialog, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsProgressDialog == nil {
+			return fmt.Errorf("android.app.ProgressDialog is not available on this device")
+		}
+		if midProgressDialogCtor == nil {
+			return fmt.Errorf("android.app.ProgressDialog constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsProgressDialog)), midProgressDialogCtor, jni.ObjectValue(arg0))
 		if err != nil {

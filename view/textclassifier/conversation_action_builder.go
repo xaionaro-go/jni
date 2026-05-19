@@ -23,6 +23,40 @@ type ConversationActionBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewConversationActionBuilder creates a new android.view.textclassifier.ConversationAction$Builder instance.
+func NewConversationActionBuilder(vm *jni.VM, arg0 string) (*ConversationActionBuilder, error) {
+	var t ConversationActionBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsConversationActionBuilder == nil {
+			return fmt.Errorf("android.view.textclassifier.ConversationAction$Builder is not available on this device")
+		}
+		if midConversationActionBuilderCtor == nil {
+			return fmt.Errorf("android.view.textclassifier.ConversationAction$Builder constructor (Ljava/lang/String;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConversationActionBuilder)), midConversationActionBuilderCtor, jni.ObjectValue(&jArg0.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.view.textclassifier.ConversationAction$Builder.build.
 func (m *ConversationActionBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

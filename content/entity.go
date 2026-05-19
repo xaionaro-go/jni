@@ -32,6 +32,12 @@ func NewEntity(vm *jni.VM, arg0 *jni.Object) (*Entity, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEntity == nil {
+			return fmt.Errorf("android.content.Entity is not available on this device")
+		}
+		if midEntityCtor == nil {
+			return fmt.Errorf("android.content.Entity constructor (Landroid/content/ContentValues;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEntity)), midEntityCtor, jni.ObjectValue(arg0))
 		if err != nil {

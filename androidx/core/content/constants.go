@@ -20,12 +20,12 @@ const (
 )
 
 const (
-	ActionUnusedAppRestrictionsBackportConnection = consts.ActionUnusedAppRestrictionsBackportConnection
-	LogTag                                        = consts.LogTag
-	ActionPermissionRevocationSettings            = consts.ActionPermissionRevocationSettings
 	ActionCreateReminder                          = consts.ActionCreateReminder
 	ExtraHtmlText                                 = consts.ExtraHtmlText
 	ExtraStartPlayback                            = consts.ExtraStartPlayback
 	ExtraTime                                     = consts.ExtraTime
 	CategoryLeanbackLauncher                      = consts.CategoryLeanbackLauncher
+	ActionUnusedAppRestrictionsBackportConnection = consts.ActionUnusedAppRestrictionsBackportConnection
+	LogTag                                        = consts.LogTag
+	ActionPermissionRevocationSettings            = consts.ActionPermissionRevocationSettings
 )

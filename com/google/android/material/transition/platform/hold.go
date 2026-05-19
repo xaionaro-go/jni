@@ -32,6 +32,12 @@ func NewHold(vm *jni.VM) (*Hold, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsHold == nil {
+			return fmt.Errorf("com.google.android.material.transition.platform.Hold is not available on this device")
+		}
+		if midHoldCtor == nil {
+			return fmt.Errorf("com.google.android.material.transition.platform.Hold constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHold)), midHoldCtor)
 		if err != nil {
 			return err

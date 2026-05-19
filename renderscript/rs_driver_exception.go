@@ -32,6 +32,12 @@ func NewRSDriverException(vm *jni.VM, arg0 string) (*RSDriverException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRSDriverException == nil {
+			return fmt.Errorf("android.renderscript.RSDriverException is not available on this device")
+		}
+		if midRSDriverExceptionCtor == nil {
+			return fmt.Errorf("android.renderscript.RSDriverException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

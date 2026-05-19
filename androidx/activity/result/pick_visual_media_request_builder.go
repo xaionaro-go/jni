@@ -23,6 +23,34 @@ type PickVisualMediaRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPickVisualMediaRequestBuilder creates a new androidx.activity.result.PickVisualMediaRequest$Builder instance.
+func NewPickVisualMediaRequestBuilder(vm *jni.VM) (*PickVisualMediaRequestBuilder, error) {
+	var t PickVisualMediaRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPickVisualMediaRequestBuilder == nil {
+			return fmt.Errorf("androidx.activity.result.PickVisualMediaRequest$Builder is not available on this device")
+		}
+		if midPickVisualMediaRequestBuilderCtor == nil {
+			return fmt.Errorf("androidx.activity.result.PickVisualMediaRequest$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPickVisualMediaRequestBuilder)), midPickVisualMediaRequestBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetMediaType calls androidx.activity.result.PickVisualMediaRequest$Builder.setMediaType.
 func (m *PickVisualMediaRequestBuilder) SetMediaType(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

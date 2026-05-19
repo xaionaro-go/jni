@@ -23,6 +23,34 @@ type ProfileInstallerInitializerResult struct {
 	Obj *jni.GlobalRef
 }
 
+// NewProfileInstallerInitializerResult creates a new androidx.profileinstaller.ProfileInstallerInitializer$Result instance.
+func NewProfileInstallerInitializerResult(vm *jni.VM) (*ProfileInstallerInitializerResult, error) {
+	var t ProfileInstallerInitializerResult
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsProfileInstallerInitializerResult == nil {
+			return fmt.Errorf("androidx.profileinstaller.ProfileInstallerInitializer$Result is not available on this device")
+		}
+		if midProfileInstallerInitializerResultCtor == nil {
+			return fmt.Errorf("androidx.profileinstaller.ProfileInstallerInitializer$Result constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsProfileInstallerInitializerResult)), midProfileInstallerInitializerResultCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.profileinstaller.ProfileInstallerInitializer$Result.toString.
 func (m *ProfileInstallerInitializerResult) ToString() (string, error) {
 	var result string

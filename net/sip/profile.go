@@ -393,29 +393,6 @@ func (m *Profile) SetCallingUid(arg0 int32) error {
 	return callErr
 }
 
-// WriteToParcel calls android.net.sip.SipProfile.writeToParcel.
-func (m *Profile) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midProfileWriteToParcel == nil {
-			callErr = fmt.Errorf("android.net.sip.SipProfile.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midProfileWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.net.sip.SipProfile.toString.
 func (m *Profile) ToString() (string, error) {
 	var result string
@@ -441,4 +418,27 @@ func (m *Profile) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.net.sip.SipProfile.writeToParcel.
+func (m *Profile) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midProfileWriteToParcel == nil {
+			callErr = fmt.Errorf("android.net.sip.SipProfile.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsProfile)),
+			midProfileWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

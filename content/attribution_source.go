@@ -366,29 +366,6 @@ func (m *AttributionSource) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.content.AttributionSource.writeToParcel.
-func (m *AttributionSource) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAttributionSourceWriteToParcel == nil {
-			callErr = fmt.Errorf("android.content.AttributionSource.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAttributionSourceWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // MyAttributionSource calls android.content.AttributionSource.myAttributionSource.
 func (m *AttributionSource) MyAttributionSource() (*jni.Object, error) {
 	var result *jni.Object
@@ -419,4 +396,27 @@ func (m *AttributionSource) MyAttributionSource() (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.content.AttributionSource.writeToParcel.
+func (m *AttributionSource) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midAttributionSourceWriteToParcel == nil {
+			callErr = fmt.Errorf("android.content.AttributionSource.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAttributionSource)),
+			midAttributionSourceWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

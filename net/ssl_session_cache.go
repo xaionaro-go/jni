@@ -32,6 +32,12 @@ func NewSSLSessionCache(vm *jni.VM, arg0 *jni.Object) (*SSLSessionCache, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSSLSessionCache == nil {
+			return fmt.Errorf("android.net.SSLSessionCache is not available on this device")
+		}
+		if midSSLSessionCacheCtor == nil {
+			return fmt.Errorf("android.net.SSLSessionCache constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSSLSessionCache)), midSSLSessionCacheCtor, jni.ObjectValue(arg0))
 		if err != nil {

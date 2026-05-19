@@ -32,6 +32,12 @@ func NewEGLExt(vm *jni.VM) (*EGLExt, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEGLExt == nil {
+			return fmt.Errorf("android.opengl.EGLExt is not available on this device")
+		}
+		if midEGLExtCtor == nil {
+			return fmt.Errorf("android.opengl.EGLExt constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEGLExt)), midEGLExtCtor)
 		if err != nil {
 			return err

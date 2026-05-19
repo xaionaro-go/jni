@@ -23,8 +23,36 @@ type ActivityResultContractsGetMultipleContents struct {
 	Obj *jni.GlobalRef
 }
 
-// CreateIntent2 calls androidx.activity.result.contract.ActivityResultContracts$GetMultipleContents.createIntent.
-func (m *ActivityResultContractsGetMultipleContents) CreateIntent2(arg0 *jni.Object, arg1 string) (*jni.Object, error) {
+// NewActivityResultContractsGetMultipleContents creates a new androidx.activity.result.contract.ActivityResultContracts$GetMultipleContents instance.
+func NewActivityResultContractsGetMultipleContents(vm *jni.VM) (*ActivityResultContractsGetMultipleContents, error) {
+	var t ActivityResultContractsGetMultipleContents
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsActivityResultContractsGetMultipleContents == nil {
+			return fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$GetMultipleContents is not available on this device")
+		}
+		if midActivityResultContractsGetMultipleContentsCtor == nil {
+			return fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$GetMultipleContents constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivityResultContractsGetMultipleContents)), midActivityResultContractsGetMultipleContentsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
+// CreateIntent calls androidx.activity.result.contract.ActivityResultContracts$GetMultipleContents.createIntent.
+func (m *ActivityResultContractsGetMultipleContents) CreateIntent(arg0 *jni.Object, arg1 string) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -32,7 +60,7 @@ func (m *ActivityResultContractsGetMultipleContents) CreateIntent2(arg0 *jni.Obj
 			callErr = err
 			return err
 		}
-		if midActivityResultContractsGetMultipleContentsCreateIntent2 == nil {
+		if midActivityResultContractsGetMultipleContentsCreateIntent == nil {
 			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$GetMultipleContents.createIntent is not available on this device")
 			return callErr
 		}
@@ -45,7 +73,7 @@ func (m *ActivityResultContractsGetMultipleContents) CreateIntent2(arg0 *jni.Obj
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActivityResultContractsGetMultipleContentsCreateIntent2, jni.ObjectValue(arg0), jni.ObjectValue(&jArg1.Object),
+			midActivityResultContractsGetMultipleContentsCreateIntent, jni.ObjectValue(arg0), jni.ObjectValue(&jArg1.Object),
 		)
 		if callErr != nil {
 			return callErr
@@ -62,8 +90,8 @@ func (m *ActivityResultContractsGetMultipleContents) CreateIntent2(arg0 *jni.Obj
 	return result, callErr
 }
 
-// GetSynchronousResult2 calls androidx.activity.result.contract.ActivityResultContracts$GetMultipleContents.getSynchronousResult.
-func (m *ActivityResultContractsGetMultipleContents) GetSynchronousResult2(arg0 *jni.Object, arg1 string) (*jni.Object, error) {
+// GetSynchronousResult calls androidx.activity.result.contract.ActivityResultContracts$GetMultipleContents.getSynchronousResult.
+func (m *ActivityResultContractsGetMultipleContents) GetSynchronousResult(arg0 *jni.Object, arg1 string) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -71,7 +99,7 @@ func (m *ActivityResultContractsGetMultipleContents) GetSynchronousResult2(arg0 
 			callErr = err
 			return err
 		}
-		if midActivityResultContractsGetMultipleContentsGetSynchronousResult2 == nil {
+		if midActivityResultContractsGetMultipleContentsGetSynchronousResult == nil {
 			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$GetMultipleContents.getSynchronousResult is not available on this device")
 			return callErr
 		}
@@ -84,7 +112,7 @@ func (m *ActivityResultContractsGetMultipleContents) GetSynchronousResult2(arg0 
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActivityResultContractsGetMultipleContentsGetSynchronousResult2, jni.ObjectValue(arg0), jni.ObjectValue(&jArg1.Object),
+			midActivityResultContractsGetMultipleContentsGetSynchronousResult, jni.ObjectValue(arg0), jni.ObjectValue(&jArg1.Object),
 		)
 		if callErr != nil {
 			return callErr
@@ -101,8 +129,8 @@ func (m *ActivityResultContractsGetMultipleContents) GetSynchronousResult2(arg0 
 	return result, callErr
 }
 
-// ParseResult2 calls androidx.activity.result.contract.ActivityResultContracts$GetMultipleContents.parseResult.
-func (m *ActivityResultContractsGetMultipleContents) ParseResult2(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
+// ParseResult calls androidx.activity.result.contract.ActivityResultContracts$GetMultipleContents.parseResult.
+func (m *ActivityResultContractsGetMultipleContents) ParseResult(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -110,113 +138,14 @@ func (m *ActivityResultContractsGetMultipleContents) ParseResult2(arg0 int32, ar
 			callErr = err
 			return err
 		}
-		if midActivityResultContractsGetMultipleContentsParseResult2 == nil {
+		if midActivityResultContractsGetMultipleContentsParseResult == nil {
 			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$GetMultipleContents.parseResult is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActivityResultContractsGetMultipleContentsParseResult2, jni.IntValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// CreateIntent2_1 calls androidx.activity.result.contract.ActivityResultContracts$GetMultipleContents.createIntent.
-func (m *ActivityResultContractsGetMultipleContents) CreateIntent2_1(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsGetMultipleContentsCreateIntent2_1 == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$GetMultipleContents.createIntent is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsGetMultipleContentsCreateIntent2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetSynchronousResult2_1 calls androidx.activity.result.contract.ActivityResultContracts$GetMultipleContents.getSynchronousResult.
-func (m *ActivityResultContractsGetMultipleContents) GetSynchronousResult2_1(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsGetMultipleContentsGetSynchronousResult2_1 == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$GetMultipleContents.getSynchronousResult is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsGetMultipleContentsGetSynchronousResult2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// ParseResult2_1 calls androidx.activity.result.contract.ActivityResultContracts$GetMultipleContents.parseResult.
-func (m *ActivityResultContractsGetMultipleContents) ParseResult2_1(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsGetMultipleContentsParseResult2_1 == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$GetMultipleContents.parseResult is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsGetMultipleContentsParseResult2_1, jni.IntValue(arg0), jni.ObjectValue(arg1),
+			midActivityResultContractsGetMultipleContentsParseResult, jni.IntValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr

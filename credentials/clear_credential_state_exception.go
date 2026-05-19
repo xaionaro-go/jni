@@ -32,6 +32,12 @@ func NewClearCredentialStateException(vm *jni.VM, arg0 string) (*ClearCredential
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsClearCredentialStateException == nil {
+			return fmt.Errorf("android.credentials.ClearCredentialStateException is not available on this device")
+		}
+		if midClearCredentialStateExceptionCtor == nil {
+			return fmt.Errorf("android.credentials.ClearCredentialStateException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

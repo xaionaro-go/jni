@@ -139,31 +139,6 @@ func (m *CaptureResult) GetRequest() (*jni.Object, error) {
 	return result, callErr
 }
 
-// GetSequenceId calls android.hardware.camera2.CaptureResult.getSequenceId.
-func (m *CaptureResult) GetSequenceId() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCaptureResultGetSequenceId == nil {
-			callErr = fmt.Errorf("android.hardware.camera2.CaptureResult.getSequenceId is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midCaptureResultGetSequenceId,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.hardware.camera2.CaptureResult.toString.
 func (m *CaptureResult) ToString() (string, error) {
 	var result string
@@ -186,6 +161,31 @@ func (m *CaptureResult) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetSequenceId calls android.hardware.camera2.CaptureResult.getSequenceId.
+func (m *CaptureResult) GetSequenceId() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCaptureResultGetSequenceId == nil {
+			callErr = fmt.Errorf("android.hardware.camera2.CaptureResult.getSequenceId is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsCaptureResult)),
+			midCaptureResultGetSequenceId,
+		)
+		if callErr != nil {
+			return callErr
+		}
 		return callErr
 	})
 	return result, callErr

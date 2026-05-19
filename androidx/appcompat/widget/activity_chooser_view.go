@@ -32,6 +32,12 @@ func NewActivityChooserView(vm *jni.VM, arg0 *jni.Object) (*ActivityChooserView,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsActivityChooserView == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ActivityChooserView is not available on this device")
+		}
+		if midActivityChooserViewCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ActivityChooserView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivityChooserView)), midActivityChooserViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

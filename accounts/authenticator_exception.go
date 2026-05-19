@@ -32,6 +32,12 @@ func NewAuthenticatorException(vm *jni.VM) (*AuthenticatorException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAuthenticatorException == nil {
+			return fmt.Errorf("android.accounts.AuthenticatorException is not available on this device")
+		}
+		if midAuthenticatorExceptionCtor == nil {
+			return fmt.Errorf("android.accounts.AuthenticatorException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAuthenticatorException)), midAuthenticatorExceptionCtor)
 		if err != nil {
 			return err

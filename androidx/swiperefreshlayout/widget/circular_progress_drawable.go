@@ -32,6 +32,12 @@ func NewCircularProgressDrawable(vm *jni.VM, arg0 *jni.Object) (*CircularProgres
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCircularProgressDrawable == nil {
+			return fmt.Errorf("androidx.swiperefreshlayout.widget.CircularProgressDrawable is not available on this device")
+		}
+		if midCircularProgressDrawableCtor == nil {
+			return fmt.Errorf("androidx.swiperefreshlayout.widget.CircularProgressDrawable constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCircularProgressDrawable)), midCircularProgressDrawableCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -787,28 +793,6 @@ func (m *CircularProgressDrawable) Start() error {
 	return callErr
 }
 
-// Stop calls androidx.swiperefreshlayout.widget.CircularProgressDrawable.stop.
-func (m *CircularProgressDrawable) Stop() error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCircularProgressDrawableStop == nil {
-			callErr = fmt.Errorf("androidx.swiperefreshlayout.widget.CircularProgressDrawable.stop is not available on this device")
-			return callErr
-		}
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midCircularProgressDrawableStop,
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.swiperefreshlayout.widget.CircularProgressDrawable.toString.
 func (m *CircularProgressDrawable) ToString() (string, error) {
 	var result string
@@ -834,4 +818,26 @@ func (m *CircularProgressDrawable) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// Stop calls androidx.swiperefreshlayout.widget.CircularProgressDrawable.stop.
+func (m *CircularProgressDrawable) Stop() error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCircularProgressDrawableStop == nil {
+			callErr = fmt.Errorf("androidx.swiperefreshlayout.widget.CircularProgressDrawable.stop is not available on this device")
+			return callErr
+		}
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsCircularProgressDrawable)),
+			midCircularProgressDrawableStop,
+		)
+		return callErr
+	})
+	return callErr
 }

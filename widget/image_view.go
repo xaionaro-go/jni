@@ -32,6 +32,12 @@ func NewImageView(vm *jni.VM, arg0 *jni.Object) (*ImageView, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsImageView == nil {
+			return fmt.Errorf("android.widget.ImageView is not available on this device")
+		}
+		if midImageViewCtor == nil {
+			return fmt.Errorf("android.widget.ImageView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsImageView)), midImageViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

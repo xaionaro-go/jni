@@ -32,6 +32,12 @@ func NewOutputStream(vm *jni.VM) (*OutputStream, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsOutputStream == nil {
+			return fmt.Errorf("android.util.proto.ProtoOutputStream is not available on this device")
+		}
+		if midOutputStreamCtor == nil {
+			return fmt.Errorf("android.util.proto.ProtoOutputStream constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsOutputStream)), midOutputStreamCtor)
 		if err != nil {
 			return err

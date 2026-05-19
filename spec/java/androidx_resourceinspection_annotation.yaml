@@ -5,8 +5,6 @@
 package: annotation
 go_import: github.com/AndroidGoLab/jni/androidx/resourceinspection/annotation
 classes:
-    - java_class: androidx.resourceinspection.annotation.AppCompatShadowedAttributes
-      go_type: AppCompatShadowedAttributes
     - java_class: androidx.resourceinspection.annotation.Attribute
       go_type: Attribute
       methods:
@@ -33,3 +31,5 @@ classes:
           go_name: Mask
           returns: int
           error: true
+    - java_class: androidx.resourceinspection.annotation.AppCompatShadowedAttributes
+      go_type: AppCompatShadowedAttributes

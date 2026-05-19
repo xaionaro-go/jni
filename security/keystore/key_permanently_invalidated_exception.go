@@ -32,6 +32,12 @@ func NewKeyPermanentlyInvalidatedException(vm *jni.VM) (*KeyPermanentlyInvalidat
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsKeyPermanentlyInvalidatedException == nil {
+			return fmt.Errorf("android.security.keystore.KeyPermanentlyInvalidatedException is not available on this device")
+		}
+		if midKeyPermanentlyInvalidatedExceptionCtor == nil {
+			return fmt.Errorf("android.security.keystore.KeyPermanentlyInvalidatedException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyPermanentlyInvalidatedException)), midKeyPermanentlyInvalidatedExceptionCtor)
 		if err != nil {
 			return err

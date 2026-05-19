@@ -32,6 +32,12 @@ func NewLoudnessEnhancer(vm *jni.VM, arg0 int32) (*LoudnessEnhancer, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLoudnessEnhancer == nil {
+			return fmt.Errorf("android.media.audiofx.LoudnessEnhancer is not available on this device")
+		}
+		if midLoudnessEnhancerCtor == nil {
+			return fmt.Errorf("android.media.audiofx.LoudnessEnhancer constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLoudnessEnhancer)), midLoudnessEnhancerCtor, jni.IntValue(arg0))
 		if err != nil {

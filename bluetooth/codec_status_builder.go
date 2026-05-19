@@ -23,6 +23,34 @@ type CodecStatusBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCodecStatusBuilder creates a new android.bluetooth.BluetoothCodecStatus$Builder instance.
+func NewCodecStatusBuilder(vm *jni.VM) (*CodecStatusBuilder, error) {
+	var t CodecStatusBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCodecStatusBuilder == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothCodecStatus$Builder is not available on this device")
+		}
+		if midCodecStatusBuilderCtor == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothCodecStatus$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCodecStatusBuilder)), midCodecStatusBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.bluetooth.BluetoothCodecStatus$Builder.build.
 func (m *CodecStatusBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewFragmentTransitionSupport(vm *jni.VM) (*FragmentTransitionSupport, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFragmentTransitionSupport == nil {
+			return fmt.Errorf("androidx.transition.FragmentTransitionSupport is not available on this device")
+		}
+		if midFragmentTransitionSupportCtor == nil {
+			return fmt.Errorf("androidx.transition.FragmentTransitionSupport constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFragmentTransitionSupport)), midFragmentTransitionSupportCtor)
 		if err != nil {
 			return err

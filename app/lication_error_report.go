@@ -30,6 +30,12 @@ func NewlicationErrorReport(vm *jni.VM) (*licationErrorReport, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clslicationErrorReport == nil {
+			return fmt.Errorf("android.app.ApplicationErrorReport is not available on this device")
+		}
+		if midlicationErrorReportCtor == nil {
+			return fmt.Errorf("android.app.ApplicationErrorReport constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clslicationErrorReport)), midlicationErrorReportCtor)
 		if err != nil {
 			return err
@@ -120,29 +126,6 @@ func (m *licationErrorReport) ReadFromParcel(arg0 *jni.Object) error {
 	return callErr
 }
 
-// WriteToParcel calls android.app.ApplicationErrorReport.writeToParcel.
-func (m *licationErrorReport) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midlicationErrorReportWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.ApplicationErrorReport.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midlicationErrorReportWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.ApplicationErrorReport.toString.
 func (m *licationErrorReport) ToString() (string, error) {
 	var result string
@@ -211,4 +194,27 @@ func (m *licationErrorReport) GetErrorReportReceiver(
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.ApplicationErrorReport.writeToParcel.
+func (m *licationErrorReport) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midlicationErrorReportWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.ApplicationErrorReport.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clslicationErrorReport)),
+			midlicationErrorReportWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

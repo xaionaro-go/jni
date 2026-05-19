@@ -32,6 +32,12 @@ func NewAccessibilityServiceInfo(vm *jni.VM) (*AccessibilityServiceInfo, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAccessibilityServiceInfo == nil {
+			return fmt.Errorf("android.accessibilityservice.AccessibilityServiceInfo is not available on this device")
+		}
+		if midAccessibilityServiceInfoCtor == nil {
+			return fmt.Errorf("android.accessibilityservice.AccessibilityServiceInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAccessibilityServiceInfo)), midAccessibilityServiceInfoCtor)
 		if err != nil {
 			return err
@@ -607,29 +613,6 @@ func (m *AccessibilityServiceInfo) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.accessibilityservice.AccessibilityServiceInfo.writeToParcel.
-func (m *AccessibilityServiceInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAccessibilityServiceInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.accessibilityservice.AccessibilityServiceInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAccessibilityServiceInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // CapabilityToString calls android.accessibilityservice.AccessibilityServiceInfo.capabilityToString.
 func (m *AccessibilityServiceInfo) CapabilityToString(arg0 int32) (string, error) {
 	var result string
@@ -712,4 +695,27 @@ func (m *AccessibilityServiceInfo) FlagToString(arg0 int32) (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.accessibilityservice.AccessibilityServiceInfo.writeToParcel.
+func (m *AccessibilityServiceInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midAccessibilityServiceInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.accessibilityservice.AccessibilityServiceInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAccessibilityServiceInfo)),
+			midAccessibilityServiceInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

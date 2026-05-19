@@ -23,6 +23,34 @@ type WidgetMotion struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWidgetMotion creates a new androidx.constraintlayout.core.motion.MotionWidget$Motion instance.
+func NewWidgetMotion(vm *jni.VM) (*WidgetMotion, error) {
+	var t WidgetMotion
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWidgetMotion == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.MotionWidget$Motion is not available on this device")
+		}
+		if midWidgetMotionCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.MotionWidget$Motion constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWidgetMotion)), midWidgetMotionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.constraintlayout.core.motion.MotionWidget$Motion.toString.
 func (m *WidgetMotion) ToString() (string, error) {
 	var result string

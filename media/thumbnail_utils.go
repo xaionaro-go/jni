@@ -32,6 +32,12 @@ func NewThumbnailUtils(vm *jni.VM) (*ThumbnailUtils, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsThumbnailUtils == nil {
+			return fmt.Errorf("android.media.ThumbnailUtils is not available on this device")
+		}
+		if midThumbnailUtilsCtor == nil {
+			return fmt.Errorf("android.media.ThumbnailUtils constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsThumbnailUtils)), midThumbnailUtilsCtor)
 		if err != nil {
 			return err

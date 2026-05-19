@@ -23,6 +23,34 @@ type TtsSpanCardinalBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTtsSpanCardinalBuilder creates a new android.text.style.TtsSpan$CardinalBuilder instance.
+func NewTtsSpanCardinalBuilder(vm *jni.VM) (*TtsSpanCardinalBuilder, error) {
+	var t TtsSpanCardinalBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTtsSpanCardinalBuilder == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$CardinalBuilder is not available on this device")
+		}
+		if midTtsSpanCardinalBuilderCtor == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$CardinalBuilder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTtsSpanCardinalBuilder)), midTtsSpanCardinalBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetNumber1 calls android.text.style.TtsSpan$CardinalBuilder.setNumber.
 func (m *TtsSpanCardinalBuilder) SetNumber1(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

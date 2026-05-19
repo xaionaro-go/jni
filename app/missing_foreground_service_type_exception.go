@@ -30,6 +30,12 @@ func NewMissingForegroundServiceTypeException(vm *jni.VM, arg0 string) (*Missing
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMissingForegroundServiceTypeException == nil {
+			return fmt.Errorf("android.app.MissingForegroundServiceTypeException is not available on this device")
+		}
+		if midMissingForegroundServiceTypeExceptionCtor == nil {
+			return fmt.Errorf("android.app.MissingForegroundServiceTypeException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -74,29 +80,6 @@ func (m *MissingForegroundServiceTypeException) DescribeContents() (int32, error
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.MissingForegroundServiceTypeException.writeToParcel.
-func (m *MissingForegroundServiceTypeException) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMissingForegroundServiceTypeExceptionWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.MissingForegroundServiceTypeException.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMissingForegroundServiceTypeExceptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.MissingForegroundServiceTypeException.toString.
 func (m *MissingForegroundServiceTypeException) ToString() (string, error) {
 	var result string
@@ -122,4 +105,27 @@ func (m *MissingForegroundServiceTypeException) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.MissingForegroundServiceTypeException.writeToParcel.
+func (m *MissingForegroundServiceTypeException) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midMissingForegroundServiceTypeExceptionWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.MissingForegroundServiceTypeException.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsMissingForegroundServiceTypeException)),
+			midMissingForegroundServiceTypeExceptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

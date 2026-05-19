@@ -46,8 +46,8 @@ func (m *ScriptIntrinsicYuvToRGB) ForEach(arg0 *jni.Object) error {
 	return callErr
 }
 
-// GetFieldID_Input calls android.renderscript.ScriptIntrinsicYuvToRGB.getFieldID_Input.
-func (m *ScriptIntrinsicYuvToRGB) GetFieldID_Input() (*jni.Object, error) {
+// GetFieldIDInput calls android.renderscript.ScriptIntrinsicYuvToRGB.getFieldID_Input.
+func (m *ScriptIntrinsicYuvToRGB) GetFieldIDInput() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,13 +55,13 @@ func (m *ScriptIntrinsicYuvToRGB) GetFieldID_Input() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midScriptIntrinsicYuvToRGBGetFieldID_Input == nil {
+		if midScriptIntrinsicYuvToRGBGetFieldIDInput == nil {
 			callErr = fmt.Errorf("android.renderscript.ScriptIntrinsicYuvToRGB.getFieldID_Input is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midScriptIntrinsicYuvToRGBGetFieldID_Input,
+			midScriptIntrinsicYuvToRGBGetFieldIDInput,
 		)
 		if callErr != nil {
 			return callErr

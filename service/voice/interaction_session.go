@@ -32,6 +32,12 @@ func NewInteractionSession(vm *jni.VM, arg0 *jni.Object) (*InteractionSession, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInteractionSession == nil {
+			return fmt.Errorf("android.service.voice.VoiceInteractionSession is not available on this device")
+		}
+		if midInteractionSessionCtor == nil {
+			return fmt.Errorf("android.service.voice.VoiceInteractionSession constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInteractionSession)), midInteractionSessionCtor, jni.ObjectValue(arg0))
 		if err != nil {

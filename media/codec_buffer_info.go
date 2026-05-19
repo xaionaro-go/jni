@@ -23,6 +23,34 @@ type CodecBufferInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCodecBufferInfo creates a new android.media.MediaCodec$BufferInfo instance.
+func NewCodecBufferInfo(vm *jni.VM) (*CodecBufferInfo, error) {
+	var t CodecBufferInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCodecBufferInfo == nil {
+			return fmt.Errorf("android.media.MediaCodec$BufferInfo is not available on this device")
+		}
+		if midCodecBufferInfoCtor == nil {
+			return fmt.Errorf("android.media.MediaCodec$BufferInfo constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCodecBufferInfo)), midCodecBufferInfoCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Set calls android.media.MediaCodec$BufferInfo.set.
 func (m *CodecBufferInfo) Set(
 	arg0 int32,

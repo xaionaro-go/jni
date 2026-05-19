@@ -3,8 +3,8 @@
 package consts
 
 const (
+	IdNull                int = 0
 	FetchStrategyBlocking int = 0
 	FetchStrategyAsync    int = 1
 	InfiniteTimeoutValue  int = -1
-	IdNull                int = 0
 )

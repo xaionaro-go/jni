@@ -117,8 +117,8 @@ func (m *LogSessionId) ToString() (string, error) {
 			return callErr
 		}
 		var resultObj *jni.Object
-		resultObj, callErr = env.CallObjectMethod(
-			m.Obj,
+		resultObj, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsLogSessionId)),
 			midLogSessionIdToString,
 		)
 		if callErr != nil {

@@ -26,7 +26,11 @@ const (
 	ErrorAppPermissionsNotGranted         int = 102
 	ErrorDuplicateInitialize              int = 101
 	ErrorUnableToInitialize               int = 103
+	ErrorConcurrentServiceLimitReached    int = 301
+	ErrorDuplicateStartStream             int = 303
+	BroadcastMethod                       int = 1
 	ReasonByUserRequest                   int = 1
+	ReasonEndOfSession                    int = 2
 	ReasonFrequencyConflict               int = 3
 	ReasonLeftMbmsBroadcastArea           int = 6
 	ReasonNone                            int = 0
@@ -35,9 +39,5 @@ const (
 	StateStalled                          int = 3
 	StateStarted                          int = 2
 	StateStopped                          int = 1
-	ErrorConcurrentServiceLimitReached    int = 301
-	ErrorDuplicateStartStream             int = 303
-	BroadcastMethod                       int = 1
-	ReasonEndOfSession                    int = 2
 	UnicastMethod                         int = 2
 )

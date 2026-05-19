@@ -32,6 +32,12 @@ func NewWindowInsets(vm *jni.VM, arg0 *jni.Object) (*WindowInsets, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWindowInsets == nil {
+			return fmt.Errorf("android.view.WindowInsets is not available on this device")
+		}
+		if midWindowInsetsCtor == nil {
+			return fmt.Errorf("android.view.WindowInsets constructor (Landroid/view/WindowInsets;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWindowInsets)), midWindowInsetsCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -1167,8 +1173,8 @@ func (m *WindowInsets) ToString() (string, error) {
 			return callErr
 		}
 		var resultObj *jni.Object
-		resultObj, callErr = env.CallObjectMethod(
-			m.Obj,
+		resultObj, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsWindowInsets)),
 			midWindowInsetsToString,
 		)
 		if callErr != nil {

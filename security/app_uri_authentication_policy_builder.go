@@ -23,6 +23,34 @@ type AppUriAuthenticationPolicyBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAppUriAuthenticationPolicyBuilder creates a new android.security.AppUriAuthenticationPolicy$Builder instance.
+func NewAppUriAuthenticationPolicyBuilder(vm *jni.VM) (*AppUriAuthenticationPolicyBuilder, error) {
+	var t AppUriAuthenticationPolicyBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAppUriAuthenticationPolicyBuilder == nil {
+			return fmt.Errorf("android.security.AppUriAuthenticationPolicy$Builder is not available on this device")
+		}
+		if midAppUriAuthenticationPolicyBuilderCtor == nil {
+			return fmt.Errorf("android.security.AppUriAuthenticationPolicy$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppUriAuthenticationPolicyBuilder)), midAppUriAuthenticationPolicyBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddAppAndUriMapping calls android.security.AppUriAuthenticationPolicy$Builder.addAppAndUriMapping.
 func (m *AppUriAuthenticationPolicyBuilder) AddAppAndUriMapping(
 	arg0 string,

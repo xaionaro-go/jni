@@ -48,6 +48,7 @@ var (
 	midCredentialWriteToParcel             jni.MethodID
 
 	clsCredentialCertificateCredential                         *jni.GlobalRef
+	midCredentialCertificateCredentialCtor                     jni.MethodID
 	midCredentialCertificateCredentialDescribeContents         jni.MethodID
 	midCredentialCertificateCredentialEquals                   jni.MethodID
 	midCredentialCertificateCredentialGetCertSha256Fingerprint jni.MethodID
@@ -59,6 +60,7 @@ var (
 	midCredentialCertificateCredentialWriteToParcel            jni.MethodID
 
 	clsCredentialSimCredential                 *jni.GlobalRef
+	midCredentialSimCredentialCtor             jni.MethodID
 	midCredentialSimCredentialDescribeContents jni.MethodID
 	midCredentialSimCredentialEquals           jni.MethodID
 	midCredentialSimCredentialGetEapType       jni.MethodID
@@ -70,6 +72,7 @@ var (
 	midCredentialSimCredentialWriteToParcel    jni.MethodID
 
 	clsCredentialUserCredential                     *jni.GlobalRef
+	midCredentialUserCredentialCtor                 jni.MethodID
 	midCredentialUserCredentialDescribeContents     jni.MethodID
 	midCredentialUserCredentialEquals               jni.MethodID
 	midCredentialUserCredentialGetEapType           jni.MethodID
@@ -274,7 +277,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midCredentialWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredential)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midCredentialWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCredential)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -290,6 +293,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsCredentialCertificateCredential = env.NewGlobalRef(&c.Object)
+		midCredentialCertificateCredentialCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialCertificateCredential)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midCredentialCertificateCredentialDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialCertificateCredential)), "describeContents", "()I")
 		if err != nil {
@@ -347,7 +354,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midCredentialCertificateCredentialWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialCertificateCredential)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midCredentialCertificateCredentialWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCredentialCertificateCredential)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -363,6 +370,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsCredentialSimCredential = env.NewGlobalRef(&c.Object)
+		midCredentialSimCredentialCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialSimCredential)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midCredentialSimCredentialDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialSimCredential)), "describeContents", "()I")
 		if err != nil {
@@ -420,7 +431,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midCredentialSimCredentialWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialSimCredential)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midCredentialSimCredentialWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCredentialSimCredential)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -436,6 +447,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsCredentialUserCredential = env.NewGlobalRef(&c.Object)
+		midCredentialUserCredentialCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialUserCredential)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midCredentialUserCredentialDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialUserCredential)), "describeContents", "()I")
 		if err != nil {
@@ -521,7 +536,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midCredentialUserCredentialWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialUserCredential)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midCredentialUserCredentialWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCredentialUserCredential)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -647,7 +662,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midHomeSpWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midHomeSpWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

@@ -32,6 +32,12 @@ func NewConstraintAttribute(vm *jni.VM, arg0 string, arg1 *jni.Object) (*Constra
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsConstraintAttribute == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.ConstraintAttribute is not available on this device")
+		}
+		if midConstraintAttributeCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.ConstraintAttribute constructor (Ljava/lang/String;Landroidx/constraintlayout/widget/ConstraintAttribute$AttributeType;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -514,29 +520,6 @@ func (m *ConstraintAttribute) Diff(arg0 *jni.Object) (bool, error) {
 	return result, callErr
 }
 
-// SetValue1_1 calls androidx.constraintlayout.widget.ConstraintAttribute.setValue.
-func (m *ConstraintAttribute) SetValue1_1(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midConstraintAttributeSetValue1_1 == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.widget.ConstraintAttribute.setValue is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midConstraintAttributeSetValue1_1, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ApplyCustom calls androidx.constraintlayout.widget.ConstraintAttribute.applyCustom.
 func (m *ConstraintAttribute) ApplyCustom(arg0 *jni.Object) error {
 
@@ -585,4 +568,27 @@ func (m *ConstraintAttribute) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// SetValue1_1 calls androidx.constraintlayout.widget.ConstraintAttribute.setValue.
+func (m *ConstraintAttribute) SetValue1_1(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midConstraintAttributeSetValue1_1 == nil {
+			callErr = fmt.Errorf("androidx.constraintlayout.widget.ConstraintAttribute.setValue is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsConstraintAttribute)),
+			midConstraintAttributeSetValue1_1, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

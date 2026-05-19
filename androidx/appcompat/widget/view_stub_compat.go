@@ -32,6 +32,12 @@ func NewViewStubCompat(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ViewStu
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsViewStubCompat == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ViewStubCompat is not available on this device")
+		}
+		if midViewStubCompatCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ViewStubCompat constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewStubCompat)), midViewStubCompatCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

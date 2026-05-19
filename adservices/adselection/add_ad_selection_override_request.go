@@ -32,6 +32,12 @@ func NewAddAdSelectionOverrideRequest(vm *jni.VM, arg0 *jni.Object, arg1 string,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAddAdSelectionOverrideRequest == nil {
+			return fmt.Errorf("android.adservices.adselection.AddAdSelectionOverrideRequest is not available on this device")
+		}
+		if midAddAdSelectionOverrideRequestCtor == nil {
+			return fmt.Errorf("android.adservices.adselection.AddAdSelectionOverrideRequest constructor (Landroid/adservices/adselection/AdSelectionConfig;Ljava/lang/String;Landroid/adservices/common/AdSelectionSignals;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {

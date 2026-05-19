@@ -32,6 +32,12 @@ func NewFullScreenCarouselStrategy(vm *jni.VM) (*FullScreenCarouselStrategy, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFullScreenCarouselStrategy == nil {
+			return fmt.Errorf("com.google.android.material.carousel.FullScreenCarouselStrategy is not available on this device")
+		}
+		if midFullScreenCarouselStrategyCtor == nil {
+			return fmt.Errorf("com.google.android.material.carousel.FullScreenCarouselStrategy constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFullScreenCarouselStrategy)), midFullScreenCarouselStrategyCtor)
 		if err != nil {
 			return err

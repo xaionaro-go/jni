@@ -23,6 +23,34 @@ type LinearLayoutCompatInspectionCompanion struct {
 	Obj *jni.GlobalRef
 }
 
+// NewLinearLayoutCompatInspectionCompanion creates a new androidx.appcompat.widget.LinearLayoutCompat$InspectionCompanion instance.
+func NewLinearLayoutCompatInspectionCompanion(vm *jni.VM) (*LinearLayoutCompatInspectionCompanion, error) {
+	var t LinearLayoutCompatInspectionCompanion
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsLinearLayoutCompatInspectionCompanion == nil {
+			return fmt.Errorf("androidx.appcompat.widget.LinearLayoutCompat$InspectionCompanion is not available on this device")
+		}
+		if midLinearLayoutCompatInspectionCompanionCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.LinearLayoutCompat$InspectionCompanion constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompatInspectionCompanion)), midLinearLayoutCompatInspectionCompanionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // MapProperties calls androidx.appcompat.widget.LinearLayoutCompat$InspectionCompanion.mapProperties.
 func (m *LinearLayoutCompatInspectionCompanion) MapProperties(arg0 *jni.Object) error {
 
@@ -46,8 +74,8 @@ func (m *LinearLayoutCompatInspectionCompanion) MapProperties(arg0 *jni.Object) 
 	return callErr
 }
 
-// ReadProperties2 calls androidx.appcompat.widget.LinearLayoutCompat$InspectionCompanion.readProperties.
-func (m *LinearLayoutCompatInspectionCompanion) ReadProperties2(arg0 *jni.Object, arg1 *jni.Object) error {
+// ReadProperties calls androidx.appcompat.widget.LinearLayoutCompat$InspectionCompanion.readProperties.
+func (m *LinearLayoutCompatInspectionCompanion) ReadProperties(arg0 *jni.Object, arg1 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,37 +83,14 @@ func (m *LinearLayoutCompatInspectionCompanion) ReadProperties2(arg0 *jni.Object
 			callErr = err
 			return err
 		}
-		if midLinearLayoutCompatInspectionCompanionReadProperties2 == nil {
+		if midLinearLayoutCompatInspectionCompanionReadProperties == nil {
 			callErr = fmt.Errorf("androidx.appcompat.widget.LinearLayoutCompat$InspectionCompanion.readProperties is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midLinearLayoutCompatInspectionCompanionReadProperties2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// ReadProperties2_1 calls androidx.appcompat.widget.LinearLayoutCompat$InspectionCompanion.readProperties.
-func (m *LinearLayoutCompatInspectionCompanion) ReadProperties2_1(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midLinearLayoutCompatInspectionCompanionReadProperties2_1 == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.LinearLayoutCompat$InspectionCompanion.readProperties is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midLinearLayoutCompatInspectionCompanionReadProperties2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midLinearLayoutCompatInspectionCompanionReadProperties, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		return callErr
 	})

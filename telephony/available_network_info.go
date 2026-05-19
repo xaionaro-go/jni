@@ -32,6 +32,12 @@ func NewAvailableNetworkInfo(vm *jni.VM, arg0 int32, arg1 int32, arg2 *jni.Objec
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAvailableNetworkInfo == nil {
+			return fmt.Errorf("android.telephony.AvailableNetworkInfo is not available on this device")
+		}
+		if midAvailableNetworkInfoCtor == nil {
+			return fmt.Errorf("android.telephony.AvailableNetworkInfo constructor (IILjava/util/List;Ljava/util/List;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAvailableNetworkInfo)), midAvailableNetworkInfoCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3))
 		if err != nil {
@@ -311,8 +317,8 @@ func (m *AvailableNetworkInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAvailableNetworkInfo)),
 			midAvailableNetworkInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

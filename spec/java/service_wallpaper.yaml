@@ -36,6 +36,10 @@ classes:
           error: true
     - java_class: android.service.wallpaper.WallpaperService$Engine
       go_type: ServiceEngine
+      obtain: constructor
+      constructor_params:
+        - java_type: android.service.wallpaper.WallpaperService
+          go_name: arg0
       methods:
         - java_method: getDesiredMinimumHeight
           go_name: GetDesiredMinimumHeight
@@ -217,32 +221,10 @@ classes:
               go_name: arg0
           returns: void
           error: true
-abstract_callbacks:
+abstract_callback_eligibility:
     - java_class: android.service.wallpaper.WallpaperService
-      go_type: ServiceCallback
-      methods:
-        - java_method: onBind
-          params:
-            - android.content.Intent
-          returns: android.os.IBinder
-          go_field: OnBind
-        - java_method: onCreate
-          params: []
-          returns: void
-          go_field: OnCreate
-        - java_method: onCreateEngine
-          params: []
-          returns: android.service.wallpaper.WallpaperService$Engine
-          go_field: OnCreateEngine
-        - java_method: onCreateEngine
-          params:
-            - android.app.wallpaper.WallpaperDescription
-          returns: android.service.wallpaper.WallpaperService$Engine
-          go_field: OnCreateEngine
-        - java_method: onDestroy
-          params: []
-          returns: void
-          go_field: OnDestroy
+      generated: false
+      reason: non_object_superclass
 constants:
     - go_name: ServiceInterface
       value: '"android.service.wallpaper.WallpaperService"'

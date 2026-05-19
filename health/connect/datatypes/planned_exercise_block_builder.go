@@ -23,6 +23,35 @@ type PlannedExerciseBlockBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPlannedExerciseBlockBuilder creates a new android.health.connect.datatypes.PlannedExerciseBlock$Builder instance.
+func NewPlannedExerciseBlockBuilder(vm *jni.VM, arg0 int32) (*PlannedExerciseBlockBuilder, error) {
+	var t PlannedExerciseBlockBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPlannedExerciseBlockBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.PlannedExerciseBlock$Builder is not available on this device")
+		}
+		if midPlannedExerciseBlockBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.PlannedExerciseBlock$Builder constructor (I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPlannedExerciseBlockBuilder)), midPlannedExerciseBlockBuilderCtor, jni.IntValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddStep calls android.health.connect.datatypes.PlannedExerciseBlock$Builder.addStep.
 func (m *PlannedExerciseBlockBuilder) AddStep(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

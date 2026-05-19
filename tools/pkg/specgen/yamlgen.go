@@ -78,6 +78,12 @@ func GenerateSpec(
 	cls := classFromJavap(jc, pkgMapping.Package)
 	spec.Classes = append(spec.Classes, cls)
 
+	if shouldAuditAbstractCallbackEligibility(jc) {
+		spec.AbstractCallbackEligibility = append(
+			spec.AbstractCallbackEligibility,
+			abstractCallbackEligibilityFromJavap(jc),
+		)
+	}
 	if acb := abstractCallbackFromJavap(jc, pkgMapping.Package); acb != nil {
 		spec.AbstractCallbacks = append(spec.AbstractCallbacks, *acb)
 	}
@@ -242,6 +248,7 @@ func GenerateFromSources(
 			return
 		}
 		cls := classFromJavap(jc, mapping.Package)
+		acbEligibility := abstractCallbackEligibilityFromJavap(jc)
 		acb := abstractCallbackFromJavap(jc, mapping.Package)
 
 		specsMu.Lock()
@@ -255,6 +262,9 @@ func GenerateFromSources(
 		}
 		spec.Classes = append(spec.Classes, cls)
 		addConstants(spec, jc)
+		if shouldAuditAbstractCallbackEligibility(jc) {
+			spec.AbstractCallbackEligibility = append(spec.AbstractCallbackEligibility, acbEligibility)
+		}
 		if acb != nil {
 			spec.AbstractCallbacks = append(spec.AbstractCallbacks, *acb)
 		}
@@ -267,11 +277,15 @@ func GenerateFromSources(
 				continue
 			}
 			icls := classFromJavap(ijc, mapping.Package)
+			iacbEligibility := abstractCallbackEligibilityFromJavap(ijc)
 			iacb := abstractCallbackFromJavap(ijc, mapping.Package)
 
 			specsMu.Lock()
 			spec.Classes = append(spec.Classes, icls)
 			addConstants(spec, ijc)
+			if shouldAuditAbstractCallbackEligibility(ijc) {
+				spec.AbstractCallbackEligibility = append(spec.AbstractCallbackEligibility, iacbEligibility)
+			}
 			if iacb != nil {
 				spec.AbstractCallbacks = append(spec.AbstractCallbacks, *iacb)
 			}
@@ -389,8 +403,9 @@ func classFromJavap(jc *JavapClass, goPkg string) SpecClass {
 	// constructor: prefer one that takes android.content.Context as
 	// first param, then fall back to the no-arg constructor, then
 	// the first available constructor.
-	if cls.Obtain == "" && !jc.IsAbstract && !jc.IsInterface && len(jc.Constructors) > 0 {
-		best := chooseBestConstructor(jc.Constructors)
+	publicConstructors := publicJavapConstructors(jc.Constructors)
+	if cls.Obtain == "" && !jc.IsAbstract && !jc.IsInterface && len(publicConstructors) > 0 {
+		best := chooseBestConstructor(publicConstructors)
 		cls.Obtain = "constructor"
 		cls.ConstructorParams = convertConstructorParams(best)
 	}
@@ -402,7 +417,7 @@ func classFromJavap(jc *JavapClass, goPkg string) SpecClass {
 	// produce the same Go identifier and the package would fail to build.
 	goNameCounts := make(map[string]int)
 	for _, m := range jc.Methods {
-		if hasUnsupportedParams(m) {
+		if shouldSkipClassMethod(m) {
 			continue
 		}
 		goNameCounts[specMethodFromJavap(m).GoName]++
@@ -415,7 +430,7 @@ func classFromJavap(jc *JavapClass, goPkg string) SpecClass {
 	goNameIndex := make(map[string]int)
 
 	for _, m := range jc.Methods {
-		if hasUnsupportedParams(m) {
+		if shouldSkipClassMethod(m) {
 			continue
 		}
 
@@ -471,6 +486,29 @@ func specMethodFromJavap(m JavapMethod) SpecMethod {
 	}
 
 	return sm
+}
+
+func shouldSkipClassMethod(m JavapMethod) bool {
+	return !isPublicJavapMethod(m) || m.IsBridge || m.IsSynthetic || hasUnsupportedParams(m)
+}
+
+func publicJavapConstructors(constructors []JavapConstructor) []JavapConstructor {
+	out := make([]JavapConstructor, 0, len(constructors))
+	for _, constructor := range constructors {
+		if !isPublicJavapConstructor(constructor) {
+			continue
+		}
+		out = append(out, constructor)
+	}
+	return out
+}
+
+func isPublicJavapMethod(m JavapMethod) bool {
+	return m.IsPublic || !m.IsProtected
+}
+
+func isPublicJavapConstructor(constructor JavapConstructor) bool {
+	return constructor.IsPublic || !constructor.IsProtected
 }
 
 // hasUnsupportedParams checks if a method has parameter types that can't
@@ -706,13 +744,34 @@ func javaTypeToGoType(jt string) string {
 	}
 }
 
-// javaMethodToGoName converts a Java method name (camelCase) to a Go
-// exported name (PascalCase), with raw suffix for complex methods.
+// javaMethodToGoName converts a Java method name to an exported Go identifier.
+// Kotlin and compiler-emitted public methods can contain '$' suffixes; those
+// separators are folded into PascalCase so the Java method remains callable
+// while the generated Go identifier stays valid.
 func javaMethodToGoName(name string) string {
-	if len(name) == 0 {
-		return name
+	parts := strings.FieldsFunc(name, func(r rune) bool {
+		return !isJavaMethodNameRune(r)
+	})
+	var out strings.Builder
+	for _, part := range parts {
+		if part == "" {
+			continue
+		}
+		out.WriteString(strings.ToUpper(part[:1]))
+		if len(part) > 1 {
+			out.WriteString(part[1:])
+		}
 	}
-	return strings.ToUpper(name[:1]) + name[1:]
+	if out.Len() == 0 {
+		return "Method"
+	}
+	return out.String()
+}
+
+func isJavaMethodNameRune(r rune) bool {
+	return r >= '0' && r <= '9' ||
+		r >= 'A' && r <= 'Z' ||
+		r >= 'a' && r <= 'z'
 }
 
 // inferGoType determines the exported Go type name for a Java class.
@@ -758,41 +817,287 @@ func javaConstantToGoName(name string) string {
 // rather than truly abstract methods, so all non-static public methods are
 // treated as overridable callback methods.
 //
-// Returns nil if the class is not abstract, is an interface, or has no methods.
+// Generic type-variable names declared on the class header (e.g.
+// `<VH extends Foo$Bar>`) are erased to their upper bound when emitting
+// method param/return types — Java source positions in the subclass cannot
+// reference the parent's type variables, only concrete types.
+//
+// Returns nil if structural eligibility says the class cannot be rendered by
+// the current javagen adapter strategy.
 func abstractCallbackFromJavap(jc *JavapClass, goPkg string) *SpecAbstractCallback {
-	if !jc.IsAbstract || jc.IsInterface {
+	if eligibility := abstractCallbackEligibilityFromJavap(jc); !eligibility.Generated {
 		return nil
 	}
 
+	return &SpecAbstractCallback{
+		JavaClass:       jc.FullName,
+		GoType:          inferGoType(jc.FullName, goPkg) + "Callback",
+		Methods:         abstractCallbackMethodsFromJavap(jc),
+		TypeParamBounds: sourceTypeParamBounds(jc.TypeParams, jc.TypeParamOrder),
+	}
+}
+
+func abstractCallbackEligibilityFromJavap(jc *JavapClass) SpecAbstractCallbackEligibility {
+	result := SpecAbstractCallbackEligibility{
+		JavaClass: jc.FullName,
+	}
+	switch {
+	case jc.IsInterface:
+		result.Reason = "interface"
+		return result
+	case !jc.IsAbstract:
+		result.Reason = "not_abstract"
+		return result
+	case isSpecialAbstractAdapterConstructor(jc.FullName):
+		result.Generated = true
+		result.Reason = "special_recyclerview_viewholder_constructor"
+		return result
+	case len(jc.Implements) > 0:
+		result.Reason = "implements_interface"
+		return result
+	case !hasNoArgConstructor(jc):
+		result.Reason = "unsupported_constructor"
+		return result
+	case hasNonObjectSuperClass(jc):
+		result.Reason = "non_object_superclass"
+		return result
+	case jc.HasPackagePrivateAbstractMethods:
+		result.Reason = "package_private_abstract_method"
+		return result
+	case jc.HasUnparsedAbstractMethods:
+		result.Reason = "unparsed_abstract_method_signature"
+		return result
+	case hasUnsupportedAbstractCallbackMethod(jc):
+		result.Reason = "unsupported_abstract_method_signature"
+		return result
+	}
+
+	if len(abstractCallbackMethodsFromJavap(jc)) == 0 {
+		result.Reason = "no_renderable_methods"
+		return result
+	}
+
+	result.Generated = true
+	result.Reason = "supported_no_arg_constructor"
+	return result
+}
+
+func shouldAuditAbstractCallbackEligibility(jc *JavapClass) bool {
+	return jc.IsAbstract && !jc.IsInterface
+}
+
+func abstractCallbackMethodsFromJavap(jc *JavapClass) []SpecAbstractCallbackMethod {
 	var methods []SpecAbstractCallbackMethod
 	for _, m := range jc.Methods {
-		if m.IsStatic {
-			continue
-		}
-		if hasUnsupportedParams(m) {
+		if !isRenderableAbstractCallbackMethod(m, jc.TypeParams) {
 			continue
 		}
 
 		acm := SpecAbstractCallbackMethod{
 			JavaMethod: m.Name,
-			Returns:    javaTypeToSpecType(m.ReturnType),
+			Returns:    javaTypeToSpecType(eraseTypeVar(m.ReturnType, jc.TypeParams)),
 			GoField:    javaMethodToGoName(m.Name),
 		}
 		for _, p := range m.Params {
-			acm.Params = append(acm.Params, javaTypeToSpecType(p.JavaType))
+			acm.Params = append(acm.Params, javaTypeToSpecType(eraseTypeVar(p.JavaType, jc.TypeParams)))
 		}
 		methods = append(methods, acm)
 	}
+	return methods
+}
 
-	if len(methods) == 0 {
+func isRenderableAbstractCallbackMethod(m JavapMethod, typeParams map[string]string) bool {
+	switch {
+	case !isPublicJavapMethod(m) && !m.IsProtected:
+		return false
+	case m.IsProtected && !m.IsAbstract:
+		return false
+	case m.IsStatic:
+		return false
+	case m.IsFinal:
+		return false
+	case m.IsBridge:
+		return false
+	case m.IsSynthetic:
+		return false
+	case hasUnsupportedParamsForCallback(m, typeParams):
+		return false
+	default:
+		return true
+	}
+}
+
+func hasUnsupportedAbstractCallbackMethod(jc *JavapClass) bool {
+	for _, m := range jc.Methods {
+		if !m.IsAbstract {
+			continue
+		}
+		if m.IsBridge || m.IsSynthetic {
+			continue
+		}
+		if m.IsStatic || m.IsFinal {
+			return true
+		}
+		if hasUnsupportedParamsForCallback(m, jc.TypeParams) {
+			return true
+		}
+	}
+	return false
+}
+
+func hasNoArgConstructor(jc *JavapClass) bool {
+	for _, c := range jc.Constructors {
+		if len(c.Params) == 0 {
+			return true
+		}
+	}
+	return false
+}
+
+func hasNonObjectSuperClass(jc *JavapClass) bool {
+	return jc.SuperClass != "" && jc.SuperClass != "java.lang.Object"
+}
+
+func isSpecialAbstractAdapterConstructor(javaClass string) bool {
+	switch javaClass {
+	case "androidx.recyclerview.widget.RecyclerView$ViewHolder":
+		return true
+	default:
+		return false
+	}
+}
+
+// eraseTypeVar replaces Java type-variable references with source-valid erased
+// types. Bare variables (`T`, `T[]`) erase to the raw leftmost upper bound.
+// Parameterized types containing a known type variable (`Foo<T>`) erase to the
+// raw outer type (`Foo`) because the generated subclass does not declare the
+// parent's type variables.
+func eraseTypeVar(jt string, typeParams map[string]string) string {
+	if len(typeParams) == 0 {
+		return jt
+	}
+	base, suffix := splitJavaArraySuffix(strings.TrimSpace(jt))
+	if bound, ok := typeParams[base]; ok {
+		return rawJavaType(bound) + suffix
+	}
+	if strings.Contains(base, "<") && containsKnownTypeVar(base, typeParams) {
+		return rawJavaType(base) + suffix
+	}
+	return jt
+}
+
+// sourceTypeParamBounds returns concrete type arguments that are safe to render
+// in `extends Foo<...>`. Recursive or parameterized bounds such as
+// `DynamicAnimation<T>` are intentionally omitted, making the subclass extend
+// the raw generic superclass; javac then applies Java erasure to overridden
+// method signatures.
+func sourceTypeParamBounds(typeParams map[string]string, order []string) []string {
+	if len(typeParams) == 0 || len(order) == 0 {
 		return nil
 	}
-
-	return &SpecAbstractCallback{
-		JavaClass: jc.FullName,
-		GoType:    inferGoType(jc.FullName, goPkg) + "Callback",
-		Methods:   methods,
+	bounds := make([]string, 0, len(order))
+	for _, name := range order {
+		bound := strings.TrimSpace(typeParams[name])
+		if !isSafeSourceTypeArg(bound, typeParams) {
+			return nil
+		}
+		bounds = append(bounds, rawJavaType(bound))
 	}
+	return bounds
+}
+
+func isSafeSourceTypeArg(jt string, typeParams map[string]string) bool {
+	jt = strings.TrimSpace(jt)
+	if jt == "" {
+		return false
+	}
+	if strings.Contains(jt, "<") || strings.Contains(jt, ">") || strings.Contains(jt, "?") {
+		return false
+	}
+	if strings.Contains(jt, " & ") || containsKnownTypeVar(jt, typeParams) {
+		return false
+	}
+	return true
+}
+
+func rawJavaType(jt string) string {
+	base, suffix := splitJavaArraySuffix(strings.TrimSpace(jt))
+	if idx := strings.Index(base, " & "); idx >= 0 {
+		base = strings.TrimSpace(base[:idx])
+	}
+	if idx := strings.Index(base, "<"); idx >= 0 {
+		base = strings.TrimSpace(base[:idx])
+	}
+	return base + suffix
+}
+
+func splitJavaArraySuffix(jt string) (base string, suffix string) {
+	base = strings.TrimSpace(jt)
+	if strings.HasSuffix(base, "...") {
+		base = strings.TrimSuffix(base, "...")
+		suffix += "[]"
+	}
+	for strings.HasSuffix(base, "[]") {
+		base = strings.TrimSuffix(base, "[]")
+		suffix += "[]"
+	}
+	return base, suffix
+}
+
+func containsKnownTypeVar(jt string, typeParams map[string]string) bool {
+	for _, token := range javaTypeTokens(jt) {
+		if _, ok := typeParams[token]; ok {
+			return true
+		}
+	}
+	return false
+}
+
+func containsUnknownTypeVar(jt string, typeParams map[string]string) bool {
+	for _, token := range javaTypeTokens(jt) {
+		if !isTypeVariable(token) {
+			continue
+		}
+		if _, ok := typeParams[token]; !ok {
+			return true
+		}
+	}
+	return false
+}
+
+func javaTypeTokens(jt string) []string {
+	return strings.FieldsFunc(jt, func(r rune) bool {
+		return !isJavaTypeTokenRune(r)
+	})
+}
+
+func isJavaTypeTokenRune(r rune) bool {
+	return r == '_' || r == '$' || r == '.' ||
+		r >= '0' && r <= '9' ||
+		r >= 'A' && r <= 'Z' ||
+		r >= 'a' && r <= 'z'
+}
+
+// hasUnsupportedParamsForCallback is the callback-method-aware variant of
+// hasUnsupportedParams: a single-letter type that maps to a known parent
+// type variable is supported (it will be erased to its bound).
+func hasUnsupportedParamsForCallback(m JavapMethod, typeParams map[string]string) bool {
+	if containsUnknownTypeVar(m.ReturnType, typeParams) {
+		return true
+	}
+	for _, p := range m.Params {
+		switch {
+		case strings.Contains(p.JavaType, "ByteBuffer"):
+			return true
+		case strings.Contains(p.JavaType, "Handler"):
+			return true
+		case strings.Contains(p.JavaType, "<"):
+			return true
+		case containsUnknownTypeVar(p.JavaType, typeParams):
+			return true
+		}
+	}
+	return false
 }
 
 // inferConstantDefault returns a placeholder default for a constant.

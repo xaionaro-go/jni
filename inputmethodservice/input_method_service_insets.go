@@ -23,6 +23,34 @@ type InputMethodServiceInsets struct {
 	Obj *jni.GlobalRef
 }
 
+// NewInputMethodServiceInsets creates a new android.inputmethodservice.InputMethodService$Insets instance.
+func NewInputMethodServiceInsets(vm *jni.VM) (*InputMethodServiceInsets, error) {
+	var t InputMethodServiceInsets
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsInputMethodServiceInsets == nil {
+			return fmt.Errorf("android.inputmethodservice.InputMethodService$Insets is not available on this device")
+		}
+		if midInputMethodServiceInsetsCtor == nil {
+			return fmt.Errorf("android.inputmethodservice.InputMethodService$Insets constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInputMethodServiceInsets)), midInputMethodServiceInsetsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.inputmethodservice.InputMethodService$Insets.toString.
 func (m *InputMethodServiceInsets) ToString() (string, error) {
 	var result string

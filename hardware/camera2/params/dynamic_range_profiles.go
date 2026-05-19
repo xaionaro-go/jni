@@ -32,6 +32,12 @@ func NewDynamicRangeProfiles(vm *jni.VM, arg0 *jni.Object) (*DynamicRangeProfile
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDynamicRangeProfiles == nil {
+			return fmt.Errorf("android.hardware.camera2.params.DynamicRangeProfiles is not available on this device")
+		}
+		if midDynamicRangeProfilesCtor == nil {
+			return fmt.Errorf("android.hardware.camera2.params.DynamicRangeProfiles constructor ([J)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDynamicRangeProfiles)), midDynamicRangeProfilesCtor, jni.ObjectValue(arg0))
 		if err != nil {

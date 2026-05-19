@@ -32,6 +32,12 @@ func NewContract(vm *jni.VM) (*Contract, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsContract == nil {
+			return fmt.Errorf("android.provider.ContactsContract is not available on this device")
+		}
+		if midContractCtor == nil {
+			return fmt.Errorf("android.provider.ContactsContract constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContract)), midContractCtor)
 		if err != nil {
 			return err

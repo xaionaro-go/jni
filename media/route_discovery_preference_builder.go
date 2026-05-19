@@ -23,6 +23,35 @@ type RouteDiscoveryPreferenceBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRouteDiscoveryPreferenceBuilder creates a new android.media.RouteDiscoveryPreference$Builder instance.
+func NewRouteDiscoveryPreferenceBuilder(vm *jni.VM, arg0 *jni.Object) (*RouteDiscoveryPreferenceBuilder, error) {
+	var t RouteDiscoveryPreferenceBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRouteDiscoveryPreferenceBuilder == nil {
+			return fmt.Errorf("android.media.RouteDiscoveryPreference$Builder is not available on this device")
+		}
+		if midRouteDiscoveryPreferenceBuilderCtor == nil {
+			return fmt.Errorf("android.media.RouteDiscoveryPreference$Builder constructor (Landroid/media/RouteDiscoveryPreference;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRouteDiscoveryPreferenceBuilder)), midRouteDiscoveryPreferenceBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.media.RouteDiscoveryPreference$Builder.build.
 func (m *RouteDiscoveryPreferenceBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

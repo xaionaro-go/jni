@@ -32,6 +32,12 @@ func NewExtendableSavedState(vm *jni.VM, arg0 *jni.Object) (*ExtendableSavedStat
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsExtendableSavedState == nil {
+			return fmt.Errorf("com.google.android.material.stateful.ExtendableSavedState is not available on this device")
+		}
+		if midExtendableSavedStateCtor == nil {
+			return fmt.Errorf("com.google.android.material.stateful.ExtendableSavedState constructor (Landroid/os/Parcelable;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExtendableSavedState)), midExtendableSavedStateCtor, jni.ObjectValue(arg0))
 		if err != nil {

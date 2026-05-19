@@ -30,6 +30,12 @@ func NewBackgroundServiceStartNotAllowedException(vm *jni.VM, arg0 string) (*Bac
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBackgroundServiceStartNotAllowedException == nil {
+			return fmt.Errorf("android.app.BackgroundServiceStartNotAllowedException is not available on this device")
+		}
+		if midBackgroundServiceStartNotAllowedExceptionCtor == nil {
+			return fmt.Errorf("android.app.BackgroundServiceStartNotAllowedException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -74,29 +80,6 @@ func (m *BackgroundServiceStartNotAllowedException) DescribeContents() (int32, e
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.BackgroundServiceStartNotAllowedException.writeToParcel.
-func (m *BackgroundServiceStartNotAllowedException) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBackgroundServiceStartNotAllowedExceptionWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.BackgroundServiceStartNotAllowedException.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midBackgroundServiceStartNotAllowedExceptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.BackgroundServiceStartNotAllowedException.toString.
 func (m *BackgroundServiceStartNotAllowedException) ToString() (string, error) {
 	var result string
@@ -122,4 +105,27 @@ func (m *BackgroundServiceStartNotAllowedException) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.BackgroundServiceStartNotAllowedException.writeToParcel.
+func (m *BackgroundServiceStartNotAllowedException) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midBackgroundServiceStartNotAllowedExceptionWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.BackgroundServiceStartNotAllowedException.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsBackgroundServiceStartNotAllowedException)),
+			midBackgroundServiceStartNotAllowedExceptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

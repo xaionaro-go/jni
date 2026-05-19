@@ -32,6 +32,12 @@ func NewRectF(vm *jni.VM) (*RectF, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRectF == nil {
+			return fmt.Errorf("android.graphics.RectF is not available on this device")
+		}
+		if midRectFCtor == nil {
+			return fmt.Errorf("android.graphics.RectF constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRectF)), midRectFCtor)
 		if err != nil {
 			return err
@@ -845,29 +851,6 @@ func (m *RectF) Width() (float32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.graphics.RectF.writeToParcel.
-func (m *RectF) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRectFWriteToParcel == nil {
-			callErr = fmt.Errorf("android.graphics.RectF.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midRectFWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // Intersects2 calls android.graphics.RectF.intersects.
 func (m *RectF) Intersects2(arg0 *jni.Object, arg1 *jni.Object) (bool, error) {
 	var result bool
@@ -894,4 +877,27 @@ func (m *RectF) Intersects2(arg0 *jni.Object, arg1 *jni.Object) (bool, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.graphics.RectF.writeToParcel.
+func (m *RectF) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRectFWriteToParcel == nil {
+			callErr = fmt.Errorf("android.graphics.RectF.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsRectF)),
+			midRectFWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

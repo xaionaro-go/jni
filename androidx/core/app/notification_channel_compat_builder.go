@@ -21,6 +21,40 @@ type NotificationChannelCompatBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNotificationChannelCompatBuilder creates a new androidx.core.app.NotificationChannelCompat$Builder instance.
+func NewNotificationChannelCompatBuilder(vm *jni.VM, arg0 string, arg1 int32) (*NotificationChannelCompatBuilder, error) {
+	var t NotificationChannelCompatBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNotificationChannelCompatBuilder == nil {
+			return fmt.Errorf("androidx.core.app.NotificationChannelCompat$Builder is not available on this device")
+		}
+		if midNotificationChannelCompatBuilderCtor == nil {
+			return fmt.Errorf("androidx.core.app.NotificationChannelCompat$Builder constructor (Ljava/lang/String;I)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNotificationChannelCompatBuilder)), midNotificationChannelCompatBuilderCtor, jni.ObjectValue(&jArg0.Object), jni.IntValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetName calls androidx.core.app.NotificationChannelCompat$Builder.setName.
 func (m *NotificationChannelCompatBuilder) SetName(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

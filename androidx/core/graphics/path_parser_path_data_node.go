@@ -80,33 +80,6 @@ func (m *PathParserPathDataNode) GetParams() (*jni.Object, error) {
 	return result, callErr
 }
 
-// InterpolatePathDataNode calls androidx.core.graphics.PathParser$PathDataNode.interpolatePathDataNode.
-func (m *PathParserPathDataNode) InterpolatePathDataNode(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 float32,
-) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midPathParserPathDataNodeInterpolatePathDataNode == nil {
-			callErr = fmt.Errorf("androidx.core.graphics.PathParser$PathDataNode.interpolatePathDataNode is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midPathParserPathDataNodeInterpolatePathDataNode, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.FloatValue(arg2),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.core.graphics.PathParser$PathDataNode.toString.
 func (m *PathParserPathDataNode) ToString() (string, error) {
 	var result string

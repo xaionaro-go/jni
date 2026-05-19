@@ -12,19 +12,22 @@ type MergedAbstractCallbackMethod struct {
 }
 
 // JavaReturnType returns the Java return type for use in the adapter template.
+// JNI descriptor array types and binary nested-class separators are rewritten
+// to Java source syntax.
 func (m *MergedAbstractCallbackMethod) JavaReturnType() string {
 	if m.Returns == "" || m.Returns == "void" {
 		return "void"
 	}
-	return m.Returns
+	return javaSourceType(m.Returns)
 }
 
 // JavaParamList returns the Java parameter declaration list for the adapter method
-// (e.g. "int arg0, android.bluetooth.le.ScanResult arg1").
+// (e.g. "int arg0, android.bluetooth.le.ScanResult arg1"). Binary nested-class
+// separators and JNI descriptor array types are rewritten for javac source.
 func (m *MergedAbstractCallbackMethod) JavaParamList() string {
 	var parts []string
 	for _, p := range m.Params {
-		parts = append(parts, p.JavaType+" "+p.GoName)
+		parts = append(parts, javaSourceType(p.JavaType)+" "+p.GoName)
 	}
 	return strings.Join(parts, ", ")
 }
@@ -46,49 +49,59 @@ func (m *MergedAbstractCallbackMethod) HasReturn() bool {
 
 // JavaCastReturn returns the Java cast expression needed to convert
 // the Object return from GoAbstractDispatch.invoke to the method's return type.
+//
+// Primitive-return cases emit a leading `((Type)` and pair with JavaUnboxReturn's
+// trailing `).valueMethod()` so the cast-then-unbox parses with the cast binding
+// tighter than the method call. Without the extra parenthesis, Java parses
+// `(Integer) invoke(...).intValue()` as `(Integer)(invoke(...).intValue())` and
+// fails because Object has no intValue() method.
+//
+// The default (object) case stays as a single-paren cast — there is no unbox
+// suffix to disambiguate against.
 func (m *MergedAbstractCallbackMethod) JavaCastReturn() string {
 	switch m.Returns {
 	case "int":
-		return "(Integer)"
+		return "((Integer)"
 	case "long":
-		return "(Long)"
+		return "((Long)"
 	case "boolean":
-		return "(Boolean)"
+		return "((Boolean)"
 	case "float":
-		return "(Float)"
+		return "((Float)"
 	case "double":
-		return "(Double)"
+		return "((Double)"
 	case "byte":
-		return "(Byte)"
+		return "((Byte)"
 	case "short":
-		return "(Short)"
+		return "((Short)"
 	case "char":
-		return "(Character)"
+		return "((Character)"
 	default:
-		return "(" + m.Returns + ")"
+		return "(" + javaSourceType(m.Returns) + ")"
 	}
 }
 
 // JavaUnboxReturn returns the Java unboxing method call for primitive return types,
-// or empty string for object/void returns.
+// or empty string for object/void returns. The leading `)` closes the extra
+// parenthesis opened by JavaCastReturn so cast precedence binds correctly.
 func (m *MergedAbstractCallbackMethod) JavaUnboxReturn() string {
 	switch m.Returns {
 	case "int":
-		return ".intValue()"
+		return ").intValue()"
 	case "long":
-		return ".longValue()"
+		return ").longValue()"
 	case "boolean":
-		return ".booleanValue()"
+		return ").booleanValue()"
 	case "float":
-		return ".floatValue()"
+		return ").floatValue()"
 	case "double":
-		return ".doubleValue()"
+		return ").doubleValue()"
 	case "byte":
-		return ".byteValue()"
+		return ").byteValue()"
 	case "short":
-		return ".shortValue()"
+		return ").shortValue()"
 	case "char":
-		return ".charValue()"
+		return ").charValue()"
 	default:
 		return ""
 	}

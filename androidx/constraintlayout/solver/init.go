@@ -23,82 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsVariableValues                 *jni.GlobalRef
-	midVariableValuesGetCurrentSize   jni.MethodID
-	midVariableValuesGetVariable      jni.MethodID
-	midVariableValuesGetVariableValue jni.MethodID
-	midVariableValuesContains         jni.MethodID
-	midVariableValuesIndexOf          jni.MethodID
-	midVariableValuesGet              jni.MethodID
-	midVariableValuesDisplay          jni.MethodID
-	midVariableValuesToString         jni.MethodID
-	midVariableValuesClear            jni.MethodID
-	midVariableValuesPut              jni.MethodID
-	midVariableValuesSizeInBytes      jni.MethodID
-	midVariableValuesRemove           jni.MethodID
-	midVariableValuesAdd              jni.MethodID
-	midVariableValuesUse              jni.MethodID
-	midVariableValuesInvert           jni.MethodID
-	midVariableValuesDivideByAmount   jni.MethodID
-
-	clsLinearSystem                             *jni.GlobalRef
-	midLinearSystemCtor                         jni.MethodID
-	midLinearSystemFillMetrics                  jni.MethodID
-	midLinearSystemReset                        jni.MethodID
-	midLinearSystemCreateObjectVariable         jni.MethodID
-	midLinearSystemCreateRow                    jni.MethodID
-	midLinearSystemCreateSlackVariable          jni.MethodID
-	midLinearSystemCreateExtraVariable          jni.MethodID
-	midLinearSystemCreateErrorVariable          jni.MethodID
-	midLinearSystemGetObjectVariableValue       jni.MethodID
-	midLinearSystemMinimize                     jni.MethodID
-	midLinearSystemAddConstraint                jni.MethodID
-	midLinearSystemRemoveRow                    jni.MethodID
-	midLinearSystemDisplayReadableRows          jni.MethodID
-	midLinearSystemDisplayVariablesReadableRows jni.MethodID
-	midLinearSystemGetMemoryUsed                jni.MethodID
-	midLinearSystemGetNumEquations              jni.MethodID
-	midLinearSystemGetNumVariables              jni.MethodID
-	midLinearSystemGetCache                     jni.MethodID
-	midLinearSystemAddGreaterThan               jni.MethodID
-	midLinearSystemAddGreaterBarrier            jni.MethodID
-	midLinearSystemAddLowerThan                 jni.MethodID
-	midLinearSystemAddLowerBarrier              jni.MethodID
-	midLinearSystemAddCentering                 jni.MethodID
-	midLinearSystemAddRatio                     jni.MethodID
-	midLinearSystemAddEquality4                 jni.MethodID
-	midLinearSystemAddEquality2_1               jni.MethodID
-	midLinearSystemAddCenterPoint               jni.MethodID
-	midLinearSystemToString                     jni.MethodID
-	midLinearSystemGetMetrics                   jni.MethodID
-	midLinearSystemCreateRowDimensionPercent    jni.MethodID
-
-	clsMetrics         *jni.GlobalRef
-	midMetricsCtor     jni.MethodID
-	midMetricsToString jni.MethodID
-	midMetricsReset    jni.MethodID
-
-	clsVariable                                  *jni.GlobalRef
-	midVariableCtor                              jni.MethodID
-	midVariableAddToRow                          jni.MethodID
-	midVariableRemoveFromRow                     jni.MethodID
-	midVariableUpdateReferencesWithNewDefinition jni.MethodID
-	midVariableSetFinalValue                     jni.MethodID
-	midVariableReset                             jni.MethodID
-	midVariableGetName                           jni.MethodID
-	midVariableSetName                           jni.MethodID
-	midVariableSetType                           jni.MethodID
-	midVariableToString                          jni.MethodID
-
-	clsVariableType         *jni.GlobalRef
-	midVariableTypeToString jni.MethodID
-	midVariableTypeValues   jni.MethodID
-	midVariableTypeValueOf  jni.MethodID
-
-	clsCache         *jni.GlobalRef
-	midCacheCtor     jni.MethodID
-	midCacheToString jni.MethodID
-
 	clsPriorityGoalRow                  *jni.GlobalRef
 	midPriorityGoalRowCtor              jni.MethodID
 	midPriorityGoalRowClear             jni.MethodID
@@ -107,10 +31,32 @@ var (
 	midPriorityGoalRowUpdateFromRow     jni.MethodID
 	midPriorityGoalRowToString          jni.MethodID
 
-	clsGoalRow         *jni.GlobalRef
-	midGoalRowCtor     jni.MethodID
-	midGoalRowAddError jni.MethodID
-	midGoalRowToString jni.MethodID
+	clsArrayLinkedVariables                 *jni.GlobalRef
+	midArrayLinkedVariablesPut              jni.MethodID
+	midArrayLinkedVariablesAdd              jni.MethodID
+	midArrayLinkedVariablesUse              jni.MethodID
+	midArrayLinkedVariablesRemove           jni.MethodID
+	midArrayLinkedVariablesClear            jni.MethodID
+	midArrayLinkedVariablesContains         jni.MethodID
+	midArrayLinkedVariablesIndexOf          jni.MethodID
+	midArrayLinkedVariablesInvert           jni.MethodID
+	midArrayLinkedVariablesDivideByAmount   jni.MethodID
+	midArrayLinkedVariablesGetHead          jni.MethodID
+	midArrayLinkedVariablesGetCurrentSize   jni.MethodID
+	midArrayLinkedVariablesGetId            jni.MethodID
+	midArrayLinkedVariablesGetValue         jni.MethodID
+	midArrayLinkedVariablesGetNextIndice    jni.MethodID
+	midArrayLinkedVariablesGetVariable      jni.MethodID
+	midArrayLinkedVariablesGetVariableValue jni.MethodID
+	midArrayLinkedVariablesGet              jni.MethodID
+	midArrayLinkedVariablesSizeInBytes      jni.MethodID
+	midArrayLinkedVariablesDisplay          jni.MethodID
+	midArrayLinkedVariablesToString         jni.MethodID
+
+	clsMetrics         *jni.GlobalRef
+	midMetricsCtor     jni.MethodID
+	midMetricsToString jni.MethodID
+	midMetricsReset    jni.MethodID
 
 	clsArrayRow                              *jni.GlobalRef
 	midArrayRowCtor                          jni.MethodID
@@ -155,27 +101,81 @@ var (
 	midArrayRowArrayRowVariablesUse              jni.MethodID
 	midArrayRowArrayRowVariablesToString         jni.MethodID
 
-	clsArrayLinkedVariables                 *jni.GlobalRef
-	midArrayLinkedVariablesPut              jni.MethodID
-	midArrayLinkedVariablesAdd              jni.MethodID
-	midArrayLinkedVariablesUse              jni.MethodID
-	midArrayLinkedVariablesRemove           jni.MethodID
-	midArrayLinkedVariablesClear            jni.MethodID
-	midArrayLinkedVariablesContains         jni.MethodID
-	midArrayLinkedVariablesIndexOf          jni.MethodID
-	midArrayLinkedVariablesInvert           jni.MethodID
-	midArrayLinkedVariablesDivideByAmount   jni.MethodID
-	midArrayLinkedVariablesGetHead          jni.MethodID
-	midArrayLinkedVariablesGetCurrentSize   jni.MethodID
-	midArrayLinkedVariablesGetId            jni.MethodID
-	midArrayLinkedVariablesGetValue         jni.MethodID
-	midArrayLinkedVariablesGetNextIndice    jni.MethodID
-	midArrayLinkedVariablesGetVariable      jni.MethodID
-	midArrayLinkedVariablesGetVariableValue jni.MethodID
-	midArrayLinkedVariablesGet              jni.MethodID
-	midArrayLinkedVariablesSizeInBytes      jni.MethodID
-	midArrayLinkedVariablesDisplay          jni.MethodID
-	midArrayLinkedVariablesToString         jni.MethodID
+	clsCache         *jni.GlobalRef
+	midCacheCtor     jni.MethodID
+	midCacheToString jni.MethodID
+
+	clsVariable                                  *jni.GlobalRef
+	midVariableCtor                              jni.MethodID
+	midVariableAddToRow                          jni.MethodID
+	midVariableRemoveFromRow                     jni.MethodID
+	midVariableUpdateReferencesWithNewDefinition jni.MethodID
+	midVariableSetFinalValue                     jni.MethodID
+	midVariableReset                             jni.MethodID
+	midVariableGetName                           jni.MethodID
+	midVariableSetName                           jni.MethodID
+	midVariableSetType                           jni.MethodID
+	midVariableToString                          jni.MethodID
+
+	clsVariableType         *jni.GlobalRef
+	midVariableTypeToString jni.MethodID
+	midVariableTypeValues   jni.MethodID
+	midVariableTypeValueOf  jni.MethodID
+
+	clsLinearSystem                             *jni.GlobalRef
+	midLinearSystemCtor                         jni.MethodID
+	midLinearSystemFillMetrics                  jni.MethodID
+	midLinearSystemReset                        jni.MethodID
+	midLinearSystemCreateObjectVariable         jni.MethodID
+	midLinearSystemCreateRow                    jni.MethodID
+	midLinearSystemCreateSlackVariable          jni.MethodID
+	midLinearSystemCreateExtraVariable          jni.MethodID
+	midLinearSystemCreateErrorVariable          jni.MethodID
+	midLinearSystemGetObjectVariableValue       jni.MethodID
+	midLinearSystemMinimize                     jni.MethodID
+	midLinearSystemAddConstraint                jni.MethodID
+	midLinearSystemRemoveRow                    jni.MethodID
+	midLinearSystemDisplayReadableRows          jni.MethodID
+	midLinearSystemDisplayVariablesReadableRows jni.MethodID
+	midLinearSystemGetMemoryUsed                jni.MethodID
+	midLinearSystemGetNumEquations              jni.MethodID
+	midLinearSystemGetNumVariables              jni.MethodID
+	midLinearSystemGetCache                     jni.MethodID
+	midLinearSystemAddGreaterThan               jni.MethodID
+	midLinearSystemAddGreaterBarrier            jni.MethodID
+	midLinearSystemAddLowerThan                 jni.MethodID
+	midLinearSystemAddLowerBarrier              jni.MethodID
+	midLinearSystemAddCentering                 jni.MethodID
+	midLinearSystemAddRatio                     jni.MethodID
+	midLinearSystemAddEquality4                 jni.MethodID
+	midLinearSystemAddEquality2_1               jni.MethodID
+	midLinearSystemToString                     jni.MethodID
+	midLinearSystemGetMetrics                   jni.MethodID
+	midLinearSystemCreateRowDimensionPercent    jni.MethodID
+	midLinearSystemAddCenterPoint               jni.MethodID
+
+	clsGoalRow         *jni.GlobalRef
+	midGoalRowCtor     jni.MethodID
+	midGoalRowAddError jni.MethodID
+	midGoalRowToString jni.MethodID
+
+	clsVariableValues                 *jni.GlobalRef
+	midVariableValuesGetCurrentSize   jni.MethodID
+	midVariableValuesGetVariable      jni.MethodID
+	midVariableValuesGetVariableValue jni.MethodID
+	midVariableValuesContains         jni.MethodID
+	midVariableValuesIndexOf          jni.MethodID
+	midVariableValuesGet              jni.MethodID
+	midVariableValuesDisplay          jni.MethodID
+	midVariableValuesToString         jni.MethodID
+	midVariableValuesClear            jni.MethodID
+	midVariableValuesPut              jni.MethodID
+	midVariableValuesSizeInBytes      jni.MethodID
+	midVariableValuesRemove           jni.MethodID
+	midVariableValuesAdd              jni.MethodID
+	midVariableValuesUse              jni.MethodID
+	midVariableValuesInvert           jni.MethodID
+	midVariableValuesDivideByAmount   jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -195,502 +195,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("androidx/constraintlayout/solver/SolverVariableValues")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsVariableValues = env.NewGlobalRef(&c.Object)
-
-		midVariableValuesGetCurrentSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "getCurrentSize", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableValuesGetVariable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "getVariable", "(I)Landroidx/constraintlayout/solver/SolverVariable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableValuesGetVariableValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "getVariableValue", "(I)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableValuesContains, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "contains", "(Landroidx/constraintlayout/solver/SolverVariable;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableValuesIndexOf, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "indexOf", "(Landroidx/constraintlayout/solver/SolverVariable;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableValuesGet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "get", "(Landroidx/constraintlayout/solver/SolverVariable;)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableValuesDisplay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "display", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableValuesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableValuesClear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "clear", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableValuesPut, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "put", "(Landroidx/constraintlayout/solver/SolverVariable;F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableValuesSizeInBytes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "sizeInBytes", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableValuesRemove, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "remove", "(Landroidx/constraintlayout/solver/SolverVariable;Z)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableValuesAdd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "add", "(Landroidx/constraintlayout/solver/SolverVariable;FZ)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableValuesUse, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "use", "(Landroidx/constraintlayout/solver/ArrayRow;Z)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableValuesInvert, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "invert", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableValuesDivideByAmount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "divideByAmount", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/solver/LinearSystem")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLinearSystem = env.NewGlobalRef(&c.Object)
-		midLinearSystemCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midLinearSystemFillMetrics, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "fillMetrics", "(Landroidx/constraintlayout/solver/Metrics;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemReset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "reset", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemCreateObjectVariable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "createObjectVariable", "(Ljava/lang/Object;)Landroidx/constraintlayout/solver/SolverVariable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemCreateRow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "createRow", "()Landroidx/constraintlayout/solver/ArrayRow;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemCreateSlackVariable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "createSlackVariable", "()Landroidx/constraintlayout/solver/SolverVariable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemCreateExtraVariable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "createExtraVariable", "()Landroidx/constraintlayout/solver/SolverVariable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemCreateErrorVariable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "createErrorVariable", "(ILjava/lang/String;)Landroidx/constraintlayout/solver/SolverVariable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemGetObjectVariableValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "getObjectVariableValue", "(Ljava/lang/Object;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemMinimize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "minimize", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemAddConstraint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "addConstraint", "(Landroidx/constraintlayout/solver/ArrayRow;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemRemoveRow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "removeRow", "(Landroidx/constraintlayout/solver/ArrayRow;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemDisplayReadableRows, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "displayReadableRows", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemDisplayVariablesReadableRows, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "displayVariablesReadableRows", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemGetMemoryUsed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "getMemoryUsed", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemGetNumEquations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "getNumEquations", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemGetNumVariables, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "getNumVariables", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemGetCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "getCache", "()Landroidx/constraintlayout/solver/Cache;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemAddGreaterThan, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "addGreaterThan", "(Landroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemAddGreaterBarrier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "addGreaterBarrier", "(Landroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;IZ)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemAddLowerThan, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "addLowerThan", "(Landroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemAddLowerBarrier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "addLowerBarrier", "(Landroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;IZ)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemAddCentering, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "addCentering", "(Landroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;IFLandroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemAddRatio, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "addRatio", "(Landroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;FI)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemAddEquality4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "addEquality", "(Landroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;II)Landroidx/constraintlayout/solver/ArrayRow;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemAddEquality2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "addEquality", "(Landroidx/constraintlayout/solver/SolverVariable;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemAddCenterPoint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "addCenterPoint", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidget;Landroidx/constraintlayout/solver/widgets/ConstraintWidget;FI)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemGetMetrics, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "getMetrics", "()Landroidx/constraintlayout/solver/Metrics;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearSystemCreateRowDimensionPercent, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "createRowDimensionPercent", "(Landroidx/constraintlayout/solver/LinearSystem;Landroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;F)Landroidx/constraintlayout/solver/ArrayRow;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/solver/Metrics")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMetrics = env.NewGlobalRef(&c.Object)
-		midMetricsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetrics)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMetricsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetrics)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMetricsReset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetrics)), "reset", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/solver/SolverVariable")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsVariable = env.NewGlobalRef(&c.Object)
-		midVariableCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariable)), "<init>", "(Ljava/lang/String;Landroidx/constraintlayout/solver/SolverVariable$Type;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midVariableAddToRow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariable)), "addToRow", "(Landroidx/constraintlayout/solver/ArrayRow;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableRemoveFromRow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariable)), "removeFromRow", "(Landroidx/constraintlayout/solver/ArrayRow;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableUpdateReferencesWithNewDefinition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariable)), "updateReferencesWithNewDefinition", "(Landroidx/constraintlayout/solver/ArrayRow;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableSetFinalValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariable)), "setFinalValue", "(Landroidx/constraintlayout/solver/LinearSystem;F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableReset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariable)), "reset", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableGetName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariable)), "getName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableSetName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariable)), "setName", "(Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableSetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariable)), "setType", "(Landroidx/constraintlayout/solver/SolverVariable$Type;Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariable)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/solver/SolverVariable$Type")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsVariableType = env.NewGlobalRef(&c.Object)
-
-		midVariableTypeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableType)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableTypeValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsVariableType)), "values", "()[Landroidx/constraintlayout/solver/SolverVariable$Type;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVariableTypeValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsVariableType)), "valueOf", "(Ljava/lang/String;)Landroidx/constraintlayout/solver/SolverVariable$Type;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/solver/Cache")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCache = env.NewGlobalRef(&c.Object)
-		midCacheCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCache)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCacheToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCache)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("androidx/constraintlayout/solver/PriorityGoalRow")
 	if err != nil {
@@ -741,26 +245,176 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/constraintlayout/solver/GoalRow")
+	c, err = env.FindClass("androidx/constraintlayout/solver/ArrayLinkedVariables")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsGoalRow = env.NewGlobalRef(&c.Object)
-		midGoalRowCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGoalRow)), "<init>", "(Landroidx/constraintlayout/solver/Cache;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsArrayLinkedVariables = env.NewGlobalRef(&c.Object)
 
-		midGoalRowAddError, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGoalRow)), "addError", "(Landroidx/constraintlayout/solver/SolverVariable;)V")
+		midArrayLinkedVariablesPut, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "put", "(Landroidx/constraintlayout/solver/SolverVariable;F)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGoalRowToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGoalRow)), "toString", "()Ljava/lang/String;")
+		midArrayLinkedVariablesAdd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "add", "(Landroidx/constraintlayout/solver/SolverVariable;FZ)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midArrayLinkedVariablesUse, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "use", "(Landroidx/constraintlayout/solver/ArrayRow;Z)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midArrayLinkedVariablesRemove, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "remove", "(Landroidx/constraintlayout/solver/SolverVariable;Z)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midArrayLinkedVariablesClear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "clear", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midArrayLinkedVariablesContains, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "contains", "(Landroidx/constraintlayout/solver/SolverVariable;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midArrayLinkedVariablesIndexOf, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "indexOf", "(Landroidx/constraintlayout/solver/SolverVariable;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midArrayLinkedVariablesInvert, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "invert", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midArrayLinkedVariablesDivideByAmount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "divideByAmount", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midArrayLinkedVariablesGetHead, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "getHead", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midArrayLinkedVariablesGetCurrentSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "getCurrentSize", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midArrayLinkedVariablesGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "getId", "(I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midArrayLinkedVariablesGetValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "getValue", "(I)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midArrayLinkedVariablesGetNextIndice, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "getNextIndice", "(I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midArrayLinkedVariablesGetVariable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "getVariable", "(I)Landroidx/constraintlayout/solver/SolverVariable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midArrayLinkedVariablesGetVariableValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "getVariableValue", "(I)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midArrayLinkedVariablesGet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "get", "(Landroidx/constraintlayout/solver/SolverVariable;)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midArrayLinkedVariablesSizeInBytes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "sizeInBytes", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midArrayLinkedVariablesDisplay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "display", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midArrayLinkedVariablesToString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/solver/Metrics")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMetrics = env.NewGlobalRef(&c.Object)
+		midMetricsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetrics)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMetricsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetrics)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMetricsReset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetrics)), "reset", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1059,148 +713,494 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/constraintlayout/solver/ArrayLinkedVariables")
+	c, err = env.FindClass("androidx/constraintlayout/solver/Cache")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsArrayLinkedVariables = env.NewGlobalRef(&c.Object)
+		clsCache = env.NewGlobalRef(&c.Object)
+		midCacheCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCache)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midArrayLinkedVariablesPut, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "put", "(Landroidx/constraintlayout/solver/SolverVariable;F)V")
+		midCacheToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCache)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midArrayLinkedVariablesAdd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "add", "(Landroidx/constraintlayout/solver/SolverVariable;FZ)V")
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/solver/SolverVariable")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsVariable = env.NewGlobalRef(&c.Object)
+		midVariableCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariable)), "<init>", "(Ljava/lang/String;Landroidx/constraintlayout/solver/SolverVariable$Type;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midVariableAddToRow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariable)), "addToRow", "(Landroidx/constraintlayout/solver/ArrayRow;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midArrayLinkedVariablesUse, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "use", "(Landroidx/constraintlayout/solver/ArrayRow;Z)F")
+		midVariableRemoveFromRow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariable)), "removeFromRow", "(Landroidx/constraintlayout/solver/ArrayRow;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midArrayLinkedVariablesRemove, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "remove", "(Landroidx/constraintlayout/solver/SolverVariable;Z)F")
+		midVariableUpdateReferencesWithNewDefinition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariable)), "updateReferencesWithNewDefinition", "(Landroidx/constraintlayout/solver/ArrayRow;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midArrayLinkedVariablesClear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "clear", "()V")
+		midVariableSetFinalValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariable)), "setFinalValue", "(Landroidx/constraintlayout/solver/LinearSystem;F)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midArrayLinkedVariablesContains, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "contains", "(Landroidx/constraintlayout/solver/SolverVariable;)Z")
+		midVariableReset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariable)), "reset", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midArrayLinkedVariablesIndexOf, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "indexOf", "(Landroidx/constraintlayout/solver/SolverVariable;)I")
+		midVariableGetName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariable)), "getName", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midArrayLinkedVariablesInvert, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "invert", "()V")
+		midVariableSetName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariable)), "setName", "(Ljava/lang/String;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midArrayLinkedVariablesDivideByAmount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "divideByAmount", "(F)V")
+		midVariableSetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariable)), "setType", "(Landroidx/constraintlayout/solver/SolverVariable$Type;Ljava/lang/String;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midArrayLinkedVariablesGetHead, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "getHead", "()I")
+		midVariableToString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsVariable)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midArrayLinkedVariablesGetCurrentSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "getCurrentSize", "()I")
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/solver/SolverVariable$Type")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsVariableType = env.NewGlobalRef(&c.Object)
+
+		midVariableTypeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableType)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midArrayLinkedVariablesGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "getId", "(I)I")
+		midVariableTypeValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsVariableType)), "values", "()[Landroidx/constraintlayout/solver/SolverVariable$Type;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midArrayLinkedVariablesGetValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "getValue", "(I)F")
+		midVariableTypeValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsVariableType)), "valueOf", "(Ljava/lang/String;)Landroidx/constraintlayout/solver/SolverVariable$Type;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midArrayLinkedVariablesGetNextIndice, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "getNextIndice", "(I)I")
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/solver/LinearSystem")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLinearSystem = env.NewGlobalRef(&c.Object)
+		midLinearSystemCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midLinearSystemFillMetrics, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "fillMetrics", "(Landroidx/constraintlayout/solver/Metrics;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midArrayLinkedVariablesGetVariable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "getVariable", "(I)Landroidx/constraintlayout/solver/SolverVariable;")
+		midLinearSystemReset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "reset", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midArrayLinkedVariablesGetVariableValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "getVariableValue", "(I)F")
+		midLinearSystemCreateObjectVariable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "createObjectVariable", "(Ljava/lang/Object;)Landroidx/constraintlayout/solver/SolverVariable;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midArrayLinkedVariablesGet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "get", "(Landroidx/constraintlayout/solver/SolverVariable;)F")
+		midLinearSystemCreateRow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "createRow", "()Landroidx/constraintlayout/solver/ArrayRow;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midArrayLinkedVariablesSizeInBytes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "sizeInBytes", "()I")
+		midLinearSystemCreateSlackVariable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "createSlackVariable", "()Landroidx/constraintlayout/solver/SolverVariable;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midArrayLinkedVariablesDisplay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "display", "()V")
+		midLinearSystemCreateExtraVariable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "createExtraVariable", "()Landroidx/constraintlayout/solver/SolverVariable;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midArrayLinkedVariablesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsArrayLinkedVariables)), "toString", "()Ljava/lang/String;")
+		midLinearSystemCreateErrorVariable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "createErrorVariable", "(ILjava/lang/String;)Landroidx/constraintlayout/solver/SolverVariable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemGetObjectVariableValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "getObjectVariableValue", "(Ljava/lang/Object;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemMinimize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "minimize", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemAddConstraint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "addConstraint", "(Landroidx/constraintlayout/solver/ArrayRow;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemRemoveRow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "removeRow", "(Landroidx/constraintlayout/solver/ArrayRow;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemDisplayReadableRows, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "displayReadableRows", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemDisplayVariablesReadableRows, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "displayVariablesReadableRows", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemGetMemoryUsed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "getMemoryUsed", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemGetNumEquations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "getNumEquations", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemGetNumVariables, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "getNumVariables", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemGetCache, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "getCache", "()Landroidx/constraintlayout/solver/Cache;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemAddGreaterThan, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "addGreaterThan", "(Landroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemAddGreaterBarrier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "addGreaterBarrier", "(Landroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;IZ)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemAddLowerThan, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "addLowerThan", "(Landroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemAddLowerBarrier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "addLowerBarrier", "(Landroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;IZ)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemAddCentering, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "addCentering", "(Landroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;IFLandroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemAddRatio, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "addRatio", "(Landroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;FI)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemAddEquality4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "addEquality", "(Landroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;II)Landroidx/constraintlayout/solver/ArrayRow;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemAddEquality2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "addEquality", "(Landroidx/constraintlayout/solver/SolverVariable;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemGetMetrics, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "getMetrics", "()Landroidx/constraintlayout/solver/Metrics;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemCreateRowDimensionPercent, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "createRowDimensionPercent", "(Landroidx/constraintlayout/solver/LinearSystem;Landroidx/constraintlayout/solver/SolverVariable;Landroidx/constraintlayout/solver/SolverVariable;F)Landroidx/constraintlayout/solver/ArrayRow;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearSystemAddCenterPoint, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLinearSystem)), "addCenterPoint", "(Landroidx/constraintlayout/solver/widgets/ConstraintWidget;Landroidx/constraintlayout/solver/widgets/ConstraintWidget;FI)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/solver/GoalRow")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsGoalRow = env.NewGlobalRef(&c.Object)
+		midGoalRowCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGoalRow)), "<init>", "(Landroidx/constraintlayout/solver/Cache;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midGoalRowAddError, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGoalRow)), "addError", "(Landroidx/constraintlayout/solver/SolverVariable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGoalRowToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGoalRow)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/solver/SolverVariableValues")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsVariableValues = env.NewGlobalRef(&c.Object)
+
+		midVariableValuesGetCurrentSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "getCurrentSize", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVariableValuesGetVariable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "getVariable", "(I)Landroidx/constraintlayout/solver/SolverVariable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVariableValuesGetVariableValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "getVariableValue", "(I)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVariableValuesContains, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "contains", "(Landroidx/constraintlayout/solver/SolverVariable;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVariableValuesIndexOf, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "indexOf", "(Landroidx/constraintlayout/solver/SolverVariable;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVariableValuesGet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "get", "(Landroidx/constraintlayout/solver/SolverVariable;)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVariableValuesDisplay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "display", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVariableValuesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVariableValuesClear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "clear", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVariableValuesPut, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "put", "(Landroidx/constraintlayout/solver/SolverVariable;F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVariableValuesSizeInBytes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "sizeInBytes", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVariableValuesRemove, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "remove", "(Landroidx/constraintlayout/solver/SolverVariable;Z)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVariableValuesAdd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "add", "(Landroidx/constraintlayout/solver/SolverVariable;FZ)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVariableValuesUse, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "use", "(Landroidx/constraintlayout/solver/ArrayRow;Z)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVariableValuesInvert, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "invert", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVariableValuesDivideByAmount, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsVariableValues)), "divideByAmount", "(F)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

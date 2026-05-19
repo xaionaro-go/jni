@@ -63,7 +63,6 @@ var (
 	midMaterialCheckBoxIsCenterIfNoTextEnabled             jni.MethodID
 	midMaterialCheckBoxSetStateDescription                 jni.MethodID
 	midMaterialCheckBoxOnSaveInstanceState                 jni.MethodID
-	midMaterialCheckBoxOnRestoreInstanceState              jni.MethodID
 	midMaterialCheckBoxToString                            jni.MethodID
 
 	clsMaterialCheckBoxCheckedState         *jni.GlobalRef
@@ -368,13 +367,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midMaterialCheckBoxOnSaveInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialCheckBox)), "onSaveInstanceState", "()Landroid/os/Parcelable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialCheckBoxOnRestoreInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialCheckBox)), "onRestoreInstanceState", "(Landroid/os/Parcelable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

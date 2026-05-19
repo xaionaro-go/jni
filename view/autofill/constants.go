@@ -5,16 +5,16 @@ package autofill
 import "github.com/AndroidGoLab/jni/view/autofill/consts"
 
 const (
+	Creator               = consts.Creator
+	EventInputHidden      = consts.EventInputHidden
+	EventInputShown       = consts.EventInputShown
+	EventInputUnavailable = consts.EventInputUnavailable
+)
+
+const (
 	ExtraAssistStructure                      = consts.ExtraAssistStructure
 	ExtraAuthenticationResult                 = consts.ExtraAuthenticationResult
 	ExtraAuthenticationResultEphemeralDataset = consts.ExtraAuthenticationResultEphemeralDataset
 	ExtraClientState                          = consts.ExtraClientState
 	ExtraInlineSuggestionsRequest             = consts.ExtraInlineSuggestionsRequest
-)
-
-const (
-	EventInputHidden      = consts.EventInputHidden
-	EventInputShown       = consts.EventInputShown
-	EventInputUnavailable = consts.EventInputUnavailable
-	Creator               = consts.Creator
 )

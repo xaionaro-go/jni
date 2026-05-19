@@ -5,6 +5,222 @@
 package: widget
 go_import: github.com/AndroidGoLab/jni/androidx/constraintlayout/utils/widget
 classes:
+    - java_class: androidx.constraintlayout.utils.widget.MotionButton
+      go_type: MotionButton
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: setRoundPercent
+          go_name: SetRoundPercent
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setRound
+          go_name: SetRound
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getRoundPercent
+          go_name: GetRoundPercent
+          returns: float
+          error: true
+        - java_method: getRound
+          go_name: GetRound
+          returns: float
+          error: true
+    - java_class: androidx.constraintlayout.utils.widget.MockView
+      go_type: MockView
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: onDraw
+          go_name: OnDraw
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.utils.widget.MotionTelltales
+      go_type: MotionTelltales
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: setText
+          go_name: SetText
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onDraw
+          go_name: OnDraw
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.utils.widget.ImageFilterButton
+      go_type: ImageFilterButton
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: getImagePanX
+          go_name: GetImagePanX
+          returns: float
+          error: true
+        - java_method: getImagePanY
+          go_name: GetImagePanY
+          returns: float
+          error: true
+        - java_method: getImageZoom
+          go_name: GetImageZoom
+          returns: float
+          error: true
+        - java_method: getImageRotate
+          go_name: GetImageRotate
+          returns: float
+          error: true
+        - java_method: setImagePanX
+          go_name: SetImagePanX
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setImagePanY
+          go_name: SetImagePanY
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setImageZoom
+          go_name: SetImageZoom
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setImageRotate
+          go_name: SetImageRotate
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setImageDrawable
+          go_name: SetImageDrawable
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setImageResource
+          go_name: SetImageResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setAltImageResource
+          go_name: SetAltImageResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSaturation
+          go_name: SetSaturation
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getSaturation
+          go_name: GetSaturation
+          returns: float
+          error: true
+        - java_method: setContrast
+          go_name: SetContrast
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getContrast
+          go_name: GetContrast
+          returns: float
+          error: true
+        - java_method: setWarmth
+          go_name: SetWarmth
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getWarmth
+          go_name: GetWarmth
+          returns: float
+          error: true
+        - java_method: setCrossfade
+          go_name: SetCrossfade
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getCrossfade
+          go_name: GetCrossfade
+          returns: float
+          error: true
+        - java_method: setBrightness
+          go_name: SetBrightness
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setRoundPercent
+          go_name: SetRoundPercent
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setRound
+          go_name: SetRound
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getRoundPercent
+          go_name: GetRoundPercent
+          returns: float
+          error: true
+        - java_method: getRound
+          go_name: GetRound
+          returns: float
+          error: true
+        - java_method: draw
+          go_name: Draw
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+          returns: void
+          error: true
     - java_class: androidx.constraintlayout.utils.widget.MotionLabel
       go_type: MotionLabel
       obtain: constructor
@@ -209,13 +425,6 @@ classes:
           go_name: GetScaleFromTextSize
           returns: float
           error: true
-        - java_method: setScaleFromTextSize
-          go_name: SetScaleFromTextSize
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
     - java_class: androidx.constraintlayout.utils.widget.ImageFilterView
       go_type: ImageFilterView
       obtain: constructor
@@ -367,255 +576,6 @@ classes:
           error: true
         - java_method: draw
           go_name: Draw
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: layout
-          go_name: Layout
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.utils.widget.ImageFilterButton
-      go_type: ImageFilterButton
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: getImagePanX
-          go_name: GetImagePanX
-          returns: float
-          error: true
-        - java_method: getImagePanY
-          go_name: GetImagePanY
-          returns: float
-          error: true
-        - java_method: getImageZoom
-          go_name: GetImageZoom
-          returns: float
-          error: true
-        - java_method: getImageRotate
-          go_name: GetImageRotate
-          returns: float
-          error: true
-        - java_method: setImagePanX
-          go_name: SetImagePanX
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setImagePanY
-          go_name: SetImagePanY
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setImageZoom
-          go_name: SetImageZoom
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setImageRotate
-          go_name: SetImageRotate
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setImageDrawable
-          go_name: SetImageDrawable
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setImageResource
-          go_name: SetImageResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setAltImageResource
-          go_name: SetAltImageResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSaturation
-          go_name: SetSaturation
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getSaturation
-          go_name: GetSaturation
-          returns: float
-          error: true
-        - java_method: setContrast
-          go_name: SetContrast
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getContrast
-          go_name: GetContrast
-          returns: float
-          error: true
-        - java_method: setWarmth
-          go_name: SetWarmth
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getWarmth
-          go_name: GetWarmth
-          returns: float
-          error: true
-        - java_method: setCrossfade
-          go_name: SetCrossfade
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getCrossfade
-          go_name: GetCrossfade
-          returns: float
-          error: true
-        - java_method: setBrightness
-          go_name: SetBrightness
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setRoundPercent
-          go_name: SetRoundPercent
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setRound
-          go_name: SetRound
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getRoundPercent
-          go_name: GetRoundPercent
-          returns: float
-          error: true
-        - java_method: getRound
-          go_name: GetRound
-          returns: float
-          error: true
-        - java_method: draw
-          go_name: Draw
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: layout
-          go_name: Layout
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.utils.widget.MotionTelltales
-      go_type: MotionTelltales
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: setText
-          go_name: SetText
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onDraw
-          go_name: OnDraw
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.utils.widget.MotionButton
-      go_type: MotionButton
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: setRoundPercent
-          go_name: SetRoundPercent
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setRound
-          go_name: SetRound
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getRoundPercent
-          go_name: GetRoundPercent
-          returns: float
-          error: true
-        - java_method: getRound
-          go_name: GetRound
-          returns: float
-          error: true
-        - java_method: draw
-          go_name: Draw
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.utils.widget.MockView
-      go_type: MockView
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: onDraw
-          go_name: OnDraw
           params:
             - java_type: android.graphics.Canvas
               go_name: arg0

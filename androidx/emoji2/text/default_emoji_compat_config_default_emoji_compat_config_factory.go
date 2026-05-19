@@ -23,6 +23,35 @@ type DefaultEmojiCompatConfigDefaultEmojiCompatConfigFactory struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactory creates a new androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigFactory instance.
+func NewDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactory(vm *jni.VM, arg0 *jni.Object) (*DefaultEmojiCompatConfigDefaultEmojiCompatConfigFactory, error) {
+	var t DefaultEmojiCompatConfigDefaultEmojiCompatConfigFactory
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactory == nil {
+			return fmt.Errorf("androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigFactory is not available on this device")
+		}
+		if midDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactoryCtor == nil {
+			return fmt.Errorf("androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigFactory constructor (Landroidx/emoji2/text/DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactory)), midDefaultEmojiCompatConfigDefaultEmojiCompatConfigFactoryCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Create calls androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigFactory.create.
 func (m *DefaultEmojiCompatConfigDefaultEmojiCompatConfigFactory) Create(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

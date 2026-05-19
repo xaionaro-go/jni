@@ -5,38 +5,16 @@
 package: metrics
 go_import: github.com/AndroidGoLab/jni/media/metrics
 classes:
-    - java_class: android.media.metrics.MediaMetricsManager
-      go_type: MediaMetricsManager
-      obtain: system_service
-      service_name: media_metrics
-      close: true
+    - java_class: android.media.metrics.Event
+      go_type: Event
       methods:
-        - java_method: createBundleSession
-          go_name: CreateBundleSession
-          returns: android.media.metrics.BundleSession
+        - java_method: getMetricsBundle
+          go_name: GetMetricsBundle
+          returns: android.os.Bundle
           error: true
-        - java_method: createEditingSession
-          go_name: CreateEditingSession
-          returns: android.media.metrics.EditingSession
-          error: true
-        - java_method: createPlaybackSession
-          go_name: CreatePlaybackSession
-          returns: android.media.metrics.PlaybackSession
-          error: true
-        - java_method: createRecordingSession
-          go_name: CreateRecordingSession
-          returns: android.media.metrics.RecordingSession
-          error: true
-        - java_method: createTranscodingSession
-          go_name: CreateTranscodingSession
-          returns: android.media.metrics.TranscodingSession
-          error: true
-        - java_method: releaseSessionId
-          go_name: ReleaseSessionId
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
+        - java_method: getTimeSinceCreatedMillis
+          go_name: GetTimeSinceCreatedMillis
+          returns: long
           error: true
     - java_class: android.media.metrics.RecordingSession
       go_type: RecordingSession
@@ -59,6 +37,148 @@ classes:
         - java_method: hashCode
           go_name: HashCode
           returns: int
+          error: true
+    - java_class: android.media.metrics.PlaybackStateEvent
+      go_type: PlaybackStateEvent
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getMetricsBundle
+          go_name: GetMetricsBundle
+          returns: android.os.Bundle
+          error: true
+        - java_method: getState
+          go_name: GetState
+          returns: int
+          error: true
+        - java_method: getTimeSinceCreatedMillis
+          go_name: GetTimeSinceCreatedMillis
+          returns: long
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.media.metrics.PlaybackStateEvent$Builder
+      go_type: PlaybackStateEventBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.media.metrics.PlaybackStateEvent
+          error: true
+        - java_method: setMetricsBundle
+          go_name: SetMetricsBundle
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: android.media.metrics.PlaybackStateEvent$Builder
+          error: true
+        - java_method: setState
+          go_name: SetState
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.media.metrics.PlaybackStateEvent$Builder
+          error: true
+        - java_method: setTimeSinceCreatedMillis
+          go_name: SetTimeSinceCreatedMillis
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.media.metrics.PlaybackStateEvent$Builder
+          error: true
+    - java_class: android.media.metrics.NetworkEvent
+      go_type: NetworkEvent
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getMetricsBundle
+          go_name: GetMetricsBundle
+          returns: android.os.Bundle
+          error: true
+        - java_method: getNetworkType
+          go_name: GetNetworkType
+          returns: int
+          error: true
+        - java_method: getTimeSinceCreatedMillis
+          go_name: GetTimeSinceCreatedMillis
+          returns: long
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.media.metrics.NetworkEvent$Builder
+      go_type: NetworkEventBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.media.metrics.NetworkEvent
+          error: true
+        - java_method: setMetricsBundle
+          go_name: SetMetricsBundle
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: android.media.metrics.NetworkEvent$Builder
+          error: true
+        - java_method: setNetworkType
+          go_name: SetNetworkType
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.media.metrics.NetworkEvent$Builder
+          error: true
+        - java_method: setTimeSinceCreatedMillis
+          go_name: SetTimeSinceCreatedMillis
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.media.metrics.NetworkEvent$Builder
           error: true
     - java_class: android.media.metrics.PlaybackSession
       go_type: PlaybackSession
@@ -117,23 +237,12 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.media.metrics.Event
-      go_type: Event
+    - java_class: android.media.metrics.BundleSession
+      go_type: BundleSession
       methods:
-        - java_method: getMetricsBundle
-          go_name: GetMetricsBundle
-          returns: android.os.Bundle
-          error: true
-        - java_method: getTimeSinceCreatedMillis
-          go_name: GetTimeSinceCreatedMillis
-          returns: long
-          error: true
-    - java_class: android.media.metrics.MediaItemInfo
-      go_type: MediaItemInfo
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
+        - java_method: close
+          go_name: Close
+          returns: void
           error: true
         - java_method: equals
           go_name: Equals
@@ -142,183 +251,49 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getAudioChannelCount
-          go_name: GetAudioChannelCount
-          returns: int
-          error: true
-        - java_method: getAudioSampleCount
-          go_name: GetAudioSampleCount
-          returns: long
-          error: true
-        - java_method: getAudioSampleRateHz
-          go_name: GetAudioSampleRateHz
-          returns: int
-          error: true
-        - java_method: getClipDurationMillis
-          go_name: GetClipDurationMillis
-          returns: long
-          error: true
-        - java_method: getCodecNames
-          go_name: GetCodecNames
-          returns: java.util.List<java.lang.String>
-          error: true
-        - java_method: getContainerMimeType
-          go_name: GetContainerMimeType
-          returns: String
-          error: true
-        - java_method: getDataTypes
-          go_name: GetDataTypes
-          returns: long
-          error: true
-        - java_method: getDurationMillis
-          go_name: GetDurationMillis
-          returns: long
-          error: true
-        - java_method: getSampleMimeTypes
-          go_name: GetSampleMimeTypes
-          returns: java.util.List<java.lang.String>
-          error: true
-        - java_method: getSourceType
-          go_name: GetSourceType
-          returns: int
-          error: true
-        - java_method: getVideoDataSpace
-          go_name: GetVideoDataSpace
-          returns: int
-          error: true
-        - java_method: getVideoFrameRate
-          go_name: GetVideoFrameRate
-          returns: float
-          error: true
-        - java_method: getVideoSampleCount
-          go_name: GetVideoSampleCount
-          returns: long
-          error: true
-        - java_method: getVideoSize
-          go_name: GetVideoSize
-          returns: android.util.Size
+        - java_method: getSessionId
+          go_name: GetSessionId
+          returns: android.media.metrics.LogSessionId
           error: true
         - java_method: hashCode
           go_name: HashCode
           returns: int
           error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
+        - java_method: reportBundleMetrics
+          go_name: ReportBundleMetrics
           params:
-            - java_type: android.os.Parcel
+            - java_type: android.os.PersistableBundle
               go_name: arg0
-            - java_type: int
-              go_name: arg1
           returns: void
           error: true
-    - java_class: android.media.metrics.MediaItemInfo$Builder
-      go_type: MediaItemInfoBuilder
+    - java_class: android.media.metrics.EditingSession
+      go_type: EditingSession
       methods:
-        - java_method: addCodecName
-          go_name: AddCodecName
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.media.metrics.MediaItemInfo$Builder
+        - java_method: close
+          go_name: Close
+          returns: void
           error: true
-        - java_method: addDataType
-          go_name: AddDataType
+        - java_method: equals
+          go_name: Equals
           params:
-            - java_type: long
+            - java_type: java.lang.Object
               go_name: arg0
-          returns: android.media.metrics.MediaItemInfo$Builder
+          returns: boolean
           error: true
-        - java_method: addSampleMimeType
-          go_name: AddSampleMimeType
+        - java_method: getSessionId
+          go_name: GetSessionId
+          returns: android.media.metrics.LogSessionId
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: reportEditingEndedEvent
+          go_name: ReportEditingEndedEvent
           params:
-            - java_type: String
+            - java_type: android.media.metrics.EditingEndedEvent
               go_name: arg0
-          returns: android.media.metrics.MediaItemInfo$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.media.metrics.MediaItemInfo
-          error: true
-        - java_method: setAudioChannelCount
-          go_name: SetAudioChannelCount
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.media.metrics.MediaItemInfo$Builder
-          error: true
-        - java_method: setAudioSampleCount
-          go_name: SetAudioSampleCount
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.media.metrics.MediaItemInfo$Builder
-          error: true
-        - java_method: setAudioSampleRateHz
-          go_name: SetAudioSampleRateHz
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.media.metrics.MediaItemInfo$Builder
-          error: true
-        - java_method: setClipDurationMillis
-          go_name: SetClipDurationMillis
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.media.metrics.MediaItemInfo$Builder
-          error: true
-        - java_method: setContainerMimeType
-          go_name: SetContainerMimeType
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.media.metrics.MediaItemInfo$Builder
-          error: true
-        - java_method: setDurationMillis
-          go_name: SetDurationMillis
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.media.metrics.MediaItemInfo$Builder
-          error: true
-        - java_method: setSourceType
-          go_name: SetSourceType
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.media.metrics.MediaItemInfo$Builder
-          error: true
-        - java_method: setVideoDataSpace
-          go_name: SetVideoDataSpace
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.media.metrics.MediaItemInfo$Builder
-          error: true
-        - java_method: setVideoFrameRate
-          go_name: SetVideoFrameRate
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: android.media.metrics.MediaItemInfo$Builder
-          error: true
-        - java_method: setVideoSampleCount
-          go_name: SetVideoSampleCount
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.media.metrics.MediaItemInfo$Builder
-          error: true
-        - java_method: setVideoSize
-          go_name: SetVideoSize
-          params:
-            - java_type: android.util.Size
-              go_name: arg0
-          returns: android.media.metrics.MediaItemInfo$Builder
+          returns: void
           error: true
     - java_class: android.media.metrics.PlaybackErrorEvent
       go_type: PlaybackErrorEvent
@@ -358,6 +333,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -369,6 +345,7 @@ classes:
           error: true
     - java_class: android.media.metrics.PlaybackErrorEvent$Builder
       go_type: PlaybackErrorEventBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
@@ -408,572 +385,6 @@ classes:
             - java_type: long
               go_name: arg0
           returns: android.media.metrics.PlaybackErrorEvent$Builder
-          error: true
-    - java_class: android.media.metrics.BundleSession
-      go_type: BundleSession
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getSessionId
-          go_name: GetSessionId
-          returns: android.media.metrics.LogSessionId
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: reportBundleMetrics
-          go_name: ReportBundleMetrics
-          params:
-            - java_type: android.os.PersistableBundle
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.media.metrics.NetworkEvent
-      go_type: NetworkEvent
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getMetricsBundle
-          go_name: GetMetricsBundle
-          returns: android.os.Bundle
-          error: true
-        - java_method: getNetworkType
-          go_name: GetNetworkType
-          returns: int
-          error: true
-        - java_method: getTimeSinceCreatedMillis
-          go_name: GetTimeSinceCreatedMillis
-          returns: long
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.media.metrics.NetworkEvent$Builder
-      go_type: NetworkEventBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.media.metrics.NetworkEvent
-          error: true
-        - java_method: setMetricsBundle
-          go_name: SetMetricsBundle
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: android.media.metrics.NetworkEvent$Builder
-          error: true
-        - java_method: setNetworkType
-          go_name: SetNetworkType
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.media.metrics.NetworkEvent$Builder
-          error: true
-        - java_method: setTimeSinceCreatedMillis
-          go_name: SetTimeSinceCreatedMillis
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.media.metrics.NetworkEvent$Builder
-          error: true
-    - java_class: android.media.metrics.LogSessionId
-      go_type: LogSessionId
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getStringId
-          go_name: GetStringId
-          returns: String
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.media.metrics.TrackChangeEvent
-      go_type: TrackChangeEvent
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getAudioSampleRate
-          go_name: GetAudioSampleRate
-          returns: int
-          error: true
-        - java_method: getBitrate
-          go_name: GetBitrate
-          returns: int
-          error: true
-        - java_method: getChannelCount
-          go_name: GetChannelCount
-          returns: int
-          error: true
-        - java_method: getCodecName
-          go_name: GetCodecName
-          returns: String
-          error: true
-        - java_method: getContainerMimeType
-          go_name: GetContainerMimeType
-          returns: String
-          error: true
-        - java_method: getHeight
-          go_name: GetHeight
-          returns: int
-          error: true
-        - java_method: getLanguage
-          go_name: GetLanguage
-          returns: String
-          error: true
-        - java_method: getLanguageRegion
-          go_name: GetLanguageRegion
-          returns: String
-          error: true
-        - java_method: getMetricsBundle
-          go_name: GetMetricsBundle
-          returns: android.os.Bundle
-          error: true
-        - java_method: getSampleMimeType
-          go_name: GetSampleMimeType
-          returns: String
-          error: true
-        - java_method: getTimeSinceCreatedMillis
-          go_name: GetTimeSinceCreatedMillis
-          returns: long
-          error: true
-        - java_method: getTrackChangeReason
-          go_name: GetTrackChangeReason
-          returns: int
-          error: true
-        - java_method: getTrackState
-          go_name: GetTrackState
-          returns: int
-          error: true
-        - java_method: getTrackType
-          go_name: GetTrackType
-          returns: int
-          error: true
-        - java_method: getVideoFrameRate
-          go_name: GetVideoFrameRate
-          returns: float
-          error: true
-        - java_method: getWidth
-          go_name: GetWidth
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.media.metrics.TrackChangeEvent$Builder
-      go_type: TrackChangeEventBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.media.metrics.TrackChangeEvent
-          error: true
-        - java_method: setAudioSampleRate
-          go_name: SetAudioSampleRate
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.media.metrics.TrackChangeEvent$Builder
-          error: true
-        - java_method: setBitrate
-          go_name: SetBitrate
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.media.metrics.TrackChangeEvent$Builder
-          error: true
-        - java_method: setChannelCount
-          go_name: SetChannelCount
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.media.metrics.TrackChangeEvent$Builder
-          error: true
-        - java_method: setCodecName
-          go_name: SetCodecName
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.media.metrics.TrackChangeEvent$Builder
-          error: true
-        - java_method: setContainerMimeType
-          go_name: SetContainerMimeType
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.media.metrics.TrackChangeEvent$Builder
-          error: true
-        - java_method: setHeight
-          go_name: SetHeight
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.media.metrics.TrackChangeEvent$Builder
-          error: true
-        - java_method: setLanguage
-          go_name: SetLanguage
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.media.metrics.TrackChangeEvent$Builder
-          error: true
-        - java_method: setLanguageRegion
-          go_name: SetLanguageRegion
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.media.metrics.TrackChangeEvent$Builder
-          error: true
-        - java_method: setMetricsBundle
-          go_name: SetMetricsBundle
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: android.media.metrics.TrackChangeEvent$Builder
-          error: true
-        - java_method: setSampleMimeType
-          go_name: SetSampleMimeType
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.media.metrics.TrackChangeEvent$Builder
-          error: true
-        - java_method: setTimeSinceCreatedMillis
-          go_name: SetTimeSinceCreatedMillis
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.media.metrics.TrackChangeEvent$Builder
-          error: true
-        - java_method: setTrackChangeReason
-          go_name: SetTrackChangeReason
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.media.metrics.TrackChangeEvent$Builder
-          error: true
-        - java_method: setTrackState
-          go_name: SetTrackState
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.media.metrics.TrackChangeEvent$Builder
-          error: true
-        - java_method: setVideoFrameRate
-          go_name: SetVideoFrameRate
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: android.media.metrics.TrackChangeEvent$Builder
-          error: true
-        - java_method: setWidth
-          go_name: SetWidth
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.media.metrics.TrackChangeEvent$Builder
-          error: true
-    - java_class: android.media.metrics.EditingSession
-      go_type: EditingSession
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getSessionId
-          go_name: GetSessionId
-          returns: android.media.metrics.LogSessionId
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: reportEditingEndedEvent
-          go_name: ReportEditingEndedEvent
-          params:
-            - java_type: android.media.metrics.EditingEndedEvent
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.media.metrics.PlaybackStateEvent
-      go_type: PlaybackStateEvent
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getMetricsBundle
-          go_name: GetMetricsBundle
-          returns: android.os.Bundle
-          error: true
-        - java_method: getState
-          go_name: GetState
-          returns: int
-          error: true
-        - java_method: getTimeSinceCreatedMillis
-          go_name: GetTimeSinceCreatedMillis
-          returns: long
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.media.metrics.PlaybackStateEvent$Builder
-      go_type: PlaybackStateEventBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.media.metrics.PlaybackStateEvent
-          error: true
-        - java_method: setMetricsBundle
-          go_name: SetMetricsBundle
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: android.media.metrics.PlaybackStateEvent$Builder
-          error: true
-        - java_method: setState
-          go_name: SetState
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.media.metrics.PlaybackStateEvent$Builder
-          error: true
-        - java_method: setTimeSinceCreatedMillis
-          go_name: SetTimeSinceCreatedMillis
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.media.metrics.PlaybackStateEvent$Builder
-          error: true
-    - java_class: android.media.metrics.EditingEndedEvent
-      go_type: EditingEndedEvent
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getErrorCode
-          go_name: GetErrorCode
-          returns: int
-          error: true
-        - java_method: getExporterName
-          go_name: GetExporterName
-          returns: String
-          error: true
-        - java_method: getFinalProgressPercent
-          go_name: GetFinalProgressPercent
-          returns: float
-          error: true
-        - java_method: getFinalState
-          go_name: GetFinalState
-          returns: int
-          error: true
-        - java_method: getInputMediaItemInfos
-          go_name: GetInputMediaItemInfos
-          returns: java.util.List<android.media.metrics.MediaItemInfo>
-          error: true
-        - java_method: getMetricsBundle
-          go_name: GetMetricsBundle
-          returns: android.os.Bundle
-          error: true
-        - java_method: getMuxerName
-          go_name: GetMuxerName
-          returns: String
-          error: true
-        - java_method: getOperationTypes
-          go_name: GetOperationTypes
-          returns: long
-          error: true
-        - java_method: getOutputMediaItemInfo
-          go_name: GetOutputMediaItemInfo
-          returns: android.media.metrics.MediaItemInfo
-          error: true
-        - java_method: getTimeSinceCreatedMillis
-          go_name: GetTimeSinceCreatedMillis
-          returns: long
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.media.metrics.EditingEndedEvent$Builder
-      go_type: EditingEndedEventBuilder
-      methods:
-        - java_method: addInputMediaItemInfo
-          go_name: AddInputMediaItemInfo
-          params:
-            - java_type: android.media.metrics.MediaItemInfo
-              go_name: arg0
-          returns: android.media.metrics.EditingEndedEvent$Builder
-          error: true
-        - java_method: addOperationType
-          go_name: AddOperationType
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.media.metrics.EditingEndedEvent$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.media.metrics.EditingEndedEvent
-          error: true
-        - java_method: setErrorCode
-          go_name: SetErrorCode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.media.metrics.EditingEndedEvent$Builder
-          error: true
-        - java_method: setExporterName
-          go_name: SetExporterName
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.media.metrics.EditingEndedEvent$Builder
-          error: true
-        - java_method: setFinalProgressPercent
-          go_name: SetFinalProgressPercent
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: android.media.metrics.EditingEndedEvent$Builder
-          error: true
-        - java_method: setMetricsBundle
-          go_name: SetMetricsBundle
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: android.media.metrics.EditingEndedEvent$Builder
-          error: true
-        - java_method: setMuxerName
-          go_name: SetMuxerName
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.media.metrics.EditingEndedEvent$Builder
-          error: true
-        - java_method: setOutputMediaItemInfo
-          go_name: SetOutputMediaItemInfo
-          params:
-            - java_type: android.media.metrics.MediaItemInfo
-              go_name: arg0
-          returns: android.media.metrics.EditingEndedEvent$Builder
-          error: true
-        - java_method: setTimeSinceCreatedMillis
-          go_name: SetTimeSinceCreatedMillis
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.media.metrics.EditingEndedEvent$Builder
           error: true
     - java_class: android.media.metrics.PlaybackMetrics
       go_type: PlaybackMetrics
@@ -1065,6 +476,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -1076,6 +488,7 @@ classes:
           error: true
     - java_class: android.media.metrics.PlaybackMetrics$Builder
       go_type: PlaybackMetricsBuilder
+      obtain: constructor
       methods:
         - java_method: addExperimentId
           go_name: AddExperimentId
@@ -1200,6 +613,402 @@ classes:
               go_name: arg0
           returns: android.media.metrics.PlaybackMetrics$Builder
           error: true
+    - java_class: android.media.metrics.LogSessionId
+      go_type: LogSessionId
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getStringId
+          go_name: GetStringId
+          returns: String
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+      static_methods:
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.media.metrics.EditingEndedEvent
+      go_type: EditingEndedEvent
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getErrorCode
+          go_name: GetErrorCode
+          returns: int
+          error: true
+        - java_method: getExporterName
+          go_name: GetExporterName
+          returns: String
+          error: true
+        - java_method: getFinalProgressPercent
+          go_name: GetFinalProgressPercent
+          returns: float
+          error: true
+        - java_method: getFinalState
+          go_name: GetFinalState
+          returns: int
+          error: true
+        - java_method: getInputMediaItemInfos
+          go_name: GetInputMediaItemInfos
+          returns: java.util.List<android.media.metrics.MediaItemInfo>
+          error: true
+        - java_method: getMetricsBundle
+          go_name: GetMetricsBundle
+          returns: android.os.Bundle
+          error: true
+        - java_method: getMuxerName
+          go_name: GetMuxerName
+          returns: String
+          error: true
+        - java_method: getOperationTypes
+          go_name: GetOperationTypes
+          returns: long
+          error: true
+        - java_method: getOutputMediaItemInfo
+          go_name: GetOutputMediaItemInfo
+          returns: android.media.metrics.MediaItemInfo
+          error: true
+        - java_method: getTimeSinceCreatedMillis
+          go_name: GetTimeSinceCreatedMillis
+          returns: long
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.media.metrics.EditingEndedEvent$Builder
+      go_type: EditingEndedEventBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+      methods:
+        - java_method: addInputMediaItemInfo
+          go_name: AddInputMediaItemInfo
+          params:
+            - java_type: android.media.metrics.MediaItemInfo
+              go_name: arg0
+          returns: android.media.metrics.EditingEndedEvent$Builder
+          error: true
+        - java_method: addOperationType
+          go_name: AddOperationType
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.media.metrics.EditingEndedEvent$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.media.metrics.EditingEndedEvent
+          error: true
+        - java_method: setErrorCode
+          go_name: SetErrorCode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.media.metrics.EditingEndedEvent$Builder
+          error: true
+        - java_method: setExporterName
+          go_name: SetExporterName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.media.metrics.EditingEndedEvent$Builder
+          error: true
+        - java_method: setFinalProgressPercent
+          go_name: SetFinalProgressPercent
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: android.media.metrics.EditingEndedEvent$Builder
+          error: true
+        - java_method: setMetricsBundle
+          go_name: SetMetricsBundle
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: android.media.metrics.EditingEndedEvent$Builder
+          error: true
+        - java_method: setMuxerName
+          go_name: SetMuxerName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.media.metrics.EditingEndedEvent$Builder
+          error: true
+        - java_method: setOutputMediaItemInfo
+          go_name: SetOutputMediaItemInfo
+          params:
+            - java_type: android.media.metrics.MediaItemInfo
+              go_name: arg0
+          returns: android.media.metrics.EditingEndedEvent$Builder
+          error: true
+        - java_method: setTimeSinceCreatedMillis
+          go_name: SetTimeSinceCreatedMillis
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.media.metrics.EditingEndedEvent$Builder
+          error: true
+    - java_class: android.media.metrics.MediaItemInfo
+      go_type: MediaItemInfo
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getAudioChannelCount
+          go_name: GetAudioChannelCount
+          returns: int
+          error: true
+        - java_method: getAudioSampleCount
+          go_name: GetAudioSampleCount
+          returns: long
+          error: true
+        - java_method: getAudioSampleRateHz
+          go_name: GetAudioSampleRateHz
+          returns: int
+          error: true
+        - java_method: getClipDurationMillis
+          go_name: GetClipDurationMillis
+          returns: long
+          error: true
+        - java_method: getCodecNames
+          go_name: GetCodecNames
+          returns: java.util.List<java.lang.String>
+          error: true
+        - java_method: getContainerMimeType
+          go_name: GetContainerMimeType
+          returns: String
+          error: true
+        - java_method: getDataTypes
+          go_name: GetDataTypes
+          returns: long
+          error: true
+        - java_method: getDurationMillis
+          go_name: GetDurationMillis
+          returns: long
+          error: true
+        - java_method: getSampleMimeTypes
+          go_name: GetSampleMimeTypes
+          returns: java.util.List<java.lang.String>
+          error: true
+        - java_method: getSourceType
+          go_name: GetSourceType
+          returns: int
+          error: true
+        - java_method: getVideoDataSpace
+          go_name: GetVideoDataSpace
+          returns: int
+          error: true
+        - java_method: getVideoFrameRate
+          go_name: GetVideoFrameRate
+          returns: float
+          error: true
+        - java_method: getVideoSampleCount
+          go_name: GetVideoSampleCount
+          returns: long
+          error: true
+        - java_method: getVideoSize
+          go_name: GetVideoSize
+          returns: android.util.Size
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.media.metrics.MediaItemInfo$Builder
+      go_type: MediaItemInfoBuilder
+      obtain: constructor
+      methods:
+        - java_method: addCodecName
+          go_name: AddCodecName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.media.metrics.MediaItemInfo$Builder
+          error: true
+        - java_method: addDataType
+          go_name: AddDataType
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.media.metrics.MediaItemInfo$Builder
+          error: true
+        - java_method: addSampleMimeType
+          go_name: AddSampleMimeType
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.media.metrics.MediaItemInfo$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.media.metrics.MediaItemInfo
+          error: true
+        - java_method: setAudioChannelCount
+          go_name: SetAudioChannelCount
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.media.metrics.MediaItemInfo$Builder
+          error: true
+        - java_method: setAudioSampleCount
+          go_name: SetAudioSampleCount
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.media.metrics.MediaItemInfo$Builder
+          error: true
+        - java_method: setAudioSampleRateHz
+          go_name: SetAudioSampleRateHz
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.media.metrics.MediaItemInfo$Builder
+          error: true
+        - java_method: setClipDurationMillis
+          go_name: SetClipDurationMillis
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.media.metrics.MediaItemInfo$Builder
+          error: true
+        - java_method: setContainerMimeType
+          go_name: SetContainerMimeType
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.media.metrics.MediaItemInfo$Builder
+          error: true
+        - java_method: setDurationMillis
+          go_name: SetDurationMillis
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.media.metrics.MediaItemInfo$Builder
+          error: true
+        - java_method: setSourceType
+          go_name: SetSourceType
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.media.metrics.MediaItemInfo$Builder
+          error: true
+        - java_method: setVideoDataSpace
+          go_name: SetVideoDataSpace
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.media.metrics.MediaItemInfo$Builder
+          error: true
+        - java_method: setVideoFrameRate
+          go_name: SetVideoFrameRate
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: android.media.metrics.MediaItemInfo$Builder
+          error: true
+        - java_method: setVideoSampleCount
+          go_name: SetVideoSampleCount
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.media.metrics.MediaItemInfo$Builder
+          error: true
+        - java_method: setVideoSize
+          go_name: SetVideoSize
+          params:
+            - java_type: android.util.Size
+              go_name: arg0
+          returns: android.media.metrics.MediaItemInfo$Builder
+          error: true
+    - java_class: android.media.metrics.MediaMetricsManager
+      go_type: MediaMetricsManager
+      obtain: system_service
+      service_name: media_metrics
+      close: true
+      methods:
+        - java_method: createBundleSession
+          go_name: CreateBundleSession
+          returns: android.media.metrics.BundleSession
+          error: true
+        - java_method: createEditingSession
+          go_name: CreateEditingSession
+          returns: android.media.metrics.EditingSession
+          error: true
+        - java_method: createPlaybackSession
+          go_name: CreatePlaybackSession
+          returns: android.media.metrics.PlaybackSession
+          error: true
+        - java_method: createRecordingSession
+          go_name: CreateRecordingSession
+          returns: android.media.metrics.RecordingSession
+          error: true
+        - java_method: createTranscodingSession
+          go_name: CreateTranscodingSession
+          returns: android.media.metrics.TranscodingSession
+          error: true
+        - java_method: releaseSessionId
+          go_name: ReleaseSessionId
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
     - java_class: android.media.metrics.TranscodingSession
       go_type: TranscodingSession
       methods:
@@ -1222,85 +1031,304 @@ classes:
           go_name: HashCode
           returns: int
           error: true
-abstract_callbacks:
-    - java_class: android.media.metrics.Event
-      go_type: EventCallback
+    - java_class: android.media.metrics.TrackChangeEvent
+      go_type: TrackChangeEvent
       methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getAudioSampleRate
+          go_name: GetAudioSampleRate
+          returns: int
+          error: true
+        - java_method: getBitrate
+          go_name: GetBitrate
+          returns: int
+          error: true
+        - java_method: getChannelCount
+          go_name: GetChannelCount
+          returns: int
+          error: true
+        - java_method: getCodecName
+          go_name: GetCodecName
+          returns: String
+          error: true
+        - java_method: getContainerMimeType
+          go_name: GetContainerMimeType
+          returns: String
+          error: true
+        - java_method: getHeight
+          go_name: GetHeight
+          returns: int
+          error: true
+        - java_method: getLanguage
+          go_name: GetLanguage
+          returns: String
+          error: true
+        - java_method: getLanguageRegion
+          go_name: GetLanguageRegion
+          returns: String
+          error: true
         - java_method: getMetricsBundle
-          params: []
+          go_name: GetMetricsBundle
           returns: android.os.Bundle
-          go_field: GetMetricsBundle
+          error: true
+        - java_method: getSampleMimeType
+          go_name: GetSampleMimeType
+          returns: String
+          error: true
         - java_method: getTimeSinceCreatedMillis
-          params: []
+          go_name: GetTimeSinceCreatedMillis
           returns: long
-          go_field: GetTimeSinceCreatedMillis
+          error: true
+        - java_method: getTrackChangeReason
+          go_name: GetTrackChangeReason
+          returns: int
+          error: true
+        - java_method: getTrackState
+          go_name: GetTrackState
+          returns: int
+          error: true
+        - java_method: getTrackType
+          go_name: GetTrackType
+          returns: int
+          error: true
+        - java_method: getVideoFrameRate
+          go_name: GetVideoFrameRate
+          returns: float
+          error: true
+        - java_method: getWidth
+          go_name: GetWidth
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.media.metrics.TrackChangeEvent$Builder
+      go_type: TrackChangeEventBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.media.metrics.TrackChangeEvent
+          error: true
+        - java_method: setAudioSampleRate
+          go_name: SetAudioSampleRate
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.media.metrics.TrackChangeEvent$Builder
+          error: true
+        - java_method: setBitrate
+          go_name: SetBitrate
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.media.metrics.TrackChangeEvent$Builder
+          error: true
+        - java_method: setChannelCount
+          go_name: SetChannelCount
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.media.metrics.TrackChangeEvent$Builder
+          error: true
+        - java_method: setCodecName
+          go_name: SetCodecName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.media.metrics.TrackChangeEvent$Builder
+          error: true
+        - java_method: setContainerMimeType
+          go_name: SetContainerMimeType
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.media.metrics.TrackChangeEvent$Builder
+          error: true
+        - java_method: setHeight
+          go_name: SetHeight
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.media.metrics.TrackChangeEvent$Builder
+          error: true
+        - java_method: setLanguage
+          go_name: SetLanguage
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.media.metrics.TrackChangeEvent$Builder
+          error: true
+        - java_method: setLanguageRegion
+          go_name: SetLanguageRegion
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.media.metrics.TrackChangeEvent$Builder
+          error: true
+        - java_method: setMetricsBundle
+          go_name: SetMetricsBundle
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: android.media.metrics.TrackChangeEvent$Builder
+          error: true
+        - java_method: setSampleMimeType
+          go_name: SetSampleMimeType
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.media.metrics.TrackChangeEvent$Builder
+          error: true
+        - java_method: setTimeSinceCreatedMillis
+          go_name: SetTimeSinceCreatedMillis
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.media.metrics.TrackChangeEvent$Builder
+          error: true
+        - java_method: setTrackChangeReason
+          go_name: SetTrackChangeReason
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.media.metrics.TrackChangeEvent$Builder
+          error: true
+        - java_method: setTrackState
+          go_name: SetTrackState
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.media.metrics.TrackChangeEvent$Builder
+          error: true
+        - java_method: setVideoFrameRate
+          go_name: SetVideoFrameRate
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: android.media.metrics.TrackChangeEvent$Builder
+          error: true
+        - java_method: setWidth
+          go_name: SetWidth
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.media.metrics.TrackChangeEvent$Builder
+          error: true
+abstract_callback_eligibility:
+    - java_class: android.media.metrics.Event
+      generated: false
+      reason: unsupported_constructor
 constants:
-    - go_name: InvalidTimestamp
-      value: "-1"
-      go_type: int64
     - go_name: Creator
       value: "0"
       go_type: int
-    - go_name: DataTypeAudio
-      value: "4"
-      go_type: int64
-    - go_name: DataTypeDepth
-      value: "16"
-      go_type: int64
-    - go_name: DataTypeGainMap
-      value: "32"
-      go_type: int64
-    - go_name: DataTypeGapless
-      value: "256"
-      go_type: int64
-    - go_name: DataTypeHighDynamicRangeVideo
-      value: "1024"
-      go_type: int64
-    - go_name: DataTypeHighFrameRate
-      value: "64"
-      go_type: int64
-    - go_name: DataTypeImage
-      value: "1"
-      go_type: int64
-    - go_name: DataTypeMetadata
-      value: "8"
-      go_type: int64
-    - go_name: DataTypeSpatialAudio
-      value: "512"
-      go_type: int64
-    - go_name: DataTypeSpeedSettingCuePoints
-      value: "128"
-      go_type: int64
-    - go_name: DataTypeVideo
-      value: "2"
-      go_type: int64
-    - go_name: SourceTypeCamera
-      value: "2"
+    - go_name: StateAbandoned
+      value: "15"
       go_type: int
-    - go_name: SourceTypeEditingSession
-      value: "3"
-      go_type: int
-    - go_name: SourceTypeGallery
-      value: "1"
-      go_type: int
-    - go_name: SourceTypeGenerated
-      value: "7"
-      go_type: int
-    - go_name: SourceTypeLocalFile
-      value: "4"
-      go_type: int
-    - go_name: SourceTypeRemoteFile
-      value: "5"
-      go_type: int
-    - go_name: SourceTypeRemoteLiveStream
+    - go_name: StateBuffering
       value: "6"
       go_type: int
-    - go_name: SourceTypeUnspecified
+    - go_name: StateEnded
+      value: "11"
+      go_type: int
+    - go_name: StateFailed
+      value: "13"
+      go_type: int
+    - go_name: StateInterruptedByAd
+      value: "14"
+      go_type: int
+    - go_name: StateJoiningBackground
+      value: "1"
+      go_type: int
+    - go_name: StateJoiningForeground
+      value: "2"
+      go_type: int
+    - go_name: StateNotStarted
       value: "0"
       go_type: int
-    - go_name: ValueUnspecified
-      value: "-1"
+    - go_name: StatePaused
+      value: "4"
       go_type: int
+    - go_name: StatePausedBuffering
+      value: "7"
+      go_type: int
+    - go_name: StatePlaying
+      value: "3"
+      go_type: int
+    - go_name: StateSeeking
+      value: "5"
+      go_type: int
+    - go_name: StateStopped
+      value: "12"
+      go_type: int
+    - go_name: StateSuppressed
+      value: "9"
+      go_type: int
+    - go_name: StateSuppressedBuffering
+      value: "10"
+      go_type: int
+    - go_name: NetworkType2g
+      value: "4"
+      go_type: int
+    - go_name: NetworkType3g
+      value: "5"
+      go_type: int
+    - go_name: NetworkType4g
+      value: "6"
+      go_type: int
+    - go_name: NetworkType5gNsa
+      value: "7"
+      go_type: int
+    - go_name: NetworkType5gSa
+      value: "8"
+      go_type: int
+    - go_name: NetworkTypeEthernet
+      value: "3"
+      go_type: int
+    - go_name: NetworkTypeOffline
+      value: "9"
+      go_type: int
+    - go_name: NetworkTypeOther
+      value: "1"
+      go_type: int
+    - go_name: NetworkTypeUnknown
+      value: "0"
+      go_type: int
+    - go_name: NetworkTypeWifi
+      value: "2"
+      go_type: int
+    - go_name: KeyStatsdAtom
+      value: '"bundlesession-statsd-atom"'
+      go_type: string
     - go_name: ErrorAudioTrackInitFailed
       value: "17"
       go_type: int
@@ -1409,116 +1437,83 @@ constants:
     - go_name: ErrorUnknown
       value: "0"
       go_type: int
-    - go_name: KeyStatsdAtom
-      value: '"bundlesession-statsd-atom"'
-      go_type: string
-    - go_name: NetworkType2g
-      value: "4"
+    - go_name: ContentTypeAd
+      value: "2"
       go_type: int
-    - go_name: NetworkType3g
-      value: "5"
-      go_type: int
-    - go_name: NetworkType4g
-      value: "6"
-      go_type: int
-    - go_name: NetworkType5gNsa
-      value: "7"
-      go_type: int
-    - go_name: NetworkType5gSa
-      value: "8"
-      go_type: int
-    - go_name: NetworkTypeEthernet
-      value: "3"
-      go_type: int
-    - go_name: NetworkTypeOffline
-      value: "9"
-      go_type: int
-    - go_name: NetworkTypeOther
+    - go_name: ContentTypeMain
       value: "1"
       go_type: int
-    - go_name: NetworkTypeUnknown
+    - go_name: ContentTypeOther
+      value: "3"
+      go_type: int
+    - go_name: ContentTypeUnknown
       value: "0"
       go_type: int
-    - go_name: NetworkTypeWifi
+    - go_name: DrmTypeClearkey
+      value: "6"
+      go_type: int
+    - go_name: DrmTypeNone
+      value: "0"
+      go_type: int
+    - go_name: DrmTypeOther
+      value: "1"
+      go_type: int
+    - go_name: DrmTypePlayReady
       value: "2"
+      go_type: int
+    - go_name: DrmTypeWidevineL1
+      value: "3"
+      go_type: int
+    - go_name: DrmTypeWidevineL3
+      value: "4"
+      go_type: int
+    - go_name: DrmTypeWvL3Fallback
+      value: "5"
+      go_type: int
+    - go_name: PlaybackTypeLive
+      value: "2"
+      go_type: int
+    - go_name: PlaybackTypeOther
+      value: "3"
+      go_type: int
+    - go_name: PlaybackTypeUnknown
+      value: "0"
+      go_type: int
+    - go_name: PlaybackTypeVod
+      value: "1"
+      go_type: int
+    - go_name: StreamSourceDevice
+      value: "2"
+      go_type: int
+    - go_name: StreamSourceMixed
+      value: "3"
+      go_type: int
+    - go_name: StreamSourceNetwork
+      value: "1"
+      go_type: int
+    - go_name: StreamSourceUnknown
+      value: "0"
+      go_type: int
+    - go_name: StreamTypeDash
+      value: "3"
+      go_type: int
+    - go_name: StreamTypeHls
+      value: "4"
+      go_type: int
+    - go_name: StreamTypeOther
+      value: "1"
+      go_type: int
+    - go_name: StreamTypeProgressive
+      value: "2"
+      go_type: int
+    - go_name: StreamTypeSs
+      value: "5"
+      go_type: int
+    - go_name: StreamTypeUnknown
+      value: "0"
       go_type: int
     - go_name: LogSessionIdNone
       value: "0"
-      go_type: int
-    - go_name: TrackChangeReasonAdaptive
-      value: "4"
-      go_type: int
-    - go_name: TrackChangeReasonInitial
-      value: "2"
-      go_type: int
-    - go_name: TrackChangeReasonManual
-      value: "3"
-      go_type: int
-    - go_name: TrackChangeReasonOther
-      value: "1"
-      go_type: int
-    - go_name: TrackChangeReasonUnknown
-      value: "0"
-      go_type: int
-    - go_name: TrackStateOff
-      value: "0"
-      go_type: int
-    - go_name: TrackStateOn
-      value: "1"
-      go_type: int
-    - go_name: TrackTypeAudio
-      value: "0"
-      go_type: int
-    - go_name: TrackTypeText
-      value: "2"
-      go_type: int
-    - go_name: TrackTypeVideo
-      value: "1"
-      go_type: int
-    - go_name: StateAbandoned
-      value: "15"
-      go_type: int
-    - go_name: StateBuffering
-      value: "6"
-      go_type: int
-    - go_name: StateEnded
-      value: "11"
-      go_type: int
-    - go_name: StateFailed
-      value: "13"
-      go_type: int
-    - go_name: StateInterruptedByAd
-      value: "14"
-      go_type: int
-    - go_name: StateJoiningBackground
-      value: "1"
-      go_type: int
-    - go_name: StateJoiningForeground
-      value: "2"
-      go_type: int
-    - go_name: StateNotStarted
-      value: "0"
-      go_type: int
-    - go_name: StatePaused
-      value: "4"
-      go_type: int
-    - go_name: StatePausedBuffering
-      value: "7"
-      go_type: int
-    - go_name: StatePlaying
-      value: "3"
-      go_type: int
-    - go_name: StateSeeking
-      value: "5"
-      go_type: int
-    - go_name: StateStopped
-      value: "12"
-      go_type: int
-    - go_name: StateSuppressed
-      value: "9"
-      go_type: int
-    - go_name: StateSuppressedBuffering
-      value: "10"
       go_type: int
     - go_name: ErrorCodeAudioProcessingFailed
       value: "18"
@@ -1616,78 +1611,96 @@ constants:
     - go_name: TimeSinceCreatedUnknown
       value: "-1"
       go_type: int
-    - go_name: ContentTypeAd
+    - go_name: DataTypeAudio
+      value: "4"
+      go_type: int64
+    - go_name: DataTypeDepth
+      value: "16"
+      go_type: int64
+    - go_name: DataTypeGainMap
+      value: "32"
+      go_type: int64
+    - go_name: DataTypeGapless
+      value: "256"
+      go_type: int64
+    - go_name: DataTypeHighDynamicRangeVideo
+      value: "1024"
+      go_type: int64
+    - go_name: DataTypeHighFrameRate
+      value: "64"
+      go_type: int64
+    - go_name: DataTypeImage
+      value: "1"
+      go_type: int64
+    - go_name: DataTypeMetadata
+      value: "8"
+      go_type: int64
+    - go_name: DataTypeSpatialAudio
+      value: "512"
+      go_type: int64
+    - go_name: DataTypeSpeedSettingCuePoints
+      value: "128"
+      go_type: int64
+    - go_name: DataTypeVideo
+      value: "2"
+      go_type: int64
+    - go_name: SourceTypeCamera
       value: "2"
       go_type: int
-    - go_name: ContentTypeMain
-      value: "1"
-      go_type: int
-    - go_name: ContentTypeOther
+    - go_name: SourceTypeEditingSession
       value: "3"
       go_type: int
-    - go_name: ContentTypeUnknown
-      value: "0"
+    - go_name: SourceTypeGallery
+      value: "1"
       go_type: int
-    - go_name: DrmTypeClearkey
+    - go_name: SourceTypeGenerated
+      value: "7"
+      go_type: int
+    - go_name: SourceTypeLocalFile
+      value: "4"
+      go_type: int
+    - go_name: SourceTypeRemoteFile
+      value: "5"
+      go_type: int
+    - go_name: SourceTypeRemoteLiveStream
       value: "6"
       go_type: int
-    - go_name: DrmTypeNone
+    - go_name: SourceTypeUnspecified
       value: "0"
       go_type: int
-    - go_name: DrmTypeOther
-      value: "1"
+    - go_name: ValueUnspecified
+      value: "-1"
       go_type: int
-    - go_name: DrmTypePlayReady
-      value: "2"
-      go_type: int
-    - go_name: DrmTypeWidevineL1
-      value: "3"
-      go_type: int
-    - go_name: DrmTypeWidevineL3
+    - go_name: InvalidTimestamp
+      value: "-1"
+      go_type: int64
+    - go_name: TrackChangeReasonAdaptive
       value: "4"
       go_type: int
-    - go_name: DrmTypeWvL3Fallback
-      value: "5"
-      go_type: int
-    - go_name: PlaybackTypeLive
+    - go_name: TrackChangeReasonInitial
       value: "2"
       go_type: int
-    - go_name: PlaybackTypeOther
+    - go_name: TrackChangeReasonManual
       value: "3"
       go_type: int
-    - go_name: PlaybackTypeUnknown
-      value: "0"
-      go_type: int
-    - go_name: PlaybackTypeVod
+    - go_name: TrackChangeReasonOther
       value: "1"
       go_type: int
-    - go_name: StreamSourceDevice
+    - go_name: TrackChangeReasonUnknown
+      value: "0"
+      go_type: int
+    - go_name: TrackStateOff
+      value: "0"
+      go_type: int
+    - go_name: TrackStateOn
+      value: "1"
+      go_type: int
+    - go_name: TrackTypeAudio
+      value: "0"
+      go_type: int
+    - go_name: TrackTypeText
       value: "2"
       go_type: int
-    - go_name: StreamSourceMixed
-      value: "3"
-      go_type: int
-    - go_name: StreamSourceNetwork
+    - go_name: TrackTypeVideo
       value: "1"
-      go_type: int
-    - go_name: StreamSourceUnknown
-      value: "0"
-      go_type: int
-    - go_name: StreamTypeDash
-      value: "3"
-      go_type: int
-    - go_name: StreamTypeHls
-      value: "4"
-      go_type: int
-    - go_name: StreamTypeOther
-      value: "1"
-      go_type: int
-    - go_name: StreamTypeProgressive
-      value: "2"
-      go_type: int
-    - go_name: StreamTypeSs
-      value: "5"
-      go_type: int
-    - go_name: StreamTypeUnknown
-      value: "0"
       go_type: int

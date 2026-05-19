@@ -23,83 +23,9 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsCredentialException         *jni.GlobalRef
-	midCredentialExceptionCtor     jni.MethodID
-	midCredentialExceptionToString jni.MethodID
-
-	clsNoAuthenticationKeyAvailableException         *jni.GlobalRef
-	midNoAuthenticationKeyAvailableExceptionCtor     jni.MethodID
-	midNoAuthenticationKeyAvailableExceptionToString jni.MethodID
-
-	clsWritableIdentityCredential                                 *jni.GlobalRef
-	midWritableIdentityCredentialGetCredentialKeyCertificateChain jni.MethodID
-	midWritableIdentityCredentialPersonalize                      jni.MethodID
-	midWritableIdentityCredentialToString                         jni.MethodID
-
-	clsInvalidReaderSignatureException         *jni.GlobalRef
-	midInvalidReaderSignatureExceptionCtor     jni.MethodID
-	midInvalidReaderSignatureExceptionToString jni.MethodID
-
-	clsAccessControlProfileId         *jni.GlobalRef
-	midAccessControlProfileIdCtor     jni.MethodID
-	midAccessControlProfileIdGetId    jni.MethodID
-	midAccessControlProfileIdToString jni.MethodID
-
-	clsMessageDecryptionException         *jni.GlobalRef
-	midMessageDecryptionExceptionCtor     jni.MethodID
-	midMessageDecryptionExceptionToString jni.MethodID
-
-	clsPresentationSession                            *jni.GlobalRef
-	midPresentationSessionGetCredentialData           jni.MethodID
-	midPresentationSessionGetEphemeralKeyPair         jni.MethodID
-	midPresentationSessionSetReaderEphemeralPublicKey jni.MethodID
-	midPresentationSessionSetSessionTranscript        jni.MethodID
-	midPresentationSessionToString                    jni.MethodID
-
-	clsDocTypeNotSupportedException         *jni.GlobalRef
-	midDocTypeNotSupportedExceptionCtor     jni.MethodID
-	midDocTypeNotSupportedExceptionToString jni.MethodID
-
-	clsSessionTranscriptMismatchException         *jni.GlobalRef
-	midSessionTranscriptMismatchExceptionCtor     jni.MethodID
-	midSessionTranscriptMismatchExceptionToString jni.MethodID
-
-	clsAlreadyPersonalizedException         *jni.GlobalRef
-	midAlreadyPersonalizedExceptionCtor     jni.MethodID
-	midAlreadyPersonalizedExceptionToString jni.MethodID
-
-	clsPersonalizationData         *jni.GlobalRef
-	midPersonalizationDataToString jni.MethodID
-
-	clsPersonalizationDataBuilder                        *jni.GlobalRef
-	midPersonalizationDataBuilderAddAccessControlProfile jni.MethodID
-	midPersonalizationDataBuilderBuild                   jni.MethodID
-	midPersonalizationDataBuilderToString                jni.MethodID
-
-	clsInvalidRequestMessageException         *jni.GlobalRef
-	midInvalidRequestMessageExceptionCtor     jni.MethodID
-	midInvalidRequestMessageExceptionToString jni.MethodID
-
-	clsUnknownAuthenticationKeyException         *jni.GlobalRef
-	midUnknownAuthenticationKeyExceptionCtor     jni.MethodID
-	midUnknownAuthenticationKeyExceptionToString jni.MethodID
-
-	clsCredentialDataRequest                          *jni.GlobalRef
-	midCredentialDataRequestGetReaderSignature        jni.MethodID
-	midCredentialDataRequestGetRequestMessage         jni.MethodID
-	midCredentialDataRequestIsAllowUsingExhaustedKeys jni.MethodID
-	midCredentialDataRequestIsAllowUsingExpiredKeys   jni.MethodID
-	midCredentialDataRequestIsIncrementUseCount       jni.MethodID
-	midCredentialDataRequestToString                  jni.MethodID
-
-	clsCredentialDataRequestBuilder                           *jni.GlobalRef
-	midCredentialDataRequestBuilderBuild                      jni.MethodID
-	midCredentialDataRequestBuilderSetAllowUsingExhaustedKeys jni.MethodID
-	midCredentialDataRequestBuilderSetAllowUsingExpiredKeys   jni.MethodID
-	midCredentialDataRequestBuilderSetIncrementUseCount       jni.MethodID
-	midCredentialDataRequestBuilderSetReaderSignature         jni.MethodID
-	midCredentialDataRequestBuilderSetRequestMessage          jni.MethodID
-	midCredentialDataRequestBuilderToString                   jni.MethodID
+	clsEphemeralPublicKeyNotFoundException         *jni.GlobalRef
+	midEphemeralPublicKeyNotFoundExceptionCtor     jni.MethodID
+	midEphemeralPublicKeyNotFoundExceptionToString jni.MethodID
 
 	clsCredentialDataResult                            *jni.GlobalRef
 	midCredentialDataResultGetDeviceMac                jni.MethodID
@@ -110,17 +36,6 @@ var (
 	midCredentialDataResultGetStaticAuthenticationData jni.MethodID
 	midCredentialDataResultToString                    jni.MethodID
 
-	clsResultData                             *jni.GlobalRef
-	midResultDataGetAuthenticatedData         jni.MethodID
-	midResultDataGetEntry                     jni.MethodID
-	midResultDataGetEntryNames                jni.MethodID
-	midResultDataGetMessageAuthenticationCode jni.MethodID
-	midResultDataGetNamespaces                jni.MethodID
-	midResultDataGetRetrievedEntryNames       jni.MethodID
-	midResultDataGetStaticAuthenticationData  jni.MethodID
-	midResultDataGetStatus                    jni.MethodID
-	midResultDataToString                     jni.MethodID
-
 	clsCredentialDataResultEntries                       *jni.GlobalRef
 	midCredentialDataResultEntriesGetEntry               jni.MethodID
 	midCredentialDataResultEntriesGetEntryNames          jni.MethodID
@@ -129,19 +44,14 @@ var (
 	midCredentialDataResultEntriesGetStatus              jni.MethodID
 	midCredentialDataResultEntriesToString               jni.MethodID
 
-	clsAccessControlProfile         *jni.GlobalRef
-	midAccessControlProfileToString jni.MethodID
+	clsMessageDecryptionException         *jni.GlobalRef
+	midMessageDecryptionExceptionCtor     jni.MethodID
+	midMessageDecryptionExceptionToString jni.MethodID
 
-	clsAccessControlProfileBuilder                              *jni.GlobalRef
-	midAccessControlProfileBuilderBuild                         jni.MethodID
-	midAccessControlProfileBuilderSetReaderCertificate          jni.MethodID
-	midAccessControlProfileBuilderSetUserAuthenticationRequired jni.MethodID
-	midAccessControlProfileBuilderSetUserAuthenticationTimeout  jni.MethodID
-	midAccessControlProfileBuilderToString                      jni.MethodID
-
-	clsEphemeralPublicKeyNotFoundException         *jni.GlobalRef
-	midEphemeralPublicKeyNotFoundExceptionCtor     jni.MethodID
-	midEphemeralPublicKeyNotFoundExceptionToString jni.MethodID
+	clsAccessControlProfileId         *jni.GlobalRef
+	midAccessControlProfileIdCtor     jni.MethodID
+	midAccessControlProfileIdGetId    jni.MethodID
+	midAccessControlProfileIdToString jni.MethodID
 
 	clsCredentialStore                          *jni.GlobalRef
 	midCredentialStoreCreateCredential          jni.MethodID
@@ -152,6 +62,48 @@ var (
 	midCredentialStoreToString                  jni.MethodID
 	midCredentialStoreGetDirectAccessInstance   jni.MethodID
 	midCredentialStoreGetInstance               jni.MethodID
+
+	clsCredentialException         *jni.GlobalRef
+	midCredentialExceptionCtor     jni.MethodID
+	midCredentialExceptionToString jni.MethodID
+
+	clsAlreadyPersonalizedException         *jni.GlobalRef
+	midAlreadyPersonalizedExceptionCtor     jni.MethodID
+	midAlreadyPersonalizedExceptionToString jni.MethodID
+
+	clsInvalidRequestMessageException         *jni.GlobalRef
+	midInvalidRequestMessageExceptionCtor     jni.MethodID
+	midInvalidRequestMessageExceptionToString jni.MethodID
+
+	clsPersonalizationData         *jni.GlobalRef
+	midPersonalizationDataToString jni.MethodID
+
+	clsPersonalizationDataBuilder                        *jni.GlobalRef
+	midPersonalizationDataBuilderCtor                    jni.MethodID
+	midPersonalizationDataBuilderAddAccessControlProfile jni.MethodID
+	midPersonalizationDataBuilderBuild                   jni.MethodID
+	midPersonalizationDataBuilderToString                jni.MethodID
+
+	clsAuthenticationKeyMetadata                  *jni.GlobalRef
+	midAuthenticationKeyMetadataGetExpirationDate jni.MethodID
+	midAuthenticationKeyMetadataGetUsageCount     jni.MethodID
+	midAuthenticationKeyMetadataToString          jni.MethodID
+
+	clsCipherSuiteNotSupportedException         *jni.GlobalRef
+	midCipherSuiteNotSupportedExceptionCtor     jni.MethodID
+	midCipherSuiteNotSupportedExceptionToString jni.MethodID
+
+	clsSessionTranscriptMismatchException         *jni.GlobalRef
+	midSessionTranscriptMismatchExceptionCtor     jni.MethodID
+	midSessionTranscriptMismatchExceptionToString jni.MethodID
+
+	clsDocTypeNotSupportedException         *jni.GlobalRef
+	midDocTypeNotSupportedExceptionCtor     jni.MethodID
+	midDocTypeNotSupportedExceptionToString jni.MethodID
+
+	clsUnknownAuthenticationKeyException         *jni.GlobalRef
+	midUnknownAuthenticationKeyExceptionCtor     jni.MethodID
+	midUnknownAuthenticationKeyExceptionToString jni.MethodID
 
 	clsCredential                                  *jni.GlobalRef
 	midCredentialCreateEphemeralKeyPair            jni.MethodID
@@ -173,14 +125,65 @@ var (
 	midCredentialUpdate                            jni.MethodID
 	midCredentialToString                          jni.MethodID
 
-	clsCipherSuiteNotSupportedException         *jni.GlobalRef
-	midCipherSuiteNotSupportedExceptionCtor     jni.MethodID
-	midCipherSuiteNotSupportedExceptionToString jni.MethodID
+	clsCredentialDataRequest                          *jni.GlobalRef
+	midCredentialDataRequestGetReaderSignature        jni.MethodID
+	midCredentialDataRequestGetRequestMessage         jni.MethodID
+	midCredentialDataRequestIsAllowUsingExhaustedKeys jni.MethodID
+	midCredentialDataRequestIsAllowUsingExpiredKeys   jni.MethodID
+	midCredentialDataRequestIsIncrementUseCount       jni.MethodID
+	midCredentialDataRequestToString                  jni.MethodID
 
-	clsAuthenticationKeyMetadata                  *jni.GlobalRef
-	midAuthenticationKeyMetadataGetExpirationDate jni.MethodID
-	midAuthenticationKeyMetadataGetUsageCount     jni.MethodID
-	midAuthenticationKeyMetadataToString          jni.MethodID
+	clsCredentialDataRequestBuilder                           *jni.GlobalRef
+	midCredentialDataRequestBuilderCtor                       jni.MethodID
+	midCredentialDataRequestBuilderBuild                      jni.MethodID
+	midCredentialDataRequestBuilderSetAllowUsingExhaustedKeys jni.MethodID
+	midCredentialDataRequestBuilderSetAllowUsingExpiredKeys   jni.MethodID
+	midCredentialDataRequestBuilderSetIncrementUseCount       jni.MethodID
+	midCredentialDataRequestBuilderSetReaderSignature         jni.MethodID
+	midCredentialDataRequestBuilderSetRequestMessage          jni.MethodID
+	midCredentialDataRequestBuilderToString                   jni.MethodID
+
+	clsWritableIdentityCredential                                 *jni.GlobalRef
+	midWritableIdentityCredentialGetCredentialKeyCertificateChain jni.MethodID
+	midWritableIdentityCredentialPersonalize                      jni.MethodID
+	midWritableIdentityCredentialToString                         jni.MethodID
+
+	clsAccessControlProfile         *jni.GlobalRef
+	midAccessControlProfileToString jni.MethodID
+
+	clsAccessControlProfileBuilder                              *jni.GlobalRef
+	midAccessControlProfileBuilderCtor                          jni.MethodID
+	midAccessControlProfileBuilderBuild                         jni.MethodID
+	midAccessControlProfileBuilderSetReaderCertificate          jni.MethodID
+	midAccessControlProfileBuilderSetUserAuthenticationRequired jni.MethodID
+	midAccessControlProfileBuilderSetUserAuthenticationTimeout  jni.MethodID
+	midAccessControlProfileBuilderToString                      jni.MethodID
+
+	clsResultData                             *jni.GlobalRef
+	midResultDataGetAuthenticatedData         jni.MethodID
+	midResultDataGetEntry                     jni.MethodID
+	midResultDataGetEntryNames                jni.MethodID
+	midResultDataGetMessageAuthenticationCode jni.MethodID
+	midResultDataGetNamespaces                jni.MethodID
+	midResultDataGetRetrievedEntryNames       jni.MethodID
+	midResultDataGetStaticAuthenticationData  jni.MethodID
+	midResultDataGetStatus                    jni.MethodID
+	midResultDataToString                     jni.MethodID
+
+	clsNoAuthenticationKeyAvailableException         *jni.GlobalRef
+	midNoAuthenticationKeyAvailableExceptionCtor     jni.MethodID
+	midNoAuthenticationKeyAvailableExceptionToString jni.MethodID
+
+	clsPresentationSession                            *jni.GlobalRef
+	midPresentationSessionGetCredentialData           jni.MethodID
+	midPresentationSessionGetEphemeralKeyPair         jni.MethodID
+	midPresentationSessionSetReaderEphemeralPublicKey jni.MethodID
+	midPresentationSessionSetSessionTranscript        jni.MethodID
+	midPresentationSessionToString                    jni.MethodID
+
+	clsInvalidReaderSignatureException         *jni.GlobalRef
+	midInvalidReaderSignatureExceptionCtor     jni.MethodID
+	midInvalidReaderSignatureExceptionToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -201,450 +204,19 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("android/security/identity/IdentityCredentialException")
+	c, err = env.FindClass("android/security/identity/EphemeralPublicKeyNotFoundException")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCredentialException = env.NewGlobalRef(&c.Object)
-		midCredentialExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialException)), "<init>", "(Ljava/lang/String;)V")
+		clsEphemeralPublicKeyNotFoundException = env.NewGlobalRef(&c.Object)
+		midEphemeralPublicKeyNotFoundExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEphemeralPublicKeyNotFoundException)), "<init>", "(Ljava/lang/String;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midCredentialExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialException)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/security/identity/NoAuthenticationKeyAvailableException")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsNoAuthenticationKeyAvailableException = env.NewGlobalRef(&c.Object)
-		midNoAuthenticationKeyAvailableExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNoAuthenticationKeyAvailableException)), "<init>", "(Ljava/lang/String;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midNoAuthenticationKeyAvailableExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNoAuthenticationKeyAvailableException)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/security/identity/WritableIdentityCredential")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsWritableIdentityCredential = env.NewGlobalRef(&c.Object)
-
-		midWritableIdentityCredentialGetCredentialKeyCertificateChain, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWritableIdentityCredential)), "getCredentialKeyCertificateChain", "([B)Ljava/util/Collection;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWritableIdentityCredentialPersonalize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWritableIdentityCredential)), "personalize", "(Landroid/security/identity/PersonalizationData;)[B")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWritableIdentityCredentialToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWritableIdentityCredential)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/security/identity/InvalidReaderSignatureException")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsInvalidReaderSignatureException = env.NewGlobalRef(&c.Object)
-		midInvalidReaderSignatureExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInvalidReaderSignatureException)), "<init>", "(Ljava/lang/String;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midInvalidReaderSignatureExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInvalidReaderSignatureException)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/security/identity/AccessControlProfileId")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAccessControlProfileId = env.NewGlobalRef(&c.Object)
-		midAccessControlProfileIdCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessControlProfileId)), "<init>", "(I)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAccessControlProfileIdGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessControlProfileId)), "getId", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAccessControlProfileIdToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessControlProfileId)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/security/identity/MessageDecryptionException")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMessageDecryptionException = env.NewGlobalRef(&c.Object)
-		midMessageDecryptionExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessageDecryptionException)), "<init>", "(Ljava/lang/String;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMessageDecryptionExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessageDecryptionException)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/security/identity/PresentationSession")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPresentationSession = env.NewGlobalRef(&c.Object)
-
-		midPresentationSessionGetCredentialData, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPresentationSession)), "getCredentialData", "(Ljava/lang/String;Landroid/security/identity/CredentialDataRequest;)Landroid/security/identity/CredentialDataResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPresentationSessionGetEphemeralKeyPair, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPresentationSession)), "getEphemeralKeyPair", "()Ljava/security/KeyPair;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPresentationSessionSetReaderEphemeralPublicKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPresentationSession)), "setReaderEphemeralPublicKey", "(Ljava/security/PublicKey;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPresentationSessionSetSessionTranscript, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPresentationSession)), "setSessionTranscript", "([B)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPresentationSessionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPresentationSession)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/security/identity/DocTypeNotSupportedException")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDocTypeNotSupportedException = env.NewGlobalRef(&c.Object)
-		midDocTypeNotSupportedExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDocTypeNotSupportedException)), "<init>", "(Ljava/lang/String;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midDocTypeNotSupportedExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDocTypeNotSupportedException)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/security/identity/SessionTranscriptMismatchException")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSessionTranscriptMismatchException = env.NewGlobalRef(&c.Object)
-		midSessionTranscriptMismatchExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionTranscriptMismatchException)), "<init>", "(Ljava/lang/String;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midSessionTranscriptMismatchExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionTranscriptMismatchException)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/security/identity/AlreadyPersonalizedException")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAlreadyPersonalizedException = env.NewGlobalRef(&c.Object)
-		midAlreadyPersonalizedExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlreadyPersonalizedException)), "<init>", "(Ljava/lang/String;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAlreadyPersonalizedExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlreadyPersonalizedException)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/security/identity/PersonalizationData")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPersonalizationData = env.NewGlobalRef(&c.Object)
-
-		midPersonalizationDataToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPersonalizationData)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/security/identity/PersonalizationData$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPersonalizationDataBuilder = env.NewGlobalRef(&c.Object)
-
-		midPersonalizationDataBuilderAddAccessControlProfile, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPersonalizationDataBuilder)), "addAccessControlProfile", "(Landroid/security/identity/AccessControlProfile;)Landroid/security/identity/PersonalizationData$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPersonalizationDataBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPersonalizationDataBuilder)), "build", "()Landroid/security/identity/PersonalizationData;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPersonalizationDataBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPersonalizationDataBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/security/identity/InvalidRequestMessageException")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsInvalidRequestMessageException = env.NewGlobalRef(&c.Object)
-		midInvalidRequestMessageExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInvalidRequestMessageException)), "<init>", "(Ljava/lang/String;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midInvalidRequestMessageExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInvalidRequestMessageException)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/security/identity/UnknownAuthenticationKeyException")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsUnknownAuthenticationKeyException = env.NewGlobalRef(&c.Object)
-		midUnknownAuthenticationKeyExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUnknownAuthenticationKeyException)), "<init>", "(Ljava/lang/String;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midUnknownAuthenticationKeyExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUnknownAuthenticationKeyException)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/security/identity/CredentialDataRequest")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCredentialDataRequest = env.NewGlobalRef(&c.Object)
-
-		midCredentialDataRequestGetReaderSignature, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequest)), "getReaderSignature", "()[B")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCredentialDataRequestGetRequestMessage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequest)), "getRequestMessage", "()[B")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCredentialDataRequestIsAllowUsingExhaustedKeys, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequest)), "isAllowUsingExhaustedKeys", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCredentialDataRequestIsAllowUsingExpiredKeys, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequest)), "isAllowUsingExpiredKeys", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCredentialDataRequestIsIncrementUseCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequest)), "isIncrementUseCount", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCredentialDataRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequest)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/security/identity/CredentialDataRequest$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCredentialDataRequestBuilder = env.NewGlobalRef(&c.Object)
-
-		midCredentialDataRequestBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequestBuilder)), "build", "()Landroid/security/identity/CredentialDataRequest;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCredentialDataRequestBuilderSetAllowUsingExhaustedKeys, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequestBuilder)), "setAllowUsingExhaustedKeys", "(Z)Landroid/security/identity/CredentialDataRequest$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCredentialDataRequestBuilderSetAllowUsingExpiredKeys, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequestBuilder)), "setAllowUsingExpiredKeys", "(Z)Landroid/security/identity/CredentialDataRequest$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCredentialDataRequestBuilderSetIncrementUseCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequestBuilder)), "setIncrementUseCount", "(Z)Landroid/security/identity/CredentialDataRequest$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCredentialDataRequestBuilderSetReaderSignature, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequestBuilder)), "setReaderSignature", "([B)Landroid/security/identity/CredentialDataRequest$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCredentialDataRequestBuilderSetRequestMessage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequestBuilder)), "setRequestMessage", "([B)Landroid/security/identity/CredentialDataRequest$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCredentialDataRequestBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequestBuilder)), "toString", "()Ljava/lang/String;")
+		midEphemeralPublicKeyNotFoundExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEphemeralPublicKeyNotFoundException)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -712,79 +284,6 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/security/identity/ResultData")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsResultData = env.NewGlobalRef(&c.Object)
-
-		midResultDataGetAuthenticatedData, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResultData)), "getAuthenticatedData", "()[B")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midResultDataGetEntry, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResultData)), "getEntry", "(Ljava/lang/String;Ljava/lang/String;)[B")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midResultDataGetEntryNames, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResultData)), "getEntryNames", "(Ljava/lang/String;)Ljava/util/Collection;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midResultDataGetMessageAuthenticationCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResultData)), "getMessageAuthenticationCode", "()[B")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midResultDataGetNamespaces, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResultData)), "getNamespaces", "()Ljava/util/Collection;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midResultDataGetRetrievedEntryNames, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResultData)), "getRetrievedEntryNames", "(Ljava/lang/String;)Ljava/util/Collection;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midResultDataGetStaticAuthenticationData, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResultData)), "getStaticAuthenticationData", "()[B")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midResultDataGetStatus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResultData)), "getStatus", "(Ljava/lang/String;Ljava/lang/String;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midResultDataToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResultData)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("android/security/identity/CredentialDataResult$Entries")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -837,15 +336,19 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/security/identity/AccessControlProfile")
+	c, err = env.FindClass("android/security/identity/MessageDecryptionException")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAccessControlProfile = env.NewGlobalRef(&c.Object)
+		clsMessageDecryptionException = env.NewGlobalRef(&c.Object)
+		midMessageDecryptionExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessageDecryptionException)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midAccessControlProfileToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessControlProfile)), "toString", "()Ljava/lang/String;")
+		midMessageDecryptionExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMessageDecryptionException)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -854,64 +357,26 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/security/identity/AccessControlProfile$Builder")
+	c, err = env.FindClass("android/security/identity/AccessControlProfileId")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAccessControlProfileBuilder = env.NewGlobalRef(&c.Object)
+		clsAccessControlProfileId = env.NewGlobalRef(&c.Object)
+		midAccessControlProfileIdCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessControlProfileId)), "<init>", "(I)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midAccessControlProfileBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessControlProfileBuilder)), "build", "()Landroid/security/identity/AccessControlProfile;")
+		midAccessControlProfileIdGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessControlProfileId)), "getId", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAccessControlProfileBuilderSetReaderCertificate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessControlProfileBuilder)), "setReaderCertificate", "(Ljava/security/cert/X509Certificate;)Landroid/security/identity/AccessControlProfile$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAccessControlProfileBuilderSetUserAuthenticationRequired, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessControlProfileBuilder)), "setUserAuthenticationRequired", "(Z)Landroid/security/identity/AccessControlProfile$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAccessControlProfileBuilderSetUserAuthenticationTimeout, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessControlProfileBuilder)), "setUserAuthenticationTimeout", "(J)Landroid/security/identity/AccessControlProfile$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAccessControlProfileBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessControlProfileBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/security/identity/EphemeralPublicKeyNotFoundException")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsEphemeralPublicKeyNotFoundException = env.NewGlobalRef(&c.Object)
-		midEphemeralPublicKeyNotFoundExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEphemeralPublicKeyNotFoundException)), "<init>", "(Ljava/lang/String;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midEphemeralPublicKeyNotFoundExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEphemeralPublicKeyNotFoundException)), "toString", "()Ljava/lang/String;")
+		midAccessControlProfileIdToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessControlProfileId)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -978,6 +443,236 @@ func doInit(env *jni.Env) error {
 		}
 
 		midCredentialStoreGetInstance, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCredentialStore)), "getInstance", "(Landroid/content/Context;)Landroid/security/identity/IdentityCredentialStore;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/security/identity/IdentityCredentialException")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCredentialException = env.NewGlobalRef(&c.Object)
+		midCredentialExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialException)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCredentialExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialException)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/security/identity/AlreadyPersonalizedException")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAlreadyPersonalizedException = env.NewGlobalRef(&c.Object)
+		midAlreadyPersonalizedExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlreadyPersonalizedException)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAlreadyPersonalizedExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlreadyPersonalizedException)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/security/identity/InvalidRequestMessageException")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInvalidRequestMessageException = env.NewGlobalRef(&c.Object)
+		midInvalidRequestMessageExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInvalidRequestMessageException)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midInvalidRequestMessageExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInvalidRequestMessageException)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/security/identity/PersonalizationData")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPersonalizationData = env.NewGlobalRef(&c.Object)
+
+		midPersonalizationDataToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPersonalizationData)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/security/identity/PersonalizationData$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPersonalizationDataBuilder = env.NewGlobalRef(&c.Object)
+		midPersonalizationDataBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPersonalizationDataBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midPersonalizationDataBuilderAddAccessControlProfile, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPersonalizationDataBuilder)), "addAccessControlProfile", "(Landroid/security/identity/AccessControlProfile;)Landroid/security/identity/PersonalizationData$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPersonalizationDataBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPersonalizationDataBuilder)), "build", "()Landroid/security/identity/PersonalizationData;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPersonalizationDataBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPersonalizationDataBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/security/identity/AuthenticationKeyMetadata")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAuthenticationKeyMetadata = env.NewGlobalRef(&c.Object)
+
+		midAuthenticationKeyMetadataGetExpirationDate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAuthenticationKeyMetadata)), "getExpirationDate", "()Ljava/time/Instant;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAuthenticationKeyMetadataGetUsageCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAuthenticationKeyMetadata)), "getUsageCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAuthenticationKeyMetadataToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAuthenticationKeyMetadata)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/security/identity/CipherSuiteNotSupportedException")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCipherSuiteNotSupportedException = env.NewGlobalRef(&c.Object)
+		midCipherSuiteNotSupportedExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCipherSuiteNotSupportedException)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCipherSuiteNotSupportedExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCipherSuiteNotSupportedException)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/security/identity/SessionTranscriptMismatchException")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSessionTranscriptMismatchException = env.NewGlobalRef(&c.Object)
+		midSessionTranscriptMismatchExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionTranscriptMismatchException)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSessionTranscriptMismatchExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionTranscriptMismatchException)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/security/identity/DocTypeNotSupportedException")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDocTypeNotSupportedException = env.NewGlobalRef(&c.Object)
+		midDocTypeNotSupportedExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDocTypeNotSupportedException)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midDocTypeNotSupportedExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDocTypeNotSupportedException)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/security/identity/UnknownAuthenticationKeyException")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsUnknownAuthenticationKeyException = env.NewGlobalRef(&c.Object)
+		midUnknownAuthenticationKeyExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUnknownAuthenticationKeyException)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midUnknownAuthenticationKeyExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUnknownAuthenticationKeyException)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1122,19 +817,50 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/security/identity/CipherSuiteNotSupportedException")
+	c, err = env.FindClass("android/security/identity/CredentialDataRequest")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCipherSuiteNotSupportedException = env.NewGlobalRef(&c.Object)
-		midCipherSuiteNotSupportedExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCipherSuiteNotSupportedException)), "<init>", "(Ljava/lang/String;)V")
+		clsCredentialDataRequest = env.NewGlobalRef(&c.Object)
+
+		midCredentialDataRequestGetReaderSignature, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequest)), "getReaderSignature", "()[B")
 		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCipherSuiteNotSupportedExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCipherSuiteNotSupportedException)), "toString", "()Ljava/lang/String;")
+		midCredentialDataRequestGetRequestMessage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequest)), "getRequestMessage", "()[B")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCredentialDataRequestIsAllowUsingExhaustedKeys, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequest)), "isAllowUsingExhaustedKeys", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCredentialDataRequestIsAllowUsingExpiredKeys, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequest)), "isAllowUsingExpiredKeys", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCredentialDataRequestIsIncrementUseCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequest)), "isIncrementUseCount", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCredentialDataRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequest)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1143,29 +869,318 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/security/identity/AuthenticationKeyMetadata")
+	c, err = env.FindClass("android/security/identity/CredentialDataRequest$Builder")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAuthenticationKeyMetadata = env.NewGlobalRef(&c.Object)
+		clsCredentialDataRequestBuilder = env.NewGlobalRef(&c.Object)
+		midCredentialDataRequestBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequestBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midAuthenticationKeyMetadataGetExpirationDate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAuthenticationKeyMetadata)), "getExpirationDate", "()Ljava/time/Instant;")
+		midCredentialDataRequestBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequestBuilder)), "build", "()Landroid/security/identity/CredentialDataRequest;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAuthenticationKeyMetadataGetUsageCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAuthenticationKeyMetadata)), "getUsageCount", "()I")
+		midCredentialDataRequestBuilderSetAllowUsingExhaustedKeys, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequestBuilder)), "setAllowUsingExhaustedKeys", "(Z)Landroid/security/identity/CredentialDataRequest$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAuthenticationKeyMetadataToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAuthenticationKeyMetadata)), "toString", "()Ljava/lang/String;")
+		midCredentialDataRequestBuilderSetAllowUsingExpiredKeys, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequestBuilder)), "setAllowUsingExpiredKeys", "(Z)Landroid/security/identity/CredentialDataRequest$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCredentialDataRequestBuilderSetIncrementUseCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequestBuilder)), "setIncrementUseCount", "(Z)Landroid/security/identity/CredentialDataRequest$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCredentialDataRequestBuilderSetReaderSignature, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequestBuilder)), "setReaderSignature", "([B)Landroid/security/identity/CredentialDataRequest$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCredentialDataRequestBuilderSetRequestMessage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequestBuilder)), "setRequestMessage", "([B)Landroid/security/identity/CredentialDataRequest$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCredentialDataRequestBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialDataRequestBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/security/identity/WritableIdentityCredential")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsWritableIdentityCredential = env.NewGlobalRef(&c.Object)
+
+		midWritableIdentityCredentialGetCredentialKeyCertificateChain, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWritableIdentityCredential)), "getCredentialKeyCertificateChain", "([B)Ljava/util/Collection;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWritableIdentityCredentialPersonalize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWritableIdentityCredential)), "personalize", "(Landroid/security/identity/PersonalizationData;)[B")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWritableIdentityCredentialToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWritableIdentityCredential)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/security/identity/AccessControlProfile")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAccessControlProfile = env.NewGlobalRef(&c.Object)
+
+		midAccessControlProfileToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessControlProfile)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/security/identity/AccessControlProfile$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAccessControlProfileBuilder = env.NewGlobalRef(&c.Object)
+		midAccessControlProfileBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessControlProfileBuilder)), "<init>", "(Landroid/security/identity/AccessControlProfileId;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAccessControlProfileBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessControlProfileBuilder)), "build", "()Landroid/security/identity/AccessControlProfile;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAccessControlProfileBuilderSetReaderCertificate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessControlProfileBuilder)), "setReaderCertificate", "(Ljava/security/cert/X509Certificate;)Landroid/security/identity/AccessControlProfile$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAccessControlProfileBuilderSetUserAuthenticationRequired, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessControlProfileBuilder)), "setUserAuthenticationRequired", "(Z)Landroid/security/identity/AccessControlProfile$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAccessControlProfileBuilderSetUserAuthenticationTimeout, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessControlProfileBuilder)), "setUserAuthenticationTimeout", "(J)Landroid/security/identity/AccessControlProfile$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAccessControlProfileBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessControlProfileBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/security/identity/ResultData")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsResultData = env.NewGlobalRef(&c.Object)
+
+		midResultDataGetAuthenticatedData, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResultData)), "getAuthenticatedData", "()[B")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midResultDataGetEntry, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResultData)), "getEntry", "(Ljava/lang/String;Ljava/lang/String;)[B")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midResultDataGetEntryNames, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResultData)), "getEntryNames", "(Ljava/lang/String;)Ljava/util/Collection;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midResultDataGetMessageAuthenticationCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResultData)), "getMessageAuthenticationCode", "()[B")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midResultDataGetNamespaces, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResultData)), "getNamespaces", "()Ljava/util/Collection;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midResultDataGetRetrievedEntryNames, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResultData)), "getRetrievedEntryNames", "(Ljava/lang/String;)Ljava/util/Collection;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midResultDataGetStaticAuthenticationData, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResultData)), "getStaticAuthenticationData", "()[B")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midResultDataGetStatus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResultData)), "getStatus", "(Ljava/lang/String;Ljava/lang/String;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midResultDataToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResultData)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/security/identity/NoAuthenticationKeyAvailableException")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsNoAuthenticationKeyAvailableException = env.NewGlobalRef(&c.Object)
+		midNoAuthenticationKeyAvailableExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNoAuthenticationKeyAvailableException)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midNoAuthenticationKeyAvailableExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNoAuthenticationKeyAvailableException)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/security/identity/PresentationSession")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPresentationSession = env.NewGlobalRef(&c.Object)
+
+		midPresentationSessionGetCredentialData, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPresentationSession)), "getCredentialData", "(Ljava/lang/String;Landroid/security/identity/CredentialDataRequest;)Landroid/security/identity/CredentialDataResult;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPresentationSessionGetEphemeralKeyPair, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPresentationSession)), "getEphemeralKeyPair", "()Ljava/security/KeyPair;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPresentationSessionSetReaderEphemeralPublicKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPresentationSession)), "setReaderEphemeralPublicKey", "(Ljava/security/PublicKey;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPresentationSessionSetSessionTranscript, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPresentationSession)), "setSessionTranscript", "([B)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPresentationSessionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPresentationSession)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/security/identity/InvalidReaderSignatureException")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInvalidReaderSignatureException = env.NewGlobalRef(&c.Object)
+		midInvalidReaderSignatureExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInvalidReaderSignatureException)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midInvalidReaderSignatureExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInvalidReaderSignatureException)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

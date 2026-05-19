@@ -23,6 +23,34 @@ type EmojiCompatDefaultSpanFactory struct {
 	Obj *jni.GlobalRef
 }
 
+// NewEmojiCompatDefaultSpanFactory creates a new androidx.emoji2.text.EmojiCompat$DefaultSpanFactory instance.
+func NewEmojiCompatDefaultSpanFactory(vm *jni.VM) (*EmojiCompatDefaultSpanFactory, error) {
+	var t EmojiCompatDefaultSpanFactory
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsEmojiCompatDefaultSpanFactory == nil {
+			return fmt.Errorf("androidx.emoji2.text.EmojiCompat$DefaultSpanFactory is not available on this device")
+		}
+		if midEmojiCompatDefaultSpanFactoryCtor == nil {
+			return fmt.Errorf("androidx.emoji2.text.EmojiCompat$DefaultSpanFactory constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEmojiCompatDefaultSpanFactory)), midEmojiCompatDefaultSpanFactoryCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // CreateSpan calls androidx.emoji2.text.EmojiCompat$DefaultSpanFactory.createSpan.
 func (m *EmojiCompatDefaultSpanFactory) CreateSpan(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

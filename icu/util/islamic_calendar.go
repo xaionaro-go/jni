@@ -32,6 +32,12 @@ func NewIslamicCalendar(vm *jni.VM) (*IslamicCalendar, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsIslamicCalendar == nil {
+			return fmt.Errorf("android.icu.util.IslamicCalendar is not available on this device")
+		}
+		if midIslamicCalendarCtor == nil {
+			return fmt.Errorf("android.icu.util.IslamicCalendar constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIslamicCalendar)), midIslamicCalendarCtor)
 		if err != nil {
 			return err

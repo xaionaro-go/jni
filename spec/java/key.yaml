@@ -10,7 +10,7 @@ classes:
       obtain: constructor
       methods:
         - java_method: clone
-          go_name: Clone0
+          go_name: Clone
           returns: androidx.constraintlayout.core.motion.key.MotionKey
           error: true
         - java_method: setValue
@@ -55,61 +55,10 @@ classes:
           go_name: PrintAttributes
           returns: void
           error: true
-        - java_method: clone
-          go_name: Clone0_1
-          returns: java.lang.Object
-          error: true
-    - java_class: androidx.constraintlayout.core.motion.key.MotionKeyPosition
-      go_type: MotionKeyPosition
+    - java_class: androidx.constraintlayout.core.motion.key.MotionKeyTimeCycle
+      go_type: MotionKeyTimeCycle
       obtain: constructor
       methods:
-        - java_method: positionAttributes
-          go_name: PositionAttributes
-          params:
-            - java_type: androidx.constraintlayout.core.motion.MotionWidget
-              go_name: arg0
-            - java_type: androidx.constraintlayout.core.motion.utils.FloatRect
-              go_name: arg1
-            - java_type: androidx.constraintlayout.core.motion.utils.FloatRect
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-            - java_type: float
-              go_name: arg4
-            - java_type: java.lang.String[]
-              go_name: arg5
-            - java_type: float[]
-              go_name: arg6
-          returns: void
-          error: true
-        - java_method: intersects
-          go_name: Intersects
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: androidx.constraintlayout.core.motion.utils.FloatRect
-              go_name: arg2
-            - java_type: androidx.constraintlayout.core.motion.utils.FloatRect
-              go_name: arg3
-            - java_type: float
-              go_name: arg4
-            - java_type: float
-              go_name: arg5
-          returns: boolean
-          error: true
-        - java_method: copy
-          go_name: Copy
-          params:
-            - java_type: androidx.constraintlayout.core.motion.key.MotionKey
-              go_name: arg0
-          returns: androidx.constraintlayout.core.motion.key.MotionKey
-          error: true
-        - java_method: clone
-          go_name: Clone0
-          returns: androidx.constraintlayout.core.motion.key.MotionKey
-          error: true
         - java_method: setValue
           go_name: SetValue2
           params:
@@ -137,6 +86,26 @@ classes:
               go_name: arg1
           returns: boolean
           error: true
+        - java_method: setValue
+          go_name: SetValue2_3
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: copy
+          go_name: Copy
+          params:
+            - java_type: androidx.constraintlayout.core.motion.key.MotionKey
+              go_name: arg0
+          returns: androidx.constraintlayout.core.motion.key.MotionKeyTimeCycle
+          error: true
+        - java_method: clone
+          go_name: Clone
+          returns: androidx.constraintlayout.core.motion.key.MotionKey
+          error: true
         - java_method: getId
           go_name: GetId
           params:
@@ -144,13 +113,6 @@ classes:
               go_name: arg0
           returns: int
           error: true
-        - java_method: clone
-          go_name: Clone0_1
-          returns: java.lang.Object
-          error: true
-    - java_class: androidx.constraintlayout.core.motion.key.MotionConstraintSet
-      go_type: MotionConstraintSet
-      obtain: constructor
     - java_class: androidx.constraintlayout.core.motion.key.MotionKeyCycle
       go_type: MotionKeyCycle
       obtain: constructor
@@ -190,7 +152,7 @@ classes:
           returns: float
           error: true
         - java_method: clone
-          go_name: Clone0
+          go_name: Clone
           returns: androidx.constraintlayout.core.motion.key.MotionKey
           error: true
         - java_method: getId
@@ -208,10 +170,9 @@ classes:
           go_name: PrintAttributes
           returns: void
           error: true
-        - java_method: clone
-          go_name: Clone0_1
-          returns: java.lang.Object
-          error: true
+    - java_class: androidx.constraintlayout.core.motion.key.MotionConstraintSet
+      go_type: MotionConstraintSet
+      obtain: constructor
     - java_class: androidx.constraintlayout.core.motion.key.MotionKey
       go_type: MotionKey
       methods:
@@ -223,7 +184,7 @@ classes:
           returns: androidx.constraintlayout.core.motion.key.MotionKey
           error: true
         - java_method: clone
-          go_name: Clone0
+          go_name: Clone
           returns: androidx.constraintlayout.core.motion.key.MotionKey
           error: true
         - java_method: setViewId
@@ -324,79 +285,6 @@ classes:
               go_name: arg2
           returns: void
           error: true
-        - java_method: clone
-          go_name: Clone0_1
-          returns: java.lang.Object
-          error: true
-    - java_class: androidx.constraintlayout.core.motion.key.MotionKeyTimeCycle
-      go_type: MotionKeyTimeCycle
-      obtain: constructor
-      methods:
-        - java_method: setValue
-          go_name: SetValue2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: setValue
-          go_name: SetValue2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: setValue
-          go_name: SetValue2_2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: setValue
-          go_name: SetValue2_3
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: copy
-          go_name: Copy1
-          params:
-            - java_type: androidx.constraintlayout.core.motion.key.MotionKey
-              go_name: arg0
-          returns: androidx.constraintlayout.core.motion.key.MotionKeyTimeCycle
-          error: true
-        - java_method: clone
-          go_name: Clone0
-          returns: androidx.constraintlayout.core.motion.key.MotionKey
-          error: true
-        - java_method: getId
-          go_name: GetId
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: copy
-          go_name: Copy1_1
-          params:
-            - java_type: androidx.constraintlayout.core.motion.key.MotionKey
-              go_name: arg0
-          returns: androidx.constraintlayout.core.motion.key.MotionKey
-          error: true
-        - java_method: clone
-          go_name: Clone0_1
-          returns: java.lang.Object
-          error: true
     - java_class: androidx.constraintlayout.core.motion.key.MotionKeyTrigger
       go_type: MotionKeyTrigger
       obtain: constructor
@@ -409,14 +297,14 @@ classes:
           returns: int
           error: true
         - java_method: copy
-          go_name: Copy1
+          go_name: Copy
           params:
             - java_type: androidx.constraintlayout.core.motion.key.MotionKey
               go_name: arg0
           returns: androidx.constraintlayout.core.motion.key.MotionKeyTrigger
           error: true
         - java_method: clone
-          go_name: Clone0
+          go_name: Clone
           returns: androidx.constraintlayout.core.motion.key.MotionKey
           error: true
         - java_method: conditionallyFire
@@ -464,127 +352,98 @@ classes:
               go_name: arg1
           returns: boolean
           error: true
+    - java_class: androidx.constraintlayout.core.motion.key.MotionKeyPosition
+      go_type: MotionKeyPosition
+      obtain: constructor
+      methods:
+        - java_method: positionAttributes
+          go_name: PositionAttributes
+          params:
+            - java_type: androidx.constraintlayout.core.motion.MotionWidget
+              go_name: arg0
+            - java_type: androidx.constraintlayout.core.motion.utils.FloatRect
+              go_name: arg1
+            - java_type: androidx.constraintlayout.core.motion.utils.FloatRect
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+            - java_type: float
+              go_name: arg4
+            - java_type: java.lang.String[]
+              go_name: arg5
+            - java_type: float[]
+              go_name: arg6
+          returns: void
+          error: true
+        - java_method: intersects
+          go_name: Intersects
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: androidx.constraintlayout.core.motion.utils.FloatRect
+              go_name: arg2
+            - java_type: androidx.constraintlayout.core.motion.utils.FloatRect
+              go_name: arg3
+            - java_type: float
+              go_name: arg4
+            - java_type: float
+              go_name: arg5
+          returns: boolean
+          error: true
         - java_method: copy
-          go_name: Copy1_1
+          go_name: Copy
           params:
             - java_type: androidx.constraintlayout.core.motion.key.MotionKey
               go_name: arg0
           returns: androidx.constraintlayout.core.motion.key.MotionKey
           error: true
         - java_method: clone
-          go_name: Clone0_1
-          returns: java.lang.Object
+          go_name: Clone
+          returns: androidx.constraintlayout.core.motion.key.MotionKey
           error: true
-abstract_callbacks:
-    - java_class: androidx.constraintlayout.core.motion.key.MotionKey
-      go_type: MotionKeyCallback
-      methods:
-        - java_method: copy
+        - java_method: setValue
+          go_name: SetValue2
           params:
-            - androidx.constraintlayout.core.motion.key.MotionKey
-          returns: androidx.constraintlayout.core.motion.key.MotionKey
-          go_field: Copy
-        - java_method: clone
-          params: []
-          returns: androidx.constraintlayout.core.motion.key.MotionKey
-          go_field: Clone
-        - java_method: setViewId
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: setValue
+          go_name: SetValue2_1
           params:
-            - int
-          returns: androidx.constraintlayout.core.motion.key.MotionKey
-          go_field: SetViewId
-        - java_method: setFramePosition
+            - java_type: int
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: setValue
+          go_name: SetValue2_2
           params:
-            - int
-          returns: void
-          go_field: SetFramePosition
-        - java_method: getFramePosition
-          params: []
+            - java_type: int
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: getId
+          go_name: GetId
+          params:
+            - java_type: String
+              go_name: arg0
           returns: int
-          go_field: GetFramePosition
-        - java_method: setValue
-          params:
-            - int
-            - int
-          returns: boolean
-          go_field: SetValue
-        - java_method: setValue
-          params:
-            - int
-            - float
-          returns: boolean
-          go_field: SetValue
-        - java_method: setValue
-          params:
-            - int
-            - String
-          returns: boolean
-          go_field: SetValue
-        - java_method: setValue
-          params:
-            - int
-            - boolean
-          returns: boolean
-          go_field: SetValue
-        - java_method: setCustomAttribute
-          params:
-            - String
-            - int
-            - float
-          returns: void
-          go_field: SetCustomAttribute
-        - java_method: setCustomAttribute
-          params:
-            - String
-            - int
-            - int
-          returns: void
-          go_field: SetCustomAttribute
-        - java_method: setCustomAttribute
-          params:
-            - String
-            - int
-            - boolean
-          returns: void
-          go_field: SetCustomAttribute
-        - java_method: setCustomAttribute
-          params:
-            - String
-            - int
-            - String
-          returns: void
-          go_field: SetCustomAttribute
-        - java_method: clone
-          params: []
-          returns: java.lang.Object
-          go_field: Clone
+          error: true
+abstract_callback_eligibility:
+    - java_class: androidx.constraintlayout.core.motion.key.MotionKey
+      generated: false
+      reason: implements_interface
 constants:
     - go_name: KeyType
       value: "1"
-      go_type: int
-    - go_name: TypeScreen
-      value: "2"
-      go_type: int
-    - go_name: TypePath
-      value: "1"
-      go_type: int
-    - go_name: TypeCartesian
-      value: "0"
-      go_type: int
-    - go_name: RotateNone
-      value: "0"
-      go_type: int
-    - go_name: RotatePortrateOfRight
-      value: "1"
-      go_type: int
-    - go_name: RotatePortrateOfLeft
-      value: "2"
-      go_type: int
-    - go_name: RotateRightOfPortrate
-      value: "3"
-      go_type: int
-    - go_name: RotateLeftOfPortrate
-      value: "4"
       go_type: int
     - go_name: WavePeriod
       value: '"wavePeriod"'
@@ -618,6 +477,21 @@ constants:
       go_type: int
     - go_name: ShapeBounce
       value: "6"
+      go_type: int
+    - go_name: RotateNone
+      value: "0"
+      go_type: int
+    - go_name: RotatePortrateOfRight
+      value: "1"
+      go_type: int
+    - go_name: RotatePortrateOfLeft
+      value: "2"
+      go_type: int
+    - go_name: RotateRightOfPortrate
+      value: "3"
+      go_type: int
+    - go_name: RotateLeftOfPortrate
+      value: "4"
       go_type: int
     - go_name: Alpha
       value: '"alpha"'
@@ -723,4 +597,13 @@ constants:
       go_type: int
     - go_name: TypeCross
       value: "312"
+      go_type: int
+    - go_name: TypeScreen
+      value: "2"
+      go_type: int
+    - go_name: TypePath
+      value: "1"
+      go_type: int
+    - go_name: TypeCartesian
+      value: "0"
       go_type: int

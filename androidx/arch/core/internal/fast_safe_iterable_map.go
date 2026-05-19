@@ -32,6 +32,12 @@ func NewFastSafeIterableMap(vm *jni.VM) (*FastSafeIterableMap, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFastSafeIterableMap == nil {
+			return fmt.Errorf("androidx.arch.core.internal.FastSafeIterableMap is not available on this device")
+		}
+		if midFastSafeIterableMapCtor == nil {
+			return fmt.Errorf("androidx.arch.core.internal.FastSafeIterableMap constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFastSafeIterableMap)), midFastSafeIterableMapCtor)
 		if err != nil {
 			return err

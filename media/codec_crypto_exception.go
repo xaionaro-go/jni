@@ -23,6 +23,41 @@ type CodecCryptoException struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCodecCryptoException creates a new android.media.MediaCodec$CryptoException instance.
+func NewCodecCryptoException(vm *jni.VM, arg0 int32, arg1 string) (*CodecCryptoException, error) {
+	var t CodecCryptoException
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCodecCryptoException == nil {
+			return fmt.Errorf("android.media.MediaCodec$CryptoException is not available on this device")
+		}
+		if midCodecCryptoExceptionCtor == nil {
+			return fmt.Errorf("android.media.MediaCodec$CryptoException constructor (ILjava/lang/String;)V is not available on this device")
+		}
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCodecCryptoException)), midCodecCryptoExceptionCtor, jni.IntValue(arg0), jni.ObjectValue(&jArg1.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetCryptoInfo calls android.media.MediaCodec$CryptoException.getCryptoInfo.
 func (m *CodecCryptoException) GetCryptoInfo() (*jni.Object, error) {
 	var result *jni.Object

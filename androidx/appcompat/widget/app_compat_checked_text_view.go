@@ -32,6 +32,12 @@ func NewAppCompatCheckedTextView(vm *jni.VM, arg0 *jni.Object) (*AppCompatChecke
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppCompatCheckedTextView == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatCheckedTextView is not available on this device")
+		}
+		if midAppCompatCheckedTextViewCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatCheckedTextView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppCompatCheckedTextView)), midAppCompatCheckedTextViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

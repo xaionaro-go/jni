@@ -32,6 +32,12 @@ func NewSectionRequest(vm *jni.VM, arg0 int32, arg1 int32, arg2 int32, arg3 int3
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSectionRequest == nil {
+			return fmt.Errorf("android.media.tv.SectionRequest is not available on this device")
+		}
+		if midSectionRequestCtor == nil {
+			return fmt.Errorf("android.media.tv.SectionRequest constructor (IIIII)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSectionRequest)), midSectionRequestCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3), jni.IntValue(arg4))
 		if err != nil {
@@ -146,29 +152,6 @@ func (m *SectionRequest) GetVersion() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.media.tv.SectionRequest.writeToParcel.
-func (m *SectionRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSectionRequestWriteToParcel == nil {
-			callErr = fmt.Errorf("android.media.tv.SectionRequest.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSectionRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.media.tv.SectionRequest.toString.
 func (m *SectionRequest) ToString() (string, error) {
 	var result string
@@ -194,4 +177,27 @@ func (m *SectionRequest) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.media.tv.SectionRequest.writeToParcel.
+func (m *SectionRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSectionRequestWriteToParcel == nil {
+			callErr = fmt.Errorf("android.media.tv.SectionRequest.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSectionRequest)),
+			midSectionRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

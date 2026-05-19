@@ -23,6 +23,13 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsManager                  *jni.GlobalRef
+	midManagerAddOrUpdateStatus jni.MethodID
+	midManagerClearStatus       jni.MethodID
+	midManagerClearStatuses     jni.MethodID
+	midManagerGetStatuses       jni.MethodID
+	midManagerToString          jni.MethodID
+
 	clsConversationStatus                   *jni.GlobalRef
 	midConversationStatusDescribeContents   jni.MethodID
 	midConversationStatusEquals             jni.MethodID
@@ -38,6 +45,7 @@ var (
 	midConversationStatusWriteToParcel      jni.MethodID
 
 	clsConversationStatusBuilder                   *jni.GlobalRef
+	midConversationStatusBuilderCtor               jni.MethodID
 	midConversationStatusBuilderBuild              jni.MethodID
 	midConversationStatusBuilderSetAvailability    jni.MethodID
 	midConversationStatusBuilderSetDescription     jni.MethodID
@@ -45,13 +53,6 @@ var (
 	midConversationStatusBuilderSetIcon            jni.MethodID
 	midConversationStatusBuilderSetStartTimeMillis jni.MethodID
 	midConversationStatusBuilderToString           jni.MethodID
-
-	clsManager                  *jni.GlobalRef
-	midManagerAddOrUpdateStatus jni.MethodID
-	midManagerClearStatus       jni.MethodID
-	midManagerClearStatuses     jni.MethodID
-	midManagerGetStatuses       jni.MethodID
-	midManagerToString          jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -71,6 +72,51 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("android/app/people/PeopleManager")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsManager = env.NewGlobalRef(&c.Object)
+
+		midManagerAddOrUpdateStatus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "addOrUpdateStatus", "(Ljava/lang/String;Landroid/app/people/ConversationStatus;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerClearStatus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "clearStatus", "(Ljava/lang/String;Ljava/lang/String;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerClearStatuses, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "clearStatuses", "(Ljava/lang/String;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerGetStatuses, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getStatuses", "(Ljava/lang/String;)Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("android/app/people/ConversationStatus")
 	if err != nil {
@@ -157,7 +203,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midConversationStatusWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationStatus)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midConversationStatusWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsConversationStatus)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -173,6 +219,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsConversationStatusBuilder = env.NewGlobalRef(&c.Object)
+		midConversationStatusBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationStatusBuilder)), "<init>", "(Ljava/lang/String;I)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midConversationStatusBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationStatusBuilder)), "build", "()Landroid/app/people/ConversationStatus;")
 		if err != nil {
@@ -217,51 +267,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midConversationStatusBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationStatusBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/people/PeopleManager")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsManager = env.NewGlobalRef(&c.Object)
-
-		midManagerAddOrUpdateStatus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "addOrUpdateStatus", "(Ljava/lang/String;Landroid/app/people/ConversationStatus;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerClearStatus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "clearStatus", "(Ljava/lang/String;Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerClearStatuses, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "clearStatuses", "(Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerGetStatuses, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getStatuses", "(Ljava/lang/String;)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

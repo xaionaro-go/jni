@@ -28,6 +28,7 @@ classes:
           go_name: GetRoundingMode
           returns: int
           error: true
+      static_methods:
         - java_method: toString
           go_name: ToString
           returns: String
@@ -382,13 +383,6 @@ classes:
         - java_method: unscaledValue
           go_name: UnscaledValue
           returns: java.math.BigInteger
-          error: true
-        - java_method: compareTo
-          go_name: CompareTo1_2
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
           error: true
       static_methods:
         - java_method: valueOf

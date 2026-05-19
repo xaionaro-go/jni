@@ -5,18 +5,10 @@ package text
 import "github.com/AndroidGoLab/jni/graphics/text/consts"
 
 const (
-	BreakStrategyBalanced           = consts.BreakStrategyBalanced
-	BreakStrategyHighQuality        = consts.BreakStrategyHighQuality
-	BreakStrategySimple             = consts.BreakStrategySimple
-	HyphenationFrequencyFull        = consts.HyphenationFrequencyFull
-	HyphenationFrequencyNone        = consts.HyphenationFrequencyNone
-	HyphenationFrequencyNormal      = consts.HyphenationFrequencyNormal
-	JustificationModeInterCharacter = consts.JustificationModeInterCharacter
-	JustificationModeInterWord      = consts.JustificationModeInterWord
-	JustificationModeNone           = consts.JustificationModeNone
-	HyphenationModeFast             = consts.HyphenationModeFast
-	HyphenationModeNone             = consts.HyphenationModeNone
-	HyphenationModeNormal           = consts.HyphenationModeNormal
+	NoOverride = consts.NoOverride
+)
+
+const (
 	Creator                         = consts.Creator
 	HyphenationDisabled             = consts.HyphenationDisabled
 	HyphenationEnabled              = consts.HyphenationEnabled
@@ -32,8 +24,16 @@ const (
 	LineBreakWordStyleNone          = consts.LineBreakWordStyleNone
 	LineBreakWordStylePhrase        = consts.LineBreakWordStylePhrase
 	LineBreakWordStyleUnspecified   = consts.LineBreakWordStyleUnspecified
-)
-
-const (
-	NoOverride = consts.NoOverride
+	HyphenationModeFast             = consts.HyphenationModeFast
+	HyphenationModeNone             = consts.HyphenationModeNone
+	HyphenationModeNormal           = consts.HyphenationModeNormal
+	BreakStrategyBalanced           = consts.BreakStrategyBalanced
+	BreakStrategyHighQuality        = consts.BreakStrategyHighQuality
+	BreakStrategySimple             = consts.BreakStrategySimple
+	HyphenationFrequencyFull        = consts.HyphenationFrequencyFull
+	HyphenationFrequencyNone        = consts.HyphenationFrequencyNone
+	HyphenationFrequencyNormal      = consts.HyphenationFrequencyNormal
+	JustificationModeInterCharacter = consts.JustificationModeInterCharacter
+	JustificationModeInterWord      = consts.JustificationModeInterWord
+	JustificationModeNone           = consts.JustificationModeNone
 )

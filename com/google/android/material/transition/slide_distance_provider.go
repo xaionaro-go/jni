@@ -32,6 +32,12 @@ func NewSlideDistanceProvider(vm *jni.VM, arg0 int32) (*SlideDistanceProvider, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSlideDistanceProvider == nil {
+			return fmt.Errorf("com.google.android.material.transition.SlideDistanceProvider is not available on this device")
+		}
+		if midSlideDistanceProviderCtor == nil {
+			return fmt.Errorf("com.google.android.material.transition.SlideDistanceProvider constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSlideDistanceProvider)), midSlideDistanceProviderCtor, jni.IntValue(arg0))
 		if err != nil {

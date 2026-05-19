@@ -32,6 +32,12 @@ func NewMuxer(vm *jni.VM, arg0 *jni.Object, arg1 int32) (*Muxer, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMuxer == nil {
+			return fmt.Errorf("android.media.MediaMuxer is not available on this device")
+		}
+		if midMuxerCtor == nil {
+			return fmt.Errorf("android.media.MediaMuxer constructor (Ljava/io/FileDescriptor;I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMuxer)), midMuxerCtor, jni.ObjectValue(arg0), jni.IntValue(arg1))
 		if err != nil {

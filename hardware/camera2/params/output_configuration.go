@@ -32,6 +32,12 @@ func NewOutputConfiguration(vm *jni.VM, arg0 *jni.Object) (*OutputConfiguration,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsOutputConfiguration == nil {
+			return fmt.Errorf("android.hardware.camera2.params.OutputConfiguration is not available on this device")
+		}
+		if midOutputConfigurationCtor == nil {
+			return fmt.Errorf("android.hardware.camera2.params.OutputConfiguration constructor (Landroid/view/Surface;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsOutputConfiguration)), midOutputConfigurationCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -675,29 +681,6 @@ func (m *OutputConfiguration) SetTimestampBase(arg0 int32) error {
 	return callErr
 }
 
-// WriteToParcel calls android.hardware.camera2.params.OutputConfiguration.writeToParcel.
-func (m *OutputConfiguration) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midOutputConfigurationWriteToParcel == nil {
-			callErr = fmt.Errorf("android.hardware.camera2.params.OutputConfiguration.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midOutputConfigurationWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.hardware.camera2.params.OutputConfiguration.toString.
 func (m *OutputConfiguration) ToString() (string, error) {
 	var result string
@@ -756,4 +739,27 @@ func (m *OutputConfiguration) CreateInstancesForMultiResolutionOutput(arg0 *jni.
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.hardware.camera2.params.OutputConfiguration.writeToParcel.
+func (m *OutputConfiguration) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midOutputConfigurationWriteToParcel == nil {
+			callErr = fmt.Errorf("android.hardware.camera2.params.OutputConfiguration.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsOutputConfiguration)),
+			midOutputConfigurationWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

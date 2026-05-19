@@ -43,11 +43,12 @@ var (
 	midManagerToString                  jni.MethodID
 
 	clsManagerAlarmClockInfo                 *jni.GlobalRef
+	midManagerAlarmClockInfoCtor             jni.MethodID
 	midManagerAlarmClockInfoDescribeContents jni.MethodID
 	midManagerAlarmClockInfoGetShowIntent    jni.MethodID
 	midManagerAlarmClockInfoGetTriggerTime   jni.MethodID
-	midManagerAlarmClockInfoWriteToParcel    jni.MethodID
 	midManagerAlarmClockInfoToString         jni.MethodID
+	midManagerAlarmClockInfoWriteToParcel    jni.MethodID
 
 	clsManagerOnAlarmListener         *jni.GlobalRef
 	midManagerOnAlarmListenerOnAlarm  jni.MethodID
@@ -208,6 +209,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsManagerAlarmClockInfo = env.NewGlobalRef(&c.Object)
+		midManagerAlarmClockInfoCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerAlarmClockInfo)), "<init>", "(JLandroid/app/PendingIntent;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midManagerAlarmClockInfoDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerAlarmClockInfo)), "describeContents", "()I")
 		if err != nil {
@@ -230,14 +235,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midManagerAlarmClockInfoWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerAlarmClockInfo)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midManagerAlarmClockInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerAlarmClockInfo)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midManagerAlarmClockInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerAlarmClockInfo)), "toString", "()Ljava/lang/String;")
+		midManagerAlarmClockInfoWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManagerAlarmClockInfo)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

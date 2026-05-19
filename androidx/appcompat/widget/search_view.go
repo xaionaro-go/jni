@@ -32,6 +32,12 @@ func NewSearchView(vm *jni.VM, arg0 *jni.Object) (*SearchView, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSearchView == nil {
+			return fmt.Errorf("androidx.appcompat.widget.SearchView is not available on this device")
+		}
+		if midSearchViewCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.SearchView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSearchView)), midSearchViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

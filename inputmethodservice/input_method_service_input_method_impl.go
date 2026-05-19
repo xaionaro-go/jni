@@ -23,6 +23,35 @@ type InputMethodServiceInputMethodImpl struct {
 	Obj *jni.GlobalRef
 }
 
+// NewInputMethodServiceInputMethodImpl creates a new android.inputmethodservice.InputMethodService$InputMethodImpl instance.
+func NewInputMethodServiceInputMethodImpl(vm *jni.VM, arg0 *jni.Object) (*InputMethodServiceInputMethodImpl, error) {
+	var t InputMethodServiceInputMethodImpl
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsInputMethodServiceInputMethodImpl == nil {
+			return fmt.Errorf("android.inputmethodservice.InputMethodService$InputMethodImpl is not available on this device")
+		}
+		if midInputMethodServiceInputMethodImplCtor == nil {
+			return fmt.Errorf("android.inputmethodservice.InputMethodService$InputMethodImpl constructor (Landroid/inputmethodservice/InputMethodService;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInputMethodServiceInputMethodImpl)), midInputMethodServiceInputMethodImplCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AttachToken calls android.inputmethodservice.InputMethodService$InputMethodImpl.attachToken.
 func (m *InputMethodServiceInputMethodImpl) AttachToken(arg0 *jni.Object) error {
 

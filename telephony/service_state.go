@@ -32,6 +32,12 @@ func NewServiceState(vm *jni.VM) (*ServiceState, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsServiceState == nil {
+			return fmt.Errorf("android.telephony.ServiceState is not available on this device")
+		}
+		if midServiceStateCtor == nil {
+			return fmt.Errorf("android.telephony.ServiceState constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsServiceState)), midServiceStateCtor)
 		if err != nil {
 			return err
@@ -707,8 +713,8 @@ func (m *ServiceState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsServiceState)),
 			midServiceStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

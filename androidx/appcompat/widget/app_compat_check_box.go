@@ -32,6 +32,12 @@ func NewAppCompatCheckBox(vm *jni.VM, arg0 *jni.Object) (*AppCompatCheckBox, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppCompatCheckBox == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatCheckBox is not available on this device")
+		}
+		if midAppCompatCheckBoxCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatCheckBox constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBox)), midAppCompatCheckBoxCtor, jni.ObjectValue(arg0))
 		if err != nil {

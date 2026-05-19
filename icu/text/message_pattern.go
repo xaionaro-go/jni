@@ -32,6 +32,12 @@ func NewMessagePattern(vm *jni.VM) (*MessagePattern, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMessagePattern == nil {
+			return fmt.Errorf("android.icu.text.MessagePattern is not available on this device")
+		}
+		if midMessagePatternCtor == nil {
+			return fmt.Errorf("android.icu.text.MessagePattern constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMessagePattern)), midMessagePatternCtor)
 		if err != nil {
 			return err
@@ -149,8 +155,8 @@ func (m *MessagePattern) Clone() (*jni.Object, error) {
 	return result, callErr
 }
 
-// CloneAsThawed0 calls android.icu.text.MessagePattern.cloneAsThawed.
-func (m *MessagePattern) CloneAsThawed0() (*jni.Object, error) {
+// CloneAsThawed calls android.icu.text.MessagePattern.cloneAsThawed.
+func (m *MessagePattern) CloneAsThawed() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -158,13 +164,13 @@ func (m *MessagePattern) CloneAsThawed0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midMessagePatternCloneAsThawed0 == nil {
+		if midMessagePatternCloneAsThawed == nil {
 			callErr = fmt.Errorf("android.icu.text.MessagePattern.cloneAsThawed is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midMessagePatternCloneAsThawed0,
+			midMessagePatternCloneAsThawed,
 		)
 		if callErr != nil {
 			return callErr
@@ -234,8 +240,8 @@ func (m *MessagePattern) Equals(arg0 *jni.Object) (bool, error) {
 	return result, callErr
 }
 
-// Freeze0 calls android.icu.text.MessagePattern.freeze.
-func (m *MessagePattern) Freeze0() (*jni.Object, error) {
+// Freeze calls android.icu.text.MessagePattern.freeze.
+func (m *MessagePattern) Freeze() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -243,13 +249,13 @@ func (m *MessagePattern) Freeze0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midMessagePatternFreeze0 == nil {
+		if midMessagePatternFreeze == nil {
 			callErr = fmt.Errorf("android.icu.text.MessagePattern.freeze is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midMessagePatternFreeze0,
+			midMessagePatternFreeze,
 		)
 		if callErr != nil {
 			return callErr
@@ -837,70 +843,6 @@ func (m *MessagePattern) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
-		return callErr
-	})
-	return result, callErr
-}
-
-// Freeze0_1 calls android.icu.text.MessagePattern.freeze.
-func (m *MessagePattern) Freeze0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMessagePatternFreeze0_1 == nil {
-			callErr = fmt.Errorf("android.icu.text.MessagePattern.freeze is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMessagePatternFreeze0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// CloneAsThawed0_1 calls android.icu.text.MessagePattern.cloneAsThawed.
-func (m *MessagePattern) CloneAsThawed0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMessagePatternCloneAsThawed0_1 == nil {
-			callErr = fmt.Errorf("android.icu.text.MessagePattern.cloneAsThawed is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMessagePatternCloneAsThawed0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
 		return callErr
 	})
 	return result, callErr

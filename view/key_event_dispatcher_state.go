@@ -23,6 +23,34 @@ type KeyEventDispatcherState struct {
 	Obj *jni.GlobalRef
 }
 
+// NewKeyEventDispatcherState creates a new android.view.KeyEvent$DispatcherState instance.
+func NewKeyEventDispatcherState(vm *jni.VM) (*KeyEventDispatcherState, error) {
+	var t KeyEventDispatcherState
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsKeyEventDispatcherState == nil {
+			return fmt.Errorf("android.view.KeyEvent$DispatcherState is not available on this device")
+		}
+		if midKeyEventDispatcherStateCtor == nil {
+			return fmt.Errorf("android.view.KeyEvent$DispatcherState constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyEventDispatcherState)), midKeyEventDispatcherStateCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // HandleUpEvent calls android.view.KeyEvent$DispatcherState.handleUpEvent.
 func (m *KeyEventDispatcherState) HandleUpEvent(arg0 *jni.Object) error {
 

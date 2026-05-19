@@ -23,6 +23,11 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsTransformationWidget                           *jni.GlobalRef
+	midTransformationWidgetGetExpandedComponentIdHint jni.MethodID
+	midTransformationWidgetSetExpandedComponentIdHint jni.MethodID
+	midTransformationWidgetToString                   jni.MethodID
+
 	clsWidgetHelper                           *jni.GlobalRef
 	midWidgetHelperCtor                       jni.MethodID
 	midWidgetHelperSetExpanded                jni.MethodID
@@ -37,11 +42,6 @@ var (
 	midWidgetIsExpanded  jni.MethodID
 	midWidgetSetExpanded jni.MethodID
 	midWidgetToString    jni.MethodID
-
-	clsTransformationWidget                           *jni.GlobalRef
-	midTransformationWidgetGetExpandedComponentIdHint jni.MethodID
-	midTransformationWidgetSetExpandedComponentIdHint jni.MethodID
-	midTransformationWidgetToString                   jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -61,6 +61,37 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("com/google/android/material/expandable/ExpandableTransformationWidget")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTransformationWidget = env.NewGlobalRef(&c.Object)
+
+		midTransformationWidgetGetExpandedComponentIdHint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTransformationWidget)), "getExpandedComponentIdHint", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTransformationWidgetSetExpandedComponentIdHint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTransformationWidget)), "setExpandedComponentIdHint", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTransformationWidgetToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTransformationWidget)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("com/google/android/material/expandable/ExpandableWidgetHelper")
 	if err != nil {
@@ -148,37 +179,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midWidgetToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidget)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/expandable/ExpandableTransformationWidget")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTransformationWidget = env.NewGlobalRef(&c.Object)
-
-		midTransformationWidgetGetExpandedComponentIdHint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTransformationWidget)), "getExpandedComponentIdHint", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTransformationWidgetSetExpandedComponentIdHint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTransformationWidget)), "setExpandedComponentIdHint", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTransformationWidgetToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTransformationWidget)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

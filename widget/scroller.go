@@ -32,6 +32,12 @@ func NewScroller(vm *jni.VM, arg0 *jni.Object) (*Scroller, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsScroller == nil {
+			return fmt.Errorf("android.widget.Scroller is not available on this device")
+		}
+		if midScrollerCtor == nil {
+			return fmt.Errorf("android.widget.Scroller constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScroller)), midScrollerCtor, jni.ObjectValue(arg0))
 		if err != nil {

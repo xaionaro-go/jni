@@ -32,6 +32,12 @@ func NewPasswordTransformationMethod(vm *jni.VM) (*PasswordTransformationMethod,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPasswordTransformationMethod == nil {
+			return fmt.Errorf("android.text.method.PasswordTransformationMethod is not available on this device")
+		}
+		if midPasswordTransformationMethodCtor == nil {
+			return fmt.Errorf("android.text.method.PasswordTransformationMethod constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPasswordTransformationMethod)), midPasswordTransformationMethodCtor)
 		if err != nil {
 			return err

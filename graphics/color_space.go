@@ -450,39 +450,6 @@ func (m *ColorSpace) ToXyz3(
 	return result, callErr
 }
 
-// ToXyz1_1 calls android.graphics.ColorSpace.toXyz.
-func (m *ColorSpace) ToXyz1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midColorSpaceToXyz1_1 == nil {
-			callErr = fmt.Errorf("android.graphics.ColorSpace.toXyz is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midColorSpaceToXyz1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // Adapt2 calls android.graphics.ColorSpace.adapt.
 func (m *ColorSpace) Adapt2(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
@@ -842,6 +809,39 @@ func (m *ColorSpace) Match(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, err
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsColorSpace)),
 			midColorSpaceMatch, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// ToXyz1_1 calls android.graphics.ColorSpace.toXyz.
+func (m *ColorSpace) ToXyz1_1(arg0 *jni.Object) (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midColorSpaceToXyz1_1 == nil {
+			callErr = fmt.Errorf("android.graphics.ColorSpace.toXyz is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsColorSpace)),
+			midColorSpaceToXyz1_1, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr

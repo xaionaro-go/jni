@@ -5,7 +5,9 @@ package params
 import "github.com/AndroidGoLab/jni/hardware/camera2/params/consts"
 
 const (
-	Count                            = consts.Count
+	Creator                          = consts.Creator
+	SessionHighSpeed                 = consts.SessionHighSpeed
+	SessionRegular                   = consts.SessionRegular
 	Usecase10bitOutput               = consts.Usecase10bitOutput
 	UsecaseLowLatencySnapshot        = consts.UsecaseLowLatencySnapshot
 	UsecasePreview                   = consts.UsecasePreview
@@ -14,22 +16,6 @@ const (
 	UsecaseSnapshot                  = consts.UsecaseSnapshot
 	UsecaseVideoSnapshot             = consts.UsecaseVideoSnapshot
 	UsecaseZsl                       = consts.UsecaseZsl
-	IdUnsupported                    = consts.IdUnsupported
-	ScoreMax                         = consts.ScoreMax
-	ScoreMin                         = consts.ScoreMin
-	Unspecified                      = consts.Unspecified
-	MeteringWeightDontCare           = consts.MeteringWeightDontCare
-	MeteringWeightMax                = consts.MeteringWeightMax
-	MeteringWeightMin                = consts.MeteringWeightMin
-	Blue                             = consts.Blue
-	GreenEven                        = consts.GreenEven
-	GreenOdd                         = consts.GreenOdd
-	Red                              = consts.Red
-	ChannelBlue                      = consts.ChannelBlue
-	ChannelGreen                     = consts.ChannelGreen
-	ChannelRed                       = consts.ChannelRed
-	PointSize                        = consts.PointSize
-	Creator                          = consts.Creator
 	MirrorModeAuto                   = consts.MirrorModeAuto
 	MirrorModeH                      = consts.MirrorModeH
 	MirrorModeNone                   = consts.MirrorModeNone
@@ -40,8 +26,22 @@ const (
 	TimestampBaseMonotonic           = consts.TimestampBaseMonotonic
 	TimestampBaseRealtime            = consts.TimestampBaseRealtime
 	TimestampBaseSensor              = consts.TimestampBaseSensor
-	SessionHighSpeed                 = consts.SessionHighSpeed
-	SessionRegular                   = consts.SessionRegular
+	Unspecified                      = consts.Unspecified
+	MeteringWeightDontCare           = consts.MeteringWeightDontCare
+	MeteringWeightMax                = consts.MeteringWeightMax
+	MeteringWeightMin                = consts.MeteringWeightMin
+	IdUnsupported                    = consts.IdUnsupported
+	ScoreMax                         = consts.ScoreMax
+	ScoreMin                         = consts.ScoreMin
+	ChannelBlue                      = consts.ChannelBlue
+	ChannelGreen                     = consts.ChannelGreen
+	ChannelRed                       = consts.ChannelRed
+	PointSize                        = consts.PointSize
+	Count                            = consts.Count
+	Blue                             = consts.Blue
+	GreenEven                        = consts.GreenEven
+	GreenOdd                         = consts.GreenOdd
+	Red                              = consts.Red
 )
 
 const (

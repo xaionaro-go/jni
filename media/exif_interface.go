@@ -32,6 +32,12 @@ func NewExifInterface(vm *jni.VM, arg0 *jni.Object) (*ExifInterface, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsExifInterface == nil {
+			return fmt.Errorf("android.media.ExifInterface is not available on this device")
+		}
+		if midExifInterfaceCtor == nil {
+			return fmt.Errorf("android.media.ExifInterface constructor (Ljava/io/File;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExifInterface)), midExifInterfaceCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -32,6 +32,12 @@ func NewSignalingDataInfo(vm *jni.VM, arg0 string, arg1 string, arg2 int32, arg3
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSignalingDataInfo == nil {
+			return fmt.Errorf("android.media.tv.SignalingDataInfo is not available on this device")
+		}
+		if midSignalingDataInfoCtor == nil {
+			return fmt.Errorf("android.media.tv.SignalingDataInfo constructor (Ljava/lang/String;Ljava/lang/String;II)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -213,29 +219,6 @@ func (m *SignalingDataInfo) GetVersion() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.media.tv.SignalingDataInfo.writeToParcel.
-func (m *SignalingDataInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSignalingDataInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.media.tv.SignalingDataInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSignalingDataInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.media.tv.SignalingDataInfo.toString.
 func (m *SignalingDataInfo) ToString() (string, error) {
 	var result string
@@ -261,4 +244,27 @@ func (m *SignalingDataInfo) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.media.tv.SignalingDataInfo.writeToParcel.
+func (m *SignalingDataInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSignalingDataInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.media.tv.SignalingDataInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSignalingDataInfo)),
+			midSignalingDataInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

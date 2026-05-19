@@ -32,6 +32,12 @@ func NewMaterialSideContainerBackHelper(vm *jni.VM, arg0 *jni.Object) (*Material
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialSideContainerBackHelper == nil {
+			return fmt.Errorf("com.google.android.material.motion.MaterialSideContainerBackHelper is not available on this device")
+		}
+		if midMaterialSideContainerBackHelperCtor == nil {
+			return fmt.Errorf("com.google.android.material.motion.MaterialSideContainerBackHelper constructor (Landroid/view/View;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialSideContainerBackHelper)), midMaterialSideContainerBackHelperCtor, jni.ObjectValue(arg0))
 		if err != nil {

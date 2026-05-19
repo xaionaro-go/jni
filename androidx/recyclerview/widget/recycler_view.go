@@ -32,6 +32,12 @@ func NewRecyclerView(vm *jni.VM, arg0 *jni.Object) (*RecyclerView, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRecyclerView == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.RecyclerView is not available on this device")
+		}
+		if midRecyclerViewCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.RecyclerView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRecyclerView)), midRecyclerViewCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -2318,39 +2324,6 @@ func (m *RecyclerView) FindContainingItemView(arg0 *jni.Object) (*jni.Object, er
 	return result, callErr
 }
 
-// FindContainingViewHolder calls androidx.recyclerview.widget.RecyclerView.findContainingViewHolder.
-func (m *RecyclerView) FindContainingViewHolder(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRecyclerViewFindContainingViewHolder == nil {
-			callErr = fmt.Errorf("androidx.recyclerview.widget.RecyclerView.findContainingViewHolder is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midRecyclerViewFindContainingViewHolder, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // GetChildPosition calls androidx.recyclerview.widget.RecyclerView.getChildPosition.
 func (m *RecyclerView) GetChildPosition(arg0 *jni.Object) (int32, error) {
 	var result int32
@@ -2744,29 +2717,6 @@ func (m *RecyclerView) OffsetChildrenHorizontal(arg0 int32) error {
 	return callErr
 }
 
-// GetDecoratedBoundsWithMargins calls androidx.recyclerview.widget.RecyclerView.getDecoratedBoundsWithMargins.
-func (m *RecyclerView) GetDecoratedBoundsWithMargins(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRecyclerViewGetDecoratedBoundsWithMargins == nil {
-			callErr = fmt.Errorf("androidx.recyclerview.widget.RecyclerView.getDecoratedBoundsWithMargins is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midRecyclerViewGetDecoratedBoundsWithMargins, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // OnScrolled calls androidx.recyclerview.widget.RecyclerView.onScrolled.
 func (m *RecyclerView) OnScrolled(arg0 int32, arg1 int32) error {
 
@@ -2811,33 +2761,6 @@ func (m *RecyclerView) OnScrollStateChanged(arg0 int32) error {
 		return callErr
 	})
 	return callErr
-}
-
-// HasPendingAdapterUpdates calls androidx.recyclerview.widget.RecyclerView.hasPendingAdapterUpdates.
-func (m *RecyclerView) HasPendingAdapterUpdates() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRecyclerViewHasPendingAdapterUpdates == nil {
-			callErr = fmt.Errorf("androidx.recyclerview.widget.RecyclerView.hasPendingAdapterUpdates is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midRecyclerViewHasPendingAdapterUpdates,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
 }
 
 // SetNestedScrollingEnabled calls androidx.recyclerview.widget.RecyclerView.setNestedScrollingEnabled.
@@ -3361,4 +3284,87 @@ func (m *RecyclerView) SetVerboseLoggingEnabled(arg0 bool) error {
 		return callErr
 	})
 	return callErr
+}
+
+// FindContainingViewHolder calls androidx.recyclerview.widget.RecyclerView.findContainingViewHolder.
+func (m *RecyclerView) FindContainingViewHolder(arg0 *jni.Object) (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRecyclerViewFindContainingViewHolder == nil {
+			callErr = fmt.Errorf("androidx.recyclerview.widget.RecyclerView.findContainingViewHolder is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsRecyclerView)),
+			midRecyclerViewFindContainingViewHolder, jni.ObjectValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetDecoratedBoundsWithMargins calls androidx.recyclerview.widget.RecyclerView.getDecoratedBoundsWithMargins.
+func (m *RecyclerView) GetDecoratedBoundsWithMargins(arg0 *jni.Object, arg1 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRecyclerViewGetDecoratedBoundsWithMargins == nil {
+			callErr = fmt.Errorf("androidx.recyclerview.widget.RecyclerView.getDecoratedBoundsWithMargins is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsRecyclerView)),
+			midRecyclerViewGetDecoratedBoundsWithMargins, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
+}
+
+// HasPendingAdapterUpdates calls androidx.recyclerview.widget.RecyclerView.hasPendingAdapterUpdates.
+func (m *RecyclerView) HasPendingAdapterUpdates() (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRecyclerViewHasPendingAdapterUpdates == nil {
+			callErr = fmt.Errorf("androidx.recyclerview.widget.RecyclerView.hasPendingAdapterUpdates is not available on this device")
+			return callErr
+		}
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsRecyclerView)),
+			midRecyclerViewHasPendingAdapterUpdates,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
+		return callErr
+	})
+	return result, callErr
 }

@@ -32,6 +32,12 @@ func NewFloatArrayEvaluator(vm *jni.VM) (*FloatArrayEvaluator, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFloatArrayEvaluator == nil {
+			return fmt.Errorf("android.animation.FloatArrayEvaluator is not available on this device")
+		}
+		if midFloatArrayEvaluatorCtor == nil {
+			return fmt.Errorf("android.animation.FloatArrayEvaluator constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFloatArrayEvaluator)), midFloatArrayEvaluatorCtor)
 		if err != nil {
 			return err
@@ -45,8 +51,8 @@ func NewFloatArrayEvaluator(vm *jni.VM) (*FloatArrayEvaluator, error) {
 	return &t, nil
 }
 
-// Evaluate3 calls android.animation.FloatArrayEvaluator.evaluate.
-func (m *FloatArrayEvaluator) Evaluate3(
+// Evaluate calls android.animation.FloatArrayEvaluator.evaluate.
+func (m *FloatArrayEvaluator) Evaluate(
 	arg0 float32,
 	arg1 *jni.Object,
 	arg2 *jni.Object,
@@ -58,51 +64,14 @@ func (m *FloatArrayEvaluator) Evaluate3(
 			callErr = err
 			return err
 		}
-		if midFloatArrayEvaluatorEvaluate3 == nil {
+		if midFloatArrayEvaluatorEvaluate == nil {
 			callErr = fmt.Errorf("android.animation.FloatArrayEvaluator.evaluate is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midFloatArrayEvaluatorEvaluate3, jni.FloatValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Evaluate3_1 calls android.animation.FloatArrayEvaluator.evaluate.
-func (m *FloatArrayEvaluator) Evaluate3_1(
-	arg0 float32,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFloatArrayEvaluatorEvaluate3_1 == nil {
-			callErr = fmt.Errorf("android.animation.FloatArrayEvaluator.evaluate is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midFloatArrayEvaluatorEvaluate3_1, jni.FloatValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
+			midFloatArrayEvaluatorEvaluate, jni.FloatValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
 		)
 		if callErr != nil {
 			return callErr

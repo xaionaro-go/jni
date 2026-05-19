@@ -5,15 +5,15 @@ package rtp
 import "github.com/AndroidGoLab/jni/net/rtp/consts"
 
 const (
+	ModeEchoSuppression = consts.ModeEchoSuppression
+	ModeMuted           = consts.ModeMuted
+	ModeNormal          = consts.ModeNormal
+	ModeOnHold          = consts.ModeOnHold
 	Amr                 = consts.Amr
 	Gsm                 = consts.Gsm
 	GsmEfr              = consts.GsmEfr
 	Pcma                = consts.Pcma
 	Pcmu                = consts.Pcmu
-	ModeEchoSuppression = consts.ModeEchoSuppression
-	ModeMuted           = consts.ModeMuted
-	ModeNormal          = consts.ModeNormal
-	ModeOnHold          = consts.ModeOnHold
 	ModeReceiveOnly     = consts.ModeReceiveOnly
 	ModeSendOnly        = consts.ModeSendOnly
 )

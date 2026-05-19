@@ -32,6 +32,12 @@ func NewIncorrectContextUseViolation(vm *jni.VM, arg0 string, arg1 *jni.Object) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsIncorrectContextUseViolation == nil {
+			return fmt.Errorf("android.os.strictmode.IncorrectContextUseViolation is not available on this device")
+		}
+		if midIncorrectContextUseViolationCtor == nil {
+			return fmt.Errorf("android.os.strictmode.IncorrectContextUseViolation constructor (Ljava/lang/String;Ljava/lang/Throwable;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

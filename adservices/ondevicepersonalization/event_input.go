@@ -32,6 +32,12 @@ func NewEventInput(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*EventInput,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEventInput == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.EventInput is not available on this device")
+		}
+		if midEventInputCtor == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.EventInput constructor (Landroid/adservices/ondevicepersonalization/RequestLogRecord;Landroid/os/PersistableBundle;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEventInput)), midEventInputCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

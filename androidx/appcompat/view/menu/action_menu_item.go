@@ -32,6 +32,12 @@ func NewActionMenuItem(vm *jni.VM, arg0 *jni.Object, arg1 int32, arg2 int32, arg
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsActionMenuItem == nil {
+			return fmt.Errorf("androidx.appcompat.view.menu.ActionMenuItem is not available on this device")
+		}
+		if midActionMenuItemCtor == nil {
+			return fmt.Errorf("androidx.appcompat.view.menu.ActionMenuItem constructor (Landroid/content/Context;IIIILjava/lang/CharSequence;)V is not available on this device")
+		}
 
 		jArg5, err := env.NewStringUTF(arg5)
 		if err != nil {
@@ -1515,8 +1521,8 @@ func (m *ActionMenuItem) SetSupportActionProvider(arg0 *jni.Object) (*jni.Object
 	return result, callErr
 }
 
-// SetShowAsActionFlags1 calls androidx.appcompat.view.menu.ActionMenuItem.setShowAsActionFlags.
-func (m *ActionMenuItem) SetShowAsActionFlags1(arg0 int32) (*jni.Object, error) {
+// SetShowAsActionFlags calls androidx.appcompat.view.menu.ActionMenuItem.setShowAsActionFlags.
+func (m *ActionMenuItem) SetShowAsActionFlags(arg0 int32) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1524,14 +1530,14 @@ func (m *ActionMenuItem) SetShowAsActionFlags1(arg0 int32) (*jni.Object, error) 
 			callErr = err
 			return err
 		}
-		if midActionMenuItemSetShowAsActionFlags1 == nil {
+		if midActionMenuItemSetShowAsActionFlags == nil {
 			callErr = fmt.Errorf("androidx.appcompat.view.menu.ActionMenuItem.setShowAsActionFlags is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActionMenuItemSetShowAsActionFlags1, jni.IntValue(arg0),
+			midActionMenuItemSetShowAsActionFlags, jni.IntValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1662,8 +1668,8 @@ func (m *ActionMenuItem) SetOnActionExpandListener(arg0 *jni.Object) (*jni.Objec
 	return result, callErr
 }
 
-// SetContentDescription1 calls androidx.appcompat.view.menu.ActionMenuItem.setContentDescription.
-func (m *ActionMenuItem) SetContentDescription1(arg0 string) (*jni.Object, error) {
+// SetContentDescription calls androidx.appcompat.view.menu.ActionMenuItem.setContentDescription.
+func (m *ActionMenuItem) SetContentDescription(arg0 string) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1671,7 +1677,7 @@ func (m *ActionMenuItem) SetContentDescription1(arg0 string) (*jni.Object, error
 			callErr = err
 			return err
 		}
-		if midActionMenuItemSetContentDescription1 == nil {
+		if midActionMenuItemSetContentDescription == nil {
 			callErr = fmt.Errorf("androidx.appcompat.view.menu.ActionMenuItem.setContentDescription is not available on this device")
 			return callErr
 		}
@@ -1683,7 +1689,7 @@ func (m *ActionMenuItem) SetContentDescription1(arg0 string) (*jni.Object, error
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActionMenuItemSetContentDescription1, jni.ObjectValue(&jArg0.Object),
+			midActionMenuItemSetContentDescription, jni.ObjectValue(&jArg0.Object),
 		)
 		if callErr != nil {
 			return callErr
@@ -1732,8 +1738,8 @@ func (m *ActionMenuItem) GetContentDescription() (*jni.Object, error) {
 	return result, callErr
 }
 
-// SetTooltipText1 calls androidx.appcompat.view.menu.ActionMenuItem.setTooltipText.
-func (m *ActionMenuItem) SetTooltipText1(arg0 string) (*jni.Object, error) {
+// SetTooltipText calls androidx.appcompat.view.menu.ActionMenuItem.setTooltipText.
+func (m *ActionMenuItem) SetTooltipText(arg0 string) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1741,7 +1747,7 @@ func (m *ActionMenuItem) SetTooltipText1(arg0 string) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midActionMenuItemSetTooltipText1 == nil {
+		if midActionMenuItemSetTooltipText == nil {
 			callErr = fmt.Errorf("androidx.appcompat.view.menu.ActionMenuItem.setTooltipText is not available on this device")
 			return callErr
 		}
@@ -1753,7 +1759,7 @@ func (m *ActionMenuItem) SetTooltipText1(arg0 string) (*jni.Object, error) {
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActionMenuItemSetTooltipText1, jni.ObjectValue(&jArg0.Object),
+			midActionMenuItemSetTooltipText, jni.ObjectValue(&jArg0.Object),
 		)
 		if callErr != nil {
 			return callErr
@@ -1916,181 +1922,6 @@ func (m *ActionMenuItem) GetIconTintMode() (*jni.Object, error) {
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
 			midActionMenuItemGetIconTintMode,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetActionView1_2 calls androidx.appcompat.view.menu.ActionMenuItem.setActionView.
-func (m *ActionMenuItem) SetActionView1_2(arg0 int32) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActionMenuItemSetActionView1_2 == nil {
-			callErr = fmt.Errorf("androidx.appcompat.view.menu.ActionMenuItem.setActionView is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActionMenuItemSetActionView1_2, jni.IntValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetActionView1_3 calls androidx.appcompat.view.menu.ActionMenuItem.setActionView.
-func (m *ActionMenuItem) SetActionView1_3(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActionMenuItemSetActionView1_3 == nil {
-			callErr = fmt.Errorf("androidx.appcompat.view.menu.ActionMenuItem.setActionView is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActionMenuItemSetActionView1_3, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetShowAsActionFlags1_1 calls androidx.appcompat.view.menu.ActionMenuItem.setShowAsActionFlags.
-func (m *ActionMenuItem) SetShowAsActionFlags1_1(arg0 int32) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActionMenuItemSetShowAsActionFlags1_1 == nil {
-			callErr = fmt.Errorf("androidx.appcompat.view.menu.ActionMenuItem.setShowAsActionFlags is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActionMenuItemSetShowAsActionFlags1_1, jni.IntValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetTooltipText1_1 calls androidx.appcompat.view.menu.ActionMenuItem.setTooltipText.
-func (m *ActionMenuItem) SetTooltipText1_1(arg0 string) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActionMenuItemSetTooltipText1_1 == nil {
-			callErr = fmt.Errorf("androidx.appcompat.view.menu.ActionMenuItem.setTooltipText is not available on this device")
-			return callErr
-		}
-		jArg0, err := env.NewStringUTF(arg0)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg0.Object)
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActionMenuItemSetTooltipText1_1, jni.ObjectValue(&jArg0.Object),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetContentDescription1_1 calls androidx.appcompat.view.menu.ActionMenuItem.setContentDescription.
-func (m *ActionMenuItem) SetContentDescription1_1(arg0 string) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActionMenuItemSetContentDescription1_1 == nil {
-			callErr = fmt.Errorf("androidx.appcompat.view.menu.ActionMenuItem.setContentDescription is not available on this device")
-			return callErr
-		}
-		jArg0, err := env.NewStringUTF(arg0)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg0.Object)
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActionMenuItemSetContentDescription1_1, jni.ObjectValue(&jArg0.Object),
 		)
 		if callErr != nil {
 			return callErr

@@ -32,6 +32,12 @@ func NewFlowLayout(vm *jni.VM, arg0 *jni.Object) (*FlowLayout, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFlowLayout == nil {
+			return fmt.Errorf("com.google.android.material.internal.FlowLayout is not available on this device")
+		}
+		if midFlowLayoutCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.FlowLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFlowLayout)), midFlowLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {

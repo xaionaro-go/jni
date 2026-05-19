@@ -32,6 +32,12 @@ func NewAccessControlProfileId(vm *jni.VM, arg0 int32) (*AccessControlProfileId,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAccessControlProfileId == nil {
+			return fmt.Errorf("android.security.identity.AccessControlProfileId is not available on this device")
+		}
+		if midAccessControlProfileIdCtor == nil {
+			return fmt.Errorf("android.security.identity.AccessControlProfileId constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAccessControlProfileId)), midAccessControlProfileIdCtor, jni.IntValue(arg0))
 		if err != nil {

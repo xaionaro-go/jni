@@ -23,6 +23,34 @@ type IUnusedAppRestrictionsBackportServiceDefault struct {
 	Obj *jni.GlobalRef
 }
 
+// NewIUnusedAppRestrictionsBackportServiceDefault creates a new androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportService$Default instance.
+func NewIUnusedAppRestrictionsBackportServiceDefault(vm *jni.VM) (*IUnusedAppRestrictionsBackportServiceDefault, error) {
+	var t IUnusedAppRestrictionsBackportServiceDefault
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsIUnusedAppRestrictionsBackportServiceDefault == nil {
+			return fmt.Errorf("androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportService$Default is not available on this device")
+		}
+		if midIUnusedAppRestrictionsBackportServiceDefaultCtor == nil {
+			return fmt.Errorf("androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportService$Default constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIUnusedAppRestrictionsBackportServiceDefault)), midIUnusedAppRestrictionsBackportServiceDefaultCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // IsPermissionRevocationEnabledForApp calls androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportService$Default.isPermissionRevocationEnabledForApp.
 func (m *IUnusedAppRestrictionsBackportServiceDefault) IsPermissionRevocationEnabledForApp(arg0 *jni.Object) error {
 

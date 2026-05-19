@@ -18,16 +18,6 @@ const (
 	StateAllow                         = consts.StateAllow
 	StateDisallow                      = consts.StateDisallow
 	StateUnset                         = consts.StateUnset
-	FlagRelevantAlways                 = consts.FlagRelevantAlways
-	FlagRelevantNow                    = consts.FlagRelevantNow
-	SourceContext                      = consts.SourceContext
-	SourceSchedule                     = consts.SourceSchedule
-	SourceUnknown                      = consts.SourceUnknown
-	SourceUserAction                   = consts.SourceUserAction
-	StateError                         = consts.StateError
-	StateFalse                         = consts.StateFalse
-	StateTrue                          = consts.StateTrue
-	StateUnknown                       = consts.StateUnknown
 	FlagFilterTypeAlerting             = consts.FlagFilterTypeAlerting
 	FlagFilterTypeConversations        = consts.FlagFilterTypeConversations
 	FlagFilterTypeOngoing              = consts.FlagFilterTypeOngoing
@@ -72,10 +62,19 @@ const (
 	UserSentimentNeutral               = consts.UserSentimentNeutral
 	UserSentimentPositive              = consts.UserSentimentPositive
 	VisibilityNoOverride               = consts.VisibilityNoOverride
+	FlagRelevantAlways                 = consts.FlagRelevantAlways
+	FlagRelevantNow                    = consts.FlagRelevantNow
+	SourceContext                      = consts.SourceContext
+	SourceSchedule                     = consts.SourceSchedule
+	SourceUnknown                      = consts.SourceUnknown
+	SourceUserAction                   = consts.SourceUserAction
+	StateError                         = consts.StateError
+	StateFalse                         = consts.StateFalse
+	StateTrue                          = consts.StateTrue
+	StateUnknown                       = consts.StateUnknown
 )
 
 const (
-	Scheme                        = consts.Scheme
 	ActionSettingsHome            = consts.ActionSettingsHome
 	MetaDataDefaultAutobind       = consts.MetaDataDefaultAutobind
 	MetaDataDefaultFilterTypes    = consts.MetaDataDefaultFilterTypes
@@ -85,4 +84,5 @@ const (
 	MetaDataConfigurationActivity = consts.MetaDataConfigurationActivity
 	MetaDataRuleInstanceLimit     = consts.MetaDataRuleInstanceLimit
 	MetaDataRuleType              = consts.MetaDataRuleType
+	Scheme                        = consts.Scheme
 )

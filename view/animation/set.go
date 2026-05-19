@@ -32,6 +32,12 @@ func NewSet(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Set, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSet == nil {
+			return fmt.Errorf("android.view.animation.AnimationSet is not available on this device")
+		}
+		if midSetCtor == nil {
+			return fmt.Errorf("android.view.animation.AnimationSet constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSet)), midSetCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

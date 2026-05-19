@@ -23,6 +23,34 @@ type TtsSpanDigitsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTtsSpanDigitsBuilder creates a new android.text.style.TtsSpan$DigitsBuilder instance.
+func NewTtsSpanDigitsBuilder(vm *jni.VM) (*TtsSpanDigitsBuilder, error) {
+	var t TtsSpanDigitsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTtsSpanDigitsBuilder == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$DigitsBuilder is not available on this device")
+		}
+		if midTtsSpanDigitsBuilderCtor == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$DigitsBuilder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTtsSpanDigitsBuilder)), midTtsSpanDigitsBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetDigits calls android.text.style.TtsSpan$DigitsBuilder.setDigits.
 func (m *TtsSpanDigitsBuilder) SetDigits(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

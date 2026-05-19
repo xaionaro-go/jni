@@ -5,56 +5,6 @@
 package: versionedparcelable
 go_import: github.com/AndroidGoLab/jni/androidx/versionedparcelable
 classes:
-    - java_class: androidx.versionedparcelable.ParcelUtils
-      go_type: ParcelUtils
-      static_methods:
-        - java_method: toParcelable
-          go_name: ToParcelable
-          params:
-            - java_type: androidx.versionedparcelable.VersionedParcelable
-              go_name: arg0
-          returns: android.os.Parcelable
-          error: true
-        - java_method: toOutputStream
-          go_name: ToOutputStream
-          params:
-            - java_type: androidx.versionedparcelable.VersionedParcelable
-              go_name: arg0
-            - java_type: java.io.OutputStream
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: putVersionedParcelable
-          go_name: PutVersionedParcelable
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: androidx.versionedparcelable.VersionedParcelable
-              go_name: arg2
-          returns: void
-          error: true
-    - java_class: androidx.versionedparcelable.ParcelImpl
-      go_type: ParcelImpl
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.versionedparcelable.VersionedParcelable
-          go_name: arg0
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
     - java_class: androidx.versionedparcelable.VersionedParcel
       go_type: VersionedParcel
       methods:
@@ -418,12 +368,16 @@ classes:
           returns: void
           error: true
         - java_method: readDoubleArray
-          go_name: ReadDoubleArray
+          go_name: ReadDoubleArray2
           params:
             - java_type: double[]
               go_name: arg0
             - java_type: int
               go_name: arg1
+          returns: double[]
+          error: true
+        - java_method: readDoubleArray
+          go_name: ReadDoubleArray0_1
           returns: double[]
           error: true
         - java_method: writeVersionedParcelable
@@ -500,8 +454,47 @@ classes:
           error: true
     - java_class: androidx.versionedparcelable.VersionedParcel$ParcelException
       go_type: VersionedParcelParcelException
+      obtain: constructor
+      constructor_params:
+        - java_type: java.lang.Throwable
+          go_name: arg0
     - java_class: androidx.versionedparcelable.NonParcelField
       go_type: NonParcelField
+    - java_class: androidx.versionedparcelable.ParcelImpl
+      go_type: ParcelImpl
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.versionedparcelable.VersionedParcelable
+          go_name: arg0
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: androidx.versionedparcelable.CustomVersionedParcelable
+      go_type: CustomVersionedParcelable
+      methods:
+        - java_method: onPreParceling
+          go_name: OnPreParceling
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onPostParceling
+          go_name: OnPostParceling
+          returns: void
+          error: true
     - java_class: androidx.versionedparcelable.VersionedParcelize
       go_type: VersionedParcelize
       methods:
@@ -529,8 +522,6 @@ classes:
           go_name: Factory
           returns: java.lang.Class
           error: true
-    - java_class: androidx.versionedparcelable.VersionedParcelable
-      go_type: VersionedParcelable
     - java_class: androidx.versionedparcelable.ParcelField
       go_type: ParcelField
       methods:
@@ -542,330 +533,45 @@ classes:
           go_name: DefaultValue
           returns: String
           error: true
-    - java_class: androidx.versionedparcelable.CustomVersionedParcelable
-      go_type: CustomVersionedParcelable
-      methods:
-        - java_method: onPreParceling
-          go_name: OnPreParceling
+    - java_class: androidx.versionedparcelable.VersionedParcelable
+      go_type: VersionedParcelable
+    - java_class: androidx.versionedparcelable.ParcelUtils
+      go_type: ParcelUtils
+      static_methods:
+        - java_method: toParcelable
+          go_name: ToParcelable
           params:
-            - java_type: boolean
+            - java_type: androidx.versionedparcelable.VersionedParcelable
               go_name: arg0
+          returns: android.os.Parcelable
+          error: true
+        - java_method: toOutputStream
+          go_name: ToOutputStream
+          params:
+            - java_type: androidx.versionedparcelable.VersionedParcelable
+              go_name: arg0
+            - java_type: java.io.OutputStream
+              go_name: arg1
           returns: void
           error: true
-        - java_method: onPostParceling
-          go_name: OnPostParceling
+        - java_method: putVersionedParcelable
+          go_name: PutVersionedParcelable
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: androidx.versionedparcelable.VersionedParcelable
+              go_name: arg2
           returns: void
           error: true
-abstract_callbacks:
+abstract_callback_eligibility:
     - java_class: androidx.versionedparcelable.VersionedParcel
-      go_type: VersionedParcelCallback
-      methods:
-        - java_method: isStream
-          params: []
-          returns: boolean
-          go_field: IsStream
-        - java_method: setSerializationFlags
-          params:
-            - boolean
-            - boolean
-          returns: void
-          go_field: SetSerializationFlags
-        - java_method: writeStrongInterface
-          params:
-            - android.os.IInterface
-            - int
-          returns: void
-          go_field: WriteStrongInterface
-        - java_method: writeBundle
-          params:
-            - android.os.Bundle
-            - int
-          returns: void
-          go_field: WriteBundle
-        - java_method: writeBoolean
-          params:
-            - boolean
-            - int
-          returns: void
-          go_field: WriteBoolean
-        - java_method: writeByteArray
-          params:
-            - '[B'
-            - int
-          returns: void
-          go_field: WriteByteArray
-        - java_method: writeByteArray
-          params:
-            - '[B'
-            - int
-            - int
-            - int
-          returns: void
-          go_field: WriteByteArray
-        - java_method: writeCharSequence
-          params:
-            - java.lang.CharSequence
-            - int
-          returns: void
-          go_field: WriteCharSequence
-        - java_method: writeInt
-          params:
-            - int
-            - int
-          returns: void
-          go_field: WriteInt
-        - java_method: writeLong
-          params:
-            - long
-            - int
-          returns: void
-          go_field: WriteLong
-        - java_method: writeFloat
-          params:
-            - float
-            - int
-          returns: void
-          go_field: WriteFloat
-        - java_method: writeDouble
-          params:
-            - double
-            - int
-          returns: void
-          go_field: WriteDouble
-        - java_method: writeString
-          params:
-            - String
-            - int
-          returns: void
-          go_field: WriteString
-        - java_method: writeStrongBinder
-          params:
-            - android.os.IBinder
-            - int
-          returns: void
-          go_field: WriteStrongBinder
-        - java_method: writeParcelable
-          params:
-            - android.os.Parcelable
-            - int
-          returns: void
-          go_field: WriteParcelable
-        - java_method: readBoolean
-          params:
-            - boolean
-            - int
-          returns: boolean
-          go_field: ReadBoolean
-        - java_method: readInt
-          params:
-            - int
-            - int
-          returns: int
-          go_field: ReadInt
-        - java_method: readLong
-          params:
-            - long
-            - int
-          returns: long
-          go_field: ReadLong
-        - java_method: readFloat
-          params:
-            - float
-            - int
-          returns: float
-          go_field: ReadFloat
-        - java_method: readDouble
-          params:
-            - double
-            - int
-          returns: double
-          go_field: ReadDouble
-        - java_method: readString
-          params:
-            - String
-            - int
-          returns: String
-          go_field: ReadString
-        - java_method: readStrongBinder
-          params:
-            - android.os.IBinder
-            - int
-          returns: android.os.IBinder
-          go_field: ReadStrongBinder
-        - java_method: readByteArray
-          params:
-            - '[B'
-            - int
-          returns: '[B'
-          go_field: ReadByteArray
-        - java_method: readBundle
-          params:
-            - android.os.Bundle
-            - int
-          returns: android.os.Bundle
-          go_field: ReadBundle
-        - java_method: writeByte
-          params:
-            - byte
-            - int
-          returns: void
-          go_field: WriteByte
-        - java_method: writeSize
-          params:
-            - android.util.Size
-            - int
-          returns: void
-          go_field: WriteSize
-        - java_method: writeSizeF
-          params:
-            - android.util.SizeF
-            - int
-          returns: void
-          go_field: WriteSizeF
-        - java_method: writeSparseBooleanArray
-          params:
-            - android.util.SparseBooleanArray
-            - int
-          returns: void
-          go_field: WriteSparseBooleanArray
-        - java_method: writeBooleanArray
-          params:
-            - boolean[]
-            - int
-          returns: void
-          go_field: WriteBooleanArray
-        - java_method: readBooleanArray
-          params:
-            - boolean[]
-            - int
-          returns: boolean[]
-          go_field: ReadBooleanArray
-        - java_method: writeCharArray
-          params:
-            - char[]
-            - int
-          returns: void
-          go_field: WriteCharArray
-        - java_method: readCharSequence
-          params:
-            - java.lang.CharSequence
-            - int
-          returns: java.lang.CharSequence
-          go_field: ReadCharSequence
-        - java_method: readCharArray
-          params:
-            - char[]
-            - int
-          returns: char[]
-          go_field: ReadCharArray
-        - java_method: writeIntArray
-          params:
-            - '[I'
-            - int
-          returns: void
-          go_field: WriteIntArray
-        - java_method: readIntArray
-          params:
-            - '[I'
-            - int
-          returns: '[I'
-          go_field: ReadIntArray
-        - java_method: writeLongArray
-          params:
-            - '[J'
-            - int
-          returns: void
-          go_field: WriteLongArray
-        - java_method: readLongArray
-          params:
-            - '[J'
-            - int
-          returns: '[J'
-          go_field: ReadLongArray
-        - java_method: writeFloatArray
-          params:
-            - float[]
-            - int
-          returns: void
-          go_field: WriteFloatArray
-        - java_method: readFloatArray
-          params:
-            - float[]
-            - int
-          returns: float[]
-          go_field: ReadFloatArray
-        - java_method: writeDoubleArray
-          params:
-            - double[]
-            - int
-          returns: void
-          go_field: WriteDoubleArray
-        - java_method: readDoubleArray
-          params:
-            - double[]
-            - int
-          returns: double[]
-          go_field: ReadDoubleArray
-        - java_method: writeVersionedParcelable
-          params:
-            - androidx.versionedparcelable.VersionedParcelable
-            - int
-          returns: void
-          go_field: WriteVersionedParcelable
-        - java_method: writeSerializable
-          params:
-            - java.io.Serializable
-            - int
-          returns: void
-          go_field: WriteSerializable
-        - java_method: writeException
-          params:
-            - java.lang.Exception
-            - int
-          returns: void
-          go_field: WriteException
-        - java_method: readException
-          params:
-            - java.lang.Exception
-            - int
-          returns: java.lang.Exception
-          go_field: ReadException
-        - java_method: readByte
-          params:
-            - byte
-            - int
-          returns: byte
-          go_field: ReadByte
-        - java_method: readSize
-          params:
-            - android.util.Size
-            - int
-          returns: android.util.Size
-          go_field: ReadSize
-        - java_method: readSizeF
-          params:
-            - android.util.SizeF
-            - int
-          returns: android.util.SizeF
-          go_field: ReadSizeF
-        - java_method: readSparseBooleanArray
-          params:
-            - android.util.SparseBooleanArray
-            - int
-          returns: android.util.SparseBooleanArray
-          go_field: ReadSparseBooleanArray
+      generated: false
+      reason: unsupported_constructor
     - java_class: androidx.versionedparcelable.CustomVersionedParcelable
-      go_type: CustomVersionedParcelableCallback
-      methods:
-        - java_method: onPreParceling
-          params:
-            - boolean
-          returns: void
-          go_field: OnPreParceling
-        - java_method: onPostParceling
-          params: []
-          returns: void
-          go_field: OnPostParceling
+      generated: false
+      reason: implements_interface
 constants:
     - go_name: Creator
       value: "0"

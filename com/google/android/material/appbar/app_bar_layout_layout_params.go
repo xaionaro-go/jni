@@ -23,6 +23,35 @@ type AppBarLayoutLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAppBarLayoutLayoutParams creates a new com.google.android.material.appbar.AppBarLayout$LayoutParams instance.
+func NewAppBarLayoutLayoutParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*AppBarLayoutLayoutParams, error) {
+	var t AppBarLayoutLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAppBarLayoutLayoutParams == nil {
+			return fmt.Errorf("com.google.android.material.appbar.AppBarLayout$LayoutParams is not available on this device")
+		}
+		if midAppBarLayoutLayoutParamsCtor == nil {
+			return fmt.Errorf("com.google.android.material.appbar.AppBarLayout$LayoutParams constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppBarLayoutLayoutParams)), midAppBarLayoutLayoutParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetScrollFlags calls com.google.android.material.appbar.AppBarLayout$LayoutParams.setScrollFlags.
 func (m *AppBarLayoutLayoutParams) SetScrollFlags(arg0 int32) error {
 

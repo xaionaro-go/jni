@@ -23,6 +23,35 @@ type JobInfoBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewJobInfoBuilder creates a new android.print.PrintJobInfo$Builder instance.
+func NewJobInfoBuilder(vm *jni.VM, arg0 *jni.Object) (*JobInfoBuilder, error) {
+	var t JobInfoBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsJobInfoBuilder == nil {
+			return fmt.Errorf("android.print.PrintJobInfo$Builder is not available on this device")
+		}
+		if midJobInfoBuilderCtor == nil {
+			return fmt.Errorf("android.print.PrintJobInfo$Builder constructor (Landroid/print/PrintJobInfo;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsJobInfoBuilder)), midJobInfoBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.print.PrintJobInfo$Builder.build.
 func (m *JobInfoBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

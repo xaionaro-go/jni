@@ -428,8 +428,8 @@ func (m *TypefaceEmojiRasterizer) ToString() (string, error) {
 			return callErr
 		}
 		var resultObj *jni.Object
-		resultObj, callErr = env.CallObjectMethod(
-			m.Obj,
+		resultObj, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsTypefaceEmojiRasterizer)),
 			midTypefaceEmojiRasterizerToString,
 		)
 		if callErr != nil {

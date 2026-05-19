@@ -32,6 +32,12 @@ func NewDisplayCutout(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDisplayCutout == nil {
+			return fmt.Errorf("android.view.DisplayCutout is not available on this device")
+		}
+		if midDisplayCutoutCtor == nil {
+			return fmt.Errorf("android.view.DisplayCutout constructor (Landroid/graphics/Insets;Landroid/graphics/Rect;Landroid/graphics/Rect;Landroid/graphics/Rect;Landroid/graphics/Rect;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDisplayCutout)), midDisplayCutoutCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3), jni.ObjectValue(arg4))
 		if err != nil {

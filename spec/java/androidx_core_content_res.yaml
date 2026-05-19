@@ -5,6 +5,169 @@
 package: res
 go_import: github.com/AndroidGoLab/jni/androidx/core/content/res
 classes:
+    - java_class: androidx.core.content.res.ColorStateListInflaterCompat
+      go_type: ColorStateListInflaterCompat
+      static_methods:
+        - java_method: inflate
+          go_name: Inflate
+          params:
+            - java_type: android.content.res.Resources
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.content.res.Resources$Theme
+              go_name: arg2
+          returns: android.content.res.ColorStateList
+          error: true
+        - java_method: createFromXml
+          go_name: CreateFromXml
+          params:
+            - java_type: android.content.res.Resources
+              go_name: arg0
+            - java_type: org.xmlpull.v1.XmlPullParser
+              go_name: arg1
+            - java_type: android.content.res.Resources$Theme
+              go_name: arg2
+          returns: android.content.res.ColorStateList
+          error: true
+        - java_method: createFromXmlInner
+          go_name: CreateFromXmlInner
+          params:
+            - java_type: android.content.res.Resources
+              go_name: arg0
+            - java_type: org.xmlpull.v1.XmlPullParser
+              go_name: arg1
+            - java_type: android.util.AttributeSet
+              go_name: arg2
+            - java_type: android.content.res.Resources$Theme
+              go_name: arg3
+          returns: android.content.res.ColorStateList
+          error: true
+    - java_class: androidx.core.content.res.ResourcesCompat
+      go_type: ourcesCompat
+      static_methods:
+        - java_method: clearCachesForTheme
+          go_name: ClearCachesForTheme
+          params:
+            - java_type: android.content.res.Resources$Theme
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getDrawable
+          go_name: GetDrawable
+          params:
+            - java_type: android.content.res.Resources
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.content.res.Resources$Theme
+              go_name: arg2
+          returns: android.graphics.drawable.Drawable
+          error: true
+        - java_method: getDrawableForDensity
+          go_name: GetDrawableForDensity
+          params:
+            - java_type: android.content.res.Resources
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.content.res.Resources$Theme
+              go_name: arg3
+          returns: android.graphics.drawable.Drawable
+          error: true
+        - java_method: getColor
+          go_name: GetColor
+          params:
+            - java_type: android.content.res.Resources
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.content.res.Resources$Theme
+              go_name: arg2
+          returns: int
+          error: true
+        - java_method: getColorStateList
+          go_name: GetColorStateList
+          params:
+            - java_type: android.content.res.Resources
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.content.res.Resources$Theme
+              go_name: arg2
+          returns: android.content.res.ColorStateList
+          error: true
+        - java_method: getFloat
+          go_name: GetFloat
+          params:
+            - java_type: android.content.res.Resources
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: float
+          error: true
+        - java_method: getFont
+          go_name: GetFont2
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.graphics.Typeface
+          error: true
+        - java_method: getCachedFont
+          go_name: GetCachedFont
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.graphics.Typeface
+          error: true
+        - java_method: getFont
+          go_name: GetFont5_1
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.util.TypedValue
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: androidx.core.content.res.ResourcesCompat$FontCallback
+              go_name: arg4
+          returns: android.graphics.Typeface
+          error: true
+    - java_class: androidx.core.content.res.ResourcesCompat$FontCallback
+      go_type: ourcesCompatFontCallback
+      methods:
+        - java_method: onFontRetrieved
+          go_name: OnFontRetrieved
+          params:
+            - java_type: android.graphics.Typeface
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onFontRetrievalFailed
+          go_name: OnFontRetrievalFailed
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: androidx.core.content.res.ResourcesCompat$ThemeCompat
+      go_type: ourcesCompatThemeCompat
+      static_methods:
+        - java_method: rebase
+          go_name: Rebase
+          params:
+            - java_type: android.content.res.Resources$Theme
+              go_name: arg0
+          returns: void
+          error: true
     - java_class: androidx.core.content.res.TypedArrayKt
       go_type: TypedArrayKt
       static_methods:
@@ -143,106 +306,54 @@ classes:
               go_name: arg1
           returns: java.lang.CharSequence[]
           error: true
-    - java_class: androidx.core.content.res.FontResourcesParserCompat
-      go_type: FontResourcesParserCompat
-      static_methods:
-        - java_method: parse
-          go_name: Parse
-          params:
-            - java_type: org.xmlpull.v1.XmlPullParser
-              go_name: arg0
-            - java_type: android.content.res.Resources
-              go_name: arg1
-          returns: androidx.core.content.res.FontResourcesParserCompat$FamilyResourceEntry
-          error: true
-        - java_method: readCerts
-          go_name: ReadCerts
-          params:
-            - java_type: android.content.res.Resources
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: java.util.List<java.util.List<byte[]>>
-          error: true
-    - java_class: androidx.core.content.res.FontResourcesParserCompat$FamilyResourceEntry
-      go_type: FontResourcesParserCompatFamilyResourceEntry
-    - java_class: androidx.core.content.res.FontResourcesParserCompat$FetchStrategy
-      go_type: FontResourcesParserCompatFetchStrategy
-    - java_class: androidx.core.content.res.FontResourcesParserCompat$FontFamilyFilesResourceEntry
-      go_type: FontResourcesParserCompatFontFamilyFilesResourceEntry
+    - java_class: androidx.core.content.res.ComplexColorCompat
+      go_type: ComplexColorCompat
       methods:
-        - java_method: getEntries
-          go_name: GetEntries
-          returns: androidx.core.content.res.FontResourcesParserCompat$FontFileResourceEntry[]
+        - java_method: getShader
+          go_name: GetShader
+          returns: android.graphics.Shader
           error: true
-    - java_class: androidx.core.content.res.FontResourcesParserCompat$FontFileResourceEntry
-      go_type: FontResourcesParserCompatFontFileResourceEntry
-      methods:
-        - java_method: getFileName
-          go_name: GetFileName
-          returns: String
-          error: true
-        - java_method: getWeight
-          go_name: GetWeight
+        - java_method: getColor
+          go_name: GetColor
           returns: int
           error: true
-        - java_method: isItalic
-          go_name: IsItalic
+        - java_method: setColor
+          go_name: SetColor
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isGradient
+          go_name: IsGradient
           returns: boolean
           error: true
-        - java_method: getVariationSettings
-          go_name: GetVariationSettings
-          returns: String
+        - java_method: isStateful
+          go_name: IsStateful
+          returns: boolean
           error: true
-        - java_method: getTtcIndex
-          go_name: GetTtcIndex
-          returns: int
+        - java_method: onStateChanged
+          go_name: OnStateChanged
+          params:
+            - java_type: '[I'
+              go_name: arg0
+          returns: boolean
           error: true
-        - java_method: getResourceId
-          go_name: GetResourceId
-          returns: int
+        - java_method: willDraw
+          go_name: WillDraw
+          returns: boolean
           error: true
-    - java_class: androidx.core.content.res.FontResourcesParserCompat$ProviderResourceEntry
-      go_type: FontResourcesParserCompatProviderResourceEntry
-      methods:
-        - java_method: getRequest
-          go_name: GetRequest
-          returns: androidx.core.provider.FontRequest
-          error: true
-        - java_method: getFetchStrategy
-          go_name: GetFetchStrategy
-          returns: int
-          error: true
-        - java_method: getTimeout
-          go_name: GetTimeout
-          returns: int
-          error: true
-        - java_method: getSystemFontFamilyName
-          go_name: GetSystemFontFamilyName
-          returns: String
-          error: true
-    - java_class: androidx.core.content.res.CamColor
-      go_type: CamColor
       static_methods:
-        - java_method: toColor
-          go_name: ToColor
+        - java_method: inflate
+          go_name: Inflate
           params:
-            - java_type: float
+            - java_type: android.content.res.Resources
               go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-          returns: int
-          error: true
-        - java_method: getM3HCTfromColor
-          go_name: GetM3HCTfromColor
-          params:
             - java_type: int
-              go_name: arg0
-            - java_type: float[]
               go_name: arg1
-          returns: void
+            - java_type: android.content.res.Resources$Theme
+              go_name: arg2
+          returns: androidx.core.content.res.ComplexColorCompat
           error: true
     - java_class: androidx.core.content.res.TypedArrayUtils
       go_type: TypedArrayUtils
@@ -496,43 +607,28 @@ classes:
               go_name: arg2
           returns: int
           error: true
-    - java_class: androidx.core.content.res.ColorStateListInflaterCompat
-      go_type: ColorStateListInflaterCompat
+    - java_class: androidx.core.content.res.CamColor
+      go_type: CamColor
       static_methods:
-        - java_method: inflate
-          go_name: Inflate
+        - java_method: toColor
+          go_name: ToColor
           params:
-            - java_type: android.content.res.Resources
+            - java_type: float
               go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+          returns: int
+          error: true
+        - java_method: getM3HCTfromColor
+          go_name: GetM3HCTfromColor
+          params:
             - java_type: int
-              go_name: arg1
-            - java_type: android.content.res.Resources$Theme
-              go_name: arg2
-          returns: android.content.res.ColorStateList
-          error: true
-        - java_method: createFromXml
-          go_name: CreateFromXml
-          params:
-            - java_type: android.content.res.Resources
               go_name: arg0
-            - java_type: org.xmlpull.v1.XmlPullParser
+            - java_type: float[]
               go_name: arg1
-            - java_type: android.content.res.Resources$Theme
-              go_name: arg2
-          returns: android.content.res.ColorStateList
-          error: true
-        - java_method: createFromXmlInner
-          go_name: CreateFromXmlInner
-          params:
-            - java_type: android.content.res.Resources
-              go_name: arg0
-            - java_type: org.xmlpull.v1.XmlPullParser
-              go_name: arg1
-            - java_type: android.util.AttributeSet
-              go_name: arg2
-            - java_type: android.content.res.Resources$Theme
-              go_name: arg3
-          returns: android.content.res.ColorStateList
+          returns: void
           error: true
     - java_class: androidx.core.content.res.ConfigurationHelper
       go_type: ConfigurationHelper
@@ -544,179 +640,111 @@ classes:
               go_name: arg0
           returns: int
           error: true
-    - java_class: androidx.core.content.res.ResourcesCompat
-      go_type: ourcesCompat
+    - java_class: androidx.core.content.res.FontResourcesParserCompat
+      go_type: FontResourcesParserCompat
       static_methods:
-        - java_method: clearCachesForTheme
-          go_name: ClearCachesForTheme
+        - java_method: parse
+          go_name: Parse
           params:
-            - java_type: android.content.res.Resources$Theme
+            - java_type: org.xmlpull.v1.XmlPullParser
               go_name: arg0
-          returns: void
+            - java_type: android.content.res.Resources
+              go_name: arg1
+          returns: androidx.core.content.res.FontResourcesParserCompat$FamilyResourceEntry
           error: true
-        - java_method: getDrawable
-          go_name: GetDrawable
+        - java_method: readCerts
+          go_name: ReadCerts
           params:
             - java_type: android.content.res.Resources
               go_name: arg0
             - java_type: int
               go_name: arg1
-            - java_type: android.content.res.Resources$Theme
-              go_name: arg2
-          returns: android.graphics.drawable.Drawable
+          returns: java.util.List<java.util.List<byte[]>>
           error: true
-        - java_method: getDrawableForDensity
-          go_name: GetDrawableForDensity
-          params:
-            - java_type: android.content.res.Resources
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.content.res.Resources$Theme
-              go_name: arg3
-          returns: android.graphics.drawable.Drawable
+    - java_class: androidx.core.content.res.FontResourcesParserCompat$FamilyResourceEntry
+      go_type: FontResourcesParserCompatFamilyResourceEntry
+    - java_class: androidx.core.content.res.FontResourcesParserCompat$FetchStrategy
+      go_type: FontResourcesParserCompatFetchStrategy
+    - java_class: androidx.core.content.res.FontResourcesParserCompat$FontFamilyFilesResourceEntry
+      go_type: FontResourcesParserCompatFontFamilyFilesResourceEntry
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.core.content.res.FontResourcesParserCompat$FontFileResourceEntry[]
+          go_name: arg0
+      methods:
+        - java_method: getEntries
+          go_name: GetEntries
+          returns: androidx.core.content.res.FontResourcesParserCompat$FontFileResourceEntry[]
           error: true
-        - java_method: getColor
-          go_name: GetColor
-          params:
-            - java_type: android.content.res.Resources
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.content.res.Resources$Theme
-              go_name: arg2
+    - java_class: androidx.core.content.res.FontResourcesParserCompat$FontFileResourceEntry
+      go_type: FontResourcesParserCompatFontFileResourceEntry
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: boolean
+          go_name: arg2
+        - java_type: String
+          go_name: arg3
+        - java_type: int
+          go_name: arg4
+        - java_type: int
+          go_name: arg5
+      methods:
+        - java_method: getFileName
+          go_name: GetFileName
+          returns: String
+          error: true
+        - java_method: getWeight
+          go_name: GetWeight
           returns: int
           error: true
-        - java_method: getColorStateList
-          go_name: GetColorStateList
-          params:
-            - java_type: android.content.res.Resources
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.content.res.Resources$Theme
-              go_name: arg2
-          returns: android.content.res.ColorStateList
+        - java_method: isItalic
+          go_name: IsItalic
+          returns: boolean
           error: true
-        - java_method: getFloat
-          go_name: GetFloat
-          params:
-            - java_type: android.content.res.Resources
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: float
+        - java_method: getVariationSettings
+          go_name: GetVariationSettings
+          returns: String
           error: true
-        - java_method: getFont
-          go_name: GetFont2
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.graphics.Typeface
-          error: true
-        - java_method: getCachedFont
-          go_name: GetCachedFont
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.graphics.Typeface
-          error: true
-        - java_method: getFont
-          go_name: GetFont5_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.util.TypedValue
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: androidx.core.content.res.ResourcesCompat$FontCallback
-              go_name: arg4
-          returns: android.graphics.Typeface
-          error: true
-    - java_class: androidx.core.content.res.ResourcesCompat$FontCallback
-      go_type: ourcesCompatFontCallback
-      methods:
-        - java_method: onFontRetrieved
-          go_name: OnFontRetrieved
-          params:
-            - java_type: android.graphics.Typeface
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onFontRetrievalFailed
-          go_name: OnFontRetrievalFailed
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.core.content.res.ResourcesCompat$ThemeCompat
-      go_type: ourcesCompatThemeCompat
-      static_methods:
-        - java_method: rebase
-          go_name: Rebase
-          params:
-            - java_type: android.content.res.Resources$Theme
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.core.content.res.ComplexColorCompat
-      go_type: ComplexColorCompat
-      methods:
-        - java_method: getShader
-          go_name: GetShader
-          returns: android.graphics.Shader
-          error: true
-        - java_method: getColor
-          go_name: GetColor
+        - java_method: getTtcIndex
+          go_name: GetTtcIndex
           returns: int
           error: true
-        - java_method: setColor
-          go_name: SetColor
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
+        - java_method: getResourceId
+          go_name: GetResourceId
+          returns: int
           error: true
-        - java_method: isGradient
-          go_name: IsGradient
-          returns: boolean
+    - java_class: androidx.core.content.res.FontResourcesParserCompat$ProviderResourceEntry
+      go_type: FontResourcesParserCompatProviderResourceEntry
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.core.provider.FontRequest
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+        - java_type: String
+          go_name: arg3
+      methods:
+        - java_method: getRequest
+          go_name: GetRequest
+          returns: androidx.core.provider.FontRequest
           error: true
-        - java_method: isStateful
-          go_name: IsStateful
-          returns: boolean
+        - java_method: getFetchStrategy
+          go_name: GetFetchStrategy
+          returns: int
           error: true
-        - java_method: onStateChanged
-          go_name: OnStateChanged
-          params:
-            - java_type: '[I'
-              go_name: arg0
-          returns: boolean
+        - java_method: getTimeout
+          go_name: GetTimeout
+          returns: int
           error: true
-        - java_method: willDraw
-          go_name: WillDraw
-          returns: boolean
-          error: true
-      static_methods:
-        - java_method: inflate
-          go_name: Inflate
-          params:
-            - java_type: android.content.res.Resources
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.content.res.Resources$Theme
-              go_name: arg2
-          returns: androidx.core.content.res.ComplexColorCompat
+        - java_method: getSystemFontFamilyName
+          go_name: GetSystemFontFamilyName
+          returns: String
           error: true
 abstract_callbacks:
     - java_class: androidx.core.content.res.ResourcesCompat$FontCallback
@@ -732,7 +760,14 @@ abstract_callbacks:
             - int
           returns: void
           go_field: OnFontRetrievalFailed
+abstract_callback_eligibility:
+    - java_class: androidx.core.content.res.ResourcesCompat$FontCallback
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
+    - go_name: IdNull
+      value: "0"
+      go_type: int
     - go_name: FetchStrategyBlocking
       value: "0"
       go_type: int
@@ -741,7 +776,4 @@ constants:
       go_type: int
     - go_name: InfiniteTimeoutValue
       value: "-1"
-      go_type: int
-    - go_name: IdNull
-      value: "0"
       go_type: int

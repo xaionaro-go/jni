@@ -32,6 +32,12 @@ func NewCollationKey(vm *jni.VM, arg0 string, arg1 *jni.Object) (*CollationKey, 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCollationKey == nil {
+			return fmt.Errorf("android.icu.text.CollationKey is not available on this device")
+		}
+		if midCollationKeyCtor == nil {
+			return fmt.Errorf("android.icu.text.CollationKey constructor (Ljava/lang/String;[B)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -51,8 +57,8 @@ func NewCollationKey(vm *jni.VM, arg0 string, arg1 *jni.Object) (*CollationKey, 
 	return &t, nil
 }
 
-// CompareTo1 calls android.icu.text.CollationKey.compareTo.
-func (m *CollationKey) CompareTo1(arg0 *jni.Object) (int32, error) {
+// CompareTo calls android.icu.text.CollationKey.compareTo.
+func (m *CollationKey) CompareTo(arg0 *jni.Object) (int32, error) {
 	var result int32
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -60,14 +66,14 @@ func (m *CollationKey) CompareTo1(arg0 *jni.Object) (int32, error) {
 			callErr = err
 			return err
 		}
-		if midCollationKeyCompareTo1 == nil {
+		if midCollationKeyCompareTo == nil {
 			callErr = fmt.Errorf("android.icu.text.CollationKey.compareTo is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallIntMethod(
 			m.Obj,
-			midCollationKeyCompareTo1, jni.ObjectValue(arg0),
+			midCollationKeyCompareTo, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -277,32 +283,6 @@ func (m *CollationKey) ToByteArray() (*jni.Object, error) {
 			localRef := result
 			result = env.NewGlobalRef(localRef)
 			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// CompareTo1_1 calls android.icu.text.CollationKey.compareTo.
-func (m *CollationKey) CompareTo1_1(arg0 *jni.Object) (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCollationKeyCompareTo1_1 == nil {
-			callErr = fmt.Errorf("android.icu.text.CollationKey.compareTo is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midCollationKeyCompareTo1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
 		}
 		return callErr
 	})

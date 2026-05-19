@@ -55,8 +55,8 @@ func (m *TimeZone) Clone() (*jni.Object, error) {
 	return result, callErr
 }
 
-// CloneAsThawed0 calls android.icu.util.TimeZone.cloneAsThawed.
-func (m *TimeZone) CloneAsThawed0() (*jni.Object, error) {
+// CloneAsThawed calls android.icu.util.TimeZone.cloneAsThawed.
+func (m *TimeZone) CloneAsThawed() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -64,13 +64,13 @@ func (m *TimeZone) CloneAsThawed0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midTimeZoneCloneAsThawed0 == nil {
+		if midTimeZoneCloneAsThawed == nil {
 			callErr = fmt.Errorf("android.icu.util.TimeZone.cloneAsThawed is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midTimeZoneCloneAsThawed0,
+			midTimeZoneCloneAsThawed,
 		)
 		if callErr != nil {
 			return callErr
@@ -115,8 +115,8 @@ func (m *TimeZone) Equals(arg0 *jni.Object) (bool, error) {
 	return result, callErr
 }
 
-// Freeze0 calls android.icu.util.TimeZone.freeze.
-func (m *TimeZone) Freeze0() (*jni.Object, error) {
+// Freeze calls android.icu.util.TimeZone.freeze.
+func (m *TimeZone) Freeze() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -124,13 +124,13 @@ func (m *TimeZone) Freeze0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midTimeZoneFreeze0 == nil {
+		if midTimeZoneFreeze == nil {
 			callErr = fmt.Errorf("android.icu.util.TimeZone.freeze is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midTimeZoneFreeze0,
+			midTimeZoneFreeze,
 		)
 		if callErr != nil {
 			return callErr
@@ -710,70 +710,6 @@ func (m *TimeZone) UseDaylightTime() (bool, error) {
 			return callErr
 		}
 		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// Freeze0_1 calls android.icu.util.TimeZone.freeze.
-func (m *TimeZone) Freeze0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTimeZoneFreeze0_1 == nil {
-			callErr = fmt.Errorf("android.icu.util.TimeZone.freeze is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midTimeZoneFreeze0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// CloneAsThawed0_1 calls android.icu.util.TimeZone.cloneAsThawed.
-func (m *TimeZone) CloneAsThawed0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTimeZoneCloneAsThawed0_1 == nil {
-			callErr = fmt.Errorf("android.icu.util.TimeZone.cloneAsThawed is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midTimeZoneCloneAsThawed0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
 		return callErr
 	})
 	return result, callErr

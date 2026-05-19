@@ -23,6 +23,35 @@ type HeartRateVariabilityRmssdRecordBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewHeartRateVariabilityRmssdRecordBuilder creates a new android.health.connect.datatypes.HeartRateVariabilityRmssdRecord$Builder instance.
+func NewHeartRateVariabilityRmssdRecordBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 float64) (*HeartRateVariabilityRmssdRecordBuilder, error) {
+	var t HeartRateVariabilityRmssdRecordBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsHeartRateVariabilityRmssdRecordBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.HeartRateVariabilityRmssdRecord$Builder is not available on this device")
+		}
+		if midHeartRateVariabilityRmssdRecordBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.HeartRateVariabilityRmssdRecord$Builder constructor (Landroid/health/connect/datatypes/Metadata;Ljava/time/Instant;D)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHeartRateVariabilityRmssdRecordBuilder)), midHeartRateVariabilityRmssdRecordBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.DoubleValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.datatypes.HeartRateVariabilityRmssdRecord$Builder.build.
 func (m *HeartRateVariabilityRmssdRecordBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -21,6 +21,35 @@ type WindowDecorActionBarTabImpl struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWindowDecorActionBarTabImpl creates a new androidx.appcompat.app.WindowDecorActionBar$TabImpl instance.
+func NewWindowDecorActionBarTabImpl(vm *jni.VM, arg0 *jni.Object) (*WindowDecorActionBarTabImpl, error) {
+	var t WindowDecorActionBarTabImpl
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWindowDecorActionBarTabImpl == nil {
+			return fmt.Errorf("androidx.appcompat.app.WindowDecorActionBar$TabImpl is not available on this device")
+		}
+		if midWindowDecorActionBarTabImplCtor == nil {
+			return fmt.Errorf("androidx.appcompat.app.WindowDecorActionBar$TabImpl constructor (Landroidx/appcompat/app/WindowDecorActionBar;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), midWindowDecorActionBarTabImplCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetTag calls androidx.appcompat.app.WindowDecorActionBar$TabImpl.getTag.
 func (m *WindowDecorActionBarTabImpl) GetTag() (*jni.Object, error) {
 	var result *jni.Object

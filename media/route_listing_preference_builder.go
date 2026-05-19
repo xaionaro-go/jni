@@ -23,6 +23,34 @@ type RouteListingPreferenceBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRouteListingPreferenceBuilder creates a new android.media.RouteListingPreference$Builder instance.
+func NewRouteListingPreferenceBuilder(vm *jni.VM) (*RouteListingPreferenceBuilder, error) {
+	var t RouteListingPreferenceBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRouteListingPreferenceBuilder == nil {
+			return fmt.Errorf("android.media.RouteListingPreference$Builder is not available on this device")
+		}
+		if midRouteListingPreferenceBuilderCtor == nil {
+			return fmt.Errorf("android.media.RouteListingPreference$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRouteListingPreferenceBuilder)), midRouteListingPreferenceBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.media.RouteListingPreference$Builder.build.
 func (m *RouteListingPreferenceBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

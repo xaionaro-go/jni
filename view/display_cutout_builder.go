@@ -23,6 +23,34 @@ type DisplayCutoutBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDisplayCutoutBuilder creates a new android.view.DisplayCutout$Builder instance.
+func NewDisplayCutoutBuilder(vm *jni.VM) (*DisplayCutoutBuilder, error) {
+	var t DisplayCutoutBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDisplayCutoutBuilder == nil {
+			return fmt.Errorf("android.view.DisplayCutout$Builder is not available on this device")
+		}
+		if midDisplayCutoutBuilderCtor == nil {
+			return fmt.Errorf("android.view.DisplayCutout$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDisplayCutoutBuilder)), midDisplayCutoutBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.view.DisplayCutout$Builder.build.
 func (m *DisplayCutoutBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

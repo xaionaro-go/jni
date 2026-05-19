@@ -32,6 +32,12 @@ func NewSavedStateViewModelFactory(vm *jni.VM) (*SavedStateViewModelFactory, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSavedStateViewModelFactory == nil {
+			return fmt.Errorf("androidx.lifecycle.SavedStateViewModelFactory is not available on this device")
+		}
+		if midSavedStateViewModelFactoryCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.SavedStateViewModelFactory constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSavedStateViewModelFactory)), midSavedStateViewModelFactoryCtor)
 		if err != nil {
 			return err

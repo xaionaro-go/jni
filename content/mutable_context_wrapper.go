@@ -32,6 +32,12 @@ func NewMutableContextWrapper(vm *jni.VM, arg0 *jni.Object) (*MutableContextWrap
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMutableContextWrapper == nil {
+			return fmt.Errorf("android.content.MutableContextWrapper is not available on this device")
+		}
+		if midMutableContextWrapperCtor == nil {
+			return fmt.Errorf("android.content.MutableContextWrapper constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMutableContextWrapper)), midMutableContextWrapperCtor, jni.ObjectValue(arg0))
 		if err != nil {

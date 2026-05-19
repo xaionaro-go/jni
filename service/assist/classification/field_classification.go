@@ -32,6 +32,12 @@ func NewFieldClassification(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Fi
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFieldClassification == nil {
+			return fmt.Errorf("android.service.assist.classification.FieldClassification is not available on this device")
+		}
+		if midFieldClassificationCtor == nil {
+			return fmt.Errorf("android.service.assist.classification.FieldClassification constructor (Landroid/view/autofill/AutofillId;Ljava/util/Set;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFieldClassification)), midFieldClassificationCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -176,8 +182,8 @@ func (m *FieldClassification) WriteToParcel(arg0 *jni.Object, arg1 int32) error 
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsFieldClassification)),
 			midFieldClassificationWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

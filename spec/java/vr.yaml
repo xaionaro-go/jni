@@ -32,20 +32,10 @@ classes:
               go_name: arg1
           returns: boolean
           error: true
-abstract_callbacks:
+abstract_callback_eligibility:
     - java_class: android.service.vr.VrListenerService
-      go_type: ListenerServiceCallback
-      methods:
-        - java_method: onBind
-          params:
-            - android.content.Intent
-          returns: android.os.IBinder
-          go_field: OnBind
-        - java_method: onCurrentVrActivityChanged
-          params:
-            - android.content.ComponentName
-          returns: void
-          go_field: OnCurrentVrActivityChanged
+      generated: false
+      reason: non_object_superclass
 constants:
     - go_name: ServiceInterface
       value: '"android.service.vr.VrListenerService"'

@@ -23,6 +23,34 @@ type ScriptLaunchOptions struct {
 	Obj *jni.GlobalRef
 }
 
+// NewScriptLaunchOptions creates a new android.renderscript.Script$LaunchOptions instance.
+func NewScriptLaunchOptions(vm *jni.VM) (*ScriptLaunchOptions, error) {
+	var t ScriptLaunchOptions
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsScriptLaunchOptions == nil {
+			return fmt.Errorf("android.renderscript.Script$LaunchOptions is not available on this device")
+		}
+		if midScriptLaunchOptionsCtor == nil {
+			return fmt.Errorf("android.renderscript.Script$LaunchOptions constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScriptLaunchOptions)), midScriptLaunchOptionsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetXEnd calls android.renderscript.Script$LaunchOptions.getXEnd.
 func (m *ScriptLaunchOptions) GetXEnd() (int32, error) {
 	var result int32

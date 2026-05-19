@@ -32,6 +32,12 @@ func NewTintInfo(vm *jni.VM) (*TintInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTintInfo == nil {
+			return fmt.Errorf("androidx.appcompat.widget.TintInfo is not available on this device")
+		}
+		if midTintInfoCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.TintInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTintInfo)), midTintInfoCtor)
 		if err != nil {
 			return err

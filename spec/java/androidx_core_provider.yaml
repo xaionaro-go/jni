@@ -5,68 +5,6 @@
 package: provider
 go_import: github.com/AndroidGoLab/jni/androidx/core/provider
 classes:
-    - java_class: androidx.core.provider.FontRequest
-      go_type: FontRequest
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-        - java_type: String
-          go_name: arg2
-        - java_type: java.util.List<java.util.List<byte[]>>
-          go_name: arg3
-      methods:
-        - java_method: getProviderAuthority
-          go_name: GetProviderAuthority
-          returns: String
-          error: true
-        - java_method: getProviderPackage
-          go_name: GetProviderPackage
-          returns: String
-          error: true
-        - java_method: getQuery
-          go_name: GetQuery
-          returns: String
-          error: true
-        - java_method: getCertificates
-          go_name: GetCertificates
-          returns: java.util.List<java.util.List<byte[]>>
-          error: true
-        - java_method: getCertificatesArrayResId
-          go_name: GetCertificatesArrayResId
-          returns: int
-          error: true
-        - java_method: getIdentifier
-          go_name: GetIdentifier
-          returns: String
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: androidx.core.provider.SelfDestructiveThread
-      go_type: SelfDestructiveThread
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-        - java_type: int
-          go_name: arg2
-      methods:
-        - java_method: isRunning
-          go_name: IsRunning
-          returns: boolean
-          error: true
-        - java_method: getGeneration
-          go_name: GetGeneration
-          returns: int
-          error: true
-    - java_class: androidx.core.provider.SelfDestructiveThread$ReplyCallback
-      go_type: SelfDestructiveThreadReplyCallback
     - java_class: androidx.core.provider.FontsContractCompat
       go_type: FontsContractCompat
       static_methods:
@@ -113,19 +51,39 @@ classes:
           error: true
     - java_class: androidx.core.provider.FontsContractCompat$Columns
       go_type: FontsContractCompatColumns
+      obtain: constructor
     - java_class: androidx.core.provider.FontsContractCompat$FontFamilyResult
       go_type: FontsContractCompatFontFamilyResult
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: androidx.core.provider.FontsContractCompat$FontInfo[]
+          go_name: arg1
       methods:
         - java_method: getStatusCode
           go_name: GetStatusCode
           returns: int
           error: true
+      static_methods:
         - java_method: getFonts
           go_name: GetFonts
           returns: androidx.core.provider.FontsContractCompat$FontInfo[]
           error: true
     - java_class: androidx.core.provider.FontsContractCompat$FontInfo
       go_type: FontsContractCompatFontInfo
+      obtain: constructor
+      constructor_params:
+        - java_type: android.net.Uri
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+        - java_type: boolean
+          go_name: arg3
+        - java_type: int
+          go_name: arg4
       methods:
         - java_method: getUri
           go_name: GetUri
@@ -146,23 +104,6 @@ classes:
         - java_method: getResultCode
           go_name: GetResultCode
           returns: int
-          error: true
-    - java_class: androidx.core.provider.FontsContractCompat$FontRequestCallback
-      go_type: FontsContractCompatFontRequestCallback
-      methods:
-        - java_method: onTypefaceRetrieved
-          go_name: OnTypefaceRetrieved
-          params:
-            - java_type: android.graphics.Typeface
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onTypefaceRequestFailed
-          go_name: OnTypefaceRequestFailed
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
           error: true
     - java_class: androidx.core.provider.DocumentsContractCompat
       go_type: DocumentsContractCompat
@@ -277,8 +218,88 @@ classes:
               go_name: arg2
           returns: boolean
           error: true
+    - java_class: androidx.core.provider.FontsContractCompat$FontRequestCallback
+      go_type: FontsContractCompatFontRequestCallback
+      obtain: constructor
+      methods:
+        - java_method: onTypefaceRetrieved
+          go_name: OnTypefaceRetrieved
+          params:
+            - java_type: android.graphics.Typeface
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onTypefaceRequestFailed
+          go_name: OnTypefaceRequestFailed
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
     - java_class: androidx.core.provider.DocumentsContractCompat$DocumentCompat
       go_type: DocumentsContractCompatDocumentCompat
+    - java_class: androidx.core.provider.FontRequest
+      go_type: FontRequest
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+        - java_type: String
+          go_name: arg2
+        - java_type: java.util.List<java.util.List<byte[]>>
+          go_name: arg3
+      methods:
+        - java_method: getProviderAuthority
+          go_name: GetProviderAuthority
+          returns: String
+          error: true
+        - java_method: getProviderPackage
+          go_name: GetProviderPackage
+          returns: String
+          error: true
+        - java_method: getQuery
+          go_name: GetQuery
+          returns: String
+          error: true
+        - java_method: getCertificates
+          go_name: GetCertificates
+          returns: java.util.List<java.util.List<byte[]>>
+          error: true
+        - java_method: getCertificatesArrayResId
+          go_name: GetCertificatesArrayResId
+          returns: int
+          error: true
+        - java_method: getIdentifier
+          go_name: GetIdentifier
+          returns: String
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: androidx.core.provider.SelfDestructiveThread
+      go_type: SelfDestructiveThread
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+      methods:
+        - java_method: isRunning
+          go_name: IsRunning
+          returns: boolean
+          error: true
+        - java_method: getGeneration
+          go_name: GetGeneration
+          returns: int
+          error: true
+    - java_class: androidx.core.provider.SelfDestructiveThread$ReplyCallback
+      go_type: SelfDestructiveThreadReplyCallback
 constants:
     - go_name: ParcelFontResults
       value: '"font_results"'

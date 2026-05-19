@@ -23,6 +23,40 @@ type DeviceBluetoothAddress struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDeviceBluetoothAddress creates a new android.bluetooth.BluetoothDevice$BluetoothAddress instance.
+func NewDeviceBluetoothAddress(vm *jni.VM, arg0 string, arg1 int32) (*DeviceBluetoothAddress, error) {
+	var t DeviceBluetoothAddress
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDeviceBluetoothAddress == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothDevice$BluetoothAddress is not available on this device")
+		}
+		if midDeviceBluetoothAddressCtor == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothDevice$BluetoothAddress constructor (Ljava/lang/String;I)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDeviceBluetoothAddress)), midDeviceBluetoothAddressCtor, jni.ObjectValue(&jArg0.Object), jni.IntValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.bluetooth.BluetoothDevice$BluetoothAddress.describeContents.
 func (m *DeviceBluetoothAddress) DescribeContents() (int32, error) {
 	var result int32
@@ -100,29 +134,6 @@ func (m *DeviceBluetoothAddress) GetAddressType() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.bluetooth.BluetoothDevice$BluetoothAddress.writeToParcel.
-func (m *DeviceBluetoothAddress) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDeviceBluetoothAddressWriteToParcel == nil {
-			callErr = fmt.Errorf("android.bluetooth.BluetoothDevice$BluetoothAddress.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midDeviceBluetoothAddressWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.bluetooth.BluetoothDevice$BluetoothAddress.toString.
 func (m *DeviceBluetoothAddress) ToString() (string, error) {
 	var result string
@@ -148,4 +159,27 @@ func (m *DeviceBluetoothAddress) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.bluetooth.BluetoothDevice$BluetoothAddress.writeToParcel.
+func (m *DeviceBluetoothAddress) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDeviceBluetoothAddressWriteToParcel == nil {
+			callErr = fmt.Errorf("android.bluetooth.BluetoothDevice$BluetoothAddress.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsDeviceBluetoothAddress)),
+			midDeviceBluetoothAddressWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

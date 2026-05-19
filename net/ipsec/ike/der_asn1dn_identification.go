@@ -32,6 +32,12 @@ func NewDerAsn1DnIdentification(vm *jni.VM, arg0 *jni.Object) (*DerAsn1DnIdentif
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDerAsn1DnIdentification == nil {
+			return fmt.Errorf("android.net.ipsec.ike.IkeDerAsn1DnIdentification is not available on this device")
+		}
+		if midDerAsn1DnIdentificationCtor == nil {
+			return fmt.Errorf("android.net.ipsec.ike.IkeDerAsn1DnIdentification constructor (Ljavax/security/auth/x500/X500Principal;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDerAsn1DnIdentification)), midDerAsn1DnIdentificationCtor, jni.ObjectValue(arg0))
 		if err != nil {

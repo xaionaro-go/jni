@@ -32,6 +32,12 @@ func NewContentLayout(vm *jni.VM, arg0 *jni.Object) (*ContentLayout, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsContentLayout == nil {
+			return fmt.Errorf("com.google.android.material.snackbar.SnackbarContentLayout is not available on this device")
+		}
+		if midContentLayoutCtor == nil {
+			return fmt.Errorf("com.google.android.material.snackbar.SnackbarContentLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContentLayout)), midContentLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {

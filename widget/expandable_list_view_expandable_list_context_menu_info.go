@@ -23,6 +23,35 @@ type ExpandableListViewExpandableListContextMenuInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewExpandableListViewExpandableListContextMenuInfo creates a new android.widget.ExpandableListView$ExpandableListContextMenuInfo instance.
+func NewExpandableListViewExpandableListContextMenuInfo(vm *jni.VM, arg0 *jni.Object, arg1 int64, arg2 int64) (*ExpandableListViewExpandableListContextMenuInfo, error) {
+	var t ExpandableListViewExpandableListContextMenuInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsExpandableListViewExpandableListContextMenuInfo == nil {
+			return fmt.Errorf("android.widget.ExpandableListView$ExpandableListContextMenuInfo is not available on this device")
+		}
+		if midExpandableListViewExpandableListContextMenuInfoCtor == nil {
+			return fmt.Errorf("android.widget.ExpandableListView$ExpandableListContextMenuInfo constructor (Landroid/view/View;JJ)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExpandableListViewExpandableListContextMenuInfo)), midExpandableListViewExpandableListContextMenuInfoCtor, jni.ObjectValue(arg0), jni.LongValue(arg1), jni.LongValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.widget.ExpandableListView$ExpandableListContextMenuInfo.toString.
 func (m *ExpandableListViewExpandableListContextMenuInfo) ToString() (string, error) {
 	var result string

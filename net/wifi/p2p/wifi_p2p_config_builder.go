@@ -23,6 +23,34 @@ type WifiP2pConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWifiP2pConfigBuilder creates a new android.net.wifi.p2p.WifiP2pConfig$Builder instance.
+func NewWifiP2pConfigBuilder(vm *jni.VM) (*WifiP2pConfigBuilder, error) {
+	var t WifiP2pConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWifiP2pConfigBuilder == nil {
+			return fmt.Errorf("android.net.wifi.p2p.WifiP2pConfig$Builder is not available on this device")
+		}
+		if midWifiP2pConfigBuilderCtor == nil {
+			return fmt.Errorf("android.net.wifi.p2p.WifiP2pConfig$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWifiP2pConfigBuilder)), midWifiP2pConfigBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.wifi.p2p.WifiP2pConfig$Builder.build.
 func (m *WifiP2pConfigBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

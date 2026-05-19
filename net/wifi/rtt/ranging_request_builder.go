@@ -23,6 +23,34 @@ type RangingRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRangingRequestBuilder creates a new android.net.wifi.rtt.RangingRequest$Builder instance.
+func NewRangingRequestBuilder(vm *jni.VM) (*RangingRequestBuilder, error) {
+	var t RangingRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRangingRequestBuilder == nil {
+			return fmt.Errorf("android.net.wifi.rtt.RangingRequest$Builder is not available on this device")
+		}
+		if midRangingRequestBuilderCtor == nil {
+			return fmt.Errorf("android.net.wifi.rtt.RangingRequest$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRangingRequestBuilder)), midRangingRequestBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddAccessPoint calls android.net.wifi.rtt.RangingRequest$Builder.addAccessPoint.
 func (m *RangingRequestBuilder) AddAccessPoint(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

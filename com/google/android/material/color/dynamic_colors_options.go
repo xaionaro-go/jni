@@ -112,38 +112,6 @@ func (m *DynamicColorsOptions) GetOnAppliedCallback() (*jni.Object, error) {
 	return result, callErr
 }
 
-// GetContentBasedSeedColor calls com.google.android.material.color.DynamicColorsOptions.getContentBasedSeedColor.
-func (m *DynamicColorsOptions) GetContentBasedSeedColor() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDynamicColorsOptionsGetContentBasedSeedColor == nil {
-			callErr = fmt.Errorf("com.google.android.material.color.DynamicColorsOptions.getContentBasedSeedColor is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midDynamicColorsOptionsGetContentBasedSeedColor,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.color.DynamicColorsOptions.toString.
 func (m *DynamicColorsOptions) ToString() (string, error) {
 	var result string

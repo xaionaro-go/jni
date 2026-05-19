@@ -30,6 +30,12 @@ func NewActionBarDrawerToggle(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, ar
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsActionBarDrawerToggle == nil {
+			return fmt.Errorf("androidx.appcompat.app.ActionBarDrawerToggle is not available on this device")
+		}
+		if midActionBarDrawerToggleCtor == nil {
+			return fmt.Errorf("androidx.appcompat.app.ActionBarDrawerToggle constructor (Landroid/app/Activity;Landroidx/drawerlayout/widget/DrawerLayout;II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActionBarDrawerToggle)), midActionBarDrawerToggleCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3))
 		if err != nil {

@@ -23,13 +23,32 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsMaterialPickerOnPositiveButtonClickListener         *jni.GlobalRef
+	midMaterialPickerOnPositiveButtonClickListenerToString jni.MethodID
+
+	clsMaterialStyledDatePickerDialog         *jni.GlobalRef
+	midMaterialStyledDatePickerDialogCtor     jni.MethodID
+	midMaterialStyledDatePickerDialogToString jni.MethodID
+
+	clsOnSelectionChangedListener                             *jni.GlobalRef
+	midOnSelectionChangedListenerOnIncompleteSelectionChanged jni.MethodID
+	midOnSelectionChangedListenerToString                     jni.MethodID
+
+	clsMaterialCalendar                    *jni.GlobalRef
+	midMaterialCalendarCtor                jni.MethodID
+	midMaterialCalendarOnSaveInstanceState jni.MethodID
+	midMaterialCalendarOnCreate            jni.MethodID
+	midMaterialCalendarOnCreateView        jni.MethodID
+	midMaterialCalendarToString            jni.MethodID
+	midMaterialCalendarGetDateSelector     jni.MethodID
+
 	clsSingleDateSelector                               *jni.GlobalRef
 	midSingleDateSelectorCtor                           jni.MethodID
 	midSingleDateSelectorSelect                         jni.MethodID
-	midSingleDateSelectorSetSelection1                  jni.MethodID
+	midSingleDateSelectorSetSelection                   jni.MethodID
 	midSingleDateSelectorIsSelectionComplete            jni.MethodID
 	midSingleDateSelectorGetSelectedDays                jni.MethodID
-	midSingleDateSelectorGetSelection0                  jni.MethodID
+	midSingleDateSelectorGetSelection                   jni.MethodID
 	midSingleDateSelectorSetTextInputFormat             jni.MethodID
 	midSingleDateSelectorGetDefaultThemeResId           jni.MethodID
 	midSingleDateSelectorGetSelectionDisplayString      jni.MethodID
@@ -38,51 +57,82 @@ var (
 	midSingleDateSelectorGetDefaultTitleResId           jni.MethodID
 	midSingleDateSelectorDescribeContents               jni.MethodID
 	midSingleDateSelectorWriteToParcel                  jni.MethodID
-	midSingleDateSelectorSetSelection1_1                jni.MethodID
-	midSingleDateSelectorGetSelection0_1                jni.MethodID
 	midSingleDateSelectorToString                       jni.MethodID
 
-	clsMaterialCalendar                    *jni.GlobalRef
-	midMaterialCalendarCtor                jni.MethodID
-	midMaterialCalendarOnSaveInstanceState jni.MethodID
-	midMaterialCalendarOnCreate            jni.MethodID
-	midMaterialCalendarOnCreateView        jni.MethodID
-	midMaterialCalendarGetDateSelector     jni.MethodID
-	midMaterialCalendarToString            jni.MethodID
+	clsDateValidatorPointBackward                 *jni.GlobalRef
+	midDateValidatorPointBackwardIsValid          jni.MethodID
+	midDateValidatorPointBackwardDescribeContents jni.MethodID
+	midDateValidatorPointBackwardWriteToParcel    jni.MethodID
+	midDateValidatorPointBackwardEquals           jni.MethodID
+	midDateValidatorPointBackwardToString         jni.MethodID
+	midDateValidatorPointBackwardBefore           jni.MethodID
+	midDateValidatorPointBackwardNow              jni.MethodID
 
-	clsRangeDateSelector                               *jni.GlobalRef
-	midRangeDateSelectorCtor                           jni.MethodID
-	midRangeDateSelectorSelect                         jni.MethodID
-	midRangeDateSelectorIsSelectionComplete            jni.MethodID
-	midRangeDateSelectorGetSelectedDays                jni.MethodID
-	midRangeDateSelectorGetDefaultThemeResId           jni.MethodID
-	midRangeDateSelectorGetSelectionDisplayString      jni.MethodID
-	midRangeDateSelectorGetSelectionContentDescription jni.MethodID
-	midRangeDateSelectorGetError                       jni.MethodID
-	midRangeDateSelectorGetDefaultTitleResId           jni.MethodID
-	midRangeDateSelectorSetTextInputFormat             jni.MethodID
-	midRangeDateSelectorDescribeContents               jni.MethodID
-	midRangeDateSelectorWriteToParcel                  jni.MethodID
-	midRangeDateSelectorSetSelection                   jni.MethodID
-	midRangeDateSelectorGetSelection                   jni.MethodID
-	midRangeDateSelectorToString                       jni.MethodID
+	clsCalendarConstraints                 *jni.GlobalRef
+	midCalendarConstraintsGetDateValidator jni.MethodID
+	midCalendarConstraintsGetStartMs       jni.MethodID
+	midCalendarConstraintsGetEndMs         jni.MethodID
+	midCalendarConstraintsGetOpenAtMs      jni.MethodID
+	midCalendarConstraintsEquals           jni.MethodID
+	midCalendarConstraintsHashCode         jni.MethodID
+	midCalendarConstraintsDescribeContents jni.MethodID
+	midCalendarConstraintsToString         jni.MethodID
 
-	clsDateSelector                                 *jni.GlobalRef
-	midDateSelectorIsSelectionComplete              jni.MethodID
-	midDateSelectorSelect                           jni.MethodID
-	midDateSelectorGetSelectedDays                  jni.MethodID
-	midDateSelectorGetSelectionDisplayString        jni.MethodID
-	midDateSelectorGetSelectionContentDescription   jni.MethodID
-	midDateSelectorGetError                         jni.MethodID
-	midDateSelectorGetDefaultTitleResId             jni.MethodID
-	midDateSelectorGetDefaultThemeResId             jni.MethodID
-	midDateSelectorSetTextInputFormat               jni.MethodID
-	midDateSelectorToString                         jni.MethodID
-	midDateSelectorShowKeyboardWithAutoHideBehavior jni.MethodID
+	clsCalendarConstraintsBuilder                  *jni.GlobalRef
+	midCalendarConstraintsBuilderCtor              jni.MethodID
+	midCalendarConstraintsBuilderSetStart          jni.MethodID
+	midCalendarConstraintsBuilderSetEnd            jni.MethodID
+	midCalendarConstraintsBuilderSetOpenAt         jni.MethodID
+	midCalendarConstraintsBuilderSetFirstDayOfWeek jni.MethodID
+	midCalendarConstraintsBuilderSetValidator      jni.MethodID
+	midCalendarConstraintsBuilderToString          jni.MethodID
+	midCalendarConstraintsBuilderBuild             jni.MethodID
 
-	clsMaterialStyledDatePickerDialog         *jni.GlobalRef
-	midMaterialStyledDatePickerDialogCtor     jni.MethodID
-	midMaterialStyledDatePickerDialogToString jni.MethodID
+	clsCalendarConstraintsDateValidator         *jni.GlobalRef
+	midCalendarConstraintsDateValidatorIsValid  jni.MethodID
+	midCalendarConstraintsDateValidatorToString jni.MethodID
+
+	clsDateValidatorPointForward                 *jni.GlobalRef
+	midDateValidatorPointForwardIsValid          jni.MethodID
+	midDateValidatorPointForwardDescribeContents jni.MethodID
+	midDateValidatorPointForwardWriteToParcel    jni.MethodID
+	midDateValidatorPointForwardEquals           jni.MethodID
+	midDateValidatorPointForwardToString         jni.MethodID
+	midDateValidatorPointForwardFrom             jni.MethodID
+	midDateValidatorPointForwardNow              jni.MethodID
+
+	clsMaterialTextInputPicker                    *jni.GlobalRef
+	midMaterialTextInputPickerCtor                jni.MethodID
+	midMaterialTextInputPickerOnSaveInstanceState jni.MethodID
+	midMaterialTextInputPickerOnCreate            jni.MethodID
+	midMaterialTextInputPickerOnCreateView        jni.MethodID
+	midMaterialTextInputPickerGetDateSelector     jni.MethodID
+	midMaterialTextInputPickerToString            jni.MethodID
+
+	clsMaterialDatePicker                                    *jni.GlobalRef
+	midMaterialDatePickerCtor                                jni.MethodID
+	midMaterialDatePickerOnSaveInstanceState                 jni.MethodID
+	midMaterialDatePickerOnCreate                            jni.MethodID
+	midMaterialDatePickerOnCreateDialog                      jni.MethodID
+	midMaterialDatePickerOnCreateView                        jni.MethodID
+	midMaterialDatePickerOnStart                             jni.MethodID
+	midMaterialDatePickerOnStop                              jni.MethodID
+	midMaterialDatePickerOnCancel                            jni.MethodID
+	midMaterialDatePickerOnDismiss                           jni.MethodID
+	midMaterialDatePickerClearOnPositiveButtonClickListeners jni.MethodID
+	midMaterialDatePickerAddOnNegativeButtonClickListener    jni.MethodID
+	midMaterialDatePickerRemoveOnNegativeButtonClickListener jni.MethodID
+	midMaterialDatePickerClearOnNegativeButtonClickListeners jni.MethodID
+	midMaterialDatePickerAddOnCancelListener                 jni.MethodID
+	midMaterialDatePickerRemoveOnCancelListener              jni.MethodID
+	midMaterialDatePickerClearOnCancelListeners              jni.MethodID
+	midMaterialDatePickerAddOnDismissListener                jni.MethodID
+	midMaterialDatePickerRemoveOnDismissListener             jni.MethodID
+	midMaterialDatePickerToString                            jni.MethodID
+	midMaterialDatePickerTodayInUtcMilliseconds              jni.MethodID
+	midMaterialDatePickerThisMonthInUtcMilliseconds          jni.MethodID
+	midMaterialDatePickerGetHeaderText                       jni.MethodID
+	midMaterialDatePickerGetInputMode                        jni.MethodID
 
 	clsDayViewDecorator                          *jni.GlobalRef
 	midDayViewDecoratorInitialize                jni.MethodID
@@ -94,56 +144,6 @@ var (
 	midDayViewDecoratorGetTextColor              jni.MethodID
 	midDayViewDecoratorGetContentDescription     jni.MethodID
 	midDayViewDecoratorToString                  jni.MethodID
-
-	clsCalendarConstraints                 *jni.GlobalRef
-	midCalendarConstraintsGetDateValidator jni.MethodID
-	midCalendarConstraintsGetStartMs       jni.MethodID
-	midCalendarConstraintsGetEndMs         jni.MethodID
-	midCalendarConstraintsGetOpenAtMs      jni.MethodID
-	midCalendarConstraintsEquals           jni.MethodID
-	midCalendarConstraintsHashCode         jni.MethodID
-	midCalendarConstraintsDescribeContents jni.MethodID
-	midCalendarConstraintsWriteToParcel    jni.MethodID
-	midCalendarConstraintsToString         jni.MethodID
-
-	clsCalendarConstraintsBuilder                  *jni.GlobalRef
-	midCalendarConstraintsBuilderSetStart          jni.MethodID
-	midCalendarConstraintsBuilderSetEnd            jni.MethodID
-	midCalendarConstraintsBuilderSetOpenAt         jni.MethodID
-	midCalendarConstraintsBuilderSetFirstDayOfWeek jni.MethodID
-	midCalendarConstraintsBuilderSetValidator      jni.MethodID
-	midCalendarConstraintsBuilderBuild             jni.MethodID
-	midCalendarConstraintsBuilderToString          jni.MethodID
-
-	clsCalendarConstraintsDateValidator         *jni.GlobalRef
-	midCalendarConstraintsDateValidatorIsValid  jni.MethodID
-	midCalendarConstraintsDateValidatorToString jni.MethodID
-
-	clsMaterialDatePicker                                    *jni.GlobalRef
-	midMaterialDatePickerCtor                                jni.MethodID
-	midMaterialDatePickerGetHeaderText                       jni.MethodID
-	midMaterialDatePickerOnSaveInstanceState                 jni.MethodID
-	midMaterialDatePickerOnCreate                            jni.MethodID
-	midMaterialDatePickerOnCreateDialog                      jni.MethodID
-	midMaterialDatePickerOnCreateView                        jni.MethodID
-	midMaterialDatePickerOnStart                             jni.MethodID
-	midMaterialDatePickerOnStop                              jni.MethodID
-	midMaterialDatePickerOnCancel                            jni.MethodID
-	midMaterialDatePickerOnDismiss                           jni.MethodID
-	midMaterialDatePickerGetInputMode                        jni.MethodID
-	midMaterialDatePickerClearOnPositiveButtonClickListeners jni.MethodID
-	midMaterialDatePickerAddOnNegativeButtonClickListener    jni.MethodID
-	midMaterialDatePickerRemoveOnNegativeButtonClickListener jni.MethodID
-	midMaterialDatePickerClearOnNegativeButtonClickListeners jni.MethodID
-	midMaterialDatePickerAddOnCancelListener                 jni.MethodID
-	midMaterialDatePickerRemoveOnCancelListener              jni.MethodID
-	midMaterialDatePickerClearOnCancelListeners              jni.MethodID
-	midMaterialDatePickerAddOnDismissListener                jni.MethodID
-	midMaterialDatePickerRemoveOnDismissListener             jni.MethodID
-	midMaterialDatePickerClearOnDismissListeners             jni.MethodID
-	midMaterialDatePickerToString                            jni.MethodID
-	midMaterialDatePickerTodayInUtcMilliseconds              jni.MethodID
-	midMaterialDatePickerThisMonthInUtcMilliseconds          jni.MethodID
 
 	clsMaterialDatePickerBuilder                                       *jni.GlobalRef
 	midMaterialDatePickerBuilderSetTextInputFormat                     jni.MethodID
@@ -168,48 +168,40 @@ var (
 	clsMaterialDatePickerInputMode         *jni.GlobalRef
 	midMaterialDatePickerInputModeToString jni.MethodID
 
-	clsMaterialPickerOnPositiveButtonClickListener         *jni.GlobalRef
-	midMaterialPickerOnPositiveButtonClickListenerToString jni.MethodID
-
-	clsOnSelectionChangedListener                             *jni.GlobalRef
-	midOnSelectionChangedListenerOnIncompleteSelectionChanged jni.MethodID
-	midOnSelectionChangedListenerToString                     jni.MethodID
-
-	clsDateValidatorPointBackward                 *jni.GlobalRef
-	midDateValidatorPointBackwardIsValid          jni.MethodID
-	midDateValidatorPointBackwardDescribeContents jni.MethodID
-	midDateValidatorPointBackwardWriteToParcel    jni.MethodID
-	midDateValidatorPointBackwardEquals           jni.MethodID
-	midDateValidatorPointBackwardHashCode         jni.MethodID
-	midDateValidatorPointBackwardToString         jni.MethodID
-	midDateValidatorPointBackwardBefore           jni.MethodID
-	midDateValidatorPointBackwardNow              jni.MethodID
-
-	clsDateValidatorPointForward                 *jni.GlobalRef
-	midDateValidatorPointForwardIsValid          jni.MethodID
-	midDateValidatorPointForwardDescribeContents jni.MethodID
-	midDateValidatorPointForwardWriteToParcel    jni.MethodID
-	midDateValidatorPointForwardEquals           jni.MethodID
-	midDateValidatorPointForwardHashCode         jni.MethodID
-	midDateValidatorPointForwardToString         jni.MethodID
-	midDateValidatorPointForwardFrom             jni.MethodID
-	midDateValidatorPointForwardNow              jni.MethodID
+	clsRangeDateSelector                               *jni.GlobalRef
+	midRangeDateSelectorCtor                           jni.MethodID
+	midRangeDateSelectorSelect                         jni.MethodID
+	midRangeDateSelectorIsSelectionComplete            jni.MethodID
+	midRangeDateSelectorGetSelectedDays                jni.MethodID
+	midRangeDateSelectorGetDefaultThemeResId           jni.MethodID
+	midRangeDateSelectorGetSelectionDisplayString      jni.MethodID
+	midRangeDateSelectorGetSelectionContentDescription jni.MethodID
+	midRangeDateSelectorGetError                       jni.MethodID
+	midRangeDateSelectorGetDefaultTitleResId           jni.MethodID
+	midRangeDateSelectorSetTextInputFormat             jni.MethodID
+	midRangeDateSelectorDescribeContents               jni.MethodID
+	midRangeDateSelectorWriteToParcel                  jni.MethodID
+	midRangeDateSelectorToString                       jni.MethodID
 
 	clsCompositeDateValidator                 *jni.GlobalRef
 	midCompositeDateValidatorIsValid          jni.MethodID
 	midCompositeDateValidatorDescribeContents jni.MethodID
 	midCompositeDateValidatorWriteToParcel    jni.MethodID
 	midCompositeDateValidatorEquals           jni.MethodID
-	midCompositeDateValidatorHashCode         jni.MethodID
 	midCompositeDateValidatorToString         jni.MethodID
 
-	clsMaterialTextInputPicker                    *jni.GlobalRef
-	midMaterialTextInputPickerCtor                jni.MethodID
-	midMaterialTextInputPickerOnSaveInstanceState jni.MethodID
-	midMaterialTextInputPickerOnCreate            jni.MethodID
-	midMaterialTextInputPickerOnCreateView        jni.MethodID
-	midMaterialTextInputPickerGetDateSelector     jni.MethodID
-	midMaterialTextInputPickerToString            jni.MethodID
+	clsDateSelector                                 *jni.GlobalRef
+	midDateSelectorIsSelectionComplete              jni.MethodID
+	midDateSelectorSelect                           jni.MethodID
+	midDateSelectorGetSelectedDays                  jni.MethodID
+	midDateSelectorGetSelectionDisplayString        jni.MethodID
+	midDateSelectorGetSelectionContentDescription   jni.MethodID
+	midDateSelectorGetError                         jni.MethodID
+	midDateSelectorGetDefaultTitleResId             jni.MethodID
+	midDateSelectorGetDefaultThemeResId             jni.MethodID
+	midDateSelectorSetTextInputFormat               jni.MethodID
+	midDateSelectorToString                         jni.MethodID
+	midDateSelectorShowKeyboardWithAutoHideBehavior jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -230,6 +222,117 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
+	c, err = env.FindClass("com/google/android/material/datepicker/MaterialPickerOnPositiveButtonClickListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMaterialPickerOnPositiveButtonClickListener = env.NewGlobalRef(&c.Object)
+
+		midMaterialPickerOnPositiveButtonClickListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialPickerOnPositiveButtonClickListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/datepicker/MaterialStyledDatePickerDialog")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMaterialStyledDatePickerDialog = env.NewGlobalRef(&c.Object)
+		midMaterialStyledDatePickerDialogCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialStyledDatePickerDialog)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMaterialStyledDatePickerDialogToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialStyledDatePickerDialog)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/datepicker/OnSelectionChangedListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsOnSelectionChangedListener = env.NewGlobalRef(&c.Object)
+
+		midOnSelectionChangedListenerOnIncompleteSelectionChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnSelectionChangedListener)), "onIncompleteSelectionChanged", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOnSelectionChangedListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnSelectionChangedListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/datepicker/MaterialCalendar")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMaterialCalendar = env.NewGlobalRef(&c.Object)
+		midMaterialCalendarCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialCalendar)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMaterialCalendarOnSaveInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialCalendar)), "onSaveInstanceState", "(Landroid/os/Bundle;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialCalendarOnCreate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialCalendar)), "onCreate", "(Landroid/os/Bundle;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialCalendarOnCreateView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialCalendar)), "onCreateView", "(Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialCalendarToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialCalendar)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialCalendarGetDateSelector, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialCalendar)), "getDateSelector", "()Lcom/google/android/material/datepicker/DateSelector;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("com/google/android/material/datepicker/SingleDateSelector")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -249,7 +352,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midSingleDateSelectorSetSelection1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSingleDateSelector)), "setSelection", "(Ljava/lang/Long;)V")
+		midSingleDateSelectorSetSelection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSingleDateSelector)), "setSelection", "(Ljava/lang/Long;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -270,7 +373,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midSingleDateSelectorGetSelection0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSingleDateSelector)), "getSelection", "()Ljava/lang/Long;")
+		midSingleDateSelectorGetSelection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSingleDateSelector)), "getSelection", "()Ljava/lang/Long;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -333,20 +436,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midSingleDateSelectorSetSelection1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSingleDateSelector)), "setSelection", "(Ljava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSingleDateSelectorGetSelection0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSingleDateSelector)), "getSelection", "()Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midSingleDateSelectorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSingleDateSelector)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -356,47 +445,57 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/datepicker/MaterialCalendar")
+	c, err = env.FindClass("com/google/android/material/datepicker/DateValidatorPointBackward")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsMaterialCalendar = env.NewGlobalRef(&c.Object)
-		midMaterialCalendarCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialCalendar)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsDateValidatorPointBackward = env.NewGlobalRef(&c.Object)
 
-		midMaterialCalendarOnSaveInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialCalendar)), "onSaveInstanceState", "(Landroid/os/Bundle;)V")
+		midDateValidatorPointBackwardIsValid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointBackward)), "isValid", "(J)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialCalendarOnCreate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialCalendar)), "onCreate", "(Landroid/os/Bundle;)V")
+		midDateValidatorPointBackwardDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointBackward)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialCalendarOnCreateView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialCalendar)), "onCreateView", "(Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;")
+		midDateValidatorPointBackwardWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointBackward)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialCalendarGetDateSelector, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialCalendar)), "getDateSelector", "()Lcom/google/android/material/datepicker/DateSelector;")
+		midDateValidatorPointBackwardEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointBackward)), "equals", "(Ljava/lang/Object;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialCalendarToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialCalendar)), "toString", "()Ljava/lang/String;")
+		midDateValidatorPointBackwardToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointBackward)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDateValidatorPointBackwardBefore, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointBackward)), "before", "(J)Lcom/google/android/material/datepicker/DateValidatorPointBackward;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDateValidatorPointBackwardNow, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointBackward)), "now", "()Lcom/google/android/material/datepicker/DateValidatorPointBackward;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -405,110 +504,64 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/datepicker/RangeDateSelector")
+	c, err = env.FindClass("com/google/android/material/datepicker/CalendarConstraints")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsRangeDateSelector = env.NewGlobalRef(&c.Object)
-		midRangeDateSelectorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsCalendarConstraints = env.NewGlobalRef(&c.Object)
 
-		midRangeDateSelectorSelect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "select", "(J)V")
+		midCalendarConstraintsGetDateValidator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraints)), "getDateValidator", "()Lcom/google/android/material/datepicker/CalendarConstraints$DateValidator;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midRangeDateSelectorIsSelectionComplete, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "isSelectionComplete", "()Z")
+		midCalendarConstraintsGetStartMs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraints)), "getStartMs", "()J")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midRangeDateSelectorGetSelectedDays, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "getSelectedDays", "()Ljava/util/Collection;")
+		midCalendarConstraintsGetEndMs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraints)), "getEndMs", "()J")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midRangeDateSelectorGetDefaultThemeResId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "getDefaultThemeResId", "(Landroid/content/Context;)I")
+		midCalendarConstraintsGetOpenAtMs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraints)), "getOpenAtMs", "()Ljava/lang/Long;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midRangeDateSelectorGetSelectionDisplayString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "getSelectionDisplayString", "(Landroid/content/Context;)Ljava/lang/String;")
+		midCalendarConstraintsEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraints)), "equals", "(Ljava/lang/Object;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midRangeDateSelectorGetSelectionContentDescription, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "getSelectionContentDescription", "(Landroid/content/Context;)Ljava/lang/String;")
+		midCalendarConstraintsHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraints)), "hashCode", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midRangeDateSelectorGetError, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "getError", "()Ljava/lang/String;")
+		midCalendarConstraintsDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraints)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midRangeDateSelectorGetDefaultTitleResId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "getDefaultTitleResId", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRangeDateSelectorSetTextInputFormat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "setTextInputFormat", "(Ljava/text/SimpleDateFormat;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRangeDateSelectorDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRangeDateSelectorWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRangeDateSelectorSetSelection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "setSelection", "(Ljava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRangeDateSelectorGetSelection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "getSelection", "()Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRangeDateSelectorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "toString", "()Ljava/lang/String;")
+		midCalendarConstraintsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraints)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -517,85 +570,61 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/datepicker/DateSelector")
+	c, err = env.FindClass("com/google/android/material/datepicker/CalendarConstraints$Builder")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsDateSelector = env.NewGlobalRef(&c.Object)
+		clsCalendarConstraintsBuilder = env.NewGlobalRef(&c.Object)
+		midCalendarConstraintsBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraintsBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midDateSelectorIsSelectionComplete, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "isSelectionComplete", "()Z")
+		midCalendarConstraintsBuilderSetStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraintsBuilder)), "setStart", "(J)Lcom/google/android/material/datepicker/CalendarConstraints$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDateSelectorSelect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "select", "(J)V")
+		midCalendarConstraintsBuilderSetEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraintsBuilder)), "setEnd", "(J)Lcom/google/android/material/datepicker/CalendarConstraints$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDateSelectorGetSelectedDays, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "getSelectedDays", "()Ljava/util/Collection;")
+		midCalendarConstraintsBuilderSetOpenAt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraintsBuilder)), "setOpenAt", "(J)Lcom/google/android/material/datepicker/CalendarConstraints$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDateSelectorGetSelectionDisplayString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "getSelectionDisplayString", "(Landroid/content/Context;)Ljava/lang/String;")
+		midCalendarConstraintsBuilderSetFirstDayOfWeek, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraintsBuilder)), "setFirstDayOfWeek", "(I)Lcom/google/android/material/datepicker/CalendarConstraints$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDateSelectorGetSelectionContentDescription, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "getSelectionContentDescription", "(Landroid/content/Context;)Ljava/lang/String;")
+		midCalendarConstraintsBuilderSetValidator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraintsBuilder)), "setValidator", "(Lcom/google/android/material/datepicker/CalendarConstraints$DateValidator;)Lcom/google/android/material/datepicker/CalendarConstraints$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDateSelectorGetError, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "getError", "()Ljava/lang/String;")
+		midCalendarConstraintsBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraintsBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDateSelectorGetDefaultTitleResId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "getDefaultTitleResId", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDateSelectorGetDefaultThemeResId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "getDefaultThemeResId", "(Landroid/content/Context;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDateSelectorSetTextInputFormat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "setTextInputFormat", "(Ljava/text/SimpleDateFormat;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDateSelectorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDateSelectorShowKeyboardWithAutoHideBehavior, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "showKeyboardWithAutoHideBehavior", "([Landroid/widget/EditText;)V")
+		midCalendarConstraintsBuilderBuild, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraintsBuilder)), "build", "()Lcom/google/android/material/datepicker/CalendarConstraints;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -604,19 +633,298 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/datepicker/MaterialStyledDatePickerDialog")
+	c, err = env.FindClass("com/google/android/material/datepicker/CalendarConstraints$DateValidator")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsMaterialStyledDatePickerDialog = env.NewGlobalRef(&c.Object)
-		midMaterialStyledDatePickerDialogCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialStyledDatePickerDialog)), "<init>", "(Landroid/content/Context;)V")
+		clsCalendarConstraintsDateValidator = env.NewGlobalRef(&c.Object)
+
+		midCalendarConstraintsDateValidatorIsValid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraintsDateValidator)), "isValid", "(J)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCalendarConstraintsDateValidatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraintsDateValidator)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/datepicker/DateValidatorPointForward")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDateValidatorPointForward = env.NewGlobalRef(&c.Object)
+
+		midDateValidatorPointForwardIsValid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointForward)), "isValid", "(J)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDateValidatorPointForwardDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointForward)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDateValidatorPointForwardWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointForward)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDateValidatorPointForwardEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointForward)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDateValidatorPointForwardToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointForward)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDateValidatorPointForwardFrom, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointForward)), "from", "(J)Lcom/google/android/material/datepicker/DateValidatorPointForward;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDateValidatorPointForwardNow, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointForward)), "now", "()Lcom/google/android/material/datepicker/DateValidatorPointForward;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/datepicker/MaterialTextInputPicker")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMaterialTextInputPicker = env.NewGlobalRef(&c.Object)
+		midMaterialTextInputPickerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialTextInputPicker)), "<init>", "()V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midMaterialStyledDatePickerDialogToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialStyledDatePickerDialog)), "toString", "()Ljava/lang/String;")
+		midMaterialTextInputPickerOnSaveInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialTextInputPicker)), "onSaveInstanceState", "(Landroid/os/Bundle;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialTextInputPickerOnCreate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialTextInputPicker)), "onCreate", "(Landroid/os/Bundle;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialTextInputPickerOnCreateView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialTextInputPicker)), "onCreateView", "(Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialTextInputPickerGetDateSelector, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialTextInputPicker)), "getDateSelector", "()Lcom/google/android/material/datepicker/DateSelector;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialTextInputPickerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialTextInputPicker)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/datepicker/MaterialDatePicker")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMaterialDatePicker = env.NewGlobalRef(&c.Object)
+		midMaterialDatePickerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerOnSaveInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "onSaveInstanceState", "(Landroid/os/Bundle;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerOnCreate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "onCreate", "(Landroid/os/Bundle;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerOnCreateDialog, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "onCreateDialog", "(Landroid/os/Bundle;)Landroid/app/Dialog;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerOnCreateView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "onCreateView", "(Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerOnStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "onStart", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerOnStop, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "onStop", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerOnCancel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "onCancel", "(Landroid/content/DialogInterface;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerOnDismiss, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "onDismiss", "(Landroid/content/DialogInterface;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerClearOnPositiveButtonClickListeners, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "clearOnPositiveButtonClickListeners", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerAddOnNegativeButtonClickListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "addOnNegativeButtonClickListener", "(Landroid/view/View$OnClickListener;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerRemoveOnNegativeButtonClickListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "removeOnNegativeButtonClickListener", "(Landroid/view/View$OnClickListener;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerClearOnNegativeButtonClickListeners, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "clearOnNegativeButtonClickListeners", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerAddOnCancelListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "addOnCancelListener", "(Landroid/content/DialogInterface$OnCancelListener;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerRemoveOnCancelListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "removeOnCancelListener", "(Landroid/content/DialogInterface$OnCancelListener;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerClearOnCancelListeners, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "clearOnCancelListeners", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerAddOnDismissListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "addOnDismissListener", "(Landroid/content/DialogInterface$OnDismissListener;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerRemoveOnDismissListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "removeOnDismissListener", "(Landroid/content/DialogInterface$OnDismissListener;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerTodayInUtcMilliseconds, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "todayInUtcMilliseconds", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerThisMonthInUtcMilliseconds, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "thisMonthInUtcMilliseconds", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerGetHeaderText, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "getHeaderText", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialDatePickerGetInputMode, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "getInputMode", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -690,337 +998,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midDayViewDecoratorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDayViewDecorator)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/datepicker/CalendarConstraints")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCalendarConstraints = env.NewGlobalRef(&c.Object)
-
-		midCalendarConstraintsGetDateValidator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraints)), "getDateValidator", "()Lcom/google/android/material/datepicker/CalendarConstraints$DateValidator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCalendarConstraintsGetStartMs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraints)), "getStartMs", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCalendarConstraintsGetEndMs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraints)), "getEndMs", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCalendarConstraintsGetOpenAtMs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraints)), "getOpenAtMs", "()Ljava/lang/Long;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCalendarConstraintsEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraints)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCalendarConstraintsHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraints)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCalendarConstraintsDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraints)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCalendarConstraintsWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraints)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCalendarConstraintsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraints)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/datepicker/CalendarConstraints$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCalendarConstraintsBuilder = env.NewGlobalRef(&c.Object)
-
-		midCalendarConstraintsBuilderSetStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraintsBuilder)), "setStart", "(J)Lcom/google/android/material/datepicker/CalendarConstraints$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCalendarConstraintsBuilderSetEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraintsBuilder)), "setEnd", "(J)Lcom/google/android/material/datepicker/CalendarConstraints$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCalendarConstraintsBuilderSetOpenAt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraintsBuilder)), "setOpenAt", "(J)Lcom/google/android/material/datepicker/CalendarConstraints$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCalendarConstraintsBuilderSetFirstDayOfWeek, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraintsBuilder)), "setFirstDayOfWeek", "(I)Lcom/google/android/material/datepicker/CalendarConstraints$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCalendarConstraintsBuilderSetValidator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraintsBuilder)), "setValidator", "(Lcom/google/android/material/datepicker/CalendarConstraints$DateValidator;)Lcom/google/android/material/datepicker/CalendarConstraints$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCalendarConstraintsBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraintsBuilder)), "build", "()Lcom/google/android/material/datepicker/CalendarConstraints;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCalendarConstraintsBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraintsBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/datepicker/CalendarConstraints$DateValidator")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCalendarConstraintsDateValidator = env.NewGlobalRef(&c.Object)
-
-		midCalendarConstraintsDateValidatorIsValid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraintsDateValidator)), "isValid", "(J)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCalendarConstraintsDateValidatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCalendarConstraintsDateValidator)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/datepicker/MaterialDatePicker")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMaterialDatePicker = env.NewGlobalRef(&c.Object)
-		midMaterialDatePickerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerGetHeaderText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "getHeaderText", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerOnSaveInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "onSaveInstanceState", "(Landroid/os/Bundle;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerOnCreate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "onCreate", "(Landroid/os/Bundle;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerOnCreateDialog, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "onCreateDialog", "(Landroid/os/Bundle;)Landroid/app/Dialog;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerOnCreateView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "onCreateView", "(Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerOnStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "onStart", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerOnStop, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "onStop", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerOnCancel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "onCancel", "(Landroid/content/DialogInterface;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerOnDismiss, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "onDismiss", "(Landroid/content/DialogInterface;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerGetInputMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "getInputMode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerClearOnPositiveButtonClickListeners, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "clearOnPositiveButtonClickListeners", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerAddOnNegativeButtonClickListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "addOnNegativeButtonClickListener", "(Landroid/view/View$OnClickListener;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerRemoveOnNegativeButtonClickListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "removeOnNegativeButtonClickListener", "(Landroid/view/View$OnClickListener;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerClearOnNegativeButtonClickListeners, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "clearOnNegativeButtonClickListeners", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerAddOnCancelListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "addOnCancelListener", "(Landroid/content/DialogInterface$OnCancelListener;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerRemoveOnCancelListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "removeOnCancelListener", "(Landroid/content/DialogInterface$OnCancelListener;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerClearOnCancelListeners, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "clearOnCancelListeners", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerAddOnDismissListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "addOnDismissListener", "(Landroid/content/DialogInterface$OnDismissListener;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerRemoveOnDismissListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "removeOnDismissListener", "(Landroid/content/DialogInterface$OnDismissListener;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerClearOnDismissListeners, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "clearOnDismissListeners", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerTodayInUtcMilliseconds, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "todayInUtcMilliseconds", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialDatePickerThisMonthInUtcMilliseconds, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), "thisMonthInUtcMilliseconds", "()J")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1182,171 +1159,96 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/datepicker/MaterialPickerOnPositiveButtonClickListener")
+	c, err = env.FindClass("com/google/android/material/datepicker/RangeDateSelector")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsMaterialPickerOnPositiveButtonClickListener = env.NewGlobalRef(&c.Object)
+		clsRangeDateSelector = env.NewGlobalRef(&c.Object)
+		midRangeDateSelectorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midMaterialPickerOnPositiveButtonClickListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialPickerOnPositiveButtonClickListener)), "toString", "()Ljava/lang/String;")
+		midRangeDateSelectorSelect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "select", "(J)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("com/google/android/material/datepicker/OnSelectionChangedListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsOnSelectionChangedListener = env.NewGlobalRef(&c.Object)
-
-		midOnSelectionChangedListenerOnIncompleteSelectionChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnSelectionChangedListener)), "onIncompleteSelectionChanged", "()V")
+		midRangeDateSelectorIsSelectionComplete, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "isSelectionComplete", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midOnSelectionChangedListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnSelectionChangedListener)), "toString", "()Ljava/lang/String;")
+		midRangeDateSelectorGetSelectedDays, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "getSelectedDays", "()Ljava/util/Collection;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("com/google/android/material/datepicker/DateValidatorPointBackward")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDateValidatorPointBackward = env.NewGlobalRef(&c.Object)
-
-		midDateValidatorPointBackwardIsValid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointBackward)), "isValid", "(J)Z")
+		midRangeDateSelectorGetDefaultThemeResId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "getDefaultThemeResId", "(Landroid/content/Context;)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDateValidatorPointBackwardDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointBackward)), "describeContents", "()I")
+		midRangeDateSelectorGetSelectionDisplayString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "getSelectionDisplayString", "(Landroid/content/Context;)Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDateValidatorPointBackwardWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointBackward)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midRangeDateSelectorGetSelectionContentDescription, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "getSelectionContentDescription", "(Landroid/content/Context;)Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDateValidatorPointBackwardEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointBackward)), "equals", "(Ljava/lang/Object;)Z")
+		midRangeDateSelectorGetError, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "getError", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDateValidatorPointBackwardHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointBackward)), "hashCode", "()I")
+		midRangeDateSelectorGetDefaultTitleResId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "getDefaultTitleResId", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDateValidatorPointBackwardToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointBackward)), "toString", "()Ljava/lang/String;")
+		midRangeDateSelectorSetTextInputFormat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "setTextInputFormat", "(Ljava/text/SimpleDateFormat;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDateValidatorPointBackwardBefore, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointBackward)), "before", "(J)Lcom/google/android/material/datepicker/DateValidatorPointBackward;")
+		midRangeDateSelectorDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDateValidatorPointBackwardNow, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointBackward)), "now", "()Lcom/google/android/material/datepicker/DateValidatorPointBackward;")
+		midRangeDateSelectorWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("com/google/android/material/datepicker/DateValidatorPointForward")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDateValidatorPointForward = env.NewGlobalRef(&c.Object)
-
-		midDateValidatorPointForwardIsValid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointForward)), "isValid", "(J)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDateValidatorPointForwardDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointForward)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDateValidatorPointForwardWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointForward)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDateValidatorPointForwardEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointForward)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDateValidatorPointForwardHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointForward)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDateValidatorPointForwardToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointForward)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDateValidatorPointForwardFrom, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointForward)), "from", "(J)Lcom/google/android/material/datepicker/DateValidatorPointForward;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDateValidatorPointForwardNow, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDateValidatorPointForward)), "now", "()Lcom/google/android/material/datepicker/DateValidatorPointForward;")
+		midRangeDateSelectorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeDateSelector)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1391,13 +1293,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midCompositeDateValidatorHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompositeDateValidator)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midCompositeDateValidatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompositeDateValidator)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -1407,47 +1302,85 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/datepicker/MaterialTextInputPicker")
+	c, err = env.FindClass("com/google/android/material/datepicker/DateSelector")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsMaterialTextInputPicker = env.NewGlobalRef(&c.Object)
-		midMaterialTextInputPickerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialTextInputPicker)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsDateSelector = env.NewGlobalRef(&c.Object)
 
-		midMaterialTextInputPickerOnSaveInstanceState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialTextInputPicker)), "onSaveInstanceState", "(Landroid/os/Bundle;)V")
+		midDateSelectorIsSelectionComplete, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "isSelectionComplete", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialTextInputPickerOnCreate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialTextInputPicker)), "onCreate", "(Landroid/os/Bundle;)V")
+		midDateSelectorSelect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "select", "(J)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialTextInputPickerOnCreateView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialTextInputPicker)), "onCreateView", "(Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;")
+		midDateSelectorGetSelectedDays, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "getSelectedDays", "()Ljava/util/Collection;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialTextInputPickerGetDateSelector, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialTextInputPicker)), "getDateSelector", "()Lcom/google/android/material/datepicker/DateSelector;")
+		midDateSelectorGetSelectionDisplayString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "getSelectionDisplayString", "(Landroid/content/Context;)Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialTextInputPickerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialTextInputPicker)), "toString", "()Ljava/lang/String;")
+		midDateSelectorGetSelectionContentDescription, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "getSelectionContentDescription", "(Landroid/content/Context;)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDateSelectorGetError, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "getError", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDateSelectorGetDefaultTitleResId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "getDefaultTitleResId", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDateSelectorGetDefaultThemeResId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "getDefaultThemeResId", "(Landroid/content/Context;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDateSelectorSetTextInputFormat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "setTextInputFormat", "(Ljava/text/SimpleDateFormat;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDateSelectorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDateSelectorShowKeyboardWithAutoHideBehavior, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDateSelector)), "showKeyboardWithAutoHideBehavior", "([Landroid/widget/EditText;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

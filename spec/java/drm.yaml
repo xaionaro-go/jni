@@ -5,70 +5,36 @@
 package: drm
 go_import: github.com/AndroidGoLab/jni/drm
 classes:
-    - java_class: android.drm.DrmStore
-      go_type: Store
-      obtain: constructor
-    - java_class: android.drm.DrmStore$Action
-      go_type: StoreAction
-    - java_class: android.drm.DrmStore$ConstraintsColumns
-      go_type: StoreConstraintsColumns
-    - java_class: android.drm.DrmStore$DrmObjectType
-      go_type: StoreDrmObjectType
-    - java_class: android.drm.DrmStore$Playback
-      go_type: StorePlayback
-    - java_class: android.drm.DrmStore$RightsStatus
-      go_type: StoreRightsStatus
-    - java_class: android.drm.DrmInfoStatus
-      go_type: InfoStatus
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-        - java_type: android.drm.ProcessedData
-          go_name: arg2
-        - java_type: String
-          go_name: arg3
-    - java_class: android.drm.DrmUtils
-      go_type: Utils
-      obtain: constructor
-      static_methods:
-        - java_method: getExtendedMetadataParser
-          go_name: GetExtendedMetadataParser
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: android.drm.DrmUtils$ExtendedMetadataParser
-          error: true
-    - java_class: android.drm.DrmUtils$ExtendedMetadataParser
-      go_type: UtilsExtendedMetadataParser
+    - java_class: android.drm.DrmEvent
+      go_type: Event
       methods:
-        - java_method: get
-          go_name: Get
+        - java_method: getAttribute
+          go_name: GetAttribute
           params:
             - java_type: String
               go_name: arg0
+          returns: java.lang.Object
+          error: true
+        - java_method: getMessage
+          go_name: GetMessage
           returns: String
           error: true
-        - java_method: iterator
-          go_name: Iterator
-          returns: java.util.Iterator<java.lang.String>
+        - java_method: getType
+          go_name: GetType
+          returns: int
           error: true
-        - java_method: keyIterator
-          go_name: KeyIterator
-          returns: java.util.Iterator<java.lang.String>
+        - java_method: getUniqueId
+          go_name: GetUniqueId
+          returns: int
           error: true
-    - java_class: android.drm.DrmInfo
-      go_type: Info
+    - java_class: android.drm.DrmInfoRequest
+      go_type: InfoRequest
       obtain: constructor
       constructor_params:
         - java_type: int
           go_name: arg0
-        - java_type: '[B'
-          go_name: arg1
         - java_type: String
-          go_name: arg2
+          go_name: arg1
       methods:
         - java_method: get
           go_name: Get
@@ -76,10 +42,6 @@ classes:
             - java_type: String
               go_name: arg0
           returns: java.lang.Object
-          error: true
-        - java_method: getData
-          go_name: GetData
-          returns: '[B'
           error: true
         - java_method: getInfoType
           go_name: GetInfoType
@@ -106,28 +68,26 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.drm.DrmEvent
-      go_type: Event
-      methods:
-        - java_method: getAttribute
-          go_name: GetAttribute
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: java.lang.Object
-          error: true
-        - java_method: getMessage
-          go_name: GetMessage
-          returns: String
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: int
-          error: true
-        - java_method: getUniqueId
-          go_name: GetUniqueId
-          returns: int
-          error: true
+    - java_class: android.drm.DrmErrorEvent
+      go_type: ErrorEvent
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: String
+          go_name: arg2
+    - java_class: android.drm.DrmInfoEvent
+      go_type: InfoEvent
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: String
+          go_name: arg2
     - java_class: android.drm.DrmManagerClient
       go_type: ManagerClient
       obtain: constructor
@@ -374,24 +334,31 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.drm.DrmInfoEvent
-      go_type: InfoEvent
+    - java_class: android.drm.ProcessedData
+      go_type: ProcessedData
+      methods:
+        - java_method: getAccountId
+          go_name: GetAccountId
+          returns: String
+          error: true
+        - java_method: getData
+          go_name: GetData
+          returns: '[B'
+          error: true
+        - java_method: getSubscriptionId
+          go_name: GetSubscriptionId
+          returns: String
+          error: true
+    - java_class: android.drm.DrmInfo
+      go_type: Info
       obtain: constructor
       constructor_params:
         - java_type: int
           go_name: arg0
-        - java_type: int
+        - java_type: '[B'
           go_name: arg1
         - java_type: String
           go_name: arg2
-    - java_class: android.drm.DrmInfoRequest
-      go_type: InfoRequest
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
       methods:
         - java_method: get
           go_name: Get
@@ -399,6 +366,10 @@ classes:
             - java_type: String
               go_name: arg0
           returns: java.lang.Object
+          error: true
+        - java_method: getData
+          go_name: GetData
+          returns: '[B'
           error: true
         - java_method: getInfoType
           go_name: GetInfoType
@@ -425,16 +396,12 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.drm.DrmErrorEvent
-      go_type: ErrorEvent
+    - java_class: android.drm.DrmStore
+      go_type: Store
       obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-        - java_type: String
-          go_name: arg2
+    - java_class: android.drm.DrmStore$Action
+      go_type: StoreAction
+      obtain: constructor
     - java_class: android.drm.DrmRights
       go_type: Rights
       obtain: constructor
@@ -460,6 +427,68 @@ classes:
           go_name: GetSubscriptionId
           returns: String
           error: true
+    - java_class: android.drm.DrmStore$ConstraintsColumns
+      go_type: StoreConstraintsColumns
+    - java_class: android.drm.DrmStore$DrmObjectType
+      go_type: StoreDrmObjectType
+      obtain: constructor
+    - java_class: android.drm.DrmStore$Playback
+      go_type: StorePlayback
+      obtain: constructor
+    - java_class: android.drm.DrmStore$RightsStatus
+      go_type: StoreRightsStatus
+      obtain: constructor
+    - java_class: android.drm.DrmConvertedStatus
+      go_type: ConvertedStatus
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: '[B'
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+    - java_class: android.drm.DrmUtils
+      go_type: Utils
+      obtain: constructor
+      static_methods:
+        - java_method: getExtendedMetadataParser
+          go_name: GetExtendedMetadataParser
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: android.drm.DrmUtils$ExtendedMetadataParser
+          error: true
+    - java_class: android.drm.DrmUtils$ExtendedMetadataParser
+      go_type: UtilsExtendedMetadataParser
+      methods:
+        - java_method: get
+          go_name: Get
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: iterator
+          go_name: Iterator
+          returns: java.util.Iterator<java.lang.String>
+          error: true
+        - java_method: keyIterator
+          go_name: KeyIterator
+          returns: java.util.Iterator<java.lang.String>
+          error: true
+    - java_class: android.drm.DrmInfoStatus
+      go_type: InfoStatus
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: android.drm.ProcessedData
+          go_name: arg2
+        - java_type: String
+          go_name: arg3
     - java_class: android.drm.DrmSupportInfo
       go_type: SupportInfo
       obtain: constructor
@@ -512,32 +541,85 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.drm.ProcessedData
-      go_type: ProcessedData
-      methods:
-        - java_method: getAccountId
-          go_name: GetAccountId
-          returns: String
-          error: true
-        - java_method: getData
-          go_name: GetData
-          returns: '[B'
-          error: true
-        - java_method: getSubscriptionId
-          go_name: GetSubscriptionId
-          returns: String
-          error: true
-    - java_class: android.drm.DrmConvertedStatus
-      go_type: ConvertedStatus
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: '[B'
-          go_name: arg1
-        - java_type: int
-          go_name: arg2
 constants:
+    - go_name: DrmInfoObject
+      value: '"drm_info_object"'
+      go_type: string
+    - go_name: DrmInfoStatusObject
+      value: '"drm_info_status_object"'
+      go_type: string
+    - go_name: TypeAllRightsRemoved
+      value: "1001"
+      go_type: int
+    - go_name: TypeDrmInfoProcessed
+      value: "1002"
+      go_type: int
+    - go_name: AccountId
+      value: '"account_id"'
+      go_type: string
+    - go_name: SubscriptionId
+      value: '"subscription_id"'
+      go_type: string
+    - go_name: TypeRegistrationInfo
+      value: "1"
+      go_type: int
+    - go_name: TypeRightsAcquisitionInfo
+      value: "3"
+      go_type: int
+    - go_name: TypeRightsAcquisitionProgressInfo
+      value: "4"
+      go_type: int
+    - go_name: TypeUnregistrationInfo
+      value: "2"
+      go_type: int
+    - go_name: TypeAcquireDrmInfoFailed
+      value: "2008"
+      go_type: int
+    - go_name: TypeNotSupported
+      value: "2003"
+      go_type: int
+    - go_name: TypeNoInternetConnection
+      value: "2005"
+      go_type: int
+    - go_name: TypeOutOfMemory
+      value: "2004"
+      go_type: int
+    - go_name: TypeProcessDrmInfoFailed
+      value: "2006"
+      go_type: int
+    - go_name: TypeRemoveAllRightsFailed
+      value: "2007"
+      go_type: int
+    - go_name: TypeRightsNotInstalled
+      value: "2001"
+      go_type: int
+    - go_name: TypeRightsRenewalNotAllowed
+      value: "2002"
+      go_type: int
+    - go_name: TypeAccountAlreadyRegistered
+      value: "5"
+      go_type: int
+    - go_name: TypeAlreadyRegisteredByAnotherAccount
+      value: "1"
+      go_type: int
+    - go_name: TypeRemoveRights
+      value: "2"
+      go_type: int
+    - go_name: TypeRightsInstalled
+      value: "3"
+      go_type: int
+    - go_name: TypeRightsRemoved
+      value: "6"
+      go_type: int
+    - go_name: TypeWaitForRights
+      value: "4"
+      go_type: int
+    - go_name: ErrorNone
+      value: "0"
+      go_type: int
+    - go_name: ErrorUnknown
+      value: "-2000"
+      go_type: int
     - go_name: Default
       value: "0"
       go_type: int
@@ -617,89 +699,11 @@ constants:
       value: "0"
       go_type: int
     - go_name: StatusError
+      value: "3"
+      go_type: int
+    - go_name: StatusInputdataError
       value: "2"
       go_type: int
     - go_name: StatusOk
       value: "1"
-      go_type: int
-    - go_name: DrmInfoObject
-      value: '"drm_info_object"'
-      go_type: string
-    - go_name: DrmInfoStatusObject
-      value: '"drm_info_status_object"'
-      go_type: string
-    - go_name: TypeAllRightsRemoved
-      value: "1001"
-      go_type: int
-    - go_name: TypeDrmInfoProcessed
-      value: "1002"
-      go_type: int
-    - go_name: ErrorNone
-      value: "0"
-      go_type: int
-    - go_name: ErrorUnknown
-      value: "-2000"
-      go_type: int
-    - go_name: TypeAccountAlreadyRegistered
-      value: "5"
-      go_type: int
-    - go_name: TypeAlreadyRegisteredByAnotherAccount
-      value: "1"
-      go_type: int
-    - go_name: TypeRemoveRights
-      value: "2"
-      go_type: int
-    - go_name: TypeRightsInstalled
-      value: "3"
-      go_type: int
-    - go_name: TypeRightsRemoved
-      value: "6"
-      go_type: int
-    - go_name: TypeWaitForRights
-      value: "4"
-      go_type: int
-    - go_name: AccountId
-      value: '"account_id"'
-      go_type: string
-    - go_name: SubscriptionId
-      value: '"subscription_id"'
-      go_type: string
-    - go_name: TypeRegistrationInfo
-      value: "1"
-      go_type: int
-    - go_name: TypeRightsAcquisitionInfo
-      value: "3"
-      go_type: int
-    - go_name: TypeRightsAcquisitionProgressInfo
-      value: "4"
-      go_type: int
-    - go_name: TypeUnregistrationInfo
-      value: "2"
-      go_type: int
-    - go_name: TypeAcquireDrmInfoFailed
-      value: "2008"
-      go_type: int
-    - go_name: TypeNotSupported
-      value: "2003"
-      go_type: int
-    - go_name: TypeNoInternetConnection
-      value: "2005"
-      go_type: int
-    - go_name: TypeOutOfMemory
-      value: "2004"
-      go_type: int
-    - go_name: TypeProcessDrmInfoFailed
-      value: "2006"
-      go_type: int
-    - go_name: TypeRemoveAllRightsFailed
-      value: "2007"
-      go_type: int
-    - go_name: TypeRightsNotInstalled
-      value: "2001"
-      go_type: int
-    - go_name: TypeRightsRenewalNotAllowed
-      value: "2002"
-      go_type: int
-    - go_name: StatusInputdataError
-      value: "2"
       go_type: int

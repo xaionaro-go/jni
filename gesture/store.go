@@ -32,6 +32,12 @@ func NewStore(vm *jni.VM) (*Store, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStore == nil {
+			return fmt.Errorf("android.gesture.GestureStore is not available on this device")
+		}
+		if midStoreCtor == nil {
+			return fmt.Errorf("android.gesture.GestureStore constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStore)), midStoreCtor)
 		if err != nil {
 			return err

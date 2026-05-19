@@ -32,6 +32,12 @@ func NewProfileInstallReceiver(vm *jni.VM) (*ProfileInstallReceiver, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsProfileInstallReceiver == nil {
+			return fmt.Errorf("androidx.profileinstaller.ProfileInstallReceiver is not available on this device")
+		}
+		if midProfileInstallReceiverCtor == nil {
+			return fmt.Errorf("androidx.profileinstaller.ProfileInstallReceiver constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsProfileInstallReceiver)), midProfileInstallReceiverCtor)
 		if err != nil {
 			return err
@@ -43,29 +49,6 @@ func NewProfileInstallReceiver(vm *jni.VM) (*ProfileInstallReceiver, error) {
 		return nil, err
 	}
 	return &t, nil
-}
-
-// OnReceive calls androidx.profileinstaller.ProfileInstallReceiver.onReceive.
-func (m *ProfileInstallReceiver) OnReceive(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midProfileInstallReceiverOnReceive == nil {
-			callErr = fmt.Errorf("androidx.profileinstaller.ProfileInstallReceiver.onReceive is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midProfileInstallReceiverOnReceive, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // ToString calls androidx.profileinstaller.ProfileInstallReceiver.toString.
@@ -93,4 +76,27 @@ func (m *ProfileInstallReceiver) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// OnReceive calls androidx.profileinstaller.ProfileInstallReceiver.onReceive.
+func (m *ProfileInstallReceiver) OnReceive(arg0 *jni.Object, arg1 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midProfileInstallReceiverOnReceive == nil {
+			callErr = fmt.Errorf("androidx.profileinstaller.ProfileInstallReceiver.onReceive is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsProfileInstallReceiver)),
+			midProfileInstallReceiverOnReceive, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

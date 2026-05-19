@@ -32,6 +32,12 @@ func NewService(vm *jni.VM) (*Service, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsService == nil {
+			return fmt.Errorf("android.net.VpnService is not available on this device")
+		}
+		if midServiceCtor == nil {
+			return fmt.Errorf("android.net.VpnService constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsService)), midServiceCtor)
 		if err != nil {
 			return err

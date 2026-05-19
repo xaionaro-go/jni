@@ -244,29 +244,6 @@ func (m *Handle) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.blob.BlobHandle.writeToParcel.
-func (m *Handle) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midHandleWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.blob.BlobHandle.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midHandleWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // CreateWithSha256 calls android.app.blob.BlobHandle.createWithSha256.
 func (m *Handle) CreateWithSha256(
 	arg0 *jni.Object,
@@ -315,4 +292,27 @@ func (m *Handle) CreateWithSha256(
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.blob.BlobHandle.writeToParcel.
+func (m *Handle) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midHandleWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.blob.BlobHandle.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsHandle)),
+			midHandleWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

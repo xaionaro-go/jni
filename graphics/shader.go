@@ -32,6 +32,12 @@ func NewShader(vm *jni.VM) (*Shader, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsShader == nil {
+			return fmt.Errorf("android.graphics.Shader is not available on this device")
+		}
+		if midShaderCtor == nil {
+			return fmt.Errorf("android.graphics.Shader constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsShader)), midShaderCtor)
 		if err != nil {
 			return err

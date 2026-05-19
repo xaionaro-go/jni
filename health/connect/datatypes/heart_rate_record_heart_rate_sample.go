@@ -23,6 +23,35 @@ type HeartRateRecordHeartRateSample struct {
 	Obj *jni.GlobalRef
 }
 
+// NewHeartRateRecordHeartRateSample creates a new android.health.connect.datatypes.HeartRateRecord$HeartRateSample instance.
+func NewHeartRateRecordHeartRateSample(vm *jni.VM, arg0 int64, arg1 *jni.Object) (*HeartRateRecordHeartRateSample, error) {
+	var t HeartRateRecordHeartRateSample
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsHeartRateRecordHeartRateSample == nil {
+			return fmt.Errorf("android.health.connect.datatypes.HeartRateRecord$HeartRateSample is not available on this device")
+		}
+		if midHeartRateRecordHeartRateSampleCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.HeartRateRecord$HeartRateSample constructor (JLjava/time/Instant;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHeartRateRecordHeartRateSample)), midHeartRateRecordHeartRateSampleCtor, jni.LongValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.health.connect.datatypes.HeartRateRecord$HeartRateSample.equals.
 func (m *HeartRateRecordHeartRateSample) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

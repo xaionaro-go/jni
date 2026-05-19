@@ -32,6 +32,12 @@ func NewFontVariationAxis(vm *jni.VM, arg0 string, arg1 float32) (*FontVariation
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFontVariationAxis == nil {
+			return fmt.Errorf("android.graphics.fonts.FontVariationAxis is not available on this device")
+		}
+		if midFontVariationAxisCtor == nil {
+			return fmt.Errorf("android.graphics.fonts.FontVariationAxis constructor (Ljava/lang/String;F)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

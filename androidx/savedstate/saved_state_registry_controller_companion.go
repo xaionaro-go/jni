@@ -23,6 +23,35 @@ type SavedStateRegistryControllerCompanion struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSavedStateRegistryControllerCompanion creates a new androidx.savedstate.SavedStateRegistryController$Companion instance.
+func NewSavedStateRegistryControllerCompanion(vm *jni.VM, arg0 *jni.Object) (*SavedStateRegistryControllerCompanion, error) {
+	var t SavedStateRegistryControllerCompanion
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSavedStateRegistryControllerCompanion == nil {
+			return fmt.Errorf("androidx.savedstate.SavedStateRegistryController$Companion is not available on this device")
+		}
+		if midSavedStateRegistryControllerCompanionCtor == nil {
+			return fmt.Errorf("androidx.savedstate.SavedStateRegistryController$Companion constructor (Lkotlin/jvm/internal/DefaultConstructorMarker;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSavedStateRegistryControllerCompanion)), midSavedStateRegistryControllerCompanionCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Create calls androidx.savedstate.SavedStateRegistryController$Companion.create.
 func (m *SavedStateRegistryControllerCompanion) Create(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

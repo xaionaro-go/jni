@@ -23,8 +23,36 @@ type ActivityResultContractsRequestMultiplePermissions struct {
 	Obj *jni.GlobalRef
 }
 
-// CreateIntent2 calls androidx.activity.result.contract.ActivityResultContracts$RequestMultiplePermissions.createIntent.
-func (m *ActivityResultContractsRequestMultiplePermissions) CreateIntent2(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
+// NewActivityResultContractsRequestMultiplePermissions creates a new androidx.activity.result.contract.ActivityResultContracts$RequestMultiplePermissions instance.
+func NewActivityResultContractsRequestMultiplePermissions(vm *jni.VM) (*ActivityResultContractsRequestMultiplePermissions, error) {
+	var t ActivityResultContractsRequestMultiplePermissions
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsActivityResultContractsRequestMultiplePermissions == nil {
+			return fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$RequestMultiplePermissions is not available on this device")
+		}
+		if midActivityResultContractsRequestMultiplePermissionsCtor == nil {
+			return fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$RequestMultiplePermissions constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivityResultContractsRequestMultiplePermissions)), midActivityResultContractsRequestMultiplePermissionsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
+// CreateIntent calls androidx.activity.result.contract.ActivityResultContracts$RequestMultiplePermissions.createIntent.
+func (m *ActivityResultContractsRequestMultiplePermissions) CreateIntent(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -32,113 +60,14 @@ func (m *ActivityResultContractsRequestMultiplePermissions) CreateIntent2(arg0 *
 			callErr = err
 			return err
 		}
-		if midActivityResultContractsRequestMultiplePermissionsCreateIntent2 == nil {
+		if midActivityResultContractsRequestMultiplePermissionsCreateIntent == nil {
 			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$RequestMultiplePermissions.createIntent is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActivityResultContractsRequestMultiplePermissionsCreateIntent2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// CreateIntent2_1 calls androidx.activity.result.contract.ActivityResultContracts$RequestMultiplePermissions.createIntent.
-func (m *ActivityResultContractsRequestMultiplePermissions) CreateIntent2_1(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsRequestMultiplePermissionsCreateIntent2_1 == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$RequestMultiplePermissions.createIntent is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsRequestMultiplePermissionsCreateIntent2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetSynchronousResult calls androidx.activity.result.contract.ActivityResultContracts$RequestMultiplePermissions.getSynchronousResult.
-func (m *ActivityResultContractsRequestMultiplePermissions) GetSynchronousResult(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsRequestMultiplePermissionsGetSynchronousResult == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$RequestMultiplePermissions.getSynchronousResult is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsRequestMultiplePermissionsGetSynchronousResult, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// ParseResult calls androidx.activity.result.contract.ActivityResultContracts$RequestMultiplePermissions.parseResult.
-func (m *ActivityResultContractsRequestMultiplePermissions) ParseResult(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsRequestMultiplePermissionsParseResult == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$RequestMultiplePermissions.parseResult is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsRequestMultiplePermissionsParseResult, jni.IntValue(arg0), jni.ObjectValue(arg1),
+			midActivityResultContractsRequestMultiplePermissionsCreateIntent, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr

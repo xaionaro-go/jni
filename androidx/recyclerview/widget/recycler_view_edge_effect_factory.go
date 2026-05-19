@@ -23,6 +23,34 @@ type RecyclerViewEdgeEffectFactory struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRecyclerViewEdgeEffectFactory creates a new androidx.recyclerview.widget.RecyclerView$EdgeEffectFactory instance.
+func NewRecyclerViewEdgeEffectFactory(vm *jni.VM) (*RecyclerViewEdgeEffectFactory, error) {
+	var t RecyclerViewEdgeEffectFactory
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRecyclerViewEdgeEffectFactory == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.RecyclerView$EdgeEffectFactory is not available on this device")
+		}
+		if midRecyclerViewEdgeEffectFactoryCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.RecyclerView$EdgeEffectFactory constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRecyclerViewEdgeEffectFactory)), midRecyclerViewEdgeEffectFactoryCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.recyclerview.widget.RecyclerView$EdgeEffectFactory.toString.
 func (m *RecyclerViewEdgeEffectFactory) ToString() (string, error) {
 	var result string

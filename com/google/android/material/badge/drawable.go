@@ -1578,29 +1578,6 @@ func (m *Drawable) SetBadgeWithTextShapeAppearance(arg0 int32) error {
 	return callErr
 }
 
-// SetBadgeWithTextShapeAppearanceOverlay calls com.google.android.material.badge.BadgeDrawable.setBadgeWithTextShapeAppearanceOverlay.
-func (m *Drawable) SetBadgeWithTextShapeAppearanceOverlay(arg0 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDrawableSetBadgeWithTextShapeAppearanceOverlay == nil {
-			callErr = fmt.Errorf("com.google.android.material.badge.BadgeDrawable.setBadgeWithTextShapeAppearanceOverlay is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midDrawableSetBadgeWithTextShapeAppearanceOverlay, jni.IntValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls com.google.android.material.badge.BadgeDrawable.toString.
 func (m *Drawable) ToString() (string, error) {
 	var result string
@@ -1692,4 +1669,27 @@ func (m *Drawable) CreateFromResource(arg0 *jni.Object, arg1 int32) (*jni.Object
 		return callErr
 	})
 	return result, callErr
+}
+
+// SetBadgeWithTextShapeAppearanceOverlay calls com.google.android.material.badge.BadgeDrawable.setBadgeWithTextShapeAppearanceOverlay.
+func (m *Drawable) SetBadgeWithTextShapeAppearanceOverlay(arg0 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDrawableSetBadgeWithTextShapeAppearanceOverlay == nil {
+			callErr = fmt.Errorf("com.google.android.material.badge.BadgeDrawable.setBadgeWithTextShapeAppearanceOverlay is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsDrawable)),
+			midDrawableSetBadgeWithTextShapeAppearanceOverlay, jni.IntValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

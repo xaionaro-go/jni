@@ -32,6 +32,12 @@ func NewHideBottomViewOnScrollBehavior(vm *jni.VM, arg0 *jni.Object, arg1 *jni.O
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsHideBottomViewOnScrollBehavior == nil {
+			return fmt.Errorf("com.google.android.material.behavior.HideBottomViewOnScrollBehavior is not available on this device")
+		}
+		if midHideBottomViewOnScrollBehaviorCtor == nil {
+			return fmt.Errorf("com.google.android.material.behavior.HideBottomViewOnScrollBehavior constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHideBottomViewOnScrollBehavior)), midHideBottomViewOnScrollBehaviorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -140,28 +146,6 @@ func (m *HideBottomViewOnScrollBehavior) RemoveOnScrollStateChangedListener(arg0
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midHideBottomViewOnScrollBehaviorRemoveOnScrollStateChangedListener, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// ClearOnScrollStateChangedListeners calls com.google.android.material.behavior.HideBottomViewOnScrollBehavior.clearOnScrollStateChangedListeners.
-func (m *HideBottomViewOnScrollBehavior) ClearOnScrollStateChangedListeners() error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midHideBottomViewOnScrollBehaviorClearOnScrollStateChangedListeners == nil {
-			callErr = fmt.Errorf("com.google.android.material.behavior.HideBottomViewOnScrollBehavior.clearOnScrollStateChangedListeners is not available on this device")
-			return callErr
-		}
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midHideBottomViewOnScrollBehaviorClearOnScrollStateChangedListeners,
 		)
 		return callErr
 	})

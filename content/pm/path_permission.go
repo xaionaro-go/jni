@@ -32,6 +32,12 @@ func NewPathPermission(vm *jni.VM, arg0 *jni.Object) (*PathPermission, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPathPermission == nil {
+			return fmt.Errorf("android.content.pm.PathPermission is not available on this device")
+		}
+		if midPathPermissionCtor == nil {
+			return fmt.Errorf("android.content.pm.PathPermission constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPathPermission)), midPathPermissionCtor, jni.ObjectValue(arg0))
 		if err != nil {

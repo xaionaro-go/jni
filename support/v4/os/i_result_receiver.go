@@ -23,29 +23,6 @@ type IResultReceiver struct {
 	Obj *jni.GlobalRef
 }
 
-// Send calls android.support.v4.os.IResultReceiver.send.
-func (m *IResultReceiver) Send(arg0 int32, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midIResultReceiverSend == nil {
-			callErr = fmt.Errorf("android.support.v4.os.IResultReceiver.send is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midIResultReceiverSend, jni.IntValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.support.v4.os.IResultReceiver.toString.
 func (m *IResultReceiver) ToString() (string, error) {
 	var result string
@@ -71,4 +48,27 @@ func (m *IResultReceiver) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// Send calls android.support.v4.os.IResultReceiver.send.
+func (m *IResultReceiver) Send(arg0 int32, arg1 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midIResultReceiverSend == nil {
+			callErr = fmt.Errorf("android.support.v4.os.IResultReceiver.send is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsIResultReceiver)),
+			midIResultReceiverSend, jni.IntValue(arg0), jni.ObjectValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

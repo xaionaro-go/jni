@@ -32,6 +32,12 @@ func NewSize(vm *jni.VM, arg0 int32, arg1 int32) (*Size, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSize == nil {
+			return fmt.Errorf("android.util.Size is not available on this device")
+		}
+		if midSizeCtor == nil {
+			return fmt.Errorf("android.util.Size constructor (II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSize)), midSizeCtor, jni.IntValue(arg0), jni.IntValue(arg1))
 		if err != nil {

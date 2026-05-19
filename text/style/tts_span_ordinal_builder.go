@@ -23,6 +23,34 @@ type TtsSpanOrdinalBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTtsSpanOrdinalBuilder creates a new android.text.style.TtsSpan$OrdinalBuilder instance.
+func NewTtsSpanOrdinalBuilder(vm *jni.VM) (*TtsSpanOrdinalBuilder, error) {
+	var t TtsSpanOrdinalBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTtsSpanOrdinalBuilder == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$OrdinalBuilder is not available on this device")
+		}
+		if midTtsSpanOrdinalBuilderCtor == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$OrdinalBuilder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTtsSpanOrdinalBuilder)), midTtsSpanOrdinalBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetNumber1 calls android.text.style.TtsSpan$OrdinalBuilder.setNumber.
 func (m *TtsSpanOrdinalBuilder) SetNumber1(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

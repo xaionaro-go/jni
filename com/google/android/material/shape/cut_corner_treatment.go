@@ -32,6 +32,12 @@ func NewCutCornerTreatment(vm *jni.VM) (*CutCornerTreatment, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCutCornerTreatment == nil {
+			return fmt.Errorf("com.google.android.material.shape.CutCornerTreatment is not available on this device")
+		}
+		if midCutCornerTreatmentCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.CutCornerTreatment constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCutCornerTreatment)), midCutCornerTreatmentCtor)
 		if err != nil {
 			return err

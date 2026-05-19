@@ -158,29 +158,6 @@ func (m *PerBuyerConfiguration) HashCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.adservices.adselection.PerBuyerConfiguration.writeToParcel.
-func (m *PerBuyerConfiguration) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midPerBuyerConfigurationWriteToParcel == nil {
-			callErr = fmt.Errorf("android.adservices.adselection.PerBuyerConfiguration.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midPerBuyerConfigurationWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.adservices.adselection.PerBuyerConfiguration.toString.
 func (m *PerBuyerConfiguration) ToString() (string, error) {
 	var result string
@@ -206,4 +183,27 @@ func (m *PerBuyerConfiguration) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.adservices.adselection.PerBuyerConfiguration.writeToParcel.
+func (m *PerBuyerConfiguration) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midPerBuyerConfigurationWriteToParcel == nil {
+			callErr = fmt.Errorf("android.adservices.adselection.PerBuyerConfiguration.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsPerBuyerConfiguration)),
+			midPerBuyerConfigurationWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

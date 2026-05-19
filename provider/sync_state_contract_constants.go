@@ -23,6 +23,34 @@ type SyncStateContractConstants struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSyncStateContractConstants creates a new android.provider.SyncStateContract$Constants instance.
+func NewSyncStateContractConstants(vm *jni.VM) (*SyncStateContractConstants, error) {
+	var t SyncStateContractConstants
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSyncStateContractConstants == nil {
+			return fmt.Errorf("android.provider.SyncStateContract$Constants is not available on this device")
+		}
+		if midSyncStateContractConstantsCtor == nil {
+			return fmt.Errorf("android.provider.SyncStateContract$Constants constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSyncStateContractConstants)), midSyncStateContractConstantsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.provider.SyncStateContract$Constants.toString.
 func (m *SyncStateContractConstants) ToString() (string, error) {
 	var result string

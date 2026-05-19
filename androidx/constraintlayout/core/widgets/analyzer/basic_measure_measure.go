@@ -23,6 +23,34 @@ type BasicMeasureMeasure struct {
 	Obj *jni.GlobalRef
 }
 
+// NewBasicMeasureMeasure creates a new androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measure instance.
+func NewBasicMeasureMeasure(vm *jni.VM) (*BasicMeasureMeasure, error) {
+	var t BasicMeasureMeasure
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsBasicMeasureMeasure == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measure is not available on this device")
+		}
+		if midBasicMeasureMeasureCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measure constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBasicMeasureMeasure)), midBasicMeasureMeasureCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.constraintlayout.core.widgets.analyzer.BasicMeasure$Measure.toString.
 func (m *BasicMeasureMeasure) ToString() (string, error) {
 	var result string

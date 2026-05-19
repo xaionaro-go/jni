@@ -32,6 +32,12 @@ func NewTextInputEditText(vm *jni.VM, arg0 *jni.Object) (*TextInputEditText, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTextInputEditText == nil {
+			return fmt.Errorf("com.google.android.material.textfield.TextInputEditText is not available on this device")
+		}
+		if midTextInputEditTextCtor == nil {
+			return fmt.Errorf("com.google.android.material.textfield.TextInputEditText constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextInputEditText)), midTextInputEditTextCtor, jni.ObjectValue(arg0))
 		if err != nil {

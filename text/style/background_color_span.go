@@ -32,6 +32,12 @@ func NewBackgroundColorSpan(vm *jni.VM, arg0 *jni.Object) (*BackgroundColorSpan,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBackgroundColorSpan == nil {
+			return fmt.Errorf("android.text.style.BackgroundColorSpan is not available on this device")
+		}
+		if midBackgroundColorSpanCtor == nil {
+			return fmt.Errorf("android.text.style.BackgroundColorSpan constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBackgroundColorSpan)), midBackgroundColorSpanCtor, jni.ObjectValue(arg0))
 		if err != nil {

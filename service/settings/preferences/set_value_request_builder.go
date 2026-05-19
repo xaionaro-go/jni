@@ -23,6 +23,46 @@ type SetValueRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSetValueRequestBuilder creates a new android.service.settings.preferences.SetValueRequest$Builder instance.
+func NewSetValueRequestBuilder(vm *jni.VM, arg0 string, arg1 string, arg2 *jni.Object) (*SetValueRequestBuilder, error) {
+	var t SetValueRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSetValueRequestBuilder == nil {
+			return fmt.Errorf("android.service.settings.preferences.SetValueRequest$Builder is not available on this device")
+		}
+		if midSetValueRequestBuilderCtor == nil {
+			return fmt.Errorf("android.service.settings.preferences.SetValueRequest$Builder constructor (Ljava/lang/String;Ljava/lang/String;Landroid/service/settings/preferences/SettingsPreferenceValue;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSetValueRequestBuilder)), midSetValueRequestBuilderCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(&jArg1.Object), jni.ObjectValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.service.settings.preferences.SetValueRequest$Builder.build.
 func (m *SetValueRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

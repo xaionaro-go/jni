@@ -69,8 +69,8 @@ func (m *ScriptIntrinsicBlur) ForEach2_1(arg0 *jni.Object, arg1 *jni.Object) err
 	return callErr
 }
 
-// GetFieldID_Input calls android.renderscript.ScriptIntrinsicBlur.getFieldID_Input.
-func (m *ScriptIntrinsicBlur) GetFieldID_Input() (*jni.Object, error) {
+// GetFieldIDInput calls android.renderscript.ScriptIntrinsicBlur.getFieldID_Input.
+func (m *ScriptIntrinsicBlur) GetFieldIDInput() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -78,13 +78,13 @@ func (m *ScriptIntrinsicBlur) GetFieldID_Input() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midScriptIntrinsicBlurGetFieldID_Input == nil {
+		if midScriptIntrinsicBlurGetFieldIDInput == nil {
 			callErr = fmt.Errorf("android.renderscript.ScriptIntrinsicBlur.getFieldID_Input is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midScriptIntrinsicBlurGetFieldID_Input,
+			midScriptIntrinsicBlurGetFieldIDInput,
 		)
 		if callErr != nil {
 			return callErr

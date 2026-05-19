@@ -23,6 +23,35 @@ type ContentInfoCompatBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewContentInfoCompatBuilder creates a new androidx.core.view.ContentInfoCompat$Builder instance.
+func NewContentInfoCompatBuilder(vm *jni.VM, arg0 *jni.Object) (*ContentInfoCompatBuilder, error) {
+	var t ContentInfoCompatBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsContentInfoCompatBuilder == nil {
+			return fmt.Errorf("androidx.core.view.ContentInfoCompat$Builder is not available on this device")
+		}
+		if midContentInfoCompatBuilderCtor == nil {
+			return fmt.Errorf("androidx.core.view.ContentInfoCompat$Builder constructor (Landroidx/core/view/ContentInfoCompat;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContentInfoCompatBuilder)), midContentInfoCompatBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetClip calls androidx.core.view.ContentInfoCompat$Builder.setClip.
 func (m *ContentInfoCompatBuilder) SetClip(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

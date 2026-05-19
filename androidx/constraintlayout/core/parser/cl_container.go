@@ -32,6 +32,12 @@ func NewCLContainer(vm *jni.VM, arg0 *jni.Object) (*CLContainer, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCLContainer == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.parser.CLContainer is not available on this device")
+		}
+		if midCLContainerCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.parser.CLContainer constructor ([C)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCLContainer)), midCLContainerCtor, jni.ObjectValue(arg0))
 		if err != nil {

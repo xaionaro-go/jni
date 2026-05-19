@@ -32,6 +32,12 @@ func NewMetrics(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Metrics, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMetrics == nil {
+			return fmt.Errorf("android.app.slice.SliceMetrics is not available on this device")
+		}
+		if midMetricsCtor == nil {
+			return fmt.Errorf("android.app.slice.SliceMetrics constructor (Landroid/content/Context;Landroid/net/Uri;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMetrics)), midMetricsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

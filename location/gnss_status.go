@@ -448,29 +448,6 @@ func (m *GnssStatus) UsedInFix(arg0 int32) (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.location.GnssStatus.writeToParcel.
-func (m *GnssStatus) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midGnssStatusWriteToParcel == nil {
-			callErr = fmt.Errorf("android.location.GnssStatus.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midGnssStatusWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.location.GnssStatus.toString.
 func (m *GnssStatus) ToString() (string, error) {
 	var result string
@@ -496,4 +473,27 @@ func (m *GnssStatus) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.location.GnssStatus.writeToParcel.
+func (m *GnssStatus) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midGnssStatusWriteToParcel == nil {
+			callErr = fmt.Errorf("android.location.GnssStatus.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsGnssStatus)),
+			midGnssStatusWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

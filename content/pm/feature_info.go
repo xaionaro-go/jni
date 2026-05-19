@@ -32,6 +32,12 @@ func NewFeatureInfo(vm *jni.VM) (*FeatureInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFeatureInfo == nil {
+			return fmt.Errorf("android.content.pm.FeatureInfo is not available on this device")
+		}
+		if midFeatureInfoCtor == nil {
+			return fmt.Errorf("android.content.pm.FeatureInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFeatureInfo)), midFeatureInfoCtor)
 		if err != nil {
 			return err

@@ -23,6 +23,40 @@ type ContractPath struct {
 	Obj *jni.GlobalRef
 }
 
+// NewContractPath creates a new android.provider.DocumentsContract$Path instance.
+func NewContractPath(vm *jni.VM, arg0 string, arg1 *jni.Object) (*ContractPath, error) {
+	var t ContractPath
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsContractPath == nil {
+			return fmt.Errorf("android.provider.DocumentsContract$Path is not available on this device")
+		}
+		if midContractPathCtor == nil {
+			return fmt.Errorf("android.provider.DocumentsContract$Path constructor (Ljava/lang/String;Ljava/util/List;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContractPath)), midContractPathCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.provider.DocumentsContract$Path.describeContents.
 func (m *ContractPath) DescribeContents() (int32, error) {
 	var result int32
@@ -201,8 +235,8 @@ func (m *ContractPath) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsContractPath)),
 			midContractPathWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

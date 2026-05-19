@@ -23,6 +23,35 @@ type FormEditRecordBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFormEditRecordBuilder creates a new android.graphics.pdf.models.FormEditRecord$Builder instance.
+func NewFormEditRecordBuilder(vm *jni.VM, arg0 int32, arg1 int32, arg2 int32) (*FormEditRecordBuilder, error) {
+	var t FormEditRecordBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFormEditRecordBuilder == nil {
+			return fmt.Errorf("android.graphics.pdf.models.FormEditRecord$Builder is not available on this device")
+		}
+		if midFormEditRecordBuilderCtor == nil {
+			return fmt.Errorf("android.graphics.pdf.models.FormEditRecord$Builder constructor (III)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFormEditRecordBuilder)), midFormEditRecordBuilderCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.graphics.pdf.models.FormEditRecord$Builder.build.
 func (m *FormEditRecordBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -5,16 +5,6 @@
 package: telephony
 go_import: github.com/AndroidGoLab/jni/androidx/core/telephony
 classes:
-    - java_class: androidx.core.telephony.SubscriptionManagerCompat
-      go_type: SubscriptionManagerCompat
-      static_methods:
-        - java_method: getSlotIndex
-          go_name: GetSlotIndex
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
     - java_class: androidx.core.telephony.TelephonyManagerCompat
       go_type: ManagerCompat
       static_methods:
@@ -29,6 +19,16 @@ classes:
           go_name: GetSubscriptionId
           params:
             - java_type: android.telephony.TelephonyManager
+              go_name: arg0
+          returns: int
+          error: true
+    - java_class: androidx.core.telephony.SubscriptionManagerCompat
+      go_type: SubscriptionManagerCompat
+      static_methods:
+        - java_method: getSlotIndex
+          go_name: GetSlotIndex
+          params:
+            - java_type: int
               go_name: arg0
           returns: int
           error: true

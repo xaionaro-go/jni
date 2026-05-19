@@ -32,6 +32,12 @@ func NewBarPresenter(vm *jni.VM) (*BarPresenter, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBarPresenter == nil {
+			return fmt.Errorf("com.google.android.material.navigation.NavigationBarPresenter is not available on this device")
+		}
+		if midBarPresenterCtor == nil {
+			return fmt.Errorf("com.google.android.material.navigation.NavigationBarPresenter constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBarPresenter)), midBarPresenterCtor)
 		if err != nil {
 			return err

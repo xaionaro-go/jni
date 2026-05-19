@@ -5,6 +5,32 @@
 package: strictmode
 go_import: github.com/AndroidGoLab/jni/androidx/fragment/app/strictmode
 classes:
+    - java_class: androidx.fragment.app.strictmode.WrongFragmentContainerViolation
+      go_type: WrongFragmentContainerViolation
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.fragment.app.Fragment
+          go_name: arg0
+        - java_type: android.view.ViewGroup
+          go_name: arg1
+      methods:
+        - java_method: getContainer
+          go_name: GetContainer
+          returns: android.view.ViewGroup
+          error: true
+    - java_class: androidx.fragment.app.strictmode.SetUserVisibleHintViolation
+      go_type: SetUserVisibleHintViolation
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.fragment.app.Fragment
+          go_name: arg0
+        - java_type: boolean
+          go_name: arg1
+      methods:
+        - java_method: isVisibleToUser
+          go_name: IsVisibleToUser
+          returns: boolean
+          error: true
     - java_class: androidx.fragment.app.strictmode.SetTargetFragmentUsageViolation
       go_type: SetTargetFragmentUsageViolation
       obtain: constructor
@@ -24,27 +50,6 @@ classes:
           go_name: GetRequestCode
           returns: int
           error: true
-    - java_class: androidx.fragment.app.strictmode.GetTargetFragmentRequestCodeUsageViolation
-      go_type: GetTargetFragmentRequestCodeUsageViolation
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.fragment.app.Fragment
-          go_name: arg0
-    - java_class: androidx.fragment.app.strictmode.RetainInstanceUsageViolation
-      go_type: RetainInstanceUsageViolation
-    - java_class: androidx.fragment.app.strictmode.FragmentTagUsageViolation
-      go_type: FragmentTagUsageViolation
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.fragment.app.Fragment
-          go_name: arg0
-        - java_type: android.view.ViewGroup
-          go_name: arg1
-      methods:
-        - java_method: getParentContainer
-          go_name: GetParentContainer
-          returns: android.view.ViewGroup
-          error: true
     - java_class: androidx.fragment.app.strictmode.Violation
       go_type: Violation
       methods:
@@ -52,44 +57,8 @@ classes:
           go_name: GetFragment
           returns: androidx.fragment.app.Fragment
           error: true
-    - java_class: androidx.fragment.app.strictmode.GetRetainInstanceUsageViolation
-      go_type: GetRetainInstanceUsageViolation
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.fragment.app.Fragment
-          go_name: arg0
-    - java_class: androidx.fragment.app.strictmode.SetUserVisibleHintViolation
-      go_type: SetUserVisibleHintViolation
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.fragment.app.Fragment
-          go_name: arg0
-        - java_type: boolean
-          go_name: arg1
-      methods:
-        - java_method: isVisibleToUser
-          go_name: IsVisibleToUser
-          returns: boolean
-          error: true
-    - java_class: androidx.fragment.app.strictmode.SetRetainInstanceUsageViolation
-      go_type: SetRetainInstanceUsageViolation
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.fragment.app.Fragment
-          go_name: arg0
-    - java_class: androidx.fragment.app.strictmode.WrongFragmentContainerViolation
-      go_type: WrongFragmentContainerViolation
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.fragment.app.Fragment
-          go_name: arg0
-        - java_type: android.view.ViewGroup
-          go_name: arg1
-      methods:
-        - java_method: getContainer
-          go_name: GetContainer
-          returns: android.view.ViewGroup
-          error: true
+    - java_class: androidx.fragment.app.strictmode.TargetFragmentUsageViolation
+      go_type: TargetFragmentUsageViolation
     - java_class: androidx.fragment.app.strictmode.FragmentStrictMode
       go_type: FragmentStrictMode
       methods:
@@ -101,13 +70,6 @@ classes:
           go_name: SetDefaultPolicy
           params:
             - java_type: androidx.fragment.app.strictmode.FragmentStrictMode$Policy
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onPolicyViolation
-          go_name: OnPolicyViolation
-          params:
-            - java_type: androidx.fragment.app.strictmode.Violation
               go_name: arg0
           returns: void
           error: true
@@ -187,6 +149,13 @@ classes:
               go_name: arg1
           returns: void
           error: true
+        - java_method: onPolicyViolation
+          go_name: OnPolicyViolation
+          params:
+            - java_type: androidx.fragment.app.strictmode.Violation
+              go_name: arg0
+          returns: void
+          error: true
     - java_class: androidx.fragment.app.strictmode.FragmentStrictMode$Flag
       go_type: FragmentStrictModeFlag
       static_methods:
@@ -211,6 +180,59 @@ classes:
               go_name: arg0
           returns: void
           error: true
+    - java_class: androidx.fragment.app.strictmode.FragmentStrictMode$Policy
+      go_type: FragmentStrictModePolicy
+      obtain: constructor
+      constructor_params:
+        - java_type: java.util.Set<? extends androidx.fragment.app.strictmode.FragmentStrictMode$Flag>
+          go_name: arg0
+        - java_type: androidx.fragment.app.strictmode.FragmentStrictMode$OnViolationListener
+          go_name: arg1
+        - java_type: java.util.Map<java.lang.String, ? extends java.util.Set<java.lang.Class<? extends androidx.fragment.app.strictmode.Violation>>>
+          go_name: arg2
+      methods:
+        - java_method: getFlags$fragment_release
+          go_name: GetFlagsFragmentRelease
+          returns: java.util.Set<androidx.fragment.app.strictmode.FragmentStrictMode$Flag>
+          error: true
+      static_methods:
+        - java_method: getListener$fragment_release
+          go_name: GetListenerFragmentRelease
+          returns: androidx.fragment.app.strictmode.FragmentStrictMode$OnViolationListener
+          error: true
+    - java_class: androidx.fragment.app.strictmode.RetainInstanceUsageViolation
+      go_type: RetainInstanceUsageViolation
+    - java_class: androidx.fragment.app.strictmode.GetRetainInstanceUsageViolation
+      go_type: GetRetainInstanceUsageViolation
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.fragment.app.Fragment
+          go_name: arg0
+    - java_class: androidx.fragment.app.strictmode.FragmentTagUsageViolation
+      go_type: FragmentTagUsageViolation
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.fragment.app.Fragment
+          go_name: arg0
+        - java_type: android.view.ViewGroup
+          go_name: arg1
+      methods:
+        - java_method: getParentContainer
+          go_name: GetParentContainer
+          returns: android.view.ViewGroup
+          error: true
+    - java_class: androidx.fragment.app.strictmode.GetTargetFragmentRequestCodeUsageViolation
+      go_type: GetTargetFragmentRequestCodeUsageViolation
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.fragment.app.Fragment
+          go_name: arg0
+    - java_class: androidx.fragment.app.strictmode.SetRetainInstanceUsageViolation
+      go_type: SetRetainInstanceUsageViolation
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.fragment.app.Fragment
+          go_name: arg0
     - java_class: androidx.fragment.app.strictmode.FragmentReuseViolation
       go_type: FragmentReuseViolation
       obtain: constructor
@@ -224,24 +246,22 @@ classes:
           go_name: GetPreviousFragmentId
           returns: String
           error: true
-    - java_class: androidx.fragment.app.strictmode.FragmentStrictMode$Policy
-      go_type: FragmentStrictModePolicy
-    - java_class: androidx.fragment.app.strictmode.TargetFragmentUsageViolation
-      go_type: TargetFragmentUsageViolation
     - java_class: androidx.fragment.app.strictmode.GetTargetFragmentUsageViolation
       go_type: GetTargetFragmentUsageViolation
       obtain: constructor
       constructor_params:
         - java_type: androidx.fragment.app.Fragment
           go_name: arg0
-abstract_callbacks:
+abstract_callback_eligibility:
     - java_class: androidx.fragment.app.strictmode.Violation
-      go_type: ViolationCallback
-      methods:
-        - java_method: getFragment
-          params: []
-          returns: androidx.fragment.app.Fragment
-          go_field: GetFragment
+      generated: false
+      reason: unsupported_constructor
+    - java_class: androidx.fragment.app.strictmode.TargetFragmentUsageViolation
+      generated: false
+      reason: unsupported_constructor
+    - java_class: androidx.fragment.app.strictmode.RetainInstanceUsageViolation
+      generated: false
+      reason: unsupported_constructor
 constants:
     - go_name: Instance
       value: "0"

@@ -32,6 +32,12 @@ func NewManifest(vm *jni.VM) (*Manifest, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsManifest == nil {
+			return fmt.Errorf("android.Manifest is not available on this device")
+		}
+		if midManifestCtor == nil {
+			return fmt.Errorf("android.Manifest constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsManifest)), midManifestCtor)
 		if err != nil {
 			return err

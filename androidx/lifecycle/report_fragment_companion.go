@@ -23,6 +23,35 @@ type ReportFragmentCompanion struct {
 	Obj *jni.GlobalRef
 }
 
+// NewReportFragmentCompanion creates a new androidx.lifecycle.ReportFragment$Companion instance.
+func NewReportFragmentCompanion(vm *jni.VM, arg0 *jni.Object) (*ReportFragmentCompanion, error) {
+	var t ReportFragmentCompanion
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsReportFragmentCompanion == nil {
+			return fmt.Errorf("androidx.lifecycle.ReportFragment$Companion is not available on this device")
+		}
+		if midReportFragmentCompanionCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.ReportFragment$Companion constructor (Lkotlin/jvm/internal/DefaultConstructorMarker;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsReportFragmentCompanion)), midReportFragmentCompanionCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // InjectIfNeededIn calls androidx.lifecycle.ReportFragment$Companion.injectIfNeededIn.
 func (m *ReportFragmentCompanion) InjectIfNeededIn(arg0 *jni.Object) error {
 
@@ -40,6 +69,29 @@ func (m *ReportFragmentCompanion) InjectIfNeededIn(arg0 *jni.Object) error {
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midReportFragmentCompanionInjectIfNeededIn, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
+}
+
+// DispatchLifecycleRuntimeRelease calls androidx.lifecycle.ReportFragment$Companion.dispatch$lifecycle_runtime_release.
+func (m *ReportFragmentCompanion) DispatchLifecycleRuntimeRelease(arg0 *jni.Object, arg1 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midReportFragmentCompanionDispatchLifecycleRuntimeRelease == nil {
+			callErr = fmt.Errorf("androidx.lifecycle.ReportFragment$Companion.dispatch$lifecycle_runtime_release is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallVoidMethod(
+			m.Obj,
+			midReportFragmentCompanionDispatchLifecycleRuntimeRelease, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		return callErr
 	})

@@ -32,6 +32,12 @@ func NewNumberPicker(vm *jni.VM, arg0 *jni.Object) (*NumberPicker, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNumberPicker == nil {
+			return fmt.Errorf("android.widget.NumberPicker is not available on this device")
+		}
+		if midNumberPickerCtor == nil {
+			return fmt.Errorf("android.widget.NumberPicker constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNumberPicker)), midNumberPickerCtor, jni.ObjectValue(arg0))
 		if err != nil {

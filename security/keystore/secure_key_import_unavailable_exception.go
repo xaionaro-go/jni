@@ -32,6 +32,12 @@ func NewSecureKeyImportUnavailableException(vm *jni.VM) (*SecureKeyImportUnavail
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSecureKeyImportUnavailableException == nil {
+			return fmt.Errorf("android.security.keystore.SecureKeyImportUnavailableException is not available on this device")
+		}
+		if midSecureKeyImportUnavailableExceptionCtor == nil {
+			return fmt.Errorf("android.security.keystore.SecureKeyImportUnavailableException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSecureKeyImportUnavailableException)), midSecureKeyImportUnavailableExceptionCtor)
 		if err != nil {
 			return err

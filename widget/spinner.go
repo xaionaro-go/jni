@@ -32,6 +32,12 @@ func NewSpinner(vm *jni.VM, arg0 *jni.Object) (*Spinner, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSpinner == nil {
+			return fmt.Errorf("android.widget.Spinner is not available on this device")
+		}
+		if midSpinnerCtor == nil {
+			return fmt.Errorf("android.widget.Spinner constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSpinner)), midSpinnerCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -465,8 +471,8 @@ func (m *Spinner) PerformClick() (bool, error) {
 	return result, callErr
 }
 
-// SetAdapter1 calls android.widget.Spinner.setAdapter.
-func (m *Spinner) SetAdapter1(arg0 *jni.Object) error {
+// SetAdapter calls android.widget.Spinner.setAdapter.
+func (m *Spinner) SetAdapter(arg0 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -474,14 +480,14 @@ func (m *Spinner) SetAdapter1(arg0 *jni.Object) error {
 			callErr = err
 			return err
 		}
-		if midSpinnerSetAdapter1 == nil {
+		if midSpinnerSetAdapter == nil {
 			callErr = fmt.Errorf("android.widget.Spinner.setAdapter is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midSpinnerSetAdapter1, jni.ObjectValue(arg0),
+			midSpinnerSetAdapter, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})
@@ -721,29 +727,6 @@ func (m *Spinner) SetPromptId(arg0 int32) error {
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midSpinnerSetPromptId, jni.IntValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// SetAdapter1_1 calls android.widget.Spinner.setAdapter.
-func (m *Spinner) SetAdapter1_1(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSpinnerSetAdapter1_1 == nil {
-			callErr = fmt.Errorf("android.widget.Spinner.setAdapter is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSpinnerSetAdapter1_1, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})

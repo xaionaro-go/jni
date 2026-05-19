@@ -23,6 +23,40 @@ type DropBoxManagerEntry struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDropBoxManagerEntry creates a new android.os.DropBoxManager$Entry instance.
+func NewDropBoxManagerEntry(vm *jni.VM, arg0 string, arg1 int64) (*DropBoxManagerEntry, error) {
+	var t DropBoxManagerEntry
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDropBoxManagerEntry == nil {
+			return fmt.Errorf("android.os.DropBoxManager$Entry is not available on this device")
+		}
+		if midDropBoxManagerEntryCtor == nil {
+			return fmt.Errorf("android.os.DropBoxManager$Entry constructor (Ljava/lang/String;J)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDropBoxManagerEntry)), midDropBoxManagerEntryCtor, jni.ObjectValue(&jArg0.Object), jni.LongValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Close calls android.os.DropBoxManager$Entry.close.
 func (m *DropBoxManagerEntry) Close() error {
 
@@ -207,29 +241,6 @@ func (m *DropBoxManagerEntry) GetTimeMillis() (int64, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.os.DropBoxManager$Entry.writeToParcel.
-func (m *DropBoxManagerEntry) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDropBoxManagerEntryWriteToParcel == nil {
-			callErr = fmt.Errorf("android.os.DropBoxManager$Entry.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midDropBoxManagerEntryWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.os.DropBoxManager$Entry.toString.
 func (m *DropBoxManagerEntry) ToString() (string, error) {
 	var result string
@@ -255,4 +266,27 @@ func (m *DropBoxManagerEntry) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.os.DropBoxManager$Entry.writeToParcel.
+func (m *DropBoxManagerEntry) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDropBoxManagerEntryWriteToParcel == nil {
+			callErr = fmt.Errorf("android.os.DropBoxManager$Entry.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsDropBoxManagerEntry)),
+			midDropBoxManagerEntryWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -5,6 +5,8 @@
 package: sqlite
 go_import: github.com/AndroidGoLab/jni/androidx/core/database/sqlite
 classes:
+    - java_class: androidx.core.database.sqlite.SQLiteDatabaseKt
+      go_type: SQLiteDatabaseKt
     - java_class: androidx.core.database.sqlite.SQLiteCursorCompat
       go_type: SQLiteCursorCompat
       static_methods:
@@ -17,5 +19,3 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: androidx.core.database.sqlite.SQLiteDatabaseKt
-      go_type: SQLiteDatabaseKt

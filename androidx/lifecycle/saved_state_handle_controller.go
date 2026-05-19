@@ -32,6 +32,12 @@ func NewSavedStateHandleController(vm *jni.VM, arg0 string, arg1 *jni.Object) (*
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSavedStateHandleController == nil {
+			return fmt.Errorf("androidx.lifecycle.SavedStateHandleController is not available on this device")
+		}
+		if midSavedStateHandleControllerCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.SavedStateHandleController constructor (Ljava/lang/String;Landroidx/lifecycle/SavedStateHandle;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

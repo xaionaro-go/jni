@@ -40,7 +40,6 @@ var (
 	midDrawerLayoutGetDrawerLockMode1                 jni.MethodID
 	midDrawerLayoutGetDrawerLockMode1_1               jni.MethodID
 	midDrawerLayoutSetDrawerTitle                     jni.MethodID
-	midDrawerLayoutGetDrawerTitle                     jni.MethodID
 	midDrawerLayoutRequestLayout                      jni.MethodID
 	midDrawerLayoutComputeScroll                      jni.MethodID
 	midDrawerLayoutSetStatusBarBackground1            jni.MethodID
@@ -72,14 +71,17 @@ var (
 	midDrawerLayoutGenerateLayoutParams               jni.MethodID
 	midDrawerLayoutOnKeyDown                          jni.MethodID
 	midDrawerLayoutOnKeyUp                            jni.MethodID
-	midDrawerLayoutAddView                            jni.MethodID
 	midDrawerLayoutToString                           jni.MethodID
+	midDrawerLayoutGetDrawerTitle                     jni.MethodID
+	midDrawerLayoutAddView                            jni.MethodID
 
 	clsDrawerLayoutSavedState              *jni.GlobalRef
-	midDrawerLayoutSavedStateWriteToParcel jni.MethodID
+	midDrawerLayoutSavedStateCtor          jni.MethodID
 	midDrawerLayoutSavedStateToString      jni.MethodID
+	midDrawerLayoutSavedStateWriteToParcel jni.MethodID
 
 	clsDrawerLayoutLayoutParams         *jni.GlobalRef
+	midDrawerLayoutLayoutParamsCtor     jni.MethodID
 	midDrawerLayoutLayoutParamsToString jni.MethodID
 
 	clsDrawerLayoutSimpleDrawerListener                     *jni.GlobalRef
@@ -226,13 +228,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midDrawerLayoutSetDrawerTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawerLayout)), "setDrawerTitle", "(ILjava/lang/CharSequence;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDrawerLayoutGetDrawerTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawerLayout)), "getDrawerTitle", "(I)Ljava/lang/CharSequence;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -456,14 +451,21 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midDrawerLayoutAddView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawerLayout)), "addView", "(Landroid/view/View;ILandroid/view/ViewGroup$LayoutParams;)V")
+		midDrawerLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawerLayout)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDrawerLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawerLayout)), "toString", "()Ljava/lang/String;")
+		midDrawerLayoutGetDrawerTitle, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDrawerLayout)), "getDrawerTitle", "(I)Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDrawerLayoutAddView, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDrawerLayout)), "addView", "(Landroid/view/View;ILandroid/view/ViewGroup$LayoutParams;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -479,15 +481,19 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsDrawerLayoutSavedState = env.NewGlobalRef(&c.Object)
+		midDrawerLayoutSavedStateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawerLayoutSavedState)), "<init>", "(Landroid/os/Parcel;Ljava/lang/ClassLoader;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midDrawerLayoutSavedStateWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawerLayoutSavedState)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midDrawerLayoutSavedStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawerLayoutSavedState)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDrawerLayoutSavedStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawerLayoutSavedState)), "toString", "()Ljava/lang/String;")
+		midDrawerLayoutSavedStateWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDrawerLayoutSavedState)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -503,6 +509,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsDrawerLayoutLayoutParams = env.NewGlobalRef(&c.Object)
+		midDrawerLayoutLayoutParamsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawerLayoutLayoutParams)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midDrawerLayoutLayoutParamsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawerLayoutLayoutParams)), "toString", "()Ljava/lang/String;")
 		if err != nil {

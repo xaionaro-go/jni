@@ -104,8 +104,7 @@ var (
 	midTabLayoutOnInitializeAccessibilityNodeInfo jni.MethodID
 	midTabLayoutSelectTab1                        jni.MethodID
 	midTabLayoutSelectTab2_1                      jni.MethodID
-	midTabLayoutGenerateLayoutParams1             jni.MethodID
-	midTabLayoutGenerateLayoutParams1_1           jni.MethodID
+	midTabLayoutGenerateLayoutParams              jni.MethodID
 	midTabLayoutToString                          jni.MethodID
 
 	clsTabLayoutBaseOnTabSelectedListener         *jni.GlobalRef
@@ -121,6 +120,7 @@ var (
 	midTabLayoutOnTabSelectedListenerToString jni.MethodID
 
 	clsTabLayoutTab                         *jni.GlobalRef
+	midTabLayoutTabCtor                     jni.MethodID
 	midTabLayoutTabGetTag                   jni.MethodID
 	midTabLayoutTabSetTag                   jni.MethodID
 	midTabLayoutTabSetId                    jni.MethodID
@@ -144,7 +144,6 @@ var (
 	midTabLayoutTabIsSelected               jni.MethodID
 	midTabLayoutTabSetContentDescription1   jni.MethodID
 	midTabLayoutTabSetContentDescription1_1 jni.MethodID
-	midTabLayoutTabGetContentDescription    jni.MethodID
 	midTabLayoutTabToString                 jni.MethodID
 
 	clsTabLayoutTabGravity         *jni.GlobalRef
@@ -157,20 +156,22 @@ var (
 	midTabLayoutTabIndicatorGravityToString jni.MethodID
 
 	clsTabLayoutTabLayoutOnPageChangeListener                         *jni.GlobalRef
+	midTabLayoutTabLayoutOnPageChangeListenerCtor                     jni.MethodID
 	midTabLayoutTabLayoutOnPageChangeListenerOnPageScrollStateChanged jni.MethodID
 	midTabLayoutTabLayoutOnPageChangeListenerOnPageScrolled           jni.MethodID
 	midTabLayoutTabLayoutOnPageChangeListenerOnPageSelected           jni.MethodID
 	midTabLayoutTabLayoutOnPageChangeListenerToString                 jni.MethodID
 
 	clsTabLayoutTabView                                  *jni.GlobalRef
+	midTabLayoutTabViewCtor                              jni.MethodID
 	midTabLayoutTabViewPerformClick                      jni.MethodID
 	midTabLayoutTabViewSetSelected                       jni.MethodID
 	midTabLayoutTabViewOnInitializeAccessibilityNodeInfo jni.MethodID
 	midTabLayoutTabViewOnMeasure                         jni.MethodID
-	midTabLayoutTabViewGetTab                            jni.MethodID
 	midTabLayoutTabViewToString                          jni.MethodID
 
 	clsTabLayoutViewPagerOnTabSelectedListener                *jni.GlobalRef
+	midTabLayoutViewPagerOnTabSelectedListenerCtor            jni.MethodID
 	midTabLayoutViewPagerOnTabSelectedListenerOnTabSelected   jni.MethodID
 	midTabLayoutViewPagerOnTabSelectedListenerOnTabUnselected jni.MethodID
 	midTabLayoutViewPagerOnTabSelectedListenerOnTabReselected jni.MethodID
@@ -742,14 +743,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midTabLayoutGenerateLayoutParams1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTabLayout)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroid/widget/FrameLayout$LayoutParams;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTabLayoutGenerateLayoutParams1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTabLayout)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroid/view/ViewGroup$LayoutParams;")
+		midTabLayoutGenerateLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTabLayout)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroid/widget/FrameLayout$LayoutParams;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -840,6 +834,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsTabLayoutTab = env.NewGlobalRef(&c.Object)
+		midTabLayoutTabCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTabLayoutTab)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midTabLayoutTabGetTag, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTabLayoutTab)), "getTag", "()Ljava/lang/Object;")
 		if err != nil {
@@ -1002,13 +1000,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midTabLayoutTabGetContentDescription, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTabLayoutTab)), "getContentDescription", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midTabLayoutTabToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTabLayoutTab)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -1076,6 +1067,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsTabLayoutTabLayoutOnPageChangeListener = env.NewGlobalRef(&c.Object)
+		midTabLayoutTabLayoutOnPageChangeListenerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTabLayoutTabLayoutOnPageChangeListener)), "<init>", "(Lcom/google/android/material/tabs/TabLayout;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midTabLayoutTabLayoutOnPageChangeListenerOnPageScrollStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTabLayoutTabLayoutOnPageChangeListener)), "onPageScrollStateChanged", "(I)V")
 		if err != nil {
@@ -1114,6 +1109,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsTabLayoutTabView = env.NewGlobalRef(&c.Object)
+		midTabLayoutTabViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTabLayoutTabView)), "<init>", "(Lcom/google/android/material/tabs/TabLayout;Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midTabLayoutTabViewPerformClick, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTabLayoutTabView)), "performClick", "()Z")
 		if err != nil {
@@ -1143,13 +1142,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midTabLayoutTabViewGetTab, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTabLayoutTabView)), "getTab", "()Lcom/google/android/material/tabs/TabLayout$Tab;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midTabLayoutTabViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTabLayoutTabView)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -1166,6 +1158,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsTabLayoutViewPagerOnTabSelectedListener = env.NewGlobalRef(&c.Object)
+		midTabLayoutViewPagerOnTabSelectedListenerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTabLayoutViewPagerOnTabSelectedListener)), "<init>", "(Landroidx/viewpager/widget/ViewPager;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midTabLayoutViewPagerOnTabSelectedListenerOnTabSelected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTabLayoutViewPagerOnTabSelectedListener)), "onTabSelected", "(Lcom/google/android/material/tabs/TabLayout$Tab;)V")
 		if err != nil {

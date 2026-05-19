@@ -32,6 +32,12 @@ func NewInputConnectionWrapper(vm *jni.VM, arg0 *jni.Object, arg1 bool) (*InputC
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInputConnectionWrapper == nil {
+			return fmt.Errorf("android.view.inputmethod.InputConnectionWrapper is not available on this device")
+		}
+		if midInputConnectionWrapperCtor == nil {
+			return fmt.Errorf("android.view.inputmethod.InputConnectionWrapper constructor (Landroid/view/inputmethod/InputConnection;Z)V is not available on this device")
+		}
 
 		var jArg1 uint8
 		if arg1 {

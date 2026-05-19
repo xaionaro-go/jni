@@ -32,6 +32,12 @@ func NewConvertedStatus(vm *jni.VM, arg0 int32, arg1 *jni.Object, arg2 int32) (*
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsConvertedStatus == nil {
+			return fmt.Errorf("android.drm.DrmConvertedStatus is not available on this device")
+		}
+		if midConvertedStatusCtor == nil {
+			return fmt.Errorf("android.drm.DrmConvertedStatus constructor (I[BI)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConvertedStatus)), midConvertedStatusCtor, jni.IntValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2))
 		if err != nil {

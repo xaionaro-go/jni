@@ -32,6 +32,12 @@ func NewSignature(vm *jni.VM, arg0 *jni.Object) (*Signature, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSignature == nil {
+			return fmt.Errorf("android.content.pm.Signature is not available on this device")
+		}
+		if midSignatureCtor == nil {
+			return fmt.Errorf("android.content.pm.Signature constructor ([B)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSignature)), midSignatureCtor, jni.ObjectValue(arg0))
 		if err != nil {

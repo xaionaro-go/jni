@@ -5,6 +5,216 @@
 package: widget
 go_import: github.com/AndroidGoLab/jni/androidx/viewpager/widget
 classes:
+    - java_class: androidx.viewpager.widget.PagerAdapter
+      go_type: PagerAdapter
+      methods:
+        - java_method: getCount
+          go_name: GetCount
+          returns: int
+          error: true
+        - java_method: startUpdate
+          go_name: StartUpdate1
+          params:
+            - java_type: android.view.ViewGroup
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: instantiateItem
+          go_name: InstantiateItem2
+          params:
+            - java_type: android.view.ViewGroup
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: java.lang.Object
+          error: true
+        - java_method: destroyItem
+          go_name: DestroyItem3
+          params:
+            - java_type: android.view.ViewGroup
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: java.lang.Object
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: setPrimaryItem
+          go_name: SetPrimaryItem3
+          params:
+            - java_type: android.view.ViewGroup
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: java.lang.Object
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: finishUpdate
+          go_name: FinishUpdate1
+          params:
+            - java_type: android.view.ViewGroup
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: startUpdate
+          go_name: StartUpdate1_1
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: instantiateItem
+          go_name: InstantiateItem2_1
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: java.lang.Object
+          error: true
+        - java_method: destroyItem
+          go_name: DestroyItem3_1
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: java.lang.Object
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: setPrimaryItem
+          go_name: SetPrimaryItem3_1
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: java.lang.Object
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: finishUpdate
+          go_name: FinishUpdate1_1
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isViewFromObject
+          go_name: IsViewFromObject
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: java.lang.Object
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: saveState
+          go_name: SaveState
+          returns: android.os.Parcelable
+          error: true
+        - java_method: restoreState
+          go_name: RestoreState
+          params:
+            - java_type: android.os.Parcelable
+              go_name: arg0
+            - java_type: java.lang.ClassLoader
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getItemPosition
+          go_name: GetItemPosition
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: notifyDataSetChanged
+          go_name: NotifyDataSetChanged
+          returns: void
+          error: true
+        - java_method: registerDataSetObserver
+          go_name: RegisterDataSetObserver
+          params:
+            - java_type: android.database.DataSetObserver
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: unregisterDataSetObserver
+          go_name: UnregisterDataSetObserver
+          params:
+            - java_type: android.database.DataSetObserver
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getPageTitle
+          go_name: GetPageTitle
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getPageWidth
+          go_name: GetPageWidth
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+    - java_class: androidx.viewpager.widget.PagerTitleStrip
+      go_type: PagerTitleStrip
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: setTextSpacing
+          go_name: SetTextSpacing
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getTextSpacing
+          go_name: GetTextSpacing
+          returns: int
+          error: true
+        - java_method: setNonPrimaryAlpha
+          go_name: SetNonPrimaryAlpha
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTextColor
+          go_name: SetTextColor
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTextSize
+          go_name: SetTextSize
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setGravity
+          go_name: SetGravity
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: requestLayout
+          go_name: RequestLayout
+          returns: void
+          error: true
     - java_class: androidx.viewpager.widget.ViewPager
       go_type: ViewPager
       obtain: constructor
@@ -246,6 +456,7 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
+      static_methods:
         - java_method: generateLayoutParams
           go_name: GenerateLayoutParams
           params:
@@ -257,6 +468,12 @@ classes:
       go_type: ViewPagerDecorView
     - java_class: androidx.viewpager.widget.ViewPager$LayoutParams
       go_type: ViewPagerLayoutParams
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.util.AttributeSet
+          go_name: arg1
     - java_class: androidx.viewpager.widget.ViewPager$OnAdapterChangeListener
       go_type: ViewPagerOnAdapterChangeListener
       methods:
@@ -313,6 +530,10 @@ classes:
           error: true
     - java_class: androidx.viewpager.widget.ViewPager$SavedState
       go_type: ViewPagerSavedState
+      obtain: constructor
+      constructor_params:
+        - java_type: android.os.Parcelable
+          go_name: arg0
       methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
@@ -323,12 +544,14 @@ classes:
               go_name: arg1
           returns: void
           error: true
+      static_methods:
         - java_method: toString
           go_name: ToString
           returns: String
           error: true
     - java_class: androidx.viewpager.widget.ViewPager$SimpleOnPageChangeListener
       go_type: ViewPagerSimpleOnPageChangeListener
+      obtain: constructor
       methods:
         - java_method: onPageScrolled
           go_name: OnPageScrolled
@@ -353,216 +576,6 @@ classes:
           params:
             - java_type: int
               go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.viewpager.widget.PagerAdapter
-      go_type: PagerAdapter
-      methods:
-        - java_method: getCount
-          go_name: GetCount
-          returns: int
-          error: true
-        - java_method: startUpdate
-          go_name: StartUpdate1
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: instantiateItem
-          go_name: InstantiateItem2
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: java.lang.Object
-          error: true
-        - java_method: destroyItem
-          go_name: DestroyItem3
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: java.lang.Object
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: setPrimaryItem
-          go_name: SetPrimaryItem3
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: java.lang.Object
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: finishUpdate
-          go_name: FinishUpdate1
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: startUpdate
-          go_name: StartUpdate1_1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: instantiateItem
-          go_name: InstantiateItem2_1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: java.lang.Object
-          error: true
-        - java_method: destroyItem
-          go_name: DestroyItem3_1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: java.lang.Object
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: setPrimaryItem
-          go_name: SetPrimaryItem3_1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: java.lang.Object
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: finishUpdate
-          go_name: FinishUpdate1_1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isViewFromObject
-          go_name: IsViewFromObject
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: saveState
-          go_name: SaveState
-          returns: android.os.Parcelable
-          error: true
-        - java_method: restoreState
-          go_name: RestoreState
-          params:
-            - java_type: android.os.Parcelable
-              go_name: arg0
-            - java_type: java.lang.ClassLoader
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getItemPosition
-          go_name: GetItemPosition
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: notifyDataSetChanged
-          go_name: NotifyDataSetChanged
-          returns: void
-          error: true
-        - java_method: registerDataSetObserver
-          go_name: RegisterDataSetObserver
-          params:
-            - java_type: android.database.DataSetObserver
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: unregisterDataSetObserver
-          go_name: UnregisterDataSetObserver
-          params:
-            - java_type: android.database.DataSetObserver
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getPageTitle
-          go_name: GetPageTitle
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getPageWidth
-          go_name: GetPageWidth
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: float
-          error: true
-    - java_class: androidx.viewpager.widget.PagerTitleStrip
-      go_type: PagerTitleStrip
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: setTextSpacing
-          go_name: SetTextSpacing
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getTextSpacing
-          go_name: GetTextSpacing
-          returns: int
-          error: true
-        - java_method: setNonPrimaryAlpha
-          go_name: SetNonPrimaryAlpha
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTextColor
-          go_name: SetTextColor
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTextSize
-          go_name: SetTextSize
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setGravity
-          go_name: SetGravity
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: requestLayout
-          go_name: RequestLayout
           returns: void
           error: true
     - java_class: androidx.viewpager.widget.PagerTabStrip
@@ -762,7 +775,17 @@ abstract_callbacks:
             - int
           returns: float
           go_field: GetPageWidth
+abstract_callback_eligibility:
+    - java_class: androidx.viewpager.widget.PagerAdapter
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
+    - go_name: PositionUnchanged
+      value: "-1"
+      go_type: int
+    - go_name: PositionNone
+      value: "-2"
+      go_type: int
     - go_name: ScrollStateIdle
       value: "0"
       go_type: int
@@ -774,10 +797,4 @@ constants:
       go_type: int
     - go_name: Creator
       value: "0"
-      go_type: int
-    - go_name: PositionUnchanged
-      value: "-1"
-      go_type: int
-    - go_name: PositionNone
-      value: "-2"
       go_type: int

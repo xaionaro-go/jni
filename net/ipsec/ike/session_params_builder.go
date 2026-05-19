@@ -23,6 +23,34 @@ type SessionParamsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSessionParamsBuilder creates a new android.net.ipsec.ike.IkeSessionParams$Builder instance.
+func NewSessionParamsBuilder(vm *jni.VM) (*SessionParamsBuilder, error) {
+	var t SessionParamsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSessionParamsBuilder == nil {
+			return fmt.Errorf("android.net.ipsec.ike.IkeSessionParams$Builder is not available on this device")
+		}
+		if midSessionParamsBuilderCtor == nil {
+			return fmt.Errorf("android.net.ipsec.ike.IkeSessionParams$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSessionParamsBuilder)), midSessionParamsBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddIkeOption calls android.net.ipsec.ike.IkeSessionParams$Builder.addIkeOption.
 func (m *SessionParamsBuilder) AddIkeOption(arg0 int32) (*jni.Object, error) {
 	var result *jni.Object

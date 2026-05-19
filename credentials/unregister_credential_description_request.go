@@ -32,6 +32,12 @@ func NewUnregisterCredentialDescriptionRequest(vm *jni.VM, arg0 *jni.Object) (*U
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsUnregisterCredentialDescriptionRequest == nil {
+			return fmt.Errorf("android.credentials.UnregisterCredentialDescriptionRequest is not available on this device")
+		}
+		if midUnregisterCredentialDescriptionRequestCtor == nil {
+			return fmt.Errorf("android.credentials.UnregisterCredentialDescriptionRequest constructor (Landroid/credentials/CredentialDescription;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUnregisterCredentialDescriptionRequest)), midUnregisterCredentialDescriptionRequestCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -103,29 +109,6 @@ func (m *UnregisterCredentialDescriptionRequest) GetCredentialDescriptions() (*j
 	return result, callErr
 }
 
-// WriteToParcel calls android.credentials.UnregisterCredentialDescriptionRequest.writeToParcel.
-func (m *UnregisterCredentialDescriptionRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midUnregisterCredentialDescriptionRequestWriteToParcel == nil {
-			callErr = fmt.Errorf("android.credentials.UnregisterCredentialDescriptionRequest.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midUnregisterCredentialDescriptionRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.credentials.UnregisterCredentialDescriptionRequest.toString.
 func (m *UnregisterCredentialDescriptionRequest) ToString() (string, error) {
 	var result string
@@ -151,4 +134,27 @@ func (m *UnregisterCredentialDescriptionRequest) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.credentials.UnregisterCredentialDescriptionRequest.writeToParcel.
+func (m *UnregisterCredentialDescriptionRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midUnregisterCredentialDescriptionRequestWriteToParcel == nil {
+			callErr = fmt.Errorf("android.credentials.UnregisterCredentialDescriptionRequest.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsUnregisterCredentialDescriptionRequest)),
+			midUnregisterCredentialDescriptionRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -32,6 +32,12 @@ func NewSQLException(vm *jni.VM) (*SQLException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSQLException == nil {
+			return fmt.Errorf("android.database.SQLException is not available on this device")
+		}
+		if midSQLExceptionCtor == nil {
+			return fmt.Errorf("android.database.SQLException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSQLException)), midSQLExceptionCtor)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewDrawableWrapper(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 flo
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDrawableWrapper == nil {
+			return fmt.Errorf("com.google.android.material.shadow.ShadowDrawableWrapper is not available on this device")
+		}
+		if midDrawableWrapperCtor == nil {
+			return fmt.Errorf("com.google.android.material.shadow.ShadowDrawableWrapper constructor (Landroid/content/Context;Landroid/graphics/drawable/Drawable;FFF)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDrawableWrapper)), midDrawableWrapperCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.FloatValue(arg2), jni.FloatValue(arg3), jni.FloatValue(arg4))
 		if err != nil {
@@ -387,31 +393,6 @@ func (m *DrawableWrapper) GetMinWidth() (float32, error) {
 	return result, callErr
 }
 
-// GetMinHeight calls com.google.android.material.shadow.ShadowDrawableWrapper.getMinHeight.
-func (m *DrawableWrapper) GetMinHeight() (float32, error) {
-	var result float32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDrawableWrapperGetMinHeight == nil {
-			callErr = fmt.Errorf("com.google.android.material.shadow.ShadowDrawableWrapper.getMinHeight is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallFloatMethod(
-			m.Obj,
-			midDrawableWrapperGetMinHeight,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.shadow.ShadowDrawableWrapper.toString.
 func (m *DrawableWrapper) ToString() (string, error) {
 	var result string
@@ -500,6 +481,31 @@ func (m *DrawableWrapper) CalculateHorizontalPadding(
 		result, callErr = env.CallStaticFloatMethod(
 			(*jni.Class)(unsafe.Pointer(clsDrawableWrapper)),
 			midDrawableWrapperCalculateHorizontalPadding, jni.FloatValue(arg0), jni.FloatValue(arg1), jni.BooleanValue(jArg2),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetMinHeight calls com.google.android.material.shadow.ShadowDrawableWrapper.getMinHeight.
+func (m *DrawableWrapper) GetMinHeight() (float32, error) {
+	var result float32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDrawableWrapperGetMinHeight == nil {
+			callErr = fmt.Errorf("com.google.android.material.shadow.ShadowDrawableWrapper.getMinHeight is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticFloatMethod(
+			(*jni.Class)(unsafe.Pointer(clsDrawableWrapper)),
+			midDrawableWrapperGetMinHeight,
 		)
 		if callErr != nil {
 			return callErr

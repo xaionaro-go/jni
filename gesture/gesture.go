@@ -32,6 +32,12 @@ func NewGesture(vm *jni.VM) (*Gesture, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGesture == nil {
+			return fmt.Errorf("android.gesture.Gesture is not available on this device")
+		}
+		if midGestureCtor == nil {
+			return fmt.Errorf("android.gesture.Gesture constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGesture)), midGestureCtor)
 		if err != nil {
 			return err
@@ -483,29 +489,6 @@ func (m *Gesture) ToPath4_3(
 	return result, callErr
 }
 
-// WriteToParcel calls android.gesture.Gesture.writeToParcel.
-func (m *Gesture) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midGestureWriteToParcel == nil {
-			callErr = fmt.Errorf("android.gesture.Gesture.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midGestureWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.gesture.Gesture.toString.
 func (m *Gesture) ToString() (string, error) {
 	var result string
@@ -531,4 +514,27 @@ func (m *Gesture) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.gesture.Gesture.writeToParcel.
+func (m *Gesture) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midGestureWriteToParcel == nil {
+			callErr = fmt.Errorf("android.gesture.Gesture.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsGesture)),
+			midGestureWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -32,6 +32,12 @@ func NewSpec(vm *jni.VM, arg0 string, arg1 int32) (*Spec, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSpec == nil {
+			return fmt.Errorf("android.app.slice.SliceSpec is not available on this device")
+		}
+		if midSpecCtor == nil {
+			return fmt.Errorf("android.app.slice.SliceSpec constructor (Ljava/lang/String;I)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -225,8 +231,8 @@ func (m *Spec) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSpec)),
 			midSpecWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

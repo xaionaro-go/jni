@@ -3,6 +3,9 @@
 package consts
 
 const (
+	Start              int = 0
+	End                int = 1
+	Interpolated       int = 2
 	Parent             int = 0
 	LeftToLeft         int = 0
 	LeftToRight        int = 0
@@ -22,12 +25,20 @@ const (
 	CenterHorizontally int = 0
 	CenterVertically   int = 0
 	CircularConstraint int = 0
+	FixedDimension     int = 0
+	WrapDimension      int = 0
+	SpreadDimension    int = 0
+	ParentDimension    int = 0
+	PercentDimension   int = 0
+	RatioDimension     int = 0
 	Left               int = 0
 	Right              int = 0
-	Start              int = 0
-	End                int = 0
 	Top                int = 0
 	Bottom             int = 0
+	Fixed              int = 0
+	Wrap               int = 0
+	MatchParent        int = 0
+	MatchConstraint    int = 0
 	HorizontalChain    int = 0
 	VerticalChain      int = 0
 	AlignHorizontally  int = 0
@@ -38,15 +49,4 @@ const (
 	Spread             int = 0
 	SpreadInside       int = 0
 	Packed             int = 0
-	Interpolated       int = 2
-	FixedDimension     int = 0
-	WrapDimension      int = 0
-	SpreadDimension    int = 0
-	ParentDimension    int = 0
-	PercentDimension   int = 0
-	RatioDimension     int = 0
-	Fixed              int = 0
-	Wrap               int = 0
-	MatchParent        int = 0
-	MatchConstraint    int = 0
 )

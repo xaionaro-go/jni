@@ -23,6 +23,35 @@ type SettingsPreferenceValueBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSettingsPreferenceValueBuilder creates a new android.service.settings.preferences.SettingsPreferenceValue$Builder instance.
+func NewSettingsPreferenceValueBuilder(vm *jni.VM, arg0 int32) (*SettingsPreferenceValueBuilder, error) {
+	var t SettingsPreferenceValueBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSettingsPreferenceValueBuilder == nil {
+			return fmt.Errorf("android.service.settings.preferences.SettingsPreferenceValue$Builder is not available on this device")
+		}
+		if midSettingsPreferenceValueBuilderCtor == nil {
+			return fmt.Errorf("android.service.settings.preferences.SettingsPreferenceValue$Builder constructor (I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValueBuilder)), midSettingsPreferenceValueBuilderCtor, jni.IntValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.service.settings.preferences.SettingsPreferenceValue$Builder.build.
 func (m *SettingsPreferenceValueBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

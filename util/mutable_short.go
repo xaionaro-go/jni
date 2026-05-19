@@ -32,6 +32,12 @@ func NewMutableShort(vm *jni.VM, arg0 int16) (*MutableShort, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMutableShort == nil {
+			return fmt.Errorf("android.util.MutableShort is not available on this device")
+		}
+		if midMutableShortCtor == nil {
+			return fmt.Errorf("android.util.MutableShort constructor (S)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMutableShort)), midMutableShortCtor, jni.ShortValue(arg0))
 		if err != nil {

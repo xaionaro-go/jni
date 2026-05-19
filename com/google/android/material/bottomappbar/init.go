@@ -23,6 +23,16 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsBottomAppBarTopEdgeTreatment                    *jni.GlobalRef
+	midBottomAppBarTopEdgeTreatmentCtor                jni.MethodID
+	midBottomAppBarTopEdgeTreatmentGetEdgePath         jni.MethodID
+	midBottomAppBarTopEdgeTreatmentGetFabDiameter      jni.MethodID
+	midBottomAppBarTopEdgeTreatmentSetFabDiameter      jni.MethodID
+	midBottomAppBarTopEdgeTreatmentGetHorizontalOffset jni.MethodID
+	midBottomAppBarTopEdgeTreatmentGetFabCornerRadius  jni.MethodID
+	midBottomAppBarTopEdgeTreatmentSetFabCornerSize    jni.MethodID
+	midBottomAppBarTopEdgeTreatmentToString            jni.MethodID
+
 	clsBottomAppBar                                   *jni.GlobalRef
 	midBottomAppBarCtor                               jni.MethodID
 	midBottomAppBarSetNavigationIcon                  jni.MethodID
@@ -61,16 +71,14 @@ var (
 	midBottomAppBarReplaceMenu                        jni.MethodID
 	midBottomAppBarSetTitle                           jni.MethodID
 	midBottomAppBarSetSubtitle                        jni.MethodID
-	midBottomAppBarGetBehavior0                       jni.MethodID
-	midBottomAppBarGetBehavior0_1                     jni.MethodID
+	midBottomAppBarGetBehavior                        jni.MethodID
 	midBottomAppBarToString                           jni.MethodID
 
-	clsBottomAppBarBehavior                       *jni.GlobalRef
-	midBottomAppBarBehaviorOnLayoutChild3         jni.MethodID
-	midBottomAppBarBehaviorOnStartNestedScroll6   jni.MethodID
-	midBottomAppBarBehaviorOnStartNestedScroll6_1 jni.MethodID
-	midBottomAppBarBehaviorOnLayoutChild3_1       jni.MethodID
-	midBottomAppBarBehaviorToString               jni.MethodID
+	clsBottomAppBarBehavior                    *jni.GlobalRef
+	midBottomAppBarBehaviorCtor                jni.MethodID
+	midBottomAppBarBehaviorOnLayoutChild       jni.MethodID
+	midBottomAppBarBehaviorOnStartNestedScroll jni.MethodID
+	midBottomAppBarBehaviorToString            jni.MethodID
 
 	clsBottomAppBarFabAlignmentMode         *jni.GlobalRef
 	midBottomAppBarFabAlignmentModeToString jni.MethodID
@@ -83,16 +91,6 @@ var (
 
 	clsBottomAppBarMenuAlignmentMode         *jni.GlobalRef
 	midBottomAppBarMenuAlignmentModeToString jni.MethodID
-
-	clsBottomAppBarTopEdgeTreatment                    *jni.GlobalRef
-	midBottomAppBarTopEdgeTreatmentCtor                jni.MethodID
-	midBottomAppBarTopEdgeTreatmentGetEdgePath         jni.MethodID
-	midBottomAppBarTopEdgeTreatmentGetFabDiameter      jni.MethodID
-	midBottomAppBarTopEdgeTreatmentSetFabDiameter      jni.MethodID
-	midBottomAppBarTopEdgeTreatmentGetHorizontalOffset jni.MethodID
-	midBottomAppBarTopEdgeTreatmentGetFabCornerRadius  jni.MethodID
-	midBottomAppBarTopEdgeTreatmentSetFabCornerSize    jni.MethodID
-	midBottomAppBarTopEdgeTreatmentToString            jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -112,6 +110,69 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("com/google/android/material/bottomappbar/BottomAppBarTopEdgeTreatment")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBottomAppBarTopEdgeTreatment = env.NewGlobalRef(&c.Object)
+		midBottomAppBarTopEdgeTreatmentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarTopEdgeTreatment)), "<init>", "(FFF)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midBottomAppBarTopEdgeTreatmentGetEdgePath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarTopEdgeTreatment)), "getEdgePath", "(FFFLcom/google/android/material/shape/ShapePath;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBottomAppBarTopEdgeTreatmentGetFabDiameter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarTopEdgeTreatment)), "getFabDiameter", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBottomAppBarTopEdgeTreatmentSetFabDiameter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarTopEdgeTreatment)), "setFabDiameter", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBottomAppBarTopEdgeTreatmentGetHorizontalOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarTopEdgeTreatment)), "getHorizontalOffset", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBottomAppBarTopEdgeTreatmentGetFabCornerRadius, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarTopEdgeTreatment)), "getFabCornerRadius", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBottomAppBarTopEdgeTreatmentSetFabCornerSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarTopEdgeTreatment)), "setFabCornerSize", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBottomAppBarTopEdgeTreatmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarTopEdgeTreatment)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("com/google/android/material/bottomappbar/BottomAppBar")
 	if err != nil {
@@ -377,14 +438,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midBottomAppBarGetBehavior0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBar)), "getBehavior", "()Lcom/google/android/material/bottomappbar/BottomAppBar$Behavior;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBottomAppBarGetBehavior0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBar)), "getBehavior", "()Landroidx/coordinatorlayout/widget/CoordinatorLayout$Behavior;")
+		midBottomAppBarGetBehavior, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBar)), "getBehavior", "()Lcom/google/android/material/bottomappbar/BottomAppBar$Behavior;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -407,29 +461,19 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsBottomAppBarBehavior = env.NewGlobalRef(&c.Object)
+		midBottomAppBarBehaviorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarBehavior)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midBottomAppBarBehaviorOnLayoutChild3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarBehavior)), "onLayoutChild", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/bottomappbar/BottomAppBar;I)Z")
+		midBottomAppBarBehaviorOnLayoutChild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarBehavior)), "onLayoutChild", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/bottomappbar/BottomAppBar;I)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midBottomAppBarBehaviorOnStartNestedScroll6, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarBehavior)), "onStartNestedScroll", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/bottomappbar/BottomAppBar;Landroid/view/View;Landroid/view/View;II)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBottomAppBarBehaviorOnStartNestedScroll6_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarBehavior)), "onStartNestedScroll", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/View;Landroid/view/View;II)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBottomAppBarBehaviorOnLayoutChild3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarBehavior)), "onLayoutChild", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;I)Z")
+		midBottomAppBarBehaviorOnStartNestedScroll, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarBehavior)), "onStartNestedScroll", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/bottomappbar/BottomAppBar;Landroid/view/View;Landroid/view/View;II)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -505,69 +549,6 @@ func doInit(env *jni.Env) error {
 		clsBottomAppBarMenuAlignmentMode = env.NewGlobalRef(&c.Object)
 
 		midBottomAppBarMenuAlignmentModeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarMenuAlignmentMode)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/bottomappbar/BottomAppBarTopEdgeTreatment")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBottomAppBarTopEdgeTreatment = env.NewGlobalRef(&c.Object)
-		midBottomAppBarTopEdgeTreatmentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarTopEdgeTreatment)), "<init>", "(FFF)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midBottomAppBarTopEdgeTreatmentGetEdgePath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarTopEdgeTreatment)), "getEdgePath", "(FFFLcom/google/android/material/shape/ShapePath;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBottomAppBarTopEdgeTreatmentGetFabDiameter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarTopEdgeTreatment)), "getFabDiameter", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBottomAppBarTopEdgeTreatmentSetFabDiameter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarTopEdgeTreatment)), "setFabDiameter", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBottomAppBarTopEdgeTreatmentGetHorizontalOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarTopEdgeTreatment)), "getHorizontalOffset", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBottomAppBarTopEdgeTreatmentGetFabCornerRadius, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarTopEdgeTreatment)), "getFabCornerRadius", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBottomAppBarTopEdgeTreatmentSetFabCornerSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarTopEdgeTreatment)), "setFabCornerSize", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBottomAppBarTopEdgeTreatmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomAppBarTopEdgeTreatment)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

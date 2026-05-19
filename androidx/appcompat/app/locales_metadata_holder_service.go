@@ -30,6 +30,12 @@ func NewLocalesMetadataHolderService(vm *jni.VM) (*LocalesMetadataHolderService,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLocalesMetadataHolderService == nil {
+			return fmt.Errorf("androidx.appcompat.app.AppLocalesMetadataHolderService is not available on this device")
+		}
+		if midLocalesMetadataHolderServiceCtor == nil {
+			return fmt.Errorf("androidx.appcompat.app.AppLocalesMetadataHolderService constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLocalesMetadataHolderService)), midLocalesMetadataHolderServiceCtor)
 		if err != nil {
 			return err

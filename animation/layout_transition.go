@@ -32,6 +32,12 @@ func NewLayoutTransition(vm *jni.VM) (*LayoutTransition, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLayoutTransition == nil {
+			return fmt.Errorf("android.animation.LayoutTransition is not available on this device")
+		}
+		if midLayoutTransitionCtor == nil {
+			return fmt.Errorf("android.animation.LayoutTransition constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLayoutTransition)), midLayoutTransitionCtor)
 		if err != nil {
 			return err

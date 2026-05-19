@@ -101,29 +101,6 @@ func (m *WifiDeviceFilter) HashCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.companion.WifiDeviceFilter.writeToParcel.
-func (m *WifiDeviceFilter) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midWifiDeviceFilterWriteToParcel == nil {
-			callErr = fmt.Errorf("android.companion.WifiDeviceFilter.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midWifiDeviceFilterWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.companion.WifiDeviceFilter.toString.
 func (m *WifiDeviceFilter) ToString() (string, error) {
 	var result string
@@ -149,4 +126,27 @@ func (m *WifiDeviceFilter) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.companion.WifiDeviceFilter.writeToParcel.
+func (m *WifiDeviceFilter) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midWifiDeviceFilterWriteToParcel == nil {
+			callErr = fmt.Errorf("android.companion.WifiDeviceFilter.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsWifiDeviceFilter)),
+			midWifiDeviceFilterWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

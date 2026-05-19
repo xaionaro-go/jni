@@ -5,163 +5,6 @@
 package: preference
 go_import: github.com/AndroidGoLab/jni/preference
 classes:
-    - java_class: android.preference.TwoStatePreference
-      go_type: TwoStatePreference
-      methods:
-        - java_method: getDisableDependentsState
-          go_name: GetDisableDependentsState
-          returns: boolean
-          error: true
-        - java_method: getSummaryOff
-          go_name: GetSummaryOff
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getSummaryOn
-          go_name: GetSummaryOn
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: isChecked
-          go_name: IsChecked
-          returns: boolean
-          error: true
-        - java_method: setChecked
-          go_name: SetChecked
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDisableDependentsState
-          go_name: SetDisableDependentsState
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSummaryOff
-          go_name: SetSummaryOff1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSummaryOff
-          go_name: SetSummaryOff1_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSummaryOn
-          go_name: SetSummaryOn1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSummaryOn
-          go_name: SetSummaryOn1_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: shouldDisableDependents
-          go_name: ShouldDisableDependents
-          returns: boolean
-          error: true
-    - java_class: android.preference.EditTextPreference
-      go_type: EditTextPreference
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: getEditText
-          go_name: GetEditText
-          returns: android.widget.EditText
-          error: true
-        - java_method: getText
-          go_name: GetText
-          returns: String
-          error: true
-        - java_method: setText
-          go_name: SetText
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: shouldDisableDependents
-          go_name: ShouldDisableDependents
-          returns: boolean
-          error: true
-    - java_class: android.preference.PreferenceDataStore
-      go_type: DataStore
-    - java_class: android.preference.PreferenceGroup
-      go_type: Group
-      methods:
-        - java_method: addItemFromInflater
-          go_name: AddItemFromInflater
-          params:
-            - java_type: android.preference.Preference
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: addPreference
-          go_name: AddPreference
-          params:
-            - java_type: android.preference.Preference
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: findPreference
-          go_name: FindPreference
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.preference.Preference
-          error: true
-        - java_method: getPreference
-          go_name: GetPreference
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.preference.Preference
-          error: true
-        - java_method: getPreferenceCount
-          go_name: GetPreferenceCount
-          returns: int
-          error: true
-        - java_method: isOrderingAsAdded
-          go_name: IsOrderingAsAdded
-          returns: boolean
-          error: true
-        - java_method: notifyDependencyChange
-          go_name: NotifyDependencyChange
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeAll
-          go_name: RemoveAll
-          returns: void
-          error: true
-        - java_method: removePreference
-          go_name: RemovePreference
-          params:
-            - java_type: android.preference.Preference
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: setOrderingAsAdded
-          go_name: SetOrderingAsAdded
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
     - java_class: android.preference.Preference
       go_type: Preference
       obtain: constructor
@@ -170,7 +13,7 @@ classes:
           go_name: arg0
       methods:
         - java_method: compareTo
-          go_name: CompareTo1
+          go_name: CompareTo
           params:
             - java_type: android.preference.Preference
               go_name: arg0
@@ -520,15 +363,12 @@ classes:
           go_name: ToString
           returns: String
           error: true
-        - java_method: compareTo
-          go_name: CompareTo1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
     - java_class: android.preference.Preference$BaseSavedState
       go_type: BaseSavedState
+      obtain: constructor
+      constructor_params:
+        - java_type: android.os.Parcel
+          go_name: arg0
     - java_class: android.preference.Preference$OnPreferenceChangeListener
       go_type: OnPreferenceChangeListener
       methods:
@@ -539,6 +379,16 @@ classes:
               go_name: arg0
             - java_type: java.lang.Object
               go_name: arg1
+          returns: boolean
+          error: true
+    - java_class: android.preference.Preference$OnPreferenceClickListener
+      go_type: OnPreferenceClickListener
+      methods:
+        - java_method: onPreferenceClick
+          go_name: OnPreferenceClick
+          params:
+            - java_type: android.preference.Preference
+              go_name: arg0
           returns: boolean
           error: true
     - java_class: android.preference.PreferenceManager
@@ -651,59 +501,6 @@ classes:
             - java_type: boolean
               go_name: arg4
           returns: void
-          error: true
-    - java_class: android.preference.Preference$OnPreferenceClickListener
-      go_type: OnPreferenceClickListener
-      methods:
-        - java_method: onPreferenceClick
-          go_name: OnPreferenceClick
-          params:
-            - java_type: android.preference.Preference
-              go_name: arg0
-          returns: boolean
-          error: true
-    - java_class: android.preference.PreferenceManager$OnActivityDestroyListener
-      go_type: ManagerOnActivityDestroyListener
-      methods:
-        - java_method: onActivityDestroy
-          go_name: OnActivityDestroy
-          returns: void
-          error: true
-    - java_class: android.preference.PreferenceManager$OnActivityResultListener
-      go_type: ManagerOnActivityResultListener
-      methods:
-        - java_method: onActivityResult
-          go_name: OnActivityResult
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.content.Intent
-              go_name: arg2
-          returns: boolean
-          error: true
-    - java_class: android.preference.PreferenceManager$OnActivityStopListener
-      go_type: ManagerOnActivityStopListener
-      methods:
-        - java_method: onActivityStop
-          go_name: OnActivityStop
-          returns: void
-          error: true
-    - java_class: android.preference.PreferenceCategory
-      go_type: Category
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: isEnabled
-          go_name: IsEnabled
-          returns: boolean
-          error: true
-        - java_method: shouldDisableDependents
-          go_name: ShouldDisableDependents
-          returns: boolean
           error: true
     - java_class: android.preference.PreferenceFragment
       go_type: Fragment
@@ -821,6 +618,13 @@ classes:
               go_name: arg0
           returns: void
           error: true
+    - java_class: android.preference.PreferenceManager$OnActivityDestroyListener
+      go_type: ManagerOnActivityDestroyListener
+      methods:
+        - java_method: onActivityDestroy
+          go_name: OnActivityDestroy
+          returns: void
+          error: true
     - java_class: android.preference.PreferenceFragment$OnPreferenceStartFragmentCallback
       go_type: FragmentOnPreferenceStartFragmentCallback
       methods:
@@ -831,6 +635,273 @@ classes:
               go_name: arg0
             - java_type: android.preference.Preference
               go_name: arg1
+          returns: boolean
+          error: true
+    - java_class: android.preference.PreferenceManager$OnActivityResultListener
+      go_type: ManagerOnActivityResultListener
+      methods:
+        - java_method: onActivityResult
+          go_name: OnActivityResult
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.content.Intent
+              go_name: arg2
+          returns: boolean
+          error: true
+    - java_class: android.preference.PreferenceManager$OnActivityStopListener
+      go_type: ManagerOnActivityStopListener
+      methods:
+        - java_method: onActivityStop
+          go_name: OnActivityStop
+          returns: void
+          error: true
+    - java_class: android.preference.PreferenceDataStore
+      go_type: DataStore
+    - java_class: android.preference.RingtonePreference
+      go_type: RingtonePreference
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: getRingtoneType
+          go_name: GetRingtoneType
+          returns: int
+          error: true
+        - java_method: getShowDefault
+          go_name: GetShowDefault
+          returns: boolean
+          error: true
+        - java_method: getShowSilent
+          go_name: GetShowSilent
+          returns: boolean
+          error: true
+        - java_method: onActivityResult
+          go_name: OnActivityResult
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.content.Intent
+              go_name: arg2
+          returns: boolean
+          error: true
+        - java_method: setRingtoneType
+          go_name: SetRingtoneType
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setShowDefault
+          go_name: SetShowDefault
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setShowSilent
+          go_name: SetShowSilent
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.preference.DialogPreference
+      go_type: DialogPreference
+      methods:
+        - java_method: getDialog
+          go_name: GetDialog
+          returns: android.app.Dialog
+          error: true
+        - java_method: getDialogIcon
+          go_name: GetDialogIcon
+          returns: android.graphics.drawable.Drawable
+          error: true
+        - java_method: getDialogLayoutResource
+          go_name: GetDialogLayoutResource
+          returns: int
+          error: true
+        - java_method: getDialogMessage
+          go_name: GetDialogMessage
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getDialogTitle
+          go_name: GetDialogTitle
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getNegativeButtonText
+          go_name: GetNegativeButtonText
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getPositiveButtonText
+          go_name: GetPositiveButtonText
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: onActivityDestroy
+          go_name: OnActivityDestroy
+          returns: void
+          error: true
+        - java_method: onClick
+          go_name: OnClick
+          params:
+            - java_type: android.content.DialogInterface
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onDismiss
+          go_name: OnDismiss
+          params:
+            - java_type: android.content.DialogInterface
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDialogIcon
+          go_name: SetDialogIcon1
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDialogIcon
+          go_name: SetDialogIcon1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDialogLayoutResource
+          go_name: SetDialogLayoutResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDialogMessage
+          go_name: SetDialogMessage1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDialogMessage
+          go_name: SetDialogMessage1_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDialogTitle
+          go_name: SetDialogTitle1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDialogTitle
+          go_name: SetDialogTitle1_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setNegativeButtonText
+          go_name: SetNegativeButtonText1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setNegativeButtonText
+          go_name: SetNegativeButtonText1_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setPositiveButtonText
+          go_name: SetPositiveButtonText1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setPositiveButtonText
+          go_name: SetPositiveButtonText1_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.preference.TwoStatePreference
+      go_type: TwoStatePreference
+      methods:
+        - java_method: getDisableDependentsState
+          go_name: GetDisableDependentsState
+          returns: boolean
+          error: true
+        - java_method: getSummaryOff
+          go_name: GetSummaryOff
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getSummaryOn
+          go_name: GetSummaryOn
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: isChecked
+          go_name: IsChecked
+          returns: boolean
+          error: true
+        - java_method: setChecked
+          go_name: SetChecked
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDisableDependentsState
+          go_name: SetDisableDependentsState
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSummaryOff
+          go_name: SetSummaryOff1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSummaryOff
+          go_name: SetSummaryOff1_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSummaryOn
+          go_name: SetSummaryOn1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSummaryOn
+          go_name: SetSummaryOn1_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: shouldDisableDependents
+          go_name: ShouldDisableDependents
           returns: boolean
           error: true
     - java_class: android.preference.MultiSelectListPreference
@@ -930,12 +1001,111 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.preference.CheckBoxPreference
-      go_type: CheckBoxPreference
+    - java_class: android.preference.EditTextPreference
+      go_type: EditTextPreference
       obtain: constructor
       constructor_params:
         - java_type: android.content.Context
           go_name: arg0
+      methods:
+        - java_method: getEditText
+          go_name: GetEditText
+          returns: android.widget.EditText
+          error: true
+        - java_method: getText
+          go_name: GetText
+          returns: String
+          error: true
+        - java_method: setText
+          go_name: SetText
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: shouldDisableDependents
+          go_name: ShouldDisableDependents
+          returns: boolean
+          error: true
+    - java_class: android.preference.PreferenceCategory
+      go_type: Category
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: isEnabled
+          go_name: IsEnabled
+          returns: boolean
+          error: true
+        - java_method: shouldDisableDependents
+          go_name: ShouldDisableDependents
+          returns: boolean
+          error: true
+    - java_class: android.preference.PreferenceGroup
+      go_type: Group
+      methods:
+        - java_method: addItemFromInflater
+          go_name: AddItemFromInflater
+          params:
+            - java_type: android.preference.Preference
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: addPreference
+          go_name: AddPreference
+          params:
+            - java_type: android.preference.Preference
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: findPreference
+          go_name: FindPreference
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.preference.Preference
+          error: true
+        - java_method: getPreference
+          go_name: GetPreference
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.preference.Preference
+          error: true
+        - java_method: getPreferenceCount
+          go_name: GetPreferenceCount
+          returns: int
+          error: true
+        - java_method: isOrderingAsAdded
+          go_name: IsOrderingAsAdded
+          returns: boolean
+          error: true
+        - java_method: notifyDependencyChange
+          go_name: NotifyDependencyChange
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: removeAll
+          go_name: RemoveAll
+          returns: void
+          error: true
+        - java_method: removePreference
+          go_name: RemovePreference
+          params:
+            - java_type: android.preference.Preference
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: setOrderingAsAdded
+          go_name: SetOrderingAsAdded
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
     - java_class: android.preference.PreferenceScreen
       go_type: Screen
       methods:
@@ -974,89 +1144,12 @@ classes:
               go_name: arg3
           returns: void
           error: true
-    - java_class: android.preference.ListPreference
-      go_type: ListPreference
+    - java_class: android.preference.CheckBoxPreference
+      go_type: CheckBoxPreference
       obtain: constructor
       constructor_params:
         - java_type: android.content.Context
           go_name: arg0
-      methods:
-        - java_method: findIndexOfValue
-          go_name: FindIndexOfValue
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getEntries
-          go_name: GetEntries
-          returns: java.lang.CharSequence[]
-          error: true
-        - java_method: getEntry
-          go_name: GetEntry
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getEntryValues
-          go_name: GetEntryValues
-          returns: java.lang.CharSequence[]
-          error: true
-        - java_method: getSummary
-          go_name: GetSummary
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getValue
-          go_name: GetValue
-          returns: String
-          error: true
-        - java_method: setEntries
-          go_name: SetEntries1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setEntries
-          go_name: SetEntries1_1
-          params:
-            - java_type: java.lang.CharSequence[]
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setEntryValues
-          go_name: SetEntryValues1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setEntryValues
-          go_name: SetEntryValues1_1
-          params:
-            - java_type: java.lang.CharSequence[]
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSummary
-          go_name: SetSummary
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setValue
-          go_name: SetValue
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setValueIndex
-          go_name: SetValueIndex
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
     - java_class: android.preference.PreferenceActivity
       go_type: Activity
       methods:
@@ -1291,6 +1384,7 @@ classes:
           error: true
     - java_class: android.preference.PreferenceActivity$Header
       go_type: ActivityHeader
+      obtain: constructor
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -1331,6 +1425,7 @@ classes:
               go_name: arg0
           returns: void
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -1340,646 +1435,105 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.preference.DialogPreference
-      go_type: DialogPreference
-      methods:
-        - java_method: getDialog
-          go_name: GetDialog
-          returns: android.app.Dialog
-          error: true
-        - java_method: getDialogIcon
-          go_name: GetDialogIcon
-          returns: android.graphics.drawable.Drawable
-          error: true
-        - java_method: getDialogLayoutResource
-          go_name: GetDialogLayoutResource
-          returns: int
-          error: true
-        - java_method: getDialogMessage
-          go_name: GetDialogMessage
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getDialogTitle
-          go_name: GetDialogTitle
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getNegativeButtonText
-          go_name: GetNegativeButtonText
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getPositiveButtonText
-          go_name: GetPositiveButtonText
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: onActivityDestroy
-          go_name: OnActivityDestroy
-          returns: void
-          error: true
-        - java_method: onClick
-          go_name: OnClick
-          params:
-            - java_type: android.content.DialogInterface
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onDismiss
-          go_name: OnDismiss
-          params:
-            - java_type: android.content.DialogInterface
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDialogIcon
-          go_name: SetDialogIcon1
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDialogIcon
-          go_name: SetDialogIcon1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDialogLayoutResource
-          go_name: SetDialogLayoutResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDialogMessage
-          go_name: SetDialogMessage1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDialogMessage
-          go_name: SetDialogMessage1_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDialogTitle
-          go_name: SetDialogTitle1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDialogTitle
-          go_name: SetDialogTitle1_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setNegativeButtonText
-          go_name: SetNegativeButtonText1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setNegativeButtonText
-          go_name: SetNegativeButtonText1_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setPositiveButtonText
-          go_name: SetPositiveButtonText1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setPositiveButtonText
-          go_name: SetPositiveButtonText1_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.preference.RingtonePreference
-      go_type: RingtonePreference
+    - java_class: android.preference.ListPreference
+      go_type: ListPreference
       obtain: constructor
       constructor_params:
         - java_type: android.content.Context
           go_name: arg0
       methods:
-        - java_method: getRingtoneType
-          go_name: GetRingtoneType
+        - java_method: findIndexOfValue
+          go_name: FindIndexOfValue
+          params:
+            - java_type: String
+              go_name: arg0
           returns: int
           error: true
-        - java_method: getShowDefault
-          go_name: GetShowDefault
-          returns: boolean
+        - java_method: getEntries
+          go_name: GetEntries
+          returns: java.lang.CharSequence[]
           error: true
-        - java_method: getShowSilent
-          go_name: GetShowSilent
-          returns: boolean
-          error: true
-        - java_method: onActivityResult
-          go_name: OnActivityResult
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.content.Intent
-              go_name: arg2
-          returns: boolean
-          error: true
-        - java_method: setRingtoneType
-          go_name: SetRingtoneType
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setShowDefault
-          go_name: SetShowDefault
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setShowSilent
-          go_name: SetShowSilent
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-abstract_callbacks:
-    - java_class: android.preference.TwoStatePreference
-      go_type: TwoStatePreferenceCallback
-      methods:
-        - java_method: getDisableDependentsState
-          params: []
-          returns: boolean
-          go_field: GetDisableDependentsState
-        - java_method: getSummaryOff
-          params: []
+        - java_method: getEntry
+          go_name: GetEntry
           returns: java.lang.CharSequence
-          go_field: GetSummaryOff
-        - java_method: getSummaryOn
-          params: []
+          error: true
+        - java_method: getEntryValues
+          go_name: GetEntryValues
+          returns: java.lang.CharSequence[]
+          error: true
+        - java_method: getSummary
+          go_name: GetSummary
           returns: java.lang.CharSequence
-          go_field: GetSummaryOn
-        - java_method: isChecked
-          params: []
-          returns: boolean
-          go_field: IsChecked
-        - java_method: setChecked
+          error: true
+        - java_method: getValue
+          go_name: GetValue
+          returns: String
+          error: true
+        - java_method: setEntries
+          go_name: SetEntries1
           params:
-            - boolean
+            - java_type: int
+              go_name: arg0
           returns: void
-          go_field: SetChecked
-        - java_method: setDisableDependentsState
+          error: true
+        - java_method: setEntries
+          go_name: SetEntries1_1
           params:
-            - boolean
+            - java_type: java.lang.CharSequence[]
+              go_name: arg0
           returns: void
-          go_field: SetDisableDependentsState
-        - java_method: setSummaryOff
+          error: true
+        - java_method: setEntryValues
+          go_name: SetEntryValues1
           params:
-            - int
+            - java_type: int
+              go_name: arg0
           returns: void
-          go_field: SetSummaryOff
-        - java_method: setSummaryOff
+          error: true
+        - java_method: setEntryValues
+          go_name: SetEntryValues1_1
           params:
-            - java.lang.CharSequence
+            - java_type: java.lang.CharSequence[]
+              go_name: arg0
           returns: void
-          go_field: SetSummaryOff
-        - java_method: setSummaryOn
+          error: true
+        - java_method: setSummary
+          go_name: SetSummary
           params:
-            - int
+            - java_type: java.lang.CharSequence
+              go_name: arg0
           returns: void
-          go_field: SetSummaryOn
-        - java_method: setSummaryOn
+          error: true
+        - java_method: setValue
+          go_name: SetValue
           params:
-            - java.lang.CharSequence
+            - java_type: String
+              go_name: arg0
           returns: void
-          go_field: SetSummaryOn
-        - java_method: shouldDisableDependents
-          params: []
-          returns: boolean
-          go_field: ShouldDisableDependents
-    - java_class: android.preference.PreferenceGroup
-      go_type: GroupCallback
-      methods:
-        - java_method: addItemFromInflater
+          error: true
+        - java_method: setValueIndex
+          go_name: SetValueIndex
           params:
-            - android.preference.Preference
+            - java_type: int
+              go_name: arg0
           returns: void
-          go_field: AddItemFromInflater
-        - java_method: addPreference
-          params:
-            - android.preference.Preference
-          returns: boolean
-          go_field: AddPreference
-        - java_method: findPreference
-          params:
-            - java.lang.CharSequence
-          returns: android.preference.Preference
-          go_field: FindPreference
-        - java_method: getPreference
-          params:
-            - int
-          returns: android.preference.Preference
-          go_field: GetPreference
-        - java_method: getPreferenceCount
-          params: []
-          returns: int
-          go_field: GetPreferenceCount
-        - java_method: isOrderingAsAdded
-          params: []
-          returns: boolean
-          go_field: IsOrderingAsAdded
-        - java_method: notifyDependencyChange
-          params:
-            - boolean
-          returns: void
-          go_field: NotifyDependencyChange
-        - java_method: removeAll
-          params: []
-          returns: void
-          go_field: RemoveAll
-        - java_method: removePreference
-          params:
-            - android.preference.Preference
-          returns: boolean
-          go_field: RemovePreference
-        - java_method: setOrderingAsAdded
-          params:
-            - boolean
-          returns: void
-          go_field: SetOrderingAsAdded
+          error: true
+abstract_callback_eligibility:
     - java_class: android.preference.PreferenceFragment
-      go_type: FragmentCallback
-      methods:
-        - java_method: addPreferencesFromIntent
-          params:
-            - android.content.Intent
-          returns: void
-          go_field: AddPreferencesFromIntent
-        - java_method: addPreferencesFromResource
-          params:
-            - int
-          returns: void
-          go_field: AddPreferencesFromResource
-        - java_method: findPreference
-          params:
-            - java.lang.CharSequence
-          returns: android.preference.Preference
-          go_field: FindPreference
-        - java_method: getPreferenceManager
-          params: []
-          returns: android.preference.PreferenceManager
-          go_field: GetPreferenceManager
-        - java_method: getPreferenceScreen
-          params: []
-          returns: android.preference.PreferenceScreen
-          go_field: GetPreferenceScreen
-        - java_method: onActivityCreated
-          params:
-            - android.os.Bundle
-          returns: void
-          go_field: OnActivityCreated
-        - java_method: onActivityResult
-          params:
-            - int
-            - int
-            - android.content.Intent
-          returns: void
-          go_field: OnActivityResult
-        - java_method: onCreate
-          params:
-            - android.os.Bundle
-          returns: void
-          go_field: OnCreate
-        - java_method: onCreateView
-          params:
-            - android.view.LayoutInflater
-            - android.view.ViewGroup
-            - android.os.Bundle
-          returns: android.view.View
-          go_field: OnCreateView
-        - java_method: onDestroy
-          params: []
-          returns: void
-          go_field: OnDestroy
-        - java_method: onDestroyView
-          params: []
-          returns: void
-          go_field: OnDestroyView
-        - java_method: onPreferenceTreeClick
-          params:
-            - android.preference.PreferenceScreen
-            - android.preference.Preference
-          returns: boolean
-          go_field: OnPreferenceTreeClick
-        - java_method: onSaveInstanceState
-          params:
-            - android.os.Bundle
-          returns: void
-          go_field: OnSaveInstanceState
-        - java_method: onStart
-          params: []
-          returns: void
-          go_field: OnStart
-        - java_method: onStop
-          params: []
-          returns: void
-          go_field: OnStop
-        - java_method: onViewCreated
-          params:
-            - android.view.View
-            - android.os.Bundle
-          returns: void
-          go_field: OnViewCreated
-        - java_method: setPreferenceScreen
-          params:
-            - android.preference.PreferenceScreen
-          returns: void
-          go_field: SetPreferenceScreen
-    - java_class: android.preference.PreferenceActivity
-      go_type: ActivityCallback
-      methods:
-        - java_method: addPreferencesFromIntent
-          params:
-            - android.content.Intent
-          returns: void
-          go_field: AddPreferencesFromIntent
-        - java_method: addPreferencesFromResource
-          params:
-            - int
-          returns: void
-          go_field: AddPreferencesFromResource
-        - java_method: findPreference
-          params:
-            - java.lang.CharSequence
-          returns: android.preference.Preference
-          go_field: FindPreference
-        - java_method: finishPreferencePanel
-          params:
-            - android.app.Fragment
-            - int
-            - android.content.Intent
-          returns: void
-          go_field: FinishPreferencePanel
-        - java_method: getPreferenceManager
-          params: []
-          returns: android.preference.PreferenceManager
-          go_field: GetPreferenceManager
-        - java_method: getPreferenceScreen
-          params: []
-          returns: android.preference.PreferenceScreen
-          go_field: GetPreferenceScreen
-        - java_method: hasHeaders
-          params: []
-          returns: boolean
-          go_field: HasHeaders
-        - java_method: invalidateHeaders
-          params: []
-          returns: void
-          go_field: InvalidateHeaders
-        - java_method: isMultiPane
-          params: []
-          returns: boolean
-          go_field: IsMultiPane
-        - java_method: onBackPressed
-          params: []
-          returns: void
-          go_field: OnBackPressed
-        - java_method: onBuildStartFragmentIntent
-          params:
-            - String
-            - android.os.Bundle
-            - int
-            - int
-          returns: android.content.Intent
-          go_field: OnBuildStartFragmentIntent
-        - java_method: onContentChanged
-          params: []
-          returns: void
-          go_field: OnContentChanged
-        - java_method: onGetInitialHeader
-          params: []
-          returns: android.preference.PreferenceActivity$Header
-          go_field: OnGetInitialHeader
-        - java_method: onGetNewHeader
-          params: []
-          returns: android.preference.PreferenceActivity$Header
-          go_field: OnGetNewHeader
-        - java_method: onHeaderClick
-          params:
-            - android.preference.PreferenceActivity$Header
-            - int
-          returns: void
-          go_field: OnHeaderClick
-        - java_method: onIsHidingHeaders
-          params: []
-          returns: boolean
-          go_field: OnIsHidingHeaders
-        - java_method: onIsMultiPane
-          params: []
-          returns: boolean
-          go_field: OnIsMultiPane
-        - java_method: onOptionsItemSelected
-          params:
-            - android.view.MenuItem
-          returns: boolean
-          go_field: OnOptionsItemSelected
-        - java_method: onPreferenceStartFragment
-          params:
-            - android.preference.PreferenceFragment
-            - android.preference.Preference
-          returns: boolean
-          go_field: OnPreferenceStartFragment
-        - java_method: onPreferenceTreeClick
-          params:
-            - android.preference.PreferenceScreen
-            - android.preference.Preference
-          returns: boolean
-          go_field: OnPreferenceTreeClick
-        - java_method: setListFooter
-          params:
-            - android.view.View
-          returns: void
-          go_field: SetListFooter
-        - java_method: setParentTitle
-          params:
-            - java.lang.CharSequence
-            - java.lang.CharSequence
-            - android.view.View$OnClickListener
-          returns: void
-          go_field: SetParentTitle
-        - java_method: setPreferenceScreen
-          params:
-            - android.preference.PreferenceScreen
-          returns: void
-          go_field: SetPreferenceScreen
-        - java_method: showBreadCrumbs
-          params:
-            - java.lang.CharSequence
-            - java.lang.CharSequence
-          returns: void
-          go_field: ShowBreadCrumbs
-        - java_method: startPreferenceFragment
-          params:
-            - android.app.Fragment
-            - boolean
-          returns: void
-          go_field: StartPreferenceFragment
-        - java_method: startPreferencePanel
-          params:
-            - String
-            - android.os.Bundle
-            - int
-            - java.lang.CharSequence
-            - android.app.Fragment
-            - int
-          returns: void
-          go_field: StartPreferencePanel
-        - java_method: startWithFragment
-          params:
-            - String
-            - android.os.Bundle
-            - android.app.Fragment
-            - int
-          returns: void
-          go_field: StartWithFragment
-        - java_method: startWithFragment
-          params:
-            - String
-            - android.os.Bundle
-            - android.app.Fragment
-            - int
-            - int
-            - int
-          returns: void
-          go_field: StartWithFragment
-        - java_method: switchToHeader
-          params:
-            - android.preference.PreferenceActivity$Header
-          returns: void
-          go_field: SwitchToHeader
-        - java_method: switchToHeader
-          params:
-            - String
-            - android.os.Bundle
-          returns: void
-          go_field: SwitchToHeader
+      generated: false
+      reason: non_object_superclass
     - java_class: android.preference.DialogPreference
-      go_type: DialogPreferenceCallback
-      methods:
-        - java_method: getDialog
-          params: []
-          returns: android.app.Dialog
-          go_field: GetDialog
-        - java_method: getDialogIcon
-          params: []
-          returns: android.graphics.drawable.Drawable
-          go_field: GetDialogIcon
-        - java_method: getDialogLayoutResource
-          params: []
-          returns: int
-          go_field: GetDialogLayoutResource
-        - java_method: getDialogMessage
-          params: []
-          returns: java.lang.CharSequence
-          go_field: GetDialogMessage
-        - java_method: getDialogTitle
-          params: []
-          returns: java.lang.CharSequence
-          go_field: GetDialogTitle
-        - java_method: getNegativeButtonText
-          params: []
-          returns: java.lang.CharSequence
-          go_field: GetNegativeButtonText
-        - java_method: getPositiveButtonText
-          params: []
-          returns: java.lang.CharSequence
-          go_field: GetPositiveButtonText
-        - java_method: onActivityDestroy
-          params: []
-          returns: void
-          go_field: OnActivityDestroy
-        - java_method: onClick
-          params:
-            - android.content.DialogInterface
-            - int
-          returns: void
-          go_field: OnClick
-        - java_method: onDismiss
-          params:
-            - android.content.DialogInterface
-          returns: void
-          go_field: OnDismiss
-        - java_method: setDialogIcon
-          params:
-            - android.graphics.drawable.Drawable
-          returns: void
-          go_field: SetDialogIcon
-        - java_method: setDialogIcon
-          params:
-            - int
-          returns: void
-          go_field: SetDialogIcon
-        - java_method: setDialogLayoutResource
-          params:
-            - int
-          returns: void
-          go_field: SetDialogLayoutResource
-        - java_method: setDialogMessage
-          params:
-            - int
-          returns: void
-          go_field: SetDialogMessage
-        - java_method: setDialogMessage
-          params:
-            - java.lang.CharSequence
-          returns: void
-          go_field: SetDialogMessage
-        - java_method: setDialogTitle
-          params:
-            - int
-          returns: void
-          go_field: SetDialogTitle
-        - java_method: setDialogTitle
-          params:
-            - java.lang.CharSequence
-          returns: void
-          go_field: SetDialogTitle
-        - java_method: setNegativeButtonText
-          params:
-            - int
-          returns: void
-          go_field: SetNegativeButtonText
-        - java_method: setNegativeButtonText
-          params:
-            - java.lang.CharSequence
-          returns: void
-          go_field: SetNegativeButtonText
-        - java_method: setPositiveButtonText
-          params:
-            - int
-          returns: void
-          go_field: SetPositiveButtonText
-        - java_method: setPositiveButtonText
-          params:
-            - java.lang.CharSequence
-          returns: void
-          go_field: SetPositiveButtonText
+      generated: false
+      reason: implements_interface
+    - java_class: android.preference.TwoStatePreference
+      generated: false
+      reason: unsupported_constructor
+    - java_class: android.preference.PreferenceGroup
+      generated: false
+      reason: unsupported_constructor
+    - java_class: android.preference.PreferenceActivity
+      generated: false
+      reason: implements_interface
 constants:
     - go_name: DefaultOrder
       value: "2147483647"

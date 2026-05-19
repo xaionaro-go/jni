@@ -23,6 +23,34 @@ type SubscriptionManagerOnSubscriptionsChangedListener struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSubscriptionManagerOnSubscriptionsChangedListener creates a new android.telephony.SubscriptionManager$OnSubscriptionsChangedListener instance.
+func NewSubscriptionManagerOnSubscriptionsChangedListener(vm *jni.VM) (*SubscriptionManagerOnSubscriptionsChangedListener, error) {
+	var t SubscriptionManagerOnSubscriptionsChangedListener
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSubscriptionManagerOnSubscriptionsChangedListener == nil {
+			return fmt.Errorf("android.telephony.SubscriptionManager$OnSubscriptionsChangedListener is not available on this device")
+		}
+		if midSubscriptionManagerOnSubscriptionsChangedListenerCtor == nil {
+			return fmt.Errorf("android.telephony.SubscriptionManager$OnSubscriptionsChangedListener constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSubscriptionManagerOnSubscriptionsChangedListener)), midSubscriptionManagerOnSubscriptionsChangedListenerCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnSubscriptionsChanged calls android.telephony.SubscriptionManager$OnSubscriptionsChangedListener.onSubscriptionsChanged.
 func (m *SubscriptionManagerOnSubscriptionsChangedListener) OnSubscriptionsChanged() error {
 

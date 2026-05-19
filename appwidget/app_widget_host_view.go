@@ -32,6 +32,12 @@ func NewAppWidgetHostView(vm *jni.VM, arg0 *jni.Object) (*AppWidgetHostView, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppWidgetHostView == nil {
+			return fmt.Errorf("android.appwidget.AppWidgetHostView is not available on this device")
+		}
+		if midAppWidgetHostViewCtor == nil {
+			return fmt.Errorf("android.appwidget.AppWidgetHostView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), midAppWidgetHostViewCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -46,8 +52,8 @@ func NewAppWidgetHostView(vm *jni.VM, arg0 *jni.Object) (*AppWidgetHostView, err
 	return &t, nil
 }
 
-// GenerateLayoutParams1 calls android.appwidget.AppWidgetHostView.generateLayoutParams.
-func (m *AppWidgetHostView) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, error) {
+// GenerateLayoutParams calls android.appwidget.AppWidgetHostView.generateLayoutParams.
+func (m *AppWidgetHostView) GenerateLayoutParams(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,14 +61,14 @@ func (m *AppWidgetHostView) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object
 			callErr = err
 			return err
 		}
-		if midAppWidgetHostViewGenerateLayoutParams1 == nil {
+		if midAppWidgetHostViewGenerateLayoutParams == nil {
 			callErr = fmt.Errorf("android.appwidget.AppWidgetHostView.generateLayoutParams is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midAppWidgetHostViewGenerateLayoutParams1, jni.ObjectValue(arg0),
+			midAppWidgetHostViewGenerateLayoutParams, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -354,39 +360,6 @@ func (m *AppWidgetHostView) UpdateAppWidgetSize(
 		return callErr
 	})
 	return callErr
-}
-
-// GenerateLayoutParams1_1 calls android.appwidget.AppWidgetHostView.generateLayoutParams.
-func (m *AppWidgetHostView) GenerateLayoutParams1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppWidgetHostViewGenerateLayoutParams1_1 == nil {
-			callErr = fmt.Errorf("android.appwidget.AppWidgetHostView.generateLayoutParams is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midAppWidgetHostViewGenerateLayoutParams1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls android.appwidget.AppWidgetHostView.toString.

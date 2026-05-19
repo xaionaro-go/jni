@@ -32,6 +32,12 @@ func NewSurroundingText(vm *jni.VM, arg0 string, arg1 int32, arg2 int32, arg3 in
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSurroundingText == nil {
+			return fmt.Errorf("android.view.inputmethod.SurroundingText is not available on this device")
+		}
+		if midSurroundingTextCtor == nil {
+			return fmt.Errorf("android.view.inputmethod.SurroundingText constructor (Ljava/lang/CharSequence;III)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -183,29 +189,6 @@ func (m *SurroundingText) GetText() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.inputmethod.SurroundingText.writeToParcel.
-func (m *SurroundingText) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSurroundingTextWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.inputmethod.SurroundingText.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSurroundingTextWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.view.inputmethod.SurroundingText.toString.
 func (m *SurroundingText) ToString() (string, error) {
 	var result string
@@ -231,4 +214,27 @@ func (m *SurroundingText) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.inputmethod.SurroundingText.writeToParcel.
+func (m *SurroundingText) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSurroundingTextWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.inputmethod.SurroundingText.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSurroundingText)),
+			midSurroundingTextWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

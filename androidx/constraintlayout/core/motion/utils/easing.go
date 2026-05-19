@@ -32,6 +32,12 @@ func NewEasing(vm *jni.VM) (*Easing, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEasing == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.Easing is not available on this device")
+		}
+		if midEasingCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.Easing constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEasing)), midEasingCtor)
 		if err != nil {
 			return err
@@ -98,32 +104,6 @@ func (m *Easing) ToString() (string, error) {
 	return result, callErr
 }
 
-// GetDiff calls androidx.constraintlayout.core.motion.utils.Easing.getDiff.
-func (m *Easing) GetDiff(arg0 float64) (float64, error) {
-	var result float64
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midEasingGetDiff == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.core.motion.utils.Easing.getDiff is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallDoubleMethod(
-			m.Obj,
-			midEasingGetDiff, jni.DoubleValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // GetInterpolator calls androidx.constraintlayout.core.motion.utils.Easing.getInterpolator.
 func (m *Easing) GetInterpolator(arg0 string) (*jni.Object, error) {
 	var result *jni.Object
@@ -156,6 +136,32 @@ func (m *Easing) GetInterpolator(arg0 string) (*jni.Object, error) {
 			localRef := result
 			result = env.NewGlobalRef(localRef)
 			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetDiff calls androidx.constraintlayout.core.motion.utils.Easing.getDiff.
+func (m *Easing) GetDiff(arg0 float64) (float64, error) {
+	var result float64
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midEasingGetDiff == nil {
+			callErr = fmt.Errorf("androidx.constraintlayout.core.motion.utils.Easing.getDiff is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallStaticDoubleMethod(
+			(*jni.Class)(unsafe.Pointer(clsEasing)),
+			midEasingGetDiff, jni.DoubleValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
 		}
 		return callErr
 	})

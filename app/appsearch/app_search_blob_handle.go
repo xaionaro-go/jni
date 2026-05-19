@@ -241,29 +241,6 @@ func (m *AppSearchBlobHandle) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.appsearch.AppSearchBlobHandle.writeToParcel.
-func (m *AppSearchBlobHandle) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppSearchBlobHandleWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.appsearch.AppSearchBlobHandle.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAppSearchBlobHandleWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // CreateWithSha256 calls android.app.appsearch.AppSearchBlobHandle.createWithSha256.
 func (m *AppSearchBlobHandle) CreateWithSha256(
 	arg0 *jni.Object,
@@ -318,4 +295,27 @@ func (m *AppSearchBlobHandle) CreateWithSha256(
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.appsearch.AppSearchBlobHandle.writeToParcel.
+func (m *AppSearchBlobHandle) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midAppSearchBlobHandleWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.appsearch.AppSearchBlobHandle.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAppSearchBlobHandle)),
+			midAppSearchBlobHandleWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

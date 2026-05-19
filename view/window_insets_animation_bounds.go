@@ -23,6 +23,35 @@ type WindowInsetsAnimationBounds struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWindowInsetsAnimationBounds creates a new android.view.WindowInsetsAnimation$Bounds instance.
+func NewWindowInsetsAnimationBounds(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*WindowInsetsAnimationBounds, error) {
+	var t WindowInsetsAnimationBounds
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWindowInsetsAnimationBounds == nil {
+			return fmt.Errorf("android.view.WindowInsetsAnimation$Bounds is not available on this device")
+		}
+		if midWindowInsetsAnimationBoundsCtor == nil {
+			return fmt.Errorf("android.view.WindowInsetsAnimation$Bounds constructor (Landroid/graphics/Insets;Landroid/graphics/Insets;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWindowInsetsAnimationBounds)), midWindowInsetsAnimationBoundsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetLowerBound calls android.view.WindowInsetsAnimation$Bounds.getLowerBound.
 func (m *WindowInsetsAnimationBounds) GetLowerBound() (*jni.Object, error) {
 	var result *jni.Object

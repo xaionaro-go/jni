@@ -32,6 +32,12 @@ func NewCustomVariable(vm *jni.VM, arg0 *jni.Object) (*CustomVariable, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCustomVariable == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.CustomVariable is not available on this device")
+		}
+		if midCustomVariableCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.CustomVariable constructor (Landroidx/constraintlayout/core/motion/CustomVariable;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCustomVariable)), midCustomVariableCtor, jni.ObjectValue(arg0))
 		if err != nil {

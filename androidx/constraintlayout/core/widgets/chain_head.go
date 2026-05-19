@@ -32,6 +32,12 @@ func NewChainHead(vm *jni.VM, arg0 *jni.Object, arg1 int32, arg2 bool) (*ChainHe
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsChainHead == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.ChainHead is not available on this device")
+		}
+		if midChainHeadCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.ChainHead constructor (Landroidx/constraintlayout/core/widgets/ConstraintWidget;IZ)V is not available on this device")
+		}
 
 		var jArg2 uint8
 		if arg2 {

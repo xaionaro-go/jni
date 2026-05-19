@@ -32,6 +32,12 @@ func NewCompositePageTransformer(vm *jni.VM) (*CompositePageTransformer, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCompositePageTransformer == nil {
+			return fmt.Errorf("androidx.viewpager2.widget.CompositePageTransformer is not available on this device")
+		}
+		if midCompositePageTransformerCtor == nil {
+			return fmt.Errorf("androidx.viewpager2.widget.CompositePageTransformer constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCompositePageTransformer)), midCompositePageTransformerCtor)
 		if err != nil {
 			return err

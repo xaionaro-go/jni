@@ -32,6 +32,12 @@ func NewSpan(vm *jni.VM, arg0 *jni.Object) (*Span, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSpan == nil {
+			return fmt.Errorf("android.text.style.StyleSpan is not available on this device")
+		}
+		if midSpanCtor == nil {
+			return fmt.Errorf("android.text.style.StyleSpan constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSpan)), midSpanCtor, jni.ObjectValue(arg0))
 		if err != nil {

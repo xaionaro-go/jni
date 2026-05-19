@@ -32,6 +32,12 @@ func NewAccelerateDecelerateInterpolator(vm *jni.VM, arg0 *jni.Object, arg1 *jni
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAccelerateDecelerateInterpolator == nil {
+			return fmt.Errorf("android.view.animation.AccelerateDecelerateInterpolator is not available on this device")
+		}
+		if midAccelerateDecelerateInterpolatorCtor == nil {
+			return fmt.Errorf("android.view.animation.AccelerateDecelerateInterpolator constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAccelerateDecelerateInterpolator)), midAccelerateDecelerateInterpolatorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

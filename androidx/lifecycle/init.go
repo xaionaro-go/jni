@@ -23,18 +23,166 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsReportFragment                   *jni.GlobalRef
-	midReportFragmentCtor               jni.MethodID
-	midReportFragmentOnActivityCreated  jni.MethodID
-	midReportFragmentOnStart            jni.MethodID
-	midReportFragmentOnResume           jni.MethodID
-	midReportFragmentOnPause            jni.MethodID
-	midReportFragmentOnStop             jni.MethodID
-	midReportFragmentOnDestroy          jni.MethodID
-	midReportFragmentSetProcessListener jni.MethodID
-	midReportFragmentToString           jni.MethodID
-	midReportFragmentInjectIfNeededIn   jni.MethodID
-	midReportFragmentGet                jni.MethodID
+	clsObserver         *jni.GlobalRef
+	midObserverToString jni.MethodID
+
+	clsComputableLiveData            *jni.GlobalRef
+	midComputableLiveDataGetLiveData jni.MethodID
+	midComputableLiveDataInvalidate  jni.MethodID
+	midComputableLiveDataToString    jni.MethodID
+
+	clsController         *jni.GlobalRef
+	midControllerCtor     jni.MethodID
+	midControllerFinish   jni.MethodID
+	midControllerToString jni.MethodID
+
+	clsSavedStateViewModelFactory          *jni.GlobalRef
+	midSavedStateViewModelFactoryCtor      jni.MethodID
+	midSavedStateViewModelFactoryOnRequery jni.MethodID
+	midSavedStateViewModelFactoryToString  jni.MethodID
+
+	clsViewModelProvider         *jni.GlobalRef
+	midViewModelProviderCtor     jni.MethodID
+	midViewModelProviderToString jni.MethodID
+
+	clsViewModelProviderAndroidViewModelFactory            *jni.GlobalRef
+	midViewModelProviderAndroidViewModelFactoryCtor        jni.MethodID
+	midViewModelProviderAndroidViewModelFactoryToString    jni.MethodID
+	midViewModelProviderAndroidViewModelFactoryGetInstance jni.MethodID
+
+	clsViewModelProviderFactory         *jni.GlobalRef
+	midViewModelProviderFactoryToString jni.MethodID
+
+	clsViewModelProviderNewInstanceFactory            *jni.GlobalRef
+	midViewModelProviderNewInstanceFactoryCtor        jni.MethodID
+	midViewModelProviderNewInstanceFactoryToString    jni.MethodID
+	midViewModelProviderNewInstanceFactoryGetInstance jni.MethodID
+
+	clsViewModelProviderOnRequeryFactory          *jni.GlobalRef
+	midViewModelProviderOnRequeryFactoryCtor      jni.MethodID
+	midViewModelProviderOnRequeryFactoryOnRequery jni.MethodID
+	midViewModelProviderOnRequeryFactoryToString  jni.MethodID
+
+	clsLiveData                   *jni.GlobalRef
+	midLiveDataRemoveObservers    jni.MethodID
+	midLiveDataHasObservers       jni.MethodID
+	midLiveDataToString           jni.MethodID
+	midLiveDataHasActiveObservers jni.MethodID
+
+	clsLifecycleObserver         *jni.GlobalRef
+	midLifecycleObserverToString jni.MethodID
+
+	clsDefaultLifecycleObserver         *jni.GlobalRef
+	midDefaultLifecycleObserverToString jni.MethodID
+
+	clsLifecycle                    *jni.GlobalRef
+	midLifecycleGetInternalScopeRef jni.MethodID
+	midLifecycleAddObserver         jni.MethodID
+	midLifecycleRemoveObserver      jni.MethodID
+	midLifecycleGetCurrentState     jni.MethodID
+	midLifecycleToString            jni.MethodID
+
+	clsEvent               *jni.GlobalRef
+	midEventGetTargetState jni.MethodID
+	midEventToString       jni.MethodID
+	midEventValues         jni.MethodID
+	midEventValueOf        jni.MethodID
+	midEventDownFrom       jni.MethodID
+	midEventDownTo         jni.MethodID
+	midEventUpFrom         jni.MethodID
+	midEventUpTo           jni.MethodID
+
+	clsState          *jni.GlobalRef
+	midStateIsAtLeast jni.MethodID
+	midStateToString  jni.MethodID
+	midStateValues    jni.MethodID
+	midStateValueOf   jni.MethodID
+
+	clsViewModelStoreOwner                  *jni.GlobalRef
+	midViewModelStoreOwnerGetViewModelStore jni.MethodID
+	midViewModelStoreOwnerToString          jni.MethodID
+
+	clsDefaultLifecycleObserverAdapter               *jni.GlobalRef
+	midDefaultLifecycleObserverAdapterCtor           jni.MethodID
+	midDefaultLifecycleObserverAdapterOnStateChanged jni.MethodID
+	midDefaultLifecycleObserverAdapterToString       jni.MethodID
+
+	clsRegistry                           *jni.GlobalRef
+	midRegistryCtor                       jni.MethodID
+	midRegistryMarkState                  jni.MethodID
+	midRegistryGetCurrentState            jni.MethodID
+	midRegistrySetCurrentState            jni.MethodID
+	midRegistryHandleLifecycleEvent       jni.MethodID
+	midRegistryAddObserver                jni.MethodID
+	midRegistryRemoveObserver             jni.MethodID
+	midRegistryGetObserverCount           jni.MethodID
+	midRegistryToString                   jni.MethodID
+	midRegistryCreateUnsafe               jni.MethodID
+	midRegistryMinLifecycleRuntimeRelease jni.MethodID
+
+	clsRegistryCompanion                           *jni.GlobalRef
+	midRegistryCompanionCtor                       jni.MethodID
+	midRegistryCompanionCreateUnsafe               jni.MethodID
+	midRegistryCompanionMinLifecycleRuntimeRelease jni.MethodID
+	midRegistryCompanionToString                   jni.MethodID
+
+	clsDefaultLifecycleObserverAdapterWhenMappings         *jni.GlobalRef
+	midDefaultLifecycleObserverAdapterWhenMappingsToString jni.MethodID
+
+	clsRegistryObserverWithState                     *jni.GlobalRef
+	midRegistryObserverWithStateCtor                 jni.MethodID
+	midRegistryObserverWithStateGetState             jni.MethodID
+	midRegistryObserverWithStateSetState             jni.MethodID
+	midRegistryObserverWithStateGetLifecycleObserver jni.MethodID
+	midRegistryObserverWithStateSetLifecycleObserver jni.MethodID
+	midRegistryObserverWithStateDispatchEvent        jni.MethodID
+	midRegistryObserverWithStateToString             jni.MethodID
+
+	clsViewTreeViewModelKt         *jni.GlobalRef
+	midViewTreeViewModelKtToString jni.MethodID
+
+	clsViewModelLazy              *jni.GlobalRef
+	midViewModelLazyCtor          jni.MethodID
+	midViewModelLazyGetValue      jni.MethodID
+	midViewModelLazyIsInitialized jni.MethodID
+	midViewModelLazyToString      jni.MethodID
+
+	clsGenericLifecycleObserver         *jni.GlobalRef
+	midGenericLifecycleObserverToString jni.MethodID
+
+	clsViewModelStore         *jni.GlobalRef
+	midViewModelStoreCtor     jni.MethodID
+	midViewModelStorePut      jni.MethodID
+	midViewModelStoreGet      jni.MethodID
+	midViewModelStoreKeys     jni.MethodID
+	midViewModelStoreClear    jni.MethodID
+	midViewModelStoreToString jni.MethodID
+
+	clsEventObserver               *jni.GlobalRef
+	midEventObserverOnStateChanged jni.MethodID
+	midEventObserverToString       jni.MethodID
+
+	clsRegistryOwner         *jni.GlobalRef
+	midRegistryOwnerToString jni.MethodID
+
+	clsReportFragment                                *jni.GlobalRef
+	midReportFragmentCtor                            jni.MethodID
+	midReportFragmentOnActivityCreated               jni.MethodID
+	midReportFragmentOnStart                         jni.MethodID
+	midReportFragmentOnResume                        jni.MethodID
+	midReportFragmentOnPause                         jni.MethodID
+	midReportFragmentOnStop                          jni.MethodID
+	midReportFragmentOnDestroy                       jni.MethodID
+	midReportFragmentSetProcessListener              jni.MethodID
+	midReportFragmentToString                        jni.MethodID
+	midReportFragmentInjectIfNeededIn                jni.MethodID
+	midReportFragmentDispatchLifecycleRuntimeRelease jni.MethodID
+	midReportFragmentGet                             jni.MethodID
+
+	clsCompositeGeneratedAdaptersObserver               *jni.GlobalRef
+	midCompositeGeneratedAdaptersObserverCtor           jni.MethodID
+	midCompositeGeneratedAdaptersObserverOnStateChanged jni.MethodID
+	midCompositeGeneratedAdaptersObserverToString       jni.MethodID
 
 	clsReportFragmentActivityInitializationListener         *jni.GlobalRef
 	midReportFragmentActivityInitializationListenerOnCreate jni.MethodID
@@ -42,20 +190,15 @@ var (
 	midReportFragmentActivityInitializationListenerOnResume jni.MethodID
 	midReportFragmentActivityInitializationListenerToString jni.MethodID
 
-	clsViewModelProviderGetKt                      *jni.GlobalRef
-	midViewModelProviderGetKtToString              jni.MethodID
-	midViewModelProviderGetKtDefaultCreationExtras jni.MethodID
-
-	clsViewTreeViewModelKt                                *jni.GlobalRef
-	midViewTreeViewModelKtToString                        jni.MethodID
-	midViewTreeViewModelKtFindViewTreeViewModelStoreOwner jni.MethodID
-
-	clsReportFragmentCompanion                 *jni.GlobalRef
-	midReportFragmentCompanionInjectIfNeededIn jni.MethodID
-	midReportFragmentCompanionGet              jni.MethodID
-	midReportFragmentCompanionToString         jni.MethodID
+	clsReportFragmentCompanion                                *jni.GlobalRef
+	midReportFragmentCompanionCtor                            jni.MethodID
+	midReportFragmentCompanionInjectIfNeededIn                jni.MethodID
+	midReportFragmentCompanionDispatchLifecycleRuntimeRelease jni.MethodID
+	midReportFragmentCompanionGet                             jni.MethodID
+	midReportFragmentCompanionToString                        jni.MethodID
 
 	clsReportFragmentLifecycleCallbacks                            *jni.GlobalRef
+	midReportFragmentLifecycleCallbacksCtor                        jni.MethodID
 	midReportFragmentLifecycleCallbacksOnActivityCreated           jni.MethodID
 	midReportFragmentLifecycleCallbacksOnActivityPostCreated       jni.MethodID
 	midReportFragmentLifecycleCallbacksOnActivityStarted           jni.MethodID
@@ -72,17 +215,9 @@ var (
 	midReportFragmentLifecycleCallbacksToString                    jni.MethodID
 	midReportFragmentLifecycleCallbacksRegisterIn                  jni.MethodID
 
-	clsViewModelStoreOwner                  *jni.GlobalRef
-	midViewModelStoreOwnerGetViewModelStore jni.MethodID
-	midViewModelStoreOwnerToString          jni.MethodID
-
-	clsRegistryOwner             *jni.GlobalRef
-	midRegistryOwnerGetLifecycle jni.MethodID
-	midRegistryOwnerToString     jni.MethodID
-
-	clsEventObserver               *jni.GlobalRef
-	midEventObserverOnStateChanged jni.MethodID
-	midEventObserverToString       jni.MethodID
+	clsViewModel             *jni.GlobalRef
+	midViewModelAddCloseable jni.MethodID
+	midViewModelToString     jni.MethodID
 
 	clsSavedStateHandleController                  *jni.GlobalRef
 	midSavedStateHandleControllerCtor              jni.MethodID
@@ -92,89 +227,45 @@ var (
 	midSavedStateHandleControllerOnStateChanged    jni.MethodID
 	midSavedStateHandleControllerToString          jni.MethodID
 
-	clsSavedStateHandlesVM         *jni.GlobalRef
-	midSavedStateHandlesVMCtor     jni.MethodID
-	midSavedStateHandlesVMToString jni.MethodID
+	clsSavedStateHandleAttacher               *jni.GlobalRef
+	midSavedStateHandleAttacherCtor           jni.MethodID
+	midSavedStateHandleAttacherOnStateChanged jni.MethodID
+	midSavedStateHandleAttacherToString       jni.MethodID
 
-	clsGenericLifecycleObserver         *jni.GlobalRef
-	midGenericLifecycleObserverToString jni.MethodID
+	clsCoroutineScopeImpl                            *jni.GlobalRef
+	midCoroutineScopeImplCtor                        jni.MethodID
+	midCoroutineScopeImplGetLifecycleLifecycleCommon jni.MethodID
+	midCoroutineScopeImplGetCoroutineContext         jni.MethodID
+	midCoroutineScopeImplRegister                    jni.MethodID
+	midCoroutineScopeImplOnStateChanged              jni.MethodID
+	midCoroutineScopeImplToString                    jni.MethodID
 
-	clsSavedStateViewModelFactoryKt         *jni.GlobalRef
-	midSavedStateViewModelFactoryKtToString jni.MethodID
+	clsTransformations         *jni.GlobalRef
+	midTransformationsToString jni.MethodID
+
+	clsProcessLifecycleInitializer         *jni.GlobalRef
+	midProcessLifecycleInitializerCtor     jni.MethodID
+	midProcessLifecycleInitializerCreate   jni.MethodID
+	midProcessLifecycleInitializerToString jni.MethodID
+
+	clsProcessLifecycleOwner             *jni.GlobalRef
+	midProcessLifecycleOwnerToString     jni.MethodID
+	midProcessLifecycleOwnerGet          jni.MethodID
+	midProcessLifecycleOwnerGetLifecycle jni.MethodID
 
 	clsAndroidViewModel         *jni.GlobalRef
 	midAndroidViewModelCtor     jni.MethodID
 	midAndroidViewModelToString jni.MethodID
 
-	clsGeneratedAdapter            *jni.GlobalRef
-	midGeneratedAdapterCallMethods jni.MethodID
-	midGeneratedAdapterToString    jni.MethodID
+	clsLifecycling                       *jni.GlobalRef
+	midLifecyclingToString               jni.MethodID
+	midLifecyclingLifecycleEventObserver jni.MethodID
+	midLifecyclingGetAdapterName         jni.MethodID
 
-	clsController         *jni.GlobalRef
-	midControllerCtor     jni.MethodID
-	midControllerFinish   jni.MethodID
-	midControllerToString jni.MethodID
-
-	clsDefaultLifecycleObserverAdapter               *jni.GlobalRef
-	midDefaultLifecycleObserverAdapterCtor           jni.MethodID
-	midDefaultLifecycleObserverAdapterOnStateChanged jni.MethodID
-	midDefaultLifecycleObserverAdapterToString       jni.MethodID
-
-	clsDefaultLifecycleObserverAdapterWhenMappings         *jni.GlobalRef
-	midDefaultLifecycleObserverAdapterWhenMappingsToString jni.MethodID
-
-	clsAbstractSavedStateViewModelFactory          *jni.GlobalRef
-	midAbstractSavedStateViewModelFactoryOnRequery jni.MethodID
-	midAbstractSavedStateViewModelFactoryToString  jni.MethodID
-
-	clsAbstractSavedStateViewModelFactoryCompanion         *jni.GlobalRef
-	midAbstractSavedStateViewModelFactoryCompanionToString jni.MethodID
-
-	clsSavedStateViewModelFactory          *jni.GlobalRef
-	midSavedStateViewModelFactoryCtor      jni.MethodID
-	midSavedStateViewModelFactoryOnRequery jni.MethodID
-	midSavedStateViewModelFactoryToString  jni.MethodID
-
-	clsViewTreeLifecycleOwner         *jni.GlobalRef
-	midViewTreeLifecycleOwnerToString jni.MethodID
-	midViewTreeLifecycleOwnerSet      jni.MethodID
-	midViewTreeLifecycleOwnerGet      jni.MethodID
-
-	clsViewModelLazy              *jni.GlobalRef
-	midViewModelLazyCtor          jni.MethodID
-	midViewModelLazyGetValue0     jni.MethodID
-	midViewModelLazyIsInitialized jni.MethodID
-	midViewModelLazyGetValue0_1   jni.MethodID
-	midViewModelLazyToString      jni.MethodID
-
-	clsObserver         *jni.GlobalRef
-	midObserverToString jni.MethodID
-
-	clsViewTreeViewModelStoreOwner         *jni.GlobalRef
-	midViewTreeViewModelStoreOwnerToString jni.MethodID
-	midViewTreeViewModelStoreOwnerSet      jni.MethodID
-	midViewTreeViewModelStoreOwnerGet      jni.MethodID
-
-	clsDefaultLifecycleObserver         *jni.GlobalRef
-	midDefaultLifecycleObserverToString jni.MethodID
-
-	clsPausingDispatcherKt         *jni.GlobalRef
-	midPausingDispatcherKtToString jni.MethodID
-
-	clsProcessLifecycleOwner             *jni.GlobalRef
-	midProcessLifecycleOwnerGetLifecycle jni.MethodID
-	midProcessLifecycleOwnerToString     jni.MethodID
-	midProcessLifecycleOwnerGet          jni.MethodID
-
-	clsViewModel             *jni.GlobalRef
-	midViewModelAddCloseable jni.MethodID
-	midViewModelToString     jni.MethodID
-
-	clsSavedStateHandleSupport                             *jni.GlobalRef
-	midSavedStateHandleSupportToString                     jni.MethodID
-	midSavedStateHandleSupportCreateSavedStateHandle       jni.MethodID
-	midSavedStateHandleSupportGetSavedStateHandlesVM       jni.MethodID
-	midSavedStateHandleSupportGetSavedStateHandlesProvider jni.MethodID
+	clsSingleGeneratedAdapterObserver               *jni.GlobalRef
+	midSingleGeneratedAdapterObserverCtor           jni.MethodID
+	midSingleGeneratedAdapterObserverOnStateChanged jni.MethodID
+	midSingleGeneratedAdapterObserverToString       jni.MethodID
 
 	clsSavedStateHandle                        *jni.GlobalRef
 	midSavedStateHandleCtor                    jni.MethodID
@@ -187,54 +278,67 @@ var (
 	midSavedStateHandleCreateHandle            jni.MethodID
 
 	clsSavedStateHandleCompanion              *jni.GlobalRef
+	midSavedStateHandleCompanionCtor          jni.MethodID
 	midSavedStateHandleCompanionCreateHandle  jni.MethodID
 	midSavedStateHandleCompanionValidateValue jni.MethodID
 	midSavedStateHandleCompanionToString      jni.MethodID
 
 	clsSavedStateHandleSavingStateLiveData         *jni.GlobalRef
+	midSavedStateHandleSavingStateLiveDataCtor     jni.MethodID
 	midSavedStateHandleSavingStateLiveDataDetach   jni.MethodID
 	midSavedStateHandleSavingStateLiveDataToString jni.MethodID
 
-	clsCoroutineScopeImpl                    *jni.GlobalRef
-	midCoroutineScopeImplCtor                jni.MethodID
-	midCoroutineScopeImplGetCoroutineContext jni.MethodID
-	midCoroutineScopeImplRegister            jni.MethodID
-	midCoroutineScopeImplOnStateChanged      jni.MethodID
-	midCoroutineScopeImplToString            jni.MethodID
+	clsViewTreeViewModelStoreOwner         *jni.GlobalRef
+	midViewTreeViewModelStoreOwnerToString jni.MethodID
+	midViewTreeViewModelStoreOwnerSet      jni.MethodID
+	midViewTreeViewModelStoreOwnerGet      jni.MethodID
 
-	clsCompositeGeneratedAdaptersObserver               *jni.GlobalRef
-	midCompositeGeneratedAdaptersObserverCtor           jni.MethodID
-	midCompositeGeneratedAdaptersObserverOnStateChanged jni.MethodID
-	midCompositeGeneratedAdaptersObserverToString       jni.MethodID
+	clsGeneratedAdapter            *jni.GlobalRef
+	midGeneratedAdapterCallMethods jni.MethodID
+	midGeneratedAdapterToString    jni.MethodID
 
-	clsSingleGeneratedAdapterObserver               *jni.GlobalRef
-	midSingleGeneratedAdapterObserverCtor           jni.MethodID
-	midSingleGeneratedAdapterObserverOnStateChanged jni.MethodID
-	midSingleGeneratedAdapterObserverToString       jni.MethodID
+	clsCoroutineScope                            *jni.GlobalRef
+	midCoroutineScopeGetLifecycleLifecycleCommon jni.MethodID
+	midCoroutineScopeToString                    jni.MethodID
+
+	clsSavedStateViewModelFactoryKt         *jni.GlobalRef
+	midSavedStateViewModelFactoryKtToString jni.MethodID
+
+	clsMutableLiveData         *jni.GlobalRef
+	midMutableLiveDataCtor     jni.MethodID
+	midMutableLiveDataToString jni.MethodID
+
+	clsMediatorLiveData         *jni.GlobalRef
+	midMediatorLiveDataCtor     jni.MethodID
+	midMediatorLiveDataToString jni.MethodID
+
+	clsOwner             *jni.GlobalRef
+	midOwnerGetLifecycle jni.MethodID
+	midOwnerToString     jni.MethodID
+
+	clsViewTreeLifecycleOwner         *jni.GlobalRef
+	midViewTreeLifecycleOwnerToString jni.MethodID
+	midViewTreeLifecycleOwnerSet      jni.MethodID
+	midViewTreeLifecycleOwnerGet      jni.MethodID
+
+	clsOnLifecycleEvent         *jni.GlobalRef
+	midOnLifecycleEventValue    jni.MethodID
+	midOnLifecycleEventToString jni.MethodID
+
+	clsPausingDispatcherKt         *jni.GlobalRef
+	midPausingDispatcherKtToString jni.MethodID
 
 	clsMethodCallsLogger            *jni.GlobalRef
 	midMethodCallsLoggerCtor        jni.MethodID
 	midMethodCallsLoggerApproveCall jni.MethodID
 	midMethodCallsLoggerToString    jni.MethodID
 
+	clsViewModelProviderGetKt         *jni.GlobalRef
+	midViewModelProviderGetKtToString jni.MethodID
+
 	clsOwnerKt                  *jni.GlobalRef
 	midOwnerKtToString          jni.MethodID
 	midOwnerKtGetLifecycleScope jni.MethodID
-
-	clsKt                  *jni.GlobalRef
-	midKtToString          jni.MethodID
-	midKtGetCoroutineScope jni.MethodID
-
-	clsMutableLiveData         *jni.GlobalRef
-	midMutableLiveDataCtor     jni.MethodID
-	midMutableLiveDataToString jni.MethodID
-
-	clsLifecycleObserver         *jni.GlobalRef
-	midLifecycleObserverToString jni.MethodID
-
-	clsMediatorLiveData         *jni.GlobalRef
-	midMediatorLiveDataCtor     jni.MethodID
-	midMediatorLiveDataToString jni.MethodID
 
 	clsLegacySavedStateHandleController                     *jni.GlobalRef
 	midLegacySavedStateHandleControllerToString             jni.MethodID
@@ -242,92 +346,17 @@ var (
 	midLegacySavedStateHandleControllerAttachHandleIfNeeded jni.MethodID
 
 	clsLegacySavedStateHandleControllerOnRecreation            *jni.GlobalRef
+	midLegacySavedStateHandleControllerOnRecreationCtor        jni.MethodID
 	midLegacySavedStateHandleControllerOnRecreationOnRecreated jni.MethodID
 	midLegacySavedStateHandleControllerOnRecreationToString    jni.MethodID
 
-	clsComputableLiveData            *jni.GlobalRef
-	midComputableLiveDataGetLiveData jni.MethodID
-	midComputableLiveDataInvalidate  jni.MethodID
-	midComputableLiveDataToString    jni.MethodID
-
-	clsLiveData                   *jni.GlobalRef
-	midLiveDataRemoveObservers    jni.MethodID
-	midLiveDataHasObservers       jni.MethodID
-	midLiveDataHasActiveObservers jni.MethodID
-	midLiveDataToString           jni.MethodID
-
-	clsViewModelProvider         *jni.GlobalRef
-	midViewModelProviderCtor     jni.MethodID
-	midViewModelProviderToString jni.MethodID
-
-	clsViewModelProviderAndroidViewModelFactory            *jni.GlobalRef
-	midViewModelProviderAndroidViewModelFactoryToString    jni.MethodID
-	midViewModelProviderAndroidViewModelFactoryGetInstance jni.MethodID
-
-	clsViewModelProviderFactory         *jni.GlobalRef
-	midViewModelProviderFactoryToString jni.MethodID
-
-	clsViewModelProviderNewInstanceFactory            *jni.GlobalRef
-	midViewModelProviderNewInstanceFactoryToString    jni.MethodID
-	midViewModelProviderNewInstanceFactoryGetInstance jni.MethodID
-
-	clsViewModelProviderOnRequeryFactory          *jni.GlobalRef
-	midViewModelProviderOnRequeryFactoryOnRequery jni.MethodID
-	midViewModelProviderOnRequeryFactoryToString  jni.MethodID
-
-	clsProcessLifecycleInitializer          *jni.GlobalRef
-	midProcessLifecycleInitializerCtor      jni.MethodID
-	midProcessLifecycleInitializerCreate1   jni.MethodID
-	midProcessLifecycleInitializerCreate1_1 jni.MethodID
-	midProcessLifecycleInitializerToString  jni.MethodID
+	clsKt                  *jni.GlobalRef
+	midKtToString          jni.MethodID
+	midKtGetCoroutineScope jni.MethodID
 
 	clsHasDefaultViewModelProviderFactory                                   *jni.GlobalRef
 	midHasDefaultViewModelProviderFactoryGetDefaultViewModelProviderFactory jni.MethodID
 	midHasDefaultViewModelProviderFactoryToString                           jni.MethodID
-
-	clsViewModelStore         *jni.GlobalRef
-	midViewModelStoreCtor     jni.MethodID
-	midViewModelStorePut      jni.MethodID
-	midViewModelStoreGet      jni.MethodID
-	midViewModelStoreKeys     jni.MethodID
-	midViewModelStoreClear    jni.MethodID
-	midViewModelStoreToString jni.MethodID
-
-	clsSavedStateHandleAttacher               *jni.GlobalRef
-	midSavedStateHandleAttacherCtor           jni.MethodID
-	midSavedStateHandleAttacherOnStateChanged jni.MethodID
-	midSavedStateHandleAttacherToString       jni.MethodID
-
-	clsOwner             *jni.GlobalRef
-	midOwnerGetLifecycle jni.MethodID
-	midOwnerToString     jni.MethodID
-
-	clsRegistry                     *jni.GlobalRef
-	midRegistryCtor                 jni.MethodID
-	midRegistryMarkState            jni.MethodID
-	midRegistryGetCurrentState      jni.MethodID
-	midRegistrySetCurrentState      jni.MethodID
-	midRegistryHandleLifecycleEvent jni.MethodID
-	midRegistryAddObserver          jni.MethodID
-	midRegistryRemoveObserver       jni.MethodID
-	midRegistryGetObserverCount     jni.MethodID
-	midRegistryToString             jni.MethodID
-	midRegistryCreateUnsafe         jni.MethodID
-
-	clsRegistryCompanion             *jni.GlobalRef
-	midRegistryCompanionCreateUnsafe jni.MethodID
-	midRegistryCompanionToString     jni.MethodID
-
-	clsRegistryObserverWithState                     *jni.GlobalRef
-	midRegistryObserverWithStateGetState             jni.MethodID
-	midRegistryObserverWithStateSetState             jni.MethodID
-	midRegistryObserverWithStateGetLifecycleObserver jni.MethodID
-	midRegistryObserverWithStateSetLifecycleObserver jni.MethodID
-	midRegistryObserverWithStateDispatchEvent        jni.MethodID
-	midRegistryObserverWithStateToString             jni.MethodID
-
-	clsTransformations         *jni.GlobalRef
-	midTransformationsToString jni.MethodID
 
 	clsPausingDispatcher                 *jni.GlobalRef
 	midPausingDispatcherCtor             jni.MethodID
@@ -335,32 +364,19 @@ var (
 	midPausingDispatcherDispatch         jni.MethodID
 	midPausingDispatcherToString         jni.MethodID
 
-	clsCoroutineScope         *jni.GlobalRef
-	midCoroutineScopeToString jni.MethodID
+	clsSavedStateHandleSupport                             *jni.GlobalRef
+	midSavedStateHandleSupportToString                     jni.MethodID
+	midSavedStateHandleSupportCreateSavedStateHandle       jni.MethodID
+	midSavedStateHandleSupportGetSavedStateHandlesVM       jni.MethodID
+	midSavedStateHandleSupportGetSavedStateHandlesProvider jni.MethodID
 
-	clsLifecycle                    *jni.GlobalRef
-	midLifecycleGetInternalScopeRef jni.MethodID
-	midLifecycleAddObserver         jni.MethodID
-	midLifecycleRemoveObserver      jni.MethodID
-	midLifecycleGetCurrentState     jni.MethodID
-	midLifecycleToString            jni.MethodID
+	clsSavedStateHandlesVM         *jni.GlobalRef
+	midSavedStateHandlesVMCtor     jni.MethodID
+	midSavedStateHandlesVMToString jni.MethodID
 
-	clsSavedStateHandlesProvider                           *jni.GlobalRef
-	midSavedStateHandlesProviderCtor                       jni.MethodID
-	midSavedStateHandlesProviderSaveState                  jni.MethodID
-	midSavedStateHandlesProviderPerformRestore             jni.MethodID
-	midSavedStateHandlesProviderConsumeRestoredStateForKey jni.MethodID
-	midSavedStateHandlesProviderToString                   jni.MethodID
-
-	clsEvent               *jni.GlobalRef
-	midEventGetTargetState jni.MethodID
-	midEventToString       jni.MethodID
-	midEventValues         jni.MethodID
-	midEventValueOf        jni.MethodID
-	midEventDownFrom       jni.MethodID
-	midEventDownTo         jni.MethodID
-	midEventUpFrom         jni.MethodID
-	midEventUpTo           jni.MethodID
+	clsAbstractSavedStateViewModelFactory          *jni.GlobalRef
+	midAbstractSavedStateViewModelFactoryToString  jni.MethodID
+	midAbstractSavedStateViewModelFactoryOnRequery jni.MethodID
 
 	clsDispatchQueue                   *jni.GlobalRef
 	midDispatchQueueCtor               jni.MethodID
@@ -372,20 +388,16 @@ var (
 	midDispatchQueueDispatchAndEnqueue jni.MethodID
 	midDispatchQueueToString           jni.MethodID
 
-	clsState          *jni.GlobalRef
-	midStateIsAtLeast jni.MethodID
-	midStateToString  jni.MethodID
-	midStateValues    jni.MethodID
-	midStateValueOf   jni.MethodID
+	clsAbstractSavedStateViewModelFactoryCompanion         *jni.GlobalRef
+	midAbstractSavedStateViewModelFactoryCompanionCtor     jni.MethodID
+	midAbstractSavedStateViewModelFactoryCompanionToString jni.MethodID
 
-	clsLifecycling                       *jni.GlobalRef
-	midLifecyclingToString               jni.MethodID
-	midLifecyclingLifecycleEventObserver jni.MethodID
-	midLifecyclingGetAdapterName         jni.MethodID
-
-	clsOnLifecycleEvent         *jni.GlobalRef
-	midOnLifecycleEventValue    jni.MethodID
-	midOnLifecycleEventToString jni.MethodID
+	clsSavedStateHandlesProvider                           *jni.GlobalRef
+	midSavedStateHandlesProviderCtor                       jni.MethodID
+	midSavedStateHandlesProviderSaveState                  jni.MethodID
+	midSavedStateHandlesProviderPerformRestore             jni.MethodID
+	midSavedStateHandlesProviderConsumeRestoredStateForKey jni.MethodID
+	midSavedStateHandlesProviderToString                   jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -405,6 +417,856 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("androidx/lifecycle/Observer")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsObserver = env.NewGlobalRef(&c.Object)
+
+		midObserverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsObserver)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/ComputableLiveData")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsComputableLiveData = env.NewGlobalRef(&c.Object)
+
+		midComputableLiveDataGetLiveData, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComputableLiveData)), "getLiveData", "()Landroidx/lifecycle/LiveData;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midComputableLiveDataInvalidate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComputableLiveData)), "invalidate", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midComputableLiveDataToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComputableLiveData)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/LifecycleController")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsController = env.NewGlobalRef(&c.Object)
+		midControllerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsController)), "<init>", "(Landroidx/lifecycle/Lifecycle;Landroidx/lifecycle/Lifecycle$State;Landroidx/lifecycle/DispatchQueue;Lkotlinx/coroutines/Job;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midControllerFinish, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsController)), "finish", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midControllerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsController)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/SavedStateViewModelFactory")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSavedStateViewModelFactory = env.NewGlobalRef(&c.Object)
+		midSavedStateViewModelFactoryCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateViewModelFactory)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSavedStateViewModelFactoryOnRequery, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateViewModelFactory)), "onRequery", "(Landroidx/lifecycle/ViewModel;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSavedStateViewModelFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateViewModelFactory)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/ViewModelProvider")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewModelProvider = env.NewGlobalRef(&c.Object)
+		midViewModelProviderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProvider)), "<init>", "(Landroidx/lifecycle/ViewModelStore;Landroidx/lifecycle/ViewModelProvider$Factory;Landroidx/lifecycle/viewmodel/CreationExtras;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midViewModelProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProvider)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/ViewModelProvider$AndroidViewModelFactory")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewModelProviderAndroidViewModelFactory = env.NewGlobalRef(&c.Object)
+		midViewModelProviderAndroidViewModelFactoryCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProviderAndroidViewModelFactory)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midViewModelProviderAndroidViewModelFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProviderAndroidViewModelFactory)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewModelProviderAndroidViewModelFactoryGetInstance, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProviderAndroidViewModelFactory)), "getInstance", "(Landroid/app/Application;)Landroidx/lifecycle/ViewModelProvider$AndroidViewModelFactory;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/ViewModelProvider$Factory")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewModelProviderFactory = env.NewGlobalRef(&c.Object)
+
+		midViewModelProviderFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProviderFactory)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/ViewModelProvider$NewInstanceFactory")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewModelProviderNewInstanceFactory = env.NewGlobalRef(&c.Object)
+		midViewModelProviderNewInstanceFactoryCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProviderNewInstanceFactory)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midViewModelProviderNewInstanceFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProviderNewInstanceFactory)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewModelProviderNewInstanceFactoryGetInstance, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProviderNewInstanceFactory)), "getInstance", "()Landroidx/lifecycle/ViewModelProvider$NewInstanceFactory;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/ViewModelProvider$OnRequeryFactory")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewModelProviderOnRequeryFactory = env.NewGlobalRef(&c.Object)
+		midViewModelProviderOnRequeryFactoryCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProviderOnRequeryFactory)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midViewModelProviderOnRequeryFactoryOnRequery, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProviderOnRequeryFactory)), "onRequery", "(Landroidx/lifecycle/ViewModel;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewModelProviderOnRequeryFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProviderOnRequeryFactory)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/LiveData")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLiveData = env.NewGlobalRef(&c.Object)
+
+		midLiveDataRemoveObservers, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLiveData)), "removeObservers", "(Landroidx/lifecycle/LifecycleOwner;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLiveDataHasObservers, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLiveData)), "hasObservers", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLiveDataToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLiveData)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLiveDataHasActiveObservers, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLiveData)), "hasActiveObservers", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/LifecycleObserver")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLifecycleObserver = env.NewGlobalRef(&c.Object)
+
+		midLifecycleObserverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLifecycleObserver)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/DefaultLifecycleObserver")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDefaultLifecycleObserver = env.NewGlobalRef(&c.Object)
+
+		midDefaultLifecycleObserverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultLifecycleObserver)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/Lifecycle")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLifecycle = env.NewGlobalRef(&c.Object)
+
+		midLifecycleGetInternalScopeRef, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLifecycle)), "getInternalScopeRef", "()Ljava/util/concurrent/atomic/AtomicReference;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLifecycleAddObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLifecycle)), "addObserver", "(Landroidx/lifecycle/LifecycleObserver;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLifecycleRemoveObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLifecycle)), "removeObserver", "(Landroidx/lifecycle/LifecycleObserver;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLifecycleGetCurrentState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLifecycle)), "getCurrentState", "()Landroidx/lifecycle/Lifecycle$State;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLifecycleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLifecycle)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/Lifecycle$Event")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsEvent = env.NewGlobalRef(&c.Object)
+
+		midEventGetTargetState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getTargetState", "()Landroidx/lifecycle/Lifecycle$State;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "values", "()[Landroidx/lifecycle/Lifecycle$Event;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "valueOf", "(Ljava/lang/String;)Landroidx/lifecycle/Lifecycle$Event;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventDownFrom, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "downFrom", "(Landroidx/lifecycle/Lifecycle$State;)Landroidx/lifecycle/Lifecycle$Event;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventDownTo, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "downTo", "(Landroidx/lifecycle/Lifecycle$State;)Landroidx/lifecycle/Lifecycle$Event;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventUpFrom, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "upFrom", "(Landroidx/lifecycle/Lifecycle$State;)Landroidx/lifecycle/Lifecycle$Event;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventUpTo, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "upTo", "(Landroidx/lifecycle/Lifecycle$State;)Landroidx/lifecycle/Lifecycle$Event;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/Lifecycle$State")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsState = env.NewGlobalRef(&c.Object)
+
+		midStateIsAtLeast, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "isAtLeast", "(Landroidx/lifecycle/Lifecycle$State;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsState)), "values", "()[Landroidx/lifecycle/Lifecycle$State;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsState)), "valueOf", "(Ljava/lang/String;)Landroidx/lifecycle/Lifecycle$State;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/ViewModelStoreOwner")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewModelStoreOwner = env.NewGlobalRef(&c.Object)
+
+		midViewModelStoreOwnerGetViewModelStore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelStoreOwner)), "getViewModelStore", "()Landroidx/lifecycle/ViewModelStore;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewModelStoreOwnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelStoreOwner)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/DefaultLifecycleObserverAdapter")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDefaultLifecycleObserverAdapter = env.NewGlobalRef(&c.Object)
+		midDefaultLifecycleObserverAdapterCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultLifecycleObserverAdapter)), "<init>", "(Landroidx/lifecycle/DefaultLifecycleObserver;Landroidx/lifecycle/LifecycleEventObserver;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midDefaultLifecycleObserverAdapterOnStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultLifecycleObserverAdapter)), "onStateChanged", "(Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Lifecycle$Event;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDefaultLifecycleObserverAdapterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultLifecycleObserverAdapter)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/LifecycleRegistry")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRegistry = env.NewGlobalRef(&c.Object)
+		midRegistryCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "<init>", "(Landroidx/lifecycle/LifecycleOwner;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midRegistryMarkState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "markState", "(Landroidx/lifecycle/Lifecycle$State;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryGetCurrentState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "getCurrentState", "()Landroidx/lifecycle/Lifecycle$State;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistrySetCurrentState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "setCurrentState", "(Landroidx/lifecycle/Lifecycle$State;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryHandleLifecycleEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "handleLifecycleEvent", "(Landroidx/lifecycle/Lifecycle$Event;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryAddObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "addObserver", "(Landroidx/lifecycle/LifecycleObserver;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryRemoveObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "removeObserver", "(Landroidx/lifecycle/LifecycleObserver;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryGetObserverCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "getObserverCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryCreateUnsafe, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "createUnsafe", "(Landroidx/lifecycle/LifecycleOwner;)Landroidx/lifecycle/LifecycleRegistry;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryMinLifecycleRuntimeRelease, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "min$lifecycle_runtime_release", "(Landroidx/lifecycle/Lifecycle$State;Landroidx/lifecycle/Lifecycle$State;)Landroidx/lifecycle/Lifecycle$State;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/LifecycleRegistry$Companion")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRegistryCompanion = env.NewGlobalRef(&c.Object)
+		midRegistryCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCompanion)), "<init>", "(Lkotlin/jvm/internal/DefaultConstructorMarker;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midRegistryCompanionCreateUnsafe, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCompanion)), "createUnsafe", "(Landroidx/lifecycle/LifecycleOwner;)Landroidx/lifecycle/LifecycleRegistry;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryCompanionMinLifecycleRuntimeRelease, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCompanion)), "min$lifecycle_runtime_release", "(Landroidx/lifecycle/Lifecycle$State;Landroidx/lifecycle/Lifecycle$State;)Landroidx/lifecycle/Lifecycle$State;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCompanion)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/DefaultLifecycleObserverAdapter$WhenMappings")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDefaultLifecycleObserverAdapterWhenMappings = env.NewGlobalRef(&c.Object)
+
+		midDefaultLifecycleObserverAdapterWhenMappingsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultLifecycleObserverAdapterWhenMappings)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/LifecycleRegistry$ObserverWithState")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRegistryObserverWithState = env.NewGlobalRef(&c.Object)
+		midRegistryObserverWithStateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryObserverWithState)), "<init>", "(Landroidx/lifecycle/LifecycleObserver;Landroidx/lifecycle/Lifecycle$State;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midRegistryObserverWithStateGetState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryObserverWithState)), "getState", "()Landroidx/lifecycle/Lifecycle$State;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryObserverWithStateSetState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryObserverWithState)), "setState", "(Landroidx/lifecycle/Lifecycle$State;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryObserverWithStateGetLifecycleObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryObserverWithState)), "getLifecycleObserver", "()Landroidx/lifecycle/LifecycleEventObserver;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryObserverWithStateSetLifecycleObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryObserverWithState)), "setLifecycleObserver", "(Landroidx/lifecycle/LifecycleEventObserver;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryObserverWithStateDispatchEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryObserverWithState)), "dispatchEvent", "(Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Lifecycle$Event;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegistryObserverWithStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryObserverWithState)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/ViewTreeViewModelKt")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewTreeViewModelKt = env.NewGlobalRef(&c.Object)
+
+		midViewTreeViewModelKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTreeViewModelKt)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/ViewModelLazy")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewModelLazy = env.NewGlobalRef(&c.Object)
+		midViewModelLazyCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelLazy)), "<init>", "(Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midViewModelLazyGetValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelLazy)), "getValue", "()Ljava/lang/VM;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewModelLazyIsInitialized, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelLazy)), "isInitialized", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewModelLazyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelLazy)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/GenericLifecycleObserver")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsGenericLifecycleObserver = env.NewGlobalRef(&c.Object)
+
+		midGenericLifecycleObserverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericLifecycleObserver)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/ViewModelStore")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewModelStore = env.NewGlobalRef(&c.Object)
+		midViewModelStoreCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelStore)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midViewModelStorePut, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelStore)), "put", "(Ljava/lang/String;Landroidx/lifecycle/ViewModel;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewModelStoreGet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelStore)), "get", "(Ljava/lang/String;)Landroidx/lifecycle/ViewModel;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewModelStoreKeys, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelStore)), "keys", "()Ljava/util/Set;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewModelStoreClear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelStore)), "clear", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewModelStoreToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelStore)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/LifecycleEventObserver")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsEventObserver = env.NewGlobalRef(&c.Object)
+
+		midEventObserverOnStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEventObserver)), "onStateChanged", "(Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Lifecycle$Event;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventObserverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEventObserver)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/LifecycleRegistryOwner")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRegistryOwner = env.NewGlobalRef(&c.Object)
+
+		midRegistryOwnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryOwner)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("androidx/lifecycle/ReportFragment")
 	if err != nil {
@@ -481,7 +1343,42 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
+		midReportFragmentDispatchLifecycleRuntimeRelease, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsReportFragment)), "dispatch$lifecycle_runtime_release", "(Landroid/app/Activity;Landroidx/lifecycle/Lifecycle$Event;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
 		midReportFragmentGet, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsReportFragment)), "get", "(Landroid/app/Activity;)Landroidx/lifecycle/ReportFragment;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/CompositeGeneratedAdaptersObserver")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCompositeGeneratedAdaptersObserver = env.NewGlobalRef(&c.Object)
+		midCompositeGeneratedAdaptersObserverCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompositeGeneratedAdaptersObserver)), "<init>", "([Landroidx/lifecycle/GeneratedAdapter;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCompositeGeneratedAdaptersObserverOnStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompositeGeneratedAdaptersObserver)), "onStateChanged", "(Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Lifecycle$Event;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompositeGeneratedAdaptersObserverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompositeGeneratedAdaptersObserver)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -528,54 +1425,6 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/lifecycle/ViewModelProviderGetKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewModelProviderGetKt = env.NewGlobalRef(&c.Object)
-
-		midViewModelProviderGetKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProviderGetKt)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewModelProviderGetKtDefaultCreationExtras, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProviderGetKt)), "defaultCreationExtras", "(Landroidx/lifecycle/ViewModelStoreOwner;)Landroidx/lifecycle/viewmodel/CreationExtras;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/ViewTreeViewModelKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewTreeViewModelKt = env.NewGlobalRef(&c.Object)
-
-		midViewTreeViewModelKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTreeViewModelKt)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewTreeViewModelKtFindViewTreeViewModelStoreOwner, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewTreeViewModelKt)), "findViewTreeViewModelStoreOwner", "(Landroid/view/View;)Landroidx/lifecycle/ViewModelStoreOwner;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("androidx/lifecycle/ReportFragment$Companion")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -583,8 +1432,19 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsReportFragmentCompanion = env.NewGlobalRef(&c.Object)
+		midReportFragmentCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportFragmentCompanion)), "<init>", "(Lkotlin/jvm/internal/DefaultConstructorMarker;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midReportFragmentCompanionInjectIfNeededIn, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportFragmentCompanion)), "injectIfNeededIn", "(Landroid/app/Activity;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midReportFragmentCompanionDispatchLifecycleRuntimeRelease, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportFragmentCompanion)), "dispatch$lifecycle_runtime_release", "(Landroid/app/Activity;Landroidx/lifecycle/Lifecycle$Event;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -614,6 +1474,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsReportFragmentLifecycleCallbacks = env.NewGlobalRef(&c.Object)
+		midReportFragmentLifecycleCallbacksCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportFragmentLifecycleCallbacks)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midReportFragmentLifecycleCallbacksOnActivityCreated, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportFragmentLifecycleCallbacks)), "onActivityCreated", "(Landroid/app/Activity;Landroid/os/Bundle;)V")
 		if err != nil {
@@ -722,70 +1586,22 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/lifecycle/ViewModelStoreOwner")
+	c, err = env.FindClass("androidx/lifecycle/ViewModel")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsViewModelStoreOwner = env.NewGlobalRef(&c.Object)
+		clsViewModel = env.NewGlobalRef(&c.Object)
 
-		midViewModelStoreOwnerGetViewModelStore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelStoreOwner)), "getViewModelStore", "()Landroidx/lifecycle/ViewModelStore;")
+		midViewModelAddCloseable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModel)), "addCloseable", "(Ljava/io/Closeable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midViewModelStoreOwnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelStoreOwner)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/LifecycleRegistryOwner")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRegistryOwner = env.NewGlobalRef(&c.Object)
-
-		midRegistryOwnerGetLifecycle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryOwner)), "getLifecycle", "()Landroidx/lifecycle/LifecycleRegistry;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryOwnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryOwner)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/LifecycleEventObserver")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsEventObserver = env.NewGlobalRef(&c.Object)
-
-		midEventObserverOnStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEventObserver)), "onStateChanged", "(Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Lifecycle$Event;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventObserverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEventObserver)), "toString", "()Ljava/lang/String;")
+		midViewModelToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModel)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -843,19 +1659,26 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/lifecycle/SavedStateHandlesVM")
+	c, err = env.FindClass("androidx/lifecycle/SavedStateHandleAttacher")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSavedStateHandlesVM = env.NewGlobalRef(&c.Object)
-		midSavedStateHandlesVMCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandlesVM)), "<init>", "()V")
+		clsSavedStateHandleAttacher = env.NewGlobalRef(&c.Object)
+		midSavedStateHandleAttacherCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandleAttacher)), "<init>", "(Landroidx/lifecycle/SavedStateHandlesProvider;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midSavedStateHandlesVMToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandlesVM)), "toString", "()Ljava/lang/String;")
+		midSavedStateHandleAttacherOnStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandleAttacher)), "onStateChanged", "(Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Lifecycle$Event;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSavedStateHandleAttacherToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandleAttacher)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -864,15 +1687,47 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/lifecycle/GenericLifecycleObserver")
+	c, err = env.FindClass("androidx/lifecycle/LifecycleCoroutineScopeImpl")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsGenericLifecycleObserver = env.NewGlobalRef(&c.Object)
+		clsCoroutineScopeImpl = env.NewGlobalRef(&c.Object)
+		midCoroutineScopeImplCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoroutineScopeImpl)), "<init>", "(Landroidx/lifecycle/Lifecycle;Lkotlin/coroutines/CoroutineContext;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midGenericLifecycleObserverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericLifecycleObserver)), "toString", "()Ljava/lang/String;")
+		midCoroutineScopeImplGetLifecycleLifecycleCommon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoroutineScopeImpl)), "getLifecycle$lifecycle_common", "()Landroidx/lifecycle/Lifecycle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCoroutineScopeImplGetCoroutineContext, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoroutineScopeImpl)), "getCoroutineContext", "()Lkotlin/coroutines/CoroutineContext;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCoroutineScopeImplRegister, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoroutineScopeImpl)), "register", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCoroutineScopeImplOnStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoroutineScopeImpl)), "onStateChanged", "(Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Lifecycle$Event;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCoroutineScopeImplToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoroutineScopeImpl)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -881,15 +1736,74 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/lifecycle/SavedStateViewModelFactoryKt")
+	c, err = env.FindClass("androidx/lifecycle/Transformations")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSavedStateViewModelFactoryKt = env.NewGlobalRef(&c.Object)
+		clsTransformations = env.NewGlobalRef(&c.Object)
 
-		midSavedStateViewModelFactoryKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateViewModelFactoryKt)), "toString", "()Ljava/lang/String;")
+		midTransformationsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTransformations)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/ProcessLifecycleInitializer")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsProcessLifecycleInitializer = env.NewGlobalRef(&c.Object)
+		midProcessLifecycleInitializerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProcessLifecycleInitializer)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midProcessLifecycleInitializerCreate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProcessLifecycleInitializer)), "create", "(Landroid/content/Context;)Landroidx/lifecycle/LifecycleOwner;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProcessLifecycleInitializerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProcessLifecycleInitializer)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/ProcessLifecycleOwner")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsProcessLifecycleOwner = env.NewGlobalRef(&c.Object)
+
+		midProcessLifecycleOwnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProcessLifecycleOwner)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProcessLifecycleOwnerGet, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsProcessLifecycleOwner)), "get", "()Landroidx/lifecycle/LifecycleOwner;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProcessLifecycleOwnerGetLifecycle, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsProcessLifecycleOwner)), "getLifecycle", "()Landroidx/lifecycle/Lifecycle;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -919,22 +1833,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/lifecycle/GeneratedAdapter")
+	c, err = env.FindClass("androidx/lifecycle/Lifecycling")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsGeneratedAdapter = env.NewGlobalRef(&c.Object)
+		clsLifecycling = env.NewGlobalRef(&c.Object)
 
-		midGeneratedAdapterCallMethods, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGeneratedAdapter)), "callMethods", "(Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Lifecycle$Event;ZLandroidx/lifecycle/MethodCallsLogger;)V")
+		midLifecyclingToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLifecycling)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGeneratedAdapterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGeneratedAdapter)), "toString", "()Ljava/lang/String;")
+		midLifecyclingLifecycleEventObserver, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLifecycling)), "lifecycleEventObserver", "(Ljava/lang/Object;)Landroidx/lifecycle/LifecycleEventObserver;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLifecyclingGetAdapterName, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLifecycling)), "getAdapterName", "(Ljava/lang/String;)Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -943,388 +1864,26 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/lifecycle/LifecycleController")
+	c, err = env.FindClass("androidx/lifecycle/SingleGeneratedAdapterObserver")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsController = env.NewGlobalRef(&c.Object)
-		midControllerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsController)), "<init>", "(Landroidx/lifecycle/Lifecycle;Landroidx/lifecycle/Lifecycle$State;Landroidx/lifecycle/DispatchQueue;Lkotlinx/coroutines/Job;)V")
+		clsSingleGeneratedAdapterObserver = env.NewGlobalRef(&c.Object)
+		midSingleGeneratedAdapterObserverCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSingleGeneratedAdapterObserver)), "<init>", "(Landroidx/lifecycle/GeneratedAdapter;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midControllerFinish, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsController)), "finish", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midControllerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsController)), "toString", "()Ljava/lang/String;")
+		midSingleGeneratedAdapterObserverOnStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSingleGeneratedAdapterObserver)), "onStateChanged", "(Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Lifecycle$Event;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/DefaultLifecycleObserverAdapter")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDefaultLifecycleObserverAdapter = env.NewGlobalRef(&c.Object)
-		midDefaultLifecycleObserverAdapterCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultLifecycleObserverAdapter)), "<init>", "(Landroidx/lifecycle/DefaultLifecycleObserver;Landroidx/lifecycle/LifecycleEventObserver;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midDefaultLifecycleObserverAdapterOnStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultLifecycleObserverAdapter)), "onStateChanged", "(Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Lifecycle$Event;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDefaultLifecycleObserverAdapterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultLifecycleObserverAdapter)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/DefaultLifecycleObserverAdapter$WhenMappings")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDefaultLifecycleObserverAdapterWhenMappings = env.NewGlobalRef(&c.Object)
-
-		midDefaultLifecycleObserverAdapterWhenMappingsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultLifecycleObserverAdapterWhenMappings)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/AbstractSavedStateViewModelFactory")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAbstractSavedStateViewModelFactory = env.NewGlobalRef(&c.Object)
-
-		midAbstractSavedStateViewModelFactoryOnRequery, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbstractSavedStateViewModelFactory)), "onRequery", "(Landroidx/lifecycle/ViewModel;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAbstractSavedStateViewModelFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbstractSavedStateViewModelFactory)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/AbstractSavedStateViewModelFactory$Companion")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAbstractSavedStateViewModelFactoryCompanion = env.NewGlobalRef(&c.Object)
-
-		midAbstractSavedStateViewModelFactoryCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbstractSavedStateViewModelFactoryCompanion)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/SavedStateViewModelFactory")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSavedStateViewModelFactory = env.NewGlobalRef(&c.Object)
-		midSavedStateViewModelFactoryCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateViewModelFactory)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midSavedStateViewModelFactoryOnRequery, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateViewModelFactory)), "onRequery", "(Landroidx/lifecycle/ViewModel;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSavedStateViewModelFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateViewModelFactory)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/ViewTreeLifecycleOwner")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewTreeLifecycleOwner = env.NewGlobalRef(&c.Object)
-
-		midViewTreeLifecycleOwnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTreeLifecycleOwner)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewTreeLifecycleOwnerSet, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewTreeLifecycleOwner)), "set", "(Landroid/view/View;Landroidx/lifecycle/LifecycleOwner;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewTreeLifecycleOwnerGet, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewTreeLifecycleOwner)), "get", "(Landroid/view/View;)Landroidx/lifecycle/LifecycleOwner;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/ViewModelLazy")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewModelLazy = env.NewGlobalRef(&c.Object)
-		midViewModelLazyCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelLazy)), "<init>", "(Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midViewModelLazyGetValue0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelLazy)), "getValue", "()Ljava/lang/VM;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewModelLazyIsInitialized, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelLazy)), "isInitialized", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewModelLazyGetValue0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelLazy)), "getValue", "()Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewModelLazyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelLazy)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/Observer")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsObserver = env.NewGlobalRef(&c.Object)
-
-		midObserverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsObserver)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/ViewTreeViewModelStoreOwner")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewTreeViewModelStoreOwner = env.NewGlobalRef(&c.Object)
-
-		midViewTreeViewModelStoreOwnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTreeViewModelStoreOwner)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewTreeViewModelStoreOwnerSet, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewTreeViewModelStoreOwner)), "set", "(Landroid/view/View;Landroidx/lifecycle/ViewModelStoreOwner;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewTreeViewModelStoreOwnerGet, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewTreeViewModelStoreOwner)), "get", "(Landroid/view/View;)Landroidx/lifecycle/ViewModelStoreOwner;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/DefaultLifecycleObserver")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDefaultLifecycleObserver = env.NewGlobalRef(&c.Object)
-
-		midDefaultLifecycleObserverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDefaultLifecycleObserver)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/PausingDispatcherKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPausingDispatcherKt = env.NewGlobalRef(&c.Object)
-
-		midPausingDispatcherKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPausingDispatcherKt)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/ProcessLifecycleOwner")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsProcessLifecycleOwner = env.NewGlobalRef(&c.Object)
-
-		midProcessLifecycleOwnerGetLifecycle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProcessLifecycleOwner)), "getLifecycle", "()Landroidx/lifecycle/Lifecycle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProcessLifecycleOwnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProcessLifecycleOwner)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProcessLifecycleOwnerGet, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsProcessLifecycleOwner)), "get", "()Landroidx/lifecycle/LifecycleOwner;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/ViewModel")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewModel = env.NewGlobalRef(&c.Object)
-
-		midViewModelAddCloseable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModel)), "addCloseable", "(Ljava/io/Closeable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewModelToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModel)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/SavedStateHandleSupport")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSavedStateHandleSupport = env.NewGlobalRef(&c.Object)
-
-		midSavedStateHandleSupportToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandleSupport)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSavedStateHandleSupportCreateSavedStateHandle, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandleSupport)), "createSavedStateHandle", "(Landroidx/lifecycle/viewmodel/CreationExtras;)Landroidx/lifecycle/SavedStateHandle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSavedStateHandleSupportGetSavedStateHandlesVM, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandleSupport)), "getSavedStateHandlesVM", "(Landroidx/lifecycle/ViewModelStoreOwner;)Landroidx/lifecycle/SavedStateHandlesVM;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSavedStateHandleSupportGetSavedStateHandlesProvider, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandleSupport)), "getSavedStateHandlesProvider", "(Landroidx/savedstate/SavedStateRegistryOwner;)Landroidx/lifecycle/SavedStateHandlesProvider;")
+		midSingleGeneratedAdapterObserverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSingleGeneratedAdapterObserver)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1403,6 +1962,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsSavedStateHandleCompanion = env.NewGlobalRef(&c.Object)
+		midSavedStateHandleCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandleCompanion)), "<init>", "(Lkotlin/jvm/internal/DefaultConstructorMarker;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midSavedStateHandleCompanionCreateHandle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandleCompanion)), "createHandle", "(Landroid/os/Bundle;Landroid/os/Bundle;)Landroidx/lifecycle/SavedStateHandle;")
 		if err != nil {
@@ -1434,6 +1997,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsSavedStateHandleSavingStateLiveData = env.NewGlobalRef(&c.Object)
+		midSavedStateHandleSavingStateLiveDataCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandleSavingStateLiveData)), "<init>", "(Landroidx/lifecycle/SavedStateHandle;Ljava/lang/String;Ljava/lang/T;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midSavedStateHandleSavingStateLiveDataDetach, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandleSavingStateLiveData)), "detach", "()V")
 		if err != nil {
@@ -1451,40 +2018,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/lifecycle/LifecycleCoroutineScopeImpl")
+	c, err = env.FindClass("androidx/lifecycle/ViewTreeViewModelStoreOwner")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCoroutineScopeImpl = env.NewGlobalRef(&c.Object)
-		midCoroutineScopeImplCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoroutineScopeImpl)), "<init>", "(Landroidx/lifecycle/Lifecycle;Lkotlin/coroutines/CoroutineContext;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsViewTreeViewModelStoreOwner = env.NewGlobalRef(&c.Object)
 
-		midCoroutineScopeImplGetCoroutineContext, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoroutineScopeImpl)), "getCoroutineContext", "()Lkotlin/coroutines/CoroutineContext;")
+		midViewTreeViewModelStoreOwnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTreeViewModelStoreOwner)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCoroutineScopeImplRegister, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoroutineScopeImpl)), "register", "()V")
+		midViewTreeViewModelStoreOwnerSet, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewTreeViewModelStoreOwner)), "set", "(Landroid/view/View;Landroidx/lifecycle/ViewModelStoreOwner;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCoroutineScopeImplOnStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoroutineScopeImpl)), "onStateChanged", "(Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Lifecycle$Event;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCoroutineScopeImplToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoroutineScopeImpl)), "toString", "()Ljava/lang/String;")
+		midViewTreeViewModelStoreOwnerGet, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewTreeViewModelStoreOwner)), "get", "(Landroid/view/View;)Landroidx/lifecycle/ViewModelStoreOwner;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1493,26 +2049,22 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/lifecycle/CompositeGeneratedAdaptersObserver")
+	c, err = env.FindClass("androidx/lifecycle/GeneratedAdapter")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCompositeGeneratedAdaptersObserver = env.NewGlobalRef(&c.Object)
-		midCompositeGeneratedAdaptersObserverCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompositeGeneratedAdaptersObserver)), "<init>", "([Landroidx/lifecycle/GeneratedAdapter;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsGeneratedAdapter = env.NewGlobalRef(&c.Object)
 
-		midCompositeGeneratedAdaptersObserverOnStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompositeGeneratedAdaptersObserver)), "onStateChanged", "(Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Lifecycle$Event;)V")
+		midGeneratedAdapterCallMethods, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGeneratedAdapter)), "callMethods", "(Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Lifecycle$Event;ZLandroidx/lifecycle/MethodCallsLogger;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCompositeGeneratedAdaptersObserverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompositeGeneratedAdaptersObserver)), "toString", "()Ljava/lang/String;")
+		midGeneratedAdapterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGeneratedAdapter)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1521,26 +2073,177 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/lifecycle/SingleGeneratedAdapterObserver")
+	c, err = env.FindClass("androidx/lifecycle/LifecycleCoroutineScope")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSingleGeneratedAdapterObserver = env.NewGlobalRef(&c.Object)
-		midSingleGeneratedAdapterObserverCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSingleGeneratedAdapterObserver)), "<init>", "(Landroidx/lifecycle/GeneratedAdapter;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsCoroutineScope = env.NewGlobalRef(&c.Object)
 
-		midSingleGeneratedAdapterObserverOnStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSingleGeneratedAdapterObserver)), "onStateChanged", "(Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Lifecycle$Event;)V")
+		midCoroutineScopeGetLifecycleLifecycleCommon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoroutineScope)), "getLifecycle$lifecycle_common", "()Landroidx/lifecycle/Lifecycle;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSingleGeneratedAdapterObserverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSingleGeneratedAdapterObserver)), "toString", "()Ljava/lang/String;")
+		midCoroutineScopeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoroutineScope)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/SavedStateViewModelFactoryKt")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSavedStateViewModelFactoryKt = env.NewGlobalRef(&c.Object)
+
+		midSavedStateViewModelFactoryKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateViewModelFactoryKt)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/MutableLiveData")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMutableLiveData = env.NewGlobalRef(&c.Object)
+		midMutableLiveDataCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMutableLiveData)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMutableLiveDataToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMutableLiveData)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/MediatorLiveData")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMediatorLiveData = env.NewGlobalRef(&c.Object)
+		midMediatorLiveDataCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediatorLiveData)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMediatorLiveDataToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediatorLiveData)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/LifecycleOwner")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsOwner = env.NewGlobalRef(&c.Object)
+
+		midOwnerGetLifecycle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOwner)), "getLifecycle", "()Landroidx/lifecycle/Lifecycle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOwnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOwner)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/ViewTreeLifecycleOwner")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewTreeLifecycleOwner = env.NewGlobalRef(&c.Object)
+
+		midViewTreeLifecycleOwnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTreeLifecycleOwner)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewTreeLifecycleOwnerSet, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewTreeLifecycleOwner)), "set", "(Landroid/view/View;Landroidx/lifecycle/LifecycleOwner;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewTreeLifecycleOwnerGet, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewTreeLifecycleOwner)), "get", "(Landroid/view/View;)Landroidx/lifecycle/LifecycleOwner;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/OnLifecycleEvent")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsOnLifecycleEvent = env.NewGlobalRef(&c.Object)
+
+		midOnLifecycleEventValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnLifecycleEvent)), "value", "()Landroidx/lifecycle/Lifecycle$Event;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOnLifecycleEventToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnLifecycleEvent)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/PausingDispatcherKt")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPausingDispatcherKt = env.NewGlobalRef(&c.Object)
+
+		midPausingDispatcherKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPausingDispatcherKt)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1577,6 +2280,23 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("androidx/lifecycle/ViewModelProviderGetKt")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewModelProviderGetKt = env.NewGlobalRef(&c.Object)
+
+		midViewModelProviderGetKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProviderGetKt)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("androidx/lifecycle/LifecycleOwnerKt")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -1593,89 +2313,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midOwnerKtGetLifecycleScope, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOwnerKt)), "getLifecycleScope", "(Landroidx/lifecycle/LifecycleOwner;)Landroidx/lifecycle/LifecycleCoroutineScope;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/LifecycleKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsKt = env.NewGlobalRef(&c.Object)
-
-		midKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsKt)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midKtGetCoroutineScope, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsKt)), "getCoroutineScope", "(Landroidx/lifecycle/Lifecycle;)Landroidx/lifecycle/LifecycleCoroutineScope;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/MutableLiveData")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMutableLiveData = env.NewGlobalRef(&c.Object)
-		midMutableLiveDataCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMutableLiveData)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMutableLiveDataToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMutableLiveData)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/LifecycleObserver")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLifecycleObserver = env.NewGlobalRef(&c.Object)
-
-		midLifecycleObserverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLifecycleObserver)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/MediatorLiveData")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMediatorLiveData = env.NewGlobalRef(&c.Object)
-		midMediatorLiveDataCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediatorLiveData)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMediatorLiveDataToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediatorLiveData)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1722,6 +2359,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsLegacySavedStateHandleControllerOnRecreation = env.NewGlobalRef(&c.Object)
+		midLegacySavedStateHandleControllerOnRecreationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLegacySavedStateHandleControllerOnRecreation)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midLegacySavedStateHandleControllerOnRecreationOnRecreated, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLegacySavedStateHandleControllerOnRecreation)), "onRecreated", "(Landroidx/savedstate/SavedStateRegistryOwner;)V")
 		if err != nil {
@@ -1739,212 +2380,22 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/lifecycle/ComputableLiveData")
+	c, err = env.FindClass("androidx/lifecycle/LifecycleKt")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsComputableLiveData = env.NewGlobalRef(&c.Object)
+		clsKt = env.NewGlobalRef(&c.Object)
 
-		midComputableLiveDataGetLiveData, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComputableLiveData)), "getLiveData", "()Landroidx/lifecycle/LiveData;")
+		midKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsKt)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midComputableLiveDataInvalidate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComputableLiveData)), "invalidate", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midComputableLiveDataToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComputableLiveData)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/LiveData")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLiveData = env.NewGlobalRef(&c.Object)
-
-		midLiveDataRemoveObservers, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLiveData)), "removeObservers", "(Landroidx/lifecycle/LifecycleOwner;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLiveDataHasObservers, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLiveData)), "hasObservers", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLiveDataHasActiveObservers, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLiveData)), "hasActiveObservers", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLiveDataToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLiveData)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/ViewModelProvider")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewModelProvider = env.NewGlobalRef(&c.Object)
-		midViewModelProviderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProvider)), "<init>", "(Landroidx/lifecycle/ViewModelStore;Landroidx/lifecycle/ViewModelProvider$Factory;Landroidx/lifecycle/viewmodel/CreationExtras;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midViewModelProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProvider)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/ViewModelProvider$AndroidViewModelFactory")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewModelProviderAndroidViewModelFactory = env.NewGlobalRef(&c.Object)
-
-		midViewModelProviderAndroidViewModelFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProviderAndroidViewModelFactory)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewModelProviderAndroidViewModelFactoryGetInstance, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProviderAndroidViewModelFactory)), "getInstance", "(Landroid/app/Application;)Landroidx/lifecycle/ViewModelProvider$AndroidViewModelFactory;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/ViewModelProvider$Factory")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewModelProviderFactory = env.NewGlobalRef(&c.Object)
-
-		midViewModelProviderFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProviderFactory)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/ViewModelProvider$NewInstanceFactory")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewModelProviderNewInstanceFactory = env.NewGlobalRef(&c.Object)
-
-		midViewModelProviderNewInstanceFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProviderNewInstanceFactory)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewModelProviderNewInstanceFactoryGetInstance, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProviderNewInstanceFactory)), "getInstance", "()Landroidx/lifecycle/ViewModelProvider$NewInstanceFactory;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/ViewModelProvider$OnRequeryFactory")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewModelProviderOnRequeryFactory = env.NewGlobalRef(&c.Object)
-
-		midViewModelProviderOnRequeryFactoryOnRequery, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProviderOnRequeryFactory)), "onRequery", "(Landroidx/lifecycle/ViewModel;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewModelProviderOnRequeryFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelProviderOnRequeryFactory)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/ProcessLifecycleInitializer")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsProcessLifecycleInitializer = env.NewGlobalRef(&c.Object)
-		midProcessLifecycleInitializerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProcessLifecycleInitializer)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midProcessLifecycleInitializerCreate1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProcessLifecycleInitializer)), "create", "(Landroid/content/Context;)Landroidx/lifecycle/LifecycleOwner;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProcessLifecycleInitializerCreate1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProcessLifecycleInitializer)), "create", "(Landroid/content/Context;)Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProcessLifecycleInitializerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProcessLifecycleInitializer)), "toString", "()Ljava/lang/String;")
+		midKtGetCoroutineScope, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsKt)), "getCoroutineScope", "(Landroidx/lifecycle/Lifecycle;)Landroidx/lifecycle/LifecycleCoroutineScope;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1969,277 +2420,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midHasDefaultViewModelProviderFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHasDefaultViewModelProviderFactory)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/ViewModelStore")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewModelStore = env.NewGlobalRef(&c.Object)
-		midViewModelStoreCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelStore)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midViewModelStorePut, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelStore)), "put", "(Ljava/lang/String;Landroidx/lifecycle/ViewModel;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewModelStoreGet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelStore)), "get", "(Ljava/lang/String;)Landroidx/lifecycle/ViewModel;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewModelStoreKeys, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelStore)), "keys", "()Ljava/util/Set;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewModelStoreClear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelStore)), "clear", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewModelStoreToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelStore)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/SavedStateHandleAttacher")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSavedStateHandleAttacher = env.NewGlobalRef(&c.Object)
-		midSavedStateHandleAttacherCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandleAttacher)), "<init>", "(Landroidx/lifecycle/SavedStateHandlesProvider;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midSavedStateHandleAttacherOnStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandleAttacher)), "onStateChanged", "(Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Lifecycle$Event;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSavedStateHandleAttacherToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandleAttacher)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/LifecycleOwner")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsOwner = env.NewGlobalRef(&c.Object)
-
-		midOwnerGetLifecycle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOwner)), "getLifecycle", "()Landroidx/lifecycle/Lifecycle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOwnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOwner)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/LifecycleRegistry")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRegistry = env.NewGlobalRef(&c.Object)
-		midRegistryCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "<init>", "(Landroidx/lifecycle/LifecycleOwner;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midRegistryMarkState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "markState", "(Landroidx/lifecycle/Lifecycle$State;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryGetCurrentState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "getCurrentState", "()Landroidx/lifecycle/Lifecycle$State;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistrySetCurrentState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "setCurrentState", "(Landroidx/lifecycle/Lifecycle$State;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryHandleLifecycleEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "handleLifecycleEvent", "(Landroidx/lifecycle/Lifecycle$Event;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryAddObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "addObserver", "(Landroidx/lifecycle/LifecycleObserver;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryRemoveObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "removeObserver", "(Landroidx/lifecycle/LifecycleObserver;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryGetObserverCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "getObserverCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryCreateUnsafe, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegistry)), "createUnsafe", "(Landroidx/lifecycle/LifecycleOwner;)Landroidx/lifecycle/LifecycleRegistry;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/LifecycleRegistry$Companion")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRegistryCompanion = env.NewGlobalRef(&c.Object)
-
-		midRegistryCompanionCreateUnsafe, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCompanion)), "createUnsafe", "(Landroidx/lifecycle/LifecycleOwner;)Landroidx/lifecycle/LifecycleRegistry;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryCompanion)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/LifecycleRegistry$ObserverWithState")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRegistryObserverWithState = env.NewGlobalRef(&c.Object)
-
-		midRegistryObserverWithStateGetState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryObserverWithState)), "getState", "()Landroidx/lifecycle/Lifecycle$State;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryObserverWithStateSetState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryObserverWithState)), "setState", "(Landroidx/lifecycle/Lifecycle$State;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryObserverWithStateGetLifecycleObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryObserverWithState)), "getLifecycleObserver", "()Landroidx/lifecycle/LifecycleEventObserver;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryObserverWithStateSetLifecycleObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryObserverWithState)), "setLifecycleObserver", "(Landroidx/lifecycle/LifecycleEventObserver;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryObserverWithStateDispatchEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryObserverWithState)), "dispatchEvent", "(Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Lifecycle$Event;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegistryObserverWithStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegistryObserverWithState)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/Transformations")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTransformations = env.NewGlobalRef(&c.Object)
-
-		midTransformationsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTransformations)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2283,15 +2463,36 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/lifecycle/LifecycleCoroutineScope")
+	c, err = env.FindClass("androidx/lifecycle/SavedStateHandleSupport")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCoroutineScope = env.NewGlobalRef(&c.Object)
+		clsSavedStateHandleSupport = env.NewGlobalRef(&c.Object)
 
-		midCoroutineScopeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoroutineScope)), "toString", "()Ljava/lang/String;")
+		midSavedStateHandleSupportToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandleSupport)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSavedStateHandleSupportCreateSavedStateHandle, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandleSupport)), "createSavedStateHandle", "(Landroidx/lifecycle/viewmodel/CreationExtras;)Landroidx/lifecycle/SavedStateHandle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSavedStateHandleSupportGetSavedStateHandlesVM, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandleSupport)), "getSavedStateHandlesVM", "(Landroidx/lifecycle/ViewModelStoreOwner;)Landroidx/lifecycle/SavedStateHandlesVM;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSavedStateHandleSupportGetSavedStateHandlesProvider, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandleSupport)), "getSavedStateHandlesProvider", "(Landroidx/savedstate/SavedStateRegistryOwner;)Landroidx/lifecycle/SavedStateHandlesProvider;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2300,43 +2501,19 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/lifecycle/Lifecycle")
+	c, err = env.FindClass("androidx/lifecycle/SavedStateHandlesVM")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsLifecycle = env.NewGlobalRef(&c.Object)
-
-		midLifecycleGetInternalScopeRef, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLifecycle)), "getInternalScopeRef", "()Ljava/util/concurrent/atomic/AtomicReference;")
+		clsSavedStateHandlesVM = env.NewGlobalRef(&c.Object)
+		midSavedStateHandlesVMCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandlesVM)), "<init>", "()V")
 		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLifecycleAddObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLifecycle)), "addObserver", "(Landroidx/lifecycle/LifecycleObserver;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLifecycleRemoveObserver, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLifecycle)), "removeObserver", "(Landroidx/lifecycle/LifecycleObserver;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLifecycleGetCurrentState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLifecycle)), "getCurrentState", "()Landroidx/lifecycle/Lifecycle$State;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLifecycleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLifecycle)), "toString", "()Ljava/lang/String;")
+		midSavedStateHandlesVMToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandlesVM)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2345,106 +2522,22 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/lifecycle/SavedStateHandlesProvider")
+	c, err = env.FindClass("androidx/lifecycle/AbstractSavedStateViewModelFactory")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSavedStateHandlesProvider = env.NewGlobalRef(&c.Object)
-		midSavedStateHandlesProviderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandlesProvider)), "<init>", "(Landroidx/savedstate/SavedStateRegistry;Landroidx/lifecycle/ViewModelStoreOwner;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsAbstractSavedStateViewModelFactory = env.NewGlobalRef(&c.Object)
 
-		midSavedStateHandlesProviderSaveState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandlesProvider)), "saveState", "()Landroid/os/Bundle;")
+		midAbstractSavedStateViewModelFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbstractSavedStateViewModelFactory)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSavedStateHandlesProviderPerformRestore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandlesProvider)), "performRestore", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSavedStateHandlesProviderConsumeRestoredStateForKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandlesProvider)), "consumeRestoredStateForKey", "(Ljava/lang/String;)Landroid/os/Bundle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSavedStateHandlesProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandlesProvider)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/Lifecycle$Event")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsEvent = env.NewGlobalRef(&c.Object)
-
-		midEventGetTargetState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getTargetState", "()Landroidx/lifecycle/Lifecycle$State;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "values", "()[Landroidx/lifecycle/Lifecycle$Event;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "valueOf", "(Ljava/lang/String;)Landroidx/lifecycle/Lifecycle$Event;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventDownFrom, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "downFrom", "(Landroidx/lifecycle/Lifecycle$State;)Landroidx/lifecycle/Lifecycle$Event;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventDownTo, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "downTo", "(Landroidx/lifecycle/Lifecycle$State;)Landroidx/lifecycle/Lifecycle$Event;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventUpFrom, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "upFrom", "(Landroidx/lifecycle/Lifecycle$State;)Landroidx/lifecycle/Lifecycle$Event;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventUpTo, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "upTo", "(Landroidx/lifecycle/Lifecycle$State;)Landroidx/lifecycle/Lifecycle$Event;")
+		midAbstractSavedStateViewModelFactoryOnRequery, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAbstractSavedStateViewModelFactory)), "onRequery", "(Landroidx/lifecycle/ViewModel;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2516,36 +2609,19 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/lifecycle/Lifecycle$State")
+	c, err = env.FindClass("androidx/lifecycle/AbstractSavedStateViewModelFactory$Companion")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsState = env.NewGlobalRef(&c.Object)
-
-		midStateIsAtLeast, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "isAtLeast", "(Landroidx/lifecycle/Lifecycle$State;)Z")
+		clsAbstractSavedStateViewModelFactoryCompanion = env.NewGlobalRef(&c.Object)
+		midAbstractSavedStateViewModelFactoryCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbstractSavedStateViewModelFactoryCompanion)), "<init>", "(Lkotlin/jvm/internal/DefaultConstructorMarker;)V")
 		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsState)), "values", "()[Landroidx/lifecycle/Lifecycle$State;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsState)), "valueOf", "(Ljava/lang/String;)Landroidx/lifecycle/Lifecycle$State;")
+		midAbstractSavedStateViewModelFactoryCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbstractSavedStateViewModelFactoryCompanion)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2554,53 +2630,40 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/lifecycle/Lifecycling")
+	c, err = env.FindClass("androidx/lifecycle/SavedStateHandlesProvider")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsLifecycling = env.NewGlobalRef(&c.Object)
+		clsSavedStateHandlesProvider = env.NewGlobalRef(&c.Object)
+		midSavedStateHandlesProviderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandlesProvider)), "<init>", "(Landroidx/savedstate/SavedStateRegistry;Landroidx/lifecycle/ViewModelStoreOwner;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midLifecyclingToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLifecycling)), "toString", "()Ljava/lang/String;")
+		midSavedStateHandlesProviderSaveState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandlesProvider)), "saveState", "()Landroid/os/Bundle;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLifecyclingLifecycleEventObserver, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLifecycling)), "lifecycleEventObserver", "(Ljava/lang/Object;)Landroidx/lifecycle/LifecycleEventObserver;")
+		midSavedStateHandlesProviderPerformRestore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandlesProvider)), "performRestore", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLifecyclingGetAdapterName, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLifecycling)), "getAdapterName", "(Ljava/lang/String;)Ljava/lang/String;")
+		midSavedStateHandlesProviderConsumeRestoredStateForKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandlesProvider)), "consumeRestoredStateForKey", "(Ljava/lang/String;)Landroid/os/Bundle;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/OnLifecycleEvent")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsOnLifecycleEvent = env.NewGlobalRef(&c.Object)
-
-		midOnLifecycleEventValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnLifecycleEvent)), "value", "()Landroidx/lifecycle/Lifecycle$Event;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOnLifecycleEventToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnLifecycleEvent)), "toString", "()Ljava/lang/String;")
+		midSavedStateHandlesProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateHandlesProvider)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

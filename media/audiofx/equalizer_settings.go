@@ -23,6 +23,34 @@ type EqualizerSettings struct {
 	Obj *jni.GlobalRef
 }
 
+// NewEqualizerSettings creates a new android.media.audiofx.Equalizer$Settings instance.
+func NewEqualizerSettings(vm *jni.VM) (*EqualizerSettings, error) {
+	var t EqualizerSettings
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsEqualizerSettings == nil {
+			return fmt.Errorf("android.media.audiofx.Equalizer$Settings is not available on this device")
+		}
+		if midEqualizerSettingsCtor == nil {
+			return fmt.Errorf("android.media.audiofx.Equalizer$Settings constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEqualizerSettings)), midEqualizerSettingsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.media.audiofx.Equalizer$Settings.toString.
 func (m *EqualizerSettings) ToString() (string, error) {
 	var result string

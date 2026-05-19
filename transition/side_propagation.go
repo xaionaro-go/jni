@@ -32,6 +32,12 @@ func NewSidePropagation(vm *jni.VM) (*SidePropagation, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSidePropagation == nil {
+			return fmt.Errorf("android.transition.SidePropagation is not available on this device")
+		}
+		if midSidePropagationCtor == nil {
+			return fmt.Errorf("android.transition.SidePropagation constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSidePropagation)), midSidePropagationCtor)
 		if err != nil {
 			return err

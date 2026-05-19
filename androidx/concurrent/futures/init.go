@@ -23,17 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsResolvableFuture             *jni.GlobalRef
-	midResolvableFutureSetException jni.MethodID
-	midResolvableFutureToString     jni.MethodID
-
-	clsAbstractResolvableFuture            *jni.GlobalRef
-	midAbstractResolvableFutureIsDone      jni.MethodID
-	midAbstractResolvableFutureIsCancelled jni.MethodID
-	midAbstractResolvableFutureCancel      jni.MethodID
-	midAbstractResolvableFutureAddListener jni.MethodID
-	midAbstractResolvableFutureToString    jni.MethodID
-
 	clsCallbackToFutureAdapter         *jni.GlobalRef
 	midCallbackToFutureAdapterToString jni.MethodID
 
@@ -45,6 +34,17 @@ var (
 
 	clsCallbackToFutureAdapterResolver         *jni.GlobalRef
 	midCallbackToFutureAdapterResolverToString jni.MethodID
+
+	clsAbstractResolvableFuture            *jni.GlobalRef
+	midAbstractResolvableFutureIsDone      jni.MethodID
+	midAbstractResolvableFutureIsCancelled jni.MethodID
+	midAbstractResolvableFutureCancel      jni.MethodID
+	midAbstractResolvableFutureAddListener jni.MethodID
+	midAbstractResolvableFutureToString    jni.MethodID
+
+	clsResolvableFuture             *jni.GlobalRef
+	midResolvableFutureSetException jni.MethodID
+	midResolvableFutureToString     jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -64,75 +64,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("androidx/concurrent/futures/ResolvableFuture")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsResolvableFuture = env.NewGlobalRef(&c.Object)
-
-		midResolvableFutureSetException, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResolvableFuture)), "setException", "(Ljava/lang/Throwable;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midResolvableFutureToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResolvableFuture)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/concurrent/futures/AbstractResolvableFuture")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAbstractResolvableFuture = env.NewGlobalRef(&c.Object)
-
-		midAbstractResolvableFutureIsDone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbstractResolvableFuture)), "isDone", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAbstractResolvableFutureIsCancelled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbstractResolvableFuture)), "isCancelled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAbstractResolvableFutureCancel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbstractResolvableFuture)), "cancel", "(Z)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAbstractResolvableFutureAddListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbstractResolvableFuture)), "addListener", "(Ljava/lang/Runnable;Ljava/util/concurrent/Executor;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAbstractResolvableFutureToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbstractResolvableFuture)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("androidx/concurrent/futures/CallbackToFutureAdapter")
 	if err != nil {
@@ -198,6 +129,75 @@ func doInit(env *jni.Env) error {
 		clsCallbackToFutureAdapterResolver = env.NewGlobalRef(&c.Object)
 
 		midCallbackToFutureAdapterResolverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCallbackToFutureAdapterResolver)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/concurrent/futures/AbstractResolvableFuture")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAbstractResolvableFuture = env.NewGlobalRef(&c.Object)
+
+		midAbstractResolvableFutureIsDone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbstractResolvableFuture)), "isDone", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAbstractResolvableFutureIsCancelled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbstractResolvableFuture)), "isCancelled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAbstractResolvableFutureCancel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbstractResolvableFuture)), "cancel", "(Z)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAbstractResolvableFutureAddListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbstractResolvableFuture)), "addListener", "(Ljava/lang/Runnable;Ljava/util/concurrent/Executor;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAbstractResolvableFutureToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAbstractResolvableFuture)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/concurrent/futures/ResolvableFuture")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsResolvableFuture = env.NewGlobalRef(&c.Object)
+
+		midResolvableFutureSetException, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResolvableFuture)), "setException", "(Ljava/lang/Throwable;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midResolvableFutureToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResolvableFuture)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

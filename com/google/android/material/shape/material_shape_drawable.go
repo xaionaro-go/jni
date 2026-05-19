@@ -32,6 +32,12 @@ func NewMaterialShapeDrawable(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, ar
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialShapeDrawable == nil {
+			return fmt.Errorf("com.google.android.material.shape.MaterialShapeDrawable is not available on this device")
+		}
+		if midMaterialShapeDrawableCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.MaterialShapeDrawable constructor (Landroid/content/Context;Landroid/util/AttributeSet;II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialShapeDrawable)), midMaterialShapeDrawableCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3))
 		if err != nil {
@@ -1998,33 +2004,6 @@ func (m *MaterialShapeDrawable) GetBottomRightCornerResolvedSize() (float32, err
 		if callErr != nil {
 			return callErr
 		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// IsRoundRect calls com.google.android.material.shape.MaterialShapeDrawable.isRoundRect.
-func (m *MaterialShapeDrawable) IsRoundRect() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialShapeDrawableIsRoundRect == nil {
-			callErr = fmt.Errorf("com.google.android.material.shape.MaterialShapeDrawable.isRoundRect is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midMaterialShapeDrawableIsRoundRect,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

@@ -23,6 +23,34 @@ type TunnelModeChildSessionParamsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTunnelModeChildSessionParamsBuilder creates a new android.net.ipsec.ike.TunnelModeChildSessionParams$Builder instance.
+func NewTunnelModeChildSessionParamsBuilder(vm *jni.VM) (*TunnelModeChildSessionParamsBuilder, error) {
+	var t TunnelModeChildSessionParamsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTunnelModeChildSessionParamsBuilder == nil {
+			return fmt.Errorf("android.net.ipsec.ike.TunnelModeChildSessionParams$Builder is not available on this device")
+		}
+		if midTunnelModeChildSessionParamsBuilderCtor == nil {
+			return fmt.Errorf("android.net.ipsec.ike.TunnelModeChildSessionParams$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTunnelModeChildSessionParamsBuilder)), midTunnelModeChildSessionParamsBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddChildSaProposal calls android.net.ipsec.ike.TunnelModeChildSessionParams$Builder.addChildSaProposal.
 func (m *TunnelModeChildSessionParamsBuilder) AddChildSaProposal(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

@@ -23,6 +23,35 @@ type TextBoundsInfoBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTextBoundsInfoBuilder creates a new android.view.inputmethod.TextBoundsInfo$Builder instance.
+func NewTextBoundsInfoBuilder(vm *jni.VM, arg0 int32, arg1 int32) (*TextBoundsInfoBuilder, error) {
+	var t TextBoundsInfoBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTextBoundsInfoBuilder == nil {
+			return fmt.Errorf("android.view.inputmethod.TextBoundsInfo$Builder is not available on this device")
+		}
+		if midTextBoundsInfoBuilderCtor == nil {
+			return fmt.Errorf("android.view.inputmethod.TextBoundsInfo$Builder constructor (II)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextBoundsInfoBuilder)), midTextBoundsInfoBuilderCtor, jni.IntValue(arg0), jni.IntValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.view.inputmethod.TextBoundsInfo$Builder.build.
 func (m *TextBoundsInfoBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

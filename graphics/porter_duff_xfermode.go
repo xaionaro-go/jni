@@ -32,6 +32,12 @@ func NewPorterDuffXfermode(vm *jni.VM, arg0 *jni.Object) (*PorterDuffXfermode, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPorterDuffXfermode == nil {
+			return fmt.Errorf("android.graphics.PorterDuffXfermode is not available on this device")
+		}
+		if midPorterDuffXfermodeCtor == nil {
+			return fmt.Errorf("android.graphics.PorterDuffXfermode constructor (Landroid/graphics/PorterDuff$Mode;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPorterDuffXfermode)), midPorterDuffXfermodeCtor, jni.ObjectValue(arg0))
 		if err != nil {

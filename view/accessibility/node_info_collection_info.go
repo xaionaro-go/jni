@@ -23,6 +23,40 @@ type NodeInfoCollectionInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNodeInfoCollectionInfo creates a new android.view.accessibility.AccessibilityNodeInfo$CollectionInfo instance.
+func NewNodeInfoCollectionInfo(vm *jni.VM, arg0 int32, arg1 int32, arg2 bool) (*NodeInfoCollectionInfo, error) {
+	var t NodeInfoCollectionInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNodeInfoCollectionInfo == nil {
+			return fmt.Errorf("android.view.accessibility.AccessibilityNodeInfo$CollectionInfo is not available on this device")
+		}
+		if midNodeInfoCollectionInfoCtor == nil {
+			return fmt.Errorf("android.view.accessibility.AccessibilityNodeInfo$CollectionInfo constructor (IIZ)V is not available on this device")
+		}
+
+		var jArg2 uint8
+		if arg2 {
+			jArg2 = jniTrue
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNodeInfoCollectionInfo)), midNodeInfoCollectionInfoCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.BooleanValue(jArg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetColumnCount calls android.view.accessibility.AccessibilityNodeInfo$CollectionInfo.getColumnCount.
 func (m *NodeInfoCollectionInfo) GetColumnCount() (int32, error) {
 	var result int32

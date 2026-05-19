@@ -30,6 +30,12 @@ func NewFragmentTabHost(vm *jni.VM, arg0 *jni.Object) (*FragmentTabHost, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFragmentTabHost == nil {
+			return fmt.Errorf("androidx.fragment.app.FragmentTabHost is not available on this device")
+		}
+		if midFragmentTabHostCtor == nil {
+			return fmt.Errorf("androidx.fragment.app.FragmentTabHost constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFragmentTabHost)), midFragmentTabHostCtor, jni.ObjectValue(arg0))
 		if err != nil {

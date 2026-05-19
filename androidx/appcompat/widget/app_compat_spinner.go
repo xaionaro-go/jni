@@ -32,6 +32,12 @@ func NewAppCompatSpinner(vm *jni.VM, arg0 *jni.Object) (*AppCompatSpinner, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppCompatSpinner == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatSpinner is not available on this device")
+		}
+		if midAppCompatSpinnerCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatSpinner constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppCompatSpinner)), midAppCompatSpinnerCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -300,8 +306,8 @@ func (m *AppCompatSpinner) GetDropDownWidth() (int32, error) {
 	return result, callErr
 }
 
-// SetAdapter1 calls androidx.appcompat.widget.AppCompatSpinner.setAdapter.
-func (m *AppCompatSpinner) SetAdapter1(arg0 *jni.Object) error {
+// SetAdapter calls androidx.appcompat.widget.AppCompatSpinner.setAdapter.
+func (m *AppCompatSpinner) SetAdapter(arg0 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -309,14 +315,14 @@ func (m *AppCompatSpinner) SetAdapter1(arg0 *jni.Object) error {
 			callErr = err
 			return err
 		}
-		if midAppCompatSpinnerSetAdapter1 == nil {
+		if midAppCompatSpinnerSetAdapter == nil {
 			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatSpinner.setAdapter is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midAppCompatSpinnerSetAdapter1, jni.ObjectValue(arg0),
+			midAppCompatSpinnerSetAdapter, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})
@@ -643,29 +649,6 @@ func (m *AppCompatSpinner) OnRestoreInstanceState(arg0 *jni.Object) error {
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midAppCompatSpinnerOnRestoreInstanceState, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// SetAdapter1_1 calls androidx.appcompat.widget.AppCompatSpinner.setAdapter.
-func (m *AppCompatSpinner) SetAdapter1_1(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppCompatSpinnerSetAdapter1_1 == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatSpinner.setAdapter is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAppCompatSpinnerSetAdapter1_1, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})

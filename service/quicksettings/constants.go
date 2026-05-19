@@ -5,15 +5,15 @@ package quicksettings
 import "github.com/AndroidGoLab/jni/service/quicksettings/consts"
 
 const (
-	ActionQsTile            = consts.ActionQsTile
-	ActionQsTilePreferences = consts.ActionQsTilePreferences
-	MetaDataActiveTile      = consts.MetaDataActiveTile
-	MetaDataToggleableTile  = consts.MetaDataToggleableTile
-)
-
-const (
 	Creator          = consts.Creator
 	StateActive      = consts.StateActive
 	StateInactive    = consts.StateInactive
 	StateUnavailable = consts.StateUnavailable
+)
+
+const (
+	ActionQsTile            = consts.ActionQsTile
+	ActionQsTilePreferences = consts.ActionQsTilePreferences
+	MetaDataActiveTile      = consts.MetaDataActiveTile
+	MetaDataToggleableTile  = consts.MetaDataToggleableTile
 )

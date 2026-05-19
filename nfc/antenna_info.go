@@ -32,6 +32,12 @@ func NewAntennaInfo(vm *jni.VM, arg0 int32, arg1 int32, arg2 bool, arg3 *jni.Obj
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAntennaInfo == nil {
+			return fmt.Errorf("android.nfc.NfcAntennaInfo is not available on this device")
+		}
+		if midAntennaInfoCtor == nil {
+			return fmt.Errorf("android.nfc.NfcAntennaInfo constructor (IIZLjava/util/List;)V is not available on this device")
+		}
 
 		var jArg2 uint8
 		if arg2 {
@@ -185,29 +191,6 @@ func (m *AntennaInfo) IsDeviceFoldable() (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.nfc.NfcAntennaInfo.writeToParcel.
-func (m *AntennaInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAntennaInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.nfc.NfcAntennaInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAntennaInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.nfc.NfcAntennaInfo.toString.
 func (m *AntennaInfo) ToString() (string, error) {
 	var result string
@@ -233,4 +216,27 @@ func (m *AntennaInfo) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.nfc.NfcAntennaInfo.writeToParcel.
+func (m *AntennaInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midAntennaInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.nfc.NfcAntennaInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAntennaInfo)),
+			midAntennaInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

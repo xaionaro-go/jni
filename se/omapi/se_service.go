@@ -32,6 +32,12 @@ func NewSEService(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.Obje
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSEService == nil {
+			return fmt.Errorf("android.se.omapi.SEService is not available on this device")
+		}
+		if midSEServiceCtor == nil {
+			return fmt.Errorf("android.se.omapi.SEService constructor (Landroid/content/Context;Ljava/util/concurrent/Executor;Landroid/se/omapi/SEService$OnConnectedListener;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSEService)), midSEServiceCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
 		if err != nil {

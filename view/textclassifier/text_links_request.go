@@ -235,29 +235,6 @@ func (m *TextLinksRequest) GetText() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.textclassifier.TextLinks$Request.writeToParcel.
-func (m *TextLinksRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTextLinksRequestWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.textclassifier.TextLinks$Request.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midTextLinksRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.view.textclassifier.TextLinks$Request.toString.
 func (m *TextLinksRequest) ToString() (string, error) {
 	var result string
@@ -283,4 +260,27 @@ func (m *TextLinksRequest) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.textclassifier.TextLinks$Request.writeToParcel.
+func (m *TextLinksRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midTextLinksRequestWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.textclassifier.TextLinks$Request.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsTextLinksRequest)),
+			midTextLinksRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

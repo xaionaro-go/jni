@@ -23,28 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsTextAppearanceConfig                               *jni.GlobalRef
-	midTextAppearanceConfigCtor                           jni.MethodID
-	midTextAppearanceConfigToString                       jni.MethodID
-	midTextAppearanceConfigSetShouldLoadFontSynchronously jni.MethodID
-	midTextAppearanceConfigShouldLoadFontSynchronously    jni.MethodID
-
-	clsCancelableFontCallback                      *jni.GlobalRef
-	midCancelableFontCallbackCtor                  jni.MethodID
-	midCancelableFontCallbackOnFontRetrieved       jni.MethodID
-	midCancelableFontCallbackOnFontRetrievalFailed jni.MethodID
-	midCancelableFontCallbackCancel                jni.MethodID
-	midCancelableFontCallbackToString              jni.MethodID
-
-	clsCancelableFontCallbackApplyFont         *jni.GlobalRef
-	midCancelableFontCallbackApplyFontApply    jni.MethodID
-	midCancelableFontCallbackApplyFontToString jni.MethodID
-
-	clsTextAppearanceFontCallback                      *jni.GlobalRef
-	midTextAppearanceFontCallbackOnFontRetrieved       jni.MethodID
-	midTextAppearanceFontCallbackOnFontRetrievalFailed jni.MethodID
-	midTextAppearanceFontCallbackToString              jni.MethodID
-
 	clsTextAppearance                            *jni.GlobalRef
 	midTextAppearanceCtor                        jni.MethodID
 	midTextAppearanceGetFont                     jni.MethodID
@@ -57,13 +35,35 @@ var (
 	midTextAppearanceGetTextColor                jni.MethodID
 	midTextAppearanceSetTextColor                jni.MethodID
 	midTextAppearanceGetTextSize                 jni.MethodID
-	midTextAppearanceSetTextSize                 jni.MethodID
 	midTextAppearanceToString                    jni.MethodID
 
 	clsTypefaceUtils                                     *jni.GlobalRef
 	midTypefaceUtilsToString                             jni.MethodID
 	midTypefaceUtilsMaybeCopyWithFontWeightAdjustment2   jni.MethodID
 	midTypefaceUtilsMaybeCopyWithFontWeightAdjustment2_1 jni.MethodID
+
+	clsCancelableFontCallback                      *jni.GlobalRef
+	midCancelableFontCallbackCtor                  jni.MethodID
+	midCancelableFontCallbackOnFontRetrieved       jni.MethodID
+	midCancelableFontCallbackOnFontRetrievalFailed jni.MethodID
+	midCancelableFontCallbackCancel                jni.MethodID
+	midCancelableFontCallbackToString              jni.MethodID
+
+	clsCancelableFontCallbackApplyFont         *jni.GlobalRef
+	midCancelableFontCallbackApplyFontApply    jni.MethodID
+	midCancelableFontCallbackApplyFontToString jni.MethodID
+
+	clsMaterialResources                      *jni.GlobalRef
+	midMaterialResourcesToString              jni.MethodID
+	midMaterialResourcesGetColorStateList3    jni.MethodID
+	midMaterialResourcesGetColorStateList3_1  jni.MethodID
+	midMaterialResourcesGetDrawable           jni.MethodID
+	midMaterialResourcesGetTextAppearance     jni.MethodID
+	midMaterialResourcesGetDimensionPixelSize jni.MethodID
+	midMaterialResourcesIsFontScaleAtLeast13  jni.MethodID
+	midMaterialResourcesIsFontScaleAtLeast20  jni.MethodID
+	midMaterialResourcesGetFontScale          jni.MethodID
+	midMaterialResourcesGetUnscaledTextSize   jni.MethodID
 
 	clsMaterialAttributes                                    *jni.GlobalRef
 	midMaterialAttributesCtor                                jni.MethodID
@@ -79,17 +79,16 @@ var (
 	midMaterialAttributesResolveMinimumAccessibleTouchTarget jni.MethodID
 	midMaterialAttributesResolveDimension                    jni.MethodID
 
-	clsMaterialResources                      *jni.GlobalRef
-	midMaterialResourcesToString              jni.MethodID
-	midMaterialResourcesGetColorStateList3    jni.MethodID
-	midMaterialResourcesGetColorStateList3_1  jni.MethodID
-	midMaterialResourcesGetDrawable           jni.MethodID
-	midMaterialResourcesGetTextAppearance     jni.MethodID
-	midMaterialResourcesGetDimensionPixelSize jni.MethodID
-	midMaterialResourcesIsFontScaleAtLeast1_3 jni.MethodID
-	midMaterialResourcesIsFontScaleAtLeast2_0 jni.MethodID
-	midMaterialResourcesGetFontScale          jni.MethodID
-	midMaterialResourcesGetUnscaledTextSize   jni.MethodID
+	clsTextAppearanceConfig                               *jni.GlobalRef
+	midTextAppearanceConfigCtor                           jni.MethodID
+	midTextAppearanceConfigToString                       jni.MethodID
+	midTextAppearanceConfigSetShouldLoadFontSynchronously jni.MethodID
+	midTextAppearanceConfigShouldLoadFontSynchronously    jni.MethodID
+
+	clsTextAppearanceFontCallback                      *jni.GlobalRef
+	midTextAppearanceFontCallbackOnFontRetrieved       jni.MethodID
+	midTextAppearanceFontCallbackOnFontRetrievalFailed jni.MethodID
+	midTextAppearanceFontCallbackToString              jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -109,138 +108,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("com/google/android/material/resources/TextAppearanceConfig")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTextAppearanceConfig = env.NewGlobalRef(&c.Object)
-		midTextAppearanceConfigCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextAppearanceConfig)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midTextAppearanceConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextAppearanceConfig)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextAppearanceConfigSetShouldLoadFontSynchronously, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTextAppearanceConfig)), "setShouldLoadFontSynchronously", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextAppearanceConfigShouldLoadFontSynchronously, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTextAppearanceConfig)), "shouldLoadFontSynchronously", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/resources/CancelableFontCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCancelableFontCallback = env.NewGlobalRef(&c.Object)
-		midCancelableFontCallbackCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancelableFontCallback)), "<init>", "(Lcom/google/android/material/resources/CancelableFontCallback$ApplyFont;Landroid/graphics/Typeface;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCancelableFontCallbackOnFontRetrieved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancelableFontCallback)), "onFontRetrieved", "(Landroid/graphics/Typeface;Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCancelableFontCallbackOnFontRetrievalFailed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancelableFontCallback)), "onFontRetrievalFailed", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCancelableFontCallbackCancel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancelableFontCallback)), "cancel", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCancelableFontCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancelableFontCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/resources/CancelableFontCallback$ApplyFont")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCancelableFontCallbackApplyFont = env.NewGlobalRef(&c.Object)
-
-		midCancelableFontCallbackApplyFontApply, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancelableFontCallbackApplyFont)), "apply", "(Landroid/graphics/Typeface;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCancelableFontCallbackApplyFontToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancelableFontCallbackApplyFont)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/resources/TextAppearanceFontCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTextAppearanceFontCallback = env.NewGlobalRef(&c.Object)
-
-		midTextAppearanceFontCallbackOnFontRetrieved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextAppearanceFontCallback)), "onFontRetrieved", "(Landroid/graphics/Typeface;Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextAppearanceFontCallbackOnFontRetrievalFailed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextAppearanceFontCallback)), "onFontRetrievalFailed", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextAppearanceFontCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextAppearanceFontCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("com/google/android/material/resources/TextAppearance")
 	if err != nil {
@@ -324,13 +191,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midTextAppearanceSetTextSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextAppearance)), "setTextSize", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midTextAppearanceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextAppearance)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -363,6 +223,152 @@ func doInit(env *jni.Env) error {
 		}
 
 		midTypefaceUtilsMaybeCopyWithFontWeightAdjustment2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceUtils)), "maybeCopyWithFontWeightAdjustment", "(Landroid/content/res/Configuration;Landroid/graphics/Typeface;)Landroid/graphics/Typeface;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/resources/CancelableFontCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCancelableFontCallback = env.NewGlobalRef(&c.Object)
+		midCancelableFontCallbackCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancelableFontCallback)), "<init>", "(Lcom/google/android/material/resources/CancelableFontCallback$ApplyFont;Landroid/graphics/Typeface;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCancelableFontCallbackOnFontRetrieved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancelableFontCallback)), "onFontRetrieved", "(Landroid/graphics/Typeface;Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCancelableFontCallbackOnFontRetrievalFailed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancelableFontCallback)), "onFontRetrievalFailed", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCancelableFontCallbackCancel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancelableFontCallback)), "cancel", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCancelableFontCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancelableFontCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/resources/CancelableFontCallback$ApplyFont")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCancelableFontCallbackApplyFont = env.NewGlobalRef(&c.Object)
+
+		midCancelableFontCallbackApplyFontApply, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancelableFontCallbackApplyFont)), "apply", "(Landroid/graphics/Typeface;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCancelableFontCallbackApplyFontToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancelableFontCallbackApplyFont)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/resources/MaterialResources")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMaterialResources = env.NewGlobalRef(&c.Object)
+
+		midMaterialResourcesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialResources)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialResourcesGetColorStateList3, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialResources)), "getColorStateList", "(Landroid/content/Context;Landroid/content/res/TypedArray;I)Landroid/content/res/ColorStateList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialResourcesGetColorStateList3_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialResources)), "getColorStateList", "(Landroid/content/Context;Landroidx/appcompat/widget/TintTypedArray;I)Landroid/content/res/ColorStateList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialResourcesGetDrawable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialResources)), "getDrawable", "(Landroid/content/Context;Landroid/content/res/TypedArray;I)Landroid/graphics/drawable/Drawable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialResourcesGetTextAppearance, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialResources)), "getTextAppearance", "(Landroid/content/Context;Landroid/content/res/TypedArray;I)Lcom/google/android/material/resources/TextAppearance;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialResourcesGetDimensionPixelSize, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialResources)), "getDimensionPixelSize", "(Landroid/content/Context;Landroid/content/res/TypedArray;II)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialResourcesIsFontScaleAtLeast13, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialResources)), "isFontScaleAtLeast1_3", "(Landroid/content/Context;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialResourcesIsFontScaleAtLeast20, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialResources)), "isFontScaleAtLeast2_0", "(Landroid/content/Context;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialResourcesGetFontScale, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialResources)), "getFontScale", "(Landroid/content/Context;)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialResourcesGetUnscaledTextSize, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialResources)), "getUnscaledTextSize", "(Landroid/content/Context;II)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -462,78 +468,64 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/resources/MaterialResources")
+	c, err = env.FindClass("com/google/android/material/resources/TextAppearanceConfig")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsMaterialResources = env.NewGlobalRef(&c.Object)
+		clsTextAppearanceConfig = env.NewGlobalRef(&c.Object)
+		midTextAppearanceConfigCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextAppearanceConfig)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midMaterialResourcesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialResources)), "toString", "()Ljava/lang/String;")
+		midTextAppearanceConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextAppearanceConfig)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialResourcesGetColorStateList3, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialResources)), "getColorStateList", "(Landroid/content/Context;Landroid/content/res/TypedArray;I)Landroid/content/res/ColorStateList;")
+		midTextAppearanceConfigSetShouldLoadFontSynchronously, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTextAppearanceConfig)), "setShouldLoadFontSynchronously", "(Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialResourcesGetColorStateList3_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialResources)), "getColorStateList", "(Landroid/content/Context;Landroidx/appcompat/widget/TintTypedArray;I)Landroid/content/res/ColorStateList;")
+		midTextAppearanceConfigShouldLoadFontSynchronously, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTextAppearanceConfig)), "shouldLoadFontSynchronously", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialResourcesGetDrawable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialResources)), "getDrawable", "(Landroid/content/Context;Landroid/content/res/TypedArray;I)Landroid/graphics/drawable/Drawable;")
+	}
+
+	c, err = env.FindClass("com/google/android/material/resources/TextAppearanceFontCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTextAppearanceFontCallback = env.NewGlobalRef(&c.Object)
+
+		midTextAppearanceFontCallbackOnFontRetrieved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextAppearanceFontCallback)), "onFontRetrieved", "(Landroid/graphics/Typeface;Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialResourcesGetTextAppearance, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialResources)), "getTextAppearance", "(Landroid/content/Context;Landroid/content/res/TypedArray;I)Lcom/google/android/material/resources/TextAppearance;")
+		midTextAppearanceFontCallbackOnFontRetrievalFailed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextAppearanceFontCallback)), "onFontRetrievalFailed", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialResourcesGetDimensionPixelSize, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialResources)), "getDimensionPixelSize", "(Landroid/content/Context;Landroid/content/res/TypedArray;II)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialResourcesIsFontScaleAtLeast1_3, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialResources)), "isFontScaleAtLeast1_3", "(Landroid/content/Context;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialResourcesIsFontScaleAtLeast2_0, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialResources)), "isFontScaleAtLeast2_0", "(Landroid/content/Context;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialResourcesGetFontScale, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialResources)), "getFontScale", "(Landroid/content/Context;)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialResourcesGetUnscaledTextSize, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialResources)), "getUnscaledTextSize", "(Landroid/content/Context;II)I")
+		midTextAppearanceFontCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextAppearanceFontCallback)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

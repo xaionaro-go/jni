@@ -32,6 +32,12 @@ func NewSingleGeneratedAdapterObserver(vm *jni.VM, arg0 *jni.Object) (*SingleGen
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSingleGeneratedAdapterObserver == nil {
+			return fmt.Errorf("androidx.lifecycle.SingleGeneratedAdapterObserver is not available on this device")
+		}
+		if midSingleGeneratedAdapterObserverCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.SingleGeneratedAdapterObserver constructor (Landroidx/lifecycle/GeneratedAdapter;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSingleGeneratedAdapterObserver)), midSingleGeneratedAdapterObserverCtor, jni.ObjectValue(arg0))
 		if err != nil {

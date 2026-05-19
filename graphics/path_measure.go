@@ -32,6 +32,12 @@ func NewPathMeasure(vm *jni.VM) (*PathMeasure, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPathMeasure == nil {
+			return fmt.Errorf("android.graphics.PathMeasure is not available on this device")
+		}
+		if midPathMeasureCtor == nil {
+			return fmt.Errorf("android.graphics.PathMeasure constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPathMeasure)), midPathMeasureCtor)
 		if err != nil {
 			return err

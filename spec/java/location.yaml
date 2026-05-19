@@ -5,8 +5,8 @@
 package: location
 go_import: github.com/AndroidGoLab/jni/location
 classes:
-    - java_class: android.location.GnssAutomaticGainControl
-      go_type: GnssAutomaticGainControl
+    - java_class: android.location.GnssSignalType
+      go_type: GnssSignalType
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -21,15 +21,15 @@ classes:
           error: true
         - java_method: getCarrierFrequencyHz
           go_name: GetCarrierFrequencyHz
-          returns: long
+          returns: double
+          error: true
+        - java_method: getCodeType
+          go_name: GetCodeType
+          returns: String
           error: true
         - java_method: getConstellationType
           go_name: GetConstellationType
           returns: int
-          error: true
-        - java_method: getLevelDb
-          go_name: GetLevelDb
-          returns: double
           error: true
         - java_method: hashCode
           go_name: HashCode
@@ -38,6 +38,18 @@ classes:
         - java_method: toString
           go_name: ToString
           returns: String
+          error: true
+      static_methods:
+        - java_method: create
+          go_name: Create
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: double
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+          returns: android.location.GnssSignalType
           error: true
         - java_method: writeToParcel
           go_name: WriteToParcel
@@ -48,67 +60,96 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.location.GnssAutomaticGainControl$Builder
-      go_type: GnssAutomaticGainControlBuilder
+    - java_class: android.location.GnssMeasurementsEvent
+      go_type: GnssMeasurementsEvent
       methods:
-        - java_method: build
-          go_name: Build
-          returns: android.location.GnssAutomaticGainControl
-          error: true
-        - java_method: setCarrierFrequencyHz
-          go_name: SetCarrierFrequencyHz
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.location.GnssAutomaticGainControl$Builder
-          error: true
-        - java_method: setConstellationType
-          go_name: SetConstellationType
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.location.GnssAutomaticGainControl$Builder
-          error: true
-        - java_method: setLevelDb
-          go_name: SetLevelDb
-          params:
-            - java_type: double
-              go_name: arg0
-          returns: android.location.GnssAutomaticGainControl$Builder
-          error: true
-    - java_class: android.location.Location
-      go_type: Location
-      obtain: constructor
-      constructor_params:
-        - java_type: android.location.Location
-          go_name: arg0
-      methods:
-        - java_method: bearingTo
-          go_name: BearingTo
-          params:
-            - java_type: android.location.Location
-              go_name: arg0
-          returns: float
-          error: true
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
-        - java_method: distanceTo
-          go_name: DistanceTo
-          params:
-            - java_type: android.location.Location
-              go_name: arg0
-          returns: float
+        - java_method: getClock
+          go_name: GetClock
+          returns: android.location.GnssClock
           error: true
-        - java_method: dump
-          go_name: Dump
+        - java_method: getGnssAutomaticGainControls
+          go_name: GetGnssAutomaticGainControls
+          returns: java.util.Collection<android.location.GnssAutomaticGainControl>
+          error: true
+        - java_method: getMeasurements
+          go_name: GetMeasurements
+          returns: java.util.Collection<android.location.GnssMeasurement>
+          error: true
+        - java_method: hasIsFullTracking
+          go_name: HasIsFullTracking
+          returns: boolean
+          error: true
+        - java_method: isFullTracking
+          go_name: IsFullTracking
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
           params:
-            - java_type: android.util.Printer
+            - java_type: android.os.Parcel
               go_name: arg0
-            - java_type: String
+            - java_type: int
               go_name: arg1
           returns: void
+          error: true
+    - java_class: android.location.GnssMeasurementsEvent$Builder
+      go_type: GnssMeasurementsEventBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.location.GnssMeasurementsEvent
+          error: true
+        - java_method: clearIsFullTracking
+          go_name: ClearIsFullTracking
+          returns: android.location.GnssMeasurementsEvent$Builder
+          error: true
+        - java_method: setClock
+          go_name: SetClock
+          params:
+            - java_type: android.location.GnssClock
+              go_name: arg0
+          returns: android.location.GnssMeasurementsEvent$Builder
+          error: true
+        - java_method: setIsFullTracking
+          go_name: SetIsFullTracking
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssMeasurementsEvent$Builder
+          error: true
+    - java_class: android.location.GnssMeasurementsEvent$Callback
+      go_type: GnssMeasurementsEventCallback
+      methods:
+        - java_method: onGnssMeasurementsReceived
+          go_name: OnGnssMeasurementsReceived
+          params:
+            - java_type: android.location.GnssMeasurementsEvent
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onStatusChanged
+          go_name: OnStatusChanged
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.location.GnssAntennaInfo
+      go_type: GnssAntennaInfo
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
           error: true
         - java_method: equals
           go_name: Equals
@@ -117,315 +158,31 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getAccuracy
-          go_name: GetAccuracy
-          returns: float
-          error: true
-        - java_method: getAltitude
-          go_name: GetAltitude
+        - java_method: getCarrierFrequencyMHz
+          go_name: GetCarrierFrequencyMHz
           returns: double
           error: true
-        - java_method: getBearing
-          go_name: GetBearing
-          returns: float
+        - java_method: getPhaseCenterOffset
+          go_name: GetPhaseCenterOffset
+          returns: android.location.GnssAntennaInfo$PhaseCenterOffset
           error: true
-        - java_method: getBearingAccuracyDegrees
-          go_name: GetBearingAccuracyDegrees
-          returns: float
+        - java_method: getPhaseCenterVariationCorrections
+          go_name: GetPhaseCenterVariationCorrections
+          returns: android.location.GnssAntennaInfo$SphericalCorrections
           error: true
-        - java_method: getElapsedRealtimeAgeMillis
-          go_name: GetElapsedRealtimeAgeMillis0
-          returns: long
-          error: true
-        - java_method: getElapsedRealtimeAgeMillis
-          go_name: GetElapsedRealtimeAgeMillis1_1
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: long
-          error: true
-        - java_method: getElapsedRealtimeMillis
-          go_name: GetElapsedRealtimeMillis
-          returns: long
-          error: true
-        - java_method: getElapsedRealtimeNanos
-          go_name: GetElapsedRealtimeNanos
-          returns: long
-          error: true
-        - java_method: getElapsedRealtimeUncertaintyNanos
-          go_name: GetElapsedRealtimeUncertaintyNanos
-          returns: double
-          error: true
-        - java_method: getExtras
-          go_name: GetExtras
-          returns: android.os.Bundle
-          error: true
-        - java_method: getLatitude
-          go_name: GetLatitude
-          returns: double
-          error: true
-        - java_method: getLongitude
-          go_name: GetLongitude
-          returns: double
-          error: true
-        - java_method: getMslAltitudeAccuracyMeters
-          go_name: GetMslAltitudeAccuracyMeters
-          returns: float
-          error: true
-        - java_method: getMslAltitudeMeters
-          go_name: GetMslAltitudeMeters
-          returns: double
-          error: true
-        - java_method: getProvider
-          go_name: GetProvider
-          returns: String
-          error: true
-        - java_method: getSpeed
-          go_name: GetSpeed
-          returns: float
-          error: true
-        - java_method: getSpeedAccuracyMetersPerSecond
-          go_name: GetSpeedAccuracyMetersPerSecond
-          returns: float
-          error: true
-        - java_method: getTime
-          go_name: GetTime
-          returns: long
-          error: true
-        - java_method: getVerticalAccuracyMeters
-          go_name: GetVerticalAccuracyMeters
-          returns: float
-          error: true
-        - java_method: hasAccuracy
-          go_name: HasAccuracy
-          returns: boolean
-          error: true
-        - java_method: hasAltitude
-          go_name: HasAltitude
-          returns: boolean
-          error: true
-        - java_method: hasBearing
-          go_name: HasBearing
-          returns: boolean
-          error: true
-        - java_method: hasBearingAccuracy
-          go_name: HasBearingAccuracy
-          returns: boolean
-          error: true
-        - java_method: hasElapsedRealtimeUncertaintyNanos
-          go_name: HasElapsedRealtimeUncertaintyNanos
-          returns: boolean
-          error: true
-        - java_method: hasMslAltitude
-          go_name: HasMslAltitude
-          returns: boolean
-          error: true
-        - java_method: hasMslAltitudeAccuracy
-          go_name: HasMslAltitudeAccuracy
-          returns: boolean
-          error: true
-        - java_method: hasSpeed
-          go_name: HasSpeed
-          returns: boolean
-          error: true
-        - java_method: hasSpeedAccuracy
-          go_name: HasSpeedAccuracy
-          returns: boolean
-          error: true
-        - java_method: hasVerticalAccuracy
-          go_name: HasVerticalAccuracy
-          returns: boolean
+        - java_method: getSignalGainCorrections
+          go_name: GetSignalGainCorrections
+          returns: android.location.GnssAntennaInfo$SphericalCorrections
           error: true
         - java_method: hashCode
           go_name: HashCode
           returns: int
           error: true
-        - java_method: isComplete
-          go_name: IsComplete
-          returns: boolean
-          error: true
-        - java_method: isFromMockProvider
-          go_name: IsFromMockProvider
-          returns: boolean
-          error: true
-        - java_method: isMock
-          go_name: IsMock
-          returns: boolean
-          error: true
-        - java_method: removeAccuracy
-          go_name: RemoveAccuracy
-          returns: void
-          error: true
-        - java_method: removeAltitude
-          go_name: RemoveAltitude
-          returns: void
-          error: true
-        - java_method: removeBearing
-          go_name: RemoveBearing
-          returns: void
-          error: true
-        - java_method: removeBearingAccuracy
-          go_name: RemoveBearingAccuracy
-          returns: void
-          error: true
-        - java_method: removeElapsedRealtimeUncertaintyNanos
-          go_name: RemoveElapsedRealtimeUncertaintyNanos
-          returns: void
-          error: true
-        - java_method: removeMslAltitude
-          go_name: RemoveMslAltitude
-          returns: void
-          error: true
-        - java_method: removeMslAltitudeAccuracy
-          go_name: RemoveMslAltitudeAccuracy
-          returns: void
-          error: true
-        - java_method: removeSpeed
-          go_name: RemoveSpeed
-          returns: void
-          error: true
-        - java_method: removeSpeedAccuracy
-          go_name: RemoveSpeedAccuracy
-          returns: void
-          error: true
-        - java_method: removeVerticalAccuracy
-          go_name: RemoveVerticalAccuracy
-          returns: void
-          error: true
-        - java_method: reset
-          go_name: Reset
-          returns: void
-          error: true
-        - java_method: set
-          go_name: Set
-          params:
-            - java_type: android.location.Location
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setAccuracy
-          go_name: SetAccuracy
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setAltitude
-          go_name: SetAltitude
-          params:
-            - java_type: double
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setBearing
-          go_name: SetBearing
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setBearingAccuracyDegrees
-          go_name: SetBearingAccuracyDegrees
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setElapsedRealtimeNanos
-          go_name: SetElapsedRealtimeNanos
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setElapsedRealtimeUncertaintyNanos
-          go_name: SetElapsedRealtimeUncertaintyNanos
-          params:
-            - java_type: double
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setExtras
-          go_name: SetExtras
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLatitude
-          go_name: SetLatitude
-          params:
-            - java_type: double
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLongitude
-          go_name: SetLongitude
-          params:
-            - java_type: double
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setMock
-          go_name: SetMock
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setMslAltitudeAccuracyMeters
-          go_name: SetMslAltitudeAccuracyMeters
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setMslAltitudeMeters
-          go_name: SetMslAltitudeMeters
-          params:
-            - java_type: double
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setProvider
-          go_name: SetProvider
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSpeed
-          go_name: SetSpeed
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSpeedAccuracyMetersPerSecond
-          go_name: SetSpeedAccuracyMetersPerSecond
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTime
-          go_name: SetTime
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setVerticalAccuracyMeters
-          go_name: SetVerticalAccuracyMeters
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
         - java_method: toString
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -435,36 +192,302 @@ classes:
               go_name: arg1
           returns: void
           error: true
-      static_methods:
-        - java_method: convert
-          go_name: Convert2
+    - java_class: android.location.GnssAntennaInfo$Builder
+      go_type: GnssAntennaInfoBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.location.GnssAntennaInfo
+          error: true
+        - java_method: setCarrierFrequencyMHz
+          go_name: SetCarrierFrequencyMHz
           params:
             - java_type: double
+              go_name: arg0
+          returns: android.location.GnssAntennaInfo$Builder
+          error: true
+        - java_method: setPhaseCenterOffset
+          go_name: SetPhaseCenterOffset
+          params:
+            - java_type: android.location.GnssAntennaInfo$PhaseCenterOffset
+              go_name: arg0
+          returns: android.location.GnssAntennaInfo$Builder
+          error: true
+        - java_method: setPhaseCenterVariationCorrections
+          go_name: SetPhaseCenterVariationCorrections
+          params:
+            - java_type: android.location.GnssAntennaInfo$SphericalCorrections
+              go_name: arg0
+          returns: android.location.GnssAntennaInfo$Builder
+          error: true
+        - java_method: setSignalGainCorrections
+          go_name: SetSignalGainCorrections
+          params:
+            - java_type: android.location.GnssAntennaInfo$SphericalCorrections
+              go_name: arg0
+          returns: android.location.GnssAntennaInfo$Builder
+          error: true
+    - java_class: android.location.GnssAntennaInfo$Listener
+      go_type: GnssAntennaInfoListener
+    - java_class: android.location.GnssAntennaInfo$PhaseCenterOffset
+      go_type: GnssAntennaInfoPhaseCenterOffset
+      obtain: constructor
+      constructor_params:
+        - java_type: double
+          go_name: arg0
+        - java_type: double
+          go_name: arg1
+        - java_type: double
+          go_name: arg2
+        - java_type: double
+          go_name: arg3
+        - java_type: double
+          go_name: arg4
+        - java_type: double
+          go_name: arg5
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getXOffsetMm
+          go_name: GetXOffsetMm
+          returns: double
+          error: true
+        - java_method: getXOffsetUncertaintyMm
+          go_name: GetXOffsetUncertaintyMm
+          returns: double
+          error: true
+        - java_method: getYOffsetMm
+          go_name: GetYOffsetMm
+          returns: double
+          error: true
+        - java_method: getYOffsetUncertaintyMm
+          go_name: GetYOffsetUncertaintyMm
+          returns: double
+          error: true
+        - java_method: getZOffsetMm
+          go_name: GetZOffsetMm
+          returns: double
+          error: true
+        - java_method: getZOffsetUncertaintyMm
+          go_name: GetZOffsetUncertaintyMm
+          returns: double
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
               go_name: arg0
             - java_type: int
               go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.location.GnssAntennaInfo$SphericalCorrections
+      go_type: GnssAntennaInfoSphericalCorrections
+      obtain: constructor
+      constructor_params:
+        - java_type: double[][]
+          go_name: arg0
+        - java_type: double[][]
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getCorrectionUncertaintiesArray
+          go_name: GetCorrectionUncertaintiesArray
+          returns: double[][]
+          error: true
+        - java_method: getCorrectionsArray
+          go_name: GetCorrectionsArray
+          returns: double[][]
+          error: true
+        - java_method: getDeltaPhi
+          go_name: GetDeltaPhi
+          returns: double
+          error: true
+        - java_method: getDeltaTheta
+          go_name: GetDeltaTheta
+          returns: double
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
           returns: String
           error: true
-        - java_method: convert
-          go_name: Convert1_1
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.location.LocationRequest
+      go_type: Request
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getDurationMillis
+          go_name: GetDurationMillis
+          returns: long
+          error: true
+        - java_method: getIntervalMillis
+          go_name: GetIntervalMillis
+          returns: long
+          error: true
+        - java_method: getMaxUpdateDelayMillis
+          go_name: GetMaxUpdateDelayMillis
+          returns: long
+          error: true
+        - java_method: getMaxUpdates
+          go_name: GetMaxUpdates
+          returns: int
+          error: true
+        - java_method: getMinUpdateDistanceMeters
+          go_name: GetMinUpdateDistanceMeters
+          returns: float
+          error: true
+        - java_method: getMinUpdateIntervalMillis
+          go_name: GetMinUpdateIntervalMillis
+          returns: long
+          error: true
+        - java_method: getQuality
+          go_name: GetQuality
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.location.LocationRequest$Builder
+      go_type: RequestBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.location.LocationRequest
+          go_name: arg0
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.location.LocationRequest
+          error: true
+        - java_method: clearMinUpdateIntervalMillis
+          go_name: ClearMinUpdateIntervalMillis
+          returns: android.location.LocationRequest$Builder
+          error: true
+        - java_method: setDurationMillis
+          go_name: SetDurationMillis
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.location.LocationRequest$Builder
+          error: true
+        - java_method: setIntervalMillis
+          go_name: SetIntervalMillis
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.location.LocationRequest$Builder
+          error: true
+        - java_method: setMaxUpdateDelayMillis
+          go_name: SetMaxUpdateDelayMillis
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.location.LocationRequest$Builder
+          error: true
+        - java_method: setMaxUpdates
+          go_name: SetMaxUpdates
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.location.LocationRequest$Builder
+          error: true
+        - java_method: setMinUpdateDistanceMeters
+          go_name: SetMinUpdateDistanceMeters
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: android.location.LocationRequest$Builder
+          error: true
+        - java_method: setMinUpdateIntervalMillis
+          go_name: SetMinUpdateIntervalMillis
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.location.LocationRequest$Builder
+          error: true
+        - java_method: setQuality
+          go_name: SetQuality
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.location.LocationRequest$Builder
+          error: true
+    - java_class: android.location.OnNmeaMessageListener
+      go_type: OnNmeaMessageListener
+      methods:
+        - java_method: onNmeaMessage
+          go_name: OnNmeaMessage
           params:
             - java_type: String
               go_name: arg0
-          returns: double
-          error: true
-        - java_method: distanceBetween
-          go_name: DistanceBetween
-          params:
-            - java_type: double
-              go_name: arg0
-            - java_type: double
+            - java_type: long
               go_name: arg1
-            - java_type: double
-              go_name: arg2
-            - java_type: double
-              go_name: arg3
-            - java_type: float[]
-              go_name: arg4
           returns: void
           error: true
     - java_class: android.location.Geocoder
@@ -559,1071 +582,39 @@ classes:
           go_name: IsPresent
           returns: boolean
           error: true
-    - java_class: android.location.Geocoder$GeocodeListener
-      go_type: GeocoderGeocodeListener
-    - java_class: android.location.GnssNavigationMessage
-      go_type: GnssNavigationMessage
+    - java_class: android.location.GpsSatellite
+      go_type: GpsSatellite
       methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getData
-          go_name: GetData
-          returns: '[B'
-          error: true
-        - java_method: getMessageId
-          go_name: GetMessageId
-          returns: int
-          error: true
-        - java_method: getStatus
-          go_name: GetStatus
-          returns: int
-          error: true
-        - java_method: getSubmessageId
-          go_name: GetSubmessageId
-          returns: int
-          error: true
-        - java_method: getSvid
-          go_name: GetSvid
-          returns: int
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.location.GnssNavigationMessage$Callback
-      go_type: GnssNavigationMessageCallback
-      methods:
-        - java_method: onGnssNavigationMessageReceived
-          go_name: OnGnssNavigationMessageReceived
-          params:
-            - java_type: android.location.GnssNavigationMessage
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onStatusChanged
-          go_name: OnStatusChanged
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.location.GpsStatus
-      go_type: GpsStatus
-      methods:
-        - java_method: getMaxSatellites
-          go_name: GetMaxSatellites
-          returns: int
-          error: true
-        - java_method: getSatellites
-          go_name: GetSatellites
-          returns: java.lang.Iterable<android.location.GpsSatellite>
-          error: true
-        - java_method: getTimeToFirstFix
-          go_name: GetTimeToFirstFix
-          returns: int
-          error: true
-      static_methods:
-        - java_method: create
-          go_name: Create
-          params:
-            - java_type: android.location.GnssStatus
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.location.GpsStatus
-          error: true
-    - java_class: android.location.GpsStatus$Listener
-      go_type: GpsStatusListener
-      methods:
-        - java_method: onGpsStatusChanged
-          go_name: OnGpsStatusChanged
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.location.GpsStatus$NmeaListener
-      go_type: GpsStatusNmeaListener
-      methods:
-        - java_method: onNmeaReceived
-          go_name: OnNmeaReceived
-          params:
-            - java_type: long
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.location.OnNmeaMessageListener
-      go_type: OnNmeaMessageListener
-      methods:
-        - java_method: onNmeaMessage
-          go_name: OnNmeaMessage
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.location.GnssSignalType
-      go_type: GnssSignalType
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getCarrierFrequencyHz
-          go_name: GetCarrierFrequencyHz
-          returns: double
-          error: true
-        - java_method: getCodeType
-          go_name: GetCodeType
-          returns: String
-          error: true
-        - java_method: getConstellationType
-          go_name: GetConstellationType
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: create
-          go_name: Create
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: double
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: android.location.GnssSignalType
-          error: true
-    - java_class: android.location.GnssMeasurementRequest
-      go_type: GnssMeasurementRequest
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getIntervalMillis
-          go_name: GetIntervalMillis
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: isFullTracking
-          go_name: IsFullTracking
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.location.GnssMeasurementRequest$Builder
-      go_type: GnssMeasurementRequestBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.location.GnssMeasurementRequest
-          error: true
-        - java_method: setFullTracking
-          go_name: SetFullTracking
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssMeasurementRequest$Builder
-          error: true
-        - java_method: setIntervalMillis
-          go_name: SetIntervalMillis
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.location.GnssMeasurementRequest$Builder
-          error: true
-    - java_class: android.location.GnssMeasurementsEvent
-      go_type: GnssMeasurementsEvent
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getClock
-          go_name: GetClock
-          returns: android.location.GnssClock
-          error: true
-        - java_method: getGnssAutomaticGainControls
-          go_name: GetGnssAutomaticGainControls
-          returns: java.util.Collection<android.location.GnssAutomaticGainControl>
-          error: true
-        - java_method: getMeasurements
-          go_name: GetMeasurements
-          returns: java.util.Collection<android.location.GnssMeasurement>
-          error: true
-        - java_method: hasIsFullTracking
-          go_name: HasIsFullTracking
-          returns: boolean
-          error: true
-        - java_method: isFullTracking
-          go_name: IsFullTracking
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.location.GnssMeasurementsEvent$Builder
-      go_type: GnssMeasurementsEventBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.location.GnssMeasurementsEvent
-          error: true
-        - java_method: clearIsFullTracking
-          go_name: ClearIsFullTracking
-          returns: android.location.GnssMeasurementsEvent$Builder
-          error: true
-        - java_method: setClock
-          go_name: SetClock
-          params:
-            - java_type: android.location.GnssClock
-              go_name: arg0
-          returns: android.location.GnssMeasurementsEvent$Builder
-          error: true
-        - java_method: setIsFullTracking
-          go_name: SetIsFullTracking
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssMeasurementsEvent$Builder
-          error: true
-    - java_class: android.location.GnssMeasurementsEvent$Callback
-      go_type: GnssMeasurementsEventCallback
-      methods:
-        - java_method: onGnssMeasurementsReceived
-          go_name: OnGnssMeasurementsReceived
-          params:
-            - java_type: android.location.GnssMeasurementsEvent
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onStatusChanged
-          go_name: OnStatusChanged
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.location.LocationProvider
-      go_type: Provider
-      methods:
-        - java_method: getAccuracy
-          go_name: GetAccuracy
-          returns: int
-          error: true
-        - java_method: getName
-          go_name: GetName
-          returns: String
-          error: true
-        - java_method: getPowerRequirement
-          go_name: GetPowerRequirement
-          returns: int
-          error: true
-        - java_method: hasMonetaryCost
-          go_name: HasMonetaryCost
-          returns: boolean
-          error: true
-        - java_method: meetsCriteria
-          go_name: MeetsCriteria
-          params:
-            - java_type: android.location.Criteria
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: requiresCell
-          go_name: RequiresCell
-          returns: boolean
-          error: true
-        - java_method: requiresNetwork
-          go_name: RequiresNetwork
-          returns: boolean
-          error: true
-        - java_method: requiresSatellite
-          go_name: RequiresSatellite
-          returns: boolean
-          error: true
-        - java_method: supportsAltitude
-          go_name: SupportsAltitude
-          returns: boolean
-          error: true
-        - java_method: supportsBearing
-          go_name: SupportsBearing
-          returns: boolean
-          error: true
-        - java_method: supportsSpeed
-          go_name: SupportsSpeed
-          returns: boolean
-          error: true
-    - java_class: android.location.GnssClock
-      go_type: GnssClock
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getBiasNanos
-          go_name: GetBiasNanos
-          returns: double
-          error: true
-        - java_method: getBiasUncertaintyNanos
-          go_name: GetBiasUncertaintyNanos
-          returns: double
-          error: true
-        - java_method: getDriftNanosPerSecond
-          go_name: GetDriftNanosPerSecond
-          returns: double
-          error: true
-        - java_method: getDriftUncertaintyNanosPerSecond
-          go_name: GetDriftUncertaintyNanosPerSecond
-          returns: double
-          error: true
-        - java_method: getElapsedRealtimeNanos
-          go_name: GetElapsedRealtimeNanos
-          returns: long
-          error: true
-        - java_method: getElapsedRealtimeUncertaintyNanos
-          go_name: GetElapsedRealtimeUncertaintyNanos
-          returns: double
-          error: true
-        - java_method: getFullBiasNanos
-          go_name: GetFullBiasNanos
-          returns: long
-          error: true
-        - java_method: getHardwareClockDiscontinuityCount
-          go_name: GetHardwareClockDiscontinuityCount
-          returns: int
-          error: true
-        - java_method: getLeapSecond
-          go_name: GetLeapSecond
-          returns: int
-          error: true
-        - java_method: getReferenceCarrierFrequencyHzForIsb
-          go_name: GetReferenceCarrierFrequencyHzForIsb
-          returns: double
-          error: true
-        - java_method: getReferenceCodeTypeForIsb
-          go_name: GetReferenceCodeTypeForIsb
-          returns: String
-          error: true
-        - java_method: getReferenceConstellationTypeForIsb
-          go_name: GetReferenceConstellationTypeForIsb
-          returns: int
-          error: true
-        - java_method: getTimeNanos
-          go_name: GetTimeNanos
-          returns: long
-          error: true
-        - java_method: getTimeUncertaintyNanos
-          go_name: GetTimeUncertaintyNanos
-          returns: double
-          error: true
-        - java_method: hasBiasNanos
-          go_name: HasBiasNanos
-          returns: boolean
-          error: true
-        - java_method: hasBiasUncertaintyNanos
-          go_name: HasBiasUncertaintyNanos
-          returns: boolean
-          error: true
-        - java_method: hasDriftNanosPerSecond
-          go_name: HasDriftNanosPerSecond
-          returns: boolean
-          error: true
-        - java_method: hasDriftUncertaintyNanosPerSecond
-          go_name: HasDriftUncertaintyNanosPerSecond
-          returns: boolean
-          error: true
-        - java_method: hasElapsedRealtimeNanos
-          go_name: HasElapsedRealtimeNanos
-          returns: boolean
-          error: true
-        - java_method: hasElapsedRealtimeUncertaintyNanos
-          go_name: HasElapsedRealtimeUncertaintyNanos
-          returns: boolean
-          error: true
-        - java_method: hasFullBiasNanos
-          go_name: HasFullBiasNanos
-          returns: boolean
-          error: true
-        - java_method: hasLeapSecond
-          go_name: HasLeapSecond
-          returns: boolean
-          error: true
-        - java_method: hasReferenceCarrierFrequencyHzForIsb
-          go_name: HasReferenceCarrierFrequencyHzForIsb
-          returns: boolean
-          error: true
-        - java_method: hasReferenceCodeTypeForIsb
-          go_name: HasReferenceCodeTypeForIsb
-          returns: boolean
-          error: true
-        - java_method: hasReferenceConstellationTypeForIsb
-          go_name: HasReferenceConstellationTypeForIsb
-          returns: boolean
-          error: true
-        - java_method: hasTimeUncertaintyNanos
-          go_name: HasTimeUncertaintyNanos
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.location.GnssAntennaInfo
-      go_type: GnssAntennaInfo
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getCarrierFrequencyMHz
-          go_name: GetCarrierFrequencyMHz
-          returns: double
-          error: true
-        - java_method: getPhaseCenterOffset
-          go_name: GetPhaseCenterOffset
-          returns: android.location.GnssAntennaInfo$PhaseCenterOffset
-          error: true
-        - java_method: getPhaseCenterVariationCorrections
-          go_name: GetPhaseCenterVariationCorrections
-          returns: android.location.GnssAntennaInfo$SphericalCorrections
-          error: true
-        - java_method: getSignalGainCorrections
-          go_name: GetSignalGainCorrections
-          returns: android.location.GnssAntennaInfo$SphericalCorrections
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.location.GnssAntennaInfo$Builder
-      go_type: GnssAntennaInfoBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.location.GnssAntennaInfo
-          error: true
-        - java_method: setCarrierFrequencyMHz
-          go_name: SetCarrierFrequencyMHz
-          params:
-            - java_type: double
-              go_name: arg0
-          returns: android.location.GnssAntennaInfo$Builder
-          error: true
-        - java_method: setPhaseCenterOffset
-          go_name: SetPhaseCenterOffset
-          params:
-            - java_type: android.location.GnssAntennaInfo$PhaseCenterOffset
-              go_name: arg0
-          returns: android.location.GnssAntennaInfo$Builder
-          error: true
-        - java_method: setPhaseCenterVariationCorrections
-          go_name: SetPhaseCenterVariationCorrections
-          params:
-            - java_type: android.location.GnssAntennaInfo$SphericalCorrections
-              go_name: arg0
-          returns: android.location.GnssAntennaInfo$Builder
-          error: true
-        - java_method: setSignalGainCorrections
-          go_name: SetSignalGainCorrections
-          params:
-            - java_type: android.location.GnssAntennaInfo$SphericalCorrections
-              go_name: arg0
-          returns: android.location.GnssAntennaInfo$Builder
-          error: true
-    - java_class: android.location.GnssAntennaInfo$Listener
-      go_type: GnssAntennaInfoListener
-    - java_class: android.location.GnssAntennaInfo$PhaseCenterOffset
-      go_type: GnssAntennaInfoPhaseCenterOffset
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getXOffsetMm
-          go_name: GetXOffsetMm
-          returns: double
-          error: true
-        - java_method: getXOffsetUncertaintyMm
-          go_name: GetXOffsetUncertaintyMm
-          returns: double
-          error: true
-        - java_method: getYOffsetMm
-          go_name: GetYOffsetMm
-          returns: double
-          error: true
-        - java_method: getYOffsetUncertaintyMm
-          go_name: GetYOffsetUncertaintyMm
-          returns: double
-          error: true
-        - java_method: getZOffsetMm
-          go_name: GetZOffsetMm
-          returns: double
-          error: true
-        - java_method: getZOffsetUncertaintyMm
-          go_name: GetZOffsetUncertaintyMm
-          returns: double
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.location.GnssAntennaInfo$SphericalCorrections
-      go_type: GnssAntennaInfoSphericalCorrections
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getCorrectionUncertaintiesArray
-          go_name: GetCorrectionUncertaintiesArray
-          returns: double[][]
-          error: true
-        - java_method: getCorrectionsArray
-          go_name: GetCorrectionsArray
-          returns: double[][]
-          error: true
-        - java_method: getDeltaPhi
-          go_name: GetDeltaPhi
-          returns: double
-          error: true
-        - java_method: getDeltaTheta
-          go_name: GetDeltaTheta
-          returns: double
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.location.GnssStatus
-      go_type: GnssStatus
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getAzimuthDegrees
-          go_name: GetAzimuthDegrees
-          params:
-            - java_type: int
-              go_name: arg0
+        - java_method: getAzimuth
+          go_name: GetAzimuth
           returns: float
           error: true
-        - java_method: getBasebandCn0DbHz
-          go_name: GetBasebandCn0DbHz
-          params:
-            - java_type: int
-              go_name: arg0
+        - java_method: getElevation
+          go_name: GetElevation
           returns: float
           error: true
-        - java_method: getCarrierFrequencyHz
-          go_name: GetCarrierFrequencyHz
-          params:
-            - java_type: int
-              go_name: arg0
+        - java_method: getPrn
+          go_name: GetPrn
+          returns: int
+          error: true
+        - java_method: getSnr
+          go_name: GetSnr
           returns: float
           error: true
-        - java_method: getCn0DbHz
-          go_name: GetCn0DbHz
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getConstellationType
-          go_name: GetConstellationType
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getElevationDegrees
-          go_name: GetElevationDegrees
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getSatelliteCount
-          go_name: GetSatelliteCount
-          returns: int
-          error: true
-        - java_method: getSvid
-          go_name: GetSvid
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: hasAlmanacData
-          go_name: HasAlmanacData
-          params:
-            - java_type: int
-              go_name: arg0
+        - java_method: hasAlmanac
+          go_name: HasAlmanac
           returns: boolean
           error: true
-        - java_method: hasBasebandCn0DbHz
-          go_name: HasBasebandCn0DbHz
-          params:
-            - java_type: int
-              go_name: arg0
+        - java_method: hasEphemeris
+          go_name: HasEphemeris
           returns: boolean
-          error: true
-        - java_method: hasCarrierFrequencyHz
-          go_name: HasCarrierFrequencyHz
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hasEphemerisData
-          go_name: HasEphemerisData
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
           error: true
         - java_method: usedInFix
           go_name: UsedInFix
-          params:
-            - java_type: int
-              go_name: arg0
           returns: boolean
           error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.location.GnssMeasurement
-      go_type: GnssMeasurement
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getAccumulatedDeltaRangeMeters
-          go_name: GetAccumulatedDeltaRangeMeters
-          returns: double
-          error: true
-        - java_method: getAccumulatedDeltaRangeState
-          go_name: GetAccumulatedDeltaRangeState
-          returns: int
-          error: true
-        - java_method: getAccumulatedDeltaRangeUncertaintyMeters
-          go_name: GetAccumulatedDeltaRangeUncertaintyMeters
-          returns: double
-          error: true
-        - java_method: getAutomaticGainControlLevelDb
-          go_name: GetAutomaticGainControlLevelDb
-          returns: double
-          error: true
-        - java_method: getBasebandCn0DbHz
-          go_name: GetBasebandCn0DbHz
-          returns: double
-          error: true
-        - java_method: getCarrierCycles
-          go_name: GetCarrierCycles
-          returns: long
-          error: true
-        - java_method: getCarrierFrequencyHz
-          go_name: GetCarrierFrequencyHz
-          returns: float
-          error: true
-        - java_method: getCarrierPhase
-          go_name: GetCarrierPhase
-          returns: double
-          error: true
-        - java_method: getCarrierPhaseUncertainty
-          go_name: GetCarrierPhaseUncertainty
-          returns: double
-          error: true
-        - java_method: getCn0DbHz
-          go_name: GetCn0DbHz
-          returns: double
-          error: true
-        - java_method: getCodeType
-          go_name: GetCodeType
-          returns: String
-          error: true
-        - java_method: getConstellationType
-          go_name: GetConstellationType
-          returns: int
-          error: true
-        - java_method: getFullInterSignalBiasNanos
-          go_name: GetFullInterSignalBiasNanos
-          returns: double
-          error: true
-        - java_method: getFullInterSignalBiasUncertaintyNanos
-          go_name: GetFullInterSignalBiasUncertaintyNanos
-          returns: double
-          error: true
-        - java_method: getMultipathIndicator
-          go_name: GetMultipathIndicator
-          returns: int
-          error: true
-        - java_method: getPseudorangeRateMetersPerSecond
-          go_name: GetPseudorangeRateMetersPerSecond
-          returns: double
-          error: true
-        - java_method: getPseudorangeRateUncertaintyMetersPerSecond
-          go_name: GetPseudorangeRateUncertaintyMetersPerSecond
-          returns: double
-          error: true
-        - java_method: getReceivedSvTimeNanos
-          go_name: GetReceivedSvTimeNanos
-          returns: long
-          error: true
-        - java_method: getReceivedSvTimeUncertaintyNanos
-          go_name: GetReceivedSvTimeUncertaintyNanos
-          returns: long
-          error: true
-        - java_method: getSatelliteInterSignalBiasNanos
-          go_name: GetSatelliteInterSignalBiasNanos
-          returns: double
-          error: true
-        - java_method: getSatelliteInterSignalBiasUncertaintyNanos
-          go_name: GetSatelliteInterSignalBiasUncertaintyNanos
-          returns: double
-          error: true
-        - java_method: getSnrInDb
-          go_name: GetSnrInDb
-          returns: double
-          error: true
-        - java_method: getState
-          go_name: GetState
-          returns: int
-          error: true
-        - java_method: getSvid
-          go_name: GetSvid
-          returns: int
-          error: true
-        - java_method: getTimeOffsetNanos
-          go_name: GetTimeOffsetNanos
-          returns: double
-          error: true
-        - java_method: hasAutomaticGainControlLevelDb
-          go_name: HasAutomaticGainControlLevelDb
-          returns: boolean
-          error: true
-        - java_method: hasBasebandCn0DbHz
-          go_name: HasBasebandCn0DbHz
-          returns: boolean
-          error: true
-        - java_method: hasCarrierCycles
-          go_name: HasCarrierCycles
-          returns: boolean
-          error: true
-        - java_method: hasCarrierFrequencyHz
-          go_name: HasCarrierFrequencyHz
-          returns: boolean
-          error: true
-        - java_method: hasCarrierPhase
-          go_name: HasCarrierPhase
-          returns: boolean
-          error: true
-        - java_method: hasCarrierPhaseUncertainty
-          go_name: HasCarrierPhaseUncertainty
-          returns: boolean
-          error: true
-        - java_method: hasCodeType
-          go_name: HasCodeType
-          returns: boolean
-          error: true
-        - java_method: hasFullInterSignalBiasNanos
-          go_name: HasFullInterSignalBiasNanos
-          returns: boolean
-          error: true
-        - java_method: hasFullInterSignalBiasUncertaintyNanos
-          go_name: HasFullInterSignalBiasUncertaintyNanos
-          returns: boolean
-          error: true
-        - java_method: hasSatelliteInterSignalBiasNanos
-          go_name: HasSatelliteInterSignalBiasNanos
-          returns: boolean
-          error: true
-        - java_method: hasSatelliteInterSignalBiasUncertaintyNanos
-          go_name: HasSatelliteInterSignalBiasUncertaintyNanos
-          returns: boolean
-          error: true
-        - java_method: hasSnrInDb
-          go_name: HasSnrInDb
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.location.GnssStatus$Builder
-      go_type: GnssStatusBuilder
-      methods:
-        - java_method: addSatellite
-          go_name: AddSatellite
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-            - java_type: float
-              go_name: arg4
-            - java_type: boolean
-              go_name: arg5
-            - java_type: boolean
-              go_name: arg6
-            - java_type: boolean
-              go_name: arg7
-            - java_type: boolean
-              go_name: arg8
-            - java_type: float
-              go_name: arg9
-            - java_type: boolean
-              go_name: arg10
-            - java_type: float
-              go_name: arg11
-          returns: android.location.GnssStatus$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.location.GnssStatus
-          error: true
-        - java_method: clearSatellites
-          go_name: ClearSatellites
-          returns: android.location.GnssStatus$Builder
-          error: true
-    - java_class: android.location.GnssStatus$Callback
-      go_type: GnssStatusCallback
-      methods:
-        - java_method: onFirstFix
-          go_name: OnFirstFix
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onSatelliteStatusChanged
-          go_name: OnSatelliteStatusChanged
-          params:
-            - java_type: android.location.GnssStatus
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onStarted
-          go_name: OnStarted
-          returns: void
-          error: true
-        - java_method: onStopped
-          go_name: OnStopped
-          returns: void
-          error: true
-    - java_class: android.location.SettingInjectorService
-      go_type: SettingInjectorService
-      methods:
-        - java_method: onBind
-          go_name: OnBind
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
-          returns: android.os.IBinder
-          error: true
-        - java_method: onStart
-          go_name: OnStart
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onStartCommand
-          go_name: OnStartCommand
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: int
-          error: true
-      static_methods:
-        - java_method: refreshSettings
-          go_name: RefreshSettings
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: void
-          error: true
+    - java_class: android.location.Geocoder$GeocodeListener
+      go_type: GeocoderGeocodeListener
     - java_class: android.location.LocationManager
       go_type: Manager
       obtain: system_service
@@ -2193,6 +1184,1670 @@ classes:
               go_name: arg0
           returns: void
           error: true
+    - java_class: android.location.GnssClock
+      go_type: GnssClock
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getBiasNanos
+          go_name: GetBiasNanos
+          returns: double
+          error: true
+        - java_method: getBiasUncertaintyNanos
+          go_name: GetBiasUncertaintyNanos
+          returns: double
+          error: true
+        - java_method: getDriftNanosPerSecond
+          go_name: GetDriftNanosPerSecond
+          returns: double
+          error: true
+        - java_method: getDriftUncertaintyNanosPerSecond
+          go_name: GetDriftUncertaintyNanosPerSecond
+          returns: double
+          error: true
+        - java_method: getElapsedRealtimeNanos
+          go_name: GetElapsedRealtimeNanos
+          returns: long
+          error: true
+        - java_method: getElapsedRealtimeUncertaintyNanos
+          go_name: GetElapsedRealtimeUncertaintyNanos
+          returns: double
+          error: true
+        - java_method: getFullBiasNanos
+          go_name: GetFullBiasNanos
+          returns: long
+          error: true
+        - java_method: getHardwareClockDiscontinuityCount
+          go_name: GetHardwareClockDiscontinuityCount
+          returns: int
+          error: true
+        - java_method: getLeapSecond
+          go_name: GetLeapSecond
+          returns: int
+          error: true
+        - java_method: getReferenceCarrierFrequencyHzForIsb
+          go_name: GetReferenceCarrierFrequencyHzForIsb
+          returns: double
+          error: true
+        - java_method: getReferenceCodeTypeForIsb
+          go_name: GetReferenceCodeTypeForIsb
+          returns: String
+          error: true
+        - java_method: getReferenceConstellationTypeForIsb
+          go_name: GetReferenceConstellationTypeForIsb
+          returns: int
+          error: true
+        - java_method: getTimeNanos
+          go_name: GetTimeNanos
+          returns: long
+          error: true
+        - java_method: getTimeUncertaintyNanos
+          go_name: GetTimeUncertaintyNanos
+          returns: double
+          error: true
+        - java_method: hasBiasNanos
+          go_name: HasBiasNanos
+          returns: boolean
+          error: true
+        - java_method: hasBiasUncertaintyNanos
+          go_name: HasBiasUncertaintyNanos
+          returns: boolean
+          error: true
+        - java_method: hasDriftNanosPerSecond
+          go_name: HasDriftNanosPerSecond
+          returns: boolean
+          error: true
+        - java_method: hasDriftUncertaintyNanosPerSecond
+          go_name: HasDriftUncertaintyNanosPerSecond
+          returns: boolean
+          error: true
+        - java_method: hasElapsedRealtimeNanos
+          go_name: HasElapsedRealtimeNanos
+          returns: boolean
+          error: true
+        - java_method: hasElapsedRealtimeUncertaintyNanos
+          go_name: HasElapsedRealtimeUncertaintyNanos
+          returns: boolean
+          error: true
+        - java_method: hasFullBiasNanos
+          go_name: HasFullBiasNanos
+          returns: boolean
+          error: true
+        - java_method: hasLeapSecond
+          go_name: HasLeapSecond
+          returns: boolean
+          error: true
+        - java_method: hasReferenceCarrierFrequencyHzForIsb
+          go_name: HasReferenceCarrierFrequencyHzForIsb
+          returns: boolean
+          error: true
+        - java_method: hasReferenceCodeTypeForIsb
+          go_name: HasReferenceCodeTypeForIsb
+          returns: boolean
+          error: true
+        - java_method: hasReferenceConstellationTypeForIsb
+          go_name: HasReferenceConstellationTypeForIsb
+          returns: boolean
+          error: true
+        - java_method: hasTimeUncertaintyNanos
+          go_name: HasTimeUncertaintyNanos
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.location.Criteria
+      go_type: Criteria
+      obtain: constructor
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getAccuracy
+          go_name: GetAccuracy
+          returns: int
+          error: true
+        - java_method: getBearingAccuracy
+          go_name: GetBearingAccuracy
+          returns: int
+          error: true
+        - java_method: getHorizontalAccuracy
+          go_name: GetHorizontalAccuracy
+          returns: int
+          error: true
+        - java_method: getPowerRequirement
+          go_name: GetPowerRequirement
+          returns: int
+          error: true
+        - java_method: getSpeedAccuracy
+          go_name: GetSpeedAccuracy
+          returns: int
+          error: true
+        - java_method: getVerticalAccuracy
+          go_name: GetVerticalAccuracy
+          returns: int
+          error: true
+        - java_method: isAltitudeRequired
+          go_name: IsAltitudeRequired
+          returns: boolean
+          error: true
+        - java_method: isBearingRequired
+          go_name: IsBearingRequired
+          returns: boolean
+          error: true
+        - java_method: isCostAllowed
+          go_name: IsCostAllowed
+          returns: boolean
+          error: true
+        - java_method: isSpeedRequired
+          go_name: IsSpeedRequired
+          returns: boolean
+          error: true
+        - java_method: setAccuracy
+          go_name: SetAccuracy
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setAltitudeRequired
+          go_name: SetAltitudeRequired
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setBearingAccuracy
+          go_name: SetBearingAccuracy
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setBearingRequired
+          go_name: SetBearingRequired
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCostAllowed
+          go_name: SetCostAllowed
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setHorizontalAccuracy
+          go_name: SetHorizontalAccuracy
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setPowerRequirement
+          go_name: SetPowerRequirement
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSpeedAccuracy
+          go_name: SetSpeedAccuracy
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSpeedRequired
+          go_name: SetSpeedRequired
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setVerticalAccuracy
+          go_name: SetVerticalAccuracy
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.location.GnssNavigationMessage
+      go_type: GnssNavigationMessage
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getData
+          go_name: GetData
+          returns: '[B'
+          error: true
+        - java_method: getMessageId
+          go_name: GetMessageId
+          returns: int
+          error: true
+        - java_method: getStatus
+          go_name: GetStatus
+          returns: int
+          error: true
+        - java_method: getSubmessageId
+          go_name: GetSubmessageId
+          returns: int
+          error: true
+        - java_method: getSvid
+          go_name: GetSvid
+          returns: int
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.location.GnssNavigationMessage$Callback
+      go_type: GnssNavigationMessageCallback
+      methods:
+        - java_method: onGnssNavigationMessageReceived
+          go_name: OnGnssNavigationMessageReceived
+          params:
+            - java_type: android.location.GnssNavigationMessage
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onStatusChanged
+          go_name: OnStatusChanged
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.location.LocationProvider
+      go_type: Provider
+      methods:
+        - java_method: getAccuracy
+          go_name: GetAccuracy
+          returns: int
+          error: true
+        - java_method: getName
+          go_name: GetName
+          returns: String
+          error: true
+        - java_method: getPowerRequirement
+          go_name: GetPowerRequirement
+          returns: int
+          error: true
+        - java_method: hasMonetaryCost
+          go_name: HasMonetaryCost
+          returns: boolean
+          error: true
+        - java_method: meetsCriteria
+          go_name: MeetsCriteria
+          params:
+            - java_type: android.location.Criteria
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: requiresCell
+          go_name: RequiresCell
+          returns: boolean
+          error: true
+        - java_method: requiresNetwork
+          go_name: RequiresNetwork
+          returns: boolean
+          error: true
+        - java_method: requiresSatellite
+          go_name: RequiresSatellite
+          returns: boolean
+          error: true
+        - java_method: supportsAltitude
+          go_name: SupportsAltitude
+          returns: boolean
+          error: true
+        - java_method: supportsBearing
+          go_name: SupportsBearing
+          returns: boolean
+          error: true
+        - java_method: supportsSpeed
+          go_name: SupportsSpeed
+          returns: boolean
+          error: true
+    - java_class: android.location.GnssCapabilities
+      go_type: GnssCapabilities
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getGnssSignalTypes
+          go_name: GetGnssSignalTypes
+          returns: java.util.List<android.location.GnssSignalType>
+          error: true
+        - java_method: hasAccumulatedDeltaRange
+          go_name: HasAccumulatedDeltaRange
+          returns: int
+          error: true
+        - java_method: hasAntennaInfo
+          go_name: HasAntennaInfo
+          returns: boolean
+          error: true
+        - java_method: hasGeofencing
+          go_name: HasGeofencing
+          returns: boolean
+          error: true
+        - java_method: hasGnssAntennaInfo
+          go_name: HasGnssAntennaInfo
+          returns: boolean
+          error: true
+        - java_method: hasLowPowerMode
+          go_name: HasLowPowerMode
+          returns: boolean
+          error: true
+        - java_method: hasMeasurementCorrections
+          go_name: HasMeasurementCorrections
+          returns: boolean
+          error: true
+        - java_method: hasMeasurementCorrectionsExcessPathLength
+          go_name: HasMeasurementCorrectionsExcessPathLength
+          returns: boolean
+          error: true
+        - java_method: hasMeasurementCorrectionsForDriving
+          go_name: HasMeasurementCorrectionsForDriving
+          returns: boolean
+          error: true
+        - java_method: hasMeasurementCorrectionsLosSats
+          go_name: HasMeasurementCorrectionsLosSats
+          returns: boolean
+          error: true
+        - java_method: hasMeasurementCorrectionsReflectingPlane
+          go_name: HasMeasurementCorrectionsReflectingPlane
+          returns: boolean
+          error: true
+        - java_method: hasMeasurementCorrelationVectors
+          go_name: HasMeasurementCorrelationVectors
+          returns: boolean
+          error: true
+        - java_method: hasMeasurements
+          go_name: HasMeasurements
+          returns: boolean
+          error: true
+        - java_method: hasMsa
+          go_name: HasMsa
+          returns: boolean
+          error: true
+        - java_method: hasMsb
+          go_name: HasMsb
+          returns: boolean
+          error: true
+        - java_method: hasNavigationMessages
+          go_name: HasNavigationMessages
+          returns: boolean
+          error: true
+        - java_method: hasOnDemandTime
+          go_name: HasOnDemandTime
+          returns: boolean
+          error: true
+        - java_method: hasPowerMultibandAcquisition
+          go_name: HasPowerMultibandAcquisition
+          returns: boolean
+          error: true
+        - java_method: hasPowerMultibandTracking
+          go_name: HasPowerMultibandTracking
+          returns: boolean
+          error: true
+        - java_method: hasPowerOtherModes
+          go_name: HasPowerOtherModes
+          returns: boolean
+          error: true
+        - java_method: hasPowerSinglebandAcquisition
+          go_name: HasPowerSinglebandAcquisition
+          returns: boolean
+          error: true
+        - java_method: hasPowerSinglebandTracking
+          go_name: HasPowerSinglebandTracking
+          returns: boolean
+          error: true
+        - java_method: hasPowerTotal
+          go_name: HasPowerTotal
+          returns: boolean
+          error: true
+        - java_method: hasSatelliteBlocklist
+          go_name: HasSatelliteBlocklist
+          returns: boolean
+          error: true
+        - java_method: hasSatellitePvt
+          go_name: HasSatellitePvt
+          returns: boolean
+          error: true
+        - java_method: hasScheduling
+          go_name: HasScheduling
+          returns: boolean
+          error: true
+        - java_method: hasSingleShotFix
+          go_name: HasSingleShotFix
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.location.GnssCapabilities$Builder
+      go_type: GnssCapabilitiesBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.location.GnssCapabilities
+          error: true
+        - java_method: setHasAccumulatedDeltaRange
+          go_name: SetHasAccumulatedDeltaRange
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasAntennaInfo
+          go_name: SetHasAntennaInfo
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasGeofencing
+          go_name: SetHasGeofencing
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasLowPowerMode
+          go_name: SetHasLowPowerMode
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasMeasurementCorrections
+          go_name: SetHasMeasurementCorrections
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasMeasurementCorrectionsExcessPathLength
+          go_name: SetHasMeasurementCorrectionsExcessPathLength
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasMeasurementCorrectionsForDriving
+          go_name: SetHasMeasurementCorrectionsForDriving
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasMeasurementCorrectionsLosSats
+          go_name: SetHasMeasurementCorrectionsLosSats
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasMeasurementCorrectionsReflectingPlane
+          go_name: SetHasMeasurementCorrectionsReflectingPlane
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasMeasurementCorrelationVectors
+          go_name: SetHasMeasurementCorrelationVectors
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasMeasurements
+          go_name: SetHasMeasurements
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasMsa
+          go_name: SetHasMsa
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasMsb
+          go_name: SetHasMsb
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasNavigationMessages
+          go_name: SetHasNavigationMessages
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasOnDemandTime
+          go_name: SetHasOnDemandTime
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasPowerMultibandAcquisition
+          go_name: SetHasPowerMultibandAcquisition
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasPowerMultibandTracking
+          go_name: SetHasPowerMultibandTracking
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasPowerOtherModes
+          go_name: SetHasPowerOtherModes
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasPowerSinglebandAcquisition
+          go_name: SetHasPowerSinglebandAcquisition
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasPowerSinglebandTracking
+          go_name: SetHasPowerSinglebandTracking
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasPowerTotal
+          go_name: SetHasPowerTotal
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasSatelliteBlocklist
+          go_name: SetHasSatelliteBlocklist
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasSatellitePvt
+          go_name: SetHasSatellitePvt
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasScheduling
+          go_name: SetHasScheduling
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+        - java_method: setHasSingleShotFix
+          go_name: SetHasSingleShotFix
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssCapabilities$Builder
+          error: true
+    - java_class: android.location.LocationListener
+      go_type: Listener
+      methods:
+        - java_method: onLocationChanged
+          go_name: OnLocationChanged
+          params:
+            - java_type: android.location.Location
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.location.GpsStatus
+      go_type: GpsStatus
+      methods:
+        - java_method: getMaxSatellites
+          go_name: GetMaxSatellites
+          returns: int
+          error: true
+        - java_method: getSatellites
+          go_name: GetSatellites
+          returns: java.lang.Iterable<android.location.GpsSatellite>
+          error: true
+        - java_method: getTimeToFirstFix
+          go_name: GetTimeToFirstFix
+          returns: int
+          error: true
+      static_methods:
+        - java_method: create
+          go_name: Create
+          params:
+            - java_type: android.location.GnssStatus
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.location.GpsStatus
+          error: true
+    - java_class: android.location.GpsStatus$Listener
+      go_type: GpsStatusListener
+      methods:
+        - java_method: onGpsStatusChanged
+          go_name: OnGpsStatusChanged
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.location.GpsStatus$NmeaListener
+      go_type: GpsStatusNmeaListener
+      methods:
+        - java_method: onNmeaReceived
+          go_name: OnNmeaReceived
+          params:
+            - java_type: long
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.location.GnssMeasurement
+      go_type: GnssMeasurement
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getAccumulatedDeltaRangeMeters
+          go_name: GetAccumulatedDeltaRangeMeters
+          returns: double
+          error: true
+        - java_method: getAccumulatedDeltaRangeState
+          go_name: GetAccumulatedDeltaRangeState
+          returns: int
+          error: true
+        - java_method: getAccumulatedDeltaRangeUncertaintyMeters
+          go_name: GetAccumulatedDeltaRangeUncertaintyMeters
+          returns: double
+          error: true
+        - java_method: getAutomaticGainControlLevelDb
+          go_name: GetAutomaticGainControlLevelDb
+          returns: double
+          error: true
+        - java_method: getBasebandCn0DbHz
+          go_name: GetBasebandCn0DbHz
+          returns: double
+          error: true
+        - java_method: getCarrierCycles
+          go_name: GetCarrierCycles
+          returns: long
+          error: true
+        - java_method: getCarrierFrequencyHz
+          go_name: GetCarrierFrequencyHz
+          returns: float
+          error: true
+        - java_method: getCarrierPhase
+          go_name: GetCarrierPhase
+          returns: double
+          error: true
+        - java_method: getCarrierPhaseUncertainty
+          go_name: GetCarrierPhaseUncertainty
+          returns: double
+          error: true
+        - java_method: getCn0DbHz
+          go_name: GetCn0DbHz
+          returns: double
+          error: true
+        - java_method: getCodeType
+          go_name: GetCodeType
+          returns: String
+          error: true
+        - java_method: getConstellationType
+          go_name: GetConstellationType
+          returns: int
+          error: true
+        - java_method: getFullInterSignalBiasNanos
+          go_name: GetFullInterSignalBiasNanos
+          returns: double
+          error: true
+        - java_method: getFullInterSignalBiasUncertaintyNanos
+          go_name: GetFullInterSignalBiasUncertaintyNanos
+          returns: double
+          error: true
+        - java_method: getMultipathIndicator
+          go_name: GetMultipathIndicator
+          returns: int
+          error: true
+        - java_method: getPseudorangeRateMetersPerSecond
+          go_name: GetPseudorangeRateMetersPerSecond
+          returns: double
+          error: true
+        - java_method: getPseudorangeRateUncertaintyMetersPerSecond
+          go_name: GetPseudorangeRateUncertaintyMetersPerSecond
+          returns: double
+          error: true
+        - java_method: getReceivedSvTimeNanos
+          go_name: GetReceivedSvTimeNanos
+          returns: long
+          error: true
+        - java_method: getReceivedSvTimeUncertaintyNanos
+          go_name: GetReceivedSvTimeUncertaintyNanos
+          returns: long
+          error: true
+        - java_method: getSatelliteInterSignalBiasNanos
+          go_name: GetSatelliteInterSignalBiasNanos
+          returns: double
+          error: true
+        - java_method: getSatelliteInterSignalBiasUncertaintyNanos
+          go_name: GetSatelliteInterSignalBiasUncertaintyNanos
+          returns: double
+          error: true
+        - java_method: getSnrInDb
+          go_name: GetSnrInDb
+          returns: double
+          error: true
+        - java_method: getState
+          go_name: GetState
+          returns: int
+          error: true
+        - java_method: getSvid
+          go_name: GetSvid
+          returns: int
+          error: true
+        - java_method: getTimeOffsetNanos
+          go_name: GetTimeOffsetNanos
+          returns: double
+          error: true
+        - java_method: hasAutomaticGainControlLevelDb
+          go_name: HasAutomaticGainControlLevelDb
+          returns: boolean
+          error: true
+        - java_method: hasBasebandCn0DbHz
+          go_name: HasBasebandCn0DbHz
+          returns: boolean
+          error: true
+        - java_method: hasCarrierCycles
+          go_name: HasCarrierCycles
+          returns: boolean
+          error: true
+        - java_method: hasCarrierFrequencyHz
+          go_name: HasCarrierFrequencyHz
+          returns: boolean
+          error: true
+        - java_method: hasCarrierPhase
+          go_name: HasCarrierPhase
+          returns: boolean
+          error: true
+        - java_method: hasCarrierPhaseUncertainty
+          go_name: HasCarrierPhaseUncertainty
+          returns: boolean
+          error: true
+        - java_method: hasCodeType
+          go_name: HasCodeType
+          returns: boolean
+          error: true
+        - java_method: hasFullInterSignalBiasNanos
+          go_name: HasFullInterSignalBiasNanos
+          returns: boolean
+          error: true
+        - java_method: hasFullInterSignalBiasUncertaintyNanos
+          go_name: HasFullInterSignalBiasUncertaintyNanos
+          returns: boolean
+          error: true
+        - java_method: hasSatelliteInterSignalBiasNanos
+          go_name: HasSatelliteInterSignalBiasNanos
+          returns: boolean
+          error: true
+        - java_method: hasSatelliteInterSignalBiasUncertaintyNanos
+          go_name: HasSatelliteInterSignalBiasUncertaintyNanos
+          returns: boolean
+          error: true
+        - java_method: hasSnrInDb
+          go_name: HasSnrInDb
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.location.GnssAutomaticGainControl
+      go_type: GnssAutomaticGainControl
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getCarrierFrequencyHz
+          go_name: GetCarrierFrequencyHz
+          returns: long
+          error: true
+        - java_method: getConstellationType
+          go_name: GetConstellationType
+          returns: int
+          error: true
+        - java_method: getLevelDb
+          go_name: GetLevelDb
+          returns: double
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.location.GnssAutomaticGainControl$Builder
+      go_type: GnssAutomaticGainControlBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.location.GnssAutomaticGainControl
+          error: true
+        - java_method: setCarrierFrequencyHz
+          go_name: SetCarrierFrequencyHz
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.location.GnssAutomaticGainControl$Builder
+          error: true
+        - java_method: setConstellationType
+          go_name: SetConstellationType
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.location.GnssAutomaticGainControl$Builder
+          error: true
+        - java_method: setLevelDb
+          go_name: SetLevelDb
+          params:
+            - java_type: double
+              go_name: arg0
+          returns: android.location.GnssAutomaticGainControl$Builder
+          error: true
+    - java_class: android.location.Location
+      go_type: Location
+      obtain: constructor
+      constructor_params:
+        - java_type: android.location.Location
+          go_name: arg0
+      methods:
+        - java_method: bearingTo
+          go_name: BearingTo
+          params:
+            - java_type: android.location.Location
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: distanceTo
+          go_name: DistanceTo
+          params:
+            - java_type: android.location.Location
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: dump
+          go_name: Dump
+          params:
+            - java_type: android.util.Printer
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getAccuracy
+          go_name: GetAccuracy
+          returns: float
+          error: true
+        - java_method: getAltitude
+          go_name: GetAltitude
+          returns: double
+          error: true
+        - java_method: getBearing
+          go_name: GetBearing
+          returns: float
+          error: true
+        - java_method: getBearingAccuracyDegrees
+          go_name: GetBearingAccuracyDegrees
+          returns: float
+          error: true
+        - java_method: getElapsedRealtimeAgeMillis
+          go_name: GetElapsedRealtimeAgeMillis0
+          returns: long
+          error: true
+        - java_method: getElapsedRealtimeAgeMillis
+          go_name: GetElapsedRealtimeAgeMillis1_1
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: long
+          error: true
+        - java_method: getElapsedRealtimeMillis
+          go_name: GetElapsedRealtimeMillis
+          returns: long
+          error: true
+        - java_method: getElapsedRealtimeNanos
+          go_name: GetElapsedRealtimeNanos
+          returns: long
+          error: true
+        - java_method: getElapsedRealtimeUncertaintyNanos
+          go_name: GetElapsedRealtimeUncertaintyNanos
+          returns: double
+          error: true
+        - java_method: getExtras
+          go_name: GetExtras
+          returns: android.os.Bundle
+          error: true
+        - java_method: getLatitude
+          go_name: GetLatitude
+          returns: double
+          error: true
+        - java_method: getLongitude
+          go_name: GetLongitude
+          returns: double
+          error: true
+        - java_method: getMslAltitudeAccuracyMeters
+          go_name: GetMslAltitudeAccuracyMeters
+          returns: float
+          error: true
+        - java_method: getMslAltitudeMeters
+          go_name: GetMslAltitudeMeters
+          returns: double
+          error: true
+        - java_method: getProvider
+          go_name: GetProvider
+          returns: String
+          error: true
+        - java_method: getSpeed
+          go_name: GetSpeed
+          returns: float
+          error: true
+        - java_method: getSpeedAccuracyMetersPerSecond
+          go_name: GetSpeedAccuracyMetersPerSecond
+          returns: float
+          error: true
+        - java_method: getTime
+          go_name: GetTime
+          returns: long
+          error: true
+        - java_method: getVerticalAccuracyMeters
+          go_name: GetVerticalAccuracyMeters
+          returns: float
+          error: true
+        - java_method: hasAccuracy
+          go_name: HasAccuracy
+          returns: boolean
+          error: true
+        - java_method: hasAltitude
+          go_name: HasAltitude
+          returns: boolean
+          error: true
+        - java_method: hasBearing
+          go_name: HasBearing
+          returns: boolean
+          error: true
+        - java_method: hasBearingAccuracy
+          go_name: HasBearingAccuracy
+          returns: boolean
+          error: true
+        - java_method: hasElapsedRealtimeUncertaintyNanos
+          go_name: HasElapsedRealtimeUncertaintyNanos
+          returns: boolean
+          error: true
+        - java_method: hasMslAltitude
+          go_name: HasMslAltitude
+          returns: boolean
+          error: true
+        - java_method: hasMslAltitudeAccuracy
+          go_name: HasMslAltitudeAccuracy
+          returns: boolean
+          error: true
+        - java_method: hasSpeed
+          go_name: HasSpeed
+          returns: boolean
+          error: true
+        - java_method: hasSpeedAccuracy
+          go_name: HasSpeedAccuracy
+          returns: boolean
+          error: true
+        - java_method: hasVerticalAccuracy
+          go_name: HasVerticalAccuracy
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: isComplete
+          go_name: IsComplete
+          returns: boolean
+          error: true
+        - java_method: isFromMockProvider
+          go_name: IsFromMockProvider
+          returns: boolean
+          error: true
+        - java_method: isMock
+          go_name: IsMock
+          returns: boolean
+          error: true
+        - java_method: removeAccuracy
+          go_name: RemoveAccuracy
+          returns: void
+          error: true
+        - java_method: removeAltitude
+          go_name: RemoveAltitude
+          returns: void
+          error: true
+        - java_method: removeBearing
+          go_name: RemoveBearing
+          returns: void
+          error: true
+        - java_method: removeBearingAccuracy
+          go_name: RemoveBearingAccuracy
+          returns: void
+          error: true
+        - java_method: removeElapsedRealtimeUncertaintyNanos
+          go_name: RemoveElapsedRealtimeUncertaintyNanos
+          returns: void
+          error: true
+        - java_method: removeMslAltitude
+          go_name: RemoveMslAltitude
+          returns: void
+          error: true
+        - java_method: removeMslAltitudeAccuracy
+          go_name: RemoveMslAltitudeAccuracy
+          returns: void
+          error: true
+        - java_method: removeSpeed
+          go_name: RemoveSpeed
+          returns: void
+          error: true
+        - java_method: removeSpeedAccuracy
+          go_name: RemoveSpeedAccuracy
+          returns: void
+          error: true
+        - java_method: removeVerticalAccuracy
+          go_name: RemoveVerticalAccuracy
+          returns: void
+          error: true
+        - java_method: reset
+          go_name: Reset
+          returns: void
+          error: true
+        - java_method: set
+          go_name: Set
+          params:
+            - java_type: android.location.Location
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setAccuracy
+          go_name: SetAccuracy
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setAltitude
+          go_name: SetAltitude
+          params:
+            - java_type: double
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setBearing
+          go_name: SetBearing
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setBearingAccuracyDegrees
+          go_name: SetBearingAccuracyDegrees
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setElapsedRealtimeNanos
+          go_name: SetElapsedRealtimeNanos
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setElapsedRealtimeUncertaintyNanos
+          go_name: SetElapsedRealtimeUncertaintyNanos
+          params:
+            - java_type: double
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setExtras
+          go_name: SetExtras
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setLatitude
+          go_name: SetLatitude
+          params:
+            - java_type: double
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setLongitude
+          go_name: SetLongitude
+          params:
+            - java_type: double
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setMock
+          go_name: SetMock
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setMslAltitudeAccuracyMeters
+          go_name: SetMslAltitudeAccuracyMeters
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setMslAltitudeMeters
+          go_name: SetMslAltitudeMeters
+          params:
+            - java_type: double
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setProvider
+          go_name: SetProvider
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSpeed
+          go_name: SetSpeed
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSpeedAccuracyMetersPerSecond
+          go_name: SetSpeedAccuracyMetersPerSecond
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTime
+          go_name: SetTime
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setVerticalAccuracyMeters
+          go_name: SetVerticalAccuracyMeters
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: convert
+          go_name: Convert2
+          params:
+            - java_type: double
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: String
+          error: true
+        - java_method: convert
+          go_name: Convert1_1
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: double
+          error: true
+        - java_method: distanceBetween
+          go_name: DistanceBetween
+          params:
+            - java_type: double
+              go_name: arg0
+            - java_type: double
+              go_name: arg1
+            - java_type: double
+              go_name: arg2
+            - java_type: double
+              go_name: arg3
+            - java_type: float[]
+              go_name: arg4
+          returns: void
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.location.SettingInjectorService
+      go_type: SettingInjectorService
+      methods:
+        - java_method: onBind
+          go_name: OnBind
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: android.os.IBinder
+          error: true
+        - java_method: onStart
+          go_name: OnStart
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onStartCommand
+          go_name: OnStartCommand
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: int
+          error: true
+      static_methods:
+        - java_method: refreshSettings
+          go_name: RefreshSettings
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.location.GnssStatus
+      go_type: GnssStatus
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getAzimuthDegrees
+          go_name: GetAzimuthDegrees
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getBasebandCn0DbHz
+          go_name: GetBasebandCn0DbHz
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getCarrierFrequencyHz
+          go_name: GetCarrierFrequencyHz
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getCn0DbHz
+          go_name: GetCn0DbHz
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getConstellationType
+          go_name: GetConstellationType
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getElevationDegrees
+          go_name: GetElevationDegrees
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getSatelliteCount
+          go_name: GetSatelliteCount
+          returns: int
+          error: true
+        - java_method: getSvid
+          go_name: GetSvid
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: hasAlmanacData
+          go_name: HasAlmanacData
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hasBasebandCn0DbHz
+          go_name: HasBasebandCn0DbHz
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hasCarrierFrequencyHz
+          go_name: HasCarrierFrequencyHz
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hasEphemerisData
+          go_name: HasEphemerisData
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: usedInFix
+          go_name: UsedInFix
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.location.GnssStatus$Builder
+      go_type: GnssStatusBuilder
+      obtain: constructor
+      methods:
+        - java_method: addSatellite
+          go_name: AddSatellite
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+            - java_type: float
+              go_name: arg4
+            - java_type: boolean
+              go_name: arg5
+            - java_type: boolean
+              go_name: arg6
+            - java_type: boolean
+              go_name: arg7
+            - java_type: boolean
+              go_name: arg8
+            - java_type: float
+              go_name: arg9
+            - java_type: boolean
+              go_name: arg10
+            - java_type: float
+              go_name: arg11
+          returns: android.location.GnssStatus$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.location.GnssStatus
+          error: true
+        - java_method: clearSatellites
+          go_name: ClearSatellites
+          returns: android.location.GnssStatus$Builder
+          error: true
+    - java_class: android.location.GnssStatus$Callback
+      go_type: GnssStatusCallback
+      methods:
+        - java_method: onFirstFix
+          go_name: OnFirstFix
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onSatelliteStatusChanged
+          go_name: OnSatelliteStatusChanged
+          params:
+            - java_type: android.location.GnssStatus
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onStarted
+          go_name: OnStarted
+          returns: void
+          error: true
+        - java_method: onStopped
+          go_name: OnStopped
+          returns: void
+          error: true
+    - java_class: android.location.GnssMeasurementRequest
+      go_type: GnssMeasurementRequest
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getIntervalMillis
+          go_name: GetIntervalMillis
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: isFullTracking
+          go_name: IsFullTracking
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.location.GnssMeasurementRequest$Builder
+      go_type: GnssMeasurementRequestBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.location.GnssMeasurementRequest
+          error: true
+        - java_method: setFullTracking
+          go_name: SetFullTracking
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.location.GnssMeasurementRequest$Builder
+          error: true
+        - java_method: setIntervalMillis
+          go_name: SetIntervalMillis
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.location.GnssMeasurementRequest$Builder
+          error: true
     - java_class: android.location.Address
       go_type: Address
       obtain: constructor
@@ -2424,6 +3079,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -2431,634 +3087,9 @@ classes:
               go_name: arg0
             - java_type: int
               go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.location.LocationRequest
-      go_type: Request
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getDurationMillis
-          go_name: GetDurationMillis
-          returns: long
-          error: true
-        - java_method: getIntervalMillis
-          go_name: GetIntervalMillis
-          returns: long
-          error: true
-        - java_method: getMaxUpdateDelayMillis
-          go_name: GetMaxUpdateDelayMillis
-          returns: long
-          error: true
-        - java_method: getMaxUpdates
-          go_name: GetMaxUpdates
-          returns: int
-          error: true
-        - java_method: getMinUpdateDistanceMeters
-          go_name: GetMinUpdateDistanceMeters
-          returns: float
-          error: true
-        - java_method: getMinUpdateIntervalMillis
-          go_name: GetMinUpdateIntervalMillis
-          returns: long
-          error: true
-        - java_method: getQuality
-          go_name: GetQuality
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.location.LocationRequest$Builder
-      go_type: RequestBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.location.LocationRequest
-          error: true
-        - java_method: clearMinUpdateIntervalMillis
-          go_name: ClearMinUpdateIntervalMillis
-          returns: android.location.LocationRequest$Builder
-          error: true
-        - java_method: setDurationMillis
-          go_name: SetDurationMillis
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.location.LocationRequest$Builder
-          error: true
-        - java_method: setIntervalMillis
-          go_name: SetIntervalMillis
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.location.LocationRequest$Builder
-          error: true
-        - java_method: setMaxUpdateDelayMillis
-          go_name: SetMaxUpdateDelayMillis
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.location.LocationRequest$Builder
-          error: true
-        - java_method: setMaxUpdates
-          go_name: SetMaxUpdates
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.location.LocationRequest$Builder
-          error: true
-        - java_method: setMinUpdateDistanceMeters
-          go_name: SetMinUpdateDistanceMeters
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: android.location.LocationRequest$Builder
-          error: true
-        - java_method: setMinUpdateIntervalMillis
-          go_name: SetMinUpdateIntervalMillis
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.location.LocationRequest$Builder
-          error: true
-        - java_method: setQuality
-          go_name: SetQuality
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.location.LocationRequest$Builder
-          error: true
-    - java_class: android.location.GpsSatellite
-      go_type: GpsSatellite
-      methods:
-        - java_method: getAzimuth
-          go_name: GetAzimuth
-          returns: float
-          error: true
-        - java_method: getElevation
-          go_name: GetElevation
-          returns: float
-          error: true
-        - java_method: getPrn
-          go_name: GetPrn
-          returns: int
-          error: true
-        - java_method: getSnr
-          go_name: GetSnr
-          returns: float
-          error: true
-        - java_method: hasAlmanac
-          go_name: HasAlmanac
-          returns: boolean
-          error: true
-        - java_method: hasEphemeris
-          go_name: HasEphemeris
-          returns: boolean
-          error: true
-        - java_method: usedInFix
-          go_name: UsedInFix
-          returns: boolean
-          error: true
-    - java_class: android.location.GnssCapabilities
-      go_type: GnssCapabilities
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getGnssSignalTypes
-          go_name: GetGnssSignalTypes
-          returns: java.util.List<android.location.GnssSignalType>
-          error: true
-        - java_method: hasAccumulatedDeltaRange
-          go_name: HasAccumulatedDeltaRange
-          returns: int
-          error: true
-        - java_method: hasAntennaInfo
-          go_name: HasAntennaInfo
-          returns: boolean
-          error: true
-        - java_method: hasGeofencing
-          go_name: HasGeofencing
-          returns: boolean
-          error: true
-        - java_method: hasGnssAntennaInfo
-          go_name: HasGnssAntennaInfo
-          returns: boolean
-          error: true
-        - java_method: hasLowPowerMode
-          go_name: HasLowPowerMode
-          returns: boolean
-          error: true
-        - java_method: hasMeasurementCorrections
-          go_name: HasMeasurementCorrections
-          returns: boolean
-          error: true
-        - java_method: hasMeasurementCorrectionsExcessPathLength
-          go_name: HasMeasurementCorrectionsExcessPathLength
-          returns: boolean
-          error: true
-        - java_method: hasMeasurementCorrectionsForDriving
-          go_name: HasMeasurementCorrectionsForDriving
-          returns: boolean
-          error: true
-        - java_method: hasMeasurementCorrectionsLosSats
-          go_name: HasMeasurementCorrectionsLosSats
-          returns: boolean
-          error: true
-        - java_method: hasMeasurementCorrectionsReflectingPlane
-          go_name: HasMeasurementCorrectionsReflectingPlane
-          returns: boolean
-          error: true
-        - java_method: hasMeasurementCorrelationVectors
-          go_name: HasMeasurementCorrelationVectors
-          returns: boolean
-          error: true
-        - java_method: hasMeasurements
-          go_name: HasMeasurements
-          returns: boolean
-          error: true
-        - java_method: hasMsa
-          go_name: HasMsa
-          returns: boolean
-          error: true
-        - java_method: hasMsb
-          go_name: HasMsb
-          returns: boolean
-          error: true
-        - java_method: hasNavigationMessages
-          go_name: HasNavigationMessages
-          returns: boolean
-          error: true
-        - java_method: hasOnDemandTime
-          go_name: HasOnDemandTime
-          returns: boolean
-          error: true
-        - java_method: hasPowerMultibandAcquisition
-          go_name: HasPowerMultibandAcquisition
-          returns: boolean
-          error: true
-        - java_method: hasPowerMultibandTracking
-          go_name: HasPowerMultibandTracking
-          returns: boolean
-          error: true
-        - java_method: hasPowerOtherModes
-          go_name: HasPowerOtherModes
-          returns: boolean
-          error: true
-        - java_method: hasPowerSinglebandAcquisition
-          go_name: HasPowerSinglebandAcquisition
-          returns: boolean
-          error: true
-        - java_method: hasPowerSinglebandTracking
-          go_name: HasPowerSinglebandTracking
-          returns: boolean
-          error: true
-        - java_method: hasPowerTotal
-          go_name: HasPowerTotal
-          returns: boolean
-          error: true
-        - java_method: hasSatelliteBlocklist
-          go_name: HasSatelliteBlocklist
-          returns: boolean
-          error: true
-        - java_method: hasSatellitePvt
-          go_name: HasSatellitePvt
-          returns: boolean
-          error: true
-        - java_method: hasScheduling
-          go_name: HasScheduling
-          returns: boolean
-          error: true
-        - java_method: hasSingleShotFix
-          go_name: HasSingleShotFix
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.location.GnssCapabilities$Builder
-      go_type: GnssCapabilitiesBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.location.GnssCapabilities
-          error: true
-        - java_method: setHasAccumulatedDeltaRange
-          go_name: SetHasAccumulatedDeltaRange
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasAntennaInfo
-          go_name: SetHasAntennaInfo
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasGeofencing
-          go_name: SetHasGeofencing
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasLowPowerMode
-          go_name: SetHasLowPowerMode
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasMeasurementCorrections
-          go_name: SetHasMeasurementCorrections
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasMeasurementCorrectionsExcessPathLength
-          go_name: SetHasMeasurementCorrectionsExcessPathLength
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasMeasurementCorrectionsForDriving
-          go_name: SetHasMeasurementCorrectionsForDriving
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasMeasurementCorrectionsLosSats
-          go_name: SetHasMeasurementCorrectionsLosSats
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasMeasurementCorrectionsReflectingPlane
-          go_name: SetHasMeasurementCorrectionsReflectingPlane
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasMeasurementCorrelationVectors
-          go_name: SetHasMeasurementCorrelationVectors
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasMeasurements
-          go_name: SetHasMeasurements
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasMsa
-          go_name: SetHasMsa
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasMsb
-          go_name: SetHasMsb
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasNavigationMessages
-          go_name: SetHasNavigationMessages
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasOnDemandTime
-          go_name: SetHasOnDemandTime
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasPowerMultibandAcquisition
-          go_name: SetHasPowerMultibandAcquisition
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasPowerMultibandTracking
-          go_name: SetHasPowerMultibandTracking
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasPowerOtherModes
-          go_name: SetHasPowerOtherModes
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasPowerSinglebandAcquisition
-          go_name: SetHasPowerSinglebandAcquisition
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasPowerSinglebandTracking
-          go_name: SetHasPowerSinglebandTracking
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasPowerTotal
-          go_name: SetHasPowerTotal
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasSatelliteBlocklist
-          go_name: SetHasSatelliteBlocklist
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasSatellitePvt
-          go_name: SetHasSatellitePvt
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasScheduling
-          go_name: SetHasScheduling
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-        - java_method: setHasSingleShotFix
-          go_name: SetHasSingleShotFix
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.location.GnssCapabilities$Builder
-          error: true
-    - java_class: android.location.Criteria
-      go_type: Criteria
-      obtain: constructor
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getAccuracy
-          go_name: GetAccuracy
-          returns: int
-          error: true
-        - java_method: getBearingAccuracy
-          go_name: GetBearingAccuracy
-          returns: int
-          error: true
-        - java_method: getHorizontalAccuracy
-          go_name: GetHorizontalAccuracy
-          returns: int
-          error: true
-        - java_method: getPowerRequirement
-          go_name: GetPowerRequirement
-          returns: int
-          error: true
-        - java_method: getSpeedAccuracy
-          go_name: GetSpeedAccuracy
-          returns: int
-          error: true
-        - java_method: getVerticalAccuracy
-          go_name: GetVerticalAccuracy
-          returns: int
-          error: true
-        - java_method: isAltitudeRequired
-          go_name: IsAltitudeRequired
-          returns: boolean
-          error: true
-        - java_method: isBearingRequired
-          go_name: IsBearingRequired
-          returns: boolean
-          error: true
-        - java_method: isCostAllowed
-          go_name: IsCostAllowed
-          returns: boolean
-          error: true
-        - java_method: isSpeedRequired
-          go_name: IsSpeedRequired
-          returns: boolean
-          error: true
-        - java_method: setAccuracy
-          go_name: SetAccuracy
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setAltitudeRequired
-          go_name: SetAltitudeRequired
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setBearingAccuracy
-          go_name: SetBearingAccuracy
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setBearingRequired
-          go_name: SetBearingRequired
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCostAllowed
-          go_name: SetCostAllowed
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setHorizontalAccuracy
-          go_name: SetHorizontalAccuracy
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setPowerRequirement
-          go_name: SetPowerRequirement
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSpeedAccuracy
-          go_name: SetSpeedAccuracy
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSpeedRequired
-          go_name: SetSpeedRequired
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setVerticalAccuracy
-          go_name: SetVerticalAccuracy
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.location.LocationListener
-      go_type: Listener
-      methods:
-        - java_method: onLocationChanged
-          go_name: OnLocationChanged
-          params:
-            - java_type: android.location.Location
-              go_name: arg0
           returns: void
           error: true
 abstract_callbacks:
-    - java_class: android.location.GnssNavigationMessage$Callback
-      go_type: GnssNavigationMessageCallbackCallback
-      methods:
-        - java_method: onGnssNavigationMessageReceived
-          params:
-            - android.location.GnssNavigationMessage
-          returns: void
-          go_field: OnGnssNavigationMessageReceived
-        - java_method: onStatusChanged
-          params:
-            - int
-          returns: void
-          go_field: OnStatusChanged
     - java_class: android.location.GnssMeasurementsEvent$Callback
       go_type: GnssMeasurementsEventCallbackCallback
       methods:
@@ -3067,6 +3098,19 @@ abstract_callbacks:
             - android.location.GnssMeasurementsEvent
           returns: void
           go_field: OnGnssMeasurementsReceived
+        - java_method: onStatusChanged
+          params:
+            - int
+          returns: void
+          go_field: OnStatusChanged
+    - java_class: android.location.GnssNavigationMessage$Callback
+      go_type: GnssNavigationMessageCallbackCallback
+      methods:
+        - java_method: onGnssNavigationMessageReceived
+          params:
+            - android.location.GnssNavigationMessage
+          returns: void
+          go_field: OnGnssNavigationMessageReceived
         - java_method: onStatusChanged
           params:
             - int
@@ -3093,38 +3137,123 @@ abstract_callbacks:
           params: []
           returns: void
           go_field: OnStopped
+abstract_callback_eligibility:
+    - java_class: android.location.GnssMeasurementsEvent$Callback
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.location.GnssNavigationMessage$Callback
+      generated: true
+      reason: supported_no_arg_constructor
     - java_class: android.location.SettingInjectorService
-      go_type: SettingInjectorServiceCallback
-      methods:
-        - java_method: onBind
-          params:
-            - android.content.Intent
-          returns: android.os.IBinder
-          go_field: OnBind
-        - java_method: onStart
-          params:
-            - android.content.Intent
-            - int
-          returns: void
-          go_field: OnStart
-        - java_method: onStartCommand
-          params:
-            - android.content.Intent
-            - int
-            - int
-          returns: int
-          go_field: OnStartCommand
+      generated: false
+      reason: unsupported_constructor
+    - java_class: android.location.GnssStatus$Callback
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
     - go_name: Creator
       value: "0"
       go_type: int
-    - go_name: FormatDegrees
+    - go_name: StatusLocationDisabled
+      value: "2"
+      go_type: int
+    - go_name: StatusNotAllowed
+      value: "3"
+      go_type: int
+    - go_name: StatusNotSupported
       value: "0"
       go_type: int
-    - go_name: FormatMinutes
+    - go_name: StatusReady
       value: "1"
       go_type: int
-    - go_name: FormatSeconds
+    - go_name: PassiveInterval
+      value: "9223372036854775807"
+      go_type: int64
+    - go_name: QualityBalancedPowerAccuracy
+      value: "102"
+      go_type: int
+    - go_name: QualityHighAccuracy
+      value: "100"
+      go_type: int
+    - go_name: QualityLowPower
+      value: "104"
+      go_type: int
+    - go_name: ActionGnssCapabilitiesChanged
+      value: '"android.location.action.GNSS_CAPABILITIES_CHANGED"'
+      go_type: string
+    - go_name: ExtraGnssCapabilities
+      value: '"android.location.extra.GNSS_CAPABILITIES"'
+      go_type: string
+    - go_name: ExtraLocationEnabled
+      value: '"android.location.extra.LOCATION_ENABLED"'
+      go_type: string
+    - go_name: ExtraProviderEnabled
+      value: '"android.location.extra.PROVIDER_ENABLED"'
+      go_type: string
+    - go_name: ExtraProviderName
+      value: '"android.location.extra.PROVIDER_NAME"'
+      go_type: string
+    - go_name: FusedProvider
+      value: '"fused"'
+      go_type: string
+    - go_name: GpsProvider
+      value: '"gps"'
+      go_type: string
+    - go_name: KeyFlushComplete
+      value: '"flushComplete"'
+      go_type: string
+    - go_name: KeyLocations
+      value: '"locations"'
+      go_type: string
+    - go_name: KeyLocationChanged
+      value: '"location"'
+      go_type: string
+    - go_name: KeyProviderEnabled
+      value: '"providerEnabled"'
+      go_type: string
+    - go_name: KeyProximityEntering
+      value: '"entering"'
+      go_type: string
+    - go_name: KeyStatusChanged
+      value: '"status"'
+      go_type: string
+    - go_name: ModeChangedAction
+      value: '"android.location.MODE_CHANGED"'
+      go_type: string
+    - go_name: NetworkProvider
+      value: '"network"'
+      go_type: string
+    - go_name: PassiveProvider
+      value: '"passive"'
+      go_type: string
+    - go_name: ProvidersChangedAction
+      value: '"android.location.PROVIDERS_CHANGED"'
+      go_type: string
+    - go_name: AccuracyCoarse
+      value: "2"
+      go_type: int
+    - go_name: AccuracyFine
+      value: "1"
+      go_type: int
+    - go_name: AccuracyHigh
+      value: "3"
+      go_type: int
+    - go_name: AccuracyLow
+      value: "1"
+      go_type: int
+    - go_name: AccuracyMedium
+      value: "2"
+      go_type: int
+    - go_name: NoRequirement
+      value: "0"
+      go_type: int
+    - go_name: PowerHigh
+      value: "3"
+      go_type: int
+    - go_name: PowerLow
+      value: "1"
+      go_type: int
+    - go_name: PowerMedium
       value: "2"
       go_type: int
     - go_name: StatusParityPassed
@@ -3187,14 +3316,23 @@ constants:
     - go_name: TypeUnknown
       value: "0"
       go_type: int
-    - go_name: StatusLocationDisabled
+    - go_name: Available
       value: "2"
       go_type: int
-    - go_name: StatusNotSupported
+    - go_name: OutOfService
       value: "0"
       go_type: int
-    - go_name: StatusReady
+    - go_name: TemporarilyUnavailable
       value: "1"
+      go_type: int
+    - go_name: CapabilitySupported
+      value: "1"
+      go_type: int
+    - go_name: CapabilityUnknown
+      value: "0"
+      go_type: int
+    - go_name: CapabilityUnsupported
+      value: "2"
       go_type: int
     - go_name: GpsEventFirstFix
       value: "3"
@@ -3207,45 +3345,6 @@ constants:
       go_type: int
     - go_name: GpsEventStopped
       value: "2"
-      go_type: int
-    - go_name: PassiveInterval
-      value: "2147483647"
-      go_type: int
-    - go_name: StatusNotAllowed
-      value: "3"
-      go_type: int
-    - go_name: Available
-      value: "2"
-      go_type: int
-    - go_name: OutOfService
-      value: "0"
-      go_type: int
-    - go_name: TemporarilyUnavailable
-      value: "1"
-      go_type: int
-    - go_name: ConstellationBeidou
-      value: "5"
-      go_type: int
-    - go_name: ConstellationGalileo
-      value: "6"
-      go_type: int
-    - go_name: ConstellationGlonass
-      value: "3"
-      go_type: int
-    - go_name: ConstellationGps
-      value: "1"
-      go_type: int
-    - go_name: ConstellationIrnss
-      value: "7"
-      go_type: int
-    - go_name: ConstellationQzss
-      value: "4"
-      go_type: int
-    - go_name: ConstellationSbas
-      value: "2"
-      go_type: int
-    - go_name: ConstellationUnknown
-      value: "0"
       go_type: int
     - go_name: AdrStateCycleSlip
       value: "4"
@@ -3328,6 +3427,15 @@ constants:
     - go_name: StateUnknown
       value: "0"
       go_type: int
+    - go_name: FormatDegrees
+      value: "0"
+      go_type: int
+    - go_name: FormatMinutes
+      value: "1"
+      go_type: int
+    - go_name: FormatSeconds
+      value: "2"
+      go_type: int
     - go_name: ActionInjectedSettingChanged
       value: '"android.location.InjectedSettingChanged"'
       go_type: string
@@ -3340,99 +3448,27 @@ constants:
     - go_name: MetaDataName
       value: '"android.location.SettingInjectorService"'
       go_type: string
-    - go_name: ActionGnssCapabilitiesChanged
-      value: '"android.location.action.GNSS_CAPABILITIES_CHANGED"'
-      go_type: string
-    - go_name: ExtraGnssCapabilities
-      value: '"android.location.extra.GNSS_CAPABILITIES"'
-      go_type: string
-    - go_name: ExtraLocationEnabled
-      value: '"android.location.extra.LOCATION_ENABLED"'
-      go_type: string
-    - go_name: ExtraProviderEnabled
-      value: '"android.location.extra.PROVIDER_ENABLED"'
-      go_type: string
-    - go_name: ExtraProviderName
-      value: '"android.location.extra.PROVIDER_NAME"'
-      go_type: string
-    - go_name: FusedProvider
-      value: '"fused"'
-      go_type: string
-    - go_name: GpsProvider
-      value: '"gps"'
-      go_type: string
-    - go_name: KeyFlushComplete
-      value: '"flushComplete"'
-      go_type: string
-    - go_name: KeyLocations
-      value: '"locations"'
-      go_type: string
-    - go_name: KeyLocationChanged
-      value: '"location"'
-      go_type: string
-    - go_name: KeyProviderEnabled
-      value: '"providerEnabled"'
-      go_type: string
-    - go_name: KeyProximityEntering
-      value: '"entering"'
-      go_type: string
-    - go_name: KeyStatusChanged
-      value: '"status"'
-      go_type: string
-    - go_name: ModeChangedAction
-      value: '"android.location.MODE_CHANGED"'
-      go_type: string
-    - go_name: NetworkProvider
-      value: '"network"'
-      go_type: string
-    - go_name: PassiveProvider
-      value: '"passive"'
-      go_type: string
-    - go_name: ProvidersChangedAction
-      value: '"android.location.PROVIDERS_CHANGED"'
-      go_type: string
-    - go_name: QualityBalancedPowerAccuracy
-      value: "102"
+    - go_name: ConstellationBeidou
+      value: "5"
       go_type: int
-    - go_name: QualityHighAccuracy
-      value: "100"
+    - go_name: ConstellationGalileo
+      value: "6"
       go_type: int
-    - go_name: QualityLowPower
-      value: "104"
-      go_type: int
-    - go_name: CapabilitySupported
-      value: "1"
-      go_type: int
-    - go_name: CapabilityUnknown
-      value: "0"
-      go_type: int
-    - go_name: CapabilityUnsupported
-      value: "2"
-      go_type: int
-    - go_name: AccuracyCoarse
-      value: "2"
-      go_type: int
-    - go_name: AccuracyFine
-      value: "1"
-      go_type: int
-    - go_name: AccuracyHigh
+    - go_name: ConstellationGlonass
       value: "3"
       go_type: int
-    - go_name: AccuracyLow
+    - go_name: ConstellationGps
       value: "1"
       go_type: int
-    - go_name: AccuracyMedium
+    - go_name: ConstellationIrnss
+      value: "7"
+      go_type: int
+    - go_name: ConstellationQzss
+      value: "4"
+      go_type: int
+    - go_name: ConstellationSbas
       value: "2"
       go_type: int
-    - go_name: NoRequirement
+    - go_name: ConstellationUnknown
       value: "0"
-      go_type: int
-    - go_name: PowerHigh
-      value: "3"
-      go_type: int
-    - go_name: PowerLow
-      value: "1"
-      go_type: int
-    - go_name: PowerMedium
-      value: "2"
       go_type: int

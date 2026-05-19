@@ -5,17 +5,6 @@ package biometric
 import "github.com/AndroidGoLab/jni/hardware/biometric/consts"
 
 const (
-	BiometricErrorHwUnavailable              = consts.BiometricErrorHwUnavailable
-	BiometricErrorIdentityCheckNotActive     = consts.BiometricErrorIdentityCheckNotActive
-	BiometricErrorNoneEnrolled               = consts.BiometricErrorNoneEnrolled
-	BiometricErrorNotEnabledForApps          = consts.BiometricErrorNotEnabledForApps
-	BiometricErrorNoHardware                 = consts.BiometricErrorNoHardware
-	BiometricErrorSecurityUpdateRequired     = consts.BiometricErrorSecurityUpdateRequired
-	BiometricSuccess                         = consts.BiometricSuccess
-	BiometricStrong                          = consts.BiometricStrong
-	BiometricWeak                            = consts.BiometricWeak
-	DeviceCredential                         = consts.DeviceCredential
-	IdentityCheck                            = consts.IdentityCheck
 	AuthenticationResultTypeBiometric        = consts.AuthenticationResultTypeBiometric
 	AuthenticationResultTypeDeviceCredential = consts.AuthenticationResultTypeDeviceCredential
 	BiometricAcquiredGood                    = consts.BiometricAcquiredGood
@@ -26,15 +15,26 @@ const (
 	BiometricAcquiredTooSlow                 = consts.BiometricAcquiredTooSlow
 	BiometricErrorCanceled                   = consts.BiometricErrorCanceled
 	BiometricErrorHwNotPresent               = consts.BiometricErrorHwNotPresent
+	BiometricErrorHwUnavailable              = consts.BiometricErrorHwUnavailable
+	BiometricErrorIdentityCheckNotActive     = consts.BiometricErrorIdentityCheckNotActive
 	BiometricErrorLockout                    = consts.BiometricErrorLockout
 	BiometricErrorLockoutPermanent           = consts.BiometricErrorLockoutPermanent
+	BiometricErrorNotEnabledForApps          = consts.BiometricErrorNotEnabledForApps
 	BiometricErrorNoBiometrics               = consts.BiometricErrorNoBiometrics
 	BiometricErrorNoDeviceCredential         = consts.BiometricErrorNoDeviceCredential
 	BiometricErrorNoSpace                    = consts.BiometricErrorNoSpace
+	BiometricErrorSecurityUpdateRequired     = consts.BiometricErrorSecurityUpdateRequired
 	BiometricErrorTimeout                    = consts.BiometricErrorTimeout
 	BiometricErrorUnableToProcess            = consts.BiometricErrorUnableToProcess
 	BiometricErrorUserCanceled               = consts.BiometricErrorUserCanceled
 	BiometricErrorVendor                     = consts.BiometricErrorVendor
+	BiometricErrorNoneEnrolled               = consts.BiometricErrorNoneEnrolled
+	BiometricErrorNoHardware                 = consts.BiometricErrorNoHardware
+	BiometricSuccess                         = consts.BiometricSuccess
+	BiometricStrong                          = consts.BiometricStrong
+	BiometricWeak                            = consts.BiometricWeak
+	DeviceCredential                         = consts.DeviceCredential
+	IdentityCheck                            = consts.IdentityCheck
 )
 
 const (

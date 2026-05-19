@@ -5,6 +5,58 @@
 package: nsd
 go_import: github.com/AndroidGoLab/jni/net/wifi/p2p/nsd
 classes:
+    - java_class: android.net.wifi.p2p.nsd.WifiP2pUsdBasedServiceResponse
+      go_type: WifiP2pUsdBasedServiceResponse
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getServiceProtocolType
+          go_name: GetServiceProtocolType
+          returns: int
+          error: true
+        - java_method: getServiceSpecificInfo
+          go_name: GetServiceSpecificInfo
+          returns: '[B'
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.wifi.p2p.nsd.WifiP2pDnsSdServiceRequest
+      go_type: WifiP2pDnsSdServiceRequest
+      static_methods:
+        - java_method: newInstance
+          go_name: NewInstance0
+          returns: android.net.wifi.p2p.nsd.WifiP2pDnsSdServiceRequest
+          error: true
+        - java_method: newInstance
+          go_name: NewInstance1_1
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.wifi.p2p.nsd.WifiP2pDnsSdServiceRequest
+          error: true
+        - java_method: newInstance
+          go_name: NewInstance2_2
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: android.net.wifi.p2p.nsd.WifiP2pDnsSdServiceRequest
+          error: true
     - java_class: android.net.wifi.p2p.nsd.WifiP2pServiceInfo
       go_type: WifiP2pServiceInfo
       obtain: constructor
@@ -39,6 +91,83 @@ classes:
             - java_type: int
               go_name: arg1
           returns: void
+          error: true
+    - java_class: android.net.wifi.p2p.nsd.WifiP2pUpnpServiceRequest
+      go_type: WifiP2pUpnpServiceRequest
+      static_methods:
+        - java_method: newInstance
+          go_name: NewInstance0
+          returns: android.net.wifi.p2p.nsd.WifiP2pUpnpServiceRequest
+          error: true
+        - java_method: newInstance
+          go_name: NewInstance1_1
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.wifi.p2p.nsd.WifiP2pUpnpServiceRequest
+          error: true
+    - java_class: android.net.wifi.p2p.nsd.WifiP2pUsdBasedServiceConfig
+      go_type: WifiP2pUsdBasedServiceConfig
+      obtain: constructor
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getServiceName
+          go_name: GetServiceName
+          returns: String
+          error: true
+        - java_method: getServiceProtocolType
+          go_name: GetServiceProtocolType
+          returns: int
+          error: true
+        - java_method: getServiceSpecificInfo
+          go_name: GetServiceSpecificInfo
+          returns: '[B'
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: getMaxAllowedServiceSpecificInfoLength
+          go_name: GetMaxAllowedServiceSpecificInfoLength
+          returns: int
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.wifi.p2p.nsd.WifiP2pUsdBasedServiceConfig$Builder
+      go_type: WifiP2pUsdBasedServiceConfigBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.net.wifi.p2p.nsd.WifiP2pUsdBasedServiceConfig
+          error: true
+        - java_method: setServiceProtocolType
+          go_name: SetServiceProtocolType
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.wifi.p2p.nsd.WifiP2pUsdBasedServiceConfig$Builder
+          error: true
+        - java_method: setServiceSpecificInfo
+          go_name: SetServiceSpecificInfo
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: android.net.wifi.p2p.nsd.WifiP2pUsdBasedServiceConfig$Builder
           error: true
     - java_class: android.net.wifi.p2p.nsd.WifiP2pServiceRequest
       go_type: WifiP2pServiceRequest
@@ -92,135 +221,14 @@ classes:
               go_name: arg1
           returns: android.net.wifi.p2p.nsd.WifiP2pServiceRequest
           error: true
-    - java_class: android.net.wifi.p2p.nsd.WifiP2pUpnpServiceInfo
-      go_type: WifiP2pUpnpServiceInfo
-    - java_class: android.net.wifi.p2p.nsd.WifiP2pUsdBasedServiceConfig
-      go_type: WifiP2pUsdBasedServiceConfig
-      obtain: constructor
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getServiceName
-          go_name: GetServiceName
-          returns: String
-          error: true
-        - java_method: getServiceProtocolType
-          go_name: GetServiceProtocolType
-          returns: int
-          error: true
-        - java_method: getServiceSpecificInfo
-          go_name: GetServiceSpecificInfo
-          returns: '[B'
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: getMaxAllowedServiceSpecificInfoLength
-          go_name: GetMaxAllowedServiceSpecificInfoLength
-          returns: int
-          error: true
-    - java_class: android.net.wifi.p2p.nsd.WifiP2pUsdBasedServiceConfig$Builder
-      go_type: WifiP2pUsdBasedServiceConfigBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.net.wifi.p2p.nsd.WifiP2pUsdBasedServiceConfig
-          error: true
-        - java_method: setServiceProtocolType
-          go_name: SetServiceProtocolType
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.wifi.p2p.nsd.WifiP2pUsdBasedServiceConfig$Builder
-          error: true
-        - java_method: setServiceSpecificInfo
-          go_name: SetServiceSpecificInfo
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: android.net.wifi.p2p.nsd.WifiP2pUsdBasedServiceConfig$Builder
-          error: true
-    - java_class: android.net.wifi.p2p.nsd.WifiP2pUsdBasedServiceResponse
-      go_type: WifiP2pUsdBasedServiceResponse
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getServiceProtocolType
-          go_name: GetServiceProtocolType
-          returns: int
-          error: true
-        - java_method: getServiceSpecificInfo
-          go_name: GetServiceSpecificInfo
-          returns: '[B'
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
     - java_class: android.net.wifi.p2p.nsd.WifiP2pDnsSdServiceInfo
       go_type: WifiP2pDnsSdServiceInfo
-    - java_class: android.net.wifi.p2p.nsd.WifiP2pDnsSdServiceRequest
-      go_type: WifiP2pDnsSdServiceRequest
-      static_methods:
-        - java_method: newInstance
-          go_name: NewInstance0
-          returns: android.net.wifi.p2p.nsd.WifiP2pDnsSdServiceRequest
-          error: true
-        - java_method: newInstance
-          go_name: NewInstance1_1
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.wifi.p2p.nsd.WifiP2pDnsSdServiceRequest
-          error: true
-        - java_method: newInstance
-          go_name: NewInstance2_2
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: android.net.wifi.p2p.nsd.WifiP2pDnsSdServiceRequest
-          error: true
-    - java_class: android.net.wifi.p2p.nsd.WifiP2pUpnpServiceRequest
-      go_type: WifiP2pUpnpServiceRequest
-      static_methods:
-        - java_method: newInstance
-          go_name: NewInstance0
-          returns: android.net.wifi.p2p.nsd.WifiP2pUpnpServiceRequest
-          error: true
-        - java_method: newInstance
-          go_name: NewInstance1_1
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.wifi.p2p.nsd.WifiP2pUpnpServiceRequest
-          error: true
+    - java_class: android.net.wifi.p2p.nsd.WifiP2pUpnpServiceInfo
+      go_type: WifiP2pUpnpServiceInfo
 constants:
+    - go_name: Creator
+      value: "0"
+      go_type: int
     - go_name: ServiceTypeAll
       value: "0"
       go_type: int
@@ -232,9 +240,6 @@ constants:
       go_type: int
     - go_name: ServiceTypeVendorSpecific
       value: "255"
-      go_type: int
-    - go_name: Creator
-      value: "0"
       go_type: int
     - go_name: ServiceProtocolTypeBonjour
       value: "1"

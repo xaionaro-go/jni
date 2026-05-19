@@ -23,6 +23,34 @@ type MaterialTimePickerBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMaterialTimePickerBuilder creates a new com.google.android.material.timepicker.MaterialTimePicker$Builder instance.
+func NewMaterialTimePickerBuilder(vm *jni.VM) (*MaterialTimePickerBuilder, error) {
+	var t MaterialTimePickerBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMaterialTimePickerBuilder == nil {
+			return fmt.Errorf("com.google.android.material.timepicker.MaterialTimePicker$Builder is not available on this device")
+		}
+		if midMaterialTimePickerBuilderCtor == nil {
+			return fmt.Errorf("com.google.android.material.timepicker.MaterialTimePicker$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialTimePickerBuilder)), midMaterialTimePickerBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetInputMode calls com.google.android.material.timepicker.MaterialTimePicker$Builder.setInputMode.
 func (m *MaterialTimePickerBuilder) SetInputMode(arg0 int32) (*jni.Object, error) {
 	var result *jni.Object
@@ -385,38 +413,6 @@ func (m *MaterialTimePickerBuilder) SetTheme(arg0 int32) (*jni.Object, error) {
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
 			midMaterialTimePickerBuilderSetTheme, jni.IntValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Build calls com.google.android.material.timepicker.MaterialTimePicker$Builder.build.
-func (m *MaterialTimePickerBuilder) Build() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialTimePickerBuilderBuild == nil {
-			callErr = fmt.Errorf("com.google.android.material.timepicker.MaterialTimePicker$Builder.build is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialTimePickerBuilderBuild,
 		)
 		if callErr != nil {
 			return callErr

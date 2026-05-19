@@ -5,9 +5,21 @@
 package: snackbar
 go_import: github.com/AndroidGoLab/jni/com/google/android/material/snackbar
 classes:
-    - java_class: com.google.android.material.snackbar.ContentViewCallback
-      go_type: ContentViewCallback
+    - java_class: com.google.android.material.snackbar.SnackbarContentLayout
+      go_type: ContentLayout
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
       methods:
+        - java_method: getMessageView
+          go_name: GetMessageView
+          returns: android.widget.TextView
+          error: true
+        - java_method: getActionView
+          go_name: GetActionView
+          returns: android.widget.Button
+          error: true
         - java_method: animateContentIn
           go_name: AnimateContentIn
           params:
@@ -24,6 +36,149 @@ classes:
               go_name: arg0
             - java_type: int
               go_name: arg1
+          returns: void
+          error: true
+        - java_method: setMaxInlineActionWidth
+          go_name: SetMaxInlineActionWidth
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: com.google.android.material.snackbar.BaseTransientBottomBar
+      go_type: BaseTransientBottomBar
+      methods:
+        - java_method: getDuration
+          go_name: GetDuration
+          returns: int
+          error: true
+        - java_method: isGestureInsetBottomIgnored
+          go_name: IsGestureInsetBottomIgnored
+          returns: boolean
+          error: true
+        - java_method: getAnimationMode
+          go_name: GetAnimationMode
+          returns: int
+          error: true
+        - java_method: getAnchorView
+          go_name: GetAnchorView
+          returns: android.view.View
+          error: true
+        - java_method: isAnchorViewLayoutListenerEnabled
+          go_name: IsAnchorViewLayoutListenerEnabled
+          returns: boolean
+          error: true
+        - java_method: setAnchorViewLayoutListenerEnabled
+          go_name: SetAnchorViewLayoutListenerEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getBehavior
+          go_name: GetBehavior
+          returns: com.google.android.material.snackbar.BaseTransientBottomBar$Behavior
+          error: true
+        - java_method: getContext
+          go_name: GetContext
+          returns: android.content.Context
+          error: true
+        - java_method: getView
+          go_name: GetView
+          returns: android.view.View
+          error: true
+        - java_method: show
+          go_name: Show
+          returns: void
+          error: true
+        - java_method: dismiss
+          go_name: Dismiss
+          returns: void
+          error: true
+        - java_method: isShown
+          go_name: IsShown
+          returns: boolean
+          error: true
+    - java_class: com.google.android.material.snackbar.BaseTransientBottomBar$AnimationMode
+      go_type: BaseTransientBottomBarAnimationMode
+    - java_class: com.google.android.material.snackbar.BaseTransientBottomBar$BaseCallback
+      go_type: BaseTransientBottomBarBaseCallback
+    - java_class: com.google.android.material.snackbar.BaseTransientBottomBar$Behavior
+      go_type: BaseTransientBottomBarBehavior
+      obtain: constructor
+      methods:
+        - java_method: canSwipeDismissView
+          go_name: CanSwipeDismissView
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: boolean
+          error: true
+    - java_class: com.google.android.material.snackbar.BaseTransientBottomBar$BehaviorDelegate
+      go_type: BaseTransientBottomBarBehaviorDelegate
+      obtain: constructor
+      constructor_params:
+        - java_type: com.google.android.material.behavior.SwipeDismissBehavior<?>
+          go_name: arg0
+      methods:
+        - java_method: canSwipeDismissView
+          go_name: CanSwipeDismissView
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onInterceptTouchEvent
+          go_name: OnInterceptTouchEvent
+          params:
+            - java_type: androidx.coordinatorlayout.widget.CoordinatorLayout
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
+            - java_type: android.view.MotionEvent
+              go_name: arg2
+          returns: void
+          error: true
+    - java_class: com.google.android.material.snackbar.BaseTransientBottomBar$ContentViewCallback
+      go_type: BaseTransientBottomBarContentViewCallback
+    - java_class: com.google.android.material.snackbar.BaseTransientBottomBar$Duration
+      go_type: BaseTransientBottomBarDuration
+    - java_class: com.google.android.material.snackbar.BaseTransientBottomBar$SnackbarBaseLayout
+      go_type: BaseTransientBottomBarSnackbarBaseLayout
+      methods:
+        - java_method: setBackground
+          go_name: SetBackground
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setBackgroundDrawable
+          go_name: SetBackgroundDrawable
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setBackgroundTintList
+          go_name: SetBackgroundTintList
+          params:
+            - java_type: android.content.res.ColorStateList
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setBackgroundTintMode
+          go_name: SetBackgroundTintMode
+          params:
+            - java_type: android.graphics.PorterDuff$Mode
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setOnClickListener
+          go_name: SetOnClickListener
+          params:
+            - java_type: android.view.View$OnClickListener
+              go_name: arg0
           returns: void
           error: true
     - java_class: com.google.android.material.snackbar.Snackbar
@@ -140,13 +295,6 @@ classes:
               go_name: arg0
           returns: com.google.android.material.snackbar.Snackbar
           error: true
-        - java_method: setCallback
-          go_name: SetCallback
-          params:
-            - java_type: com.google.android.material.snackbar.Snackbar$Callback
-              go_name: arg0
-          returns: com.google.android.material.snackbar.Snackbar
-          error: true
       static_methods:
         - java_method: make
           go_name: Make3
@@ -183,36 +331,28 @@ classes:
               go_name: arg2
           returns: com.google.android.material.snackbar.Snackbar
           error: true
+        - java_method: setCallback
+          go_name: SetCallback
+          params:
+            - java_type: com.google.android.material.snackbar.Snackbar$Callback
+              go_name: arg0
+          returns: com.google.android.material.snackbar.Snackbar
+          error: true
     - java_class: com.google.android.material.snackbar.Snackbar$Callback
       go_type: Callback
+      obtain: constructor
       methods:
         - java_method: onShown
-          go_name: OnShown1
+          go_name: OnShown
           params:
             - java_type: com.google.android.material.snackbar.Snackbar
               go_name: arg0
           returns: void
           error: true
         - java_method: onDismissed
-          go_name: OnDismissed2
+          go_name: OnDismissed
           params:
             - java_type: com.google.android.material.snackbar.Snackbar
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onShown
-          go_name: OnShown1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onDismissed
-          go_name: OnDismissed2_1
-          params:
-            - java_type: java.lang.Object
               go_name: arg0
             - java_type: int
               go_name: arg1
@@ -220,64 +360,13 @@ classes:
           error: true
     - java_class: com.google.android.material.snackbar.Snackbar$SnackbarLayout
       go_type: SnackbarLayout
-      methods:
-        - java_method: setLayoutParams
-          go_name: SetLayoutParams
-          params:
-            - java_type: android.view.ViewGroup$LayoutParams
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setOnClickListener
-          go_name: SetOnClickListener
-          params:
-            - java_type: android.view.View$OnClickListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setBackgroundTintMode
-          go_name: SetBackgroundTintMode
-          params:
-            - java_type: android.graphics.PorterDuff$Mode
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setBackgroundTintList
-          go_name: SetBackgroundTintList
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setBackgroundDrawable
-          go_name: SetBackgroundDrawable
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setBackground
-          go_name: SetBackground
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: com.google.android.material.snackbar.SnackbarContentLayout
-      go_type: ContentLayout
       obtain: constructor
       constructor_params:
         - java_type: android.content.Context
           go_name: arg0
+    - java_class: com.google.android.material.snackbar.ContentViewCallback
+      go_type: ContentViewCallback
       methods:
-        - java_method: getMessageView
-          go_name: GetMessageView
-          returns: android.widget.TextView
-          error: true
-        - java_method: getActionView
-          go_name: GetActionView
-          returns: android.widget.Button
-          error: true
         - java_method: animateContentIn
           go_name: AnimateContentIn
           params:
@@ -296,239 +385,31 @@ classes:
               go_name: arg1
           returns: void
           error: true
-        - java_method: setMaxInlineActionWidth
-          go_name: SetMaxInlineActionWidth
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: com.google.android.material.snackbar.BaseTransientBottomBar
-      go_type: BaseTransientBottomBar
-      methods:
-        - java_method: getDuration
-          go_name: GetDuration
-          returns: int
-          error: true
-        - java_method: isGestureInsetBottomIgnored
-          go_name: IsGestureInsetBottomIgnored
-          returns: boolean
-          error: true
-        - java_method: getAnimationMode
-          go_name: GetAnimationMode
-          returns: int
-          error: true
-        - java_method: getAnchorView
-          go_name: GetAnchorView
-          returns: android.view.View
-          error: true
-        - java_method: isAnchorViewLayoutListenerEnabled
-          go_name: IsAnchorViewLayoutListenerEnabled
-          returns: boolean
-          error: true
-        - java_method: setAnchorViewLayoutListenerEnabled
-          go_name: SetAnchorViewLayoutListenerEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getBehavior
-          go_name: GetBehavior
-          returns: com.google.android.material.snackbar.BaseTransientBottomBar$Behavior
-          error: true
-        - java_method: getContext
-          go_name: GetContext
-          returns: android.content.Context
-          error: true
-        - java_method: getView
-          go_name: GetView
-          returns: android.view.View
-          error: true
-        - java_method: show
-          go_name: Show
-          returns: void
-          error: true
-        - java_method: dismiss
-          go_name: Dismiss
-          returns: void
-          error: true
-        - java_method: isShown
-          go_name: IsShown
-          returns: boolean
-          error: true
-        - java_method: isShownOrQueued
-          go_name: IsShownOrQueued
-          returns: boolean
-          error: true
-    - java_class: com.google.android.material.snackbar.BaseTransientBottomBar$AnimationMode
-      go_type: BaseTransientBottomBarAnimationMode
-    - java_class: com.google.android.material.snackbar.BaseTransientBottomBar$BaseCallback
-      go_type: BaseTransientBottomBarBaseCallback
-    - java_class: com.google.android.material.snackbar.BaseTransientBottomBar$Behavior
-      go_type: BaseTransientBottomBarBehavior
-      methods:
-        - java_method: canSwipeDismissView
-          go_name: CanSwipeDismissView
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onInterceptTouchEvent
-          go_name: OnInterceptTouchEvent
-          params:
-            - java_type: androidx.coordinatorlayout.widget.CoordinatorLayout
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: android.view.MotionEvent
-              go_name: arg2
-          returns: boolean
-          error: true
-    - java_class: com.google.android.material.snackbar.BaseTransientBottomBar$BehaviorDelegate
-      go_type: BaseTransientBottomBarBehaviorDelegate
-      methods:
-        - java_method: canSwipeDismissView
-          go_name: CanSwipeDismissView
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onInterceptTouchEvent
-          go_name: OnInterceptTouchEvent
-          params:
-            - java_type: androidx.coordinatorlayout.widget.CoordinatorLayout
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: android.view.MotionEvent
-              go_name: arg2
-          returns: void
-          error: true
-    - java_class: com.google.android.material.snackbar.BaseTransientBottomBar$ContentViewCallback
-      go_type: BaseTransientBottomBarContentViewCallback
-    - java_class: com.google.android.material.snackbar.BaseTransientBottomBar$Duration
-      go_type: BaseTransientBottomBarDuration
-    - java_class: com.google.android.material.snackbar.BaseTransientBottomBar$SnackbarBaseLayout
-      go_type: BaseTransientBottomBarSnackbarBaseLayout
-      methods:
-        - java_method: setBackground
-          go_name: SetBackground
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setBackgroundDrawable
-          go_name: SetBackgroundDrawable
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setBackgroundTintList
-          go_name: SetBackgroundTintList
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setBackgroundTintMode
-          go_name: SetBackgroundTintMode
-          params:
-            - java_type: android.graphics.PorterDuff$Mode
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setOnClickListener
-          go_name: SetOnClickListener
-          params:
-            - java_type: android.view.View$OnClickListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLayoutParams
-          go_name: SetLayoutParams
-          params:
-            - java_type: android.view.ViewGroup$LayoutParams
-              go_name: arg0
-          returns: void
-          error: true
 abstract_callbacks:
-    - java_class: com.google.android.material.snackbar.BaseTransientBottomBar
-      go_type: BaseTransientBottomBarCallback
+    - java_class: com.google.android.material.snackbar.BaseTransientBottomBar$BaseCallback
+      go_type: BaseTransientBottomBarBaseCallbackCallback
       methods:
-        - java_method: getDuration
-          params: []
-          returns: int
-          go_field: GetDuration
-        - java_method: isGestureInsetBottomIgnored
-          params: []
-          returns: boolean
-          go_field: IsGestureInsetBottomIgnored
-        - java_method: getAnimationMode
-          params: []
-          returns: int
-          go_field: GetAnimationMode
-        - java_method: getAnchorView
-          params: []
-          returns: android.view.View
-          go_field: GetAnchorView
-        - java_method: isAnchorViewLayoutListenerEnabled
-          params: []
-          returns: boolean
-          go_field: IsAnchorViewLayoutListenerEnabled
-        - java_method: setAnchorViewLayoutListenerEnabled
+        - java_method: onDismissed
           params:
-            - boolean
+            - java.lang.Object
+            - int
           returns: void
-          go_field: SetAnchorViewLayoutListenerEnabled
-        - java_method: getBehavior
-          params: []
-          returns: com.google.android.material.snackbar.BaseTransientBottomBar$Behavior
-          go_field: GetBehavior
-        - java_method: getContext
-          params: []
-          returns: android.content.Context
-          go_field: GetContext
-        - java_method: getView
-          params: []
-          returns: android.view.View
-          go_field: GetView
-        - java_method: show
-          params: []
+          go_field: OnDismissed
+        - java_method: onShown
+          params:
+            - java.lang.Object
           returns: void
-          go_field: Show
-        - java_method: dismiss
-          params: []
-          returns: void
-          go_field: Dismiss
-        - java_method: isShown
-          params: []
-          returns: boolean
-          go_field: IsShown
-        - java_method: isShownOrQueued
-          params: []
-          returns: boolean
-          go_field: IsShownOrQueued
+          go_field: OnShown
+      type_param_bounds:
+        - java.lang.Object
+abstract_callback_eligibility:
+    - java_class: com.google.android.material.snackbar.BaseTransientBottomBar
+      generated: false
+      reason: unsupported_constructor
+    - java_class: com.google.android.material.snackbar.BaseTransientBottomBar$BaseCallback
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
-    - go_name: DismissEventSwipe
-      value: "0"
-      go_type: int
-    - go_name: DismissEventAction
-      value: "1"
-      go_type: int
-    - go_name: DismissEventTimeout
-      value: "2"
-      go_type: int
-    - go_name: DismissEventManual
-      value: "3"
-      go_type: int
-    - go_name: DismissEventConsecutive
-      value: "4"
-      go_type: int
     - go_name: AnimationModeSlide
       value: "0"
       go_type: int
@@ -543,4 +424,19 @@ constants:
       go_type: int
     - go_name: LengthLong
       value: "0"
+      go_type: int
+    - go_name: DismissEventSwipe
+      value: "0"
+      go_type: int
+    - go_name: DismissEventAction
+      value: "1"
+      go_type: int
+    - go_name: DismissEventTimeout
+      value: "2"
+      go_type: int
+    - go_name: DismissEventManual
+      value: "3"
+      go_type: int
+    - go_name: DismissEventConsecutive
+      value: "4"
       go_type: int

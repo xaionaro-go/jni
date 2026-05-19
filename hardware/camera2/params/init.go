@@ -23,31 +23,25 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsCapability                    *jni.GlobalRef
-	midCapabilityCtor                jni.MethodID
-	midCapabilityEquals              jni.MethodID
-	midCapabilityGetMaxStreamingSize jni.MethodID
-	midCapabilityGetMode             jni.MethodID
-	midCapabilityGetZoomRatioRange   jni.MethodID
-	midCapabilityHashCode            jni.MethodID
-	midCapabilityToString            jni.MethodID
-
-	clsMultiResolutionStreamConfigurationMap                 *jni.GlobalRef
-	midMultiResolutionStreamConfigurationMapEquals           jni.MethodID
-	midMultiResolutionStreamConfigurationMapGetInputFormats  jni.MethodID
-	midMultiResolutionStreamConfigurationMapGetInputInfo     jni.MethodID
-	midMultiResolutionStreamConfigurationMapGetOutputFormats jni.MethodID
-	midMultiResolutionStreamConfigurationMapGetOutputInfo    jni.MethodID
-	midMultiResolutionStreamConfigurationMapHashCode         jni.MethodID
-	midMultiResolutionStreamConfigurationMapToString         jni.MethodID
-
-	clsBlackLevelPattern                  *jni.GlobalRef
-	midBlackLevelPatternCtor              jni.MethodID
-	midBlackLevelPatternCopyTo            jni.MethodID
-	midBlackLevelPatternEquals            jni.MethodID
-	midBlackLevelPatternGetOffsetForIndex jni.MethodID
-	midBlackLevelPatternHashCode          jni.MethodID
-	midBlackLevelPatternToString          jni.MethodID
+	clsSessionConfiguration                        *jni.GlobalRef
+	midSessionConfigurationCtor                    jni.MethodID
+	midSessionConfigurationClearColorSpace         jni.MethodID
+	midSessionConfigurationDescribeContents        jni.MethodID
+	midSessionConfigurationEquals                  jni.MethodID
+	midSessionConfigurationGetColorSpace           jni.MethodID
+	midSessionConfigurationGetExecutor             jni.MethodID
+	midSessionConfigurationGetInputConfiguration   jni.MethodID
+	midSessionConfigurationGetOutputConfigurations jni.MethodID
+	midSessionConfigurationGetSessionParameters    jni.MethodID
+	midSessionConfigurationGetSessionType          jni.MethodID
+	midSessionConfigurationGetStateCallback        jni.MethodID
+	midSessionConfigurationHashCode                jni.MethodID
+	midSessionConfigurationSetColorSpace           jni.MethodID
+	midSessionConfigurationSetInputConfiguration   jni.MethodID
+	midSessionConfigurationSetSessionParameters    jni.MethodID
+	midSessionConfigurationSetStateCallback        jni.MethodID
+	midSessionConfigurationToString                jni.MethodID
+	midSessionConfigurationWriteToParcel           jni.MethodID
 
 	clsRecommendedStreamConfigurationMap                              *jni.GlobalRef
 	midRecommendedStreamConfigurationMapGetHighResolutionOutputSizes  jni.MethodID
@@ -66,44 +60,6 @@ var (
 	midRecommendedStreamConfigurationMapIsOutputSupportedFor1_1       jni.MethodID
 	midRecommendedStreamConfigurationMapToString                      jni.MethodID
 
-	clsLensIntrinsicsSample                  *jni.GlobalRef
-	midLensIntrinsicsSampleCtor              jni.MethodID
-	midLensIntrinsicsSampleEquals            jni.MethodID
-	midLensIntrinsicsSampleGetLensIntrinsics jni.MethodID
-	midLensIntrinsicsSampleGetTimestampNanos jni.MethodID
-	midLensIntrinsicsSampleHashCode          jni.MethodID
-	midLensIntrinsicsSampleToString          jni.MethodID
-
-	clsDeviceStateSensorOrientationMap                     *jni.GlobalRef
-	midDeviceStateSensorOrientationMapEquals               jni.MethodID
-	midDeviceStateSensorOrientationMapGetSensorOrientation jni.MethodID
-	midDeviceStateSensorOrientationMapHashCode             jni.MethodID
-	midDeviceStateSensorOrientationMapToString             jni.MethodID
-
-	clsDeviceStateSensorOrientationMapBuilder                       *jni.GlobalRef
-	midDeviceStateSensorOrientationMapBuilderAddOrientationForState jni.MethodID
-	midDeviceStateSensorOrientationMapBuilderBuild                  jni.MethodID
-	midDeviceStateSensorOrientationMapBuilderToString               jni.MethodID
-
-	clsFace                    *jni.GlobalRef
-	midFaceGetBounds           jni.MethodID
-	midFaceGetId               jni.MethodID
-	midFaceGetLeftEyePosition  jni.MethodID
-	midFaceGetMouthPosition    jni.MethodID
-	midFaceGetRightEyePosition jni.MethodID
-	midFaceGetScore            jni.MethodID
-	midFaceToString            jni.MethodID
-
-	clsFaceBuilder                    *jni.GlobalRef
-	midFaceBuilderBuild               jni.MethodID
-	midFaceBuilderSetBounds           jni.MethodID
-	midFaceBuilderSetId               jni.MethodID
-	midFaceBuilderSetLeftEyePosition  jni.MethodID
-	midFaceBuilderSetMouthPosition    jni.MethodID
-	midFaceBuilderSetRightEyePosition jni.MethodID
-	midFaceBuilderSetScore            jni.MethodID
-	midFaceBuilderToString            jni.MethodID
-
 	clsColorSpaceTransform                *jni.GlobalRef
 	midColorSpaceTransformCtor            jni.MethodID
 	midColorSpaceTransformCopyElements2   jni.MethodID
@@ -113,109 +69,13 @@ var (
 	midColorSpaceTransformHashCode        jni.MethodID
 	midColorSpaceTransformToString        jni.MethodID
 
-	clsColorSpaceProfiles                                       *jni.GlobalRef
-	midColorSpaceProfilesCtor                                   jni.MethodID
-	midColorSpaceProfilesGetSupportedColorSpaces                jni.MethodID
-	midColorSpaceProfilesGetSupportedColorSpacesForDynamicRange jni.MethodID
-	midColorSpaceProfilesGetSupportedDynamicRangeProfiles       jni.MethodID
-	midColorSpaceProfilesGetSupportedImageFormatsForColorSpace  jni.MethodID
-	midColorSpaceProfilesToString                               jni.MethodID
-
-	clsMultiResolutionStreamInfo                    *jni.GlobalRef
-	midMultiResolutionStreamInfoCtor                jni.MethodID
-	midMultiResolutionStreamInfoEquals              jni.MethodID
-	midMultiResolutionStreamInfoGetHeight           jni.MethodID
-	midMultiResolutionStreamInfoGetPhysicalCameraId jni.MethodID
-	midMultiResolutionStreamInfoGetWidth            jni.MethodID
-	midMultiResolutionStreamInfoHashCode            jni.MethodID
-	midMultiResolutionStreamInfoToString            jni.MethodID
-
-	clsMeteringRectangle                  *jni.GlobalRef
-	midMeteringRectangleCtor              jni.MethodID
-	midMeteringRectangleEquals1           jni.MethodID
-	midMeteringRectangleEquals1_1         jni.MethodID
-	midMeteringRectangleGetHeight         jni.MethodID
-	midMeteringRectangleGetMeteringWeight jni.MethodID
-	midMeteringRectangleGetRect           jni.MethodID
-	midMeteringRectangleGetSize           jni.MethodID
-	midMeteringRectangleGetUpperLeftPoint jni.MethodID
-	midMeteringRectangleGetWidth          jni.MethodID
-	midMeteringRectangleGetX              jni.MethodID
-	midMeteringRectangleGetY              jni.MethodID
-	midMeteringRectangleHashCode          jni.MethodID
-	midMeteringRectangleToString          jni.MethodID
-
-	clsRggbChannelVector             *jni.GlobalRef
-	midRggbChannelVectorCtor         jni.MethodID
-	midRggbChannelVectorCopyTo       jni.MethodID
-	midRggbChannelVectorEquals       jni.MethodID
-	midRggbChannelVectorGetBlue      jni.MethodID
-	midRggbChannelVectorGetComponent jni.MethodID
-	midRggbChannelVectorGetGreenEven jni.MethodID
-	midRggbChannelVectorGetGreenOdd  jni.MethodID
-	midRggbChannelVectorGetRed       jni.MethodID
-	midRggbChannelVectorHashCode     jni.MethodID
-	midRggbChannelVectorToString     jni.MethodID
-
-	clsStreamConfigurationMap                              *jni.GlobalRef
-	midStreamConfigurationMapEquals                        jni.MethodID
-	midStreamConfigurationMapGetHighResolutionOutputSizes  jni.MethodID
-	midStreamConfigurationMapGetHighSpeedVideoFpsRanges    jni.MethodID
-	midStreamConfigurationMapGetHighSpeedVideoFpsRangesFor jni.MethodID
-	midStreamConfigurationMapGetHighSpeedVideoSizes        jni.MethodID
-	midStreamConfigurationMapGetInputFormats               jni.MethodID
-	midStreamConfigurationMapGetInputSizes                 jni.MethodID
-	midStreamConfigurationMapGetOutputFormats              jni.MethodID
-	midStreamConfigurationMapGetOutputMinFrameDuration     jni.MethodID
-	midStreamConfigurationMapGetOutputSizes                jni.MethodID
-	midStreamConfigurationMapGetOutputStallDuration        jni.MethodID
-	midStreamConfigurationMapGetValidOutputFormatsForInput jni.MethodID
-	midStreamConfigurationMapHashCode                      jni.MethodID
-	midStreamConfigurationMapIsOutputSupportedFor1         jni.MethodID
-	midStreamConfigurationMapIsOutputSupportedFor1_1       jni.MethodID
-	midStreamConfigurationMapToString                      jni.MethodID
-
-	clsOisSample             *jni.GlobalRef
-	midOisSampleCtor         jni.MethodID
-	midOisSampleEquals       jni.MethodID
-	midOisSampleGetTimestamp jni.MethodID
-	midOisSampleGetXshift    jni.MethodID
-	midOisSampleGetYshift    jni.MethodID
-	midOisSampleHashCode     jni.MethodID
-	midOisSampleToString     jni.MethodID
-
-	clsExtensionSessionConfiguration                               *jni.GlobalRef
-	midExtensionSessionConfigurationCtor                           jni.MethodID
-	midExtensionSessionConfigurationClearColorSpace                jni.MethodID
-	midExtensionSessionConfigurationGetColorSpace                  jni.MethodID
-	midExtensionSessionConfigurationGetExecutor                    jni.MethodID
-	midExtensionSessionConfigurationGetExtension                   jni.MethodID
-	midExtensionSessionConfigurationGetOutputConfigurations        jni.MethodID
-	midExtensionSessionConfigurationGetPostviewOutputConfiguration jni.MethodID
-	midExtensionSessionConfigurationGetStateCallback               jni.MethodID
-	midExtensionSessionConfigurationSetColorSpace                  jni.MethodID
-	midExtensionSessionConfigurationSetPostviewOutputConfiguration jni.MethodID
-	midExtensionSessionConfigurationToString                       jni.MethodID
-
-	clsLensShadingMap                    *jni.GlobalRef
-	midLensShadingMapCopyGainFactors     jni.MethodID
-	midLensShadingMapEquals              jni.MethodID
-	midLensShadingMapGetColumnCount      jni.MethodID
-	midLensShadingMapGetGainFactor       jni.MethodID
-	midLensShadingMapGetGainFactorCount  jni.MethodID
-	midLensShadingMapGetGainFactorVector jni.MethodID
-	midLensShadingMapGetRowCount         jni.MethodID
-	midLensShadingMapHashCode            jni.MethodID
-	midLensShadingMapToString            jni.MethodID
-
-	clsTonemapCurve               *jni.GlobalRef
-	midTonemapCurveCtor           jni.MethodID
-	midTonemapCurveCopyColorCurve jni.MethodID
-	midTonemapCurveEquals         jni.MethodID
-	midTonemapCurveGetPoint       jni.MethodID
-	midTonemapCurveGetPointCount  jni.MethodID
-	midTonemapCurveHashCode       jni.MethodID
-	midTonemapCurveToString       jni.MethodID
+	clsLensIntrinsicsSample                  *jni.GlobalRef
+	midLensIntrinsicsSampleCtor              jni.MethodID
+	midLensIntrinsicsSampleEquals            jni.MethodID
+	midLensIntrinsicsSampleGetLensIntrinsics jni.MethodID
+	midLensIntrinsicsSampleGetTimestampNanos jni.MethodID
+	midLensIntrinsicsSampleHashCode          jni.MethodID
+	midLensIntrinsicsSampleToString          jni.MethodID
 
 	clsOutputConfiguration                                        *jni.GlobalRef
 	midOutputConfigurationCtor                                    jni.MethodID
@@ -244,9 +104,42 @@ var (
 	midOutputConfigurationSetReadoutTimestampEnabled              jni.MethodID
 	midOutputConfigurationSetStreamUseCase                        jni.MethodID
 	midOutputConfigurationSetTimestampBase                        jni.MethodID
-	midOutputConfigurationWriteToParcel                           jni.MethodID
 	midOutputConfigurationToString                                jni.MethodID
 	midOutputConfigurationCreateInstancesForMultiResolutionOutput jni.MethodID
+	midOutputConfigurationWriteToParcel                           jni.MethodID
+
+	clsInputConfiguration                  *jni.GlobalRef
+	midInputConfigurationCtor              jni.MethodID
+	midInputConfigurationEquals            jni.MethodID
+	midInputConfigurationGetFormat         jni.MethodID
+	midInputConfigurationGetHeight         jni.MethodID
+	midInputConfigurationGetWidth          jni.MethodID
+	midInputConfigurationHashCode          jni.MethodID
+	midInputConfigurationIsMultiResolution jni.MethodID
+	midInputConfigurationToString          jni.MethodID
+
+	clsCapability                    *jni.GlobalRef
+	midCapabilityCtor                jni.MethodID
+	midCapabilityEquals              jni.MethodID
+	midCapabilityGetMaxStreamingSize jni.MethodID
+	midCapabilityGetMode             jni.MethodID
+	midCapabilityGetZoomRatioRange   jni.MethodID
+	midCapabilityHashCode            jni.MethodID
+	midCapabilityToString            jni.MethodID
+
+	clsColorSpaceProfiles                                       *jni.GlobalRef
+	midColorSpaceProfilesCtor                                   jni.MethodID
+	midColorSpaceProfilesGetSupportedColorSpaces                jni.MethodID
+	midColorSpaceProfilesGetSupportedColorSpacesForDynamicRange jni.MethodID
+	midColorSpaceProfilesGetSupportedDynamicRangeProfiles       jni.MethodID
+	midColorSpaceProfilesGetSupportedImageFormatsForColorSpace  jni.MethodID
+	midColorSpaceProfilesToString                               jni.MethodID
+
+	clsDeviceStateSensorOrientationMap                     *jni.GlobalRef
+	midDeviceStateSensorOrientationMapEquals               jni.MethodID
+	midDeviceStateSensorOrientationMapGetSensorOrientation jni.MethodID
+	midDeviceStateSensorOrientationMapHashCode             jni.MethodID
+	midDeviceStateSensorOrientationMapToString             jni.MethodID
 
 	clsMandatoryStreamCombination                      *jni.GlobalRef
 	midMandatoryStreamCombinationEquals                jni.MethodID
@@ -255,6 +148,12 @@ var (
 	midMandatoryStreamCombinationHashCode              jni.MethodID
 	midMandatoryStreamCombinationIsReprocessable       jni.MethodID
 	midMandatoryStreamCombinationToString              jni.MethodID
+
+	clsDeviceStateSensorOrientationMapBuilder                       *jni.GlobalRef
+	midDeviceStateSensorOrientationMapBuilderCtor                   jni.MethodID
+	midDeviceStateSensorOrientationMapBuilderAddOrientationForState jni.MethodID
+	midDeviceStateSensorOrientationMapBuilderBuild                  jni.MethodID
+	midDeviceStateSensorOrientationMapBuilderToString               jni.MethodID
 
 	clsMandatoryStreamCombinationMandatoryStreamInformation                      *jni.GlobalRef
 	midMandatoryStreamCombinationMandatoryStreamInformationEquals                jni.MethodID
@@ -269,35 +168,118 @@ var (
 	midMandatoryStreamCombinationMandatoryStreamInformationIsUltraHighResolution jni.MethodID
 	midMandatoryStreamCombinationMandatoryStreamInformationToString              jni.MethodID
 
-	clsInputConfiguration                  *jni.GlobalRef
-	midInputConfigurationCtor              jni.MethodID
-	midInputConfigurationEquals            jni.MethodID
-	midInputConfigurationGetFormat         jni.MethodID
-	midInputConfigurationGetHeight         jni.MethodID
-	midInputConfigurationGetWidth          jni.MethodID
-	midInputConfigurationHashCode          jni.MethodID
-	midInputConfigurationIsMultiResolution jni.MethodID
-	midInputConfigurationToString          jni.MethodID
+	clsLensShadingMap                    *jni.GlobalRef
+	midLensShadingMapCopyGainFactors     jni.MethodID
+	midLensShadingMapEquals              jni.MethodID
+	midLensShadingMapGetColumnCount      jni.MethodID
+	midLensShadingMapGetGainFactor       jni.MethodID
+	midLensShadingMapGetGainFactorCount  jni.MethodID
+	midLensShadingMapGetGainFactorVector jni.MethodID
+	midLensShadingMapGetRowCount         jni.MethodID
+	midLensShadingMapHashCode            jni.MethodID
+	midLensShadingMapToString            jni.MethodID
 
-	clsSessionConfiguration                        *jni.GlobalRef
-	midSessionConfigurationCtor                    jni.MethodID
-	midSessionConfigurationClearColorSpace         jni.MethodID
-	midSessionConfigurationDescribeContents        jni.MethodID
-	midSessionConfigurationEquals                  jni.MethodID
-	midSessionConfigurationGetColorSpace           jni.MethodID
-	midSessionConfigurationGetExecutor             jni.MethodID
-	midSessionConfigurationGetInputConfiguration   jni.MethodID
-	midSessionConfigurationGetOutputConfigurations jni.MethodID
-	midSessionConfigurationGetSessionParameters    jni.MethodID
-	midSessionConfigurationGetSessionType          jni.MethodID
-	midSessionConfigurationGetStateCallback        jni.MethodID
-	midSessionConfigurationHashCode                jni.MethodID
-	midSessionConfigurationSetColorSpace           jni.MethodID
-	midSessionConfigurationSetInputConfiguration   jni.MethodID
-	midSessionConfigurationSetSessionParameters    jni.MethodID
-	midSessionConfigurationSetStateCallback        jni.MethodID
-	midSessionConfigurationWriteToParcel           jni.MethodID
-	midSessionConfigurationToString                jni.MethodID
+	clsMeteringRectangle                  *jni.GlobalRef
+	midMeteringRectangleCtor              jni.MethodID
+	midMeteringRectangleEquals1           jni.MethodID
+	midMeteringRectangleEquals1_1         jni.MethodID
+	midMeteringRectangleGetHeight         jni.MethodID
+	midMeteringRectangleGetMeteringWeight jni.MethodID
+	midMeteringRectangleGetRect           jni.MethodID
+	midMeteringRectangleGetSize           jni.MethodID
+	midMeteringRectangleGetUpperLeftPoint jni.MethodID
+	midMeteringRectangleGetWidth          jni.MethodID
+	midMeteringRectangleGetX              jni.MethodID
+	midMeteringRectangleGetY              jni.MethodID
+	midMeteringRectangleHashCode          jni.MethodID
+	midMeteringRectangleToString          jni.MethodID
+
+	clsStreamConfigurationMap                              *jni.GlobalRef
+	midStreamConfigurationMapEquals                        jni.MethodID
+	midStreamConfigurationMapGetHighResolutionOutputSizes  jni.MethodID
+	midStreamConfigurationMapGetHighSpeedVideoFpsRanges    jni.MethodID
+	midStreamConfigurationMapGetHighSpeedVideoFpsRangesFor jni.MethodID
+	midStreamConfigurationMapGetHighSpeedVideoSizes        jni.MethodID
+	midStreamConfigurationMapGetInputFormats               jni.MethodID
+	midStreamConfigurationMapGetInputSizes                 jni.MethodID
+	midStreamConfigurationMapGetOutputFormats              jni.MethodID
+	midStreamConfigurationMapGetOutputMinFrameDuration     jni.MethodID
+	midStreamConfigurationMapGetOutputSizes                jni.MethodID
+	midStreamConfigurationMapGetOutputStallDuration        jni.MethodID
+	midStreamConfigurationMapGetValidOutputFormatsForInput jni.MethodID
+	midStreamConfigurationMapHashCode                      jni.MethodID
+	midStreamConfigurationMapIsOutputSupportedFor1         jni.MethodID
+	midStreamConfigurationMapToString                      jni.MethodID
+	midStreamConfigurationMapIsOutputSupportedFor1_1       jni.MethodID
+
+	clsFace                    *jni.GlobalRef
+	midFaceGetBounds           jni.MethodID
+	midFaceGetId               jni.MethodID
+	midFaceGetLeftEyePosition  jni.MethodID
+	midFaceGetMouthPosition    jni.MethodID
+	midFaceGetRightEyePosition jni.MethodID
+	midFaceGetScore            jni.MethodID
+	midFaceToString            jni.MethodID
+
+	clsMultiResolutionStreamInfo                    *jni.GlobalRef
+	midMultiResolutionStreamInfoCtor                jni.MethodID
+	midMultiResolutionStreamInfoEquals              jni.MethodID
+	midMultiResolutionStreamInfoGetHeight           jni.MethodID
+	midMultiResolutionStreamInfoGetPhysicalCameraId jni.MethodID
+	midMultiResolutionStreamInfoGetWidth            jni.MethodID
+	midMultiResolutionStreamInfoHashCode            jni.MethodID
+	midMultiResolutionStreamInfoToString            jni.MethodID
+
+	clsFaceBuilder                    *jni.GlobalRef
+	midFaceBuilderCtor                jni.MethodID
+	midFaceBuilderBuild               jni.MethodID
+	midFaceBuilderSetBounds           jni.MethodID
+	midFaceBuilderSetId               jni.MethodID
+	midFaceBuilderSetLeftEyePosition  jni.MethodID
+	midFaceBuilderSetMouthPosition    jni.MethodID
+	midFaceBuilderSetRightEyePosition jni.MethodID
+	midFaceBuilderSetScore            jni.MethodID
+	midFaceBuilderToString            jni.MethodID
+
+	clsTonemapCurve               *jni.GlobalRef
+	midTonemapCurveCtor           jni.MethodID
+	midTonemapCurveCopyColorCurve jni.MethodID
+	midTonemapCurveEquals         jni.MethodID
+	midTonemapCurveGetPoint       jni.MethodID
+	midTonemapCurveGetPointCount  jni.MethodID
+	midTonemapCurveHashCode       jni.MethodID
+	midTonemapCurveToString       jni.MethodID
+
+	clsMultiResolutionStreamConfigurationMap                 *jni.GlobalRef
+	midMultiResolutionStreamConfigurationMapEquals           jni.MethodID
+	midMultiResolutionStreamConfigurationMapGetInputFormats  jni.MethodID
+	midMultiResolutionStreamConfigurationMapGetInputInfo     jni.MethodID
+	midMultiResolutionStreamConfigurationMapGetOutputFormats jni.MethodID
+	midMultiResolutionStreamConfigurationMapGetOutputInfo    jni.MethodID
+	midMultiResolutionStreamConfigurationMapHashCode         jni.MethodID
+	midMultiResolutionStreamConfigurationMapToString         jni.MethodID
+
+	clsOisSample             *jni.GlobalRef
+	midOisSampleCtor         jni.MethodID
+	midOisSampleEquals       jni.MethodID
+	midOisSampleGetTimestamp jni.MethodID
+	midOisSampleGetXshift    jni.MethodID
+	midOisSampleGetYshift    jni.MethodID
+	midOisSampleHashCode     jni.MethodID
+	midOisSampleToString     jni.MethodID
+
+	clsExtensionSessionConfiguration                               *jni.GlobalRef
+	midExtensionSessionConfigurationCtor                           jni.MethodID
+	midExtensionSessionConfigurationClearColorSpace                jni.MethodID
+	midExtensionSessionConfigurationGetColorSpace                  jni.MethodID
+	midExtensionSessionConfigurationGetExecutor                    jni.MethodID
+	midExtensionSessionConfigurationGetExtension                   jni.MethodID
+	midExtensionSessionConfigurationGetOutputConfigurations        jni.MethodID
+	midExtensionSessionConfigurationGetPostviewOutputConfiguration jni.MethodID
+	midExtensionSessionConfigurationGetStateCallback               jni.MethodID
+	midExtensionSessionConfigurationSetColorSpace                  jni.MethodID
+	midExtensionSessionConfigurationSetPostviewOutputConfiguration jni.MethodID
+	midExtensionSessionConfigurationToString                       jni.MethodID
 
 	clsDynamicRangeProfiles                                    *jni.GlobalRef
 	midDynamicRangeProfilesCtor                                jni.MethodID
@@ -305,6 +287,26 @@ var (
 	midDynamicRangeProfilesGetSupportedProfiles                jni.MethodID
 	midDynamicRangeProfilesIsExtraLatencyPresent               jni.MethodID
 	midDynamicRangeProfilesToString                            jni.MethodID
+
+	clsBlackLevelPattern                  *jni.GlobalRef
+	midBlackLevelPatternCtor              jni.MethodID
+	midBlackLevelPatternCopyTo            jni.MethodID
+	midBlackLevelPatternEquals            jni.MethodID
+	midBlackLevelPatternGetOffsetForIndex jni.MethodID
+	midBlackLevelPatternHashCode          jni.MethodID
+	midBlackLevelPatternToString          jni.MethodID
+
+	clsRggbChannelVector             *jni.GlobalRef
+	midRggbChannelVectorCtor         jni.MethodID
+	midRggbChannelVectorCopyTo       jni.MethodID
+	midRggbChannelVectorEquals       jni.MethodID
+	midRggbChannelVectorGetBlue      jni.MethodID
+	midRggbChannelVectorGetComponent jni.MethodID
+	midRggbChannelVectorGetGreenEven jni.MethodID
+	midRggbChannelVectorGetGreenOdd  jni.MethodID
+	midRggbChannelVectorGetRed       jni.MethodID
+	midRggbChannelVectorHashCode     jni.MethodID
+	midRggbChannelVectorToString     jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -325,162 +327,131 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("android/hardware/camera2/params/Capability")
+	c, err = env.FindClass("android/hardware/camera2/params/SessionConfiguration")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCapability = env.NewGlobalRef(&c.Object)
-		midCapabilityCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCapability)), "<init>", "(ILandroid/util/Size;Landroid/util/Range;)V")
+		clsSessionConfiguration = env.NewGlobalRef(&c.Object)
+		midSessionConfigurationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "<init>", "(ILjava/util/List;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midCapabilityEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCapability)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCapabilityGetMaxStreamingSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCapability)), "getMaxStreamingSize", "()Landroid/util/Size;")
+		midSessionConfigurationClearColorSpace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "clearColorSpace", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCapabilityGetMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCapability)), "getMode", "()I")
+		midSessionConfigurationDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCapabilityGetZoomRatioRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCapability)), "getZoomRatioRange", "()Landroid/util/Range;")
+		midSessionConfigurationEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "equals", "(Ljava/lang/Object;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCapabilityHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCapability)), "hashCode", "()I")
+		midSessionConfigurationGetColorSpace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "getColorSpace", "()Landroid/graphics/ColorSpace;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCapabilityToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCapability)), "toString", "()Ljava/lang/String;")
+		midSessionConfigurationGetExecutor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "getExecutor", "()Ljava/util/concurrent/Executor;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("android/hardware/camera2/params/MultiResolutionStreamConfigurationMap")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMultiResolutionStreamConfigurationMap = env.NewGlobalRef(&c.Object)
-
-		midMultiResolutionStreamConfigurationMapEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamConfigurationMap)), "equals", "(Ljava/lang/Object;)Z")
+		midSessionConfigurationGetInputConfiguration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "getInputConfiguration", "()Landroid/hardware/camera2/params/InputConfiguration;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMultiResolutionStreamConfigurationMapGetInputFormats, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamConfigurationMap)), "getInputFormats", "()[I")
+		midSessionConfigurationGetOutputConfigurations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "getOutputConfigurations", "()Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMultiResolutionStreamConfigurationMapGetInputInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamConfigurationMap)), "getInputInfo", "(I)Ljava/util/Collection;")
+		midSessionConfigurationGetSessionParameters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "getSessionParameters", "()Landroid/hardware/camera2/CaptureRequest;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMultiResolutionStreamConfigurationMapGetOutputFormats, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamConfigurationMap)), "getOutputFormats", "()[I")
+		midSessionConfigurationGetSessionType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "getSessionType", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMultiResolutionStreamConfigurationMapGetOutputInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamConfigurationMap)), "getOutputInfo", "(I)Ljava/util/Collection;")
+		midSessionConfigurationGetStateCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "getStateCallback", "()Landroid/hardware/camera2/CameraCaptureSession$StateCallback;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMultiResolutionStreamConfigurationMapHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamConfigurationMap)), "hashCode", "()I")
+		midSessionConfigurationHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "hashCode", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMultiResolutionStreamConfigurationMapToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamConfigurationMap)), "toString", "()Ljava/lang/String;")
+		midSessionConfigurationSetColorSpace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "setColorSpace", "(Landroid/graphics/ColorSpace$Named;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("android/hardware/camera2/params/BlackLevelPattern")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBlackLevelPattern = env.NewGlobalRef(&c.Object)
-		midBlackLevelPatternCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBlackLevelPattern)), "<init>", "([I)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midBlackLevelPatternCopyTo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBlackLevelPattern)), "copyTo", "([II)V")
+		midSessionConfigurationSetInputConfiguration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "setInputConfiguration", "(Landroid/hardware/camera2/params/InputConfiguration;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midBlackLevelPatternEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBlackLevelPattern)), "equals", "(Ljava/lang/Object;)Z")
+		midSessionConfigurationSetSessionParameters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "setSessionParameters", "(Landroid/hardware/camera2/CaptureRequest;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midBlackLevelPatternGetOffsetForIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBlackLevelPattern)), "getOffsetForIndex", "(II)I")
+		midSessionConfigurationSetStateCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "setStateCallback", "(Ljava/util/concurrent/Executor;Landroid/hardware/camera2/CameraCaptureSession$StateCallback;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midBlackLevelPatternHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBlackLevelPattern)), "hashCode", "()I")
+		midSessionConfigurationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midBlackLevelPatternToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBlackLevelPattern)), "toString", "()Ljava/lang/String;")
+		midSessionConfigurationWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -604,249 +575,6 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/hardware/camera2/params/LensIntrinsicsSample")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLensIntrinsicsSample = env.NewGlobalRef(&c.Object)
-		midLensIntrinsicsSampleCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensIntrinsicsSample)), "<init>", "(J[F)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midLensIntrinsicsSampleEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensIntrinsicsSample)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLensIntrinsicsSampleGetLensIntrinsics, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensIntrinsicsSample)), "getLensIntrinsics", "()[F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLensIntrinsicsSampleGetTimestampNanos, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensIntrinsicsSample)), "getTimestampNanos", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLensIntrinsicsSampleHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensIntrinsicsSample)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLensIntrinsicsSampleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensIntrinsicsSample)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/camera2/params/DeviceStateSensorOrientationMap")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDeviceStateSensorOrientationMap = env.NewGlobalRef(&c.Object)
-
-		midDeviceStateSensorOrientationMapEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceStateSensorOrientationMap)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeviceStateSensorOrientationMapGetSensorOrientation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceStateSensorOrientationMap)), "getSensorOrientation", "(J)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeviceStateSensorOrientationMapHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceStateSensorOrientationMap)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeviceStateSensorOrientationMapToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceStateSensorOrientationMap)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/camera2/params/DeviceStateSensorOrientationMap$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDeviceStateSensorOrientationMapBuilder = env.NewGlobalRef(&c.Object)
-
-		midDeviceStateSensorOrientationMapBuilderAddOrientationForState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceStateSensorOrientationMapBuilder)), "addOrientationForState", "(JJ)Landroid/hardware/camera2/params/DeviceStateSensorOrientationMap$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeviceStateSensorOrientationMapBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceStateSensorOrientationMapBuilder)), "build", "()Landroid/hardware/camera2/params/DeviceStateSensorOrientationMap;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeviceStateSensorOrientationMapBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceStateSensorOrientationMapBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/camera2/params/Face")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFace = env.NewGlobalRef(&c.Object)
-
-		midFaceGetBounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFace)), "getBounds", "()Landroid/graphics/Rect;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFaceGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFace)), "getId", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFaceGetLeftEyePosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFace)), "getLeftEyePosition", "()Landroid/graphics/Point;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFaceGetMouthPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFace)), "getMouthPosition", "()Landroid/graphics/Point;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFaceGetRightEyePosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFace)), "getRightEyePosition", "()Landroid/graphics/Point;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFaceGetScore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFace)), "getScore", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFaceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFace)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/camera2/params/Face$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFaceBuilder = env.NewGlobalRef(&c.Object)
-
-		midFaceBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFaceBuilder)), "build", "()Landroid/hardware/camera2/params/Face;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFaceBuilderSetBounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFaceBuilder)), "setBounds", "(Landroid/graphics/Rect;)Landroid/hardware/camera2/params/Face$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFaceBuilderSetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFaceBuilder)), "setId", "(I)Landroid/hardware/camera2/params/Face$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFaceBuilderSetLeftEyePosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFaceBuilder)), "setLeftEyePosition", "(Landroid/graphics/Point;)Landroid/hardware/camera2/params/Face$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFaceBuilderSetMouthPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFaceBuilder)), "setMouthPosition", "(Landroid/graphics/Point;)Landroid/hardware/camera2/params/Face$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFaceBuilderSetRightEyePosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFaceBuilder)), "setRightEyePosition", "(Landroid/graphics/Point;)Landroid/hardware/camera2/params/Face$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFaceBuilderSetScore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFaceBuilder)), "setScore", "(I)Landroid/hardware/camera2/params/Face$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFaceBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFaceBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("android/hardware/camera2/params/ColorSpaceTransform")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -903,669 +631,47 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/hardware/camera2/params/ColorSpaceProfiles")
+	c, err = env.FindClass("android/hardware/camera2/params/LensIntrinsicsSample")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsColorSpaceProfiles = env.NewGlobalRef(&c.Object)
-		midColorSpaceProfilesCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsColorSpaceProfiles)), "<init>", "([J)V")
+		clsLensIntrinsicsSample = env.NewGlobalRef(&c.Object)
+		midLensIntrinsicsSampleCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensIntrinsicsSample)), "<init>", "(J[F)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midColorSpaceProfilesGetSupportedColorSpaces, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsColorSpaceProfiles)), "getSupportedColorSpaces", "(I)Ljava/util/Set;")
+		midLensIntrinsicsSampleEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensIntrinsicsSample)), "equals", "(Ljava/lang/Object;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midColorSpaceProfilesGetSupportedColorSpacesForDynamicRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsColorSpaceProfiles)), "getSupportedColorSpacesForDynamicRange", "(IJ)Ljava/util/Set;")
+		midLensIntrinsicsSampleGetLensIntrinsics, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensIntrinsicsSample)), "getLensIntrinsics", "()[F")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midColorSpaceProfilesGetSupportedDynamicRangeProfiles, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsColorSpaceProfiles)), "getSupportedDynamicRangeProfiles", "(Landroid/graphics/ColorSpace$Named;I)Ljava/util/Set;")
+		midLensIntrinsicsSampleGetTimestampNanos, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensIntrinsicsSample)), "getTimestampNanos", "()J")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midColorSpaceProfilesGetSupportedImageFormatsForColorSpace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsColorSpaceProfiles)), "getSupportedImageFormatsForColorSpace", "(Landroid/graphics/ColorSpace$Named;)Ljava/util/Set;")
+		midLensIntrinsicsSampleHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensIntrinsicsSample)), "hashCode", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midColorSpaceProfilesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsColorSpaceProfiles)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/camera2/params/MultiResolutionStreamInfo")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMultiResolutionStreamInfo = env.NewGlobalRef(&c.Object)
-		midMultiResolutionStreamInfoCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamInfo)), "<init>", "(IILjava/lang/String;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMultiResolutionStreamInfoEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamInfo)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMultiResolutionStreamInfoGetHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamInfo)), "getHeight", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMultiResolutionStreamInfoGetPhysicalCameraId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamInfo)), "getPhysicalCameraId", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMultiResolutionStreamInfoGetWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamInfo)), "getWidth", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMultiResolutionStreamInfoHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamInfo)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMultiResolutionStreamInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamInfo)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/camera2/params/MeteringRectangle")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMeteringRectangle = env.NewGlobalRef(&c.Object)
-		midMeteringRectangleCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "<init>", "(Landroid/graphics/Point;Landroid/util/Size;I)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMeteringRectangleEquals1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "equals", "(Landroid/hardware/camera2/params/MeteringRectangle;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeteringRectangleEquals1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeteringRectangleGetHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "getHeight", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeteringRectangleGetMeteringWeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "getMeteringWeight", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeteringRectangleGetRect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "getRect", "()Landroid/graphics/Rect;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeteringRectangleGetSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "getSize", "()Landroid/util/Size;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeteringRectangleGetUpperLeftPoint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "getUpperLeftPoint", "()Landroid/graphics/Point;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeteringRectangleGetWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "getWidth", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeteringRectangleGetX, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "getX", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeteringRectangleGetY, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "getY", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeteringRectangleHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeteringRectangleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/camera2/params/RggbChannelVector")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRggbChannelVector = env.NewGlobalRef(&c.Object)
-		midRggbChannelVectorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRggbChannelVector)), "<init>", "(FFFF)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midRggbChannelVectorCopyTo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRggbChannelVector)), "copyTo", "([FI)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRggbChannelVectorEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRggbChannelVector)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRggbChannelVectorGetBlue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRggbChannelVector)), "getBlue", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRggbChannelVectorGetComponent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRggbChannelVector)), "getComponent", "(I)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRggbChannelVectorGetGreenEven, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRggbChannelVector)), "getGreenEven", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRggbChannelVectorGetGreenOdd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRggbChannelVector)), "getGreenOdd", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRggbChannelVectorGetRed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRggbChannelVector)), "getRed", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRggbChannelVectorHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRggbChannelVector)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRggbChannelVectorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRggbChannelVector)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/camera2/params/StreamConfigurationMap")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStreamConfigurationMap = env.NewGlobalRef(&c.Object)
-
-		midStreamConfigurationMapEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStreamConfigurationMapGetHighResolutionOutputSizes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getHighResolutionOutputSizes", "(I)[Landroid/util/Size;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStreamConfigurationMapGetHighSpeedVideoFpsRanges, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getHighSpeedVideoFpsRanges", "()[Landroid/util/Range;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStreamConfigurationMapGetHighSpeedVideoFpsRangesFor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getHighSpeedVideoFpsRangesFor", "(Landroid/util/Size;)[Landroid/util/Range;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStreamConfigurationMapGetHighSpeedVideoSizes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getHighSpeedVideoSizes", "()[Landroid/util/Size;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStreamConfigurationMapGetInputFormats, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getInputFormats", "()[I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStreamConfigurationMapGetInputSizes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getInputSizes", "(I)[Landroid/util/Size;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStreamConfigurationMapGetOutputFormats, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getOutputFormats", "()[I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStreamConfigurationMapGetOutputMinFrameDuration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getOutputMinFrameDuration", "(ILandroid/util/Size;)J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStreamConfigurationMapGetOutputSizes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getOutputSizes", "(I)[Landroid/util/Size;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStreamConfigurationMapGetOutputStallDuration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getOutputStallDuration", "(ILandroid/util/Size;)J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStreamConfigurationMapGetValidOutputFormatsForInput, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getValidOutputFormatsForInput", "(I)[I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStreamConfigurationMapHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStreamConfigurationMapIsOutputSupportedFor1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "isOutputSupportedFor", "(Landroid/view/Surface;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStreamConfigurationMapIsOutputSupportedFor1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "isOutputSupportedFor", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStreamConfigurationMapToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/camera2/params/OisSample")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsOisSample = env.NewGlobalRef(&c.Object)
-		midOisSampleCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOisSample)), "<init>", "(JFF)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midOisSampleEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOisSample)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOisSampleGetTimestamp, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOisSample)), "getTimestamp", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOisSampleGetXshift, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOisSample)), "getXshift", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOisSampleGetYshift, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOisSample)), "getYshift", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOisSampleHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOisSample)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOisSampleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOisSample)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/camera2/params/ExtensionSessionConfiguration")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsExtensionSessionConfiguration = env.NewGlobalRef(&c.Object)
-		midExtensionSessionConfigurationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "<init>", "(ILjava/util/List;Ljava/util/concurrent/Executor;Landroid/hardware/camera2/CameraExtensionSession$StateCallback;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midExtensionSessionConfigurationClearColorSpace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "clearColorSpace", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExtensionSessionConfigurationGetColorSpace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "getColorSpace", "()Landroid/graphics/ColorSpace;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExtensionSessionConfigurationGetExecutor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "getExecutor", "()Ljava/util/concurrent/Executor;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExtensionSessionConfigurationGetExtension, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "getExtension", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExtensionSessionConfigurationGetOutputConfigurations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "getOutputConfigurations", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExtensionSessionConfigurationGetPostviewOutputConfiguration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "getPostviewOutputConfiguration", "()Landroid/hardware/camera2/params/OutputConfiguration;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExtensionSessionConfigurationGetStateCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "getStateCallback", "()Landroid/hardware/camera2/CameraExtensionSession$StateCallback;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExtensionSessionConfigurationSetColorSpace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "setColorSpace", "(Landroid/graphics/ColorSpace$Named;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExtensionSessionConfigurationSetPostviewOutputConfiguration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "setPostviewOutputConfiguration", "(Landroid/hardware/camera2/params/OutputConfiguration;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExtensionSessionConfigurationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/camera2/params/LensShadingMap")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLensShadingMap = env.NewGlobalRef(&c.Object)
-
-		midLensShadingMapCopyGainFactors, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensShadingMap)), "copyGainFactors", "([FI)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLensShadingMapEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensShadingMap)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLensShadingMapGetColumnCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensShadingMap)), "getColumnCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLensShadingMapGetGainFactor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensShadingMap)), "getGainFactor", "(III)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLensShadingMapGetGainFactorCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensShadingMap)), "getGainFactorCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLensShadingMapGetGainFactorVector, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensShadingMap)), "getGainFactorVector", "(II)Landroid/hardware/camera2/params/RggbChannelVector;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLensShadingMapGetRowCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensShadingMap)), "getRowCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLensShadingMapHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensShadingMap)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLensShadingMapToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensShadingMap)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/camera2/params/TonemapCurve")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTonemapCurve = env.NewGlobalRef(&c.Object)
-		midTonemapCurveCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonemapCurve)), "<init>", "([F[F[F)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midTonemapCurveCopyColorCurve, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonemapCurve)), "copyColorCurve", "(I[FI)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTonemapCurveEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonemapCurve)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTonemapCurveGetPoint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonemapCurve)), "getPoint", "(II)Landroid/graphics/PointF;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTonemapCurveGetPointCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonemapCurve)), "getPointCount", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTonemapCurveHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonemapCurve)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTonemapCurveToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonemapCurve)), "toString", "()Ljava/lang/String;")
+		midLensIntrinsicsSampleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensIntrinsicsSample)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1761,13 +867,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midOutputConfigurationWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOutputConfiguration)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midOutputConfigurationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOutputConfiguration)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -1776,6 +875,219 @@ func doInit(env *jni.Env) error {
 		}
 
 		midOutputConfigurationCreateInstancesForMultiResolutionOutput, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOutputConfiguration)), "createInstancesForMultiResolutionOutput", "(Landroid/hardware/camera2/MultiResolutionImageReader;)Ljava/util/Collection;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOutputConfigurationWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOutputConfiguration)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/camera2/params/InputConfiguration")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInputConfiguration = env.NewGlobalRef(&c.Object)
+		midInputConfigurationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConfiguration)), "<init>", "(III)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midInputConfigurationEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConfiguration)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputConfigurationGetFormat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConfiguration)), "getFormat", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputConfigurationGetHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConfiguration)), "getHeight", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputConfigurationGetWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConfiguration)), "getWidth", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputConfigurationHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConfiguration)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputConfigurationIsMultiResolution, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConfiguration)), "isMultiResolution", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputConfigurationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConfiguration)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/camera2/params/Capability")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCapability = env.NewGlobalRef(&c.Object)
+		midCapabilityCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCapability)), "<init>", "(ILandroid/util/Size;Landroid/util/Range;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCapabilityEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCapability)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCapabilityGetMaxStreamingSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCapability)), "getMaxStreamingSize", "()Landroid/util/Size;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCapabilityGetMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCapability)), "getMode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCapabilityGetZoomRatioRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCapability)), "getZoomRatioRange", "()Landroid/util/Range;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCapabilityHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCapability)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCapabilityToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCapability)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/camera2/params/ColorSpaceProfiles")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsColorSpaceProfiles = env.NewGlobalRef(&c.Object)
+		midColorSpaceProfilesCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsColorSpaceProfiles)), "<init>", "([J)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midColorSpaceProfilesGetSupportedColorSpaces, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsColorSpaceProfiles)), "getSupportedColorSpaces", "(I)Ljava/util/Set;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midColorSpaceProfilesGetSupportedColorSpacesForDynamicRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsColorSpaceProfiles)), "getSupportedColorSpacesForDynamicRange", "(IJ)Ljava/util/Set;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midColorSpaceProfilesGetSupportedDynamicRangeProfiles, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsColorSpaceProfiles)), "getSupportedDynamicRangeProfiles", "(Landroid/graphics/ColorSpace$Named;I)Ljava/util/Set;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midColorSpaceProfilesGetSupportedImageFormatsForColorSpace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsColorSpaceProfiles)), "getSupportedImageFormatsForColorSpace", "(Landroid/graphics/ColorSpace$Named;)Ljava/util/Set;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midColorSpaceProfilesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsColorSpaceProfiles)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/camera2/params/DeviceStateSensorOrientationMap")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDeviceStateSensorOrientationMap = env.NewGlobalRef(&c.Object)
+
+		midDeviceStateSensorOrientationMapEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceStateSensorOrientationMap)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDeviceStateSensorOrientationMapGetSensorOrientation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceStateSensorOrientationMap)), "getSensorOrientation", "(J)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDeviceStateSensorOrientationMapHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceStateSensorOrientationMap)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDeviceStateSensorOrientationMapToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceStateSensorOrientationMap)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1828,6 +1140,41 @@ func doInit(env *jni.Env) error {
 		}
 
 		midMandatoryStreamCombinationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMandatoryStreamCombination)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/camera2/params/DeviceStateSensorOrientationMap$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDeviceStateSensorOrientationMapBuilder = env.NewGlobalRef(&c.Object)
+		midDeviceStateSensorOrientationMapBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceStateSensorOrientationMapBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midDeviceStateSensorOrientationMapBuilderAddOrientationForState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceStateSensorOrientationMapBuilder)), "addOrientationForState", "(JJ)Landroid/hardware/camera2/params/DeviceStateSensorOrientationMap$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDeviceStateSensorOrientationMapBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceStateSensorOrientationMapBuilder)), "build", "()Landroid/hardware/camera2/params/DeviceStateSensorOrientationMap;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDeviceStateSensorOrientationMapBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceStateSensorOrientationMapBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1923,61 +1270,71 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/hardware/camera2/params/InputConfiguration")
+	c, err = env.FindClass("android/hardware/camera2/params/LensShadingMap")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsInputConfiguration = env.NewGlobalRef(&c.Object)
-		midInputConfigurationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConfiguration)), "<init>", "(III)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsLensShadingMap = env.NewGlobalRef(&c.Object)
 
-		midInputConfigurationEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConfiguration)), "equals", "(Ljava/lang/Object;)Z")
+		midLensShadingMapCopyGainFactors, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensShadingMap)), "copyGainFactors", "([FI)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midInputConfigurationGetFormat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConfiguration)), "getFormat", "()I")
+		midLensShadingMapEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensShadingMap)), "equals", "(Ljava/lang/Object;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midInputConfigurationGetHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConfiguration)), "getHeight", "()I")
+		midLensShadingMapGetColumnCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensShadingMap)), "getColumnCount", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midInputConfigurationGetWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConfiguration)), "getWidth", "()I")
+		midLensShadingMapGetGainFactor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensShadingMap)), "getGainFactor", "(III)F")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midInputConfigurationHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConfiguration)), "hashCode", "()I")
+		midLensShadingMapGetGainFactorCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensShadingMap)), "getGainFactorCount", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midInputConfigurationIsMultiResolution, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConfiguration)), "isMultiResolution", "()Z")
+		midLensShadingMapGetGainFactorVector, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensShadingMap)), "getGainFactorVector", "(II)Landroid/hardware/camera2/params/RggbChannelVector;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midInputConfigurationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputConfiguration)), "toString", "()Ljava/lang/String;")
+		midLensShadingMapGetRowCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensShadingMap)), "getRowCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLensShadingMapHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensShadingMap)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLensShadingMapToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLensShadingMap)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1986,131 +1343,658 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/hardware/camera2/params/SessionConfiguration")
+	c, err = env.FindClass("android/hardware/camera2/params/MeteringRectangle")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSessionConfiguration = env.NewGlobalRef(&c.Object)
-		midSessionConfigurationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "<init>", "(ILjava/util/List;)V")
+		clsMeteringRectangle = env.NewGlobalRef(&c.Object)
+		midMeteringRectangleCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "<init>", "(Landroid/graphics/Point;Landroid/util/Size;I)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midSessionConfigurationClearColorSpace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "clearColorSpace", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSessionConfigurationDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "describeContents", "()I")
+		midMeteringRectangleEquals1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "equals", "(Landroid/hardware/camera2/params/MeteringRectangle;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSessionConfigurationEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "equals", "(Ljava/lang/Object;)Z")
+		midMeteringRectangleEquals1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "equals", "(Ljava/lang/Object;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSessionConfigurationGetColorSpace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "getColorSpace", "()Landroid/graphics/ColorSpace;")
+		midMeteringRectangleGetHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "getHeight", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSessionConfigurationGetExecutor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "getExecutor", "()Ljava/util/concurrent/Executor;")
+		midMeteringRectangleGetMeteringWeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "getMeteringWeight", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSessionConfigurationGetInputConfiguration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "getInputConfiguration", "()Landroid/hardware/camera2/params/InputConfiguration;")
+		midMeteringRectangleGetRect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "getRect", "()Landroid/graphics/Rect;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSessionConfigurationGetOutputConfigurations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "getOutputConfigurations", "()Ljava/util/List;")
+		midMeteringRectangleGetSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "getSize", "()Landroid/util/Size;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSessionConfigurationGetSessionParameters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "getSessionParameters", "()Landroid/hardware/camera2/CaptureRequest;")
+		midMeteringRectangleGetUpperLeftPoint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "getUpperLeftPoint", "()Landroid/graphics/Point;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSessionConfigurationGetSessionType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "getSessionType", "()I")
+		midMeteringRectangleGetWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "getWidth", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSessionConfigurationGetStateCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "getStateCallback", "()Landroid/hardware/camera2/CameraCaptureSession$StateCallback;")
+		midMeteringRectangleGetX, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "getX", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSessionConfigurationHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "hashCode", "()I")
+		midMeteringRectangleGetY, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "getY", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSessionConfigurationSetColorSpace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "setColorSpace", "(Landroid/graphics/ColorSpace$Named;)V")
+		midMeteringRectangleHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "hashCode", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSessionConfigurationSetInputConfiguration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "setInputConfiguration", "(Landroid/hardware/camera2/params/InputConfiguration;)V")
+		midMeteringRectangleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSessionConfigurationSetSessionParameters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "setSessionParameters", "(Landroid/hardware/camera2/CaptureRequest;)V")
+	}
+
+	c, err = env.FindClass("android/hardware/camera2/params/StreamConfigurationMap")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStreamConfigurationMap = env.NewGlobalRef(&c.Object)
+
+		midStreamConfigurationMapEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "equals", "(Ljava/lang/Object;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSessionConfigurationSetStateCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "setStateCallback", "(Ljava/util/concurrent/Executor;Landroid/hardware/camera2/CameraCaptureSession$StateCallback;)V")
+		midStreamConfigurationMapGetHighResolutionOutputSizes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getHighResolutionOutputSizes", "(I)[Landroid/util/Size;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSessionConfigurationWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midStreamConfigurationMapGetHighSpeedVideoFpsRanges, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getHighSpeedVideoFpsRanges", "()[Landroid/util/Range;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSessionConfigurationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), "toString", "()Ljava/lang/String;")
+		midStreamConfigurationMapGetHighSpeedVideoFpsRangesFor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getHighSpeedVideoFpsRangesFor", "(Landroid/util/Size;)[Landroid/util/Range;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStreamConfigurationMapGetHighSpeedVideoSizes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getHighSpeedVideoSizes", "()[Landroid/util/Size;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStreamConfigurationMapGetInputFormats, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getInputFormats", "()[I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStreamConfigurationMapGetInputSizes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getInputSizes", "(I)[Landroid/util/Size;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStreamConfigurationMapGetOutputFormats, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getOutputFormats", "()[I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStreamConfigurationMapGetOutputMinFrameDuration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getOutputMinFrameDuration", "(ILandroid/util/Size;)J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStreamConfigurationMapGetOutputSizes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getOutputSizes", "(I)[Landroid/util/Size;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStreamConfigurationMapGetOutputStallDuration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getOutputStallDuration", "(ILandroid/util/Size;)J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStreamConfigurationMapGetValidOutputFormatsForInput, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "getValidOutputFormatsForInput", "(I)[I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStreamConfigurationMapHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStreamConfigurationMapIsOutputSupportedFor1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "isOutputSupportedFor", "(Landroid/view/Surface;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStreamConfigurationMapToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStreamConfigurationMapIsOutputSupportedFor1_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)), "isOutputSupportedFor", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/camera2/params/Face")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFace = env.NewGlobalRef(&c.Object)
+
+		midFaceGetBounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFace)), "getBounds", "()Landroid/graphics/Rect;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFaceGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFace)), "getId", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFaceGetLeftEyePosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFace)), "getLeftEyePosition", "()Landroid/graphics/Point;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFaceGetMouthPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFace)), "getMouthPosition", "()Landroid/graphics/Point;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFaceGetRightEyePosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFace)), "getRightEyePosition", "()Landroid/graphics/Point;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFaceGetScore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFace)), "getScore", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFaceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFace)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/camera2/params/MultiResolutionStreamInfo")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMultiResolutionStreamInfo = env.NewGlobalRef(&c.Object)
+		midMultiResolutionStreamInfoCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamInfo)), "<init>", "(IILjava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMultiResolutionStreamInfoEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamInfo)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMultiResolutionStreamInfoGetHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamInfo)), "getHeight", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMultiResolutionStreamInfoGetPhysicalCameraId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamInfo)), "getPhysicalCameraId", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMultiResolutionStreamInfoGetWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamInfo)), "getWidth", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMultiResolutionStreamInfoHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamInfo)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMultiResolutionStreamInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamInfo)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/camera2/params/Face$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFaceBuilder = env.NewGlobalRef(&c.Object)
+		midFaceBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFaceBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midFaceBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFaceBuilder)), "build", "()Landroid/hardware/camera2/params/Face;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFaceBuilderSetBounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFaceBuilder)), "setBounds", "(Landroid/graphics/Rect;)Landroid/hardware/camera2/params/Face$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFaceBuilderSetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFaceBuilder)), "setId", "(I)Landroid/hardware/camera2/params/Face$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFaceBuilderSetLeftEyePosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFaceBuilder)), "setLeftEyePosition", "(Landroid/graphics/Point;)Landroid/hardware/camera2/params/Face$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFaceBuilderSetMouthPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFaceBuilder)), "setMouthPosition", "(Landroid/graphics/Point;)Landroid/hardware/camera2/params/Face$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFaceBuilderSetRightEyePosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFaceBuilder)), "setRightEyePosition", "(Landroid/graphics/Point;)Landroid/hardware/camera2/params/Face$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFaceBuilderSetScore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFaceBuilder)), "setScore", "(I)Landroid/hardware/camera2/params/Face$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFaceBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFaceBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/camera2/params/TonemapCurve")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTonemapCurve = env.NewGlobalRef(&c.Object)
+		midTonemapCurveCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonemapCurve)), "<init>", "([F[F[F)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midTonemapCurveCopyColorCurve, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonemapCurve)), "copyColorCurve", "(I[FI)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTonemapCurveEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonemapCurve)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTonemapCurveGetPoint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonemapCurve)), "getPoint", "(II)Landroid/graphics/PointF;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTonemapCurveGetPointCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonemapCurve)), "getPointCount", "(I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTonemapCurveHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonemapCurve)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTonemapCurveToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTonemapCurve)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/camera2/params/MultiResolutionStreamConfigurationMap")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMultiResolutionStreamConfigurationMap = env.NewGlobalRef(&c.Object)
+
+		midMultiResolutionStreamConfigurationMapEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamConfigurationMap)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMultiResolutionStreamConfigurationMapGetInputFormats, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamConfigurationMap)), "getInputFormats", "()[I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMultiResolutionStreamConfigurationMapGetInputInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamConfigurationMap)), "getInputInfo", "(I)Ljava/util/Collection;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMultiResolutionStreamConfigurationMapGetOutputFormats, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamConfigurationMap)), "getOutputFormats", "()[I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMultiResolutionStreamConfigurationMapGetOutputInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamConfigurationMap)), "getOutputInfo", "(I)Ljava/util/Collection;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMultiResolutionStreamConfigurationMapHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamConfigurationMap)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMultiResolutionStreamConfigurationMapToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMultiResolutionStreamConfigurationMap)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/camera2/params/OisSample")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsOisSample = env.NewGlobalRef(&c.Object)
+		midOisSampleCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOisSample)), "<init>", "(JFF)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midOisSampleEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOisSample)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOisSampleGetTimestamp, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOisSample)), "getTimestamp", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOisSampleGetXshift, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOisSample)), "getXshift", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOisSampleGetYshift, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOisSample)), "getYshift", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOisSampleHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOisSample)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOisSampleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOisSample)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/camera2/params/ExtensionSessionConfiguration")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsExtensionSessionConfiguration = env.NewGlobalRef(&c.Object)
+		midExtensionSessionConfigurationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "<init>", "(ILjava/util/List;Ljava/util/concurrent/Executor;Landroid/hardware/camera2/CameraExtensionSession$StateCallback;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midExtensionSessionConfigurationClearColorSpace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "clearColorSpace", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExtensionSessionConfigurationGetColorSpace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "getColorSpace", "()Landroid/graphics/ColorSpace;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExtensionSessionConfigurationGetExecutor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "getExecutor", "()Ljava/util/concurrent/Executor;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExtensionSessionConfigurationGetExtension, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "getExtension", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExtensionSessionConfigurationGetOutputConfigurations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "getOutputConfigurations", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExtensionSessionConfigurationGetPostviewOutputConfiguration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "getPostviewOutputConfiguration", "()Landroid/hardware/camera2/params/OutputConfiguration;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExtensionSessionConfigurationGetStateCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "getStateCallback", "()Landroid/hardware/camera2/CameraExtensionSession$StateCallback;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExtensionSessionConfigurationSetColorSpace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "setColorSpace", "(Landroid/graphics/ColorSpace$Named;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExtensionSessionConfigurationSetPostviewOutputConfiguration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "setPostviewOutputConfiguration", "(Landroid/hardware/camera2/params/OutputConfiguration;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExtensionSessionConfigurationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtensionSessionConfiguration)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2153,6 +2037,132 @@ func doInit(env *jni.Env) error {
 		}
 
 		midDynamicRangeProfilesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicRangeProfiles)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/camera2/params/BlackLevelPattern")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBlackLevelPattern = env.NewGlobalRef(&c.Object)
+		midBlackLevelPatternCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBlackLevelPattern)), "<init>", "([I)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midBlackLevelPatternCopyTo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBlackLevelPattern)), "copyTo", "([II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBlackLevelPatternEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBlackLevelPattern)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBlackLevelPatternGetOffsetForIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBlackLevelPattern)), "getOffsetForIndex", "(II)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBlackLevelPatternHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBlackLevelPattern)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBlackLevelPatternToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBlackLevelPattern)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/camera2/params/RggbChannelVector")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRggbChannelVector = env.NewGlobalRef(&c.Object)
+		midRggbChannelVectorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRggbChannelVector)), "<init>", "(FFFF)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midRggbChannelVectorCopyTo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRggbChannelVector)), "copyTo", "([FI)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRggbChannelVectorEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRggbChannelVector)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRggbChannelVectorGetBlue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRggbChannelVector)), "getBlue", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRggbChannelVectorGetComponent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRggbChannelVector)), "getComponent", "(I)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRggbChannelVectorGetGreenEven, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRggbChannelVector)), "getGreenEven", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRggbChannelVectorGetGreenOdd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRggbChannelVector)), "getGreenOdd", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRggbChannelVectorGetRed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRggbChannelVector)), "getRed", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRggbChannelVectorHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRggbChannelVector)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRggbChannelVectorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRggbChannelVector)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

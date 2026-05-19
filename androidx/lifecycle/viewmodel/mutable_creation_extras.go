@@ -32,6 +32,12 @@ func NewMutableCreationExtras(vm *jni.VM) (*MutableCreationExtras, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMutableCreationExtras == nil {
+			return fmt.Errorf("androidx.lifecycle.viewmodel.MutableCreationExtras is not available on this device")
+		}
+		if midMutableCreationExtrasCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.viewmodel.MutableCreationExtras constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMutableCreationExtras)), midMutableCreationExtrasCtor)
 		if err != nil {
 			return err

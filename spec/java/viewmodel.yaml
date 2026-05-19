@@ -5,6 +5,9 @@
 package: viewmodel
 go_import: github.com/AndroidGoLab/jni/androidx/lifecycle/viewmodel
 classes:
+    - java_class: androidx.lifecycle.viewmodel.MutableCreationExtras
+      go_type: MutableCreationExtras
+      obtain: constructor
     - java_class: androidx.lifecycle.viewmodel.ViewModelInitializer
       go_type: ViewModelInitializer
       obtain: constructor
@@ -13,9 +16,11 @@ classes:
           go_name: arg0
         - java_type: kotlin.jvm.functions.Function1<? super androidx.lifecycle.viewmodel.CreationExtras, ? extends T>
           go_name: arg1
-    - java_class: androidx.lifecycle.viewmodel.MutableCreationExtras
-      go_type: MutableCreationExtras
-      obtain: constructor
+      methods:
+        - java_method: getClazz$lifecycle_viewmodel_release
+          go_name: GetClazzLifecycleViewmodelRelease
+          returns: java.lang.Class<T>
+          error: true
     - java_class: androidx.lifecycle.viewmodel.CreationExtras
       go_type: CreationExtras
     - java_class: androidx.lifecycle.viewmodel.CreationExtras$Empty
@@ -24,6 +29,8 @@ classes:
       go_type: CreationExtrasKey
     - java_class: androidx.lifecycle.viewmodel.ViewModelFactoryDsl
       go_type: ViewModelFactoryDsl
+    - java_class: androidx.lifecycle.viewmodel.InitializerViewModelFactoryKt
+      go_type: InitializerViewModelFactoryKt
     - java_class: androidx.lifecycle.viewmodel.InitializerViewModelFactoryBuilder
       go_type: InitializerViewModelFactoryBuilder
       obtain: constructor
@@ -38,8 +45,10 @@ classes:
       constructor_params:
         - java_type: androidx.lifecycle.viewmodel.ViewModelInitializer<?>...
           go_name: arg0
-    - java_class: androidx.lifecycle.viewmodel.InitializerViewModelFactoryKt
-      go_type: InitializerViewModelFactoryKt
+abstract_callback_eligibility:
+    - java_class: androidx.lifecycle.viewmodel.CreationExtras
+      generated: false
+      reason: unparsed_abstract_method_signature
 constants:
     - go_name: Instance
       value: "0"

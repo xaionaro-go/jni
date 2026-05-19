@@ -23,20 +23,17 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsFastOutSlowInInterpolator                 *jni.GlobalRef
-	midFastOutSlowInInterpolatorCtor             jni.MethodID
-	midFastOutSlowInInterpolatorGetInterpolation jni.MethodID
-	midFastOutSlowInInterpolatorToString         jni.MethodID
+	clsLinearOutSlowInInterpolator         *jni.GlobalRef
+	midLinearOutSlowInInterpolatorCtor     jni.MethodID
+	midLinearOutSlowInInterpolatorToString jni.MethodID
 
-	clsFastOutLinearInInterpolator                 *jni.GlobalRef
-	midFastOutLinearInInterpolatorCtor             jni.MethodID
-	midFastOutLinearInInterpolatorGetInterpolation jni.MethodID
-	midFastOutLinearInInterpolatorToString         jni.MethodID
+	clsFastOutSlowInInterpolator         *jni.GlobalRef
+	midFastOutSlowInInterpolatorCtor     jni.MethodID
+	midFastOutSlowInInterpolatorToString jni.MethodID
 
-	clsLinearOutSlowInInterpolator                 *jni.GlobalRef
-	midLinearOutSlowInInterpolatorCtor             jni.MethodID
-	midLinearOutSlowInInterpolatorGetInterpolation jni.MethodID
-	midLinearOutSlowInInterpolatorToString         jni.MethodID
+	clsFastOutLinearInInterpolator         *jni.GlobalRef
+	midFastOutLinearInInterpolatorCtor     jni.MethodID
+	midFastOutLinearInInterpolatorToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -57,6 +54,27 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
+	c, err = env.FindClass("androidx/interpolator/view/animation/LinearOutSlowInInterpolator")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLinearOutSlowInInterpolator = env.NewGlobalRef(&c.Object)
+		midLinearOutSlowInInterpolatorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearOutSlowInInterpolator)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midLinearOutSlowInInterpolatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearOutSlowInInterpolator)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("androidx/interpolator/view/animation/FastOutSlowInInterpolator")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -66,13 +84,6 @@ func doInit(env *jni.Env) error {
 		clsFastOutSlowInInterpolator = env.NewGlobalRef(&c.Object)
 		midFastOutSlowInInterpolatorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFastOutSlowInInterpolator)), "<init>", "()V")
 		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midFastOutSlowInInterpolatorGetInterpolation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFastOutSlowInInterpolator)), "getInterpolation", "(F)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
@@ -97,42 +108,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midFastOutLinearInInterpolatorGetInterpolation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFastOutLinearInInterpolator)), "getInterpolation", "(F)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midFastOutLinearInInterpolatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFastOutLinearInInterpolator)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/interpolator/view/animation/LinearOutSlowInInterpolator")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLinearOutSlowInInterpolator = env.NewGlobalRef(&c.Object)
-		midLinearOutSlowInInterpolatorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearOutSlowInInterpolator)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midLinearOutSlowInInterpolatorGetInterpolation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearOutSlowInInterpolator)), "getInterpolation", "(F)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearOutSlowInInterpolatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearOutSlowInInterpolator)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

@@ -5,10 +5,10 @@ package widget
 import "github.com/AndroidGoLab/jni/androidx/viewpager/widget/consts"
 
 const (
+	PositionUnchanged   = consts.PositionUnchanged
+	PositionNone        = consts.PositionNone
 	ScrollStateIdle     = consts.ScrollStateIdle
 	ScrollStateDragging = consts.ScrollStateDragging
 	ScrollStateSettling = consts.ScrollStateSettling
 	Creator             = consts.Creator
-	PositionUnchanged   = consts.PositionUnchanged
-	PositionNone        = consts.PositionNone
 )

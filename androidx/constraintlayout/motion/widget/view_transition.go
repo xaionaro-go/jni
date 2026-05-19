@@ -229,8 +229,8 @@ func (m *ViewTransition) ToString() (string, error) {
 			return callErr
 		}
 		var resultObj *jni.Object
-		resultObj, callErr = env.CallObjectMethod(
-			m.Obj,
+		resultObj, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsViewTransition)),
 			midViewTransitionToString,
 		)
 		if callErr != nil {

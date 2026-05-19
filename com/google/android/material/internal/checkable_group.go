@@ -32,6 +32,12 @@ func NewCheckableGroup(vm *jni.VM) (*CheckableGroup, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCheckableGroup == nil {
+			return fmt.Errorf("com.google.android.material.internal.CheckableGroup is not available on this device")
+		}
+		if midCheckableGroupCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.CheckableGroup constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCheckableGroup)), midCheckableGroupCtor)
 		if err != nil {
 			return err
@@ -285,39 +291,6 @@ func (m *CheckableGroup) GetCheckedIds() (*jni.Object, error) {
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
 			midCheckableGroupGetCheckedIds,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetCheckedIdsSortedByChildOrder calls com.google.android.material.internal.CheckableGroup.getCheckedIdsSortedByChildOrder.
-func (m *CheckableGroup) GetCheckedIdsSortedByChildOrder(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCheckableGroupGetCheckedIdsSortedByChildOrder == nil {
-			callErr = fmt.Errorf("com.google.android.material.internal.CheckableGroup.getCheckedIdsSortedByChildOrder is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCheckableGroupGetCheckedIdsSortedByChildOrder, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr

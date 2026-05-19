@@ -32,6 +32,12 @@ func NewCarousel(vm *jni.VM, arg0 *jni.Object) (*Carousel, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCarousel == nil {
+			return fmt.Errorf("androidx.constraintlayout.helper.widget.Carousel is not available on this device")
+		}
+		if midCarouselCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.helper.widget.Carousel constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCarousel)), midCarouselCtor, jni.ObjectValue(arg0))
 		if err != nil {

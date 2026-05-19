@@ -32,6 +32,12 @@ func NewArgbEvaluator(vm *jni.VM) (*ArgbEvaluator, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsArgbEvaluator == nil {
+			return fmt.Errorf("android.animation.ArgbEvaluator is not available on this device")
+		}
+		if midArgbEvaluatorCtor == nil {
+			return fmt.Errorf("android.animation.ArgbEvaluator constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsArgbEvaluator)), midArgbEvaluatorCtor)
 		if err != nil {
 			return err

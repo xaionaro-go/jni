@@ -32,6 +32,12 @@ func NewSpec(vm *jni.VM, arg0 *jni.Object, arg1 int32) (*Spec, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSpec == nil {
+			return fmt.Errorf("android.view.translation.TranslationSpec is not available on this device")
+		}
+		if midSpecCtor == nil {
+			return fmt.Errorf("android.view.translation.TranslationSpec constructor (Landroid/icu/util/ULocale;I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSpec)), midSpecCtor, jni.ObjectValue(arg0), jni.IntValue(arg1))
 		if err != nil {
@@ -222,8 +228,8 @@ func (m *Spec) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSpec)),
 			midSpecWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

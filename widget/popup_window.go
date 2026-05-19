@@ -32,6 +32,12 @@ func NewPopupWindow(vm *jni.VM, arg0 *jni.Object) (*PopupWindow, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPopupWindow == nil {
+			return fmt.Errorf("android.widget.PopupWindow is not available on this device")
+		}
+		if midPopupWindowCtor == nil {
+			return fmt.Errorf("android.widget.PopupWindow constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPopupWindow)), midPopupWindowCtor, jni.ObjectValue(arg0))
 		if err != nil {

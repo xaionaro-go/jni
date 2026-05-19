@@ -5,6 +5,32 @@
 package: projection
 go_import: github.com/AndroidGoLab/jni/media/projection
 classes:
+    - java_class: android.media.projection.MediaProjectionManager
+      go_type: MediaProjectionManager
+      obtain: system_service
+      service_name: media_projection
+      close: true
+      methods:
+        - java_method: createScreenCaptureIntent
+          go_name: CreateScreenCaptureIntent0
+          returns: android.content.Intent
+          error: true
+        - java_method: createScreenCaptureIntent
+          go_name: CreateScreenCaptureIntent1_1
+          params:
+            - java_type: android.media.projection.MediaProjectionConfig
+              go_name: arg0
+          returns: android.content.Intent
+          error: true
+        - java_method: getMediaProjection
+          go_name: GetMediaProjection
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: android.media.projection.MediaProjection
+          error: true
     - java_class: android.media.projection.MediaProjection
       go_type: MediaProjection
       methods:
@@ -64,15 +90,6 @@ classes:
           go_name: ToString
           returns: String
           error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
       static_methods:
         - java_method: createConfigForDefaultDisplay
           go_name: CreateConfigForDefaultDisplay
@@ -81,6 +98,15 @@ classes:
         - java_method: createConfigForUserChoice
           go_name: CreateConfigForUserChoice
           returns: android.media.projection.MediaProjectionConfig
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
           error: true
     - java_class: android.hardware.display.VirtualDisplay
       go_type: VirtualDisplay
@@ -141,32 +167,6 @@ classes:
           go_name: OnStopped
           returns: void
           error: true
-    - java_class: android.media.projection.MediaProjectionManager
-      go_type: MediaProjectionManager
-      obtain: system_service
-      service_name: media_projection
-      close: true
-      methods:
-        - java_method: createScreenCaptureIntent
-          go_name: CreateScreenCaptureIntent0
-          returns: android.content.Intent
-          error: true
-        - java_method: createScreenCaptureIntent
-          go_name: CreateScreenCaptureIntent1_1
-          params:
-            - java_type: android.media.projection.MediaProjectionConfig
-              go_name: arg0
-          returns: android.content.Intent
-          error: true
-        - java_method: getMediaProjection
-          go_name: GetMediaProjection
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: android.media.projection.MediaProjection
-          error: true
 abstract_callbacks:
     - java_class: android.media.projection.MediaProjection$Callback
       go_type: MediaProjectionCallbackCallback
@@ -201,6 +201,13 @@ abstract_callbacks:
           params: []
           returns: void
           go_field: OnStopped
+abstract_callback_eligibility:
+    - java_class: android.media.projection.MediaProjection$Callback
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.hardware.display.VirtualDisplay$Callback
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
     - go_name: Creator
       value: "0"

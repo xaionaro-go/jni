@@ -6,14 +6,6 @@ import "github.com/AndroidGoLab/jni/androidx/constraintlayout/core/motion/key/co
 
 const (
 	KeyType                           = consts.KeyType
-	TypeScreen                        = consts.TypeScreen
-	TypePath                          = consts.TypePath
-	TypeCartesian                     = consts.TypeCartesian
-	RotateNone                        = consts.RotateNone
-	RotatePortrateOfRight             = consts.RotatePortrateOfRight
-	RotatePortrateOfLeft              = consts.RotatePortrateOfLeft
-	RotateRightOfPortrate             = consts.RotateRightOfPortrate
-	RotateLeftOfPortrate              = consts.RotateLeftOfPortrate
 	ShapeSinWave                      = consts.ShapeSinWave
 	ShapeSquareWave                   = consts.ShapeSquareWave
 	ShapeTriangleWave                 = consts.ShapeTriangleWave
@@ -21,6 +13,11 @@ const (
 	ShapeReverseSawWave               = consts.ShapeReverseSawWave
 	ShapeCosWave                      = consts.ShapeCosWave
 	ShapeBounce                       = consts.ShapeBounce
+	RotateNone                        = consts.RotateNone
+	RotatePortrateOfRight             = consts.RotatePortrateOfRight
+	RotatePortrateOfLeft              = consts.RotatePortrateOfLeft
+	RotateRightOfPortrate             = consts.RotateRightOfPortrate
+	RotateLeftOfPortrate              = consts.RotateLeftOfPortrate
 	TypeViewTransitionOnCross         = consts.TypeViewTransitionOnCross
 	TypeViewTransitionOnPositiveCross = consts.TypeViewTransitionOnPositiveCross
 	TypeViewTransitionOnNegativeCross = consts.TypeViewTransitionOnNegativeCross
@@ -33,6 +30,9 @@ const (
 	TypeNegativeCross                 = consts.TypeNegativeCross
 	TypeTriggerReceiver               = consts.TypeTriggerReceiver
 	TypeCross                         = consts.TypeCross
+	TypeScreen                        = consts.TypeScreen
+	TypePath                          = consts.TypePath
+	TypeCartesian                     = consts.TypeCartesian
 )
 
 const (

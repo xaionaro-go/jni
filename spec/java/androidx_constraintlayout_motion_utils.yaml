@@ -5,165 +5,6 @@
 package: utils
 go_import: github.com/AndroidGoLab/jni/androidx/constraintlayout/motion/utils
 classes:
-    - java_class: androidx.constraintlayout.motion.utils.CustomSupport
-      go_type: CustomSupport
-      obtain: constructor
-      static_methods:
-        - java_method: setInterpolatedValue
-          go_name: SetInterpolatedValue
-          params:
-            - java_type: androidx.constraintlayout.widget.ConstraintAttribute
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: float[]
-              go_name: arg2
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.motion.utils.ViewTimeCycle
-      go_type: ViewTimeCycle
-      methods:
-        - java_method: setProperty
-          go_name: SetProperty
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: long
-              go_name: arg2
-            - java_type: androidx.constraintlayout.core.motion.utils.KeyCache
-              go_name: arg3
-          returns: boolean
-          error: true
-        - java_method: get
-          go_name: Get
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-            - java_type: android.view.View
-              go_name: arg2
-            - java_type: androidx.constraintlayout.core.motion.utils.KeyCache
-              go_name: arg3
-          returns: float
-          error: true
-      static_methods:
-        - java_method: makeSpline
-          go_name: MakeSpline
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-          returns: androidx.constraintlayout.motion.utils.ViewTimeCycle
-          error: true
-    - java_class: androidx.constraintlayout.motion.utils.ViewTimeCycle$CustomSet
-      go_type: ViewTimeCycleCustomSet
-      methods:
-        - java_method: setup
-          go_name: Setup
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setPoint
-          go_name: SetPoint5
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: float
-              go_name: arg4
-          returns: void
-          error: true
-        - java_method: setPoint
-          go_name: SetPoint5_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: androidx.constraintlayout.widget.ConstraintAttribute
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: float
-              go_name: arg4
-          returns: void
-          error: true
-        - java_method: setProperty
-          go_name: SetProperty
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: long
-              go_name: arg2
-            - java_type: androidx.constraintlayout.core.motion.utils.KeyCache
-              go_name: arg3
-          returns: boolean
-          error: true
-    - java_class: androidx.constraintlayout.motion.utils.ViewTimeCycle$PathRotate
-      go_type: ViewTimeCyclePathRotate
-      methods:
-        - java_method: setProperty
-          go_name: SetProperty
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: long
-              go_name: arg2
-            - java_type: androidx.constraintlayout.core.motion.utils.KeyCache
-              go_name: arg3
-          returns: boolean
-          error: true
-        - java_method: setPathRotate
-          go_name: SetPathRotate
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: androidx.constraintlayout.core.motion.utils.KeyCache
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: long
-              go_name: arg3
-            - java_type: double
-              go_name: arg4
-            - java_type: double
-              go_name: arg5
-          returns: boolean
-          error: true
-    - java_class: androidx.constraintlayout.motion.utils.ViewState
-      go_type: ViewState
-      obtain: constructor
-      methods:
-        - java_method: getState
-          go_name: GetState
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: width
-          go_name: Width
-          returns: int
-          error: true
-        - java_method: height
-          go_name: Height
-          returns: int
-          error: true
     - java_class: androidx.constraintlayout.motion.utils.StopLogic
       go_type: StopLogic
       obtain: constructor
@@ -237,6 +78,184 @@ classes:
           go_name: IsStopped
           returns: boolean
           error: true
+    - java_class: androidx.constraintlayout.motion.utils.ViewOscillator
+      go_type: ViewOscillator
+      methods:
+        - java_method: setProperty
+          go_name: SetProperty
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: void
+          error: true
+      static_methods:
+        - java_method: makeSpline
+          go_name: MakeSpline
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: androidx.constraintlayout.motion.utils.ViewOscillator
+          error: true
+    - java_class: androidx.constraintlayout.motion.utils.ViewOscillator$PathRotateSet
+      go_type: ViewOscillatorPathRotateSet
+      obtain: constructor
+      methods:
+        - java_method: setProperty
+          go_name: SetProperty
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setPathRotate
+          go_name: SetPathRotate
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: double
+              go_name: arg2
+            - java_type: double
+              go_name: arg3
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.motion.utils.ViewTimeCycle
+      go_type: ViewTimeCycle
+      methods:
+        - java_method: setProperty
+          go_name: SetProperty
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: long
+              go_name: arg2
+            - java_type: androidx.constraintlayout.core.motion.utils.KeyCache
+              go_name: arg3
+          returns: boolean
+          error: true
+        - java_method: get
+          go_name: Get
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+            - java_type: android.view.View
+              go_name: arg2
+            - java_type: androidx.constraintlayout.core.motion.utils.KeyCache
+              go_name: arg3
+          returns: float
+          error: true
+      static_methods:
+        - java_method: makeSpline
+          go_name: MakeSpline
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+          returns: androidx.constraintlayout.motion.utils.ViewTimeCycle
+          error: true
+    - java_class: androidx.constraintlayout.motion.utils.ViewTimeCycle$CustomSet
+      go_type: ViewTimeCycleCustomSet
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: android.util.SparseArray<androidx.constraintlayout.widget.ConstraintAttribute>
+          go_name: arg1
+      methods:
+        - java_method: setup
+          go_name: Setup
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setPoint
+          go_name: SetPoint5
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: float
+              go_name: arg4
+          returns: void
+          error: true
+        - java_method: setPoint
+          go_name: SetPoint5_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: androidx.constraintlayout.widget.ConstraintAttribute
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: float
+              go_name: arg4
+          returns: void
+          error: true
+        - java_method: setProperty
+          go_name: SetProperty
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: long
+              go_name: arg2
+            - java_type: androidx.constraintlayout.core.motion.utils.KeyCache
+              go_name: arg3
+          returns: boolean
+          error: true
+    - java_class: androidx.constraintlayout.motion.utils.ViewTimeCycle$PathRotate
+      go_type: ViewTimeCyclePathRotate
+      obtain: constructor
+      methods:
+        - java_method: setProperty
+          go_name: SetProperty
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: long
+              go_name: arg2
+            - java_type: androidx.constraintlayout.core.motion.utils.KeyCache
+              go_name: arg3
+          returns: boolean
+          error: true
+        - java_method: setPathRotate
+          go_name: SetPathRotate
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: androidx.constraintlayout.core.motion.utils.KeyCache
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: long
+              go_name: arg3
+            - java_type: double
+              go_name: arg4
+            - java_type: double
+              go_name: arg5
+          returns: boolean
+          error: true
     - java_class: androidx.constraintlayout.motion.utils.ViewSpline
       go_type: ViewSpline
       methods:
@@ -259,6 +278,12 @@ classes:
           error: true
     - java_class: androidx.constraintlayout.motion.utils.ViewSpline$CustomSet
       go_type: ViewSplineCustomSet
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: android.util.SparseArray<androidx.constraintlayout.widget.ConstraintAttribute>
+          go_name: arg1
       methods:
         - java_method: setup
           go_name: Setup
@@ -294,28 +319,9 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: androidx.constraintlayout.motion.utils.ViewOscillator
-      go_type: ViewOscillator
-      methods:
-        - java_method: setProperty
-          go_name: SetProperty
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: makeSpline
-          go_name: MakeSpline
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: androidx.constraintlayout.motion.utils.ViewOscillator
-          error: true
     - java_class: androidx.constraintlayout.motion.utils.ViewSpline$PathRotate
       go_type: ViewSplinePathRotate
+      obtain: constructor
       methods:
         - java_method: setProperty
           go_name: SetProperty
@@ -339,66 +345,47 @@ classes:
               go_name: arg3
           returns: void
           error: true
-    - java_class: androidx.constraintlayout.motion.utils.ViewOscillator$PathRotateSet
-      go_type: ViewOscillatorPathRotateSet
-      methods:
-        - java_method: setProperty
-          go_name: SetProperty
+    - java_class: androidx.constraintlayout.motion.utils.CustomSupport
+      go_type: CustomSupport
+      obtain: constructor
+      static_methods:
+        - java_method: setInterpolatedValue
+          go_name: SetInterpolatedValue
           params:
-            - java_type: android.view.View
+            - java_type: androidx.constraintlayout.widget.ConstraintAttribute
               go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setPathRotate
-          go_name: SetPathRotate
-          params:
             - java_type: android.view.View
-              go_name: arg0
-            - java_type: float
               go_name: arg1
-            - java_type: double
+            - java_type: float[]
               go_name: arg2
-            - java_type: double
-              go_name: arg3
           returns: void
           error: true
-abstract_callbacks:
-    - java_class: androidx.constraintlayout.motion.utils.ViewTimeCycle
-      go_type: ViewTimeCycleCallback
+    - java_class: androidx.constraintlayout.motion.utils.ViewState
+      go_type: ViewState
+      obtain: constructor
       methods:
-        - java_method: setProperty
+        - java_method: getState
+          go_name: GetState
           params:
-            - android.view.View
-            - float
-            - long
-            - androidx.constraintlayout.core.motion.utils.KeyCache
-          returns: boolean
-          go_field: SetProperty
-        - java_method: get
-          params:
-            - float
-            - long
-            - android.view.View
-            - androidx.constraintlayout.core.motion.utils.KeyCache
-          returns: float
-          go_field: Get
-    - java_class: androidx.constraintlayout.motion.utils.ViewSpline
-      go_type: ViewSplineCallback
-      methods:
-        - java_method: setProperty
-          params:
-            - android.view.View
-            - float
+            - java_type: android.view.View
+              go_name: arg0
           returns: void
-          go_field: SetProperty
+          error: true
+        - java_method: width
+          go_name: Width
+          returns: int
+          error: true
+        - java_method: height
+          go_name: Height
+          returns: int
+          error: true
+abstract_callback_eligibility:
     - java_class: androidx.constraintlayout.motion.utils.ViewOscillator
-      go_type: ViewOscillatorCallback
-      methods:
-        - java_method: setProperty
-          params:
-            - android.view.View
-            - float
-          returns: void
-          go_field: SetProperty
+      generated: false
+      reason: non_object_superclass
+    - java_class: androidx.constraintlayout.motion.utils.ViewTimeCycle
+      generated: false
+      reason: non_object_superclass
+    - java_class: androidx.constraintlayout.motion.utils.ViewSpline
+      generated: false
+      reason: non_object_superclass

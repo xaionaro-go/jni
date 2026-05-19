@@ -23,6 +23,35 @@ type BlockingOptionBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewBlockingOptionBuilder creates a new android.net.wifi.BlockingOption$Builder instance.
+func NewBlockingOptionBuilder(vm *jni.VM, arg0 int32) (*BlockingOptionBuilder, error) {
+	var t BlockingOptionBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsBlockingOptionBuilder == nil {
+			return fmt.Errorf("android.net.wifi.BlockingOption$Builder is not available on this device")
+		}
+		if midBlockingOptionBuilderCtor == nil {
+			return fmt.Errorf("android.net.wifi.BlockingOption$Builder constructor (I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBlockingOptionBuilder)), midBlockingOptionBuilderCtor, jni.IntValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.wifi.BlockingOption$Builder.build.
 func (m *BlockingOptionBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

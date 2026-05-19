@@ -32,6 +32,12 @@ func NewPageMatchBounds(vm *jni.VM, arg0 *jni.Object, arg1 int32) (*PageMatchBou
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPageMatchBounds == nil {
+			return fmt.Errorf("android.graphics.pdf.models.PageMatchBounds is not available on this device")
+		}
+		if midPageMatchBoundsCtor == nil {
+			return fmt.Errorf("android.graphics.pdf.models.PageMatchBounds constructor (Ljava/util/List;I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPageMatchBounds)), midPageMatchBoundsCtor, jni.ObjectValue(arg0), jni.IntValue(arg1))
 		if err != nil {
@@ -128,29 +134,6 @@ func (m *PageMatchBounds) GetTextStartIndex() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.graphics.pdf.models.PageMatchBounds.writeToParcel.
-func (m *PageMatchBounds) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midPageMatchBoundsWriteToParcel == nil {
-			callErr = fmt.Errorf("android.graphics.pdf.models.PageMatchBounds.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midPageMatchBoundsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.graphics.pdf.models.PageMatchBounds.toString.
 func (m *PageMatchBounds) ToString() (string, error) {
 	var result string
@@ -176,4 +159,27 @@ func (m *PageMatchBounds) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.graphics.pdf.models.PageMatchBounds.writeToParcel.
+func (m *PageMatchBounds) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midPageMatchBoundsWriteToParcel == nil {
+			callErr = fmt.Errorf("android.graphics.pdf.models.PageMatchBounds.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsPageMatchBounds)),
+			midPageMatchBoundsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

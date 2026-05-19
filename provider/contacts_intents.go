@@ -23,6 +23,34 @@ type ContactsIntents struct {
 	Obj *jni.GlobalRef
 }
 
+// NewContactsIntents creates a new android.provider.Contacts$Intents instance.
+func NewContactsIntents(vm *jni.VM) (*ContactsIntents, error) {
+	var t ContactsIntents
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsContactsIntents == nil {
+			return fmt.Errorf("android.provider.Contacts$Intents is not available on this device")
+		}
+		if midContactsIntentsCtor == nil {
+			return fmt.Errorf("android.provider.Contacts$Intents constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContactsIntents)), midContactsIntentsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.provider.Contacts$Intents.toString.
 func (m *ContactsIntents) ToString() (string, error) {
 	var result string

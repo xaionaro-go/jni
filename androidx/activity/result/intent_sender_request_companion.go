@@ -23,6 +23,35 @@ type IntentSenderRequestCompanion struct {
 	Obj *jni.GlobalRef
 }
 
+// NewIntentSenderRequestCompanion creates a new androidx.activity.result.IntentSenderRequest$Companion instance.
+func NewIntentSenderRequestCompanion(vm *jni.VM, arg0 *jni.Object) (*IntentSenderRequestCompanion, error) {
+	var t IntentSenderRequestCompanion
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsIntentSenderRequestCompanion == nil {
+			return fmt.Errorf("androidx.activity.result.IntentSenderRequest$Companion is not available on this device")
+		}
+		if midIntentSenderRequestCompanionCtor == nil {
+			return fmt.Errorf("androidx.activity.result.IntentSenderRequest$Companion constructor (Lkotlin/jvm/internal/DefaultConstructorMarker;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIntentSenderRequestCompanion)), midIntentSenderRequestCompanionCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.activity.result.IntentSenderRequest$Companion.toString.
 func (m *IntentSenderRequestCompanion) ToString() (string, error) {
 	var result string

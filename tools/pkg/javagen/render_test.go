@@ -108,6 +108,55 @@ func TestJavaTemplatesRender(t *testing.T) {
 		}
 	})
 
+	t.Run("class.go.tmpl constructor guards unavailable class and constructor", func(t *testing.T) {
+		tmpl := templates.Lookup("class.go.tmpl")
+		if tmpl == nil {
+			t.Fatal("class.go.tmpl not found")
+		}
+		data := &classRenderData{
+			Package: "appbar",
+			MergedClass: MergedClass{
+				JavaClass:         "com.google.android.material.appbar.MaterialToolbar",
+				JavaClassSlash:    "com/google/android/material/appbar/MaterialToolbar",
+				GoType:            "MaterialToolbar",
+				Obtain:            "constructor",
+				ConstructorJNISig: "(Landroid/content/Context;)V",
+				ConstructorParams: []MergedParam{
+					{
+						JavaType: "android.content.Context",
+						GoName:   "arg0",
+						GoType:   "*jni.Object",
+						IsObject: true,
+					},
+				},
+			},
+		}
+		var buf bytes.Buffer
+		if err := tmpl.Execute(&buf, data); err != nil {
+			t.Fatalf("execute class.go.tmpl: %v", err)
+		}
+		output := buf.String()
+		for _, want := range []string{
+			`if clsMaterialToolbar == nil {`,
+			`return fmt.Errorf("com.google.android.material.appbar.MaterialToolbar is not available on this device")`,
+			`if midMaterialToolbarCtor == nil {`,
+			`return fmt.Errorf("com.google.android.material.appbar.MaterialToolbar constructor (Landroid/content/Context;)V is not available on this device")`,
+		} {
+			if !strings.Contains(output, want) {
+				t.Errorf("constructor wrapper missing %q.\nFull output:\n%s", want, output)
+			}
+		}
+		if strings.Contains(output, "env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), midMaterialToolbarCtor") &&
+			!strings.Contains(output, "if clsMaterialToolbar == nil") {
+			t.Errorf("constructor calls NewObject without guarding clsMaterialToolbar:\n%s", output)
+		}
+		src := generatedHeader + output
+		fset := token.NewFileSet()
+		if _, err := parser.ParseFile(fset, "material_toolbar.go", src, parser.AllErrors); err != nil {
+			t.Errorf("constructor class.go.tmpl output is not valid Go:\n%v\n\nSource:\n%s", err, src)
+		}
+	})
+
 	// type.go.tmpl takes dataClassRenderData.
 	t.Run("type.go.tmpl", func(t *testing.T) {
 		tmpl := templates.Lookup("type.go.tmpl")

@@ -32,6 +32,12 @@ func NewHyperSpline(vm *jni.VM) (*HyperSpline, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsHyperSpline == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.HyperSpline is not available on this device")
+		}
+		if midHyperSplineCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.HyperSpline constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHyperSpline)), midHyperSplineCtor)
 		if err != nil {
 			return err
@@ -163,32 +169,6 @@ func (m *HyperSpline) GetPos2_2(arg0 float64, arg1 int32) (float64, error) {
 	return result, callErr
 }
 
-// ApproxLength calls androidx.constraintlayout.core.motion.utils.HyperSpline.approxLength.
-func (m *HyperSpline) ApproxLength(arg0 *jni.Object) (float64, error) {
-	var result float64
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midHyperSplineApproxLength == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.core.motion.utils.HyperSpline.approxLength is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallDoubleMethod(
-			m.Obj,
-			midHyperSplineApproxLength, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.constraintlayout.core.motion.utils.HyperSpline.toString.
 func (m *HyperSpline) ToString() (string, error) {
 	var result string
@@ -211,6 +191,32 @@ func (m *HyperSpline) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// ApproxLength calls androidx.constraintlayout.core.motion.utils.HyperSpline.approxLength.
+func (m *HyperSpline) ApproxLength(arg0 *jni.Object) (float64, error) {
+	var result float64
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midHyperSplineApproxLength == nil {
+			callErr = fmt.Errorf("androidx.constraintlayout.core.motion.utils.HyperSpline.approxLength is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallStaticDoubleMethod(
+			(*jni.Class)(unsafe.Pointer(clsHyperSpline)),
+			midHyperSplineApproxLength, jni.ObjectValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
 		return callErr
 	})
 	return result, callErr

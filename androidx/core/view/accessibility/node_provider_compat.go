@@ -32,6 +32,12 @@ func NewNodeProviderCompat(vm *jni.VM) (*NodeProviderCompat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNodeProviderCompat == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityNodeProviderCompat is not available on this device")
+		}
+		if midNodeProviderCompatCtor == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityNodeProviderCompat constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNodeProviderCompat)), midNodeProviderCompatCtor)
 		if err != nil {
 			return err

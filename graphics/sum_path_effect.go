@@ -32,6 +32,12 @@ func NewSumPathEffect(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*SumPathE
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSumPathEffect == nil {
+			return fmt.Errorf("android.graphics.SumPathEffect is not available on this device")
+		}
+		if midSumPathEffectCtor == nil {
+			return fmt.Errorf("android.graphics.SumPathEffect constructor (Landroid/graphics/PathEffect;Landroid/graphics/PathEffect;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSumPathEffect)), midSumPathEffectCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

@@ -32,6 +32,12 @@ func NewMaterialTimePicker(vm *jni.VM) (*MaterialTimePicker, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialTimePicker == nil {
+			return fmt.Errorf("com.google.android.material.timepicker.MaterialTimePicker is not available on this device")
+		}
+		if midMaterialTimePickerCtor == nil {
+			return fmt.Errorf("com.google.android.material.timepicker.MaterialTimePicker constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialTimePicker)), midMaterialTimePickerCtor)
 		if err != nil {
 			return err
@@ -710,28 +716,6 @@ func (m *MaterialTimePicker) RemoveOnDismissListener(arg0 *jni.Object) (bool, er
 		return callErr
 	})
 	return result, callErr
-}
-
-// ClearOnDismissListeners calls com.google.android.material.timepicker.MaterialTimePicker.clearOnDismissListeners.
-func (m *MaterialTimePicker) ClearOnDismissListeners() error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialTimePickerClearOnDismissListeners == nil {
-			callErr = fmt.Errorf("com.google.android.material.timepicker.MaterialTimePicker.clearOnDismissListeners is not available on this device")
-			return callErr
-		}
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMaterialTimePickerClearOnDismissListeners,
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // ToString calls com.google.android.material.timepicker.MaterialTimePicker.toString.

@@ -5,6 +5,2258 @@
 package: webkit
 go_import: github.com/AndroidGoLab/jni/webkit
 classes:
+    - java_class: android.webkit.PluginStub
+      go_type: PluginStub
+      methods:
+        - java_method: getEmbeddedView
+          go_name: GetEmbeddedView
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.content.Context
+              go_name: arg1
+          returns: android.view.View
+          error: true
+        - java_method: getFullScreenView
+          go_name: GetFullScreenView
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.content.Context
+              go_name: arg1
+          returns: android.view.View
+          error: true
+    - java_class: android.webkit.TracingConfig
+      go_type: TracingConfig
+      methods:
+        - java_method: getCustomIncludedCategories
+          go_name: GetCustomIncludedCategories
+          returns: java.util.List<java.lang.String>
+          error: true
+        - java_method: getPredefinedCategories
+          go_name: GetPredefinedCategories
+          returns: int
+          error: true
+        - java_method: getTracingMode
+          go_name: GetTracingMode
+          returns: int
+          error: true
+    - java_class: android.webkit.TracingConfig$Builder
+      go_type: TracingConfigBuilder
+      obtain: constructor
+      methods:
+        - java_method: addCategories
+          go_name: AddCategories1
+          params:
+            - java_type: int...
+              go_name: arg0
+          returns: android.webkit.TracingConfig$Builder
+          error: true
+        - java_method: addCategories
+          go_name: AddCategories1_1
+          params:
+            - java_type: java.lang.String...
+              go_name: arg0
+          returns: android.webkit.TracingConfig$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.webkit.TracingConfig
+          error: true
+        - java_method: setTracingMode
+          go_name: SetTracingMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.webkit.TracingConfig$Builder
+          error: true
+    - java_class: android.webkit.WebViewFragment
+      go_type: WebViewFragment
+      obtain: constructor
+      methods:
+        - java_method: getWebView
+          go_name: GetWebView
+          returns: android.webkit.WebView
+          error: true
+        - java_method: onCreateView
+          go_name: OnCreateView
+          params:
+            - java_type: android.view.LayoutInflater
+              go_name: arg0
+            - java_type: android.view.ViewGroup
+              go_name: arg1
+            - java_type: android.os.Bundle
+              go_name: arg2
+          returns: android.view.View
+          error: true
+        - java_method: onDestroy
+          go_name: OnDestroy
+          returns: void
+          error: true
+        - java_method: onDestroyView
+          go_name: OnDestroyView
+          returns: void
+          error: true
+        - java_method: onPause
+          go_name: OnPause
+          returns: void
+          error: true
+        - java_method: onResume
+          go_name: OnResume
+          returns: void
+          error: true
+    - java_class: android.webkit.ClientCertRequest
+      go_type: ClientCertRequest
+      methods:
+        - java_method: cancel
+          go_name: Cancel
+          returns: void
+          error: true
+        - java_method: getHost
+          go_name: GetHost
+          returns: String
+          error: true
+        - java_method: getKeyTypes
+          go_name: GetKeyTypes
+          returns: java.lang.String[]
+          error: true
+        - java_method: getPort
+          go_name: GetPort
+          returns: int
+          error: true
+        - java_method: getPrincipals
+          go_name: GetPrincipals
+          returns: java.security.Principal[]
+          error: true
+        - java_method: ignore
+          go_name: Ignore
+          returns: void
+          error: true
+        - java_method: proceed
+          go_name: Proceed
+          params:
+            - java_type: java.security.PrivateKey
+              go_name: arg0
+            - java_type: java.security.cert.X509Certificate[]
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.webkit.DateSorter
+      go_type: DateSorter
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: getBoundary
+          go_name: GetBoundary
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: long
+          error: true
+        - java_method: getIndex
+          go_name: GetIndex
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getLabel
+          go_name: GetLabel
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+    - java_class: android.webkit.ValueCallback
+      go_type: ValueCallback
+    - java_class: android.webkit.PermissionRequest
+      go_type: PermissionRequest
+      methods:
+        - java_method: deny
+          go_name: Deny
+          returns: void
+          error: true
+        - java_method: getOrigin
+          go_name: GetOrigin
+          returns: android.net.Uri
+          error: true
+        - java_method: getResources
+          go_name: GetResources
+          returns: java.lang.String[]
+          error: true
+        - java_method: grant
+          go_name: Grant
+          params:
+            - java_type: java.lang.String[]
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.webkit.WebSettings
+      go_type: WebSettings
+      methods:
+        - java_method: enableSmoothTransition
+          go_name: EnableSmoothTransition
+          returns: boolean
+          error: true
+        - java_method: getAllowContentAccess
+          go_name: GetAllowContentAccess
+          returns: boolean
+          error: true
+        - java_method: getAllowFileAccess
+          go_name: GetAllowFileAccess
+          returns: boolean
+          error: true
+        - java_method: getAllowFileAccessFromFileURLs
+          go_name: GetAllowFileAccessFromFileURLs
+          returns: boolean
+          error: true
+        - java_method: getAllowUniversalAccessFromFileURLs
+          go_name: GetAllowUniversalAccessFromFileURLs
+          returns: boolean
+          error: true
+        - java_method: getBlockNetworkImage
+          go_name: GetBlockNetworkImage
+          returns: boolean
+          error: true
+        - java_method: getBlockNetworkLoads
+          go_name: GetBlockNetworkLoads
+          returns: boolean
+          error: true
+        - java_method: getBuiltInZoomControls
+          go_name: GetBuiltInZoomControls
+          returns: boolean
+          error: true
+        - java_method: getCacheMode
+          go_name: GetCacheMode
+          returns: int
+          error: true
+        - java_method: getCursiveFontFamily
+          go_name: GetCursiveFontFamily
+          returns: String
+          error: true
+        - java_method: getDatabaseEnabled
+          go_name: GetDatabaseEnabled
+          returns: boolean
+          error: true
+        - java_method: getDatabasePath
+          go_name: GetDatabasePath
+          returns: String
+          error: true
+        - java_method: getDefaultFixedFontSize
+          go_name: GetDefaultFixedFontSize
+          returns: int
+          error: true
+        - java_method: getDefaultFontSize
+          go_name: GetDefaultFontSize
+          returns: int
+          error: true
+        - java_method: getDefaultTextEncodingName
+          go_name: GetDefaultTextEncodingName
+          returns: String
+          error: true
+        - java_method: getDefaultZoom
+          go_name: GetDefaultZoom
+          returns: android.webkit.WebSettings$ZoomDensity
+          error: true
+        - java_method: getDisabledActionModeMenuItems
+          go_name: GetDisabledActionModeMenuItems
+          returns: int
+          error: true
+        - java_method: getDisplayZoomControls
+          go_name: GetDisplayZoomControls
+          returns: boolean
+          error: true
+        - java_method: getDomStorageEnabled
+          go_name: GetDomStorageEnabled
+          returns: boolean
+          error: true
+        - java_method: getFantasyFontFamily
+          go_name: GetFantasyFontFamily
+          returns: String
+          error: true
+        - java_method: getFixedFontFamily
+          go_name: GetFixedFontFamily
+          returns: String
+          error: true
+        - java_method: getForceDark
+          go_name: GetForceDark
+          returns: int
+          error: true
+        - java_method: getJavaScriptCanOpenWindowsAutomatically
+          go_name: GetJavaScriptCanOpenWindowsAutomatically
+          returns: boolean
+          error: true
+        - java_method: getJavaScriptEnabled
+          go_name: GetJavaScriptEnabled
+          returns: boolean
+          error: true
+        - java_method: getLayoutAlgorithm
+          go_name: GetLayoutAlgorithm
+          returns: android.webkit.WebSettings$LayoutAlgorithm
+          error: true
+        - java_method: getLightTouchEnabled
+          go_name: GetLightTouchEnabled
+          returns: boolean
+          error: true
+        - java_method: getLoadWithOverviewMode
+          go_name: GetLoadWithOverviewMode
+          returns: boolean
+          error: true
+        - java_method: getLoadsImagesAutomatically
+          go_name: GetLoadsImagesAutomatically
+          returns: boolean
+          error: true
+        - java_method: getMediaPlaybackRequiresUserGesture
+          go_name: GetMediaPlaybackRequiresUserGesture
+          returns: boolean
+          error: true
+        - java_method: getMinimumFontSize
+          go_name: GetMinimumFontSize
+          returns: int
+          error: true
+        - java_method: getMinimumLogicalFontSize
+          go_name: GetMinimumLogicalFontSize
+          returns: int
+          error: true
+        - java_method: getMixedContentMode
+          go_name: GetMixedContentMode
+          returns: int
+          error: true
+        - java_method: getOffscreenPreRaster
+          go_name: GetOffscreenPreRaster
+          returns: boolean
+          error: true
+        - java_method: getPluginState
+          go_name: GetPluginState
+          returns: android.webkit.WebSettings$PluginState
+          error: true
+        - java_method: getSafeBrowsingEnabled
+          go_name: GetSafeBrowsingEnabled
+          returns: boolean
+          error: true
+        - java_method: getSansSerifFontFamily
+          go_name: GetSansSerifFontFamily
+          returns: String
+          error: true
+        - java_method: getSaveFormData
+          go_name: GetSaveFormData
+          returns: boolean
+          error: true
+        - java_method: getSavePassword
+          go_name: GetSavePassword
+          returns: boolean
+          error: true
+        - java_method: getSerifFontFamily
+          go_name: GetSerifFontFamily
+          returns: String
+          error: true
+        - java_method: getStandardFontFamily
+          go_name: GetStandardFontFamily
+          returns: String
+          error: true
+        - java_method: getTextZoom
+          go_name: GetTextZoom
+          returns: int
+          error: true
+        - java_method: getUseWideViewPort
+          go_name: GetUseWideViewPort
+          returns: boolean
+          error: true
+        - java_method: getUserAgentString
+          go_name: GetUserAgentString
+          returns: String
+          error: true
+        - java_method: isAlgorithmicDarkeningAllowed
+          go_name: IsAlgorithmicDarkeningAllowed
+          returns: boolean
+          error: true
+        - java_method: setAlgorithmicDarkeningAllowed
+          go_name: SetAlgorithmicDarkeningAllowed
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setAllowContentAccess
+          go_name: SetAllowContentAccess
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setAllowFileAccess
+          go_name: SetAllowFileAccess
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setAllowFileAccessFromFileURLs
+          go_name: SetAllowFileAccessFromFileURLs
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setAllowUniversalAccessFromFileURLs
+          go_name: SetAllowUniversalAccessFromFileURLs
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setBlockNetworkImage
+          go_name: SetBlockNetworkImage
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setBlockNetworkLoads
+          go_name: SetBlockNetworkLoads
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setBuiltInZoomControls
+          go_name: SetBuiltInZoomControls
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCacheMode
+          go_name: SetCacheMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCursiveFontFamily
+          go_name: SetCursiveFontFamily
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDatabaseEnabled
+          go_name: SetDatabaseEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDatabasePath
+          go_name: SetDatabasePath
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDefaultFixedFontSize
+          go_name: SetDefaultFixedFontSize
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDefaultFontSize
+          go_name: SetDefaultFontSize
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDefaultTextEncodingName
+          go_name: SetDefaultTextEncodingName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDefaultZoom
+          go_name: SetDefaultZoom
+          params:
+            - java_type: android.webkit.WebSettings$ZoomDensity
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDisabledActionModeMenuItems
+          go_name: SetDisabledActionModeMenuItems
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDisplayZoomControls
+          go_name: SetDisplayZoomControls
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDomStorageEnabled
+          go_name: SetDomStorageEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setEnableSmoothTransition
+          go_name: SetEnableSmoothTransition
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setFantasyFontFamily
+          go_name: SetFantasyFontFamily
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setFixedFontFamily
+          go_name: SetFixedFontFamily
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setForceDark
+          go_name: SetForceDark
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setGeolocationDatabasePath
+          go_name: SetGeolocationDatabasePath
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setGeolocationEnabled
+          go_name: SetGeolocationEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setJavaScriptCanOpenWindowsAutomatically
+          go_name: SetJavaScriptCanOpenWindowsAutomatically
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setJavaScriptEnabled
+          go_name: SetJavaScriptEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setLayoutAlgorithm
+          go_name: SetLayoutAlgorithm
+          params:
+            - java_type: android.webkit.WebSettings$LayoutAlgorithm
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setLightTouchEnabled
+          go_name: SetLightTouchEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setLoadWithOverviewMode
+          go_name: SetLoadWithOverviewMode
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setLoadsImagesAutomatically
+          go_name: SetLoadsImagesAutomatically
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setMediaPlaybackRequiresUserGesture
+          go_name: SetMediaPlaybackRequiresUserGesture
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setMinimumFontSize
+          go_name: SetMinimumFontSize
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setMinimumLogicalFontSize
+          go_name: SetMinimumLogicalFontSize
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setMixedContentMode
+          go_name: SetMixedContentMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setNeedInitialFocus
+          go_name: SetNeedInitialFocus
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setOffscreenPreRaster
+          go_name: SetOffscreenPreRaster
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setPluginState
+          go_name: SetPluginState
+          params:
+            - java_type: android.webkit.WebSettings$PluginState
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setRenderPriority
+          go_name: SetRenderPriority
+          params:
+            - java_type: android.webkit.WebSettings$RenderPriority
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSafeBrowsingEnabled
+          go_name: SetSafeBrowsingEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSansSerifFontFamily
+          go_name: SetSansSerifFontFamily
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSaveFormData
+          go_name: SetSaveFormData
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSavePassword
+          go_name: SetSavePassword
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSerifFontFamily
+          go_name: SetSerifFontFamily
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setStandardFontFamily
+          go_name: SetStandardFontFamily
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSupportMultipleWindows
+          go_name: SetSupportMultipleWindows
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSupportZoom
+          go_name: SetSupportZoom
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTextZoom
+          go_name: SetTextZoom
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setUseWideViewPort
+          go_name: SetUseWideViewPort
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setUserAgentString
+          go_name: SetUserAgentString
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: supportMultipleWindows
+          go_name: SupportMultipleWindows
+          returns: boolean
+          error: true
+        - java_method: supportZoom
+          go_name: SupportZoom
+          returns: boolean
+          error: true
+      static_methods:
+        - java_method: getDefaultUserAgent
+          go_name: GetDefaultUserAgent
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: String
+          error: true
+    - java_class: android.webkit.WebSettings$LayoutAlgorithm
+      go_type: WebSettingsLayoutAlgorithm
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.webkit.WebSettings$LayoutAlgorithm[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.webkit.WebSettings$LayoutAlgorithm
+          error: true
+    - java_class: android.webkit.WebSettings$PluginState
+      go_type: WebSettingsPluginState
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.webkit.WebSettings$PluginState[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.webkit.WebSettings$PluginState
+          error: true
+    - java_class: android.webkit.WebSettings$RenderPriority
+      go_type: WebSettingsRenderPriority
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.webkit.WebSettings$RenderPriority[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.webkit.WebSettings$RenderPriority
+          error: true
+    - java_class: android.webkit.WebSettings$TextSize
+      go_type: WebSettingsTextSize
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.webkit.WebSettings$TextSize[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.webkit.WebSettings$TextSize
+          error: true
+    - java_class: android.webkit.WebSettings$ZoomDensity
+      go_type: WebSettingsZoomDensity
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.webkit.WebSettings$ZoomDensity[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.webkit.WebSettings$ZoomDensity
+          error: true
+    - java_class: android.webkit.JavascriptInterface
+      go_type: JavascriptInterface
+    - java_class: android.webkit.WebMessagePort
+      go_type: WebMessagePort
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: postMessage
+          go_name: PostMessage
+          params:
+            - java_type: android.webkit.WebMessage
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setWebMessageCallback
+          go_name: SetWebMessageCallback
+          params:
+            - java_type: android.webkit.WebMessagePort$WebMessageCallback
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.webkit.WebMessagePort$WebMessageCallback
+      go_type: WebMessagePortWebMessageCallback
+      methods:
+        - java_method: onMessage
+          go_name: OnMessage
+          params:
+            - java_type: android.webkit.WebMessagePort
+              go_name: arg0
+            - java_type: android.webkit.WebMessage
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.webkit.WebResourceError
+      go_type: WebResourceError
+      methods:
+        - java_method: getDescription
+          go_name: GetDescription
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getErrorCode
+          go_name: GetErrorCode
+          returns: int
+          error: true
+    - java_class: android.webkit.ServiceWorkerClient
+      go_type: ServiceWorkerClient
+      obtain: constructor
+      methods:
+        - java_method: shouldInterceptRequest
+          go_name: ShouldInterceptRequest
+          params:
+            - java_type: android.webkit.WebResourceRequest
+              go_name: arg0
+          returns: android.webkit.WebResourceResponse
+          error: true
+    - java_class: android.webkit.WebViewRenderProcess
+      go_type: WebViewRenderProcess
+      methods:
+        - java_method: terminate
+          go_name: Terminate
+          returns: boolean
+          error: true
+    - java_class: android.webkit.GeolocationPermissions
+      go_type: GeolocationPermissions
+      methods:
+        - java_method: allow
+          go_name: Allow
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: clear
+          go_name: Clear
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: clearAll
+          go_name: ClearAll
+          returns: void
+          error: true
+      static_methods:
+        - java_method: getInstance
+          go_name: GetInstance
+          returns: android.webkit.GeolocationPermissions
+          error: true
+    - java_class: android.webkit.GeolocationPermissions$Callback
+      go_type: GeolocationPermissionsCallback
+      methods:
+        - java_method: invoke
+          go_name: Invoke
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+            - java_type: boolean
+              go_name: arg2
+          returns: void
+          error: true
+    - java_class: android.webkit.DownloadListener
+      go_type: DownloadListener
+      methods:
+        - java_method: onDownloadStart
+          go_name: OnDownloadStart
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+            - java_type: String
+              go_name: arg3
+            - java_type: long
+              go_name: arg4
+          returns: void
+          error: true
+    - java_class: android.webkit.ServiceWorkerController
+      go_type: ServiceWorkerController
+      methods:
+        - java_method: getServiceWorkerWebSettings
+          go_name: GetServiceWorkerWebSettings
+          returns: android.webkit.ServiceWorkerWebSettings
+          error: true
+        - java_method: setServiceWorkerClient
+          go_name: SetServiceWorkerClient
+          params:
+            - java_type: android.webkit.ServiceWorkerClient
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
+        - java_method: getInstance
+          go_name: GetInstance
+          returns: android.webkit.ServiceWorkerController
+          error: true
+    - java_class: android.webkit.WebResourceResponse
+      go_type: WebResourceResponse
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+        - java_type: String
+          go_name: arg3
+        - java_type: java.util.Map<java.lang.String, java.lang.String>
+          go_name: arg4
+        - java_type: java.io.InputStream
+          go_name: arg5
+      methods:
+        - java_method: getData
+          go_name: GetData
+          returns: java.io.InputStream
+          error: true
+        - java_method: getEncoding
+          go_name: GetEncoding
+          returns: String
+          error: true
+        - java_method: getMimeType
+          go_name: GetMimeType
+          returns: String
+          error: true
+        - java_method: getReasonPhrase
+          go_name: GetReasonPhrase
+          returns: String
+          error: true
+        - java_method: getStatusCode
+          go_name: GetStatusCode
+          returns: int
+          error: true
+        - java_method: setData
+          go_name: SetData
+          params:
+            - java_type: java.io.InputStream
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setEncoding
+          go_name: SetEncoding
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setMimeType
+          go_name: SetMimeType
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setStatusCodeAndReasonPhrase
+          go_name: SetStatusCodeAndReasonPhrase
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.webkit.MimeTypeMap
+      go_type: MimeTypeMap
+      methods:
+        - java_method: getExtensionFromMimeType
+          go_name: GetExtensionFromMimeType
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getMimeTypeFromExtension
+          go_name: GetMimeTypeFromExtension
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: hasExtension
+          go_name: HasExtension
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hasMimeType
+          go_name: HasMimeType
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean
+          error: true
+      static_methods:
+        - java_method: getFileExtensionFromUrl
+          go_name: GetFileExtensionFromUrl
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getSingleton
+          go_name: GetSingleton
+          returns: android.webkit.MimeTypeMap
+          error: true
+    - java_class: android.webkit.TracingController
+      go_type: TracingController
+      methods:
+        - java_method: isTracing
+          go_name: IsTracing
+          returns: boolean
+          error: true
+        - java_method: start
+          go_name: Start
+          params:
+            - java_type: android.webkit.TracingConfig
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: stop
+          go_name: Stop
+          params:
+            - java_type: java.io.OutputStream
+              go_name: arg0
+            - java_type: java.util.concurrent.Executor
+              go_name: arg1
+          returns: boolean
+          error: true
+      static_methods:
+        - java_method: getInstance
+          go_name: GetInstance
+          returns: android.webkit.TracingController
+          error: true
+    - java_class: android.webkit.ConsoleMessage
+      go_type: ConsoleMessage
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+        - java_type: android.webkit.ConsoleMessage$MessageLevel
+          go_name: arg3
+      methods:
+        - java_method: lineNumber
+          go_name: LineNumber
+          returns: int
+          error: true
+        - java_method: message
+          go_name: Message
+          returns: String
+          error: true
+        - java_method: messageLevel
+          go_name: MessageLevel
+          returns: android.webkit.ConsoleMessage$MessageLevel
+          error: true
+        - java_method: sourceId
+          go_name: SourceId
+          returns: String
+          error: true
+    - java_class: android.webkit.ConsoleMessage$MessageLevel
+      go_type: ConsoleMessageMessageLevel
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.webkit.ConsoleMessage$MessageLevel[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.webkit.ConsoleMessage$MessageLevel
+          error: true
+    - java_class: android.webkit.WebViewRenderProcessClient
+      go_type: WebViewRenderProcessClient
+      methods:
+        - java_method: onRenderProcessResponsive
+          go_name: OnRenderProcessResponsive
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: android.webkit.WebViewRenderProcess
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onRenderProcessUnresponsive
+          go_name: OnRenderProcessUnresponsive
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: android.webkit.WebViewRenderProcess
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.webkit.RenderProcessGoneDetail
+      go_type: RenderProcessGoneDetail
+      methods:
+        - java_method: didCrash
+          go_name: DidCrash
+          returns: boolean
+          error: true
+        - java_method: rendererPriorityAtExit
+          go_name: RendererPriorityAtExit
+          returns: int
+          error: true
+    - java_class: android.webkit.JsResult
+      go_type: JsResult
+      methods:
+        - java_method: cancel
+          go_name: Cancel
+          returns: void
+          error: true
+        - java_method: confirm
+          go_name: Confirm
+          returns: void
+          error: true
+    - java_class: android.webkit.JsPromptResult
+      go_type: JsPromptResult
+      methods:
+        - java_method: confirm
+          go_name: Confirm
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.webkit.CookieManager
+      go_type: CookieManager
+      methods:
+        - java_method: acceptCookie
+          go_name: AcceptCookie
+          returns: boolean
+          error: true
+        - java_method: acceptThirdPartyCookies
+          go_name: AcceptThirdPartyCookies
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: flush
+          go_name: Flush
+          returns: void
+          error: true
+        - java_method: getCookie
+          go_name: GetCookie
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: hasCookies
+          go_name: HasCookies
+          returns: boolean
+          error: true
+        - java_method: removeAllCookie
+          go_name: RemoveAllCookie
+          returns: void
+          error: true
+        - java_method: removeExpiredCookie
+          go_name: RemoveExpiredCookie
+          returns: void
+          error: true
+        - java_method: removeSessionCookie
+          go_name: RemoveSessionCookie
+          returns: void
+          error: true
+        - java_method: setAcceptCookie
+          go_name: SetAcceptCookie
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setAcceptThirdPartyCookies
+          go_name: SetAcceptThirdPartyCookies
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setCookie
+          go_name: SetCookie
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: void
+          error: true
+      static_methods:
+        - java_method: allowFileSchemeCookies
+          go_name: AllowFileSchemeCookies
+          returns: boolean
+          error: true
+        - java_method: getInstance
+          go_name: GetInstance
+          returns: android.webkit.CookieManager
+          error: true
+        - java_method: setAcceptFileSchemeCookies
+          go_name: SetAcceptFileSchemeCookies
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.webkit.URLUtil
+      go_type: URLUtil
+      obtain: constructor
+      static_methods:
+        - java_method: composeSearchUrl
+          go_name: ComposeSearchUrl
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+          returns: String
+          error: true
+        - java_method: decode
+          go_name: Decode
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: '[B'
+          error: true
+        - java_method: guessFileName
+          go_name: GuessFileName
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+          returns: String
+          error: true
+        - java_method: guessUrl
+          go_name: GuessUrl
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: isAboutUrl
+          go_name: IsAboutUrl
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: isAssetUrl
+          go_name: IsAssetUrl
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: isContentUrl
+          go_name: IsContentUrl
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: isCookielessProxyUrl
+          go_name: IsCookielessProxyUrl
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: isDataUrl
+          go_name: IsDataUrl
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: isFileUrl
+          go_name: IsFileUrl
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: isHttpUrl
+          go_name: IsHttpUrl
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: isHttpsUrl
+          go_name: IsHttpsUrl
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: isJavaScriptUrl
+          go_name: IsJavaScriptUrl
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: isNetworkUrl
+          go_name: IsNetworkUrl
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: isValidUrl
+          go_name: IsValidUrl
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: stripAnchor
+          go_name: StripAnchor
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: String
+          error: true
+    - java_class: android.webkit.WebViewDatabase
+      go_type: WebViewDatabase
+      methods:
+        - java_method: clearFormData
+          go_name: ClearFormData
+          returns: void
+          error: true
+        - java_method: clearHttpAuthUsernamePassword
+          go_name: ClearHttpAuthUsernamePassword
+          returns: void
+          error: true
+        - java_method: clearUsernamePassword
+          go_name: ClearUsernamePassword
+          returns: void
+          error: true
+        - java_method: getHttpAuthUsernamePassword
+          go_name: GetHttpAuthUsernamePassword
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: java.lang.String[]
+          error: true
+        - java_method: hasFormData
+          go_name: HasFormData
+          returns: boolean
+          error: true
+        - java_method: hasHttpAuthUsernamePassword
+          go_name: HasHttpAuthUsernamePassword
+          returns: boolean
+          error: true
+        - java_method: hasUsernamePassword
+          go_name: HasUsernamePassword
+          returns: boolean
+          error: true
+        - java_method: setHttpAuthUsernamePassword
+          go_name: SetHttpAuthUsernamePassword
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+            - java_type: String
+              go_name: arg3
+          returns: void
+          error: true
+      static_methods:
+        - java_method: getInstance
+          go_name: GetInstance
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: android.webkit.WebViewDatabase
+          error: true
+    - java_class: android.webkit.WebHistoryItem
+      go_type: WebHistoryItem
+      methods:
+        - java_method: getFavicon
+          go_name: GetFavicon
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: getOriginalUrl
+          go_name: GetOriginalUrl
+          returns: String
+          error: true
+        - java_method: getTitle
+          go_name: GetTitle
+          returns: String
+          error: true
+        - java_method: getUrl
+          go_name: GetUrl
+          returns: String
+          error: true
+    - java_class: android.webkit.WebBackForwardList
+      go_type: WebBackForwardList
+      methods:
+        - java_method: getCurrentIndex
+          go_name: GetCurrentIndex
+          returns: int
+          error: true
+        - java_method: getCurrentItem
+          go_name: GetCurrentItem
+          returns: android.webkit.WebHistoryItem
+          error: true
+        - java_method: getItemAtIndex
+          go_name: GetItemAtIndex
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.webkit.WebHistoryItem
+          error: true
+        - java_method: getSize
+          go_name: GetSize
+          returns: int
+          error: true
+    - java_class: android.webkit.WebViewClient
+      go_type: WebViewClient
+      obtain: constructor
+      methods:
+        - java_method: doUpdateVisitedHistory
+          go_name: DoUpdateVisitedHistory
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: boolean
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onFormResubmission
+          go_name: OnFormResubmission
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: android.os.Message
+              go_name: arg1
+            - java_type: android.os.Message
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onLoadResource
+          go_name: OnLoadResource
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onPageCommitVisible
+          go_name: OnPageCommitVisible
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onPageFinished
+          go_name: OnPageFinished
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onPageStarted
+          go_name: OnPageStarted
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: android.graphics.Bitmap
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onReceivedClientCertRequest
+          go_name: OnReceivedClientCertRequest
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: android.webkit.ClientCertRequest
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onReceivedError
+          go_name: OnReceivedError3
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: android.webkit.WebResourceRequest
+              go_name: arg1
+            - java_type: android.webkit.WebResourceError
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onReceivedError
+          go_name: OnReceivedError4_1
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+            - java_type: String
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: onReceivedHttpError
+          go_name: OnReceivedHttpError
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: android.webkit.WebResourceRequest
+              go_name: arg1
+            - java_type: android.webkit.WebResourceResponse
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onReceivedLoginRequest
+          go_name: OnReceivedLoginRequest
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+            - java_type: String
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: onRenderProcessGone
+          go_name: OnRenderProcessGone
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: android.webkit.RenderProcessGoneDetail
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: onSafeBrowsingHit
+          go_name: OnSafeBrowsingHit
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: android.webkit.WebResourceRequest
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.webkit.SafeBrowsingResponse
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: onScaleChanged
+          go_name: OnScaleChanged
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onTooManyRedirects
+          go_name: OnTooManyRedirects
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: android.os.Message
+              go_name: arg1
+            - java_type: android.os.Message
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onUnhandledKeyEvent
+          go_name: OnUnhandledKeyEvent
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: android.view.KeyEvent
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: shouldInterceptRequest
+          go_name: ShouldInterceptRequest2
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: android.webkit.WebResourceRequest
+              go_name: arg1
+          returns: android.webkit.WebResourceResponse
+          error: true
+        - java_method: shouldInterceptRequest
+          go_name: ShouldInterceptRequest2_1
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: android.webkit.WebResourceResponse
+          error: true
+        - java_method: shouldOverrideKeyEvent
+          go_name: ShouldOverrideKeyEvent
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: android.view.KeyEvent
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: shouldOverrideUrlLoading
+          go_name: ShouldOverrideUrlLoading2
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: android.webkit.WebResourceRequest
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: shouldOverrideUrlLoading
+          go_name: ShouldOverrideUrlLoading2_1
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: boolean
+          error: true
+    - java_class: android.webkit.WebStorage
+      go_type: WebStorage
+      methods:
+        - java_method: deleteAllData
+          go_name: DeleteAllData
+          returns: void
+          error: true
+        - java_method: deleteOrigin
+          go_name: DeleteOrigin
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setQuotaForOrigin
+          go_name: SetQuotaForOrigin
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+          returns: void
+          error: true
+      static_methods:
+        - java_method: getInstance
+          go_name: GetInstance
+          returns: android.webkit.WebStorage
+          error: true
+    - java_class: android.webkit.WebResourceRequest
+      go_type: WebResourceRequest
+      methods:
+        - java_method: getMethod
+          go_name: GetMethod
+          returns: String
+          error: true
+        - java_method: getUrl
+          go_name: GetUrl
+          returns: android.net.Uri
+          error: true
+        - java_method: hasGesture
+          go_name: HasGesture
+          returns: boolean
+          error: true
+        - java_method: isForMainFrame
+          go_name: IsForMainFrame
+          returns: boolean
+          error: true
+        - java_method: isRedirect
+          go_name: IsRedirect
+          returns: boolean
+          error: true
+    - java_class: android.webkit.WebStorage$Origin
+      go_type: WebStorageOrigin
+      methods:
+        - java_method: getOrigin
+          go_name: GetOrigin
+          returns: String
+          error: true
+        - java_method: getQuota
+          go_name: GetQuota
+          returns: long
+          error: true
+        - java_method: getUsage
+          go_name: GetUsage
+          returns: long
+          error: true
+    - java_class: android.webkit.WebMessage
+      go_type: WebMessage
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+      methods:
+        - java_method: getData
+          go_name: GetData
+          returns: String
+          error: true
+        - java_method: getPorts
+          go_name: GetPorts
+          returns: android.webkit.WebMessagePort[]
+          error: true
+    - java_class: android.webkit.WebStorage$QuotaUpdater
+      go_type: WebStorageQuotaUpdater
+      methods:
+        - java_method: updateQuota
+          go_name: UpdateQuota
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.webkit.WebIconDatabase
+      go_type: WebIconDatabase
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: open
+          go_name: Open
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: releaseIconForPageUrl
+          go_name: ReleaseIconForPageUrl
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: removeAllIcons
+          go_name: RemoveAllIcons
+          returns: void
+          error: true
+        - java_method: requestIconForPageUrl
+          go_name: RequestIconForPageUrl
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.webkit.WebIconDatabase$IconListener
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: retainIconForPageUrl
+          go_name: RetainIconForPageUrl
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
+        - java_method: getInstance
+          go_name: GetInstance
+          returns: android.webkit.WebIconDatabase
+          error: true
+    - java_class: android.webkit.WebChromeClient
+      go_type: WebChromeClient
+      obtain: constructor
+      methods:
+        - java_method: getDefaultVideoPoster
+          go_name: GetDefaultVideoPoster
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: getVideoLoadingProgressView
+          go_name: GetVideoLoadingProgressView
+          returns: android.view.View
+          error: true
+        - java_method: onCloseWindow
+          go_name: OnCloseWindow
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onConsoleMessage
+          go_name: OnConsoleMessage1
+          params:
+            - java_type: android.webkit.ConsoleMessage
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onConsoleMessage
+          go_name: OnConsoleMessage3_1
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onCreateWindow
+          go_name: OnCreateWindow
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+            - java_type: boolean
+              go_name: arg2
+            - java_type: android.os.Message
+              go_name: arg3
+          returns: boolean
+          error: true
+        - java_method: onExceededDatabaseQuota
+          go_name: OnExceededDatabaseQuota
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: long
+              go_name: arg2
+            - java_type: long
+              go_name: arg3
+            - java_type: long
+              go_name: arg4
+            - java_type: android.webkit.WebStorage$QuotaUpdater
+              go_name: arg5
+          returns: void
+          error: true
+        - java_method: onGeolocationPermissionsHidePrompt
+          go_name: OnGeolocationPermissionsHidePrompt
+          returns: void
+          error: true
+        - java_method: onGeolocationPermissionsShowPrompt
+          go_name: OnGeolocationPermissionsShowPrompt
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.webkit.GeolocationPermissions$Callback
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onHideCustomView
+          go_name: OnHideCustomView
+          returns: void
+          error: true
+        - java_method: onJsAlert
+          go_name: OnJsAlert
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+            - java_type: android.webkit.JsResult
+              go_name: arg3
+          returns: boolean
+          error: true
+        - java_method: onJsBeforeUnload
+          go_name: OnJsBeforeUnload
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+            - java_type: android.webkit.JsResult
+              go_name: arg3
+          returns: boolean
+          error: true
+        - java_method: onJsConfirm
+          go_name: OnJsConfirm
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+            - java_type: android.webkit.JsResult
+              go_name: arg3
+          returns: boolean
+          error: true
+        - java_method: onJsPrompt
+          go_name: OnJsPrompt
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+            - java_type: String
+              go_name: arg3
+            - java_type: android.webkit.JsPromptResult
+              go_name: arg4
+          returns: boolean
+          error: true
+        - java_method: onJsTimeout
+          go_name: OnJsTimeout
+          returns: boolean
+          error: true
+        - java_method: onPermissionRequest
+          go_name: OnPermissionRequest
+          params:
+            - java_type: android.webkit.PermissionRequest
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onPermissionRequestCanceled
+          go_name: OnPermissionRequestCanceled
+          params:
+            - java_type: android.webkit.PermissionRequest
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onProgressChanged
+          go_name: OnProgressChanged
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onReceivedIcon
+          go_name: OnReceivedIcon
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: android.graphics.Bitmap
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onReceivedTitle
+          go_name: OnReceivedTitle
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onReceivedTouchIconUrl
+          go_name: OnReceivedTouchIconUrl
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: boolean
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onRequestFocus
+          go_name: OnRequestFocus
+          params:
+            - java_type: android.webkit.WebView
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onShowCustomView
+          go_name: OnShowCustomView2
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.webkit.WebChromeClient$CustomViewCallback
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onShowCustomView
+          go_name: OnShowCustomView3_1
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.webkit.WebChromeClient$CustomViewCallback
+              go_name: arg2
+          returns: void
+          error: true
+    - java_class: android.webkit.WebIconDatabase$IconListener
+      go_type: WebIconDatabaseIconListener
+      methods:
+        - java_method: onReceivedIcon
+          go_name: OnReceivedIcon
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.graphics.Bitmap
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.webkit.WebChromeClient$CustomViewCallback
+      go_type: WebChromeClientCustomViewCallback
+      methods:
+        - java_method: onCustomViewHidden
+          go_name: OnCustomViewHidden
+          returns: void
+          error: true
+    - java_class: android.webkit.WebChromeClient$FileChooserParams
+      go_type: WebChromeClientFileChooserParams
+      methods:
+        - java_method: createIntent
+          go_name: CreateIntent
+          returns: android.content.Intent
+          error: true
+        - java_method: getAcceptTypes
+          go_name: GetAcceptTypes
+          returns: java.lang.String[]
+          error: true
+        - java_method: getFilenameHint
+          go_name: GetFilenameHint
+          returns: String
+          error: true
+        - java_method: getMode
+          go_name: GetMode
+          returns: int
+          error: true
+        - java_method: getTitle
+          go_name: GetTitle
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: isCaptureEnabled
+          go_name: IsCaptureEnabled
+          returns: boolean
+          error: true
+      static_methods:
+        - java_method: parseResult
+          go_name: ParseResult
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: android.net.Uri[]
+          error: true
+    - java_class: android.webkit.SslErrorHandler
+      go_type: SslErrorHandler
+      methods:
+        - java_method: cancel
+          go_name: Cancel
+          returns: void
+          error: true
+        - java_method: proceed
+          go_name: Proceed
+          returns: void
+          error: true
+    - java_class: android.webkit.ServiceWorkerWebSettings
+      go_type: ServiceWorkerWebSettings
+      methods:
+        - java_method: getAllowContentAccess
+          go_name: GetAllowContentAccess
+          returns: boolean
+          error: true
+        - java_method: getAllowFileAccess
+          go_name: GetAllowFileAccess
+          returns: boolean
+          error: true
+        - java_method: getBlockNetworkLoads
+          go_name: GetBlockNetworkLoads
+          returns: boolean
+          error: true
+        - java_method: getCacheMode
+          go_name: GetCacheMode
+          returns: int
+          error: true
+        - java_method: setAllowContentAccess
+          go_name: SetAllowContentAccess
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setAllowFileAccess
+          go_name: SetAllowFileAccess
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setBlockNetworkLoads
+          go_name: SetBlockNetworkLoads
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCacheMode
+          go_name: SetCacheMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.webkit.SafeBrowsingResponse
+      go_type: SafeBrowsingResponse
+      methods:
+        - java_method: backToSafety
+          go_name: BackToSafety
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: proceed
+          go_name: Proceed
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: showInterstitial
+          go_name: ShowInterstitial
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.webkit.CookieSyncManager
+      go_type: CookieSyncManager
+      methods:
+        - java_method: resetSync
+          go_name: ResetSync
+          returns: void
+          error: true
+        - java_method: run
+          go_name: Run
+          returns: void
+          error: true
+        - java_method: startSync
+          go_name: StartSync
+          returns: void
+          error: true
+        - java_method: stopSync
+          go_name: StopSync
+          returns: void
+          error: true
+        - java_method: sync
+          go_name: Sync
+          returns: void
+          error: true
+      static_methods:
+        - java_method: createInstance
+          go_name: CreateInstance
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: android.webkit.CookieSyncManager
+          error: true
+        - java_method: getInstance
+          go_name: GetInstance
+          returns: android.webkit.CookieSyncManager
+          error: true
+    - java_class: android.webkit.HttpAuthHandler
+      go_type: HttpAuthHandler
+      methods:
+        - java_method: cancel
+          go_name: Cancel
+          returns: void
+          error: true
+        - java_method: proceed
+          go_name: Proceed
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: useHttpAuthUsernamePassword
+          go_name: UseHttpAuthUsernamePassword
+          returns: boolean
+          error: true
     - java_class: android.webkit.WebView
       go_type: WebView
       obtain: constructor
@@ -903,2306 +3155,11 @@ classes:
           error: true
     - java_class: android.webkit.WebView$WebViewTransport
       go_type: WebViewWebViewTransport
-    - java_class: android.webkit.HttpAuthHandler
-      go_type: HttpAuthHandler
-      methods:
-        - java_method: cancel
-          go_name: Cancel
-          returns: void
-          error: true
-        - java_method: proceed
-          go_name: Proceed
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: useHttpAuthUsernamePassword
-          go_name: UseHttpAuthUsernamePassword
-          returns: boolean
-          error: true
-    - java_class: android.webkit.ServiceWorkerClient
-      go_type: ServiceWorkerClient
-      obtain: constructor
-      methods:
-        - java_method: shouldInterceptRequest
-          go_name: ShouldInterceptRequest
-          params:
-            - java_type: android.webkit.WebResourceRequest
-              go_name: arg0
-          returns: android.webkit.WebResourceResponse
-          error: true
-    - java_class: android.webkit.WebMessage
-      go_type: WebMessage
       obtain: constructor
       constructor_params:
-        - java_type: String
+        - java_type: android.webkit.WebView
           go_name: arg0
-      methods:
-        - java_method: getData
-          go_name: GetData
-          returns: String
-          error: true
-        - java_method: getPorts
-          go_name: GetPorts
-          returns: android.webkit.WebMessagePort[]
-          error: true
-    - java_class: android.webkit.SslErrorHandler
-      go_type: SslErrorHandler
-      methods:
-        - java_method: cancel
-          go_name: Cancel
-          returns: void
-          error: true
-        - java_method: proceed
-          go_name: Proceed
-          returns: void
-          error: true
-    - java_class: android.webkit.PermissionRequest
-      go_type: PermissionRequest
-      methods:
-        - java_method: deny
-          go_name: Deny
-          returns: void
-          error: true
-        - java_method: getOrigin
-          go_name: GetOrigin
-          returns: android.net.Uri
-          error: true
-        - java_method: getResources
-          go_name: GetResources
-          returns: java.lang.String[]
-          error: true
-        - java_method: grant
-          go_name: Grant
-          params:
-            - java_type: java.lang.String[]
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.webkit.WebBackForwardList
-      go_type: WebBackForwardList
-      methods:
-        - java_method: getCurrentIndex
-          go_name: GetCurrentIndex
-          returns: int
-          error: true
-        - java_method: getCurrentItem
-          go_name: GetCurrentItem
-          returns: android.webkit.WebHistoryItem
-          error: true
-        - java_method: getItemAtIndex
-          go_name: GetItemAtIndex
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.webkit.WebHistoryItem
-          error: true
-        - java_method: getSize
-          go_name: GetSize
-          returns: int
-          error: true
-    - java_class: android.webkit.JsResult
-      go_type: JsResult
-      methods:
-        - java_method: cancel
-          go_name: Cancel
-          returns: void
-          error: true
-        - java_method: confirm
-          go_name: Confirm
-          returns: void
-          error: true
-    - java_class: android.webkit.WebStorage
-      go_type: WebStorage
-      methods:
-        - java_method: deleteAllData
-          go_name: DeleteAllData
-          returns: void
-          error: true
-        - java_method: deleteOrigin
-          go_name: DeleteOrigin
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setQuotaForOrigin
-          go_name: SetQuotaForOrigin
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: getInstance
-          go_name: GetInstance
-          returns: android.webkit.WebStorage
-          error: true
-    - java_class: android.webkit.WebStorage$Origin
-      go_type: WebStorageOrigin
-      methods:
-        - java_method: getOrigin
-          go_name: GetOrigin
-          returns: String
-          error: true
-        - java_method: getQuota
-          go_name: GetQuota
-          returns: long
-          error: true
-        - java_method: getUsage
-          go_name: GetUsage
-          returns: long
-          error: true
-    - java_class: android.webkit.WebStorage$QuotaUpdater
-      go_type: WebStorageQuotaUpdater
-      methods:
-        - java_method: updateQuota
-          go_name: UpdateQuota
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.webkit.TracingConfig
-      go_type: TracingConfig
-      methods:
-        - java_method: getCustomIncludedCategories
-          go_name: GetCustomIncludedCategories
-          returns: java.util.List<java.lang.String>
-          error: true
-        - java_method: getPredefinedCategories
-          go_name: GetPredefinedCategories
-          returns: int
-          error: true
-        - java_method: getTracingMode
-          go_name: GetTracingMode
-          returns: int
-          error: true
-    - java_class: android.webkit.TracingConfig$Builder
-      go_type: TracingConfigBuilder
-      methods:
-        - java_method: addCategories
-          go_name: AddCategories1
-          params:
-            - java_type: int...
-              go_name: arg0
-          returns: android.webkit.TracingConfig$Builder
-          error: true
-        - java_method: addCategories
-          go_name: AddCategories1_1
-          params:
-            - java_type: java.lang.String...
-              go_name: arg0
-          returns: android.webkit.TracingConfig$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.webkit.TracingConfig
-          error: true
-        - java_method: setTracingMode
-          go_name: SetTracingMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.webkit.TracingConfig$Builder
-          error: true
-    - java_class: android.webkit.MimeTypeMap
-      go_type: MimeTypeMap
-      methods:
-        - java_method: getExtensionFromMimeType
-          go_name: GetExtensionFromMimeType
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getMimeTypeFromExtension
-          go_name: GetMimeTypeFromExtension
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: hasExtension
-          go_name: HasExtension
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hasMimeType
-          go_name: HasMimeType
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: boolean
-          error: true
-      static_methods:
-        - java_method: getFileExtensionFromUrl
-          go_name: GetFileExtensionFromUrl
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getSingleton
-          go_name: GetSingleton
-          returns: android.webkit.MimeTypeMap
-          error: true
-    - java_class: android.webkit.ClientCertRequest
-      go_type: ClientCertRequest
-      methods:
-        - java_method: cancel
-          go_name: Cancel
-          returns: void
-          error: true
-        - java_method: getHost
-          go_name: GetHost
-          returns: String
-          error: true
-        - java_method: getKeyTypes
-          go_name: GetKeyTypes
-          returns: java.lang.String[]
-          error: true
-        - java_method: getPort
-          go_name: GetPort
-          returns: int
-          error: true
-        - java_method: getPrincipals
-          go_name: GetPrincipals
-          returns: java.security.Principal[]
-          error: true
-        - java_method: ignore
-          go_name: Ignore
-          returns: void
-          error: true
-        - java_method: proceed
-          go_name: Proceed
-          params:
-            - java_type: java.security.PrivateKey
-              go_name: arg0
-            - java_type: java.security.cert.X509Certificate[]
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.webkit.ServiceWorkerWebSettings
-      go_type: ServiceWorkerWebSettings
-      methods:
-        - java_method: getAllowContentAccess
-          go_name: GetAllowContentAccess
-          returns: boolean
-          error: true
-        - java_method: getAllowFileAccess
-          go_name: GetAllowFileAccess
-          returns: boolean
-          error: true
-        - java_method: getBlockNetworkLoads
-          go_name: GetBlockNetworkLoads
-          returns: boolean
-          error: true
-        - java_method: getCacheMode
-          go_name: GetCacheMode
-          returns: int
-          error: true
-        - java_method: setAllowContentAccess
-          go_name: SetAllowContentAccess
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setAllowFileAccess
-          go_name: SetAllowFileAccess
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setBlockNetworkLoads
-          go_name: SetBlockNetworkLoads
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCacheMode
-          go_name: SetCacheMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.webkit.CookieManager
-      go_type: CookieManager
-      methods:
-        - java_method: acceptCookie
-          go_name: AcceptCookie
-          returns: boolean
-          error: true
-        - java_method: acceptThirdPartyCookies
-          go_name: AcceptThirdPartyCookies
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: flush
-          go_name: Flush
-          returns: void
-          error: true
-        - java_method: getCookie
-          go_name: GetCookie
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: hasCookies
-          go_name: HasCookies
-          returns: boolean
-          error: true
-        - java_method: removeAllCookie
-          go_name: RemoveAllCookie
-          returns: void
-          error: true
-        - java_method: removeExpiredCookie
-          go_name: RemoveExpiredCookie
-          returns: void
-          error: true
-        - java_method: removeSessionCookie
-          go_name: RemoveSessionCookie
-          returns: void
-          error: true
-        - java_method: setAcceptCookie
-          go_name: SetAcceptCookie
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setAcceptThirdPartyCookies
-          go_name: SetAcceptThirdPartyCookies
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setCookie
-          go_name: SetCookie
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: allowFileSchemeCookies
-          go_name: AllowFileSchemeCookies
-          returns: boolean
-          error: true
-        - java_method: getInstance
-          go_name: GetInstance
-          returns: android.webkit.CookieManager
-          error: true
-        - java_method: setAcceptFileSchemeCookies
-          go_name: SetAcceptFileSchemeCookies
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.webkit.WebViewFragment
-      go_type: WebViewFragment
-      obtain: constructor
-      methods:
-        - java_method: getWebView
-          go_name: GetWebView
-          returns: android.webkit.WebView
-          error: true
-        - java_method: onCreateView
-          go_name: OnCreateView
-          params:
-            - java_type: android.view.LayoutInflater
-              go_name: arg0
-            - java_type: android.view.ViewGroup
-              go_name: arg1
-            - java_type: android.os.Bundle
-              go_name: arg2
-          returns: android.view.View
-          error: true
-        - java_method: onDestroy
-          go_name: OnDestroy
-          returns: void
-          error: true
-        - java_method: onDestroyView
-          go_name: OnDestroyView
-          returns: void
-          error: true
-        - java_method: onPause
-          go_name: OnPause
-          returns: void
-          error: true
-        - java_method: onResume
-          go_name: OnResume
-          returns: void
-          error: true
-    - java_class: android.webkit.ValueCallback
-      go_type: ValueCallback
-    - java_class: android.webkit.WebViewClient
-      go_type: WebViewClient
-      obtain: constructor
-      methods:
-        - java_method: doUpdateVisitedHistory
-          go_name: DoUpdateVisitedHistory
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: boolean
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onFormResubmission
-          go_name: OnFormResubmission
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: android.os.Message
-              go_name: arg1
-            - java_type: android.os.Message
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onLoadResource
-          go_name: OnLoadResource
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onPageCommitVisible
-          go_name: OnPageCommitVisible
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onPageFinished
-          go_name: OnPageFinished
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onPageStarted
-          go_name: OnPageStarted
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: android.graphics.Bitmap
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onReceivedClientCertRequest
-          go_name: OnReceivedClientCertRequest
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: android.webkit.ClientCertRequest
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onReceivedError
-          go_name: OnReceivedError3
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: android.webkit.WebResourceRequest
-              go_name: arg1
-            - java_type: android.webkit.WebResourceError
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onReceivedError
-          go_name: OnReceivedError4_1
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: String
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: onReceivedHttpError
-          go_name: OnReceivedHttpError
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: android.webkit.WebResourceRequest
-              go_name: arg1
-            - java_type: android.webkit.WebResourceResponse
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onReceivedLoginRequest
-          go_name: OnReceivedLoginRequest
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: String
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: onRenderProcessGone
-          go_name: OnRenderProcessGone
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: android.webkit.RenderProcessGoneDetail
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: onSafeBrowsingHit
-          go_name: OnSafeBrowsingHit
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: android.webkit.WebResourceRequest
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.webkit.SafeBrowsingResponse
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: onScaleChanged
-          go_name: OnScaleChanged
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onTooManyRedirects
-          go_name: OnTooManyRedirects
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: android.os.Message
-              go_name: arg1
-            - java_type: android.os.Message
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onUnhandledKeyEvent
-          go_name: OnUnhandledKeyEvent
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: android.view.KeyEvent
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: shouldInterceptRequest
-          go_name: ShouldInterceptRequest2
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: android.webkit.WebResourceRequest
-              go_name: arg1
-          returns: android.webkit.WebResourceResponse
-          error: true
-        - java_method: shouldInterceptRequest
-          go_name: ShouldInterceptRequest2_1
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: android.webkit.WebResourceResponse
-          error: true
-        - java_method: shouldOverrideKeyEvent
-          go_name: ShouldOverrideKeyEvent
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: android.view.KeyEvent
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: shouldOverrideUrlLoading
-          go_name: ShouldOverrideUrlLoading2
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: android.webkit.WebResourceRequest
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: shouldOverrideUrlLoading
-          go_name: ShouldOverrideUrlLoading2_1
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: boolean
-          error: true
-    - java_class: android.webkit.SafeBrowsingResponse
-      go_type: SafeBrowsingResponse
-      methods:
-        - java_method: backToSafety
-          go_name: BackToSafety
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: proceed
-          go_name: Proceed
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: showInterstitial
-          go_name: ShowInterstitial
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.webkit.WebViewRenderProcess
-      go_type: WebViewRenderProcess
-      methods:
-        - java_method: terminate
-          go_name: Terminate
-          returns: boolean
-          error: true
-    - java_class: android.webkit.JavascriptInterface
-      go_type: JavascriptInterface
-    - java_class: android.webkit.DateSorter
-      go_type: DateSorter
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: getBoundary
-          go_name: GetBoundary
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: long
-          error: true
-        - java_method: getIndex
-          go_name: GetIndex
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getLabel
-          go_name: GetLabel
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-    - java_class: android.webkit.WebResourceRequest
-      go_type: WebResourceRequest
-      methods:
-        - java_method: getMethod
-          go_name: GetMethod
-          returns: String
-          error: true
-        - java_method: getUrl
-          go_name: GetUrl
-          returns: android.net.Uri
-          error: true
-        - java_method: hasGesture
-          go_name: HasGesture
-          returns: boolean
-          error: true
-        - java_method: isForMainFrame
-          go_name: IsForMainFrame
-          returns: boolean
-          error: true
-        - java_method: isRedirect
-          go_name: IsRedirect
-          returns: boolean
-          error: true
-    - java_class: android.webkit.JsPromptResult
-      go_type: JsPromptResult
-      methods:
-        - java_method: confirm
-          go_name: Confirm
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.webkit.ConsoleMessage
-      go_type: ConsoleMessage
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-        - java_type: int
-          go_name: arg2
-        - java_type: android.webkit.ConsoleMessage$MessageLevel
-          go_name: arg3
-      methods:
-        - java_method: lineNumber
-          go_name: LineNumber
-          returns: int
-          error: true
-        - java_method: message
-          go_name: Message
-          returns: String
-          error: true
-        - java_method: messageLevel
-          go_name: MessageLevel
-          returns: android.webkit.ConsoleMessage$MessageLevel
-          error: true
-        - java_method: sourceId
-          go_name: SourceId
-          returns: String
-          error: true
-    - java_class: android.webkit.ConsoleMessage$MessageLevel
-      go_type: ConsoleMessageMessageLevel
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.webkit.ConsoleMessage$MessageLevel[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.webkit.ConsoleMessage$MessageLevel
-          error: true
-    - java_class: android.webkit.WebResourceError
-      go_type: WebResourceError
-      methods:
-        - java_method: getDescription
-          go_name: GetDescription
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getErrorCode
-          go_name: GetErrorCode
-          returns: int
-          error: true
-    - java_class: android.webkit.PluginStub
-      go_type: PluginStub
-      methods:
-        - java_method: getEmbeddedView
-          go_name: GetEmbeddedView
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.Context
-              go_name: arg1
-          returns: android.view.View
-          error: true
-        - java_method: getFullScreenView
-          go_name: GetFullScreenView
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.Context
-              go_name: arg1
-          returns: android.view.View
-          error: true
-    - java_class: android.webkit.TracingController
-      go_type: TracingController
-      methods:
-        - java_method: isTracing
-          go_name: IsTracing
-          returns: boolean
-          error: true
-        - java_method: start
-          go_name: Start
-          params:
-            - java_type: android.webkit.TracingConfig
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: stop
-          go_name: Stop
-          params:
-            - java_type: java.io.OutputStream
-              go_name: arg0
-            - java_type: java.util.concurrent.Executor
-              go_name: arg1
-          returns: boolean
-          error: true
-      static_methods:
-        - java_method: getInstance
-          go_name: GetInstance
-          returns: android.webkit.TracingController
-          error: true
-    - java_class: android.webkit.URLUtil
-      go_type: URLUtil
-      obtain: constructor
-      static_methods:
-        - java_method: composeSearchUrl
-          go_name: ComposeSearchUrl
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: String
-          error: true
-        - java_method: decode
-          go_name: Decode
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: '[B'
-          error: true
-        - java_method: guessFileName
-          go_name: GuessFileName
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: String
-          error: true
-        - java_method: guessUrl
-          go_name: GuessUrl
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: isAboutUrl
-          go_name: IsAboutUrl
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: isAssetUrl
-          go_name: IsAssetUrl
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: isContentUrl
-          go_name: IsContentUrl
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: isCookielessProxyUrl
-          go_name: IsCookielessProxyUrl
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: isDataUrl
-          go_name: IsDataUrl
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: isFileUrl
-          go_name: IsFileUrl
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: isHttpUrl
-          go_name: IsHttpUrl
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: isHttpsUrl
-          go_name: IsHttpsUrl
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: isJavaScriptUrl
-          go_name: IsJavaScriptUrl
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: isNetworkUrl
-          go_name: IsNetworkUrl
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: isValidUrl
-          go_name: IsValidUrl
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: stripAnchor
-          go_name: StripAnchor
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: String
-          error: true
-    - java_class: android.webkit.DownloadListener
-      go_type: DownloadListener
-      methods:
-        - java_method: onDownloadStart
-          go_name: OnDownloadStart
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: String
-              go_name: arg3
-            - java_type: long
-              go_name: arg4
-          returns: void
-          error: true
-    - java_class: android.webkit.WebResourceResponse
-      go_type: WebResourceResponse
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-        - java_type: int
-          go_name: arg2
-        - java_type: String
-          go_name: arg3
-        - java_type: java.util.Map<java.lang.String, java.lang.String>
-          go_name: arg4
-        - java_type: java.io.InputStream
-          go_name: arg5
-      methods:
-        - java_method: getData
-          go_name: GetData
-          returns: java.io.InputStream
-          error: true
-        - java_method: getEncoding
-          go_name: GetEncoding
-          returns: String
-          error: true
-        - java_method: getMimeType
-          go_name: GetMimeType
-          returns: String
-          error: true
-        - java_method: getReasonPhrase
-          go_name: GetReasonPhrase
-          returns: String
-          error: true
-        - java_method: getStatusCode
-          go_name: GetStatusCode
-          returns: int
-          error: true
-        - java_method: setData
-          go_name: SetData
-          params:
-            - java_type: java.io.InputStream
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setEncoding
-          go_name: SetEncoding
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setMimeType
-          go_name: SetMimeType
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setStatusCodeAndReasonPhrase
-          go_name: SetStatusCodeAndReasonPhrase
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.webkit.WebSettings
-      go_type: WebSettings
-      methods:
-        - java_method: enableSmoothTransition
-          go_name: EnableSmoothTransition
-          returns: boolean
-          error: true
-        - java_method: getAllowContentAccess
-          go_name: GetAllowContentAccess
-          returns: boolean
-          error: true
-        - java_method: getAllowFileAccess
-          go_name: GetAllowFileAccess
-          returns: boolean
-          error: true
-        - java_method: getAllowFileAccessFromFileURLs
-          go_name: GetAllowFileAccessFromFileURLs
-          returns: boolean
-          error: true
-        - java_method: getAllowUniversalAccessFromFileURLs
-          go_name: GetAllowUniversalAccessFromFileURLs
-          returns: boolean
-          error: true
-        - java_method: getBlockNetworkImage
-          go_name: GetBlockNetworkImage
-          returns: boolean
-          error: true
-        - java_method: getBlockNetworkLoads
-          go_name: GetBlockNetworkLoads
-          returns: boolean
-          error: true
-        - java_method: getBuiltInZoomControls
-          go_name: GetBuiltInZoomControls
-          returns: boolean
-          error: true
-        - java_method: getCacheMode
-          go_name: GetCacheMode
-          returns: int
-          error: true
-        - java_method: getCursiveFontFamily
-          go_name: GetCursiveFontFamily
-          returns: String
-          error: true
-        - java_method: getDatabaseEnabled
-          go_name: GetDatabaseEnabled
-          returns: boolean
-          error: true
-        - java_method: getDatabasePath
-          go_name: GetDatabasePath
-          returns: String
-          error: true
-        - java_method: getDefaultFixedFontSize
-          go_name: GetDefaultFixedFontSize
-          returns: int
-          error: true
-        - java_method: getDefaultFontSize
-          go_name: GetDefaultFontSize
-          returns: int
-          error: true
-        - java_method: getDefaultTextEncodingName
-          go_name: GetDefaultTextEncodingName
-          returns: String
-          error: true
-        - java_method: getDefaultZoom
-          go_name: GetDefaultZoom
-          returns: android.webkit.WebSettings$ZoomDensity
-          error: true
-        - java_method: getDisabledActionModeMenuItems
-          go_name: GetDisabledActionModeMenuItems
-          returns: int
-          error: true
-        - java_method: getDisplayZoomControls
-          go_name: GetDisplayZoomControls
-          returns: boolean
-          error: true
-        - java_method: getDomStorageEnabled
-          go_name: GetDomStorageEnabled
-          returns: boolean
-          error: true
-        - java_method: getFantasyFontFamily
-          go_name: GetFantasyFontFamily
-          returns: String
-          error: true
-        - java_method: getFixedFontFamily
-          go_name: GetFixedFontFamily
-          returns: String
-          error: true
-        - java_method: getForceDark
-          go_name: GetForceDark
-          returns: int
-          error: true
-        - java_method: getJavaScriptCanOpenWindowsAutomatically
-          go_name: GetJavaScriptCanOpenWindowsAutomatically
-          returns: boolean
-          error: true
-        - java_method: getJavaScriptEnabled
-          go_name: GetJavaScriptEnabled
-          returns: boolean
-          error: true
-        - java_method: getLayoutAlgorithm
-          go_name: GetLayoutAlgorithm
-          returns: android.webkit.WebSettings$LayoutAlgorithm
-          error: true
-        - java_method: getLightTouchEnabled
-          go_name: GetLightTouchEnabled
-          returns: boolean
-          error: true
-        - java_method: getLoadWithOverviewMode
-          go_name: GetLoadWithOverviewMode
-          returns: boolean
-          error: true
-        - java_method: getLoadsImagesAutomatically
-          go_name: GetLoadsImagesAutomatically
-          returns: boolean
-          error: true
-        - java_method: getMediaPlaybackRequiresUserGesture
-          go_name: GetMediaPlaybackRequiresUserGesture
-          returns: boolean
-          error: true
-        - java_method: getMinimumFontSize
-          go_name: GetMinimumFontSize
-          returns: int
-          error: true
-        - java_method: getMinimumLogicalFontSize
-          go_name: GetMinimumLogicalFontSize
-          returns: int
-          error: true
-        - java_method: getMixedContentMode
-          go_name: GetMixedContentMode
-          returns: int
-          error: true
-        - java_method: getOffscreenPreRaster
-          go_name: GetOffscreenPreRaster
-          returns: boolean
-          error: true
-        - java_method: getPluginState
-          go_name: GetPluginState
-          returns: android.webkit.WebSettings$PluginState
-          error: true
-        - java_method: getSafeBrowsingEnabled
-          go_name: GetSafeBrowsingEnabled
-          returns: boolean
-          error: true
-        - java_method: getSansSerifFontFamily
-          go_name: GetSansSerifFontFamily
-          returns: String
-          error: true
-        - java_method: getSaveFormData
-          go_name: GetSaveFormData
-          returns: boolean
-          error: true
-        - java_method: getSavePassword
-          go_name: GetSavePassword
-          returns: boolean
-          error: true
-        - java_method: getSerifFontFamily
-          go_name: GetSerifFontFamily
-          returns: String
-          error: true
-        - java_method: getStandardFontFamily
-          go_name: GetStandardFontFamily
-          returns: String
-          error: true
-        - java_method: getTextZoom
-          go_name: GetTextZoom
-          returns: int
-          error: true
-        - java_method: getUseWideViewPort
-          go_name: GetUseWideViewPort
-          returns: boolean
-          error: true
-        - java_method: getUserAgentString
-          go_name: GetUserAgentString
-          returns: String
-          error: true
-        - java_method: isAlgorithmicDarkeningAllowed
-          go_name: IsAlgorithmicDarkeningAllowed
-          returns: boolean
-          error: true
-        - java_method: setAlgorithmicDarkeningAllowed
-          go_name: SetAlgorithmicDarkeningAllowed
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setAllowContentAccess
-          go_name: SetAllowContentAccess
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setAllowFileAccess
-          go_name: SetAllowFileAccess
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setAllowFileAccessFromFileURLs
-          go_name: SetAllowFileAccessFromFileURLs
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setAllowUniversalAccessFromFileURLs
-          go_name: SetAllowUniversalAccessFromFileURLs
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setBlockNetworkImage
-          go_name: SetBlockNetworkImage
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setBlockNetworkLoads
-          go_name: SetBlockNetworkLoads
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setBuiltInZoomControls
-          go_name: SetBuiltInZoomControls
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCacheMode
-          go_name: SetCacheMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCursiveFontFamily
-          go_name: SetCursiveFontFamily
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDatabaseEnabled
-          go_name: SetDatabaseEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDatabasePath
-          go_name: SetDatabasePath
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDefaultFixedFontSize
-          go_name: SetDefaultFixedFontSize
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDefaultFontSize
-          go_name: SetDefaultFontSize
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDefaultTextEncodingName
-          go_name: SetDefaultTextEncodingName
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDefaultZoom
-          go_name: SetDefaultZoom
-          params:
-            - java_type: android.webkit.WebSettings$ZoomDensity
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDisabledActionModeMenuItems
-          go_name: SetDisabledActionModeMenuItems
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDisplayZoomControls
-          go_name: SetDisplayZoomControls
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDomStorageEnabled
-          go_name: SetDomStorageEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setEnableSmoothTransition
-          go_name: SetEnableSmoothTransition
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setFantasyFontFamily
-          go_name: SetFantasyFontFamily
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setFixedFontFamily
-          go_name: SetFixedFontFamily
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setForceDark
-          go_name: SetForceDark
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setGeolocationDatabasePath
-          go_name: SetGeolocationDatabasePath
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setGeolocationEnabled
-          go_name: SetGeolocationEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setJavaScriptCanOpenWindowsAutomatically
-          go_name: SetJavaScriptCanOpenWindowsAutomatically
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setJavaScriptEnabled
-          go_name: SetJavaScriptEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLayoutAlgorithm
-          go_name: SetLayoutAlgorithm
-          params:
-            - java_type: android.webkit.WebSettings$LayoutAlgorithm
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLightTouchEnabled
-          go_name: SetLightTouchEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLoadWithOverviewMode
-          go_name: SetLoadWithOverviewMode
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLoadsImagesAutomatically
-          go_name: SetLoadsImagesAutomatically
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setMediaPlaybackRequiresUserGesture
-          go_name: SetMediaPlaybackRequiresUserGesture
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setMinimumFontSize
-          go_name: SetMinimumFontSize
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setMinimumLogicalFontSize
-          go_name: SetMinimumLogicalFontSize
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setMixedContentMode
-          go_name: SetMixedContentMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setNeedInitialFocus
-          go_name: SetNeedInitialFocus
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setOffscreenPreRaster
-          go_name: SetOffscreenPreRaster
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setPluginState
-          go_name: SetPluginState
-          params:
-            - java_type: android.webkit.WebSettings$PluginState
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setRenderPriority
-          go_name: SetRenderPriority
-          params:
-            - java_type: android.webkit.WebSettings$RenderPriority
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSafeBrowsingEnabled
-          go_name: SetSafeBrowsingEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSansSerifFontFamily
-          go_name: SetSansSerifFontFamily
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSaveFormData
-          go_name: SetSaveFormData
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSavePassword
-          go_name: SetSavePassword
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSerifFontFamily
-          go_name: SetSerifFontFamily
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setStandardFontFamily
-          go_name: SetStandardFontFamily
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSupportMultipleWindows
-          go_name: SetSupportMultipleWindows
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSupportZoom
-          go_name: SetSupportZoom
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTextZoom
-          go_name: SetTextZoom
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setUseWideViewPort
-          go_name: SetUseWideViewPort
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setUserAgentString
-          go_name: SetUserAgentString
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: supportMultipleWindows
-          go_name: SupportMultipleWindows
-          returns: boolean
-          error: true
-        - java_method: supportZoom
-          go_name: SupportZoom
-          returns: boolean
-          error: true
-      static_methods:
-        - java_method: getDefaultUserAgent
-          go_name: GetDefaultUserAgent
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: String
-          error: true
-    - java_class: android.webkit.WebSettings$LayoutAlgorithm
-      go_type: WebSettingsLayoutAlgorithm
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.webkit.WebSettings$LayoutAlgorithm[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.webkit.WebSettings$LayoutAlgorithm
-          error: true
-    - java_class: android.webkit.WebSettings$PluginState
-      go_type: WebSettingsPluginState
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.webkit.WebSettings$PluginState[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.webkit.WebSettings$PluginState
-          error: true
-    - java_class: android.webkit.WebSettings$RenderPriority
-      go_type: WebSettingsRenderPriority
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.webkit.WebSettings$RenderPriority[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.webkit.WebSettings$RenderPriority
-          error: true
-    - java_class: android.webkit.WebSettings$TextSize
-      go_type: WebSettingsTextSize
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.webkit.WebSettings$TextSize[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.webkit.WebSettings$TextSize
-          error: true
-    - java_class: android.webkit.WebSettings$ZoomDensity
-      go_type: WebSettingsZoomDensity
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.webkit.WebSettings$ZoomDensity[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.webkit.WebSettings$ZoomDensity
-          error: true
-    - java_class: android.webkit.CookieSyncManager
-      go_type: CookieSyncManager
-      methods:
-        - java_method: resetSync
-          go_name: ResetSync
-          returns: void
-          error: true
-        - java_method: run
-          go_name: Run
-          returns: void
-          error: true
-        - java_method: startSync
-          go_name: StartSync
-          returns: void
-          error: true
-        - java_method: stopSync
-          go_name: StopSync
-          returns: void
-          error: true
-        - java_method: sync
-          go_name: Sync
-          returns: void
-          error: true
-      static_methods:
-        - java_method: createInstance
-          go_name: CreateInstance
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: android.webkit.CookieSyncManager
-          error: true
-        - java_method: getInstance
-          go_name: GetInstance
-          returns: android.webkit.CookieSyncManager
-          error: true
-    - java_class: android.webkit.WebMessagePort
-      go_type: WebMessagePort
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: postMessage
-          go_name: PostMessage
-          params:
-            - java_type: android.webkit.WebMessage
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setWebMessageCallback
-          go_name: SetWebMessageCallback
-          params:
-            - java_type: android.webkit.WebMessagePort$WebMessageCallback
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.webkit.WebMessagePort$WebMessageCallback
-      go_type: WebMessagePortWebMessageCallback
-      methods:
-        - java_method: onMessage
-          go_name: OnMessage
-          params:
-            - java_type: android.webkit.WebMessagePort
-              go_name: arg0
-            - java_type: android.webkit.WebMessage
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.webkit.WebViewRenderProcessClient
-      go_type: WebViewRenderProcessClient
-      methods:
-        - java_method: onRenderProcessResponsive
-          go_name: OnRenderProcessResponsive
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: android.webkit.WebViewRenderProcess
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onRenderProcessUnresponsive
-          go_name: OnRenderProcessUnresponsive
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: android.webkit.WebViewRenderProcess
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.webkit.GeolocationPermissions
-      go_type: GeolocationPermissions
-      methods:
-        - java_method: allow
-          go_name: Allow
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: clear
-          go_name: Clear
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: clearAll
-          go_name: ClearAll
-          returns: void
-          error: true
-      static_methods:
-        - java_method: getInstance
-          go_name: GetInstance
-          returns: android.webkit.GeolocationPermissions
-          error: true
-    - java_class: android.webkit.GeolocationPermissions$Callback
-      go_type: GeolocationPermissionsCallback
-      methods:
-        - java_method: invoke
-          go_name: Invoke
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-            - java_type: boolean
-              go_name: arg2
-          returns: void
-          error: true
-    - java_class: android.webkit.WebViewDatabase
-      go_type: WebViewDatabase
-      methods:
-        - java_method: clearFormData
-          go_name: ClearFormData
-          returns: void
-          error: true
-        - java_method: clearHttpAuthUsernamePassword
-          go_name: ClearHttpAuthUsernamePassword
-          returns: void
-          error: true
-        - java_method: clearUsernamePassword
-          go_name: ClearUsernamePassword
-          returns: void
-          error: true
-        - java_method: getHttpAuthUsernamePassword
-          go_name: GetHttpAuthUsernamePassword
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: java.lang.String[]
-          error: true
-        - java_method: hasFormData
-          go_name: HasFormData
-          returns: boolean
-          error: true
-        - java_method: hasHttpAuthUsernamePassword
-          go_name: HasHttpAuthUsernamePassword
-          returns: boolean
-          error: true
-        - java_method: hasUsernamePassword
-          go_name: HasUsernamePassword
-          returns: boolean
-          error: true
-        - java_method: setHttpAuthUsernamePassword
-          go_name: SetHttpAuthUsernamePassword
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: String
-              go_name: arg3
-          returns: void
-          error: true
-      static_methods:
-        - java_method: getInstance
-          go_name: GetInstance
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: android.webkit.WebViewDatabase
-          error: true
-    - java_class: android.webkit.WebIconDatabase
-      go_type: WebIconDatabase
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: open
-          go_name: Open
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: releaseIconForPageUrl
-          go_name: ReleaseIconForPageUrl
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeAllIcons
-          go_name: RemoveAllIcons
-          returns: void
-          error: true
-        - java_method: requestIconForPageUrl
-          go_name: RequestIconForPageUrl
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.webkit.WebIconDatabase$IconListener
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: retainIconForPageUrl
-          go_name: RetainIconForPageUrl
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-      static_methods:
-        - java_method: getInstance
-          go_name: GetInstance
-          returns: android.webkit.WebIconDatabase
-          error: true
-    - java_class: android.webkit.WebIconDatabase$IconListener
-      go_type: WebIconDatabaseIconListener
-      methods:
-        - java_method: onReceivedIcon
-          go_name: OnReceivedIcon
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.graphics.Bitmap
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.webkit.WebChromeClient
-      go_type: WebChromeClient
-      obtain: constructor
-      methods:
-        - java_method: getDefaultVideoPoster
-          go_name: GetDefaultVideoPoster
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: getVideoLoadingProgressView
-          go_name: GetVideoLoadingProgressView
-          returns: android.view.View
-          error: true
-        - java_method: onCloseWindow
-          go_name: OnCloseWindow
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onConsoleMessage
-          go_name: OnConsoleMessage1
-          params:
-            - java_type: android.webkit.ConsoleMessage
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onConsoleMessage
-          go_name: OnConsoleMessage3_1
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onCreateWindow
-          go_name: OnCreateWindow
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-            - java_type: boolean
-              go_name: arg2
-            - java_type: android.os.Message
-              go_name: arg3
-          returns: boolean
-          error: true
-        - java_method: onExceededDatabaseQuota
-          go_name: OnExceededDatabaseQuota
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: long
-              go_name: arg2
-            - java_type: long
-              go_name: arg3
-            - java_type: long
-              go_name: arg4
-            - java_type: android.webkit.WebStorage$QuotaUpdater
-              go_name: arg5
-          returns: void
-          error: true
-        - java_method: onGeolocationPermissionsHidePrompt
-          go_name: OnGeolocationPermissionsHidePrompt
-          returns: void
-          error: true
-        - java_method: onGeolocationPermissionsShowPrompt
-          go_name: OnGeolocationPermissionsShowPrompt
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.webkit.GeolocationPermissions$Callback
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onHideCustomView
-          go_name: OnHideCustomView
-          returns: void
-          error: true
-        - java_method: onJsAlert
-          go_name: OnJsAlert
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: android.webkit.JsResult
-              go_name: arg3
-          returns: boolean
-          error: true
-        - java_method: onJsBeforeUnload
-          go_name: OnJsBeforeUnload
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: android.webkit.JsResult
-              go_name: arg3
-          returns: boolean
-          error: true
-        - java_method: onJsConfirm
-          go_name: OnJsConfirm
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: android.webkit.JsResult
-              go_name: arg3
-          returns: boolean
-          error: true
-        - java_method: onJsPrompt
-          go_name: OnJsPrompt
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: String
-              go_name: arg3
-            - java_type: android.webkit.JsPromptResult
-              go_name: arg4
-          returns: boolean
-          error: true
-        - java_method: onJsTimeout
-          go_name: OnJsTimeout
-          returns: boolean
-          error: true
-        - java_method: onPermissionRequest
-          go_name: OnPermissionRequest
-          params:
-            - java_type: android.webkit.PermissionRequest
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onPermissionRequestCanceled
-          go_name: OnPermissionRequestCanceled
-          params:
-            - java_type: android.webkit.PermissionRequest
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onProgressChanged
-          go_name: OnProgressChanged
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onReceivedIcon
-          go_name: OnReceivedIcon
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: android.graphics.Bitmap
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onReceivedTitle
-          go_name: OnReceivedTitle
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onReceivedTouchIconUrl
-          go_name: OnReceivedTouchIconUrl
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: boolean
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onRequestFocus
-          go_name: OnRequestFocus
-          params:
-            - java_type: android.webkit.WebView
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onShowCustomView
-          go_name: OnShowCustomView2
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.webkit.WebChromeClient$CustomViewCallback
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onShowCustomView
-          go_name: OnShowCustomView3_1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.webkit.WebChromeClient$CustomViewCallback
-              go_name: arg2
-          returns: void
-          error: true
-    - java_class: android.webkit.WebChromeClient$CustomViewCallback
-      go_type: WebChromeClientCustomViewCallback
-      methods:
-        - java_method: onCustomViewHidden
-          go_name: OnCustomViewHidden
-          returns: void
-          error: true
-    - java_class: android.webkit.WebChromeClient$FileChooserParams
-      go_type: WebChromeClientFileChooserParams
-      methods:
-        - java_method: createIntent
-          go_name: CreateIntent
-          returns: android.content.Intent
-          error: true
-        - java_method: getAcceptTypes
-          go_name: GetAcceptTypes
-          returns: java.lang.String[]
-          error: true
-        - java_method: getFilenameHint
-          go_name: GetFilenameHint
-          returns: String
-          error: true
-        - java_method: getMode
-          go_name: GetMode
-          returns: int
-          error: true
-        - java_method: getTitle
-          go_name: GetTitle
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: isCaptureEnabled
-          go_name: IsCaptureEnabled
-          returns: boolean
-          error: true
-      static_methods:
-        - java_method: parseResult
-          go_name: ParseResult
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: android.net.Uri[]
-          error: true
-    - java_class: android.webkit.ServiceWorkerController
-      go_type: ServiceWorkerController
-      methods:
-        - java_method: getServiceWorkerWebSettings
-          go_name: GetServiceWorkerWebSettings
-          returns: android.webkit.ServiceWorkerWebSettings
-          error: true
-        - java_method: setServiceWorkerClient
-          go_name: SetServiceWorkerClient
-          params:
-            - java_type: android.webkit.ServiceWorkerClient
-              go_name: arg0
-          returns: void
-          error: true
-      static_methods:
-        - java_method: getInstance
-          go_name: GetInstance
-          returns: android.webkit.ServiceWorkerController
-          error: true
-    - java_class: android.webkit.WebHistoryItem
-      go_type: WebHistoryItem
-      methods:
-        - java_method: getFavicon
-          go_name: GetFavicon
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: getOriginalUrl
-          go_name: GetOriginalUrl
-          returns: String
-          error: true
-        - java_method: getTitle
-          go_name: GetTitle
-          returns: String
-          error: true
-        - java_method: getUrl
-          go_name: GetUrl
-          returns: String
-          error: true
-    - java_class: android.webkit.RenderProcessGoneDetail
-      go_type: RenderProcessGoneDetail
-      methods:
-        - java_method: didCrash
-          go_name: DidCrash
-          returns: boolean
-          error: true
-        - java_method: rendererPriorityAtExit
-          go_name: RendererPriorityAtExit
-          returns: int
-          error: true
 abstract_callbacks:
-    - java_class: android.webkit.WebView$VisualStateCallback
-      go_type: WebViewVisualStateCallbackCallback
-      methods:
-        - java_method: onComplete
-          params:
-            - long
-          returns: void
-          go_field: OnComplete
-    - java_class: android.webkit.PermissionRequest
-      go_type: PermissionRequestCallback
-      methods:
-        - java_method: deny
-          params: []
-          returns: void
-          go_field: Deny
-        - java_method: getOrigin
-          params: []
-          returns: android.net.Uri
-          go_field: GetOrigin
-        - java_method: getResources
-          params: []
-          returns: java.lang.String[]
-          go_field: GetResources
-        - java_method: grant
-          params:
-            - java.lang.String[]
-          returns: void
-          go_field: Grant
-    - java_class: android.webkit.WebBackForwardList
-      go_type: WebBackForwardListCallback
-      methods:
-        - java_method: getCurrentIndex
-          params: []
-          returns: int
-          go_field: GetCurrentIndex
-        - java_method: getCurrentItem
-          params: []
-          returns: android.webkit.WebHistoryItem
-          go_field: GetCurrentItem
-        - java_method: getItemAtIndex
-          params:
-            - int
-          returns: android.webkit.WebHistoryItem
-          go_field: GetItemAtIndex
-        - java_method: getSize
-          params: []
-          returns: int
-          go_field: GetSize
     - java_class: android.webkit.ClientCertRequest
       go_type: ClientCertRequestCallback
       methods:
@@ -3236,153 +3193,26 @@ abstract_callbacks:
             - java.security.cert.X509Certificate[]
           returns: void
           go_field: Proceed
-    - java_class: android.webkit.ServiceWorkerWebSettings
-      go_type: ServiceWorkerWebSettingsCallback
+    - java_class: android.webkit.PermissionRequest
+      go_type: PermissionRequestCallback
       methods:
-        - java_method: getAllowContentAccess
-          params: []
-          returns: boolean
-          go_field: GetAllowContentAccess
-        - java_method: getAllowFileAccess
-          params: []
-          returns: boolean
-          go_field: GetAllowFileAccess
-        - java_method: getBlockNetworkLoads
-          params: []
-          returns: boolean
-          go_field: GetBlockNetworkLoads
-        - java_method: getCacheMode
-          params: []
-          returns: int
-          go_field: GetCacheMode
-        - java_method: setAllowContentAccess
-          params:
-            - boolean
-          returns: void
-          go_field: SetAllowContentAccess
-        - java_method: setAllowFileAccess
-          params:
-            - boolean
-          returns: void
-          go_field: SetAllowFileAccess
-        - java_method: setBlockNetworkLoads
-          params:
-            - boolean
-          returns: void
-          go_field: SetBlockNetworkLoads
-        - java_method: setCacheMode
-          params:
-            - int
-          returns: void
-          go_field: SetCacheMode
-    - java_class: android.webkit.CookieManager
-      go_type: CookieManagerCallback
-      methods:
-        - java_method: acceptCookie
-          params: []
-          returns: boolean
-          go_field: AcceptCookie
-        - java_method: acceptThirdPartyCookies
-          params:
-            - android.webkit.WebView
-          returns: boolean
-          go_field: AcceptThirdPartyCookies
-        - java_method: flush
+        - java_method: deny
           params: []
           returns: void
-          go_field: Flush
-        - java_method: getCookie
-          params:
-            - String
-          returns: String
-          go_field: GetCookie
-        - java_method: hasCookies
+          go_field: Deny
+        - java_method: getOrigin
           params: []
-          returns: boolean
-          go_field: HasCookies
-        - java_method: removeAllCookie
+          returns: android.net.Uri
+          go_field: GetOrigin
+        - java_method: getResources
           params: []
-          returns: void
-          go_field: RemoveAllCookie
-        - java_method: removeExpiredCookie
-          params: []
-          returns: void
-          go_field: RemoveExpiredCookie
-        - java_method: removeSessionCookie
-          params: []
-          returns: void
-          go_field: RemoveSessionCookie
-        - java_method: setAcceptCookie
+          returns: java.lang.String[]
+          go_field: GetResources
+        - java_method: grant
           params:
-            - boolean
+            - java.lang.String[]
           returns: void
-          go_field: SetAcceptCookie
-        - java_method: setAcceptThirdPartyCookies
-          params:
-            - android.webkit.WebView
-            - boolean
-          returns: void
-          go_field: SetAcceptThirdPartyCookies
-        - java_method: setCookie
-          params:
-            - String
-            - String
-          returns: void
-          go_field: SetCookie
-    - java_class: android.webkit.SafeBrowsingResponse
-      go_type: SafeBrowsingResponseCallback
-      methods:
-        - java_method: backToSafety
-          params:
-            - boolean
-          returns: void
-          go_field: BackToSafety
-        - java_method: proceed
-          params:
-            - boolean
-          returns: void
-          go_field: Proceed
-        - java_method: showInterstitial
-          params:
-            - boolean
-          returns: void
-          go_field: ShowInterstitial
-    - java_class: android.webkit.WebViewRenderProcess
-      go_type: WebViewRenderProcessCallback
-      methods:
-        - java_method: terminate
-          params: []
-          returns: boolean
-          go_field: Terminate
-    - java_class: android.webkit.WebResourceError
-      go_type: WebResourceErrorCallback
-      methods:
-        - java_method: getDescription
-          params: []
-          returns: java.lang.CharSequence
-          go_field: GetDescription
-        - java_method: getErrorCode
-          params: []
-          returns: int
-          go_field: GetErrorCode
-    - java_class: android.webkit.TracingController
-      go_type: TracingControllerCallback
-      methods:
-        - java_method: isTracing
-          params: []
-          returns: boolean
-          go_field: IsTracing
-        - java_method: start
-          params:
-            - android.webkit.TracingConfig
-          returns: void
-          go_field: Start
-        - java_method: stop
-          params:
-            - java.io.OutputStream
-            - java.util.concurrent.Executor
-          returns: boolean
-          go_field: Stop
+          go_field: Grant
     - java_class: android.webkit.WebSettings
       go_type: WebSettingsCallback
       methods:
@@ -3820,23 +3650,6 @@ abstract_callbacks:
           params: []
           returns: boolean
           go_field: SupportZoom
-    - java_class: android.webkit.WebMessagePort
-      go_type: WebMessagePortCallback
-      methods:
-        - java_method: close
-          params: []
-          returns: void
-          go_field: Close
-        - java_method: postMessage
-          params:
-            - android.webkit.WebMessage
-          returns: void
-          go_field: PostMessage
-        - java_method: setWebMessageCallback
-          params:
-            - android.webkit.WebMessagePort$WebMessageCallback
-          returns: void
-          go_field: SetWebMessageCallback
     - java_class: android.webkit.WebMessagePort$WebMessageCallback
       go_type: WebMessagePortWebMessageCallbackCallback
       methods:
@@ -3846,6 +3659,43 @@ abstract_callbacks:
             - android.webkit.WebMessage
           returns: void
           go_field: OnMessage
+    - java_class: android.webkit.WebViewRenderProcess
+      go_type: WebViewRenderProcessCallback
+      methods:
+        - java_method: terminate
+          params: []
+          returns: boolean
+          go_field: Terminate
+    - java_class: android.webkit.ServiceWorkerController
+      go_type: ServiceWorkerControllerCallback
+      methods:
+        - java_method: getServiceWorkerWebSettings
+          params: []
+          returns: android.webkit.ServiceWorkerWebSettings
+          go_field: GetServiceWorkerWebSettings
+        - java_method: setServiceWorkerClient
+          params:
+            - android.webkit.ServiceWorkerClient
+          returns: void
+          go_field: SetServiceWorkerClient
+    - java_class: android.webkit.TracingController
+      go_type: TracingControllerCallback
+      methods:
+        - java_method: isTracing
+          params: []
+          returns: boolean
+          go_field: IsTracing
+        - java_method: start
+          params:
+            - android.webkit.TracingConfig
+          returns: void
+          go_field: Start
+        - java_method: stop
+          params:
+            - java.io.OutputStream
+            - java.util.concurrent.Executor
+          returns: boolean
+          go_field: Stop
     - java_class: android.webkit.WebViewRenderProcessClient
       go_type: WebViewRenderProcessClientCallback
       methods:
@@ -3861,6 +3711,17 @@ abstract_callbacks:
             - android.webkit.WebViewRenderProcess
           returns: void
           go_field: OnRenderProcessUnresponsive
+    - java_class: android.webkit.RenderProcessGoneDetail
+      go_type: RenderProcessGoneDetailCallback
+      methods:
+        - java_method: didCrash
+          params: []
+          returns: boolean
+          go_field: DidCrash
+        - java_method: rendererPriorityAtExit
+          params: []
+          returns: int
+          go_field: RendererPriorityAtExit
     - java_class: android.webkit.WebViewDatabase
       go_type: WebViewDatabaseCallback
       methods:
@@ -3961,109 +3822,133 @@ abstract_callbacks:
           params: []
           returns: boolean
           go_field: IsCaptureEnabled
-    - java_class: android.webkit.ServiceWorkerController
-      go_type: ServiceWorkerControllerCallback
+    - java_class: android.webkit.ServiceWorkerWebSettings
+      go_type: ServiceWorkerWebSettingsCallback
       methods:
-        - java_method: getServiceWorkerWebSettings
-          params: []
-          returns: android.webkit.ServiceWorkerWebSettings
-          go_field: GetServiceWorkerWebSettings
-        - java_method: setServiceWorkerClient
-          params:
-            - android.webkit.ServiceWorkerClient
-          returns: void
-          go_field: SetServiceWorkerClient
-    - java_class: android.webkit.WebHistoryItem
-      go_type: WebHistoryItemCallback
-      methods:
-        - java_method: getFavicon
-          params: []
-          returns: android.graphics.Bitmap
-          go_field: GetFavicon
-        - java_method: getOriginalUrl
-          params: []
-          returns: String
-          go_field: GetOriginalUrl
-        - java_method: getTitle
-          params: []
-          returns: String
-          go_field: GetTitle
-        - java_method: getUrl
-          params: []
-          returns: String
-          go_field: GetUrl
-    - java_class: android.webkit.RenderProcessGoneDetail
-      go_type: RenderProcessGoneDetailCallback
-      methods:
-        - java_method: didCrash
+        - java_method: getAllowContentAccess
           params: []
           returns: boolean
-          go_field: DidCrash
-        - java_method: rendererPriorityAtExit
+          go_field: GetAllowContentAccess
+        - java_method: getAllowFileAccess
+          params: []
+          returns: boolean
+          go_field: GetAllowFileAccess
+        - java_method: getBlockNetworkLoads
+          params: []
+          returns: boolean
+          go_field: GetBlockNetworkLoads
+        - java_method: getCacheMode
           params: []
           returns: int
-          go_field: RendererPriorityAtExit
+          go_field: GetCacheMode
+        - java_method: setAllowContentAccess
+          params:
+            - boolean
+          returns: void
+          go_field: SetAllowContentAccess
+        - java_method: setAllowFileAccess
+          params:
+            - boolean
+          returns: void
+          go_field: SetAllowFileAccess
+        - java_method: setBlockNetworkLoads
+          params:
+            - boolean
+          returns: void
+          go_field: SetBlockNetworkLoads
+        - java_method: setCacheMode
+          params:
+            - int
+          returns: void
+          go_field: SetCacheMode
+    - java_class: android.webkit.SafeBrowsingResponse
+      go_type: SafeBrowsingResponseCallback
+      methods:
+        - java_method: backToSafety
+          params:
+            - boolean
+          returns: void
+          go_field: BackToSafety
+        - java_method: proceed
+          params:
+            - boolean
+          returns: void
+          go_field: Proceed
+        - java_method: showInterstitial
+          params:
+            - boolean
+          returns: void
+          go_field: ShowInterstitial
+    - java_class: android.webkit.WebView$VisualStateCallback
+      go_type: WebViewVisualStateCallbackCallback
+      methods:
+        - java_method: onComplete
+          params:
+            - long
+          returns: void
+          go_field: OnComplete
+abstract_callback_eligibility:
+    - java_class: android.webkit.ClientCertRequest
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.webkit.PermissionRequest
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.webkit.WebSettings
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.webkit.WebMessagePort
+      generated: false
+      reason: unsupported_constructor
+    - java_class: android.webkit.WebMessagePort$WebMessageCallback
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.webkit.WebResourceError
+      generated: false
+      reason: unsupported_constructor
+    - java_class: android.webkit.WebViewRenderProcess
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.webkit.ServiceWorkerController
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.webkit.TracingController
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.webkit.WebViewRenderProcessClient
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.webkit.RenderProcessGoneDetail
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.webkit.CookieManager
+      generated: false
+      reason: unsupported_abstract_method_signature
+    - java_class: android.webkit.WebViewDatabase
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.webkit.WebHistoryItem
+      generated: false
+      reason: implements_interface
+    - java_class: android.webkit.WebBackForwardList
+      generated: false
+      reason: implements_interface
+    - java_class: android.webkit.WebIconDatabase
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.webkit.WebChromeClient$FileChooserParams
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.webkit.ServiceWorkerWebSettings
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.webkit.SafeBrowsingResponse
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.webkit.WebView$VisualStateCallback
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
-    - go_name: RendererPriorityBound
-      value: "1"
-      go_type: int
-    - go_name: RendererPriorityImportant
-      value: "2"
-      go_type: int
-    - go_name: RendererPriorityWaived
-      value: "0"
-      go_type: int
-    - go_name: SchemeGeo
-      value: '"geo:0,0?q="'
-      go_type: string
-    - go_name: SchemeMailto
-      value: '"mailto:"'
-      go_type: string
-    - go_name: SchemeTel
-      value: '"tel:"'
-      go_type: string
-    - go_name: AnchorType
-      value: "1"
-      go_type: int
-    - go_name: EditTextType
-      value: "9"
-      go_type: int
-    - go_name: EmailType
-      value: "4"
-      go_type: int
-    - go_name: GeoType
-      value: "3"
-      go_type: int
-    - go_name: ImageAnchorType
-      value: "6"
-      go_type: int
-    - go_name: ImageType
-      value: "5"
-      go_type: int
-    - go_name: PhoneType
-      value: "2"
-      go_type: int
-    - go_name: SrcAnchorType
-      value: "7"
-      go_type: int
-    - go_name: SrcImageAnchorType
-      value: "8"
-      go_type: int
-    - go_name: UnknownType
-      value: "0"
-      go_type: int
-    - go_name: ResourceAudioCapture
-      value: '"android.webkit.resource.AUDIO_CAPTURE"'
-      go_type: string
-    - go_name: ResourceMidiSysex
-      value: '"android.webkit.resource.MIDI_SYSEX"'
-      go_type: string
-    - go_name: ResourceProtectedMediaId
-      value: '"android.webkit.resource.PROTECTED_MEDIA_ID"'
-      go_type: string
-    - go_name: ResourceVideoCapture
-      value: '"android.webkit.resource.VIDEO_CAPTURE"'
-      go_type: string
     - go_name: CategoriesAll
       value: "1"
       go_type: int
@@ -4094,87 +3979,21 @@ constants:
     - go_name: RecordUntilFull
       value: "0"
       go_type: int
-    - go_name: ErrorAuthentication
-      value: "-4"
-      go_type: int
-    - go_name: ErrorBadUrl
-      value: "-12"
-      go_type: int
-    - go_name: ErrorConnect
-      value: "-6"
-      go_type: int
-    - go_name: ErrorFailedSslHandshake
-      value: "-11"
-      go_type: int
-    - go_name: ErrorFile
-      value: "-13"
-      go_type: int
-    - go_name: ErrorFileNotFound
-      value: "-14"
-      go_type: int
-    - go_name: ErrorHostLookup
-      value: "-2"
-      go_type: int
-    - go_name: ErrorIo
-      value: "-7"
-      go_type: int
-    - go_name: ErrorProxyAuthentication
-      value: "-5"
-      go_type: int
-    - go_name: ErrorRedirectLoop
-      value: "-9"
-      go_type: int
-    - go_name: ErrorTimeout
-      value: "-8"
-      go_type: int
-    - go_name: ErrorTooManyRequests
-      value: "-15"
-      go_type: int
-    - go_name: ErrorUnknown
-      value: "-1"
-      go_type: int
-    - go_name: ErrorUnsafeResource
-      value: "-16"
-      go_type: int
-    - go_name: ErrorUnsupportedAuthScheme
-      value: "-3"
-      go_type: int
-    - go_name: ErrorUnsupportedScheme
-      value: "-10"
-      go_type: int
-    - go_name: SafeBrowsingThreatBilling
-      value: "4"
-      go_type: int
-    - go_name: SafeBrowsingThreatMalware
-      value: "1"
-      go_type: int
-    - go_name: SafeBrowsingThreatPhishing
-      value: "2"
-      go_type: int
-    - go_name: SafeBrowsingThreatUnknown
-      value: "0"
-      go_type: int
-    - go_name: SafeBrowsingThreatUnwantedSoftware
-      value: "3"
-      go_type: int
     - go_name: DayCount
       value: "5"
       go_type: int
-    - go_name: Debug
-      value: "0"
-      go_type: int
-    - go_name: Error
-      value: "0"
-      go_type: int
-    - go_name: Log
-      value: "0"
-      go_type: int
-    - go_name: Tip
-      value: "0"
-      go_type: int
-    - go_name: Warning
-      value: "0"
-      go_type: int
+    - go_name: ResourceAudioCapture
+      value: '"android.webkit.resource.AUDIO_CAPTURE"'
+      go_type: string
+    - go_name: ResourceMidiSysex
+      value: '"android.webkit.resource.MIDI_SYSEX"'
+      go_type: string
+    - go_name: ResourceProtectedMediaId
+      value: '"android.webkit.resource.PROTECTED_MEDIA_ID"'
+      go_type: string
+    - go_name: ResourceVideoCapture
+      value: '"android.webkit.resource.VIDEO_CAPTURE"'
+      go_type: string
     - go_name: ForceDarkAuto
       value: "1"
       go_type: int
@@ -4268,6 +4087,84 @@ constants:
     - go_name: Medium
       value: "0"
       go_type: int
+    - go_name: Debug
+      value: "0"
+      go_type: int
+    - go_name: Error
+      value: "0"
+      go_type: int
+    - go_name: Log
+      value: "0"
+      go_type: int
+    - go_name: Tip
+      value: "0"
+      go_type: int
+    - go_name: Warning
+      value: "0"
+      go_type: int
+    - go_name: ErrorAuthentication
+      value: "-4"
+      go_type: int
+    - go_name: ErrorBadUrl
+      value: "-12"
+      go_type: int
+    - go_name: ErrorConnect
+      value: "-6"
+      go_type: int
+    - go_name: ErrorFailedSslHandshake
+      value: "-11"
+      go_type: int
+    - go_name: ErrorFile
+      value: "-13"
+      go_type: int
+    - go_name: ErrorFileNotFound
+      value: "-14"
+      go_type: int
+    - go_name: ErrorHostLookup
+      value: "-2"
+      go_type: int
+    - go_name: ErrorIo
+      value: "-7"
+      go_type: int
+    - go_name: ErrorProxyAuthentication
+      value: "-5"
+      go_type: int
+    - go_name: ErrorRedirectLoop
+      value: "-9"
+      go_type: int
+    - go_name: ErrorTimeout
+      value: "-8"
+      go_type: int
+    - go_name: ErrorTooManyRequests
+      value: "-15"
+      go_type: int
+    - go_name: ErrorUnknown
+      value: "-1"
+      go_type: int
+    - go_name: ErrorUnsafeResource
+      value: "-16"
+      go_type: int
+    - go_name: ErrorUnsupportedAuthScheme
+      value: "-3"
+      go_type: int
+    - go_name: ErrorUnsupportedScheme
+      value: "-10"
+      go_type: int
+    - go_name: SafeBrowsingThreatBilling
+      value: "4"
+      go_type: int
+    - go_name: SafeBrowsingThreatMalware
+      value: "1"
+      go_type: int
+    - go_name: SafeBrowsingThreatPhishing
+      value: "2"
+      go_type: int
+    - go_name: SafeBrowsingThreatUnknown
+      value: "0"
+      go_type: int
+    - go_name: SafeBrowsingThreatUnwantedSoftware
+      value: "3"
+      go_type: int
     - go_name: ModeOpen
       value: "0"
       go_type: int
@@ -4276,4 +4173,52 @@ constants:
       go_type: int
     - go_name: ModeSave
       value: "3"
+      go_type: int
+    - go_name: RendererPriorityBound
+      value: "1"
+      go_type: int
+    - go_name: RendererPriorityImportant
+      value: "2"
+      go_type: int
+    - go_name: RendererPriorityWaived
+      value: "0"
+      go_type: int
+    - go_name: SchemeGeo
+      value: '"geo:0,0?q="'
+      go_type: string
+    - go_name: SchemeMailto
+      value: '"mailto:"'
+      go_type: string
+    - go_name: SchemeTel
+      value: '"tel:"'
+      go_type: string
+    - go_name: AnchorType
+      value: "1"
+      go_type: int
+    - go_name: EditTextType
+      value: "9"
+      go_type: int
+    - go_name: EmailType
+      value: "4"
+      go_type: int
+    - go_name: GeoType
+      value: "3"
+      go_type: int
+    - go_name: ImageAnchorType
+      value: "6"
+      go_type: int
+    - go_name: ImageType
+      value: "5"
+      go_type: int
+    - go_name: PhoneType
+      value: "2"
+      go_type: int
+    - go_name: SrcAnchorType
+      value: "7"
+      go_type: int
+    - go_name: SrcImageAnchorType
+      value: "8"
+      go_type: int
+    - go_name: UnknownType
+      value: "0"
       go_type: int

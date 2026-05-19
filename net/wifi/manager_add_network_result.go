@@ -23,6 +23,35 @@ type ManagerAddNetworkResult struct {
 	Obj *jni.GlobalRef
 }
 
+// NewManagerAddNetworkResult creates a new android.net.wifi.WifiManager$AddNetworkResult instance.
+func NewManagerAddNetworkResult(vm *jni.VM, arg0 int32, arg1 int32) (*ManagerAddNetworkResult, error) {
+	var t ManagerAddNetworkResult
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsManagerAddNetworkResult == nil {
+			return fmt.Errorf("android.net.wifi.WifiManager$AddNetworkResult is not available on this device")
+		}
+		if midManagerAddNetworkResultCtor == nil {
+			return fmt.Errorf("android.net.wifi.WifiManager$AddNetworkResult constructor (II)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsManagerAddNetworkResult)), midManagerAddNetworkResultCtor, jni.IntValue(arg0), jni.IntValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.net.wifi.WifiManager$AddNetworkResult.describeContents.
 func (m *ManagerAddNetworkResult) DescribeContents() (int32, error) {
 	var result int32
@@ -46,29 +75,6 @@ func (m *ManagerAddNetworkResult) DescribeContents() (int32, error) {
 		return callErr
 	})
 	return result, callErr
-}
-
-// WriteToParcel calls android.net.wifi.WifiManager$AddNetworkResult.writeToParcel.
-func (m *ManagerAddNetworkResult) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midManagerAddNetworkResultWriteToParcel == nil {
-			callErr = fmt.Errorf("android.net.wifi.WifiManager$AddNetworkResult.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midManagerAddNetworkResultWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // ToString calls android.net.wifi.WifiManager$AddNetworkResult.toString.
@@ -96,4 +102,27 @@ func (m *ManagerAddNetworkResult) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.net.wifi.WifiManager$AddNetworkResult.writeToParcel.
+func (m *ManagerAddNetworkResult) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midManagerAddNetworkResultWriteToParcel == nil {
+			callErr = fmt.Errorf("android.net.wifi.WifiManager$AddNetworkResult.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsManagerAddNetworkResult)),
+			midManagerAddNetworkResultWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

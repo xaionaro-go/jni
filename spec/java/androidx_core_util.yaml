@@ -5,6 +5,24 @@
 package: util
 go_import: github.com/AndroidGoLab/jni/androidx/core/util
 classes:
+    - java_class: androidx.core.util.Pools
+      go_type: Pools
+    - java_class: androidx.core.util.Pools$Pool
+      go_type: PoolsPool
+    - java_class: androidx.core.util.Pools$SimplePool
+      go_type: PoolsSimplePool
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+    - java_class: androidx.core.util.Pools$SynchronizedPool
+      go_type: PoolsSynchronizedPool
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+    - java_class: androidx.core.util.RunnableKt
+      go_type: RunnableKt
     - java_class: androidx.core.util.SparseIntArrayKt
       go_type: SparseIntArrayKt
       static_methods:
@@ -120,262 +138,6 @@ classes:
             - java_type: android.util.SparseIntArray
               go_name: arg0
           returns: kotlin.collections.IntIterator
-          error: true
-    - java_class: androidx.core.util.Pair
-      go_type: Pair
-      obtain: constructor
-      constructor_params:
-        - java_type: F
-          go_name: arg0
-        - java_type: S
-          go_name: arg1
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: androidx.core.util.PatternsCompat
-      go_type: PatternsCompat
-    - java_class: androidx.core.util.SparseArrayKt
-      go_type: SparseArrayKt
-    - java_class: androidx.core.util.Function
-      go_type: Function
-    - java_class: androidx.core.util.TimeUtils
-      go_type: TimeUtils
-      static_methods:
-        - java_method: formatDuration
-          go_name: FormatDuration2
-          params:
-            - java_type: long
-              go_name: arg0
-            - java_type: java.lang.StringBuilder
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: formatDuration
-          go_name: FormatDuration3_1
-          params:
-            - java_type: long
-              go_name: arg0
-            - java_type: java.io.PrintWriter
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: formatDuration
-          go_name: FormatDuration2_2
-          params:
-            - java_type: long
-              go_name: arg0
-            - java_type: java.io.PrintWriter
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: formatDuration
-          go_name: FormatDuration3_3
-          params:
-            - java_type: long
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-            - java_type: java.io.PrintWriter
-              go_name: arg2
-          returns: void
-          error: true
-    - java_class: androidx.core.util.TypedValueCompat
-      go_type: TypedValueCompat
-      static_methods:
-        - java_method: getUnitFromComplexDimension
-          go_name: GetUnitFromComplexDimension
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: deriveDimension
-          go_name: DeriveDimension
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: android.util.DisplayMetrics
-              go_name: arg2
-          returns: float
-          error: true
-        - java_method: dpToPx
-          go_name: DpToPx
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: android.util.DisplayMetrics
-              go_name: arg1
-          returns: float
-          error: true
-        - java_method: pxToDp
-          go_name: PxToDp
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: android.util.DisplayMetrics
-              go_name: arg1
-          returns: float
-          error: true
-        - java_method: spToPx
-          go_name: SpToPx
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: android.util.DisplayMetrics
-              go_name: arg1
-          returns: float
-          error: true
-        - java_method: pxToSp
-          go_name: PxToSp
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: android.util.DisplayMetrics
-              go_name: arg1
-          returns: float
-          error: true
-    - java_class: androidx.core.util.TypedValueCompat$ComplexDimensionUnit
-      go_type: TypedValueCompatComplexDimensionUnit
-    - java_class: androidx.core.util.DebugUtils
-      go_type: DebugUtils
-      static_methods:
-        - java_method: buildShortClassTag
-          go_name: BuildShortClassTag
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-            - java_type: java.lang.StringBuilder
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: androidx.core.util.LruCacheKt
-      go_type: LruCacheKt
-    - java_class: androidx.core.util.SizeKt
-      go_type: SizeKt
-      static_methods:
-        - java_method: component1
-          go_name: Component11
-          params:
-            - java_type: android.util.Size
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: component2
-          go_name: Component21
-          params:
-            - java_type: android.util.Size
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: component1
-          go_name: Component11_1
-          params:
-            - java_type: android.util.SizeF
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: component2
-          go_name: Component21_1
-          params:
-            - java_type: android.util.SizeF
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: component1
-          go_name: Component11_2
-          params:
-            - java_type: androidx.core.util.SizeFCompat
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: component2
-          go_name: Component21_2
-          params:
-            - java_type: androidx.core.util.SizeFCompat
-              go_name: arg0
-          returns: float
-          error: true
-    - java_class: androidx.core.util.AtomicFileKt
-      go_type: AtomicFileKt
-      static_methods:
-        - java_method: writeBytes
-          go_name: WriteBytes
-          params:
-            - java_type: android.util.AtomicFile
-              go_name: arg0
-            - java_type: '[B'
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: writeText
-          go_name: WriteText
-          params:
-            - java_type: android.util.AtomicFile
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: java.nio.charset.Charset
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: readBytes
-          go_name: ReadBytes
-          params:
-            - java_type: android.util.AtomicFile
-              go_name: arg0
-          returns: '[B'
-          error: true
-        - java_method: readText
-          go_name: ReadText
-          params:
-            - java_type: android.util.AtomicFile
-              go_name: arg0
-            - java_type: java.nio.charset.Charset
-              go_name: arg1
-          returns: String
-          error: true
-    - java_class: androidx.core.util.LogWriter
-      go_type: LogWriter
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: flush
-          go_name: Flush
-          returns: void
-          error: true
-        - java_method: write
-          go_name: Write
-          params:
-            - java_type: char[]
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
           error: true
     - java_class: androidx.core.util.Preconditions
       go_type: Preconditions
@@ -509,10 +271,6 @@ classes:
               go_name: arg1
           returns: float
           error: true
-    - java_class: androidx.core.util.RangeKt
-      go_type: RangeKt
-    - java_class: androidx.core.util.Supplier
-      go_type: Supplier
     - java_class: androidx.core.util.AtomicFile
       go_type: AtomicFile
       obtain: constructor
@@ -554,93 +312,71 @@ classes:
           go_name: ReadFully
           returns: '[B'
           error: true
-    - java_class: androidx.core.util.SizeFCompat
-      go_type: SizeFCompat
+    - java_class: androidx.core.util.AndroidXConsumerKt
+      go_type: AndroidXConsumerKt
+    - java_class: androidx.core.util.Function
+      go_type: Function
+    - java_class: androidx.core.util.Supplier
+      go_type: Supplier
+    - java_class: androidx.core.util.HalfKt
+      go_type: HalfKt
+      static_methods:
+        - java_method: toHalf
+          go_name: ToHalf1
+          params:
+            - java_type: short
+              go_name: arg0
+          returns: android.util.Half
+          error: true
+        - java_method: toHalf
+          go_name: ToHalf1_1
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: android.util.Half
+          error: true
+        - java_method: toHalf
+          go_name: ToHalf1_2
+          params:
+            - java_type: double
+              go_name: arg0
+          returns: android.util.Half
+          error: true
+        - java_method: toHalf
+          go_name: ToHalf1_3
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.util.Half
+          error: true
+    - java_class: androidx.core.util.LogWriter
+      go_type: LogWriter
       obtain: constructor
       constructor_params:
-        - java_type: float
+        - java_type: String
           go_name: arg0
-        - java_type: float
-          go_name: arg1
       methods:
-        - java_method: getWidth
-          go_name: GetWidth
-          returns: float
+        - java_method: close
+          go_name: Close
+          returns: void
           error: true
-        - java_method: getHeight
-          go_name: GetHeight
-          returns: float
+        - java_method: flush
+          go_name: Flush
+          returns: void
           error: true
-        - java_method: equals
-          go_name: Equals
+        - java_method: write
+          go_name: Write
           params:
-            - java_type: java.lang.Object
+            - java_type: char[]
               go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: toSizeF
-          go_name: ToSizeF
-          returns: android.util.SizeF
-          error: true
-      static_methods:
-        - java_method: toSizeFCompat
-          go_name: ToSizeFCompat
-          params:
-            - java_type: android.util.SizeF
-              go_name: arg0
-          returns: androidx.core.util.SizeFCompat
-          error: true
-    - java_class: androidx.core.util.ObjectsCompat
-      go_type: ObjectsCompat
-      static_methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-            - java_type: java.lang.Object
+            - java_type: int
               go_name: arg1
-          returns: boolean
+            - java_type: int
+              go_name: arg2
+          returns: void
           error: true
-        - java_method: hashCode
-          go_name: HashCode
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: hash
-          go_name: Hash
-          params:
-            - java_type: java.lang.Object...
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: String
-          error: true
-    - java_class: androidx.core.util.Predicate
-      go_type: Predicate
-    - java_class: androidx.core.util.Consumer
-      go_type: Consumer
-    - java_class: androidx.core.util.PairKt
-      go_type: PairKt
-    - java_class: androidx.core.util.ConsumerKt
-      go_type: ConsumerKt
+    - java_class: androidx.core.util.RangeKt
+      go_type: RangeKt
     - java_class: androidx.core.util.SparseBooleanArrayKt
       go_type: SparseBooleanArrayKt
       static_methods:
@@ -757,49 +493,172 @@ classes:
               go_name: arg0
           returns: kotlin.collections.BooleanIterator
           error: true
-    - java_class: androidx.core.util.Pools
-      go_type: Pools
-    - java_class: androidx.core.util.Pools$Pool
-      go_type: PoolsPool
-    - java_class: androidx.core.util.Pools$SimplePool
-      go_type: PoolsSimplePool
-    - java_class: androidx.core.util.Pools$SynchronizedPool
-      go_type: PoolsSynchronizedPool
-    - java_class: androidx.core.util.RunnableKt
-      go_type: RunnableKt
+    - java_class: androidx.core.util.PatternsCompat
+      go_type: PatternsCompat
     - java_class: androidx.core.util.LongSparseArrayKt
       go_type: LongSparseArrayKt
-    - java_class: androidx.core.util.HalfKt
-      go_type: HalfKt
+    - java_class: androidx.core.util.SizeKt
+      go_type: SizeKt
       static_methods:
-        - java_method: toHalf
-          go_name: ToHalf1
+        - java_method: component1
+          go_name: Component11
           params:
-            - java_type: short
+            - java_type: android.util.Size
               go_name: arg0
-          returns: android.util.Half
+          returns: int
           error: true
-        - java_method: toHalf
-          go_name: ToHalf1_1
+        - java_method: component2
+          go_name: Component21
           params:
-            - java_type: float
+            - java_type: android.util.Size
               go_name: arg0
-          returns: android.util.Half
+          returns: int
           error: true
-        - java_method: toHalf
-          go_name: ToHalf1_2
+        - java_method: component1
+          go_name: Component11_1
           params:
-            - java_type: double
+            - java_type: android.util.SizeF
               go_name: arg0
-          returns: android.util.Half
+          returns: float
           error: true
-        - java_method: toHalf
-          go_name: ToHalf1_3
+        - java_method: component2
+          go_name: Component21_1
           params:
+            - java_type: android.util.SizeF
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: component1
+          go_name: Component11_2
+          params:
+            - java_type: androidx.core.util.SizeFCompat
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: component2
+          go_name: Component21_2
+          params:
+            - java_type: androidx.core.util.SizeFCompat
+              go_name: arg0
+          returns: float
+          error: true
+    - java_class: androidx.core.util.Pair
+      go_type: Pair
+      obtain: constructor
+      constructor_params:
+        - java_type: F
+          go_name: arg0
+        - java_type: S
+          go_name: arg1
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+      static_methods:
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: androidx.core.util.AtomicFileKt
+      go_type: AtomicFileKt
+      static_methods:
+        - java_method: writeBytes
+          go_name: WriteBytes
+          params:
+            - java_type: android.util.AtomicFile
+              go_name: arg0
+            - java_type: '[B'
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: writeText
+          go_name: WriteText
+          params:
+            - java_type: android.util.AtomicFile
+              go_name: arg0
             - java_type: String
-              go_name: arg0
-          returns: android.util.Half
+              go_name: arg1
+            - java_type: java.nio.charset.Charset
+              go_name: arg2
+          returns: void
           error: true
+        - java_method: readBytes
+          go_name: ReadBytes
+          params:
+            - java_type: android.util.AtomicFile
+              go_name: arg0
+          returns: '[B'
+          error: true
+        - java_method: readText
+          go_name: ReadText
+          params:
+            - java_type: android.util.AtomicFile
+              go_name: arg0
+            - java_type: java.nio.charset.Charset
+              go_name: arg1
+          returns: String
+          error: true
+    - java_class: androidx.core.util.ObjectsCompat
+      go_type: ObjectsCompat
+      static_methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+            - java_type: java.lang.Object
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: hash
+          go_name: Hash
+          params:
+            - java_type: java.lang.Object...
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: String
+          error: true
+    - java_class: androidx.core.util.Predicate
+      go_type: Predicate
+    - java_class: androidx.core.util.PairKt
+      go_type: PairKt
+    - java_class: androidx.core.util.DebugUtils
+      go_type: DebugUtils
+      static_methods:
+        - java_method: buildShortClassTag
+          go_name: BuildShortClassTag
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+            - java_type: java.lang.StringBuilder
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: androidx.core.util.Consumer
+      go_type: Consumer
     - java_class: androidx.core.util.SparseLongArrayKt
       go_type: SparseLongArrayKt
       static_methods:
@@ -916,8 +775,158 @@ classes:
               go_name: arg0
           returns: kotlin.collections.LongIterator
           error: true
-    - java_class: androidx.core.util.AndroidXConsumerKt
-      go_type: AndroidXConsumerKt
+    - java_class: androidx.core.util.SparseArrayKt
+      go_type: SparseArrayKt
+    - java_class: androidx.core.util.SizeFCompat
+      go_type: SizeFCompat
+      obtain: constructor
+      constructor_params:
+        - java_type: float
+          go_name: arg0
+        - java_type: float
+          go_name: arg1
+      methods:
+        - java_method: getWidth
+          go_name: GetWidth
+          returns: float
+          error: true
+        - java_method: getHeight
+          go_name: GetHeight
+          returns: float
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: toSizeF
+          go_name: ToSizeF
+          returns: android.util.SizeF
+          error: true
+      static_methods:
+        - java_method: toSizeFCompat
+          go_name: ToSizeFCompat
+          params:
+            - java_type: android.util.SizeF
+              go_name: arg0
+          returns: androidx.core.util.SizeFCompat
+          error: true
+    - java_class: androidx.core.util.TypedValueCompat
+      go_type: TypedValueCompat
+      static_methods:
+        - java_method: getUnitFromComplexDimension
+          go_name: GetUnitFromComplexDimension
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: deriveDimension
+          go_name: DeriveDimension
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: android.util.DisplayMetrics
+              go_name: arg2
+          returns: float
+          error: true
+        - java_method: dpToPx
+          go_name: DpToPx
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: android.util.DisplayMetrics
+              go_name: arg1
+          returns: float
+          error: true
+        - java_method: pxToDp
+          go_name: PxToDp
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: android.util.DisplayMetrics
+              go_name: arg1
+          returns: float
+          error: true
+        - java_method: spToPx
+          go_name: SpToPx
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: android.util.DisplayMetrics
+              go_name: arg1
+          returns: float
+          error: true
+        - java_method: pxToSp
+          go_name: PxToSp
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: android.util.DisplayMetrics
+              go_name: arg1
+          returns: float
+          error: true
+    - java_class: androidx.core.util.ConsumerKt
+      go_type: ConsumerKt
+    - java_class: androidx.core.util.TypedValueCompat$ComplexDimensionUnit
+      go_type: TypedValueCompatComplexDimensionUnit
+    - java_class: androidx.core.util.LruCacheKt
+      go_type: LruCacheKt
+    - java_class: androidx.core.util.TimeUtils
+      go_type: TimeUtils
+      static_methods:
+        - java_method: formatDuration
+          go_name: FormatDuration2
+          params:
+            - java_type: long
+              go_name: arg0
+            - java_type: java.lang.StringBuilder
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: formatDuration
+          go_name: FormatDuration3_1
+          params:
+            - java_type: long
+              go_name: arg0
+            - java_type: java.io.PrintWriter
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: formatDuration
+          go_name: FormatDuration2_2
+          params:
+            - java_type: long
+              go_name: arg0
+            - java_type: java.io.PrintWriter
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: formatDuration
+          go_name: FormatDuration3_3
+          params:
+            - java_type: long
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+            - java_type: java.io.PrintWriter
+              go_name: arg2
+          returns: void
+          error: true
 constants:
     - go_name: IpAddress
       value: "0"

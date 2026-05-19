@@ -23,6 +23,35 @@ type ConnectivityDiagnosticsManagerConnectivityReport struct {
 	Obj *jni.GlobalRef
 }
 
+// NewConnectivityDiagnosticsManagerConnectivityReport creates a new android.net.ConnectivityDiagnosticsManager$ConnectivityReport instance.
+func NewConnectivityDiagnosticsManagerConnectivityReport(vm *jni.VM, arg0 *jni.Object, arg1 int64, arg2 *jni.Object, arg3 *jni.Object, arg4 *jni.Object) (*ConnectivityDiagnosticsManagerConnectivityReport, error) {
+	var t ConnectivityDiagnosticsManagerConnectivityReport
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsConnectivityDiagnosticsManagerConnectivityReport == nil {
+			return fmt.Errorf("android.net.ConnectivityDiagnosticsManager$ConnectivityReport is not available on this device")
+		}
+		if midConnectivityDiagnosticsManagerConnectivityReportCtor == nil {
+			return fmt.Errorf("android.net.ConnectivityDiagnosticsManager$ConnectivityReport constructor (Landroid/net/Network;JLandroid/net/LinkProperties;Landroid/net/NetworkCapabilities;Landroid/os/PersistableBundle;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConnectivityDiagnosticsManagerConnectivityReport)), midConnectivityDiagnosticsManagerConnectivityReportCtor, jni.ObjectValue(arg0), jni.LongValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3), jni.ObjectValue(arg4))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.net.ConnectivityDiagnosticsManager$ConnectivityReport.describeContents.
 func (m *ConnectivityDiagnosticsManagerConnectivityReport) DescribeContents() (int32, error) {
 	var result int32
@@ -254,29 +283,6 @@ func (m *ConnectivityDiagnosticsManagerConnectivityReport) HashCode() (int32, er
 	return result, callErr
 }
 
-// WriteToParcel calls android.net.ConnectivityDiagnosticsManager$ConnectivityReport.writeToParcel.
-func (m *ConnectivityDiagnosticsManagerConnectivityReport) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midConnectivityDiagnosticsManagerConnectivityReportWriteToParcel == nil {
-			callErr = fmt.Errorf("android.net.ConnectivityDiagnosticsManager$ConnectivityReport.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midConnectivityDiagnosticsManagerConnectivityReportWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.net.ConnectivityDiagnosticsManager$ConnectivityReport.toString.
 func (m *ConnectivityDiagnosticsManagerConnectivityReport) ToString() (string, error) {
 	var result string
@@ -302,4 +308,27 @@ func (m *ConnectivityDiagnosticsManagerConnectivityReport) ToString() (string, e
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.net.ConnectivityDiagnosticsManager$ConnectivityReport.writeToParcel.
+func (m *ConnectivityDiagnosticsManagerConnectivityReport) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midConnectivityDiagnosticsManagerConnectivityReportWriteToParcel == nil {
+			callErr = fmt.Errorf("android.net.ConnectivityDiagnosticsManager$ConnectivityReport.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsConnectivityDiagnosticsManagerConnectivityReport)),
+			midConnectivityDiagnosticsManagerConnectivityReportWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

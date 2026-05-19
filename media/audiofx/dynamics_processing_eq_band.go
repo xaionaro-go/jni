@@ -23,6 +23,35 @@ type DynamicsProcessingEqBand struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDynamicsProcessingEqBand creates a new android.media.audiofx.DynamicsProcessing$EqBand instance.
+func NewDynamicsProcessingEqBand(vm *jni.VM, arg0 *jni.Object) (*DynamicsProcessingEqBand, error) {
+	var t DynamicsProcessingEqBand
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDynamicsProcessingEqBand == nil {
+			return fmt.Errorf("android.media.audiofx.DynamicsProcessing$EqBand is not available on this device")
+		}
+		if midDynamicsProcessingEqBandCtor == nil {
+			return fmt.Errorf("android.media.audiofx.DynamicsProcessing$EqBand constructor (Landroid/media/audiofx/DynamicsProcessing$EqBand;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDynamicsProcessingEqBand)), midDynamicsProcessingEqBandCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetGain calls android.media.audiofx.DynamicsProcessing$EqBand.getGain.
 func (m *DynamicsProcessingEqBand) GetGain() (float32, error) {
 	var result float32

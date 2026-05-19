@@ -32,6 +32,12 @@ func NewThumbnailTemplate(vm *jni.VM, arg0 string, arg1 bool, arg2 *jni.Object, 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsThumbnailTemplate == nil {
+			return fmt.Errorf("android.service.controls.templates.ThumbnailTemplate is not available on this device")
+		}
+		if midThumbnailTemplateCtor == nil {
+			return fmt.Errorf("android.service.controls.templates.ThumbnailTemplate constructor (Ljava/lang/String;ZLandroid/graphics/drawable/Icon;Ljava/lang/CharSequence;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

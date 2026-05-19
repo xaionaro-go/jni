@@ -32,6 +32,12 @@ func NewSchemeFidelity(vm *jni.VM, arg0 *jni.Object, arg1 bool, arg2 float64) (*
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSchemeFidelity == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.SchemeFidelity is not available on this device")
+		}
+		if midSchemeFidelityCtor == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.SchemeFidelity constructor (Lcom/google/android/material/color/utilities/Hct;ZD)V is not available on this device")
+		}
 
 		var jArg1 uint8
 		if arg1 {

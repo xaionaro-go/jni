@@ -5,23 +5,6 @@
 package: observer
 go_import: github.com/AndroidGoLab/jni/app/appsearch/observer
 classes:
-    - java_class: android.app.appsearch.observer.ObserverCallback
-      go_type: Callback
-      methods:
-        - java_method: onDocumentChanged
-          go_name: OnDocumentChanged
-          params:
-            - java_type: android.app.appsearch.observer.DocumentChangeInfo
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onSchemaChanged
-          go_name: OnSchemaChanged
-          params:
-            - java_type: android.app.appsearch.observer.SchemaChangeInfo
-              go_name: arg0
-          returns: void
-          error: true
     - java_class: android.app.appsearch.observer.SchemaChangeInfo
       go_type: SchemaChangeInfo
       obtain: constructor
@@ -71,6 +54,7 @@ classes:
           go_name: GetFilterSchemas
           returns: java.util.Set<java.lang.String>
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -82,6 +66,7 @@ classes:
           error: true
     - java_class: android.app.appsearch.observer.ObserverSpec$Builder
       go_type: SpecBuilder
+      obtain: constructor
       methods:
         - java_method: addFilterSchemas
           go_name: AddFilterSchemas
@@ -143,6 +128,23 @@ classes:
         - java_method: toString
           go_name: ToString
           returns: String
+          error: true
+    - java_class: android.app.appsearch.observer.ObserverCallback
+      go_type: Callback
+      methods:
+        - java_method: onDocumentChanged
+          go_name: OnDocumentChanged
+          params:
+            - java_type: android.app.appsearch.observer.DocumentChangeInfo
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onSchemaChanged
+          go_name: OnSchemaChanged
+          params:
+            - java_type: android.app.appsearch.observer.SchemaChangeInfo
+              go_name: arg0
+          returns: void
           error: true
 constants:
     - go_name: Creator

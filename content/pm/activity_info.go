@@ -32,6 +32,12 @@ func NewActivityInfo(vm *jni.VM) (*ActivityInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsActivityInfo == nil {
+			return fmt.Errorf("android.content.pm.ActivityInfo is not available on this device")
+		}
+		if midActivityInfoCtor == nil {
+			return fmt.Errorf("android.content.pm.ActivityInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivityInfo)), midActivityInfoCtor)
 		if err != nil {
 			return err

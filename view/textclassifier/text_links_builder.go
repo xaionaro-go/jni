@@ -23,6 +23,40 @@ type TextLinksBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTextLinksBuilder creates a new android.view.textclassifier.TextLinks$Builder instance.
+func NewTextLinksBuilder(vm *jni.VM, arg0 string) (*TextLinksBuilder, error) {
+	var t TextLinksBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTextLinksBuilder == nil {
+			return fmt.Errorf("android.view.textclassifier.TextLinks$Builder is not available on this device")
+		}
+		if midTextLinksBuilderCtor == nil {
+			return fmt.Errorf("android.view.textclassifier.TextLinks$Builder constructor (Ljava/lang/String;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextLinksBuilder)), midTextLinksBuilderCtor, jni.ObjectValue(&jArg0.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.view.textclassifier.TextLinks$Builder.build.
 func (m *TextLinksBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewSigningInfo(vm *jni.VM) (*SigningInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSigningInfo == nil {
+			return fmt.Errorf("android.content.pm.SigningInfo is not available on this device")
+		}
+		if midSigningInfoCtor == nil {
+			return fmt.Errorf("android.content.pm.SigningInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSigningInfo)), midSigningInfoCtor)
 		if err != nil {
 			return err

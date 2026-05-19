@@ -32,6 +32,12 @@ func NewSchemeContent(vm *jni.VM, arg0 *jni.Object, arg1 bool, arg2 float64) (*S
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSchemeContent == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.SchemeContent is not available on this device")
+		}
+		if midSchemeContentCtor == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.SchemeContent constructor (Lcom/google/android/material/color/utilities/Hct;ZD)V is not available on this device")
+		}
 
 		var jArg1 uint8
 		if arg1 {

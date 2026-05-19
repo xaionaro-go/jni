@@ -23,6 +23,34 @@ type AppCompatEditTextInspectionCompanion struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAppCompatEditTextInspectionCompanion creates a new androidx.appcompat.widget.AppCompatEditText$InspectionCompanion instance.
+func NewAppCompatEditTextInspectionCompanion(vm *jni.VM) (*AppCompatEditTextInspectionCompanion, error) {
+	var t AppCompatEditTextInspectionCompanion
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAppCompatEditTextInspectionCompanion == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatEditText$InspectionCompanion is not available on this device")
+		}
+		if midAppCompatEditTextInspectionCompanionCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatEditText$InspectionCompanion constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppCompatEditTextInspectionCompanion)), midAppCompatEditTextInspectionCompanionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // MapProperties calls androidx.appcompat.widget.AppCompatEditText$InspectionCompanion.mapProperties.
 func (m *AppCompatEditTextInspectionCompanion) MapProperties(arg0 *jni.Object) error {
 
@@ -46,8 +74,8 @@ func (m *AppCompatEditTextInspectionCompanion) MapProperties(arg0 *jni.Object) e
 	return callErr
 }
 
-// ReadProperties2 calls androidx.appcompat.widget.AppCompatEditText$InspectionCompanion.readProperties.
-func (m *AppCompatEditTextInspectionCompanion) ReadProperties2(arg0 *jni.Object, arg1 *jni.Object) error {
+// ReadProperties calls androidx.appcompat.widget.AppCompatEditText$InspectionCompanion.readProperties.
+func (m *AppCompatEditTextInspectionCompanion) ReadProperties(arg0 *jni.Object, arg1 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,37 +83,14 @@ func (m *AppCompatEditTextInspectionCompanion) ReadProperties2(arg0 *jni.Object,
 			callErr = err
 			return err
 		}
-		if midAppCompatEditTextInspectionCompanionReadProperties2 == nil {
+		if midAppCompatEditTextInspectionCompanionReadProperties == nil {
 			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatEditText$InspectionCompanion.readProperties is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midAppCompatEditTextInspectionCompanionReadProperties2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// ReadProperties2_1 calls androidx.appcompat.widget.AppCompatEditText$InspectionCompanion.readProperties.
-func (m *AppCompatEditTextInspectionCompanion) ReadProperties2_1(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppCompatEditTextInspectionCompanionReadProperties2_1 == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatEditText$InspectionCompanion.readProperties is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAppCompatEditTextInspectionCompanionReadProperties2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midAppCompatEditTextInspectionCompanionReadProperties, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		return callErr
 	})

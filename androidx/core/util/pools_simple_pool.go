@@ -23,6 +23,35 @@ type PoolsSimplePool struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPoolsSimplePool creates a new androidx.core.util.Pools$SimplePool instance.
+func NewPoolsSimplePool(vm *jni.VM, arg0 int32) (*PoolsSimplePool, error) {
+	var t PoolsSimplePool
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPoolsSimplePool == nil {
+			return fmt.Errorf("androidx.core.util.Pools$SimplePool is not available on this device")
+		}
+		if midPoolsSimplePoolCtor == nil {
+			return fmt.Errorf("androidx.core.util.Pools$SimplePool constructor (I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPoolsSimplePool)), midPoolsSimplePoolCtor, jni.IntValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.core.util.Pools$SimplePool.toString.
 func (m *PoolsSimplePool) ToString() (string, error) {
 	var result string

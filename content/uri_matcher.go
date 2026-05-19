@@ -32,6 +32,12 @@ func NewUriMatcher(vm *jni.VM, arg0 int32) (*UriMatcher, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsUriMatcher == nil {
+			return fmt.Errorf("android.content.UriMatcher is not available on this device")
+		}
+		if midUriMatcherCtor == nil {
+			return fmt.Errorf("android.content.UriMatcher constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUriMatcher)), midUriMatcherCtor, jni.IntValue(arg0))
 		if err != nil {

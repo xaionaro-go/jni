@@ -21,6 +21,41 @@ type NotificationCompatAction struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNotificationCompatAction creates a new androidx.core.app.NotificationCompat$Action instance.
+func NewNotificationCompatAction(vm *jni.VM, arg0 int32, arg1 string, arg2 *jni.Object) (*NotificationCompatAction, error) {
+	var t NotificationCompatAction
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNotificationCompatAction == nil {
+			return fmt.Errorf("androidx.core.app.NotificationCompat$Action is not available on this device")
+		}
+		if midNotificationCompatActionCtor == nil {
+			return fmt.Errorf("androidx.core.app.NotificationCompat$Action constructor (ILjava/lang/CharSequence;Landroid/app/PendingIntent;)V is not available on this device")
+		}
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNotificationCompatAction)), midNotificationCompatActionCtor, jni.IntValue(arg0), jni.ObjectValue(&jArg1.Object), jni.ObjectValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetIcon calls androidx.core.app.NotificationCompat$Action.getIcon.
 func (m *NotificationCompatAction) GetIcon() (int32, error) {
 	var result int32

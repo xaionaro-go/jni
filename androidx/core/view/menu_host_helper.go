@@ -32,6 +32,12 @@ func NewMenuHostHelper(vm *jni.VM, arg0 *jni.Object) (*MenuHostHelper, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMenuHostHelper == nil {
+			return fmt.Errorf("androidx.core.view.MenuHostHelper is not available on this device")
+		}
+		if midMenuHostHelperCtor == nil {
+			return fmt.Errorf("androidx.core.view.MenuHostHelper constructor (Ljava/lang/Runnable;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMenuHostHelper)), midMenuHostHelperCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -23,6 +23,34 @@ type PreferentialNetworkServiceConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPreferentialNetworkServiceConfigBuilder creates a new android.app.admin.PreferentialNetworkServiceConfig$Builder instance.
+func NewPreferentialNetworkServiceConfigBuilder(vm *jni.VM) (*PreferentialNetworkServiceConfigBuilder, error) {
+	var t PreferentialNetworkServiceConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPreferentialNetworkServiceConfigBuilder == nil {
+			return fmt.Errorf("android.app.admin.PreferentialNetworkServiceConfig$Builder is not available on this device")
+		}
+		if midPreferentialNetworkServiceConfigBuilderCtor == nil {
+			return fmt.Errorf("android.app.admin.PreferentialNetworkServiceConfig$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPreferentialNetworkServiceConfigBuilder)), midPreferentialNetworkServiceConfigBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.app.admin.PreferentialNetworkServiceConfig$Builder.build.
 func (m *PreferentialNetworkServiceConfigBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

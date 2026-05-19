@@ -32,6 +32,12 @@ func NewColor(vm *jni.VM) (*Color, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsColor == nil {
+			return fmt.Errorf("android.graphics.Color is not available on this device")
+		}
+		if midColorCtor == nil {
+			return fmt.Errorf("android.graphics.Color constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsColor)), midColorCtor)
 		if err != nil {
 			return err

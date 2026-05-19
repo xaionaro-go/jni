@@ -5,6 +5,83 @@
 package: nfc
 go_import: github.com/AndroidGoLab/jni/nfc
 classes:
+    - java_class: android.nfc.FormatException
+      go_type: FormatException
+      obtain: constructor
+    - java_class: android.nfc.NfcAntennaInfo
+      go_type: AntennaInfo
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: boolean
+          go_name: arg2
+        - java_type: java.util.List<android.nfc.AvailableNfcAntenna>
+          go_name: arg3
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getAvailableNfcAntennas
+          go_name: GetAvailableNfcAntennas
+          returns: java.util.List<android.nfc.AvailableNfcAntenna>
+          error: true
+        - java_method: getDeviceHeight
+          go_name: GetDeviceHeight
+          returns: int
+          error: true
+        - java_method: getDeviceWidth
+          go_name: GetDeviceWidth
+          returns: int
+          error: true
+        - java_method: isDeviceFoldable
+          go_name: IsDeviceFoldable
+          returns: boolean
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.nfc.NfcEvent
+      go_type: Event
+    - java_class: android.nfc.Tag
+      go_type: Tag
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: '[B'
+          error: true
+        - java_method: getTechList
+          go_name: GetTechList
+          returns: java.lang.String[]
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
     - java_class: android.nfc.tech.IsoDep
       go_type: IsoDep
       methods:
@@ -66,11 +143,219 @@ classes:
               go_name: arg0
           returns: android.nfc.tech.IsoDep
           error: true
-    - java_class: android.nfc.NfcEvent
-      go_type: Event
     - java_class: android.nfc.TagLostException
       go_type: TagLostException
       obtain: constructor
+    - java_class: android.nfc.NdefRecord
+      go_type: NdefRecord
+      obtain: constructor
+      constructor_params:
+        - java_type: '[B'
+          go_name: arg0
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: '[B'
+          error: true
+        - java_method: getPayload
+          go_name: GetPayload
+          returns: '[B'
+          error: true
+        - java_method: getTnf
+          go_name: GetTnf
+          returns: short
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: '[B'
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toByteArray
+          go_name: ToByteArray
+          returns: '[B'
+          error: true
+        - java_method: toMimeType
+          go_name: ToMimeType
+          returns: String
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: toUri
+          go_name: ToUri
+          returns: android.net.Uri
+          error: true
+      static_methods:
+        - java_method: createApplicationRecord
+          go_name: CreateApplicationRecord
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.nfc.NdefRecord
+          error: true
+        - java_method: createExternal
+          go_name: CreateExternal
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: '[B'
+              go_name: arg2
+          returns: android.nfc.NdefRecord
+          error: true
+        - java_method: createMime
+          go_name: CreateMime
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: '[B'
+              go_name: arg1
+          returns: android.nfc.NdefRecord
+          error: true
+        - java_method: createTextRecord
+          go_name: CreateTextRecord
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: android.nfc.NdefRecord
+          error: true
+        - java_method: createUri
+          go_name: CreateUri1
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+          returns: android.nfc.NdefRecord
+          error: true
+        - java_method: createUri
+          go_name: CreateUri1_1
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.nfc.NdefRecord
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.nfc.AvailableNfcAntenna
+      go_type: AvailableNfcAntenna
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getLocationX
+          go_name: GetLocationX
+          returns: int
+          error: true
+        - java_method: getLocationY
+          go_name: GetLocationY
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.nfc.NdefMessage
+      go_type: NdefMessage
+      obtain: constructor
+      constructor_params:
+        - java_type: android.nfc.NdefRecord
+          go_name: arg0
+        - java_type: android.nfc.NdefRecord...
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getByteArrayLength
+          go_name: GetByteArrayLength
+          returns: int
+          error: true
+        - java_method: getRecords
+          go_name: GetRecords
+          returns: android.nfc.NdefRecord[]
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toByteArray
+          go_name: ToByteArray
+          returns: '[B'
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
     - java_class: android.nfc.NfcAdapter
       go_type: Adapter
       methods:
@@ -242,145 +527,6 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.nfc.NfcAntennaInfo
-      go_type: AntennaInfo
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-        - java_type: boolean
-          go_name: arg2
-        - java_type: java.util.List<android.nfc.AvailableNfcAntenna>
-          go_name: arg3
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getAvailableNfcAntennas
-          go_name: GetAvailableNfcAntennas
-          returns: java.util.List<android.nfc.AvailableNfcAntenna>
-          error: true
-        - java_method: getDeviceHeight
-          go_name: GetDeviceHeight
-          returns: int
-          error: true
-        - java_method: getDeviceWidth
-          go_name: GetDeviceWidth
-          returns: int
-          error: true
-        - java_method: isDeviceFoldable
-          go_name: IsDeviceFoldable
-          returns: boolean
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.nfc.NdefMessage
-      go_type: NdefMessage
-      obtain: constructor
-      constructor_params:
-        - java_type: android.nfc.NdefRecord
-          go_name: arg0
-        - java_type: android.nfc.NdefRecord...
-          go_name: arg1
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getByteArrayLength
-          go_name: GetByteArrayLength
-          returns: int
-          error: true
-        - java_method: getRecords
-          go_name: GetRecords
-          returns: android.nfc.NdefRecord[]
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toByteArray
-          go_name: ToByteArray
-          returns: '[B'
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.nfc.AvailableNfcAntenna
-      go_type: AvailableNfcAntenna
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getLocationX
-          go_name: GetLocationX
-          returns: int
-          error: true
-        - java_method: getLocationY
-          go_name: GetLocationY
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.nfc.FormatException
-      go_type: FormatException
-      obtain: constructor
     - java_class: android.nfc.NfcManager
       go_type: Manager
       obtain: system_service
@@ -390,148 +536,6 @@ classes:
         - java_method: getDefaultAdapter
           go_name: GetDefaultAdapter
           returns: android.nfc.NfcAdapter
-          error: true
-    - java_class: android.nfc.NdefRecord
-      go_type: NdefRecord
-      obtain: constructor
-      constructor_params:
-        - java_type: '[B'
-          go_name: arg0
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: '[B'
-          error: true
-        - java_method: getPayload
-          go_name: GetPayload
-          returns: '[B'
-          error: true
-        - java_method: getTnf
-          go_name: GetTnf
-          returns: short
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: '[B'
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toByteArray
-          go_name: ToByteArray
-          returns: '[B'
-          error: true
-        - java_method: toMimeType
-          go_name: ToMimeType
-          returns: String
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: toUri
-          go_name: ToUri
-          returns: android.net.Uri
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: createApplicationRecord
-          go_name: CreateApplicationRecord
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.nfc.NdefRecord
-          error: true
-        - java_method: createExternal
-          go_name: CreateExternal
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: '[B'
-              go_name: arg2
-          returns: android.nfc.NdefRecord
-          error: true
-        - java_method: createMime
-          go_name: CreateMime
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: '[B'
-              go_name: arg1
-          returns: android.nfc.NdefRecord
-          error: true
-        - java_method: createTextRecord
-          go_name: CreateTextRecord
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: android.nfc.NdefRecord
-          error: true
-        - java_method: createUri
-          go_name: CreateUri1
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-          returns: android.nfc.NdefRecord
-          error: true
-        - java_method: createUri
-          go_name: CreateUri1_1
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.nfc.NdefRecord
-          error: true
-    - java_class: android.nfc.Tag
-      go_type: Tag
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: '[B'
-          error: true
-        - java_method: getTechList
-          go_name: GetTechList
-          returns: java.lang.String[]
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
           error: true
     - java_class: android.nfc.tech.Ndef
       go_type: Ndef
@@ -596,6 +600,51 @@ classes:
           returns: android.nfc.tech.Ndef
           error: true
 constants:
+    - go_name: Creator
+      value: "0"
+      go_type: int
+    - go_name: RtdAlternativeCarrier
+      value: "0"
+      go_type: int
+    - go_name: RtdHandoverCarrier
+      value: "0"
+      go_type: int
+    - go_name: RtdHandoverRequest
+      value: "0"
+      go_type: int
+    - go_name: RtdHandoverSelect
+      value: "0"
+      go_type: int
+    - go_name: RtdSmartPoster
+      value: "0"
+      go_type: int
+    - go_name: RtdText
+      value: "0"
+      go_type: int
+    - go_name: RtdUri
+      value: "0"
+      go_type: int
+    - go_name: TnfAbsoluteUri
+      value: "3"
+      go_type: int
+    - go_name: TnfEmpty
+      value: "0"
+      go_type: int
+    - go_name: TnfExternalType
+      value: "4"
+      go_type: int
+    - go_name: TnfMimeMedia
+      value: "2"
+      go_type: int
+    - go_name: TnfUnchanged
+      value: "6"
+      go_type: int
+    - go_name: TnfUnknown
+      value: "5"
+      go_type: int
+    - go_name: TnfWellKnown
+      value: "1"
+      go_type: int
     - go_name: ActionAdapterStateChanged
       value: '"android.nfc.action.ADAPTER_STATE_CHANGED"'
       go_type: string
@@ -706,51 +755,6 @@ constants:
       go_type: int
     - go_name: StateTurningOn
       value: "2"
-      go_type: int
-    - go_name: Creator
-      value: "0"
-      go_type: int
-    - go_name: RtdAlternativeCarrier
-      value: "0"
-      go_type: int
-    - go_name: RtdHandoverCarrier
-      value: "0"
-      go_type: int
-    - go_name: RtdHandoverRequest
-      value: "0"
-      go_type: int
-    - go_name: RtdHandoverSelect
-      value: "0"
-      go_type: int
-    - go_name: RtdSmartPoster
-      value: "0"
-      go_type: int
-    - go_name: RtdText
-      value: "0"
-      go_type: int
-    - go_name: RtdUri
-      value: "0"
-      go_type: int
-    - go_name: TnfAbsoluteUri
-      value: "3"
-      go_type: int
-    - go_name: TnfEmpty
-      value: "0"
-      go_type: int
-    - go_name: TnfExternalType
-      value: "4"
-      go_type: int
-    - go_name: TnfMimeMedia
-      value: "2"
-      go_type: int
-    - go_name: TnfUnchanged
-      value: "6"
-      go_type: int
-    - go_name: TnfUnknown
-      value: "5"
-      go_type: int
-    - go_name: TnfWellKnown
-      value: "1"
       go_type: int
     - go_name: MifareClassic
       value: '"com.nxp.ndef.mifareclassic"'

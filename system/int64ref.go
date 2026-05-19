@@ -32,6 +32,12 @@ func NewInt64Ref(vm *jni.VM, arg0 int64) (*Int64Ref, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInt64Ref == nil {
+			return fmt.Errorf("android.system.Int64Ref is not available on this device")
+		}
+		if midInt64RefCtor == nil {
+			return fmt.Errorf("android.system.Int64Ref constructor (J)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInt64Ref)), midInt64RefCtor, jni.LongValue(arg0))
 		if err != nil {

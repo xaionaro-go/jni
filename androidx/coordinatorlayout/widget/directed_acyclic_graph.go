@@ -32,6 +32,12 @@ func NewDirectedAcyclicGraph(vm *jni.VM) (*DirectedAcyclicGraph, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDirectedAcyclicGraph == nil {
+			return fmt.Errorf("androidx.coordinatorlayout.widget.DirectedAcyclicGraph is not available on this device")
+		}
+		if midDirectedAcyclicGraphCtor == nil {
+			return fmt.Errorf("androidx.coordinatorlayout.widget.DirectedAcyclicGraph constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDirectedAcyclicGraph)), midDirectedAcyclicGraphCtor)
 		if err != nil {
 			return err

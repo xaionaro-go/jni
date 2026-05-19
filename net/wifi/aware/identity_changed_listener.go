@@ -32,6 +32,12 @@ func NewIdentityChangedListener(vm *jni.VM) (*IdentityChangedListener, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsIdentityChangedListener == nil {
+			return fmt.Errorf("android.net.wifi.aware.IdentityChangedListener is not available on this device")
+		}
+		if midIdentityChangedListenerCtor == nil {
+			return fmt.Errorf("android.net.wifi.aware.IdentityChangedListener constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIdentityChangedListener)), midIdentityChangedListenerCtor)
 		if err != nil {
 			return err

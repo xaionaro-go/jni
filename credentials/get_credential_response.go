@@ -32,6 +32,12 @@ func NewGetCredentialResponse(vm *jni.VM, arg0 *jni.Object) (*GetCredentialRespo
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGetCredentialResponse == nil {
+			return fmt.Errorf("android.credentials.GetCredentialResponse is not available on this device")
+		}
+		if midGetCredentialResponseCtor == nil {
+			return fmt.Errorf("android.credentials.GetCredentialResponse constructor (Landroid/credentials/Credential;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGetCredentialResponse)), midGetCredentialResponseCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -144,8 +150,8 @@ func (m *GetCredentialResponse) WriteToParcel(arg0 *jni.Object, arg1 int32) erro
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsGetCredentialResponse)),
 			midGetCredentialResponseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

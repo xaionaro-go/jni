@@ -317,29 +317,6 @@ func (m *SpellCheckerInfo) LoadLabel(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.textservice.SpellCheckerInfo.writeToParcel.
-func (m *SpellCheckerInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSpellCheckerInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.textservice.SpellCheckerInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSpellCheckerInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.view.textservice.SpellCheckerInfo.toString.
 func (m *SpellCheckerInfo) ToString() (string, error) {
 	var result string
@@ -365,4 +342,27 @@ func (m *SpellCheckerInfo) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.textservice.SpellCheckerInfo.writeToParcel.
+func (m *SpellCheckerInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSpellCheckerInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.textservice.SpellCheckerInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSpellCheckerInfo)),
+			midSpellCheckerInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

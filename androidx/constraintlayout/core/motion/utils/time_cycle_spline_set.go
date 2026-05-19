@@ -153,8 +153,8 @@ func (m *TimeCycleSplineSet) Setup(arg0 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsTimeCycleSplineSet)),
 			midTimeCycleSplineSetSetup, jni.IntValue(arg0),
 		)
 		return callErr

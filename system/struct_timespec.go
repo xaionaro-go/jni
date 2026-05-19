@@ -32,6 +32,12 @@ func NewStructTimespec(vm *jni.VM, arg0 int64, arg1 int64) (*StructTimespec, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStructTimespec == nil {
+			return fmt.Errorf("android.system.StructTimespec is not available on this device")
+		}
+		if midStructTimespecCtor == nil {
+			return fmt.Errorf("android.system.StructTimespec constructor (JJ)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStructTimespec)), midStructTimespecCtor, jni.LongValue(arg0), jni.LongValue(arg1))
 		if err != nil {
@@ -46,8 +52,8 @@ func NewStructTimespec(vm *jni.VM, arg0 int64, arg1 int64) (*StructTimespec, err
 	return &t, nil
 }
 
-// CompareTo1 calls android.system.StructTimespec.compareTo.
-func (m *StructTimespec) CompareTo1(arg0 *jni.Object) (int32, error) {
+// CompareTo calls android.system.StructTimespec.compareTo.
+func (m *StructTimespec) CompareTo(arg0 *jni.Object) (int32, error) {
 	var result int32
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,14 +61,14 @@ func (m *StructTimespec) CompareTo1(arg0 *jni.Object) (int32, error) {
 			callErr = err
 			return err
 		}
-		if midStructTimespecCompareTo1 == nil {
+		if midStructTimespecCompareTo == nil {
 			callErr = fmt.Errorf("android.system.StructTimespec.compareTo is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallIntMethod(
 			m.Obj,
-			midStructTimespecCompareTo1, jni.ObjectValue(arg0),
+			midStructTimespecCompareTo, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -147,32 +153,6 @@ func (m *StructTimespec) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
-		return callErr
-	})
-	return result, callErr
-}
-
-// CompareTo1_1 calls android.system.StructTimespec.compareTo.
-func (m *StructTimespec) CompareTo1_1(arg0 *jni.Object) (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midStructTimespecCompareTo1_1 == nil {
-			callErr = fmt.Errorf("android.system.StructTimespec.compareTo is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midStructTimespecCompareTo1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
 		return callErr
 	})
 	return result, callErr

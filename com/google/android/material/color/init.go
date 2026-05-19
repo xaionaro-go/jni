@@ -23,20 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsContrast                             *jni.GlobalRef
-	midContrastToString                     jni.MethodID
-	midContrastApplyToActivitiesIfAvailable jni.MethodID
-	midContrastApplyToActivityIfAvailable   jni.MethodID
-	midContrastWrapContextIfAvailable       jni.MethodID
-	midContrastIsContrastAvailable          jni.MethodID
-
-	clsRoles                     *jni.GlobalRef
-	midRolesGetAccent            jni.MethodID
-	midRolesGetOnAccent          jni.MethodID
-	midRolesGetAccentContainer   jni.MethodID
-	midRolesGetOnAccentContainer jni.MethodID
-	midRolesToString             jni.MethodID
-
 	clsDynamicColors                                *jni.GlobalRef
 	midDynamicColorsToString                        jni.MethodID
 	midDynamicColorsApplyToActivitiesIfAvailable1   jni.MethodID
@@ -62,6 +48,55 @@ var (
 	midDynamicColorsPreconditionShouldApplyDynamicColors jni.MethodID
 	midDynamicColorsPreconditionToString                 jni.MethodID
 
+	clsDynamicColorsOptions                     *jni.GlobalRef
+	midDynamicColorsOptionsGetThemeOverlay      jni.MethodID
+	midDynamicColorsOptionsGetPrecondition      jni.MethodID
+	midDynamicColorsOptionsGetOnAppliedCallback jni.MethodID
+	midDynamicColorsOptionsToString             jni.MethodID
+
+	clsThemeUtils                  *jni.GlobalRef
+	midThemeUtilsToString          jni.MethodID
+	midThemeUtilsApplyThemeOverlay jni.MethodID
+
+	clsDynamicColorsOptionsBuilder                         *jni.GlobalRef
+	midDynamicColorsOptionsBuilderCtor                     jni.MethodID
+	midDynamicColorsOptionsBuilderSetThemeOverlay          jni.MethodID
+	midDynamicColorsOptionsBuilderSetPrecondition          jni.MethodID
+	midDynamicColorsOptionsBuilderSetOnAppliedCallback     jni.MethodID
+	midDynamicColorsOptionsBuilderSetContentBasedSource1   jni.MethodID
+	midDynamicColorsOptionsBuilderSetContentBasedSource1_1 jni.MethodID
+	midDynamicColorsOptionsBuilderToString                 jni.MethodID
+
+	clsRoles                     *jni.GlobalRef
+	midRolesGetAccent            jni.MethodID
+	midRolesGetOnAccent          jni.MethodID
+	midRolesGetAccentContainer   jni.MethodID
+	midRolesGetOnAccentContainer jni.MethodID
+	midRolesToString             jni.MethodID
+
+	clsContrast                             *jni.GlobalRef
+	midContrastToString                     jni.MethodID
+	midContrastApplyToActivitiesIfAvailable jni.MethodID
+	midContrastApplyToActivityIfAvailable   jni.MethodID
+	midContrastWrapContextIfAvailable       jni.MethodID
+	midContrastIsContrastAvailable          jni.MethodID
+
+	clsHarmonizedColorsOptions                       *jni.GlobalRef
+	midHarmonizedColorsOptionsGetColorResourceIds    jni.MethodID
+	midHarmonizedColorsOptionsGetColorAttributes     jni.MethodID
+	midHarmonizedColorsOptionsToString               jni.MethodID
+	midHarmonizedColorsOptionsCreateMaterialDefaults jni.MethodID
+
+	clsHarmonizedColorsOptionsBuilder                                 *jni.GlobalRef
+	midHarmonizedColorsOptionsBuilderCtor                             jni.MethodID
+	midHarmonizedColorsOptionsBuilderSetColorResourceIds              jni.MethodID
+	midHarmonizedColorsOptionsBuilderSetColorAttributes               jni.MethodID
+	midHarmonizedColorsOptionsBuilderSetColorAttributeToHarmonizeWith jni.MethodID
+	midHarmonizedColorsOptionsBuilderToString                         jni.MethodID
+
+	clsMaterialColorUtilitiesHelper         *jni.GlobalRef
+	midMaterialColorUtilitiesHelperToString jni.MethodID
+
 	clsMaterialColors                                *jni.GlobalRef
 	midMaterialColorsToString                        jni.MethodID
 	midMaterialColorsGetColor2                       jni.MethodID
@@ -84,71 +119,33 @@ var (
 	midMaterialColorsGetSurfaceContainerFromSeed     jni.MethodID
 	midMaterialColorsGetSurfaceContainerHighFromSeed jni.MethodID
 
-	clsThemeUtils                  *jni.GlobalRef
-	midThemeUtilsToString          jni.MethodID
-	midThemeUtilsApplyThemeOverlay jni.MethodID
+	clsResourcesOverride            *jni.GlobalRef
+	midResourcesOverrideToString    jni.MethodID
+	midResourcesOverrideGetInstance jni.MethodID
+
+	clsContrastOptions                              *jni.GlobalRef
+	midContrastOptionsGetMediumContrastThemeOverlay jni.MethodID
+	midContrastOptionsToString                      jni.MethodID
 
 	clsHarmonizedColorAttributes                       *jni.GlobalRef
 	midHarmonizedColorAttributesGetAttributes          jni.MethodID
-	midHarmonizedColorAttributesGetThemeOverlay        jni.MethodID
 	midHarmonizedColorAttributesToString               jni.MethodID
 	midHarmonizedColorAttributesCreate1                jni.MethodID
 	midHarmonizedColorAttributesCreate2_1              jni.MethodID
 	midHarmonizedColorAttributesCreateMaterialDefaults jni.MethodID
+	midHarmonizedColorAttributesGetThemeOverlay        jni.MethodID
+
+	clsContrastOptionsBuilder                              *jni.GlobalRef
+	midContrastOptionsBuilderCtor                          jni.MethodID
+	midContrastOptionsBuilderSetMediumContrastThemeOverlay jni.MethodID
+	midContrastOptionsBuilderSetHighContrastThemeOverlay   jni.MethodID
+	midContrastOptionsBuilderToString                      jni.MethodID
 
 	clsHarmonizedColors                           *jni.GlobalRef
 	midHarmonizedColorsToString                   jni.MethodID
 	midHarmonizedColorsApplyToContextIfAvailable  jni.MethodID
 	midHarmonizedColorsWrapContextIfAvailable     jni.MethodID
 	midHarmonizedColorsIsHarmonizedColorAvailable jni.MethodID
-
-	clsDynamicColorsOptions                         *jni.GlobalRef
-	midDynamicColorsOptionsGetThemeOverlay          jni.MethodID
-	midDynamicColorsOptionsGetPrecondition          jni.MethodID
-	midDynamicColorsOptionsGetOnAppliedCallback     jni.MethodID
-	midDynamicColorsOptionsGetContentBasedSeedColor jni.MethodID
-	midDynamicColorsOptionsToString                 jni.MethodID
-
-	clsDynamicColorsOptionsBuilder                         *jni.GlobalRef
-	midDynamicColorsOptionsBuilderSetThemeOverlay          jni.MethodID
-	midDynamicColorsOptionsBuilderSetPrecondition          jni.MethodID
-	midDynamicColorsOptionsBuilderSetOnAppliedCallback     jni.MethodID
-	midDynamicColorsOptionsBuilderSetContentBasedSource1   jni.MethodID
-	midDynamicColorsOptionsBuilderSetContentBasedSource1_1 jni.MethodID
-	midDynamicColorsOptionsBuilderBuild                    jni.MethodID
-	midDynamicColorsOptionsBuilderToString                 jni.MethodID
-
-	clsHarmonizedColorsOptions                                 *jni.GlobalRef
-	midHarmonizedColorsOptionsGetColorResourceIds              jni.MethodID
-	midHarmonizedColorsOptionsGetColorAttributes               jni.MethodID
-	midHarmonizedColorsOptionsGetColorAttributeToHarmonizeWith jni.MethodID
-	midHarmonizedColorsOptionsToString                         jni.MethodID
-	midHarmonizedColorsOptionsCreateMaterialDefaults           jni.MethodID
-
-	clsHarmonizedColorsOptionsBuilder                                 *jni.GlobalRef
-	midHarmonizedColorsOptionsBuilderSetColorResourceIds              jni.MethodID
-	midHarmonizedColorsOptionsBuilderSetColorAttributes               jni.MethodID
-	midHarmonizedColorsOptionsBuilderSetColorAttributeToHarmonizeWith jni.MethodID
-	midHarmonizedColorsOptionsBuilderBuild                            jni.MethodID
-	midHarmonizedColorsOptionsBuilderToString                         jni.MethodID
-
-	clsContrastOptions                              *jni.GlobalRef
-	midContrastOptionsGetMediumContrastThemeOverlay jni.MethodID
-	midContrastOptionsGetHighContrastThemeOverlay   jni.MethodID
-	midContrastOptionsToString                      jni.MethodID
-
-	clsContrastOptionsBuilder                              *jni.GlobalRef
-	midContrastOptionsBuilderSetMediumContrastThemeOverlay jni.MethodID
-	midContrastOptionsBuilderSetHighContrastThemeOverlay   jni.MethodID
-	midContrastOptionsBuilderBuild                         jni.MethodID
-	midContrastOptionsBuilderToString                      jni.MethodID
-
-	clsResourcesOverride            *jni.GlobalRef
-	midResourcesOverrideToString    jni.MethodID
-	midResourcesOverrideGetInstance jni.MethodID
-
-	clsMaterialColorUtilitiesHelper         *jni.GlobalRef
-	midMaterialColorUtilitiesHelperToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -168,96 +165,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("com/google/android/material/color/ColorContrast")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsContrast = env.NewGlobalRef(&c.Object)
-
-		midContrastToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContrastApplyToActivitiesIfAvailable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "applyToActivitiesIfAvailable", "(Landroid/app/Application;Lcom/google/android/material/color/ColorContrastOptions;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContrastApplyToActivityIfAvailable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "applyToActivityIfAvailable", "(Landroid/app/Activity;Lcom/google/android/material/color/ColorContrastOptions;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContrastWrapContextIfAvailable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "wrapContextIfAvailable", "(Landroid/content/Context;Lcom/google/android/material/color/ColorContrastOptions;)Landroid/content/Context;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContrastIsContrastAvailable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "isContrastAvailable", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/ColorRoles")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRoles = env.NewGlobalRef(&c.Object)
-
-		midRolesGetAccent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRoles)), "getAccent", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRolesGetOnAccent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRoles)), "getOnAccent", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRolesGetAccentContainer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRoles)), "getAccentContainer", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRolesGetOnAccentContainer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRoles)), "getOnAccentContainer", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRolesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRoles)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("com/google/android/material/color/DynamicColors")
 	if err != nil {
@@ -422,6 +329,311 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("com/google/android/material/color/DynamicColorsOptions")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDynamicColorsOptions = env.NewGlobalRef(&c.Object)
+
+		midDynamicColorsOptionsGetThemeOverlay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptions)), "getThemeOverlay", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDynamicColorsOptionsGetPrecondition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptions)), "getPrecondition", "()Lcom/google/android/material/color/DynamicColors$Precondition;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDynamicColorsOptionsGetOnAppliedCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptions)), "getOnAppliedCallback", "()Lcom/google/android/material/color/DynamicColors$OnAppliedCallback;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDynamicColorsOptionsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptions)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/ThemeUtils")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsThemeUtils = env.NewGlobalRef(&c.Object)
+
+		midThemeUtilsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsThemeUtils)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midThemeUtilsApplyThemeOverlay, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsThemeUtils)), "applyThemeOverlay", "(Landroid/content/Context;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/DynamicColorsOptions$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDynamicColorsOptionsBuilder = env.NewGlobalRef(&c.Object)
+		midDynamicColorsOptionsBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptionsBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midDynamicColorsOptionsBuilderSetThemeOverlay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptionsBuilder)), "setThemeOverlay", "(I)Lcom/google/android/material/color/DynamicColorsOptions$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDynamicColorsOptionsBuilderSetPrecondition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptionsBuilder)), "setPrecondition", "(Lcom/google/android/material/color/DynamicColors$Precondition;)Lcom/google/android/material/color/DynamicColorsOptions$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDynamicColorsOptionsBuilderSetOnAppliedCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptionsBuilder)), "setOnAppliedCallback", "(Lcom/google/android/material/color/DynamicColors$OnAppliedCallback;)Lcom/google/android/material/color/DynamicColorsOptions$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDynamicColorsOptionsBuilderSetContentBasedSource1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptionsBuilder)), "setContentBasedSource", "(Landroid/graphics/Bitmap;)Lcom/google/android/material/color/DynamicColorsOptions$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDynamicColorsOptionsBuilderSetContentBasedSource1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptionsBuilder)), "setContentBasedSource", "(I)Lcom/google/android/material/color/DynamicColorsOptions$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDynamicColorsOptionsBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptionsBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/ColorRoles")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRoles = env.NewGlobalRef(&c.Object)
+
+		midRolesGetAccent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRoles)), "getAccent", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRolesGetOnAccent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRoles)), "getOnAccent", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRolesGetAccentContainer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRoles)), "getAccentContainer", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRolesGetOnAccentContainer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRoles)), "getOnAccentContainer", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRolesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRoles)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/ColorContrast")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsContrast = env.NewGlobalRef(&c.Object)
+
+		midContrastToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContrastApplyToActivitiesIfAvailable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "applyToActivitiesIfAvailable", "(Landroid/app/Application;Lcom/google/android/material/color/ColorContrastOptions;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContrastApplyToActivityIfAvailable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "applyToActivityIfAvailable", "(Landroid/app/Activity;Lcom/google/android/material/color/ColorContrastOptions;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContrastWrapContextIfAvailable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "wrapContextIfAvailable", "(Landroid/content/Context;Lcom/google/android/material/color/ColorContrastOptions;)Landroid/content/Context;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContrastIsContrastAvailable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContrast)), "isContrastAvailable", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/HarmonizedColorsOptions")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsHarmonizedColorsOptions = env.NewGlobalRef(&c.Object)
+
+		midHarmonizedColorsOptionsGetColorResourceIds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorsOptions)), "getColorResourceIds", "()[I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHarmonizedColorsOptionsGetColorAttributes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorsOptions)), "getColorAttributes", "()Lcom/google/android/material/color/HarmonizedColorAttributes;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHarmonizedColorsOptionsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorsOptions)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHarmonizedColorsOptionsCreateMaterialDefaults, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorsOptions)), "createMaterialDefaults", "()Lcom/google/android/material/color/HarmonizedColorsOptions;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/HarmonizedColorsOptions$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsHarmonizedColorsOptionsBuilder = env.NewGlobalRef(&c.Object)
+		midHarmonizedColorsOptionsBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorsOptionsBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midHarmonizedColorsOptionsBuilderSetColorResourceIds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorsOptionsBuilder)), "setColorResourceIds", "([I)Lcom/google/android/material/color/HarmonizedColorsOptions$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHarmonizedColorsOptionsBuilderSetColorAttributes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorsOptionsBuilder)), "setColorAttributes", "(Lcom/google/android/material/color/HarmonizedColorAttributes;)Lcom/google/android/material/color/HarmonizedColorsOptions$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHarmonizedColorsOptionsBuilderSetColorAttributeToHarmonizeWith, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorsOptionsBuilder)), "setColorAttributeToHarmonizeWith", "(I)Lcom/google/android/material/color/HarmonizedColorsOptions$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHarmonizedColorsOptionsBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorsOptionsBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/MaterialColorUtilitiesHelper")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMaterialColorUtilitiesHelper = env.NewGlobalRef(&c.Object)
+
+		midMaterialColorUtilitiesHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialColorUtilitiesHelper)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("com/google/android/material/color/MaterialColors")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -572,22 +784,46 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/color/ThemeUtils")
+	c, err = env.FindClass("com/google/android/material/color/ColorResourcesOverride")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsThemeUtils = env.NewGlobalRef(&c.Object)
+		clsResourcesOverride = env.NewGlobalRef(&c.Object)
 
-		midThemeUtilsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsThemeUtils)), "toString", "()Ljava/lang/String;")
+		midResourcesOverrideToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourcesOverride)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midThemeUtilsApplyThemeOverlay, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsThemeUtils)), "applyThemeOverlay", "(Landroid/content/Context;I)V")
+		midResourcesOverrideGetInstance, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsResourcesOverride)), "getInstance", "()Lcom/google/android/material/color/ColorResourcesOverride;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/ColorContrastOptions")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsContrastOptions = env.NewGlobalRef(&c.Object)
+
+		midContrastOptionsGetMediumContrastThemeOverlay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrastOptions)), "getMediumContrastThemeOverlay", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContrastOptionsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrastOptions)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -605,13 +841,6 @@ func doInit(env *jni.Env) error {
 		clsHarmonizedColorAttributes = env.NewGlobalRef(&c.Object)
 
 		midHarmonizedColorAttributesGetAttributes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorAttributes)), "getAttributes", "()[I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHarmonizedColorAttributesGetThemeOverlay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorAttributes)), "getThemeOverlay", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -640,6 +869,48 @@ func doInit(env *jni.Env) error {
 		}
 
 		midHarmonizedColorAttributesCreateMaterialDefaults, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorAttributes)), "createMaterialDefaults", "()Lcom/google/android/material/color/HarmonizedColorAttributes;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHarmonizedColorAttributesGetThemeOverlay, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorAttributes)), "getThemeOverlay", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/color/ColorContrastOptions$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsContrastOptionsBuilder = env.NewGlobalRef(&c.Object)
+		midContrastOptionsBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrastOptionsBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midContrastOptionsBuilderSetMediumContrastThemeOverlay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrastOptionsBuilder)), "setMediumContrastThemeOverlay", "(I)Lcom/google/android/material/color/ColorContrastOptions$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContrastOptionsBuilderSetHighContrastThemeOverlay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrastOptionsBuilder)), "setHighContrastThemeOverlay", "(I)Lcom/google/android/material/color/ColorContrastOptions$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContrastOptionsBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrastOptionsBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -678,310 +949,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midHarmonizedColorsIsHarmonizedColorAvailable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColors)), "isHarmonizedColorAvailable", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/DynamicColorsOptions")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDynamicColorsOptions = env.NewGlobalRef(&c.Object)
-
-		midDynamicColorsOptionsGetThemeOverlay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptions)), "getThemeOverlay", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDynamicColorsOptionsGetPrecondition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptions)), "getPrecondition", "()Lcom/google/android/material/color/DynamicColors$Precondition;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDynamicColorsOptionsGetOnAppliedCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptions)), "getOnAppliedCallback", "()Lcom/google/android/material/color/DynamicColors$OnAppliedCallback;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDynamicColorsOptionsGetContentBasedSeedColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptions)), "getContentBasedSeedColor", "()Ljava/lang/Integer;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDynamicColorsOptionsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptions)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/DynamicColorsOptions$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDynamicColorsOptionsBuilder = env.NewGlobalRef(&c.Object)
-
-		midDynamicColorsOptionsBuilderSetThemeOverlay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptionsBuilder)), "setThemeOverlay", "(I)Lcom/google/android/material/color/DynamicColorsOptions$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDynamicColorsOptionsBuilderSetPrecondition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptionsBuilder)), "setPrecondition", "(Lcom/google/android/material/color/DynamicColors$Precondition;)Lcom/google/android/material/color/DynamicColorsOptions$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDynamicColorsOptionsBuilderSetOnAppliedCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptionsBuilder)), "setOnAppliedCallback", "(Lcom/google/android/material/color/DynamicColors$OnAppliedCallback;)Lcom/google/android/material/color/DynamicColorsOptions$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDynamicColorsOptionsBuilderSetContentBasedSource1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptionsBuilder)), "setContentBasedSource", "(Landroid/graphics/Bitmap;)Lcom/google/android/material/color/DynamicColorsOptions$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDynamicColorsOptionsBuilderSetContentBasedSource1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptionsBuilder)), "setContentBasedSource", "(I)Lcom/google/android/material/color/DynamicColorsOptions$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDynamicColorsOptionsBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptionsBuilder)), "build", "()Lcom/google/android/material/color/DynamicColorsOptions;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDynamicColorsOptionsBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDynamicColorsOptionsBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/HarmonizedColorsOptions")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsHarmonizedColorsOptions = env.NewGlobalRef(&c.Object)
-
-		midHarmonizedColorsOptionsGetColorResourceIds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorsOptions)), "getColorResourceIds", "()[I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHarmonizedColorsOptionsGetColorAttributes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorsOptions)), "getColorAttributes", "()Lcom/google/android/material/color/HarmonizedColorAttributes;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHarmonizedColorsOptionsGetColorAttributeToHarmonizeWith, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorsOptions)), "getColorAttributeToHarmonizeWith", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHarmonizedColorsOptionsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorsOptions)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHarmonizedColorsOptionsCreateMaterialDefaults, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorsOptions)), "createMaterialDefaults", "()Lcom/google/android/material/color/HarmonizedColorsOptions;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/HarmonizedColorsOptions$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsHarmonizedColorsOptionsBuilder = env.NewGlobalRef(&c.Object)
-
-		midHarmonizedColorsOptionsBuilderSetColorResourceIds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorsOptionsBuilder)), "setColorResourceIds", "([I)Lcom/google/android/material/color/HarmonizedColorsOptions$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHarmonizedColorsOptionsBuilderSetColorAttributes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorsOptionsBuilder)), "setColorAttributes", "(Lcom/google/android/material/color/HarmonizedColorAttributes;)Lcom/google/android/material/color/HarmonizedColorsOptions$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHarmonizedColorsOptionsBuilderSetColorAttributeToHarmonizeWith, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorsOptionsBuilder)), "setColorAttributeToHarmonizeWith", "(I)Lcom/google/android/material/color/HarmonizedColorsOptions$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHarmonizedColorsOptionsBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorsOptionsBuilder)), "build", "()Lcom/google/android/material/color/HarmonizedColorsOptions;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHarmonizedColorsOptionsBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHarmonizedColorsOptionsBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/ColorContrastOptions")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsContrastOptions = env.NewGlobalRef(&c.Object)
-
-		midContrastOptionsGetMediumContrastThemeOverlay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrastOptions)), "getMediumContrastThemeOverlay", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContrastOptionsGetHighContrastThemeOverlay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrastOptions)), "getHighContrastThemeOverlay", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContrastOptionsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrastOptions)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/ColorContrastOptions$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsContrastOptionsBuilder = env.NewGlobalRef(&c.Object)
-
-		midContrastOptionsBuilderSetMediumContrastThemeOverlay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrastOptionsBuilder)), "setMediumContrastThemeOverlay", "(I)Lcom/google/android/material/color/ColorContrastOptions$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContrastOptionsBuilderSetHighContrastThemeOverlay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrastOptionsBuilder)), "setHighContrastThemeOverlay", "(I)Lcom/google/android/material/color/ColorContrastOptions$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContrastOptionsBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrastOptionsBuilder)), "build", "()Lcom/google/android/material/color/ColorContrastOptions;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContrastOptionsBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContrastOptionsBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/ColorResourcesOverride")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsResourcesOverride = env.NewGlobalRef(&c.Object)
-
-		midResourcesOverrideToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourcesOverride)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midResourcesOverrideGetInstance, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsResourcesOverride)), "getInstance", "()Lcom/google/android/material/color/ColorResourcesOverride;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/color/MaterialColorUtilitiesHelper")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMaterialColorUtilitiesHelper = env.NewGlobalRef(&c.Object)
-
-		midMaterialColorUtilitiesHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialColorUtilitiesHelper)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

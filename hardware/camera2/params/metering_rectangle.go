@@ -32,6 +32,12 @@ func NewMeteringRectangle(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 i
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMeteringRectangle == nil {
+			return fmt.Errorf("android.hardware.camera2.params.MeteringRectangle is not available on this device")
+		}
+		if midMeteringRectangleCtor == nil {
+			return fmt.Errorf("android.hardware.camera2.params.MeteringRectangle constructor (Landroid/graphics/Point;Landroid/util/Size;I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMeteringRectangle)), midMeteringRectangleCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2))
 		if err != nil {

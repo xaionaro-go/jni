@@ -100,31 +100,22 @@ var (
 	midFloatingActionButtonSetTranslationZ                             jni.MethodID
 	midFloatingActionButtonSetScaleX                                   jni.MethodID
 	midFloatingActionButtonSetScaleY                                   jni.MethodID
-	midFloatingActionButtonSetShadowPaddingEnabled                     jni.MethodID
 	midFloatingActionButtonToString                                    jni.MethodID
 
 	clsFloatingActionButtonBaseBehavior                            *jni.GlobalRef
+	midFloatingActionButtonBaseBehaviorCtor                        jni.MethodID
 	midFloatingActionButtonBaseBehaviorSetAutoHideEnabled          jni.MethodID
 	midFloatingActionButtonBaseBehaviorIsAutoHideEnabled           jni.MethodID
 	midFloatingActionButtonBaseBehaviorOnAttachedToLayoutParams    jni.MethodID
-	midFloatingActionButtonBaseBehaviorOnDependentViewChanged3     jni.MethodID
+	midFloatingActionButtonBaseBehaviorOnDependentViewChanged      jni.MethodID
 	midFloatingActionButtonBaseBehaviorSetInternalAutoHideListener jni.MethodID
-	midFloatingActionButtonBaseBehaviorOnLayoutChild3              jni.MethodID
-	midFloatingActionButtonBaseBehaviorGetInsetDodgeRect3          jni.MethodID
-	midFloatingActionButtonBaseBehaviorGetInsetDodgeRect3_1        jni.MethodID
-	midFloatingActionButtonBaseBehaviorOnLayoutChild3_1            jni.MethodID
-	midFloatingActionButtonBaseBehaviorOnDependentViewChanged3_1   jni.MethodID
+	midFloatingActionButtonBaseBehaviorOnLayoutChild               jni.MethodID
+	midFloatingActionButtonBaseBehaviorGetInsetDodgeRect           jni.MethodID
 	midFloatingActionButtonBaseBehaviorToString                    jni.MethodID
 
-	clsFloatingActionButtonBehavior                            *jni.GlobalRef
-	midFloatingActionButtonBehaviorGetInsetDodgeRect           jni.MethodID
-	midFloatingActionButtonBehaviorOnLayoutChild               jni.MethodID
-	midFloatingActionButtonBehaviorSetInternalAutoHideListener jni.MethodID
-	midFloatingActionButtonBehaviorOnDependentViewChanged      jni.MethodID
-	midFloatingActionButtonBehaviorOnAttachedToLayoutParams    jni.MethodID
-	midFloatingActionButtonBehaviorIsAutoHideEnabled           jni.MethodID
-	midFloatingActionButtonBehaviorSetAutoHideEnabled          jni.MethodID
-	midFloatingActionButtonBehaviorToString                    jni.MethodID
+	clsFloatingActionButtonBehavior         *jni.GlobalRef
+	midFloatingActionButtonBehaviorCtor     jni.MethodID
+	midFloatingActionButtonBehaviorToString jni.MethodID
 
 	clsFloatingActionButtonOnVisibilityChangedListener         *jni.GlobalRef
 	midFloatingActionButtonOnVisibilityChangedListenerOnShown  jni.MethodID
@@ -171,22 +162,19 @@ var (
 	midExtendedFloatingActionButtonSetExtendMotionSpecResource     jni.MethodID
 	midExtendedFloatingActionButtonGetShrinkMotionSpec             jni.MethodID
 	midExtendedFloatingActionButtonSetShrinkMotionSpec             jni.MethodID
-	midExtendedFloatingActionButtonSetShrinkMotionSpecResource     jni.MethodID
 	midExtendedFloatingActionButtonToString                        jni.MethodID
 
-	clsExtendedFloatingActionButtonExtendedFloatingActionButtonBehavior                          *jni.GlobalRef
-	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorSetAutoHideEnabled        jni.MethodID
-	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorIsAutoHideEnabled         jni.MethodID
-	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorSetAutoShrinkEnabled      jni.MethodID
-	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorIsAutoShrinkEnabled       jni.MethodID
-	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorGetInsetDodgeRect3        jni.MethodID
-	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorOnAttachedToLayoutParams  jni.MethodID
-	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorOnDependentViewChanged3   jni.MethodID
-	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorOnLayoutChild3            jni.MethodID
-	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorGetInsetDodgeRect3_1      jni.MethodID
-	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorOnLayoutChild3_1          jni.MethodID
-	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorOnDependentViewChanged3_1 jni.MethodID
-	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorToString                  jni.MethodID
+	clsExtendedFloatingActionButtonExtendedFloatingActionButtonBehavior                         *jni.GlobalRef
+	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorCtor                     jni.MethodID
+	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorSetAutoHideEnabled       jni.MethodID
+	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorIsAutoHideEnabled        jni.MethodID
+	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorSetAutoShrinkEnabled     jni.MethodID
+	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorIsAutoShrinkEnabled      jni.MethodID
+	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorGetInsetDodgeRect        jni.MethodID
+	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorOnAttachedToLayoutParams jni.MethodID
+	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorOnDependentViewChanged   jni.MethodID
+	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorOnLayoutChild            jni.MethodID
+	midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorToString                 jni.MethodID
 
 	clsExtendedFloatingActionButtonOnChangedCallback           *jni.GlobalRef
 	midExtendedFloatingActionButtonOnChangedCallbackOnShown    jni.MethodID
@@ -751,13 +739,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midFloatingActionButtonSetShadowPaddingEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatingActionButton)), "setShadowPaddingEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midFloatingActionButtonToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatingActionButton)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -774,6 +755,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsFloatingActionButtonBaseBehavior = env.NewGlobalRef(&c.Object)
+		midFloatingActionButtonBaseBehaviorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatingActionButtonBaseBehavior)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midFloatingActionButtonBaseBehaviorSetAutoHideEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatingActionButtonBaseBehavior)), "setAutoHideEnabled", "(Z)V")
 		if err != nil {
@@ -796,7 +781,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midFloatingActionButtonBaseBehaviorOnDependentViewChanged3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatingActionButtonBaseBehavior)), "onDependentViewChanged", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/floatingactionbutton/FloatingActionButton;Landroid/view/View;)Z")
+		midFloatingActionButtonBaseBehaviorOnDependentViewChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatingActionButtonBaseBehavior)), "onDependentViewChanged", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/floatingactionbutton/FloatingActionButton;Landroid/view/View;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -810,35 +795,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midFloatingActionButtonBaseBehaviorOnLayoutChild3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatingActionButtonBaseBehavior)), "onLayoutChild", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/floatingactionbutton/FloatingActionButton;I)Z")
+		midFloatingActionButtonBaseBehaviorOnLayoutChild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatingActionButtonBaseBehavior)), "onLayoutChild", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/floatingactionbutton/FloatingActionButton;I)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midFloatingActionButtonBaseBehaviorGetInsetDodgeRect3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatingActionButtonBaseBehavior)), "getInsetDodgeRect", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/floatingactionbutton/FloatingActionButton;Landroid/graphics/Rect;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFloatingActionButtonBaseBehaviorGetInsetDodgeRect3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatingActionButtonBaseBehavior)), "getInsetDodgeRect", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/graphics/Rect;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFloatingActionButtonBaseBehaviorOnLayoutChild3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatingActionButtonBaseBehavior)), "onLayoutChild", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFloatingActionButtonBaseBehaviorOnDependentViewChanged3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatingActionButtonBaseBehavior)), "onDependentViewChanged", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/View;)Z")
+		midFloatingActionButtonBaseBehaviorGetInsetDodgeRect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatingActionButtonBaseBehavior)), "getInsetDodgeRect", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/floatingactionbutton/FloatingActionButton;Landroid/graphics/Rect;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -861,53 +825,8 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsFloatingActionButtonBehavior = env.NewGlobalRef(&c.Object)
-
-		midFloatingActionButtonBehaviorGetInsetDodgeRect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatingActionButtonBehavior)), "getInsetDodgeRect", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/floatingactionbutton/FloatingActionButton;Landroid/graphics/Rect;)Z")
+		midFloatingActionButtonBehaviorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatingActionButtonBehavior)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
 		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFloatingActionButtonBehaviorOnLayoutChild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatingActionButtonBehavior)), "onLayoutChild", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/floatingactionbutton/FloatingActionButton;I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFloatingActionButtonBehaviorSetInternalAutoHideListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatingActionButtonBehavior)), "setInternalAutoHideListener", "(Lcom/google/android/material/floatingactionbutton/FloatingActionButton$OnVisibilityChangedListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFloatingActionButtonBehaviorOnDependentViewChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatingActionButtonBehavior)), "onDependentViewChanged", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/floatingactionbutton/FloatingActionButton;Landroid/view/View;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFloatingActionButtonBehaviorOnAttachedToLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatingActionButtonBehavior)), "onAttachedToLayoutParams", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout$LayoutParams;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFloatingActionButtonBehaviorIsAutoHideEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatingActionButtonBehavior)), "isAutoHideEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFloatingActionButtonBehaviorSetAutoHideEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFloatingActionButtonBehavior)), "setAutoHideEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
@@ -1225,13 +1144,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midExtendedFloatingActionButtonSetShrinkMotionSpecResource, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtendedFloatingActionButton)), "setShrinkMotionSpecResource", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midExtendedFloatingActionButtonToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtendedFloatingActionButton)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -1248,6 +1160,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsExtendedFloatingActionButtonExtendedFloatingActionButtonBehavior = env.NewGlobalRef(&c.Object)
+		midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtendedFloatingActionButtonExtendedFloatingActionButtonBehavior)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorSetAutoHideEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtendedFloatingActionButtonExtendedFloatingActionButtonBehavior)), "setAutoHideEnabled", "(Z)V")
 		if err != nil {
@@ -1277,7 +1193,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorGetInsetDodgeRect3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtendedFloatingActionButtonExtendedFloatingActionButtonBehavior)), "getInsetDodgeRect", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/floatingactionbutton/ExtendedFloatingActionButton;Landroid/graphics/Rect;)Z")
+		midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorGetInsetDodgeRect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtendedFloatingActionButtonExtendedFloatingActionButtonBehavior)), "getInsetDodgeRect", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/floatingactionbutton/ExtendedFloatingActionButton;Landroid/graphics/Rect;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1291,35 +1207,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorOnDependentViewChanged3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtendedFloatingActionButtonExtendedFloatingActionButtonBehavior)), "onDependentViewChanged", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/floatingactionbutton/ExtendedFloatingActionButton;Landroid/view/View;)Z")
+		midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorOnDependentViewChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtendedFloatingActionButtonExtendedFloatingActionButtonBehavior)), "onDependentViewChanged", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/floatingactionbutton/ExtendedFloatingActionButton;Landroid/view/View;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorOnLayoutChild3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtendedFloatingActionButtonExtendedFloatingActionButtonBehavior)), "onLayoutChild", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/floatingactionbutton/ExtendedFloatingActionButton;I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorGetInsetDodgeRect3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtendedFloatingActionButtonExtendedFloatingActionButtonBehavior)), "getInsetDodgeRect", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/graphics/Rect;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorOnLayoutChild3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtendedFloatingActionButtonExtendedFloatingActionButtonBehavior)), "onLayoutChild", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorOnDependentViewChanged3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtendedFloatingActionButtonExtendedFloatingActionButtonBehavior)), "onDependentViewChanged", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/View;)Z")
+		midExtendedFloatingActionButtonExtendedFloatingActionButtonBehaviorOnLayoutChild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExtendedFloatingActionButtonExtendedFloatingActionButtonBehavior)), "onLayoutChild", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/floatingactionbutton/ExtendedFloatingActionButton;I)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

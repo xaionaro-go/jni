@@ -32,6 +32,12 @@ func NewPropertyAnimatorListenerAdapter(vm *jni.VM) (*PropertyAnimatorListenerAd
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPropertyAnimatorListenerAdapter == nil {
+			return fmt.Errorf("androidx.core.view.ViewPropertyAnimatorListenerAdapter is not available on this device")
+		}
+		if midPropertyAnimatorListenerAdapterCtor == nil {
+			return fmt.Errorf("androidx.core.view.ViewPropertyAnimatorListenerAdapter constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPropertyAnimatorListenerAdapter)), midPropertyAnimatorListenerAdapterCtor)
 		if err != nil {
 			return err

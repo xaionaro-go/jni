@@ -32,6 +32,12 @@ func NewLong4(vm *jni.VM) (*Long4, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLong4 == nil {
+			return fmt.Errorf("android.renderscript.Long4 is not available on this device")
+		}
+		if midLong4Ctor == nil {
+			return fmt.Errorf("android.renderscript.Long4 constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLong4)), midLong4Ctor)
 		if err != nil {
 			return err

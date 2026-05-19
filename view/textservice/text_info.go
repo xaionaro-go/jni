@@ -32,6 +32,12 @@ func NewTextInfo(vm *jni.VM, arg0 *jni.Object) (*TextInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTextInfo == nil {
+			return fmt.Errorf("android.view.textservice.TextInfo is not available on this device")
+		}
+		if midTextInfoCtor == nil {
+			return fmt.Errorf("android.view.textservice.TextInfo constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextInfo)), midTextInfoCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -180,29 +186,6 @@ func (m *TextInfo) GetText() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.textservice.TextInfo.writeToParcel.
-func (m *TextInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTextInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.textservice.TextInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midTextInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.view.textservice.TextInfo.toString.
 func (m *TextInfo) ToString() (string, error) {
 	var result string
@@ -228,4 +211,27 @@ func (m *TextInfo) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.textservice.TextInfo.writeToParcel.
+func (m *TextInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midTextInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.textservice.TextInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsTextInfo)),
+			midTextInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

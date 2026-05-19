@@ -32,6 +32,12 @@ func NewTypefaceCompatApi26Impl(vm *jni.VM) (*TypefaceCompatApi26Impl, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTypefaceCompatApi26Impl == nil {
+			return fmt.Errorf("androidx.core.graphics.TypefaceCompatApi26Impl is not available on this device")
+		}
+		if midTypefaceCompatApi26ImplCtor == nil {
+			return fmt.Errorf("androidx.core.graphics.TypefaceCompatApi26Impl constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTypefaceCompatApi26Impl)), midTypefaceCompatApi26ImplCtor)
 		if err != nil {
 			return err

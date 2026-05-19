@@ -23,6 +23,35 @@ type LoaderForceLoadContentObserver struct {
 	Obj *jni.GlobalRef
 }
 
+// NewLoaderForceLoadContentObserver creates a new android.content.Loader$ForceLoadContentObserver instance.
+func NewLoaderForceLoadContentObserver(vm *jni.VM, arg0 *jni.Object) (*LoaderForceLoadContentObserver, error) {
+	var t LoaderForceLoadContentObserver
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsLoaderForceLoadContentObserver == nil {
+			return fmt.Errorf("android.content.Loader$ForceLoadContentObserver is not available on this device")
+		}
+		if midLoaderForceLoadContentObserverCtor == nil {
+			return fmt.Errorf("android.content.Loader$ForceLoadContentObserver constructor (Landroid/content/Loader;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLoaderForceLoadContentObserver)), midLoaderForceLoadContentObserverCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DeliverSelfNotifications calls android.content.Loader$ForceLoadContentObserver.deliverSelfNotifications.
 func (m *LoaderForceLoadContentObserver) DeliverSelfNotifications() (bool, error) {
 	var result bool

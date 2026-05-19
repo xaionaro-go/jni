@@ -32,6 +32,12 @@ func NewLocusIdCompat(vm *jni.VM, arg0 string) (*LocusIdCompat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLocusIdCompat == nil {
+			return fmt.Errorf("androidx.core.content.LocusIdCompat is not available on this device")
+		}
+		if midLocusIdCompatCtor == nil {
+			return fmt.Errorf("androidx.core.content.LocusIdCompat constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

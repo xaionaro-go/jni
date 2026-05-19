@@ -32,6 +32,12 @@ func NewComponentActivity(vm *jni.VM) (*ComponentActivity, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsComponentActivity == nil {
+			return fmt.Errorf("androidx.activity.ComponentActivity is not available on this device")
+		}
+		if midComponentActivityCtor == nil {
+			return fmt.Errorf("androidx.activity.ComponentActivity constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsComponentActivity)), midComponentActivityCtor)
 		if err != nil {
 			return err
@@ -1104,28 +1110,6 @@ func (m *ComponentActivity) OnPictureInPictureModeChanged2_1(arg0 bool, arg1 *jn
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midComponentActivityOnPictureInPictureModeChanged2_1, jni.BooleanValue(jArg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// ReportFullyDrawn calls androidx.activity.ComponentActivity.reportFullyDrawn.
-func (m *ComponentActivity) ReportFullyDrawn() error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midComponentActivityReportFullyDrawn == nil {
-			callErr = fmt.Errorf("androidx.activity.ComponentActivity.reportFullyDrawn is not available on this device")
-			return callErr
-		}
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midComponentActivityReportFullyDrawn,
 		)
 		return callErr
 	})

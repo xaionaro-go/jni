@@ -23,6 +23,35 @@ type ManagerCompatAuthenticationResult struct {
 	Obj *jni.GlobalRef
 }
 
+// NewManagerCompatAuthenticationResult creates a new androidx.core.hardware.fingerprint.FingerprintManagerCompat$AuthenticationResult instance.
+func NewManagerCompatAuthenticationResult(vm *jni.VM, arg0 *jni.Object) (*ManagerCompatAuthenticationResult, error) {
+	var t ManagerCompatAuthenticationResult
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsManagerCompatAuthenticationResult == nil {
+			return fmt.Errorf("androidx.core.hardware.fingerprint.FingerprintManagerCompat$AuthenticationResult is not available on this device")
+		}
+		if midManagerCompatAuthenticationResultCtor == nil {
+			return fmt.Errorf("androidx.core.hardware.fingerprint.FingerprintManagerCompat$AuthenticationResult constructor (Landroidx/core/hardware/fingerprint/FingerprintManagerCompat$CryptoObject;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsManagerCompatAuthenticationResult)), midManagerCompatAuthenticationResultCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetCryptoObject calls androidx.core.hardware.fingerprint.FingerprintManagerCompat$AuthenticationResult.getCryptoObject.
 func (m *ManagerCompatAuthenticationResult) GetCryptoObject() (*jni.Object, error) {
 	var result *jni.Object

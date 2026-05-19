@@ -5,40 +5,6 @@
 package: lights
 go_import: github.com/AndroidGoLab/jni/hardware/lights
 classes:
-    - java_class: android.hardware.lights.LightsRequest
-      go_type: Request
-      methods:
-        - java_method: getLightStates
-          go_name: GetLightStates
-          returns: java.util.List<android.hardware.lights.LightState>
-          error: true
-        - java_method: getLights
-          go_name: GetLights
-          returns: java.util.List<java.lang.Integer>
-          error: true
-    - java_class: android.hardware.lights.LightsRequest$Builder
-      go_type: RequestBuilder
-      methods:
-        - java_method: addLight
-          go_name: AddLight
-          params:
-            - java_type: android.hardware.lights.Light
-              go_name: arg0
-            - java_type: android.hardware.lights.LightState
-              go_name: arg1
-          returns: android.hardware.lights.LightsRequest$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.hardware.lights.LightsRequest
-          error: true
-        - java_method: clearLight
-          go_name: ClearLight
-          params:
-            - java_type: android.hardware.lights.Light
-              go_name: arg0
-          returns: android.hardware.lights.LightsRequest$Builder
-          error: true
     - java_class: android.hardware.lights.LightState
       go_type: LightState
       methods:
@@ -58,6 +24,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -69,6 +36,7 @@ classes:
           error: true
     - java_class: android.hardware.lights.LightState$Builder
       go_type: LightStateBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
@@ -134,6 +102,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -142,6 +111,41 @@ classes:
             - java_type: int
               go_name: arg1
           returns: void
+          error: true
+    - java_class: android.hardware.lights.LightsRequest
+      go_type: Request
+      methods:
+        - java_method: getLightStates
+          go_name: GetLightStates
+          returns: java.util.List<android.hardware.lights.LightState>
+          error: true
+        - java_method: getLights
+          go_name: GetLights
+          returns: java.util.List<java.lang.Integer>
+          error: true
+    - java_class: android.hardware.lights.LightsRequest$Builder
+      go_type: RequestBuilder
+      obtain: constructor
+      methods:
+        - java_method: addLight
+          go_name: AddLight
+          params:
+            - java_type: android.hardware.lights.Light
+              go_name: arg0
+            - java_type: android.hardware.lights.LightState
+              go_name: arg1
+          returns: android.hardware.lights.LightsRequest$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.hardware.lights.LightsRequest
+          error: true
+        - java_method: clearLight
+          go_name: ClearLight
+          params:
+            - java_type: android.hardware.lights.Light
+              go_name: arg0
+          returns: android.hardware.lights.LightsRequest$Builder
           error: true
     - java_class: android.hardware.lights.LightsManager
       go_type: Manager
@@ -175,35 +179,13 @@ classes:
               go_name: arg0
           returns: void
           error: true
-abstract_callbacks:
+abstract_callback_eligibility:
     - java_class: android.hardware.lights.LightsManager
-      go_type: ManagerCallback
-      methods:
-        - java_method: getLightState
-          params:
-            - android.hardware.lights.Light
-          returns: android.hardware.lights.LightState
-          go_field: GetLightState
-        - java_method: getLights
-          params: []
-          returns: java.util.List<android.hardware.lights.Light>
-          go_field: GetLights
-        - java_method: openSession
-          params: []
-          returns: android.hardware.lights.LightsManager$LightsSession
-          go_field: OpenSession
+      generated: false
+      reason: unsupported_constructor
     - java_class: android.hardware.lights.LightsManager$LightsSession
-      go_type: ManagerLightsSessionCallback
-      methods:
-        - java_method: close
-          params: []
-          returns: void
-          go_field: Close
-        - java_method: requestLights
-          params:
-            - android.hardware.lights.LightsRequest
-          returns: void
-          go_field: RequestLights
+      generated: false
+      reason: implements_interface
 constants:
     - go_name: Creator
       value: "0"

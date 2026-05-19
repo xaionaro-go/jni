@@ -5,14 +5,7 @@ package print
 import "github.com/AndroidGoLab/jni/print/consts"
 
 const (
-	ExtraPrintPreview = consts.ExtraPrintPreview
-)
-
-const (
 	Creator             = consts.Creator
-	StatusBusy          = consts.StatusBusy
-	StatusIdle          = consts.StatusIdle
-	StatusUnavailable   = consts.StatusUnavailable
 	StateBlocked        = consts.StateBlocked
 	StateCanceled       = consts.StateCanceled
 	StateCompleted      = consts.StateCompleted
@@ -20,7 +13,10 @@ const (
 	StateFailed         = consts.StateFailed
 	StateQueued         = consts.StateQueued
 	StateStarted        = consts.StateStarted
-	AllPages            = consts.AllPages
+	ContentTypeDocument = consts.ContentTypeDocument
+	ContentTypePhoto    = consts.ContentTypePhoto
+	ContentTypeUnknown  = consts.ContentTypeUnknown
+	PageCountUnknown    = consts.PageCountUnknown
 	ColorModeColor      = consts.ColorModeColor
 	ColorModeMonochrome = consts.ColorModeMonochrome
 	DuplexModeLongEdge  = consts.DuplexModeLongEdge
@@ -122,8 +118,12 @@ const (
 	Roc8k               = consts.Roc8k
 	UnknownLandscape    = consts.UnknownLandscape
 	UnknownPortrait     = consts.UnknownPortrait
-	ContentTypeDocument = consts.ContentTypeDocument
-	ContentTypePhoto    = consts.ContentTypePhoto
-	ContentTypeUnknown  = consts.ContentTypeUnknown
-	PageCountUnknown    = consts.PageCountUnknown
+	StatusBusy          = consts.StatusBusy
+	StatusIdle          = consts.StatusIdle
+	StatusUnavailable   = consts.StatusUnavailable
+	AllPages            = consts.AllPages
+)
+
+const (
+	ExtraPrintPreview = consts.ExtraPrintPreview
 )

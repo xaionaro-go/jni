@@ -23,6 +23,35 @@ type GetCredentialRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGetCredentialRequestBuilder creates a new android.credentials.GetCredentialRequest$Builder instance.
+func NewGetCredentialRequestBuilder(vm *jni.VM, arg0 *jni.Object) (*GetCredentialRequestBuilder, error) {
+	var t GetCredentialRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGetCredentialRequestBuilder == nil {
+			return fmt.Errorf("android.credentials.GetCredentialRequest$Builder is not available on this device")
+		}
+		if midGetCredentialRequestBuilderCtor == nil {
+			return fmt.Errorf("android.credentials.GetCredentialRequest$Builder constructor (Landroid/os/Bundle;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGetCredentialRequestBuilder)), midGetCredentialRequestBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddCredentialOption calls android.credentials.GetCredentialRequest$Builder.addCredentialOption.
 func (m *GetCredentialRequestBuilder) AddCredentialOption(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

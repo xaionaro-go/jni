@@ -32,6 +32,12 @@ func NewColorMatrixColorFilter(vm *jni.VM, arg0 *jni.Object) (*ColorMatrixColorF
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsColorMatrixColorFilter == nil {
+			return fmt.Errorf("android.graphics.ColorMatrixColorFilter is not available on this device")
+		}
+		if midColorMatrixColorFilterCtor == nil {
+			return fmt.Errorf("android.graphics.ColorMatrixColorFilter constructor (Landroid/graphics/ColorMatrix;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsColorMatrixColorFilter)), midColorMatrixColorFilterCtor, jni.ObjectValue(arg0))
 		if err != nil {

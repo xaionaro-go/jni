@@ -32,6 +32,12 @@ func NewParcelableSparseArray(vm *jni.VM) (*ParcelableSparseArray, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsParcelableSparseArray == nil {
+			return fmt.Errorf("com.google.android.material.internal.ParcelableSparseArray is not available on this device")
+		}
+		if midParcelableSparseArrayCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.ParcelableSparseArray constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsParcelableSparseArray)), midParcelableSparseArrayCtor)
 		if err != nil {
 			return err
@@ -70,29 +76,6 @@ func (m *ParcelableSparseArray) DescribeContents() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls com.google.android.material.internal.ParcelableSparseArray.writeToParcel.
-func (m *ParcelableSparseArray) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midParcelableSparseArrayWriteToParcel == nil {
-			callErr = fmt.Errorf("com.google.android.material.internal.ParcelableSparseArray.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midParcelableSparseArrayWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls com.google.android.material.internal.ParcelableSparseArray.toString.
 func (m *ParcelableSparseArray) ToString() (string, error) {
 	var result string
@@ -118,4 +101,27 @@ func (m *ParcelableSparseArray) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls com.google.android.material.internal.ParcelableSparseArray.writeToParcel.
+func (m *ParcelableSparseArray) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midParcelableSparseArrayWriteToParcel == nil {
+			callErr = fmt.Errorf("com.google.android.material.internal.ParcelableSparseArray.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsParcelableSparseArray)),
+			midParcelableSparseArrayWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

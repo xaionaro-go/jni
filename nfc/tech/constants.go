@@ -7,9 +7,6 @@ import "github.com/AndroidGoLab/jni/nfc/tech/consts"
 const (
 	TypeKovio                     = consts.TypeKovio
 	TypeUnknown                   = consts.TypeUnknown
-	PageSize                      = consts.PageSize
-	TypeUltralight                = consts.TypeUltralight
-	TypeUltralightC               = consts.TypeUltralightC
 	BlockSize                     = consts.BlockSize
 	KeyDefault                    = consts.KeyDefault
 	KeyMifareApplicationDirectory = consts.KeyMifareApplicationDirectory
@@ -21,4 +18,7 @@ const (
 	TypeClassic                   = consts.TypeClassic
 	TypePlus                      = consts.TypePlus
 	TypePro                       = consts.TypePro
+	PageSize                      = consts.PageSize
+	TypeUltralight                = consts.TypeUltralight
+	TypeUltralightC               = consts.TypeUltralightC
 )

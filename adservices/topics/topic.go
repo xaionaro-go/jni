@@ -32,6 +32,12 @@ func NewTopic(vm *jni.VM, arg0 int64, arg1 int64, arg2 int32) (*Topic, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTopic == nil {
+			return fmt.Errorf("android.adservices.topics.Topic is not available on this device")
+		}
+		if midTopicCtor == nil {
+			return fmt.Errorf("android.adservices.topics.Topic constructor (JJI)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTopic)), midTopicCtor, jni.LongValue(arg0), jni.LongValue(arg1), jni.IntValue(arg2))
 		if err != nil {

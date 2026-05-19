@@ -20,6 +20,7 @@ classes:
           go_name: GetPdus
           returns: java.util.List<byte[]>
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -28,6 +29,122 @@ classes:
             - java_type: int
               go_name: arg1
           returns: void
+          error: true
+    - java_class: android.service.carrier.CarrierService
+      go_type: Service
+      methods:
+        - java_method: notifyCarrierNetworkChange
+          go_name: NotifyCarrierNetworkChange1
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: notifyCarrierNetworkChange
+          go_name: NotifyCarrierNetworkChange2_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onBind
+          go_name: OnBind
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: android.os.IBinder
+          error: true
+        - java_method: onLoadConfig
+          go_name: OnLoadConfig1
+          params:
+            - java_type: android.service.carrier.CarrierIdentifier
+              go_name: arg0
+          returns: android.os.PersistableBundle
+          error: true
+        - java_method: onLoadConfig
+          go_name: OnLoadConfig2_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.service.carrier.CarrierIdentifier
+              go_name: arg1
+          returns: android.os.PersistableBundle
+          error: true
+    - java_class: android.service.carrier.CarrierMessagingClientService
+      go_type: MessagingClientService
+      obtain: constructor
+      methods:
+        - java_method: onBind
+          go_name: OnBind
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: android.os.IBinder
+          error: true
+    - java_class: android.service.carrier.CarrierMessagingService
+      go_type: MessagingService
+      methods:
+        - java_method: onBind
+          go_name: OnBind
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: android.os.IBinder
+          error: true
+    - java_class: android.service.carrier.CarrierMessagingService$ResultCallback
+      go_type: MessagingServiceResultCallback
+    - java_class: android.service.carrier.CarrierMessagingService$SendMmsResult
+      go_type: MessagingServiceSendMmsResult
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: '[B'
+          go_name: arg1
+      methods:
+        - java_method: getSendConfPdu
+          go_name: GetSendConfPdu
+          returns: '[B'
+          error: true
+        - java_method: getSendStatus
+          go_name: GetSendStatus
+          returns: int
+          error: true
+    - java_class: android.service.carrier.CarrierMessagingService$SendMultipartSmsResult
+      go_type: MessagingServiceSendMultipartSmsResult
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: '[I'
+          go_name: arg1
+      methods:
+        - java_method: getMessageRefs
+          go_name: GetMessageRefs
+          returns: '[I'
+          error: true
+        - java_method: getSendStatus
+          go_name: GetSendStatus
+          returns: int
+          error: true
+    - java_class: android.service.carrier.CarrierMessagingService$SendSmsResult
+      go_type: MessagingServiceSendSmsResult
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: getMessageRef
+          go_name: GetMessageRef
+          returns: int
+          error: true
+        - java_method: getSendStatus
+          go_name: GetSendStatus
+          returns: int
           error: true
     - java_class: android.service.carrier.CarrierIdentifier
       go_type: Identifier
@@ -91,6 +208,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -100,143 +218,13 @@ classes:
               go_name: arg1
           returns: void
           error: true
+abstract_callback_eligibility:
     - java_class: android.service.carrier.CarrierService
-      go_type: Service
-      methods:
-        - java_method: notifyCarrierNetworkChange
-          go_name: NotifyCarrierNetworkChange1
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: notifyCarrierNetworkChange
-          go_name: NotifyCarrierNetworkChange2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onBind
-          go_name: OnBind
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
-          returns: android.os.IBinder
-          error: true
-        - java_method: onLoadConfig
-          go_name: OnLoadConfig1
-          params:
-            - java_type: android.service.carrier.CarrierIdentifier
-              go_name: arg0
-          returns: android.os.PersistableBundle
-          error: true
-        - java_method: onLoadConfig
-          go_name: OnLoadConfig2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.service.carrier.CarrierIdentifier
-              go_name: arg1
-          returns: android.os.PersistableBundle
-          error: true
+      generated: false
+      reason: non_object_superclass
     - java_class: android.service.carrier.CarrierMessagingService
-      go_type: MessagingService
-      methods:
-        - java_method: onBind
-          go_name: OnBind
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
-          returns: android.os.IBinder
-          error: true
-    - java_class: android.service.carrier.CarrierMessagingService$ResultCallback
-      go_type: MessagingServiceResultCallback
-    - java_class: android.service.carrier.CarrierMessagingService$SendMmsResult
-      go_type: MessagingServiceSendMmsResult
-      methods:
-        - java_method: getSendConfPdu
-          go_name: GetSendConfPdu
-          returns: '[B'
-          error: true
-        - java_method: getSendStatus
-          go_name: GetSendStatus
-          returns: int
-          error: true
-    - java_class: android.service.carrier.CarrierMessagingService$SendMultipartSmsResult
-      go_type: MessagingServiceSendMultipartSmsResult
-      methods:
-        - java_method: getMessageRefs
-          go_name: GetMessageRefs
-          returns: '[I'
-          error: true
-        - java_method: getSendStatus
-          go_name: GetSendStatus
-          returns: int
-          error: true
-    - java_class: android.service.carrier.CarrierMessagingService$SendSmsResult
-      go_type: MessagingServiceSendSmsResult
-      methods:
-        - java_method: getMessageRef
-          go_name: GetMessageRef
-          returns: int
-          error: true
-        - java_method: getSendStatus
-          go_name: GetSendStatus
-          returns: int
-          error: true
-    - java_class: android.service.carrier.CarrierMessagingClientService
-      go_type: MessagingClientService
-      obtain: constructor
-      methods:
-        - java_method: onBind
-          go_name: OnBind
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
-          returns: android.os.IBinder
-          error: true
-abstract_callbacks:
-    - java_class: android.service.carrier.CarrierService
-      go_type: ServiceCallback
-      methods:
-        - java_method: notifyCarrierNetworkChange
-          params:
-            - boolean
-          returns: void
-          go_field: NotifyCarrierNetworkChange
-        - java_method: notifyCarrierNetworkChange
-          params:
-            - int
-            - boolean
-          returns: void
-          go_field: NotifyCarrierNetworkChange
-        - java_method: onBind
-          params:
-            - android.content.Intent
-          returns: android.os.IBinder
-          go_field: OnBind
-        - java_method: onLoadConfig
-          params:
-            - android.service.carrier.CarrierIdentifier
-          returns: android.os.PersistableBundle
-          go_field: OnLoadConfig
-        - java_method: onLoadConfig
-          params:
-            - int
-            - android.service.carrier.CarrierIdentifier
-          returns: android.os.PersistableBundle
-          go_field: OnLoadConfig
-    - java_class: android.service.carrier.CarrierMessagingService
-      go_type: MessagingServiceCallback
-      methods:
-        - java_method: onBind
-          params:
-            - android.content.Intent
-          returns: android.os.IBinder
-          go_field: OnBind
+      generated: false
+      reason: non_object_superclass
 constants:
     - go_name: Creator
       value: "0"

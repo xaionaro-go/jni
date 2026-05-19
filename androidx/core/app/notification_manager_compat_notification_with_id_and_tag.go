@@ -21,6 +21,40 @@ type NotificationManagerCompatNotificationWithIdAndTag struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNotificationManagerCompatNotificationWithIdAndTag creates a new androidx.core.app.NotificationManagerCompat$NotificationWithIdAndTag instance.
+func NewNotificationManagerCompatNotificationWithIdAndTag(vm *jni.VM, arg0 string, arg1 int32, arg2 *jni.Object) (*NotificationManagerCompatNotificationWithIdAndTag, error) {
+	var t NotificationManagerCompatNotificationWithIdAndTag
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNotificationManagerCompatNotificationWithIdAndTag == nil {
+			return fmt.Errorf("androidx.core.app.NotificationManagerCompat$NotificationWithIdAndTag is not available on this device")
+		}
+		if midNotificationManagerCompatNotificationWithIdAndTagCtor == nil {
+			return fmt.Errorf("androidx.core.app.NotificationManagerCompat$NotificationWithIdAndTag constructor (Ljava/lang/String;ILandroid/app/Notification;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNotificationManagerCompatNotificationWithIdAndTag)), midNotificationManagerCompatNotificationWithIdAndTagCtor, jni.ObjectValue(&jArg0.Object), jni.IntValue(arg1), jni.ObjectValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.core.app.NotificationManagerCompat$NotificationWithIdAndTag.toString.
 func (m *NotificationManagerCompatNotificationWithIdAndTag) ToString() (string, error) {
 	var result string

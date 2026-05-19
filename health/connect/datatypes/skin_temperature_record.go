@@ -140,31 +140,6 @@ func (m *SkinTemperatureRecord) GetMeasurementLocation() (int32, error) {
 	return result, callErr
 }
 
-// HashCode calls android.health.connect.datatypes.SkinTemperatureRecord.hashCode.
-func (m *SkinTemperatureRecord) HashCode() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSkinTemperatureRecordHashCode == nil {
-			callErr = fmt.Errorf("android.health.connect.datatypes.SkinTemperatureRecord.hashCode is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midSkinTemperatureRecordHashCode,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.health.connect.datatypes.SkinTemperatureRecord.toString.
 func (m *SkinTemperatureRecord) ToString() (string, error) {
 	var result string
@@ -187,6 +162,31 @@ func (m *SkinTemperatureRecord) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// HashCode calls android.health.connect.datatypes.SkinTemperatureRecord.hashCode.
+func (m *SkinTemperatureRecord) HashCode() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSkinTemperatureRecordHashCode == nil {
+			callErr = fmt.Errorf("android.health.connect.datatypes.SkinTemperatureRecord.hashCode is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsSkinTemperatureRecord)),
+			midSkinTemperatureRecordHashCode,
+		)
+		if callErr != nil {
+			return callErr
+		}
 		return callErr
 	})
 	return result, callErr

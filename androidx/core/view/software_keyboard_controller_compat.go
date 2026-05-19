@@ -32,6 +32,12 @@ func NewSoftwareKeyboardControllerCompat(vm *jni.VM, arg0 *jni.Object) (*Softwar
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSoftwareKeyboardControllerCompat == nil {
+			return fmt.Errorf("androidx.core.view.SoftwareKeyboardControllerCompat is not available on this device")
+		}
+		if midSoftwareKeyboardControllerCompatCtor == nil {
+			return fmt.Errorf("androidx.core.view.SoftwareKeyboardControllerCompat constructor (Landroid/view/View;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSoftwareKeyboardControllerCompat)), midSoftwareKeyboardControllerCompatCtor, jni.ObjectValue(arg0))
 		if err != nil {

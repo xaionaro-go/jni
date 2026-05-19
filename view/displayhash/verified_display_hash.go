@@ -32,6 +32,12 @@ func NewVerifiedDisplayHash(vm *jni.VM, arg0 int64, arg1 *jni.Object, arg2 strin
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsVerifiedDisplayHash == nil {
+			return fmt.Errorf("android.view.displayhash.VerifiedDisplayHash is not available on this device")
+		}
+		if midVerifiedDisplayHashCtor == nil {
+			return fmt.Errorf("android.view.displayhash.VerifiedDisplayHash constructor (JLandroid/graphics/Rect;Ljava/lang/String;[B)V is not available on this device")
+		}
 
 		jArg2, err := env.NewStringUTF(arg2)
 		if err != nil {
@@ -234,8 +240,8 @@ func (m *VerifiedDisplayHash) WriteToParcel(arg0 *jni.Object, arg1 int32) error 
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsVerifiedDisplayHash)),
 			midVerifiedDisplayHashWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

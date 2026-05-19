@@ -32,6 +32,12 @@ func NewBaseInputConnection(vm *jni.VM, arg0 *jni.Object, arg1 bool) (*BaseInput
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBaseInputConnection == nil {
+			return fmt.Errorf("android.view.inputmethod.BaseInputConnection is not available on this device")
+		}
+		if midBaseInputConnectionCtor == nil {
+			return fmt.Errorf("android.view.inputmethod.BaseInputConnection constructor (Landroid/view/View;Z)V is not available on this device")
+		}
 
 		var jArg1 uint8
 		if arg1 {

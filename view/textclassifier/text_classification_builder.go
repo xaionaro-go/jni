@@ -23,6 +23,34 @@ type TextClassificationBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTextClassificationBuilder creates a new android.view.textclassifier.TextClassification$Builder instance.
+func NewTextClassificationBuilder(vm *jni.VM) (*TextClassificationBuilder, error) {
+	var t TextClassificationBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTextClassificationBuilder == nil {
+			return fmt.Errorf("android.view.textclassifier.TextClassification$Builder is not available on this device")
+		}
+		if midTextClassificationBuilderCtor == nil {
+			return fmt.Errorf("android.view.textclassifier.TextClassification$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextClassificationBuilder)), midTextClassificationBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddAction calls android.view.textclassifier.TextClassification$Builder.addAction.
 func (m *TextClassificationBuilder) AddAction(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewExpandedMenuView(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Expan
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsExpandedMenuView == nil {
+			return fmt.Errorf("androidx.appcompat.view.menu.ExpandedMenuView is not available on this device")
+		}
+		if midExpandedMenuViewCtor == nil {
+			return fmt.Errorf("androidx.appcompat.view.menu.ExpandedMenuView constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExpandedMenuView)), midExpandedMenuViewCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -125,31 +131,6 @@ func (m *ExpandedMenuView) OnItemClick(
 	return callErr
 }
 
-// GetWindowAnimations calls androidx.appcompat.view.menu.ExpandedMenuView.getWindowAnimations.
-func (m *ExpandedMenuView) GetWindowAnimations() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midExpandedMenuViewGetWindowAnimations == nil {
-			callErr = fmt.Errorf("androidx.appcompat.view.menu.ExpandedMenuView.getWindowAnimations is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midExpandedMenuViewGetWindowAnimations,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.appcompat.view.menu.ExpandedMenuView.toString.
 func (m *ExpandedMenuView) ToString() (string, error) {
 	var result string
@@ -172,6 +153,31 @@ func (m *ExpandedMenuView) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetWindowAnimations calls androidx.appcompat.view.menu.ExpandedMenuView.getWindowAnimations.
+func (m *ExpandedMenuView) GetWindowAnimations() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midExpandedMenuViewGetWindowAnimations == nil {
+			callErr = fmt.Errorf("androidx.appcompat.view.menu.ExpandedMenuView.getWindowAnimations is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsExpandedMenuView)),
+			midExpandedMenuViewGetWindowAnimations,
+		)
+		if callErr != nil {
+			return callErr
+		}
 		return callErr
 	})
 	return result, callErr

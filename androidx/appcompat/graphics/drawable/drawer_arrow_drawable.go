@@ -32,6 +32,12 @@ func NewDrawerArrowDrawable(vm *jni.VM, arg0 *jni.Object) (*DrawerArrowDrawable,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDrawerArrowDrawable == nil {
+			return fmt.Errorf("androidx.appcompat.graphics.drawable.DrawerArrowDrawable is not available on this device")
+		}
+		if midDrawerArrowDrawableCtor == nil {
+			return fmt.Errorf("androidx.appcompat.graphics.drawable.DrawerArrowDrawable constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDrawerArrowDrawable)), midDrawerArrowDrawableCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -655,38 +661,6 @@ func (m *DrawerArrowDrawable) SetProgress(arg0 float32) error {
 	return callErr
 }
 
-// GetPaint calls androidx.appcompat.graphics.drawable.DrawerArrowDrawable.getPaint.
-func (m *DrawerArrowDrawable) GetPaint() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDrawerArrowDrawableGetPaint == nil {
-			callErr = fmt.Errorf("androidx.appcompat.graphics.drawable.DrawerArrowDrawable.getPaint is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midDrawerArrowDrawableGetPaint,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.appcompat.graphics.drawable.DrawerArrowDrawable.toString.
 func (m *DrawerArrowDrawable) ToString() (string, error) {
 	var result string
@@ -709,6 +683,38 @@ func (m *DrawerArrowDrawable) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetPaint calls androidx.appcompat.graphics.drawable.DrawerArrowDrawable.getPaint.
+func (m *DrawerArrowDrawable) GetPaint() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDrawerArrowDrawableGetPaint == nil {
+			callErr = fmt.Errorf("androidx.appcompat.graphics.drawable.DrawerArrowDrawable.getPaint is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsDrawerArrowDrawable)),
+			midDrawerArrowDrawableGetPaint,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
 		return callErr
 	})
 	return result, callErr

@@ -23,6 +23,40 @@ type ChangeLogsResponseDeletedLog struct {
 	Obj *jni.GlobalRef
 }
 
+// NewChangeLogsResponseDeletedLog creates a new android.health.connect.changelog.ChangeLogsResponse$DeletedLog instance.
+func NewChangeLogsResponseDeletedLog(vm *jni.VM, arg0 string, arg1 int64) (*ChangeLogsResponseDeletedLog, error) {
+	var t ChangeLogsResponseDeletedLog
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsChangeLogsResponseDeletedLog == nil {
+			return fmt.Errorf("android.health.connect.changelog.ChangeLogsResponse$DeletedLog is not available on this device")
+		}
+		if midChangeLogsResponseDeletedLogCtor == nil {
+			return fmt.Errorf("android.health.connect.changelog.ChangeLogsResponse$DeletedLog constructor (Ljava/lang/String;J)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsChangeLogsResponseDeletedLog)), midChangeLogsResponseDeletedLogCtor, jni.ObjectValue(&jArg0.Object), jni.LongValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetDeletedRecordId calls android.health.connect.changelog.ChangeLogsResponse$DeletedLog.getDeletedRecordId.
 func (m *ChangeLogsResponseDeletedLog) GetDeletedRecordId() (string, error) {
 	var result string

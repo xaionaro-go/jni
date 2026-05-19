@@ -23,6 +23,35 @@ type ThemedSpinnerAdapterHelper struct {
 	Obj *jni.GlobalRef
 }
 
+// NewThemedSpinnerAdapterHelper creates a new androidx.appcompat.widget.ThemedSpinnerAdapter$Helper instance.
+func NewThemedSpinnerAdapterHelper(vm *jni.VM, arg0 *jni.Object) (*ThemedSpinnerAdapterHelper, error) {
+	var t ThemedSpinnerAdapterHelper
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsThemedSpinnerAdapterHelper == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ThemedSpinnerAdapter$Helper is not available on this device")
+		}
+		if midThemedSpinnerAdapterHelperCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ThemedSpinnerAdapter$Helper constructor (Landroid/content/Context;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsThemedSpinnerAdapterHelper)), midThemedSpinnerAdapterHelperCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetDropDownViewTheme calls androidx.appcompat.widget.ThemedSpinnerAdapter$Helper.setDropDownViewTheme.
 func (m *ThemedSpinnerAdapterHelper) SetDropDownViewTheme(arg0 *jni.Object) error {
 

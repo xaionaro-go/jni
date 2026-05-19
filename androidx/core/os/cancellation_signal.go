@@ -32,6 +32,12 @@ func NewCancellationSignal(vm *jni.VM) (*CancellationSignal, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCancellationSignal == nil {
+			return fmt.Errorf("androidx.core.os.CancellationSignal is not available on this device")
+		}
+		if midCancellationSignalCtor == nil {
+			return fmt.Errorf("androidx.core.os.CancellationSignal constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCancellationSignal)), midCancellationSignalCtor)
 		if err != nil {
 			return err

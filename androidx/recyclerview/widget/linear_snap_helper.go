@@ -32,6 +32,12 @@ func NewLinearSnapHelper(vm *jni.VM) (*LinearSnapHelper, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLinearSnapHelper == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.LinearSnapHelper is not available on this device")
+		}
+		if midLinearSnapHelperCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.LinearSnapHelper constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLinearSnapHelper)), midLinearSnapHelperCtor)
 		if err != nil {
 			return err

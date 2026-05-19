@@ -32,6 +32,12 @@ func NewNodeInfo(vm *jni.VM) (*NodeInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNodeInfo == nil {
+			return fmt.Errorf("android.view.accessibility.AccessibilityNodeInfo is not available on this device")
+		}
+		if midNodeInfoCtor == nil {
+			return fmt.Errorf("android.view.accessibility.AccessibilityNodeInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNodeInfo)), midNodeInfoCtor)
 		if err != nil {
 			return err
@@ -4665,29 +4671,6 @@ func (m *NodeInfo) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.accessibility.AccessibilityNodeInfo.writeToParcel.
-func (m *NodeInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midNodeInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.accessibility.AccessibilityNodeInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midNodeInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // Obtain0 calls android.view.accessibility.AccessibilityNodeInfo.obtain.
 func (m *NodeInfo) Obtain0() (*jni.Object, error) {
 	var result *jni.Object
@@ -4817,4 +4800,27 @@ func (m *NodeInfo) Obtain2_3(arg0 *jni.Object, arg1 int32) (*jni.Object, error) 
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.accessibility.AccessibilityNodeInfo.writeToParcel.
+func (m *NodeInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midNodeInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.accessibility.AccessibilityNodeInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsNodeInfo)),
+			midNodeInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -32,6 +32,12 @@ func NewExecuteInIsolatedServiceResponse(vm *jni.VM, arg0 *jni.Object, arg1 int3
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsExecuteInIsolatedServiceResponse == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.ExecuteInIsolatedServiceResponse is not available on this device")
+		}
+		if midExecuteInIsolatedServiceResponseCtor == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.ExecuteInIsolatedServiceResponse constructor (Landroid/adservices/ondevicepersonalization/SurfacePackageToken;I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExecuteInIsolatedServiceResponse)), midExecuteInIsolatedServiceResponseCtor, jni.ObjectValue(arg0), jni.IntValue(arg1))
 		if err != nil {

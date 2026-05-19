@@ -32,6 +32,12 @@ func NewCursorWindow(vm *jni.VM, arg0 bool) (*CursorWindow, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCursorWindow == nil {
+			return fmt.Errorf("android.database.CursorWindow is not available on this device")
+		}
+		if midCursorWindowCtor == nil {
+			return fmt.Errorf("android.database.CursorWindow constructor (Z)V is not available on this device")
+		}
 		var jArg0 uint8
 		if arg0 {
 			jArg0 = jniTrue
@@ -819,29 +825,6 @@ func (m *CursorWindow) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.database.CursorWindow.writeToParcel.
-func (m *CursorWindow) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCursorWindowWriteToParcel == nil {
-			callErr = fmt.Errorf("android.database.CursorWindow.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midCursorWindowWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // NewFromParcel calls android.database.CursorWindow.newFromParcel.
 func (m *CursorWindow) NewFromParcel(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
@@ -873,4 +856,27 @@ func (m *CursorWindow) NewFromParcel(arg0 *jni.Object) (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.database.CursorWindow.writeToParcel.
+func (m *CursorWindow) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCursorWindowWriteToParcel == nil {
+			callErr = fmt.Errorf("android.database.CursorWindow.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsCursorWindow)),
+			midCursorWindowWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

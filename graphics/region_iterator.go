@@ -32,6 +32,12 @@ func NewRegionIterator(vm *jni.VM, arg0 *jni.Object) (*RegionIterator, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRegionIterator == nil {
+			return fmt.Errorf("android.graphics.RegionIterator is not available on this device")
+		}
+		if midRegionIteratorCtor == nil {
+			return fmt.Errorf("android.graphics.RegionIterator constructor (Landroid/graphics/Region;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRegionIterator)), midRegionIteratorCtor, jni.ObjectValue(arg0))
 		if err != nil {

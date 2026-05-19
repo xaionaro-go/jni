@@ -5,83 +5,6 @@
 package: animation
 go_import: github.com/AndroidGoLab/jni/androidx/dynamicanimation/animation
 classes:
-    - java_class: androidx.dynamicanimation.animation.FlingAnimation
-      go_type: FlingAnimation
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.dynamicanimation.animation.FloatValueHolder
-          go_name: arg0
-      methods:
-        - java_method: setFriction
-          go_name: SetFriction
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: androidx.dynamicanimation.animation.FlingAnimation
-          error: true
-        - java_method: getFriction
-          go_name: GetFriction
-          returns: float
-          error: true
-        - java_method: setMinValue
-          go_name: SetMinValue1
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: androidx.dynamicanimation.animation.FlingAnimation
-          error: true
-        - java_method: setMaxValue
-          go_name: SetMaxValue1
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: androidx.dynamicanimation.animation.FlingAnimation
-          error: true
-        - java_method: setStartVelocity
-          go_name: SetStartVelocity1
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: androidx.dynamicanimation.animation.FlingAnimation
-          error: true
-        - java_method: setMinValue
-          go_name: SetMinValue1_1
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: androidx.dynamicanimation.animation.DynamicAnimation
-          error: true
-        - java_method: setMaxValue
-          go_name: SetMaxValue1_1
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: androidx.dynamicanimation.animation.DynamicAnimation
-          error: true
-        - java_method: setStartVelocity
-          go_name: SetStartVelocity1_1
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: androidx.dynamicanimation.animation.DynamicAnimation
-          error: true
-    - java_class: androidx.dynamicanimation.animation.FloatPropertyCompat
-      go_type: FloatPropertyCompat
-    - java_class: androidx.dynamicanimation.animation.FloatValueHolder
-      go_type: FloatValueHolder
-      obtain: constructor
-      methods:
-        - java_method: setValue
-          go_name: SetValue
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getValue
-          go_name: GetValue
-          returns: float
-          error: true
     - java_class: androidx.dynamicanimation.animation.DynamicAnimation
       go_type: DynamicAnimation
       methods:
@@ -152,8 +75,62 @@ classes:
               go_name: arg2
           returns: void
           error: true
+    - java_class: androidx.dynamicanimation.animation.FloatValueHolder
+      go_type: FloatValueHolder
+      obtain: constructor
+      methods:
+        - java_method: setValue
+          go_name: SetValue
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getValue
+          go_name: GetValue
+          returns: float
+          error: true
     - java_class: androidx.dynamicanimation.animation.DynamicAnimation$ViewProperty
       go_type: DynamicAnimationViewProperty
+    - java_class: androidx.dynamicanimation.animation.FlingAnimation
+      go_type: FlingAnimation
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.dynamicanimation.animation.FloatValueHolder
+          go_name: arg0
+      methods:
+        - java_method: setFriction
+          go_name: SetFriction
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: androidx.dynamicanimation.animation.FlingAnimation
+          error: true
+        - java_method: getFriction
+          go_name: GetFriction
+          returns: float
+          error: true
+        - java_method: setMinValue
+          go_name: SetMinValue
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: androidx.dynamicanimation.animation.FlingAnimation
+          error: true
+        - java_method: setMaxValue
+          go_name: SetMaxValue
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: androidx.dynamicanimation.animation.FlingAnimation
+          error: true
+        - java_method: setStartVelocity
+          go_name: SetStartVelocity
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: androidx.dynamicanimation.animation.FlingAnimation
+          error: true
     - java_class: androidx.dynamicanimation.animation.SpringAnimation
       go_type: SpringAnimation
       obtain: constructor
@@ -191,6 +168,8 @@ classes:
           go_name: CanSkipToEnd
           returns: boolean
           error: true
+    - java_class: androidx.dynamicanimation.animation.FloatPropertyCompat
+      go_type: FloatPropertyCompat
     - java_class: androidx.dynamicanimation.animation.SpringForce
       go_type: SpringForce
       obtain: constructor
@@ -246,41 +225,16 @@ classes:
               go_name: arg1
           returns: boolean
           error: true
-abstract_callbacks:
+abstract_callback_eligibility:
     - java_class: androidx.dynamicanimation.animation.DynamicAnimation
-      go_type: DynamicAnimationCallback
-      methods:
-        - java_method: removeEndListener
-          params:
-            - androidx.dynamicanimation.animation.DynamicAnimation$OnAnimationEndListener
-          returns: void
-          go_field: RemoveEndListener
-        - java_method: removeUpdateListener
-          params:
-            - androidx.dynamicanimation.animation.DynamicAnimation$OnAnimationUpdateListener
-          returns: void
-          go_field: RemoveUpdateListener
-        - java_method: getMinimumVisibleChange
-          params: []
-          returns: float
-          go_field: GetMinimumVisibleChange
-        - java_method: start
-          params: []
-          returns: void
-          go_field: Start
-        - java_method: cancel
-          params: []
-          returns: void
-          go_field: Cancel
-        - java_method: isRunning
-          params: []
-          returns: boolean
-          go_field: IsRunning
-        - java_method: doAnimationFrame
-          params:
-            - long
-          returns: boolean
-          go_field: DoAnimationFrame
+      generated: false
+      reason: implements_interface
+    - java_class: androidx.dynamicanimation.animation.DynamicAnimation$ViewProperty
+      generated: false
+      reason: unsupported_constructor
+    - java_class: androidx.dynamicanimation.animation.FloatPropertyCompat
+      generated: false
+      reason: unsupported_constructor
 constants:
     - go_name: TranslationX
       value: "0"

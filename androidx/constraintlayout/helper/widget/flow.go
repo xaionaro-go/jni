@@ -32,6 +32,12 @@ func NewFlow(vm *jni.VM, arg0 *jni.Object) (*Flow, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFlow == nil {
+			return fmt.Errorf("androidx.constraintlayout.helper.widget.Flow is not available on this device")
+		}
+		if midFlowCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.helper.widget.Flow constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFlow)), midFlowCtor, jni.ObjectValue(arg0))
 		if err != nil {

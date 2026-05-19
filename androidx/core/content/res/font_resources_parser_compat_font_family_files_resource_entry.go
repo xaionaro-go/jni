@@ -23,6 +23,35 @@ type FontResourcesParserCompatFontFamilyFilesResourceEntry struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFontResourcesParserCompatFontFamilyFilesResourceEntry creates a new androidx.core.content.res.FontResourcesParserCompat$FontFamilyFilesResourceEntry instance.
+func NewFontResourcesParserCompatFontFamilyFilesResourceEntry(vm *jni.VM, arg0 *jni.Object) (*FontResourcesParserCompatFontFamilyFilesResourceEntry, error) {
+	var t FontResourcesParserCompatFontFamilyFilesResourceEntry
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFontResourcesParserCompatFontFamilyFilesResourceEntry == nil {
+			return fmt.Errorf("androidx.core.content.res.FontResourcesParserCompat$FontFamilyFilesResourceEntry is not available on this device")
+		}
+		if midFontResourcesParserCompatFontFamilyFilesResourceEntryCtor == nil {
+			return fmt.Errorf("androidx.core.content.res.FontResourcesParserCompat$FontFamilyFilesResourceEntry constructor ([Landroidx/core/content/res/FontResourcesParserCompat$FontFileResourceEntry;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFamilyFilesResourceEntry)), midFontResourcesParserCompatFontFamilyFilesResourceEntryCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetEntries calls androidx.core.content.res.FontResourcesParserCompat$FontFamilyFilesResourceEntry.getEntries.
 func (m *FontResourcesParserCompatFontFamilyFilesResourceEntry) GetEntries() (*jni.Object, error) {
 	var result *jni.Object

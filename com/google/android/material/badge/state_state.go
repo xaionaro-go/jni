@@ -23,6 +23,34 @@ type StateState struct {
 	Obj *jni.GlobalRef
 }
 
+// NewStateState creates a new com.google.android.material.badge.BadgeState$State instance.
+func NewStateState(vm *jni.VM) (*StateState, error) {
+	var t StateState
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsStateState == nil {
+			return fmt.Errorf("com.google.android.material.badge.BadgeState$State is not available on this device")
+		}
+		if midStateStateCtor == nil {
+			return fmt.Errorf("com.google.android.material.badge.BadgeState$State constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStateState)), midStateStateCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls com.google.android.material.badge.BadgeState$State.describeContents.
 func (m *StateState) DescribeContents() (int32, error) {
 	var result int32
@@ -46,29 +74,6 @@ func (m *StateState) DescribeContents() (int32, error) {
 		return callErr
 	})
 	return result, callErr
-}
-
-// WriteToParcel calls com.google.android.material.badge.BadgeState$State.writeToParcel.
-func (m *StateState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midStateStateWriteToParcel == nil {
-			callErr = fmt.Errorf("com.google.android.material.badge.BadgeState$State.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midStateStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // ToString calls com.google.android.material.badge.BadgeState$State.toString.

@@ -32,6 +32,12 @@ func NewListMenuPresenter(vm *jni.VM, arg0 *jni.Object, arg1 int32) (*ListMenuPr
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsListMenuPresenter == nil {
+			return fmt.Errorf("androidx.appcompat.view.menu.ListMenuPresenter is not available on this device")
+		}
+		if midListMenuPresenterCtor == nil {
+			return fmt.Errorf("androidx.appcompat.view.menu.ListMenuPresenter constructor (Landroid/content/Context;I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsListMenuPresenter)), midListMenuPresenterCtor, jni.ObjectValue(arg0), jni.IntValue(arg1))
 		if err != nil {

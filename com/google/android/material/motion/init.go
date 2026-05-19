@@ -23,6 +23,28 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsMaterialBackHandler                   *jni.GlobalRef
+	midMaterialBackHandlerStartBackProgress  jni.MethodID
+	midMaterialBackHandlerUpdateBackProgress jni.MethodID
+	midMaterialBackHandlerHandleBackInvoked  jni.MethodID
+	midMaterialBackHandlerCancelBackProgress jni.MethodID
+	midMaterialBackHandlerToString           jni.MethodID
+
+	clsMaterialBottomContainerBackHelper                                *jni.GlobalRef
+	midMaterialBottomContainerBackHelperCtor                            jni.MethodID
+	midMaterialBottomContainerBackHelperStartBackProgress               jni.MethodID
+	midMaterialBottomContainerBackHelperUpdateBackProgress1             jni.MethodID
+	midMaterialBottomContainerBackHelperUpdateBackProgress1_1           jni.MethodID
+	midMaterialBottomContainerBackHelperFinishBackProgressPersistent    jni.MethodID
+	midMaterialBottomContainerBackHelperFinishBackProgressNotPersistent jni.MethodID
+	midMaterialBottomContainerBackHelperCancelBackProgress              jni.MethodID
+	midMaterialBottomContainerBackHelperToString                        jni.MethodID
+
+	clsUtils                         *jni.GlobalRef
+	midUtilsToString                 jni.MethodID
+	midUtilsResolveThemeDuration     jni.MethodID
+	midUtilsResolveThemeInterpolator jni.MethodID
+
 	clsMaterialBackOrchestrator                                                  *jni.GlobalRef
 	midMaterialBackOrchestratorCtor                                              jni.MethodID
 	midMaterialBackOrchestratorShouldListenForBackCallbacks                      jni.MethodID
@@ -40,27 +62,10 @@ var (
 	midMaterialSideContainerBackHelperCancelBackProgress    jni.MethodID
 	midMaterialSideContainerBackHelperToString              jni.MethodID
 
-	clsUtils                         *jni.GlobalRef
-	midUtilsToString                 jni.MethodID
-	midUtilsResolveThemeDuration     jni.MethodID
-	midUtilsResolveThemeInterpolator jni.MethodID
-
-	clsMaterialBottomContainerBackHelper                                *jni.GlobalRef
-	midMaterialBottomContainerBackHelperCtor                            jni.MethodID
-	midMaterialBottomContainerBackHelperStartBackProgress               jni.MethodID
-	midMaterialBottomContainerBackHelperUpdateBackProgress1             jni.MethodID
-	midMaterialBottomContainerBackHelperUpdateBackProgress1_1           jni.MethodID
-	midMaterialBottomContainerBackHelperFinishBackProgressPersistent    jni.MethodID
-	midMaterialBottomContainerBackHelperFinishBackProgressNotPersistent jni.MethodID
-	midMaterialBottomContainerBackHelperCancelBackProgress              jni.MethodID
-	midMaterialBottomContainerBackHelperToString                        jni.MethodID
-
-	clsMaterialBackHandler                   *jni.GlobalRef
-	midMaterialBackHandlerStartBackProgress  jni.MethodID
-	midMaterialBackHandlerUpdateBackProgress jni.MethodID
-	midMaterialBackHandlerHandleBackInvoked  jni.MethodID
-	midMaterialBackHandlerCancelBackProgress jni.MethodID
-	midMaterialBackHandlerToString           jni.MethodID
+	clsMaterialBackAnimationHelper                    *jni.GlobalRef
+	midMaterialBackAnimationHelperInterpolateProgress jni.MethodID
+	midMaterialBackAnimationHelperOnHandleBackInvoked jni.MethodID
+	midMaterialBackAnimationHelperToString            jni.MethodID
 
 	clsMaterialMainContainerBackHelper                             *jni.GlobalRef
 	midMaterialMainContainerBackHelperCtor                         jni.MethodID
@@ -74,11 +79,6 @@ var (
 	midMaterialMainContainerBackHelperCancelBackProgress           jni.MethodID
 	midMaterialMainContainerBackHelperGetExpandedCornerSize        jni.MethodID
 	midMaterialMainContainerBackHelperToString                     jni.MethodID
-
-	clsMaterialBackAnimationHelper                    *jni.GlobalRef
-	midMaterialBackAnimationHelperInterpolateProgress jni.MethodID
-	midMaterialBackAnimationHelperOnHandleBackInvoked jni.MethodID
-	midMaterialBackAnimationHelperToString            jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -98,6 +98,145 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("com/google/android/material/motion/MaterialBackHandler")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMaterialBackHandler = env.NewGlobalRef(&c.Object)
+
+		midMaterialBackHandlerStartBackProgress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBackHandler)), "startBackProgress", "(Landroidx/activity/BackEventCompat;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialBackHandlerUpdateBackProgress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBackHandler)), "updateBackProgress", "(Landroidx/activity/BackEventCompat;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialBackHandlerHandleBackInvoked, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBackHandler)), "handleBackInvoked", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialBackHandlerCancelBackProgress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBackHandler)), "cancelBackProgress", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialBackHandlerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBackHandler)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/motion/MaterialBottomContainerBackHelper")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMaterialBottomContainerBackHelper = env.NewGlobalRef(&c.Object)
+		midMaterialBottomContainerBackHelperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBottomContainerBackHelper)), "<init>", "(Landroid/view/View;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMaterialBottomContainerBackHelperStartBackProgress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBottomContainerBackHelper)), "startBackProgress", "(Landroidx/activity/BackEventCompat;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialBottomContainerBackHelperUpdateBackProgress1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBottomContainerBackHelper)), "updateBackProgress", "(Landroidx/activity/BackEventCompat;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialBottomContainerBackHelperUpdateBackProgress1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBottomContainerBackHelper)), "updateBackProgress", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialBottomContainerBackHelperFinishBackProgressPersistent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBottomContainerBackHelper)), "finishBackProgressPersistent", "(Landroidx/activity/BackEventCompat;Landroid/animation/Animator$AnimatorListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialBottomContainerBackHelperFinishBackProgressNotPersistent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBottomContainerBackHelper)), "finishBackProgressNotPersistent", "(Landroidx/activity/BackEventCompat;Landroid/animation/Animator$AnimatorListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialBottomContainerBackHelperCancelBackProgress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBottomContainerBackHelper)), "cancelBackProgress", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialBottomContainerBackHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBottomContainerBackHelper)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/motion/MotionUtils")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsUtils = env.NewGlobalRef(&c.Object)
+
+		midUtilsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUtils)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midUtilsResolveThemeDuration, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsUtils)), "resolveThemeDuration", "(Landroid/content/Context;II)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midUtilsResolveThemeInterpolator, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsUtils)), "resolveThemeInterpolator", "(Landroid/content/Context;ILandroid/animation/TimeInterpolator;)Landroid/animation/TimeInterpolator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("com/google/android/material/motion/MaterialBackOrchestrator")
 	if err != nil {
@@ -204,137 +343,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/motion/MotionUtils")
+	c, err = env.FindClass("com/google/android/material/motion/MaterialBackAnimationHelper")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsUtils = env.NewGlobalRef(&c.Object)
+		clsMaterialBackAnimationHelper = env.NewGlobalRef(&c.Object)
 
-		midUtilsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUtils)), "toString", "()Ljava/lang/String;")
+		midMaterialBackAnimationHelperInterpolateProgress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBackAnimationHelper)), "interpolateProgress", "(F)F")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midUtilsResolveThemeDuration, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsUtils)), "resolveThemeDuration", "(Landroid/content/Context;II)I")
+		midMaterialBackAnimationHelperOnHandleBackInvoked, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBackAnimationHelper)), "onHandleBackInvoked", "()Landroidx/activity/BackEventCompat;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midUtilsResolveThemeInterpolator, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsUtils)), "resolveThemeInterpolator", "(Landroid/content/Context;ILandroid/animation/TimeInterpolator;)Landroid/animation/TimeInterpolator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/motion/MaterialBottomContainerBackHelper")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMaterialBottomContainerBackHelper = env.NewGlobalRef(&c.Object)
-		midMaterialBottomContainerBackHelperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBottomContainerBackHelper)), "<init>", "(Landroid/view/View;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMaterialBottomContainerBackHelperStartBackProgress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBottomContainerBackHelper)), "startBackProgress", "(Landroidx/activity/BackEventCompat;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialBottomContainerBackHelperUpdateBackProgress1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBottomContainerBackHelper)), "updateBackProgress", "(Landroidx/activity/BackEventCompat;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialBottomContainerBackHelperUpdateBackProgress1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBottomContainerBackHelper)), "updateBackProgress", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialBottomContainerBackHelperFinishBackProgressPersistent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBottomContainerBackHelper)), "finishBackProgressPersistent", "(Landroidx/activity/BackEventCompat;Landroid/animation/Animator$AnimatorListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialBottomContainerBackHelperFinishBackProgressNotPersistent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBottomContainerBackHelper)), "finishBackProgressNotPersistent", "(Landroidx/activity/BackEventCompat;Landroid/animation/Animator$AnimatorListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialBottomContainerBackHelperCancelBackProgress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBottomContainerBackHelper)), "cancelBackProgress", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialBottomContainerBackHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBottomContainerBackHelper)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/motion/MaterialBackHandler")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMaterialBackHandler = env.NewGlobalRef(&c.Object)
-
-		midMaterialBackHandlerStartBackProgress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBackHandler)), "startBackProgress", "(Landroidx/activity/BackEventCompat;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialBackHandlerUpdateBackProgress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBackHandler)), "updateBackProgress", "(Landroidx/activity/BackEventCompat;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialBackHandlerHandleBackInvoked, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBackHandler)), "handleBackInvoked", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialBackHandlerCancelBackProgress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBackHandler)), "cancelBackProgress", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialBackHandlerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBackHandler)), "toString", "()Ljava/lang/String;")
+		midMaterialBackAnimationHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBackAnimationHelper)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -419,37 +450,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midMaterialMainContainerBackHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialMainContainerBackHelper)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/motion/MaterialBackAnimationHelper")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMaterialBackAnimationHelper = env.NewGlobalRef(&c.Object)
-
-		midMaterialBackAnimationHelperInterpolateProgress, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBackAnimationHelper)), "interpolateProgress", "(F)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialBackAnimationHelperOnHandleBackInvoked, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBackAnimationHelper)), "onHandleBackInvoked", "()Landroidx/activity/BackEventCompat;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialBackAnimationHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialBackAnimationHelper)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

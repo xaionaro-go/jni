@@ -3,19 +3,13 @@
 package consts
 
 const (
-	ServiceInterface                string = "android.nfc.cardemulation.action.OFF_HOST_APDU_SERVICE"
-	ServiceMetaData                 string = "android.nfc.cardemulation.off_host_apdu_service"
-	ActionChangeDefault             string = "android.nfc.cardemulation.action.ACTION_CHANGE_DEFAULT"
-	CategoryOther                   string = "other"
-	CategoryPayment                 string = "payment"
-	ExtraCategory                   string = "category"
-	ExtraServiceComponent           string = "component"
-	PropertyAllowSharedRolePriority string = "android.nfc.cardemulation.PROPERTY_ALLOW_SHARED_ROLE_PRIORITY"
-)
-
-const (
-	DeactivationDeselected            int = 1
-	DeactivationLinkLoss              int = 0
+	Creator                           int = 0
+	PollingLoopTypeA                  int = 65
+	PollingLoopTypeB                  int = 66
+	PollingLoopTypeF                  int = 70
+	PollingLoopTypeOff                int = 88
+	PollingLoopTypeOn                 int = 79
+	PollingLoopTypeUnknown            int = 85
 	NfcInternalErrorCommandTimeout    int = 3
 	NfcInternalErrorNfcCrashRestart   int = 1
 	NfcInternalErrorNfcHardwareError  int = 2
@@ -28,11 +22,17 @@ const (
 	SelectionModeAlwaysAsk            int = 1
 	SelectionModeAskIfConflict        int = 2
 	SelectionModePreferDefault        int = 0
-	Creator                           int = 0
-	PollingLoopTypeA                  int = 65
-	PollingLoopTypeB                  int = 66
-	PollingLoopTypeF                  int = 70
-	PollingLoopTypeOff                int = 88
-	PollingLoopTypeOn                 int = 79
-	PollingLoopTypeUnknown            int = 85
+	DeactivationDeselected            int = 1
+	DeactivationLinkLoss              int = 0
+)
+
+const (
+	ActionChangeDefault             string = "android.nfc.cardemulation.action.ACTION_CHANGE_DEFAULT"
+	CategoryOther                   string = "other"
+	CategoryPayment                 string = "payment"
+	ExtraCategory                   string = "category"
+	ExtraServiceComponent           string = "component"
+	PropertyAllowSharedRolePriority string = "android.nfc.cardemulation.PROPERTY_ALLOW_SHARED_ROLE_PRIORITY"
+	ServiceInterface                string = "android.nfc.cardemulation.action.HOST_APDU_SERVICE"
+	ServiceMetaData                 string = "android.nfc.cardemulation.host_apdu_service"
 )

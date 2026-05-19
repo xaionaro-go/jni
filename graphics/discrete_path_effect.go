@@ -32,6 +32,12 @@ func NewDiscretePathEffect(vm *jni.VM, arg0 float32, arg1 float32) (*DiscretePat
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDiscretePathEffect == nil {
+			return fmt.Errorf("android.graphics.DiscretePathEffect is not available on this device")
+		}
+		if midDiscretePathEffectCtor == nil {
+			return fmt.Errorf("android.graphics.DiscretePathEffect constructor (FF)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDiscretePathEffect)), midDiscretePathEffectCtor, jni.FloatValue(arg0), jni.FloatValue(arg1))
 		if err != nil {

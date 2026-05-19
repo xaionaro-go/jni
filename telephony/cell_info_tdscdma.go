@@ -76,8 +76,8 @@ func (m *CellInfoTdscdma) Equals(arg0 *jni.Object) (bool, error) {
 	return result, callErr
 }
 
-// GetCellIdentity0 calls android.telephony.CellInfoTdscdma.getCellIdentity.
-func (m *CellInfoTdscdma) GetCellIdentity0() (*jni.Object, error) {
+// GetCellIdentity calls android.telephony.CellInfoTdscdma.getCellIdentity.
+func (m *CellInfoTdscdma) GetCellIdentity() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -85,13 +85,13 @@ func (m *CellInfoTdscdma) GetCellIdentity0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midCellInfoTdscdmaGetCellIdentity0 == nil {
+		if midCellInfoTdscdmaGetCellIdentity == nil {
 			callErr = fmt.Errorf("android.telephony.CellInfoTdscdma.getCellIdentity is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midCellInfoTdscdmaGetCellIdentity0,
+			midCellInfoTdscdmaGetCellIdentity,
 		)
 		if callErr != nil {
 			return callErr
@@ -108,8 +108,8 @@ func (m *CellInfoTdscdma) GetCellIdentity0() (*jni.Object, error) {
 	return result, callErr
 }
 
-// GetCellSignalStrength0 calls android.telephony.CellInfoTdscdma.getCellSignalStrength.
-func (m *CellInfoTdscdma) GetCellSignalStrength0() (*jni.Object, error) {
+// GetCellSignalStrength calls android.telephony.CellInfoTdscdma.getCellSignalStrength.
+func (m *CellInfoTdscdma) GetCellSignalStrength() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -117,13 +117,13 @@ func (m *CellInfoTdscdma) GetCellSignalStrength0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midCellInfoTdscdmaGetCellSignalStrength0 == nil {
+		if midCellInfoTdscdmaGetCellSignalStrength == nil {
 			callErr = fmt.Errorf("android.telephony.CellInfoTdscdma.getCellSignalStrength is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midCellInfoTdscdmaGetCellSignalStrength0,
+			midCellInfoTdscdmaGetCellSignalStrength,
 		)
 		if callErr != nil {
 			return callErr
@@ -213,68 +213,4 @@ func (m *CellInfoTdscdma) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 		return callErr
 	})
 	return callErr
-}
-
-// GetCellSignalStrength0_1 calls android.telephony.CellInfoTdscdma.getCellSignalStrength.
-func (m *CellInfoTdscdma) GetCellSignalStrength0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCellInfoTdscdmaGetCellSignalStrength0_1 == nil {
-			callErr = fmt.Errorf("android.telephony.CellInfoTdscdma.getCellSignalStrength is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCellInfoTdscdmaGetCellSignalStrength0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetCellIdentity0_1 calls android.telephony.CellInfoTdscdma.getCellIdentity.
-func (m *CellInfoTdscdma) GetCellIdentity0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCellInfoTdscdmaGetCellIdentity0_1 == nil {
-			callErr = fmt.Errorf("android.telephony.CellInfoTdscdma.getCellIdentity is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCellInfoTdscdmaGetCellIdentity0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }

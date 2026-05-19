@@ -201,32 +201,6 @@ func (m *GridLayoutManagerSpanSizeLookup) IsSpanGroupIndexCacheEnabled() (bool, 
 	return result, callErr
 }
 
-// GetSpanIndex calls androidx.recyclerview.widget.GridLayoutManager$SpanSizeLookup.getSpanIndex.
-func (m *GridLayoutManagerSpanSizeLookup) GetSpanIndex(arg0 int32, arg1 int32) (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midGridLayoutManagerSpanSizeLookupGetSpanIndex == nil {
-			callErr = fmt.Errorf("androidx.recyclerview.widget.GridLayoutManager$SpanSizeLookup.getSpanIndex is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midGridLayoutManagerSpanSizeLookupGetSpanIndex, jni.IntValue(arg0), jni.IntValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // GetSpanGroupIndex calls androidx.recyclerview.widget.GridLayoutManager$SpanSizeLookup.getSpanGroupIndex.
 func (m *GridLayoutManagerSpanSizeLookup) GetSpanGroupIndex(arg0 int32, arg1 int32) (int32, error) {
 	var result int32
@@ -275,6 +249,32 @@ func (m *GridLayoutManagerSpanSizeLookup) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetSpanIndex calls androidx.recyclerview.widget.GridLayoutManager$SpanSizeLookup.getSpanIndex.
+func (m *GridLayoutManagerSpanSizeLookup) GetSpanIndex(arg0 int32, arg1 int32) (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midGridLayoutManagerSpanSizeLookupGetSpanIndex == nil {
+			callErr = fmt.Errorf("androidx.recyclerview.widget.GridLayoutManager$SpanSizeLookup.getSpanIndex is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsGridLayoutManagerSpanSizeLookup)),
+			midGridLayoutManagerSpanSizeLookupGetSpanIndex, jni.IntValue(arg0), jni.IntValue(arg1),
+		)
+		if callErr != nil {
+			return callErr
+		}
 		return callErr
 	})
 	return result, callErr

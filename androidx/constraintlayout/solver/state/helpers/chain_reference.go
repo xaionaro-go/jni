@@ -32,6 +32,12 @@ func NewChainReference(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ChainRe
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsChainReference == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.state.helpers.ChainReference is not available on this device")
+		}
+		if midChainReferenceCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.state.helpers.ChainReference constructor (Landroidx/constraintlayout/solver/state/State;Landroidx/constraintlayout/solver/state/State$Helper;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsChainReference)), midChainReferenceCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

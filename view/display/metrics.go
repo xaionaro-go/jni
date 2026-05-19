@@ -32,6 +32,12 @@ func NewMetrics(vm *jni.VM) (*Metrics, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMetrics == nil {
+			return fmt.Errorf("android.util.DisplayMetrics is not available on this device")
+		}
+		if midMetricsCtor == nil {
+			return fmt.Errorf("android.util.DisplayMetrics constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMetrics)), midMetricsCtor)
 		if err != nil {
 			return err
@@ -185,8 +191,8 @@ func (m *Metrics) ToString() (string, error) {
 			return callErr
 		}
 		var resultObj *jni.Object
-		resultObj, callErr = env.CallObjectMethod(
-			m.Obj,
+		resultObj, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsMetrics)),
 			midMetricsToString,
 		)
 		if callErr != nil {

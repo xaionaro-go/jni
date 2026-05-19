@@ -32,6 +32,12 @@ func NewOnSwipe(vm *jni.VM) (*OnSwipe, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsOnSwipe == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.OnSwipe is not available on this device")
+		}
+		if midOnSwipeCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.OnSwipe constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsOnSwipe)), midOnSwipeCtor)
 		if err != nil {
 			return err

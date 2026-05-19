@@ -46,29 +46,6 @@ func (m *RangeSliderOnSliderTouchListener) OnStartTrackingTouch(arg0 *jni.Object
 	return callErr
 }
 
-// OnStopTrackingTouch calls com.google.android.material.slider.RangeSlider$OnSliderTouchListener.onStopTrackingTouch.
-func (m *RangeSliderOnSliderTouchListener) OnStopTrackingTouch(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRangeSliderOnSliderTouchListenerOnStopTrackingTouch == nil {
-			callErr = fmt.Errorf("com.google.android.material.slider.RangeSlider$OnSliderTouchListener.onStopTrackingTouch is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midRangeSliderOnSliderTouchListenerOnStopTrackingTouch, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls com.google.android.material.slider.RangeSlider$OnSliderTouchListener.toString.
 func (m *RangeSliderOnSliderTouchListener) ToString() (string, error) {
 	var result string

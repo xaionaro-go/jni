@@ -32,6 +32,12 @@ func NewAppOwnedSdkSandboxInterface(vm *jni.VM, arg0 string, arg1 int64, arg2 *j
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppOwnedSdkSandboxInterface == nil {
+			return fmt.Errorf("android.app.sdksandbox.AppOwnedSdkSandboxInterface is not available on this device")
+		}
+		if midAppOwnedSdkSandboxInterfaceCtor == nil {
+			return fmt.Errorf("android.app.sdksandbox.AppOwnedSdkSandboxInterface constructor (Ljava/lang/String;JLandroid/os/IBinder;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -160,29 +166,6 @@ func (m *AppOwnedSdkSandboxInterface) GetVersion() (int64, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.sdksandbox.AppOwnedSdkSandboxInterface.writeToParcel.
-func (m *AppOwnedSdkSandboxInterface) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppOwnedSdkSandboxInterfaceWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.sdksandbox.AppOwnedSdkSandboxInterface.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAppOwnedSdkSandboxInterfaceWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.sdksandbox.AppOwnedSdkSandboxInterface.toString.
 func (m *AppOwnedSdkSandboxInterface) ToString() (string, error) {
 	var result string
@@ -208,4 +191,27 @@ func (m *AppOwnedSdkSandboxInterface) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.sdksandbox.AppOwnedSdkSandboxInterface.writeToParcel.
+func (m *AppOwnedSdkSandboxInterface) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midAppOwnedSdkSandboxInterfaceWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.sdksandbox.AppOwnedSdkSandboxInterface.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAppOwnedSdkSandboxInterface)),
+			midAppOwnedSdkSandboxInterfaceWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

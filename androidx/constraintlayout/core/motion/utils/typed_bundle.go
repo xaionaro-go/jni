@@ -32,6 +32,12 @@ func NewTypedBundle(vm *jni.VM) (*TypedBundle, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTypedBundle == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.TypedBundle is not available on this device")
+		}
+		if midTypedBundleCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.TypedBundle constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTypedBundle)), midTypedBundleCtor)
 		if err != nil {
 			return err

@@ -5,6 +5,38 @@
 package: sax
 go_import: github.com/AndroidGoLab/jni/sax
 classes:
+    - java_class: android.sax.RootElement
+      go_type: RootElement
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+      methods:
+        - java_method: getContentHandler
+          go_name: GetContentHandler
+          returns: org.xml.sax.ContentHandler
+          error: true
+    - java_class: android.sax.TextElementListener
+      go_type: TextElementListener
+    - java_class: android.sax.ElementListener
+      go_type: ElementListener
+    - java_class: android.sax.StartElementListener
+      go_type: StartElementListener
+      methods:
+        - java_method: start
+          go_name: Start
+          params:
+            - java_type: org.xml.sax.Attributes
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.sax.EndElementListener
+      go_type: EndElementListener
+      methods:
+        - java_method: end
+          go_name: End
+          returns: void
+          error: true
     - java_class: android.sax.Element
       go_type: Element
       methods:
@@ -79,17 +111,6 @@ classes:
           go_name: ToString
           returns: String
           error: true
-    - java_class: android.sax.RootElement
-      go_type: RootElement
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-      methods:
-        - java_method: getContentHandler
-          go_name: GetContentHandler
-          returns: org.xml.sax.ContentHandler
-          error: true
     - java_class: android.sax.EndTextElementListener
       go_type: EndTextElementListener
       methods:
@@ -98,26 +119,5 @@ classes:
           params:
             - java_type: String
               go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.sax.ElementListener
-      go_type: ElementListener
-    - java_class: android.sax.TextElementListener
-      go_type: TextElementListener
-    - java_class: android.sax.StartElementListener
-      go_type: StartElementListener
-      methods:
-        - java_method: start
-          go_name: Start
-          params:
-            - java_type: org.xml.sax.Attributes
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.sax.EndElementListener
-      go_type: EndElementListener
-      methods:
-        - java_method: end
-          go_name: End
           returns: void
           error: true

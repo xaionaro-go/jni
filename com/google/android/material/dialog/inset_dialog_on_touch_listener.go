@@ -32,6 +32,12 @@ func NewInsetDialogOnTouchListener(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Objec
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInsetDialogOnTouchListener == nil {
+			return fmt.Errorf("com.google.android.material.dialog.InsetDialogOnTouchListener is not available on this device")
+		}
+		if midInsetDialogOnTouchListenerCtor == nil {
+			return fmt.Errorf("com.google.android.material.dialog.InsetDialogOnTouchListener constructor (Landroid/app/Dialog;Landroid/graphics/Rect;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInsetDialogOnTouchListener)), midInsetDialogOnTouchListenerCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

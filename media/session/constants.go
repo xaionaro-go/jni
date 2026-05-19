@@ -5,27 +5,6 @@ package session
 import "github.com/AndroidGoLab/jni/media/session/consts"
 
 const (
-	FlagHandlesMediaButtons      = consts.FlagHandlesMediaButtons
-	FlagHandlesTransportControls = consts.FlagHandlesTransportControls
-	Creator                      = consts.Creator
-	UnknownId                    = consts.UnknownId
-	PlaybackTypeLocal            = consts.PlaybackTypeLocal
-	PlaybackTypeRemote           = consts.PlaybackTypeRemote
-	StateBuffering               = consts.StateBuffering
-	StateConnecting              = consts.StateConnecting
-	StateError                   = consts.StateError
-	StateFastForwarding          = consts.StateFastForwarding
-	StateNone                    = consts.StateNone
-	StatePaused                  = consts.StatePaused
-	StatePlaying                 = consts.StatePlaying
-	StateRewinding               = consts.StateRewinding
-	StateSkippingToNext          = consts.StateSkippingToNext
-	StateSkippingToPrevious      = consts.StateSkippingToPrevious
-	StateSkippingToQueueItem     = consts.StateSkippingToQueueItem
-	StateStopped                 = consts.StateStopped
-)
-
-const (
 	ActionFastForward        = consts.ActionFastForward
 	ActionPause              = consts.ActionPause
 	ActionPlay               = consts.ActionPlay
@@ -46,4 +25,25 @@ const (
 	ActionSkipToQueueItem    = consts.ActionSkipToQueueItem
 	ActionStop               = consts.ActionStop
 	PlaybackPositionUnknown  = consts.PlaybackPositionUnknown
+)
+
+const (
+	Creator                      = consts.Creator
+	StateBuffering               = consts.StateBuffering
+	StateConnecting              = consts.StateConnecting
+	StateError                   = consts.StateError
+	StateFastForwarding          = consts.StateFastForwarding
+	StateNone                    = consts.StateNone
+	StatePaused                  = consts.StatePaused
+	StatePlaying                 = consts.StatePlaying
+	StateRewinding               = consts.StateRewinding
+	StateSkippingToNext          = consts.StateSkippingToNext
+	StateSkippingToPrevious      = consts.StateSkippingToPrevious
+	StateSkippingToQueueItem     = consts.StateSkippingToQueueItem
+	StateStopped                 = consts.StateStopped
+	FlagHandlesMediaButtons      = consts.FlagHandlesMediaButtons
+	FlagHandlesTransportControls = consts.FlagHandlesTransportControls
+	UnknownId                    = consts.UnknownId
+	PlaybackTypeLocal            = consts.PlaybackTypeLocal
+	PlaybackTypeRemote           = consts.PlaybackTypeRemote
 )

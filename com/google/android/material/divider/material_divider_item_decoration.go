@@ -32,6 +32,12 @@ func NewMaterialDividerItemDecoration(vm *jni.VM, arg0 *jni.Object, arg1 int32) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialDividerItemDecoration == nil {
+			return fmt.Errorf("com.google.android.material.divider.MaterialDividerItemDecoration is not available on this device")
+		}
+		if midMaterialDividerItemDecorationCtor == nil {
+			return fmt.Errorf("com.google.android.material.divider.MaterialDividerItemDecoration constructor (Landroid/content/Context;I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialDividerItemDecoration)), midMaterialDividerItemDecorationCtor, jni.ObjectValue(arg0), jni.IntValue(arg1))
 		if err != nil {

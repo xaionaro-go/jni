@@ -23,6 +23,34 @@ type AddCustomAudienceOverrideRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAddCustomAudienceOverrideRequestBuilder creates a new android.adservices.customaudience.AddCustomAudienceOverrideRequest$Builder instance.
+func NewAddCustomAudienceOverrideRequestBuilder(vm *jni.VM) (*AddCustomAudienceOverrideRequestBuilder, error) {
+	var t AddCustomAudienceOverrideRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAddCustomAudienceOverrideRequestBuilder == nil {
+			return fmt.Errorf("android.adservices.customaudience.AddCustomAudienceOverrideRequest$Builder is not available on this device")
+		}
+		if midAddCustomAudienceOverrideRequestBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.customaudience.AddCustomAudienceOverrideRequest$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAddCustomAudienceOverrideRequestBuilder)), midAddCustomAudienceOverrideRequestBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.customaudience.AddCustomAudienceOverrideRequest$Builder.build.
 func (m *AddCustomAudienceOverrideRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

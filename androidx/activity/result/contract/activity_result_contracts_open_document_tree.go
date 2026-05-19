@@ -23,8 +23,36 @@ type ActivityResultContractsOpenDocumentTree struct {
 	Obj *jni.GlobalRef
 }
 
-// CreateIntent2 calls androidx.activity.result.contract.ActivityResultContracts$OpenDocumentTree.createIntent.
-func (m *ActivityResultContractsOpenDocumentTree) CreateIntent2(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
+// NewActivityResultContractsOpenDocumentTree creates a new androidx.activity.result.contract.ActivityResultContracts$OpenDocumentTree instance.
+func NewActivityResultContractsOpenDocumentTree(vm *jni.VM) (*ActivityResultContractsOpenDocumentTree, error) {
+	var t ActivityResultContractsOpenDocumentTree
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsActivityResultContractsOpenDocumentTree == nil {
+			return fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$OpenDocumentTree is not available on this device")
+		}
+		if midActivityResultContractsOpenDocumentTreeCtor == nil {
+			return fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$OpenDocumentTree constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivityResultContractsOpenDocumentTree)), midActivityResultContractsOpenDocumentTreeCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
+// CreateIntent calls androidx.activity.result.contract.ActivityResultContracts$OpenDocumentTree.createIntent.
+func (m *ActivityResultContractsOpenDocumentTree) CreateIntent(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -32,14 +60,14 @@ func (m *ActivityResultContractsOpenDocumentTree) CreateIntent2(arg0 *jni.Object
 			callErr = err
 			return err
 		}
-		if midActivityResultContractsOpenDocumentTreeCreateIntent2 == nil {
+		if midActivityResultContractsOpenDocumentTreeCreateIntent == nil {
 			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$OpenDocumentTree.createIntent is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActivityResultContractsOpenDocumentTreeCreateIntent2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midActivityResultContractsOpenDocumentTreeCreateIntent, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr
@@ -56,8 +84,8 @@ func (m *ActivityResultContractsOpenDocumentTree) CreateIntent2(arg0 *jni.Object
 	return result, callErr
 }
 
-// GetSynchronousResult2 calls androidx.activity.result.contract.ActivityResultContracts$OpenDocumentTree.getSynchronousResult.
-func (m *ActivityResultContractsOpenDocumentTree) GetSynchronousResult2(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
+// GetSynchronousResult calls androidx.activity.result.contract.ActivityResultContracts$OpenDocumentTree.getSynchronousResult.
+func (m *ActivityResultContractsOpenDocumentTree) GetSynchronousResult(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -65,14 +93,14 @@ func (m *ActivityResultContractsOpenDocumentTree) GetSynchronousResult2(arg0 *jn
 			callErr = err
 			return err
 		}
-		if midActivityResultContractsOpenDocumentTreeGetSynchronousResult2 == nil {
+		if midActivityResultContractsOpenDocumentTreeGetSynchronousResult == nil {
 			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$OpenDocumentTree.getSynchronousResult is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActivityResultContractsOpenDocumentTreeGetSynchronousResult2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midActivityResultContractsOpenDocumentTreeGetSynchronousResult, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr
@@ -89,8 +117,8 @@ func (m *ActivityResultContractsOpenDocumentTree) GetSynchronousResult2(arg0 *jn
 	return result, callErr
 }
 
-// ParseResult2 calls androidx.activity.result.contract.ActivityResultContracts$OpenDocumentTree.parseResult.
-func (m *ActivityResultContractsOpenDocumentTree) ParseResult2(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
+// ParseResult calls androidx.activity.result.contract.ActivityResultContracts$OpenDocumentTree.parseResult.
+func (m *ActivityResultContractsOpenDocumentTree) ParseResult(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -98,113 +126,14 @@ func (m *ActivityResultContractsOpenDocumentTree) ParseResult2(arg0 int32, arg1 
 			callErr = err
 			return err
 		}
-		if midActivityResultContractsOpenDocumentTreeParseResult2 == nil {
+		if midActivityResultContractsOpenDocumentTreeParseResult == nil {
 			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$OpenDocumentTree.parseResult is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActivityResultContractsOpenDocumentTreeParseResult2, jni.IntValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// CreateIntent2_1 calls androidx.activity.result.contract.ActivityResultContracts$OpenDocumentTree.createIntent.
-func (m *ActivityResultContractsOpenDocumentTree) CreateIntent2_1(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsOpenDocumentTreeCreateIntent2_1 == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$OpenDocumentTree.createIntent is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsOpenDocumentTreeCreateIntent2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetSynchronousResult2_1 calls androidx.activity.result.contract.ActivityResultContracts$OpenDocumentTree.getSynchronousResult.
-func (m *ActivityResultContractsOpenDocumentTree) GetSynchronousResult2_1(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsOpenDocumentTreeGetSynchronousResult2_1 == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$OpenDocumentTree.getSynchronousResult is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsOpenDocumentTreeGetSynchronousResult2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// ParseResult2_1 calls androidx.activity.result.contract.ActivityResultContracts$OpenDocumentTree.parseResult.
-func (m *ActivityResultContractsOpenDocumentTree) ParseResult2_1(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsOpenDocumentTreeParseResult2_1 == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$OpenDocumentTree.parseResult is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsOpenDocumentTreeParseResult2_1, jni.IntValue(arg0), jni.ObjectValue(arg1),
+			midActivityResultContractsOpenDocumentTreeParseResult, jni.IntValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr

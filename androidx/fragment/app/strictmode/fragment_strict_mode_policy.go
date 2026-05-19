@@ -23,6 +23,67 @@ type FragmentStrictModePolicy struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFragmentStrictModePolicy creates a new androidx.fragment.app.strictmode.FragmentStrictMode$Policy instance.
+func NewFragmentStrictModePolicy(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.Object) (*FragmentStrictModePolicy, error) {
+	var t FragmentStrictModePolicy
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFragmentStrictModePolicy == nil {
+			return fmt.Errorf("androidx.fragment.app.strictmode.FragmentStrictMode$Policy is not available on this device")
+		}
+		if midFragmentStrictModePolicyCtor == nil {
+			return fmt.Errorf("androidx.fragment.app.strictmode.FragmentStrictMode$Policy constructor (Ljava/util/Set;Landroidx/fragment/app/strictmode/FragmentStrictMode$OnViolationListener;Ljava/util/Map;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFragmentStrictModePolicy)), midFragmentStrictModePolicyCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
+// GetFlagsFragmentRelease calls androidx.fragment.app.strictmode.FragmentStrictMode$Policy.getFlags$fragment_release.
+func (m *FragmentStrictModePolicy) GetFlagsFragmentRelease() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midFragmentStrictModePolicyGetFlagsFragmentRelease == nil {
+			callErr = fmt.Errorf("androidx.fragment.app.strictmode.FragmentStrictMode$Policy.getFlags$fragment_release is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallObjectMethod(
+			m.Obj,
+			midFragmentStrictModePolicyGetFlagsFragmentRelease,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
 // ToString calls androidx.fragment.app.strictmode.FragmentStrictMode$Policy.toString.
 func (m *FragmentStrictModePolicy) ToString() (string, error) {
 	var result string
@@ -45,6 +106,38 @@ func (m *FragmentStrictModePolicy) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetListenerFragmentRelease calls androidx.fragment.app.strictmode.FragmentStrictMode$Policy.getListener$fragment_release.
+func (m *FragmentStrictModePolicy) GetListenerFragmentRelease() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midFragmentStrictModePolicyGetListenerFragmentRelease == nil {
+			callErr = fmt.Errorf("androidx.fragment.app.strictmode.FragmentStrictMode$Policy.getListener$fragment_release is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsFragmentStrictModePolicy)),
+			midFragmentStrictModePolicyGetListenerFragmentRelease,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
 		return callErr
 	})
 	return result, callErr

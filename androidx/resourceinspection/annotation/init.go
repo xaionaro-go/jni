@@ -23,9 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsAppCompatShadowedAttributes         *jni.GlobalRef
-	midAppCompatShadowedAttributesToString jni.MethodID
-
 	clsAttribute           *jni.GlobalRef
 	midAttributeValue      jni.MethodID
 	midAttributeIntMapping jni.MethodID
@@ -36,6 +33,9 @@ var (
 	midAttributeIntMapValue    jni.MethodID
 	midAttributeIntMapMask     jni.MethodID
 	midAttributeIntMapToString jni.MethodID
+
+	clsAppCompatShadowedAttributes         *jni.GlobalRef
+	midAppCompatShadowedAttributesToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -55,23 +55,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("androidx/resourceinspection/annotation/AppCompatShadowedAttributes")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAppCompatShadowedAttributes = env.NewGlobalRef(&c.Object)
-
-		midAppCompatShadowedAttributesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatShadowedAttributes)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("androidx/resourceinspection/annotation/Attribute")
 	if err != nil {
@@ -134,6 +117,23 @@ func doInit(env *jni.Env) error {
 		}
 
 		midAttributeIntMapToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAttributeIntMap)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/resourceinspection/annotation/AppCompatShadowedAttributes")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppCompatShadowedAttributes = env.NewGlobalRef(&c.Object)
+
+		midAppCompatShadowedAttributesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppCompatShadowedAttributes)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

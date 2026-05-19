@@ -5,124 +5,6 @@
 package: mtp
 go_import: github.com/AndroidGoLab/jni/mtp
 classes:
-    - java_class: android.mtp.MtpStorageInfo
-      go_type: StorageInfo
-      methods:
-        - java_method: getDescription
-          go_name: GetDescription
-          returns: String
-          error: true
-        - java_method: getFreeSpace
-          go_name: GetFreeSpace
-          returns: long
-          error: true
-        - java_method: getMaxCapacity
-          go_name: GetMaxCapacity
-          returns: long
-          error: true
-        - java_method: getStorageId
-          go_name: GetStorageId
-          returns: int
-          error: true
-        - java_method: getVolumeIdentifier
-          go_name: GetVolumeIdentifier
-          returns: String
-          error: true
-    - java_class: android.mtp.MtpEvent
-      go_type: Event
-      methods:
-        - java_method: getDevicePropCode
-          go_name: GetDevicePropCode
-          returns: int
-          error: true
-        - java_method: getEventCode
-          go_name: GetEventCode
-          returns: int
-          error: true
-        - java_method: getObjectFormatCode
-          go_name: GetObjectFormatCode
-          returns: int
-          error: true
-        - java_method: getObjectHandle
-          go_name: GetObjectHandle
-          returns: int
-          error: true
-        - java_method: getObjectPropCode
-          go_name: GetObjectPropCode
-          returns: int
-          error: true
-        - java_method: getParameter1
-          go_name: GetParameter1
-          returns: int
-          error: true
-        - java_method: getParameter2
-          go_name: GetParameter2
-          returns: int
-          error: true
-        - java_method: getParameter3
-          go_name: GetParameter3
-          returns: int
-          error: true
-        - java_method: getStorageId
-          go_name: GetStorageId
-          returns: int
-          error: true
-        - java_method: getTransactionId
-          go_name: GetTransactionId
-          returns: int
-          error: true
-    - java_class: android.mtp.MtpDeviceInfo
-      go_type: DeviceInfo
-      methods:
-        - java_method: getEventsSupported
-          go_name: GetEventsSupported
-          returns: '[I'
-          error: true
-        - java_method: getManufacturer
-          go_name: GetManufacturer
-          returns: String
-          error: true
-        - java_method: getModel
-          go_name: GetModel
-          returns: String
-          error: true
-        - java_method: getOperationsSupported
-          go_name: GetOperationsSupported
-          returns: '[I'
-          error: true
-        - java_method: getSerialNumber
-          go_name: GetSerialNumber
-          returns: String
-          error: true
-        - java_method: getVersion
-          go_name: GetVersion
-          returns: String
-          error: true
-        - java_method: isEventSupported
-          go_name: IsEventSupported
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: isOperationSupported
-          go_name: IsOperationSupported
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-    - java_class: android.mtp.MtpConstants
-      go_type: Constants
-      obtain: constructor
-      static_methods:
-        - java_method: isAbstractObject
-          go_name: IsAbstractObject
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
     - java_class: android.mtp.MtpObjectInfo
       go_type: ObjectInfo
       methods:
@@ -240,6 +122,7 @@ classes:
           error: true
     - java_class: android.mtp.MtpObjectInfo$Builder
       go_type: ObjectInfoBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
@@ -384,6 +267,124 @@ classes:
             - java_type: long
               go_name: arg0
           returns: android.mtp.MtpObjectInfo$Builder
+          error: true
+    - java_class: android.mtp.MtpDeviceInfo
+      go_type: DeviceInfo
+      methods:
+        - java_method: getEventsSupported
+          go_name: GetEventsSupported
+          returns: '[I'
+          error: true
+        - java_method: getManufacturer
+          go_name: GetManufacturer
+          returns: String
+          error: true
+        - java_method: getModel
+          go_name: GetModel
+          returns: String
+          error: true
+        - java_method: getOperationsSupported
+          go_name: GetOperationsSupported
+          returns: '[I'
+          error: true
+        - java_method: getSerialNumber
+          go_name: GetSerialNumber
+          returns: String
+          error: true
+        - java_method: getVersion
+          go_name: GetVersion
+          returns: String
+          error: true
+        - java_method: isEventSupported
+          go_name: IsEventSupported
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: isOperationSupported
+          go_name: IsOperationSupported
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+    - java_class: android.mtp.MtpStorageInfo
+      go_type: StorageInfo
+      methods:
+        - java_method: getDescription
+          go_name: GetDescription
+          returns: String
+          error: true
+        - java_method: getFreeSpace
+          go_name: GetFreeSpace
+          returns: long
+          error: true
+        - java_method: getMaxCapacity
+          go_name: GetMaxCapacity
+          returns: long
+          error: true
+        - java_method: getStorageId
+          go_name: GetStorageId
+          returns: int
+          error: true
+        - java_method: getVolumeIdentifier
+          go_name: GetVolumeIdentifier
+          returns: String
+          error: true
+    - java_class: android.mtp.MtpConstants
+      go_type: Constants
+      obtain: constructor
+      static_methods:
+        - java_method: isAbstractObject
+          go_name: IsAbstractObject
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+    - java_class: android.mtp.MtpEvent
+      go_type: Event
+      methods:
+        - java_method: getDevicePropCode
+          go_name: GetDevicePropCode
+          returns: int
+          error: true
+        - java_method: getEventCode
+          go_name: GetEventCode
+          returns: int
+          error: true
+        - java_method: getObjectFormatCode
+          go_name: GetObjectFormatCode
+          returns: int
+          error: true
+        - java_method: getObjectHandle
+          go_name: GetObjectHandle
+          returns: int
+          error: true
+        - java_method: getObjectPropCode
+          go_name: GetObjectPropCode
+          returns: int
+          error: true
+        - java_method: getParameter1
+          go_name: GetParameter1
+          returns: int
+          error: true
+        - java_method: getParameter2
+          go_name: GetParameter2
+          returns: int
+          error: true
+        - java_method: getParameter3
+          go_name: GetParameter3
+          returns: int
+          error: true
+        - java_method: getStorageId
+          go_name: GetStorageId
+          returns: int
+          error: true
+        - java_method: getTransactionId
+          go_name: GetTransactionId
+          returns: int
           error: true
     - java_class: android.mtp.MtpDevice
       go_type: Device
@@ -555,60 +556,6 @@ classes:
           returns: String
           error: true
 constants:
-    - go_name: EventCancelTransaction
-      value: "16385"
-      go_type: int
-    - go_name: EventCaptureComplete
-      value: "16397"
-      go_type: int
-    - go_name: EventDeviceInfoChanged
-      value: "16392"
-      go_type: int
-    - go_name: EventDevicePropChanged
-      value: "16390"
-      go_type: int
-    - go_name: EventDeviceReset
-      value: "16395"
-      go_type: int
-    - go_name: EventObjectAdded
-      value: "16386"
-      go_type: int
-    - go_name: EventObjectInfoChanged
-      value: "16391"
-      go_type: int
-    - go_name: EventObjectPropChanged
-      value: "51201"
-      go_type: int
-    - go_name: EventObjectPropDescChanged
-      value: "51202"
-      go_type: int
-    - go_name: EventObjectReferencesChanged
-      value: "51203"
-      go_type: int
-    - go_name: EventObjectRemoved
-      value: "16387"
-      go_type: int
-    - go_name: EventRequestObjectTransfer
-      value: "16393"
-      go_type: int
-    - go_name: EventStorageInfoChanged
-      value: "16396"
-      go_type: int
-    - go_name: EventStoreAdded
-      value: "16388"
-      go_type: int
-    - go_name: EventStoreFull
-      value: "16394"
-      go_type: int
-    - go_name: EventStoreRemoved
-      value: "16389"
-      go_type: int
-    - go_name: EventUndefined
-      value: "16384"
-      go_type: int
-    - go_name: EventUnreportedStatus
-      value: "16398"
-      go_type: int
     - go_name: AssociationTypeGenericFolder
       value: "1"
       go_type: int
@@ -905,4 +852,58 @@ constants:
       go_type: int
     - go_name: ProtectionStatusReadOnlyData
       value: "32770"
+      go_type: int
+    - go_name: EventCancelTransaction
+      value: "16385"
+      go_type: int
+    - go_name: EventCaptureComplete
+      value: "16397"
+      go_type: int
+    - go_name: EventDeviceInfoChanged
+      value: "16392"
+      go_type: int
+    - go_name: EventDevicePropChanged
+      value: "16390"
+      go_type: int
+    - go_name: EventDeviceReset
+      value: "16395"
+      go_type: int
+    - go_name: EventObjectAdded
+      value: "16386"
+      go_type: int
+    - go_name: EventObjectInfoChanged
+      value: "16391"
+      go_type: int
+    - go_name: EventObjectPropChanged
+      value: "51201"
+      go_type: int
+    - go_name: EventObjectPropDescChanged
+      value: "51202"
+      go_type: int
+    - go_name: EventObjectReferencesChanged
+      value: "51203"
+      go_type: int
+    - go_name: EventObjectRemoved
+      value: "16387"
+      go_type: int
+    - go_name: EventRequestObjectTransfer
+      value: "16393"
+      go_type: int
+    - go_name: EventStorageInfoChanged
+      value: "16396"
+      go_type: int
+    - go_name: EventStoreAdded
+      value: "16388"
+      go_type: int
+    - go_name: EventStoreFull
+      value: "16394"
+      go_type: int
+    - go_name: EventStoreRemoved
+      value: "16389"
+      go_type: int
+    - go_name: EventUndefined
+      value: "16384"
+      go_type: int
+    - go_name: EventUnreportedStatus
+      value: "16398"
       go_type: int

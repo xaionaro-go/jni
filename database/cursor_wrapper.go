@@ -32,6 +32,12 @@ func NewCursorWrapper(vm *jni.VM, arg0 *jni.Object) (*CursorWrapper, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCursorWrapper == nil {
+			return fmt.Errorf("android.database.CursorWrapper is not available on this device")
+		}
+		if midCursorWrapperCtor == nil {
+			return fmt.Errorf("android.database.CursorWrapper constructor (Landroid/database/Cursor;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCursorWrapper)), midCursorWrapperCtor, jni.ObjectValue(arg0))
 		if err != nil {

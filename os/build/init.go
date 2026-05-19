@@ -41,9 +41,11 @@ var (
 	midPartitionToString           jni.MethodID
 
 	clsVERSION         *jni.GlobalRef
+	midVERSIONCtor     jni.MethodID
 	midVERSIONToString jni.MethodID
 
 	clsVERSION_CODES         *jni.GlobalRef
+	midVERSION_CODESCtor     jni.MethodID
 	midVERSION_CODESToString jni.MethodID
 
 	clsVERSION_CODES_FULL         *jni.GlobalRef
@@ -183,6 +185,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsVERSION = env.NewGlobalRef(&c.Object)
+		midVERSIONCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVERSION)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midVERSIONToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVERSION)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -200,6 +206,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsVERSION_CODES = env.NewGlobalRef(&c.Object)
+		midVERSION_CODESCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVERSION_CODES)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midVERSION_CODESToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVERSION_CODES)), "toString", "()Ljava/lang/String;")
 		if err != nil {

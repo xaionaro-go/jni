@@ -32,6 +32,12 @@ func NewUnderlineSpan(vm *jni.VM) (*UnderlineSpan, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsUnderlineSpan == nil {
+			return fmt.Errorf("android.text.style.UnderlineSpan is not available on this device")
+		}
+		if midUnderlineSpanCtor == nil {
+			return fmt.Errorf("android.text.style.UnderlineSpan constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUnderlineSpan)), midUnderlineSpanCtor)
 		if err != nil {
 			return err

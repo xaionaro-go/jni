@@ -23,6 +23,35 @@ type WebSourceParamsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWebSourceParamsBuilder creates a new android.adservices.measurement.WebSourceParams$Builder instance.
+func NewWebSourceParamsBuilder(vm *jni.VM, arg0 *jni.Object) (*WebSourceParamsBuilder, error) {
+	var t WebSourceParamsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWebSourceParamsBuilder == nil {
+			return fmt.Errorf("android.adservices.measurement.WebSourceParams$Builder is not available on this device")
+		}
+		if midWebSourceParamsBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.measurement.WebSourceParams$Builder constructor (Landroid/net/Uri;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWebSourceParamsBuilder)), midWebSourceParamsBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.measurement.WebSourceParams$Builder.build.
 func (m *WebSourceParamsBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -23,6 +23,34 @@ type StorePlayback struct {
 	Obj *jni.GlobalRef
 }
 
+// NewStorePlayback creates a new android.drm.DrmStore$Playback instance.
+func NewStorePlayback(vm *jni.VM) (*StorePlayback, error) {
+	var t StorePlayback
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsStorePlayback == nil {
+			return fmt.Errorf("android.drm.DrmStore$Playback is not available on this device")
+		}
+		if midStorePlaybackCtor == nil {
+			return fmt.Errorf("android.drm.DrmStore$Playback constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStorePlayback)), midStorePlaybackCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.drm.DrmStore$Playback.toString.
 func (m *StorePlayback) ToString() (string, error) {
 	var result string

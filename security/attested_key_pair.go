@@ -32,6 +32,12 @@ func NewAttestedKeyPair(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Attest
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAttestedKeyPair == nil {
+			return fmt.Errorf("android.security.AttestedKeyPair is not available on this device")
+		}
+		if midAttestedKeyPairCtor == nil {
+			return fmt.Errorf("android.security.AttestedKeyPair constructor (Ljava/security/KeyPair;Ljava/util/List;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAttestedKeyPair)), midAttestedKeyPairCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

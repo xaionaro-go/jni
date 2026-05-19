@@ -32,6 +32,12 @@ func NewView(vm *jni.VM, arg0 *jni.Object) (*View, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsView == nil {
+			return fmt.Errorf("android.view.View is not available on this device")
+		}
+		if midViewCtor == nil {
+			return fmt.Errorf("android.view.View constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsView)), midViewCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -15656,33 +15662,6 @@ func (m *View) WillNotCacheDrawing() (bool, error) {
 	return result, callErr
 }
 
-// WillNotDraw calls android.view.View.willNotDraw.
-func (m *View) WillNotDraw() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midViewWillNotDraw == nil {
-			callErr = fmt.Errorf("android.view.View.willNotDraw is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midViewWillNotDraw,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // CombineMeasuredStates calls android.view.View.combineMeasuredStates.
 func (m *View) CombineMeasuredStates(arg0 int32, arg1 int32) (int32, error) {
 	var result int32
@@ -15848,6 +15827,33 @@ func (m *View) ResolveSizeAndState(
 		if callErr != nil {
 			return callErr
 		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// WillNotDraw calls android.view.View.willNotDraw.
+func (m *View) WillNotDraw() (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midViewWillNotDraw == nil {
+			callErr = fmt.Errorf("android.view.View.willNotDraw is not available on this device")
+			return callErr
+		}
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsView)),
+			midViewWillNotDraw,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

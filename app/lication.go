@@ -30,6 +30,12 @@ func Newlication(vm *jni.VM) (*lication, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clslication == nil {
+			return fmt.Errorf("android.app.Application is not available on this device")
+		}
+		if midlicationCtor == nil {
+			return fmt.Errorf("android.app.Application constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clslication)), midlicationCtor)
 		if err != nil {
 			return err

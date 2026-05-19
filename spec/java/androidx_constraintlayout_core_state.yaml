@@ -5,518 +5,6 @@
 package: state
 go_import: github.com/AndroidGoLab/jni/androidx/constraintlayout/core/state
 classes:
-    - java_class: androidx.constraintlayout.core.state.State
-      go_type: State
-      obtain: constructor
-      methods:
-        - java_method: reset
-          go_name: Reset
-          returns: void
-          error: true
-        - java_method: convertDimension
-          go_name: ConvertDimension
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: createConstraintReference
-          go_name: CreateConstraintReference
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: androidx.constraintlayout.core.state.ConstraintReference
-          error: true
-        - java_method: sameFixedWidth
-          go_name: SameFixedWidth
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: sameFixedHeight
-          go_name: SameFixedHeight
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: width
-          go_name: Width
-          params:
-            - java_type: androidx.constraintlayout.core.state.Dimension
-              go_name: arg0
-          returns: androidx.constraintlayout.core.state.State
-          error: true
-        - java_method: height
-          go_name: Height
-          params:
-            - java_type: androidx.constraintlayout.core.state.Dimension
-              go_name: arg0
-          returns: androidx.constraintlayout.core.state.State
-          error: true
-        - java_method: setWidth
-          go_name: SetWidth
-          params:
-            - java_type: androidx.constraintlayout.core.state.Dimension
-              go_name: arg0
-          returns: androidx.constraintlayout.core.state.State
-          error: true
-        - java_method: setHeight
-          go_name: SetHeight
-          params:
-            - java_type: androidx.constraintlayout.core.state.Dimension
-              go_name: arg0
-          returns: androidx.constraintlayout.core.state.State
-          error: true
-        - java_method: constraints
-          go_name: Constraints
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: androidx.constraintlayout.core.state.ConstraintReference
-          error: true
-        - java_method: helper
-          go_name: Helper
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-            - java_type: androidx.constraintlayout.core.state.State$Helper
-              go_name: arg1
-          returns: androidx.constraintlayout.core.state.HelperReference
-          error: true
-        - java_method: horizontalGuideline
-          go_name: HorizontalGuideline
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: androidx.constraintlayout.core.state.helpers.GuidelineReference
-          error: true
-        - java_method: verticalGuideline
-          go_name: VerticalGuideline
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: androidx.constraintlayout.core.state.helpers.GuidelineReference
-          error: true
-        - java_method: guideline
-          go_name: Guideline
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: androidx.constraintlayout.core.state.helpers.GuidelineReference
-          error: true
-        - java_method: barrier
-          go_name: Barrier
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-            - java_type: androidx.constraintlayout.core.state.State$Direction
-              go_name: arg1
-          returns: androidx.constraintlayout.core.state.helpers.BarrierReference
-          error: true
-        - java_method: verticalChain
-          go_name: VerticalChain0
-          returns: androidx.constraintlayout.core.state.helpers.VerticalChainReference
-          error: true
-        - java_method: verticalChain
-          go_name: VerticalChain1_1
-          params:
-            - java_type: java.lang.Object...
-              go_name: arg0
-          returns: androidx.constraintlayout.core.state.helpers.VerticalChainReference
-          error: true
-        - java_method: horizontalChain
-          go_name: HorizontalChain0
-          returns: androidx.constraintlayout.core.state.helpers.HorizontalChainReference
-          error: true
-        - java_method: horizontalChain
-          go_name: HorizontalChain1_1
-          params:
-            - java_type: java.lang.Object...
-              go_name: arg0
-          returns: androidx.constraintlayout.core.state.helpers.HorizontalChainReference
-          error: true
-        - java_method: centerHorizontally
-          go_name: CenterHorizontally
-          params:
-            - java_type: java.lang.Object...
-              go_name: arg0
-          returns: androidx.constraintlayout.core.state.helpers.AlignHorizontallyReference
-          error: true
-        - java_method: centerVertically
-          go_name: CenterVertically
-          params:
-            - java_type: java.lang.Object...
-              go_name: arg0
-          returns: androidx.constraintlayout.core.state.helpers.AlignVerticallyReference
-          error: true
-        - java_method: directMapping
-          go_name: DirectMapping
-          returns: void
-          error: true
-        - java_method: map
-          go_name: Map
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setTag
-          go_name: SetTag
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getIdsForTag
-          go_name: GetIdsForTag
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: java.util.ArrayList<java.lang.String>
-          error: true
-        - java_method: apply
-          go_name: Apply
-          params:
-            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidgetContainer
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.core.state.State$Constraint
-      go_type: Constraint
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: androidx.constraintlayout.core.state.State$Constraint[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: androidx.constraintlayout.core.state.State$Constraint
-          error: true
-    - java_class: androidx.constraintlayout.core.state.State$Direction
-      go_type: Direction
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: androidx.constraintlayout.core.state.State$Direction[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: androidx.constraintlayout.core.state.State$Direction
-          error: true
-    - java_class: androidx.constraintlayout.core.state.State$Helper
-      go_type: Helper
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: androidx.constraintlayout.core.state.State$Helper[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: androidx.constraintlayout.core.state.State$Helper
-          error: true
-    - java_class: androidx.constraintlayout.core.state.State$Chain
-      go_type: Chain
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: androidx.constraintlayout.core.state.State$Chain[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: androidx.constraintlayout.core.state.State$Chain
-          error: true
-    - java_class: androidx.constraintlayout.core.state.Reference
-      go_type: Reference
-      methods:
-        - java_method: getConstraintWidget
-          go_name: GetConstraintWidget
-          returns: androidx.constraintlayout.core.widgets.ConstraintWidget
-          error: true
-        - java_method: setConstraintWidget
-          go_name: SetConstraintWidget
-          params:
-            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setKey
-          go_name: SetKey
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getKey
-          go_name: GetKey
-          returns: java.lang.Object
-          error: true
-        - java_method: apply
-          go_name: Apply
-          returns: void
-          error: true
-        - java_method: getFacade
-          go_name: GetFacade
-          returns: androidx.constraintlayout.core.state.helpers.Facade
-          error: true
-    - java_class: androidx.constraintlayout.core.state.WidgetFrame
-      go_type: WidgetFrame
-      obtain: constructor
-      methods:
-        - java_method: width
-          go_name: Width
-          returns: int
-          error: true
-        - java_method: height
-          go_name: Height
-          returns: int
-          error: true
-        - java_method: updateAttributes
-          go_name: UpdateAttributes
-          params:
-            - java_type: androidx.constraintlayout.core.state.WidgetFrame
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isDefaultTransform
-          go_name: IsDefaultTransform
-          returns: boolean
-          error: true
-        - java_method: centerX
-          go_name: CenterX
-          returns: float
-          error: true
-        - java_method: centerY
-          go_name: CenterY
-          returns: float
-          error: true
-        - java_method: update
-          go_name: Update0
-          returns: androidx.constraintlayout.core.state.WidgetFrame
-          error: true
-        - java_method: update
-          go_name: Update1_1
-          params:
-            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
-              go_name: arg0
-          returns: androidx.constraintlayout.core.state.WidgetFrame
-          error: true
-        - java_method: addCustomColor
-          go_name: AddCustomColor
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getCustomColor
-          go_name: GetCustomColor
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: addCustomFloat
-          go_name: AddCustomFloat
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getCustomFloat
-          go_name: GetCustomFloat
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: setCustomAttribute
-          go_name: SetCustomAttribute3
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: setCustomAttribute
-          go_name: SetCustomAttribute3_1
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: setCustomAttribute
-          go_name: SetCustomAttribute3_2
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: boolean
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: setCustomAttribute
-          go_name: SetCustomAttribute3_3
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: getCustomAttribute
-          go_name: GetCustomAttribute
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: androidx.constraintlayout.core.motion.CustomVariable
-          error: true
-        - java_method: getCustomAttributeNames
-          go_name: GetCustomAttributeNames
-          returns: java.util.Set<java.lang.String>
-          error: true
-        - java_method: setValue
-          go_name: SetValue
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: androidx.constraintlayout.core.parser.CLElement
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: String
-          error: true
-        - java_method: serialize
-          go_name: Serialize1
-          params:
-            - java_type: java.lang.StringBuilder
-              go_name: arg0
-          returns: java.lang.StringBuilder
-          error: true
-        - java_method: serialize
-          go_name: Serialize2_1
-          params:
-            - java_type: java.lang.StringBuilder
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: java.lang.StringBuilder
-          error: true
-        - java_method: setCustomValue
-          go_name: SetCustomValue
-          params:
-            - java_type: androidx.constraintlayout.core.motion.CustomAttribute
-              go_name: arg0
-            - java_type: float[]
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: interpolate
-          go_name: Interpolate
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: androidx.constraintlayout.core.state.WidgetFrame
-              go_name: arg2
-            - java_type: androidx.constraintlayout.core.state.WidgetFrame
-              go_name: arg3
-            - java_type: androidx.constraintlayout.core.state.WidgetFrame
-              go_name: arg4
-            - java_type: androidx.constraintlayout.core.state.Transition
-              go_name: arg5
-            - java_type: float
-              go_name: arg6
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.core.state.RegistryCallback
-      go_type: RegistryCallback
-      methods:
-        - java_method: onNewMotionScene
-          go_name: OnNewMotionScene
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onProgress
-          go_name: OnProgress
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onDimensions
-          go_name: OnDimensions
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: currentMotionScene
-          go_name: CurrentMotionScene
-          returns: String
-          error: true
-        - java_method: setDrawDebug
-          go_name: SetDrawDebug
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: currentLayoutInformation
-          go_name: CurrentLayoutInformation
-          returns: String
-          error: true
-        - java_method: setLayoutInformationMode
-          go_name: SetLayoutInformationMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getLastModified
-          go_name: GetLastModified
-          returns: long
-          error: true
     - java_class: androidx.constraintlayout.core.state.Transition
       go_type: Transition
       obtain: constructor
@@ -803,6 +291,193 @@ classes:
               go_name: arg1
           returns: androidx.constraintlayout.core.state.Interpolator
           error: true
+    - java_class: androidx.constraintlayout.core.state.WidgetFrame
+      go_type: WidgetFrame
+      obtain: constructor
+      methods:
+        - java_method: width
+          go_name: Width
+          returns: int
+          error: true
+        - java_method: height
+          go_name: Height
+          returns: int
+          error: true
+        - java_method: updateAttributes
+          go_name: UpdateAttributes
+          params:
+            - java_type: androidx.constraintlayout.core.state.WidgetFrame
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isDefaultTransform
+          go_name: IsDefaultTransform
+          returns: boolean
+          error: true
+        - java_method: centerX
+          go_name: CenterX
+          returns: float
+          error: true
+        - java_method: centerY
+          go_name: CenterY
+          returns: float
+          error: true
+        - java_method: update
+          go_name: Update0
+          returns: androidx.constraintlayout.core.state.WidgetFrame
+          error: true
+        - java_method: update
+          go_name: Update1_1
+          params:
+            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
+              go_name: arg0
+          returns: androidx.constraintlayout.core.state.WidgetFrame
+          error: true
+        - java_method: addCustomColor
+          go_name: AddCustomColor
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getCustomColor
+          go_name: GetCustomColor
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: addCustomFloat
+          go_name: AddCustomFloat
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getCustomFloat
+          go_name: GetCustomFloat
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: setCustomAttribute
+          go_name: SetCustomAttribute3
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: setCustomAttribute
+          go_name: SetCustomAttribute3_1
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: setCustomAttribute
+          go_name: SetCustomAttribute3_2
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: boolean
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: setCustomAttribute
+          go_name: SetCustomAttribute3_3
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: getCustomAttribute
+          go_name: GetCustomAttribute
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: androidx.constraintlayout.core.motion.CustomVariable
+          error: true
+        - java_method: getCustomAttributeNames
+          go_name: GetCustomAttributeNames
+          returns: java.util.Set<java.lang.String>
+          error: true
+        - java_method: setValue
+          go_name: SetValue
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: androidx.constraintlayout.core.parser.CLElement
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: String
+          error: true
+        - java_method: serialize
+          go_name: Serialize1
+          params:
+            - java_type: java.lang.StringBuilder
+              go_name: arg0
+          returns: java.lang.StringBuilder
+          error: true
+        - java_method: serialize
+          go_name: Serialize2_1
+          params:
+            - java_type: java.lang.StringBuilder
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: java.lang.StringBuilder
+          error: true
+      static_methods:
+        - java_method: interpolate
+          go_name: Interpolate
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: androidx.constraintlayout.core.state.WidgetFrame
+              go_name: arg2
+            - java_type: androidx.constraintlayout.core.state.WidgetFrame
+              go_name: arg3
+            - java_type: androidx.constraintlayout.core.state.WidgetFrame
+              go_name: arg4
+            - java_type: androidx.constraintlayout.core.state.Transition
+              go_name: arg5
+            - java_type: float
+              go_name: arg6
+          returns: void
+          error: true
+        - java_method: setCustomValue
+          go_name: SetCustomValue
+          params:
+            - java_type: androidx.constraintlayout.core.motion.CustomAttribute
+              go_name: arg0
+            - java_type: float[]
+              go_name: arg1
+          returns: void
+          error: true
     - java_class: androidx.constraintlayout.core.state.Registry
       go_type: Registry
       obtain: constructor
@@ -886,6 +561,11 @@ classes:
               go_name: arg0
           returns: long
           error: true
+      static_methods:
+        - java_method: getInstance
+          go_name: GetInstance
+          returns: androidx.constraintlayout.core.state.Registry
+          error: true
         - java_method: updateDimensions
           go_name: UpdateDimensions
           params:
@@ -896,21 +576,6 @@ classes:
             - java_type: int
               go_name: arg2
           returns: void
-          error: true
-      static_methods:
-        - java_method: getInstance
-          go_name: GetInstance
-          returns: androidx.constraintlayout.core.state.Registry
-          error: true
-    - java_class: androidx.constraintlayout.core.state.Interpolator
-      go_type: Interpolator
-      methods:
-        - java_method: getInterpolation
-          go_name: GetInterpolation
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: float
           error: true
     - java_class: androidx.constraintlayout.core.state.ConstraintReference
       go_type: ConstraintReference
@@ -1444,6 +1109,16 @@ classes:
               go_name: arg0
           returns: androidx.constraintlayout.core.state.ConstraintReference
           error: true
+    - java_class: androidx.constraintlayout.core.state.Interpolator
+      go_type: Interpolator
+      methods:
+        - java_method: getInterpolation
+          go_name: GetInterpolation
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: float
+          error: true
     - java_class: androidx.constraintlayout.core.state.HelperReference
       go_type: HelperReference
       obtain: constructor
@@ -1482,6 +1157,205 @@ classes:
         - java_method: apply
           go_name: Apply
           returns: void
+          error: true
+    - java_class: androidx.constraintlayout.core.state.State
+      go_type: State
+      obtain: constructor
+      methods:
+        - java_method: reset
+          go_name: Reset
+          returns: void
+          error: true
+        - java_method: convertDimension
+          go_name: ConvertDimension
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: createConstraintReference
+          go_name: CreateConstraintReference
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: androidx.constraintlayout.core.state.ConstraintReference
+          error: true
+        - java_method: sameFixedWidth
+          go_name: SameFixedWidth
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: sameFixedHeight
+          go_name: SameFixedHeight
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: width
+          go_name: Width
+          params:
+            - java_type: androidx.constraintlayout.core.state.Dimension
+              go_name: arg0
+          returns: androidx.constraintlayout.core.state.State
+          error: true
+        - java_method: height
+          go_name: Height
+          params:
+            - java_type: androidx.constraintlayout.core.state.Dimension
+              go_name: arg0
+          returns: androidx.constraintlayout.core.state.State
+          error: true
+        - java_method: setWidth
+          go_name: SetWidth
+          params:
+            - java_type: androidx.constraintlayout.core.state.Dimension
+              go_name: arg0
+          returns: androidx.constraintlayout.core.state.State
+          error: true
+        - java_method: setHeight
+          go_name: SetHeight
+          params:
+            - java_type: androidx.constraintlayout.core.state.Dimension
+              go_name: arg0
+          returns: androidx.constraintlayout.core.state.State
+          error: true
+        - java_method: constraints
+          go_name: Constraints
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: androidx.constraintlayout.core.state.ConstraintReference
+          error: true
+        - java_method: helper
+          go_name: Helper
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+            - java_type: androidx.constraintlayout.core.state.State$Helper
+              go_name: arg1
+          returns: androidx.constraintlayout.core.state.HelperReference
+          error: true
+        - java_method: horizontalGuideline
+          go_name: HorizontalGuideline
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: androidx.constraintlayout.core.state.helpers.GuidelineReference
+          error: true
+        - java_method: verticalGuideline
+          go_name: VerticalGuideline
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: androidx.constraintlayout.core.state.helpers.GuidelineReference
+          error: true
+        - java_method: guideline
+          go_name: Guideline
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: androidx.constraintlayout.core.state.helpers.GuidelineReference
+          error: true
+        - java_method: barrier
+          go_name: Barrier
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+            - java_type: androidx.constraintlayout.core.state.State$Direction
+              go_name: arg1
+          returns: androidx.constraintlayout.core.state.helpers.BarrierReference
+          error: true
+        - java_method: verticalChain
+          go_name: VerticalChain0
+          returns: androidx.constraintlayout.core.state.helpers.VerticalChainReference
+          error: true
+        - java_method: verticalChain
+          go_name: VerticalChain1_1
+          params:
+            - java_type: java.lang.Object...
+              go_name: arg0
+          returns: androidx.constraintlayout.core.state.helpers.VerticalChainReference
+          error: true
+        - java_method: horizontalChain
+          go_name: HorizontalChain0
+          returns: androidx.constraintlayout.core.state.helpers.HorizontalChainReference
+          error: true
+        - java_method: horizontalChain
+          go_name: HorizontalChain1_1
+          params:
+            - java_type: java.lang.Object...
+              go_name: arg0
+          returns: androidx.constraintlayout.core.state.helpers.HorizontalChainReference
+          error: true
+        - java_method: centerHorizontally
+          go_name: CenterHorizontally
+          params:
+            - java_type: java.lang.Object...
+              go_name: arg0
+          returns: androidx.constraintlayout.core.state.helpers.AlignHorizontallyReference
+          error: true
+        - java_method: centerVertically
+          go_name: CenterVertically
+          params:
+            - java_type: java.lang.Object...
+              go_name: arg0
+          returns: androidx.constraintlayout.core.state.helpers.AlignVerticallyReference
+          error: true
+        - java_method: directMapping
+          go_name: DirectMapping
+          returns: void
+          error: true
+        - java_method: map
+          go_name: Map
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+            - java_type: java.lang.Object
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setTag
+          go_name: SetTag
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getIdsForTag
+          go_name: GetIdsForTag
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: java.util.ArrayList<java.lang.String>
+          error: true
+      static_methods:
+        - java_method: apply
+          go_name: Apply
+          params:
+            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidgetContainer
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.core.state.State$Constraint
+      go_type: Constraint
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: androidx.constraintlayout.core.state.State$Constraint[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: androidx.constraintlayout.core.state.State$Constraint
           error: true
     - java_class: androidx.constraintlayout.core.state.Dimension
       go_type: Dimension
@@ -1565,17 +1439,6 @@ classes:
               go_name: arg0
           returns: androidx.constraintlayout.core.state.Dimension
           error: true
-        - java_method: apply
-          go_name: Apply
-          params:
-            - java_type: androidx.constraintlayout.core.state.State
-              go_name: arg0
-            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
       static_methods:
         - java_method: Suggested
           go_name: Suggested1
@@ -1633,6 +1496,31 @@ classes:
               go_name: arg0
           returns: androidx.constraintlayout.core.state.Dimension
           error: true
+        - java_method: apply
+          go_name: Apply
+          params:
+            - java_type: androidx.constraintlayout.core.state.State
+              go_name: arg0
+            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.core.state.State$Direction
+      go_type: Direction
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: androidx.constraintlayout.core.state.State$Direction[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: androidx.constraintlayout.core.state.State$Direction
+          error: true
     - java_class: androidx.constraintlayout.core.state.Dimension$Type
       go_type: DimensionType
       static_methods:
@@ -1647,7 +1535,129 @@ classes:
               go_name: arg0
           returns: androidx.constraintlayout.core.state.Dimension$Type
           error: true
+    - java_class: androidx.constraintlayout.core.state.State$Helper
+      go_type: Helper
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: androidx.constraintlayout.core.state.State$Helper[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: androidx.constraintlayout.core.state.State$Helper
+          error: true
+    - java_class: androidx.constraintlayout.core.state.State$Chain
+      go_type: Chain
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: androidx.constraintlayout.core.state.State$Chain[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: androidx.constraintlayout.core.state.State$Chain
+          error: true
+    - java_class: androidx.constraintlayout.core.state.RegistryCallback
+      go_type: RegistryCallback
+      methods:
+        - java_method: onNewMotionScene
+          go_name: OnNewMotionScene
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onProgress
+          go_name: OnProgress
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onDimensions
+          go_name: OnDimensions
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: currentMotionScene
+          go_name: CurrentMotionScene
+          returns: String
+          error: true
+        - java_method: setDrawDebug
+          go_name: SetDrawDebug
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: currentLayoutInformation
+          go_name: CurrentLayoutInformation
+          returns: String
+          error: true
+        - java_method: setLayoutInformationMode
+          go_name: SetLayoutInformationMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getLastModified
+          go_name: GetLastModified
+          returns: long
+          error: true
+    - java_class: androidx.constraintlayout.core.state.Reference
+      go_type: Reference
+      methods:
+        - java_method: getConstraintWidget
+          go_name: GetConstraintWidget
+          returns: androidx.constraintlayout.core.widgets.ConstraintWidget
+          error: true
+        - java_method: setConstraintWidget
+          go_name: SetConstraintWidget
+          params:
+            - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setKey
+          go_name: SetKey
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getKey
+          go_name: GetKey
+          returns: java.lang.Object
+          error: true
+        - java_method: apply
+          go_name: Apply
+          returns: void
+          error: true
+        - java_method: getFacade
+          go_name: GetFacade
+          returns: androidx.constraintlayout.core.state.helpers.Facade
+          error: true
 constants:
+    - go_name: Start
+      value: "0"
+      go_type: int
+    - go_name: End
+      value: "1"
+      go_type: int
+    - go_name: Interpolated
+      value: "2"
+      go_type: int
     - go_name: Parent
       value: "0"
       go_type: int
@@ -1705,22 +1715,46 @@ constants:
     - go_name: CircularConstraint
       value: "0"
       go_type: int
+    - go_name: FixedDimension
+      value: "0"
+      go_type: int
+    - go_name: WrapDimension
+      value: "0"
+      go_type: int
+    - go_name: SpreadDimension
+      value: "0"
+      go_type: int
+    - go_name: ParentDimension
+      value: "0"
+      go_type: int
+    - go_name: PercentDimension
+      value: "0"
+      go_type: int
+    - go_name: RatioDimension
+      value: "0"
+      go_type: int
     - go_name: Left
       value: "0"
       go_type: int
     - go_name: Right
       value: "0"
       go_type: int
-    - go_name: Start
-      value: "0"
-      go_type: int
-    - go_name: End
-      value: "0"
-      go_type: int
     - go_name: Top
       value: "0"
       go_type: int
     - go_name: Bottom
+      value: "0"
+      go_type: int
+    - go_name: Fixed
+      value: "0"
+      go_type: int
+    - go_name: Wrap
+      value: "0"
+      go_type: int
+    - go_name: MatchParent
+      value: "0"
+      go_type: int
+    - go_name: MatchConstraint
       value: "0"
       go_type: int
     - go_name: HorizontalChain
@@ -1751,38 +1785,5 @@ constants:
       value: "0"
       go_type: int
     - go_name: Packed
-      value: "0"
-      go_type: int
-    - go_name: Interpolated
-      value: "2"
-      go_type: int
-    - go_name: FixedDimension
-      value: "0"
-      go_type: int
-    - go_name: WrapDimension
-      value: "0"
-      go_type: int
-    - go_name: SpreadDimension
-      value: "0"
-      go_type: int
-    - go_name: ParentDimension
-      value: "0"
-      go_type: int
-    - go_name: PercentDimension
-      value: "0"
-      go_type: int
-    - go_name: RatioDimension
-      value: "0"
-      go_type: int
-    - go_name: Fixed
-      value: "0"
-      go_type: int
-    - go_name: Wrap
-      value: "0"
-      go_type: int
-    - go_name: MatchParent
-      value: "0"
-      go_type: int
-    - go_name: MatchConstraint
       value: "0"
       go_type: int

@@ -32,6 +32,12 @@ func NewStructure(vm *jni.VM) (*Structure, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStructure == nil {
+			return fmt.Errorf("android.app.assist.AssistStructure is not available on this device")
+		}
+		if midStructureCtor == nil {
+			return fmt.Errorf("android.app.assist.AssistStructure constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStructure)), midStructureCtor)
 		if err != nil {
 			return err
@@ -237,29 +243,6 @@ func (m *Structure) IsHomeActivity() (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.assist.AssistStructure.writeToParcel.
-func (m *Structure) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midStructureWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.assist.AssistStructure.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midStructureWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.assist.AssistStructure.toString.
 func (m *Structure) ToString() (string, error) {
 	var result string
@@ -285,4 +268,27 @@ func (m *Structure) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.assist.AssistStructure.writeToParcel.
+func (m *Structure) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midStructureWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.assist.AssistStructure.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsStructure)),
+			midStructureWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

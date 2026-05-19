@@ -21,6 +21,40 @@ type VoiceInteractorPrompt struct {
 	Obj *jni.GlobalRef
 }
 
+// NewVoiceInteractorPrompt creates a new android.app.VoiceInteractor$Prompt instance.
+func NewVoiceInteractorPrompt(vm *jni.VM, arg0 string) (*VoiceInteractorPrompt, error) {
+	var t VoiceInteractorPrompt
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsVoiceInteractorPrompt == nil {
+			return fmt.Errorf("android.app.VoiceInteractor$Prompt is not available on this device")
+		}
+		if midVoiceInteractorPromptCtor == nil {
+			return fmt.Errorf("android.app.VoiceInteractor$Prompt constructor (Ljava/lang/CharSequence;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVoiceInteractorPrompt)), midVoiceInteractorPromptCtor, jni.ObjectValue(&jArg0.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // CountVoicePrompts calls android.app.VoiceInteractor$Prompt.countVoicePrompts.
 func (m *VoiceInteractorPrompt) CountVoicePrompts() (int32, error) {
 	var result int32
@@ -177,8 +211,8 @@ func (m *VoiceInteractorPrompt) WriteToParcel(arg0 *jni.Object, arg1 int32) erro
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsVoiceInteractorPrompt)),
 			midVoiceInteractorPromptWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

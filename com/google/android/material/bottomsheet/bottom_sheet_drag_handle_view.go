@@ -32,6 +32,12 @@ func NewBottomSheetDragHandleView(vm *jni.VM, arg0 *jni.Object) (*BottomSheetDra
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBottomSheetDragHandleView == nil {
+			return fmt.Errorf("com.google.android.material.bottomsheet.BottomSheetDragHandleView is not available on this device")
+		}
+		if midBottomSheetDragHandleViewCtor == nil {
+			return fmt.Errorf("com.google.android.material.bottomsheet.BottomSheetDragHandleView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBottomSheetDragHandleView)), midBottomSheetDragHandleViewCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -44,33 +50,6 @@ func NewBottomSheetDragHandleView(vm *jni.VM, arg0 *jni.Object) (*BottomSheetDra
 		return nil, err
 	}
 	return &t, nil
-}
-
-// OnAccessibilityStateChanged calls com.google.android.material.bottomsheet.BottomSheetDragHandleView.onAccessibilityStateChanged.
-func (m *BottomSheetDragHandleView) OnAccessibilityStateChanged(arg0 bool) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBottomSheetDragHandleViewOnAccessibilityStateChanged == nil {
-			callErr = fmt.Errorf("com.google.android.material.bottomsheet.BottomSheetDragHandleView.onAccessibilityStateChanged is not available on this device")
-			return callErr
-		}
-		var jArg0 uint8
-		if arg0 {
-			jArg0 = jniTrue
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midBottomSheetDragHandleViewOnAccessibilityStateChanged, jni.BooleanValue(jArg0),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // ToString calls com.google.android.material.bottomsheet.BottomSheetDragHandleView.toString.

@@ -23,6 +23,35 @@ type CircularRevealWidgetRevealInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCircularRevealWidgetRevealInfo creates a new com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo instance.
+func NewCircularRevealWidgetRevealInfo(vm *jni.VM, arg0 float32, arg1 float32, arg2 float32) (*CircularRevealWidgetRevealInfo, error) {
+	var t CircularRevealWidgetRevealInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCircularRevealWidgetRevealInfo == nil {
+			return fmt.Errorf("com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo is not available on this device")
+		}
+		if midCircularRevealWidgetRevealInfoCtor == nil {
+			return fmt.Errorf("com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo constructor (FFF)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCircularRevealWidgetRevealInfo)), midCircularRevealWidgetRevealInfoCtor, jni.FloatValue(arg0), jni.FloatValue(arg1), jni.FloatValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Set3 calls com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo.set.
 func (m *CircularRevealWidgetRevealInfo) Set3(
 	arg0 float32,
@@ -71,33 +100,6 @@ func (m *CircularRevealWidgetRevealInfo) Set1_1(arg0 *jni.Object) error {
 		return callErr
 	})
 	return callErr
-}
-
-// IsInvalid calls com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo.isInvalid.
-func (m *CircularRevealWidgetRevealInfo) IsInvalid() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCircularRevealWidgetRevealInfoIsInvalid == nil {
-			callErr = fmt.Errorf("com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo.isInvalid is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midCircularRevealWidgetRevealInfoIsInvalid,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls com.google.android.material.circularreveal.CircularRevealWidget$RevealInfo.toString.

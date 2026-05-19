@@ -23,6 +23,34 @@ type ViewTimeCyclePathRotate struct {
 	Obj *jni.GlobalRef
 }
 
+// NewViewTimeCyclePathRotate creates a new androidx.constraintlayout.motion.utils.ViewTimeCycle$PathRotate instance.
+func NewViewTimeCyclePathRotate(vm *jni.VM) (*ViewTimeCyclePathRotate, error) {
+	var t ViewTimeCyclePathRotate
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsViewTimeCyclePathRotate == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.utils.ViewTimeCycle$PathRotate is not available on this device")
+		}
+		if midViewTimeCyclePathRotateCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.utils.ViewTimeCycle$PathRotate constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewTimeCyclePathRotate)), midViewTimeCyclePathRotateCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetProperty calls androidx.constraintlayout.motion.utils.ViewTimeCycle$PathRotate.setProperty.
 func (m *ViewTimeCyclePathRotate) SetProperty(
 	arg0 *jni.Object,

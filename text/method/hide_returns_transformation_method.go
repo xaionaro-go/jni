@@ -32,6 +32,12 @@ func NewHideReturnsTransformationMethod(vm *jni.VM) (*HideReturnsTransformationM
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsHideReturnsTransformationMethod == nil {
+			return fmt.Errorf("android.text.method.HideReturnsTransformationMethod is not available on this device")
+		}
+		if midHideReturnsTransformationMethodCtor == nil {
+			return fmt.Errorf("android.text.method.HideReturnsTransformationMethod constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHideReturnsTransformationMethod)), midHideReturnsTransformationMethodCtor)
 		if err != nil {
 			return err

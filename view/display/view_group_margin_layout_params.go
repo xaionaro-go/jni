@@ -23,6 +23,35 @@ type ViewGroupMarginLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewViewGroupMarginLayoutParams creates a new android.view.ViewGroup$MarginLayoutParams instance.
+func NewViewGroupMarginLayoutParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ViewGroupMarginLayoutParams, error) {
+	var t ViewGroupMarginLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsViewGroupMarginLayoutParams == nil {
+			return fmt.Errorf("android.view.ViewGroup$MarginLayoutParams is not available on this device")
+		}
+		if midViewGroupMarginLayoutParamsCtor == nil {
+			return fmt.Errorf("android.view.ViewGroup$MarginLayoutParams constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewGroupMarginLayoutParams)), midViewGroupMarginLayoutParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetLayoutDirection calls android.view.ViewGroup$MarginLayoutParams.getLayoutDirection.
 func (m *ViewGroupMarginLayoutParams) GetLayoutDirection() (int32, error) {
 	var result int32

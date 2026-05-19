@@ -32,6 +32,12 @@ func NewDreamService(vm *jni.VM) (*DreamService, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDreamService == nil {
+			return fmt.Errorf("android.service.dreams.DreamService is not available on this device")
+		}
+		if midDreamServiceCtor == nil {
+			return fmt.Errorf("android.service.dreams.DreamService constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDreamService)), midDreamServiceCtor)
 		if err != nil {
 			return err
@@ -234,6 +240,33 @@ func (m *DreamService) DispatchTrackballEvent(arg0 *jni.Object) (bool, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// Dump calls android.service.dreams.DreamService.dump.
+func (m *DreamService) Dump(
+	arg0 *jni.Object,
+	arg1 *jni.Object,
+	arg2 *jni.Object,
+) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDreamServiceDump == nil {
+			callErr = fmt.Errorf("android.service.dreams.DreamService.dump is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallVoidMethod(
+			m.Obj,
+			midDreamServiceDump, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
+		)
+		return callErr
+	})
+	return callErr
 }
 
 // Finish calls android.service.dreams.DreamService.finish.

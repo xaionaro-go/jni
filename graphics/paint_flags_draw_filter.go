@@ -32,6 +32,12 @@ func NewPaintFlagsDrawFilter(vm *jni.VM, arg0 int32, arg1 int32) (*PaintFlagsDra
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPaintFlagsDrawFilter == nil {
+			return fmt.Errorf("android.graphics.PaintFlagsDrawFilter is not available on this device")
+		}
+		if midPaintFlagsDrawFilterCtor == nil {
+			return fmt.Errorf("android.graphics.PaintFlagsDrawFilter constructor (II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPaintFlagsDrawFilter)), midPaintFlagsDrawFilterCtor, jni.IntValue(arg0), jni.IntValue(arg1))
 		if err != nil {

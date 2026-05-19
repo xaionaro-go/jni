@@ -56,39 +56,6 @@ func (m *Inflater) InflateTransition(arg0 int32) (*jni.Object, error) {
 	return result, callErr
 }
 
-// InflateTransitionManager calls androidx.transition.TransitionInflater.inflateTransitionManager.
-func (m *Inflater) InflateTransitionManager(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midInflaterInflateTransitionManager == nil {
-			callErr = fmt.Errorf("androidx.transition.TransitionInflater.inflateTransitionManager is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midInflaterInflateTransitionManager, jni.IntValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.transition.TransitionInflater.toString.
 func (m *Inflater) ToString() (string, error) {
 	var result string
@@ -133,6 +100,39 @@ func (m *Inflater) From(arg0 *jni.Object) (*jni.Object, error) {
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsInflater)),
 			midInflaterFrom, jni.ObjectValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// InflateTransitionManager calls androidx.transition.TransitionInflater.inflateTransitionManager.
+func (m *Inflater) InflateTransitionManager(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midInflaterInflateTransitionManager == nil {
+			callErr = fmt.Errorf("androidx.transition.TransitionInflater.inflateTransitionManager is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsInflater)),
+			midInflaterInflateTransitionManager, jni.IntValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr

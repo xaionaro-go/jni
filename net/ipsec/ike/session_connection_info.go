@@ -32,6 +32,12 @@ func NewSessionConnectionInfo(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, ar
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSessionConnectionInfo == nil {
+			return fmt.Errorf("android.net.ipsec.ike.IkeSessionConnectionInfo is not available on this device")
+		}
+		if midSessionConnectionInfoCtor == nil {
+			return fmt.Errorf("android.net.ipsec.ike.IkeSessionConnectionInfo constructor (Ljava/net/InetAddress;Ljava/net/InetAddress;Landroid/net/Network;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSessionConnectionInfo)), midSessionConnectionInfoCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
 		if err != nil {

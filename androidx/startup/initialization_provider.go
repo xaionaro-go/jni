@@ -32,6 +32,12 @@ func NewInitializationProvider(vm *jni.VM) (*InitializationProvider, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInitializationProvider == nil {
+			return fmt.Errorf("androidx.startup.InitializationProvider is not available on this device")
+		}
+		if midInitializationProviderCtor == nil {
+			return fmt.Errorf("androidx.startup.InitializationProvider constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInitializationProvider)), midInitializationProviderCtor)
 		if err != nil {
 			return err

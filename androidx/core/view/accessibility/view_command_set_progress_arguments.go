@@ -23,6 +23,34 @@ type ViewCommandSetProgressArguments struct {
 	Obj *jni.GlobalRef
 }
 
+// NewViewCommandSetProgressArguments creates a new androidx.core.view.accessibility.AccessibilityViewCommand$SetProgressArguments instance.
+func NewViewCommandSetProgressArguments(vm *jni.VM) (*ViewCommandSetProgressArguments, error) {
+	var t ViewCommandSetProgressArguments
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsViewCommandSetProgressArguments == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityViewCommand$SetProgressArguments is not available on this device")
+		}
+		if midViewCommandSetProgressArgumentsCtor == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityViewCommand$SetProgressArguments constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewCommandSetProgressArguments)), midViewCommandSetProgressArgumentsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetProgress calls androidx.core.view.accessibility.AccessibilityViewCommand$SetProgressArguments.getProgress.
 func (m *ViewCommandSetProgressArguments) GetProgress() (float32, error) {
 	var result float32

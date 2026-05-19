@@ -23,6 +23,35 @@ type SearchViewSearchAutoComplete struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSearchViewSearchAutoComplete creates a new androidx.appcompat.widget.SearchView$SearchAutoComplete instance.
+func NewSearchViewSearchAutoComplete(vm *jni.VM, arg0 *jni.Object) (*SearchViewSearchAutoComplete, error) {
+	var t SearchViewSearchAutoComplete
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSearchViewSearchAutoComplete == nil {
+			return fmt.Errorf("androidx.appcompat.widget.SearchView$SearchAutoComplete is not available on this device")
+		}
+		if midSearchViewSearchAutoCompleteCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.SearchView$SearchAutoComplete constructor (Landroid/content/Context;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSearchViewSearchAutoComplete)), midSearchViewSearchAutoCompleteCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetThreshold calls androidx.appcompat.widget.SearchView$SearchAutoComplete.setThreshold.
 func (m *SearchViewSearchAutoComplete) SetThreshold(arg0 int32) error {
 

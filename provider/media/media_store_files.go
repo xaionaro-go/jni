@@ -23,6 +23,34 @@ type MediaStoreFiles struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMediaStoreFiles creates a new android.provider.MediaStore$Files instance.
+func NewMediaStoreFiles(vm *jni.VM) (*MediaStoreFiles, error) {
+	var t MediaStoreFiles
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMediaStoreFiles == nil {
+			return fmt.Errorf("android.provider.MediaStore$Files is not available on this device")
+		}
+		if midMediaStoreFilesCtor == nil {
+			return fmt.Errorf("android.provider.MediaStore$Files constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMediaStoreFiles)), midMediaStoreFilesCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.provider.MediaStore$Files.toString.
 func (m *MediaStoreFiles) ToString() (string, error) {
 	var result string

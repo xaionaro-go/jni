@@ -32,6 +32,12 @@ func NewSessionConfiguration(vm *jni.VM, arg0 int32, arg1 *jni.Object) (*Session
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSessionConfiguration == nil {
+			return fmt.Errorf("android.hardware.camera2.params.SessionConfiguration is not available on this device")
+		}
+		if midSessionConfigurationCtor == nil {
+			return fmt.Errorf("android.hardware.camera2.params.SessionConfiguration constructor (ILjava/util/List;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSessionConfiguration)), midSessionConfigurationCtor, jni.IntValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -455,29 +461,6 @@ func (m *SessionConfiguration) SetStateCallback(arg0 *jni.Object, arg1 *jni.Obje
 	return callErr
 }
 
-// WriteToParcel calls android.hardware.camera2.params.SessionConfiguration.writeToParcel.
-func (m *SessionConfiguration) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSessionConfigurationWriteToParcel == nil {
-			callErr = fmt.Errorf("android.hardware.camera2.params.SessionConfiguration.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSessionConfigurationWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.hardware.camera2.params.SessionConfiguration.toString.
 func (m *SessionConfiguration) ToString() (string, error) {
 	var result string
@@ -503,4 +486,27 @@ func (m *SessionConfiguration) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.hardware.camera2.params.SessionConfiguration.writeToParcel.
+func (m *SessionConfiguration) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSessionConfigurationWriteToParcel == nil {
+			callErr = fmt.Errorf("android.hardware.camera2.params.SessionConfiguration.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSessionConfiguration)),
+			midSessionConfigurationWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

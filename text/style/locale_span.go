@@ -32,6 +32,12 @@ func NewLocaleSpan(vm *jni.VM, arg0 *jni.Object) (*LocaleSpan, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLocaleSpan == nil {
+			return fmt.Errorf("android.text.style.LocaleSpan is not available on this device")
+		}
+		if midLocaleSpanCtor == nil {
+			return fmt.Errorf("android.text.style.LocaleSpan constructor (Landroid/os/LocaleList;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLocaleSpan)), midLocaleSpanCtor, jni.ObjectValue(arg0))
 		if err != nil {

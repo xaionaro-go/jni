@@ -32,6 +32,12 @@ func NewLinearInterpolator(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Lin
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLinearInterpolator == nil {
+			return fmt.Errorf("android.view.animation.LinearInterpolator is not available on this device")
+		}
+		if midLinearInterpolatorCtor == nil {
+			return fmt.Errorf("android.view.animation.LinearInterpolator constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLinearInterpolator)), midLinearInterpolatorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

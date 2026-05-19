@@ -23,6 +23,35 @@ type NodeInfoRangeInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNodeInfoRangeInfo creates a new android.view.accessibility.AccessibilityNodeInfo$RangeInfo instance.
+func NewNodeInfoRangeInfo(vm *jni.VM, arg0 int32, arg1 float32, arg2 float32, arg3 float32) (*NodeInfoRangeInfo, error) {
+	var t NodeInfoRangeInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNodeInfoRangeInfo == nil {
+			return fmt.Errorf("android.view.accessibility.AccessibilityNodeInfo$RangeInfo is not available on this device")
+		}
+		if midNodeInfoRangeInfoCtor == nil {
+			return fmt.Errorf("android.view.accessibility.AccessibilityNodeInfo$RangeInfo constructor (IFFF)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNodeInfoRangeInfo)), midNodeInfoRangeInfoCtor, jni.IntValue(arg0), jni.FloatValue(arg1), jni.FloatValue(arg2), jni.FloatValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetCurrent calls android.view.accessibility.AccessibilityNodeInfo$RangeInfo.getCurrent.
 func (m *NodeInfoRangeInfo) GetCurrent() (float32, error) {
 	var result float32

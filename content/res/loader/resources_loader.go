@@ -32,6 +32,12 @@ func NewResourcesLoader(vm *jni.VM) (*ResourcesLoader, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsResourcesLoader == nil {
+			return fmt.Errorf("android.content.res.loader.ResourcesLoader is not available on this device")
+		}
+		if midResourcesLoaderCtor == nil {
+			return fmt.Errorf("android.content.res.loader.ResourcesLoader constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsResourcesLoader)), midResourcesLoaderCtor)
 		if err != nil {
 			return err

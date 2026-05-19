@@ -152,10 +152,3 @@ classes:
           go_name: GetStrokeWidth
           returns: float
           error: true
-        - java_method: setStrokeColor
-          go_name: SetStrokeColor
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
-          returns: void
-          error: true

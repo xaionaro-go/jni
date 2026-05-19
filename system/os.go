@@ -672,8 +672,8 @@ func (m *Os) Ftruncate(arg0 *jni.Object, arg1 int64) error {
 	return callErr
 }
 
-// Gai_strerror calls android.system.Os.gai_strerror.
-func (m *Os) Gai_strerror(arg0 int32) (string, error) {
+// GaiStrerror calls android.system.Os.gai_strerror.
+func (m *Os) GaiStrerror(arg0 int32) (string, error) {
 	var result string
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -681,7 +681,7 @@ func (m *Os) Gai_strerror(arg0 int32) (string, error) {
 			callErr = err
 			return err
 		}
-		if midOsGai_strerror == nil {
+		if midOsGaiStrerror == nil {
 			callErr = fmt.Errorf("android.system.Os.gai_strerror is not available on this device")
 			return callErr
 		}
@@ -689,7 +689,7 @@ func (m *Os) Gai_strerror(arg0 int32) (string, error) {
 		var resultObj *jni.Object
 		resultObj, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsOs)),
-			midOsGai_strerror, jni.IntValue(arg0),
+			midOsGaiStrerror, jni.IntValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1055,8 +1055,8 @@ func (m *Os) Getxattr(arg0 string, arg1 string) (*jni.Object, error) {
 	return result, callErr
 }
 
-// If_indextoname calls android.system.Os.if_indextoname.
-func (m *Os) If_indextoname(arg0 int32) (string, error) {
+// IfIndextoname calls android.system.Os.if_indextoname.
+func (m *Os) IfIndextoname(arg0 int32) (string, error) {
 	var result string
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1064,7 +1064,7 @@ func (m *Os) If_indextoname(arg0 int32) (string, error) {
 			callErr = err
 			return err
 		}
-		if midOsIf_indextoname == nil {
+		if midOsIfIndextoname == nil {
 			callErr = fmt.Errorf("android.system.Os.if_indextoname is not available on this device")
 			return callErr
 		}
@@ -1072,7 +1072,7 @@ func (m *Os) If_indextoname(arg0 int32) (string, error) {
 		var resultObj *jni.Object
 		resultObj, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsOs)),
-			midOsIf_indextoname, jni.IntValue(arg0),
+			midOsIfIndextoname, jni.IntValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1083,8 +1083,8 @@ func (m *Os) If_indextoname(arg0 int32) (string, error) {
 	return result, callErr
 }
 
-// If_nametoindex calls android.system.Os.if_nametoindex.
-func (m *Os) If_nametoindex(arg0 string) (int32, error) {
+// IfNametoindex calls android.system.Os.if_nametoindex.
+func (m *Os) IfNametoindex(arg0 string) (int32, error) {
 	var result int32
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1092,7 +1092,7 @@ func (m *Os) If_nametoindex(arg0 string) (int32, error) {
 			callErr = err
 			return err
 		}
-		if midOsIf_nametoindex == nil {
+		if midOsIfNametoindex == nil {
 			callErr = fmt.Errorf("android.system.Os.if_nametoindex is not available on this device")
 			return callErr
 		}
@@ -1104,7 +1104,7 @@ func (m *Os) If_nametoindex(arg0 string) (int32, error) {
 
 		result, callErr = env.CallStaticIntMethod(
 			(*jni.Class)(unsafe.Pointer(clsOs)),
-			midOsIf_nametoindex, jni.ObjectValue(&jArg0.Object),
+			midOsIfNametoindex, jni.ObjectValue(&jArg0.Object),
 		)
 		if callErr != nil {
 			return callErr
@@ -1114,8 +1114,8 @@ func (m *Os) If_nametoindex(arg0 string) (int32, error) {
 	return result, callErr
 }
 
-// Inet_pton calls android.system.Os.inet_pton.
-func (m *Os) Inet_pton(arg0 int32, arg1 string) (*jni.Object, error) {
+// InetPton calls android.system.Os.inet_pton.
+func (m *Os) InetPton(arg0 int32, arg1 string) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1123,7 +1123,7 @@ func (m *Os) Inet_pton(arg0 int32, arg1 string) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midOsInet_pton == nil {
+		if midOsInetPton == nil {
 			callErr = fmt.Errorf("android.system.Os.inet_pton is not available on this device")
 			return callErr
 		}
@@ -1136,7 +1136,7 @@ func (m *Os) Inet_pton(arg0 int32, arg1 string) (*jni.Object, error) {
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsOs)),
-			midOsInet_pton, jni.IntValue(arg0), jni.ObjectValue(&jArg1.Object),
+			midOsInetPton, jni.IntValue(arg0), jni.ObjectValue(&jArg1.Object),
 		)
 		if callErr != nil {
 			return callErr
@@ -1399,8 +1399,8 @@ func (m *Os) Lstat(arg0 string) (*jni.Object, error) {
 	return result, callErr
 }
 
-// Memfd_create calls android.system.Os.memfd_create.
-func (m *Os) Memfd_create(arg0 string, arg1 int32) (*jni.Object, error) {
+// MemfdCreate calls android.system.Os.memfd_create.
+func (m *Os) MemfdCreate(arg0 string, arg1 int32) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -1408,7 +1408,7 @@ func (m *Os) Memfd_create(arg0 string, arg1 int32) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midOsMemfd_create == nil {
+		if midOsMemfdCreate == nil {
 			callErr = fmt.Errorf("android.system.Os.memfd_create is not available on this device")
 			return callErr
 		}
@@ -1420,7 +1420,7 @@ func (m *Os) Memfd_create(arg0 string, arg1 int32) (*jni.Object, error) {
 
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsOs)),
-			midOsMemfd_create, jni.ObjectValue(&jArg0.Object), jni.IntValue(arg1),
+			midOsMemfdCreate, jni.ObjectValue(&jArg0.Object), jni.IntValue(arg1),
 		)
 		if callErr != nil {
 			return callErr
@@ -1749,8 +1749,8 @@ func (m *Os) Poll(arg0 *jni.Object, arg1 int32) (int32, error) {
 	return result, callErr
 }
 
-// Posix_fallocate calls android.system.Os.posix_fallocate.
-func (m *Os) Posix_fallocate(
+// PosixFallocate calls android.system.Os.posix_fallocate.
+func (m *Os) PosixFallocate(
 	arg0 *jni.Object,
 	arg1 int64,
 	arg2 int64,
@@ -1762,14 +1762,14 @@ func (m *Os) Posix_fallocate(
 			callErr = err
 			return err
 		}
-		if midOsPosix_fallocate == nil {
+		if midOsPosixFallocate == nil {
 			callErr = fmt.Errorf("android.system.Os.posix_fallocate is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallStaticVoidMethod(
 			(*jni.Class)(unsafe.Pointer(clsOs)),
-			midOsPosix_fallocate, jni.ObjectValue(arg0), jni.LongValue(arg1), jni.LongValue(arg2),
+			midOsPosixFallocate, jni.ObjectValue(arg0), jni.LongValue(arg1), jni.LongValue(arg2),
 		)
 		return callErr
 	})

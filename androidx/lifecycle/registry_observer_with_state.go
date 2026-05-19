@@ -23,6 +23,35 @@ type RegistryObserverWithState struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRegistryObserverWithState creates a new androidx.lifecycle.LifecycleRegistry$ObserverWithState instance.
+func NewRegistryObserverWithState(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*RegistryObserverWithState, error) {
+	var t RegistryObserverWithState
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRegistryObserverWithState == nil {
+			return fmt.Errorf("androidx.lifecycle.LifecycleRegistry$ObserverWithState is not available on this device")
+		}
+		if midRegistryObserverWithStateCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.LifecycleRegistry$ObserverWithState constructor (Landroidx/lifecycle/LifecycleObserver;Landroidx/lifecycle/Lifecycle$State;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRegistryObserverWithState)), midRegistryObserverWithStateCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetState calls androidx.lifecycle.LifecycleRegistry$ObserverWithState.getState.
 func (m *RegistryObserverWithState) GetState() (*jni.Object, error) {
 	var result *jni.Object

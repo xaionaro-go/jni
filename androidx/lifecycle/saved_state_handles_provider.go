@@ -32,6 +32,12 @@ func NewSavedStateHandlesProvider(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSavedStateHandlesProvider == nil {
+			return fmt.Errorf("androidx.lifecycle.SavedStateHandlesProvider is not available on this device")
+		}
+		if midSavedStateHandlesProviderCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.SavedStateHandlesProvider constructor (Landroidx/savedstate/SavedStateRegistry;Landroidx/lifecycle/ViewModelStoreOwner;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSavedStateHandlesProvider)), midSavedStateHandlesProviderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

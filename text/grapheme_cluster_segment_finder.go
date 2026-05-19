@@ -32,6 +32,12 @@ func NewGraphemeClusterSegmentFinder(vm *jni.VM, arg0 string, arg1 *jni.Object) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGraphemeClusterSegmentFinder == nil {
+			return fmt.Errorf("android.text.GraphemeClusterSegmentFinder is not available on this device")
+		}
+		if midGraphemeClusterSegmentFinderCtor == nil {
+			return fmt.Errorf("android.text.GraphemeClusterSegmentFinder constructor (Ljava/lang/CharSequence;Landroid/text/TextPaint;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

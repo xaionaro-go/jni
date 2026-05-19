@@ -32,6 +32,12 @@ func NewRect(vm *jni.VM) (*Rect, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRect == nil {
+			return fmt.Errorf("android.graphics.Rect is not available on this device")
+		}
+		if midRectCtor == nil {
+			return fmt.Errorf("android.graphics.Rect constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRect)), midRectCtor)
 		if err != nil {
 			return err
@@ -904,29 +910,6 @@ func (m *Rect) Width() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.graphics.Rect.writeToParcel.
-func (m *Rect) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRectWriteToParcel == nil {
-			callErr = fmt.Errorf("android.graphics.Rect.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midRectWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // Intersects2 calls android.graphics.Rect.intersects.
 func (m *Rect) Intersects2(arg0 *jni.Object, arg1 *jni.Object) (bool, error) {
 	var result bool
@@ -991,4 +974,27 @@ func (m *Rect) UnflattenFromString(arg0 string) (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.graphics.Rect.writeToParcel.
+func (m *Rect) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRectWriteToParcel == nil {
+			callErr = fmt.Errorf("android.graphics.Rect.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsRect)),
+			midRectWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

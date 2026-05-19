@@ -32,6 +32,12 @@ func NewArcMotion(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ArcMotion, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsArcMotion == nil {
+			return fmt.Errorf("androidx.transition.ArcMotion is not available on this device")
+		}
+		if midArcMotionCtor == nil {
+			return fmt.Errorf("androidx.transition.ArcMotion constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsArcMotion)), midArcMotionCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -190,44 +196,6 @@ func (m *ArcMotion) GetMaximumAngle() (float32, error) {
 	return result, callErr
 }
 
-// GetPath calls androidx.transition.ArcMotion.getPath.
-func (m *ArcMotion) GetPath(
-	arg0 float32,
-	arg1 float32,
-	arg2 float32,
-	arg3 float32,
-) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midArcMotionGetPath == nil {
-			callErr = fmt.Errorf("androidx.transition.ArcMotion.getPath is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midArcMotionGetPath, jni.FloatValue(arg0), jni.FloatValue(arg1), jni.FloatValue(arg2), jni.FloatValue(arg3),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.transition.ArcMotion.toString.
 func (m *ArcMotion) ToString() (string, error) {
 	var result string
@@ -250,6 +218,44 @@ func (m *ArcMotion) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetPath calls androidx.transition.ArcMotion.getPath.
+func (m *ArcMotion) GetPath(
+	arg0 float32,
+	arg1 float32,
+	arg2 float32,
+	arg3 float32,
+) (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midArcMotionGetPath == nil {
+			callErr = fmt.Errorf("androidx.transition.ArcMotion.getPath is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsArcMotion)),
+			midArcMotionGetPath, jni.FloatValue(arg0), jni.FloatValue(arg1), jni.FloatValue(arg2), jni.FloatValue(arg3),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
 		return callErr
 	})
 	return result, callErr

@@ -32,6 +32,12 @@ func NewOutline(vm *jni.VM) (*Outline, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsOutline == nil {
+			return fmt.Errorf("android.graphics.Outline is not available on this device")
+		}
+		if midOutlineCtor == nil {
+			return fmt.Errorf("android.graphics.Outline constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsOutline)), midOutlineCtor)
 		if err != nil {
 			return err

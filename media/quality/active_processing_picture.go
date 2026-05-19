@@ -32,6 +32,12 @@ func NewActiveProcessingPicture(vm *jni.VM, arg0 int32, arg1 string) (*ActivePro
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsActiveProcessingPicture == nil {
+			return fmt.Errorf("android.media.quality.ActiveProcessingPicture is not available on this device")
+		}
+		if midActiveProcessingPictureCtor == nil {
+			return fmt.Errorf("android.media.quality.ActiveProcessingPicture constructor (ILjava/lang/String;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {
@@ -129,29 +135,6 @@ func (m *ActiveProcessingPicture) GetProfileId() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.media.quality.ActiveProcessingPicture.writeToParcel.
-func (m *ActiveProcessingPicture) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActiveProcessingPictureWriteToParcel == nil {
-			callErr = fmt.Errorf("android.media.quality.ActiveProcessingPicture.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midActiveProcessingPictureWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.media.quality.ActiveProcessingPicture.toString.
 func (m *ActiveProcessingPicture) ToString() (string, error) {
 	var result string
@@ -177,4 +160,27 @@ func (m *ActiveProcessingPicture) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.media.quality.ActiveProcessingPicture.writeToParcel.
+func (m *ActiveProcessingPicture) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midActiveProcessingPictureWriteToParcel == nil {
+			callErr = fmt.Errorf("android.media.quality.ActiveProcessingPicture.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsActiveProcessingPicture)),
+			midActiveProcessingPictureWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

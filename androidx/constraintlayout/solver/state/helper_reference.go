@@ -32,6 +32,12 @@ func NewHelperReference(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Helper
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsHelperReference == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.state.HelperReference is not available on this device")
+		}
+		if midHelperReferenceCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.state.HelperReference constructor (Landroidx/constraintlayout/solver/state/State;Landroidx/constraintlayout/solver/state/State$Helper;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHelperReference)), midHelperReferenceCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

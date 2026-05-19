@@ -32,6 +32,12 @@ func NewMaterialAutoCompleteTextView(vm *jni.VM, arg0 *jni.Object) (*MaterialAut
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialAutoCompleteTextView == nil {
+			return fmt.Errorf("com.google.android.material.textfield.MaterialAutoCompleteTextView is not available on this device")
+		}
+		if midMaterialAutoCompleteTextViewCtor == nil {
+			return fmt.Errorf("com.google.android.material.textfield.MaterialAutoCompleteTextView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialAutoCompleteTextView)), midMaterialAutoCompleteTextViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -21,6 +21,34 @@ type ComponentActivityExtraData struct {
 	Obj *jni.GlobalRef
 }
 
+// NewComponentActivityExtraData creates a new androidx.core.app.ComponentActivity$ExtraData instance.
+func NewComponentActivityExtraData(vm *jni.VM) (*ComponentActivityExtraData, error) {
+	var t ComponentActivityExtraData
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsComponentActivityExtraData == nil {
+			return fmt.Errorf("androidx.core.app.ComponentActivity$ExtraData is not available on this device")
+		}
+		if midComponentActivityExtraDataCtor == nil {
+			return fmt.Errorf("androidx.core.app.ComponentActivity$ExtraData constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsComponentActivityExtraData)), midComponentActivityExtraDataCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.core.app.ComponentActivity$ExtraData.toString.
 func (m *ComponentActivityExtraData) ToString() (string, error) {
 	var result string

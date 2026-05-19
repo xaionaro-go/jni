@@ -32,6 +32,12 @@ func NewSnapHelper(vm *jni.VM) (*SnapHelper, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSnapHelper == nil {
+			return fmt.Errorf("com.google.android.material.carousel.CarouselSnapHelper is not available on this device")
+		}
+		if midSnapHelperCtor == nil {
+			return fmt.Errorf("com.google.android.material.carousel.CarouselSnapHelper constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSnapHelper)), midSnapHelperCtor)
 		if err != nil {
 			return err

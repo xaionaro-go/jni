@@ -23,6 +23,35 @@ type ConfirmationPromptBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewConfirmationPromptBuilder creates a new android.security.ConfirmationPrompt$Builder instance.
+func NewConfirmationPromptBuilder(vm *jni.VM, arg0 *jni.Object) (*ConfirmationPromptBuilder, error) {
+	var t ConfirmationPromptBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsConfirmationPromptBuilder == nil {
+			return fmt.Errorf("android.security.ConfirmationPrompt$Builder is not available on this device")
+		}
+		if midConfirmationPromptBuilderCtor == nil {
+			return fmt.Errorf("android.security.ConfirmationPrompt$Builder constructor (Landroid/content/Context;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConfirmationPromptBuilder)), midConfirmationPromptBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.security.ConfirmationPrompt$Builder.build.
 func (m *ConfirmationPromptBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

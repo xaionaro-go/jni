@@ -32,6 +32,12 @@ func NewKeyCycle(vm *jni.VM) (*KeyCycle, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsKeyCycle == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.KeyCycle is not available on this device")
+		}
+		if midKeyCycleCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.KeyCycle constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyCycle)), midKeyCycleCtor)
 		if err != nil {
 			return err
@@ -160,8 +166,8 @@ func (m *KeyCycle) Copy(arg0 *jni.Object) (*jni.Object, error) {
 	return result, callErr
 }
 
-// Clone0 calls androidx.constraintlayout.motion.widget.KeyCycle.clone.
-func (m *KeyCycle) Clone0() (*jni.Object, error) {
+// Clone calls androidx.constraintlayout.motion.widget.KeyCycle.clone.
+func (m *KeyCycle) Clone() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -169,45 +175,13 @@ func (m *KeyCycle) Clone0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midKeyCycleClone0 == nil {
+		if midKeyCycleClone == nil {
 			callErr = fmt.Errorf("androidx.constraintlayout.motion.widget.KeyCycle.clone is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midKeyCycleClone0,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Clone0_1 calls androidx.constraintlayout.motion.widget.KeyCycle.clone.
-func (m *KeyCycle) Clone0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midKeyCycleClone0_1 == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.motion.widget.KeyCycle.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midKeyCycleClone0_1,
+			midKeyCycleClone,
 		)
 		if callErr != nil {
 			return callErr

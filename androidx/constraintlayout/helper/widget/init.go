@@ -23,6 +23,28 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsCircularFlow                          *jni.GlobalRef
+	midCircularFlowCtor                      jni.MethodID
+	midCircularFlowGetRadius                 jni.MethodID
+	midCircularFlowGetAngles                 jni.MethodID
+	midCircularFlowOnAttachedToWindow        jni.MethodID
+	midCircularFlowAddViewToCircularFlow     jni.MethodID
+	midCircularFlowUpdateRadius              jni.MethodID
+	midCircularFlowUpdateAngle               jni.MethodID
+	midCircularFlowUpdateReference           jni.MethodID
+	midCircularFlowSetDefaultAngle           jni.MethodID
+	midCircularFlowSetDefaultRadius          jni.MethodID
+	midCircularFlowRemoveView                jni.MethodID
+	midCircularFlowToString                  jni.MethodID
+	midCircularFlowRemoveElementFromArray2   jni.MethodID
+	midCircularFlowRemoveElementFromArray2_1 jni.MethodID
+	midCircularFlowIsUpdatable               jni.MethodID
+
+	clsMotionEffect            *jni.GlobalRef
+	midMotionEffectCtor        jni.MethodID
+	midMotionEffectIsDecorator jni.MethodID
+	midMotionEffectToString    jni.MethodID
+
 	clsFlow                        *jni.GlobalRef
 	midFlowCtor                    jni.MethodID
 	midFlowResolveRtl              jni.MethodID
@@ -53,11 +75,6 @@ var (
 	midFlowSetMaxElementsWrap      jni.MethodID
 	midFlowToString                jni.MethodID
 
-	clsMotionPlaceholder          *jni.GlobalRef
-	midMotionPlaceholderCtor      jni.MethodID
-	midMotionPlaceholderOnMeasure jni.MethodID
-	midMotionPlaceholderToString  jni.MethodID
-
 	clsLayer                 *jni.GlobalRef
 	midLayerCtor             jni.MethodID
 	midLayerUpdatePreDraw    jni.MethodID
@@ -73,22 +90,10 @@ var (
 	midLayerUpdatePostLayout jni.MethodID
 	midLayerToString         jni.MethodID
 
-	clsCircularFlow                          *jni.GlobalRef
-	midCircularFlowCtor                      jni.MethodID
-	midCircularFlowGetRadius                 jni.MethodID
-	midCircularFlowGetAngles                 jni.MethodID
-	midCircularFlowOnAttachedToWindow        jni.MethodID
-	midCircularFlowAddViewToCircularFlow     jni.MethodID
-	midCircularFlowUpdateRadius              jni.MethodID
-	midCircularFlowUpdateAngle               jni.MethodID
-	midCircularFlowUpdateReference           jni.MethodID
-	midCircularFlowSetDefaultAngle           jni.MethodID
-	midCircularFlowSetDefaultRadius          jni.MethodID
-	midCircularFlowRemoveView                jni.MethodID
-	midCircularFlowIsUpdatable               jni.MethodID
-	midCircularFlowToString                  jni.MethodID
-	midCircularFlowRemoveElementFromArray2   jni.MethodID
-	midCircularFlowRemoveElementFromArray2_1 jni.MethodID
+	clsMotionPlaceholder          *jni.GlobalRef
+	midMotionPlaceholderCtor      jni.MethodID
+	midMotionPlaceholderOnMeasure jni.MethodID
+	midMotionPlaceholderToString  jni.MethodID
 
 	clsCarousel                      *jni.GlobalRef
 	midCarouselCtor                  jni.MethodID
@@ -107,11 +112,6 @@ var (
 	midCarouselAdapterPopulate  jni.MethodID
 	midCarouselAdapterOnNewItem jni.MethodID
 	midCarouselAdapterToString  jni.MethodID
-
-	clsMotionEffect            *jni.GlobalRef
-	midMotionEffectCtor        jni.MethodID
-	midMotionEffectIsDecorator jni.MethodID
-	midMotionEffectToString    jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -131,6 +131,146 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("androidx/constraintlayout/helper/widget/CircularFlow")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCircularFlow = env.NewGlobalRef(&c.Object)
+		midCircularFlowCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCircularFlowGetRadius, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "getRadius", "()[I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularFlowGetAngles, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "getAngles", "()[F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularFlowOnAttachedToWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "onAttachedToWindow", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularFlowAddViewToCircularFlow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "addViewToCircularFlow", "(Landroid/view/View;IF)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularFlowUpdateRadius, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "updateRadius", "(Landroid/view/View;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularFlowUpdateAngle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "updateAngle", "(Landroid/view/View;F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularFlowUpdateReference, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "updateReference", "(Landroid/view/View;IF)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularFlowSetDefaultAngle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "setDefaultAngle", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularFlowSetDefaultRadius, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "setDefaultRadius", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularFlowRemoveView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "removeView", "(Landroid/view/View;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularFlowToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularFlowRemoveElementFromArray2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "removeElementFromArray", "([II)[I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularFlowRemoveElementFromArray2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "removeElementFromArray", "([FI)[F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularFlowIsUpdatable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "isUpdatable", "(Landroid/view/View;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/helper/widget/MotionEffect")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMotionEffect = env.NewGlobalRef(&c.Object)
+		midMotionEffectCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionEffect)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMotionEffectIsDecorator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionEffect)), "isDecorator", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMotionEffectToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionEffect)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("androidx/constraintlayout/helper/widget/Flow")
 	if err != nil {
@@ -335,34 +475,6 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/constraintlayout/helper/widget/MotionPlaceholder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMotionPlaceholder = env.NewGlobalRef(&c.Object)
-		midMotionPlaceholderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionPlaceholder)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMotionPlaceholderOnMeasure, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionPlaceholder)), "onMeasure", "(Landroidx/constraintlayout/core/widgets/VirtualLayout;II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMotionPlaceholderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionPlaceholder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("androidx/constraintlayout/helper/widget/Layer")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -461,110 +573,26 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/constraintlayout/helper/widget/CircularFlow")
+	c, err = env.FindClass("androidx/constraintlayout/helper/widget/MotionPlaceholder")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCircularFlow = env.NewGlobalRef(&c.Object)
-		midCircularFlowCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "<init>", "(Landroid/content/Context;)V")
+		clsMotionPlaceholder = env.NewGlobalRef(&c.Object)
+		midMotionPlaceholderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionPlaceholder)), "<init>", "(Landroid/content/Context;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midCircularFlowGetRadius, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "getRadius", "()[I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularFlowGetAngles, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "getAngles", "()[F")
+		midMotionPlaceholderOnMeasure, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionPlaceholder)), "onMeasure", "(Landroidx/constraintlayout/core/widgets/VirtualLayout;II)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCircularFlowOnAttachedToWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "onAttachedToWindow", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularFlowAddViewToCircularFlow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "addViewToCircularFlow", "(Landroid/view/View;IF)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularFlowUpdateRadius, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "updateRadius", "(Landroid/view/View;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularFlowUpdateAngle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "updateAngle", "(Landroid/view/View;F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularFlowUpdateReference, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "updateReference", "(Landroid/view/View;IF)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularFlowSetDefaultAngle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "setDefaultAngle", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularFlowSetDefaultRadius, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "setDefaultRadius", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularFlowRemoveView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "removeView", "(Landroid/view/View;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularFlowIsUpdatable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "isUpdatable", "(Landroid/view/View;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularFlowToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularFlowRemoveElementFromArray2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "removeElementFromArray", "([II)[I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularFlowRemoveElementFromArray2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCircularFlow)), "removeElementFromArray", "([FI)[F")
+		midMotionPlaceholderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionPlaceholder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -680,34 +708,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midCarouselAdapterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCarouselAdapter)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/helper/widget/MotionEffect")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMotionEffect = env.NewGlobalRef(&c.Object)
-		midMotionEffectCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionEffect)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMotionEffectIsDecorator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionEffect)), "isDecorator", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMotionEffectToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMotionEffect)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

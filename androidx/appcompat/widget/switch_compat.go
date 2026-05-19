@@ -32,6 +32,12 @@ func NewSwitchCompat(vm *jni.VM, arg0 *jni.Object) (*SwitchCompat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSwitchCompat == nil {
+			return fmt.Errorf("androidx.appcompat.widget.SwitchCompat is not available on this device")
+		}
+		if midSwitchCompatCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.SwitchCompat constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSwitchCompat)), midSwitchCompatCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -1282,33 +1288,6 @@ func (m *SwitchCompat) SetEmojiCompatEnabled(arg0 bool) error {
 	return callErr
 }
 
-// IsEmojiCompatEnabled calls androidx.appcompat.widget.SwitchCompat.isEmojiCompatEnabled.
-func (m *SwitchCompat) IsEmojiCompatEnabled() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSwitchCompatIsEmojiCompatEnabled == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.SwitchCompat.isEmojiCompatEnabled is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midSwitchCompatIsEmojiCompatEnabled,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.appcompat.widget.SwitchCompat.toString.
 func (m *SwitchCompat) ToString() (string, error) {
 	var result string
@@ -1331,6 +1310,33 @@ func (m *SwitchCompat) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// IsEmojiCompatEnabled calls androidx.appcompat.widget.SwitchCompat.isEmojiCompatEnabled.
+func (m *SwitchCompat) IsEmojiCompatEnabled() (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSwitchCompatIsEmojiCompatEnabled == nil {
+			callErr = fmt.Errorf("androidx.appcompat.widget.SwitchCompat.isEmojiCompatEnabled is not available on this device")
+			return callErr
+		}
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsSwitchCompat)),
+			midSwitchCompatIsEmojiCompatEnabled,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

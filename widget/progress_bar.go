@@ -32,6 +32,12 @@ func NewProgressBar(vm *jni.VM, arg0 *jni.Object) (*ProgressBar, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsProgressBar == nil {
+			return fmt.Errorf("android.widget.ProgressBar is not available on this device")
+		}
+		if midProgressBarCtor == nil {
+			return fmt.Errorf("android.widget.ProgressBar constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsProgressBar)), midProgressBarCtor, jni.ObjectValue(arg0))
 		if err != nil {

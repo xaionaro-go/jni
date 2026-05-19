@@ -32,6 +32,12 @@ func NewSupportActionModeWrapper(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object)
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSupportActionModeWrapper == nil {
+			return fmt.Errorf("androidx.appcompat.view.SupportActionModeWrapper is not available on this device")
+		}
+		if midSupportActionModeWrapperCtor == nil {
+			return fmt.Errorf("androidx.appcompat.view.SupportActionModeWrapper constructor (Landroid/content/Context;Landroidx/appcompat/view/ActionMode;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), midSupportActionModeWrapperCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

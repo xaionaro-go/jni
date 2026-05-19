@@ -23,6 +23,35 @@ type DynamicsProcessingMbcBand struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDynamicsProcessingMbcBand creates a new android.media.audiofx.DynamicsProcessing$MbcBand instance.
+func NewDynamicsProcessingMbcBand(vm *jni.VM, arg0 *jni.Object) (*DynamicsProcessingMbcBand, error) {
+	var t DynamicsProcessingMbcBand
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDynamicsProcessingMbcBand == nil {
+			return fmt.Errorf("android.media.audiofx.DynamicsProcessing$MbcBand is not available on this device")
+		}
+		if midDynamicsProcessingMbcBandCtor == nil {
+			return fmt.Errorf("android.media.audiofx.DynamicsProcessing$MbcBand constructor (Landroid/media/audiofx/DynamicsProcessing$MbcBand;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDynamicsProcessingMbcBand)), midDynamicsProcessingMbcBandCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetAttackTime calls android.media.audiofx.DynamicsProcessing$MbcBand.getAttackTime.
 func (m *DynamicsProcessingMbcBand) GetAttackTime() (float32, error) {
 	var result float32

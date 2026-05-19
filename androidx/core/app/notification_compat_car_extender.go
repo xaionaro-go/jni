@@ -21,6 +21,34 @@ type NotificationCompatCarExtender struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNotificationCompatCarExtender creates a new androidx.core.app.NotificationCompat$CarExtender instance.
+func NewNotificationCompatCarExtender(vm *jni.VM) (*NotificationCompatCarExtender, error) {
+	var t NotificationCompatCarExtender
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNotificationCompatCarExtender == nil {
+			return fmt.Errorf("androidx.core.app.NotificationCompat$CarExtender is not available on this device")
+		}
+		if midNotificationCompatCarExtenderCtor == nil {
+			return fmt.Errorf("androidx.core.app.NotificationCompat$CarExtender constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNotificationCompatCarExtender)), midNotificationCompatCarExtenderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Extend calls androidx.core.app.NotificationCompat$CarExtender.extend.
 func (m *NotificationCompatCarExtender) Extend(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

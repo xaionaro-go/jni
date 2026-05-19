@@ -21,6 +21,34 @@ type PictureInPictureParamsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPictureInPictureParamsBuilder creates a new android.app.PictureInPictureParams$Builder instance.
+func NewPictureInPictureParamsBuilder(vm *jni.VM) (*PictureInPictureParamsBuilder, error) {
+	var t PictureInPictureParamsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPictureInPictureParamsBuilder == nil {
+			return fmt.Errorf("android.app.PictureInPictureParams$Builder is not available on this device")
+		}
+		if midPictureInPictureParamsBuilderCtor == nil {
+			return fmt.Errorf("android.app.PictureInPictureParams$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPictureInPictureParamsBuilder)), midPictureInPictureParamsBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.app.PictureInPictureParams$Builder.build.
 func (m *PictureInPictureParamsBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

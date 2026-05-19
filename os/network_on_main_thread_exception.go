@@ -32,6 +32,12 @@ func NewNetworkOnMainThreadException(vm *jni.VM) (*NetworkOnMainThreadException,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNetworkOnMainThreadException == nil {
+			return fmt.Errorf("android.os.NetworkOnMainThreadException is not available on this device")
+		}
+		if midNetworkOnMainThreadExceptionCtor == nil {
+			return fmt.Errorf("android.os.NetworkOnMainThreadException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNetworkOnMainThreadException)), midNetworkOnMainThreadExceptionCtor)
 		if err != nil {
 			return err

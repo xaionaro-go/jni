@@ -32,6 +32,12 @@ func NewHalf(vm *jni.VM, arg0 float64) (*Half, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsHalf == nil {
+			return fmt.Errorf("android.util.Half is not available on this device")
+		}
+		if midHalfCtor == nil {
+			return fmt.Errorf("android.util.Half constructor (D)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHalf)), midHalfCtor, jni.DoubleValue(arg0))
 		if err != nil {
@@ -71,8 +77,8 @@ func (m *Half) ByteValue() (int8, error) {
 	return result, callErr
 }
 
-// CompareTo1 calls android.util.Half.compareTo.
-func (m *Half) CompareTo1(arg0 *jni.Object) (int32, error) {
+// CompareTo calls android.util.Half.compareTo.
+func (m *Half) CompareTo(arg0 *jni.Object) (int32, error) {
 	var result int32
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -80,14 +86,14 @@ func (m *Half) CompareTo1(arg0 *jni.Object) (int32, error) {
 			callErr = err
 			return err
 		}
-		if midHalfCompareTo1 == nil {
+		if midHalfCompareTo == nil {
 			callErr = fmt.Errorf("android.util.Half.compareTo is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallIntMethod(
 			m.Obj,
-			midHalfCompareTo1, jni.ObjectValue(arg0),
+			midHalfCompareTo, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -349,32 +355,6 @@ func (m *Half) ToString0() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
-		return callErr
-	})
-	return result, callErr
-}
-
-// CompareTo1_1 calls android.util.Half.compareTo.
-func (m *Half) CompareTo1_1(arg0 *jni.Object) (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midHalfCompareTo1_1 == nil {
-			callErr = fmt.Errorf("android.util.Half.compareTo is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midHalfCompareTo1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
 		return callErr
 	})
 	return result, callErr

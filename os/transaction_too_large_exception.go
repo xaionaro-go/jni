@@ -32,6 +32,12 @@ func NewTransactionTooLargeException(vm *jni.VM) (*TransactionTooLargeException,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTransactionTooLargeException == nil {
+			return fmt.Errorf("android.os.TransactionTooLargeException is not available on this device")
+		}
+		if midTransactionTooLargeExceptionCtor == nil {
+			return fmt.Errorf("android.os.TransactionTooLargeException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTransactionTooLargeException)), midTransactionTooLargeExceptionCtor)
 		if err != nil {
 			return err

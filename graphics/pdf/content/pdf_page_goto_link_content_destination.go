@@ -23,6 +23,35 @@ type PdfPageGotoLinkContentDestination struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPdfPageGotoLinkContentDestination creates a new android.graphics.pdf.content.PdfPageGotoLinkContent$Destination instance.
+func NewPdfPageGotoLinkContentDestination(vm *jni.VM, arg0 int32, arg1 float32, arg2 float32, arg3 float32) (*PdfPageGotoLinkContentDestination, error) {
+	var t PdfPageGotoLinkContentDestination
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPdfPageGotoLinkContentDestination == nil {
+			return fmt.Errorf("android.graphics.pdf.content.PdfPageGotoLinkContent$Destination is not available on this device")
+		}
+		if midPdfPageGotoLinkContentDestinationCtor == nil {
+			return fmt.Errorf("android.graphics.pdf.content.PdfPageGotoLinkContent$Destination constructor (IFFF)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPdfPageGotoLinkContentDestination)), midPdfPageGotoLinkContentDestinationCtor, jni.IntValue(arg0), jni.FloatValue(arg1), jni.FloatValue(arg2), jni.FloatValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.graphics.pdf.content.PdfPageGotoLinkContent$Destination.describeContents.
 func (m *PdfPageGotoLinkContentDestination) DescribeContents() (int32, error) {
 	var result int32
@@ -148,29 +177,6 @@ func (m *PdfPageGotoLinkContentDestination) GetZoom() (float32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.graphics.pdf.content.PdfPageGotoLinkContent$Destination.writeToParcel.
-func (m *PdfPageGotoLinkContentDestination) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midPdfPageGotoLinkContentDestinationWriteToParcel == nil {
-			callErr = fmt.Errorf("android.graphics.pdf.content.PdfPageGotoLinkContent$Destination.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midPdfPageGotoLinkContentDestinationWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.graphics.pdf.content.PdfPageGotoLinkContent$Destination.toString.
 func (m *PdfPageGotoLinkContentDestination) ToString() (string, error) {
 	var result string
@@ -196,4 +202,27 @@ func (m *PdfPageGotoLinkContentDestination) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.graphics.pdf.content.PdfPageGotoLinkContent$Destination.writeToParcel.
+func (m *PdfPageGotoLinkContentDestination) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midPdfPageGotoLinkContentDestinationWriteToParcel == nil {
+			callErr = fmt.Errorf("android.graphics.pdf.content.PdfPageGotoLinkContent$Destination.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsPdfPageGotoLinkContentDestination)),
+			midPdfPageGotoLinkContentDestinationWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

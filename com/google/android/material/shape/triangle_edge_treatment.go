@@ -32,6 +32,12 @@ func NewTriangleEdgeTreatment(vm *jni.VM, arg0 float32, arg1 bool) (*TriangleEdg
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTriangleEdgeTreatment == nil {
+			return fmt.Errorf("com.google.android.material.shape.TriangleEdgeTreatment is not available on this device")
+		}
+		if midTriangleEdgeTreatmentCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.TriangleEdgeTreatment constructor (FZ)V is not available on this device")
+		}
 
 		var jArg1 uint8
 		if arg1 {

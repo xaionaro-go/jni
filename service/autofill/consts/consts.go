@@ -10,9 +10,6 @@ const (
 	FlagCompatibilityModeRequest        int = 2
 	FlagManualRequest                   int = 1
 	FlagSupportsFillDialog              int = 64
-	ErrorNeedsUserAction                int = 2
-	ErrorOther                          int = 0
-	ErrorUnsupported                    int = 1
 	FlagDelaySave                       int = 4
 	FlagDontSaveOnFinish                int = 2
 	FlagSaveOnAllViewsInvisible         int = 1
@@ -30,6 +27,9 @@ const (
 	SaveDataTypePassword                int = 1
 	SaveDataTypePaymentCard             int = 64
 	SaveDataTypeUsername                int = 8
+	ErrorNeedsUserAction                int = 2
+	ErrorOther                          int = 0
+	ErrorUnsupported                    int = 1
 	NoSaveUiReasonDatasetMatch          int = 6
 	NoSaveUiReasonFieldValidationFailed int = 5
 	NoSaveUiReasonHasEmptyRequired      int = 3
@@ -53,9 +53,9 @@ const (
 )
 
 const (
-	TypeOther         string = "other"
-	TypePasswords     string = "passwords"
 	ExtraFillResponse string = "android.service.autofill.extra.FILL_RESPONSE"
 	ServiceInterface  string = "android.service.autofill.AutofillService"
 	ServiceMetaData   string = "android.autofill"
+	TypeOther         string = "other"
+	TypePasswords     string = "passwords"
 )

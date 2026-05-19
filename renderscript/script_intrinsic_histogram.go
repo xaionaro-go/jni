@@ -69,8 +69,8 @@ func (m *ScriptIntrinsicHistogram) ForEach2_1(arg0 *jni.Object, arg1 *jni.Object
 	return callErr
 }
 
-// ForEach_Dot1 calls android.renderscript.ScriptIntrinsicHistogram.forEach_Dot.
-func (m *ScriptIntrinsicHistogram) ForEach_Dot1(arg0 *jni.Object) error {
+// ForEachDot1 calls android.renderscript.ScriptIntrinsicHistogram.forEach_Dot.
+func (m *ScriptIntrinsicHistogram) ForEachDot1(arg0 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -78,22 +78,22 @@ func (m *ScriptIntrinsicHistogram) ForEach_Dot1(arg0 *jni.Object) error {
 			callErr = err
 			return err
 		}
-		if midScriptIntrinsicHistogramForEach_Dot1 == nil {
+		if midScriptIntrinsicHistogramForEachDot1 == nil {
 			callErr = fmt.Errorf("android.renderscript.ScriptIntrinsicHistogram.forEach_Dot is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midScriptIntrinsicHistogramForEach_Dot1, jni.ObjectValue(arg0),
+			midScriptIntrinsicHistogramForEachDot1, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})
 	return callErr
 }
 
-// ForEach_Dot2_1 calls android.renderscript.ScriptIntrinsicHistogram.forEach_Dot.
-func (m *ScriptIntrinsicHistogram) ForEach_Dot2_1(arg0 *jni.Object, arg1 *jni.Object) error {
+// ForEachDot2_1 calls android.renderscript.ScriptIntrinsicHistogram.forEach_Dot.
+func (m *ScriptIntrinsicHistogram) ForEachDot2_1(arg0 *jni.Object, arg1 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -101,22 +101,22 @@ func (m *ScriptIntrinsicHistogram) ForEach_Dot2_1(arg0 *jni.Object, arg1 *jni.Ob
 			callErr = err
 			return err
 		}
-		if midScriptIntrinsicHistogramForEach_Dot2_1 == nil {
+		if midScriptIntrinsicHistogramForEachDot2_1 == nil {
 			callErr = fmt.Errorf("android.renderscript.ScriptIntrinsicHistogram.forEach_Dot is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midScriptIntrinsicHistogramForEach_Dot2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midScriptIntrinsicHistogramForEachDot2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		return callErr
 	})
 	return callErr
 }
 
-// GetFieldID_Input calls android.renderscript.ScriptIntrinsicHistogram.getFieldID_Input.
-func (m *ScriptIntrinsicHistogram) GetFieldID_Input() (*jni.Object, error) {
+// GetFieldIDInput calls android.renderscript.ScriptIntrinsicHistogram.getFieldID_Input.
+func (m *ScriptIntrinsicHistogram) GetFieldIDInput() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -124,13 +124,13 @@ func (m *ScriptIntrinsicHistogram) GetFieldID_Input() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midScriptIntrinsicHistogramGetFieldID_Input == nil {
+		if midScriptIntrinsicHistogramGetFieldIDInput == nil {
 			callErr = fmt.Errorf("android.renderscript.ScriptIntrinsicHistogram.getFieldID_Input is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midScriptIntrinsicHistogramGetFieldID_Input,
+			midScriptIntrinsicHistogramGetFieldIDInput,
 		)
 		if callErr != nil {
 			return callErr
@@ -147,8 +147,8 @@ func (m *ScriptIntrinsicHistogram) GetFieldID_Input() (*jni.Object, error) {
 	return result, callErr
 }
 
-// GetKernelID_Separate calls android.renderscript.ScriptIntrinsicHistogram.getKernelID_Separate.
-func (m *ScriptIntrinsicHistogram) GetKernelID_Separate() (*jni.Object, error) {
+// GetKernelIDSeparate calls android.renderscript.ScriptIntrinsicHistogram.getKernelID_Separate.
+func (m *ScriptIntrinsicHistogram) GetKernelIDSeparate() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -156,13 +156,13 @@ func (m *ScriptIntrinsicHistogram) GetKernelID_Separate() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midScriptIntrinsicHistogramGetKernelID_Separate == nil {
+		if midScriptIntrinsicHistogramGetKernelIDSeparate == nil {
 			callErr = fmt.Errorf("android.renderscript.ScriptIntrinsicHistogram.getKernelID_Separate is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midScriptIntrinsicHistogramGetKernelID_Separate,
+			midScriptIntrinsicHistogramGetKernelIDSeparate,
 		)
 		if callErr != nil {
 			return callErr

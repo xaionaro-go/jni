@@ -345,29 +345,6 @@ func (m *Value) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.autofill.AutofillValue.writeToParcel.
-func (m *Value) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midValueWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.autofill.AutofillValue.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midValueWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ForDate calls android.view.autofill.AutofillValue.forDate.
 func (m *Value) ForDate(arg0 int64) (*jni.Object, error) {
 	var result *jni.Object
@@ -507,4 +484,27 @@ func (m *Value) ForToggle(arg0 bool) (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.autofill.AutofillValue.writeToParcel.
+func (m *Value) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midValueWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.autofill.AutofillValue.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsValue)),
+			midValueWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

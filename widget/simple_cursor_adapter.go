@@ -32,6 +32,12 @@ func NewSimpleCursorAdapter(vm *jni.VM, arg0 *jni.Object, arg1 int32, arg2 *jni.
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSimpleCursorAdapter == nil {
+			return fmt.Errorf("android.widget.SimpleCursorAdapter is not available on this device")
+		}
+		if midSimpleCursorAdapterCtor == nil {
+			return fmt.Errorf("android.widget.SimpleCursorAdapter constructor (Landroid/content/Context;ILandroid/database/Cursor;[Ljava/lang/String;[I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSimpleCursorAdapter)), midSimpleCursorAdapterCtor, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3), jni.ObjectValue(arg4))
 		if err != nil {

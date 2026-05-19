@@ -30,6 +30,12 @@ func NewRecoverableSecurityException(vm *jni.VM, arg0 *jni.Object, arg1 string, 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRecoverableSecurityException == nil {
+			return fmt.Errorf("android.app.RecoverableSecurityException is not available on this device")
+		}
+		if midRecoverableSecurityExceptionCtor == nil {
+			return fmt.Errorf("android.app.RecoverableSecurityException constructor (Ljava/lang/Throwable;Ljava/lang/CharSequence;Landroid/app/RemoteAction;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {
@@ -139,29 +145,6 @@ func (m *RecoverableSecurityException) GetUserMessage() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.RecoverableSecurityException.writeToParcel.
-func (m *RecoverableSecurityException) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRecoverableSecurityExceptionWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.RecoverableSecurityException.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midRecoverableSecurityExceptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.RecoverableSecurityException.toString.
 func (m *RecoverableSecurityException) ToString() (string, error) {
 	var result string
@@ -187,4 +170,27 @@ func (m *RecoverableSecurityException) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.RecoverableSecurityException.writeToParcel.
+func (m *RecoverableSecurityException) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRecoverableSecurityExceptionWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.RecoverableSecurityException.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsRecoverableSecurityException)),
+			midRecoverableSecurityExceptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

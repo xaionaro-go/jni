@@ -23,6 +23,14 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsRfc822Tokenizer               *jni.GlobalRef
+	midRfc822TokenizerCtor           jni.MethodID
+	midRfc822TokenizerFindTokenEnd   jni.MethodID
+	midRfc822TokenizerFindTokenStart jni.MethodID
+	midRfc822TokenizerTerminateToken jni.MethodID
+	midRfc822TokenizerToString       jni.MethodID
+	midRfc822TokenizerTokenize       jni.MethodID
+
 	clsLinkify            *jni.GlobalRef
 	midLinkifyCtor        jni.MethodID
 	midLinkifyToString    jni.MethodID
@@ -57,14 +65,6 @@ var (
 	midRfc822TokenQuoteComment         jni.MethodID
 	midRfc822TokenQuoteName            jni.MethodID
 	midRfc822TokenQuoteNameIfNecessary jni.MethodID
-
-	clsRfc822Tokenizer               *jni.GlobalRef
-	midRfc822TokenizerCtor           jni.MethodID
-	midRfc822TokenizerFindTokenEnd   jni.MethodID
-	midRfc822TokenizerFindTokenStart jni.MethodID
-	midRfc822TokenizerTerminateToken jni.MethodID
-	midRfc822TokenizerToString       jni.MethodID
-	midRfc822TokenizerTokenize       jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -84,6 +84,55 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("android/text/util/Rfc822Tokenizer")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRfc822Tokenizer = env.NewGlobalRef(&c.Object)
+		midRfc822TokenizerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRfc822Tokenizer)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midRfc822TokenizerFindTokenEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRfc822Tokenizer)), "findTokenEnd", "(Ljava/lang/CharSequence;I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRfc822TokenizerFindTokenStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRfc822Tokenizer)), "findTokenStart", "(Ljava/lang/CharSequence;I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRfc822TokenizerTerminateToken, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRfc822Tokenizer)), "terminateToken", "(Ljava/lang/CharSequence;)Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRfc822TokenizerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRfc822Tokenizer)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRfc822TokenizerTokenize, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRfc822Tokenizer)), "tokenize", "(Ljava/lang/CharSequence;)[Landroid/text/util/Rfc822Token;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("android/text/util/Linkify")
 	if err != nil {
@@ -300,55 +349,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midRfc822TokenQuoteNameIfNecessary, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRfc822Token)), "quoteNameIfNecessary", "(Ljava/lang/String;)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/text/util/Rfc822Tokenizer")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRfc822Tokenizer = env.NewGlobalRef(&c.Object)
-		midRfc822TokenizerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRfc822Tokenizer)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midRfc822TokenizerFindTokenEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRfc822Tokenizer)), "findTokenEnd", "(Ljava/lang/CharSequence;I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRfc822TokenizerFindTokenStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRfc822Tokenizer)), "findTokenStart", "(Ljava/lang/CharSequence;I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRfc822TokenizerTerminateToken, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRfc822Tokenizer)), "terminateToken", "(Ljava/lang/CharSequence;)Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRfc822TokenizerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRfc822Tokenizer)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRfc822TokenizerTokenize, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRfc822Tokenizer)), "tokenize", "(Ljava/lang/CharSequence;)[Landroid/text/util/Rfc822Token;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

@@ -194,12 +194,14 @@ classes:
               go_name: arg0
           returns: void
           error: true
-        - java_method: isSelectionRequired
-          go_name: IsSelectionRequired
-          returns: boolean
-          error: true
     - java_class: com.google.android.material.chip.ChipGroup$LayoutParams
       go_type: GroupLayoutParams
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.util.AttributeSet
+          go_name: arg1
     - java_class: com.google.android.material.chip.ChipGroup$OnCheckedChangeListener
       go_type: GroupOnCheckedChangeListener
       methods:
@@ -214,6 +216,854 @@ classes:
           error: true
     - java_class: com.google.android.material.chip.ChipGroup$OnCheckedStateChangeListener
       go_type: GroupOnCheckedStateChangeListener
+    - java_class: com.google.android.material.chip.ChipDrawable
+      go_type: Drawable
+      methods:
+        - java_method: setUseCompatRipple
+          go_name: SetUseCompatRipple
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getUseCompatRipple
+          go_name: GetUseCompatRipple
+          returns: boolean
+          error: true
+        - java_method: setDelegate
+          go_name: SetDelegate
+          params:
+            - java_type: com.google.android.material.chip.ChipDrawable$Delegate
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getChipTouchBounds
+          go_name: GetChipTouchBounds
+          params:
+            - java_type: android.graphics.RectF
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getCloseIconTouchBounds
+          go_name: GetCloseIconTouchBounds
+          params:
+            - java_type: android.graphics.RectF
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getIntrinsicWidth
+          go_name: GetIntrinsicWidth
+          returns: int
+          error: true
+        - java_method: getIntrinsicHeight
+          go_name: GetIntrinsicHeight
+          returns: int
+          error: true
+        - java_method: draw
+          go_name: Draw
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isStateful
+          go_name: IsStateful
+          returns: boolean
+          error: true
+        - java_method: isCloseIconStateful
+          go_name: IsCloseIconStateful
+          returns: boolean
+          error: true
+        - java_method: setCloseIconState
+          go_name: SetCloseIconState
+          params:
+            - java_type: '[I'
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getCloseIconState
+          go_name: GetCloseIconState
+          returns: '[I'
+          error: true
+        - java_method: onTextSizeChange
+          go_name: OnTextSizeChange
+          returns: void
+          error: true
+        - java_method: onStateChange
+          go_name: OnStateChange
+          params:
+            - java_type: '[I'
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onLayoutDirectionChanged
+          go_name: OnLayoutDirectionChanged
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: setVisible
+          go_name: SetVisible
+          params:
+            - java_type: boolean
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: setAlpha
+          go_name: SetAlpha
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getAlpha
+          go_name: GetAlpha
+          returns: int
+          error: true
+        - java_method: setColorFilter
+          go_name: SetColorFilter
+          params:
+            - java_type: android.graphics.ColorFilter
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getColorFilter
+          go_name: GetColorFilter
+          returns: android.graphics.ColorFilter
+          error: true
+        - java_method: setTintList
+          go_name: SetTintList
+          params:
+            - java_type: android.content.res.ColorStateList
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTintMode
+          go_name: SetTintMode
+          params:
+            - java_type: android.graphics.PorterDuff$Mode
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getOpacity
+          go_name: GetOpacity
+          returns: int
+          error: true
+        - java_method: getOutline
+          go_name: GetOutline
+          params:
+            - java_type: android.graphics.Outline
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: invalidateDrawable
+          go_name: InvalidateDrawable
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: scheduleDrawable
+          go_name: ScheduleDrawable
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+            - java_type: java.lang.Runnable
+              go_name: arg1
+            - java_type: long
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: unscheduleDrawable
+          go_name: UnscheduleDrawable
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+            - java_type: java.lang.Runnable
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setTextSize
+          go_name: SetTextSize
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTextColor
+          go_name: SetTextColor1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTextColor
+          go_name: SetTextColor1_1
+          params:
+            - java_type: android.content.res.ColorStateList
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getChipBackgroundColor
+          go_name: GetChipBackgroundColor
+          returns: android.content.res.ColorStateList
+          error: true
+        - java_method: setChipBackgroundColorResource
+          go_name: SetChipBackgroundColorResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setChipBackgroundColor
+          go_name: SetChipBackgroundColor
+          params:
+            - java_type: android.content.res.ColorStateList
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getChipMinHeight
+          go_name: GetChipMinHeight
+          returns: float
+          error: true
+        - java_method: setChipMinHeightResource
+          go_name: SetChipMinHeightResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setChipMinHeight
+          go_name: SetChipMinHeight
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getChipCornerRadius
+          go_name: GetChipCornerRadius
+          returns: float
+          error: true
+        - java_method: setChipCornerRadiusResource
+          go_name: SetChipCornerRadiusResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setChipCornerRadius
+          go_name: SetChipCornerRadius
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getChipStrokeColor
+          go_name: GetChipStrokeColor
+          returns: android.content.res.ColorStateList
+          error: true
+        - java_method: setChipStrokeColorResource
+          go_name: SetChipStrokeColorResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setChipStrokeColor
+          go_name: SetChipStrokeColor
+          params:
+            - java_type: android.content.res.ColorStateList
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getChipStrokeWidth
+          go_name: GetChipStrokeWidth
+          returns: float
+          error: true
+        - java_method: setChipStrokeWidthResource
+          go_name: SetChipStrokeWidthResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setChipStrokeWidth
+          go_name: SetChipStrokeWidth
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getRippleColor
+          go_name: GetRippleColor
+          returns: android.content.res.ColorStateList
+          error: true
+        - java_method: setRippleColorResource
+          go_name: SetRippleColorResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setRippleColor
+          go_name: SetRippleColor
+          params:
+            - java_type: android.content.res.ColorStateList
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getText
+          go_name: GetText
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: setTextResource
+          go_name: SetTextResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setText
+          go_name: SetText
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getTextAppearance
+          go_name: GetTextAppearance
+          returns: com.google.android.material.resources.TextAppearance
+          error: true
+        - java_method: setTextAppearanceResource
+          go_name: SetTextAppearanceResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTextAppearance
+          go_name: SetTextAppearance
+          params:
+            - java_type: com.google.android.material.resources.TextAppearance
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getEllipsize
+          go_name: GetEllipsize
+          returns: android.text.TextUtils$TruncateAt
+          error: true
+        - java_method: setEllipsize
+          go_name: SetEllipsize
+          params:
+            - java_type: android.text.TextUtils$TruncateAt
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isChipIconVisible
+          go_name: IsChipIconVisible
+          returns: boolean
+          error: true
+        - java_method: isChipIconEnabled
+          go_name: IsChipIconEnabled
+          returns: boolean
+          error: true
+        - java_method: setChipIconVisible
+          go_name: SetChipIconVisible1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setChipIconVisible
+          go_name: SetChipIconVisible1_1
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setChipIconEnabledResource
+          go_name: SetChipIconEnabledResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setChipIconEnabled
+          go_name: SetChipIconEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getChipIcon
+          go_name: GetChipIcon
+          returns: android.graphics.drawable.Drawable
+          error: true
+        - java_method: setChipIconResource
+          go_name: SetChipIconResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setChipIcon
+          go_name: SetChipIcon
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getChipIconTint
+          go_name: GetChipIconTint
+          returns: android.content.res.ColorStateList
+          error: true
+        - java_method: setChipIconTintResource
+          go_name: SetChipIconTintResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setChipIconTint
+          go_name: SetChipIconTint
+          params:
+            - java_type: android.content.res.ColorStateList
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getChipIconSize
+          go_name: GetChipIconSize
+          returns: float
+          error: true
+        - java_method: setChipIconSizeResource
+          go_name: SetChipIconSizeResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setChipIconSize
+          go_name: SetChipIconSize
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isCloseIconVisible
+          go_name: IsCloseIconVisible
+          returns: boolean
+          error: true
+        - java_method: isCloseIconEnabled
+          go_name: IsCloseIconEnabled
+          returns: boolean
+          error: true
+        - java_method: setCloseIconVisible
+          go_name: SetCloseIconVisible1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCloseIconVisible
+          go_name: SetCloseIconVisible1_1
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCloseIconEnabledResource
+          go_name: SetCloseIconEnabledResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCloseIconEnabled
+          go_name: SetCloseIconEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getCloseIcon
+          go_name: GetCloseIcon
+          returns: android.graphics.drawable.Drawable
+          error: true
+        - java_method: setCloseIconResource
+          go_name: SetCloseIconResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCloseIcon
+          go_name: SetCloseIcon
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getCloseIconTint
+          go_name: GetCloseIconTint
+          returns: android.content.res.ColorStateList
+          error: true
+        - java_method: setCloseIconTintResource
+          go_name: SetCloseIconTintResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCloseIconTint
+          go_name: SetCloseIconTint
+          params:
+            - java_type: android.content.res.ColorStateList
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getCloseIconSize
+          go_name: GetCloseIconSize
+          returns: float
+          error: true
+        - java_method: setCloseIconSizeResource
+          go_name: SetCloseIconSizeResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCloseIconSize
+          go_name: SetCloseIconSize
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCloseIconContentDescription
+          go_name: SetCloseIconContentDescription
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getCloseIconContentDescription
+          go_name: GetCloseIconContentDescription
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: isCheckable
+          go_name: IsCheckable
+          returns: boolean
+          error: true
+        - java_method: setCheckableResource
+          go_name: SetCheckableResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCheckable
+          go_name: SetCheckable
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isCheckedIconVisible
+          go_name: IsCheckedIconVisible
+          returns: boolean
+          error: true
+        - java_method: isCheckedIconEnabled
+          go_name: IsCheckedIconEnabled
+          returns: boolean
+          error: true
+        - java_method: setCheckedIconVisible
+          go_name: SetCheckedIconVisible1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCheckedIconVisible
+          go_name: SetCheckedIconVisible1_1
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCheckedIconEnabledResource
+          go_name: SetCheckedIconEnabledResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCheckedIconEnabled
+          go_name: SetCheckedIconEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getCheckedIcon
+          go_name: GetCheckedIcon
+          returns: android.graphics.drawable.Drawable
+          error: true
+        - java_method: setCheckedIconResource
+          go_name: SetCheckedIconResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCheckedIcon
+          go_name: SetCheckedIcon
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getCheckedIconTint
+          go_name: GetCheckedIconTint
+          returns: android.content.res.ColorStateList
+          error: true
+        - java_method: setCheckedIconTintResource
+          go_name: SetCheckedIconTintResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCheckedIconTint
+          go_name: SetCheckedIconTint
+          params:
+            - java_type: android.content.res.ColorStateList
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getShowMotionSpec
+          go_name: GetShowMotionSpec
+          returns: com.google.android.material.animation.MotionSpec
+          error: true
+        - java_method: setShowMotionSpecResource
+          go_name: SetShowMotionSpecResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setShowMotionSpec
+          go_name: SetShowMotionSpec
+          params:
+            - java_type: com.google.android.material.animation.MotionSpec
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getHideMotionSpec
+          go_name: GetHideMotionSpec
+          returns: com.google.android.material.animation.MotionSpec
+          error: true
+        - java_method: setHideMotionSpecResource
+          go_name: SetHideMotionSpecResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setHideMotionSpec
+          go_name: SetHideMotionSpec
+          params:
+            - java_type: com.google.android.material.animation.MotionSpec
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getChipStartPadding
+          go_name: GetChipStartPadding
+          returns: float
+          error: true
+        - java_method: setChipStartPaddingResource
+          go_name: SetChipStartPaddingResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setChipStartPadding
+          go_name: SetChipStartPadding
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getIconStartPadding
+          go_name: GetIconStartPadding
+          returns: float
+          error: true
+        - java_method: setIconStartPaddingResource
+          go_name: SetIconStartPaddingResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setIconStartPadding
+          go_name: SetIconStartPadding
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getIconEndPadding
+          go_name: GetIconEndPadding
+          returns: float
+          error: true
+        - java_method: setIconEndPaddingResource
+          go_name: SetIconEndPaddingResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setIconEndPadding
+          go_name: SetIconEndPadding
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getTextStartPadding
+          go_name: GetTextStartPadding
+          returns: float
+          error: true
+        - java_method: setTextStartPaddingResource
+          go_name: SetTextStartPaddingResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTextStartPadding
+          go_name: SetTextStartPadding
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getTextEndPadding
+          go_name: GetTextEndPadding
+          returns: float
+          error: true
+        - java_method: setTextEndPaddingResource
+          go_name: SetTextEndPaddingResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTextEndPadding
+          go_name: SetTextEndPadding
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getCloseIconStartPadding
+          go_name: GetCloseIconStartPadding
+          returns: float
+          error: true
+        - java_method: setCloseIconStartPaddingResource
+          go_name: SetCloseIconStartPaddingResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCloseIconStartPadding
+          go_name: SetCloseIconStartPadding
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getCloseIconEndPadding
+          go_name: GetCloseIconEndPadding
+          returns: float
+          error: true
+        - java_method: setCloseIconEndPaddingResource
+          go_name: SetCloseIconEndPaddingResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCloseIconEndPadding
+          go_name: SetCloseIconEndPadding
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getChipEndPadding
+          go_name: GetChipEndPadding
+          returns: float
+          error: true
+        - java_method: setChipEndPaddingResource
+          go_name: SetChipEndPaddingResource
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setChipEndPadding
+          go_name: SetChipEndPadding
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getMaxWidth
+          go_name: GetMaxWidth
+          returns: int
+          error: true
+      static_methods:
+        - java_method: createFromAttributes
+          go_name: CreateFromAttributes
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.util.AttributeSet
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: com.google.android.material.chip.ChipDrawable
+          error: true
+        - java_method: createFromResource
+          go_name: CreateFromResource
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: com.google.android.material.chip.ChipDrawable
+          error: true
+        - java_method: setMaxWidth
+          go_name: SetMaxWidth
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: com.google.android.material.chip.ChipDrawable$Delegate
+      go_type: DrawableDelegate
+      methods:
+        - java_method: onChipDrawableSizeChange
+          go_name: OnChipDrawableSizeChange
+          returns: void
+          error: true
     - java_class: com.google.android.material.chip.Chip
       go_type: Chip
       obtain: constructor
@@ -1172,857 +2022,5 @@ classes:
           params:
             - java_type: java.lang.CharSequence
               go_name: arg0
-          returns: void
-          error: true
-        - java_method: getAccessibilityClassName
-          go_name: GetAccessibilityClassName
-          returns: java.lang.CharSequence
-          error: true
-    - java_class: com.google.android.material.chip.ChipDrawable
-      go_type: Drawable
-      methods:
-        - java_method: setUseCompatRipple
-          go_name: SetUseCompatRipple
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getUseCompatRipple
-          go_name: GetUseCompatRipple
-          returns: boolean
-          error: true
-        - java_method: setDelegate
-          go_name: SetDelegate
-          params:
-            - java_type: com.google.android.material.chip.ChipDrawable$Delegate
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getChipTouchBounds
-          go_name: GetChipTouchBounds
-          params:
-            - java_type: android.graphics.RectF
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getCloseIconTouchBounds
-          go_name: GetCloseIconTouchBounds
-          params:
-            - java_type: android.graphics.RectF
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getIntrinsicWidth
-          go_name: GetIntrinsicWidth
-          returns: int
-          error: true
-        - java_method: getIntrinsicHeight
-          go_name: GetIntrinsicHeight
-          returns: int
-          error: true
-        - java_method: draw
-          go_name: Draw
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isStateful
-          go_name: IsStateful
-          returns: boolean
-          error: true
-        - java_method: isCloseIconStateful
-          go_name: IsCloseIconStateful
-          returns: boolean
-          error: true
-        - java_method: setCloseIconState
-          go_name: SetCloseIconState
-          params:
-            - java_type: '[I'
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getCloseIconState
-          go_name: GetCloseIconState
-          returns: '[I'
-          error: true
-        - java_method: onTextSizeChange
-          go_name: OnTextSizeChange
-          returns: void
-          error: true
-        - java_method: onStateChange
-          go_name: OnStateChange
-          params:
-            - java_type: '[I'
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onLayoutDirectionChanged
-          go_name: OnLayoutDirectionChanged
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: setVisible
-          go_name: SetVisible
-          params:
-            - java_type: boolean
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: setAlpha
-          go_name: SetAlpha
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getAlpha
-          go_name: GetAlpha
-          returns: int
-          error: true
-        - java_method: setColorFilter
-          go_name: SetColorFilter
-          params:
-            - java_type: android.graphics.ColorFilter
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getColorFilter
-          go_name: GetColorFilter
-          returns: android.graphics.ColorFilter
-          error: true
-        - java_method: setTintList
-          go_name: SetTintList
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTintMode
-          go_name: SetTintMode
-          params:
-            - java_type: android.graphics.PorterDuff$Mode
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getOpacity
-          go_name: GetOpacity
-          returns: int
-          error: true
-        - java_method: getOutline
-          go_name: GetOutline
-          params:
-            - java_type: android.graphics.Outline
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: invalidateDrawable
-          go_name: InvalidateDrawable
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: scheduleDrawable
-          go_name: ScheduleDrawable
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-            - java_type: java.lang.Runnable
-              go_name: arg1
-            - java_type: long
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: unscheduleDrawable
-          go_name: UnscheduleDrawable
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-            - java_type: java.lang.Runnable
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setTextSize
-          go_name: SetTextSize
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTextColor
-          go_name: SetTextColor1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTextColor
-          go_name: SetTextColor1_1
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getChipBackgroundColor
-          go_name: GetChipBackgroundColor
-          returns: android.content.res.ColorStateList
-          error: true
-        - java_method: setChipBackgroundColorResource
-          go_name: SetChipBackgroundColorResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setChipBackgroundColor
-          go_name: SetChipBackgroundColor
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getChipMinHeight
-          go_name: GetChipMinHeight
-          returns: float
-          error: true
-        - java_method: setChipMinHeightResource
-          go_name: SetChipMinHeightResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setChipMinHeight
-          go_name: SetChipMinHeight
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getChipCornerRadius
-          go_name: GetChipCornerRadius
-          returns: float
-          error: true
-        - java_method: setChipCornerRadiusResource
-          go_name: SetChipCornerRadiusResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setChipCornerRadius
-          go_name: SetChipCornerRadius
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getChipStrokeColor
-          go_name: GetChipStrokeColor
-          returns: android.content.res.ColorStateList
-          error: true
-        - java_method: setChipStrokeColorResource
-          go_name: SetChipStrokeColorResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setChipStrokeColor
-          go_name: SetChipStrokeColor
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getChipStrokeWidth
-          go_name: GetChipStrokeWidth
-          returns: float
-          error: true
-        - java_method: setChipStrokeWidthResource
-          go_name: SetChipStrokeWidthResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setChipStrokeWidth
-          go_name: SetChipStrokeWidth
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getRippleColor
-          go_name: GetRippleColor
-          returns: android.content.res.ColorStateList
-          error: true
-        - java_method: setRippleColorResource
-          go_name: SetRippleColorResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setRippleColor
-          go_name: SetRippleColor
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getText
-          go_name: GetText
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: setTextResource
-          go_name: SetTextResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setText
-          go_name: SetText
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getTextAppearance
-          go_name: GetTextAppearance
-          returns: com.google.android.material.resources.TextAppearance
-          error: true
-        - java_method: setTextAppearanceResource
-          go_name: SetTextAppearanceResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTextAppearance
-          go_name: SetTextAppearance
-          params:
-            - java_type: com.google.android.material.resources.TextAppearance
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getEllipsize
-          go_name: GetEllipsize
-          returns: android.text.TextUtils$TruncateAt
-          error: true
-        - java_method: setEllipsize
-          go_name: SetEllipsize
-          params:
-            - java_type: android.text.TextUtils$TruncateAt
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isChipIconVisible
-          go_name: IsChipIconVisible
-          returns: boolean
-          error: true
-        - java_method: isChipIconEnabled
-          go_name: IsChipIconEnabled
-          returns: boolean
-          error: true
-        - java_method: setChipIconVisible
-          go_name: SetChipIconVisible1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setChipIconVisible
-          go_name: SetChipIconVisible1_1
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setChipIconEnabledResource
-          go_name: SetChipIconEnabledResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setChipIconEnabled
-          go_name: SetChipIconEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getChipIcon
-          go_name: GetChipIcon
-          returns: android.graphics.drawable.Drawable
-          error: true
-        - java_method: setChipIconResource
-          go_name: SetChipIconResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setChipIcon
-          go_name: SetChipIcon
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getChipIconTint
-          go_name: GetChipIconTint
-          returns: android.content.res.ColorStateList
-          error: true
-        - java_method: setChipIconTintResource
-          go_name: SetChipIconTintResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setChipIconTint
-          go_name: SetChipIconTint
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getChipIconSize
-          go_name: GetChipIconSize
-          returns: float
-          error: true
-        - java_method: setChipIconSizeResource
-          go_name: SetChipIconSizeResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setChipIconSize
-          go_name: SetChipIconSize
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isCloseIconVisible
-          go_name: IsCloseIconVisible
-          returns: boolean
-          error: true
-        - java_method: isCloseIconEnabled
-          go_name: IsCloseIconEnabled
-          returns: boolean
-          error: true
-        - java_method: setCloseIconVisible
-          go_name: SetCloseIconVisible1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCloseIconVisible
-          go_name: SetCloseIconVisible1_1
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCloseIconEnabledResource
-          go_name: SetCloseIconEnabledResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCloseIconEnabled
-          go_name: SetCloseIconEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getCloseIcon
-          go_name: GetCloseIcon
-          returns: android.graphics.drawable.Drawable
-          error: true
-        - java_method: setCloseIconResource
-          go_name: SetCloseIconResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCloseIcon
-          go_name: SetCloseIcon
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getCloseIconTint
-          go_name: GetCloseIconTint
-          returns: android.content.res.ColorStateList
-          error: true
-        - java_method: setCloseIconTintResource
-          go_name: SetCloseIconTintResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCloseIconTint
-          go_name: SetCloseIconTint
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getCloseIconSize
-          go_name: GetCloseIconSize
-          returns: float
-          error: true
-        - java_method: setCloseIconSizeResource
-          go_name: SetCloseIconSizeResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCloseIconSize
-          go_name: SetCloseIconSize
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCloseIconContentDescription
-          go_name: SetCloseIconContentDescription
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getCloseIconContentDescription
-          go_name: GetCloseIconContentDescription
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: isCheckable
-          go_name: IsCheckable
-          returns: boolean
-          error: true
-        - java_method: setCheckableResource
-          go_name: SetCheckableResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCheckable
-          go_name: SetCheckable
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isCheckedIconVisible
-          go_name: IsCheckedIconVisible
-          returns: boolean
-          error: true
-        - java_method: isCheckedIconEnabled
-          go_name: IsCheckedIconEnabled
-          returns: boolean
-          error: true
-        - java_method: setCheckedIconVisible
-          go_name: SetCheckedIconVisible1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCheckedIconVisible
-          go_name: SetCheckedIconVisible1_1
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCheckedIconEnabledResource
-          go_name: SetCheckedIconEnabledResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCheckedIconEnabled
-          go_name: SetCheckedIconEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getCheckedIcon
-          go_name: GetCheckedIcon
-          returns: android.graphics.drawable.Drawable
-          error: true
-        - java_method: setCheckedIconResource
-          go_name: SetCheckedIconResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCheckedIcon
-          go_name: SetCheckedIcon
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getCheckedIconTint
-          go_name: GetCheckedIconTint
-          returns: android.content.res.ColorStateList
-          error: true
-        - java_method: setCheckedIconTintResource
-          go_name: SetCheckedIconTintResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCheckedIconTint
-          go_name: SetCheckedIconTint
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getShowMotionSpec
-          go_name: GetShowMotionSpec
-          returns: com.google.android.material.animation.MotionSpec
-          error: true
-        - java_method: setShowMotionSpecResource
-          go_name: SetShowMotionSpecResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setShowMotionSpec
-          go_name: SetShowMotionSpec
-          params:
-            - java_type: com.google.android.material.animation.MotionSpec
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getHideMotionSpec
-          go_name: GetHideMotionSpec
-          returns: com.google.android.material.animation.MotionSpec
-          error: true
-        - java_method: setHideMotionSpecResource
-          go_name: SetHideMotionSpecResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setHideMotionSpec
-          go_name: SetHideMotionSpec
-          params:
-            - java_type: com.google.android.material.animation.MotionSpec
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getChipStartPadding
-          go_name: GetChipStartPadding
-          returns: float
-          error: true
-        - java_method: setChipStartPaddingResource
-          go_name: SetChipStartPaddingResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setChipStartPadding
-          go_name: SetChipStartPadding
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getIconStartPadding
-          go_name: GetIconStartPadding
-          returns: float
-          error: true
-        - java_method: setIconStartPaddingResource
-          go_name: SetIconStartPaddingResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setIconStartPadding
-          go_name: SetIconStartPadding
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getIconEndPadding
-          go_name: GetIconEndPadding
-          returns: float
-          error: true
-        - java_method: setIconEndPaddingResource
-          go_name: SetIconEndPaddingResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setIconEndPadding
-          go_name: SetIconEndPadding
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getTextStartPadding
-          go_name: GetTextStartPadding
-          returns: float
-          error: true
-        - java_method: setTextStartPaddingResource
-          go_name: SetTextStartPaddingResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTextStartPadding
-          go_name: SetTextStartPadding
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getTextEndPadding
-          go_name: GetTextEndPadding
-          returns: float
-          error: true
-        - java_method: setTextEndPaddingResource
-          go_name: SetTextEndPaddingResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTextEndPadding
-          go_name: SetTextEndPadding
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getCloseIconStartPadding
-          go_name: GetCloseIconStartPadding
-          returns: float
-          error: true
-        - java_method: setCloseIconStartPaddingResource
-          go_name: SetCloseIconStartPaddingResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCloseIconStartPadding
-          go_name: SetCloseIconStartPadding
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getCloseIconEndPadding
-          go_name: GetCloseIconEndPadding
-          returns: float
-          error: true
-        - java_method: setCloseIconEndPaddingResource
-          go_name: SetCloseIconEndPaddingResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCloseIconEndPadding
-          go_name: SetCloseIconEndPadding
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getChipEndPadding
-          go_name: GetChipEndPadding
-          returns: float
-          error: true
-        - java_method: setChipEndPaddingResource
-          go_name: SetChipEndPaddingResource
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setChipEndPadding
-          go_name: SetChipEndPadding
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getMaxWidth
-          go_name: GetMaxWidth
-          returns: int
-          error: true
-        - java_method: setMaxWidth
-          go_name: SetMaxWidth
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-      static_methods:
-        - java_method: createFromAttributes
-          go_name: CreateFromAttributes
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.util.AttributeSet
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: com.google.android.material.chip.ChipDrawable
-          error: true
-        - java_method: createFromResource
-          go_name: CreateFromResource
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: com.google.android.material.chip.ChipDrawable
-          error: true
-    - java_class: com.google.android.material.chip.ChipDrawable$Delegate
-      go_type: DrawableDelegate
-      methods:
-        - java_method: onChipDrawableSizeChange
-          go_name: OnChipDrawableSizeChange
           returns: void
           error: true

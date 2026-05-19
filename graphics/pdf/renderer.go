@@ -32,6 +32,12 @@ func NewRenderer(vm *jni.VM, arg0 *jni.Object) (*Renderer, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRenderer == nil {
+			return fmt.Errorf("android.graphics.pdf.PdfRenderer is not available on this device")
+		}
+		if midRendererCtor == nil {
+			return fmt.Errorf("android.graphics.pdf.PdfRenderer constructor (Landroid/os/ParcelFileDescriptor;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRenderer)), midRendererCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -32,6 +32,12 @@ func NewLong3(vm *jni.VM) (*Long3, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLong3 == nil {
+			return fmt.Errorf("android.renderscript.Long3 is not available on this device")
+		}
+		if midLong3Ctor == nil {
+			return fmt.Errorf("android.renderscript.Long3 constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLong3)), midLong3Ctor)
 		if err != nil {
 			return err

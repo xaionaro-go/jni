@@ -23,6 +23,34 @@ type SlidingPaneLayoutSimplePanelSlideListener struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSlidingPaneLayoutSimplePanelSlideListener creates a new androidx.slidingpanelayout.widget.SlidingPaneLayout$SimplePanelSlideListener instance.
+func NewSlidingPaneLayoutSimplePanelSlideListener(vm *jni.VM) (*SlidingPaneLayoutSimplePanelSlideListener, error) {
+	var t SlidingPaneLayoutSimplePanelSlideListener
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSlidingPaneLayoutSimplePanelSlideListener == nil {
+			return fmt.Errorf("androidx.slidingpanelayout.widget.SlidingPaneLayout$SimplePanelSlideListener is not available on this device")
+		}
+		if midSlidingPaneLayoutSimplePanelSlideListenerCtor == nil {
+			return fmt.Errorf("androidx.slidingpanelayout.widget.SlidingPaneLayout$SimplePanelSlideListener constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSlidingPaneLayoutSimplePanelSlideListener)), midSlidingPaneLayoutSimplePanelSlideListenerCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnPanelSlide calls androidx.slidingpanelayout.widget.SlidingPaneLayout$SimplePanelSlideListener.onPanelSlide.
 func (m *SlidingPaneLayoutSimplePanelSlideListener) OnPanelSlide(arg0 *jni.Object, arg1 float32) error {
 

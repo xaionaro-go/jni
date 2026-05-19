@@ -32,6 +32,12 @@ func NewScrollingTabContainerView(vm *jni.VM, arg0 *jni.Object) (*ScrollingTabCo
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsScrollingTabContainerView == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ScrollingTabContainerView is not available on this device")
+		}
+		if midScrollingTabContainerViewCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ScrollingTabContainerView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScrollingTabContainerView)), midScrollingTabContainerViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -32,6 +32,12 @@ func NewDateIntervalInfo(vm *jni.VM, arg0 *jni.Object) (*DateIntervalInfo, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDateIntervalInfo == nil {
+			return fmt.Errorf("android.icu.text.DateIntervalInfo is not available on this device")
+		}
+		if midDateIntervalInfoCtor == nil {
+			return fmt.Errorf("android.icu.text.DateIntervalInfo constructor (Landroid/icu/util/ULocale;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDateIntervalInfo)), midDateIntervalInfoCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -78,8 +84,8 @@ func (m *DateIntervalInfo) Clone() (*jni.Object, error) {
 	return result, callErr
 }
 
-// CloneAsThawed0 calls android.icu.text.DateIntervalInfo.cloneAsThawed.
-func (m *DateIntervalInfo) CloneAsThawed0() (*jni.Object, error) {
+// CloneAsThawed calls android.icu.text.DateIntervalInfo.cloneAsThawed.
+func (m *DateIntervalInfo) CloneAsThawed() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -87,13 +93,13 @@ func (m *DateIntervalInfo) CloneAsThawed0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midDateIntervalInfoCloneAsThawed0 == nil {
+		if midDateIntervalInfoCloneAsThawed == nil {
 			callErr = fmt.Errorf("android.icu.text.DateIntervalInfo.cloneAsThawed is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midDateIntervalInfoCloneAsThawed0,
+			midDateIntervalInfoCloneAsThawed,
 		)
 		if callErr != nil {
 			return callErr
@@ -138,8 +144,8 @@ func (m *DateIntervalInfo) Equals(arg0 *jni.Object) (bool, error) {
 	return result, callErr
 }
 
-// Freeze0 calls android.icu.text.DateIntervalInfo.freeze.
-func (m *DateIntervalInfo) Freeze0() (*jni.Object, error) {
+// Freeze calls android.icu.text.DateIntervalInfo.freeze.
+func (m *DateIntervalInfo) Freeze() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -147,13 +153,13 @@ func (m *DateIntervalInfo) Freeze0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midDateIntervalInfoFreeze0 == nil {
+		if midDateIntervalInfoFreeze == nil {
 			callErr = fmt.Errorf("android.icu.text.DateIntervalInfo.freeze is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midDateIntervalInfoFreeze0,
+			midDateIntervalInfoFreeze,
 		)
 		if callErr != nil {
 			return callErr
@@ -378,70 +384,6 @@ func (m *DateIntervalInfo) SetIntervalPattern(
 		return callErr
 	})
 	return callErr
-}
-
-// Freeze0_1 calls android.icu.text.DateIntervalInfo.freeze.
-func (m *DateIntervalInfo) Freeze0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDateIntervalInfoFreeze0_1 == nil {
-			callErr = fmt.Errorf("android.icu.text.DateIntervalInfo.freeze is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midDateIntervalInfoFreeze0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// CloneAsThawed0_1 calls android.icu.text.DateIntervalInfo.cloneAsThawed.
-func (m *DateIntervalInfo) CloneAsThawed0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDateIntervalInfoCloneAsThawed0_1 == nil {
-			callErr = fmt.Errorf("android.icu.text.DateIntervalInfo.cloneAsThawed is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midDateIntervalInfoCloneAsThawed0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls android.icu.text.DateIntervalInfo.toString.

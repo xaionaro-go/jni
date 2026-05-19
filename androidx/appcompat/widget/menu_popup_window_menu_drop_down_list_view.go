@@ -23,6 +23,40 @@ type MenuPopupWindowMenuDropDownListView struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMenuPopupWindowMenuDropDownListView creates a new androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView instance.
+func NewMenuPopupWindowMenuDropDownListView(vm *jni.VM, arg0 *jni.Object, arg1 bool) (*MenuPopupWindowMenuDropDownListView, error) {
+	var t MenuPopupWindowMenuDropDownListView
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMenuPopupWindowMenuDropDownListView == nil {
+			return fmt.Errorf("androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView is not available on this device")
+		}
+		if midMenuPopupWindowMenuDropDownListViewCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView constructor (Landroid/content/Context;Z)V is not available on this device")
+		}
+
+		var jArg1 uint8
+		if arg1 {
+			jArg1 = jniTrue
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMenuPopupWindowMenuDropDownListView)), midMenuPopupWindowMenuDropDownListViewCtor, jni.ObjectValue(arg0), jni.BooleanValue(jArg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetHoverListener calls androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView.setHoverListener.
 func (m *MenuPopupWindowMenuDropDownListView) SetHoverListener(arg0 *jni.Object) error {
 
@@ -114,256 +148,6 @@ func (m *MenuPopupWindowMenuDropDownListView) OnHoverEvent(arg0 *jni.Object) (bo
 		resultRaw, callErr = env.CallBooleanMethod(
 			m.Obj,
 			midMenuPopupWindowMenuDropDownListViewOnHoverEvent, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// OnForwardedEvent calls androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView.onForwardedEvent.
-func (m *MenuPopupWindowMenuDropDownListView) OnForwardedEvent(arg0 *jni.Object, arg1 int32) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMenuPopupWindowMenuDropDownListViewOnForwardedEvent == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView.onForwardedEvent is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midMenuPopupWindowMenuDropDownListViewOnForwardedEvent, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// MeasureHeightOfChildrenCompat calls androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView.measureHeightOfChildrenCompat.
-func (m *MenuPopupWindowMenuDropDownListView) MeasureHeightOfChildrenCompat(
-	arg0 int32,
-	arg1 int32,
-	arg2 int32,
-	arg3 int32,
-	arg4 int32,
-) (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMenuPopupWindowMenuDropDownListViewMeasureHeightOfChildrenCompat == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView.measureHeightOfChildrenCompat is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midMenuPopupWindowMenuDropDownListViewMeasureHeightOfChildrenCompat, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3), jni.IntValue(arg4),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// LookForSelectablePosition calls androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView.lookForSelectablePosition.
-func (m *MenuPopupWindowMenuDropDownListView) LookForSelectablePosition(arg0 int32, arg1 bool) (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMenuPopupWindowMenuDropDownListViewLookForSelectablePosition == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView.lookForSelectablePosition is not available on this device")
-			return callErr
-		}
-
-		var jArg1 uint8
-		if arg1 {
-			jArg1 = jniTrue
-		}
-
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midMenuPopupWindowMenuDropDownListViewLookForSelectablePosition, jni.IntValue(arg0), jni.BooleanValue(jArg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// OnTouchEvent calls androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView.onTouchEvent.
-func (m *MenuPopupWindowMenuDropDownListView) OnTouchEvent(arg0 *jni.Object) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMenuPopupWindowMenuDropDownListViewOnTouchEvent == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView.onTouchEvent is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midMenuPopupWindowMenuDropDownListViewOnTouchEvent, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetSelector calls androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView.setSelector.
-func (m *MenuPopupWindowMenuDropDownListView) SetSelector(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMenuPopupWindowMenuDropDownListViewSetSelector == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView.setSelector is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMenuPopupWindowMenuDropDownListViewSetSelector, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// HasFocus calls androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView.hasFocus.
-func (m *MenuPopupWindowMenuDropDownListView) HasFocus() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMenuPopupWindowMenuDropDownListViewHasFocus == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView.hasFocus is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midMenuPopupWindowMenuDropDownListViewHasFocus,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// IsFocused calls androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView.isFocused.
-func (m *MenuPopupWindowMenuDropDownListView) IsFocused() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMenuPopupWindowMenuDropDownListViewIsFocused == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView.isFocused is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midMenuPopupWindowMenuDropDownListViewIsFocused,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// HasWindowFocus calls androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView.hasWindowFocus.
-func (m *MenuPopupWindowMenuDropDownListView) HasWindowFocus() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMenuPopupWindowMenuDropDownListViewHasWindowFocus == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView.hasWindowFocus is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midMenuPopupWindowMenuDropDownListViewHasWindowFocus,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// IsInTouchMode calls androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView.isInTouchMode.
-func (m *MenuPopupWindowMenuDropDownListView) IsInTouchMode() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMenuPopupWindowMenuDropDownListViewIsInTouchMode == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.MenuPopupWindow$MenuDropDownListView.isInTouchMode is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midMenuPopupWindowMenuDropDownListViewIsInTouchMode,
 		)
 		if callErr != nil {
 			return callErr

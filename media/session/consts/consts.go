@@ -3,27 +3,6 @@
 package consts
 
 const (
-	FlagHandlesMediaButtons      int = 1
-	FlagHandlesTransportControls int = 2
-	Creator                      int = 0
-	UnknownId                    int = -1
-	PlaybackTypeLocal            int = 1
-	PlaybackTypeRemote           int = 2
-	StateBuffering               int = 6
-	StateConnecting              int = 8
-	StateError                   int = 7
-	StateFastForwarding          int = 4
-	StateNone                    int = 0
-	StatePaused                  int = 2
-	StatePlaying                 int = 3
-	StateRewinding               int = 5
-	StateSkippingToNext          int = 10
-	StateSkippingToPrevious      int = 9
-	StateSkippingToQueueItem     int = 11
-	StateStopped                 int = 1
-)
-
-const (
 	ActionFastForward        int64 = 64
 	ActionPause              int64 = 2
 	ActionPlay               int64 = 4
@@ -44,4 +23,25 @@ const (
 	ActionSkipToQueueItem    int64 = 4096
 	ActionStop               int64 = 1
 	PlaybackPositionUnknown  int64 = -1
+)
+
+const (
+	Creator                      int = 0
+	StateBuffering               int = 6
+	StateConnecting              int = 8
+	StateError                   int = 7
+	StateFastForwarding          int = 4
+	StateNone                    int = 0
+	StatePaused                  int = 2
+	StatePlaying                 int = 3
+	StateRewinding               int = 5
+	StateSkippingToNext          int = 10
+	StateSkippingToPrevious      int = 9
+	StateSkippingToQueueItem     int = 11
+	StateStopped                 int = 1
+	FlagHandlesMediaButtons      int = 1
+	FlagHandlesTransportControls int = 2
+	UnknownId                    int = -1
+	PlaybackTypeLocal            int = 1
+	PlaybackTypeRemote           int = 2
 )

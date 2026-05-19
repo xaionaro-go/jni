@@ -23,6 +23,41 @@ type DrmSessionException struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDrmSessionException creates a new android.media.MediaDrm$SessionException instance.
+func NewDrmSessionException(vm *jni.VM, arg0 int32, arg1 string) (*DrmSessionException, error) {
+	var t DrmSessionException
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDrmSessionException == nil {
+			return fmt.Errorf("android.media.MediaDrm$SessionException is not available on this device")
+		}
+		if midDrmSessionExceptionCtor == nil {
+			return fmt.Errorf("android.media.MediaDrm$SessionException constructor (ILjava/lang/String;)V is not available on this device")
+		}
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDrmSessionException)), midDrmSessionExceptionCtor, jni.IntValue(arg0), jni.ObjectValue(&jArg1.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetErrorCode calls android.media.MediaDrm$SessionException.getErrorCode.
 func (m *DrmSessionException) GetErrorCode() (int32, error) {
 	var result int32

@@ -32,6 +32,12 @@ func NewExplode(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Explode, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsExplode == nil {
+			return fmt.Errorf("androidx.transition.Explode is not available on this device")
+		}
+		if midExplodeCtor == nil {
+			return fmt.Errorf("androidx.transition.Explode constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExplode)), midExplodeCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -157,44 +163,6 @@ func (m *Explode) OnAppear(
 	return result, callErr
 }
 
-// OnDisappear calls androidx.transition.Explode.onDisappear.
-func (m *Explode) OnDisappear(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-	arg3 *jni.Object,
-) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midExplodeOnDisappear == nil {
-			callErr = fmt.Errorf("androidx.transition.Explode.onDisappear is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midExplodeOnDisappear, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.transition.Explode.toString.
 func (m *Explode) ToString() (string, error) {
 	var result string
@@ -217,6 +185,44 @@ func (m *Explode) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// OnDisappear calls androidx.transition.Explode.onDisappear.
+func (m *Explode) OnDisappear(
+	arg0 *jni.Object,
+	arg1 *jni.Object,
+	arg2 *jni.Object,
+	arg3 *jni.Object,
+) (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midExplodeOnDisappear == nil {
+			callErr = fmt.Errorf("androidx.transition.Explode.onDisappear is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsExplode)),
+			midExplodeOnDisappear, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
 		return callErr
 	})
 	return result, callErr

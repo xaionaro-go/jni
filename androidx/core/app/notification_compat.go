@@ -30,6 +30,12 @@ func NewNotificationCompat(vm *jni.VM) (*NotificationCompat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNotificationCompat == nil {
+			return fmt.Errorf("androidx.core.app.NotificationCompat is not available on this device")
+		}
+		if midNotificationCompatCtor == nil {
+			return fmt.Errorf("androidx.core.app.NotificationCompat constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNotificationCompat)), midNotificationCompatCtor)
 		if err != nil {
 			return err

@@ -30,6 +30,12 @@ func NewStartForegroundCalledOnStoppedServiceException(vm *jni.VM, arg0 string) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStartForegroundCalledOnStoppedServiceException == nil {
+			return fmt.Errorf("android.app.StartForegroundCalledOnStoppedServiceException is not available on this device")
+		}
+		if midStartForegroundCalledOnStoppedServiceExceptionCtor == nil {
+			return fmt.Errorf("android.app.StartForegroundCalledOnStoppedServiceException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -74,29 +80,6 @@ func (m *StartForegroundCalledOnStoppedServiceException) DescribeContents() (int
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.StartForegroundCalledOnStoppedServiceException.writeToParcel.
-func (m *StartForegroundCalledOnStoppedServiceException) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midStartForegroundCalledOnStoppedServiceExceptionWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.StartForegroundCalledOnStoppedServiceException.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midStartForegroundCalledOnStoppedServiceExceptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.StartForegroundCalledOnStoppedServiceException.toString.
 func (m *StartForegroundCalledOnStoppedServiceException) ToString() (string, error) {
 	var result string
@@ -122,4 +105,27 @@ func (m *StartForegroundCalledOnStoppedServiceException) ToString() (string, err
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.StartForegroundCalledOnStoppedServiceException.writeToParcel.
+func (m *StartForegroundCalledOnStoppedServiceException) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midStartForegroundCalledOnStoppedServiceExceptionWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.StartForegroundCalledOnStoppedServiceException.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsStartForegroundCalledOnStoppedServiceException)),
+			midStartForegroundCalledOnStoppedServiceExceptionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

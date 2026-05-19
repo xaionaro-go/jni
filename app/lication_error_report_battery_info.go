@@ -21,6 +21,34 @@ type licationErrorReportBatteryInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewlicationErrorReportBatteryInfo creates a new android.app.ApplicationErrorReport$BatteryInfo instance.
+func NewlicationErrorReportBatteryInfo(vm *jni.VM) (*licationErrorReportBatteryInfo, error) {
+	var t licationErrorReportBatteryInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clslicationErrorReportBatteryInfo == nil {
+			return fmt.Errorf("android.app.ApplicationErrorReport$BatteryInfo is not available on this device")
+		}
+		if midlicationErrorReportBatteryInfoCtor == nil {
+			return fmt.Errorf("android.app.ApplicationErrorReport$BatteryInfo constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clslicationErrorReportBatteryInfo)), midlicationErrorReportBatteryInfoCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Dump calls android.app.ApplicationErrorReport$BatteryInfo.dump.
 func (m *licationErrorReportBatteryInfo) Dump(arg0 *jni.Object, arg1 string) error {
 

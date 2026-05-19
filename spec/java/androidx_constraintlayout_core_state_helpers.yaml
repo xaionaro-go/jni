@@ -5,6 +5,86 @@
 package: helpers
 go_import: github.com/AndroidGoLab/jni/androidx/constraintlayout/core/state/helpers
 classes:
+    - java_class: androidx.constraintlayout.core.state.helpers.VerticalChainReference
+      go_type: VerticalChainReference
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.constraintlayout.core.state.State
+          go_name: arg0
+      methods:
+        - java_method: apply
+          go_name: Apply
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.core.state.helpers.HorizontalChainReference
+      go_type: HorizontalChainReference
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.constraintlayout.core.state.State
+          go_name: arg0
+      methods:
+        - java_method: apply
+          go_name: Apply
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.core.state.helpers.Facade
+      go_type: Facade
+      methods:
+        - java_method: getConstraintWidget
+          go_name: GetConstraintWidget
+          returns: androidx.constraintlayout.core.widgets.ConstraintWidget
+          error: true
+        - java_method: apply
+          go_name: Apply
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.core.state.helpers.BarrierReference
+      go_type: BarrierReference
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.constraintlayout.core.state.State
+          go_name: arg0
+      methods:
+        - java_method: setBarrierDirection
+          go_name: SetBarrierDirection
+          params:
+            - java_type: androidx.constraintlayout.core.state.State$Direction
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: margin
+          go_name: Margin1
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: androidx.constraintlayout.core.state.ConstraintReference
+          error: true
+        - java_method: margin
+          go_name: Margin1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.constraintlayout.core.state.ConstraintReference
+          error: true
+        - java_method: getHelperWidget
+          go_name: GetHelperWidget
+          returns: androidx.constraintlayout.core.widgets.HelperWidget
+          error: true
+        - java_method: apply
+          go_name: Apply
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.core.state.helpers.AlignHorizontallyReference
+      go_type: AlignHorizontallyReference
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.constraintlayout.core.state.State
+          go_name: arg0
+      methods:
+        - java_method: apply
+          go_name: Apply
+          returns: void
+          error: true
     - java_class: androidx.constraintlayout.core.state.helpers.ChainReference
       go_type: ChainReference
       obtain: constructor
@@ -30,54 +110,14 @@ classes:
           returns: float
           error: true
         - java_method: bias
-          go_name: Bias1
+          go_name: Bias
           params:
             - java_type: float
               go_name: arg0
           returns: androidx.constraintlayout.core.state.helpers.ChainReference
           error: true
-        - java_method: bias
-          go_name: Bias1_1
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: androidx.constraintlayout.core.state.ConstraintReference
-          error: true
-    - java_class: androidx.constraintlayout.core.state.helpers.AlignHorizontallyReference
-      go_type: AlignHorizontallyReference
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.constraintlayout.core.state.State
-          go_name: arg0
-      methods:
-        - java_method: apply
-          go_name: Apply
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.core.state.helpers.Facade
-      go_type: Facade
-      methods:
-        - java_method: getConstraintWidget
-          go_name: GetConstraintWidget
-          returns: androidx.constraintlayout.core.widgets.ConstraintWidget
-          error: true
-        - java_method: apply
-          go_name: Apply
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.core.state.helpers.HorizontalChainReference
-      go_type: HorizontalChainReference
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.constraintlayout.core.state.State
-          go_name: arg0
-      methods:
-        - java_method: apply
-          go_name: Apply
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.core.state.helpers.VerticalChainReference
-      go_type: VerticalChainReference
+    - java_class: androidx.constraintlayout.core.state.helpers.AlignVerticallyReference
+      go_type: AlignVerticallyReference
       obtain: constructor
       constructor_params:
         - java_type: androidx.constraintlayout.core.state.State
@@ -154,52 +194,5 @@ classes:
           params:
             - java_type: androidx.constraintlayout.core.widgets.ConstraintWidget
               go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.core.state.helpers.AlignVerticallyReference
-      go_type: AlignVerticallyReference
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.constraintlayout.core.state.State
-          go_name: arg0
-      methods:
-        - java_method: apply
-          go_name: Apply
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.core.state.helpers.BarrierReference
-      go_type: BarrierReference
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.constraintlayout.core.state.State
-          go_name: arg0
-      methods:
-        - java_method: setBarrierDirection
-          go_name: SetBarrierDirection
-          params:
-            - java_type: androidx.constraintlayout.core.state.State$Direction
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: margin
-          go_name: Margin1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: androidx.constraintlayout.core.state.ConstraintReference
-          error: true
-        - java_method: margin
-          go_name: Margin1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.constraintlayout.core.state.ConstraintReference
-          error: true
-        - java_method: getHelperWidget
-          go_name: GetHelperWidget
-          returns: androidx.constraintlayout.core.widgets.HelperWidget
-          error: true
-        - java_method: apply
-          go_name: Apply
           returns: void
           error: true

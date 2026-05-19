@@ -5,14 +5,14 @@ package controls
 import "github.com/AndroidGoLab/jni/service/controls/consts"
 
 const (
-	ControlsSurfaceActivityPanel = consts.ControlsSurfaceActivityPanel
-	ControlsSurfaceDream         = consts.ControlsSurfaceDream
 	Creator                      = consts.Creator
 	StatusDisabled               = consts.StatusDisabled
 	StatusError                  = consts.StatusError
 	StatusNotFound               = consts.StatusNotFound
 	StatusOk                     = consts.StatusOk
 	StatusUnknown                = consts.StatusUnknown
+	ControlsSurfaceActivityPanel = consts.ControlsSurfaceActivityPanel
+	ControlsSurfaceDream         = consts.ControlsSurfaceDream
 	TypeAcHeater                 = consts.TypeAcHeater
 	TypeAcUnit                   = consts.TypeAcUnit
 	TypeAirFreshener             = consts.TypeAirFreshener

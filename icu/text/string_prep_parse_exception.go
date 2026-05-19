@@ -32,6 +32,12 @@ func NewStringPrepParseException(vm *jni.VM, arg0 string, arg1 int32) (*StringPr
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStringPrepParseException == nil {
+			return fmt.Errorf("android.icu.text.StringPrepParseException is not available on this device")
+		}
+		if midStringPrepParseExceptionCtor == nil {
+			return fmt.Errorf("android.icu.text.StringPrepParseException constructor (Ljava/lang/String;I)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

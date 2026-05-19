@@ -32,6 +32,12 @@ func NewTimePicker(vm *jni.VM, arg0 *jni.Object) (*TimePicker, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTimePicker == nil {
+			return fmt.Errorf("android.widget.TimePicker is not available on this device")
+		}
+		if midTimePickerCtor == nil {
+			return fmt.Errorf("android.widget.TimePicker constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTimePicker)), midTimePickerCtor, jni.ObjectValue(arg0))
 		if err != nil {

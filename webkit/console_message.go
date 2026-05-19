@@ -32,6 +32,12 @@ func NewConsoleMessage(vm *jni.VM, arg0 string, arg1 string, arg2 int32, arg3 *j
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsConsoleMessage == nil {
+			return fmt.Errorf("android.webkit.ConsoleMessage is not available on this device")
+		}
+		if midConsoleMessageCtor == nil {
+			return fmt.Errorf("android.webkit.ConsoleMessage constructor (Ljava/lang/String;Ljava/lang/String;ILandroid/webkit/ConsoleMessage$MessageLevel;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

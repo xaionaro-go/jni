@@ -23,6 +23,35 @@ type AsyncDifferConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAsyncDifferConfigBuilder creates a new androidx.recyclerview.widget.AsyncDifferConfig$Builder instance.
+func NewAsyncDifferConfigBuilder(vm *jni.VM, arg0 *jni.Object) (*AsyncDifferConfigBuilder, error) {
+	var t AsyncDifferConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAsyncDifferConfigBuilder == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.AsyncDifferConfig$Builder is not available on this device")
+		}
+		if midAsyncDifferConfigBuilderCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.AsyncDifferConfig$Builder constructor (Landroidx/recyclerview/widget/DiffUtil$ItemCallback;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAsyncDifferConfigBuilder)), midAsyncDifferConfigBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetMainThreadExecutor calls androidx.recyclerview.widget.AsyncDifferConfig$Builder.setMainThreadExecutor.
 func (m *AsyncDifferConfigBuilder) SetMainThreadExecutor(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
@@ -89,38 +118,6 @@ func (m *AsyncDifferConfigBuilder) SetBackgroundThreadExecutor(arg0 *jni.Object)
 	return result, callErr
 }
 
-// Build calls androidx.recyclerview.widget.AsyncDifferConfig$Builder.build.
-func (m *AsyncDifferConfigBuilder) Build() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAsyncDifferConfigBuilderBuild == nil {
-			callErr = fmt.Errorf("androidx.recyclerview.widget.AsyncDifferConfig$Builder.build is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midAsyncDifferConfigBuilderBuild,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.recyclerview.widget.AsyncDifferConfig$Builder.toString.
 func (m *AsyncDifferConfigBuilder) ToString() (string, error) {
 	var result string
@@ -143,6 +140,38 @@ func (m *AsyncDifferConfigBuilder) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// Build calls androidx.recyclerview.widget.AsyncDifferConfig$Builder.build.
+func (m *AsyncDifferConfigBuilder) Build() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midAsyncDifferConfigBuilderBuild == nil {
+			callErr = fmt.Errorf("androidx.recyclerview.widget.AsyncDifferConfig$Builder.build is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsAsyncDifferConfigBuilder)),
+			midAsyncDifferConfigBuilderBuild,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
 		return callErr
 	})
 	return result, callErr

@@ -5,10 +5,10 @@ package shape
 import "github.com/AndroidGoLab/jni/com/google/android/material/shape/consts"
 
 const (
-	Pill                    = consts.Pill
-	Rounded                 = consts.Rounded
-	Cut                     = consts.Cut
 	ShadowCompatModeDefault = consts.ShadowCompatModeDefault
 	ShadowCompatModeNever   = consts.ShadowCompatModeNever
 	ShadowCompatModeAlways  = consts.ShadowCompatModeAlways
+	Pill                    = consts.Pill
+	Rounded                 = consts.Rounded
+	Cut                     = consts.Cut
 )

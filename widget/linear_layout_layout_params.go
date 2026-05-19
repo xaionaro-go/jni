@@ -23,6 +23,35 @@ type LinearLayoutLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewLinearLayoutLayoutParams creates a new android.widget.LinearLayout$LayoutParams instance.
+func NewLinearLayoutLayoutParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*LinearLayoutLayoutParams, error) {
+	var t LinearLayoutLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsLinearLayoutLayoutParams == nil {
+			return fmt.Errorf("android.widget.LinearLayout$LayoutParams is not available on this device")
+		}
+		if midLinearLayoutLayoutParamsCtor == nil {
+			return fmt.Errorf("android.widget.LinearLayout$LayoutParams constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLinearLayoutLayoutParams)), midLinearLayoutLayoutParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Debug calls android.widget.LinearLayout$LayoutParams.debug.
 func (m *LinearLayoutLayoutParams) Debug(arg0 string) (string, error) {
 	var result string

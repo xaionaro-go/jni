@@ -110,38 +110,6 @@ func (m *TintContextWrapper) GetResources() (*jni.Object, error) {
 	return result, callErr
 }
 
-// GetAssets calls androidx.appcompat.widget.TintContextWrapper.getAssets.
-func (m *TintContextWrapper) GetAssets() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTintContextWrapperGetAssets == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.TintContextWrapper.getAssets is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midTintContextWrapperGetAssets,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.appcompat.widget.TintContextWrapper.toString.
 func (m *TintContextWrapper) ToString() (string, error) {
 	var result string
@@ -186,6 +154,38 @@ func (m *TintContextWrapper) Wrap(arg0 *jni.Object) (*jni.Object, error) {
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsTintContextWrapper)),
 			midTintContextWrapperWrap, jni.ObjectValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetAssets calls androidx.appcompat.widget.TintContextWrapper.getAssets.
+func (m *TintContextWrapper) GetAssets() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midTintContextWrapperGetAssets == nil {
+			callErr = fmt.Errorf("androidx.appcompat.widget.TintContextWrapper.getAssets is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsTintContextWrapper)),
+			midTintContextWrapperGetAssets,
 		)
 		if callErr != nil {
 			return callErr

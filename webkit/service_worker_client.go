@@ -32,6 +32,12 @@ func NewServiceWorkerClient(vm *jni.VM) (*ServiceWorkerClient, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsServiceWorkerClient == nil {
+			return fmt.Errorf("android.webkit.ServiceWorkerClient is not available on this device")
+		}
+		if midServiceWorkerClientCtor == nil {
+			return fmt.Errorf("android.webkit.ServiceWorkerClient constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsServiceWorkerClient)), midServiceWorkerClientCtor)
 		if err != nil {
 			return err

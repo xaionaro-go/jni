@@ -32,6 +32,12 @@ func NewBottomSheetBehavior(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Bo
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBottomSheetBehavior == nil {
+			return fmt.Errorf("com.google.android.material.bottomsheet.BottomSheetBehavior is not available on this device")
+		}
+		if midBottomSheetBehaviorCtor == nil {
+			return fmt.Errorf("com.google.android.material.bottomsheet.BottomSheetBehavior constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBottomSheetBehavior)), midBottomSheetBehaviorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -1244,58 +1250,6 @@ func (m *BottomSheetBehavior) SetHideableInternal(arg0 bool) error {
 	return callErr
 }
 
-// GetLastStableState calls com.google.android.material.bottomsheet.BottomSheetBehavior.getLastStableState.
-func (m *BottomSheetBehavior) GetLastStableState() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBottomSheetBehaviorGetLastStableState == nil {
-			callErr = fmt.Errorf("com.google.android.material.bottomsheet.BottomSheetBehavior.getLastStableState is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midBottomSheetBehaviorGetLastStableState,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetUpdateImportantForAccessibilityOnSiblings calls com.google.android.material.bottomsheet.BottomSheetBehavior.setUpdateImportantForAccessibilityOnSiblings.
-func (m *BottomSheetBehavior) SetUpdateImportantForAccessibilityOnSiblings(arg0 bool) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBottomSheetBehaviorSetUpdateImportantForAccessibilityOnSiblings == nil {
-			callErr = fmt.Errorf("com.google.android.material.bottomsheet.BottomSheetBehavior.setUpdateImportantForAccessibilityOnSiblings is not available on this device")
-			return callErr
-		}
-		var jArg0 uint8
-		if arg0 {
-			jArg0 = jniTrue
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midBottomSheetBehaviorSetUpdateImportantForAccessibilityOnSiblings, jni.BooleanValue(jArg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls com.google.android.material.bottomsheet.BottomSheetBehavior.toString.
 func (m *BottomSheetBehavior) ToString() (string, error) {
 	var result string
@@ -1318,6 +1272,31 @@ func (m *BottomSheetBehavior) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetLastStableState calls com.google.android.material.bottomsheet.BottomSheetBehavior.getLastStableState.
+func (m *BottomSheetBehavior) GetLastStableState() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midBottomSheetBehaviorGetLastStableState == nil {
+			callErr = fmt.Errorf("com.google.android.material.bottomsheet.BottomSheetBehavior.getLastStableState is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsBottomSheetBehavior)),
+			midBottomSheetBehaviorGetLastStableState,
+		)
+		if callErr != nil {
+			return callErr
+		}
 		return callErr
 	})
 	return result, callErr

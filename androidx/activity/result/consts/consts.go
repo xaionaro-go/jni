@@ -3,6 +3,6 @@
 package consts
 
 const (
-	Companion int = 0
 	Creator   int = 0
+	Companion int = 0
 )

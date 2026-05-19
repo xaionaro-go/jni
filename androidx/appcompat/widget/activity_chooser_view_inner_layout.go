@@ -23,6 +23,35 @@ type ActivityChooserViewInnerLayout struct {
 	Obj *jni.GlobalRef
 }
 
+// NewActivityChooserViewInnerLayout creates a new androidx.appcompat.widget.ActivityChooserView$InnerLayout instance.
+func NewActivityChooserViewInnerLayout(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ActivityChooserViewInnerLayout, error) {
+	var t ActivityChooserViewInnerLayout
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsActivityChooserViewInnerLayout == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ActivityChooserView$InnerLayout is not available on this device")
+		}
+		if midActivityChooserViewInnerLayoutCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.ActivityChooserView$InnerLayout constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivityChooserViewInnerLayout)), midActivityChooserViewInnerLayoutCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.appcompat.widget.ActivityChooserView$InnerLayout.toString.
 func (m *ActivityChooserViewInnerLayout) ToString() (string, error) {
 	var result string

@@ -23,11 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsCallback                  *jni.GlobalRef
-	midCallbackOnDocumentChanged jni.MethodID
-	midCallbackOnSchemaChanged   jni.MethodID
-	midCallbackToString          jni.MethodID
-
 	clsSchemaChangeInfo                      *jni.GlobalRef
 	midSchemaChangeInfoCtor                  jni.MethodID
 	midSchemaChangeInfoEquals                jni.MethodID
@@ -40,10 +35,11 @@ var (
 	clsSpec                 *jni.GlobalRef
 	midSpecDescribeContents jni.MethodID
 	midSpecGetFilterSchemas jni.MethodID
-	midSpecWriteToParcel    jni.MethodID
 	midSpecToString         jni.MethodID
+	midSpecWriteToParcel    jni.MethodID
 
 	clsSpecBuilder                 *jni.GlobalRef
+	midSpecBuilderCtor             jni.MethodID
 	midSpecBuilderAddFilterSchemas jni.MethodID
 	midSpecBuilderBuild            jni.MethodID
 	midSpecBuilderToString         jni.MethodID
@@ -58,6 +54,11 @@ var (
 	midDocumentChangeInfoGetSchemaName         jni.MethodID
 	midDocumentChangeInfoHashCode              jni.MethodID
 	midDocumentChangeInfoToString              jni.MethodID
+
+	clsCallback                  *jni.GlobalRef
+	midCallbackOnDocumentChanged jni.MethodID
+	midCallbackOnSchemaChanged   jni.MethodID
+	midCallbackToString          jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -77,37 +78,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("android/app/appsearch/observer/ObserverCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCallback = env.NewGlobalRef(&c.Object)
-
-		midCallbackOnDocumentChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCallback)), "onDocumentChanged", "(Landroid/app/appsearch/observer/DocumentChangeInfo;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCallbackOnSchemaChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCallback)), "onSchemaChanged", "(Landroid/app/appsearch/observer/SchemaChangeInfo;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("android/app/appsearch/observer/SchemaChangeInfo")
 	if err != nil {
@@ -187,14 +157,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midSpecWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpec)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midSpecToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpec)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSpecToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpec)), "toString", "()Ljava/lang/String;")
+		midSpecWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSpec)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -210,6 +180,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsSpecBuilder = env.NewGlobalRef(&c.Object)
+		midSpecBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpecBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midSpecBuilderAddFilterSchemas, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpecBuilder)), "addFilterSchemas", "([Ljava/lang/String;)Landroid/app/appsearch/observer/ObserverSpec$Builder;")
 		if err != nil {
@@ -296,6 +270,37 @@ func doInit(env *jni.Env) error {
 		}
 
 		midDocumentChangeInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDocumentChangeInfo)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/observer/ObserverCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCallback = env.NewGlobalRef(&c.Object)
+
+		midCallbackOnDocumentChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCallback)), "onDocumentChanged", "(Landroid/app/appsearch/observer/DocumentChangeInfo;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCallbackOnSchemaChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCallback)), "onSchemaChanged", "(Landroid/app/appsearch/observer/SchemaChangeInfo;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCallback)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

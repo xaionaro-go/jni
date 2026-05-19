@@ -23,29 +23,6 @@ type OutlineProvider struct {
 	Obj *jni.GlobalRef
 }
 
-// GetOutline calls android.view.ViewOutlineProvider.getOutline.
-func (m *OutlineProvider) GetOutline(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midOutlineProviderGetOutline == nil {
-			callErr = fmt.Errorf("android.view.ViewOutlineProvider.getOutline is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midOutlineProviderGetOutline, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.view.ViewOutlineProvider.toString.
 func (m *OutlineProvider) ToString() (string, error) {
 	var result string
@@ -71,4 +48,27 @@ func (m *OutlineProvider) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// GetOutline calls android.view.ViewOutlineProvider.getOutline.
+func (m *OutlineProvider) GetOutline(arg0 *jni.Object, arg1 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midOutlineProviderGetOutline == nil {
+			callErr = fmt.Errorf("android.view.ViewOutlineProvider.getOutline is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsOutlineProvider)),
+			midOutlineProviderGetOutline, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

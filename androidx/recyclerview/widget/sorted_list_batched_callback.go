@@ -23,6 +23,35 @@ type SortedListBatchedCallback struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSortedListBatchedCallback creates a new androidx.recyclerview.widget.SortedList$BatchedCallback instance.
+func NewSortedListBatchedCallback(vm *jni.VM, arg0 *jni.Object) (*SortedListBatchedCallback, error) {
+	var t SortedListBatchedCallback
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSortedListBatchedCallback == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.SortedList$BatchedCallback is not available on this device")
+		}
+		if midSortedListBatchedCallbackCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.SortedList$BatchedCallback constructor (Landroidx/recyclerview/widget/SortedList$Callback;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSortedListBatchedCallback)), midSortedListBatchedCallbackCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Compare calls androidx.recyclerview.widget.SortedList$BatchedCallback.compare.
 func (m *SortedListBatchedCallback) Compare(arg0 *jni.Object, arg1 *jni.Object) (int32, error) {
 	var result int32

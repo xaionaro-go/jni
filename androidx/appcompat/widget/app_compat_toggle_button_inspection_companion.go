@@ -23,6 +23,34 @@ type AppCompatToggleButtonInspectionCompanion struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAppCompatToggleButtonInspectionCompanion creates a new androidx.appcompat.widget.AppCompatToggleButton$InspectionCompanion instance.
+func NewAppCompatToggleButtonInspectionCompanion(vm *jni.VM) (*AppCompatToggleButtonInspectionCompanion, error) {
+	var t AppCompatToggleButtonInspectionCompanion
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAppCompatToggleButtonInspectionCompanion == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatToggleButton$InspectionCompanion is not available on this device")
+		}
+		if midAppCompatToggleButtonInspectionCompanionCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatToggleButton$InspectionCompanion constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButtonInspectionCompanion)), midAppCompatToggleButtonInspectionCompanionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // MapProperties calls androidx.appcompat.widget.AppCompatToggleButton$InspectionCompanion.mapProperties.
 func (m *AppCompatToggleButtonInspectionCompanion) MapProperties(arg0 *jni.Object) error {
 
@@ -46,8 +74,8 @@ func (m *AppCompatToggleButtonInspectionCompanion) MapProperties(arg0 *jni.Objec
 	return callErr
 }
 
-// ReadProperties2 calls androidx.appcompat.widget.AppCompatToggleButton$InspectionCompanion.readProperties.
-func (m *AppCompatToggleButtonInspectionCompanion) ReadProperties2(arg0 *jni.Object, arg1 *jni.Object) error {
+// ReadProperties calls androidx.appcompat.widget.AppCompatToggleButton$InspectionCompanion.readProperties.
+func (m *AppCompatToggleButtonInspectionCompanion) ReadProperties(arg0 *jni.Object, arg1 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,37 +83,14 @@ func (m *AppCompatToggleButtonInspectionCompanion) ReadProperties2(arg0 *jni.Obj
 			callErr = err
 			return err
 		}
-		if midAppCompatToggleButtonInspectionCompanionReadProperties2 == nil {
+		if midAppCompatToggleButtonInspectionCompanionReadProperties == nil {
 			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatToggleButton$InspectionCompanion.readProperties is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midAppCompatToggleButtonInspectionCompanionReadProperties2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// ReadProperties2_1 calls androidx.appcompat.widget.AppCompatToggleButton$InspectionCompanion.readProperties.
-func (m *AppCompatToggleButtonInspectionCompanion) ReadProperties2_1(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppCompatToggleButtonInspectionCompanionReadProperties2_1 == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatToggleButton$InspectionCompanion.readProperties is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAppCompatToggleButtonInspectionCompanionReadProperties2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midAppCompatToggleButtonInspectionCompanionReadProperties, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		return callErr
 	})

@@ -103,38 +103,6 @@ func (m *Insets) ToString() (string, error) {
 	return result, callErr
 }
 
-// ToPlatformInsets calls androidx.core.graphics.Insets.toPlatformInsets.
-func (m *Insets) ToPlatformInsets() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midInsetsToPlatformInsets == nil {
-			callErr = fmt.Errorf("androidx.core.graphics.Insets.toPlatformInsets is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midInsetsToPlatformInsets,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // Of4 calls androidx.core.graphics.Insets.of.
 func (m *Insets) Of4(
 	arg0 int32,
@@ -388,6 +356,38 @@ func (m *Insets) ToCompatInsets(arg0 *jni.Object) (*jni.Object, error) {
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsInsets)),
 			midInsetsToCompatInsets, jni.ObjectValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// ToPlatformInsets calls androidx.core.graphics.Insets.toPlatformInsets.
+func (m *Insets) ToPlatformInsets() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midInsetsToPlatformInsets == nil {
+			callErr = fmt.Errorf("androidx.core.graphics.Insets.toPlatformInsets is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsInsets)),
+			midInsetsToPlatformInsets,
 		)
 		if callErr != nil {
 			return callErr

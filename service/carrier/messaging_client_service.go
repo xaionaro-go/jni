@@ -32,6 +32,12 @@ func NewMessagingClientService(vm *jni.VM) (*MessagingClientService, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMessagingClientService == nil {
+			return fmt.Errorf("android.service.carrier.CarrierMessagingClientService is not available on this device")
+		}
+		if midMessagingClientServiceCtor == nil {
+			return fmt.Errorf("android.service.carrier.CarrierMessagingClientService constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMessagingClientService)), midMessagingClientServiceCtor)
 		if err != nil {
 			return err

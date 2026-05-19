@@ -32,6 +32,12 @@ func NewAsyncLayoutInflater(vm *jni.VM, arg0 *jni.Object) (*AsyncLayoutInflater,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAsyncLayoutInflater == nil {
+			return fmt.Errorf("androidx.asynclayoutinflater.view.AsyncLayoutInflater is not available on this device")
+		}
+		if midAsyncLayoutInflaterCtor == nil {
+			return fmt.Errorf("androidx.asynclayoutinflater.view.AsyncLayoutInflater constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAsyncLayoutInflater)), midAsyncLayoutInflaterCtor, jni.ObjectValue(arg0))
 		if err != nil {

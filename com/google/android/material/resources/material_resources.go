@@ -229,8 +229,8 @@ func (m *MaterialResources) GetDimensionPixelSize(
 	return result, callErr
 }
 
-// IsFontScaleAtLeast1_3 calls com.google.android.material.resources.MaterialResources.isFontScaleAtLeast1_3.
-func (m *MaterialResources) IsFontScaleAtLeast1_3(arg0 *jni.Object) (bool, error) {
+// IsFontScaleAtLeast13 calls com.google.android.material.resources.MaterialResources.isFontScaleAtLeast1_3.
+func (m *MaterialResources) IsFontScaleAtLeast13(arg0 *jni.Object) (bool, error) {
 	var result bool
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -238,7 +238,7 @@ func (m *MaterialResources) IsFontScaleAtLeast1_3(arg0 *jni.Object) (bool, error
 			callErr = err
 			return err
 		}
-		if midMaterialResourcesIsFontScaleAtLeast1_3 == nil {
+		if midMaterialResourcesIsFontScaleAtLeast13 == nil {
 			callErr = fmt.Errorf("com.google.android.material.resources.MaterialResources.isFontScaleAtLeast1_3 is not available on this device")
 			return callErr
 		}
@@ -246,7 +246,7 @@ func (m *MaterialResources) IsFontScaleAtLeast1_3(arg0 *jni.Object) (bool, error
 		var resultRaw uint8
 		resultRaw, callErr = env.CallStaticBooleanMethod(
 			(*jni.Class)(unsafe.Pointer(clsMaterialResources)),
-			midMaterialResourcesIsFontScaleAtLeast1_3, jni.ObjectValue(arg0),
+			midMaterialResourcesIsFontScaleAtLeast13, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -257,8 +257,8 @@ func (m *MaterialResources) IsFontScaleAtLeast1_3(arg0 *jni.Object) (bool, error
 	return result, callErr
 }
 
-// IsFontScaleAtLeast2_0 calls com.google.android.material.resources.MaterialResources.isFontScaleAtLeast2_0.
-func (m *MaterialResources) IsFontScaleAtLeast2_0(arg0 *jni.Object) (bool, error) {
+// IsFontScaleAtLeast20 calls com.google.android.material.resources.MaterialResources.isFontScaleAtLeast2_0.
+func (m *MaterialResources) IsFontScaleAtLeast20(arg0 *jni.Object) (bool, error) {
 	var result bool
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -266,7 +266,7 @@ func (m *MaterialResources) IsFontScaleAtLeast2_0(arg0 *jni.Object) (bool, error
 			callErr = err
 			return err
 		}
-		if midMaterialResourcesIsFontScaleAtLeast2_0 == nil {
+		if midMaterialResourcesIsFontScaleAtLeast20 == nil {
 			callErr = fmt.Errorf("com.google.android.material.resources.MaterialResources.isFontScaleAtLeast2_0 is not available on this device")
 			return callErr
 		}
@@ -274,7 +274,7 @@ func (m *MaterialResources) IsFontScaleAtLeast2_0(arg0 *jni.Object) (bool, error
 		var resultRaw uint8
 		resultRaw, callErr = env.CallStaticBooleanMethod(
 			(*jni.Class)(unsafe.Pointer(clsMaterialResources)),
-			midMaterialResourcesIsFontScaleAtLeast2_0, jni.ObjectValue(arg0),
+			midMaterialResourcesIsFontScaleAtLeast20, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr

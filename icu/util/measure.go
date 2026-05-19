@@ -32,6 +32,12 @@ func NewMeasure(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Measure, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMeasure == nil {
+			return fmt.Errorf("android.icu.util.Measure is not available on this device")
+		}
+		if midMeasureCtor == nil {
+			return fmt.Errorf("android.icu.util.Measure constructor (Ljava/lang/Number;Landroid/icu/util/MeasureUnit;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMeasure)), midMeasureCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

@@ -23,6 +23,34 @@ type Manifestpermission struct {
 	Obj *jni.GlobalRef
 }
 
+// NewManifestpermission creates a new android.Manifest$permission instance.
+func NewManifestpermission(vm *jni.VM) (*Manifestpermission, error) {
+	var t Manifestpermission
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsManifestpermission == nil {
+			return fmt.Errorf("android.Manifest$permission is not available on this device")
+		}
+		if midManifestpermissionCtor == nil {
+			return fmt.Errorf("android.Manifest$permission constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsManifestpermission)), midManifestpermissionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.Manifest$permission.toString.
 func (m *Manifestpermission) ToString() (string, error) {
 	var result string

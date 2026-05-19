@@ -5,36 +5,6 @@ package quality
 import "github.com/AndroidGoLab/jni/media/quality/consts"
 
 const (
-	Creator                                = consts.Creator
-	AlgorithmNone                          = consts.AlgorithmNone
-	AlgorithmRle                           = consts.AlgorithmRle
-	TypeDouble                             = consts.TypeDouble
-	TypeInt                                = consts.TypeInt
-	TypeLong                               = consts.TypeLong
-	TypeNone                               = consts.TypeNone
-	TypeString                             = consts.TypeString
-	ErrorDuplicate                         = consts.ErrorDuplicate
-	ErrorInvalidArgument                   = consts.ErrorInvalidArgument
-	ErrorNotAllowlisted                    = consts.ErrorNotAllowlisted
-	ErrorNoPermission                      = consts.ErrorNoPermission
-	ErrorUnknown                           = consts.ErrorUnknown
-	TypeApplication                        = consts.TypeApplication
-	TypeSystem                             = consts.TypeSystem
-	AmbientBacklightEventDisabled          = consts.AmbientBacklightEventDisabled
-	AmbientBacklightEventEnabled           = consts.AmbientBacklightEventEnabled
-	AmbientBacklightEventInterrupted       = consts.AmbientBacklightEventInterrupted
-	AmbientBacklightEventMetadataAvailable = consts.AmbientBacklightEventMetadataAvailable
-	SourceAudio                            = consts.SourceAudio
-	SourceAudioVideo                       = consts.SourceAudioVideo
-	SourceNone                             = consts.SourceNone
-	SourceVideo                            = consts.SourceVideo
-)
-
-const (
-	CapabilityDefault                                = consts.CapabilityDefault
-	CapabilityEnum                                   = consts.CapabilityEnum
-	CapabilityMax                                    = consts.CapabilityMax
-	CapabilityMin                                    = consts.CapabilityMin
 	LevelHigh                                        = consts.LevelHigh
 	LevelLow                                         = consts.LevelLow
 	LevelMedium                                      = consts.LevelMedium
@@ -89,4 +59,34 @@ const (
 	ParameterSpeakersDelayMillis                     = consts.ParameterSpeakersDelayMillis
 	ParameterSurroundSound                           = consts.ParameterSurroundSound
 	ParameterTreble                                  = consts.ParameterTreble
+	CapabilityDefault                                = consts.CapabilityDefault
+	CapabilityEnum                                   = consts.CapabilityEnum
+	CapabilityMax                                    = consts.CapabilityMax
+	CapabilityMin                                    = consts.CapabilityMin
+)
+
+const (
+	Creator                                = consts.Creator
+	ErrorDuplicate                         = consts.ErrorDuplicate
+	ErrorInvalidArgument                   = consts.ErrorInvalidArgument
+	ErrorNotAllowlisted                    = consts.ErrorNotAllowlisted
+	ErrorNoPermission                      = consts.ErrorNoPermission
+	ErrorUnknown                           = consts.ErrorUnknown
+	TypeApplication                        = consts.TypeApplication
+	TypeSystem                             = consts.TypeSystem
+	SourceAudio                            = consts.SourceAudio
+	SourceAudioVideo                       = consts.SourceAudioVideo
+	SourceNone                             = consts.SourceNone
+	SourceVideo                            = consts.SourceVideo
+	TypeDouble                             = consts.TypeDouble
+	TypeInt                                = consts.TypeInt
+	TypeLong                               = consts.TypeLong
+	TypeNone                               = consts.TypeNone
+	TypeString                             = consts.TypeString
+	AlgorithmNone                          = consts.AlgorithmNone
+	AlgorithmRle                           = consts.AlgorithmRle
+	AmbientBacklightEventDisabled          = consts.AmbientBacklightEventDisabled
+	AmbientBacklightEventEnabled           = consts.AmbientBacklightEventEnabled
+	AmbientBacklightEventInterrupted       = consts.AmbientBacklightEventInterrupted
+	AmbientBacklightEventMetadataAvailable = consts.AmbientBacklightEventMetadataAvailable
 )

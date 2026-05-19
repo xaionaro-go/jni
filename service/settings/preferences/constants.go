@@ -6,25 +6,25 @@ import "github.com/AndroidGoLab/jni/service/settings/preferences/consts"
 
 const (
 	Creator                    = consts.Creator
-	ResultDisabled             = consts.ResultDisabled
 	ResultDisallow             = consts.ResultDisallow
 	ResultInternalError        = consts.ResultInternalError
 	ResultInvalidRequest       = consts.ResultInvalidRequest
 	ResultOk                   = consts.ResultOk
 	ResultRequireAppPermission = consts.ResultRequireAppPermission
-	ResultRequireUserConsent   = consts.ResultRequireUserConsent
-	ResultRestricted           = consts.ResultRestricted
 	ResultUnavailable          = consts.ResultUnavailable
 	ResultUnsupported          = consts.ResultUnsupported
-	DeeplinkOnly               = consts.DeeplinkOnly
-	ExpectPostConfirmation     = consts.ExpectPostConfirmation
-	NoDirectAccess             = consts.NoDirectAccess
-	NoSensitivity              = consts.NoSensitivity
 	TypeBoolean                = consts.TypeBoolean
 	TypeDouble                 = consts.TypeDouble
 	TypeInt                    = consts.TypeInt
 	TypeLong                   = consts.TypeLong
 	TypeString                 = consts.TypeString
+	ResultDisabled             = consts.ResultDisabled
+	ResultRequireUserConsent   = consts.ResultRequireUserConsent
+	ResultRestricted           = consts.ResultRestricted
+	DeeplinkOnly               = consts.DeeplinkOnly
+	ExpectPostConfirmation     = consts.ExpectPostConfirmation
+	NoDirectAccess             = consts.NoDirectAccess
+	NoSensitivity              = consts.NoSensitivity
 )
 
 const (

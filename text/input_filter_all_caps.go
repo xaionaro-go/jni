@@ -23,6 +23,34 @@ type InputFilterAllCaps struct {
 	Obj *jni.GlobalRef
 }
 
+// NewInputFilterAllCaps creates a new android.text.InputFilter$AllCaps instance.
+func NewInputFilterAllCaps(vm *jni.VM) (*InputFilterAllCaps, error) {
+	var t InputFilterAllCaps
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsInputFilterAllCaps == nil {
+			return fmt.Errorf("android.text.InputFilter$AllCaps is not available on this device")
+		}
+		if midInputFilterAllCapsCtor == nil {
+			return fmt.Errorf("android.text.InputFilter$AllCaps constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInputFilterAllCaps)), midInputFilterAllCapsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Filter calls android.text.InputFilter$AllCaps.filter.
 func (m *InputFilterAllCaps) Filter(
 	arg0 string,

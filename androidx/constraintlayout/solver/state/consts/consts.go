@@ -3,6 +3,15 @@
 package consts
 
 const (
+	FixedDimension     int = 0
+	WrapDimension      int = 0
+	SpreadDimension    int = 0
+	ParentDimension    int = 0
+	PercentDimension   int = 0
+	Fixed              int = 0
+	Wrap               int = 0
+	MatchParent        int = 0
+	MatchConstraint    int = 0
 	Parent             int = 0
 	Left               int = 0
 	Right              int = 0
@@ -35,13 +44,4 @@ const (
 	Spread             int = 0
 	SpreadInside       int = 0
 	Packed             int = 0
-	FixedDimension     int = 0
-	WrapDimension      int = 0
-	SpreadDimension    int = 0
-	ParentDimension    int = 0
-	PercentDimension   int = 0
-	Fixed              int = 0
-	Wrap               int = 0
-	MatchParent        int = 0
-	MatchConstraint    int = 0
 )

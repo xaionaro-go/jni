@@ -32,6 +32,12 @@ func NewUris(vm *jni.VM) (*Uris, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsUris == nil {
+			return fmt.Errorf("android.content.ContentUris is not available on this device")
+		}
+		if midUrisCtor == nil {
+			return fmt.Errorf("android.content.ContentUris constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUris)), midUrisCtor)
 		if err != nil {
 			return err

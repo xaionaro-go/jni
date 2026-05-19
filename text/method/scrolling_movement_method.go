@@ -32,6 +32,12 @@ func NewScrollingMovementMethod(vm *jni.VM) (*ScrollingMovementMethod, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsScrollingMovementMethod == nil {
+			return fmt.Errorf("android.text.method.ScrollingMovementMethod is not available on this device")
+		}
+		if midScrollingMovementMethodCtor == nil {
+			return fmt.Errorf("android.text.method.ScrollingMovementMethod constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScrollingMovementMethod)), midScrollingMovementMethodCtor)
 		if err != nil {
 			return err

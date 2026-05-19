@@ -32,6 +32,12 @@ func NewStrikethroughSpan(vm *jni.VM) (*StrikethroughSpan, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStrikethroughSpan == nil {
+			return fmt.Errorf("android.text.style.StrikethroughSpan is not available on this device")
+		}
+		if midStrikethroughSpanCtor == nil {
+			return fmt.Errorf("android.text.style.StrikethroughSpan constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStrikethroughSpan)), midStrikethroughSpanCtor)
 		if err != nil {
 			return err

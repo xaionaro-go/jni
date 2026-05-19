@@ -32,6 +32,12 @@ func NewMotionHelper(vm *jni.VM, arg0 *jni.Object) (*MotionHelper, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMotionHelper == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.MotionHelper is not available on this device")
+		}
+		if midMotionHelperCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.MotionHelper constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMotionHelper)), midMotionHelperCtor, jni.ObjectValue(arg0))
 		if err != nil {

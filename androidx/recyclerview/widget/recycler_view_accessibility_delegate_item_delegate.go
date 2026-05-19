@@ -23,6 +23,35 @@ type RecyclerViewAccessibilityDelegateItemDelegate struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRecyclerViewAccessibilityDelegateItemDelegate creates a new androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate$ItemDelegate instance.
+func NewRecyclerViewAccessibilityDelegateItemDelegate(vm *jni.VM, arg0 *jni.Object) (*RecyclerViewAccessibilityDelegateItemDelegate, error) {
+	var t RecyclerViewAccessibilityDelegateItemDelegate
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRecyclerViewAccessibilityDelegateItemDelegate == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate$ItemDelegate is not available on this device")
+		}
+		if midRecyclerViewAccessibilityDelegateItemDelegateCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate$ItemDelegate constructor (Landroidx/recyclerview/widget/RecyclerViewAccessibilityDelegate;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRecyclerViewAccessibilityDelegateItemDelegate)), midRecyclerViewAccessibilityDelegateItemDelegateCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnInitializeAccessibilityNodeInfo calls androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate$ItemDelegate.onInitializeAccessibilityNodeInfo.
 func (m *RecyclerViewAccessibilityDelegateItemDelegate) OnInitializeAccessibilityNodeInfo(arg0 *jni.Object, arg1 *jni.Object) error {
 

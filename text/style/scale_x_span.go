@@ -32,6 +32,12 @@ func NewScaleXSpan(vm *jni.VM, arg0 *jni.Object) (*ScaleXSpan, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsScaleXSpan == nil {
+			return fmt.Errorf("android.text.style.ScaleXSpan is not available on this device")
+		}
+		if midScaleXSpanCtor == nil {
+			return fmt.Errorf("android.text.style.ScaleXSpan constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScaleXSpan)), midScaleXSpanCtor, jni.ObjectValue(arg0))
 		if err != nil {

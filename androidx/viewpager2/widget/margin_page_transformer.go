@@ -32,6 +32,12 @@ func NewMarginPageTransformer(vm *jni.VM, arg0 int32) (*MarginPageTransformer, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMarginPageTransformer == nil {
+			return fmt.Errorf("androidx.viewpager2.widget.MarginPageTransformer is not available on this device")
+		}
+		if midMarginPageTransformerCtor == nil {
+			return fmt.Errorf("androidx.viewpager2.widget.MarginPageTransformer constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMarginPageTransformer)), midMarginPageTransformerCtor, jni.IntValue(arg0))
 		if err != nil {

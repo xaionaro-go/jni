@@ -32,6 +32,12 @@ func NewSslCertificate(vm *jni.VM, arg0 string, arg1 string, arg2 string, arg3 s
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSslCertificate == nil {
+			return fmt.Errorf("android.net.http.SslCertificate is not available on this device")
+		}
+		if midSslCertificateCtor == nil {
+			return fmt.Errorf("android.net.http.SslCertificate constructor (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

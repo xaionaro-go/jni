@@ -32,6 +32,12 @@ func NewDisplayCutoutCompat(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Di
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDisplayCutoutCompat == nil {
+			return fmt.Errorf("androidx.core.view.DisplayCutoutCompat is not available on this device")
+		}
+		if midDisplayCutoutCompatCtor == nil {
+			return fmt.Errorf("androidx.core.view.DisplayCutoutCompat constructor (Landroid/graphics/Rect;Ljava/util/List;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDisplayCutoutCompat)), midDisplayCutoutCompatCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -277,8 +283,8 @@ func (m *DisplayCutoutCompat) ToString() (string, error) {
 			return callErr
 		}
 		var resultObj *jni.Object
-		resultObj, callErr = env.CallObjectMethod(
-			m.Obj,
+		resultObj, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsDisplayCutoutCompat)),
 			midDisplayCutoutCompatToString,
 		)
 		if callErr != nil {

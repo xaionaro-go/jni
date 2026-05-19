@@ -23,6 +23,34 @@ type ViewMeasureSpec struct {
 	Obj *jni.GlobalRef
 }
 
+// NewViewMeasureSpec creates a new android.view.View$MeasureSpec instance.
+func NewViewMeasureSpec(vm *jni.VM) (*ViewMeasureSpec, error) {
+	var t ViewMeasureSpec
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsViewMeasureSpec == nil {
+			return fmt.Errorf("android.view.View$MeasureSpec is not available on this device")
+		}
+		if midViewMeasureSpecCtor == nil {
+			return fmt.Errorf("android.view.View$MeasureSpec constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewMeasureSpec)), midViewMeasureSpecCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetMode calls android.view.View$MeasureSpec.getMode.
 func (m *ViewMeasureSpec) GetMode(arg0 int32) (int32, error) {
 	var result int32

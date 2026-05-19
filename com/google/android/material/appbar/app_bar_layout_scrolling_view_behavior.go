@@ -23,6 +23,35 @@ type AppBarLayoutScrollingViewBehavior struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAppBarLayoutScrollingViewBehavior creates a new com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior instance.
+func NewAppBarLayoutScrollingViewBehavior(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*AppBarLayoutScrollingViewBehavior, error) {
+	var t AppBarLayoutScrollingViewBehavior
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAppBarLayoutScrollingViewBehavior == nil {
+			return fmt.Errorf("com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior is not available on this device")
+		}
+		if midAppBarLayoutScrollingViewBehaviorCtor == nil {
+			return fmt.Errorf("com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppBarLayoutScrollingViewBehavior)), midAppBarLayoutScrollingViewBehaviorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // LayoutDependsOn calls com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.layoutDependsOn.
 func (m *AppBarLayoutScrollingViewBehavior) LayoutDependsOn(
 	arg0 *jni.Object,
@@ -112,325 +141,6 @@ func (m *AppBarLayoutScrollingViewBehavior) OnDependentViewRemoved(
 		return callErr
 	})
 	return callErr
-}
-
-// OnRequestChildRectangleOnScreen calls com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.onRequestChildRectangleOnScreen.
-func (m *AppBarLayoutScrollingViewBehavior) OnRequestChildRectangleOnScreen(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-	arg3 bool,
-) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppBarLayoutScrollingViewBehaviorOnRequestChildRectangleOnScreen == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.onRequestChildRectangleOnScreen is not available on this device")
-			return callErr
-		}
-
-		var jArg3 uint8
-		if arg3 {
-			jArg3 = jniTrue
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midAppBarLayoutScrollingViewBehaviorOnRequestChildRectangleOnScreen, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.BooleanValue(jArg3),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// OnMeasureChild calls com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.onMeasureChild.
-func (m *AppBarLayoutScrollingViewBehavior) OnMeasureChild(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 int32,
-	arg3 int32,
-	arg4 int32,
-	arg5 int32,
-) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppBarLayoutScrollingViewBehaviorOnMeasureChild == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.onMeasureChild is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midAppBarLayoutScrollingViewBehaviorOnMeasureChild, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3), jni.IntValue(arg4), jni.IntValue(arg5),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// IsHorizontalOffsetEnabled calls com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.isHorizontalOffsetEnabled.
-func (m *AppBarLayoutScrollingViewBehavior) IsHorizontalOffsetEnabled() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppBarLayoutScrollingViewBehaviorIsHorizontalOffsetEnabled == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.isHorizontalOffsetEnabled is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midAppBarLayoutScrollingViewBehaviorIsHorizontalOffsetEnabled,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetHorizontalOffsetEnabled calls com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.setHorizontalOffsetEnabled.
-func (m *AppBarLayoutScrollingViewBehavior) SetHorizontalOffsetEnabled(arg0 bool) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppBarLayoutScrollingViewBehaviorSetHorizontalOffsetEnabled == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.setHorizontalOffsetEnabled is not available on this device")
-			return callErr
-		}
-		var jArg0 uint8
-		if arg0 {
-			jArg0 = jniTrue
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAppBarLayoutScrollingViewBehaviorSetHorizontalOffsetEnabled, jni.BooleanValue(jArg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// IsVerticalOffsetEnabled calls com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.isVerticalOffsetEnabled.
-func (m *AppBarLayoutScrollingViewBehavior) IsVerticalOffsetEnabled() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppBarLayoutScrollingViewBehaviorIsVerticalOffsetEnabled == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.isVerticalOffsetEnabled is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midAppBarLayoutScrollingViewBehaviorIsVerticalOffsetEnabled,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetVerticalOffsetEnabled calls com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.setVerticalOffsetEnabled.
-func (m *AppBarLayoutScrollingViewBehavior) SetVerticalOffsetEnabled(arg0 bool) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppBarLayoutScrollingViewBehaviorSetVerticalOffsetEnabled == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.setVerticalOffsetEnabled is not available on this device")
-			return callErr
-		}
-		var jArg0 uint8
-		if arg0 {
-			jArg0 = jniTrue
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAppBarLayoutScrollingViewBehaviorSetVerticalOffsetEnabled, jni.BooleanValue(jArg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// GetLeftAndRightOffset calls com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.getLeftAndRightOffset.
-func (m *AppBarLayoutScrollingViewBehavior) GetLeftAndRightOffset() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppBarLayoutScrollingViewBehaviorGetLeftAndRightOffset == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.getLeftAndRightOffset is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midAppBarLayoutScrollingViewBehaviorGetLeftAndRightOffset,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetTopAndBottomOffset calls com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.getTopAndBottomOffset.
-func (m *AppBarLayoutScrollingViewBehavior) GetTopAndBottomOffset() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppBarLayoutScrollingViewBehaviorGetTopAndBottomOffset == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.getTopAndBottomOffset is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midAppBarLayoutScrollingViewBehaviorGetTopAndBottomOffset,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetLeftAndRightOffset calls com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.setLeftAndRightOffset.
-func (m *AppBarLayoutScrollingViewBehavior) SetLeftAndRightOffset(arg0 int32) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppBarLayoutScrollingViewBehaviorSetLeftAndRightOffset == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.setLeftAndRightOffset is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midAppBarLayoutScrollingViewBehaviorSetLeftAndRightOffset, jni.IntValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// SetTopAndBottomOffset calls com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.setTopAndBottomOffset.
-func (m *AppBarLayoutScrollingViewBehavior) SetTopAndBottomOffset(arg0 int32) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppBarLayoutScrollingViewBehaviorSetTopAndBottomOffset == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.setTopAndBottomOffset is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midAppBarLayoutScrollingViewBehaviorSetTopAndBottomOffset, jni.IntValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// OnLayoutChild calls com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.onLayoutChild.
-func (m *AppBarLayoutScrollingViewBehavior) OnLayoutChild(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 int32,
-) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppBarLayoutScrollingViewBehaviorOnLayoutChild == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.onLayoutChild is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midAppBarLayoutScrollingViewBehaviorOnLayoutChild, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior.toString.

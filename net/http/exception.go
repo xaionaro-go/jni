@@ -32,6 +32,12 @@ func NewException(vm *jni.VM, arg0 string, arg1 *jni.Object) (*Exception, error)
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsException == nil {
+			return fmt.Errorf("android.net.http.HttpException is not available on this device")
+		}
+		if midExceptionCtor == nil {
+			return fmt.Errorf("android.net.http.HttpException constructor (Ljava/lang/String;Ljava/lang/Throwable;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

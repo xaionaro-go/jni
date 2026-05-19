@@ -23,6 +23,35 @@ type AccessControlProfileBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAccessControlProfileBuilder creates a new android.security.identity.AccessControlProfile$Builder instance.
+func NewAccessControlProfileBuilder(vm *jni.VM, arg0 *jni.Object) (*AccessControlProfileBuilder, error) {
+	var t AccessControlProfileBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAccessControlProfileBuilder == nil {
+			return fmt.Errorf("android.security.identity.AccessControlProfile$Builder is not available on this device")
+		}
+		if midAccessControlProfileBuilderCtor == nil {
+			return fmt.Errorf("android.security.identity.AccessControlProfile$Builder constructor (Landroid/security/identity/AccessControlProfileId;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAccessControlProfileBuilder)), midAccessControlProfileBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.security.identity.AccessControlProfile$Builder.build.
 func (m *AccessControlProfileBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

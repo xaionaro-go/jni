@@ -23,6 +23,34 @@ type WifiP2pUsdBasedLocalServiceAdvertisementConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWifiP2pUsdBasedLocalServiceAdvertisementConfigBuilder creates a new android.net.wifi.p2p.WifiP2pUsdBasedLocalServiceAdvertisementConfig$Builder instance.
+func NewWifiP2pUsdBasedLocalServiceAdvertisementConfigBuilder(vm *jni.VM) (*WifiP2pUsdBasedLocalServiceAdvertisementConfigBuilder, error) {
+	var t WifiP2pUsdBasedLocalServiceAdvertisementConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWifiP2pUsdBasedLocalServiceAdvertisementConfigBuilder == nil {
+			return fmt.Errorf("android.net.wifi.p2p.WifiP2pUsdBasedLocalServiceAdvertisementConfig$Builder is not available on this device")
+		}
+		if midWifiP2pUsdBasedLocalServiceAdvertisementConfigBuilderCtor == nil {
+			return fmt.Errorf("android.net.wifi.p2p.WifiP2pUsdBasedLocalServiceAdvertisementConfig$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWifiP2pUsdBasedLocalServiceAdvertisementConfigBuilder)), midWifiP2pUsdBasedLocalServiceAdvertisementConfigBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.wifi.p2p.WifiP2pUsdBasedLocalServiceAdvertisementConfig$Builder.build.
 func (m *WifiP2pUsdBasedLocalServiceAdvertisementConfigBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -23,6 +23,41 @@ type ShortcutInfoCompatBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewShortcutInfoCompatBuilder creates a new androidx.core.content.pm.ShortcutInfoCompat$Builder instance.
+func NewShortcutInfoCompatBuilder(vm *jni.VM, arg0 *jni.Object, arg1 string) (*ShortcutInfoCompatBuilder, error) {
+	var t ShortcutInfoCompatBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsShortcutInfoCompatBuilder == nil {
+			return fmt.Errorf("androidx.core.content.pm.ShortcutInfoCompat$Builder is not available on this device")
+		}
+		if midShortcutInfoCompatBuilderCtor == nil {
+			return fmt.Errorf("androidx.core.content.pm.ShortcutInfoCompat$Builder constructor (Landroid/content/Context;Ljava/lang/String;)V is not available on this device")
+		}
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsShortcutInfoCompatBuilder)), midShortcutInfoCompatBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(&jArg1.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetShortLabel calls androidx.core.content.pm.ShortcutInfoCompat$Builder.setShortLabel.
 func (m *ShortcutInfoCompatBuilder) SetShortLabel(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewCLParser(vm *jni.VM, arg0 string) (*CLParser, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCLParser == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.parser.CLParser is not available on this device")
+		}
+		if midCLParserCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.parser.CLParser constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -49,38 +55,6 @@ func NewCLParser(vm *jni.VM, arg0 string) (*CLParser, error) {
 		return nil, err
 	}
 	return &t, nil
-}
-
-// Parse0_1 calls androidx.constraintlayout.core.parser.CLParser.parse.
-func (m *CLParser) Parse0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCLParserParse0_1 == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.core.parser.CLParser.parse is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCLParserParse0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls androidx.constraintlayout.core.parser.CLParser.toString.
@@ -132,6 +106,38 @@ func (m *CLParser) Parse1(arg0 string) (*jni.Object, error) {
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsCLParser)),
 			midCLParserParse1, jni.ObjectValue(&jArg0.Object),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// Parse0_1 calls androidx.constraintlayout.core.parser.CLParser.parse.
+func (m *CLParser) Parse0_1() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCLParserParse0_1 == nil {
+			callErr = fmt.Errorf("androidx.constraintlayout.core.parser.CLParser.parse is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsCLParser)),
+			midCLParserParse0_1,
 		)
 		if callErr != nil {
 			return callErr

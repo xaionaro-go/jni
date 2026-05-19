@@ -39,6 +39,10 @@ classes:
           error: true
     - java_class: android.adservices.signals.UpdateSignalsRequest$Builder
       go_type: UpdateSignalsRequestBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.net.Uri
+          go_name: arg0
       methods:
         - java_method: build
           go_name: Build

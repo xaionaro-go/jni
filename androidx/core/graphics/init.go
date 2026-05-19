@@ -23,72 +23,50 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsTypefaceCompat                               *jni.GlobalRef
-	midTypefaceCompatToString                       jni.MethodID
-	midTypefaceCompatFindFromCache5                 jni.MethodID
-	midTypefaceCompatFindFromCache3_1               jni.MethodID
-	midTypefaceCompatCreateFromResourcesFontFile6   jni.MethodID
-	midTypefaceCompatCreateFromResourcesFontFile5_1 jni.MethodID
-	midTypefaceCompatCreateFromFontInfo             jni.MethodID
-	midTypefaceCompatCreate3                        jni.MethodID
-	midTypefaceCompatCreate4_1                      jni.MethodID
-	midTypefaceCompatClearCache                     jni.MethodID
+	clsTypefaceCompatApi28Impl         *jni.GlobalRef
+	midTypefaceCompatApi28ImplCtor     jni.MethodID
+	midTypefaceCompatApi28ImplToString jni.MethodID
 
-	clsTypefaceCompatResourcesCallbackAdapter                        *jni.GlobalRef
-	midTypefaceCompatResourcesCallbackAdapterOnTypefaceRetrieved     jni.MethodID
-	midTypefaceCompatResourcesCallbackAdapterOnTypefaceRequestFailed jni.MethodID
-	midTypefaceCompatResourcesCallbackAdapterToString                jni.MethodID
+	clsShaderKt         *jni.GlobalRef
+	midShaderKtToString jni.MethodID
 
-	clsBitmapCompat                       *jni.GlobalRef
-	midBitmapCompatToString               jni.MethodID
-	midBitmapCompatHasMipMap              jni.MethodID
-	midBitmapCompatSetHasMipMap           jni.MethodID
-	midBitmapCompatGetAllocationByteCount jni.MethodID
-	midBitmapCompatCreateScaledBitmap     jni.MethodID
+	clsPointKt              *jni.GlobalRef
+	midPointKtToString      jni.MethodID
+	midPointKtComponent11   jni.MethodID
+	midPointKtComponent21   jni.MethodID
+	midPointKtComponent11_1 jni.MethodID
+	midPointKtComponent21_1 jni.MethodID
+	midPointKtPlus2         jni.MethodID
+	midPointKtPlus2_1       jni.MethodID
+	midPointKtPlus2_2       jni.MethodID
+	midPointKtPlus2_3       jni.MethodID
+	midPointKtMinus2        jni.MethodID
+	midPointKtMinus2_1      jni.MethodID
+	midPointKtMinus2_2      jni.MethodID
+	midPointKtMinus2_3      jni.MethodID
+	midPointKtUnaryMinus1   jni.MethodID
+	midPointKtUnaryMinus1_1 jni.MethodID
+	midPointKtTimes2        jni.MethodID
+	midPointKtTimes2_1      jni.MethodID
+	midPointKtDiv2          jni.MethodID
+	midPointKtDiv2_1        jni.MethodID
+	midPointKtToPointF      jni.MethodID
+	midPointKtToPoint       jni.MethodID
 
-	clsPorterDuffKt              *jni.GlobalRef
-	midPorterDuffKtToString      jni.MethodID
-	midPorterDuffKtToXfermode    jni.MethodID
-	midPorterDuffKtToColorFilter jni.MethodID
-
-	clsPathParser                            *jni.GlobalRef
-	midPathParserToString                    jni.MethodID
-	midPathParserCreatePathFromPathData      jni.MethodID
-	midPathParserCreateNodesFromPathData     jni.MethodID
-	midPathParserDeepCopyNodes               jni.MethodID
-	midPathParserCanMorph                    jni.MethodID
-	midPathParserUpdateNodes                 jni.MethodID
-	midPathParserInterpolatePathDataNodes4   jni.MethodID
-	midPathParserInterpolatePathDataNodes4_1 jni.MethodID
-	midPathParserNodesToPath                 jni.MethodID
-
-	clsPathParserPathDataNode                        *jni.GlobalRef
-	midPathParserPathDataNodeGetType                 jni.MethodID
-	midPathParserPathDataNodeGetParams               jni.MethodID
-	midPathParserPathDataNodeInterpolatePathDataNode jni.MethodID
-	midPathParserPathDataNodeToString                jni.MethodID
-	midPathParserPathDataNodeNodesToPath             jni.MethodID
+	clsPathSegment                 *jni.GlobalRef
+	midPathSegmentCtor             jni.MethodID
+	midPathSegmentGetStart         jni.MethodID
+	midPathSegmentGetStartFraction jni.MethodID
+	midPathSegmentGetEnd           jni.MethodID
+	midPathSegmentGetEndFraction   jni.MethodID
+	midPathSegmentEquals           jni.MethodID
+	midPathSegmentHashCode         jni.MethodID
+	midPathSegmentToString         jni.MethodID
 
 	clsPathUtils           *jni.GlobalRef
 	midPathUtilsToString   jni.MethodID
 	midPathUtilsFlatten1   jni.MethodID
 	midPathUtilsFlatten2_1 jni.MethodID
-
-	clsCanvasKt         *jni.GlobalRef
-	midCanvasKtToString jni.MethodID
-
-	clsTypefaceCompatUtil                   *jni.GlobalRef
-	midTypefaceCompatUtilToString           jni.MethodID
-	midTypefaceCompatUtilGetTempFile        jni.MethodID
-	midTypefaceCompatUtilMmap               jni.MethodID
-	midTypefaceCompatUtilCopyToDirectBuffer jni.MethodID
-	midTypefaceCompatUtilCopyToFile2        jni.MethodID
-	midTypefaceCompatUtilCopyToFile3_1      jni.MethodID
-	midTypefaceCompatUtilCloseQuietly       jni.MethodID
-
-	clsBlendModeColorFilterCompat                                 *jni.GlobalRef
-	midBlendModeColorFilterCompatToString                         jni.MethodID
-	midBlendModeColorFilterCompatCreateBlendModeColorFilterCompat jni.MethodID
 
 	clsColorUtils                      *jni.GlobalRef
 	midColorUtilsToString              jni.MethodID
@@ -115,10 +93,6 @@ var (
 	midColorUtilsBlendLAB              jni.MethodID
 	midColorUtilsM3HCTToColor          jni.MethodID
 	midColorUtilsColorToM3HCT          jni.MethodID
-
-	clsPaintKt             *jni.GlobalRef
-	midPaintKtToString     jni.MethodID
-	midPaintKtSetBlendMode jni.MethodID
 
 	clsPictureKt         *jni.GlobalRef
 	midPictureKtToString jni.MethodID
@@ -163,53 +137,18 @@ var (
 	midColorKtConvertTo2_5    jni.MethodID
 	midColorKtToColorInt1_1   jni.MethodID
 
-	clsPointKt              *jni.GlobalRef
-	midPointKtToString      jni.MethodID
-	midPointKtComponent11   jni.MethodID
-	midPointKtComponent21   jni.MethodID
-	midPointKtComponent11_1 jni.MethodID
-	midPointKtComponent21_1 jni.MethodID
-	midPointKtPlus2         jni.MethodID
-	midPointKtPlus2_1       jni.MethodID
-	midPointKtPlus2_2       jni.MethodID
-	midPointKtPlus2_3       jni.MethodID
-	midPointKtMinus2        jni.MethodID
-	midPointKtMinus2_1      jni.MethodID
-	midPointKtMinus2_2      jni.MethodID
-	midPointKtMinus2_3      jni.MethodID
-	midPointKtUnaryMinus1   jni.MethodID
-	midPointKtUnaryMinus1_1 jni.MethodID
-	midPointKtTimes2        jni.MethodID
-	midPointKtTimes2_1      jni.MethodID
-	midPointKtDiv2          jni.MethodID
-	midPointKtDiv2_1        jni.MethodID
-	midPointKtToPointF      jni.MethodID
-	midPointKtToPoint       jni.MethodID
+	clsTypefaceCompatUtil                   *jni.GlobalRef
+	midTypefaceCompatUtilToString           jni.MethodID
+	midTypefaceCompatUtilGetTempFile        jni.MethodID
+	midTypefaceCompatUtilMmap               jni.MethodID
+	midTypefaceCompatUtilCopyToDirectBuffer jni.MethodID
+	midTypefaceCompatUtilCopyToFile2        jni.MethodID
+	midTypefaceCompatUtilCopyToFile3_1      jni.MethodID
+	midTypefaceCompatUtilCloseQuietly       jni.MethodID
 
-	clsRegionKt           *jni.GlobalRef
-	midRegionKtToString   jni.MethodID
-	midRegionKtContains   jni.MethodID
-	midRegionKtPlus2      jni.MethodID
-	midRegionKtPlus2_1    jni.MethodID
-	midRegionKtMinus2     jni.MethodID
-	midRegionKtMinus2_1   jni.MethodID
-	midRegionKtUnaryMinus jni.MethodID
-	midRegionKtNot        jni.MethodID
-	midRegionKtOr2        jni.MethodID
-	midRegionKtOr2_1      jni.MethodID
-	midRegionKtAnd2       jni.MethodID
-	midRegionKtAnd2_1     jni.MethodID
-	midRegionKtXor2       jni.MethodID
-	midRegionKtXor2_1     jni.MethodID
-	midRegionKtIterator   jni.MethodID
-
-	clsPaintCompat             *jni.GlobalRef
-	midPaintCompatToString     jni.MethodID
-	midPaintCompatHasGlyph     jni.MethodID
-	midPaintCompatSetBlendMode jni.MethodID
-
-	clsImageDecoderKt         *jni.GlobalRef
-	midImageDecoderKtToString jni.MethodID
+	clsPaintKt             *jni.GlobalRef
+	midPaintKtToString     jni.MethodID
+	midPaintKtSetBlendMode jni.MethodID
 
 	clsRectKt              *jni.GlobalRef
 	midRectKtToString      jni.MethodID
@@ -250,40 +189,47 @@ var (
 	midRectKtToRegion1_1   jni.MethodID
 	midRectKtTransform     jni.MethodID
 
-	clsPathSegment                 *jni.GlobalRef
-	midPathSegmentCtor             jni.MethodID
-	midPathSegmentGetStart         jni.MethodID
-	midPathSegmentGetStartFraction jni.MethodID
-	midPathSegmentGetEnd           jni.MethodID
-	midPathSegmentGetEndFraction   jni.MethodID
-	midPathSegmentEquals           jni.MethodID
-	midPathSegmentHashCode         jni.MethodID
-	midPathSegmentToString         jni.MethodID
+	clsCanvasKt         *jni.GlobalRef
+	midCanvasKtToString jni.MethodID
 
-	clsTypefaceCompatApi29Impl                                       *jni.GlobalRef
-	midTypefaceCompatApi29ImplCtor                                   jni.MethodID
-	midTypefaceCompatApi29ImplCreateFromFontInfo                     jni.MethodID
-	midTypefaceCompatApi29ImplCreateFromFontFamilyFilesResourceEntry jni.MethodID
-	midTypefaceCompatApi29ImplCreateFromResourcesFontFile            jni.MethodID
-	midTypefaceCompatApi29ImplToString                               jni.MethodID
+	clsPaintCompat             *jni.GlobalRef
+	midPaintCompatToString     jni.MethodID
+	midPaintCompatHasGlyph     jni.MethodID
+	midPaintCompatSetBlendMode jni.MethodID
 
-	clsTypefaceCompatApi28Impl         *jni.GlobalRef
-	midTypefaceCompatApi28ImplCtor     jni.MethodID
-	midTypefaceCompatApi28ImplToString jni.MethodID
+	clsTypefaceCompat                               *jni.GlobalRef
+	midTypefaceCompatToString                       jni.MethodID
+	midTypefaceCompatFindFromCache5                 jni.MethodID
+	midTypefaceCompatFindFromCache3_1               jni.MethodID
+	midTypefaceCompatCreateFromResourcesFontFile6   jni.MethodID
+	midTypefaceCompatCreateFromResourcesFontFile5_1 jni.MethodID
+	midTypefaceCompatCreateFromFontInfo             jni.MethodID
+	midTypefaceCompatCreate3                        jni.MethodID
+	midTypefaceCompatCreate4_1                      jni.MethodID
+	midTypefaceCompatClearCache                     jni.MethodID
+
+	clsBlendModeColorFilterCompat                                 *jni.GlobalRef
+	midBlendModeColorFilterCompatToString                         jni.MethodID
+	midBlendModeColorFilterCompatCreateBlendModeColorFilterCompat jni.MethodID
+
+	clsTypefaceCompatResourcesCallbackAdapter                        *jni.GlobalRef
+	midTypefaceCompatResourcesCallbackAdapterCtor                    jni.MethodID
+	midTypefaceCompatResourcesCallbackAdapterOnTypefaceRetrieved     jni.MethodID
+	midTypefaceCompatResourcesCallbackAdapterOnTypefaceRequestFailed jni.MethodID
+	midTypefaceCompatResourcesCallbackAdapterToString                jni.MethodID
+
+	clsImageDecoderKt         *jni.GlobalRef
+	midImageDecoderKtToString jni.MethodID
+
+	clsPorterDuffKt              *jni.GlobalRef
+	midPorterDuffKtToString      jni.MethodID
+	midPorterDuffKtToXfermode    jni.MethodID
+	midPorterDuffKtToColorFilter jni.MethodID
 
 	clsBlendModeCompat         *jni.GlobalRef
 	midBlendModeCompatToString jni.MethodID
 	midBlendModeCompatValues   jni.MethodID
 	midBlendModeCompatValueOf  jni.MethodID
-
-	clsPathKt         *jni.GlobalRef
-	midPathKtToString jni.MethodID
-	midPathKtFlatten  jni.MethodID
-	midPathKtPlus     jni.MethodID
-	midPathKtMinus    jni.MethodID
-	midPathKtOr       jni.MethodID
-	midPathKtAnd      jni.MethodID
-	midPathKtXor      jni.MethodID
 
 	clsMatrixKt                  *jni.GlobalRef
 	midMatrixKtToString          jni.MethodID
@@ -293,11 +239,17 @@ var (
 	midMatrixKtScaleMatrix       jni.MethodID
 	midMatrixKtRotationMatrix    jni.MethodID
 
+	clsTypefaceCompatApi29Impl                                       *jni.GlobalRef
+	midTypefaceCompatApi29ImplCtor                                   jni.MethodID
+	midTypefaceCompatApi29ImplCreateFromFontInfo                     jni.MethodID
+	midTypefaceCompatApi29ImplCreateFromFontFamilyFilesResourceEntry jni.MethodID
+	midTypefaceCompatApi29ImplCreateFromResourcesFontFile            jni.MethodID
+	midTypefaceCompatApi29ImplToString                               jni.MethodID
+
 	clsInsets                 *jni.GlobalRef
 	midInsetsEquals           jni.MethodID
 	midInsetsHashCode         jni.MethodID
 	midInsetsToString         jni.MethodID
-	midInsetsToPlatformInsets jni.MethodID
 	midInsetsOf4              jni.MethodID
 	midInsetsOf1_1            jni.MethodID
 	midInsetsAdd              jni.MethodID
@@ -306,9 +258,7 @@ var (
 	midInsetsMin              jni.MethodID
 	midInsetsWrap             jni.MethodID
 	midInsetsToCompatInsets   jni.MethodID
-
-	clsShaderKt         *jni.GlobalRef
-	midShaderKtToString jni.MethodID
+	midInsetsToPlatformInsets jni.MethodID
 
 	clsBitmapKt                *jni.GlobalRef
 	midBitmapKtToString        jni.MethodID
@@ -320,12 +270,62 @@ var (
 	midBitmapKtContains2       jni.MethodID
 	midBitmapKtContains2_1     jni.MethodID
 
+	clsPathParser                            *jni.GlobalRef
+	midPathParserToString                    jni.MethodID
+	midPathParserCreatePathFromPathData      jni.MethodID
+	midPathParserCreateNodesFromPathData     jni.MethodID
+	midPathParserDeepCopyNodes               jni.MethodID
+	midPathParserCanMorph                    jni.MethodID
+	midPathParserUpdateNodes                 jni.MethodID
+	midPathParserInterpolatePathDataNodes4   jni.MethodID
+	midPathParserInterpolatePathDataNodes4_1 jni.MethodID
+	midPathParserNodesToPath                 jni.MethodID
+
 	clsTypefaceCompatApi26Impl                                       *jni.GlobalRef
 	midTypefaceCompatApi26ImplCtor                                   jni.MethodID
 	midTypefaceCompatApi26ImplCreateFromFontFamilyFilesResourceEntry jni.MethodID
 	midTypefaceCompatApi26ImplCreateFromFontInfo                     jni.MethodID
 	midTypefaceCompatApi26ImplCreateFromResourcesFontFile            jni.MethodID
 	midTypefaceCompatApi26ImplToString                               jni.MethodID
+
+	clsPathKt         *jni.GlobalRef
+	midPathKtToString jni.MethodID
+	midPathKtFlatten  jni.MethodID
+	midPathKtPlus     jni.MethodID
+	midPathKtMinus    jni.MethodID
+	midPathKtOr       jni.MethodID
+	midPathKtAnd      jni.MethodID
+	midPathKtXor      jni.MethodID
+
+	clsPathParserPathDataNode            *jni.GlobalRef
+	midPathParserPathDataNodeGetType     jni.MethodID
+	midPathParserPathDataNodeGetParams   jni.MethodID
+	midPathParserPathDataNodeToString    jni.MethodID
+	midPathParserPathDataNodeNodesToPath jni.MethodID
+
+	clsBitmapCompat                       *jni.GlobalRef
+	midBitmapCompatToString               jni.MethodID
+	midBitmapCompatHasMipMap              jni.MethodID
+	midBitmapCompatSetHasMipMap           jni.MethodID
+	midBitmapCompatGetAllocationByteCount jni.MethodID
+	midBitmapCompatCreateScaledBitmap     jni.MethodID
+
+	clsRegionKt           *jni.GlobalRef
+	midRegionKtToString   jni.MethodID
+	midRegionKtContains   jni.MethodID
+	midRegionKtPlus2      jni.MethodID
+	midRegionKtPlus2_1    jni.MethodID
+	midRegionKtMinus2     jni.MethodID
+	midRegionKtMinus2_1   jni.MethodID
+	midRegionKtUnaryMinus jni.MethodID
+	midRegionKtNot        jni.MethodID
+	midRegionKtOr2        jni.MethodID
+	midRegionKtOr2_1      jni.MethodID
+	midRegionKtAnd2       jni.MethodID
+	midRegionKtAnd2_1     jni.MethodID
+	midRegionKtXor2       jni.MethodID
+	midRegionKtXor2_1     jni.MethodID
+	midRegionKtIterator   jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -346,71 +346,19 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("androidx/core/graphics/TypefaceCompat")
+	c, err = env.FindClass("androidx/core/graphics/TypefaceCompatApi28Impl")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsTypefaceCompat = env.NewGlobalRef(&c.Object)
-
-		midTypefaceCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompat)), "toString", "()Ljava/lang/String;")
+		clsTypefaceCompatApi28Impl = env.NewGlobalRef(&c.Object)
+		midTypefaceCompatApi28ImplCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatApi28Impl)), "<init>", "()V")
 		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midTypefaceCompatFindFromCache5, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompat)), "findFromCache", "(Landroid/content/res/Resources;ILjava/lang/String;II)Landroid/graphics/Typeface;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTypefaceCompatFindFromCache3_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompat)), "findFromCache", "(Landroid/content/res/Resources;II)Landroid/graphics/Typeface;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTypefaceCompatCreateFromResourcesFontFile6, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompat)), "createFromResourcesFontFile", "(Landroid/content/Context;Landroid/content/res/Resources;ILjava/lang/String;II)Landroid/graphics/Typeface;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTypefaceCompatCreateFromResourcesFontFile5_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompat)), "createFromResourcesFontFile", "(Landroid/content/Context;Landroid/content/res/Resources;ILjava/lang/String;I)Landroid/graphics/Typeface;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTypefaceCompatCreateFromFontInfo, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompat)), "createFromFontInfo", "(Landroid/content/Context;Landroid/os/CancellationSignal;[Landroidx/core/provider/FontsContractCompat$FontInfo;I)Landroid/graphics/Typeface;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTypefaceCompatCreate3, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompat)), "create", "(Landroid/content/Context;Landroid/graphics/Typeface;I)Landroid/graphics/Typeface;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTypefaceCompatCreate4_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompat)), "create", "(Landroid/content/Context;Landroid/graphics/Typeface;IZ)Landroid/graphics/Typeface;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTypefaceCompatClearCache, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompat)), "clearCache", "()V")
+		midTypefaceCompatApi28ImplToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatApi28Impl)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -419,29 +367,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/graphics/TypefaceCompat$ResourcesCallbackAdapter")
+	c, err = env.FindClass("androidx/core/graphics/ShaderKt")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsTypefaceCompatResourcesCallbackAdapter = env.NewGlobalRef(&c.Object)
+		clsShaderKt = env.NewGlobalRef(&c.Object)
 
-		midTypefaceCompatResourcesCallbackAdapterOnTypefaceRetrieved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatResourcesCallbackAdapter)), "onTypefaceRetrieved", "(Landroid/graphics/Typeface;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTypefaceCompatResourcesCallbackAdapterOnTypefaceRequestFailed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatResourcesCallbackAdapter)), "onTypefaceRequestFailed", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTypefaceCompatResourcesCallbackAdapterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatResourcesCallbackAdapter)), "toString", "()Ljava/lang/String;")
+		midShaderKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShaderKt)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -450,43 +384,155 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/graphics/BitmapCompat")
+	c, err = env.FindClass("androidx/core/graphics/PointKt")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsBitmapCompat = env.NewGlobalRef(&c.Object)
+		clsPointKt = env.NewGlobalRef(&c.Object)
 
-		midBitmapCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBitmapCompat)), "toString", "()Ljava/lang/String;")
+		midPointKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midBitmapCompatHasMipMap, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBitmapCompat)), "hasMipMap", "(Landroid/graphics/Bitmap;)Z")
+		midPointKtComponent11, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "component1", "(Landroid/graphics/Point;)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midBitmapCompatSetHasMipMap, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBitmapCompat)), "setHasMipMap", "(Landroid/graphics/Bitmap;Z)V")
+		midPointKtComponent21, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "component2", "(Landroid/graphics/Point;)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midBitmapCompatGetAllocationByteCount, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBitmapCompat)), "getAllocationByteCount", "(Landroid/graphics/Bitmap;)I")
+		midPointKtComponent11_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "component1", "(Landroid/graphics/PointF;)F")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midBitmapCompatCreateScaledBitmap, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBitmapCompat)), "createScaledBitmap", "(Landroid/graphics/Bitmap;IILandroid/graphics/Rect;Z)Landroid/graphics/Bitmap;")
+		midPointKtComponent21_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "component2", "(Landroid/graphics/PointF;)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPointKtPlus2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "plus", "(Landroid/graphics/Point;Landroid/graphics/Point;)Landroid/graphics/Point;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPointKtPlus2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "plus", "(Landroid/graphics/PointF;Landroid/graphics/PointF;)Landroid/graphics/PointF;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPointKtPlus2_2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "plus", "(Landroid/graphics/Point;I)Landroid/graphics/Point;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPointKtPlus2_3, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "plus", "(Landroid/graphics/PointF;F)Landroid/graphics/PointF;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPointKtMinus2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "minus", "(Landroid/graphics/Point;Landroid/graphics/Point;)Landroid/graphics/Point;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPointKtMinus2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "minus", "(Landroid/graphics/PointF;Landroid/graphics/PointF;)Landroid/graphics/PointF;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPointKtMinus2_2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "minus", "(Landroid/graphics/Point;I)Landroid/graphics/Point;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPointKtMinus2_3, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "minus", "(Landroid/graphics/PointF;F)Landroid/graphics/PointF;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPointKtUnaryMinus1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "unaryMinus", "(Landroid/graphics/Point;)Landroid/graphics/Point;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPointKtUnaryMinus1_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "unaryMinus", "(Landroid/graphics/PointF;)Landroid/graphics/PointF;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPointKtTimes2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "times", "(Landroid/graphics/Point;F)Landroid/graphics/Point;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPointKtTimes2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "times", "(Landroid/graphics/PointF;F)Landroid/graphics/PointF;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPointKtDiv2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "div", "(Landroid/graphics/Point;F)Landroid/graphics/Point;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPointKtDiv2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "div", "(Landroid/graphics/PointF;F)Landroid/graphics/PointF;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPointKtToPointF, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "toPointF", "(Landroid/graphics/Point;)Landroid/graphics/PointF;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPointKtToPoint, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "toPoint", "(Landroid/graphics/PointF;)Landroid/graphics/Point;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -495,147 +541,61 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/graphics/PorterDuffKt")
+	c, err = env.FindClass("androidx/core/graphics/PathSegment")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsPorterDuffKt = env.NewGlobalRef(&c.Object)
+		clsPathSegment = env.NewGlobalRef(&c.Object)
+		midPathSegmentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathSegment)), "<init>", "(Landroid/graphics/PointF;FLandroid/graphics/PointF;F)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midPorterDuffKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPorterDuffKt)), "toString", "()Ljava/lang/String;")
+		midPathSegmentGetStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathSegment)), "getStart", "()Landroid/graphics/PointF;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPorterDuffKtToXfermode, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPorterDuffKt)), "toXfermode", "(Landroid/graphics/PorterDuff$Mode;)Landroid/graphics/PorterDuffXfermode;")
+		midPathSegmentGetStartFraction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathSegment)), "getStartFraction", "()F")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPorterDuffKtToColorFilter, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPorterDuffKt)), "toColorFilter", "(Landroid/graphics/PorterDuff$Mode;I)Landroid/graphics/PorterDuffColorFilter;")
+		midPathSegmentGetEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathSegment)), "getEnd", "()Landroid/graphics/PointF;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("androidx/core/graphics/PathParser")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPathParser = env.NewGlobalRef(&c.Object)
-
-		midPathParserToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathParser)), "toString", "()Ljava/lang/String;")
+		midPathSegmentGetEndFraction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathSegment)), "getEndFraction", "()F")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPathParserCreatePathFromPathData, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathParser)), "createPathFromPathData", "(Ljava/lang/String;)Landroid/graphics/Path;")
+		midPathSegmentEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathSegment)), "equals", "(Ljava/lang/Object;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPathParserCreateNodesFromPathData, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathParser)), "createNodesFromPathData", "(Ljava/lang/String;)[Landroidx/core/graphics/PathParser$PathDataNode;")
+		midPathSegmentHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathSegment)), "hashCode", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPathParserDeepCopyNodes, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathParser)), "deepCopyNodes", "([Landroidx/core/graphics/PathParser$PathDataNode;)[Landroidx/core/graphics/PathParser$PathDataNode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathParserCanMorph, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathParser)), "canMorph", "([Landroidx/core/graphics/PathParser$PathDataNode;[Landroidx/core/graphics/PathParser$PathDataNode;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathParserUpdateNodes, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathParser)), "updateNodes", "([Landroidx/core/graphics/PathParser$PathDataNode;[Landroidx/core/graphics/PathParser$PathDataNode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathParserInterpolatePathDataNodes4, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathParser)), "interpolatePathDataNodes", "([Landroidx/core/graphics/PathParser$PathDataNode;F[Landroidx/core/graphics/PathParser$PathDataNode;[Landroidx/core/graphics/PathParser$PathDataNode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathParserInterpolatePathDataNodes4_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathParser)), "interpolatePathDataNodes", "([Landroidx/core/graphics/PathParser$PathDataNode;[Landroidx/core/graphics/PathParser$PathDataNode;[Landroidx/core/graphics/PathParser$PathDataNode;F)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathParserNodesToPath, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathParser)), "nodesToPath", "([Landroidx/core/graphics/PathParser$PathDataNode;Landroid/graphics/Path;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/graphics/PathParser$PathDataNode")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPathParserPathDataNode = env.NewGlobalRef(&c.Object)
-
-		midPathParserPathDataNodeGetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathParserPathDataNode)), "getType", "()C")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathParserPathDataNodeGetParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathParserPathDataNode)), "getParams", "()[F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathParserPathDataNodeInterpolatePathDataNode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathParserPathDataNode)), "interpolatePathDataNode", "(Landroidx/core/graphics/PathParser$PathDataNode;Landroidx/core/graphics/PathParser$PathDataNode;F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathParserPathDataNodeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathParserPathDataNode)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathParserPathDataNodeNodesToPath, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathParserPathDataNode)), "nodesToPath", "([Landroidx/core/graphics/PathParser$PathDataNode;Landroid/graphics/Path;)V")
+		midPathSegmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathSegment)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -667,106 +627,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midPathUtilsFlatten2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathUtils)), "flatten", "(Landroid/graphics/Path;F)Ljava/util/Collection;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/graphics/CanvasKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCanvasKt = env.NewGlobalRef(&c.Object)
-
-		midCanvasKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCanvasKt)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/graphics/TypefaceCompatUtil")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTypefaceCompatUtil = env.NewGlobalRef(&c.Object)
-
-		midTypefaceCompatUtilToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatUtil)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTypefaceCompatUtilGetTempFile, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatUtil)), "getTempFile", "(Landroid/content/Context;)Ljava/io/File;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTypefaceCompatUtilMmap, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatUtil)), "mmap", "(Landroid/content/Context;Landroid/os/CancellationSignal;Landroid/net/Uri;)Ljava/nio/ByteBuffer;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTypefaceCompatUtilCopyToDirectBuffer, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatUtil)), "copyToDirectBuffer", "(Landroid/content/Context;Landroid/content/res/Resources;I)Ljava/nio/ByteBuffer;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTypefaceCompatUtilCopyToFile2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatUtil)), "copyToFile", "(Ljava/io/File;Ljava/io/InputStream;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTypefaceCompatUtilCopyToFile3_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatUtil)), "copyToFile", "(Ljava/io/File;Landroid/content/res/Resources;I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTypefaceCompatUtilCloseQuietly, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatUtil)), "closeQuietly", "(Ljava/io/Closeable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/graphics/BlendModeColorFilterCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBlendModeColorFilterCompat = env.NewGlobalRef(&c.Object)
-
-		midBlendModeColorFilterCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBlendModeColorFilterCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBlendModeColorFilterCompatCreateBlendModeColorFilterCompat, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBlendModeColorFilterCompat)), "createBlendModeColorFilterCompat", "(ILandroidx/core/graphics/BlendModeCompat;)Landroid/graphics/ColorFilter;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -945,30 +805,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midColorUtilsColorToM3HCT, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsColorUtils)), "colorToM3HCT", "(I[F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/graphics/PaintKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPaintKt = env.NewGlobalRef(&c.Object)
-
-		midPaintKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPaintKt)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPaintKtSetBlendMode, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPaintKt)), "setBlendMode", "(Landroid/graphics/Paint;Landroidx/core/graphics/BlendModeCompat;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1270,155 +1106,57 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/graphics/PointKt")
+	c, err = env.FindClass("androidx/core/graphics/TypefaceCompatUtil")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsPointKt = env.NewGlobalRef(&c.Object)
+		clsTypefaceCompatUtil = env.NewGlobalRef(&c.Object)
 
-		midPointKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "toString", "()Ljava/lang/String;")
+		midTypefaceCompatUtilToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatUtil)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPointKtComponent11, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "component1", "(Landroid/graphics/Point;)I")
+		midTypefaceCompatUtilGetTempFile, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatUtil)), "getTempFile", "(Landroid/content/Context;)Ljava/io/File;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPointKtComponent21, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "component2", "(Landroid/graphics/Point;)I")
+		midTypefaceCompatUtilMmap, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatUtil)), "mmap", "(Landroid/content/Context;Landroid/os/CancellationSignal;Landroid/net/Uri;)Ljava/nio/ByteBuffer;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPointKtComponent11_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "component1", "(Landroid/graphics/PointF;)F")
+		midTypefaceCompatUtilCopyToDirectBuffer, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatUtil)), "copyToDirectBuffer", "(Landroid/content/Context;Landroid/content/res/Resources;I)Ljava/nio/ByteBuffer;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPointKtComponent21_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "component2", "(Landroid/graphics/PointF;)F")
+		midTypefaceCompatUtilCopyToFile2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatUtil)), "copyToFile", "(Ljava/io/File;Ljava/io/InputStream;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPointKtPlus2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "plus", "(Landroid/graphics/Point;Landroid/graphics/Point;)Landroid/graphics/Point;")
+		midTypefaceCompatUtilCopyToFile3_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatUtil)), "copyToFile", "(Ljava/io/File;Landroid/content/res/Resources;I)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPointKtPlus2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "plus", "(Landroid/graphics/PointF;Landroid/graphics/PointF;)Landroid/graphics/PointF;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPointKtPlus2_2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "plus", "(Landroid/graphics/Point;I)Landroid/graphics/Point;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPointKtPlus2_3, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "plus", "(Landroid/graphics/PointF;F)Landroid/graphics/PointF;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPointKtMinus2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "minus", "(Landroid/graphics/Point;Landroid/graphics/Point;)Landroid/graphics/Point;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPointKtMinus2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "minus", "(Landroid/graphics/PointF;Landroid/graphics/PointF;)Landroid/graphics/PointF;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPointKtMinus2_2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "minus", "(Landroid/graphics/Point;I)Landroid/graphics/Point;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPointKtMinus2_3, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "minus", "(Landroid/graphics/PointF;F)Landroid/graphics/PointF;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPointKtUnaryMinus1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "unaryMinus", "(Landroid/graphics/Point;)Landroid/graphics/Point;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPointKtUnaryMinus1_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "unaryMinus", "(Landroid/graphics/PointF;)Landroid/graphics/PointF;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPointKtTimes2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "times", "(Landroid/graphics/Point;F)Landroid/graphics/Point;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPointKtTimes2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "times", "(Landroid/graphics/PointF;F)Landroid/graphics/PointF;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPointKtDiv2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "div", "(Landroid/graphics/Point;F)Landroid/graphics/Point;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPointKtDiv2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "div", "(Landroid/graphics/PointF;F)Landroid/graphics/PointF;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPointKtToPointF, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "toPointF", "(Landroid/graphics/Point;)Landroid/graphics/PointF;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPointKtToPoint, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPointKt)), "toPoint", "(Landroid/graphics/PointF;)Landroid/graphics/Point;")
+		midTypefaceCompatUtilCloseQuietly, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatUtil)), "closeQuietly", "(Ljava/io/Closeable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1427,161 +1165,22 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/graphics/RegionKt")
+	c, err = env.FindClass("androidx/core/graphics/PaintKt")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsRegionKt = env.NewGlobalRef(&c.Object)
+		clsPaintKt = env.NewGlobalRef(&c.Object)
 
-		midRegionKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "toString", "()Ljava/lang/String;")
+		midPaintKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPaintKt)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midRegionKtContains, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "contains", "(Landroid/graphics/Region;Landroid/graphics/Point;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegionKtPlus2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "plus", "(Landroid/graphics/Region;Landroid/graphics/Rect;)Landroid/graphics/Region;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegionKtPlus2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "plus", "(Landroid/graphics/Region;Landroid/graphics/Region;)Landroid/graphics/Region;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegionKtMinus2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "minus", "(Landroid/graphics/Region;Landroid/graphics/Rect;)Landroid/graphics/Region;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegionKtMinus2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "minus", "(Landroid/graphics/Region;Landroid/graphics/Region;)Landroid/graphics/Region;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegionKtUnaryMinus, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "unaryMinus", "(Landroid/graphics/Region;)Landroid/graphics/Region;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegionKtNot, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "not", "(Landroid/graphics/Region;)Landroid/graphics/Region;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegionKtOr2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "or", "(Landroid/graphics/Region;Landroid/graphics/Rect;)Landroid/graphics/Region;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegionKtOr2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "or", "(Landroid/graphics/Region;Landroid/graphics/Region;)Landroid/graphics/Region;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegionKtAnd2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "and", "(Landroid/graphics/Region;Landroid/graphics/Rect;)Landroid/graphics/Region;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegionKtAnd2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "and", "(Landroid/graphics/Region;Landroid/graphics/Region;)Landroid/graphics/Region;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegionKtXor2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "xor", "(Landroid/graphics/Region;Landroid/graphics/Rect;)Landroid/graphics/Region;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegionKtXor2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "xor", "(Landroid/graphics/Region;Landroid/graphics/Region;)Landroid/graphics/Region;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRegionKtIterator, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "iterator", "(Landroid/graphics/Region;)Ljava/util/Iterator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/graphics/PaintCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPaintCompat = env.NewGlobalRef(&c.Object)
-
-		midPaintCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPaintCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPaintCompatHasGlyph, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPaintCompat)), "hasGlyph", "(Landroid/graphics/Paint;Ljava/lang/String;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPaintCompatSetBlendMode, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPaintCompat)), "setBlendMode", "(Landroid/graphics/Paint;Landroidx/core/graphics/BlendModeCompat;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/graphics/ImageDecoderKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsImageDecoderKt = env.NewGlobalRef(&c.Object)
-
-		midImageDecoderKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageDecoderKt)), "toString", "()Ljava/lang/String;")
+		midPaintKtSetBlendMode, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPaintKt)), "setBlendMode", "(Landroid/graphics/Paint;Landroidx/core/graphics/BlendModeCompat;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1859,61 +1458,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/graphics/PathSegment")
+	c, err = env.FindClass("androidx/core/graphics/CanvasKt")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsPathSegment = env.NewGlobalRef(&c.Object)
-		midPathSegmentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathSegment)), "<init>", "(Landroid/graphics/PointF;FLandroid/graphics/PointF;F)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsCanvasKt = env.NewGlobalRef(&c.Object)
 
-		midPathSegmentGetStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathSegment)), "getStart", "()Landroid/graphics/PointF;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathSegmentGetStartFraction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathSegment)), "getStartFraction", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathSegmentGetEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathSegment)), "getEnd", "()Landroid/graphics/PointF;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathSegmentGetEndFraction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathSegment)), "getEndFraction", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathSegmentEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathSegment)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathSegmentHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathSegment)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathSegmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathSegment)), "toString", "()Ljava/lang/String;")
+		midCanvasKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCanvasKt)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1922,40 +1475,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/graphics/TypefaceCompatApi29Impl")
+	c, err = env.FindClass("androidx/core/graphics/PaintCompat")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsTypefaceCompatApi29Impl = env.NewGlobalRef(&c.Object)
-		midTypefaceCompatApi29ImplCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatApi29Impl)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsPaintCompat = env.NewGlobalRef(&c.Object)
 
-		midTypefaceCompatApi29ImplCreateFromFontInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatApi29Impl)), "createFromFontInfo", "(Landroid/content/Context;Landroid/os/CancellationSignal;[Landroidx/core/provider/FontsContractCompat$FontInfo;I)Landroid/graphics/Typeface;")
+		midPaintCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPaintCompat)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midTypefaceCompatApi29ImplCreateFromFontFamilyFilesResourceEntry, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatApi29Impl)), "createFromFontFamilyFilesResourceEntry", "(Landroid/content/Context;Landroidx/core/content/res/FontResourcesParserCompat$FontFamilyFilesResourceEntry;Landroid/content/res/Resources;I)Landroid/graphics/Typeface;")
+		midPaintCompatHasGlyph, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPaintCompat)), "hasGlyph", "(Landroid/graphics/Paint;Ljava/lang/String;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midTypefaceCompatApi29ImplCreateFromResourcesFontFile, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatApi29Impl)), "createFromResourcesFontFile", "(Landroid/content/Context;Landroid/content/res/Resources;ILjava/lang/String;I)Landroid/graphics/Typeface;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTypefaceCompatApi29ImplToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatApi29Impl)), "toString", "()Ljava/lang/String;")
+		midPaintCompatSetBlendMode, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPaintCompat)), "setBlendMode", "(Landroid/graphics/Paint;Landroidx/core/graphics/BlendModeCompat;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1964,19 +1506,178 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/graphics/TypefaceCompatApi28Impl")
+	c, err = env.FindClass("androidx/core/graphics/TypefaceCompat")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsTypefaceCompatApi28Impl = env.NewGlobalRef(&c.Object)
-		midTypefaceCompatApi28ImplCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatApi28Impl)), "<init>", "()V")
+		clsTypefaceCompat = env.NewGlobalRef(&c.Object)
+
+		midTypefaceCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTypefaceCompatFindFromCache5, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompat)), "findFromCache", "(Landroid/content/res/Resources;ILjava/lang/String;II)Landroid/graphics/Typeface;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTypefaceCompatFindFromCache3_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompat)), "findFromCache", "(Landroid/content/res/Resources;II)Landroid/graphics/Typeface;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTypefaceCompatCreateFromResourcesFontFile6, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompat)), "createFromResourcesFontFile", "(Landroid/content/Context;Landroid/content/res/Resources;ILjava/lang/String;II)Landroid/graphics/Typeface;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTypefaceCompatCreateFromResourcesFontFile5_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompat)), "createFromResourcesFontFile", "(Landroid/content/Context;Landroid/content/res/Resources;ILjava/lang/String;I)Landroid/graphics/Typeface;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTypefaceCompatCreateFromFontInfo, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompat)), "createFromFontInfo", "(Landroid/content/Context;Landroid/os/CancellationSignal;[Landroidx/core/provider/FontsContractCompat$FontInfo;I)Landroid/graphics/Typeface;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTypefaceCompatCreate3, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompat)), "create", "(Landroid/content/Context;Landroid/graphics/Typeface;I)Landroid/graphics/Typeface;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTypefaceCompatCreate4_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompat)), "create", "(Landroid/content/Context;Landroid/graphics/Typeface;IZ)Landroid/graphics/Typeface;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTypefaceCompatClearCache, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompat)), "clearCache", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/graphics/BlendModeColorFilterCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBlendModeColorFilterCompat = env.NewGlobalRef(&c.Object)
+
+		midBlendModeColorFilterCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBlendModeColorFilterCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBlendModeColorFilterCompatCreateBlendModeColorFilterCompat, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBlendModeColorFilterCompat)), "createBlendModeColorFilterCompat", "(ILandroidx/core/graphics/BlendModeCompat;)Landroid/graphics/ColorFilter;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/graphics/TypefaceCompat$ResourcesCallbackAdapter")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTypefaceCompatResourcesCallbackAdapter = env.NewGlobalRef(&c.Object)
+		midTypefaceCompatResourcesCallbackAdapterCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatResourcesCallbackAdapter)), "<init>", "(Landroidx/core/content/res/ResourcesCompat$FontCallback;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midTypefaceCompatApi28ImplToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatApi28Impl)), "toString", "()Ljava/lang/String;")
+		midTypefaceCompatResourcesCallbackAdapterOnTypefaceRetrieved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatResourcesCallbackAdapter)), "onTypefaceRetrieved", "(Landroid/graphics/Typeface;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTypefaceCompatResourcesCallbackAdapterOnTypefaceRequestFailed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatResourcesCallbackAdapter)), "onTypefaceRequestFailed", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTypefaceCompatResourcesCallbackAdapterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatResourcesCallbackAdapter)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/graphics/ImageDecoderKt")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsImageDecoderKt = env.NewGlobalRef(&c.Object)
+
+		midImageDecoderKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsImageDecoderKt)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/graphics/PorterDuffKt")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPorterDuffKt = env.NewGlobalRef(&c.Object)
+
+		midPorterDuffKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPorterDuffKt)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPorterDuffKtToXfermode, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPorterDuffKt)), "toXfermode", "(Landroid/graphics/PorterDuff$Mode;)Landroid/graphics/PorterDuffXfermode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPorterDuffKtToColorFilter, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPorterDuffKt)), "toColorFilter", "(Landroid/graphics/PorterDuff$Mode;I)Landroid/graphics/PorterDuffColorFilter;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2008,65 +1709,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midBlendModeCompatValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBlendModeCompat)), "valueOf", "(Ljava/lang/String;)Landroidx/core/graphics/BlendModeCompat;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/graphics/PathKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPathKt = env.NewGlobalRef(&c.Object)
-
-		midPathKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathKt)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathKtFlatten, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathKt)), "flatten", "(Landroid/graphics/Path;F)Ljava/lang/Iterable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathKtPlus, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathKt)), "plus", "(Landroid/graphics/Path;Landroid/graphics/Path;)Landroid/graphics/Path;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathKtMinus, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathKt)), "minus", "(Landroid/graphics/Path;Landroid/graphics/Path;)Landroid/graphics/Path;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathKtOr, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathKt)), "or", "(Landroid/graphics/Path;Landroid/graphics/Path;)Landroid/graphics/Path;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathKtAnd, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathKt)), "and", "(Landroid/graphics/Path;Landroid/graphics/Path;)Landroid/graphics/Path;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathKtXor, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathKt)), "xor", "(Landroid/graphics/Path;Landroid/graphics/Path;)Landroid/graphics/Path;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2127,6 +1769,48 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("androidx/core/graphics/TypefaceCompatApi29Impl")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTypefaceCompatApi29Impl = env.NewGlobalRef(&c.Object)
+		midTypefaceCompatApi29ImplCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatApi29Impl)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midTypefaceCompatApi29ImplCreateFromFontInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatApi29Impl)), "createFromFontInfo", "(Landroid/content/Context;Landroid/os/CancellationSignal;[Landroidx/core/provider/FontsContractCompat$FontInfo;I)Landroid/graphics/Typeface;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTypefaceCompatApi29ImplCreateFromFontFamilyFilesResourceEntry, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatApi29Impl)), "createFromFontFamilyFilesResourceEntry", "(Landroid/content/Context;Landroidx/core/content/res/FontResourcesParserCompat$FontFamilyFilesResourceEntry;Landroid/content/res/Resources;I)Landroid/graphics/Typeface;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTypefaceCompatApi29ImplCreateFromResourcesFontFile, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatApi29Impl)), "createFromResourcesFontFile", "(Landroid/content/Context;Landroid/content/res/Resources;ILjava/lang/String;I)Landroid/graphics/Typeface;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTypefaceCompatApi29ImplToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatApi29Impl)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("androidx/core/graphics/Insets")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -2150,13 +1834,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midInsetsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInsets)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInsetsToPlatformInsets, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInsets)), "toPlatformInsets", "()Landroid/graphics/Insets;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2219,17 +1896,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("androidx/core/graphics/ShaderKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsShaderKt = env.NewGlobalRef(&c.Object)
-
-		midShaderKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShaderKt)), "toString", "()Ljava/lang/String;")
+		midInsetsToPlatformInsets, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsInsets)), "toPlatformInsets", "()Landroid/graphics/Insets;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2304,6 +1971,79 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("androidx/core/graphics/PathParser")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPathParser = env.NewGlobalRef(&c.Object)
+
+		midPathParserToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathParser)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathParserCreatePathFromPathData, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathParser)), "createPathFromPathData", "(Ljava/lang/String;)Landroid/graphics/Path;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathParserCreateNodesFromPathData, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathParser)), "createNodesFromPathData", "(Ljava/lang/String;)[Landroidx/core/graphics/PathParser$PathDataNode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathParserDeepCopyNodes, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathParser)), "deepCopyNodes", "([Landroidx/core/graphics/PathParser$PathDataNode;)[Landroidx/core/graphics/PathParser$PathDataNode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathParserCanMorph, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathParser)), "canMorph", "([Landroidx/core/graphics/PathParser$PathDataNode;[Landroidx/core/graphics/PathParser$PathDataNode;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathParserUpdateNodes, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathParser)), "updateNodes", "([Landroidx/core/graphics/PathParser$PathDataNode;[Landroidx/core/graphics/PathParser$PathDataNode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathParserInterpolatePathDataNodes4, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathParser)), "interpolatePathDataNodes", "([Landroidx/core/graphics/PathParser$PathDataNode;F[Landroidx/core/graphics/PathParser$PathDataNode;[Landroidx/core/graphics/PathParser$PathDataNode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathParserInterpolatePathDataNodes4_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathParser)), "interpolatePathDataNodes", "([Landroidx/core/graphics/PathParser$PathDataNode;[Landroidx/core/graphics/PathParser$PathDataNode;[Landroidx/core/graphics/PathParser$PathDataNode;F)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathParserNodesToPath, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathParser)), "nodesToPath", "([Landroidx/core/graphics/PathParser$PathDataNode;Landroid/graphics/Path;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("androidx/core/graphics/TypefaceCompatApi26Impl")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -2338,6 +2078,263 @@ func doInit(env *jni.Env) error {
 		}
 
 		midTypefaceCompatApi26ImplToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTypefaceCompatApi26Impl)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/graphics/PathKt")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPathKt = env.NewGlobalRef(&c.Object)
+
+		midPathKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathKt)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathKtFlatten, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathKt)), "flatten", "(Landroid/graphics/Path;F)Ljava/lang/Iterable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathKtPlus, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathKt)), "plus", "(Landroid/graphics/Path;Landroid/graphics/Path;)Landroid/graphics/Path;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathKtMinus, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathKt)), "minus", "(Landroid/graphics/Path;Landroid/graphics/Path;)Landroid/graphics/Path;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathKtOr, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathKt)), "or", "(Landroid/graphics/Path;Landroid/graphics/Path;)Landroid/graphics/Path;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathKtAnd, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathKt)), "and", "(Landroid/graphics/Path;Landroid/graphics/Path;)Landroid/graphics/Path;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathKtXor, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathKt)), "xor", "(Landroid/graphics/Path;Landroid/graphics/Path;)Landroid/graphics/Path;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/graphics/PathParser$PathDataNode")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPathParserPathDataNode = env.NewGlobalRef(&c.Object)
+
+		midPathParserPathDataNodeGetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathParserPathDataNode)), "getType", "()C")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathParserPathDataNodeGetParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathParserPathDataNode)), "getParams", "()[F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathParserPathDataNodeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathParserPathDataNode)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathParserPathDataNodeNodesToPath, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPathParserPathDataNode)), "nodesToPath", "([Landroidx/core/graphics/PathParser$PathDataNode;Landroid/graphics/Path;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/graphics/BitmapCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBitmapCompat = env.NewGlobalRef(&c.Object)
+
+		midBitmapCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBitmapCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBitmapCompatHasMipMap, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBitmapCompat)), "hasMipMap", "(Landroid/graphics/Bitmap;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBitmapCompatSetHasMipMap, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBitmapCompat)), "setHasMipMap", "(Landroid/graphics/Bitmap;Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBitmapCompatGetAllocationByteCount, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBitmapCompat)), "getAllocationByteCount", "(Landroid/graphics/Bitmap;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBitmapCompatCreateScaledBitmap, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBitmapCompat)), "createScaledBitmap", "(Landroid/graphics/Bitmap;IILandroid/graphics/Rect;Z)Landroid/graphics/Bitmap;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/graphics/RegionKt")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRegionKt = env.NewGlobalRef(&c.Object)
+
+		midRegionKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegionKtContains, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "contains", "(Landroid/graphics/Region;Landroid/graphics/Point;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegionKtPlus2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "plus", "(Landroid/graphics/Region;Landroid/graphics/Rect;)Landroid/graphics/Region;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegionKtPlus2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "plus", "(Landroid/graphics/Region;Landroid/graphics/Region;)Landroid/graphics/Region;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegionKtMinus2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "minus", "(Landroid/graphics/Region;Landroid/graphics/Rect;)Landroid/graphics/Region;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegionKtMinus2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "minus", "(Landroid/graphics/Region;Landroid/graphics/Region;)Landroid/graphics/Region;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegionKtUnaryMinus, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "unaryMinus", "(Landroid/graphics/Region;)Landroid/graphics/Region;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegionKtNot, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "not", "(Landroid/graphics/Region;)Landroid/graphics/Region;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegionKtOr2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "or", "(Landroid/graphics/Region;Landroid/graphics/Rect;)Landroid/graphics/Region;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegionKtOr2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "or", "(Landroid/graphics/Region;Landroid/graphics/Region;)Landroid/graphics/Region;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegionKtAnd2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "and", "(Landroid/graphics/Region;Landroid/graphics/Rect;)Landroid/graphics/Region;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegionKtAnd2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "and", "(Landroid/graphics/Region;Landroid/graphics/Region;)Landroid/graphics/Region;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegionKtXor2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "xor", "(Landroid/graphics/Region;Landroid/graphics/Rect;)Landroid/graphics/Region;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegionKtXor2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "xor", "(Landroid/graphics/Region;Landroid/graphics/Region;)Landroid/graphics/Region;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRegionKtIterator, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRegionKt)), "iterator", "(Landroid/graphics/Region;)Ljava/util/Iterator;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

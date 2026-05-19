@@ -32,6 +32,12 @@ func NewworkInfo(vm *jni.VM, arg0 int32, arg1 int32, arg2 string, arg3 string) (
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsworkInfo == nil {
+			return fmt.Errorf("android.net.NetworkInfo is not available on this device")
+		}
+		if midworkInfoCtor == nil {
+			return fmt.Errorf("android.net.NetworkInfo constructor (IILjava/lang/String;Ljava/lang/String;)V is not available on this device")
+		}
 
 		jArg2, err := env.NewStringUTF(arg2)
 		if err != nil {
@@ -520,8 +526,8 @@ func (m *workInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsworkInfo)),
 			midworkInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

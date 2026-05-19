@@ -32,6 +32,12 @@ func NewGetCredentialException(vm *jni.VM, arg0 string) (*GetCredentialException
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGetCredentialException == nil {
+			return fmt.Errorf("android.credentials.GetCredentialException is not available on this device")
+		}
+		if midGetCredentialExceptionCtor == nil {
+			return fmt.Errorf("android.credentials.GetCredentialException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

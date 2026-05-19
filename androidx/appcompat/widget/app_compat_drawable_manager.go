@@ -32,6 +32,12 @@ func NewAppCompatDrawableManager(vm *jni.VM) (*AppCompatDrawableManager, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppCompatDrawableManager == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatDrawableManager is not available on this device")
+		}
+		if midAppCompatDrawableManagerCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatDrawableManager constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppCompatDrawableManager)), midAppCompatDrawableManagerCtor)
 		if err != nil {
 			return err

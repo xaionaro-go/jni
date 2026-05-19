@@ -32,6 +32,12 @@ func NewScrollCaptureTarget(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsScrollCaptureTarget == nil {
+			return fmt.Errorf("android.view.ScrollCaptureTarget is not available on this device")
+		}
+		if midScrollCaptureTargetCtor == nil {
+			return fmt.Errorf("android.view.ScrollCaptureTarget constructor (Landroid/view/View;Landroid/graphics/Rect;Landroid/graphics/Point;Landroid/view/ScrollCaptureCallback;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScrollCaptureTarget)), midScrollCaptureTargetCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3))
 		if err != nil {

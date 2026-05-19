@@ -326,29 +326,6 @@ func (m *SearchResultMatchInfo) GetSubmatchRange() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.appsearch.SearchResult$MatchInfo.writeToParcel.
-func (m *SearchResultMatchInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSearchResultMatchInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.appsearch.SearchResult$MatchInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSearchResultMatchInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.appsearch.SearchResult$MatchInfo.toString.
 func (m *SearchResultMatchInfo) ToString() (string, error) {
 	var result string
@@ -374,4 +351,27 @@ func (m *SearchResultMatchInfo) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.appsearch.SearchResult$MatchInfo.writeToParcel.
+func (m *SearchResultMatchInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSearchResultMatchInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.appsearch.SearchResult$MatchInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)),
+			midSearchResultMatchInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

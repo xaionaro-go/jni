@@ -32,6 +32,12 @@ func NewWifiSsidPolicy(vm *jni.VM, arg0 int32, arg1 *jni.Object) (*WifiSsidPolic
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWifiSsidPolicy == nil {
+			return fmt.Errorf("android.app.admin.WifiSsidPolicy is not available on this device")
+		}
+		if midWifiSsidPolicyCtor == nil {
+			return fmt.Errorf("android.app.admin.WifiSsidPolicy constructor (ILjava/util/Set;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWifiSsidPolicy)), midWifiSsidPolicyCtor, jni.IntValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -181,29 +187,6 @@ func (m *WifiSsidPolicy) HashCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.admin.WifiSsidPolicy.writeToParcel.
-func (m *WifiSsidPolicy) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midWifiSsidPolicyWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.admin.WifiSsidPolicy.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midWifiSsidPolicyWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.admin.WifiSsidPolicy.toString.
 func (m *WifiSsidPolicy) ToString() (string, error) {
 	var result string
@@ -229,4 +212,27 @@ func (m *WifiSsidPolicy) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.admin.WifiSsidPolicy.writeToParcel.
+func (m *WifiSsidPolicy) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midWifiSsidPolicyWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.admin.WifiSsidPolicy.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsWifiSsidPolicy)),
+			midWifiSsidPolicyWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

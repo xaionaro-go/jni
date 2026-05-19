@@ -3,14 +3,18 @@
 package consts
 
 const (
-	IntType                    int = 0
-	FloatType                  int = 0
-	ColorType                  int = 0
-	ColorDrawableType          int = 0
-	StringType                 int = 0
-	BooleanType                int = 0
-	DimensionType              int = 0
-	ReferenceType              int = 0
+	Tag     string = "Constraints"
+	Version string = "ConstraintLayout-2.1.4"
+)
+
+const (
+	DesignInfoId               int = 0
+	MatchConstraint            int = 0
+	ParentId                   int = 0
+	Unset                      int = -1
+	GoneUnset                  int = -2147483648
+	Horizontal                 int = 0
+	Vertical                   int = 1
 	Left                       int = 1
 	Right                      int = 2
 	Top                        int = 3
@@ -18,17 +22,9 @@ const (
 	Baseline                   int = 5
 	Start                      int = 6
 	End                        int = 7
-	Unset                      int = -1
-	ParentId                   int = 0
-	MatchConstraint            int = 0
-	WrapContent                int = -2
+	Circle                     int = 8
 	MatchConstraintWrap        int = 1
 	MatchConstraintSpread      int = 0
-	DesignInfoId               int = 0
-	GoneUnset                  int = -2147483648
-	Horizontal                 int = 0
-	Vertical                   int = 1
-	Circle                     int = 8
 	MatchConstraintPercent     int = 2
 	ChainSpread                int = 0
 	ChainSpreadInside          int = 1
@@ -37,11 +33,20 @@ const (
 	WrapBehaviorHorizontalOnly int = 1
 	WrapBehaviorVerticalOnly   int = 2
 	WrapBehaviorSkipped        int = 3
+	IntType                    int = 0
+	FloatType                  int = 0
+	ColorType                  int = 0
+	ColorDrawableType          int = 0
+	StringType                 int = 0
+	BooleanType                int = 0
+	DimensionType              int = 0
+	ReferenceType              int = 0
 	RotateNone                 int = 0
 	RotatePortrateOfRight      int = 1
 	RotatePortrateOfLeft       int = 2
 	RotateRightOfPortrate      int = 3
 	RotateLeftOfPortrate       int = 4
+	WrapContent                int = -2
 	HorizontalGuideline        int = 0
 	VerticalGuideline          int = 1
 	Visible                    int = 0
@@ -51,9 +56,4 @@ const (
 	VisibilityModeNormal       int = 0
 	VisibilityModeIgnore       int = 1
 	UnsetGoneMargin            int = -2147483648
-)
-
-const (
-	Tag     string = "Constraints"
-	Version string = "ConstraintLayout-2.1.4"
 )

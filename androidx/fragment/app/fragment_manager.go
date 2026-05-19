@@ -610,45 +610,6 @@ func (m *FragmentManager) PutFragment(
 	return callErr
 }
 
-// GetFragment calls androidx.fragment.app.FragmentManager.getFragment.
-func (m *FragmentManager) GetFragment(arg0 *jni.Object, arg1 string) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFragmentManagerGetFragment == nil {
-			callErr = fmt.Errorf("androidx.fragment.app.FragmentManager.getFragment is not available on this device")
-			return callErr
-		}
-
-		jArg1, err := env.NewStringUTF(arg1)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg1.Object)
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midFragmentManagerGetFragment, jni.ObjectValue(arg0), jni.ObjectValue(&jArg1.Object),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // GetFragments calls androidx.fragment.app.FragmentManager.getFragments.
 func (m *FragmentManager) GetFragments() (*jni.Object, error) {
 	var result *jni.Object
@@ -1092,29 +1053,6 @@ func (m *FragmentManager) AddFragmentOnAttachListener(arg0 *jni.Object) error {
 	return callErr
 }
 
-// RemoveFragmentOnAttachListener calls androidx.fragment.app.FragmentManager.removeFragmentOnAttachListener.
-func (m *FragmentManager) RemoveFragmentOnAttachListener(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFragmentManagerRemoveFragmentOnAttachListener == nil {
-			callErr = fmt.Errorf("androidx.fragment.app.FragmentManager.removeFragmentOnAttachListener is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midFragmentManagerRemoveFragmentOnAttachListener, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // GetStrictModePolicy calls androidx.fragment.app.FragmentManager.getStrictModePolicy.
 func (m *FragmentManager) GetStrictModePolicy() (*jni.Object, error) {
 	var result *jni.Object
@@ -1145,29 +1083,6 @@ func (m *FragmentManager) GetStrictModePolicy() (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
-}
-
-// SetStrictModePolicy calls androidx.fragment.app.FragmentManager.setStrictModePolicy.
-func (m *FragmentManager) SetStrictModePolicy(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFragmentManagerSetStrictModePolicy == nil {
-			callErr = fmt.Errorf("androidx.fragment.app.FragmentManager.setStrictModePolicy is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midFragmentManagerSetStrictModePolicy, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // EnableDebugLogging calls androidx.fragment.app.FragmentManager.enableDebugLogging.
@@ -1223,4 +1138,66 @@ func (m *FragmentManager) IsLoggingEnabled(arg0 int32) (bool, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// GetFragment calls androidx.fragment.app.FragmentManager.getFragment.
+func (m *FragmentManager) GetFragment(arg0 *jni.Object, arg1 string) (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midFragmentManagerGetFragment == nil {
+			callErr = fmt.Errorf("androidx.fragment.app.FragmentManager.getFragment is not available on this device")
+			return callErr
+		}
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsFragmentManager)),
+			midFragmentManagerGetFragment, jni.ObjectValue(arg0), jni.ObjectValue(&jArg1.Object),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// RemoveFragmentOnAttachListener calls androidx.fragment.app.FragmentManager.removeFragmentOnAttachListener.
+func (m *FragmentManager) RemoveFragmentOnAttachListener(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midFragmentManagerRemoveFragmentOnAttachListener == nil {
+			callErr = fmt.Errorf("androidx.fragment.app.FragmentManager.removeFragmentOnAttachListener is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsFragmentManager)),
+			midFragmentManagerRemoveFragmentOnAttachListener, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

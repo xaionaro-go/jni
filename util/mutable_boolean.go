@@ -32,6 +32,12 @@ func NewMutableBoolean(vm *jni.VM, arg0 bool) (*MutableBoolean, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMutableBoolean == nil {
+			return fmt.Errorf("android.util.MutableBoolean is not available on this device")
+		}
+		if midMutableBooleanCtor == nil {
+			return fmt.Errorf("android.util.MutableBoolean constructor (Z)V is not available on this device")
+		}
 		var jArg0 uint8
 		if arg0 {
 			jArg0 = jniTrue

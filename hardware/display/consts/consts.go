@@ -3,18 +3,11 @@
 package consts
 
 const (
-	DisplayCategoryPresentation string = "android.hardware.display.category.PRESENTATION"
-)
-
-const (
-	EventTypeDisplayAdded       int64 = 1
-	EventTypeDisplayChanged     int64 = 4
-	EventTypeDisplayRefreshRate int64 = 8
-	EventTypeDisplayRemoved     int64 = 2
-	EventTypeDisplayState       int64 = 16
-)
-
-const (
+	Creator                            int = 0
+	HdrConversionForce                 int = 3
+	HdrConversionPassthrough           int = 1
+	HdrConversionSystem                int = 2
+	HdrConversionUnsupported           int = 0
 	MatchContentFramerateAlways        int = 2
 	MatchContentFramerateNever         int = 0
 	MatchContentFramerateSeamlesssOnly int = 1
@@ -24,13 +17,20 @@ const (
 	VirtualDisplayFlagPresentation     int = 2
 	VirtualDisplayFlagPublic           int = 1
 	VirtualDisplayFlagSecure           int = 4
-	Creator                            int = 0
-	HdrConversionForce                 int = 3
-	HdrConversionPassthrough           int = 1
-	HdrConversionSystem                int = 2
-	HdrConversionUnsupported           int = 0
 	ConnectionToSinkBuiltIn            int = 1
 	ConnectionToSinkDirect             int = 2
 	ConnectionToSinkTransitive         int = 3
 	ConnectionToSinkUnknown            int = 0
+)
+
+const (
+	DisplayCategoryPresentation string = "android.hardware.display.category.PRESENTATION"
+)
+
+const (
+	EventTypeDisplayAdded       int64 = 1
+	EventTypeDisplayChanged     int64 = 4
+	EventTypeDisplayRefreshRate int64 = 8
+	EventTypeDisplayRemoved     int64 = 2
+	EventTypeDisplayState       int64 = 16
 )

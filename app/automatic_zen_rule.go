@@ -30,6 +30,12 @@ func NewAutomaticZenRule(vm *jni.VM, arg0 *jni.Object) (*AutomaticZenRule, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAutomaticZenRule == nil {
+			return fmt.Errorf("android.app.AutomaticZenRule is not available on this device")
+		}
+		if midAutomaticZenRuleCtor == nil {
+			return fmt.Errorf("android.app.AutomaticZenRule constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAutomaticZenRule)), midAutomaticZenRuleCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -701,8 +707,8 @@ func (m *AutomaticZenRule) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAutomaticZenRule)),
 			midAutomaticZenRuleWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

@@ -5,6 +5,27 @@ package http
 import "github.com/AndroidGoLab/jni/net/http/consts"
 
 const (
+	DnsOptionDisabled           = consts.DnsOptionDisabled
+	DnsOptionEnabled            = consts.DnsOptionEnabled
+	DnsOptionUnspecified        = consts.DnsOptionUnspecified
+	SslDateInvalid              = consts.SslDateInvalid
+	SslExpired                  = consts.SslExpired
+	SslIdmismatch               = consts.SslIdmismatch
+	SslInvalid                  = consts.SslInvalid
+	SslMaxError                 = consts.SslMaxError
+	SslNotyetvalid              = consts.SslNotyetvalid
+	SslUntrusted                = consts.SslUntrusted
+	ErrorAddressUnreachable     = consts.ErrorAddressUnreachable
+	ErrorConnectionClosed       = consts.ErrorConnectionClosed
+	ErrorConnectionRefused      = consts.ErrorConnectionRefused
+	ErrorConnectionReset        = consts.ErrorConnectionReset
+	ErrorConnectionTimedOut     = consts.ErrorConnectionTimedOut
+	ErrorHostnameNotResolved    = consts.ErrorHostnameNotResolved
+	ErrorInternetDisconnected   = consts.ErrorInternetDisconnected
+	ErrorNetworkChanged         = consts.ErrorNetworkChanged
+	ErrorOther                  = consts.ErrorOther
+	ErrorQuicProtocolFailed     = consts.ErrorQuicProtocolFailed
+	ErrorTimedOut               = consts.ErrorTimedOut
 	MigrationOptionDisabled     = consts.MigrationOptionDisabled
 	MigrationOptionEnabled      = consts.MigrationOptionEnabled
 	MigrationOptionUnspecified  = consts.MigrationOptionUnspecified
@@ -34,27 +55,6 @@ const (
 	StreamPriorityLow           = consts.StreamPriorityLow
 	StreamPriorityLowest        = consts.StreamPriorityLowest
 	StreamPriorityMedium        = consts.StreamPriorityMedium
-	DnsOptionDisabled           = consts.DnsOptionDisabled
-	DnsOptionEnabled            = consts.DnsOptionEnabled
-	DnsOptionUnspecified        = consts.DnsOptionUnspecified
-	ErrorAddressUnreachable     = consts.ErrorAddressUnreachable
-	ErrorConnectionClosed       = consts.ErrorConnectionClosed
-	ErrorConnectionRefused      = consts.ErrorConnectionRefused
-	ErrorConnectionReset        = consts.ErrorConnectionReset
-	ErrorConnectionTimedOut     = consts.ErrorConnectionTimedOut
-	ErrorHostnameNotResolved    = consts.ErrorHostnameNotResolved
-	ErrorInternetDisconnected   = consts.ErrorInternetDisconnected
-	ErrorNetworkChanged         = consts.ErrorNetworkChanged
-	ErrorOther                  = consts.ErrorOther
-	ErrorQuicProtocolFailed     = consts.ErrorQuicProtocolFailed
-	ErrorTimedOut               = consts.ErrorTimedOut
-	SslDateInvalid              = consts.SslDateInvalid
-	SslExpired                  = consts.SslExpired
-	SslIdmismatch               = consts.SslIdmismatch
-	SslInvalid                  = consts.SslInvalid
-	SslMaxError                 = consts.SslMaxError
-	SslNotyetvalid              = consts.SslNotyetvalid
-	SslUntrusted                = consts.SslUntrusted
 	HttpCacheDisabled           = consts.HttpCacheDisabled
 	HttpCacheDisk               = consts.HttpCacheDisk
 	HttpCacheDiskNoHttp         = consts.HttpCacheDiskNoHttp

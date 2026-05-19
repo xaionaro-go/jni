@@ -32,6 +32,12 @@ func NewBasicMeasure(vm *jni.VM, arg0 *jni.Object) (*BasicMeasure, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBasicMeasure == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.analyzer.BasicMeasure is not available on this device")
+		}
+		if midBasicMeasureCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.analyzer.BasicMeasure constructor (Landroidx/constraintlayout/core/widgets/ConstraintWidgetContainer;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBasicMeasure)), midBasicMeasureCtor, jni.ObjectValue(arg0))
 		if err != nil {

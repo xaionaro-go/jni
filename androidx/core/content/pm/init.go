@@ -23,16 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsPackageInfoCompat                   *jni.GlobalRef
-	midPackageInfoCompatToString           jni.MethodID
-	midPackageInfoCompatGetLongVersionCode jni.MethodID
-	midPackageInfoCompatGetSignatures      jni.MethodID
-
-	clsShortcutXmlParser                 *jni.GlobalRef
-	midShortcutXmlParserToString         jni.MethodID
-	midShortcutXmlParserGetShortcutIds   jni.MethodID
-	midShortcutXmlParserParseShortcutIds jni.MethodID
-
 	clsShortcutManagerCompat                               *jni.GlobalRef
 	midShortcutManagerCompatToString                       jni.MethodID
 	midShortcutManagerCompatIsRequestPinShortcutSupported  jni.MethodID
@@ -48,23 +38,13 @@ var (
 	midShortcutManagerCompatRemoveAllDynamicShortcuts      jni.MethodID
 	midShortcutManagerCompatPushDynamicShortcut            jni.MethodID
 
+	clsShortcutXmlParser                 *jni.GlobalRef
+	midShortcutXmlParserToString         jni.MethodID
+	midShortcutXmlParserGetShortcutIds   jni.MethodID
+	midShortcutXmlParserParseShortcutIds jni.MethodID
+
 	clsShortcutManagerCompatShortcutMatchFlags         *jni.GlobalRef
 	midShortcutManagerCompatShortcutMatchFlagsToString jni.MethodID
-
-	clsPermissionInfoCompat                   *jni.GlobalRef
-	midPermissionInfoCompatToString           jni.MethodID
-	midPermissionInfoCompatGetProtection      jni.MethodID
-	midPermissionInfoCompatGetProtectionFlags jni.MethodID
-
-	clsPermissionInfoCompatProtection         *jni.GlobalRef
-	midPermissionInfoCompatProtectionToString jni.MethodID
-
-	clsPermissionInfoCompatProtectionFlags         *jni.GlobalRef
-	midPermissionInfoCompatProtectionFlagsToString jni.MethodID
-
-	clsShortcutInfoChangeListener                      *jni.GlobalRef
-	midShortcutInfoChangeListenerOnAllShortcutsRemoved jni.MethodID
-	midShortcutInfoChangeListenerToString              jni.MethodID
 
 	clsShortcutInfoCompat                        *jni.GlobalRef
 	midShortcutInfoCompatToShortcutInfo          jni.MethodID
@@ -80,7 +60,6 @@ var (
 	midShortcutInfoCompatGetCategories           jni.MethodID
 	midShortcutInfoCompatGetLocusId              jni.MethodID
 	midShortcutInfoCompatGetRank                 jni.MethodID
-	midShortcutInfoCompatGetIcon                 jni.MethodID
 	midShortcutInfoCompatGetExtras               jni.MethodID
 	midShortcutInfoCompatGetTransientExtras      jni.MethodID
 	midShortcutInfoCompatGetUserHandle           jni.MethodID
@@ -91,12 +70,14 @@ var (
 	midShortcutInfoCompatIsDeclaredInManifest    jni.MethodID
 	midShortcutInfoCompatIsImmutable             jni.MethodID
 	midShortcutInfoCompatIsEnabled               jni.MethodID
-	midShortcutInfoCompatHasKeyFieldsOnly        jni.MethodID
 	midShortcutInfoCompatIsExcludedFromSurfaces  jni.MethodID
 	midShortcutInfoCompatGetExcludedFromSurfaces jni.MethodID
 	midShortcutInfoCompatToString                jni.MethodID
+	midShortcutInfoCompatGetIcon                 jni.MethodID
+	midShortcutInfoCompatHasKeyFieldsOnly        jni.MethodID
 
 	clsShortcutInfoCompatBuilder                        *jni.GlobalRef
+	midShortcutInfoCompatBuilderCtor                    jni.MethodID
 	midShortcutInfoCompatBuilderSetShortLabel           jni.MethodID
 	midShortcutInfoCompatBuilderSetLongLabel            jni.MethodID
 	midShortcutInfoCompatBuilderSetDisabledMessage      jni.MethodID
@@ -123,19 +104,37 @@ var (
 	clsShortcutInfoCompatSurface         *jni.GlobalRef
 	midShortcutInfoCompatSurfaceToString jni.MethodID
 
-	clsActivityInfoCompat         *jni.GlobalRef
-	midActivityInfoCompatToString jni.MethodID
-
 	clsShortcutInfoCompatSaver             *jni.GlobalRef
 	midShortcutInfoCompatSaverGetShortcuts jni.MethodID
 	midShortcutInfoCompatSaverToString     jni.MethodID
 
-	clsShortcutInfoCompatSaverNoopImpl                      *jni.GlobalRef
-	midShortcutInfoCompatSaverNoopImplRemoveAllShortcuts0   jni.MethodID
-	midShortcutInfoCompatSaverNoopImplRemoveAllShortcuts0_1 jni.MethodID
-	midShortcutInfoCompatSaverNoopImplRemoveShortcuts       jni.MethodID
-	midShortcutInfoCompatSaverNoopImplAddShortcuts          jni.MethodID
-	midShortcutInfoCompatSaverNoopImplToString              jni.MethodID
+	clsShortcutInfoCompatSaverNoopImpl                   *jni.GlobalRef
+	midShortcutInfoCompatSaverNoopImplCtor               jni.MethodID
+	midShortcutInfoCompatSaverNoopImplRemoveAllShortcuts jni.MethodID
+	midShortcutInfoCompatSaverNoopImplToString           jni.MethodID
+
+	clsPackageInfoCompat                   *jni.GlobalRef
+	midPackageInfoCompatToString           jni.MethodID
+	midPackageInfoCompatGetLongVersionCode jni.MethodID
+	midPackageInfoCompatGetSignatures      jni.MethodID
+
+	clsPermissionInfoCompat                   *jni.GlobalRef
+	midPermissionInfoCompatToString           jni.MethodID
+	midPermissionInfoCompatGetProtection      jni.MethodID
+	midPermissionInfoCompatGetProtectionFlags jni.MethodID
+
+	clsPermissionInfoCompatProtection         *jni.GlobalRef
+	midPermissionInfoCompatProtectionToString jni.MethodID
+
+	clsPermissionInfoCompatProtectionFlags         *jni.GlobalRef
+	midPermissionInfoCompatProtectionFlagsToString jni.MethodID
+
+	clsActivityInfoCompat         *jni.GlobalRef
+	midActivityInfoCompatToString jni.MethodID
+
+	clsShortcutInfoChangeListener                      *jni.GlobalRef
+	midShortcutInfoChangeListenerOnAllShortcutsRemoved jni.MethodID
+	midShortcutInfoChangeListenerToString              jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -155,68 +154,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("androidx/core/content/pm/PackageInfoCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPackageInfoCompat = env.NewGlobalRef(&c.Object)
-
-		midPackageInfoCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPackageInfoCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPackageInfoCompatGetLongVersionCode, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPackageInfoCompat)), "getLongVersionCode", "(Landroid/content/pm/PackageInfo;)J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPackageInfoCompatGetSignatures, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPackageInfoCompat)), "getSignatures", "(Landroid/content/pm/PackageManager;Ljava/lang/String;)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/content/pm/ShortcutXmlParser")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsShortcutXmlParser = env.NewGlobalRef(&c.Object)
-
-		midShortcutXmlParserToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShortcutXmlParser)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midShortcutXmlParserGetShortcutIds, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsShortcutXmlParser)), "getShortcutIds", "(Landroid/content/Context;)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midShortcutXmlParserParseShortcutIds, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsShortcutXmlParser)), "parseShortcutIds", "(Lorg/xmlpull/v1/XmlPullParser;)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("androidx/core/content/pm/ShortcutManagerCompat")
 	if err != nil {
@@ -319,6 +256,37 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("androidx/core/content/pm/ShortcutXmlParser")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsShortcutXmlParser = env.NewGlobalRef(&c.Object)
+
+		midShortcutXmlParserToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShortcutXmlParser)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midShortcutXmlParserGetShortcutIds, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsShortcutXmlParser)), "getShortcutIds", "(Landroid/content/Context;)Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midShortcutXmlParserParseShortcutIds, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsShortcutXmlParser)), "parseShortcutIds", "(Lorg/xmlpull/v1/XmlPullParser;)Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("androidx/core/content/pm/ShortcutManagerCompat$ShortcutMatchFlags")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -328,95 +296,6 @@ func doInit(env *jni.Env) error {
 		clsShortcutManagerCompatShortcutMatchFlags = env.NewGlobalRef(&c.Object)
 
 		midShortcutManagerCompatShortcutMatchFlagsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShortcutManagerCompatShortcutMatchFlags)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/content/pm/PermissionInfoCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPermissionInfoCompat = env.NewGlobalRef(&c.Object)
-
-		midPermissionInfoCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPermissionInfoCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPermissionInfoCompatGetProtection, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPermissionInfoCompat)), "getProtection", "(Landroid/content/pm/PermissionInfo;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPermissionInfoCompatGetProtectionFlags, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPermissionInfoCompat)), "getProtectionFlags", "(Landroid/content/pm/PermissionInfo;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/content/pm/PermissionInfoCompat$Protection")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPermissionInfoCompatProtection = env.NewGlobalRef(&c.Object)
-
-		midPermissionInfoCompatProtectionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPermissionInfoCompatProtection)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/content/pm/PermissionInfoCompat$ProtectionFlags")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPermissionInfoCompatProtectionFlags = env.NewGlobalRef(&c.Object)
-
-		midPermissionInfoCompatProtectionFlagsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPermissionInfoCompatProtectionFlags)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/content/pm/ShortcutInfoChangeListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsShortcutInfoChangeListener = env.NewGlobalRef(&c.Object)
-
-		midShortcutInfoChangeListenerOnAllShortcutsRemoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShortcutInfoChangeListener)), "onAllShortcutsRemoved", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midShortcutInfoChangeListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShortcutInfoChangeListener)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -524,13 +403,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midShortcutInfoCompatGetIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShortcutInfoCompat)), "getIcon", "()Landroidx/core/graphics/drawable/IconCompat;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midShortcutInfoCompatGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShortcutInfoCompat)), "getExtras", "()Landroid/os/PersistableBundle;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -601,13 +473,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midShortcutInfoCompatHasKeyFieldsOnly, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShortcutInfoCompat)), "hasKeyFieldsOnly", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midShortcutInfoCompatIsExcludedFromSurfaces, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShortcutInfoCompat)), "isExcludedFromSurfaces", "(I)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -629,6 +494,20 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
+		midShortcutInfoCompatGetIcon, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsShortcutInfoCompat)), "getIcon", "()Landroidx/core/graphics/drawable/IconCompat;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midShortcutInfoCompatHasKeyFieldsOnly, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsShortcutInfoCompat)), "hasKeyFieldsOnly", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
 	}
 
 	c, err = env.FindClass("androidx/core/content/pm/ShortcutInfoCompat$Builder")
@@ -638,6 +517,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsShortcutInfoCompatBuilder = env.NewGlobalRef(&c.Object)
+		midShortcutInfoCompatBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShortcutInfoCompatBuilder)), "<init>", "(Landroid/content/Context;Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midShortcutInfoCompatBuilderSetShortLabel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShortcutInfoCompatBuilder)), "setShortLabel", "(Ljava/lang/CharSequence;)Landroidx/core/content/pm/ShortcutInfoCompat$Builder;")
 		if err != nil {
@@ -812,23 +695,6 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/core/content/pm/ActivityInfoCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsActivityInfoCompat = env.NewGlobalRef(&c.Object)
-
-		midActivityInfoCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityInfoCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("androidx/core/content/pm/ShortcutInfoCompatSaver")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -860,29 +726,12 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsShortcutInfoCompatSaverNoopImpl = env.NewGlobalRef(&c.Object)
-
-		midShortcutInfoCompatSaverNoopImplRemoveAllShortcuts0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShortcutInfoCompatSaverNoopImpl)), "removeAllShortcuts", "()Ljava/lang/Void;")
+		midShortcutInfoCompatSaverNoopImplCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShortcutInfoCompatSaverNoopImpl)), "<init>", "()V")
 		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midShortcutInfoCompatSaverNoopImplRemoveAllShortcuts0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShortcutInfoCompatSaverNoopImpl)), "removeAllShortcuts", "()Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midShortcutInfoCompatSaverNoopImplRemoveShortcuts, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShortcutInfoCompatSaverNoopImpl)), "removeShortcuts", "(Ljava/util/List;)Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midShortcutInfoCompatSaverNoopImplAddShortcuts, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShortcutInfoCompatSaverNoopImpl)), "addShortcuts", "(Ljava/util/List;)Ljava/lang/Object;")
+		midShortcutInfoCompatSaverNoopImplRemoveAllShortcuts, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShortcutInfoCompatSaverNoopImpl)), "removeAllShortcuts", "()Ljava/lang/Void;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -890,6 +739,143 @@ func doInit(env *jni.Env) error {
 		}
 
 		midShortcutInfoCompatSaverNoopImplToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShortcutInfoCompatSaverNoopImpl)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/content/pm/PackageInfoCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPackageInfoCompat = env.NewGlobalRef(&c.Object)
+
+		midPackageInfoCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPackageInfoCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPackageInfoCompatGetLongVersionCode, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPackageInfoCompat)), "getLongVersionCode", "(Landroid/content/pm/PackageInfo;)J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPackageInfoCompatGetSignatures, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPackageInfoCompat)), "getSignatures", "(Landroid/content/pm/PackageManager;Ljava/lang/String;)Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/content/pm/PermissionInfoCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPermissionInfoCompat = env.NewGlobalRef(&c.Object)
+
+		midPermissionInfoCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPermissionInfoCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPermissionInfoCompatGetProtection, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPermissionInfoCompat)), "getProtection", "(Landroid/content/pm/PermissionInfo;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPermissionInfoCompatGetProtectionFlags, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPermissionInfoCompat)), "getProtectionFlags", "(Landroid/content/pm/PermissionInfo;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/content/pm/PermissionInfoCompat$Protection")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPermissionInfoCompatProtection = env.NewGlobalRef(&c.Object)
+
+		midPermissionInfoCompatProtectionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPermissionInfoCompatProtection)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/content/pm/PermissionInfoCompat$ProtectionFlags")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPermissionInfoCompatProtectionFlags = env.NewGlobalRef(&c.Object)
+
+		midPermissionInfoCompatProtectionFlagsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPermissionInfoCompatProtectionFlags)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/content/pm/ActivityInfoCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsActivityInfoCompat = env.NewGlobalRef(&c.Object)
+
+		midActivityInfoCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActivityInfoCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/content/pm/ShortcutInfoChangeListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsShortcutInfoChangeListener = env.NewGlobalRef(&c.Object)
+
+		midShortcutInfoChangeListenerOnAllShortcutsRemoved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShortcutInfoChangeListener)), "onAllShortcutsRemoved", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midShortcutInfoChangeListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsShortcutInfoChangeListener)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

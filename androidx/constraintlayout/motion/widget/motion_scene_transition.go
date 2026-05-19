@@ -23,6 +23,35 @@ type MotionSceneTransition struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMotionSceneTransition creates a new androidx.constraintlayout.motion.widget.MotionScene$Transition instance.
+func NewMotionSceneTransition(vm *jni.VM, arg0 int32, arg1 *jni.Object, arg2 int32, arg3 int32) (*MotionSceneTransition, error) {
+	var t MotionSceneTransition
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMotionSceneTransition == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.MotionScene$Transition is not available on this device")
+		}
+		if midMotionSceneTransitionCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.MotionScene$Transition constructor (ILandroidx/constraintlayout/motion/widget/MotionScene;II)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMotionSceneTransition)), midMotionSceneTransitionCtor, jni.IntValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetOnSwipe calls androidx.constraintlayout.motion.widget.MotionScene$Transition.setOnSwipe.
 func (m *MotionSceneTransition) SetOnSwipe(arg0 *jni.Object) error {
 
@@ -726,39 +755,6 @@ func (m *MotionSceneTransition) SetOnTouchUp(arg0 int32) error {
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midMotionSceneTransitionSetOnTouchUp, jni.IntValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// SetInterpolatorInfo calls androidx.constraintlayout.motion.widget.MotionScene$Transition.setInterpolatorInfo.
-func (m *MotionSceneTransition) SetInterpolatorInfo(
-	arg0 int32,
-	arg1 string,
-	arg2 int32,
-) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMotionSceneTransitionSetInterpolatorInfo == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.motion.widget.MotionScene$Transition.setInterpolatorInfo is not available on this device")
-			return callErr
-		}
-
-		jArg1, err := env.NewStringUTF(arg1)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg1.Object)
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMotionSceneTransitionSetInterpolatorInfo, jni.IntValue(arg0), jni.ObjectValue(&jArg1.Object), jni.IntValue(arg2),
 		)
 		return callErr
 	})

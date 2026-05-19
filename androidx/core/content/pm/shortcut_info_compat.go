@@ -415,38 +415,6 @@ func (m *ShortcutInfoCompat) GetRank() (int32, error) {
 	return result, callErr
 }
 
-// GetIcon calls androidx.core.content.pm.ShortcutInfoCompat.getIcon.
-func (m *ShortcutInfoCompat) GetIcon() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midShortcutInfoCompatGetIcon == nil {
-			callErr = fmt.Errorf("androidx.core.content.pm.ShortcutInfoCompat.getIcon is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midShortcutInfoCompatGetIcon,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // GetExtras calls androidx.core.content.pm.ShortcutInfoCompat.getExtras.
 func (m *ShortcutInfoCompat) GetExtras() (*jni.Object, error) {
 	var result *jni.Object
@@ -730,33 +698,6 @@ func (m *ShortcutInfoCompat) IsEnabled() (bool, error) {
 	return result, callErr
 }
 
-// HasKeyFieldsOnly calls androidx.core.content.pm.ShortcutInfoCompat.hasKeyFieldsOnly.
-func (m *ShortcutInfoCompat) HasKeyFieldsOnly() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midShortcutInfoCompatHasKeyFieldsOnly == nil {
-			callErr = fmt.Errorf("androidx.core.content.pm.ShortcutInfoCompat.hasKeyFieldsOnly is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midShortcutInfoCompatHasKeyFieldsOnly,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // IsExcludedFromSurfaces calls androidx.core.content.pm.ShortcutInfoCompat.isExcludedFromSurfaces.
 func (m *ShortcutInfoCompat) IsExcludedFromSurfaces(arg0 int32) (bool, error) {
 	var result bool
@@ -832,6 +773,65 @@ func (m *ShortcutInfoCompat) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetIcon calls androidx.core.content.pm.ShortcutInfoCompat.getIcon.
+func (m *ShortcutInfoCompat) GetIcon() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midShortcutInfoCompatGetIcon == nil {
+			callErr = fmt.Errorf("androidx.core.content.pm.ShortcutInfoCompat.getIcon is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsShortcutInfoCompat)),
+			midShortcutInfoCompatGetIcon,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// HasKeyFieldsOnly calls androidx.core.content.pm.ShortcutInfoCompat.hasKeyFieldsOnly.
+func (m *ShortcutInfoCompat) HasKeyFieldsOnly() (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midShortcutInfoCompatHasKeyFieldsOnly == nil {
+			callErr = fmt.Errorf("androidx.core.content.pm.ShortcutInfoCompat.hasKeyFieldsOnly is not available on this device")
+			return callErr
+		}
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsShortcutInfoCompat)),
+			midShortcutInfoCompatHasKeyFieldsOnly,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

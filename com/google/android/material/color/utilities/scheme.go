@@ -32,6 +32,12 @@ func NewScheme(vm *jni.VM) (*Scheme, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsScheme == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.Scheme is not available on this device")
+		}
+		if midSchemeCtor == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.Scheme constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScheme)), midSchemeCtor)
 		if err != nil {
 			return err

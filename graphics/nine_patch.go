@@ -32,6 +32,12 @@ func NewNinePatch(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*NinePatch, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNinePatch == nil {
+			return fmt.Errorf("android.graphics.NinePatch is not available on this device")
+		}
+		if midNinePatchCtor == nil {
+			return fmt.Errorf("android.graphics.NinePatch constructor (Landroid/graphics/Bitmap;[B)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNinePatch)), midNinePatchCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

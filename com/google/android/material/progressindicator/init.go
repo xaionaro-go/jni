@@ -23,6 +23,52 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsAnimatorDurationScaleProvider                                      *jni.GlobalRef
+	midAnimatorDurationScaleProviderCtor                                  jni.MethodID
+	midAnimatorDurationScaleProviderGetSystemAnimatorDurationScale        jni.MethodID
+	midAnimatorDurationScaleProviderToString                              jni.MethodID
+	midAnimatorDurationScaleProviderSetDefaultSystemAnimatorDurationScale jni.MethodID
+
+	clsLinearProgressIndicator                              *jni.GlobalRef
+	midLinearProgressIndicatorCtor                          jni.MethodID
+	midLinearProgressIndicatorSetIndicatorColor             jni.MethodID
+	midLinearProgressIndicatorSetTrackCornerRadius          jni.MethodID
+	midLinearProgressIndicatorGetTrackStopIndicatorSize     jni.MethodID
+	midLinearProgressIndicatorSetTrackStopIndicatorSize     jni.MethodID
+	midLinearProgressIndicatorGetIndeterminateAnimationType jni.MethodID
+	midLinearProgressIndicatorSetIndeterminateAnimationType jni.MethodID
+	midLinearProgressIndicatorGetIndicatorDirection         jni.MethodID
+	midLinearProgressIndicatorSetIndicatorDirection         jni.MethodID
+	midLinearProgressIndicatorToString                      jni.MethodID
+
+	clsLinearProgressIndicatorIndeterminateAnimationType         *jni.GlobalRef
+	midLinearProgressIndicatorIndeterminateAnimationTypeToString jni.MethodID
+
+	clsLinearProgressIndicatorIndicatorDirection         *jni.GlobalRef
+	midLinearProgressIndicatorIndicatorDirectionToString jni.MethodID
+
+	clsLinearProgressIndicatorSpec         *jni.GlobalRef
+	midLinearProgressIndicatorSpecCtor     jni.MethodID
+	midLinearProgressIndicatorSpecToString jni.MethodID
+
+	clsBaseProgressIndicatorSpec                       *jni.GlobalRef
+	midBaseProgressIndicatorSpecIsShowAnimationEnabled jni.MethodID
+	midBaseProgressIndicatorSpecIsHideAnimationEnabled jni.MethodID
+	midBaseProgressIndicatorSpecToString               jni.MethodID
+
+	clsCircularProgressIndicator                      *jni.GlobalRef
+	midCircularProgressIndicatorCtor                  jni.MethodID
+	midCircularProgressIndicatorSetTrackThickness     jni.MethodID
+	midCircularProgressIndicatorGetIndicatorInset     jni.MethodID
+	midCircularProgressIndicatorSetIndicatorInset     jni.MethodID
+	midCircularProgressIndicatorGetIndicatorSize      jni.MethodID
+	midCircularProgressIndicatorSetIndicatorSize      jni.MethodID
+	midCircularProgressIndicatorGetIndicatorDirection jni.MethodID
+	midCircularProgressIndicatorToString              jni.MethodID
+
+	clsCircularProgressIndicatorIndicatorDirection         *jni.GlobalRef
+	midCircularProgressIndicatorIndicatorDirectionToString jni.MethodID
+
 	clsBaseProgressIndicator                                 *jni.GlobalRef
 	midBaseProgressIndicatorShow                             jni.MethodID
 	midBaseProgressIndicatorHide                             jni.MethodID
@@ -30,8 +76,8 @@ var (
 	midBaseProgressIndicatorGetCurrentDrawable               jni.MethodID
 	midBaseProgressIndicatorSetProgressDrawable              jni.MethodID
 	midBaseProgressIndicatorSetIndeterminateDrawable         jni.MethodID
-	midBaseProgressIndicatorGetProgressDrawable0             jni.MethodID
-	midBaseProgressIndicatorGetIndeterminateDrawable0        jni.MethodID
+	midBaseProgressIndicatorGetProgressDrawable              jni.MethodID
+	midBaseProgressIndicatorGetIndeterminateDrawable         jni.MethodID
 	midBaseProgressIndicatorGetTrackThickness                jni.MethodID
 	midBaseProgressIndicatorSetTrackThickness                jni.MethodID
 	midBaseProgressIndicatorGetIndicatorColor                jni.MethodID
@@ -49,19 +95,7 @@ var (
 	midBaseProgressIndicatorSetProgressCompat                jni.MethodID
 	midBaseProgressIndicatorSetVisibilityAfterHide           jni.MethodID
 	midBaseProgressIndicatorSetAnimatorDurationScaleProvider jni.MethodID
-	midBaseProgressIndicatorGetProgressDrawable0_1           jni.MethodID
-	midBaseProgressIndicatorGetIndeterminateDrawable0_1      jni.MethodID
 	midBaseProgressIndicatorToString                         jni.MethodID
-
-	clsLinearProgressIndicatorSpec         *jni.GlobalRef
-	midLinearProgressIndicatorSpecCtor     jni.MethodID
-	midLinearProgressIndicatorSpecToString jni.MethodID
-
-	clsBaseProgressIndicatorHideAnimationBehavior         *jni.GlobalRef
-	midBaseProgressIndicatorHideAnimationBehaviorToString jni.MethodID
-
-	clsBaseProgressIndicatorShowAnimationBehavior         *jni.GlobalRef
-	midBaseProgressIndicatorShowAnimationBehaviorToString jni.MethodID
 
 	clsDeterminateDrawable                                 *jni.GlobalRef
 	midDeterminateDrawableAddSpringAnimationEndListener    jni.MethodID
@@ -70,97 +104,29 @@ var (
 	midDeterminateDrawableGetIntrinsicWidth                jni.MethodID
 	midDeterminateDrawableGetIntrinsicHeight               jni.MethodID
 	midDeterminateDrawableDraw                             jni.MethodID
-	midDeterminateDrawableGetOpacity                       jni.MethodID
-	midDeterminateDrawableSetColorFilter                   jni.MethodID
-	midDeterminateDrawableGetAlpha                         jni.MethodID
-	midDeterminateDrawableSetAlpha                         jni.MethodID
-	midDeterminateDrawableSetVisible3                      jni.MethodID
-	midDeterminateDrawableSetVisible2_1                    jni.MethodID
-	midDeterminateDrawableHideNow                          jni.MethodID
-	midDeterminateDrawableIsHiding                         jni.MethodID
-	midDeterminateDrawableIsShowing                        jni.MethodID
-	midDeterminateDrawableIsRunning                        jni.MethodID
-	midDeterminateDrawableStop                             jni.MethodID
-	midDeterminateDrawableStart                            jni.MethodID
-	midDeterminateDrawableClearAnimationCallbacks          jni.MethodID
-	midDeterminateDrawableUnregisterAnimationCallback      jni.MethodID
-	midDeterminateDrawableRegisterAnimationCallback        jni.MethodID
 	midDeterminateDrawableToString                         jni.MethodID
 	midDeterminateDrawableCreateLinearDrawable             jni.MethodID
 	midDeterminateDrawableCreateCircularDrawable           jni.MethodID
+
+	clsBaseProgressIndicatorHideAnimationBehavior         *jni.GlobalRef
+	midBaseProgressIndicatorHideAnimationBehaviorToString jni.MethodID
+
+	clsBaseProgressIndicatorShowAnimationBehavior         *jni.GlobalRef
+	midBaseProgressIndicatorShowAnimationBehaviorToString jni.MethodID
 
 	clsCircularProgressIndicatorSpec         *jni.GlobalRef
 	midCircularProgressIndicatorSpecCtor     jni.MethodID
 	midCircularProgressIndicatorSpecToString jni.MethodID
 
-	clsAnimatorDurationScaleProvider                                      *jni.GlobalRef
-	midAnimatorDurationScaleProviderCtor                                  jni.MethodID
-	midAnimatorDurationScaleProviderGetSystemAnimatorDurationScale        jni.MethodID
-	midAnimatorDurationScaleProviderToString                              jni.MethodID
-	midAnimatorDurationScaleProviderSetDefaultSystemAnimatorDurationScale jni.MethodID
-
-	clsLinearProgressIndicator                              *jni.GlobalRef
-	midLinearProgressIndicatorCtor                          jni.MethodID
-	midLinearProgressIndicatorSetIndicatorColor             jni.MethodID
-	midLinearProgressIndicatorSetTrackCornerRadius          jni.MethodID
-	midLinearProgressIndicatorGetTrackStopIndicatorSize     jni.MethodID
-	midLinearProgressIndicatorSetTrackStopIndicatorSize     jni.MethodID
-	midLinearProgressIndicatorGetIndeterminateAnimationType jni.MethodID
-	midLinearProgressIndicatorSetIndeterminateAnimationType jni.MethodID
-	midLinearProgressIndicatorGetIndicatorDirection         jni.MethodID
-	midLinearProgressIndicatorSetIndicatorDirection         jni.MethodID
-	midLinearProgressIndicatorSetProgressCompat             jni.MethodID
-	midLinearProgressIndicatorToString                      jni.MethodID
-
-	clsLinearProgressIndicatorIndeterminateAnimationType         *jni.GlobalRef
-	midLinearProgressIndicatorIndeterminateAnimationTypeToString jni.MethodID
-
-	clsLinearProgressIndicatorIndicatorDirection         *jni.GlobalRef
-	midLinearProgressIndicatorIndicatorDirectionToString jni.MethodID
-
-	clsCircularProgressIndicator                      *jni.GlobalRef
-	midCircularProgressIndicatorCtor                  jni.MethodID
-	midCircularProgressIndicatorSetTrackThickness     jni.MethodID
-	midCircularProgressIndicatorGetIndicatorInset     jni.MethodID
-	midCircularProgressIndicatorSetIndicatorInset     jni.MethodID
-	midCircularProgressIndicatorGetIndicatorSize      jni.MethodID
-	midCircularProgressIndicatorSetIndicatorSize      jni.MethodID
-	midCircularProgressIndicatorGetIndicatorDirection jni.MethodID
-	midCircularProgressIndicatorSetIndicatorDirection jni.MethodID
-	midCircularProgressIndicatorToString              jni.MethodID
-
-	clsCircularProgressIndicatorIndicatorDirection         *jni.GlobalRef
-	midCircularProgressIndicatorIndicatorDirectionToString jni.MethodID
-
-	clsIndeterminateDrawable                            *jni.GlobalRef
-	midIndeterminateDrawableGetIntrinsicWidth           jni.MethodID
-	midIndeterminateDrawableGetIntrinsicHeight          jni.MethodID
-	midIndeterminateDrawableDraw                        jni.MethodID
-	midIndeterminateDrawableGetStaticDummyDrawable      jni.MethodID
-	midIndeterminateDrawableSetStaticDummyDrawable      jni.MethodID
-	midIndeterminateDrawableGetOpacity                  jni.MethodID
-	midIndeterminateDrawableSetColorFilter              jni.MethodID
-	midIndeterminateDrawableGetAlpha                    jni.MethodID
-	midIndeterminateDrawableSetAlpha                    jni.MethodID
-	midIndeterminateDrawableSetVisible3                 jni.MethodID
-	midIndeterminateDrawableSetVisible2_1               jni.MethodID
-	midIndeterminateDrawableHideNow                     jni.MethodID
-	midIndeterminateDrawableIsHiding                    jni.MethodID
-	midIndeterminateDrawableIsShowing                   jni.MethodID
-	midIndeterminateDrawableIsRunning                   jni.MethodID
-	midIndeterminateDrawableStop                        jni.MethodID
-	midIndeterminateDrawableStart                       jni.MethodID
-	midIndeterminateDrawableClearAnimationCallbacks     jni.MethodID
-	midIndeterminateDrawableUnregisterAnimationCallback jni.MethodID
-	midIndeterminateDrawableRegisterAnimationCallback   jni.MethodID
-	midIndeterminateDrawableToString                    jni.MethodID
-	midIndeterminateDrawableCreateLinearDrawable        jni.MethodID
-	midIndeterminateDrawableCreateCircularDrawable      jni.MethodID
-
-	clsBaseProgressIndicatorSpec                       *jni.GlobalRef
-	midBaseProgressIndicatorSpecIsShowAnimationEnabled jni.MethodID
-	midBaseProgressIndicatorSpecIsHideAnimationEnabled jni.MethodID
-	midBaseProgressIndicatorSpecToString               jni.MethodID
+	clsIndeterminateDrawable                       *jni.GlobalRef
+	midIndeterminateDrawableGetIntrinsicWidth      jni.MethodID
+	midIndeterminateDrawableGetIntrinsicHeight     jni.MethodID
+	midIndeterminateDrawableDraw                   jni.MethodID
+	midIndeterminateDrawableGetStaticDummyDrawable jni.MethodID
+	midIndeterminateDrawableSetStaticDummyDrawable jni.MethodID
+	midIndeterminateDrawableToString               jni.MethodID
+	midIndeterminateDrawableCreateLinearDrawable   jni.MethodID
+	midIndeterminateDrawableCreateCircularDrawable jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -180,6 +146,284 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("com/google/android/material/progressindicator/AnimatorDurationScaleProvider")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAnimatorDurationScaleProvider = env.NewGlobalRef(&c.Object)
+		midAnimatorDurationScaleProviderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimatorDurationScaleProvider)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAnimatorDurationScaleProviderGetSystemAnimatorDurationScale, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimatorDurationScaleProvider)), "getSystemAnimatorDurationScale", "(Landroid/content/ContentResolver;)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAnimatorDurationScaleProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimatorDurationScaleProvider)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAnimatorDurationScaleProviderSetDefaultSystemAnimatorDurationScale, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAnimatorDurationScaleProvider)), "setDefaultSystemAnimatorDurationScale", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/progressindicator/LinearProgressIndicator")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLinearProgressIndicator = env.NewGlobalRef(&c.Object)
+		midLinearProgressIndicatorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midLinearProgressIndicatorSetIndicatorColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), "setIndicatorColor", "([I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearProgressIndicatorSetTrackCornerRadius, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), "setTrackCornerRadius", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearProgressIndicatorGetTrackStopIndicatorSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), "getTrackStopIndicatorSize", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearProgressIndicatorSetTrackStopIndicatorSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), "setTrackStopIndicatorSize", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearProgressIndicatorGetIndeterminateAnimationType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), "getIndeterminateAnimationType", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearProgressIndicatorSetIndeterminateAnimationType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), "setIndeterminateAnimationType", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearProgressIndicatorGetIndicatorDirection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), "getIndicatorDirection", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearProgressIndicatorSetIndicatorDirection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), "setIndicatorDirection", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLinearProgressIndicatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/progressindicator/LinearProgressIndicator$IndeterminateAnimationType")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLinearProgressIndicatorIndeterminateAnimationType = env.NewGlobalRef(&c.Object)
+
+		midLinearProgressIndicatorIndeterminateAnimationTypeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicatorIndeterminateAnimationType)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/progressindicator/LinearProgressIndicator$IndicatorDirection")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLinearProgressIndicatorIndicatorDirection = env.NewGlobalRef(&c.Object)
+
+		midLinearProgressIndicatorIndicatorDirectionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicatorIndicatorDirection)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/progressindicator/LinearProgressIndicatorSpec")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLinearProgressIndicatorSpec = env.NewGlobalRef(&c.Object)
+		midLinearProgressIndicatorSpecCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicatorSpec)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midLinearProgressIndicatorSpecToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicatorSpec)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/progressindicator/BaseProgressIndicatorSpec")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBaseProgressIndicatorSpec = env.NewGlobalRef(&c.Object)
+
+		midBaseProgressIndicatorSpecIsShowAnimationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseProgressIndicatorSpec)), "isShowAnimationEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBaseProgressIndicatorSpecIsHideAnimationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseProgressIndicatorSpec)), "isHideAnimationEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBaseProgressIndicatorSpecToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseProgressIndicatorSpec)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/progressindicator/CircularProgressIndicator")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCircularProgressIndicator = env.NewGlobalRef(&c.Object)
+		midCircularProgressIndicatorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicator)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCircularProgressIndicatorSetTrackThickness, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicator)), "setTrackThickness", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularProgressIndicatorGetIndicatorInset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicator)), "getIndicatorInset", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularProgressIndicatorSetIndicatorInset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicator)), "setIndicatorInset", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularProgressIndicatorGetIndicatorSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicator)), "getIndicatorSize", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularProgressIndicatorSetIndicatorSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicator)), "setIndicatorSize", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularProgressIndicatorGetIndicatorDirection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicator)), "getIndicatorDirection", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularProgressIndicatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicator)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/progressindicator/CircularProgressIndicator$IndicatorDirection")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCircularProgressIndicatorIndicatorDirection = env.NewGlobalRef(&c.Object)
+
+		midCircularProgressIndicatorIndicatorDirectionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicatorIndicatorDirection)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("com/google/android/material/progressindicator/BaseProgressIndicator")
 	if err != nil {
@@ -231,14 +475,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midBaseProgressIndicatorGetProgressDrawable0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseProgressIndicator)), "getProgressDrawable", "()Lcom/google/android/material/progressindicator/DeterminateDrawable;")
+		midBaseProgressIndicatorGetProgressDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseProgressIndicator)), "getProgressDrawable", "()Lcom/google/android/material/progressindicator/DeterminateDrawable;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midBaseProgressIndicatorGetIndeterminateDrawable0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseProgressIndicator)), "getIndeterminateDrawable", "()Lcom/google/android/material/progressindicator/IndeterminateDrawable;")
+		midBaseProgressIndicatorGetIndeterminateDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseProgressIndicator)), "getIndeterminateDrawable", "()Lcom/google/android/material/progressindicator/IndeterminateDrawable;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -364,76 +608,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midBaseProgressIndicatorGetProgressDrawable0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseProgressIndicator)), "getProgressDrawable", "()Landroid/graphics/drawable/Drawable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBaseProgressIndicatorGetIndeterminateDrawable0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseProgressIndicator)), "getIndeterminateDrawable", "()Landroid/graphics/drawable/Drawable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midBaseProgressIndicatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseProgressIndicator)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/progressindicator/LinearProgressIndicatorSpec")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLinearProgressIndicatorSpec = env.NewGlobalRef(&c.Object)
-		midLinearProgressIndicatorSpecCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicatorSpec)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midLinearProgressIndicatorSpecToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicatorSpec)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/progressindicator/BaseProgressIndicator$HideAnimationBehavior")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBaseProgressIndicatorHideAnimationBehavior = env.NewGlobalRef(&c.Object)
-
-		midBaseProgressIndicatorHideAnimationBehaviorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseProgressIndicatorHideAnimationBehavior)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/progressindicator/BaseProgressIndicator$ShowAnimationBehavior")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBaseProgressIndicatorShowAnimationBehavior = env.NewGlobalRef(&c.Object)
-
-		midBaseProgressIndicatorShowAnimationBehaviorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseProgressIndicatorShowAnimationBehavior)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -492,111 +667,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midDeterminateDrawableGetOpacity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeterminateDrawable)), "getOpacity", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeterminateDrawableSetColorFilter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeterminateDrawable)), "setColorFilter", "(Landroid/graphics/ColorFilter;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeterminateDrawableGetAlpha, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeterminateDrawable)), "getAlpha", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeterminateDrawableSetAlpha, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeterminateDrawable)), "setAlpha", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeterminateDrawableSetVisible3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeterminateDrawable)), "setVisible", "(ZZZ)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeterminateDrawableSetVisible2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeterminateDrawable)), "setVisible", "(ZZ)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeterminateDrawableHideNow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeterminateDrawable)), "hideNow", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeterminateDrawableIsHiding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeterminateDrawable)), "isHiding", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeterminateDrawableIsShowing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeterminateDrawable)), "isShowing", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeterminateDrawableIsRunning, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeterminateDrawable)), "isRunning", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeterminateDrawableStop, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeterminateDrawable)), "stop", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeterminateDrawableStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeterminateDrawable)), "start", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeterminateDrawableClearAnimationCallbacks, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeterminateDrawable)), "clearAnimationCallbacks", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeterminateDrawableUnregisterAnimationCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeterminateDrawable)), "unregisterAnimationCallback", "(Landroidx/vectordrawable/graphics/drawable/Animatable2Compat$AnimationCallback;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeterminateDrawableRegisterAnimationCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeterminateDrawable)), "registerAnimationCallback", "(Landroidx/vectordrawable/graphics/drawable/Animatable2Compat$AnimationCallback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midDeterminateDrawableToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeterminateDrawable)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -620,6 +690,40 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("com/google/android/material/progressindicator/BaseProgressIndicator$HideAnimationBehavior")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBaseProgressIndicatorHideAnimationBehavior = env.NewGlobalRef(&c.Object)
+
+		midBaseProgressIndicatorHideAnimationBehaviorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseProgressIndicatorHideAnimationBehavior)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/progressindicator/BaseProgressIndicator$ShowAnimationBehavior")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBaseProgressIndicatorShowAnimationBehavior = env.NewGlobalRef(&c.Object)
+
+		midBaseProgressIndicatorShowAnimationBehaviorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseProgressIndicatorShowAnimationBehavior)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("com/google/android/material/progressindicator/CircularProgressIndicatorSpec")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -633,246 +737,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midCircularProgressIndicatorSpecToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicatorSpec)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/progressindicator/AnimatorDurationScaleProvider")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAnimatorDurationScaleProvider = env.NewGlobalRef(&c.Object)
-		midAnimatorDurationScaleProviderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimatorDurationScaleProvider)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAnimatorDurationScaleProviderGetSystemAnimatorDurationScale, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimatorDurationScaleProvider)), "getSystemAnimatorDurationScale", "(Landroid/content/ContentResolver;)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAnimatorDurationScaleProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAnimatorDurationScaleProvider)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAnimatorDurationScaleProviderSetDefaultSystemAnimatorDurationScale, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAnimatorDurationScaleProvider)), "setDefaultSystemAnimatorDurationScale", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/progressindicator/LinearProgressIndicator")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLinearProgressIndicator = env.NewGlobalRef(&c.Object)
-		midLinearProgressIndicatorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midLinearProgressIndicatorSetIndicatorColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), "setIndicatorColor", "([I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearProgressIndicatorSetTrackCornerRadius, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), "setTrackCornerRadius", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearProgressIndicatorGetTrackStopIndicatorSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), "getTrackStopIndicatorSize", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearProgressIndicatorSetTrackStopIndicatorSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), "setTrackStopIndicatorSize", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearProgressIndicatorGetIndeterminateAnimationType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), "getIndeterminateAnimationType", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearProgressIndicatorSetIndeterminateAnimationType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), "setIndeterminateAnimationType", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearProgressIndicatorGetIndicatorDirection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), "getIndicatorDirection", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearProgressIndicatorSetIndicatorDirection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), "setIndicatorDirection", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearProgressIndicatorSetProgressCompat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), "setProgressCompat", "(IZ)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLinearProgressIndicatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicator)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/progressindicator/LinearProgressIndicator$IndeterminateAnimationType")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLinearProgressIndicatorIndeterminateAnimationType = env.NewGlobalRef(&c.Object)
-
-		midLinearProgressIndicatorIndeterminateAnimationTypeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicatorIndeterminateAnimationType)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/progressindicator/LinearProgressIndicator$IndicatorDirection")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLinearProgressIndicatorIndicatorDirection = env.NewGlobalRef(&c.Object)
-
-		midLinearProgressIndicatorIndicatorDirectionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLinearProgressIndicatorIndicatorDirection)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/progressindicator/CircularProgressIndicator")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCircularProgressIndicator = env.NewGlobalRef(&c.Object)
-		midCircularProgressIndicatorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicator)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCircularProgressIndicatorSetTrackThickness, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicator)), "setTrackThickness", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularProgressIndicatorGetIndicatorInset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicator)), "getIndicatorInset", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularProgressIndicatorSetIndicatorInset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicator)), "setIndicatorInset", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularProgressIndicatorGetIndicatorSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicator)), "getIndicatorSize", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularProgressIndicatorSetIndicatorSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicator)), "setIndicatorSize", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularProgressIndicatorGetIndicatorDirection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicator)), "getIndicatorDirection", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularProgressIndicatorSetIndicatorDirection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicator)), "setIndicatorDirection", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularProgressIndicatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicator)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/progressindicator/CircularProgressIndicator$IndicatorDirection")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCircularProgressIndicatorIndicatorDirection = env.NewGlobalRef(&c.Object)
-
-		midCircularProgressIndicatorIndicatorDirectionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicatorIndicatorDirection)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -924,111 +788,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midIndeterminateDrawableGetOpacity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIndeterminateDrawable)), "getOpacity", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIndeterminateDrawableSetColorFilter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIndeterminateDrawable)), "setColorFilter", "(Landroid/graphics/ColorFilter;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIndeterminateDrawableGetAlpha, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIndeterminateDrawable)), "getAlpha", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIndeterminateDrawableSetAlpha, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIndeterminateDrawable)), "setAlpha", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIndeterminateDrawableSetVisible3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIndeterminateDrawable)), "setVisible", "(ZZZ)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIndeterminateDrawableSetVisible2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIndeterminateDrawable)), "setVisible", "(ZZ)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIndeterminateDrawableHideNow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIndeterminateDrawable)), "hideNow", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIndeterminateDrawableIsHiding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIndeterminateDrawable)), "isHiding", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIndeterminateDrawableIsShowing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIndeterminateDrawable)), "isShowing", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIndeterminateDrawableIsRunning, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIndeterminateDrawable)), "isRunning", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIndeterminateDrawableStop, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIndeterminateDrawable)), "stop", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIndeterminateDrawableStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIndeterminateDrawable)), "start", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIndeterminateDrawableClearAnimationCallbacks, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIndeterminateDrawable)), "clearAnimationCallbacks", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIndeterminateDrawableUnregisterAnimationCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIndeterminateDrawable)), "unregisterAnimationCallback", "(Landroidx/vectordrawable/graphics/drawable/Animatable2Compat$AnimationCallback;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIndeterminateDrawableRegisterAnimationCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIndeterminateDrawable)), "registerAnimationCallback", "(Landroidx/vectordrawable/graphics/drawable/Animatable2Compat$AnimationCallback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midIndeterminateDrawableToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIndeterminateDrawable)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -1044,37 +803,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midIndeterminateDrawableCreateCircularDrawable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsIndeterminateDrawable)), "createCircularDrawable", "(Landroid/content/Context;Lcom/google/android/material/progressindicator/CircularProgressIndicatorSpec;)Lcom/google/android/material/progressindicator/IndeterminateDrawable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/progressindicator/BaseProgressIndicatorSpec")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBaseProgressIndicatorSpec = env.NewGlobalRef(&c.Object)
-
-		midBaseProgressIndicatorSpecIsShowAnimationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseProgressIndicatorSpec)), "isShowAnimationEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBaseProgressIndicatorSpecIsHideAnimationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseProgressIndicatorSpec)), "isHideAnimationEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBaseProgressIndicatorSpecToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBaseProgressIndicatorSpec)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

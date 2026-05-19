@@ -32,6 +32,12 @@ func NewDateValueSanitizer(vm *jni.VM, arg0 *jni.Object) (*DateValueSanitizer, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDateValueSanitizer == nil {
+			return fmt.Errorf("android.service.autofill.DateValueSanitizer is not available on this device")
+		}
+		if midDateValueSanitizerCtor == nil {
+			return fmt.Errorf("android.service.autofill.DateValueSanitizer constructor (Landroid/icu/text/DateFormat;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDateValueSanitizer)), midDateValueSanitizerCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -112,8 +118,8 @@ func (m *DateValueSanitizer) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsDateValueSanitizer)),
 			midDateValueSanitizerWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

@@ -21,6 +21,34 @@ type InstrumentationActivityMonitor struct {
 	Obj *jni.GlobalRef
 }
 
+// NewInstrumentationActivityMonitor creates a new android.app.Instrumentation$ActivityMonitor instance.
+func NewInstrumentationActivityMonitor(vm *jni.VM) (*InstrumentationActivityMonitor, error) {
+	var t InstrumentationActivityMonitor
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsInstrumentationActivityMonitor == nil {
+			return fmt.Errorf("android.app.Instrumentation$ActivityMonitor is not available on this device")
+		}
+		if midInstrumentationActivityMonitorCtor == nil {
+			return fmt.Errorf("android.app.Instrumentation$ActivityMonitor constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInstrumentationActivityMonitor)), midInstrumentationActivityMonitorCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetFilter calls android.app.Instrumentation$ActivityMonitor.getFilter.
 func (m *InstrumentationActivityMonitor) GetFilter() (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewTarget(vm *jni.VM, arg0 string, arg1 *jni.Object, arg2 float32, arg3 *jn
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTarget == nil {
+			return fmt.Errorf("android.service.chooser.ChooserTarget is not available on this device")
+		}
+		if midTargetCtor == nil {
+			return fmt.Errorf("android.service.chooser.ChooserTarget constructor (Ljava/lang/CharSequence;Landroid/graphics/drawable/Icon;FLandroid/content/ComponentName;Landroid/os/Bundle;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -270,8 +276,8 @@ func (m *Target) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsTarget)),
 			midTargetWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

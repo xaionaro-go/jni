@@ -23,8 +23,8 @@ type Velocity struct {
 	Obj *jni.GlobalRef
 }
 
-// CompareTo1 calls android.health.connect.datatypes.units.Velocity.compareTo.
-func (m *Velocity) CompareTo1(arg0 *jni.Object) (int32, error) {
+// CompareTo calls android.health.connect.datatypes.units.Velocity.compareTo.
+func (m *Velocity) CompareTo(arg0 *jni.Object) (int32, error) {
 	var result int32
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -32,14 +32,14 @@ func (m *Velocity) CompareTo1(arg0 *jni.Object) (int32, error) {
 			callErr = err
 			return err
 		}
-		if midVelocityCompareTo1 == nil {
+		if midVelocityCompareTo == nil {
 			callErr = fmt.Errorf("android.health.connect.datatypes.units.Velocity.compareTo is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallIntMethod(
 			m.Obj,
-			midVelocityCompareTo1, jni.ObjectValue(arg0),
+			midVelocityCompareTo, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -149,32 +149,6 @@ func (m *Velocity) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
-		return callErr
-	})
-	return result, callErr
-}
-
-// CompareTo1_1 calls android.health.connect.datatypes.units.Velocity.compareTo.
-func (m *Velocity) CompareTo1_1(arg0 *jni.Object) (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midVelocityCompareTo1_1 == nil {
-			callErr = fmt.Errorf("android.health.connect.datatypes.units.Velocity.compareTo is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midVelocityCompareTo1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
 		return callErr
 	})
 	return result, callErr

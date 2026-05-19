@@ -32,6 +32,12 @@ func NewAttachCallback(vm *jni.VM) (*AttachCallback, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAttachCallback == nil {
+			return fmt.Errorf("android.net.wifi.aware.AttachCallback is not available on this device")
+		}
+		if midAttachCallbackCtor == nil {
+			return fmt.Errorf("android.net.wifi.aware.AttachCallback constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAttachCallback)), midAttachCallbackCtor)
 		if err != nil {
 			return err

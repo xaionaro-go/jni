@@ -92,33 +92,6 @@ func (m *ArchTaskExecutor) PostToMainThread(arg0 *jni.Object) error {
 	return callErr
 }
 
-// IsMainThread calls androidx.arch.core.executor.ArchTaskExecutor.isMainThread.
-func (m *ArchTaskExecutor) IsMainThread() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midArchTaskExecutorIsMainThread == nil {
-			callErr = fmt.Errorf("androidx.arch.core.executor.ArchTaskExecutor.isMainThread is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midArchTaskExecutorIsMainThread,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.arch.core.executor.ArchTaskExecutor.toString.
 func (m *ArchTaskExecutor) ToString() (string, error) {
 	var result string
@@ -237,6 +210,33 @@ func (m *ArchTaskExecutor) GetIOThreadExecutor() (*jni.Object, error) {
 			result = env.NewGlobalRef(localRef)
 			env.DeleteLocalRef(localRef)
 		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// IsMainThread calls androidx.arch.core.executor.ArchTaskExecutor.isMainThread.
+func (m *ArchTaskExecutor) IsMainThread() (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midArchTaskExecutorIsMainThread == nil {
+			callErr = fmt.Errorf("androidx.arch.core.executor.ArchTaskExecutor.isMainThread is not available on this device")
+			return callErr
+		}
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsArchTaskExecutor)),
+			midArchTaskExecutorIsMainThread,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

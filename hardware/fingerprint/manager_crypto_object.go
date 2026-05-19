@@ -23,6 +23,35 @@ type ManagerCryptoObject struct {
 	Obj *jni.GlobalRef
 }
 
+// NewManagerCryptoObject creates a new android.hardware.fingerprint.FingerprintManager$CryptoObject instance.
+func NewManagerCryptoObject(vm *jni.VM, arg0 *jni.Object) (*ManagerCryptoObject, error) {
+	var t ManagerCryptoObject
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsManagerCryptoObject == nil {
+			return fmt.Errorf("android.hardware.fingerprint.FingerprintManager$CryptoObject is not available on this device")
+		}
+		if midManagerCryptoObjectCtor == nil {
+			return fmt.Errorf("android.hardware.fingerprint.FingerprintManager$CryptoObject constructor (Ljava/security/Signature;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsManagerCryptoObject)), midManagerCryptoObjectCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetCipher calls android.hardware.fingerprint.FingerprintManager$CryptoObject.getCipher.
 func (m *ManagerCryptoObject) GetCipher() (*jni.Object, error) {
 	var result *jni.Object

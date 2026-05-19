@@ -368,34 +368,6 @@ func (m *Visibility) OnDisappear4_1(
 	return result, callErr
 }
 
-// IsTransitionRequired calls androidx.transition.Visibility.isTransitionRequired.
-func (m *Visibility) IsTransitionRequired(arg0 *jni.Object, arg1 *jni.Object) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midVisibilityIsTransitionRequired == nil {
-			callErr = fmt.Errorf("androidx.transition.Visibility.isTransitionRequired is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midVisibilityIsTransitionRequired, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.transition.Visibility.toString.
 func (m *Visibility) ToString() (string, error) {
 	var result string
@@ -418,6 +390,34 @@ func (m *Visibility) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// IsTransitionRequired calls androidx.transition.Visibility.isTransitionRequired.
+func (m *Visibility) IsTransitionRequired(arg0 *jni.Object, arg1 *jni.Object) (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midVisibilityIsTransitionRequired == nil {
+			callErr = fmt.Errorf("androidx.transition.Visibility.isTransitionRequired is not available on this device")
+			return callErr
+		}
+
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsVisibility)),
+			midVisibilityIsTransitionRequired, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

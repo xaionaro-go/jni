@@ -32,6 +32,12 @@ func NewConstraints(vm *jni.VM, arg0 *jni.Object) (*Constraints, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsConstraints == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.Constraints is not available on this device")
+		}
+		if midConstraintsCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.Constraints constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConstraints)), midConstraintsCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -46,8 +52,8 @@ func NewConstraints(vm *jni.VM, arg0 *jni.Object) (*Constraints, error) {
 	return &t, nil
 }
 
-// GenerateLayoutParams1 calls androidx.constraintlayout.widget.Constraints.generateLayoutParams.
-func (m *Constraints) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, error) {
+// GenerateLayoutParams calls androidx.constraintlayout.widget.Constraints.generateLayoutParams.
+func (m *Constraints) GenerateLayoutParams(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,14 +61,14 @@ func (m *Constraints) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, erro
 			callErr = err
 			return err
 		}
-		if midConstraintsGenerateLayoutParams1 == nil {
+		if midConstraintsGenerateLayoutParams == nil {
 			callErr = fmt.Errorf("androidx.constraintlayout.widget.Constraints.generateLayoutParams is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midConstraintsGenerateLayoutParams1, jni.ObjectValue(arg0),
+			midConstraintsGenerateLayoutParams, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -95,39 +101,6 @@ func (m *Constraints) GetConstraintSet() (*jni.Object, error) {
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
 			midConstraintsGetConstraintSet,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GenerateLayoutParams1_1 calls androidx.constraintlayout.widget.Constraints.generateLayoutParams.
-func (m *Constraints) GenerateLayoutParams1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midConstraintsGenerateLayoutParams1_1 == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.widget.Constraints.generateLayoutParams is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midConstraintsGenerateLayoutParams1_1, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr

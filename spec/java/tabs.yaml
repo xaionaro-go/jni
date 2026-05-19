@@ -483,18 +483,11 @@ classes:
           returns: void
           error: true
         - java_method: generateLayoutParams
-          go_name: GenerateLayoutParams1
+          go_name: GenerateLayoutParams
           params:
             - java_type: android.util.AttributeSet
               go_name: arg0
           returns: android.widget.FrameLayout$LayoutParams
-          error: true
-        - java_method: generateLayoutParams
-          go_name: GenerateLayoutParams1_1
-          params:
-            - java_type: android.util.AttributeSet
-              go_name: arg0
-          returns: android.view.ViewGroup$LayoutParams
           error: true
     - java_class: com.google.android.material.tabs.TabLayout$BaseOnTabSelectedListener
       go_type: TabLayoutBaseOnTabSelectedListener
@@ -506,6 +499,7 @@ classes:
       go_type: TabLayoutOnTabSelectedListener
     - java_class: com.google.android.material.tabs.TabLayout$Tab
       go_type: TabLayoutTab
+      obtain: constructor
       methods:
         - java_method: getTag
           go_name: GetTag
@@ -632,10 +626,6 @@ classes:
               go_name: arg0
           returns: com.google.android.material.tabs.TabLayout$Tab
           error: true
-        - java_method: getContentDescription
-          go_name: GetContentDescription
-          returns: java.lang.CharSequence
-          error: true
     - java_class: com.google.android.material.tabs.TabLayout$TabGravity
       go_type: TabLayoutTabGravity
     - java_class: com.google.android.material.tabs.TabLayout$TabIndicatorAnimationMode
@@ -644,6 +634,10 @@ classes:
       go_type: TabLayoutTabIndicatorGravity
     - java_class: com.google.android.material.tabs.TabLayout$TabLayoutOnPageChangeListener
       go_type: TabLayoutTabLayoutOnPageChangeListener
+      obtain: constructor
+      constructor_params:
+        - java_type: com.google.android.material.tabs.TabLayout
+          go_name: arg0
       methods:
         - java_method: onPageScrollStateChanged
           go_name: OnPageScrollStateChanged
@@ -672,6 +666,12 @@ classes:
           error: true
     - java_class: com.google.android.material.tabs.TabLayout$TabView
       go_type: TabLayoutTabView
+      obtain: constructor
+      constructor_params:
+        - java_type: com.google.android.material.tabs.TabLayout
+          go_name: arg0
+        - java_type: android.content.Context
+          go_name: arg1
       methods:
         - java_method: performClick
           go_name: PerformClick
@@ -700,12 +700,12 @@ classes:
               go_name: arg1
           returns: void
           error: true
-        - java_method: getTab
-          go_name: GetTab
-          returns: com.google.android.material.tabs.TabLayout$Tab
-          error: true
     - java_class: com.google.android.material.tabs.TabLayout$ViewPagerOnTabSelectedListener
       go_type: TabLayoutViewPagerOnTabSelectedListener
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.viewpager.widget.ViewPager
+          go_name: arg0
       methods:
         - java_method: onTabSelected
           go_name: OnTabSelected

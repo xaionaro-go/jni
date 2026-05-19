@@ -5,24 +5,6 @@ package mtp
 import "github.com/AndroidGoLab/jni/mtp/consts"
 
 const (
-	EventCancelTransaction              = consts.EventCancelTransaction
-	EventCaptureComplete                = consts.EventCaptureComplete
-	EventDeviceInfoChanged              = consts.EventDeviceInfoChanged
-	EventDevicePropChanged              = consts.EventDevicePropChanged
-	EventDeviceReset                    = consts.EventDeviceReset
-	EventObjectAdded                    = consts.EventObjectAdded
-	EventObjectInfoChanged              = consts.EventObjectInfoChanged
-	EventObjectPropChanged              = consts.EventObjectPropChanged
-	EventObjectPropDescChanged          = consts.EventObjectPropDescChanged
-	EventObjectReferencesChanged        = consts.EventObjectReferencesChanged
-	EventObjectRemoved                  = consts.EventObjectRemoved
-	EventRequestObjectTransfer          = consts.EventRequestObjectTransfer
-	EventStorageInfoChanged             = consts.EventStorageInfoChanged
-	EventStoreAdded                     = consts.EventStoreAdded
-	EventStoreFull                      = consts.EventStoreFull
-	EventStoreRemoved                   = consts.EventStoreRemoved
-	EventUndefined                      = consts.EventUndefined
-	EventUnreportedStatus               = consts.EventUnreportedStatus
 	AssociationTypeGenericFolder        = consts.AssociationTypeGenericFolder
 	Format3gpContainer                  = consts.Format3gpContainer
 	FormatAac                           = consts.FormatAac
@@ -122,4 +104,22 @@ const (
 	ProtectionStatusNonTransferableData = consts.ProtectionStatusNonTransferableData
 	ProtectionStatusReadOnly            = consts.ProtectionStatusReadOnly
 	ProtectionStatusReadOnlyData        = consts.ProtectionStatusReadOnlyData
+	EventCancelTransaction              = consts.EventCancelTransaction
+	EventCaptureComplete                = consts.EventCaptureComplete
+	EventDeviceInfoChanged              = consts.EventDeviceInfoChanged
+	EventDevicePropChanged              = consts.EventDevicePropChanged
+	EventDeviceReset                    = consts.EventDeviceReset
+	EventObjectAdded                    = consts.EventObjectAdded
+	EventObjectInfoChanged              = consts.EventObjectInfoChanged
+	EventObjectPropChanged              = consts.EventObjectPropChanged
+	EventObjectPropDescChanged          = consts.EventObjectPropDescChanged
+	EventObjectReferencesChanged        = consts.EventObjectReferencesChanged
+	EventObjectRemoved                  = consts.EventObjectRemoved
+	EventRequestObjectTransfer          = consts.EventRequestObjectTransfer
+	EventStorageInfoChanged             = consts.EventStorageInfoChanged
+	EventStoreAdded                     = consts.EventStoreAdded
+	EventStoreFull                      = consts.EventStoreFull
+	EventStoreRemoved                   = consts.EventStoreRemoved
+	EventUndefined                      = consts.EventUndefined
+	EventUnreportedStatus               = consts.EventUnreportedStatus
 )

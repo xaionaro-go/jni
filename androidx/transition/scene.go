@@ -32,6 +32,12 @@ func NewScene(vm *jni.VM, arg0 *jni.Object) (*Scene, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsScene == nil {
+			return fmt.Errorf("androidx.transition.Scene is not available on this device")
+		}
+		if midSceneCtor == nil {
+			return fmt.Errorf("androidx.transition.Scene constructor (Landroid/view/ViewGroup;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScene)), midSceneCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -94,28 +100,6 @@ func (m *Scene) Exit() error {
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midSceneExit,
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// Enter calls androidx.transition.Scene.enter.
-func (m *Scene) Enter() error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSceneEnter == nil {
-			callErr = fmt.Errorf("androidx.transition.Scene.enter is not available on this device")
-			return callErr
-		}
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSceneEnter,
 		)
 		return callErr
 	})
@@ -230,6 +214,28 @@ func (m *Scene) GetSceneForLayout(
 		return callErr
 	})
 	return result, callErr
+}
+
+// Enter calls androidx.transition.Scene.enter.
+func (m *Scene) Enter() error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSceneEnter == nil {
+			callErr = fmt.Errorf("androidx.transition.Scene.enter is not available on this device")
+			return callErr
+		}
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsScene)),
+			midSceneEnter,
+		)
+		return callErr
+	})
+	return callErr
 }
 
 // GetCurrentScene calls androidx.transition.Scene.getCurrentScene.

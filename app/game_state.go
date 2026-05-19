@@ -30,6 +30,12 @@ func NewGameState(vm *jni.VM, arg0 bool, arg1 int32) (*GameState, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGameState == nil {
+			return fmt.Errorf("android.app.GameState is not available on this device")
+		}
+		if midGameStateCtor == nil {
+			return fmt.Errorf("android.app.GameState constructor (ZI)V is not available on this device")
+		}
 		var jArg0 uint8
 		if arg0 {
 			jArg0 = jniTrue
@@ -175,29 +181,6 @@ func (m *GameState) IsLoading() (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.GameState.writeToParcel.
-func (m *GameState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midGameStateWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.GameState.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midGameStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.GameState.toString.
 func (m *GameState) ToString() (string, error) {
 	var result string
@@ -223,4 +206,27 @@ func (m *GameState) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.GameState.writeToParcel.
+func (m *GameState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midGameStateWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.GameState.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsGameState)),
+			midGameStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -23,22 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsSupportMenuInflater         *jni.GlobalRef
-	midSupportMenuInflaterCtor     jni.MethodID
-	midSupportMenuInflaterInflate  jni.MethodID
-	midSupportMenuInflaterToString jni.MethodID
-
-	clsActionBarPolicy                          *jni.GlobalRef
-	midActionBarPolicyGetMaxActionButtons       jni.MethodID
-	midActionBarPolicyShowsOverflowMenuButton   jni.MethodID
-	midActionBarPolicyGetEmbeddedMenuWidthLimit jni.MethodID
-	midActionBarPolicyHasEmbeddedTabs           jni.MethodID
-	midActionBarPolicyGetTabContainerHeight     jni.MethodID
-	midActionBarPolicyEnableHomeButtonByDefault jni.MethodID
-	midActionBarPolicyGetStackedTabMaxWidth     jni.MethodID
-	midActionBarPolicyToString                  jni.MethodID
-	midActionBarPolicyGet                       jni.MethodID
-
 	clsStandaloneActionMode                     *jni.GlobalRef
 	midStandaloneActionModeCtor                 jni.MethodID
 	midStandaloneActionModeSetTitle1            jni.MethodID
@@ -63,46 +47,6 @@ var (
 	midStandaloneActionModeIsUiFocusable        jni.MethodID
 	midStandaloneActionModeToString             jni.MethodID
 
-	clsWindowCallbackWrapper                                   *jni.GlobalRef
-	midWindowCallbackWrapperCtor                               jni.MethodID
-	midWindowCallbackWrapperDispatchKeyEvent                   jni.MethodID
-	midWindowCallbackWrapperDispatchKeyShortcutEvent           jni.MethodID
-	midWindowCallbackWrapperDispatchTouchEvent                 jni.MethodID
-	midWindowCallbackWrapperDispatchTrackballEvent             jni.MethodID
-	midWindowCallbackWrapperDispatchGenericMotionEvent         jni.MethodID
-	midWindowCallbackWrapperDispatchPopulateAccessibilityEvent jni.MethodID
-	midWindowCallbackWrapperOnCreatePanelView                  jni.MethodID
-	midWindowCallbackWrapperOnCreatePanelMenu                  jni.MethodID
-	midWindowCallbackWrapperOnPreparePanel                     jni.MethodID
-	midWindowCallbackWrapperOnMenuOpened                       jni.MethodID
-	midWindowCallbackWrapperOnMenuItemSelected                 jni.MethodID
-	midWindowCallbackWrapperOnWindowAttributesChanged          jni.MethodID
-	midWindowCallbackWrapperOnContentChanged                   jni.MethodID
-	midWindowCallbackWrapperOnWindowFocusChanged               jni.MethodID
-	midWindowCallbackWrapperOnAttachedToWindow                 jni.MethodID
-	midWindowCallbackWrapperOnDetachedFromWindow               jni.MethodID
-	midWindowCallbackWrapperOnPanelClosed                      jni.MethodID
-	midWindowCallbackWrapperOnSearchRequested1                 jni.MethodID
-	midWindowCallbackWrapperOnSearchRequested0_1               jni.MethodID
-	midWindowCallbackWrapperOnWindowStartingActionMode1        jni.MethodID
-	midWindowCallbackWrapperOnWindowStartingActionMode2_1      jni.MethodID
-	midWindowCallbackWrapperOnActionModeStarted                jni.MethodID
-	midWindowCallbackWrapperOnActionModeFinished               jni.MethodID
-	midWindowCallbackWrapperOnPointerCaptureChanged            jni.MethodID
-	midWindowCallbackWrapperGetWrapped                         jni.MethodID
-	midWindowCallbackWrapperToString                           jni.MethodID
-
-	clsContextThemeWrapper                           *jni.GlobalRef
-	midContextThemeWrapperCtor                       jni.MethodID
-	midContextThemeWrapperApplyOverrideConfiguration jni.MethodID
-	midContextThemeWrapperGetResources               jni.MethodID
-	midContextThemeWrapperSetTheme                   jni.MethodID
-	midContextThemeWrapperGetThemeResId              jni.MethodID
-	midContextThemeWrapperGetTheme                   jni.MethodID
-	midContextThemeWrapperGetSystemService           jni.MethodID
-	midContextThemeWrapperGetAssets                  jni.MethodID
-	midContextThemeWrapperToString                   jni.MethodID
-
 	clsPropertyAnimatorCompatSet                 *jni.GlobalRef
 	midPropertyAnimatorCompatSetCtor             jni.MethodID
 	midPropertyAnimatorCompatSetPlay             jni.MethodID
@@ -113,6 +57,52 @@ var (
 	midPropertyAnimatorCompatSetSetInterpolator  jni.MethodID
 	midPropertyAnimatorCompatSetSetListener      jni.MethodID
 	midPropertyAnimatorCompatSetToString         jni.MethodID
+
+	clsSupportActionModeWrapper                     *jni.GlobalRef
+	midSupportActionModeWrapperCtor                 jni.MethodID
+	midSupportActionModeWrapperGetTag               jni.MethodID
+	midSupportActionModeWrapperSetTag               jni.MethodID
+	midSupportActionModeWrapperSetTitle1            jni.MethodID
+	midSupportActionModeWrapperSetSubtitle1         jni.MethodID
+	midSupportActionModeWrapperInvalidate           jni.MethodID
+	midSupportActionModeWrapperFinish               jni.MethodID
+	midSupportActionModeWrapperGetMenu              jni.MethodID
+	midSupportActionModeWrapperGetTitle             jni.MethodID
+	midSupportActionModeWrapperSetTitle1_1          jni.MethodID
+	midSupportActionModeWrapperGetSubtitle          jni.MethodID
+	midSupportActionModeWrapperSetSubtitle1_1       jni.MethodID
+	midSupportActionModeWrapperGetCustomView        jni.MethodID
+	midSupportActionModeWrapperSetCustomView        jni.MethodID
+	midSupportActionModeWrapperGetMenuInflater      jni.MethodID
+	midSupportActionModeWrapperGetTitleOptionalHint jni.MethodID
+	midSupportActionModeWrapperSetTitleOptionalHint jni.MethodID
+	midSupportActionModeWrapperIsTitleOptional      jni.MethodID
+	midSupportActionModeWrapperToString             jni.MethodID
+
+	clsSupportActionModeWrapperCallbackWrapper                     *jni.GlobalRef
+	midSupportActionModeWrapperCallbackWrapperCtor                 jni.MethodID
+	midSupportActionModeWrapperCallbackWrapperOnCreateActionMode   jni.MethodID
+	midSupportActionModeWrapperCallbackWrapperOnPrepareActionMode  jni.MethodID
+	midSupportActionModeWrapperCallbackWrapperOnActionItemClicked  jni.MethodID
+	midSupportActionModeWrapperCallbackWrapperOnDestroyActionMode  jni.MethodID
+	midSupportActionModeWrapperCallbackWrapperGetActionModeWrapper jni.MethodID
+	midSupportActionModeWrapperCallbackWrapperToString             jni.MethodID
+
+	clsActionBarPolicy                          *jni.GlobalRef
+	midActionBarPolicyGetMaxActionButtons       jni.MethodID
+	midActionBarPolicyShowsOverflowMenuButton   jni.MethodID
+	midActionBarPolicyGetEmbeddedMenuWidthLimit jni.MethodID
+	midActionBarPolicyHasEmbeddedTabs           jni.MethodID
+	midActionBarPolicyGetTabContainerHeight     jni.MethodID
+	midActionBarPolicyEnableHomeButtonByDefault jni.MethodID
+	midActionBarPolicyGetStackedTabMaxWidth     jni.MethodID
+	midActionBarPolicyToString                  jni.MethodID
+	midActionBarPolicyGet                       jni.MethodID
+
+	clsCollapsibleActionView                      *jni.GlobalRef
+	midCollapsibleActionViewOnActionViewExpanded  jni.MethodID
+	midCollapsibleActionViewOnActionViewCollapsed jni.MethodID
+	midCollapsibleActionViewToString              jni.MethodID
 
 	clsActionMode                     *jni.GlobalRef
 	midActionModeSetTag               jni.MethodID
@@ -142,39 +132,50 @@ var (
 	midActionModeCallbackOnDestroyActionMode jni.MethodID
 	midActionModeCallbackToString            jni.MethodID
 
-	clsCollapsibleActionView                      *jni.GlobalRef
-	midCollapsibleActionViewOnActionViewExpanded  jni.MethodID
-	midCollapsibleActionViewOnActionViewCollapsed jni.MethodID
-	midCollapsibleActionViewToString              jni.MethodID
+	clsSupportMenuInflater         *jni.GlobalRef
+	midSupportMenuInflaterCtor     jni.MethodID
+	midSupportMenuInflaterToString jni.MethodID
+	midSupportMenuInflaterInflate  jni.MethodID
 
-	clsSupportActionModeWrapper                     *jni.GlobalRef
-	midSupportActionModeWrapperCtor                 jni.MethodID
-	midSupportActionModeWrapperGetTag               jni.MethodID
-	midSupportActionModeWrapperSetTag               jni.MethodID
-	midSupportActionModeWrapperSetTitle1            jni.MethodID
-	midSupportActionModeWrapperSetSubtitle1         jni.MethodID
-	midSupportActionModeWrapperInvalidate           jni.MethodID
-	midSupportActionModeWrapperFinish               jni.MethodID
-	midSupportActionModeWrapperGetMenu              jni.MethodID
-	midSupportActionModeWrapperGetTitle             jni.MethodID
-	midSupportActionModeWrapperSetTitle1_1          jni.MethodID
-	midSupportActionModeWrapperGetSubtitle          jni.MethodID
-	midSupportActionModeWrapperSetSubtitle1_1       jni.MethodID
-	midSupportActionModeWrapperGetCustomView        jni.MethodID
-	midSupportActionModeWrapperSetCustomView        jni.MethodID
-	midSupportActionModeWrapperGetMenuInflater      jni.MethodID
-	midSupportActionModeWrapperGetTitleOptionalHint jni.MethodID
-	midSupportActionModeWrapperSetTitleOptionalHint jni.MethodID
-	midSupportActionModeWrapperIsTitleOptional      jni.MethodID
-	midSupportActionModeWrapperToString             jni.MethodID
+	clsContextThemeWrapper                           *jni.GlobalRef
+	midContextThemeWrapperCtor                       jni.MethodID
+	midContextThemeWrapperApplyOverrideConfiguration jni.MethodID
+	midContextThemeWrapperGetResources               jni.MethodID
+	midContextThemeWrapperSetTheme                   jni.MethodID
+	midContextThemeWrapperGetThemeResId              jni.MethodID
+	midContextThemeWrapperGetTheme                   jni.MethodID
+	midContextThemeWrapperGetSystemService           jni.MethodID
+	midContextThemeWrapperGetAssets                  jni.MethodID
+	midContextThemeWrapperToString                   jni.MethodID
 
-	clsSupportActionModeWrapperCallbackWrapper                     *jni.GlobalRef
-	midSupportActionModeWrapperCallbackWrapperOnCreateActionMode   jni.MethodID
-	midSupportActionModeWrapperCallbackWrapperOnPrepareActionMode  jni.MethodID
-	midSupportActionModeWrapperCallbackWrapperOnActionItemClicked  jni.MethodID
-	midSupportActionModeWrapperCallbackWrapperOnDestroyActionMode  jni.MethodID
-	midSupportActionModeWrapperCallbackWrapperGetActionModeWrapper jni.MethodID
-	midSupportActionModeWrapperCallbackWrapperToString             jni.MethodID
+	clsWindowCallbackWrapper                                   *jni.GlobalRef
+	midWindowCallbackWrapperCtor                               jni.MethodID
+	midWindowCallbackWrapperDispatchKeyEvent                   jni.MethodID
+	midWindowCallbackWrapperDispatchKeyShortcutEvent           jni.MethodID
+	midWindowCallbackWrapperDispatchTouchEvent                 jni.MethodID
+	midWindowCallbackWrapperDispatchTrackballEvent             jni.MethodID
+	midWindowCallbackWrapperDispatchGenericMotionEvent         jni.MethodID
+	midWindowCallbackWrapperDispatchPopulateAccessibilityEvent jni.MethodID
+	midWindowCallbackWrapperOnCreatePanelView                  jni.MethodID
+	midWindowCallbackWrapperOnCreatePanelMenu                  jni.MethodID
+	midWindowCallbackWrapperOnPreparePanel                     jni.MethodID
+	midWindowCallbackWrapperOnMenuOpened                       jni.MethodID
+	midWindowCallbackWrapperOnMenuItemSelected                 jni.MethodID
+	midWindowCallbackWrapperOnWindowAttributesChanged          jni.MethodID
+	midWindowCallbackWrapperOnContentChanged                   jni.MethodID
+	midWindowCallbackWrapperOnWindowFocusChanged               jni.MethodID
+	midWindowCallbackWrapperOnAttachedToWindow                 jni.MethodID
+	midWindowCallbackWrapperOnDetachedFromWindow               jni.MethodID
+	midWindowCallbackWrapperOnPanelClosed                      jni.MethodID
+	midWindowCallbackWrapperOnSearchRequested1                 jni.MethodID
+	midWindowCallbackWrapperOnSearchRequested0_1               jni.MethodID
+	midWindowCallbackWrapperOnWindowStartingActionMode1        jni.MethodID
+	midWindowCallbackWrapperOnWindowStartingActionMode2_1      jni.MethodID
+	midWindowCallbackWrapperOnActionModeStarted                jni.MethodID
+	midWindowCallbackWrapperOnActionModeFinished               jni.MethodID
+	midWindowCallbackWrapperOnPointerCaptureChanged            jni.MethodID
+	midWindowCallbackWrapperGetWrapped                         jni.MethodID
+	midWindowCallbackWrapperToString                           jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -194,107 +195,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("androidx/appcompat/view/SupportMenuInflater")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSupportMenuInflater = env.NewGlobalRef(&c.Object)
-		midSupportMenuInflaterCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportMenuInflater)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midSupportMenuInflaterInflate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportMenuInflater)), "inflate", "(ILandroid/view/Menu;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSupportMenuInflaterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportMenuInflater)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/view/ActionBarPolicy")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsActionBarPolicy = env.NewGlobalRef(&c.Object)
-
-		midActionBarPolicyGetMaxActionButtons, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarPolicy)), "getMaxActionButtons", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionBarPolicyShowsOverflowMenuButton, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarPolicy)), "showsOverflowMenuButton", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionBarPolicyGetEmbeddedMenuWidthLimit, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarPolicy)), "getEmbeddedMenuWidthLimit", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionBarPolicyHasEmbeddedTabs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarPolicy)), "hasEmbeddedTabs", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionBarPolicyGetTabContainerHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarPolicy)), "getTabContainerHeight", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionBarPolicyEnableHomeButtonByDefault, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarPolicy)), "enableHomeButtonByDefault", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionBarPolicyGetStackedTabMaxWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarPolicy)), "getStackedTabMaxWidth", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionBarPolicyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarPolicy)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midActionBarPolicyGet, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsActionBarPolicy)), "get", "(Landroid/content/Context;)Landroidx/appcompat/view/ActionBarPolicy;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("androidx/appcompat/view/StandaloneActionMode")
 	if err != nil {
@@ -457,272 +357,6 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/view/WindowCallbackWrapper")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsWindowCallbackWrapper = env.NewGlobalRef(&c.Object)
-		midWindowCallbackWrapperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "<init>", "(Landroid/view/Window$Callback;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperDispatchKeyEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "dispatchKeyEvent", "(Landroid/view/KeyEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperDispatchKeyShortcutEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "dispatchKeyShortcutEvent", "(Landroid/view/KeyEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperDispatchTouchEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "dispatchTouchEvent", "(Landroid/view/MotionEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperDispatchTrackballEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "dispatchTrackballEvent", "(Landroid/view/MotionEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperDispatchGenericMotionEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "dispatchGenericMotionEvent", "(Landroid/view/MotionEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperDispatchPopulateAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "dispatchPopulateAccessibilityEvent", "(Landroid/view/accessibility/AccessibilityEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperOnCreatePanelView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onCreatePanelView", "(I)Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperOnCreatePanelMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onCreatePanelMenu", "(ILandroid/view/Menu;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperOnPreparePanel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onPreparePanel", "(ILandroid/view/View;Landroid/view/Menu;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperOnMenuOpened, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onMenuOpened", "(ILandroid/view/Menu;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperOnMenuItemSelected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onMenuItemSelected", "(ILandroid/view/MenuItem;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperOnWindowAttributesChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onWindowAttributesChanged", "(Landroid/view/WindowManager$LayoutParams;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperOnContentChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onContentChanged", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperOnWindowFocusChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onWindowFocusChanged", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperOnAttachedToWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onAttachedToWindow", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperOnDetachedFromWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onDetachedFromWindow", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperOnPanelClosed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onPanelClosed", "(ILandroid/view/Menu;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperOnSearchRequested1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onSearchRequested", "(Landroid/view/SearchEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperOnSearchRequested0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onSearchRequested", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperOnWindowStartingActionMode1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onWindowStartingActionMode", "(Landroid/view/ActionMode$Callback;)Landroid/view/ActionMode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperOnWindowStartingActionMode2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onWindowStartingActionMode", "(Landroid/view/ActionMode$Callback;I)Landroid/view/ActionMode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperOnActionModeStarted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onActionModeStarted", "(Landroid/view/ActionMode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperOnActionModeFinished, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onActionModeFinished", "(Landroid/view/ActionMode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperOnPointerCaptureChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onPointerCaptureChanged", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperGetWrapped, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "getWrapped", "()Landroid/view/Window$Callback;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowCallbackWrapperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/view/ContextThemeWrapper")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsContextThemeWrapper = env.NewGlobalRef(&c.Object)
-		midContextThemeWrapperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextThemeWrapper)), "<init>", "(Landroid/content/Context;I)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midContextThemeWrapperApplyOverrideConfiguration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextThemeWrapper)), "applyOverrideConfiguration", "(Landroid/content/res/Configuration;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContextThemeWrapperGetResources, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextThemeWrapper)), "getResources", "()Landroid/content/res/Resources;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContextThemeWrapperSetTheme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextThemeWrapper)), "setTheme", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContextThemeWrapperGetThemeResId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextThemeWrapper)), "getThemeResId", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContextThemeWrapperGetTheme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextThemeWrapper)), "getTheme", "()Landroid/content/res/Resources$Theme;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContextThemeWrapperGetSystemService, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextThemeWrapper)), "getSystemService", "(Ljava/lang/String;)Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContextThemeWrapperGetAssets, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextThemeWrapper)), "getAssets", "()Landroid/content/res/AssetManager;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContextThemeWrapperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextThemeWrapper)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("androidx/appcompat/view/ViewPropertyAnimatorCompatSet")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -785,6 +419,306 @@ func doInit(env *jni.Env) error {
 		}
 
 		midPropertyAnimatorCompatSetToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyAnimatorCompatSet)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/view/SupportActionModeWrapper")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSupportActionModeWrapper = env.NewGlobalRef(&c.Object)
+		midSupportActionModeWrapperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "<init>", "(Landroid/content/Context;Landroidx/appcompat/view/ActionMode;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperGetTag, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "getTag", "()Ljava/lang/Object;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperSetTag, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "setTag", "(Ljava/lang/Object;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperSetTitle1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "setTitle", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperSetSubtitle1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "setSubtitle", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperInvalidate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "invalidate", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperFinish, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "finish", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperGetMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "getMenu", "()Landroid/view/Menu;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperGetTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "getTitle", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperSetTitle1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "setTitle", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperGetSubtitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "getSubtitle", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperSetSubtitle1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "setSubtitle", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperGetCustomView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "getCustomView", "()Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperSetCustomView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "setCustomView", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperGetMenuInflater, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "getMenuInflater", "()Landroid/view/MenuInflater;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperGetTitleOptionalHint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "getTitleOptionalHint", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperSetTitleOptionalHint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "setTitleOptionalHint", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperIsTitleOptional, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "isTitleOptional", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/view/SupportActionModeWrapper$CallbackWrapper")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSupportActionModeWrapperCallbackWrapper = env.NewGlobalRef(&c.Object)
+		midSupportActionModeWrapperCallbackWrapperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapperCallbackWrapper)), "<init>", "(Landroid/content/Context;Landroid/view/ActionMode$Callback;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperCallbackWrapperOnCreateActionMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapperCallbackWrapper)), "onCreateActionMode", "(Landroidx/appcompat/view/ActionMode;Landroid/view/Menu;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperCallbackWrapperOnPrepareActionMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapperCallbackWrapper)), "onPrepareActionMode", "(Landroidx/appcompat/view/ActionMode;Landroid/view/Menu;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperCallbackWrapperOnActionItemClicked, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapperCallbackWrapper)), "onActionItemClicked", "(Landroidx/appcompat/view/ActionMode;Landroid/view/MenuItem;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperCallbackWrapperOnDestroyActionMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapperCallbackWrapper)), "onDestroyActionMode", "(Landroidx/appcompat/view/ActionMode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperCallbackWrapperGetActionModeWrapper, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapperCallbackWrapper)), "getActionModeWrapper", "(Landroidx/appcompat/view/ActionMode;)Landroid/view/ActionMode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSupportActionModeWrapperCallbackWrapperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapperCallbackWrapper)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/view/ActionBarPolicy")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsActionBarPolicy = env.NewGlobalRef(&c.Object)
+
+		midActionBarPolicyGetMaxActionButtons, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarPolicy)), "getMaxActionButtons", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarPolicyShowsOverflowMenuButton, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarPolicy)), "showsOverflowMenuButton", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarPolicyGetEmbeddedMenuWidthLimit, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarPolicy)), "getEmbeddedMenuWidthLimit", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarPolicyHasEmbeddedTabs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarPolicy)), "hasEmbeddedTabs", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarPolicyGetTabContainerHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarPolicy)), "getTabContainerHeight", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarPolicyEnableHomeButtonByDefault, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarPolicy)), "enableHomeButtonByDefault", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarPolicyGetStackedTabMaxWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarPolicy)), "getStackedTabMaxWidth", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarPolicyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarPolicy)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midActionBarPolicyGet, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsActionBarPolicy)), "get", "(Landroid/content/Context;)Landroidx/appcompat/view/ActionBarPolicy;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/view/CollapsibleActionView")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCollapsibleActionView = env.NewGlobalRef(&c.Object)
+
+		midCollapsibleActionViewOnActionViewExpanded, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCollapsibleActionView)), "onActionViewExpanded", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCollapsibleActionViewOnActionViewCollapsed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCollapsibleActionView)), "onActionViewCollapsed", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCollapsibleActionViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCollapsibleActionView)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -981,29 +915,26 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/view/CollapsibleActionView")
+	c, err = env.FindClass("androidx/appcompat/view/SupportMenuInflater")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCollapsibleActionView = env.NewGlobalRef(&c.Object)
+		clsSupportMenuInflater = env.NewGlobalRef(&c.Object)
+		midSupportMenuInflaterCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportMenuInflater)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midCollapsibleActionViewOnActionViewExpanded, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCollapsibleActionView)), "onActionViewExpanded", "()V")
+		midSupportMenuInflaterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportMenuInflater)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCollapsibleActionViewOnActionViewCollapsed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCollapsibleActionView)), "onActionViewCollapsed", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCollapsibleActionViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCollapsibleActionView)), "toString", "()Ljava/lang/String;")
+		midSupportMenuInflaterInflate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSupportMenuInflater)), "inflate", "(ILandroid/view/Menu;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1012,138 +943,68 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/view/SupportActionModeWrapper")
+	c, err = env.FindClass("androidx/appcompat/view/ContextThemeWrapper")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSupportActionModeWrapper = env.NewGlobalRef(&c.Object)
-		midSupportActionModeWrapperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "<init>", "(Landroid/content/Context;Landroidx/appcompat/view/ActionMode;)V")
+		clsContextThemeWrapper = env.NewGlobalRef(&c.Object)
+		midContextThemeWrapperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextThemeWrapper)), "<init>", "(Landroid/content/Context;I)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midSupportActionModeWrapperGetTag, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "getTag", "()Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSupportActionModeWrapperSetTag, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "setTag", "(Ljava/lang/Object;)V")
+		midContextThemeWrapperApplyOverrideConfiguration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextThemeWrapper)), "applyOverrideConfiguration", "(Landroid/content/res/Configuration;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSupportActionModeWrapperSetTitle1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "setTitle", "(Ljava/lang/CharSequence;)V")
+		midContextThemeWrapperGetResources, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextThemeWrapper)), "getResources", "()Landroid/content/res/Resources;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSupportActionModeWrapperSetSubtitle1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "setSubtitle", "(Ljava/lang/CharSequence;)V")
+		midContextThemeWrapperSetTheme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextThemeWrapper)), "setTheme", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSupportActionModeWrapperInvalidate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "invalidate", "()V")
+		midContextThemeWrapperGetThemeResId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextThemeWrapper)), "getThemeResId", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSupportActionModeWrapperFinish, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "finish", "()V")
+		midContextThemeWrapperGetTheme, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextThemeWrapper)), "getTheme", "()Landroid/content/res/Resources$Theme;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSupportActionModeWrapperGetMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "getMenu", "()Landroid/view/Menu;")
+		midContextThemeWrapperGetSystemService, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextThemeWrapper)), "getSystemService", "(Ljava/lang/String;)Ljava/lang/Object;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSupportActionModeWrapperGetTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "getTitle", "()Ljava/lang/CharSequence;")
+		midContextThemeWrapperGetAssets, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextThemeWrapper)), "getAssets", "()Landroid/content/res/AssetManager;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSupportActionModeWrapperSetTitle1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "setTitle", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSupportActionModeWrapperGetSubtitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "getSubtitle", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSupportActionModeWrapperSetSubtitle1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "setSubtitle", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSupportActionModeWrapperGetCustomView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "getCustomView", "()Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSupportActionModeWrapperSetCustomView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "setCustomView", "(Landroid/view/View;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSupportActionModeWrapperGetMenuInflater, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "getMenuInflater", "()Landroid/view/MenuInflater;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSupportActionModeWrapperGetTitleOptionalHint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "getTitleOptionalHint", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSupportActionModeWrapperSetTitleOptionalHint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "setTitleOptionalHint", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSupportActionModeWrapperIsTitleOptional, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "isTitleOptional", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSupportActionModeWrapperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapper)), "toString", "()Ljava/lang/String;")
+		midContextThemeWrapperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContextThemeWrapper)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1152,50 +1013,194 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/appcompat/view/SupportActionModeWrapper$CallbackWrapper")
+	c, err = env.FindClass("androidx/appcompat/view/WindowCallbackWrapper")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSupportActionModeWrapperCallbackWrapper = env.NewGlobalRef(&c.Object)
+		clsWindowCallbackWrapper = env.NewGlobalRef(&c.Object)
+		midWindowCallbackWrapperCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "<init>", "(Landroid/view/Window$Callback;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midSupportActionModeWrapperCallbackWrapperOnCreateActionMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapperCallbackWrapper)), "onCreateActionMode", "(Landroidx/appcompat/view/ActionMode;Landroid/view/Menu;)Z")
+		midWindowCallbackWrapperDispatchKeyEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "dispatchKeyEvent", "(Landroid/view/KeyEvent;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSupportActionModeWrapperCallbackWrapperOnPrepareActionMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapperCallbackWrapper)), "onPrepareActionMode", "(Landroidx/appcompat/view/ActionMode;Landroid/view/Menu;)Z")
+		midWindowCallbackWrapperDispatchKeyShortcutEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "dispatchKeyShortcutEvent", "(Landroid/view/KeyEvent;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSupportActionModeWrapperCallbackWrapperOnActionItemClicked, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapperCallbackWrapper)), "onActionItemClicked", "(Landroidx/appcompat/view/ActionMode;Landroid/view/MenuItem;)Z")
+		midWindowCallbackWrapperDispatchTouchEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "dispatchTouchEvent", "(Landroid/view/MotionEvent;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSupportActionModeWrapperCallbackWrapperOnDestroyActionMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapperCallbackWrapper)), "onDestroyActionMode", "(Landroidx/appcompat/view/ActionMode;)V")
+		midWindowCallbackWrapperDispatchTrackballEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "dispatchTrackballEvent", "(Landroid/view/MotionEvent;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSupportActionModeWrapperCallbackWrapperGetActionModeWrapper, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapperCallbackWrapper)), "getActionModeWrapper", "(Landroidx/appcompat/view/ActionMode;)Landroid/view/ActionMode;")
+		midWindowCallbackWrapperDispatchGenericMotionEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "dispatchGenericMotionEvent", "(Landroid/view/MotionEvent;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSupportActionModeWrapperCallbackWrapperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportActionModeWrapperCallbackWrapper)), "toString", "()Ljava/lang/String;")
+		midWindowCallbackWrapperDispatchPopulateAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "dispatchPopulateAccessibilityEvent", "(Landroid/view/accessibility/AccessibilityEvent;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowCallbackWrapperOnCreatePanelView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onCreatePanelView", "(I)Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowCallbackWrapperOnCreatePanelMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onCreatePanelMenu", "(ILandroid/view/Menu;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowCallbackWrapperOnPreparePanel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onPreparePanel", "(ILandroid/view/View;Landroid/view/Menu;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowCallbackWrapperOnMenuOpened, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onMenuOpened", "(ILandroid/view/Menu;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowCallbackWrapperOnMenuItemSelected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onMenuItemSelected", "(ILandroid/view/MenuItem;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowCallbackWrapperOnWindowAttributesChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onWindowAttributesChanged", "(Landroid/view/WindowManager$LayoutParams;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowCallbackWrapperOnContentChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onContentChanged", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowCallbackWrapperOnWindowFocusChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onWindowFocusChanged", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowCallbackWrapperOnAttachedToWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onAttachedToWindow", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowCallbackWrapperOnDetachedFromWindow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onDetachedFromWindow", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowCallbackWrapperOnPanelClosed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onPanelClosed", "(ILandroid/view/Menu;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowCallbackWrapperOnSearchRequested1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onSearchRequested", "(Landroid/view/SearchEvent;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowCallbackWrapperOnSearchRequested0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onSearchRequested", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowCallbackWrapperOnWindowStartingActionMode1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onWindowStartingActionMode", "(Landroid/view/ActionMode$Callback;)Landroid/view/ActionMode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowCallbackWrapperOnWindowStartingActionMode2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onWindowStartingActionMode", "(Landroid/view/ActionMode$Callback;I)Landroid/view/ActionMode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowCallbackWrapperOnActionModeStarted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onActionModeStarted", "(Landroid/view/ActionMode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowCallbackWrapperOnActionModeFinished, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onActionModeFinished", "(Landroid/view/ActionMode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowCallbackWrapperOnPointerCaptureChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "onPointerCaptureChanged", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowCallbackWrapperGetWrapped, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "getWrapped", "()Landroid/view/Window$Callback;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowCallbackWrapperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowCallbackWrapper)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

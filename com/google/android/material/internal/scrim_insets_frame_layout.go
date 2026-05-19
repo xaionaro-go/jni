@@ -32,6 +32,12 @@ func NewScrimInsetsFrameLayout(vm *jni.VM, arg0 *jni.Object) (*ScrimInsetsFrameL
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsScrimInsetsFrameLayout == nil {
+			return fmt.Errorf("com.google.android.material.internal.ScrimInsetsFrameLayout is not available on this device")
+		}
+		if midScrimInsetsFrameLayoutCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.ScrimInsetsFrameLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScrimInsetsFrameLayout)), midScrimInsetsFrameLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {

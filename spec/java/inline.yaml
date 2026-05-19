@@ -39,6 +39,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -50,6 +51,12 @@ classes:
           error: true
     - java_class: android.widget.inline.InlinePresentationSpec$Builder
       go_type: PresentationSpecBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.util.Size
+          go_name: arg0
+        - java_type: android.util.Size
+          go_name: arg1
       methods:
         - java_method: build
           go_name: Build

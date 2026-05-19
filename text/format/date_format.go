@@ -32,6 +32,12 @@ func NewDateFormat(vm *jni.VM) (*DateFormat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDateFormat == nil {
+			return fmt.Errorf("android.text.format.DateFormat is not available on this device")
+		}
+		if midDateFormatCtor == nil {
+			return fmt.Errorf("android.text.format.DateFormat constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDateFormat)), midDateFormatCtor)
 		if err != nil {
 			return err

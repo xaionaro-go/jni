@@ -30,6 +30,12 @@ func NewNativeActivity(vm *jni.VM) (*NativeActivity, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNativeActivity == nil {
+			return fmt.Errorf("android.app.NativeActivity is not available on this device")
+		}
+		if midNativeActivityCtor == nil {
+			return fmt.Errorf("android.app.NativeActivity constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNativeActivity)), midNativeActivityCtor)
 		if err != nil {
 			return err

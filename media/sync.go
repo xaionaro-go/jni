@@ -32,6 +32,12 @@ func NewSync(vm *jni.VM) (*Sync, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSync == nil {
+			return fmt.Errorf("android.media.MediaSync is not available on this device")
+		}
+		if midSyncCtor == nil {
+			return fmt.Errorf("android.media.MediaSync constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSync)), midSyncCtor)
 		if err != nil {
 			return err

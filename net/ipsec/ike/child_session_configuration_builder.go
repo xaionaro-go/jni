@@ -23,6 +23,35 @@ type ChildSessionConfigurationBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewChildSessionConfigurationBuilder creates a new android.net.ipsec.ike.ChildSessionConfiguration$Builder instance.
+func NewChildSessionConfigurationBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ChildSessionConfigurationBuilder, error) {
+	var t ChildSessionConfigurationBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsChildSessionConfigurationBuilder == nil {
+			return fmt.Errorf("android.net.ipsec.ike.ChildSessionConfiguration$Builder is not available on this device")
+		}
+		if midChildSessionConfigurationBuilderCtor == nil {
+			return fmt.Errorf("android.net.ipsec.ike.ChildSessionConfiguration$Builder constructor (Ljava/util/List;Ljava/util/List;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsChildSessionConfigurationBuilder)), midChildSessionConfigurationBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.ipsec.ike.ChildSessionConfiguration$Builder.build.
 func (m *ChildSessionConfigurationBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

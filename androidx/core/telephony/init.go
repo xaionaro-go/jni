@@ -23,14 +23,14 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsSubscriptionManagerCompat             *jni.GlobalRef
-	midSubscriptionManagerCompatToString     jni.MethodID
-	midSubscriptionManagerCompatGetSlotIndex jni.MethodID
-
 	clsManagerCompat                  *jni.GlobalRef
 	midManagerCompatToString          jni.MethodID
 	midManagerCompatGetImei           jni.MethodID
 	midManagerCompatGetSubscriptionId jni.MethodID
+
+	clsSubscriptionManagerCompat             *jni.GlobalRef
+	midSubscriptionManagerCompatToString     jni.MethodID
+	midSubscriptionManagerCompatGetSlotIndex jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -50,30 +50,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("androidx/core/telephony/SubscriptionManagerCompat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSubscriptionManagerCompat = env.NewGlobalRef(&c.Object)
-
-		midSubscriptionManagerCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscriptionManagerCompat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSubscriptionManagerCompatGetSlotIndex, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSubscriptionManagerCompat)), "getSlotIndex", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("androidx/core/telephony/TelephonyManagerCompat")
 	if err != nil {
@@ -98,6 +74,30 @@ func doInit(env *jni.Env) error {
 		}
 
 		midManagerCompatGetSubscriptionId, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManagerCompat)), "getSubscriptionId", "(Landroid/telephony/TelephonyManager;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/telephony/SubscriptionManagerCompat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSubscriptionManagerCompat = env.NewGlobalRef(&c.Object)
+
+		midSubscriptionManagerCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSubscriptionManagerCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSubscriptionManagerCompatGetSlotIndex, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSubscriptionManagerCompat)), "getSlotIndex", "(I)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

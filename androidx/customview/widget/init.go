@@ -23,6 +23,24 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsExploreByTouchHelper                                     *jni.GlobalRef
+	midExploreByTouchHelperGetAccessibilityNodeProvider         jni.MethodID
+	midExploreByTouchHelperDispatchHoverEvent                   jni.MethodID
+	midExploreByTouchHelperDispatchKeyEvent                     jni.MethodID
+	midExploreByTouchHelperOnFocusChanged                       jni.MethodID
+	midExploreByTouchHelperGetAccessibilityFocusedVirtualViewId jni.MethodID
+	midExploreByTouchHelperGetKeyboardFocusedVirtualViewId      jni.MethodID
+	midExploreByTouchHelperSendEventForVirtualView              jni.MethodID
+	midExploreByTouchHelperInvalidateRoot                       jni.MethodID
+	midExploreByTouchHelperInvalidateVirtualView1               jni.MethodID
+	midExploreByTouchHelperInvalidateVirtualView2_1             jni.MethodID
+	midExploreByTouchHelperGetFocusedVirtualView                jni.MethodID
+	midExploreByTouchHelperOnInitializeAccessibilityEvent       jni.MethodID
+	midExploreByTouchHelperOnInitializeAccessibilityNodeInfo    jni.MethodID
+	midExploreByTouchHelperRequestKeyboardFocusForVirtualView   jni.MethodID
+	midExploreByTouchHelperClearKeyboardFocusForVirtualView     jni.MethodID
+	midExploreByTouchHelperToString                             jni.MethodID
+
 	clsViewDragHelper                          *jni.GlobalRef
 	midViewDragHelperSetMinVelocity            jni.MethodID
 	midViewDragHelperGetMinVelocity            jni.MethodID
@@ -48,10 +66,10 @@ var (
 	midViewDragHelperIsEdgeTouched2_1          jni.MethodID
 	midViewDragHelperIsCapturedViewUnder       jni.MethodID
 	midViewDragHelperIsViewUnder               jni.MethodID
-	midViewDragHelperFindTopChildUnder         jni.MethodID
 	midViewDragHelperToString                  jni.MethodID
 	midViewDragHelperCreate2                   jni.MethodID
 	midViewDragHelperCreate3_1                 jni.MethodID
+	midViewDragHelperFindTopChildUnder         jni.MethodID
 
 	clsViewDragHelperCallback                            *jni.GlobalRef
 	midViewDragHelperCallbackOnViewDragStateChanged      jni.MethodID
@@ -68,24 +86,6 @@ var (
 	midViewDragHelperCallbackClampViewPositionHorizontal jni.MethodID
 	midViewDragHelperCallbackClampViewPositionVertical   jni.MethodID
 	midViewDragHelperCallbackToString                    jni.MethodID
-
-	clsExploreByTouchHelper                                     *jni.GlobalRef
-	midExploreByTouchHelperGetAccessibilityNodeProvider         jni.MethodID
-	midExploreByTouchHelperDispatchHoverEvent                   jni.MethodID
-	midExploreByTouchHelperDispatchKeyEvent                     jni.MethodID
-	midExploreByTouchHelperOnFocusChanged                       jni.MethodID
-	midExploreByTouchHelperGetAccessibilityFocusedVirtualViewId jni.MethodID
-	midExploreByTouchHelperGetKeyboardFocusedVirtualViewId      jni.MethodID
-	midExploreByTouchHelperSendEventForVirtualView              jni.MethodID
-	midExploreByTouchHelperInvalidateRoot                       jni.MethodID
-	midExploreByTouchHelperInvalidateVirtualView1               jni.MethodID
-	midExploreByTouchHelperInvalidateVirtualView2_1             jni.MethodID
-	midExploreByTouchHelperGetFocusedVirtualView                jni.MethodID
-	midExploreByTouchHelperOnInitializeAccessibilityEvent       jni.MethodID
-	midExploreByTouchHelperOnInitializeAccessibilityNodeInfo    jni.MethodID
-	midExploreByTouchHelperRequestKeyboardFocusForVirtualView   jni.MethodID
-	midExploreByTouchHelperClearKeyboardFocusForVirtualView     jni.MethodID
-	midExploreByTouchHelperToString                             jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -105,6 +105,128 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("androidx/customview/widget/ExploreByTouchHelper")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsExploreByTouchHelper = env.NewGlobalRef(&c.Object)
+
+		midExploreByTouchHelperGetAccessibilityNodeProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "getAccessibilityNodeProvider", "(Landroid/view/View;)Landroidx/core/view/accessibility/AccessibilityNodeProviderCompat;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExploreByTouchHelperDispatchHoverEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "dispatchHoverEvent", "(Landroid/view/MotionEvent;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExploreByTouchHelperDispatchKeyEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "dispatchKeyEvent", "(Landroid/view/KeyEvent;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExploreByTouchHelperOnFocusChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "onFocusChanged", "(ZILandroid/graphics/Rect;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExploreByTouchHelperGetAccessibilityFocusedVirtualViewId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "getAccessibilityFocusedVirtualViewId", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExploreByTouchHelperGetKeyboardFocusedVirtualViewId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "getKeyboardFocusedVirtualViewId", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExploreByTouchHelperSendEventForVirtualView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "sendEventForVirtualView", "(II)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExploreByTouchHelperInvalidateRoot, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "invalidateRoot", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExploreByTouchHelperInvalidateVirtualView1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "invalidateVirtualView", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExploreByTouchHelperInvalidateVirtualView2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "invalidateVirtualView", "(II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExploreByTouchHelperGetFocusedVirtualView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "getFocusedVirtualView", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExploreByTouchHelperOnInitializeAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "onInitializeAccessibilityEvent", "(Landroid/view/View;Landroid/view/accessibility/AccessibilityEvent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExploreByTouchHelperOnInitializeAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "onInitializeAccessibilityNodeInfo", "(Landroid/view/View;Landroidx/core/view/accessibility/AccessibilityNodeInfoCompat;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExploreByTouchHelperRequestKeyboardFocusForVirtualView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "requestKeyboardFocusForVirtualView", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExploreByTouchHelperClearKeyboardFocusForVirtualView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "clearKeyboardFocusForVirtualView", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExploreByTouchHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("androidx/customview/widget/ViewDragHelper")
 	if err != nil {
@@ -282,13 +404,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midViewDragHelperFindTopChildUnder, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewDragHelper)), "findTopChildUnder", "(II)Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midViewDragHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewDragHelper)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -304,6 +419,13 @@ func doInit(env *jni.Env) error {
 		}
 
 		midViewDragHelperCreate3_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewDragHelper)), "create", "(Landroid/view/ViewGroup;FLandroidx/customview/widget/ViewDragHelper$Callback;)Landroidx/customview/widget/ViewDragHelper;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewDragHelperFindTopChildUnder, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewDragHelper)), "findTopChildUnder", "(II)Landroid/view/View;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -412,128 +534,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midViewDragHelperCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewDragHelperCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/customview/widget/ExploreByTouchHelper")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsExploreByTouchHelper = env.NewGlobalRef(&c.Object)
-
-		midExploreByTouchHelperGetAccessibilityNodeProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "getAccessibilityNodeProvider", "(Landroid/view/View;)Landroidx/core/view/accessibility/AccessibilityNodeProviderCompat;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExploreByTouchHelperDispatchHoverEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "dispatchHoverEvent", "(Landroid/view/MotionEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExploreByTouchHelperDispatchKeyEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "dispatchKeyEvent", "(Landroid/view/KeyEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExploreByTouchHelperOnFocusChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "onFocusChanged", "(ZILandroid/graphics/Rect;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExploreByTouchHelperGetAccessibilityFocusedVirtualViewId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "getAccessibilityFocusedVirtualViewId", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExploreByTouchHelperGetKeyboardFocusedVirtualViewId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "getKeyboardFocusedVirtualViewId", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExploreByTouchHelperSendEventForVirtualView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "sendEventForVirtualView", "(II)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExploreByTouchHelperInvalidateRoot, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "invalidateRoot", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExploreByTouchHelperInvalidateVirtualView1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "invalidateVirtualView", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExploreByTouchHelperInvalidateVirtualView2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "invalidateVirtualView", "(II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExploreByTouchHelperGetFocusedVirtualView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "getFocusedVirtualView", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExploreByTouchHelperOnInitializeAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "onInitializeAccessibilityEvent", "(Landroid/view/View;Landroid/view/accessibility/AccessibilityEvent;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExploreByTouchHelperOnInitializeAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "onInitializeAccessibilityNodeInfo", "(Landroid/view/View;Landroidx/core/view/accessibility/AccessibilityNodeInfoCompat;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExploreByTouchHelperRequestKeyboardFocusForVirtualView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "requestKeyboardFocusForVirtualView", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExploreByTouchHelperClearKeyboardFocusForVirtualView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "clearKeyboardFocusForVirtualView", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExploreByTouchHelperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExploreByTouchHelper)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

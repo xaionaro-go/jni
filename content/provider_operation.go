@@ -486,29 +486,6 @@ func (m *ProviderOperation) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.content.ContentProviderOperation.writeToParcel.
-func (m *ProviderOperation) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midProviderOperationWriteToParcel == nil {
-			callErr = fmt.Errorf("android.content.ContentProviderOperation.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midProviderOperationWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // NewAssertQuery calls android.content.ContentProviderOperation.newAssertQuery.
 func (m *ProviderOperation) NewAssertQuery(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
@@ -688,4 +665,27 @@ func (m *ProviderOperation) NewUpdate(arg0 *jni.Object) (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.content.ContentProviderOperation.writeToParcel.
+func (m *ProviderOperation) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midProviderOperationWriteToParcel == nil {
+			callErr = fmt.Errorf("android.content.ContentProviderOperation.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsProviderOperation)),
+			midProviderOperationWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

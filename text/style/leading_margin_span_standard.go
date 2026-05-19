@@ -23,6 +23,35 @@ type LeadingMarginSpanStandard struct {
 	Obj *jni.GlobalRef
 }
 
+// NewLeadingMarginSpanStandard creates a new android.text.style.LeadingMarginSpan$Standard instance.
+func NewLeadingMarginSpanStandard(vm *jni.VM, arg0 *jni.Object) (*LeadingMarginSpanStandard, error) {
+	var t LeadingMarginSpanStandard
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsLeadingMarginSpanStandard == nil {
+			return fmt.Errorf("android.text.style.LeadingMarginSpan$Standard is not available on this device")
+		}
+		if midLeadingMarginSpanStandardCtor == nil {
+			return fmt.Errorf("android.text.style.LeadingMarginSpan$Standard constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLeadingMarginSpanStandard)), midLeadingMarginSpanStandardCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.text.style.LeadingMarginSpan$Standard.describeContents.
 func (m *LeadingMarginSpanStandard) DescribeContents() (int32, error) {
 	var result int32

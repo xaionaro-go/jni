@@ -5,14 +5,18 @@ package widget
 import "github.com/AndroidGoLab/jni/androidx/constraintlayout/widget/consts"
 
 const (
-	IntType                    = consts.IntType
-	FloatType                  = consts.FloatType
-	ColorType                  = consts.ColorType
-	ColorDrawableType          = consts.ColorDrawableType
-	StringType                 = consts.StringType
-	BooleanType                = consts.BooleanType
-	DimensionType              = consts.DimensionType
-	ReferenceType              = consts.ReferenceType
+	Tag     = consts.Tag
+	Version = consts.Version
+)
+
+const (
+	DesignInfoId               = consts.DesignInfoId
+	MatchConstraint            = consts.MatchConstraint
+	ParentId                   = consts.ParentId
+	Unset                      = consts.Unset
+	GoneUnset                  = consts.GoneUnset
+	Horizontal                 = consts.Horizontal
+	Vertical                   = consts.Vertical
 	Left                       = consts.Left
 	Right                      = consts.Right
 	Top                        = consts.Top
@@ -20,17 +24,9 @@ const (
 	Baseline                   = consts.Baseline
 	Start                      = consts.Start
 	End                        = consts.End
-	Unset                      = consts.Unset
-	ParentId                   = consts.ParentId
-	MatchConstraint            = consts.MatchConstraint
-	WrapContent                = consts.WrapContent
+	Circle                     = consts.Circle
 	MatchConstraintWrap        = consts.MatchConstraintWrap
 	MatchConstraintSpread      = consts.MatchConstraintSpread
-	DesignInfoId               = consts.DesignInfoId
-	GoneUnset                  = consts.GoneUnset
-	Horizontal                 = consts.Horizontal
-	Vertical                   = consts.Vertical
-	Circle                     = consts.Circle
 	MatchConstraintPercent     = consts.MatchConstraintPercent
 	ChainSpread                = consts.ChainSpread
 	ChainSpreadInside          = consts.ChainSpreadInside
@@ -39,11 +35,20 @@ const (
 	WrapBehaviorHorizontalOnly = consts.WrapBehaviorHorizontalOnly
 	WrapBehaviorVerticalOnly   = consts.WrapBehaviorVerticalOnly
 	WrapBehaviorSkipped        = consts.WrapBehaviorSkipped
+	IntType                    = consts.IntType
+	FloatType                  = consts.FloatType
+	ColorType                  = consts.ColorType
+	ColorDrawableType          = consts.ColorDrawableType
+	StringType                 = consts.StringType
+	BooleanType                = consts.BooleanType
+	DimensionType              = consts.DimensionType
+	ReferenceType              = consts.ReferenceType
 	RotateNone                 = consts.RotateNone
 	RotatePortrateOfRight      = consts.RotatePortrateOfRight
 	RotatePortrateOfLeft       = consts.RotatePortrateOfLeft
 	RotateRightOfPortrate      = consts.RotateRightOfPortrate
 	RotateLeftOfPortrate       = consts.RotateLeftOfPortrate
+	WrapContent                = consts.WrapContent
 	HorizontalGuideline        = consts.HorizontalGuideline
 	VerticalGuideline          = consts.VerticalGuideline
 	Visible                    = consts.Visible
@@ -53,9 +58,4 @@ const (
 	VisibilityModeNormal       = consts.VisibilityModeNormal
 	VisibilityModeIgnore       = consts.VisibilityModeIgnore
 	UnsetGoneMargin            = consts.UnsetGoneMargin
-)
-
-const (
-	Tag     = consts.Tag
-	Version = consts.Version
 )

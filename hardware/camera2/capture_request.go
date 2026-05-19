@@ -76,6 +76,28 @@ func (m *CaptureRequest) Equals(arg0 *jni.Object) (bool, error) {
 	return result, callErr
 }
 
+// Finalize calls android.hardware.camera2.CaptureRequest.finalize.
+func (m *CaptureRequest) Finalize() error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCaptureRequestFinalize == nil {
+			callErr = fmt.Errorf("android.hardware.camera2.CaptureRequest.finalize is not available on this device")
+			return callErr
+		}
+		callErr = env.CallVoidMethod(
+			m.Obj,
+			midCaptureRequestFinalize,
+		)
+		return callErr
+	})
+	return callErr
+}
+
 // GetKeys calls android.hardware.camera2.CaptureRequest.getKeys.
 func (m *CaptureRequest) GetKeys() (*jni.Object, error) {
 	var result *jni.Object
@@ -192,29 +214,6 @@ func (m *CaptureRequest) IsReprocess() (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.hardware.camera2.CaptureRequest.writeToParcel.
-func (m *CaptureRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCaptureRequestWriteToParcel == nil {
-			callErr = fmt.Errorf("android.hardware.camera2.CaptureRequest.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midCaptureRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.hardware.camera2.CaptureRequest.toString.
 func (m *CaptureRequest) ToString() (string, error) {
 	var result string
@@ -240,4 +239,27 @@ func (m *CaptureRequest) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.hardware.camera2.CaptureRequest.writeToParcel.
+func (m *CaptureRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCaptureRequestWriteToParcel == nil {
+			callErr = fmt.Errorf("android.hardware.camera2.CaptureRequest.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsCaptureRequest)),
+			midCaptureRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

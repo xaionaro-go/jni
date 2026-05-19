@@ -1,9 +1,15 @@
-package center.dx.jni.generated;
+package {{.AdapterPackageName}};
 
-import {{.JavaClass}};
+{{if .IsRecyclerViewViewHolderMinimalShim -}}
+import android.view.View;
+{{end}}
+import {{.JavaImportSource}};
+{{if .HasDispatchMethods -}}
 import center.dx.jni.internal.GoAbstractDispatch;
+{{end}}
 
-public class {{.AdapterClassName}} extends {{.JavaClass}} {
+public class {{.AdapterClassName}} extends {{.JavaExtendsSource}} {
+{{- if .HasDispatchMethods}}
     private final long handlerID;
 
     public {{.AdapterClassName}}(long handlerID) {
@@ -19,6 +25,11 @@ public class {{.AdapterClassName}} extends {{.JavaClass}} {
         GoAbstractDispatch.invoke(
             handlerID, "{{.JavaMethod}}", new Object[]{ {{.JavaArgList}} });
         {{- end}}
+    }
+{{end -}}
+{{- else}}
+    public {{.AdapterClassName}}(View itemView) {
+        super(itemView);
     }
 {{end -}}
 }

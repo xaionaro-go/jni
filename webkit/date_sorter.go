@@ -32,6 +32,12 @@ func NewDateSorter(vm *jni.VM, arg0 *jni.Object) (*DateSorter, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDateSorter == nil {
+			return fmt.Errorf("android.webkit.DateSorter is not available on this device")
+		}
+		if midDateSorterCtor == nil {
+			return fmt.Errorf("android.webkit.DateSorter constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDateSorter)), midDateSorterCtor, jni.ObjectValue(arg0))
 		if err != nil {

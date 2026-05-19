@@ -32,6 +32,12 @@ func NewWindowInfoCompat(vm *jni.VM) (*WindowInfoCompat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWindowInfoCompat == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityWindowInfoCompat is not available on this device")
+		}
+		if midWindowInfoCompatCtor == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityWindowInfoCompat constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWindowInfoCompat)), midWindowInfoCompatCtor)
 		if err != nil {
 			return err

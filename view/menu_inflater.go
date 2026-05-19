@@ -32,6 +32,12 @@ func NewMenuInflater(vm *jni.VM, arg0 *jni.Object) (*MenuInflater, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMenuInflater == nil {
+			return fmt.Errorf("android.view.MenuInflater is not available on this device")
+		}
+		if midMenuInflaterCtor == nil {
+			return fmt.Errorf("android.view.MenuInflater constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMenuInflater)), midMenuInflaterCtor, jni.ObjectValue(arg0))
 		if err != nil {

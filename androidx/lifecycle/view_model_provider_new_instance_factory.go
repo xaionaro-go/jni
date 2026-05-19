@@ -23,6 +23,34 @@ type ViewModelProviderNewInstanceFactory struct {
 	Obj *jni.GlobalRef
 }
 
+// NewViewModelProviderNewInstanceFactory creates a new androidx.lifecycle.ViewModelProvider$NewInstanceFactory instance.
+func NewViewModelProviderNewInstanceFactory(vm *jni.VM) (*ViewModelProviderNewInstanceFactory, error) {
+	var t ViewModelProviderNewInstanceFactory
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsViewModelProviderNewInstanceFactory == nil {
+			return fmt.Errorf("androidx.lifecycle.ViewModelProvider$NewInstanceFactory is not available on this device")
+		}
+		if midViewModelProviderNewInstanceFactoryCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.ViewModelProvider$NewInstanceFactory constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewModelProviderNewInstanceFactory)), midViewModelProviderNewInstanceFactoryCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.lifecycle.ViewModelProvider$NewInstanceFactory.toString.
 func (m *ViewModelProviderNewInstanceFactory) ToString() (string, error) {
 	var result string

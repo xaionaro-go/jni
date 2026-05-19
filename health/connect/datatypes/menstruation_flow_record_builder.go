@@ -23,6 +23,35 @@ type MenstruationFlowRecordBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMenstruationFlowRecordBuilder creates a new android.health.connect.datatypes.MenstruationFlowRecord$Builder instance.
+func NewMenstruationFlowRecordBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 int32) (*MenstruationFlowRecordBuilder, error) {
+	var t MenstruationFlowRecordBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMenstruationFlowRecordBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.MenstruationFlowRecord$Builder is not available on this device")
+		}
+		if midMenstruationFlowRecordBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.MenstruationFlowRecord$Builder constructor (Landroid/health/connect/datatypes/Metadata;Ljava/time/Instant;I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMenstruationFlowRecordBuilder)), midMenstruationFlowRecordBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.datatypes.MenstruationFlowRecord$Builder.build.
 func (m *MenstruationFlowRecordBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

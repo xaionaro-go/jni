@@ -32,6 +32,12 @@ func NewException(vm *jni.VM, arg0 string) (*Exception, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsException == nil {
+			return fmt.Errorf("androidx.startup.StartupException is not available on this device")
+		}
+		if midExceptionCtor == nil {
+			return fmt.Errorf("androidx.startup.StartupException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

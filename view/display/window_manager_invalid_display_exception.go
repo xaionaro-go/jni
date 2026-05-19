@@ -23,6 +23,34 @@ type WindowManagerInvalidDisplayException struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWindowManagerInvalidDisplayException creates a new android.view.WindowManager$InvalidDisplayException instance.
+func NewWindowManagerInvalidDisplayException(vm *jni.VM) (*WindowManagerInvalidDisplayException, error) {
+	var t WindowManagerInvalidDisplayException
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWindowManagerInvalidDisplayException == nil {
+			return fmt.Errorf("android.view.WindowManager$InvalidDisplayException is not available on this device")
+		}
+		if midWindowManagerInvalidDisplayExceptionCtor == nil {
+			return fmt.Errorf("android.view.WindowManager$InvalidDisplayException constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWindowManagerInvalidDisplayException)), midWindowManagerInvalidDisplayExceptionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.view.WindowManager$InvalidDisplayException.toString.
 func (m *WindowManagerInvalidDisplayException) ToString() (string, error) {
 	var result string

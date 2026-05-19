@@ -23,6 +23,34 @@ type SwitchCompatInspectionCompanion struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSwitchCompatInspectionCompanion creates a new androidx.appcompat.widget.SwitchCompat$InspectionCompanion instance.
+func NewSwitchCompatInspectionCompanion(vm *jni.VM) (*SwitchCompatInspectionCompanion, error) {
+	var t SwitchCompatInspectionCompanion
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSwitchCompatInspectionCompanion == nil {
+			return fmt.Errorf("androidx.appcompat.widget.SwitchCompat$InspectionCompanion is not available on this device")
+		}
+		if midSwitchCompatInspectionCompanionCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.SwitchCompat$InspectionCompanion constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSwitchCompatInspectionCompanion)), midSwitchCompatInspectionCompanionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // MapProperties calls androidx.appcompat.widget.SwitchCompat$InspectionCompanion.mapProperties.
 func (m *SwitchCompatInspectionCompanion) MapProperties(arg0 *jni.Object) error {
 
@@ -46,8 +74,8 @@ func (m *SwitchCompatInspectionCompanion) MapProperties(arg0 *jni.Object) error 
 	return callErr
 }
 
-// ReadProperties2 calls androidx.appcompat.widget.SwitchCompat$InspectionCompanion.readProperties.
-func (m *SwitchCompatInspectionCompanion) ReadProperties2(arg0 *jni.Object, arg1 *jni.Object) error {
+// ReadProperties calls androidx.appcompat.widget.SwitchCompat$InspectionCompanion.readProperties.
+func (m *SwitchCompatInspectionCompanion) ReadProperties(arg0 *jni.Object, arg1 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,37 +83,14 @@ func (m *SwitchCompatInspectionCompanion) ReadProperties2(arg0 *jni.Object, arg1
 			callErr = err
 			return err
 		}
-		if midSwitchCompatInspectionCompanionReadProperties2 == nil {
+		if midSwitchCompatInspectionCompanionReadProperties == nil {
 			callErr = fmt.Errorf("androidx.appcompat.widget.SwitchCompat$InspectionCompanion.readProperties is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midSwitchCompatInspectionCompanionReadProperties2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// ReadProperties2_1 calls androidx.appcompat.widget.SwitchCompat$InspectionCompanion.readProperties.
-func (m *SwitchCompatInspectionCompanion) ReadProperties2_1(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSwitchCompatInspectionCompanionReadProperties2_1 == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.SwitchCompat$InspectionCompanion.readProperties is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSwitchCompatInspectionCompanionReadProperties2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midSwitchCompatInspectionCompanionReadProperties, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		return callErr
 	})

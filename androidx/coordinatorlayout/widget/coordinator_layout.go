@@ -32,6 +32,12 @@ func NewCoordinatorLayout(vm *jni.VM, arg0 *jni.Object) (*CoordinatorLayout, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCoordinatorLayout == nil {
+			return fmt.Errorf("androidx.coordinatorlayout.widget.CoordinatorLayout is not available on this device")
+		}
+		if midCoordinatorLayoutCtor == nil {
+			return fmt.Errorf("androidx.coordinatorlayout.widget.CoordinatorLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCoordinatorLayout)), midCoordinatorLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -325,33 +331,6 @@ func (m *CoordinatorLayout) OnTouchEvent(arg0 *jni.Object) (bool, error) {
 	return result, callErr
 }
 
-// RequestDisallowInterceptTouchEvent calls androidx.coordinatorlayout.widget.CoordinatorLayout.requestDisallowInterceptTouchEvent.
-func (m *CoordinatorLayout) RequestDisallowInterceptTouchEvent(arg0 bool) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCoordinatorLayoutRequestDisallowInterceptTouchEvent == nil {
-			callErr = fmt.Errorf("androidx.coordinatorlayout.widget.CoordinatorLayout.requestDisallowInterceptTouchEvent is not available on this device")
-			return callErr
-		}
-		var jArg0 uint8
-		if arg0 {
-			jArg0 = jniTrue
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midCoordinatorLayoutRequestDisallowInterceptTouchEvent, jni.BooleanValue(jArg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // OnMeasureChild calls androidx.coordinatorlayout.widget.CoordinatorLayout.onMeasureChild.
 func (m *CoordinatorLayout) OnMeasureChild(
 	arg0 *jni.Object,
@@ -603,8 +582,8 @@ func (m *CoordinatorLayout) DoViewsOverlap(arg0 *jni.Object, arg1 *jni.Object) (
 	return result, callErr
 }
 
-// GenerateLayoutParams1 calls androidx.coordinatorlayout.widget.CoordinatorLayout.generateLayoutParams.
-func (m *CoordinatorLayout) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, error) {
+// GenerateLayoutParams calls androidx.coordinatorlayout.widget.CoordinatorLayout.generateLayoutParams.
+func (m *CoordinatorLayout) GenerateLayoutParams(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -612,14 +591,14 @@ func (m *CoordinatorLayout) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object
 			callErr = err
 			return err
 		}
-		if midCoordinatorLayoutGenerateLayoutParams1 == nil {
+		if midCoordinatorLayoutGenerateLayoutParams == nil {
 			callErr = fmt.Errorf("androidx.coordinatorlayout.widget.CoordinatorLayout.generateLayoutParams is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midCoordinatorLayoutGenerateLayoutParams1, jni.ObjectValue(arg0),
+			midCoordinatorLayoutGenerateLayoutParams, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -1081,39 +1060,6 @@ func (m *CoordinatorLayout) RequestChildRectangleOnScreen(
 	return result, callErr
 }
 
-// GenerateLayoutParams1_1 calls androidx.coordinatorlayout.widget.CoordinatorLayout.generateLayoutParams.
-func (m *CoordinatorLayout) GenerateLayoutParams1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCoordinatorLayoutGenerateLayoutParams1_1 == nil {
-			callErr = fmt.Errorf("androidx.coordinatorlayout.widget.CoordinatorLayout.generateLayoutParams is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCoordinatorLayoutGenerateLayoutParams1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.coordinatorlayout.widget.CoordinatorLayout.toString.
 func (m *CoordinatorLayout) ToString() (string, error) {
 	var result string
@@ -1139,4 +1085,31 @@ func (m *CoordinatorLayout) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// RequestDisallowInterceptTouchEvent calls androidx.coordinatorlayout.widget.CoordinatorLayout.requestDisallowInterceptTouchEvent.
+func (m *CoordinatorLayout) RequestDisallowInterceptTouchEvent(arg0 bool) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCoordinatorLayoutRequestDisallowInterceptTouchEvent == nil {
+			callErr = fmt.Errorf("androidx.coordinatorlayout.widget.CoordinatorLayout.requestDisallowInterceptTouchEvent is not available on this device")
+			return callErr
+		}
+		var jArg0 uint8
+		if arg0 {
+			jArg0 = jniTrue
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsCoordinatorLayout)),
+			midCoordinatorLayoutRequestDisallowInterceptTouchEvent, jni.BooleanValue(jArg0),
+		)
+		return callErr
+	})
+	return callErr
 }

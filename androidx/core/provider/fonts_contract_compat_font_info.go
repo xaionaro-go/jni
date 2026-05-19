@@ -23,6 +23,40 @@ type FontsContractCompatFontInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFontsContractCompatFontInfo creates a new androidx.core.provider.FontsContractCompat$FontInfo instance.
+func NewFontsContractCompatFontInfo(vm *jni.VM, arg0 *jni.Object, arg1 int32, arg2 int32, arg3 bool, arg4 int32) (*FontsContractCompatFontInfo, error) {
+	var t FontsContractCompatFontInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFontsContractCompatFontInfo == nil {
+			return fmt.Errorf("androidx.core.provider.FontsContractCompat$FontInfo is not available on this device")
+		}
+		if midFontsContractCompatFontInfoCtor == nil {
+			return fmt.Errorf("androidx.core.provider.FontsContractCompat$FontInfo constructor (Landroid/net/Uri;IIZI)V is not available on this device")
+		}
+
+		var jArg3 uint8
+		if arg3 {
+			jArg3 = jniTrue
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFontsContractCompatFontInfo)), midFontsContractCompatFontInfoCtor, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2), jni.BooleanValue(jArg3), jni.IntValue(arg4))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetUri calls androidx.core.provider.FontsContractCompat$FontInfo.getUri.
 func (m *FontsContractCompatFontInfo) GetUri() (*jni.Object, error) {
 	var result *jni.Object

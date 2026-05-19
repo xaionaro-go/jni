@@ -40,6 +40,7 @@ var (
 	midMediaBrowserToString            jni.MethodID
 
 	clsMediaBrowserConnectionCallback                      *jni.GlobalRef
+	midMediaBrowserConnectionCallbackCtor                  jni.MethodID
 	midMediaBrowserConnectionCallbackOnConnected           jni.MethodID
 	midMediaBrowserConnectionCallbackOnConnectionFailed    jni.MethodID
 	midMediaBrowserConnectionCallbackOnConnectionSuspended jni.MethodID
@@ -51,6 +52,7 @@ var (
 	midMediaBrowserItemCallbackToString     jni.MethodID
 
 	clsMediaBrowserMediaItem                 *jni.GlobalRef
+	midMediaBrowserMediaItemCtor             jni.MethodID
 	midMediaBrowserMediaItemDescribeContents jni.MethodID
 	midMediaBrowserMediaItemGetDescription   jni.MethodID
 	midMediaBrowserMediaItemGetFlags         jni.MethodID
@@ -196,6 +198,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsMediaBrowserConnectionCallback = env.NewGlobalRef(&c.Object)
+		midMediaBrowserConnectionCallbackCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaBrowserConnectionCallback)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midMediaBrowserConnectionCallbackOnConnected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaBrowserConnectionCallback)), "onConnected", "()V")
 		if err != nil {
@@ -265,6 +271,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsMediaBrowserMediaItem = env.NewGlobalRef(&c.Object)
+		midMediaBrowserMediaItemCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaBrowserMediaItem)), "<init>", "(Landroid/media/MediaDescription;I)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midMediaBrowserMediaItemDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaBrowserMediaItem)), "describeContents", "()I")
 		if err != nil {
@@ -315,7 +325,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMediaBrowserMediaItemWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaBrowserMediaItem)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midMediaBrowserMediaItemWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMediaBrowserMediaItem)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

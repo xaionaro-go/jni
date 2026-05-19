@@ -32,6 +32,12 @@ func NewSmsMessage(vm *jni.VM) (*SmsMessage, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSmsMessage == nil {
+			return fmt.Errorf("android.telephony.gsm.SmsMessage is not available on this device")
+		}
+		if midSmsMessageCtor == nil {
+			return fmt.Errorf("android.telephony.gsm.SmsMessage constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSmsMessage)), midSmsMessageCtor)
 		if err != nil {
 			return err

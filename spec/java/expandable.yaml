@@ -5,6 +5,20 @@
 package: expandable
 go_import: github.com/AndroidGoLab/jni/com/google/android/material/expandable
 classes:
+    - java_class: com.google.android.material.expandable.ExpandableTransformationWidget
+      go_type: TransformationWidget
+      methods:
+        - java_method: getExpandedComponentIdHint
+          go_name: GetExpandedComponentIdHint
+          returns: int
+          error: true
+        - java_method: setExpandedComponentIdHint
+          go_name: SetExpandedComponentIdHint
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
     - java_class: com.google.android.material.expandable.ExpandableWidgetHelper
       go_type: WidgetHelper
       obtain: constructor
@@ -58,18 +72,4 @@ classes:
             - java_type: boolean
               go_name: arg0
           returns: boolean
-          error: true
-    - java_class: com.google.android.material.expandable.ExpandableTransformationWidget
-      go_type: TransformationWidget
-      methods:
-        - java_method: getExpandedComponentIdHint
-          go_name: GetExpandedComponentIdHint
-          returns: int
-          error: true
-        - java_method: setExpandedComponentIdHint
-          go_name: SetExpandedComponentIdHint
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
           error: true

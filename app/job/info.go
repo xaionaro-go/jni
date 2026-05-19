@@ -1024,29 +1024,6 @@ func (m *Info) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.job.JobInfo.writeToParcel.
-func (m *Info) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.job.JobInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // GetMinFlexMillis calls android.app.job.JobInfo.getMinFlexMillis.
 func (m *Info) GetMinFlexMillis() (int64, error) {
 	var result int64
@@ -1095,4 +1072,27 @@ func (m *Info) GetMinPeriodMillis() (int64, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.job.JobInfo.writeToParcel.
+func (m *Info) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.job.JobInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsInfo)),
+			midInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

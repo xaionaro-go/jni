@@ -32,6 +32,12 @@ func NewWidgetContainer(vm *jni.VM) (*WidgetContainer, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWidgetContainer == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.WidgetContainer is not available on this device")
+		}
+		if midWidgetContainerCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.WidgetContainer constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWidgetContainer)), midWidgetContainerCtor)
 		if err != nil {
 			return err

@@ -5,14 +5,14 @@ package app
 import "github.com/AndroidGoLab/jni/androidx/fragment/app/consts"
 
 const (
-	Creator                           = consts.Creator
+	BehaviorSetUserVisibleHint        = consts.BehaviorSetUserVisibleHint
+	BehaviorResumeOnlyCurrentFragment = consts.BehaviorResumeOnlyCurrentFragment
 	StyleNormal                       = consts.StyleNormal
 	StyleNoTitle                      = consts.StyleNoTitle
 	StyleNoFrame                      = consts.StyleNoFrame
 	StyleNoInput                      = consts.StyleNoInput
-	BehaviorSetUserVisibleHint        = consts.BehaviorSetUserVisibleHint
-	BehaviorResumeOnlyCurrentFragment = consts.BehaviorResumeOnlyCurrentFragment
 	PopBackStackInclusive             = consts.PopBackStackInclusive
+	Creator                           = consts.Creator
 	Instance                          = consts.Instance
 	TransitEnterMask                  = consts.TransitEnterMask
 	TransitExitMask                   = consts.TransitExitMask

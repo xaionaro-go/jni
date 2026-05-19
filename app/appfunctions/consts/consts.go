@@ -3,15 +3,10 @@
 package consts
 
 const (
-	ServiceInterface    string = "android.app.appfunctions.AppFunctionService"
-	PropertyReturnValue string = "androidAppfunctionsReturnValue"
-)
-
-const (
+	Creator                         int = 0
 	AppFunctionStateDefault         int = 0
 	AppFunctionStateDisabled        int = 2
 	AppFunctionStateEnabled         int = 1
-	Creator                         int = 0
 	ErrorAppUnknownError            int = 3000
 	ErrorCancelled                  int = 2001
 	ErrorCategoryApp                int = 3
@@ -24,4 +19,9 @@ const (
 	ErrorFunctionNotFound           int = 1003
 	ErrorInvalidArgument            int = 1001
 	ErrorSystemError                int = 2000
+)
+
+const (
+	PropertyReturnValue string = "androidAppfunctionsReturnValue"
+	ServiceInterface    string = "android.app.appfunctions.AppFunctionService"
 )

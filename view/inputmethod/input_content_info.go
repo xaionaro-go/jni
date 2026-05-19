@@ -32,6 +32,12 @@ func NewInputContentInfo(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Input
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInputContentInfo == nil {
+			return fmt.Errorf("android.view.inputmethod.InputContentInfo is not available on this device")
+		}
+		if midInputContentInfoCtor == nil {
+			return fmt.Errorf("android.view.inputmethod.InputContentInfo constructor (Landroid/net/Uri;Landroid/content/ClipDescription;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInputContentInfo)), midInputContentInfoCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -211,29 +217,6 @@ func (m *InputContentInfo) RequestPermission() error {
 	return callErr
 }
 
-// WriteToParcel calls android.view.inputmethod.InputContentInfo.writeToParcel.
-func (m *InputContentInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midInputContentInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.inputmethod.InputContentInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midInputContentInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.view.inputmethod.InputContentInfo.toString.
 func (m *InputContentInfo) ToString() (string, error) {
 	var result string
@@ -259,4 +242,27 @@ func (m *InputContentInfo) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.inputmethod.InputContentInfo.writeToParcel.
+func (m *InputContentInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midInputContentInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.inputmethod.InputContentInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsInputContentInfo)),
+			midInputContentInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

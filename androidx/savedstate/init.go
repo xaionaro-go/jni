@@ -23,24 +23,39 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsSavedStateRegistryOwner                      *jni.GlobalRef
-	midSavedStateRegistryOwnerGetSavedStateRegistry jni.MethodID
-	midSavedStateRegistryOwnerToString              jni.MethodID
+	clsRecreator               *jni.GlobalRef
+	midRecreatorCtor           jni.MethodID
+	midRecreatorToString       jni.MethodID
+	midRecreatorOnStateChanged jni.MethodID
+
+	clsRecreatorCompanion         *jni.GlobalRef
+	midRecreatorCompanionCtor     jni.MethodID
+	midRecreatorCompanionToString jni.MethodID
+
+	clsRecreatorSavedStateProvider          *jni.GlobalRef
+	midRecreatorSavedStateProviderCtor      jni.MethodID
+	midRecreatorSavedStateProviderSaveState jni.MethodID
+	midRecreatorSavedStateProviderAdd       jni.MethodID
+	midRecreatorSavedStateProviderToString  jni.MethodID
 
 	clsViewTreeSavedStateRegistryOwner         *jni.GlobalRef
 	midViewTreeSavedStateRegistryOwnerToString jni.MethodID
 	midViewTreeSavedStateRegistryOwnerSet      jni.MethodID
 	midViewTreeSavedStateRegistryOwnerGet      jni.MethodID
 
-	clsSavedStateRegistry                             *jni.GlobalRef
-	midSavedStateRegistryCtor                         jni.MethodID
-	midSavedStateRegistryIsRestored                   jni.MethodID
-	midSavedStateRegistryConsumeRestoredStateForKey   jni.MethodID
-	midSavedStateRegistryRegisterSavedStateProvider   jni.MethodID
-	midSavedStateRegistryGetSavedStateProvider        jni.MethodID
-	midSavedStateRegistryUnregisterSavedStateProvider jni.MethodID
-	midSavedStateRegistryPerformSave                  jni.MethodID
-	midSavedStateRegistryToString                     jni.MethodID
+	clsSavedStateRegistry                                        *jni.GlobalRef
+	midSavedStateRegistryCtor                                    jni.MethodID
+	midSavedStateRegistryIsRestored                              jni.MethodID
+	midSavedStateRegistryIsAllowingSavingStateSavedstateRelease  jni.MethodID
+	midSavedStateRegistrySetAllowingSavingStateSavedstateRelease jni.MethodID
+	midSavedStateRegistryConsumeRestoredStateForKey              jni.MethodID
+	midSavedStateRegistryRegisterSavedStateProvider              jni.MethodID
+	midSavedStateRegistryGetSavedStateProvider                   jni.MethodID
+	midSavedStateRegistryUnregisterSavedStateProvider            jni.MethodID
+	midSavedStateRegistryPerformAttachSavedstateRelease          jni.MethodID
+	midSavedStateRegistryPerformRestoreSavedstateRelease         jni.MethodID
+	midSavedStateRegistryToString                                jni.MethodID
+	midSavedStateRegistryPerformSave                             jni.MethodID
 
 	clsSavedStateRegistryAutoRecreated            *jni.GlobalRef
 	midSavedStateRegistryAutoRecreatedOnRecreated jni.MethodID
@@ -49,19 +64,6 @@ var (
 	clsSavedStateRegistrySavedStateProvider          *jni.GlobalRef
 	midSavedStateRegistrySavedStateProviderSaveState jni.MethodID
 	midSavedStateRegistrySavedStateProviderToString  jni.MethodID
-
-	clsRecreator               *jni.GlobalRef
-	midRecreatorCtor           jni.MethodID
-	midRecreatorOnStateChanged jni.MethodID
-	midRecreatorToString       jni.MethodID
-
-	clsRecreatorCompanion         *jni.GlobalRef
-	midRecreatorCompanionToString jni.MethodID
-
-	clsRecreatorSavedStateProvider          *jni.GlobalRef
-	midRecreatorSavedStateProviderSaveState jni.MethodID
-	midRecreatorSavedStateProviderAdd       jni.MethodID
-	midRecreatorSavedStateProviderToString  jni.MethodID
 
 	clsSavedStateRegistryController                      *jni.GlobalRef
 	midSavedStateRegistryControllerCtor                  jni.MethodID
@@ -73,8 +75,13 @@ var (
 	midSavedStateRegistryControllerCreate                jni.MethodID
 
 	clsSavedStateRegistryControllerCompanion         *jni.GlobalRef
+	midSavedStateRegistryControllerCompanionCtor     jni.MethodID
 	midSavedStateRegistryControllerCompanionCreate   jni.MethodID
 	midSavedStateRegistryControllerCompanionToString jni.MethodID
+
+	clsSavedStateRegistryOwner                      *jni.GlobalRef
+	midSavedStateRegistryOwnerGetSavedStateRegistry jni.MethodID
+	midSavedStateRegistryOwnerToString              jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -95,22 +102,82 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("androidx/savedstate/SavedStateRegistryOwner")
+	c, err = env.FindClass("androidx/savedstate/Recreator")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSavedStateRegistryOwner = env.NewGlobalRef(&c.Object)
+		clsRecreator = env.NewGlobalRef(&c.Object)
+		midRecreatorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecreator)), "<init>", "(Landroidx/savedstate/SavedStateRegistryOwner;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midSavedStateRegistryOwnerGetSavedStateRegistry, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateRegistryOwner)), "getSavedStateRegistry", "()Landroidx/savedstate/SavedStateRegistry;")
+		midRecreatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecreator)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSavedStateRegistryOwnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateRegistryOwner)), "toString", "()Ljava/lang/String;")
+		midRecreatorOnStateChanged, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecreator)), "onStateChanged", "(Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Lifecycle$Event;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/savedstate/Recreator$Companion")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRecreatorCompanion = env.NewGlobalRef(&c.Object)
+		midRecreatorCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecreatorCompanion)), "<init>", "(Lkotlin/jvm/internal/DefaultConstructorMarker;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midRecreatorCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecreatorCompanion)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/savedstate/Recreator$SavedStateProvider")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRecreatorSavedStateProvider = env.NewGlobalRef(&c.Object)
+		midRecreatorSavedStateProviderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecreatorSavedStateProvider)), "<init>", "(Landroidx/savedstate/SavedStateRegistry;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midRecreatorSavedStateProviderSaveState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecreatorSavedStateProvider)), "saveState", "()Landroid/os/Bundle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecreatorSavedStateProviderAdd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecreatorSavedStateProvider)), "add", "(Ljava/lang/String;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRecreatorSavedStateProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecreatorSavedStateProvider)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -169,6 +236,20 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
+		midSavedStateRegistryIsAllowingSavingStateSavedstateRelease, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateRegistry)), "isAllowingSavingState$savedstate_release", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSavedStateRegistrySetAllowingSavingStateSavedstateRelease, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateRegistry)), "setAllowingSavingState$savedstate_release", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
 		midSavedStateRegistryConsumeRestoredStateForKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateRegistry)), "consumeRestoredStateForKey", "(Ljava/lang/String;)Landroid/os/Bundle;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -197,7 +278,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midSavedStateRegistryPerformSave, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateRegistry)), "performSave", "(Landroid/os/Bundle;)V")
+		midSavedStateRegistryPerformAttachSavedstateRelease, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateRegistry)), "performAttach$savedstate_release", "(Landroidx/lifecycle/Lifecycle;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSavedStateRegistryPerformRestoreSavedstateRelease, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateRegistry)), "performRestore$savedstate_release", "(Landroid/os/Bundle;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -205,6 +293,13 @@ func doInit(env *jni.Env) error {
 		}
 
 		midSavedStateRegistryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateRegistry)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSavedStateRegistryPerformSave, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateRegistry)), "performSave", "(Landroid/os/Bundle;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -253,82 +348,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midSavedStateRegistrySavedStateProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateRegistrySavedStateProvider)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/savedstate/Recreator")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRecreator = env.NewGlobalRef(&c.Object)
-		midRecreatorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecreator)), "<init>", "(Landroidx/savedstate/SavedStateRegistryOwner;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midRecreatorOnStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecreator)), "onStateChanged", "(Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Lifecycle$Event;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecreatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecreator)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/savedstate/Recreator$Companion")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRecreatorCompanion = env.NewGlobalRef(&c.Object)
-
-		midRecreatorCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecreatorCompanion)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/savedstate/Recreator$SavedStateProvider")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRecreatorSavedStateProvider = env.NewGlobalRef(&c.Object)
-
-		midRecreatorSavedStateProviderSaveState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecreatorSavedStateProvider)), "saveState", "()Landroid/os/Bundle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecreatorSavedStateProviderAdd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecreatorSavedStateProvider)), "add", "(Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRecreatorSavedStateProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRecreatorSavedStateProvider)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -400,6 +419,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsSavedStateRegistryControllerCompanion = env.NewGlobalRef(&c.Object)
+		midSavedStateRegistryControllerCompanionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateRegistryControllerCompanion)), "<init>", "(Lkotlin/jvm/internal/DefaultConstructorMarker;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midSavedStateRegistryControllerCompanionCreate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateRegistryControllerCompanion)), "create", "(Landroidx/savedstate/SavedStateRegistryOwner;)Landroidx/savedstate/SavedStateRegistryController;")
 		if err != nil {
@@ -409,6 +432,30 @@ func doInit(env *jni.Env) error {
 		}
 
 		midSavedStateRegistryControllerCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateRegistryControllerCompanion)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/savedstate/SavedStateRegistryOwner")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSavedStateRegistryOwner = env.NewGlobalRef(&c.Object)
+
+		midSavedStateRegistryOwnerGetSavedStateRegistry, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateRegistryOwner)), "getSavedStateRegistry", "()Landroidx/savedstate/SavedStateRegistry;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSavedStateRegistryOwnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSavedStateRegistryOwner)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

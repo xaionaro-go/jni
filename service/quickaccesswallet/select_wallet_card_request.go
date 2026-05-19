@@ -32,6 +32,12 @@ func NewSelectWalletCardRequest(vm *jni.VM, arg0 string) (*SelectWalletCardReque
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSelectWalletCardRequest == nil {
+			return fmt.Errorf("android.service.quickaccesswallet.SelectWalletCardRequest is not available on this device")
+		}
+		if midSelectWalletCardRequestCtor == nil {
+			return fmt.Errorf("android.service.quickaccesswallet.SelectWalletCardRequest constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -103,29 +109,6 @@ func (m *SelectWalletCardRequest) GetCardId() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.service.quickaccesswallet.SelectWalletCardRequest.writeToParcel.
-func (m *SelectWalletCardRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSelectWalletCardRequestWriteToParcel == nil {
-			callErr = fmt.Errorf("android.service.quickaccesswallet.SelectWalletCardRequest.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSelectWalletCardRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.service.quickaccesswallet.SelectWalletCardRequest.toString.
 func (m *SelectWalletCardRequest) ToString() (string, error) {
 	var result string
@@ -151,4 +134,27 @@ func (m *SelectWalletCardRequest) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.service.quickaccesswallet.SelectWalletCardRequest.writeToParcel.
+func (m *SelectWalletCardRequest) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSelectWalletCardRequestWriteToParcel == nil {
+			callErr = fmt.Errorf("android.service.quickaccesswallet.SelectWalletCardRequest.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSelectWalletCardRequest)),
+			midSelectWalletCardRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -32,6 +32,12 @@ func NewDisconnectCause(vm *jni.VM, arg0 int32) (*DisconnectCause, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDisconnectCause == nil {
+			return fmt.Errorf("android.telecom.DisconnectCause is not available on this device")
+		}
+		if midDisconnectCauseCtor == nil {
+			return fmt.Errorf("android.telecom.DisconnectCause constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDisconnectCause)), midDisconnectCauseCtor, jni.IntValue(arg0))
 		if err != nil {
@@ -306,8 +312,8 @@ func (m *DisconnectCause) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsDisconnectCause)),
 			midDisconnectCauseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

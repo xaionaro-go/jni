@@ -32,6 +32,12 @@ func NewRemoteController(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Remot
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRemoteController == nil {
+			return fmt.Errorf("android.media.RemoteController is not available on this device")
+		}
+		if midRemoteControllerCtor == nil {
+			return fmt.Errorf("android.media.RemoteController constructor (Landroid/content/Context;Landroid/media/RemoteController$OnClientUpdateListener;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRemoteController)), midRemoteControllerCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

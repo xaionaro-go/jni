@@ -23,6 +23,34 @@ type RecognitionSupportBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRecognitionSupportBuilder creates a new android.speech.RecognitionSupport$Builder instance.
+func NewRecognitionSupportBuilder(vm *jni.VM) (*RecognitionSupportBuilder, error) {
+	var t RecognitionSupportBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRecognitionSupportBuilder == nil {
+			return fmt.Errorf("android.speech.RecognitionSupport$Builder is not available on this device")
+		}
+		if midRecognitionSupportBuilderCtor == nil {
+			return fmt.Errorf("android.speech.RecognitionSupport$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRecognitionSupportBuilder)), midRecognitionSupportBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddInstalledOnDeviceLanguage calls android.speech.RecognitionSupport$Builder.addInstalledOnDeviceLanguage.
 func (m *RecognitionSupportBuilder) AddInstalledOnDeviceLanguage(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewMediaRecorder(vm *jni.VM, arg0 *jni.Object) (*MediaRecorder, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMediaRecorder == nil {
+			return fmt.Errorf("android.media.MediaRecorder is not available on this device")
+		}
+		if midMediaRecorderCtor == nil {
+			return fmt.Errorf("android.media.MediaRecorder constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMediaRecorder)), midMediaRecorderCtor, jni.ObjectValue(arg0))
 		if err != nil {

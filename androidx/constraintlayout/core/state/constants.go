@@ -5,6 +5,9 @@ package state
 import "github.com/AndroidGoLab/jni/androidx/constraintlayout/core/state/consts"
 
 const (
+	Start              = consts.Start
+	End                = consts.End
+	Interpolated       = consts.Interpolated
 	Parent             = consts.Parent
 	LeftToLeft         = consts.LeftToLeft
 	LeftToRight        = consts.LeftToRight
@@ -24,12 +27,20 @@ const (
 	CenterHorizontally = consts.CenterHorizontally
 	CenterVertically   = consts.CenterVertically
 	CircularConstraint = consts.CircularConstraint
+	FixedDimension     = consts.FixedDimension
+	WrapDimension      = consts.WrapDimension
+	SpreadDimension    = consts.SpreadDimension
+	ParentDimension    = consts.ParentDimension
+	PercentDimension   = consts.PercentDimension
+	RatioDimension     = consts.RatioDimension
 	Left               = consts.Left
 	Right              = consts.Right
-	Start              = consts.Start
-	End                = consts.End
 	Top                = consts.Top
 	Bottom             = consts.Bottom
+	Fixed              = consts.Fixed
+	Wrap               = consts.Wrap
+	MatchParent        = consts.MatchParent
+	MatchConstraint    = consts.MatchConstraint
 	HorizontalChain    = consts.HorizontalChain
 	VerticalChain      = consts.VerticalChain
 	AlignHorizontally  = consts.AlignHorizontally
@@ -40,15 +51,4 @@ const (
 	Spread             = consts.Spread
 	SpreadInside       = consts.SpreadInside
 	Packed             = consts.Packed
-	Interpolated       = consts.Interpolated
-	FixedDimension     = consts.FixedDimension
-	WrapDimension      = consts.WrapDimension
-	SpreadDimension    = consts.SpreadDimension
-	ParentDimension    = consts.ParentDimension
-	PercentDimension   = consts.PercentDimension
-	RatioDimension     = consts.RatioDimension
-	Fixed              = consts.Fixed
-	Wrap               = consts.Wrap
-	MatchParent        = consts.MatchParent
-	MatchConstraint    = consts.MatchConstraint
 )

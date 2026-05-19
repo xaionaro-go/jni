@@ -23,6 +23,35 @@ type CervicalMucusRecordBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCervicalMucusRecordBuilder creates a new android.health.connect.datatypes.CervicalMucusRecord$Builder instance.
+func NewCervicalMucusRecordBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 int32, arg3 int32) (*CervicalMucusRecordBuilder, error) {
+	var t CervicalMucusRecordBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCervicalMucusRecordBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.CervicalMucusRecord$Builder is not available on this device")
+		}
+		if midCervicalMucusRecordBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.CervicalMucusRecord$Builder constructor (Landroid/health/connect/datatypes/Metadata;Ljava/time/Instant;II)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCervicalMucusRecordBuilder)), midCervicalMucusRecordBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.datatypes.CervicalMucusRecord$Builder.build.
 func (m *CervicalMucusRecordBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

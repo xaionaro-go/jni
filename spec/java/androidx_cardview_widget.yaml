@@ -147,10 +147,3 @@ classes:
           go_name: GetPreventCornerOverlap
           returns: boolean
           error: true
-        - java_method: setPreventCornerOverlap
-          go_name: SetPreventCornerOverlap
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true

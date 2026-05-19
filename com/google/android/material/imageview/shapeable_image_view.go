@@ -32,6 +32,12 @@ func NewShapeableImageView(vm *jni.VM, arg0 *jni.Object) (*ShapeableImageView, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsShapeableImageView == nil {
+			return fmt.Errorf("com.google.android.material.imageview.ShapeableImageView is not available on this device")
+		}
+		if midShapeableImageViewCtor == nil {
+			return fmt.Errorf("com.google.android.material.imageview.ShapeableImageView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsShapeableImageView)), midShapeableImageViewCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -637,29 +643,6 @@ func (m *ShapeableImageView) GetStrokeWidth() (float32, error) {
 		return callErr
 	})
 	return result, callErr
-}
-
-// SetStrokeColor calls com.google.android.material.imageview.ShapeableImageView.setStrokeColor.
-func (m *ShapeableImageView) SetStrokeColor(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midShapeableImageViewSetStrokeColor == nil {
-			callErr = fmt.Errorf("com.google.android.material.imageview.ShapeableImageView.setStrokeColor is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midShapeableImageViewSetStrokeColor, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // ToString calls com.google.android.material.imageview.ShapeableImageView.toString.

@@ -32,6 +32,12 @@ func NewInvalidMajorVersionException(vm *jni.VM, arg0 int8) (*InvalidMajorVersio
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInvalidMajorVersionException == nil {
+			return fmt.Errorf("android.net.ipsec.ike.exceptions.InvalidMajorVersionException is not available on this device")
+		}
+		if midInvalidMajorVersionExceptionCtor == nil {
+			return fmt.Errorf("android.net.ipsec.ike.exceptions.InvalidMajorVersionException constructor (B)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInvalidMajorVersionException)), midInvalidMajorVersionExceptionCtor, jni.ByteValue(arg0))
 		if err != nil {

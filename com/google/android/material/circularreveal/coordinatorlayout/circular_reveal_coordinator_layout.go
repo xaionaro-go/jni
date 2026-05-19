@@ -32,6 +32,12 @@ func NewCircularRevealCoordinatorLayout(vm *jni.VM, arg0 *jni.Object) (*Circular
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCircularRevealCoordinatorLayout == nil {
+			return fmt.Errorf("com.google.android.material.circularreveal.coordinatorlayout.CircularRevealCoordinatorLayout is not available on this device")
+		}
+		if midCircularRevealCoordinatorLayoutCtor == nil {
+			return fmt.Errorf("com.google.android.material.circularreveal.coordinatorlayout.CircularRevealCoordinatorLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCircularRevealCoordinatorLayout)), midCircularRevealCoordinatorLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {

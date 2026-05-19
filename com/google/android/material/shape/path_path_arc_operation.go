@@ -23,27 +23,33 @@ type PathPathArcOperation struct {
 	Obj *jni.GlobalRef
 }
 
-// ApplyToPath calls com.google.android.material.shape.ShapePath$PathArcOperation.applyToPath.
-func (m *PathPathArcOperation) ApplyToPath(arg0 *jni.Object, arg1 *jni.Object) error {
+// NewPathPathArcOperation creates a new com.google.android.material.shape.ShapePath$PathArcOperation instance.
+func NewPathPathArcOperation(vm *jni.VM, arg0 float32, arg1 float32, arg2 float32, arg3 float32) (*PathPathArcOperation, error) {
+	var t PathPathArcOperation
+	t.VM = vm
 
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
+	err := vm.Do(func(env *jni.Env) error {
 		if err := ensureInit(env); err != nil {
-			callErr = err
 			return err
 		}
-		if midPathPathArcOperationApplyToPath == nil {
-			callErr = fmt.Errorf("com.google.android.material.shape.ShapePath$PathArcOperation.applyToPath is not available on this device")
-			return callErr
+		if clsPathPathArcOperation == nil {
+			return fmt.Errorf("com.google.android.material.shape.ShapePath$PathArcOperation is not available on this device")
+		}
+		if midPathPathArcOperationCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.ShapePath$PathArcOperation constructor (FFFF)V is not available on this device")
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midPathPathArcOperationApplyToPath, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPathPathArcOperation)), midPathPathArcOperationCtor, jni.FloatValue(arg0), jni.FloatValue(arg1), jni.FloatValue(arg2), jni.FloatValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
 	})
-	return callErr
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
 }
 
 // ToString calls com.google.android.material.shape.ShapePath$PathArcOperation.toString.

@@ -23,6 +23,35 @@ type EventsQueryBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewEventsQueryBuilder creates a new android.app.usage.UsageEventsQuery$Builder instance.
+func NewEventsQueryBuilder(vm *jni.VM, arg0 int64, arg1 int64) (*EventsQueryBuilder, error) {
+	var t EventsQueryBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsEventsQueryBuilder == nil {
+			return fmt.Errorf("android.app.usage.UsageEventsQuery$Builder is not available on this device")
+		}
+		if midEventsQueryBuilderCtor == nil {
+			return fmt.Errorf("android.app.usage.UsageEventsQuery$Builder constructor (JJ)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEventsQueryBuilder)), midEventsQueryBuilderCtor, jni.LongValue(arg0), jni.LongValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.app.usage.UsageEventsQuery$Builder.build.
 func (m *EventsQueryBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -23,6 +23,41 @@ type DrmInitDataSchemeInitData struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDrmInitDataSchemeInitData creates a new android.media.DrmInitData$SchemeInitData instance.
+func NewDrmInitDataSchemeInitData(vm *jni.VM, arg0 *jni.Object, arg1 string, arg2 *jni.Object) (*DrmInitDataSchemeInitData, error) {
+	var t DrmInitDataSchemeInitData
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDrmInitDataSchemeInitData == nil {
+			return fmt.Errorf("android.media.DrmInitData$SchemeInitData is not available on this device")
+		}
+		if midDrmInitDataSchemeInitDataCtor == nil {
+			return fmt.Errorf("android.media.DrmInitData$SchemeInitData constructor (Ljava/util/UUID;Ljava/lang/String;[B)V is not available on this device")
+		}
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDrmInitDataSchemeInitData)), midDrmInitDataSchemeInitDataCtor, jni.ObjectValue(arg0), jni.ObjectValue(&jArg1.Object), jni.ObjectValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.media.DrmInitData$SchemeInitData.equals.
 func (m *DrmInitDataSchemeInitData) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool
@@ -51,31 +86,6 @@ func (m *DrmInitDataSchemeInitData) Equals(arg0 *jni.Object) (bool, error) {
 	return result, callErr
 }
 
-// HashCode calls android.media.DrmInitData$SchemeInitData.hashCode.
-func (m *DrmInitDataSchemeInitData) HashCode() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDrmInitDataSchemeInitDataHashCode == nil {
-			callErr = fmt.Errorf("android.media.DrmInitData$SchemeInitData.hashCode is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midDrmInitDataSchemeInitDataHashCode,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.media.DrmInitData$SchemeInitData.toString.
 func (m *DrmInitDataSchemeInitData) ToString() (string, error) {
 	var result string
@@ -98,6 +108,31 @@ func (m *DrmInitDataSchemeInitData) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// HashCode calls android.media.DrmInitData$SchemeInitData.hashCode.
+func (m *DrmInitDataSchemeInitData) HashCode() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDrmInitDataSchemeInitDataHashCode == nil {
+			callErr = fmt.Errorf("android.media.DrmInitData$SchemeInitData.hashCode is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsDrmInitDataSchemeInitData)),
+			midDrmInitDataSchemeInitDataHashCode,
+		)
+		if callErr != nil {
+			return callErr
+		}
 		return callErr
 	})
 	return result, callErr

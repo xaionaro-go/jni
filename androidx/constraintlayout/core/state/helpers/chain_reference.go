@@ -32,6 +32,12 @@ func NewChainReference(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ChainRe
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsChainReference == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.state.helpers.ChainReference is not available on this device")
+		}
+		if midChainReferenceCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.state.helpers.ChainReference constructor (Landroidx/constraintlayout/core/state/State;Landroidx/constraintlayout/core/state/State$Helper;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsChainReference)), midChainReferenceCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -136,8 +142,8 @@ func (m *ChainReference) GetBias() (float32, error) {
 	return result, callErr
 }
 
-// Bias1 calls androidx.constraintlayout.core.state.helpers.ChainReference.bias.
-func (m *ChainReference) Bias1(arg0 float32) (*jni.Object, error) {
+// Bias calls androidx.constraintlayout.core.state.helpers.ChainReference.bias.
+func (m *ChainReference) Bias(arg0 float32) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -145,47 +151,14 @@ func (m *ChainReference) Bias1(arg0 float32) (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midChainReferenceBias1 == nil {
+		if midChainReferenceBias == nil {
 			callErr = fmt.Errorf("androidx.constraintlayout.core.state.helpers.ChainReference.bias is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midChainReferenceBias1, jni.FloatValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Bias1_1 calls androidx.constraintlayout.core.state.helpers.ChainReference.bias.
-func (m *ChainReference) Bias1_1(arg0 float32) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midChainReferenceBias1_1 == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.core.state.helpers.ChainReference.bias is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midChainReferenceBias1_1, jni.FloatValue(arg0),
+			midChainReferenceBias, jni.FloatValue(arg0),
 		)
 		if callErr != nil {
 			return callErr

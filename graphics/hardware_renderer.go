@@ -32,6 +32,12 @@ func NewHardwareRenderer(vm *jni.VM) (*HardwareRenderer, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsHardwareRenderer == nil {
+			return fmt.Errorf("android.graphics.HardwareRenderer is not available on this device")
+		}
+		if midHardwareRendererCtor == nil {
+			return fmt.Errorf("android.graphics.HardwareRenderer constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHardwareRenderer)), midHardwareRendererCtor)
 		if err != nil {
 			return err

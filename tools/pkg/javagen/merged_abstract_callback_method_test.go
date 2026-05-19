@@ -32,20 +32,20 @@ func TestMergedAbstractCallbackMethod_IntReturn(t *testing.T) {
 	if !m.HasReturn() {
 		t.Error("HasReturn should be true for int")
 	}
-	if m.JavaCastReturn() != "(Integer)" {
-		t.Errorf("JavaCastReturn = %q, want (Integer)", m.JavaCastReturn())
+	if m.JavaCastReturn() != "((Integer)" {
+		t.Errorf("JavaCastReturn = %q, want ((Integer)", m.JavaCastReturn())
 	}
-	if m.JavaUnboxReturn() != ".intValue()" {
-		t.Errorf("JavaUnboxReturn = %q, want .intValue()", m.JavaUnboxReturn())
+	if m.JavaUnboxReturn() != ").intValue()" {
+		t.Errorf("JavaUnboxReturn = %q, want ).intValue()", m.JavaUnboxReturn())
 	}
 }
 
 func TestMergedAbstractCallbackMethod_BooleanReturn(t *testing.T) {
 	m := MergedAbstractCallbackMethod{Returns: "boolean"}
-	if m.JavaCastReturn() != "(Boolean)" {
+	if m.JavaCastReturn() != "((Boolean)" {
 		t.Errorf("JavaCastReturn = %q", m.JavaCastReturn())
 	}
-	if m.JavaUnboxReturn() != ".booleanValue()" {
+	if m.JavaUnboxReturn() != ").booleanValue()" {
 		t.Errorf("JavaUnboxReturn = %q", m.JavaUnboxReturn())
 	}
 }
@@ -57,6 +57,31 @@ func TestMergedAbstractCallbackMethod_ObjectReturn(t *testing.T) {
 	}
 	if m.JavaUnboxReturn() != "" {
 		t.Errorf("JavaUnboxReturn should be empty for objects, got %q", m.JavaUnboxReturn())
+	}
+}
+
+func TestMergedAbstractCallbackMethod_DescriptorArrayTypesRenderAsJavaSource(t *testing.T) {
+	m := MergedAbstractCallbackMethod{
+		Returns: "[Landroidx.recyclerview.widget.RecyclerView$ViewHolder;",
+		Params: []MergedParam{
+			{JavaType: "[I", GoName: "arg0"},
+			{JavaType: "[B", GoName: "arg1"},
+			{JavaType: "[Z", GoName: "arg2"},
+			{JavaType: "[Ljava.lang.String;", GoName: "arg3"},
+			{JavaType: "[Landroidx.recyclerview.widget.RecyclerView$ViewHolder;", GoName: "arg4"},
+			{JavaType: "[[I", GoName: "arg5"},
+		},
+	}
+
+	if got, want := m.JavaReturnType(), "androidx.recyclerview.widget.RecyclerView.ViewHolder[]"; got != want {
+		t.Errorf("JavaReturnType = %q, want %q", got, want)
+	}
+	if got, want := m.JavaCastReturn(), "(androidx.recyclerview.widget.RecyclerView.ViewHolder[])"; got != want {
+		t.Errorf("JavaCastReturn = %q, want %q", got, want)
+	}
+	wantParams := "int[] arg0, byte[] arg1, boolean[] arg2, java.lang.String[] arg3, androidx.recyclerview.widget.RecyclerView.ViewHolder[] arg4, int[][] arg5"
+	if got := m.JavaParamList(); got != wantParams {
+		t.Errorf("JavaParamList = %q, want %q", got, wantParams)
 	}
 }
 
@@ -106,12 +131,53 @@ func TestMergedAbstractCallback_AdapterClassName(t *testing.T) {
 	}{
 		{"android.bluetooth.le.ScanCallback", "ScanCallbackAdapter"},
 		{"android.bluetooth.BluetoothGattCallback", "BluetoothGattCallbackAdapter"},
+		{"androidx.recyclerview.widget.RecyclerView$ViewHolder", "RecyclerView$ViewHolderAdapter"},
 		{"SomeCallback", "SomeCallbackAdapter"},
 	}
 	for _, tt := range tests {
 		acb := MergedAbstractCallback{JavaClass: tt.javaClass}
 		if got := acb.AdapterClassName(); got != tt.want {
 			t.Errorf("AdapterClassName(%q) = %q, want %q", tt.javaClass, got, tt.want)
+		}
+	}
+}
+
+func TestMergedAbstractCallback_AdapterNames(t *testing.T) {
+	tests := []struct {
+		javaClass          string
+		wantAdapterPackage string
+		wantAdapterJNI     string
+		wantAdapterJava    string
+	}{
+		{
+			javaClass:          "android.bluetooth.le.ScanCallback",
+			wantAdapterPackage: "center.dx.jni.generated.android.bluetooth.le",
+			wantAdapterJNI:     "center/dx/jni/generated/android/bluetooth/le/ScanCallbackAdapter",
+			wantAdapterJava:    "center.dx.jni.generated.android.bluetooth.le.ScanCallbackAdapter",
+		},
+		{
+			javaClass:          "androidx.recyclerview.widget.RecyclerView$ViewHolder",
+			wantAdapterPackage: "center.dx.jni.generated.androidx.recyclerview.widget",
+			wantAdapterJNI:     "center/dx/jni/generated/androidx/recyclerview/widget/RecyclerView$ViewHolderAdapter",
+			wantAdapterJava:    "center.dx.jni.generated.androidx.recyclerview.widget.RecyclerView$ViewHolderAdapter",
+		},
+		{
+			javaClass:          "SomeCallback",
+			wantAdapterPackage: "center.dx.jni.generated",
+			wantAdapterJNI:     "center/dx/jni/generated/SomeCallbackAdapter",
+			wantAdapterJava:    "center.dx.jni.generated.SomeCallbackAdapter",
+		},
+	}
+	for _, tt := range tests {
+		acb := MergedAbstractCallback{JavaClass: tt.javaClass}
+		if got := acb.AdapterPackageName(); got != tt.wantAdapterPackage {
+			t.Errorf("AdapterPackageName(%q) = %q, want %q", tt.javaClass, got, tt.wantAdapterPackage)
+		}
+		if got := acb.AdapterJNIName(); got != tt.wantAdapterJNI {
+			t.Errorf("AdapterJNIName(%q) = %q, want %q", tt.javaClass, got, tt.wantAdapterJNI)
+		}
+		if got := acb.AdapterJavaName(); got != tt.wantAdapterJava {
+			t.Errorf("AdapterJavaName(%q) = %q, want %q", tt.javaClass, got, tt.wantAdapterJava)
 		}
 	}
 }

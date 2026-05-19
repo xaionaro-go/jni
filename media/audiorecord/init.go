@@ -70,6 +70,7 @@ var (
 	midAudioRecordGetMinBufferSize                     jni.MethodID
 
 	clsAudioRecordBuilder                              *jni.GlobalRef
+	midAudioRecordBuilderCtor                          jni.MethodID
 	midAudioRecordBuilderBuild                         jni.MethodID
 	midAudioRecordBuilderSetAudioFormat                jni.MethodID
 	midAudioRecordBuilderSetAudioPlaybackCaptureConfig jni.MethodID
@@ -432,6 +433,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsAudioRecordBuilder = env.NewGlobalRef(&c.Object)
+		midAudioRecordBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAudioRecordBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midAudioRecordBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAudioRecordBuilder)), "build", "()Landroid/media/AudioRecord;")
 		if err != nil {

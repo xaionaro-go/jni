@@ -76,31 +76,6 @@ func (m *ActivityIntensityRecord) GetActivityIntensityType() (int32, error) {
 	return result, callErr
 }
 
-// HashCode calls android.health.connect.datatypes.ActivityIntensityRecord.hashCode.
-func (m *ActivityIntensityRecord) HashCode() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityIntensityRecordHashCode == nil {
-			callErr = fmt.Errorf("android.health.connect.datatypes.ActivityIntensityRecord.hashCode is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midActivityIntensityRecordHashCode,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.health.connect.datatypes.ActivityIntensityRecord.toString.
 func (m *ActivityIntensityRecord) ToString() (string, error) {
 	var result string
@@ -123,6 +98,31 @@ func (m *ActivityIntensityRecord) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// HashCode calls android.health.connect.datatypes.ActivityIntensityRecord.hashCode.
+func (m *ActivityIntensityRecord) HashCode() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midActivityIntensityRecordHashCode == nil {
+			callErr = fmt.Errorf("android.health.connect.datatypes.ActivityIntensityRecord.hashCode is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsActivityIntensityRecord)),
+			midActivityIntensityRecordHashCode,
+		)
+		if callErr != nil {
+			return callErr
+		}
 		return callErr
 	})
 	return result, callErr

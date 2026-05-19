@@ -23,6 +23,34 @@ type TabLayoutTab struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTabLayoutTab creates a new com.google.android.material.tabs.TabLayout$Tab instance.
+func NewTabLayoutTab(vm *jni.VM) (*TabLayoutTab, error) {
+	var t TabLayoutTab
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTabLayoutTab == nil {
+			return fmt.Errorf("com.google.android.material.tabs.TabLayout$Tab is not available on this device")
+		}
+		if midTabLayoutTabCtor == nil {
+			return fmt.Errorf("com.google.android.material.tabs.TabLayout$Tab constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTabLayoutTab)), midTabLayoutTabCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetTag calls com.google.android.material.tabs.TabLayout$Tab.getTag.
 func (m *TabLayoutTab) GetTag() (*jni.Object, error) {
 	var result *jni.Object
@@ -718,38 +746,6 @@ func (m *TabLayoutTab) SetContentDescription1_1(arg0 string) (*jni.Object, error
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
 			midTabLayoutTabSetContentDescription1_1, jni.ObjectValue(&jArg0.Object),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetContentDescription calls com.google.android.material.tabs.TabLayout$Tab.getContentDescription.
-func (m *TabLayoutTab) GetContentDescription() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTabLayoutTabGetContentDescription == nil {
-			callErr = fmt.Errorf("com.google.android.material.tabs.TabLayout$Tab.getContentDescription is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midTabLayoutTabGetContentDescription,
 		)
 		if callErr != nil {
 			return callErr

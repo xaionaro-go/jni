@@ -45,7 +45,6 @@ var (
 	midDrawableGetIntrinsicHeight        jni.MethodID
 	midDrawableDraw                      jni.MethodID
 	midDrawableOnStateChange             jni.MethodID
-	midDrawableOnTextSizeChange          jni.MethodID
 	midDrawableToString                  jni.MethodID
 	midDrawableCreateFromAttributes4     jni.MethodID
 	midDrawableCreateFromAttributes2_1   jni.MethodID
@@ -219,13 +218,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midDrawableOnStateChange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawable)), "onStateChange", "([I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDrawableOnTextSizeChange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawable)), "onTextSizeChange", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

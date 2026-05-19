@@ -36,8 +36,8 @@ var (
 	midMaterialDividerGetDividerInsetEnd           jni.MethodID
 	midMaterialDividerSetDividerColor              jni.MethodID
 	midMaterialDividerSetDividerColorResource      jni.MethodID
-	midMaterialDividerGetDividerColor              jni.MethodID
 	midMaterialDividerToString                     jni.MethodID
+	midMaterialDividerGetDividerColor              jni.MethodID
 
 	clsMaterialDividerItemDecoration                             *jni.GlobalRef
 	midMaterialDividerItemDecorationCtor                         jni.MethodID
@@ -169,14 +169,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMaterialDividerGetDividerColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDivider)), "getDividerColor", "()I")
+		midMaterialDividerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDivider)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialDividerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDivider)), "toString", "()Ljava/lang/String;")
+		midMaterialDividerGetDividerColor, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDivider)), "getDividerColor", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

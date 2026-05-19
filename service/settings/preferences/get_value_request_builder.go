@@ -23,6 +23,46 @@ type GetValueRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGetValueRequestBuilder creates a new android.service.settings.preferences.GetValueRequest$Builder instance.
+func NewGetValueRequestBuilder(vm *jni.VM, arg0 string, arg1 string) (*GetValueRequestBuilder, error) {
+	var t GetValueRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGetValueRequestBuilder == nil {
+			return fmt.Errorf("android.service.settings.preferences.GetValueRequest$Builder is not available on this device")
+		}
+		if midGetValueRequestBuilderCtor == nil {
+			return fmt.Errorf("android.service.settings.preferences.GetValueRequest$Builder constructor (Ljava/lang/String;Ljava/lang/String;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGetValueRequestBuilder)), midGetValueRequestBuilderCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(&jArg1.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.service.settings.preferences.GetValueRequest$Builder.build.
 func (m *GetValueRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -5,18 +5,11 @@ package display
 import "github.com/AndroidGoLab/jni/hardware/display/consts"
 
 const (
-	DisplayCategoryPresentation = consts.DisplayCategoryPresentation
-)
-
-const (
-	EventTypeDisplayAdded       = consts.EventTypeDisplayAdded
-	EventTypeDisplayChanged     = consts.EventTypeDisplayChanged
-	EventTypeDisplayRefreshRate = consts.EventTypeDisplayRefreshRate
-	EventTypeDisplayRemoved     = consts.EventTypeDisplayRemoved
-	EventTypeDisplayState       = consts.EventTypeDisplayState
-)
-
-const (
+	Creator                            = consts.Creator
+	HdrConversionForce                 = consts.HdrConversionForce
+	HdrConversionPassthrough           = consts.HdrConversionPassthrough
+	HdrConversionSystem                = consts.HdrConversionSystem
+	HdrConversionUnsupported           = consts.HdrConversionUnsupported
 	MatchContentFramerateAlways        = consts.MatchContentFramerateAlways
 	MatchContentFramerateNever         = consts.MatchContentFramerateNever
 	MatchContentFramerateSeamlesssOnly = consts.MatchContentFramerateSeamlesssOnly
@@ -26,13 +19,20 @@ const (
 	VirtualDisplayFlagPresentation     = consts.VirtualDisplayFlagPresentation
 	VirtualDisplayFlagPublic           = consts.VirtualDisplayFlagPublic
 	VirtualDisplayFlagSecure           = consts.VirtualDisplayFlagSecure
-	Creator                            = consts.Creator
-	HdrConversionForce                 = consts.HdrConversionForce
-	HdrConversionPassthrough           = consts.HdrConversionPassthrough
-	HdrConversionSystem                = consts.HdrConversionSystem
-	HdrConversionUnsupported           = consts.HdrConversionUnsupported
 	ConnectionToSinkBuiltIn            = consts.ConnectionToSinkBuiltIn
 	ConnectionToSinkDirect             = consts.ConnectionToSinkDirect
 	ConnectionToSinkTransitive         = consts.ConnectionToSinkTransitive
 	ConnectionToSinkUnknown            = consts.ConnectionToSinkUnknown
+)
+
+const (
+	DisplayCategoryPresentation = consts.DisplayCategoryPresentation
+)
+
+const (
+	EventTypeDisplayAdded       = consts.EventTypeDisplayAdded
+	EventTypeDisplayChanged     = consts.EventTypeDisplayChanged
+	EventTypeDisplayRefreshRate = consts.EventTypeDisplayRefreshRate
+	EventTypeDisplayRemoved     = consts.EventTypeDisplayRemoved
+	EventTypeDisplayState       = consts.EventTypeDisplayState
 )

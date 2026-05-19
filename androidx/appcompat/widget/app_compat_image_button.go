@@ -32,6 +32,12 @@ func NewAppCompatImageButton(vm *jni.VM, arg0 *jni.Object) (*AppCompatImageButto
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppCompatImageButton == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatImageButton is not available on this device")
+		}
+		if midAppCompatImageButtonCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatImageButton constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppCompatImageButton)), midAppCompatImageButtonCtor, jni.ObjectValue(arg0))
 		if err != nil {

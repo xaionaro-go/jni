@@ -32,6 +32,12 @@ func NewRemoteViews(vm *jni.VM, arg0 *jni.Object) (*RemoteViews, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRemoteViews == nil {
+			return fmt.Errorf("android.widget.RemoteViews is not available on this device")
+		}
+		if midRemoteViewsCtor == nil {
+			return fmt.Errorf("android.widget.RemoteViews constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRemoteViews)), midRemoteViewsCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -129,8 +135,8 @@ func (m *RemoteViews) Apply(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, er
 	return result, callErr
 }
 
-// Clone0 calls android.widget.RemoteViews.clone.
-func (m *RemoteViews) Clone0() (*jni.Object, error) {
+// Clone calls android.widget.RemoteViews.clone.
+func (m *RemoteViews) Clone() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -138,13 +144,13 @@ func (m *RemoteViews) Clone0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midRemoteViewsClone0 == nil {
+		if midRemoteViewsClone == nil {
 			callErr = fmt.Errorf("android.widget.RemoteViews.clone is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midRemoteViewsClone0,
+			midRemoteViewsClone,
 		)
 		if callErr != nil {
 			return callErr
@@ -2639,38 +2645,6 @@ func (m *RemoteViews) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 		return callErr
 	})
 	return callErr
-}
-
-// Clone0_1 calls android.widget.RemoteViews.clone.
-func (m *RemoteViews) Clone0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRemoteViewsClone0_1 == nil {
-			callErr = fmt.Errorf("android.widget.RemoteViews.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midRemoteViewsClone0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls android.widget.RemoteViews.toString.

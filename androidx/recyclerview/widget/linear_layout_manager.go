@@ -32,6 +32,12 @@ func NewLinearLayoutManager(vm *jni.VM, arg0 *jni.Object) (*LinearLayoutManager,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLinearLayoutManager == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.LinearLayoutManager is not available on this device")
+		}
+		if midLinearLayoutManagerCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.LinearLayoutManager constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLinearLayoutManager)), midLinearLayoutManagerCtor, jni.ObjectValue(arg0))
 		if err != nil {

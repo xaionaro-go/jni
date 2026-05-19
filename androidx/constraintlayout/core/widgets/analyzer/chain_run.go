@@ -32,6 +32,12 @@ func NewChainRun(vm *jni.VM, arg0 *jni.Object, arg1 int32) (*ChainRun, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsChainRun == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.analyzer.ChainRun is not available on this device")
+		}
+		if midChainRunCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.analyzer.ChainRun constructor (Landroidx/constraintlayout/core/widgets/ConstraintWidget;I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsChainRun)), midChainRunCtor, jni.ObjectValue(arg0), jni.IntValue(arg1))
 		if err != nil {

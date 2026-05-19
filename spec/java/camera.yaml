@@ -232,3 +232,10 @@ abstract_callbacks:
             - int
           returns: void
           go_field: OnTorchStrengthLevelChanged
+abstract_callback_eligibility:
+    - java_class: android.hardware.camera2.CameraManager$AvailabilityCallback
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.hardware.camera2.CameraManager$TorchCallback
+      generated: true
+      reason: supported_no_arg_constructor

@@ -32,6 +32,12 @@ func NewManagerClient(vm *jni.VM, arg0 *jni.Object) (*ManagerClient, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsManagerClient == nil {
+			return fmt.Errorf("android.drm.DrmManagerClient is not available on this device")
+		}
+		if midManagerClientCtor == nil {
+			return fmt.Errorf("android.drm.DrmManagerClient constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsManagerClient)), midManagerClientCtor, jni.ObjectValue(arg0))
 		if err != nil {

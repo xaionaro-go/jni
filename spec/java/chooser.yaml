@@ -13,6 +13,65 @@ classes:
       go_type: AdditionalContentContractCursorExtraKeys
     - java_class: android.service.chooser.AdditionalContentContract$MethodNames
       go_type: AdditionalContentContractMethodNames
+    - java_class: android.service.chooser.ChooserTargetService
+      go_type: TargetService
+      methods:
+        - java_method: onBind
+          go_name: OnBind
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: android.os.IBinder
+          error: true
+        - java_method: onGetChooserTargets
+          go_name: OnGetChooserTargets
+          params:
+            - java_type: android.content.ComponentName
+              go_name: arg0
+            - java_type: android.content.IntentFilter
+              go_name: arg1
+          returns: java.util.List<android.service.chooser.ChooserTarget>
+          error: true
+    - java_class: android.service.chooser.ChooserResult
+      go_type: Result
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getSelectedComponent
+          go_name: GetSelectedComponent
+          returns: android.content.ComponentName
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: isShortcut
+          go_name: IsShortcut
+          returns: boolean
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
     - java_class: android.service.chooser.ChooserAction
       go_type: Action
       methods:
@@ -36,6 +95,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -47,29 +107,18 @@ classes:
           error: true
     - java_class: android.service.chooser.ChooserAction$Builder
       go_type: ActionBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.graphics.drawable.Icon
+          go_name: arg0
+        - java_type: java.lang.CharSequence
+          go_name: arg1
+        - java_type: android.app.PendingIntent
+          go_name: arg2
       methods:
         - java_method: build
           go_name: Build
           returns: android.service.chooser.ChooserAction
-          error: true
-    - java_class: android.service.chooser.ChooserTargetService
-      go_type: TargetService
-      methods:
-        - java_method: onBind
-          go_name: OnBind
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
-          returns: android.os.IBinder
-          error: true
-        - java_method: onGetChooserTargets
-          go_name: OnGetChooserTargets
-          params:
-            - java_type: android.content.ComponentName
-              go_name: arg0
-            - java_type: android.content.IntentFilter
-              go_name: arg1
-          returns: java.util.List<android.service.chooser.ChooserTarget>
           error: true
     - java_class: android.service.chooser.ChooserTarget
       go_type: Target
@@ -114,6 +163,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -123,60 +173,10 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.service.chooser.ChooserResult
-      go_type: Result
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getSelectedComponent
-          go_name: GetSelectedComponent
-          returns: android.content.ComponentName
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: isShortcut
-          go_name: IsShortcut
-          returns: boolean
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-abstract_callbacks:
+abstract_callback_eligibility:
     - java_class: android.service.chooser.ChooserTargetService
-      go_type: TargetServiceCallback
-      methods:
-        - java_method: onBind
-          params:
-            - android.content.Intent
-          returns: android.os.IBinder
-          go_field: OnBind
-        - java_method: onGetChooserTargets
-          params:
-            - android.content.ComponentName
-            - android.content.IntentFilter
-          returns: java.util.List<android.service.chooser.ChooserTarget>
-          go_field: OnGetChooserTargets
+      generated: false
+      reason: non_object_superclass
 constants:
     - go_name: Uri
       value: '"uri"'
@@ -187,9 +187,6 @@ constants:
     - go_name: OnSelectionChanged
       value: '"onSelectionChanged"'
       go_type: string
-    - go_name: Creator
-      value: "0"
-      go_type: int
     - go_name: BindPermission
       value: '"android.permission.BIND_CHOOSER_TARGET_SERVICE"'
       go_type: string
@@ -210,4 +207,7 @@ constants:
       go_type: int
     - go_name: ChooserResultUnknown
       value: "-1"
+      go_type: int
+    - go_name: Creator
+      value: "0"
       go_type: int

@@ -23,6 +23,35 @@ type MaterialShapeDrawableMaterialShapeDrawableState struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMaterialShapeDrawableMaterialShapeDrawableState creates a new com.google.android.material.shape.MaterialShapeDrawable$MaterialShapeDrawableState instance.
+func NewMaterialShapeDrawableMaterialShapeDrawableState(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*MaterialShapeDrawableMaterialShapeDrawableState, error) {
+	var t MaterialShapeDrawableMaterialShapeDrawableState
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMaterialShapeDrawableMaterialShapeDrawableState == nil {
+			return fmt.Errorf("com.google.android.material.shape.MaterialShapeDrawable$MaterialShapeDrawableState is not available on this device")
+		}
+		if midMaterialShapeDrawableMaterialShapeDrawableStateCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.MaterialShapeDrawable$MaterialShapeDrawableState constructor (Lcom/google/android/material/shape/ShapeAppearanceModel;Lcom/google/android/material/elevation/ElevationOverlayProvider;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialShapeDrawableMaterialShapeDrawableState)), midMaterialShapeDrawableMaterialShapeDrawableStateCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // NewDrawable calls com.google.android.material.shape.MaterialShapeDrawable$MaterialShapeDrawableState.newDrawable.
 func (m *MaterialShapeDrawableMaterialShapeDrawableState) NewDrawable() (*jni.Object, error) {
 	var result *jni.Object

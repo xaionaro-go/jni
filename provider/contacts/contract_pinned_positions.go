@@ -23,6 +23,34 @@ type ContractPinnedPositions struct {
 	Obj *jni.GlobalRef
 }
 
+// NewContractPinnedPositions creates a new android.provider.ContactsContract$PinnedPositions instance.
+func NewContractPinnedPositions(vm *jni.VM) (*ContractPinnedPositions, error) {
+	var t ContractPinnedPositions
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsContractPinnedPositions == nil {
+			return fmt.Errorf("android.provider.ContactsContract$PinnedPositions is not available on this device")
+		}
+		if midContractPinnedPositionsCtor == nil {
+			return fmt.Errorf("android.provider.ContactsContract$PinnedPositions constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContractPinnedPositions)), midContractPinnedPositionsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.provider.ContactsContract$PinnedPositions.toString.
 func (m *ContractPinnedPositions) ToString() (string, error) {
 	var result string

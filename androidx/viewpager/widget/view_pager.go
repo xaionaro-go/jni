@@ -32,6 +32,12 @@ func NewViewPager(vm *jni.VM, arg0 *jni.Object) (*ViewPager, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsViewPager == nil {
+			return fmt.Errorf("androidx.viewpager.widget.ViewPager is not available on this device")
+		}
+		if midViewPagerCtor == nil {
+			return fmt.Errorf("androidx.viewpager.widget.ViewPager constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewPager)), midViewPagerCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -959,39 +965,6 @@ func (m *ViewPager) DispatchPopulateAccessibilityEvent(arg0 *jni.Object) (bool, 
 	return result, callErr
 }
 
-// GenerateLayoutParams calls androidx.viewpager.widget.ViewPager.generateLayoutParams.
-func (m *ViewPager) GenerateLayoutParams(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midViewPagerGenerateLayoutParams == nil {
-			callErr = fmt.Errorf("androidx.viewpager.widget.ViewPager.generateLayoutParams is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midViewPagerGenerateLayoutParams, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.viewpager.widget.ViewPager.toString.
 func (m *ViewPager) ToString() (string, error) {
 	var result string
@@ -1014,6 +987,39 @@ func (m *ViewPager) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// GenerateLayoutParams calls androidx.viewpager.widget.ViewPager.generateLayoutParams.
+func (m *ViewPager) GenerateLayoutParams(arg0 *jni.Object) (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midViewPagerGenerateLayoutParams == nil {
+			callErr = fmt.Errorf("androidx.viewpager.widget.ViewPager.generateLayoutParams is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsViewPager)),
+			midViewPagerGenerateLayoutParams, jni.ObjectValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
 		return callErr
 	})
 	return result, callErr

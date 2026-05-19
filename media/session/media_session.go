@@ -32,6 +32,12 @@ func NewMediaSession(vm *jni.VM, arg0 *jni.Object, arg1 string) (*MediaSession, 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMediaSession == nil {
+			return fmt.Errorf("android.media.session.MediaSession is not available on this device")
+		}
+		if midMediaSessionCtor == nil {
+			return fmt.Errorf("android.media.session.MediaSession constructor (Landroid/content/Context;Ljava/lang/String;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {

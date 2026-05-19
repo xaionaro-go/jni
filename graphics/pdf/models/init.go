@@ -43,6 +43,7 @@ var (
 	midFormWidgetInfoWriteToParcel         jni.MethodID
 
 	clsFormWidgetInfoBuilder                 *jni.GlobalRef
+	midFormWidgetInfoBuilderCtor             jni.MethodID
 	midFormWidgetInfoBuilderBuild            jni.MethodID
 	midFormWidgetInfoBuilderSetEditableText  jni.MethodID
 	midFormWidgetInfoBuilderSetFontSize      jni.MethodID
@@ -62,14 +63,6 @@ var (
 	midListItemToString         jni.MethodID
 	midListItemWriteToParcel    jni.MethodID
 
-	clsPageMatchBounds                  *jni.GlobalRef
-	midPageMatchBoundsCtor              jni.MethodID
-	midPageMatchBoundsDescribeContents  jni.MethodID
-	midPageMatchBoundsGetBounds         jni.MethodID
-	midPageMatchBoundsGetTextStartIndex jni.MethodID
-	midPageMatchBoundsWriteToParcel     jni.MethodID
-	midPageMatchBoundsToString          jni.MethodID
-
 	clsFormEditRecord                   *jni.GlobalRef
 	midFormEditRecordDescribeContents   jni.MethodID
 	midFormEditRecordEquals             jni.MethodID
@@ -80,15 +73,24 @@ var (
 	midFormEditRecordGetType            jni.MethodID
 	midFormEditRecordGetWidgetIndex     jni.MethodID
 	midFormEditRecordHashCode           jni.MethodID
-	midFormEditRecordWriteToParcel      jni.MethodID
 	midFormEditRecordToString           jni.MethodID
+	midFormEditRecordWriteToParcel      jni.MethodID
 
 	clsFormEditRecordBuilder                   *jni.GlobalRef
+	midFormEditRecordBuilderCtor               jni.MethodID
 	midFormEditRecordBuilderBuild              jni.MethodID
 	midFormEditRecordBuilderSetClickPoint      jni.MethodID
 	midFormEditRecordBuilderSetSelectedIndices jni.MethodID
 	midFormEditRecordBuilderSetText            jni.MethodID
 	midFormEditRecordBuilderToString           jni.MethodID
+
+	clsPageMatchBounds                  *jni.GlobalRef
+	midPageMatchBoundsCtor              jni.MethodID
+	midPageMatchBoundsDescribeContents  jni.MethodID
+	midPageMatchBoundsGetBounds         jni.MethodID
+	midPageMatchBoundsGetTextStartIndex jni.MethodID
+	midPageMatchBoundsToString          jni.MethodID
+	midPageMatchBoundsWriteToParcel     jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -229,7 +231,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midFormWidgetInfoWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormWidgetInfo)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midFormWidgetInfoWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsFormWidgetInfo)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -245,6 +247,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsFormWidgetInfoBuilder = env.NewGlobalRef(&c.Object)
+		midFormWidgetInfoBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormWidgetInfoBuilder)), "<init>", "(IILandroid/graphics/Rect;Ljava/lang/String;Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midFormWidgetInfoBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormWidgetInfoBuilder)), "build", "()Landroid/graphics/pdf/models/FormWidgetInfo;")
 		if err != nil {
@@ -358,56 +364,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midListItemWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListItem)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/graphics/pdf/models/PageMatchBounds")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPageMatchBounds = env.NewGlobalRef(&c.Object)
-		midPageMatchBoundsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPageMatchBounds)), "<init>", "(Ljava/util/List;I)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midPageMatchBoundsDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPageMatchBounds)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPageMatchBoundsGetBounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPageMatchBounds)), "getBounds", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPageMatchBoundsGetTextStartIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPageMatchBounds)), "getTextStartIndex", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPageMatchBoundsWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPageMatchBounds)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPageMatchBoundsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPageMatchBounds)), "toString", "()Ljava/lang/String;")
+		midListItemWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsListItem)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -487,14 +444,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midFormEditRecordWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormEditRecord)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midFormEditRecordToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormEditRecord)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midFormEditRecordToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormEditRecord)), "toString", "()Ljava/lang/String;")
+		midFormEditRecordWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsFormEditRecord)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -510,6 +467,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsFormEditRecordBuilder = env.NewGlobalRef(&c.Object)
+		midFormEditRecordBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormEditRecordBuilder)), "<init>", "(III)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midFormEditRecordBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormEditRecordBuilder)), "build", "()Landroid/graphics/pdf/models/FormEditRecord;")
 		if err != nil {
@@ -540,6 +501,55 @@ func doInit(env *jni.Env) error {
 		}
 
 		midFormEditRecordBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormEditRecordBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/graphics/pdf/models/PageMatchBounds")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPageMatchBounds = env.NewGlobalRef(&c.Object)
+		midPageMatchBoundsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPageMatchBounds)), "<init>", "(Ljava/util/List;I)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midPageMatchBoundsDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPageMatchBounds)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPageMatchBoundsGetBounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPageMatchBounds)), "getBounds", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPageMatchBoundsGetTextStartIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPageMatchBounds)), "getTextStartIndex", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPageMatchBoundsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPageMatchBounds)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPageMatchBoundsWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPageMatchBounds)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

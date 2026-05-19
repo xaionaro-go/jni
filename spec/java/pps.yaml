@@ -116,6 +116,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -127,6 +128,7 @@ classes:
           error: true
     - java_class: android.net.wifi.hotspot2.pps.Credential$CertificateCredential
       go_type: CredentialCertificateCredential
+      obtain: constructor
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -169,6 +171,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -180,6 +183,7 @@ classes:
           error: true
     - java_class: android.net.wifi.hotspot2.pps.Credential$SimCredential
       go_type: CredentialSimCredential
+      obtain: constructor
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -222,6 +226,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -233,6 +238,7 @@ classes:
           error: true
     - java_class: android.net.wifi.hotspot2.pps.Credential$UserCredential
       go_type: CredentialUserCredential
+      obtain: constructor
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -297,6 +303,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -388,6 +395,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:

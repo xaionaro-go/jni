@@ -23,6 +23,34 @@ type AppCompatImageButtonInspectionCompanion struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAppCompatImageButtonInspectionCompanion creates a new androidx.appcompat.widget.AppCompatImageButton$InspectionCompanion instance.
+func NewAppCompatImageButtonInspectionCompanion(vm *jni.VM) (*AppCompatImageButtonInspectionCompanion, error) {
+	var t AppCompatImageButtonInspectionCompanion
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAppCompatImageButtonInspectionCompanion == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatImageButton$InspectionCompanion is not available on this device")
+		}
+		if midAppCompatImageButtonInspectionCompanionCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatImageButton$InspectionCompanion constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppCompatImageButtonInspectionCompanion)), midAppCompatImageButtonInspectionCompanionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // MapProperties calls androidx.appcompat.widget.AppCompatImageButton$InspectionCompanion.mapProperties.
 func (m *AppCompatImageButtonInspectionCompanion) MapProperties(arg0 *jni.Object) error {
 
@@ -46,8 +74,8 @@ func (m *AppCompatImageButtonInspectionCompanion) MapProperties(arg0 *jni.Object
 	return callErr
 }
 
-// ReadProperties2 calls androidx.appcompat.widget.AppCompatImageButton$InspectionCompanion.readProperties.
-func (m *AppCompatImageButtonInspectionCompanion) ReadProperties2(arg0 *jni.Object, arg1 *jni.Object) error {
+// ReadProperties calls androidx.appcompat.widget.AppCompatImageButton$InspectionCompanion.readProperties.
+func (m *AppCompatImageButtonInspectionCompanion) ReadProperties(arg0 *jni.Object, arg1 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,37 +83,14 @@ func (m *AppCompatImageButtonInspectionCompanion) ReadProperties2(arg0 *jni.Obje
 			callErr = err
 			return err
 		}
-		if midAppCompatImageButtonInspectionCompanionReadProperties2 == nil {
+		if midAppCompatImageButtonInspectionCompanionReadProperties == nil {
 			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatImageButton$InspectionCompanion.readProperties is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midAppCompatImageButtonInspectionCompanionReadProperties2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// ReadProperties2_1 calls androidx.appcompat.widget.AppCompatImageButton$InspectionCompanion.readProperties.
-func (m *AppCompatImageButtonInspectionCompanion) ReadProperties2_1(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppCompatImageButtonInspectionCompanionReadProperties2_1 == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatImageButton$InspectionCompanion.readProperties is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAppCompatImageButtonInspectionCompanionReadProperties2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midAppCompatImageButtonInspectionCompanionReadProperties, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		return callErr
 	})

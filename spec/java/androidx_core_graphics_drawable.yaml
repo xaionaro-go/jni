@@ -5,6 +5,174 @@
 package: drawable
 go_import: github.com/AndroidGoLab/jni/androidx/core/graphics/drawable
 classes:
+    - java_class: androidx.core.graphics.drawable.WrappedDrawable
+      go_type: WrappedDrawable
+      methods:
+        - java_method: getWrappedDrawable
+          go_name: GetWrappedDrawable
+          returns: android.graphics.drawable.Drawable
+          error: true
+        - java_method: setWrappedDrawable
+          go_name: SetWrappedDrawable
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: androidx.core.graphics.drawable.IconCompatParcelizer
+      go_type: IconCompatParcelizer
+      obtain: constructor
+      static_methods:
+        - java_method: read
+          go_name: Read
+          params:
+            - java_type: androidx.versionedparcelable.VersionedParcel
+              go_name: arg0
+          returns: androidx.core.graphics.drawable.IconCompat
+          error: true
+        - java_method: write
+          go_name: Write
+          params:
+            - java_type: androidx.core.graphics.drawable.IconCompat
+              go_name: arg0
+            - java_type: androidx.versionedparcelable.VersionedParcel
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: androidx.core.graphics.drawable.ColorDrawableKt
+      go_type: ColorDrawableKt
+      static_methods:
+        - java_method: toDrawable
+          go_name: ToDrawable1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.graphics.drawable.ColorDrawable
+          error: true
+        - java_method: toDrawable
+          go_name: ToDrawable1_1
+          params:
+            - java_type: android.graphics.Color
+              go_name: arg0
+          returns: android.graphics.drawable.ColorDrawable
+          error: true
+    - java_class: androidx.core.graphics.drawable.DrawableKt
+      go_type: Kt
+      static_methods:
+        - java_method: toBitmap
+          go_name: ToBitmap
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.graphics.Bitmap$Config
+              go_name: arg3
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: toBitmapOrNull
+          go_name: ToBitmapOrNull
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.graphics.Bitmap$Config
+              go_name: arg3
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: updateBounds
+          go_name: UpdateBounds
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+          returns: void
+          error: true
+    - java_class: androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
+      go_type: RoundedBitmapDrawableFactory
+      static_methods:
+        - java_method: create
+          go_name: Create2
+          params:
+            - java_type: android.content.res.Resources
+              go_name: arg0
+            - java_type: android.graphics.Bitmap
+              go_name: arg1
+          returns: androidx.core.graphics.drawable.RoundedBitmapDrawable
+          error: true
+        - java_method: create
+          go_name: Create2_1
+          params:
+            - java_type: android.content.res.Resources
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: androidx.core.graphics.drawable.RoundedBitmapDrawable
+          error: true
+        - java_method: create
+          go_name: Create2_2
+          params:
+            - java_type: android.content.res.Resources
+              go_name: arg0
+            - java_type: java.io.InputStream
+              go_name: arg1
+          returns: androidx.core.graphics.drawable.RoundedBitmapDrawable
+          error: true
+    - java_class: androidx.core.graphics.drawable.IconKt
+      go_type: IconKt
+      static_methods:
+        - java_method: toAdaptiveIcon
+          go_name: ToAdaptiveIcon
+          params:
+            - java_type: android.graphics.Bitmap
+              go_name: arg0
+          returns: android.graphics.drawable.Icon
+          error: true
+        - java_method: toIcon
+          go_name: ToIcon1
+          params:
+            - java_type: android.graphics.Bitmap
+              go_name: arg0
+          returns: android.graphics.drawable.Icon
+          error: true
+        - java_method: toIcon
+          go_name: ToIcon1_1
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+          returns: android.graphics.drawable.Icon
+          error: true
+        - java_method: toIcon
+          go_name: ToIcon1_2
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: android.graphics.drawable.Icon
+          error: true
+    - java_class: androidx.core.graphics.drawable.BitmapDrawableKt
+      go_type: BitmapDrawableKt
+      static_methods:
+        - java_method: toDrawable
+          go_name: ToDrawable
+          params:
+            - java_type: android.graphics.Bitmap
+              go_name: arg0
+            - java_type: android.content.res.Resources
+              go_name: arg1
+          returns: android.graphics.drawable.BitmapDrawable
+          error: true
     - java_class: androidx.core.graphics.drawable.DrawableCompat
       go_type: Compat
       static_methods:
@@ -159,153 +327,29 @@ classes:
               go_name: arg0
           returns: int
           error: true
-    - java_class: androidx.core.graphics.drawable.IconKt
-      go_type: IconKt
-      static_methods:
-        - java_method: toAdaptiveIcon
-          go_name: ToAdaptiveIcon
-          params:
-            - java_type: android.graphics.Bitmap
-              go_name: arg0
-          returns: android.graphics.drawable.Icon
-          error: true
-        - java_method: toIcon
-          go_name: ToIcon1
-          params:
-            - java_type: android.graphics.Bitmap
-              go_name: arg0
-          returns: android.graphics.drawable.Icon
-          error: true
-        - java_method: toIcon
-          go_name: ToIcon1_1
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-          returns: android.graphics.drawable.Icon
-          error: true
-        - java_method: toIcon
-          go_name: ToIcon1_2
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: android.graphics.drawable.Icon
-          error: true
-    - java_class: androidx.core.graphics.drawable.BitmapDrawableKt
-      go_type: BitmapDrawableKt
-      static_methods:
-        - java_method: toDrawable
-          go_name: ToDrawable
-          params:
-            - java_type: android.graphics.Bitmap
-              go_name: arg0
-            - java_type: android.content.res.Resources
-              go_name: arg1
-          returns: android.graphics.drawable.BitmapDrawable
-          error: true
-    - java_class: androidx.core.graphics.drawable.DrawableKt
-      go_type: Kt
-      static_methods:
-        - java_method: toBitmap
-          go_name: ToBitmap
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.graphics.Bitmap$Config
-              go_name: arg3
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: toBitmapOrNull
-          go_name: ToBitmapOrNull
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.graphics.Bitmap$Config
-              go_name: arg3
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: updateBounds
-          go_name: UpdateBounds
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-          returns: void
-          error: true
-    - java_class: androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
-      go_type: RoundedBitmapDrawableFactory
-      static_methods:
-        - java_method: create
-          go_name: Create2
-          params:
-            - java_type: android.content.res.Resources
-              go_name: arg0
-            - java_type: android.graphics.Bitmap
-              go_name: arg1
-          returns: androidx.core.graphics.drawable.RoundedBitmapDrawable
-          error: true
-        - java_method: create
-          go_name: Create2_1
-          params:
-            - java_type: android.content.res.Resources
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: androidx.core.graphics.drawable.RoundedBitmapDrawable
-          error: true
-        - java_method: create
-          go_name: Create2_2
-          params:
-            - java_type: android.content.res.Resources
-              go_name: arg0
-            - java_type: java.io.InputStream
-              go_name: arg1
-          returns: androidx.core.graphics.drawable.RoundedBitmapDrawable
-          error: true
-    - java_class: androidx.core.graphics.drawable.WrappedDrawable
-      go_type: WrappedDrawable
+    - java_class: androidx.core.graphics.drawable.TintAwareDrawable
+      go_type: TintAwareDrawable
       methods:
-        - java_method: getWrappedDrawable
-          go_name: GetWrappedDrawable
-          returns: android.graphics.drawable.Drawable
-          error: true
-        - java_method: setWrappedDrawable
-          go_name: SetWrappedDrawable
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.core.graphics.drawable.ColorDrawableKt
-      go_type: ColorDrawableKt
-      static_methods:
-        - java_method: toDrawable
-          go_name: ToDrawable1
+        - java_method: setTint
+          go_name: SetTint
           params:
             - java_type: int
               go_name: arg0
-          returns: android.graphics.drawable.ColorDrawable
+          returns: void
           error: true
-        - java_method: toDrawable
-          go_name: ToDrawable1_1
+        - java_method: setTintList
+          go_name: SetTintList
           params:
-            - java_type: android.graphics.Color
+            - java_type: android.content.res.ColorStateList
               go_name: arg0
-          returns: android.graphics.drawable.ColorDrawable
+          returns: void
+          error: true
+        - java_method: setTintMode
+          go_name: SetTintMode
+          params:
+            - java_type: android.graphics.PorterDuff$Mode
+              go_name: arg0
+          returns: void
           error: true
     - java_class: androidx.core.graphics.drawable.RoundedBitmapDrawable
       go_type: RoundedBitmapDrawable
@@ -519,13 +563,6 @@ classes:
               go_name: arg0
           returns: android.graphics.drawable.Drawable
           error: true
-        - java_method: getUriInputStream
-          go_name: GetUriInputStream
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: java.io.InputStream
-          error: true
         - java_method: addToShortcutIntent
           go_name: AddToShortcutIntent
           params:
@@ -630,6 +667,13 @@ classes:
               go_name: arg0
           returns: androidx.core.graphics.drawable.IconCompat
           error: true
+        - java_method: getUriInputStream
+          go_name: GetUriInputStream
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: java.io.InputStream
+          error: true
         - java_method: createFromBundle
           go_name: CreateFromBundle
           params:
@@ -660,169 +704,12 @@ classes:
               go_name: arg0
           returns: androidx.core.graphics.drawable.IconCompat
           error: true
-    - java_class: androidx.core.graphics.drawable.IconCompatParcelizer
-      go_type: IconCompatParcelizer
-      obtain: constructor
-      static_methods:
-        - java_method: read
-          go_name: Read
-          params:
-            - java_type: androidx.versionedparcelable.VersionedParcel
-              go_name: arg0
-          returns: androidx.core.graphics.drawable.IconCompat
-          error: true
-        - java_method: write
-          go_name: Write
-          params:
-            - java_type: androidx.core.graphics.drawable.IconCompat
-              go_name: arg0
-            - java_type: androidx.versionedparcelable.VersionedParcel
-              go_name: arg1
-          returns: void
-          error: true
     - java_class: androidx.core.graphics.drawable.IconCompat$IconType
       go_type: IconCompatIconType
-    - java_class: androidx.core.graphics.drawable.TintAwareDrawable
-      go_type: TintAwareDrawable
-      methods:
-        - java_method: setTint
-          go_name: SetTint
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTintList
-          go_name: SetTintList
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTintMode
-          go_name: SetTintMode
-          params:
-            - java_type: android.graphics.PorterDuff$Mode
-              go_name: arg0
-          returns: void
-          error: true
-abstract_callbacks:
+abstract_callback_eligibility:
     - java_class: androidx.core.graphics.drawable.RoundedBitmapDrawable
-      go_type: RoundedBitmapDrawableCallback
-      methods:
-        - java_method: getPaint
-          params: []
-          returns: android.graphics.Paint
-          go_field: GetPaint
-        - java_method: getBitmap
-          params: []
-          returns: android.graphics.Bitmap
-          go_field: GetBitmap
-        - java_method: setTargetDensity
-          params:
-            - android.graphics.Canvas
-          returns: void
-          go_field: SetTargetDensity
-        - java_method: setTargetDensity
-          params:
-            - android.util.DisplayMetrics
-          returns: void
-          go_field: SetTargetDensity
-        - java_method: setTargetDensity
-          params:
-            - int
-          returns: void
-          go_field: SetTargetDensity
-        - java_method: getGravity
-          params: []
-          returns: int
-          go_field: GetGravity
-        - java_method: setGravity
-          params:
-            - int
-          returns: void
-          go_field: SetGravity
-        - java_method: setMipMap
-          params:
-            - boolean
-          returns: void
-          go_field: SetMipMap
-        - java_method: hasMipMap
-          params: []
-          returns: boolean
-          go_field: HasMipMap
-        - java_method: setAntiAlias
-          params:
-            - boolean
-          returns: void
-          go_field: SetAntiAlias
-        - java_method: hasAntiAlias
-          params: []
-          returns: boolean
-          go_field: HasAntiAlias
-        - java_method: setFilterBitmap
-          params:
-            - boolean
-          returns: void
-          go_field: SetFilterBitmap
-        - java_method: setDither
-          params:
-            - boolean
-          returns: void
-          go_field: SetDither
-        - java_method: draw
-          params:
-            - android.graphics.Canvas
-          returns: void
-          go_field: Draw
-        - java_method: setAlpha
-          params:
-            - int
-          returns: void
-          go_field: SetAlpha
-        - java_method: getAlpha
-          params: []
-          returns: int
-          go_field: GetAlpha
-        - java_method: setColorFilter
-          params:
-            - android.graphics.ColorFilter
-          returns: void
-          go_field: SetColorFilter
-        - java_method: getColorFilter
-          params: []
-          returns: android.graphics.ColorFilter
-          go_field: GetColorFilter
-        - java_method: setCircular
-          params:
-            - boolean
-          returns: void
-          go_field: SetCircular
-        - java_method: isCircular
-          params: []
-          returns: boolean
-          go_field: IsCircular
-        - java_method: setCornerRadius
-          params:
-            - float
-          returns: void
-          go_field: SetCornerRadius
-        - java_method: getCornerRadius
-          params: []
-          returns: float
-          go_field: GetCornerRadius
-        - java_method: getIntrinsicWidth
-          params: []
-          returns: int
-          go_field: GetIntrinsicWidth
-        - java_method: getIntrinsicHeight
-          params: []
-          returns: int
-          go_field: GetIntrinsicHeight
-        - java_method: getOpacity
-          params: []
-          returns: int
-          go_field: GetOpacity
+      generated: false
+      reason: unsupported_constructor
 constants:
     - go_name: TypeUnknown
       value: "-1"

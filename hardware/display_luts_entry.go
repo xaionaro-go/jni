@@ -23,6 +23,35 @@ type DisplayLutsEntry struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDisplayLutsEntry creates a new android.hardware.DisplayLuts$Entry instance.
+func NewDisplayLutsEntry(vm *jni.VM, arg0 *jni.Object, arg1 int32, arg2 int32) (*DisplayLutsEntry, error) {
+	var t DisplayLutsEntry
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDisplayLutsEntry == nil {
+			return fmt.Errorf("android.hardware.DisplayLuts$Entry is not available on this device")
+		}
+		if midDisplayLutsEntryCtor == nil {
+			return fmt.Errorf("android.hardware.DisplayLuts$Entry constructor ([FII)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDisplayLutsEntry)), midDisplayLutsEntryCtor, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetBuffer calls android.hardware.DisplayLuts$Entry.getBuffer.
 func (m *DisplayLutsEntry) GetBuffer() (*jni.Object, error) {
 	var result *jni.Object

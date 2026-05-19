@@ -32,6 +32,12 @@ func NewGroup(vm *jni.VM, arg0 *jni.Object) (*Group, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGroup == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.Group is not available on this device")
+		}
+		if midGroupCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.Group constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGroup)), midGroupCtor, jni.ObjectValue(arg0))
 		if err != nil {

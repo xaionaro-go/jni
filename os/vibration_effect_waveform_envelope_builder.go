@@ -23,6 +23,34 @@ type VibrationEffectWaveformEnvelopeBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewVibrationEffectWaveformEnvelopeBuilder creates a new android.os.VibrationEffect$WaveformEnvelopeBuilder instance.
+func NewVibrationEffectWaveformEnvelopeBuilder(vm *jni.VM) (*VibrationEffectWaveformEnvelopeBuilder, error) {
+	var t VibrationEffectWaveformEnvelopeBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsVibrationEffectWaveformEnvelopeBuilder == nil {
+			return fmt.Errorf("android.os.VibrationEffect$WaveformEnvelopeBuilder is not available on this device")
+		}
+		if midVibrationEffectWaveformEnvelopeBuilderCtor == nil {
+			return fmt.Errorf("android.os.VibrationEffect$WaveformEnvelopeBuilder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVibrationEffectWaveformEnvelopeBuilder)), midVibrationEffectWaveformEnvelopeBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddControlPoint calls android.os.VibrationEffect$WaveformEnvelopeBuilder.addControlPoint.
 func (m *VibrationEffectWaveformEnvelopeBuilder) AddControlPoint(
 	arg0 float32,

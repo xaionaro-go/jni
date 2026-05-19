@@ -23,6 +23,34 @@ type AppCompatRadioButtonInspectionCompanion struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAppCompatRadioButtonInspectionCompanion creates a new androidx.appcompat.widget.AppCompatRadioButton$InspectionCompanion instance.
+func NewAppCompatRadioButtonInspectionCompanion(vm *jni.VM) (*AppCompatRadioButtonInspectionCompanion, error) {
+	var t AppCompatRadioButtonInspectionCompanion
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAppCompatRadioButtonInspectionCompanion == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatRadioButton$InspectionCompanion is not available on this device")
+		}
+		if midAppCompatRadioButtonInspectionCompanionCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatRadioButton$InspectionCompanion constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButtonInspectionCompanion)), midAppCompatRadioButtonInspectionCompanionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // MapProperties calls androidx.appcompat.widget.AppCompatRadioButton$InspectionCompanion.mapProperties.
 func (m *AppCompatRadioButtonInspectionCompanion) MapProperties(arg0 *jni.Object) error {
 
@@ -46,8 +74,8 @@ func (m *AppCompatRadioButtonInspectionCompanion) MapProperties(arg0 *jni.Object
 	return callErr
 }
 
-// ReadProperties2 calls androidx.appcompat.widget.AppCompatRadioButton$InspectionCompanion.readProperties.
-func (m *AppCompatRadioButtonInspectionCompanion) ReadProperties2(arg0 *jni.Object, arg1 *jni.Object) error {
+// ReadProperties calls androidx.appcompat.widget.AppCompatRadioButton$InspectionCompanion.readProperties.
+func (m *AppCompatRadioButtonInspectionCompanion) ReadProperties(arg0 *jni.Object, arg1 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,37 +83,14 @@ func (m *AppCompatRadioButtonInspectionCompanion) ReadProperties2(arg0 *jni.Obje
 			callErr = err
 			return err
 		}
-		if midAppCompatRadioButtonInspectionCompanionReadProperties2 == nil {
+		if midAppCompatRadioButtonInspectionCompanionReadProperties == nil {
 			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatRadioButton$InspectionCompanion.readProperties is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midAppCompatRadioButtonInspectionCompanionReadProperties2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// ReadProperties2_1 calls androidx.appcompat.widget.AppCompatRadioButton$InspectionCompanion.readProperties.
-func (m *AppCompatRadioButtonInspectionCompanion) ReadProperties2_1(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppCompatRadioButtonInspectionCompanionReadProperties2_1 == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatRadioButton$InspectionCompanion.readProperties is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAppCompatRadioButtonInspectionCompanionReadProperties2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midAppCompatRadioButtonInspectionCompanionReadProperties, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		return callErr
 	})

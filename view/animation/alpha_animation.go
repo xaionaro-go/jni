@@ -32,6 +32,12 @@ func NewAlphaAnimation(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*AlphaAn
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAlphaAnimation == nil {
+			return fmt.Errorf("android.view.animation.AlphaAnimation is not available on this device")
+		}
+		if midAlphaAnimationCtor == nil {
+			return fmt.Errorf("android.view.animation.AlphaAnimation constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAlphaAnimation)), midAlphaAnimationCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

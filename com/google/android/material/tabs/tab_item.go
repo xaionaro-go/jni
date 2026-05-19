@@ -32,6 +32,12 @@ func NewTabItem(vm *jni.VM, arg0 *jni.Object) (*TabItem, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTabItem == nil {
+			return fmt.Errorf("com.google.android.material.tabs.TabItem is not available on this device")
+		}
+		if midTabItemCtor == nil {
+			return fmt.Errorf("com.google.android.material.tabs.TabItem constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTabItem)), midTabItemCtor, jni.ObjectValue(arg0))
 		if err != nil {

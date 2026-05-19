@@ -23,6 +23,35 @@ type MediaSessionQueueItem struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMediaSessionQueueItem creates a new android.media.session.MediaSession$QueueItem instance.
+func NewMediaSessionQueueItem(vm *jni.VM, arg0 *jni.Object, arg1 int64) (*MediaSessionQueueItem, error) {
+	var t MediaSessionQueueItem
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMediaSessionQueueItem == nil {
+			return fmt.Errorf("android.media.session.MediaSession$QueueItem is not available on this device")
+		}
+		if midMediaSessionQueueItemCtor == nil {
+			return fmt.Errorf("android.media.session.MediaSession$QueueItem constructor (Landroid/media/MediaDescription;J)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMediaSessionQueueItem)), midMediaSessionQueueItemCtor, jni.ObjectValue(arg0), jni.LongValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.media.session.MediaSession$QueueItem.describeContents.
 func (m *MediaSessionQueueItem) DescribeContents() (int32, error) {
 	var result int32
@@ -174,8 +203,8 @@ func (m *MediaSessionQueueItem) WriteToParcel(arg0 *jni.Object, arg1 int32) erro
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsMediaSessionQueueItem)),
 			midMediaSessionQueueItemWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

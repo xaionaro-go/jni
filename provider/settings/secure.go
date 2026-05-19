@@ -23,6 +23,34 @@ type Secure struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSecure creates a new android.provider.Settings$Secure instance.
+func NewSecure(vm *jni.VM) (*Secure, error) {
+	var t Secure
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSecure == nil {
+			return fmt.Errorf("android.provider.Settings$Secure is not available on this device")
+		}
+		if midSecureCtor == nil {
+			return fmt.Errorf("android.provider.Settings$Secure constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSecure)), midSecureCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.provider.Settings$Secure.toString.
 func (m *Secure) ToString() (string, error) {
 	var result string

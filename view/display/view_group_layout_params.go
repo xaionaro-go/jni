@@ -23,6 +23,35 @@ type ViewGroupLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewViewGroupLayoutParams creates a new android.view.ViewGroup$LayoutParams instance.
+func NewViewGroupLayoutParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ViewGroupLayoutParams, error) {
+	var t ViewGroupLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsViewGroupLayoutParams == nil {
+			return fmt.Errorf("android.view.ViewGroup$LayoutParams is not available on this device")
+		}
+		if midViewGroupLayoutParamsCtor == nil {
+			return fmt.Errorf("android.view.ViewGroup$LayoutParams constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewGroupLayoutParams)), midViewGroupLayoutParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ResolveLayoutDirection calls android.view.ViewGroup$LayoutParams.resolveLayoutDirection.
 func (m *ViewGroupLayoutParams) ResolveLayoutDirection(arg0 int32) error {
 

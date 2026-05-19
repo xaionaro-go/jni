@@ -30,6 +30,12 @@ func NewPresentation(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Presentat
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPresentation == nil {
+			return fmt.Errorf("android.app.Presentation is not available on this device")
+		}
+		if midPresentationCtor == nil {
+			return fmt.Errorf("android.app.Presentation constructor (Landroid/content/Context;Landroid/view/Display;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPresentation)), midPresentationCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

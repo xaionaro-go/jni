@@ -32,6 +32,12 @@ func NewActivityResult(vm *jni.VM, arg0 int32, arg1 *jni.Object) (*ActivityResul
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsActivityResult == nil {
+			return fmt.Errorf("androidx.activity.result.ActivityResult is not available on this device")
+		}
+		if midActivityResultCtor == nil {
+			return fmt.Errorf("androidx.activity.result.ActivityResult constructor (ILandroid/content/Intent;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivityResult)), midActivityResultCtor, jni.IntValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -153,31 +159,6 @@ func (m *ActivityResult) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 	return callErr
 }
 
-// DescribeContents calls androidx.activity.result.ActivityResult.describeContents.
-func (m *ActivityResult) DescribeContents() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultDescribeContents == nil {
-			callErr = fmt.Errorf("androidx.activity.result.ActivityResult.describeContents is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midActivityResultDescribeContents,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ResultCodeToString calls androidx.activity.result.ActivityResult.resultCodeToString.
 func (m *ActivityResult) ResultCodeToString(arg0 int32) (string, error) {
 	var result string
@@ -201,6 +182,31 @@ func (m *ActivityResult) ResultCodeToString(arg0 int32) (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// DescribeContents calls androidx.activity.result.ActivityResult.describeContents.
+func (m *ActivityResult) DescribeContents() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midActivityResultDescribeContents == nil {
+			callErr = fmt.Errorf("androidx.activity.result.ActivityResult.describeContents is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsActivityResult)),
+			midActivityResultDescribeContents,
+		)
+		if callErr != nil {
+			return callErr
+		}
 		return callErr
 	})
 	return result, callErr

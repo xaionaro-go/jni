@@ -32,6 +32,12 @@ func NewJsonReader(vm *jni.VM, arg0 *jni.Object) (*JsonReader, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsJsonReader == nil {
+			return fmt.Errorf("android.util.JsonReader is not available on this device")
+		}
+		if midJsonReaderCtor == nil {
+			return fmt.Errorf("android.util.JsonReader constructor (Ljava/io/Reader;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsJsonReader)), midJsonReaderCtor, jni.ObjectValue(arg0))
 		if err != nil {

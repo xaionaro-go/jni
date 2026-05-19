@@ -23,6 +23,34 @@ type DeviceBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDeviceBuilder creates a new android.ranging.RangingDevice$Builder instance.
+func NewDeviceBuilder(vm *jni.VM) (*DeviceBuilder, error) {
+	var t DeviceBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDeviceBuilder == nil {
+			return fmt.Errorf("android.ranging.RangingDevice$Builder is not available on this device")
+		}
+		if midDeviceBuilderCtor == nil {
+			return fmt.Errorf("android.ranging.RangingDevice$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDeviceBuilder)), midDeviceBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.ranging.RangingDevice$Builder.build.
 func (m *DeviceBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

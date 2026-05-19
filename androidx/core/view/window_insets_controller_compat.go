@@ -32,6 +32,12 @@ func NewWindowInsetsControllerCompat(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Obj
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWindowInsetsControllerCompat == nil {
+			return fmt.Errorf("androidx.core.view.WindowInsetsControllerCompat is not available on this device")
+		}
+		if midWindowInsetsControllerCompatCtor == nil {
+			return fmt.Errorf("androidx.core.view.WindowInsetsControllerCompat constructor (Landroid/view/Window;Landroid/view/View;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWindowInsetsControllerCompat)), midWindowInsetsControllerCompatCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

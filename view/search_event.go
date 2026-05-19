@@ -32,6 +32,12 @@ func NewSearchEvent(vm *jni.VM, arg0 *jni.Object) (*SearchEvent, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSearchEvent == nil {
+			return fmt.Errorf("android.view.SearchEvent is not available on this device")
+		}
+		if midSearchEventCtor == nil {
+			return fmt.Errorf("android.view.SearchEvent constructor (Landroid/view/InputDevice;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSearchEvent)), midSearchEventCtor, jni.ObjectValue(arg0))
 		if err != nil {

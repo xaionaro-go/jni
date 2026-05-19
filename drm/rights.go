@@ -32,6 +32,12 @@ func NewRights(vm *jni.VM, arg0 *jni.Object, arg1 string) (*Rights, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRights == nil {
+			return fmt.Errorf("android.drm.DrmRights is not available on this device")
+		}
+		if midRightsCtor == nil {
+			return fmt.Errorf("android.drm.DrmRights constructor (Landroid/drm/ProcessedData;Ljava/lang/String;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {

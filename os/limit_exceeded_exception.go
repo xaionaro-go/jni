@@ -32,6 +32,12 @@ func NewLimitExceededException(vm *jni.VM) (*LimitExceededException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLimitExceededException == nil {
+			return fmt.Errorf("android.os.LimitExceededException is not available on this device")
+		}
+		if midLimitExceededExceptionCtor == nil {
+			return fmt.Errorf("android.os.LimitExceededException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLimitExceededException)), midLimitExceededExceptionCtor)
 		if err != nil {
 			return err

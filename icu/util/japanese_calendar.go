@@ -32,6 +32,12 @@ func NewJapaneseCalendar(vm *jni.VM) (*JapaneseCalendar, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsJapaneseCalendar == nil {
+			return fmt.Errorf("android.icu.util.JapaneseCalendar is not available on this device")
+		}
+		if midJapaneseCalendarCtor == nil {
+			return fmt.Errorf("android.icu.util.JapaneseCalendar constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsJapaneseCalendar)), midJapaneseCalendarCtor)
 		if err != nil {
 			return err

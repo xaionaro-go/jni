@@ -32,6 +32,12 @@ func NewPageRange(vm *jni.VM, arg0 int32, arg1 int32) (*PageRange, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPageRange == nil {
+			return fmt.Errorf("android.print.PageRange is not available on this device")
+		}
+		if midPageRangeCtor == nil {
+			return fmt.Errorf("android.print.PageRange constructor (II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPageRange)), midPageRangeCtor, jni.IntValue(arg0), jni.IntValue(arg1))
 		if err != nil {
@@ -215,8 +221,8 @@ func (m *PageRange) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsPageRange)),
 			midPageRangeWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

@@ -23,6 +23,35 @@ type RemoteViewsActionException struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRemoteViewsActionException creates a new android.widget.RemoteViews$ActionException instance.
+func NewRemoteViewsActionException(vm *jni.VM, arg0 *jni.Object) (*RemoteViewsActionException, error) {
+	var t RemoteViewsActionException
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRemoteViewsActionException == nil {
+			return fmt.Errorf("android.widget.RemoteViews$ActionException is not available on this device")
+		}
+		if midRemoteViewsActionExceptionCtor == nil {
+			return fmt.Errorf("android.widget.RemoteViews$ActionException constructor (Ljava/lang/Exception;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRemoteViewsActionException)), midRemoteViewsActionExceptionCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.widget.RemoteViews$ActionException.toString.
 func (m *RemoteViewsActionException) ToString() (string, error) {
 	var result string

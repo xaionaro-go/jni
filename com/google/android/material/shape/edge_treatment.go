@@ -32,6 +32,12 @@ func NewEdgeTreatment(vm *jni.VM) (*EdgeTreatment, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEdgeTreatment == nil {
+			return fmt.Errorf("com.google.android.material.shape.EdgeTreatment is not available on this device")
+		}
+		if midEdgeTreatmentCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.EdgeTreatment constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEdgeTreatment)), midEdgeTreatmentCtor)
 		if err != nil {
 			return err

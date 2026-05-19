@@ -32,6 +32,12 @@ func NewRSIllegalArgumentException(vm *jni.VM, arg0 string) (*RSIllegalArgumentE
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRSIllegalArgumentException == nil {
+			return fmt.Errorf("android.renderscript.RSIllegalArgumentException is not available on this device")
+		}
+		if midRSIllegalArgumentExceptionCtor == nil {
+			return fmt.Errorf("android.renderscript.RSIllegalArgumentException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

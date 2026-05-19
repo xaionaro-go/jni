@@ -32,6 +32,12 @@ func NewSavedStateRegistry(vm *jni.VM) (*SavedStateRegistry, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSavedStateRegistry == nil {
+			return fmt.Errorf("androidx.savedstate.SavedStateRegistry is not available on this device")
+		}
+		if midSavedStateRegistryCtor == nil {
+			return fmt.Errorf("androidx.savedstate.SavedStateRegistry constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSavedStateRegistry)), midSavedStateRegistryCtor)
 		if err != nil {
 			return err
@@ -70,6 +76,60 @@ func (m *SavedStateRegistry) IsRestored() (bool, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// IsAllowingSavingStateSavedstateRelease calls androidx.savedstate.SavedStateRegistry.isAllowingSavingState$savedstate_release.
+func (m *SavedStateRegistry) IsAllowingSavingStateSavedstateRelease() (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSavedStateRegistryIsAllowingSavingStateSavedstateRelease == nil {
+			callErr = fmt.Errorf("androidx.savedstate.SavedStateRegistry.isAllowingSavingState$savedstate_release is not available on this device")
+			return callErr
+		}
+		var resultRaw uint8
+		resultRaw, callErr = env.CallBooleanMethod(
+			m.Obj,
+			midSavedStateRegistryIsAllowingSavingStateSavedstateRelease,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
+		return callErr
+	})
+	return result, callErr
+}
+
+// SetAllowingSavingStateSavedstateRelease calls androidx.savedstate.SavedStateRegistry.setAllowingSavingState$savedstate_release.
+func (m *SavedStateRegistry) SetAllowingSavingStateSavedstateRelease(arg0 bool) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSavedStateRegistrySetAllowingSavingStateSavedstateRelease == nil {
+			callErr = fmt.Errorf("androidx.savedstate.SavedStateRegistry.setAllowingSavingState$savedstate_release is not available on this device")
+			return callErr
+		}
+		var jArg0 uint8
+		if arg0 {
+			jArg0 = jniTrue
+		}
+
+		callErr = env.CallVoidMethod(
+			m.Obj,
+			midSavedStateRegistrySetAllowingSavingStateSavedstateRelease, jni.BooleanValue(jArg0),
+		)
+		return callErr
+	})
+	return callErr
 }
 
 // ConsumeRestoredStateForKey calls androidx.savedstate.SavedStateRegistry.consumeRestoredStateForKey.
@@ -204,8 +264,8 @@ func (m *SavedStateRegistry) UnregisterSavedStateProvider(arg0 string) error {
 	return callErr
 }
 
-// PerformSave calls androidx.savedstate.SavedStateRegistry.performSave.
-func (m *SavedStateRegistry) PerformSave(arg0 *jni.Object) error {
+// PerformAttachSavedstateRelease calls androidx.savedstate.SavedStateRegistry.performAttach$savedstate_release.
+func (m *SavedStateRegistry) PerformAttachSavedstateRelease(arg0 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -213,14 +273,37 @@ func (m *SavedStateRegistry) PerformSave(arg0 *jni.Object) error {
 			callErr = err
 			return err
 		}
-		if midSavedStateRegistryPerformSave == nil {
-			callErr = fmt.Errorf("androidx.savedstate.SavedStateRegistry.performSave is not available on this device")
+		if midSavedStateRegistryPerformAttachSavedstateRelease == nil {
+			callErr = fmt.Errorf("androidx.savedstate.SavedStateRegistry.performAttach$savedstate_release is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midSavedStateRegistryPerformSave, jni.ObjectValue(arg0),
+			midSavedStateRegistryPerformAttachSavedstateRelease, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
+}
+
+// PerformRestoreSavedstateRelease calls androidx.savedstate.SavedStateRegistry.performRestore$savedstate_release.
+func (m *SavedStateRegistry) PerformRestoreSavedstateRelease(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSavedStateRegistryPerformRestoreSavedstateRelease == nil {
+			callErr = fmt.Errorf("androidx.savedstate.SavedStateRegistry.performRestore$savedstate_release is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallVoidMethod(
+			m.Obj,
+			midSavedStateRegistryPerformRestoreSavedstateRelease, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})
@@ -252,4 +335,27 @@ func (m *SavedStateRegistry) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// PerformSave calls androidx.savedstate.SavedStateRegistry.performSave.
+func (m *SavedStateRegistry) PerformSave(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSavedStateRegistryPerformSave == nil {
+			callErr = fmt.Errorf("androidx.savedstate.SavedStateRegistry.performSave is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSavedStateRegistry)),
+			midSavedStateRegistryPerformSave, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

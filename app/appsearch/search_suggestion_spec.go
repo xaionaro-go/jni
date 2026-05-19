@@ -194,29 +194,6 @@ func (m *SearchSuggestionSpec) GetSearchStringParameters() (*jni.Object, error) 
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.appsearch.SearchSuggestionSpec.writeToParcel.
-func (m *SearchSuggestionSpec) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSearchSuggestionSpecWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.appsearch.SearchSuggestionSpec.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSearchSuggestionSpecWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.appsearch.SearchSuggestionSpec.toString.
 func (m *SearchSuggestionSpec) ToString() (string, error) {
 	var result string
@@ -242,4 +219,27 @@ func (m *SearchSuggestionSpec) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.appsearch.SearchSuggestionSpec.writeToParcel.
+func (m *SearchSuggestionSpec) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSearchSuggestionSpecWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.appsearch.SearchSuggestionSpec.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpec)),
+			midSearchSuggestionSpecWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

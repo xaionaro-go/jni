@@ -23,6 +23,57 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsFontsContractCompat                   *jni.GlobalRef
+	midFontsContractCompatToString           jni.MethodID
+	midFontsContractCompatBuildTypeface      jni.MethodID
+	midFontsContractCompatFetchFonts         jni.MethodID
+	midFontsContractCompatResetTypefaceCache jni.MethodID
+	midFontsContractCompatResetCache         jni.MethodID
+	midFontsContractCompatGetProvider        jni.MethodID
+
+	clsFontsContractCompatColumns         *jni.GlobalRef
+	midFontsContractCompatColumnsCtor     jni.MethodID
+	midFontsContractCompatColumnsToString jni.MethodID
+
+	clsFontsContractCompatFontFamilyResult              *jni.GlobalRef
+	midFontsContractCompatFontFamilyResultCtor          jni.MethodID
+	midFontsContractCompatFontFamilyResultGetStatusCode jni.MethodID
+	midFontsContractCompatFontFamilyResultToString      jni.MethodID
+	midFontsContractCompatFontFamilyResultGetFonts      jni.MethodID
+
+	clsFontsContractCompatFontInfo              *jni.GlobalRef
+	midFontsContractCompatFontInfoCtor          jni.MethodID
+	midFontsContractCompatFontInfoGetUri        jni.MethodID
+	midFontsContractCompatFontInfoGetTtcIndex   jni.MethodID
+	midFontsContractCompatFontInfoGetWeight     jni.MethodID
+	midFontsContractCompatFontInfoIsItalic      jni.MethodID
+	midFontsContractCompatFontInfoGetResultCode jni.MethodID
+	midFontsContractCompatFontInfoToString      jni.MethodID
+
+	clsDocumentsContractCompat                                *jni.GlobalRef
+	midDocumentsContractCompatToString                        jni.MethodID
+	midDocumentsContractCompatIsDocumentUri                   jni.MethodID
+	midDocumentsContractCompatIsTreeUri                       jni.MethodID
+	midDocumentsContractCompatGetDocumentId                   jni.MethodID
+	midDocumentsContractCompatGetTreeDocumentId               jni.MethodID
+	midDocumentsContractCompatBuildDocumentUri                jni.MethodID
+	midDocumentsContractCompatBuildDocumentUriUsingTree       jni.MethodID
+	midDocumentsContractCompatBuildTreeDocumentUri            jni.MethodID
+	midDocumentsContractCompatBuildChildDocumentsUri          jni.MethodID
+	midDocumentsContractCompatBuildChildDocumentsUriUsingTree jni.MethodID
+	midDocumentsContractCompatCreateDocument                  jni.MethodID
+	midDocumentsContractCompatRenameDocument                  jni.MethodID
+	midDocumentsContractCompatRemoveDocument                  jni.MethodID
+
+	clsFontsContractCompatFontRequestCallback                        *jni.GlobalRef
+	midFontsContractCompatFontRequestCallbackCtor                    jni.MethodID
+	midFontsContractCompatFontRequestCallbackOnTypefaceRetrieved     jni.MethodID
+	midFontsContractCompatFontRequestCallbackOnTypefaceRequestFailed jni.MethodID
+	midFontsContractCompatFontRequestCallbackToString                jni.MethodID
+
+	clsDocumentsContractCompatDocumentCompat         *jni.GlobalRef
+	midDocumentsContractCompatDocumentCompatToString jni.MethodID
+
 	clsFontRequest                          *jni.GlobalRef
 	midFontRequestCtor                      jni.MethodID
 	midFontRequestGetProviderAuthority      jni.MethodID
@@ -41,53 +92,6 @@ var (
 
 	clsSelfDestructiveThreadReplyCallback         *jni.GlobalRef
 	midSelfDestructiveThreadReplyCallbackToString jni.MethodID
-
-	clsFontsContractCompat                   *jni.GlobalRef
-	midFontsContractCompatToString           jni.MethodID
-	midFontsContractCompatBuildTypeface      jni.MethodID
-	midFontsContractCompatFetchFonts         jni.MethodID
-	midFontsContractCompatResetTypefaceCache jni.MethodID
-	midFontsContractCompatResetCache         jni.MethodID
-	midFontsContractCompatGetProvider        jni.MethodID
-
-	clsFontsContractCompatColumns         *jni.GlobalRef
-	midFontsContractCompatColumnsToString jni.MethodID
-
-	clsFontsContractCompatFontFamilyResult              *jni.GlobalRef
-	midFontsContractCompatFontFamilyResultGetStatusCode jni.MethodID
-	midFontsContractCompatFontFamilyResultGetFonts      jni.MethodID
-	midFontsContractCompatFontFamilyResultToString      jni.MethodID
-
-	clsFontsContractCompatFontInfo              *jni.GlobalRef
-	midFontsContractCompatFontInfoGetUri        jni.MethodID
-	midFontsContractCompatFontInfoGetTtcIndex   jni.MethodID
-	midFontsContractCompatFontInfoGetWeight     jni.MethodID
-	midFontsContractCompatFontInfoIsItalic      jni.MethodID
-	midFontsContractCompatFontInfoGetResultCode jni.MethodID
-	midFontsContractCompatFontInfoToString      jni.MethodID
-
-	clsFontsContractCompatFontRequestCallback                        *jni.GlobalRef
-	midFontsContractCompatFontRequestCallbackOnTypefaceRetrieved     jni.MethodID
-	midFontsContractCompatFontRequestCallbackOnTypefaceRequestFailed jni.MethodID
-	midFontsContractCompatFontRequestCallbackToString                jni.MethodID
-
-	clsDocumentsContractCompat                                *jni.GlobalRef
-	midDocumentsContractCompatToString                        jni.MethodID
-	midDocumentsContractCompatIsDocumentUri                   jni.MethodID
-	midDocumentsContractCompatIsTreeUri                       jni.MethodID
-	midDocumentsContractCompatGetDocumentId                   jni.MethodID
-	midDocumentsContractCompatGetTreeDocumentId               jni.MethodID
-	midDocumentsContractCompatBuildDocumentUri                jni.MethodID
-	midDocumentsContractCompatBuildDocumentUriUsingTree       jni.MethodID
-	midDocumentsContractCompatBuildTreeDocumentUri            jni.MethodID
-	midDocumentsContractCompatBuildChildDocumentsUri          jni.MethodID
-	midDocumentsContractCompatBuildChildDocumentsUriUsingTree jni.MethodID
-	midDocumentsContractCompatCreateDocument                  jni.MethodID
-	midDocumentsContractCompatRenameDocument                  jni.MethodID
-	midDocumentsContractCompatRemoveDocument                  jni.MethodID
-
-	clsDocumentsContractCompatDocumentCompat         *jni.GlobalRef
-	midDocumentsContractCompatDocumentCompatToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -107,121 +111,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("androidx/core/provider/FontRequest")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFontRequest = env.NewGlobalRef(&c.Object)
-		midFontRequestCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequest)), "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midFontRequestGetProviderAuthority, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequest)), "getProviderAuthority", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontRequestGetProviderPackage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequest)), "getProviderPackage", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontRequestGetQuery, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequest)), "getQuery", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontRequestGetCertificates, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequest)), "getCertificates", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontRequestGetCertificatesArrayResId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequest)), "getCertificatesArrayResId", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontRequestGetIdentifier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequest)), "getIdentifier", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequest)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/provider/SelfDestructiveThread")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSelfDestructiveThread = env.NewGlobalRef(&c.Object)
-		midSelfDestructiveThreadCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelfDestructiveThread)), "<init>", "(Ljava/lang/String;II)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midSelfDestructiveThreadIsRunning, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelfDestructiveThread)), "isRunning", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelfDestructiveThreadGetGeneration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelfDestructiveThread)), "getGeneration", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelfDestructiveThreadToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelfDestructiveThread)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/provider/SelfDestructiveThread$ReplyCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSelfDestructiveThreadReplyCallback = env.NewGlobalRef(&c.Object)
-
-		midSelfDestructiveThreadReplyCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelfDestructiveThreadReplyCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("androidx/core/provider/FontsContractCompat")
 	if err != nil {
@@ -282,6 +171,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsFontsContractCompatColumns = env.NewGlobalRef(&c.Object)
+		midFontsContractCompatColumnsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontsContractCompatColumns)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midFontsContractCompatColumnsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontsContractCompatColumns)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -299,6 +192,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsFontsContractCompatFontFamilyResult = env.NewGlobalRef(&c.Object)
+		midFontsContractCompatFontFamilyResultCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontsContractCompatFontFamilyResult)), "<init>", "(I[Landroidx/core/provider/FontsContractCompat$FontInfo;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midFontsContractCompatFontFamilyResultGetStatusCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontsContractCompatFontFamilyResult)), "getStatusCode", "()I")
 		if err != nil {
@@ -307,14 +204,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midFontsContractCompatFontFamilyResultGetFonts, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontsContractCompatFontFamilyResult)), "getFonts", "()[Landroidx/core/provider/FontsContractCompat$FontInfo;")
+		midFontsContractCompatFontFamilyResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontsContractCompatFontFamilyResult)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midFontsContractCompatFontFamilyResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontsContractCompatFontFamilyResult)), "toString", "()Ljava/lang/String;")
+		midFontsContractCompatFontFamilyResultGetFonts, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsFontsContractCompatFontFamilyResult)), "getFonts", "()[Landroidx/core/provider/FontsContractCompat$FontInfo;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -330,6 +227,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsFontsContractCompatFontInfo = env.NewGlobalRef(&c.Object)
+		midFontsContractCompatFontInfoCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontsContractCompatFontInfo)), "<init>", "(Landroid/net/Uri;IIZI)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midFontsContractCompatFontInfoGetUri, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontsContractCompatFontInfo)), "getUri", "()Landroid/net/Uri;")
 		if err != nil {
@@ -367,37 +268,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midFontsContractCompatFontInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontsContractCompatFontInfo)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/core/provider/FontsContractCompat$FontRequestCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFontsContractCompatFontRequestCallback = env.NewGlobalRef(&c.Object)
-
-		midFontsContractCompatFontRequestCallbackOnTypefaceRetrieved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontsContractCompatFontRequestCallback)), "onTypefaceRetrieved", "(Landroid/graphics/Typeface;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontsContractCompatFontRequestCallbackOnTypefaceRequestFailed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontsContractCompatFontRequestCallback)), "onTypefaceRequestFailed", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFontsContractCompatFontRequestCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontsContractCompatFontRequestCallback)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -507,6 +377,41 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("androidx/core/provider/FontsContractCompat$FontRequestCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFontsContractCompatFontRequestCallback = env.NewGlobalRef(&c.Object)
+		midFontsContractCompatFontRequestCallbackCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontsContractCompatFontRequestCallback)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midFontsContractCompatFontRequestCallbackOnTypefaceRetrieved, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontsContractCompatFontRequestCallback)), "onTypefaceRetrieved", "(Landroid/graphics/Typeface;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFontsContractCompatFontRequestCallbackOnTypefaceRequestFailed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontsContractCompatFontRequestCallback)), "onTypefaceRequestFailed", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFontsContractCompatFontRequestCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontsContractCompatFontRequestCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("androidx/core/provider/DocumentsContractCompat$DocumentCompat")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -516,6 +421,121 @@ func doInit(env *jni.Env) error {
 		clsDocumentsContractCompatDocumentCompat = env.NewGlobalRef(&c.Object)
 
 		midDocumentsContractCompatDocumentCompatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDocumentsContractCompatDocumentCompat)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/provider/FontRequest")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFontRequest = env.NewGlobalRef(&c.Object)
+		midFontRequestCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequest)), "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midFontRequestGetProviderAuthority, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequest)), "getProviderAuthority", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFontRequestGetProviderPackage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequest)), "getProviderPackage", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFontRequestGetQuery, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequest)), "getQuery", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFontRequestGetCertificates, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequest)), "getCertificates", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFontRequestGetCertificatesArrayResId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequest)), "getCertificatesArrayResId", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFontRequestGetIdentifier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequest)), "getIdentifier", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFontRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFontRequest)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/provider/SelfDestructiveThread")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSelfDestructiveThread = env.NewGlobalRef(&c.Object)
+		midSelfDestructiveThreadCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelfDestructiveThread)), "<init>", "(Ljava/lang/String;II)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSelfDestructiveThreadIsRunning, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelfDestructiveThread)), "isRunning", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelfDestructiveThreadGetGeneration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelfDestructiveThread)), "getGeneration", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelfDestructiveThreadToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelfDestructiveThread)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/core/provider/SelfDestructiveThread$ReplyCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSelfDestructiveThreadReplyCallback = env.NewGlobalRef(&c.Object)
+
+		midSelfDestructiveThreadReplyCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelfDestructiveThreadReplyCallback)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

@@ -32,6 +32,12 @@ func NewMaskFilterSpan(vm *jni.VM, arg0 *jni.Object) (*MaskFilterSpan, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaskFilterSpan == nil {
+			return fmt.Errorf("android.text.style.MaskFilterSpan is not available on this device")
+		}
+		if midMaskFilterSpanCtor == nil {
+			return fmt.Errorf("android.text.style.MaskFilterSpan constructor (Landroid/graphics/MaskFilter;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaskFilterSpan)), midMaskFilterSpanCtor, jni.ObjectValue(arg0))
 		if err != nil {

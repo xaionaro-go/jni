@@ -32,6 +32,12 @@ func NewDrmException(vm *jni.VM, arg0 string) (*DrmException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDrmException == nil {
+			return fmt.Errorf("android.media.MediaDrmException is not available on this device")
+		}
+		if midDrmExceptionCtor == nil {
+			return fmt.Errorf("android.media.MediaDrmException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewSQLiteBindOrColumnIndexOutOfRangeException(vm *jni.VM) (*SQLiteBindOrCol
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSQLiteBindOrColumnIndexOutOfRangeException == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteBindOrColumnIndexOutOfRangeException is not available on this device")
+		}
+		if midSQLiteBindOrColumnIndexOutOfRangeExceptionCtor == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteBindOrColumnIndexOutOfRangeException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSQLiteBindOrColumnIndexOutOfRangeException)), midSQLiteBindOrColumnIndexOutOfRangeExceptionCtor)
 		if err != nil {
 			return err

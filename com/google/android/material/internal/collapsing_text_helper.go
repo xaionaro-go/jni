@@ -32,6 +32,12 @@ func NewCollapsingTextHelper(vm *jni.VM, arg0 *jni.Object) (*CollapsingTextHelpe
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCollapsingTextHelper == nil {
+			return fmt.Errorf("com.google.android.material.internal.CollapsingTextHelper is not available on this device")
+		}
+		if midCollapsingTextHelperCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.CollapsingTextHelper constructor (Landroid/view/View;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCollapsingTextHelper)), midCollapsingTextHelperCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -1578,38 +1584,6 @@ func (m *CollapsingTextHelper) GetExpandedTextColor() (*jni.Object, error) {
 	return result, callErr
 }
 
-// GetCollapsedTextColor calls com.google.android.material.internal.CollapsingTextHelper.getCollapsedTextColor.
-func (m *CollapsingTextHelper) GetCollapsedTextColor() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCollapsingTextHelperGetCollapsedTextColor == nil {
-			callErr = fmt.Errorf("com.google.android.material.internal.CollapsingTextHelper.getCollapsedTextColor is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCollapsingTextHelperGetCollapsedTextColor,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.internal.CollapsingTextHelper.toString.
 func (m *CollapsingTextHelper) ToString() (string, error) {
 	var result string
@@ -1632,6 +1606,38 @@ func (m *CollapsingTextHelper) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetCollapsedTextColor calls com.google.android.material.internal.CollapsingTextHelper.getCollapsedTextColor.
+func (m *CollapsingTextHelper) GetCollapsedTextColor() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCollapsingTextHelperGetCollapsedTextColor == nil {
+			callErr = fmt.Errorf("com.google.android.material.internal.CollapsingTextHelper.getCollapsedTextColor is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsCollapsingTextHelper)),
+			midCollapsingTextHelperGetCollapsedTextColor,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
 		return callErr
 	})
 	return result, callErr

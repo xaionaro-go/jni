@@ -32,6 +32,7 @@ var (
 	midServiceToString          jni.MethodID
 
 	clsServiceEngine                              *jni.GlobalRef
+	midServiceEngineCtor                          jni.MethodID
 	midServiceEngineGetDesiredMinimumHeight       jni.MethodID
 	midServiceEngineGetDesiredMinimumWidth        jni.MethodID
 	midServiceEngineGetDisplayContext             jni.MethodID
@@ -138,6 +139,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsServiceEngine = env.NewGlobalRef(&c.Object)
+		midServiceEngineCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServiceEngine)), "<init>", "(Landroid/service/wallpaper/WallpaperService;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midServiceEngineGetDesiredMinimumHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServiceEngine)), "getDesiredMinimumHeight", "()I")
 		if err != nil {

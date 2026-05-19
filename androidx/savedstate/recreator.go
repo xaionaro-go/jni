@@ -32,6 +32,12 @@ func NewRecreator(vm *jni.VM, arg0 *jni.Object) (*Recreator, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRecreator == nil {
+			return fmt.Errorf("androidx.savedstate.Recreator is not available on this device")
+		}
+		if midRecreatorCtor == nil {
+			return fmt.Errorf("androidx.savedstate.Recreator constructor (Landroidx/savedstate/SavedStateRegistryOwner;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRecreator)), midRecreatorCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -44,29 +50,6 @@ func NewRecreator(vm *jni.VM, arg0 *jni.Object) (*Recreator, error) {
 		return nil, err
 	}
 	return &t, nil
-}
-
-// OnStateChanged calls androidx.savedstate.Recreator.onStateChanged.
-func (m *Recreator) OnStateChanged(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRecreatorOnStateChanged == nil {
-			callErr = fmt.Errorf("androidx.savedstate.Recreator.onStateChanged is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midRecreatorOnStateChanged, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // ToString calls androidx.savedstate.Recreator.toString.
@@ -94,4 +77,27 @@ func (m *Recreator) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// OnStateChanged calls androidx.savedstate.Recreator.onStateChanged.
+func (m *Recreator) OnStateChanged(arg0 *jni.Object, arg1 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRecreatorOnStateChanged == nil {
+			callErr = fmt.Errorf("androidx.savedstate.Recreator.onStateChanged is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsRecreator)),
+			midRecreatorOnStateChanged, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

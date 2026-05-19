@@ -32,6 +32,12 @@ func NewAppearanceModel(vm *jni.VM) (*AppearanceModel, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppearanceModel == nil {
+			return fmt.Errorf("com.google.android.material.shape.ShapeAppearanceModel is not available on this device")
+		}
+		if midAppearanceModelCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.ShapeAppearanceModel constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppearanceModel)), midAppearanceModelCtor)
 		if err != nil {
 			return err
@@ -555,34 +561,6 @@ func (m *AppearanceModel) WithTransformedCornerSizes(arg0 *jni.Object) (*jni.Obj
 			result = env.NewGlobalRef(localRef)
 			env.DeleteLocalRef(localRef)
 		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// IsRoundRect calls com.google.android.material.shape.ShapeAppearanceModel.isRoundRect.
-func (m *AppearanceModel) IsRoundRect(arg0 *jni.Object) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppearanceModelIsRoundRect == nil {
-			callErr = fmt.Errorf("com.google.android.material.shape.ShapeAppearanceModel.isRoundRect is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midAppearanceModelIsRoundRect, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

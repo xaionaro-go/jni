@@ -23,6 +23,34 @@ type CameraFace struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCameraFace creates a new android.hardware.Camera$Face instance.
+func NewCameraFace(vm *jni.VM) (*CameraFace, error) {
+	var t CameraFace
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCameraFace == nil {
+			return fmt.Errorf("android.hardware.Camera$Face is not available on this device")
+		}
+		if midCameraFaceCtor == nil {
+			return fmt.Errorf("android.hardware.Camera$Face constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCameraFace)), midCameraFaceCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.hardware.Camera$Face.toString.
 func (m *CameraFace) ToString() (string, error) {
 	var result string

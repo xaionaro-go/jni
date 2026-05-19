@@ -32,6 +32,12 @@ func NewAlreadyPersonalizedException(vm *jni.VM, arg0 string) (*AlreadyPersonali
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAlreadyPersonalizedException == nil {
+			return fmt.Errorf("android.security.identity.AlreadyPersonalizedException is not available on this device")
+		}
+		if midAlreadyPersonalizedExceptionCtor == nil {
+			return fmt.Errorf("android.security.identity.AlreadyPersonalizedException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

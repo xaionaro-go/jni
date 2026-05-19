@@ -32,6 +32,12 @@ func NewAppCompatRadioButton(vm *jni.VM, arg0 *jni.Object) (*AppCompatRadioButto
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppCompatRadioButton == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatRadioButton is not available on this device")
+		}
+		if midAppCompatRadioButtonCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatRadioButton constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppCompatRadioButton)), midAppCompatRadioButtonCtor, jni.ObjectValue(arg0))
 		if err != nil {

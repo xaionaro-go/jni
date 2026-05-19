@@ -23,6 +23,35 @@ type WifiAwareDataPathSecurityConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWifiAwareDataPathSecurityConfigBuilder creates a new android.net.wifi.aware.WifiAwareDataPathSecurityConfig$Builder instance.
+func NewWifiAwareDataPathSecurityConfigBuilder(vm *jni.VM, arg0 int32) (*WifiAwareDataPathSecurityConfigBuilder, error) {
+	var t WifiAwareDataPathSecurityConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWifiAwareDataPathSecurityConfigBuilder == nil {
+			return fmt.Errorf("android.net.wifi.aware.WifiAwareDataPathSecurityConfig$Builder is not available on this device")
+		}
+		if midWifiAwareDataPathSecurityConfigBuilderCtor == nil {
+			return fmt.Errorf("android.net.wifi.aware.WifiAwareDataPathSecurityConfig$Builder constructor (I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWifiAwareDataPathSecurityConfigBuilder)), midWifiAwareDataPathSecurityConfigBuilderCtor, jni.IntValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.wifi.aware.WifiAwareDataPathSecurityConfig$Builder.build.
 func (m *WifiAwareDataPathSecurityConfigBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

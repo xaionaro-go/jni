@@ -32,6 +32,12 @@ func NewVersionedPackage(vm *jni.VM, arg0 string, arg1 int32) (*VersionedPackage
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsVersionedPackage == nil {
+			return fmt.Errorf("android.content.pm.VersionedPackage is not available on this device")
+		}
+		if midVersionedPackageCtor == nil {
+			return fmt.Errorf("android.content.pm.VersionedPackage constructor (Ljava/lang/String;I)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

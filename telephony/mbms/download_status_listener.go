@@ -32,6 +32,12 @@ func NewDownloadStatusListener(vm *jni.VM) (*DownloadStatusListener, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDownloadStatusListener == nil {
+			return fmt.Errorf("android.telephony.mbms.DownloadStatusListener is not available on this device")
+		}
+		if midDownloadStatusListenerCtor == nil {
+			return fmt.Errorf("android.telephony.mbms.DownloadStatusListener constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDownloadStatusListener)), midDownloadStatusListenerCtor)
 		if err != nil {
 			return err

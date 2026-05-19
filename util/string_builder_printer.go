@@ -32,6 +32,12 @@ func NewStringBuilderPrinter(vm *jni.VM, arg0 *jni.Object) (*StringBuilderPrinte
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStringBuilderPrinter == nil {
+			return fmt.Errorf("android.util.StringBuilderPrinter is not available on this device")
+		}
+		if midStringBuilderPrinterCtor == nil {
+			return fmt.Errorf("android.util.StringBuilderPrinter constructor (Ljava/lang/StringBuilder;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStringBuilderPrinter)), midStringBuilderPrinterCtor, jni.ObjectValue(arg0))
 		if err != nil {

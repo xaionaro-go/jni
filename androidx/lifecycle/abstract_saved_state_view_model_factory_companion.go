@@ -23,6 +23,35 @@ type AbstractSavedStateViewModelFactoryCompanion struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAbstractSavedStateViewModelFactoryCompanion creates a new androidx.lifecycle.AbstractSavedStateViewModelFactory$Companion instance.
+func NewAbstractSavedStateViewModelFactoryCompanion(vm *jni.VM, arg0 *jni.Object) (*AbstractSavedStateViewModelFactoryCompanion, error) {
+	var t AbstractSavedStateViewModelFactoryCompanion
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAbstractSavedStateViewModelFactoryCompanion == nil {
+			return fmt.Errorf("androidx.lifecycle.AbstractSavedStateViewModelFactory$Companion is not available on this device")
+		}
+		if midAbstractSavedStateViewModelFactoryCompanionCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.AbstractSavedStateViewModelFactory$Companion constructor (Lkotlin/jvm/internal/DefaultConstructorMarker;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAbstractSavedStateViewModelFactoryCompanion)), midAbstractSavedStateViewModelFactoryCompanionCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.lifecycle.AbstractSavedStateViewModelFactory$Companion.toString.
 func (m *AbstractSavedStateViewModelFactoryCompanion) ToString() (string, error) {
 	var result string

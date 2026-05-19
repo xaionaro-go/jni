@@ -23,6 +23,35 @@ type GnssAntennaInfoSphericalCorrections struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGnssAntennaInfoSphericalCorrections creates a new android.location.GnssAntennaInfo$SphericalCorrections instance.
+func NewGnssAntennaInfoSphericalCorrections(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*GnssAntennaInfoSphericalCorrections, error) {
+	var t GnssAntennaInfoSphericalCorrections
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGnssAntennaInfoSphericalCorrections == nil {
+			return fmt.Errorf("android.location.GnssAntennaInfo$SphericalCorrections is not available on this device")
+		}
+		if midGnssAntennaInfoSphericalCorrectionsCtor == nil {
+			return fmt.Errorf("android.location.GnssAntennaInfo$SphericalCorrections constructor ([[D[[D)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGnssAntennaInfoSphericalCorrections)), midGnssAntennaInfoSphericalCorrectionsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.location.GnssAntennaInfo$SphericalCorrections.describeContents.
 func (m *GnssAntennaInfoSphericalCorrections) DescribeContents() (int32, error) {
 	var result int32
@@ -256,8 +285,8 @@ func (m *GnssAntennaInfoSphericalCorrections) WriteToParcel(arg0 *jni.Object, ar
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsGnssAntennaInfoSphericalCorrections)),
 			midGnssAntennaInfoSphericalCorrectionsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

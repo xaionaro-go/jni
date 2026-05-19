@@ -32,6 +32,12 @@ func NewSimpleArrayMap(vm *jni.VM) (*SimpleArrayMap, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSimpleArrayMap == nil {
+			return fmt.Errorf("androidx.collection.SimpleArrayMap is not available on this device")
+		}
+		if midSimpleArrayMapCtor == nil {
+			return fmt.Errorf("androidx.collection.SimpleArrayMap constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSimpleArrayMap)), midSimpleArrayMapCtor)
 		if err != nil {
 			return err

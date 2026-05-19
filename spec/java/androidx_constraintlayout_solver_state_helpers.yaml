@@ -5,243 +5,6 @@
 package: helpers
 go_import: github.com/AndroidGoLab/jni/androidx/constraintlayout/solver/state/helpers
 classes:
-    - java_class: androidx.constraintlayout.solver.state.helpers.ChainReference
-      go_type: ChainReference
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.constraintlayout.solver.state.State
-          go_name: arg0
-        - java_type: androidx.constraintlayout.solver.state.State$Helper
-          go_name: arg1
-      methods:
-        - java_method: getStyle
-          go_name: GetStyle
-          returns: androidx.constraintlayout.solver.state.State$Chain
-          error: true
-        - java_method: style
-          go_name: Style
-          params:
-            - java_type: androidx.constraintlayout.solver.state.State$Chain
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getBias
-          go_name: GetBias
-          returns: float
-          error: true
-        - java_method: bias
-          go_name: Bias
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.solver.state.helpers.AlignVerticallyReference
-      go_type: AlignVerticallyReference
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.constraintlayout.solver.state.State
-          go_name: arg0
-      methods:
-        - java_method: apply
-          go_name: Apply
-          returns: void
-          error: true
-        - java_method: topToTop
-          go_name: TopToTop
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: topToBottom
-          go_name: TopToBottom
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: bottomToTop
-          go_name: BottomToTop
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: bottomToBottom
-          go_name: BottomToBottom
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: bias
-          go_name: Bias
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.solver.state.helpers.AlignHorizontallyReference
-      go_type: AlignHorizontallyReference
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.constraintlayout.solver.state.State
-          go_name: arg0
-      methods:
-        - java_method: apply
-          go_name: Apply
-          returns: void
-          error: true
-        - java_method: startToStart
-          go_name: StartToStart
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: startToEnd
-          go_name: StartToEnd
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: endToStart
-          go_name: EndToStart
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: endToEnd
-          go_name: EndToEnd
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: bias
-          go_name: Bias
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.solver.state.helpers.BarrierReference
-      go_type: BarrierReference
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.constraintlayout.solver.state.State
-          go_name: arg0
-      methods:
-        - java_method: setBarrierDirection
-          go_name: SetBarrierDirection
-          params:
-            - java_type: androidx.constraintlayout.solver.state.State$Direction
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: margin
-          go_name: Margin1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: margin
-          go_name: Margin1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getHelperWidget
-          go_name: GetHelperWidget
-          returns: androidx.constraintlayout.solver.widgets.HelperWidget
-          error: true
-        - java_method: apply
-          go_name: Apply
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.solver.state.helpers.VerticalChainReference
-      go_type: VerticalChainReference
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.constraintlayout.solver.state.State
-          go_name: arg0
-      methods:
-        - java_method: apply
-          go_name: Apply
-          returns: void
-          error: true
-        - java_method: topToTop
-          go_name: TopToTop
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: topToBottom
-          go_name: TopToBottom
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: bottomToTop
-          go_name: BottomToTop
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: bottomToBottom
-          go_name: BottomToBottom
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.solver.state.helpers.HorizontalChainReference
-      go_type: HorizontalChainReference
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.constraintlayout.solver.state.State
-          go_name: arg0
-      methods:
-        - java_method: apply
-          go_name: Apply
-          returns: void
-          error: true
-        - java_method: startToStart
-          go_name: StartToStart
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: startToEnd
-          go_name: StartToEnd
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: endToStart
-          go_name: EndToStart
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: endToEnd
-          go_name: EndToEnd
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
     - java_class: androidx.constraintlayout.solver.state.helpers.GuidelineReference
       go_type: GuidelineReference
       obtain: constructor
@@ -304,6 +67,243 @@ classes:
           go_name: SetConstraintWidget
           params:
             - java_type: androidx.constraintlayout.solver.widgets.ConstraintWidget
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.solver.state.helpers.BarrierReference
+      go_type: BarrierReference
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.constraintlayout.solver.state.State
+          go_name: arg0
+      methods:
+        - java_method: setBarrierDirection
+          go_name: SetBarrierDirection
+          params:
+            - java_type: androidx.constraintlayout.solver.state.State$Direction
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: margin
+          go_name: Margin1
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: margin
+          go_name: Margin1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getHelperWidget
+          go_name: GetHelperWidget
+          returns: androidx.constraintlayout.solver.widgets.HelperWidget
+          error: true
+        - java_method: apply
+          go_name: Apply
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.solver.state.helpers.AlignVerticallyReference
+      go_type: AlignVerticallyReference
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.constraintlayout.solver.state.State
+          go_name: arg0
+      methods:
+        - java_method: apply
+          go_name: Apply
+          returns: void
+          error: true
+        - java_method: topToTop
+          go_name: TopToTop
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: topToBottom
+          go_name: TopToBottom
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: bottomToTop
+          go_name: BottomToTop
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: bottomToBottom
+          go_name: BottomToBottom
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: bias
+          go_name: Bias
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.solver.state.helpers.HorizontalChainReference
+      go_type: HorizontalChainReference
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.constraintlayout.solver.state.State
+          go_name: arg0
+      methods:
+        - java_method: apply
+          go_name: Apply
+          returns: void
+          error: true
+        - java_method: startToStart
+          go_name: StartToStart
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: startToEnd
+          go_name: StartToEnd
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: endToStart
+          go_name: EndToStart
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: endToEnd
+          go_name: EndToEnd
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.solver.state.helpers.AlignHorizontallyReference
+      go_type: AlignHorizontallyReference
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.constraintlayout.solver.state.State
+          go_name: arg0
+      methods:
+        - java_method: apply
+          go_name: Apply
+          returns: void
+          error: true
+        - java_method: startToStart
+          go_name: StartToStart
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: startToEnd
+          go_name: StartToEnd
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: endToStart
+          go_name: EndToStart
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: endToEnd
+          go_name: EndToEnd
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: bias
+          go_name: Bias
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.solver.state.helpers.VerticalChainReference
+      go_type: VerticalChainReference
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.constraintlayout.solver.state.State
+          go_name: arg0
+      methods:
+        - java_method: apply
+          go_name: Apply
+          returns: void
+          error: true
+        - java_method: topToTop
+          go_name: TopToTop
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: topToBottom
+          go_name: TopToBottom
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: bottomToTop
+          go_name: BottomToTop
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: bottomToBottom
+          go_name: BottomToBottom
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.solver.state.helpers.ChainReference
+      go_type: ChainReference
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.constraintlayout.solver.state.State
+          go_name: arg0
+        - java_type: androidx.constraintlayout.solver.state.State$Helper
+          go_name: arg1
+      methods:
+        - java_method: getStyle
+          go_name: GetStyle
+          returns: androidx.constraintlayout.solver.state.State$Chain
+          error: true
+        - java_method: style
+          go_name: Style
+          params:
+            - java_type: androidx.constraintlayout.solver.state.State$Chain
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getBias
+          go_name: GetBias
+          returns: float
+          error: true
+        - java_method: bias
+          go_name: Bias
+          params:
+            - java_type: float
               go_name: arg0
           returns: void
           error: true

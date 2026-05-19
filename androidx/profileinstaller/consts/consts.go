@@ -3,14 +3,6 @@
 package consts
 
 const (
-	ResultCodeNoProfile                                        int = 0
-	ResultCodeCompiledWithProfile                              int = 1
-	ResultCodeProfileEnqueuedForCompilation                    int = 2
-	ResultCodeCompiledWithProfileNonMatching                   int = 3
-	ResultCodeErrorPackageNameDoesNotExist                     int = 65536
-	ResultCodeErrorCacheFileExistsButCannotBeRead              int = 131072
-	ResultCodeErrorCantWriteProfileVerificationResultCacheFile int = 196608
-	ResultCodeErrorUnsupportedApiVersion                       int = 262144
 	MinSupportedSdk                                            int = 24
 	MaxSupportedSdk                                            int = 34
 	DiagnosticCurrentProfileExists                             int = 1
@@ -34,6 +26,14 @@ const (
 	ResultBenchmarkOperationSuccess                            int = 14
 	ResultBenchmarkOperationFailure                            int = 15
 	ResultBenchmarkOperationUnknown                            int = 16
+	ResultCodeNoProfile                                        int = 0
+	ResultCodeCompiledWithProfile                              int = 1
+	ResultCodeProfileEnqueuedForCompilation                    int = 2
+	ResultCodeCompiledWithProfileNonMatching                   int = 3
+	ResultCodeErrorPackageNameDoesNotExist                     int = 65536
+	ResultCodeErrorCacheFileExistsButCannotBeRead              int = 131072
+	ResultCodeErrorCantWriteProfileVerificationResultCacheFile int = 196608
+	ResultCodeErrorUnsupportedApiVersion                       int = 262144
 )
 
 const (

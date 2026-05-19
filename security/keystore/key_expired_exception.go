@@ -32,6 +32,12 @@ func NewKeyExpiredException(vm *jni.VM) (*KeyExpiredException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsKeyExpiredException == nil {
+			return fmt.Errorf("android.security.keystore.KeyExpiredException is not available on this device")
+		}
+		if midKeyExpiredExceptionCtor == nil {
+			return fmt.Errorf("android.security.keystore.KeyExpiredException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyExpiredException)), midKeyExpiredExceptionCtor)
 		if err != nil {
 			return err

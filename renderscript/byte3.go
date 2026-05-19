@@ -32,6 +32,12 @@ func NewByte3(vm *jni.VM) (*Byte3, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsByte3 == nil {
+			return fmt.Errorf("android.renderscript.Byte3 is not available on this device")
+		}
+		if midByte3Ctor == nil {
+			return fmt.Errorf("android.renderscript.Byte3 constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsByte3)), midByte3Ctor)
 		if err != nil {
 			return err

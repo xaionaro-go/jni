@@ -29,6 +29,7 @@ var (
 	midSettingsCanDrawOverlays jni.MethodID
 
 	clsGlobal            *jni.GlobalRef
+	midGlobalCtor        jni.MethodID
 	midGlobalToString    jni.MethodID
 	midGlobalGetFloat2   jni.MethodID
 	midGlobalGetFloat3_1 jni.MethodID
@@ -44,6 +45,7 @@ var (
 	midGlobalPutString   jni.MethodID
 
 	clsNameValueTable          *jni.GlobalRef
+	midNameValueTableCtor      jni.MethodID
 	midNameValueTableToString  jni.MethodID
 	midNameValueTableGetUriFor jni.MethodID
 
@@ -51,6 +53,7 @@ var (
 	midPanelToString jni.MethodID
 
 	clsSecure                           *jni.GlobalRef
+	midSecureCtor                       jni.MethodID
 	midSecureToString                   jni.MethodID
 	midSecureGetFloat2                  jni.MethodID
 	midSecureGetFloat3_1                jni.MethodID
@@ -68,9 +71,11 @@ var (
 	midSecureSetLocationProviderEnabled jni.MethodID
 
 	clsSettingNotFoundException         *jni.GlobalRef
+	midSettingNotFoundExceptionCtor     jni.MethodID
 	midSettingNotFoundExceptionToString jni.MethodID
 
 	clsSystem                          *jni.GlobalRef
+	midSystemCtor                      jni.MethodID
 	midSystemToString                  jni.MethodID
 	midSystemCanWrite                  jni.MethodID
 	midSystemGetConfiguration          jni.MethodID
@@ -144,6 +149,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsGlobal = env.NewGlobalRef(&c.Object)
+		midGlobalCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGlobal)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midGlobalToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGlobal)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -245,6 +254,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsNameValueTable = env.NewGlobalRef(&c.Object)
+		midNameValueTableCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNameValueTable)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midNameValueTableToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNameValueTable)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -286,6 +299,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsSecure = env.NewGlobalRef(&c.Object)
+		midSecureCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSecure)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midSecureToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSecure)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -401,6 +418,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsSettingNotFoundException = env.NewGlobalRef(&c.Object)
+		midSettingNotFoundExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingNotFoundException)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midSettingNotFoundExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingNotFoundException)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -418,6 +439,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsSystem = env.NewGlobalRef(&c.Object)
+		midSystemCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSystem)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midSystemToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSystem)), "toString", "()Ljava/lang/String;")
 		if err != nil {

@@ -5,84 +5,6 @@
 package: audiomanager
 go_import: github.com/AndroidGoLab/jni/media/audiomanager
 classes:
-    - java_class: android.media.AudioDeviceInfo
-      go_type: AudioDeviceInfo
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getAddress
-          go_name: GetAddress
-          returns: String
-          error: true
-        - java_method: getAudioDescriptors
-          go_name: GetAudioDescriptors
-          returns: java.util.List<android.media.AudioDescriptor>
-          error: true
-        - java_method: getAudioProfiles
-          go_name: GetAudioProfiles
-          returns: java.util.List<android.media.AudioProfile>
-          error: true
-        - java_method: getChannelCounts
-          go_name: GetChannelCounts
-          returns: '[I'
-          error: true
-        - java_method: getChannelIndexMasks
-          go_name: GetChannelIndexMasks
-          returns: '[I'
-          error: true
-        - java_method: getChannelMasks
-          go_name: GetChannelMasks
-          returns: '[I'
-          error: true
-        - java_method: getEncapsulationMetadataTypes
-          go_name: GetEncapsulationMetadataTypes
-          returns: '[I'
-          error: true
-        - java_method: getEncapsulationModes
-          go_name: GetEncapsulationModes
-          returns: '[I'
-          error: true
-        - java_method: getEncodings
-          go_name: GetEncodings
-          returns: '[I'
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: int
-          error: true
-        - java_method: getProductName
-          go_name: GetProductName
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getSampleRates
-          go_name: GetSampleRates
-          returns: '[I'
-          error: true
-        - java_method: getSpeakerLayoutChannelMask
-          go_name: GetSpeakerLayoutChannelMask
-          returns: int
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: isSink
-          go_name: IsSink
-          returns: boolean
-          error: true
-        - java_method: isSource
-          go_name: IsSource
-          returns: boolean
-          error: true
     - java_class: android.media.AudioManager
       go_type: AudioManager
       obtain: system_service
@@ -796,103 +718,92 @@ classes:
               go_name: arg2
           returns: void
           error: true
+    - java_class: android.media.AudioDeviceInfo
+      go_type: AudioDeviceInfo
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getAddress
+          go_name: GetAddress
+          returns: String
+          error: true
+        - java_method: getAudioDescriptors
+          go_name: GetAudioDescriptors
+          returns: java.util.List<android.media.AudioDescriptor>
+          error: true
+        - java_method: getAudioProfiles
+          go_name: GetAudioProfiles
+          returns: java.util.List<android.media.AudioProfile>
+          error: true
+        - java_method: getChannelCounts
+          go_name: GetChannelCounts
+          returns: '[I'
+          error: true
+        - java_method: getChannelIndexMasks
+          go_name: GetChannelIndexMasks
+          returns: '[I'
+          error: true
+        - java_method: getChannelMasks
+          go_name: GetChannelMasks
+          returns: '[I'
+          error: true
+        - java_method: getEncapsulationMetadataTypes
+          go_name: GetEncapsulationMetadataTypes
+          returns: '[I'
+          error: true
+        - java_method: getEncapsulationModes
+          go_name: GetEncapsulationModes
+          returns: '[I'
+          error: true
+        - java_method: getEncodings
+          go_name: GetEncodings
+          returns: '[I'
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: int
+          error: true
+        - java_method: getProductName
+          go_name: GetProductName
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getSampleRates
+          go_name: GetSampleRates
+          returns: '[I'
+          error: true
+        - java_method: getSpeakerLayoutChannelMask
+          go_name: GetSpeakerLayoutChannelMask
+          returns: int
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: isSink
+          go_name: IsSink
+          returns: boolean
+          error: true
+        - java_method: isSource
+          go_name: IsSource
+          returns: boolean
+          error: true
+abstract_callback_eligibility:
+    - java_class: android.media.AudioManager$AudioPlaybackCallback
+      generated: false
+      reason: no_renderable_methods
+    - java_class: android.media.AudioManager$AudioRecordingCallback
+      generated: false
+      reason: no_renderable_methods
 constants:
-    - go_name: TypeAuxLine
-      value: "19"
-      go_type: int
-    - go_name: TypeBleBroadcast
-      value: "30"
-      go_type: int
-    - go_name: TypeBleHeadset
-      value: "26"
-      go_type: int
-    - go_name: TypeBleSpeaker
-      value: "27"
-      go_type: int
-    - go_name: TypeBluetoothA2dp
-      value: "8"
-      go_type: int
-    - go_name: TypeBluetoothSco
-      value: "7"
-      go_type: int
-    - go_name: TypeBuiltinEarpiece
-      value: "1"
-      go_type: int
-    - go_name: TypeBuiltinMic
-      value: "15"
-      go_type: int
-    - go_name: TypeBuiltinSpeaker
-      value: "2"
-      go_type: int
-    - go_name: TypeBuiltinSpeakerSafe
-      value: "24"
-      go_type: int
-    - go_name: TypeBus
-      value: "21"
-      go_type: int
-    - go_name: TypeDock
-      value: "13"
-      go_type: int
-    - go_name: TypeDockAnalog
-      value: "31"
-      go_type: int
-    - go_name: TypeFm
-      value: "14"
-      go_type: int
-    - go_name: TypeFmTuner
-      value: "16"
-      go_type: int
-    - go_name: TypeHdmi
-      value: "9"
-      go_type: int
-    - go_name: TypeHdmiArc
-      value: "10"
-      go_type: int
-    - go_name: TypeHdmiEarc
-      value: "29"
-      go_type: int
-    - go_name: TypeHearingAid
-      value: "23"
-      go_type: int
-    - go_name: TypeIp
-      value: "20"
-      go_type: int
-    - go_name: TypeLineAnalog
-      value: "5"
-      go_type: int
-    - go_name: TypeLineDigital
-      value: "6"
-      go_type: int
-    - go_name: TypeMultichannelGroup
-      value: "32"
-      go_type: int
-    - go_name: TypeRemoteSubmix
-      value: "25"
-      go_type: int
-    - go_name: TypeTelephony
-      value: "18"
-      go_type: int
-    - go_name: TypeTvTuner
-      value: "17"
-      go_type: int
-    - go_name: TypeUnknown
-      value: "0"
-      go_type: int
-    - go_name: TypeUsbAccessory
-      value: "12"
-      go_type: int
-    - go_name: TypeUsbDevice
-      value: "11"
-      go_type: int
-    - go_name: TypeUsbHeadset
-      value: "22"
-      go_type: int
-    - go_name: TypeWiredHeadphones
-      value: "4"
-      go_type: int
-    - go_name: TypeWiredHeadset
-      value: "3"
-      go_type: int
     - go_name: ActionAudioBecomingNoisy
       value: '"android.media.AUDIO_BECOMING_NOISY"'
       go_type: string
@@ -1225,4 +1136,100 @@ constants:
       go_type: int
     - go_name: VibrateTypeRinger
       value: "0"
+      go_type: int
+    - go_name: TypeAuxLine
+      value: "19"
+      go_type: int
+    - go_name: TypeBleBroadcast
+      value: "30"
+      go_type: int
+    - go_name: TypeBleHeadset
+      value: "26"
+      go_type: int
+    - go_name: TypeBleSpeaker
+      value: "27"
+      go_type: int
+    - go_name: TypeBluetoothA2dp
+      value: "8"
+      go_type: int
+    - go_name: TypeBluetoothSco
+      value: "7"
+      go_type: int
+    - go_name: TypeBuiltinEarpiece
+      value: "1"
+      go_type: int
+    - go_name: TypeBuiltinMic
+      value: "15"
+      go_type: int
+    - go_name: TypeBuiltinSpeaker
+      value: "2"
+      go_type: int
+    - go_name: TypeBuiltinSpeakerSafe
+      value: "24"
+      go_type: int
+    - go_name: TypeBus
+      value: "21"
+      go_type: int
+    - go_name: TypeDock
+      value: "13"
+      go_type: int
+    - go_name: TypeDockAnalog
+      value: "31"
+      go_type: int
+    - go_name: TypeFm
+      value: "14"
+      go_type: int
+    - go_name: TypeFmTuner
+      value: "16"
+      go_type: int
+    - go_name: TypeHdmi
+      value: "9"
+      go_type: int
+    - go_name: TypeHdmiArc
+      value: "10"
+      go_type: int
+    - go_name: TypeHdmiEarc
+      value: "29"
+      go_type: int
+    - go_name: TypeHearingAid
+      value: "23"
+      go_type: int
+    - go_name: TypeIp
+      value: "20"
+      go_type: int
+    - go_name: TypeLineAnalog
+      value: "5"
+      go_type: int
+    - go_name: TypeLineDigital
+      value: "6"
+      go_type: int
+    - go_name: TypeMultichannelGroup
+      value: "32"
+      go_type: int
+    - go_name: TypeRemoteSubmix
+      value: "25"
+      go_type: int
+    - go_name: TypeTelephony
+      value: "18"
+      go_type: int
+    - go_name: TypeTvTuner
+      value: "17"
+      go_type: int
+    - go_name: TypeUnknown
+      value: "0"
+      go_type: int
+    - go_name: TypeUsbAccessory
+      value: "12"
+      go_type: int
+    - go_name: TypeUsbDevice
+      value: "11"
+      go_type: int
+    - go_name: TypeUsbHeadset
+      value: "22"
+      go_type: int
+    - go_name: TypeWiredHeadphones
+      value: "4"
+      go_type: int
+    - go_name: TypeWiredHeadset
+      value: "3"
       go_type: int

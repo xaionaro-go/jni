@@ -160,29 +160,6 @@ func (m *WebSourceParams) IsDebugKeyAllowed() (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.adservices.measurement.WebSourceParams.writeToParcel.
-func (m *WebSourceParams) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midWebSourceParamsWriteToParcel == nil {
-			callErr = fmt.Errorf("android.adservices.measurement.WebSourceParams.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midWebSourceParamsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.adservices.measurement.WebSourceParams.toString.
 func (m *WebSourceParams) ToString() (string, error) {
 	var result string
@@ -208,4 +185,27 @@ func (m *WebSourceParams) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.adservices.measurement.WebSourceParams.writeToParcel.
+func (m *WebSourceParams) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midWebSourceParamsWriteToParcel == nil {
+			callErr = fmt.Errorf("android.adservices.measurement.WebSourceParams.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsWebSourceParams)),
+			midWebSourceParamsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

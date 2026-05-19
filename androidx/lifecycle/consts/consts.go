@@ -4,10 +4,6 @@ package consts
 
 const (
 	Companion                  int = 0
-	SavedStateRegistryOwnerKey int = 0
-	ViewModelStoreOwnerKey     int = 0
-	DefaultArgsKey             int = 0
-	Instance                   int = 0
 	ApplicationKey             int = 0
 	ViewModelKey               int = 0
 	OnCreate                   int = 0
@@ -22,9 +18,13 @@ const (
 	Created                    int = 0
 	Started                    int = 0
 	Resumed                    int = 0
+	Instance                   int = 0
+	SavedStateRegistryOwnerKey int = 0
+	ViewModelStoreOwnerKey     int = 0
+	DefaultArgsKey             int = 0
 )
 
 const (
-	TagSavedStateHandleController string = "androidx.lifecycle.savedstate.vm.tag"
 	DefaultKey                    string = "androidx.lifecycle.ViewModelProvider.DefaultKey"
+	TagSavedStateHandleController string = "androidx.lifecycle.savedstate.vm.tag"
 )

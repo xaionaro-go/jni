@@ -32,6 +32,12 @@ func NewRegistry(vm *jni.VM) (*Registry, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRegistry == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.state.Registry is not available on this device")
+		}
+		if midRegistryCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.state.Registry constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRegistry)), midRegistryCtor)
 		if err != nil {
 			return err
@@ -348,38 +354,6 @@ func (m *Registry) GetLastModified(arg0 string) (int64, error) {
 	return result, callErr
 }
 
-// UpdateDimensions calls androidx.constraintlayout.core.state.Registry.updateDimensions.
-func (m *Registry) UpdateDimensions(
-	arg0 string,
-	arg1 int32,
-	arg2 int32,
-) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRegistryUpdateDimensions == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.core.state.Registry.updateDimensions is not available on this device")
-			return callErr
-		}
-		jArg0, err := env.NewStringUTF(arg0)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg0.Object)
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midRegistryUpdateDimensions, jni.ObjectValue(&jArg0.Object), jni.IntValue(arg1), jni.IntValue(arg2),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.constraintlayout.core.state.Registry.toString.
 func (m *Registry) ToString() (string, error) {
 	var result string
@@ -437,4 +411,36 @@ func (m *Registry) GetInstance() (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// UpdateDimensions calls androidx.constraintlayout.core.state.Registry.updateDimensions.
+func (m *Registry) UpdateDimensions(
+	arg0 string,
+	arg1 int32,
+	arg2 int32,
+) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRegistryUpdateDimensions == nil {
+			callErr = fmt.Errorf("androidx.constraintlayout.core.state.Registry.updateDimensions is not available on this device")
+			return callErr
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsRegistry)),
+			midRegistryUpdateDimensions, jni.ObjectValue(&jArg0.Object), jni.IntValue(arg1), jni.IntValue(arg2),
+		)
+		return callErr
+	})
+	return callErr
 }

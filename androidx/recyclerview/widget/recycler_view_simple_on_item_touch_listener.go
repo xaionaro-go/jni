@@ -23,6 +23,34 @@ type RecyclerViewSimpleOnItemTouchListener struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRecyclerViewSimpleOnItemTouchListener creates a new androidx.recyclerview.widget.RecyclerView$SimpleOnItemTouchListener instance.
+func NewRecyclerViewSimpleOnItemTouchListener(vm *jni.VM) (*RecyclerViewSimpleOnItemTouchListener, error) {
+	var t RecyclerViewSimpleOnItemTouchListener
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRecyclerViewSimpleOnItemTouchListener == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.RecyclerView$SimpleOnItemTouchListener is not available on this device")
+		}
+		if midRecyclerViewSimpleOnItemTouchListenerCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.RecyclerView$SimpleOnItemTouchListener constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRecyclerViewSimpleOnItemTouchListener)), midRecyclerViewSimpleOnItemTouchListenerCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnInterceptTouchEvent calls androidx.recyclerview.widget.RecyclerView$SimpleOnItemTouchListener.onInterceptTouchEvent.
 func (m *RecyclerViewSimpleOnItemTouchListener) OnInterceptTouchEvent(arg0 *jni.Object, arg1 *jni.Object) (bool, error) {
 	var result bool

@@ -32,6 +32,12 @@ func NewPopupHelper(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*PopupHelpe
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPopupHelper == nil {
+			return fmt.Errorf("androidx.appcompat.view.menu.MenuPopupHelper is not available on this device")
+		}
+		if midPopupHelperCtor == nil {
+			return fmt.Errorf("androidx.appcompat.view.menu.MenuPopupHelper constructor (Landroid/content/Context;Landroidx/appcompat/view/menu/MenuBuilder;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPopupHelper)), midPopupHelperCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

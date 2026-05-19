@@ -32,6 +32,12 @@ func NewCredentials(vm *jni.VM, arg0 int32, arg1 int32, arg2 int32) (*Credential
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCredentials == nil {
+			return fmt.Errorf("android.net.Credentials is not available on this device")
+		}
+		if midCredentialsCtor == nil {
+			return fmt.Errorf("android.net.Credentials constructor (III)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCredentials)), midCredentialsCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2))
 		if err != nil {

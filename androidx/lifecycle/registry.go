@@ -32,6 +32,12 @@ func NewRegistry(vm *jni.VM, arg0 *jni.Object) (*Registry, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRegistry == nil {
+			return fmt.Errorf("androidx.lifecycle.LifecycleRegistry is not available on this device")
+		}
+		if midRegistryCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.LifecycleRegistry constructor (Landroidx/lifecycle/LifecycleOwner;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRegistry)), midRegistryCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -262,6 +268,39 @@ func (m *Registry) CreateUnsafe(arg0 *jni.Object) (*jni.Object, error) {
 		result, callErr = env.CallStaticObjectMethod(
 			(*jni.Class)(unsafe.Pointer(clsRegistry)),
 			midRegistryCreateUnsafe, jni.ObjectValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// MinLifecycleRuntimeRelease calls androidx.lifecycle.LifecycleRegistry.min$lifecycle_runtime_release.
+func (m *Registry) MinLifecycleRuntimeRelease(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRegistryMinLifecycleRuntimeRelease == nil {
+			callErr = fmt.Errorf("androidx.lifecycle.LifecycleRegistry.min$lifecycle_runtime_release is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsRegistry)),
+			midRegistryMinLifecycleRuntimeRelease, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr

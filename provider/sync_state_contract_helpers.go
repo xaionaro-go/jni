@@ -23,6 +23,34 @@ type SyncStateContractHelpers struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSyncStateContractHelpers creates a new android.provider.SyncStateContract$Helpers instance.
+func NewSyncStateContractHelpers(vm *jni.VM) (*SyncStateContractHelpers, error) {
+	var t SyncStateContractHelpers
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSyncStateContractHelpers == nil {
+			return fmt.Errorf("android.provider.SyncStateContract$Helpers is not available on this device")
+		}
+		if midSyncStateContractHelpersCtor == nil {
+			return fmt.Errorf("android.provider.SyncStateContract$Helpers constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSyncStateContractHelpers)), midSyncStateContractHelpersCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.provider.SyncStateContract$Helpers.toString.
 func (m *SyncStateContractHelpers) ToString() (string, error) {
 	var result string

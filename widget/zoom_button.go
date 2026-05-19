@@ -32,6 +32,12 @@ func NewZoomButton(vm *jni.VM, arg0 *jni.Object) (*ZoomButton, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsZoomButton == nil {
+			return fmt.Errorf("android.widget.ZoomButton is not available on this device")
+		}
+		if midZoomButtonCtor == nil {
+			return fmt.Errorf("android.widget.ZoomButton constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsZoomButton)), midZoomButtonCtor, jni.ObjectValue(arg0))
 		if err != nil {

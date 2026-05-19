@@ -23,6 +23,34 @@ type LoadParamsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewLoadParamsBuilder creates a new android.graphics.pdf.LoadParams$Builder instance.
+func NewLoadParamsBuilder(vm *jni.VM) (*LoadParamsBuilder, error) {
+	var t LoadParamsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsLoadParamsBuilder == nil {
+			return fmt.Errorf("android.graphics.pdf.LoadParams$Builder is not available on this device")
+		}
+		if midLoadParamsBuilderCtor == nil {
+			return fmt.Errorf("android.graphics.pdf.LoadParams$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLoadParamsBuilder)), midLoadParamsBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.graphics.pdf.LoadParams$Builder.build.
 func (m *LoadParamsBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

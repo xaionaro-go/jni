@@ -23,6 +23,46 @@ type ExecuteAppFunctionRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewExecuteAppFunctionRequestBuilder creates a new android.app.appfunctions.ExecuteAppFunctionRequest$Builder instance.
+func NewExecuteAppFunctionRequestBuilder(vm *jni.VM, arg0 string, arg1 string) (*ExecuteAppFunctionRequestBuilder, error) {
+	var t ExecuteAppFunctionRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsExecuteAppFunctionRequestBuilder == nil {
+			return fmt.Errorf("android.app.appfunctions.ExecuteAppFunctionRequest$Builder is not available on this device")
+		}
+		if midExecuteAppFunctionRequestBuilderCtor == nil {
+			return fmt.Errorf("android.app.appfunctions.ExecuteAppFunctionRequest$Builder constructor (Ljava/lang/String;Ljava/lang/String;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExecuteAppFunctionRequestBuilder)), midExecuteAppFunctionRequestBuilderCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(&jArg1.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.app.appfunctions.ExecuteAppFunctionRequest$Builder.build.
 func (m *ExecuteAppFunctionRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

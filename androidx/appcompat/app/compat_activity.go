@@ -30,6 +30,12 @@ func NewCompatActivity(vm *jni.VM) (*CompatActivity, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCompatActivity == nil {
+			return fmt.Errorf("androidx.appcompat.app.AppCompatActivity is not available on this device")
+		}
+		if midCompatActivityCtor == nil {
+			return fmt.Errorf("androidx.appcompat.app.AppCompatActivity constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCompatActivity)), midCompatActivityCtor)
 		if err != nil {
 			return err
@@ -262,6 +268,28 @@ func (m *CompatActivity) OnConfigurationChanged(arg0 *jni.Object) error {
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midCompatActivityOnConfigurationChanged, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
+}
+
+// OnStop calls androidx.appcompat.app.AppCompatActivity.onStop.
+func (m *CompatActivity) OnStop() error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCompatActivityOnStop == nil {
+			callErr = fmt.Errorf("androidx.appcompat.app.AppCompatActivity.onStop is not available on this device")
+			return callErr
+		}
+		callErr = env.CallVoidMethod(
+			m.Obj,
+			midCompatActivityOnStop,
 		)
 		return callErr
 	})

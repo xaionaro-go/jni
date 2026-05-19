@@ -32,6 +32,12 @@ func NewLinearLayoutCompat(vm *jni.VM, arg0 *jni.Object) (*LinearLayoutCompat, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLinearLayoutCompat == nil {
+			return fmt.Errorf("androidx.appcompat.widget.LinearLayoutCompat is not available on this device")
+		}
+		if midLinearLayoutCompatCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.LinearLayoutCompat constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLinearLayoutCompat)), midLinearLayoutCompatCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -620,8 +626,8 @@ func (m *LinearLayoutCompat) SetVerticalGravity(arg0 int32) error {
 	return callErr
 }
 
-// GenerateLayoutParams1 calls androidx.appcompat.widget.LinearLayoutCompat.generateLayoutParams.
-func (m *LinearLayoutCompat) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, error) {
+// GenerateLayoutParams calls androidx.appcompat.widget.LinearLayoutCompat.generateLayoutParams.
+func (m *LinearLayoutCompat) GenerateLayoutParams(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -629,14 +635,14 @@ func (m *LinearLayoutCompat) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Objec
 			callErr = err
 			return err
 		}
-		if midLinearLayoutCompatGenerateLayoutParams1 == nil {
+		if midLinearLayoutCompatGenerateLayoutParams == nil {
 			callErr = fmt.Errorf("androidx.appcompat.widget.LinearLayoutCompat.generateLayoutParams is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midLinearLayoutCompatGenerateLayoutParams1, jni.ObjectValue(arg0),
+			midLinearLayoutCompatGenerateLayoutParams, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -697,39 +703,6 @@ func (m *LinearLayoutCompat) OnInitializeAccessibilityNodeInfo(arg0 *jni.Object)
 		return callErr
 	})
 	return callErr
-}
-
-// GenerateLayoutParams1_1 calls androidx.appcompat.widget.LinearLayoutCompat.generateLayoutParams.
-func (m *LinearLayoutCompat) GenerateLayoutParams1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midLinearLayoutCompatGenerateLayoutParams1_1 == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.LinearLayoutCompat.generateLayoutParams is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midLinearLayoutCompatGenerateLayoutParams1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls androidx.appcompat.widget.LinearLayoutCompat.toString.

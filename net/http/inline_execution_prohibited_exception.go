@@ -32,6 +32,12 @@ func NewInlineExecutionProhibitedException(vm *jni.VM) (*InlineExecutionProhibit
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInlineExecutionProhibitedException == nil {
+			return fmt.Errorf("android.net.http.InlineExecutionProhibitedException is not available on this device")
+		}
+		if midInlineExecutionProhibitedExceptionCtor == nil {
+			return fmt.Errorf("android.net.http.InlineExecutionProhibitedException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInlineExecutionProhibitedException)), midInlineExecutionProhibitedExceptionCtor)
 		if err != nil {
 			return err

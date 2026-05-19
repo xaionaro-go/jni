@@ -32,6 +32,12 @@ func NewAnimationDrawable(vm *jni.VM) (*AnimationDrawable, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAnimationDrawable == nil {
+			return fmt.Errorf("android.graphics.drawable.AnimationDrawable is not available on this device")
+		}
+		if midAnimationDrawableCtor == nil {
+			return fmt.Errorf("android.graphics.drawable.AnimationDrawable constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAnimationDrawable)), midAnimationDrawableCtor)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewDateInterval(vm *jni.VM, arg0 int64, arg1 int64) (*DateInterval, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDateInterval == nil {
+			return fmt.Errorf("android.icu.util.DateInterval is not available on this device")
+		}
+		if midDateIntervalCtor == nil {
+			return fmt.Errorf("android.icu.util.DateInterval constructor (JJ)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDateInterval)), midDateIntervalCtor, jni.LongValue(arg0), jni.LongValue(arg1))
 		if err != nil {

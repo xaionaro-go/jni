@@ -48,31 +48,6 @@ func (m *ContrastOptions) GetMediumContrastThemeOverlay() (int32, error) {
 	return result, callErr
 }
 
-// GetHighContrastThemeOverlay calls com.google.android.material.color.ColorContrastOptions.getHighContrastThemeOverlay.
-func (m *ContrastOptions) GetHighContrastThemeOverlay() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midContrastOptionsGetHighContrastThemeOverlay == nil {
-			callErr = fmt.Errorf("com.google.android.material.color.ColorContrastOptions.getHighContrastThemeOverlay is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midContrastOptionsGetHighContrastThemeOverlay,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.color.ColorContrastOptions.toString.
 func (m *ContrastOptions) ToString() (string, error) {
 	var result string

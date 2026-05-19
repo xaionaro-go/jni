@@ -312,8 +312,8 @@ func (m *PreferentialNetworkServiceConfig) WriteToParcel(arg0 *jni.Object, arg1 
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsPreferentialNetworkServiceConfig)),
 			midPreferentialNetworkServiceConfigWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

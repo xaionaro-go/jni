@@ -32,6 +32,12 @@ func NewIconMarginSpan(vm *jni.VM, arg0 *jni.Object) (*IconMarginSpan, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsIconMarginSpan == nil {
+			return fmt.Errorf("android.text.style.IconMarginSpan is not available on this device")
+		}
+		if midIconMarginSpanCtor == nil {
+			return fmt.Errorf("android.text.style.IconMarginSpan constructor (Landroid/graphics/Bitmap;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIconMarginSpan)), midIconMarginSpanCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -32,6 +32,12 @@ func NewOnBackPressedDispatcher(vm *jni.VM) (*OnBackPressedDispatcher, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsOnBackPressedDispatcher == nil {
+			return fmt.Errorf("androidx.activity.OnBackPressedDispatcher is not available on this device")
+		}
+		if midOnBackPressedDispatcherCtor == nil {
+			return fmt.Errorf("androidx.activity.OnBackPressedDispatcher constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcher)), midOnBackPressedDispatcherCtor)
 		if err != nil {
 			return err
@@ -68,6 +74,28 @@ func (m *OnBackPressedDispatcher) SetOnBackInvokedDispatcher(arg0 *jni.Object) e
 	return callErr
 }
 
+// UpdateBackInvokedCallbackStateActivityRelease calls androidx.activity.OnBackPressedDispatcher.updateBackInvokedCallbackState$activity_release.
+func (m *OnBackPressedDispatcher) UpdateBackInvokedCallbackStateActivityRelease() error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midOnBackPressedDispatcherUpdateBackInvokedCallbackStateActivityRelease == nil {
+			callErr = fmt.Errorf("androidx.activity.OnBackPressedDispatcher.updateBackInvokedCallbackState$activity_release is not available on this device")
+			return callErr
+		}
+		callErr = env.CallVoidMethod(
+			m.Obj,
+			midOnBackPressedDispatcherUpdateBackInvokedCallbackStateActivityRelease,
+		)
+		return callErr
+	})
+	return callErr
+}
+
 // AddCallback1 calls androidx.activity.OnBackPressedDispatcher.addCallback.
 func (m *OnBackPressedDispatcher) AddCallback1(arg0 *jni.Object) error {
 
@@ -89,6 +117,39 @@ func (m *OnBackPressedDispatcher) AddCallback1(arg0 *jni.Object) error {
 		return callErr
 	})
 	return callErr
+}
+
+// AddCancellableCallbackActivityRelease calls androidx.activity.OnBackPressedDispatcher.addCancellableCallback$activity_release.
+func (m *OnBackPressedDispatcher) AddCancellableCallbackActivityRelease(arg0 *jni.Object) (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midOnBackPressedDispatcherAddCancellableCallbackActivityRelease == nil {
+			callErr = fmt.Errorf("androidx.activity.OnBackPressedDispatcher.addCancellableCallback$activity_release is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallObjectMethod(
+			m.Obj,
+			midOnBackPressedDispatcherAddCancellableCallbackActivityRelease, jni.ObjectValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
 }
 
 // AddCallback2_1 calls androidx.activity.OnBackPressedDispatcher.addCallback.

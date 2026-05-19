@@ -30,6 +30,12 @@ func NewFrameMetricsAggregator(vm *jni.VM) (*FrameMetricsAggregator, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFrameMetricsAggregator == nil {
+			return fmt.Errorf("androidx.core.app.FrameMetricsAggregator is not available on this device")
+		}
+		if midFrameMetricsAggregatorCtor == nil {
+			return fmt.Errorf("androidx.core.app.FrameMetricsAggregator constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFrameMetricsAggregator)), midFrameMetricsAggregatorCtor)
 		if err != nil {
 			return err

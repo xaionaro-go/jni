@@ -5,6 +5,23 @@
 package: platform
 go_import: github.com/AndroidGoLab/jni/com/google/android/material/transition/platform
 classes:
+    - java_class: com.google.android.material.transition.platform.MaterialArcMotion
+      go_type: MaterialArcMotion
+      obtain: constructor
+      methods:
+        - java_method: getPath
+          go_name: GetPath
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+          returns: android.graphics.Path
+          error: true
     - java_class: com.google.android.material.transition.platform.FadeProvider
       go_type: FadeProvider
       obtain: constructor
@@ -38,99 +55,74 @@ classes:
               go_name: arg1
           returns: android.animation.Animator
           error: true
-    - java_class: com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
-      go_type: MaterialContainerTransformSharedElementCallback
-      obtain: constructor
-      methods:
-        - java_method: onCaptureSharedElementSnapshot
-          go_name: OnCaptureSharedElementSnapshot
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.graphics.Matrix
-              go_name: arg1
-            - java_type: android.graphics.RectF
-              go_name: arg2
-          returns: android.os.Parcelable
-          error: true
-        - java_method: onCreateSnapshotView
-          go_name: OnCreateSnapshotView
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.os.Parcelable
-              go_name: arg1
-          returns: android.view.View
-          error: true
-        - java_method: getShapeProvider
-          go_name: GetShapeProvider
-          returns: com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback$ShapeProvider
-          error: true
-        - java_method: setShapeProvider
-          go_name: SetShapeProvider
-          params:
-            - java_type: com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback$ShapeProvider
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isTransparentWindowBackgroundEnabled
-          go_name: IsTransparentWindowBackgroundEnabled
-          returns: boolean
-          error: true
-        - java_method: setTransparentWindowBackgroundEnabled
-          go_name: SetTransparentWindowBackgroundEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isSharedElementReenterTransitionEnabled
-          go_name: IsSharedElementReenterTransitionEnabled
-          returns: boolean
-          error: true
-        - java_method: setSharedElementReenterTransitionEnabled
-          go_name: SetSharedElementReenterTransitionEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback$ShapeProvider
-      go_type: MaterialContainerTransformSharedElementCallbackShapeProvider
-      methods:
-        - java_method: provideShape
-          go_name: ProvideShape
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel
-          error: true
-    - java_class: com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback$ShapeableViewShapeProvider
-      go_type: MaterialContainerTransformSharedElementCallbackShapeableViewShapeProvider
-      methods:
-        - java_method: provideShape
-          go_name: ProvideShape
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: com.google.android.material.shape.ShapeAppearanceModel
-          error: true
-    - java_class: com.google.android.material.transition.platform.MaterialSharedAxis
-      go_type: MaterialSharedAxis
+    - java_class: com.google.android.material.transition.platform.SlideDistanceProvider
+      go_type: SlideDistanceProvider
       obtain: constructor
       constructor_params:
         - java_type: int
           go_name: arg0
-        - java_type: boolean
-          go_name: arg1
       methods:
-        - java_method: getAxis
-          go_name: GetAxis
+        - java_method: getSlideEdge
+          go_name: GetSlideEdge
           returns: int
           error: true
-        - java_method: isForward
-          go_name: IsForward
-          returns: boolean
+        - java_method: setSlideEdge
+          go_name: SetSlideEdge
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getSlideDistance
+          go_name: GetSlideDistance
+          returns: int
+          error: true
+        - java_method: setSlideDistance
+          go_name: SetSlideDistance
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: createAppear
+          go_name: CreateAppear
+          params:
+            - java_type: android.view.ViewGroup
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
+          returns: android.animation.Animator
+          error: true
+        - java_method: createDisappear
+          go_name: CreateDisappear
+          params:
+            - java_type: android.view.ViewGroup
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
+          returns: android.animation.Animator
+          error: true
+    - java_class: com.google.android.material.transition.platform.SlideDistanceProvider$GravityFlag
+      go_type: SlideDistanceProviderGravityFlag
+    - java_class: com.google.android.material.transition.platform.MaterialFade
+      go_type: MaterialFade
+      obtain: constructor
+    - java_class: com.google.android.material.transition.platform.Hold
+      go_type: Hold
+      obtain: constructor
+      methods:
+        - java_method: onAppear
+          go_name: OnAppear
+          params:
+            - java_type: android.view.ViewGroup
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
+            - java_type: android.transition.TransitionValues
+              go_name: arg2
+            - java_type: android.transition.TransitionValues
+              go_name: arg3
+          returns: android.animation.Animator
           error: true
         - java_method: onDisappear
           go_name: OnDisappear
@@ -145,54 +137,6 @@ classes:
               go_name: arg3
           returns: android.animation.Animator
           error: true
-        - java_method: onAppear
-          go_name: OnAppear
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: android.transition.TransitionValues
-              go_name: arg2
-            - java_type: android.transition.TransitionValues
-              go_name: arg3
-          returns: android.animation.Animator
-          error: true
-        - java_method: clearAdditionalAnimatorProvider
-          go_name: ClearAdditionalAnimatorProvider
-          returns: void
-          error: true
-        - java_method: removeAdditionalAnimatorProvider
-          go_name: RemoveAdditionalAnimatorProvider
-          params:
-            - java_type: com.google.android.material.transition.platform.VisibilityAnimatorProvider
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: addAdditionalAnimatorProvider
-          go_name: AddAdditionalAnimatorProvider
-          params:
-            - java_type: com.google.android.material.transition.platform.VisibilityAnimatorProvider
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSecondaryAnimatorProvider
-          go_name: SetSecondaryAnimatorProvider
-          params:
-            - java_type: com.google.android.material.transition.platform.VisibilityAnimatorProvider
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getSecondaryAnimatorProvider
-          go_name: GetSecondaryAnimatorProvider
-          returns: com.google.android.material.transition.platform.VisibilityAnimatorProvider
-          error: true
-        - java_method: getPrimaryAnimatorProvider
-          go_name: GetPrimaryAnimatorProvider
-          returns: com.google.android.material.transition.platform.VisibilityAnimatorProvider
-          error: true
-    - java_class: com.google.android.material.transition.platform.MaterialSharedAxis$Axis
-      go_type: MaterialSharedAxisAxis
     - java_class: com.google.android.material.transition.platform.MaterialContainerTransform
       go_type: MaterialContainerTransform
       obtain: constructor
@@ -487,51 +431,58 @@ classes:
               go_name: arg0
           returns: void
           error: true
-        - java_method: createAnimator
-          go_name: CreateAnimator
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-            - java_type: android.transition.TransitionValues
-              go_name: arg1
-            - java_type: android.transition.TransitionValues
-              go_name: arg2
-          returns: android.animation.Animator
-          error: true
     - java_class: com.google.android.material.transition.platform.MaterialContainerTransform$FadeMode
       go_type: MaterialContainerTransformFadeMode
     - java_class: com.google.android.material.transition.platform.MaterialContainerTransform$FitMode
       go_type: MaterialContainerTransformFitMode
     - java_class: com.google.android.material.transition.platform.MaterialContainerTransform$ProgressThresholds
       go_type: MaterialContainerTransformProgressThresholds
+      obtain: constructor
+      constructor_params:
+        - java_type: float
+          go_name: arg0
+        - java_type: float
+          go_name: arg1
       methods:
         - java_method: getStart
           go_name: GetStart
           returns: float
           error: true
-        - java_method: getEnd
-          go_name: GetEnd
-          returns: float
-          error: true
-    - java_class: com.google.android.material.transition.platform.MaterialContainerTransform$TransitionDirection
-      go_type: MaterialContainerTransformTransitionDirection
-    - java_class: com.google.android.material.transition.platform.MaterialArcMotion
-      go_type: MaterialArcMotion
+    - java_class: com.google.android.material.transition.platform.FadeThroughProvider
+      go_type: FadeThroughProvider
       obtain: constructor
       methods:
-        - java_method: getPath
-          go_name: GetPath
+        - java_method: getProgressThreshold
+          go_name: GetProgressThreshold
+          returns: float
+          error: true
+        - java_method: setProgressThreshold
+          go_name: SetProgressThreshold
           params:
             - java_type: float
               go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-          returns: android.graphics.Path
+          returns: void
           error: true
+        - java_method: createAppear
+          go_name: CreateAppear
+          params:
+            - java_type: android.view.ViewGroup
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
+          returns: android.animation.Animator
+          error: true
+        - java_method: createDisappear
+          go_name: CreateDisappear
+          params:
+            - java_type: android.view.ViewGroup
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
+          returns: android.animation.Animator
+          error: true
+    - java_class: com.google.android.material.transition.platform.MaterialContainerTransform$TransitionDirection
+      go_type: MaterialContainerTransformTransitionDirection
     - java_class: com.google.android.material.transition.platform.VisibilityAnimatorProvider
       go_type: VisibilityAnimatorProvider
       methods:
@@ -553,85 +504,96 @@ classes:
               go_name: arg1
           returns: android.animation.Animator
           error: true
-    - java_class: com.google.android.material.transition.platform.Hold
-      go_type: Hold
-      obtain: constructor
-      methods:
-        - java_method: onAppear
-          go_name: OnAppear
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: android.transition.TransitionValues
-              go_name: arg2
-            - java_type: android.transition.TransitionValues
-              go_name: arg3
-          returns: android.animation.Animator
-          error: true
-        - java_method: onDisappear
-          go_name: OnDisappear
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: android.transition.TransitionValues
-              go_name: arg2
-            - java_type: android.transition.TransitionValues
-              go_name: arg3
-          returns: android.animation.Animator
-          error: true
-    - java_class: com.google.android.material.transition.platform.SlideDistanceProvider
-      go_type: SlideDistanceProvider
+    - java_class: com.google.android.material.transition.platform.MaterialSharedAxis
+      go_type: MaterialSharedAxis
       obtain: constructor
       constructor_params:
         - java_type: int
           go_name: arg0
+        - java_type: boolean
+          go_name: arg1
       methods:
-        - java_method: getSlideEdge
-          go_name: GetSlideEdge
+        - java_method: getAxis
+          go_name: GetAxis
           returns: int
           error: true
-        - java_method: setSlideEdge
-          go_name: SetSlideEdge
+        - java_method: isForward
+          go_name: IsForward
+          returns: boolean
+          error: true
+    - java_class: com.google.android.material.transition.platform.MaterialSharedAxis$Axis
+      go_type: MaterialSharedAxisAxis
+    - java_class: com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
+      go_type: MaterialContainerTransformSharedElementCallback
+      obtain: constructor
+      methods:
+        - java_method: onCaptureSharedElementSnapshot
+          go_name: OnCaptureSharedElementSnapshot
           params:
-            - java_type: int
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.graphics.Matrix
+              go_name: arg1
+            - java_type: android.graphics.RectF
+              go_name: arg2
+          returns: android.os.Parcelable
+          error: true
+        - java_method: onCreateSnapshotView
+          go_name: OnCreateSnapshotView
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.os.Parcelable
+              go_name: arg1
+          returns: android.view.View
+          error: true
+        - java_method: getShapeProvider
+          go_name: GetShapeProvider
+          returns: com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback$ShapeProvider
+          error: true
+        - java_method: setShapeProvider
+          go_name: SetShapeProvider
+          params:
+            - java_type: com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback$ShapeProvider
               go_name: arg0
           returns: void
           error: true
-        - java_method: getSlideDistance
-          go_name: GetSlideDistance
-          returns: int
+        - java_method: isTransparentWindowBackgroundEnabled
+          go_name: IsTransparentWindowBackgroundEnabled
+          returns: boolean
           error: true
-        - java_method: setSlideDistance
-          go_name: SetSlideDistance
+        - java_method: setTransparentWindowBackgroundEnabled
+          go_name: SetTransparentWindowBackgroundEnabled
           params:
-            - java_type: int
+            - java_type: boolean
               go_name: arg0
           returns: void
           error: true
-        - java_method: createAppear
-          go_name: CreateAppear
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-          returns: android.animation.Animator
+        - java_method: isSharedElementReenterTransitionEnabled
+          go_name: IsSharedElementReenterTransitionEnabled
+          returns: boolean
           error: true
-        - java_method: createDisappear
-          go_name: CreateDisappear
+    - java_class: com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback$ShapeProvider
+      go_type: MaterialContainerTransformSharedElementCallbackShapeProvider
+      methods:
+        - java_method: provideShape
+          go_name: ProvideShape
           params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
             - java_type: android.view.View
-              go_name: arg1
-          returns: android.animation.Animator
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel
           error: true
-    - java_class: com.google.android.material.transition.platform.SlideDistanceProvider$GravityFlag
-      go_type: SlideDistanceProviderGravityFlag
+    - java_class: com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback$ShapeableViewShapeProvider
+      go_type: MaterialContainerTransformSharedElementCallbackShapeableViewShapeProvider
+      obtain: constructor
+      methods:
+        - java_method: provideShape
+          go_name: ProvideShape
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: com.google.android.material.shape.ShapeAppearanceModel
+          error: true
     - java_class: com.google.android.material.transition.platform.MaterialElevationScale
       go_type: MaterialElevationScale
       obtain: constructor
@@ -642,65 +604,6 @@ classes:
         - java_method: isGrowing
           go_name: IsGrowing
           returns: boolean
-          error: true
-        - java_method: onDisappear
-          go_name: OnDisappear
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: android.transition.TransitionValues
-              go_name: arg2
-            - java_type: android.transition.TransitionValues
-              go_name: arg3
-          returns: android.animation.Animator
-          error: true
-        - java_method: onAppear
-          go_name: OnAppear
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: android.transition.TransitionValues
-              go_name: arg2
-            - java_type: android.transition.TransitionValues
-              go_name: arg3
-          returns: android.animation.Animator
-          error: true
-        - java_method: clearAdditionalAnimatorProvider
-          go_name: ClearAdditionalAnimatorProvider
-          returns: void
-          error: true
-        - java_method: removeAdditionalAnimatorProvider
-          go_name: RemoveAdditionalAnimatorProvider
-          params:
-            - java_type: com.google.android.material.transition.platform.VisibilityAnimatorProvider
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: addAdditionalAnimatorProvider
-          go_name: AddAdditionalAnimatorProvider
-          params:
-            - java_type: com.google.android.material.transition.platform.VisibilityAnimatorProvider
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSecondaryAnimatorProvider
-          go_name: SetSecondaryAnimatorProvider
-          params:
-            - java_type: com.google.android.material.transition.platform.VisibilityAnimatorProvider
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getSecondaryAnimatorProvider
-          go_name: GetSecondaryAnimatorProvider
-          returns: com.google.android.material.transition.platform.VisibilityAnimatorProvider
-          error: true
-        - java_method: getPrimaryAnimatorProvider
-          go_name: GetPrimaryAnimatorProvider
-          returns: com.google.android.material.transition.platform.VisibilityAnimatorProvider
           error: true
     - java_class: com.google.android.material.transition.platform.ScaleProvider
       go_type: ScaleProvider
@@ -793,172 +696,7 @@ classes:
     - java_class: com.google.android.material.transition.platform.MaterialFadeThrough
       go_type: MaterialFadeThrough
       obtain: constructor
-      methods:
-        - java_method: onDisappear
-          go_name: OnDisappear
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: android.transition.TransitionValues
-              go_name: arg2
-            - java_type: android.transition.TransitionValues
-              go_name: arg3
-          returns: android.animation.Animator
-          error: true
-        - java_method: onAppear
-          go_name: OnAppear
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: android.transition.TransitionValues
-              go_name: arg2
-            - java_type: android.transition.TransitionValues
-              go_name: arg3
-          returns: android.animation.Animator
-          error: true
-        - java_method: clearAdditionalAnimatorProvider
-          go_name: ClearAdditionalAnimatorProvider
-          returns: void
-          error: true
-        - java_method: removeAdditionalAnimatorProvider
-          go_name: RemoveAdditionalAnimatorProvider
-          params:
-            - java_type: com.google.android.material.transition.platform.VisibilityAnimatorProvider
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: addAdditionalAnimatorProvider
-          go_name: AddAdditionalAnimatorProvider
-          params:
-            - java_type: com.google.android.material.transition.platform.VisibilityAnimatorProvider
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSecondaryAnimatorProvider
-          go_name: SetSecondaryAnimatorProvider
-          params:
-            - java_type: com.google.android.material.transition.platform.VisibilityAnimatorProvider
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getSecondaryAnimatorProvider
-          go_name: GetSecondaryAnimatorProvider
-          returns: com.google.android.material.transition.platform.VisibilityAnimatorProvider
-          error: true
-        - java_method: getPrimaryAnimatorProvider
-          go_name: GetPrimaryAnimatorProvider
-          returns: com.google.android.material.transition.platform.VisibilityAnimatorProvider
-          error: true
-    - java_class: com.google.android.material.transition.platform.MaterialFade
-      go_type: MaterialFade
-      obtain: constructor
-      methods:
-        - java_method: onDisappear
-          go_name: OnDisappear
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: android.transition.TransitionValues
-              go_name: arg2
-            - java_type: android.transition.TransitionValues
-              go_name: arg3
-          returns: android.animation.Animator
-          error: true
-        - java_method: onAppear
-          go_name: OnAppear
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: android.transition.TransitionValues
-              go_name: arg2
-            - java_type: android.transition.TransitionValues
-              go_name: arg3
-          returns: android.animation.Animator
-          error: true
-        - java_method: clearAdditionalAnimatorProvider
-          go_name: ClearAdditionalAnimatorProvider
-          returns: void
-          error: true
-        - java_method: removeAdditionalAnimatorProvider
-          go_name: RemoveAdditionalAnimatorProvider
-          params:
-            - java_type: com.google.android.material.transition.platform.VisibilityAnimatorProvider
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: addAdditionalAnimatorProvider
-          go_name: AddAdditionalAnimatorProvider
-          params:
-            - java_type: com.google.android.material.transition.platform.VisibilityAnimatorProvider
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSecondaryAnimatorProvider
-          go_name: SetSecondaryAnimatorProvider
-          params:
-            - java_type: com.google.android.material.transition.platform.VisibilityAnimatorProvider
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getSecondaryAnimatorProvider
-          go_name: GetSecondaryAnimatorProvider
-          returns: com.google.android.material.transition.platform.VisibilityAnimatorProvider
-          error: true
-        - java_method: getPrimaryAnimatorProvider
-          go_name: GetPrimaryAnimatorProvider
-          returns: com.google.android.material.transition.platform.VisibilityAnimatorProvider
-          error: true
-    - java_class: com.google.android.material.transition.platform.FadeThroughProvider
-      go_type: FadeThroughProvider
-      obtain: constructor
-      methods:
-        - java_method: getProgressThreshold
-          go_name: GetProgressThreshold
-          returns: float
-          error: true
-        - java_method: setProgressThreshold
-          go_name: SetProgressThreshold
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: createAppear
-          go_name: CreateAppear
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-          returns: android.animation.Animator
-          error: true
-        - java_method: createDisappear
-          go_name: CreateDisappear
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-          returns: android.animation.Animator
-          error: true
 constants:
-    - go_name: X
-      value: "0"
-      go_type: int
-    - go_name: "Y"
-      value: "1"
-      go_type: int
-    - go_name: Z
-      value: "2"
-      go_type: int
     - go_name: TransitionDirectionAuto
       value: "0"
       go_type: int
@@ -987,5 +725,14 @@ constants:
       value: "1"
       go_type: int
     - go_name: FitModeHeight
+      value: "2"
+      go_type: int
+    - go_name: X
+      value: "0"
+      go_type: int
+    - go_name: "Y"
+      value: "1"
+      go_type: int
+    - go_name: Z
       value: "2"
       go_type: int

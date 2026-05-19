@@ -23,6 +23,40 @@ type RecognitionPartBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewRecognitionPartBuilder creates a new android.speech.RecognitionPart$Builder instance.
+func NewRecognitionPartBuilder(vm *jni.VM, arg0 string) (*RecognitionPartBuilder, error) {
+	var t RecognitionPartBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsRecognitionPartBuilder == nil {
+			return fmt.Errorf("android.speech.RecognitionPart$Builder is not available on this device")
+		}
+		if midRecognitionPartBuilderCtor == nil {
+			return fmt.Errorf("android.speech.RecognitionPart$Builder constructor (Ljava/lang/String;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRecognitionPartBuilder)), midRecognitionPartBuilderCtor, jni.ObjectValue(&jArg0.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.speech.RecognitionPart$Builder.build.
 func (m *RecognitionPartBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

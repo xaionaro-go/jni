@@ -23,6 +23,34 @@ type ViewCommandSetTextArguments struct {
 	Obj *jni.GlobalRef
 }
 
+// NewViewCommandSetTextArguments creates a new androidx.core.view.accessibility.AccessibilityViewCommand$SetTextArguments instance.
+func NewViewCommandSetTextArguments(vm *jni.VM) (*ViewCommandSetTextArguments, error) {
+	var t ViewCommandSetTextArguments
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsViewCommandSetTextArguments == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityViewCommand$SetTextArguments is not available on this device")
+		}
+		if midViewCommandSetTextArgumentsCtor == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityViewCommand$SetTextArguments constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewCommandSetTextArguments)), midViewCommandSetTextArgumentsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetText calls androidx.core.view.accessibility.AccessibilityViewCommand$SetTextArguments.getText.
 func (m *ViewCommandSetTextArguments) GetText() (*jni.Object, error) {
 	var result *jni.Object

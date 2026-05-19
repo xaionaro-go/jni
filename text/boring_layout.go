@@ -32,6 +32,12 @@ func NewBoringLayout(vm *jni.VM, arg0 string, arg1 *jni.Object, arg2 int32, arg3
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBoringLayout == nil {
+			return fmt.Errorf("android.text.BoringLayout is not available on this device")
+		}
+		if midBoringLayoutCtor == nil {
+			return fmt.Errorf("android.text.BoringLayout constructor (Ljava/lang/CharSequence;Landroid/text/TextPaint;ILandroid/text/Layout$Alignment;FFLandroid/text/BoringLayout$Metrics;Z)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

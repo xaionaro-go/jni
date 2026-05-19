@@ -215,29 +215,6 @@ func (m *CalendarConstraints) DescribeContents() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls com.google.android.material.datepicker.CalendarConstraints.writeToParcel.
-func (m *CalendarConstraints) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCalendarConstraintsWriteToParcel == nil {
-			callErr = fmt.Errorf("com.google.android.material.datepicker.CalendarConstraints.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midCalendarConstraintsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls com.google.android.material.datepicker.CalendarConstraints.toString.
 func (m *CalendarConstraints) ToString() (string, error) {
 	var result string

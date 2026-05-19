@@ -23,6 +23,34 @@ type ContractPresence struct {
 	Obj *jni.GlobalRef
 }
 
+// NewContractPresence creates a new android.provider.ContactsContract$Presence instance.
+func NewContractPresence(vm *jni.VM) (*ContractPresence, error) {
+	var t ContractPresence
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsContractPresence == nil {
+			return fmt.Errorf("android.provider.ContactsContract$Presence is not available on this device")
+		}
+		if midContractPresenceCtor == nil {
+			return fmt.Errorf("android.provider.ContactsContract$Presence constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContractPresence)), midContractPresenceCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.provider.ContactsContract$Presence.toString.
 func (m *ContractPresence) ToString() (string, error) {
 	var result string

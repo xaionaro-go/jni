@@ -23,6 +23,35 @@ type AudioFocusRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAudioFocusRequestBuilder creates a new android.media.AudioFocusRequest$Builder instance.
+func NewAudioFocusRequestBuilder(vm *jni.VM, arg0 *jni.Object) (*AudioFocusRequestBuilder, error) {
+	var t AudioFocusRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAudioFocusRequestBuilder == nil {
+			return fmt.Errorf("android.media.AudioFocusRequest$Builder is not available on this device")
+		}
+		if midAudioFocusRequestBuilderCtor == nil {
+			return fmt.Errorf("android.media.AudioFocusRequest$Builder constructor (Landroid/media/AudioFocusRequest;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAudioFocusRequestBuilder)), midAudioFocusRequestBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.media.AudioFocusRequest$Builder.build.
 func (m *AudioFocusRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

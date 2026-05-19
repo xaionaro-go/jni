@@ -32,6 +32,12 @@ func NewHandlerThread(vm *jni.VM, arg0 string) (*HandlerThread, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsHandlerThread == nil {
+			return fmt.Errorf("android.os.HandlerThread is not available on this device")
+		}
+		if midHandlerThreadCtor == nil {
+			return fmt.Errorf("android.os.HandlerThread constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

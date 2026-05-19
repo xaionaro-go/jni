@@ -32,6 +32,12 @@ func NewChildCard(vm *jni.VM, arg0 *jni.Object) (*ChildCard, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsChildCard == nil {
+			return fmt.Errorf("com.google.android.material.transformation.TransformationChildCard is not available on this device")
+		}
+		if midChildCardCtor == nil {
+			return fmt.Errorf("com.google.android.material.transformation.TransformationChildCard constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsChildCard)), midChildCardCtor, jni.ObjectValue(arg0))
 		if err != nil {

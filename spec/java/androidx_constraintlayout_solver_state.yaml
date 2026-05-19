@@ -5,6 +5,185 @@
 package: state
 go_import: github.com/AndroidGoLab/jni/androidx/constraintlayout/solver/state
 classes:
+    - java_class: androidx.constraintlayout.solver.state.Dimension
+      go_type: Dimension
+      methods:
+        - java_method: percent
+          go_name: Percent2_1
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: androidx.constraintlayout.solver.state.Dimension
+          error: true
+        - java_method: min
+          go_name: Min1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.constraintlayout.solver.state.Dimension
+          error: true
+        - java_method: min
+          go_name: Min1_1
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: androidx.constraintlayout.solver.state.Dimension
+          error: true
+        - java_method: max
+          go_name: Max1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.constraintlayout.solver.state.Dimension
+          error: true
+        - java_method: max
+          go_name: Max1_1
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: androidx.constraintlayout.solver.state.Dimension
+          error: true
+        - java_method: suggested
+          go_name: Suggested1_2
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.constraintlayout.solver.state.Dimension
+          error: true
+        - java_method: suggested
+          go_name: Suggested1_3
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: androidx.constraintlayout.solver.state.Dimension
+          error: true
+        - java_method: fixed
+          go_name: Fixed1_2
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: androidx.constraintlayout.solver.state.Dimension
+          error: true
+        - java_method: fixed
+          go_name: Fixed1_3
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.constraintlayout.solver.state.Dimension
+          error: true
+        - java_method: ratio
+          go_name: Ratio
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: androidx.constraintlayout.solver.state.Dimension
+          error: true
+      static_methods:
+        - java_method: Suggested
+          go_name: Suggested1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.constraintlayout.solver.state.Dimension
+          error: true
+        - java_method: Suggested
+          go_name: Suggested1_1
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: androidx.constraintlayout.solver.state.Dimension
+          error: true
+        - java_method: Fixed
+          go_name: Fixed1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.constraintlayout.solver.state.Dimension
+          error: true
+        - java_method: Fixed
+          go_name: Fixed1_1
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: androidx.constraintlayout.solver.state.Dimension
+          error: true
+        - java_method: Percent
+          go_name: Percent2
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: androidx.constraintlayout.solver.state.Dimension
+          error: true
+        - java_method: Parent
+          go_name: Parent
+          returns: androidx.constraintlayout.solver.state.Dimension
+          error: true
+        - java_method: Wrap
+          go_name: Wrap
+          returns: androidx.constraintlayout.solver.state.Dimension
+          error: true
+        - java_method: Spread
+          go_name: Spread
+          returns: androidx.constraintlayout.solver.state.Dimension
+          error: true
+        - java_method: apply
+          go_name: Apply
+          params:
+            - java_type: androidx.constraintlayout.solver.state.State
+              go_name: arg0
+            - java_type: androidx.constraintlayout.solver.widgets.ConstraintWidget
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.solver.state.Dimension$Type
+      go_type: DimensionType
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: androidx.constraintlayout.solver.state.Dimension$Type[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: androidx.constraintlayout.solver.state.Dimension$Type
+          error: true
+    - java_class: androidx.constraintlayout.solver.state.Reference
+      go_type: Reference
+      methods:
+        - java_method: getConstraintWidget
+          go_name: GetConstraintWidget
+          returns: androidx.constraintlayout.solver.widgets.ConstraintWidget
+          error: true
+        - java_method: setConstraintWidget
+          go_name: SetConstraintWidget
+          params:
+            - java_type: androidx.constraintlayout.solver.widgets.ConstraintWidget
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setKey
+          go_name: SetKey
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getKey
+          go_name: GetKey
+          returns: java.lang.Object
+          error: true
+        - java_method: apply
+          go_name: Apply
+          returns: void
+          error: true
     - java_class: androidx.constraintlayout.solver.state.State
       go_type: State
       obtain: constructor
@@ -144,6 +323,7 @@ classes:
               go_name: arg1
           returns: void
           error: true
+      static_methods:
         - java_method: apply
           go_name: Apply
           params:
@@ -193,20 +373,6 @@ classes:
               go_name: arg0
           returns: androidx.constraintlayout.solver.state.State$Constraint
           error: true
-    - java_class: androidx.constraintlayout.solver.state.State$Chain
-      go_type: Chain
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: androidx.constraintlayout.solver.state.State$Chain[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: androidx.constraintlayout.solver.state.State$Chain
-          error: true
     - java_class: androidx.constraintlayout.solver.state.HelperReference
       go_type: HelperReference
       obtain: constructor
@@ -242,155 +408,19 @@ classes:
           go_name: Apply
           returns: void
           error: true
-    - java_class: androidx.constraintlayout.solver.state.Dimension
-      go_type: Dimension
-      methods:
-        - java_method: percent
-          go_name: Percent2_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: androidx.constraintlayout.solver.state.Dimension
-          error: true
-        - java_method: min
-          go_name: Min1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.constraintlayout.solver.state.Dimension
-          error: true
-        - java_method: min
-          go_name: Min1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: androidx.constraintlayout.solver.state.Dimension
-          error: true
-        - java_method: max
-          go_name: Max1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.constraintlayout.solver.state.Dimension
-          error: true
-        - java_method: max
-          go_name: Max1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: androidx.constraintlayout.solver.state.Dimension
-          error: true
-        - java_method: suggested
-          go_name: Suggested1_2
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.constraintlayout.solver.state.Dimension
-          error: true
-        - java_method: suggested
-          go_name: Suggested1_3
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: androidx.constraintlayout.solver.state.Dimension
-          error: true
-        - java_method: fixed
-          go_name: Fixed1_2
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: androidx.constraintlayout.solver.state.Dimension
-          error: true
-        - java_method: fixed
-          go_name: Fixed1_3
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.constraintlayout.solver.state.Dimension
-          error: true
-        - java_method: ratio
-          go_name: Ratio
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: androidx.constraintlayout.solver.state.Dimension
-          error: true
-        - java_method: apply
-          go_name: Apply
-          params:
-            - java_type: androidx.constraintlayout.solver.state.State
-              go_name: arg0
-            - java_type: androidx.constraintlayout.solver.widgets.ConstraintWidget
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-      static_methods:
-        - java_method: Suggested
-          go_name: Suggested1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.constraintlayout.solver.state.Dimension
-          error: true
-        - java_method: Suggested
-          go_name: Suggested1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: androidx.constraintlayout.solver.state.Dimension
-          error: true
-        - java_method: Fixed
-          go_name: Fixed1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.constraintlayout.solver.state.Dimension
-          error: true
-        - java_method: Fixed
-          go_name: Fixed1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: androidx.constraintlayout.solver.state.Dimension
-          error: true
-        - java_method: Percent
-          go_name: Percent2
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: androidx.constraintlayout.solver.state.Dimension
-          error: true
-        - java_method: Parent
-          go_name: Parent
-          returns: androidx.constraintlayout.solver.state.Dimension
-          error: true
-        - java_method: Wrap
-          go_name: Wrap
-          returns: androidx.constraintlayout.solver.state.Dimension
-          error: true
-        - java_method: Spread
-          go_name: Spread
-          returns: androidx.constraintlayout.solver.state.Dimension
-          error: true
-    - java_class: androidx.constraintlayout.solver.state.Dimension$Type
-      go_type: DimensionType
+    - java_class: androidx.constraintlayout.solver.state.State$Chain
+      go_type: Chain
       static_methods:
         - java_method: values
           go_name: Values
-          returns: androidx.constraintlayout.solver.state.Dimension$Type[]
+          returns: androidx.constraintlayout.solver.state.State$Chain[]
           error: true
         - java_method: valueOf
           go_name: ValueOf
           params:
             - java_type: String
               go_name: arg0
-          returns: androidx.constraintlayout.solver.state.Dimension$Type
+          returns: androidx.constraintlayout.solver.state.State$Chain
           error: true
     - java_class: androidx.constraintlayout.solver.state.ConstraintReference
       go_type: ConstraintReference
@@ -702,36 +732,34 @@ classes:
               go_name: arg0
           returns: androidx.constraintlayout.solver.state.ConstraintReference
           error: true
-    - java_class: androidx.constraintlayout.solver.state.Reference
-      go_type: Reference
-      methods:
-        - java_method: getConstraintWidget
-          go_name: GetConstraintWidget
-          returns: androidx.constraintlayout.solver.widgets.ConstraintWidget
-          error: true
-        - java_method: setConstraintWidget
-          go_name: SetConstraintWidget
-          params:
-            - java_type: androidx.constraintlayout.solver.widgets.ConstraintWidget
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setKey
-          go_name: SetKey
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getKey
-          go_name: GetKey
-          returns: java.lang.Object
-          error: true
-        - java_method: apply
-          go_name: Apply
-          returns: void
-          error: true
 constants:
+    - go_name: FixedDimension
+      value: "0"
+      go_type: int
+    - go_name: WrapDimension
+      value: "0"
+      go_type: int
+    - go_name: SpreadDimension
+      value: "0"
+      go_type: int
+    - go_name: ParentDimension
+      value: "0"
+      go_type: int
+    - go_name: PercentDimension
+      value: "0"
+      go_type: int
+    - go_name: Fixed
+      value: "0"
+      go_type: int
+    - go_name: Wrap
+      value: "0"
+      go_type: int
+    - go_name: MatchParent
+      value: "0"
+      go_type: int
+    - go_name: MatchConstraint
+      value: "0"
+      go_type: int
     - go_name: Parent
       value: "0"
       go_type: int
@@ -826,32 +854,5 @@ constants:
       value: "0"
       go_type: int
     - go_name: Packed
-      value: "0"
-      go_type: int
-    - go_name: FixedDimension
-      value: "0"
-      go_type: int
-    - go_name: WrapDimension
-      value: "0"
-      go_type: int
-    - go_name: SpreadDimension
-      value: "0"
-      go_type: int
-    - go_name: ParentDimension
-      value: "0"
-      go_type: int
-    - go_name: PercentDimension
-      value: "0"
-      go_type: int
-    - go_name: Fixed
-      value: "0"
-      go_type: int
-    - go_name: Wrap
-      value: "0"
-      go_type: int
-    - go_name: MatchParent
-      value: "0"
-      go_type: int
-    - go_name: MatchConstraint
       value: "0"
       go_type: int

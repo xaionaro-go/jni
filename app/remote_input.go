@@ -105,38 +105,6 @@ func (m *RemoteInput) GetAllowedDataTypes() (*jni.Object, error) {
 	return result, callErr
 }
 
-// GetChoices calls android.app.RemoteInput.getChoices.
-func (m *RemoteInput) GetChoices() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRemoteInputGetChoices == nil {
-			callErr = fmt.Errorf("android.app.RemoteInput.getChoices is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midRemoteInputGetChoices,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // GetEditChoicesBeforeSending calls android.app.RemoteInput.getEditChoicesBeforeSending.
 func (m *RemoteInput) GetEditChoicesBeforeSending() (int32, error) {
 	var result int32
@@ -280,29 +248,6 @@ func (m *RemoteInput) IsDataOnly() (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.RemoteInput.writeToParcel.
-func (m *RemoteInput) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRemoteInputWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.RemoteInput.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midRemoteInputWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.RemoteInput.toString.
 func (m *RemoteInput) ToString() (string, error) {
 	var result string
@@ -355,6 +300,38 @@ func (m *RemoteInput) AddResultsToIntent(
 		return callErr
 	})
 	return callErr
+}
+
+// GetChoices calls android.app.RemoteInput.getChoices.
+func (m *RemoteInput) GetChoices() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRemoteInputGetChoices == nil {
+			callErr = fmt.Errorf("android.app.RemoteInput.getChoices is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsRemoteInput)),
+			midRemoteInputGetChoices,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
 }
 
 // GetResultsFromIntent calls android.app.RemoteInput.getResultsFromIntent.
@@ -433,6 +410,29 @@ func (m *RemoteInput) SetResultsSource(arg0 *jni.Object, arg1 int32) error {
 		callErr = env.CallStaticVoidMethod(
 			(*jni.Class)(unsafe.Pointer(clsRemoteInput)),
 			midRemoteInputSetResultsSource, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
+}
+
+// WriteToParcel calls android.app.RemoteInput.writeToParcel.
+func (m *RemoteInput) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRemoteInputWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.RemoteInput.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsRemoteInput)),
+			midRemoteInputWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr
 	})

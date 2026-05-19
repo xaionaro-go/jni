@@ -3,24 +3,6 @@
 package consts
 
 const (
-	EventCancelTransaction              int = 16385
-	EventCaptureComplete                int = 16397
-	EventDeviceInfoChanged              int = 16392
-	EventDevicePropChanged              int = 16390
-	EventDeviceReset                    int = 16395
-	EventObjectAdded                    int = 16386
-	EventObjectInfoChanged              int = 16391
-	EventObjectPropChanged              int = 51201
-	EventObjectPropDescChanged          int = 51202
-	EventObjectReferencesChanged        int = 51203
-	EventObjectRemoved                  int = 16387
-	EventRequestObjectTransfer          int = 16393
-	EventStorageInfoChanged             int = 16396
-	EventStoreAdded                     int = 16388
-	EventStoreFull                      int = 16394
-	EventStoreRemoved                   int = 16389
-	EventUndefined                      int = 16384
-	EventUnreportedStatus               int = 16398
 	AssociationTypeGenericFolder        int = 1
 	Format3gpContainer                  int = 47492
 	FormatAac                           int = 47363
@@ -120,4 +102,22 @@ const (
 	ProtectionStatusNonTransferableData int = 32771
 	ProtectionStatusReadOnly            int = 32769
 	ProtectionStatusReadOnlyData        int = 32770
+	EventCancelTransaction              int = 16385
+	EventCaptureComplete                int = 16397
+	EventDeviceInfoChanged              int = 16392
+	EventDevicePropChanged              int = 16390
+	EventDeviceReset                    int = 16395
+	EventObjectAdded                    int = 16386
+	EventObjectInfoChanged              int = 16391
+	EventObjectPropChanged              int = 51201
+	EventObjectPropDescChanged          int = 51202
+	EventObjectReferencesChanged        int = 51203
+	EventObjectRemoved                  int = 16387
+	EventRequestObjectTransfer          int = 16393
+	EventStorageInfoChanged             int = 16396
+	EventStoreAdded                     int = 16388
+	EventStoreFull                      int = 16394
+	EventStoreRemoved                   int = 16389
+	EventUndefined                      int = 16384
+	EventUnreportedStatus               int = 16398
 )

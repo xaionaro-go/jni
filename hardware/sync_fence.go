@@ -32,6 +32,12 @@ func NewSyncFence(vm *jni.VM, arg0 *jni.Object) (*SyncFence, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSyncFence == nil {
+			return fmt.Errorf("android.hardware.SyncFence is not available on this device")
+		}
+		if midSyncFenceCtor == nil {
+			return fmt.Errorf("android.hardware.SyncFence constructor (Landroid/hardware/SyncFence;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSyncFence)), midSyncFenceCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -200,29 +206,6 @@ func (m *SyncFence) IsValid() (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.hardware.SyncFence.writeToParcel.
-func (m *SyncFence) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSyncFenceWriteToParcel == nil {
-			callErr = fmt.Errorf("android.hardware.SyncFence.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSyncFenceWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.hardware.SyncFence.toString.
 func (m *SyncFence) ToString() (string, error) {
 	var result string
@@ -248,4 +231,27 @@ func (m *SyncFence) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.hardware.SyncFence.writeToParcel.
+func (m *SyncFence) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSyncFenceWriteToParcel == nil {
+			callErr = fmt.Errorf("android.hardware.SyncFence.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSyncFence)),
+			midSyncFenceWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

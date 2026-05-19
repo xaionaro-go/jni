@@ -32,6 +32,12 @@ func NewSession2Token(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Session2
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSession2Token == nil {
+			return fmt.Errorf("android.media.Session2Token is not available on this device")
+		}
+		if midSession2TokenCtor == nil {
+			return fmt.Errorf("android.media.Session2Token constructor (Landroid/content/Context;Landroid/content/ComponentName;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSession2Token)), midSession2TokenCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -301,8 +307,8 @@ func (m *Session2Token) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSession2Token)),
 			midSession2TokenWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

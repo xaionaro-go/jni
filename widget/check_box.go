@@ -32,6 +32,12 @@ func NewCheckBox(vm *jni.VM, arg0 *jni.Object) (*CheckBox, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCheckBox == nil {
+			return fmt.Errorf("android.widget.CheckBox is not available on this device")
+		}
+		if midCheckBoxCtor == nil {
+			return fmt.Errorf("android.widget.CheckBox constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCheckBox)), midCheckBoxCtor, jni.ObjectValue(arg0))
 		if err != nil {

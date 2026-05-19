@@ -32,6 +32,12 @@ func NewTextKeyListener(vm *jni.VM, arg0 *jni.Object, arg1 bool) (*TextKeyListen
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTextKeyListener == nil {
+			return fmt.Errorf("android.text.method.TextKeyListener is not available on this device")
+		}
+		if midTextKeyListenerCtor == nil {
+			return fmt.Errorf("android.text.method.TextKeyListener constructor (Landroid/text/method/TextKeyListener$Capitalize;Z)V is not available on this device")
+		}
 
 		var jArg1 uint8
 		if arg1 {

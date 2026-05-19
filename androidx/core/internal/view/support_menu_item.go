@@ -774,33 +774,6 @@ func (m *SupportMenuItem) RequiresActionButton() (bool, error) {
 	return result, callErr
 }
 
-// RequiresOverflow calls androidx.core.internal.view.SupportMenuItem.requiresOverflow.
-func (m *SupportMenuItem) RequiresOverflow() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSupportMenuItemRequiresOverflow == nil {
-			callErr = fmt.Errorf("androidx.core.internal.view.SupportMenuItem.requiresOverflow is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midSupportMenuItemRequiresOverflow,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.core.internal.view.SupportMenuItem.toString.
 func (m *SupportMenuItem) ToString() (string, error) {
 	var result string

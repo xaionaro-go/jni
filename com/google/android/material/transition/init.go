@@ -23,20 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsMaterialElevationScale                                 *jni.GlobalRef
-	midMaterialElevationScaleCtor                             jni.MethodID
-	midMaterialElevationScaleIsGrowing                        jni.MethodID
-	midMaterialElevationScaleIsSeekingSupported               jni.MethodID
-	midMaterialElevationScaleOnDisappear                      jni.MethodID
-	midMaterialElevationScaleOnAppear                         jni.MethodID
-	midMaterialElevationScaleClearAdditionalAnimatorProvider  jni.MethodID
-	midMaterialElevationScaleRemoveAdditionalAnimatorProvider jni.MethodID
-	midMaterialElevationScaleAddAdditionalAnimatorProvider    jni.MethodID
-	midMaterialElevationScaleSetSecondaryAnimatorProvider     jni.MethodID
-	midMaterialElevationScaleGetSecondaryAnimatorProvider     jni.MethodID
-	midMaterialElevationScaleGetPrimaryAnimatorProvider       jni.MethodID
-	midMaterialElevationScaleToString                         jni.MethodID
-
 	clsMaterialContainerTransform                               *jni.GlobalRef
 	midMaterialContainerTransformCtor                           jni.MethodID
 	midMaterialContainerTransformGetStartViewId                 jni.MethodID
@@ -90,7 +76,6 @@ var (
 	midMaterialContainerTransformGetTransitionProperties        jni.MethodID
 	midMaterialContainerTransformCaptureStartValues             jni.MethodID
 	midMaterialContainerTransformCaptureEndValues               jni.MethodID
-	midMaterialContainerTransformCreateAnimator                 jni.MethodID
 	midMaterialContainerTransformToString                       jni.MethodID
 
 	clsMaterialContainerTransformFadeMode         *jni.GlobalRef
@@ -100,12 +85,17 @@ var (
 	midMaterialContainerTransformFitModeToString jni.MethodID
 
 	clsMaterialContainerTransformProgressThresholds         *jni.GlobalRef
+	midMaterialContainerTransformProgressThresholdsCtor     jni.MethodID
 	midMaterialContainerTransformProgressThresholdsGetStart jni.MethodID
-	midMaterialContainerTransformProgressThresholdsGetEnd   jni.MethodID
 	midMaterialContainerTransformProgressThresholdsToString jni.MethodID
 
 	clsMaterialContainerTransformTransitionDirection         *jni.GlobalRef
 	midMaterialContainerTransformTransitionDirectionToString jni.MethodID
+
+	clsMaterialArcMotion         *jni.GlobalRef
+	midMaterialArcMotionCtor     jni.MethodID
+	midMaterialArcMotionGetPath  jni.MethodID
+	midMaterialArcMotionToString jni.MethodID
 
 	clsScaleProvider                      *jni.GlobalRef
 	midScaleProviderCtor                  jni.MethodID
@@ -125,24 +115,20 @@ var (
 	midScaleProviderCreateDisappear       jni.MethodID
 	midScaleProviderToString              jni.MethodID
 
+	clsMaterialFade         *jni.GlobalRef
+	midMaterialFadeCtor     jni.MethodID
+	midMaterialFadeToString jni.MethodID
+
 	clsHold            *jni.GlobalRef
 	midHoldCtor        jni.MethodID
 	midHoldOnAppear    jni.MethodID
 	midHoldOnDisappear jni.MethodID
 	midHoldToString    jni.MethodID
 
-	clsFadeProvider                        *jni.GlobalRef
-	midFadeProviderCtor                    jni.MethodID
-	midFadeProviderGetIncomingEndThreshold jni.MethodID
-	midFadeProviderSetIncomingEndThreshold jni.MethodID
-	midFadeProviderCreateAppear            jni.MethodID
-	midFadeProviderCreateDisappear         jni.MethodID
-	midFadeProviderToString                jni.MethodID
-
-	clsMaterialArcMotion         *jni.GlobalRef
-	midMaterialArcMotionCtor     jni.MethodID
-	midMaterialArcMotionGetPath  jni.MethodID
-	midMaterialArcMotionToString jni.MethodID
+	clsMaterialElevationScale          *jni.GlobalRef
+	midMaterialElevationScaleCtor      jni.MethodID
+	midMaterialElevationScaleIsGrowing jni.MethodID
+	midMaterialElevationScaleToString  jni.MethodID
 
 	clsFadeThroughProvider                     *jni.GlobalRef
 	midFadeThroughProviderCtor                 jni.MethodID
@@ -151,6 +137,20 @@ var (
 	midFadeThroughProviderCreateAppear         jni.MethodID
 	midFadeThroughProviderCreateDisappear      jni.MethodID
 	midFadeThroughProviderToString             jni.MethodID
+
+	clsMaterialSharedAxis          *jni.GlobalRef
+	midMaterialSharedAxisCtor      jni.MethodID
+	midMaterialSharedAxisGetAxis   jni.MethodID
+	midMaterialSharedAxisIsForward jni.MethodID
+	midMaterialSharedAxisToString  jni.MethodID
+
+	clsMaterialSharedAxisAxis         *jni.GlobalRef
+	midMaterialSharedAxisAxisToString jni.MethodID
+
+	clsVisibilityAnimatorProvider                *jni.GlobalRef
+	midVisibilityAnimatorProviderCreateAppear    jni.MethodID
+	midVisibilityAnimatorProviderCreateDisappear jni.MethodID
+	midVisibilityAnimatorProviderToString        jni.MethodID
 
 	clsSlideDistanceProvider                 *jni.GlobalRef
 	midSlideDistanceProviderCtor             jni.MethodID
@@ -165,54 +165,17 @@ var (
 	clsSlideDistanceProviderGravityFlag         *jni.GlobalRef
 	midSlideDistanceProviderGravityFlagToString jni.MethodID
 
-	clsMaterialSharedAxis                                 *jni.GlobalRef
-	midMaterialSharedAxisCtor                             jni.MethodID
-	midMaterialSharedAxisGetAxis                          jni.MethodID
-	midMaterialSharedAxisIsForward                        jni.MethodID
-	midMaterialSharedAxisIsSeekingSupported               jni.MethodID
-	midMaterialSharedAxisOnDisappear                      jni.MethodID
-	midMaterialSharedAxisOnAppear                         jni.MethodID
-	midMaterialSharedAxisClearAdditionalAnimatorProvider  jni.MethodID
-	midMaterialSharedAxisRemoveAdditionalAnimatorProvider jni.MethodID
-	midMaterialSharedAxisAddAdditionalAnimatorProvider    jni.MethodID
-	midMaterialSharedAxisSetSecondaryAnimatorProvider     jni.MethodID
-	midMaterialSharedAxisGetSecondaryAnimatorProvider     jni.MethodID
-	midMaterialSharedAxisGetPrimaryAnimatorProvider       jni.MethodID
-	midMaterialSharedAxisToString                         jni.MethodID
+	clsFadeProvider                        *jni.GlobalRef
+	midFadeProviderCtor                    jni.MethodID
+	midFadeProviderGetIncomingEndThreshold jni.MethodID
+	midFadeProviderSetIncomingEndThreshold jni.MethodID
+	midFadeProviderCreateAppear            jni.MethodID
+	midFadeProviderCreateDisappear         jni.MethodID
+	midFadeProviderToString                jni.MethodID
 
-	clsMaterialSharedAxisAxis         *jni.GlobalRef
-	midMaterialSharedAxisAxisToString jni.MethodID
-
-	clsVisibilityAnimatorProvider                *jni.GlobalRef
-	midVisibilityAnimatorProviderCreateAppear    jni.MethodID
-	midVisibilityAnimatorProviderCreateDisappear jni.MethodID
-	midVisibilityAnimatorProviderToString        jni.MethodID
-
-	clsMaterialFadeThrough                                 *jni.GlobalRef
-	midMaterialFadeThroughCtor                             jni.MethodID
-	midMaterialFadeThroughIsSeekingSupported               jni.MethodID
-	midMaterialFadeThroughOnDisappear                      jni.MethodID
-	midMaterialFadeThroughOnAppear                         jni.MethodID
-	midMaterialFadeThroughClearAdditionalAnimatorProvider  jni.MethodID
-	midMaterialFadeThroughRemoveAdditionalAnimatorProvider jni.MethodID
-	midMaterialFadeThroughAddAdditionalAnimatorProvider    jni.MethodID
-	midMaterialFadeThroughSetSecondaryAnimatorProvider     jni.MethodID
-	midMaterialFadeThroughGetSecondaryAnimatorProvider     jni.MethodID
-	midMaterialFadeThroughGetPrimaryAnimatorProvider       jni.MethodID
-	midMaterialFadeThroughToString                         jni.MethodID
-
-	clsMaterialFade                                 *jni.GlobalRef
-	midMaterialFadeCtor                             jni.MethodID
-	midMaterialFadeIsSeekingSupported               jni.MethodID
-	midMaterialFadeOnDisappear                      jni.MethodID
-	midMaterialFadeOnAppear                         jni.MethodID
-	midMaterialFadeClearAdditionalAnimatorProvider  jni.MethodID
-	midMaterialFadeRemoveAdditionalAnimatorProvider jni.MethodID
-	midMaterialFadeAddAdditionalAnimatorProvider    jni.MethodID
-	midMaterialFadeSetSecondaryAnimatorProvider     jni.MethodID
-	midMaterialFadeGetSecondaryAnimatorProvider     jni.MethodID
-	midMaterialFadeGetPrimaryAnimatorProvider       jni.MethodID
-	midMaterialFadeToString                         jni.MethodID
+	clsMaterialFadeThrough         *jni.GlobalRef
+	midMaterialFadeThroughCtor     jni.MethodID
+	midMaterialFadeThroughToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -232,97 +195,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("com/google/android/material/transition/MaterialElevationScale")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMaterialElevationScale = env.NewGlobalRef(&c.Object)
-		midMaterialElevationScaleCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "<init>", "(Z)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMaterialElevationScaleIsGrowing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "isGrowing", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialElevationScaleIsSeekingSupported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "isSeekingSupported", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialElevationScaleOnDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "onDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroidx/transition/TransitionValues;Landroidx/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialElevationScaleOnAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "onAppear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroidx/transition/TransitionValues;Landroidx/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialElevationScaleClearAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "clearAdditionalAnimatorProvider", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialElevationScaleRemoveAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "removeAdditionalAnimatorProvider", "(Lcom/google/android/material/transition/VisibilityAnimatorProvider;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialElevationScaleAddAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "addAdditionalAnimatorProvider", "(Lcom/google/android/material/transition/VisibilityAnimatorProvider;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialElevationScaleSetSecondaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "setSecondaryAnimatorProvider", "(Lcom/google/android/material/transition/VisibilityAnimatorProvider;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialElevationScaleGetSecondaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "getSecondaryAnimatorProvider", "()Lcom/google/android/material/transition/VisibilityAnimatorProvider;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialElevationScaleGetPrimaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "getPrimaryAnimatorProvider", "()Lcom/google/android/material/transition/VisibilityAnimatorProvider;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialElevationScaleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("com/google/android/material/transition/MaterialContainerTransform")
 	if err != nil {
@@ -693,13 +565,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMaterialContainerTransformCreateAnimator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransform)), "createAnimator", "(Landroid/view/ViewGroup;Landroidx/transition/TransitionValues;Landroidx/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midMaterialContainerTransformToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransform)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -750,15 +615,12 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsMaterialContainerTransformProgressThresholds = env.NewGlobalRef(&c.Object)
-
-		midMaterialContainerTransformProgressThresholdsGetStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformProgressThresholds)), "getStart", "()F")
+		midMaterialContainerTransformProgressThresholdsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformProgressThresholds)), "<init>", "(FF)V")
 		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialContainerTransformProgressThresholdsGetEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformProgressThresholds)), "getEnd", "()F")
+		midMaterialContainerTransformProgressThresholdsGetStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformProgressThresholds)), "getStart", "()F")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -783,6 +645,34 @@ func doInit(env *jni.Env) error {
 		clsMaterialContainerTransformTransitionDirection = env.NewGlobalRef(&c.Object)
 
 		midMaterialContainerTransformTransitionDirectionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialContainerTransformTransitionDirection)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/transition/MaterialArcMotion")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMaterialArcMotion = env.NewGlobalRef(&c.Object)
+		midMaterialArcMotionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialArcMotion)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMaterialArcMotionGetPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialArcMotion)), "getPath", "(FFFF)Landroid/graphics/Path;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialArcMotionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialArcMotion)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -910,6 +800,27 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("com/google/android/material/transition/MaterialFade")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMaterialFade = env.NewGlobalRef(&c.Object)
+		midMaterialFadeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMaterialFadeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("com/google/android/material/transition/Hold")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -945,75 +856,26 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/transition/FadeProvider")
+	c, err = env.FindClass("com/google/android/material/transition/MaterialElevationScale")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsFadeProvider = env.NewGlobalRef(&c.Object)
-		midFadeProviderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeProvider)), "<init>", "()V")
+		clsMaterialElevationScale = env.NewGlobalRef(&c.Object)
+		midMaterialElevationScaleCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "<init>", "(Z)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midFadeProviderGetIncomingEndThreshold, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeProvider)), "getIncomingEndThreshold", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFadeProviderSetIncomingEndThreshold, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeProvider)), "setIncomingEndThreshold", "(F)V")
+		midMaterialElevationScaleIsGrowing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "isGrowing", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midFadeProviderCreateAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeProvider)), "createAppear", "(Landroid/view/ViewGroup;Landroid/view/View;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFadeProviderCreateDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeProvider)), "createDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFadeProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeProvider)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/transition/MaterialArcMotion")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMaterialArcMotion = env.NewGlobalRef(&c.Object)
-		midMaterialArcMotionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialArcMotion)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMaterialArcMotionGetPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialArcMotion)), "getPath", "(FFFF)Landroid/graphics/Path;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialArcMotionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialArcMotion)), "toString", "()Ljava/lang/String;")
+		midMaterialElevationScaleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialElevationScale)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1063,6 +925,89 @@ func doInit(env *jni.Env) error {
 		}
 
 		midFadeThroughProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeThroughProvider)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/transition/MaterialSharedAxis")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMaterialSharedAxis = env.NewGlobalRef(&c.Object)
+		midMaterialSharedAxisCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "<init>", "(IZ)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMaterialSharedAxisGetAxis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "getAxis", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialSharedAxisIsForward, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "isForward", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMaterialSharedAxisToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/transition/MaterialSharedAxis$Axis")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMaterialSharedAxisAxis = env.NewGlobalRef(&c.Object)
+
+		midMaterialSharedAxisAxisToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxisAxis)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/transition/VisibilityAnimatorProvider")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsVisibilityAnimatorProvider = env.NewGlobalRef(&c.Object)
+
+		midVisibilityAnimatorProviderCreateAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibilityAnimatorProvider)), "createAppear", "(Landroid/view/ViewGroup;Landroid/view/View;)Landroid/animation/Animator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVisibilityAnimatorProviderCreateDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibilityAnimatorProvider)), "createDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;)Landroid/animation/Animator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVisibilityAnimatorProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibilityAnimatorProvider)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1151,144 +1096,47 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/transition/MaterialSharedAxis")
+	c, err = env.FindClass("com/google/android/material/transition/FadeProvider")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsMaterialSharedAxis = env.NewGlobalRef(&c.Object)
-		midMaterialSharedAxisCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "<init>", "(IZ)V")
+		clsFadeProvider = env.NewGlobalRef(&c.Object)
+		midFadeProviderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeProvider)), "<init>", "()V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midMaterialSharedAxisGetAxis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "getAxis", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialSharedAxisIsForward, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "isForward", "()Z")
+		midFadeProviderGetIncomingEndThreshold, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeProvider)), "getIncomingEndThreshold", "()F")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialSharedAxisIsSeekingSupported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "isSeekingSupported", "()Z")
+		midFadeProviderSetIncomingEndThreshold, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeProvider)), "setIncomingEndThreshold", "(F)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialSharedAxisOnDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "onDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroidx/transition/TransitionValues;Landroidx/transition/TransitionValues;)Landroid/animation/Animator;")
+		midFadeProviderCreateAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeProvider)), "createAppear", "(Landroid/view/ViewGroup;Landroid/view/View;)Landroid/animation/Animator;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialSharedAxisOnAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "onAppear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroidx/transition/TransitionValues;Landroidx/transition/TransitionValues;)Landroid/animation/Animator;")
+		midFadeProviderCreateDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeProvider)), "createDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;)Landroid/animation/Animator;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialSharedAxisClearAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "clearAdditionalAnimatorProvider", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialSharedAxisRemoveAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "removeAdditionalAnimatorProvider", "(Lcom/google/android/material/transition/VisibilityAnimatorProvider;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialSharedAxisAddAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "addAdditionalAnimatorProvider", "(Lcom/google/android/material/transition/VisibilityAnimatorProvider;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialSharedAxisSetSecondaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "setSecondaryAnimatorProvider", "(Lcom/google/android/material/transition/VisibilityAnimatorProvider;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialSharedAxisGetSecondaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "getSecondaryAnimatorProvider", "()Lcom/google/android/material/transition/VisibilityAnimatorProvider;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialSharedAxisGetPrimaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "getPrimaryAnimatorProvider", "()Lcom/google/android/material/transition/VisibilityAnimatorProvider;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialSharedAxisToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxis)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/transition/MaterialSharedAxis$Axis")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMaterialSharedAxisAxis = env.NewGlobalRef(&c.Object)
-
-		midMaterialSharedAxisAxisToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSharedAxisAxis)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/transition/VisibilityAnimatorProvider")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsVisibilityAnimatorProvider = env.NewGlobalRef(&c.Object)
-
-		midVisibilityAnimatorProviderCreateAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibilityAnimatorProvider)), "createAppear", "(Landroid/view/ViewGroup;Landroid/view/View;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVisibilityAnimatorProviderCreateDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibilityAnimatorProvider)), "createDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVisibilityAnimatorProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibilityAnimatorProvider)), "toString", "()Ljava/lang/String;")
+		midFadeProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFadeProvider)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1309,154 +1157,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMaterialFadeThroughIsSeekingSupported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFadeThrough)), "isSeekingSupported", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeThroughOnDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFadeThrough)), "onDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroidx/transition/TransitionValues;Landroidx/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeThroughOnAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFadeThrough)), "onAppear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroidx/transition/TransitionValues;Landroidx/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeThroughClearAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFadeThrough)), "clearAdditionalAnimatorProvider", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeThroughRemoveAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFadeThrough)), "removeAdditionalAnimatorProvider", "(Lcom/google/android/material/transition/VisibilityAnimatorProvider;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeThroughAddAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFadeThrough)), "addAdditionalAnimatorProvider", "(Lcom/google/android/material/transition/VisibilityAnimatorProvider;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeThroughSetSecondaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFadeThrough)), "setSecondaryAnimatorProvider", "(Lcom/google/android/material/transition/VisibilityAnimatorProvider;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeThroughGetSecondaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFadeThrough)), "getSecondaryAnimatorProvider", "()Lcom/google/android/material/transition/VisibilityAnimatorProvider;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeThroughGetPrimaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFadeThrough)), "getPrimaryAnimatorProvider", "()Lcom/google/android/material/transition/VisibilityAnimatorProvider;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midMaterialFadeThroughToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFadeThrough)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/transition/MaterialFade")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMaterialFade = env.NewGlobalRef(&c.Object)
-		midMaterialFadeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeIsSeekingSupported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "isSeekingSupported", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeOnDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "onDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroidx/transition/TransitionValues;Landroidx/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeOnAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "onAppear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroidx/transition/TransitionValues;Landroidx/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeClearAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "clearAdditionalAnimatorProvider", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeRemoveAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "removeAdditionalAnimatorProvider", "(Lcom/google/android/material/transition/VisibilityAnimatorProvider;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeAddAdditionalAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "addAdditionalAnimatorProvider", "(Lcom/google/android/material/transition/VisibilityAnimatorProvider;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeSetSecondaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "setSecondaryAnimatorProvider", "(Lcom/google/android/material/transition/VisibilityAnimatorProvider;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeGetSecondaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "getSecondaryAnimatorProvider", "()Lcom/google/android/material/transition/VisibilityAnimatorProvider;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeGetPrimaryAnimatorProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "getPrimaryAnimatorProvider", "()Lcom/google/android/material/transition/VisibilityAnimatorProvider;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialFadeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialFade)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

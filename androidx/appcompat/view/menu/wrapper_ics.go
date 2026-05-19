@@ -32,6 +32,12 @@ func NewWrapperICS(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*WrapperICS,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWrapperICS == nil {
+			return fmt.Errorf("androidx.appcompat.view.menu.MenuWrapperICS is not available on this device")
+		}
+		if midWrapperICSCtor == nil {
+			return fmt.Errorf("androidx.appcompat.view.menu.MenuWrapperICS constructor (Landroid/content/Context;Landroidx/core/internal/view/SupportMenu;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWrapperICS)), midWrapperICSCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

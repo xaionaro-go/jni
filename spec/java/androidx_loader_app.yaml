@@ -56,28 +56,7 @@ classes:
               go_name: arg1
           returns: androidx.loader.content.Loader<D>
           error: true
-abstract_callbacks:
+abstract_callback_eligibility:
     - java_class: androidx.loader.app.LoaderManager
-      go_type: LoaderManagerCallback
-      methods:
-        - java_method: destroyLoader
-          params:
-            - int
-          returns: void
-          go_field: DestroyLoader
-        - java_method: markForRedelivery
-          params: []
-          returns: void
-          go_field: MarkForRedelivery
-        - java_method: dump
-          params:
-            - String
-            - java.io.FileDescriptor
-            - java.io.PrintWriter
-            - java.lang.String[]
-          returns: void
-          go_field: Dump
-        - java_method: hasRunningLoaders
-          params: []
-          returns: boolean
-          go_field: HasRunningLoaders
+      generated: false
+      reason: unparsed_abstract_method_signature

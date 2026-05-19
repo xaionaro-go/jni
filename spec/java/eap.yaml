@@ -5,26 +5,12 @@
 package: eap
 go_import: github.com/AndroidGoLab/jni/net/eap
 classes:
-    - java_class: android.net.eap.EapAkaInfo
-      go_type: AkaInfo
+    - java_class: android.net.eap.EapInfo
+      go_type: Info
       methods:
-        - java_method: getReauthId
-          go_name: GetReauthId
-          returns: '[B'
-          error: true
-    - java_class: android.net.eap.EapAkaInfo$Builder
-      go_type: AkaInfoBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.net.eap.EapAkaInfo
-          error: true
-        - java_method: setReauthId
-          go_name: SetReauthId
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: android.net.eap.EapAkaInfo$Builder
+        - java_method: getEapMethodType
+          go_name: GetEapMethodType
+          returns: int
           error: true
     - java_class: android.net.eap.EapSessionConfig
       go_type: SessionConfig
@@ -66,6 +52,7 @@ classes:
           error: true
     - java_class: android.net.eap.EapSessionConfig$Builder
       go_type: SessionConfigBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
@@ -288,37 +275,35 @@ classes:
           go_name: HashCode
           returns: int
           error: true
-    - java_class: android.net.eap.EapInfo
-      go_type: Info
+    - java_class: android.net.eap.EapAkaInfo
+      go_type: AkaInfo
       methods:
-        - java_method: getEapMethodType
-          go_name: GetEapMethodType
-          returns: int
+        - java_method: getReauthId
+          go_name: GetReauthId
+          returns: '[B'
           error: true
-abstract_callbacks:
-    - java_class: android.net.eap.EapSessionConfig$EapMethodConfig
-      go_type: SessionConfigEapMethodConfigCallback
+    - java_class: android.net.eap.EapAkaInfo$Builder
+      go_type: AkaInfoBuilder
+      obtain: constructor
       methods:
-        - java_method: equals
+        - java_method: build
+          go_name: Build
+          returns: android.net.eap.EapAkaInfo
+          error: true
+        - java_method: setReauthId
+          go_name: SetReauthId
           params:
-            - java.lang.Object
-          returns: boolean
-          go_field: Equals
-        - java_method: getMethodType
-          params: []
-          returns: int
-          go_field: GetMethodType
-        - java_method: hashCode
-          params: []
-          returns: int
-          go_field: HashCode
+            - java_type: '[B'
+              go_name: arg0
+          returns: android.net.eap.EapAkaInfo$Builder
+          error: true
+abstract_callback_eligibility:
     - java_class: android.net.eap.EapInfo
-      go_type: InfoCallback
-      methods:
-        - java_method: getEapMethodType
-          params: []
-          returns: int
-          go_field: GetEapMethodType
+      generated: false
+      reason: unsupported_constructor
+    - java_class: android.net.eap.EapSessionConfig$EapMethodConfig
+      generated: false
+      reason: unsupported_constructor
 constants:
     - go_name: EapTypeAka
       value: "23"

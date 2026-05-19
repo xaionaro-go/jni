@@ -32,6 +32,12 @@ func NewSettingsPreferenceServiceClient(vm *jni.VM, arg0 *jni.Object, arg1 strin
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSettingsPreferenceServiceClient == nil {
+			return fmt.Errorf("android.service.settings.preferences.SettingsPreferenceServiceClient is not available on this device")
+		}
+		if midSettingsPreferenceServiceClientCtor == nil {
+			return fmt.Errorf("android.service.settings.preferences.SettingsPreferenceServiceClient constructor (Landroid/content/Context;Ljava/lang/String;Ljava/util/concurrent/Executor;Landroid/os/OutcomeReceiver;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {

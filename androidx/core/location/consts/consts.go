@@ -3,6 +3,13 @@
 package consts
 
 const (
+	PassiveInterval int64 = 9223372036854775807
+)
+
+const (
+	QualityHighAccuracy          int = 100
+	QualityBalancedPowerAccuracy int = 102
+	QualityLowPower              int = 104
 	ConstellationUnknown         int = 0
 	ConstellationGps             int = 1
 	ConstellationSbas            int = 2
@@ -11,13 +18,6 @@ const (
 	ConstellationBeidou          int = 5
 	ConstellationGalileo         int = 6
 	ConstellationIrnss           int = 7
-	QualityHighAccuracy          int = 100
-	QualityBalancedPowerAccuracy int = 102
-	QualityLowPower              int = 104
-)
-
-const (
-	PassiveInterval int64 = 9223372036854775807
 )
 
 const (

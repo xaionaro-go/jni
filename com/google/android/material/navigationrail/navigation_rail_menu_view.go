@@ -32,6 +32,12 @@ func NewNavigationRailMenuView(vm *jni.VM, arg0 *jni.Object) (*NavigationRailMen
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNavigationRailMenuView == nil {
+			return fmt.Errorf("com.google.android.material.navigationrail.NavigationRailMenuView is not available on this device")
+		}
+		if midNavigationRailMenuViewCtor == nil {
+			return fmt.Errorf("com.google.android.material.navigationrail.NavigationRailMenuView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNavigationRailMenuView)), midNavigationRailMenuViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

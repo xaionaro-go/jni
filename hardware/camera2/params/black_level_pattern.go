@@ -32,6 +32,12 @@ func NewBlackLevelPattern(vm *jni.VM, arg0 *jni.Object) (*BlackLevelPattern, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBlackLevelPattern == nil {
+			return fmt.Errorf("android.hardware.camera2.params.BlackLevelPattern is not available on this device")
+		}
+		if midBlackLevelPatternCtor == nil {
+			return fmt.Errorf("android.hardware.camera2.params.BlackLevelPattern constructor ([I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBlackLevelPattern)), midBlackLevelPatternCtor, jni.ObjectValue(arg0))
 		if err != nil {

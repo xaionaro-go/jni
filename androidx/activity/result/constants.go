@@ -5,6 +5,6 @@ package result
 import "github.com/AndroidGoLab/jni/androidx/activity/result/consts"
 
 const (
-	Companion = consts.Companion
 	Creator   = consts.Creator
+	Companion = consts.Companion
 )

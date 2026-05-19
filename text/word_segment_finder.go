@@ -32,6 +32,12 @@ func NewWordSegmentFinder(vm *jni.VM, arg0 string, arg1 *jni.Object) (*WordSegme
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWordSegmentFinder == nil {
+			return fmt.Errorf("android.text.WordSegmentFinder is not available on this device")
+		}
+		if midWordSegmentFinderCtor == nil {
+			return fmt.Errorf("android.text.WordSegmentFinder constructor (Ljava/lang/CharSequence;Landroid/icu/util/ULocale;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

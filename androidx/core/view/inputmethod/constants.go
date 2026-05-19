@@ -5,7 +5,7 @@ package inputmethod
 import "github.com/AndroidGoLab/jni/androidx/core/view/inputmethod/consts"
 
 const (
+	InputContentGrantReadUriPermission = consts.InputContentGrantReadUriPermission
 	ImeFlagNoPersonalizedLearning      = consts.ImeFlagNoPersonalizedLearning
 	ImeFlagForceAscii                  = consts.ImeFlagForceAscii
-	InputContentGrantReadUriPermission = consts.InputContentGrantReadUriPermission
 )

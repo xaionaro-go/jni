@@ -32,6 +32,12 @@ func NewGattService(vm *jni.VM, arg0 *jni.Object, arg1 int32) (*GattService, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGattService == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothGattService is not available on this device")
+		}
+		if midGattServiceCtor == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothGattService constructor (Ljava/util/UUID;I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGattService)), midGattServiceCtor, jni.ObjectValue(arg0), jni.IntValue(arg1))
 		if err != nil {
@@ -306,29 +312,6 @@ func (m *GattService) GetUuid() (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.bluetooth.BluetoothGattService.writeToParcel.
-func (m *GattService) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midGattServiceWriteToParcel == nil {
-			callErr = fmt.Errorf("android.bluetooth.BluetoothGattService.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midGattServiceWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.bluetooth.BluetoothGattService.toString.
 func (m *GattService) ToString() (string, error) {
 	var result string
@@ -354,4 +337,27 @@ func (m *GattService) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.bluetooth.BluetoothGattService.writeToParcel.
+func (m *GattService) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midGattServiceWriteToParcel == nil {
+			callErr = fmt.Errorf("android.bluetooth.BluetoothGattService.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsGattService)),
+			midGattServiceWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

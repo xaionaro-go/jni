@@ -32,6 +32,12 @@ func NewDesignTool(vm *jni.VM, arg0 *jni.Object) (*DesignTool, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDesignTool == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.DesignTool is not available on this device")
+		}
+		if midDesignToolCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.DesignTool constructor (Landroidx/constraintlayout/motion/widget/MotionLayout;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDesignTool)), midDesignToolCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -835,34 +841,6 @@ func (m *DesignTool) SetAttributes(
 	return callErr
 }
 
-// DumpConstraintSet calls androidx.constraintlayout.motion.widget.DesignTool.dumpConstraintSet.
-func (m *DesignTool) DumpConstraintSet(arg0 string) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDesignToolDumpConstraintSet == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.motion.widget.DesignTool.dumpConstraintSet is not available on this device")
-			return callErr
-		}
-		jArg0, err := env.NewStringUTF(arg0)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg0.Object)
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midDesignToolDumpConstraintSet, jni.ObjectValue(&jArg0.Object),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.constraintlayout.motion.widget.DesignTool.toString.
 func (m *DesignTool) ToString() (string, error) {
 	var result string
@@ -888,4 +866,32 @@ func (m *DesignTool) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// DumpConstraintSet calls androidx.constraintlayout.motion.widget.DesignTool.dumpConstraintSet.
+func (m *DesignTool) DumpConstraintSet(arg0 string) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDesignToolDumpConstraintSet == nil {
+			callErr = fmt.Errorf("androidx.constraintlayout.motion.widget.DesignTool.dumpConstraintSet is not available on this device")
+			return callErr
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsDesignTool)),
+			midDesignToolDumpConstraintSet, jni.ObjectValue(&jArg0.Object),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -32,6 +32,12 @@ func NewVerticalWidgetRun(vm *jni.VM, arg0 *jni.Object) (*VerticalWidgetRun, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsVerticalWidgetRun == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.analyzer.VerticalWidgetRun is not available on this device")
+		}
+		if midVerticalWidgetRunCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.analyzer.VerticalWidgetRun constructor (Landroidx/constraintlayout/core/widgets/ConstraintWidget;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVerticalWidgetRun)), midVerticalWidgetRunCtor, jni.ObjectValue(arg0))
 		if err != nil {

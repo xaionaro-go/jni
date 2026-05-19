@@ -32,6 +32,12 @@ func NewPlaybackParams(vm *jni.VM) (*PlaybackParams, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPlaybackParams == nil {
+			return fmt.Errorf("android.media.PlaybackParams is not available on this device")
+		}
+		if midPlaybackParamsCtor == nil {
+			return fmt.Errorf("android.media.PlaybackParams constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPlaybackParams)), midPlaybackParamsCtor)
 		if err != nil {
 			return err
@@ -276,29 +282,6 @@ func (m *PlaybackParams) SetSpeed(arg0 float32) (*jni.Object, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.media.PlaybackParams.writeToParcel.
-func (m *PlaybackParams) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midPlaybackParamsWriteToParcel == nil {
-			callErr = fmt.Errorf("android.media.PlaybackParams.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midPlaybackParamsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.media.PlaybackParams.toString.
 func (m *PlaybackParams) ToString() (string, error) {
 	var result string
@@ -324,4 +307,27 @@ func (m *PlaybackParams) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.media.PlaybackParams.writeToParcel.
+func (m *PlaybackParams) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midPlaybackParamsWriteToParcel == nil {
+			callErr = fmt.Errorf("android.media.PlaybackParams.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsPlaybackParams)),
+			midPlaybackParamsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

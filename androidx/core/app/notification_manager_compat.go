@@ -776,31 +776,6 @@ func (m *NotificationManagerCompat) CanUseFullScreenIntent() (bool, error) {
 	return result, callErr
 }
 
-// GetCurrentInterruptionFilter calls androidx.core.app.NotificationManagerCompat.getCurrentInterruptionFilter.
-func (m *NotificationManagerCompat) GetCurrentInterruptionFilter() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midNotificationManagerCompatGetCurrentInterruptionFilter == nil {
-			callErr = fmt.Errorf("androidx.core.app.NotificationManagerCompat.getCurrentInterruptionFilter is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midNotificationManagerCompatGetCurrentInterruptionFilter,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.core.app.NotificationManagerCompat.toString.
 func (m *NotificationManagerCompat) ToString() (string, error) {
 	var result string
@@ -888,6 +863,31 @@ func (m *NotificationManagerCompat) GetEnabledListenerPackages(arg0 *jni.Object)
 			localRef := result
 			result = env.NewGlobalRef(localRef)
 			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetCurrentInterruptionFilter calls androidx.core.app.NotificationManagerCompat.getCurrentInterruptionFilter.
+func (m *NotificationManagerCompat) GetCurrentInterruptionFilter() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midNotificationManagerCompatGetCurrentInterruptionFilter == nil {
+			callErr = fmt.Errorf("androidx.core.app.NotificationManagerCompat.getCurrentInterruptionFilter is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsNotificationManagerCompat)),
+			midNotificationManagerCompatGetCurrentInterruptionFilter,
+		)
+		if callErr != nil {
+			return callErr
 		}
 		return callErr
 	})

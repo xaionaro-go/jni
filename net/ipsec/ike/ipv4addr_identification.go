@@ -32,6 +32,12 @@ func NewIpv4AddrIdentification(vm *jni.VM, arg0 *jni.Object) (*Ipv4AddrIdentific
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsIpv4AddrIdentification == nil {
+			return fmt.Errorf("android.net.ipsec.ike.IkeIpv4AddrIdentification is not available on this device")
+		}
+		if midIpv4AddrIdentificationCtor == nil {
+			return fmt.Errorf("android.net.ipsec.ike.IkeIpv4AddrIdentification constructor (Ljava/net/Inet4Address;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIpv4AddrIdentification)), midIpv4AddrIdentificationCtor, jni.ObjectValue(arg0))
 		if err != nil {

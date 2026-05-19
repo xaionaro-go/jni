@@ -32,6 +32,12 @@ func NewInputConnectionCompat(vm *jni.VM) (*InputConnectionCompat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInputConnectionCompat == nil {
+			return fmt.Errorf("androidx.core.view.inputmethod.InputConnectionCompat is not available on this device")
+		}
+		if midInputConnectionCompatCtor == nil {
+			return fmt.Errorf("androidx.core.view.inputmethod.InputConnectionCompat constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInputConnectionCompat)), midInputConnectionCompatCtor)
 		if err != nil {
 			return err

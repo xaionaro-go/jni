@@ -32,6 +32,12 @@ func NewHorizontalWidgetRun(vm *jni.VM, arg0 *jni.Object) (*HorizontalWidgetRun,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsHorizontalWidgetRun == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.analyzer.HorizontalWidgetRun is not available on this device")
+		}
+		if midHorizontalWidgetRunCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.analyzer.HorizontalWidgetRun constructor (Landroidx/constraintlayout/core/widgets/ConstraintWidget;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHorizontalWidgetRun)), midHorizontalWidgetRunCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -109,8 +115,8 @@ func (m *HorizontalWidgetRun) ApplyToWidget() error {
 			callErr = fmt.Errorf("androidx.constraintlayout.core.widgets.analyzer.HorizontalWidgetRun.applyToWidget is not available on this device")
 			return callErr
 		}
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsHorizontalWidgetRun)),
 			midHorizontalWidgetRunApplyToWidget,
 		)
 		return callErr

@@ -23,6 +23,34 @@ type SurfaceControlTransaction struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSurfaceControlTransaction creates a new android.view.SurfaceControl$Transaction instance.
+func NewSurfaceControlTransaction(vm *jni.VM) (*SurfaceControlTransaction, error) {
+	var t SurfaceControlTransaction
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSurfaceControlTransaction == nil {
+			return fmt.Errorf("android.view.SurfaceControl$Transaction is not available on this device")
+		}
+		if midSurfaceControlTransactionCtor == nil {
+			return fmt.Errorf("android.view.SurfaceControl$Transaction constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSurfaceControlTransaction)), midSurfaceControlTransactionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddTransactionCommittedListener calls android.view.SurfaceControl$Transaction.addTransactionCommittedListener.
 func (m *SurfaceControlTransaction) AddTransactionCommittedListener(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
@@ -1027,29 +1055,6 @@ func (m *SurfaceControlTransaction) SetVisibility(arg0 *jni.Object, arg1 bool) (
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.SurfaceControl$Transaction.writeToParcel.
-func (m *SurfaceControlTransaction) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSurfaceControlTransactionWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.SurfaceControl$Transaction.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSurfaceControlTransactionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.view.SurfaceControl$Transaction.toString.
 func (m *SurfaceControlTransaction) ToString() (string, error) {
 	var result string
@@ -1075,4 +1080,27 @@ func (m *SurfaceControlTransaction) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.SurfaceControl$Transaction.writeToParcel.
+func (m *SurfaceControlTransaction) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSurfaceControlTransactionWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.SurfaceControl$Transaction.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSurfaceControlTransaction)),
+			midSurfaceControlTransactionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

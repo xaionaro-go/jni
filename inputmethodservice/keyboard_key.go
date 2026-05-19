@@ -23,6 +23,35 @@ type KeyboardKey struct {
 	Obj *jni.GlobalRef
 }
 
+// NewKeyboardKey creates a new android.inputmethodservice.Keyboard$Key instance.
+func NewKeyboardKey(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 int32, arg3 int32, arg4 *jni.Object) (*KeyboardKey, error) {
+	var t KeyboardKey
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsKeyboardKey == nil {
+			return fmt.Errorf("android.inputmethodservice.Keyboard$Key is not available on this device")
+		}
+		if midKeyboardKeyCtor == nil {
+			return fmt.Errorf("android.inputmethodservice.Keyboard$Key constructor (Landroid/content/res/Resources;Landroid/inputmethodservice/Keyboard$Row;IILandroid/content/res/XmlResourceParser;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyboardKey)), midKeyboardKeyCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3), jni.ObjectValue(arg4))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetCurrentDrawableState calls android.inputmethodservice.Keyboard$Key.getCurrentDrawableState.
 func (m *KeyboardKey) GetCurrentDrawableState() (*jni.Object, error) {
 	var result *jni.Object

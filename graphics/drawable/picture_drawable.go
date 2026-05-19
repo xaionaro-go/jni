@@ -32,6 +32,12 @@ func NewPictureDrawable(vm *jni.VM, arg0 *jni.Object) (*PictureDrawable, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPictureDrawable == nil {
+			return fmt.Errorf("android.graphics.drawable.PictureDrawable is not available on this device")
+		}
+		if midPictureDrawableCtor == nil {
+			return fmt.Errorf("android.graphics.drawable.PictureDrawable constructor (Landroid/graphics/Picture;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPictureDrawable)), midPictureDrawableCtor, jni.ObjectValue(arg0))
 		if err != nil {

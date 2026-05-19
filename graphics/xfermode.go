@@ -32,6 +32,12 @@ func NewXfermode(vm *jni.VM) (*Xfermode, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsXfermode == nil {
+			return fmt.Errorf("android.graphics.Xfermode is not available on this device")
+		}
+		if midXfermodeCtor == nil {
+			return fmt.Errorf("android.graphics.Xfermode constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsXfermode)), midXfermodeCtor)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewTransformation(vm *jni.VM) (*Transformation, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTransformation == nil {
+			return fmt.Errorf("android.view.animation.Transformation is not available on this device")
+		}
+		if midTransformationCtor == nil {
+			return fmt.Errorf("android.view.animation.Transformation constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTransformation)), midTransformationCtor)
 		if err != nil {
 			return err

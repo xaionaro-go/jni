@@ -32,6 +32,12 @@ func NewAssetFileDescriptor(vm *jni.VM, arg0 *jni.Object, arg1 int64, arg2 int64
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAssetFileDescriptor == nil {
+			return fmt.Errorf("android.content.res.AssetFileDescriptor is not available on this device")
+		}
+		if midAssetFileDescriptorCtor == nil {
+			return fmt.Errorf("android.content.res.AssetFileDescriptor constructor (Landroid/os/ParcelFileDescriptor;JJ)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAssetFileDescriptor)), midAssetFileDescriptorCtor, jni.ObjectValue(arg0), jni.LongValue(arg1), jni.LongValue(arg2))
 		if err != nil {

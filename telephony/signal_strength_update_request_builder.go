@@ -23,6 +23,34 @@ type SignalStrengthUpdateRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSignalStrengthUpdateRequestBuilder creates a new android.telephony.SignalStrengthUpdateRequest$Builder instance.
+func NewSignalStrengthUpdateRequestBuilder(vm *jni.VM) (*SignalStrengthUpdateRequestBuilder, error) {
+	var t SignalStrengthUpdateRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSignalStrengthUpdateRequestBuilder == nil {
+			return fmt.Errorf("android.telephony.SignalStrengthUpdateRequest$Builder is not available on this device")
+		}
+		if midSignalStrengthUpdateRequestBuilderCtor == nil {
+			return fmt.Errorf("android.telephony.SignalStrengthUpdateRequest$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSignalStrengthUpdateRequestBuilder)), midSignalStrengthUpdateRequestBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.telephony.SignalStrengthUpdateRequest$Builder.build.
 func (m *SignalStrengthUpdateRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -246,29 +246,6 @@ func (m *Data) HasRssi() (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.ranging.RangingData.writeToParcel.
-func (m *Data) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDataWriteToParcel == nil {
-			callErr = fmt.Errorf("android.ranging.RangingData.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midDataWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.ranging.RangingData.toString.
 func (m *Data) ToString() (string, error) {
 	var result string
@@ -294,4 +271,27 @@ func (m *Data) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.ranging.RangingData.writeToParcel.
+func (m *Data) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDataWriteToParcel == nil {
+			callErr = fmt.Errorf("android.ranging.RangingData.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsData)),
+			midDataWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

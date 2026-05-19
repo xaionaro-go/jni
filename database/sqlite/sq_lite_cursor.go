@@ -32,6 +32,12 @@ func NewSQLiteCursor(vm *jni.VM, arg0 *jni.Object, arg1 string, arg2 *jni.Object
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSQLiteCursor == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteCursor is not available on this device")
+		}
+		if midSQLiteCursorCtor == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteCursor constructor (Landroid/database/sqlite/SQLiteCursorDriver;Ljava/lang/String;Landroid/database/sqlite/SQLiteQuery;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {

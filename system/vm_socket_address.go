@@ -32,6 +32,12 @@ func NewVmSocketAddress(vm *jni.VM, arg0 int32, arg1 int32) (*VmSocketAddress, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsVmSocketAddress == nil {
+			return fmt.Errorf("android.system.VmSocketAddress is not available on this device")
+		}
+		if midVmSocketAddressCtor == nil {
+			return fmt.Errorf("android.system.VmSocketAddress constructor (II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVmSocketAddress)), midVmSocketAddressCtor, jni.IntValue(arg0), jni.IntValue(arg1))
 		if err != nil {

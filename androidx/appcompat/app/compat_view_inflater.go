@@ -30,6 +30,12 @@ func NewCompatViewInflater(vm *jni.VM) (*CompatViewInflater, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCompatViewInflater == nil {
+			return fmt.Errorf("androidx.appcompat.app.AppCompatViewInflater is not available on this device")
+		}
+		if midCompatViewInflaterCtor == nil {
+			return fmt.Errorf("androidx.appcompat.app.AppCompatViewInflater constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCompatViewInflater)), midCompatViewInflaterCtor)
 		if err != nil {
 			return err

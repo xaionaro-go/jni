@@ -5,6 +5,7 @@ package security
 import "github.com/AndroidGoLab/jni/security/consts"
 
 const (
+	Creator                           = consts.Creator
 	ErrorAttestationChallengeTooLarge = consts.ErrorAttestationChallengeTooLarge
 	ErrorAttestationKeysUnavailable   = consts.ErrorAttestationKeysUnavailable
 	ErrorIdAttestationFailure         = consts.ErrorIdAttestationFailure
@@ -25,7 +26,6 @@ const (
 	RetryNever                        = consts.RetryNever
 	RetryWhenConnectivityAvailable    = consts.RetryWhenConnectivityAvailable
 	RetryWithExponentialBackoff       = consts.RetryWithExponentialBackoff
-	Creator                           = consts.Creator
 )
 
 const (

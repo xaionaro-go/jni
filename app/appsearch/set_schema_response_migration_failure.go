@@ -23,6 +23,52 @@ type SetSchemaResponseMigrationFailure struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSetSchemaResponseMigrationFailure creates a new android.app.appsearch.SetSchemaResponse$MigrationFailure instance.
+func NewSetSchemaResponseMigrationFailure(vm *jni.VM, arg0 string, arg1 string, arg2 string, arg3 *jni.Object) (*SetSchemaResponseMigrationFailure, error) {
+	var t SetSchemaResponseMigrationFailure
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSetSchemaResponseMigrationFailure == nil {
+			return fmt.Errorf("android.app.appsearch.SetSchemaResponse$MigrationFailure is not available on this device")
+		}
+		if midSetSchemaResponseMigrationFailureCtor == nil {
+			return fmt.Errorf("android.app.appsearch.SetSchemaResponse$MigrationFailure constructor (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/app/appsearch/AppSearchResult;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		jArg2, err := env.NewStringUTF(arg2)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg2.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseMigrationFailure)), midSetSchemaResponseMigrationFailureCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(&jArg1.Object), jni.ObjectValue(&jArg2.Object), jni.ObjectValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.app.appsearch.SetSchemaResponse$MigrationFailure.describeContents.
 func (m *SetSchemaResponseMigrationFailure) DescribeContents() (int32, error) {
 	var result int32
@@ -202,8 +248,8 @@ func (m *SetSchemaResponseMigrationFailure) WriteToParcel(arg0 *jni.Object, arg1
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSetSchemaResponseMigrationFailure)),
 			midSetSchemaResponseMigrationFailureWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

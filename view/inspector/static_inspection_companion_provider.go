@@ -32,6 +32,12 @@ func NewStaticInspectionCompanionProvider(vm *jni.VM) (*StaticInspectionCompanio
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStaticInspectionCompanionProvider == nil {
+			return fmt.Errorf("android.view.inspector.StaticInspectionCompanionProvider is not available on this device")
+		}
+		if midStaticInspectionCompanionProviderCtor == nil {
+			return fmt.Errorf("android.view.inspector.StaticInspectionCompanionProvider constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStaticInspectionCompanionProvider)), midStaticInspectionCompanionProviderCtor)
 		if err != nil {
 			return err

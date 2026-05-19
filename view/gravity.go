@@ -32,6 +32,12 @@ func NewGravity(vm *jni.VM) (*Gravity, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGravity == nil {
+			return fmt.Errorf("android.view.Gravity is not available on this device")
+		}
+		if midGravityCtor == nil {
+			return fmt.Errorf("android.view.Gravity constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGravity)), midGravityCtor)
 		if err != nil {
 			return err

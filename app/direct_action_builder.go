@@ -21,6 +21,40 @@ type DirectActionBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDirectActionBuilder creates a new android.app.DirectAction$Builder instance.
+func NewDirectActionBuilder(vm *jni.VM, arg0 string) (*DirectActionBuilder, error) {
+	var t DirectActionBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDirectActionBuilder == nil {
+			return fmt.Errorf("android.app.DirectAction$Builder is not available on this device")
+		}
+		if midDirectActionBuilderCtor == nil {
+			return fmt.Errorf("android.app.DirectAction$Builder constructor (Ljava/lang/String;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDirectActionBuilder)), midDirectActionBuilderCtor, jni.ObjectValue(&jArg0.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.app.DirectAction$Builder.build.
 func (m *DirectActionBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

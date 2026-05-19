@@ -32,6 +32,12 @@ func NewRadialGradient(vm *jni.VM, arg0 float32, arg1 float32, arg2 float32, arg
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRadialGradient == nil {
+			return fmt.Errorf("android.graphics.RadialGradient is not available on this device")
+		}
+		if midRadialGradientCtor == nil {
+			return fmt.Errorf("android.graphics.RadialGradient constructor (FFFFFF[J[FLandroid/graphics/Shader$TileMode;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRadialGradient)), midRadialGradientCtor, jni.FloatValue(arg0), jni.FloatValue(arg1), jni.FloatValue(arg2), jni.FloatValue(arg3), jni.FloatValue(arg4), jni.FloatValue(arg5), jni.ObjectValue(arg6), jni.ObjectValue(arg7), jni.ObjectValue(arg8))
 		if err != nil {

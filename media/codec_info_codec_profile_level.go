@@ -23,6 +23,34 @@ type CodecInfoCodecProfileLevel struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCodecInfoCodecProfileLevel creates a new android.media.MediaCodecInfo$CodecProfileLevel instance.
+func NewCodecInfoCodecProfileLevel(vm *jni.VM) (*CodecInfoCodecProfileLevel, error) {
+	var t CodecInfoCodecProfileLevel
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCodecInfoCodecProfileLevel == nil {
+			return fmt.Errorf("android.media.MediaCodecInfo$CodecProfileLevel is not available on this device")
+		}
+		if midCodecInfoCodecProfileLevelCtor == nil {
+			return fmt.Errorf("android.media.MediaCodecInfo$CodecProfileLevel constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCodecInfoCodecProfileLevel)), midCodecInfoCodecProfileLevelCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.media.MediaCodecInfo$CodecProfileLevel.equals.
 func (m *CodecInfoCodecProfileLevel) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

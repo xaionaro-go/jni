@@ -32,6 +32,12 @@ func NewMotionLayout(vm *jni.VM, arg0 *jni.Object) (*MotionLayout, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMotionLayout == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.MotionLayout is not available on this device")
+		}
+		if midMotionLayoutCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.MotionLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMotionLayout)), midMotionLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -2034,31 +2040,4 @@ func (m *MotionLayout) IsDelayedApplicationOfInitialState() (bool, error) {
 		return callErr
 	})
 	return result, callErr
-}
-
-// SetDelayedApplicationOfInitialState calls androidx.constraintlayout.motion.widget.MotionLayout.setDelayedApplicationOfInitialState.
-func (m *MotionLayout) SetDelayedApplicationOfInitialState(arg0 bool) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMotionLayoutSetDelayedApplicationOfInitialState == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.motion.widget.MotionLayout.setDelayedApplicationOfInitialState is not available on this device")
-			return callErr
-		}
-		var jArg0 uint8
-		if arg0 {
-			jArg0 = jniTrue
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMotionLayoutSetDelayedApplicationOfInitialState, jni.BooleanValue(jArg0),
-		)
-		return callErr
-	})
-	return callErr
 }

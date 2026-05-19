@@ -5,6 +5,49 @@
 package: viewsintegration
 go_import: github.com/AndroidGoLab/jni/androidx/emoji2/viewsintegration
 classes:
+    - java_class: androidx.emoji2.viewsintegration.EmojiTextViewHelper
+      go_type: EmojiTextViewHelper
+      obtain: constructor
+      constructor_params:
+        - java_type: android.widget.TextView
+          go_name: arg0
+      methods:
+        - java_method: updateTransformationMethod
+          go_name: UpdateTransformationMethod
+          returns: void
+          error: true
+        - java_method: getFilters
+          go_name: GetFilters
+          params:
+            - java_type: android.text.InputFilter[]
+              go_name: arg0
+          returns: android.text.InputFilter[]
+          error: true
+        - java_method: wrapTransformationMethod
+          go_name: WrapTransformationMethod
+          params:
+            - java_type: android.text.method.TransformationMethod
+              go_name: arg0
+          returns: android.text.method.TransformationMethod
+          error: true
+        - java_method: setEnabled
+          go_name: SetEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setAllCaps
+          go_name: SetAllCaps
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isEnabled
+          go_name: IsEnabled
+          returns: boolean
+          error: true
     - java_class: androidx.emoji2.viewsintegration.EmojiEditTextHelper
       go_type: EmojiEditTextHelper
       obtain: constructor
@@ -60,47 +103,4 @@ classes:
             - java_type: boolean
               go_name: arg0
           returns: void
-          error: true
-    - java_class: androidx.emoji2.viewsintegration.EmojiTextViewHelper
-      go_type: EmojiTextViewHelper
-      obtain: constructor
-      constructor_params:
-        - java_type: android.widget.TextView
-          go_name: arg0
-      methods:
-        - java_method: updateTransformationMethod
-          go_name: UpdateTransformationMethod
-          returns: void
-          error: true
-        - java_method: getFilters
-          go_name: GetFilters
-          params:
-            - java_type: android.text.InputFilter[]
-              go_name: arg0
-          returns: android.text.InputFilter[]
-          error: true
-        - java_method: wrapTransformationMethod
-          go_name: WrapTransformationMethod
-          params:
-            - java_type: android.text.method.TransformationMethod
-              go_name: arg0
-          returns: android.text.method.TransformationMethod
-          error: true
-        - java_method: setEnabled
-          go_name: SetEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setAllCaps
-          go_name: SetAllCaps
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isEnabled
-          go_name: IsEnabled
-          returns: boolean
           error: true

@@ -23,6 +23,34 @@ type WidgetPropertySet struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWidgetPropertySet creates a new androidx.constraintlayout.core.motion.MotionWidget$PropertySet instance.
+func NewWidgetPropertySet(vm *jni.VM) (*WidgetPropertySet, error) {
+	var t WidgetPropertySet
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWidgetPropertySet == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.MotionWidget$PropertySet is not available on this device")
+		}
+		if midWidgetPropertySetCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.MotionWidget$PropertySet constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWidgetPropertySet)), midWidgetPropertySetCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.constraintlayout.core.motion.MotionWidget$PropertySet.toString.
 func (m *WidgetPropertySet) ToString() (string, error) {
 	var result string

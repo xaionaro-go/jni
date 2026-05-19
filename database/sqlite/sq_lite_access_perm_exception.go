@@ -32,6 +32,12 @@ func NewSQLiteAccessPermException(vm *jni.VM) (*SQLiteAccessPermException, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSQLiteAccessPermException == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteAccessPermException is not available on this device")
+		}
+		if midSQLiteAccessPermExceptionCtor == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteAccessPermException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSQLiteAccessPermException)), midSQLiteAccessPermExceptionCtor)
 		if err != nil {
 			return err

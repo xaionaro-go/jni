@@ -23,6 +23,40 @@ type GatewayConnectionConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGatewayConnectionConfigBuilder creates a new android.net.vcn.VcnGatewayConnectionConfig$Builder instance.
+func NewGatewayConnectionConfigBuilder(vm *jni.VM, arg0 string, arg1 *jni.Object) (*GatewayConnectionConfigBuilder, error) {
+	var t GatewayConnectionConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGatewayConnectionConfigBuilder == nil {
+			return fmt.Errorf("android.net.vcn.VcnGatewayConnectionConfig$Builder is not available on this device")
+		}
+		if midGatewayConnectionConfigBuilderCtor == nil {
+			return fmt.Errorf("android.net.vcn.VcnGatewayConnectionConfig$Builder constructor (Ljava/lang/String;Landroid/net/ipsec/ike/IkeTunnelConnectionParams;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGatewayConnectionConfigBuilder)), midGatewayConnectionConfigBuilderCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddExposedCapability calls android.net.vcn.VcnGatewayConnectionConfig$Builder.addExposedCapability.
 func (m *GatewayConnectionConfigBuilder) AddExposedCapability(arg0 int32) (*jni.Object, error) {
 	var result *jni.Object

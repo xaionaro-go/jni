@@ -32,6 +32,12 @@ func NewPasspointConfiguration(vm *jni.VM) (*PasspointConfiguration, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPasspointConfiguration == nil {
+			return fmt.Errorf("android.net.wifi.hotspot2.PasspointConfiguration is not available on this device")
+		}
+		if midPasspointConfigurationCtor == nil {
+			return fmt.Errorf("android.net.wifi.hotspot2.PasspointConfiguration constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPasspointConfiguration)), midPasspointConfigurationCtor)
 		if err != nil {
 			return err
@@ -431,8 +437,8 @@ func (m *PasspointConfiguration) WriteToParcel(arg0 *jni.Object, arg1 int32) err
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsPasspointConfiguration)),
 			midPasspointConfigurationWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

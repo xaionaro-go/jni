@@ -32,6 +32,12 @@ func NewTransitionBuilder(vm *jni.VM) (*TransitionBuilder, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTransitionBuilder == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.TransitionBuilder is not available on this device")
+		}
+		if midTransitionBuilderCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.widget.TransitionBuilder constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTransitionBuilder)), midTransitionBuilderCtor)
 		if err != nil {
 			return err

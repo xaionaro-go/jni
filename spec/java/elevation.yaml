@@ -5,6 +5,37 @@
 package: elevation
 go_import: github.com/AndroidGoLab/jni/com/google/android/material/elevation
 classes:
+    - java_class: com.google.android.material.elevation.SurfaceColors
+      go_type: SurfaceColors
+      methods:
+        - java_method: getColor
+          go_name: GetColor
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: int
+          error: true
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: com.google.android.material.elevation.SurfaceColors[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: com.google.android.material.elevation.SurfaceColors
+          error: true
+        - java_method: getColorForElevation
+          go_name: GetColorForElevation
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: int
+          error: true
     - java_class: com.google.android.material.elevation.ElevationOverlayProvider
       go_type: OverlayProvider
       obtain: constructor
@@ -94,43 +125,13 @@ classes:
           go_name: GetThemeSurfaceColor
           returns: int
           error: true
+      static_methods:
         - java_method: getParentAbsoluteElevation
           go_name: GetParentAbsoluteElevation
           params:
             - java_type: android.view.View
               go_name: arg0
           returns: float
-          error: true
-    - java_class: com.google.android.material.elevation.SurfaceColors
-      go_type: SurfaceColors
-      methods:
-        - java_method: getColor
-          go_name: GetColor
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: int
-          error: true
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: com.google.android.material.elevation.SurfaceColors[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: com.google.android.material.elevation.SurfaceColors
-          error: true
-        - java_method: getColorForElevation
-          go_name: GetColorForElevation
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: int
           error: true
 constants:
     - go_name: Surface0

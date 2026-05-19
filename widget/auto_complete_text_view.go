@@ -32,6 +32,12 @@ func NewAutoCompleteTextView(vm *jni.VM, arg0 *jni.Object) (*AutoCompleteTextVie
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAutoCompleteTextView == nil {
+			return fmt.Errorf("android.widget.AutoCompleteTextView is not available on this device")
+		}
+		if midAutoCompleteTextViewCtor == nil {
+			return fmt.Errorf("android.widget.AutoCompleteTextView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAutoCompleteTextView)), midAutoCompleteTextViewCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -876,6 +882,34 @@ func (m *AutoCompleteTextView) RefreshAutoCompleteResults() error {
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midAutoCompleteTextViewRefreshAutoCompleteResults,
+		)
+		return callErr
+	})
+	return callErr
+}
+
+// ReplaceText calls android.widget.AutoCompleteTextView.replaceText.
+func (m *AutoCompleteTextView) ReplaceText(arg0 string) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midAutoCompleteTextViewReplaceText == nil {
+			callErr = fmt.Errorf("android.widget.AutoCompleteTextView.replaceText is not available on this device")
+			return callErr
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		callErr = env.CallVoidMethod(
+			m.Obj,
+			midAutoCompleteTextViewReplaceText, jni.ObjectValue(&jArg0.Object),
 		)
 		return callErr
 	})

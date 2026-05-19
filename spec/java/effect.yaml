@@ -23,6 +23,34 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
+    - java_class: android.media.effect.EffectUpdateListener
+      go_type: UpdateListener
+      methods:
+        - java_method: onEffectUpdated
+          go_name: OnEffectUpdated
+          params:
+            - java_type: android.media.effect.Effect
+              go_name: arg0
+            - java_type: java.lang.Object
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.media.effect.EffectContext
+      go_type: Context
+      methods:
+        - java_method: getFactory
+          go_name: GetFactory
+          returns: android.media.effect.EffectFactory
+          error: true
+        - java_method: release
+          go_name: Release
+          returns: void
+          error: true
+      static_methods:
+        - java_method: createWithCurrentGlContext
+          go_name: CreateWithCurrentGlContext
+          returns: android.media.effect.EffectContext
+          error: true
     - java_class: android.media.effect.Effect
       go_type: Effect
       methods:
@@ -63,34 +91,6 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.media.effect.EffectUpdateListener
-      go_type: UpdateListener
-      methods:
-        - java_method: onEffectUpdated
-          go_name: OnEffectUpdated
-          params:
-            - java_type: android.media.effect.Effect
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.media.effect.EffectContext
-      go_type: Context
-      methods:
-        - java_method: getFactory
-          go_name: GetFactory
-          returns: android.media.effect.EffectFactory
-          error: true
-        - java_method: release
-          go_name: Release
-          returns: void
-          error: true
-      static_methods:
-        - java_method: createWithCurrentGlContext
-          go_name: CreateWithCurrentGlContext
-          returns: android.media.effect.EffectContext
-          error: true
 abstract_callbacks:
     - java_class: android.media.effect.Effect
       go_type: EffectCallback
@@ -122,6 +122,10 @@ abstract_callbacks:
             - android.media.effect.EffectUpdateListener
           returns: void
           go_field: SetUpdateListener
+abstract_callback_eligibility:
+    - java_class: android.media.effect.Effect
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
     - go_name: EffectAutofix
       value: '"android.media.effect.effects.AutoFixEffect"'

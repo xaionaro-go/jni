@@ -32,6 +32,12 @@ func NewToggleButton(vm *jni.VM, arg0 *jni.Object) (*ToggleButton, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsToggleButton == nil {
+			return fmt.Errorf("android.widget.ToggleButton is not available on this device")
+		}
+		if midToggleButtonCtor == nil {
+			return fmt.Errorf("android.widget.ToggleButton constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsToggleButton)), midToggleButtonCtor, jni.ObjectValue(arg0))
 		if err != nil {

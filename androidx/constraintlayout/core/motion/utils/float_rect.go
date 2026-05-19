@@ -32,6 +32,12 @@ func NewFloatRect(vm *jni.VM) (*FloatRect, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFloatRect == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.FloatRect is not available on this device")
+		}
+		if midFloatRectCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.FloatRect constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFloatRect)), midFloatRectCtor)
 		if err != nil {
 			return err

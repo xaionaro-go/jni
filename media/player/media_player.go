@@ -32,6 +32,12 @@ func NewMediaPlayer(vm *jni.VM, arg0 *jni.Object) (*MediaPlayer, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMediaPlayer == nil {
+			return fmt.Errorf("android.media.MediaPlayer is not available on this device")
+		}
+		if midMediaPlayerCtor == nil {
+			return fmt.Errorf("android.media.MediaPlayer constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMediaPlayer)), midMediaPlayerCtor, jni.ObjectValue(arg0))
 		if err != nil {

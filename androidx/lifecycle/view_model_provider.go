@@ -32,6 +32,12 @@ func NewViewModelProvider(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsViewModelProvider == nil {
+			return fmt.Errorf("androidx.lifecycle.ViewModelProvider is not available on this device")
+		}
+		if midViewModelProviderCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.ViewModelProvider constructor (Landroidx/lifecycle/ViewModelStore;Landroidx/lifecycle/ViewModelProvider$Factory;Landroidx/lifecycle/viewmodel/CreationExtras;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewModelProvider)), midViewModelProviderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
 		if err != nil {

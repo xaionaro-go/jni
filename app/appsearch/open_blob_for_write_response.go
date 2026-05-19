@@ -32,6 +32,12 @@ func NewOpenBlobForWriteResponse(vm *jni.VM, arg0 *jni.Object) (*OpenBlobForWrit
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsOpenBlobForWriteResponse == nil {
+			return fmt.Errorf("android.app.appsearch.OpenBlobForWriteResponse is not available on this device")
+		}
+		if midOpenBlobForWriteResponseCtor == nil {
+			return fmt.Errorf("android.app.appsearch.OpenBlobForWriteResponse constructor (Landroid/app/appsearch/AppSearchBatchResult;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsOpenBlobForWriteResponse)), midOpenBlobForWriteResponseCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -93,29 +99,6 @@ func (m *OpenBlobForWriteResponse) DescribeContents() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.appsearch.OpenBlobForWriteResponse.writeToParcel.
-func (m *OpenBlobForWriteResponse) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midOpenBlobForWriteResponseWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.appsearch.OpenBlobForWriteResponse.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midOpenBlobForWriteResponseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.appsearch.OpenBlobForWriteResponse.toString.
 func (m *OpenBlobForWriteResponse) ToString() (string, error) {
 	var result string
@@ -141,4 +124,27 @@ func (m *OpenBlobForWriteResponse) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.appsearch.OpenBlobForWriteResponse.writeToParcel.
+func (m *OpenBlobForWriteResponse) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midOpenBlobForWriteResponseWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.appsearch.OpenBlobForWriteResponse.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsOpenBlobForWriteResponse)),
+			midOpenBlobForWriteResponseWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

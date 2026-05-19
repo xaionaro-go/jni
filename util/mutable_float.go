@@ -32,6 +32,12 @@ func NewMutableFloat(vm *jni.VM, arg0 float32) (*MutableFloat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMutableFloat == nil {
+			return fmt.Errorf("android.util.MutableFloat is not available on this device")
+		}
+		if midMutableFloatCtor == nil {
+			return fmt.Errorf("android.util.MutableFloat constructor (F)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMutableFloat)), midMutableFloatCtor, jni.FloatValue(arg0))
 		if err != nil {

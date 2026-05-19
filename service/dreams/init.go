@@ -32,6 +32,7 @@ var (
 	midDreamServiceDispatchPopulateAccessibilityEvent jni.MethodID
 	midDreamServiceDispatchTouchEvent                 jni.MethodID
 	midDreamServiceDispatchTrackballEvent             jni.MethodID
+	midDreamServiceDump                               jni.MethodID
 	midDreamServiceFinish                             jni.MethodID
 	midDreamServiceGetWindow                          jni.MethodID
 	midDreamServiceGetWindowManager                   jni.MethodID
@@ -145,6 +146,13 @@ func doInit(env *jni.Env) error {
 		}
 
 		midDreamServiceDispatchTrackballEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDreamService)), "dispatchTrackballEvent", "(Landroid/view/MotionEvent;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDreamServiceDump, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDreamService)), "dump", "(Ljava/io/FileDescriptor;Ljava/io/PrintWriter;[Ljava/lang/String;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

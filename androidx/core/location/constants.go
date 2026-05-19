@@ -5,6 +5,13 @@ package location
 import "github.com/AndroidGoLab/jni/androidx/core/location/consts"
 
 const (
+	PassiveInterval = consts.PassiveInterval
+)
+
+const (
+	QualityHighAccuracy          = consts.QualityHighAccuracy
+	QualityBalancedPowerAccuracy = consts.QualityBalancedPowerAccuracy
+	QualityLowPower              = consts.QualityLowPower
 	ConstellationUnknown         = consts.ConstellationUnknown
 	ConstellationGps             = consts.ConstellationGps
 	ConstellationSbas            = consts.ConstellationSbas
@@ -13,13 +20,6 @@ const (
 	ConstellationBeidou          = consts.ConstellationBeidou
 	ConstellationGalileo         = consts.ConstellationGalileo
 	ConstellationIrnss           = consts.ConstellationIrnss
-	QualityHighAccuracy          = consts.QualityHighAccuracy
-	QualityBalancedPowerAccuracy = consts.QualityBalancedPowerAccuracy
-	QualityLowPower              = consts.QualityLowPower
-)
-
-const (
-	PassiveInterval = consts.PassiveInterval
 )
 
 const (

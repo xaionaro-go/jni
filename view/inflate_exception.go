@@ -32,6 +32,12 @@ func NewInflateException(vm *jni.VM) (*InflateException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInflateException == nil {
+			return fmt.Errorf("android.view.InflateException is not available on this device")
+		}
+		if midInflateExceptionCtor == nil {
+			return fmt.Errorf("android.view.InflateException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInflateException)), midInflateExceptionCtor)
 		if err != nil {
 			return err

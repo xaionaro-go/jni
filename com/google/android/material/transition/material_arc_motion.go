@@ -32,6 +32,12 @@ func NewMaterialArcMotion(vm *jni.VM) (*MaterialArcMotion, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialArcMotion == nil {
+			return fmt.Errorf("com.google.android.material.transition.MaterialArcMotion is not available on this device")
+		}
+		if midMaterialArcMotionCtor == nil {
+			return fmt.Errorf("com.google.android.material.transition.MaterialArcMotion constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialArcMotion)), midMaterialArcMotionCtor)
 		if err != nil {
 			return err

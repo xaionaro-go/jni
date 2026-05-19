@@ -32,6 +32,12 @@ func NewReportImpressionRequest(vm *jni.VM, arg0 int64) (*ReportImpressionReques
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsReportImpressionRequest == nil {
+			return fmt.Errorf("android.adservices.adselection.ReportImpressionRequest is not available on this device")
+		}
+		if midReportImpressionRequestCtor == nil {
+			return fmt.Errorf("android.adservices.adselection.ReportImpressionRequest constructor (J)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsReportImpressionRequest)), midReportImpressionRequestCtor, jni.LongValue(arg0))
 		if err != nil {

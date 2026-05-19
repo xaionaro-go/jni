@@ -23,6 +23,34 @@ type NoCopySpanConcrete struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNoCopySpanConcrete creates a new android.text.NoCopySpan$Concrete instance.
+func NewNoCopySpanConcrete(vm *jni.VM) (*NoCopySpanConcrete, error) {
+	var t NoCopySpanConcrete
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNoCopySpanConcrete == nil {
+			return fmt.Errorf("android.text.NoCopySpan$Concrete is not available on this device")
+		}
+		if midNoCopySpanConcreteCtor == nil {
+			return fmt.Errorf("android.text.NoCopySpan$Concrete constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNoCopySpanConcrete)), midNoCopySpanConcreteCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.text.NoCopySpan$Concrete.toString.
 func (m *NoCopySpanConcrete) ToString() (string, error) {
 	var result string

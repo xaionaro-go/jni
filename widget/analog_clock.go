@@ -32,6 +32,12 @@ func NewAnalogClock(vm *jni.VM, arg0 *jni.Object) (*AnalogClock, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAnalogClock == nil {
+			return fmt.Errorf("android.widget.AnalogClock is not available on this device")
+		}
+		if midAnalogClockCtor == nil {
+			return fmt.Errorf("android.widget.AnalogClock constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAnalogClock)), midAnalogClockCtor, jni.ObjectValue(arg0))
 		if err != nil {

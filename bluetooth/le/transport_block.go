@@ -32,6 +32,12 @@ func NewTransportBlock(vm *jni.VM, arg0 int32, arg1 int32, arg2 int32, arg3 *jni
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTransportBlock == nil {
+			return fmt.Errorf("android.bluetooth.le.TransportBlock is not available on this device")
+		}
+		if midTransportBlockCtor == nil {
+			return fmt.Errorf("android.bluetooth.le.TransportBlock constructor (III[B)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTransportBlock)), midTransportBlockCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2), jni.ObjectValue(arg3))
 		if err != nil {
@@ -288,29 +294,6 @@ func (m *TransportBlock) TotalBytes() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.bluetooth.le.TransportBlock.writeToParcel.
-func (m *TransportBlock) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTransportBlockWriteToParcel == nil {
-			callErr = fmt.Errorf("android.bluetooth.le.TransportBlock.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midTransportBlockWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.bluetooth.le.TransportBlock.toString.
 func (m *TransportBlock) ToString() (string, error) {
 	var result string
@@ -336,4 +319,27 @@ func (m *TransportBlock) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.bluetooth.le.TransportBlock.writeToParcel.
+func (m *TransportBlock) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midTransportBlockWriteToParcel == nil {
+			callErr = fmt.Errorf("android.bluetooth.le.TransportBlock.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsTransportBlock)),
+			midTransportBlockWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

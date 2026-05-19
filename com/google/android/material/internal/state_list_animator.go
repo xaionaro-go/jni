@@ -32,6 +32,12 @@ func NewStateListAnimator(vm *jni.VM) (*StateListAnimator, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStateListAnimator == nil {
+			return fmt.Errorf("com.google.android.material.internal.StateListAnimator is not available on this device")
+		}
+		if midStateListAnimatorCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.StateListAnimator constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStateListAnimator)), midStateListAnimatorCtor)
 		if err != nil {
 			return err

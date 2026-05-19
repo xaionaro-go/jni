@@ -23,6 +23,40 @@ type BleCsRangingParamsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewBleCsRangingParamsBuilder creates a new android.ranging.ble.cs.BleCsRangingParams$Builder instance.
+func NewBleCsRangingParamsBuilder(vm *jni.VM, arg0 string) (*BleCsRangingParamsBuilder, error) {
+	var t BleCsRangingParamsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsBleCsRangingParamsBuilder == nil {
+			return fmt.Errorf("android.ranging.ble.cs.BleCsRangingParams$Builder is not available on this device")
+		}
+		if midBleCsRangingParamsBuilderCtor == nil {
+			return fmt.Errorf("android.ranging.ble.cs.BleCsRangingParams$Builder constructor (Ljava/lang/String;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBleCsRangingParamsBuilder)), midBleCsRangingParamsBuilderCtor, jni.ObjectValue(&jArg0.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.ranging.ble.cs.BleCsRangingParams$Builder.build.
 func (m *BleCsRangingParamsBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

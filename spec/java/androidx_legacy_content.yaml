@@ -24,3 +24,7 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
+abstract_callback_eligibility:
+    - java_class: androidx.legacy.content.WakefulBroadcastReceiver
+      generated: false
+      reason: non_object_superclass

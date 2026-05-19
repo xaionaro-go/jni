@@ -21,6 +21,40 @@ type VoiceInteractorCommandRequest struct {
 	Obj *jni.GlobalRef
 }
 
+// NewVoiceInteractorCommandRequest creates a new android.app.VoiceInteractor$CommandRequest instance.
+func NewVoiceInteractorCommandRequest(vm *jni.VM, arg0 string, arg1 *jni.Object) (*VoiceInteractorCommandRequest, error) {
+	var t VoiceInteractorCommandRequest
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsVoiceInteractorCommandRequest == nil {
+			return fmt.Errorf("android.app.VoiceInteractor$CommandRequest is not available on this device")
+		}
+		if midVoiceInteractorCommandRequestCtor == nil {
+			return fmt.Errorf("android.app.VoiceInteractor$CommandRequest constructor (Ljava/lang/String;Landroid/os/Bundle;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVoiceInteractorCommandRequest)), midVoiceInteractorCommandRequestCtor, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnCommandResult calls android.app.VoiceInteractor$CommandRequest.onCommandResult.
 func (m *VoiceInteractorCommandRequest) OnCommandResult(arg0 bool, arg1 *jni.Object) error {
 

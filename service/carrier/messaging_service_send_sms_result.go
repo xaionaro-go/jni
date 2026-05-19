@@ -23,6 +23,35 @@ type MessagingServiceSendSmsResult struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMessagingServiceSendSmsResult creates a new android.service.carrier.CarrierMessagingService$SendSmsResult instance.
+func NewMessagingServiceSendSmsResult(vm *jni.VM, arg0 int32, arg1 int32) (*MessagingServiceSendSmsResult, error) {
+	var t MessagingServiceSendSmsResult
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMessagingServiceSendSmsResult == nil {
+			return fmt.Errorf("android.service.carrier.CarrierMessagingService$SendSmsResult is not available on this device")
+		}
+		if midMessagingServiceSendSmsResultCtor == nil {
+			return fmt.Errorf("android.service.carrier.CarrierMessagingService$SendSmsResult constructor (II)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMessagingServiceSendSmsResult)), midMessagingServiceSendSmsResultCtor, jni.IntValue(arg0), jni.IntValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetMessageRef calls android.service.carrier.CarrierMessagingService$SendSmsResult.getMessageRef.
 func (m *MessagingServiceSendSmsResult) GetMessageRef() (int32, error) {
 	var result int32

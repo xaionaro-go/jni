@@ -32,6 +32,12 @@ func NewEvent(vm *jni.VM) (*Event, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEvent == nil {
+			return fmt.Errorf("android.view.accessibility.AccessibilityEvent is not available on this device")
+		}
+		if midEventCtor == nil {
+			return fmt.Errorf("android.view.accessibility.AccessibilityEvent constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEvent)), midEventCtor)
 		if err != nil {
 			return err
@@ -650,29 +656,6 @@ func (m *Event) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.accessibility.AccessibilityEvent.writeToParcel.
-func (m *Event) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midEventWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.accessibility.AccessibilityEvent.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midEventWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // EventTypeToString calls android.view.accessibility.AccessibilityEvent.eventTypeToString.
 func (m *Event) EventTypeToString(arg0 int32) (string, error) {
 	var result string
@@ -797,4 +780,27 @@ func (m *Event) Obtain1_2(arg0 int32) (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.accessibility.AccessibilityEvent.writeToParcel.
+func (m *Event) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midEventWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.accessibility.AccessibilityEvent.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsEvent)),
+			midEventWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

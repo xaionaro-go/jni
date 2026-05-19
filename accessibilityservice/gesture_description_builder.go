@@ -23,6 +23,34 @@ type GestureDescriptionBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGestureDescriptionBuilder creates a new android.accessibilityservice.GestureDescription$Builder instance.
+func NewGestureDescriptionBuilder(vm *jni.VM) (*GestureDescriptionBuilder, error) {
+	var t GestureDescriptionBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGestureDescriptionBuilder == nil {
+			return fmt.Errorf("android.accessibilityservice.GestureDescription$Builder is not available on this device")
+		}
+		if midGestureDescriptionBuilderCtor == nil {
+			return fmt.Errorf("android.accessibilityservice.GestureDescription$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGestureDescriptionBuilder)), midGestureDescriptionBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddStroke calls android.accessibilityservice.GestureDescription$Builder.addStroke.
 func (m *GestureDescriptionBuilder) AddStroke(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

@@ -23,6 +23,35 @@ type AppBarLayoutBaseBehavior struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAppBarLayoutBaseBehavior creates a new com.google.android.material.appbar.AppBarLayout$BaseBehavior instance.
+func NewAppBarLayoutBaseBehavior(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*AppBarLayoutBaseBehavior, error) {
+	var t AppBarLayoutBaseBehavior
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAppBarLayoutBaseBehavior == nil {
+			return fmt.Errorf("com.google.android.material.appbar.AppBarLayout$BaseBehavior is not available on this device")
+		}
+		if midAppBarLayoutBaseBehaviorCtor == nil {
+			return fmt.Errorf("com.google.android.material.appbar.AppBarLayout$BaseBehavior constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppBarLayoutBaseBehavior)), midAppBarLayoutBaseBehaviorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetDragCallback calls com.google.android.material.appbar.AppBarLayout$BaseBehavior.setDragCallback.
 func (m *AppBarLayoutBaseBehavior) SetDragCallback(arg0 *jni.Object) error {
 
@@ -44,260 +73,6 @@ func (m *AppBarLayoutBaseBehavior) SetDragCallback(arg0 *jni.Object) error {
 		return callErr
 	})
 	return callErr
-}
-
-// OnLayoutChild calls com.google.android.material.appbar.AppBarLayout$BaseBehavior.onLayoutChild.
-func (m *AppBarLayoutBaseBehavior) OnLayoutChild(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 int32,
-) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppBarLayoutBaseBehaviorOnLayoutChild == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout$BaseBehavior.onLayoutChild is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midAppBarLayoutBaseBehaviorOnLayoutChild, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// OnSaveInstanceState calls com.google.android.material.appbar.AppBarLayout$BaseBehavior.onSaveInstanceState.
-func (m *AppBarLayoutBaseBehavior) OnSaveInstanceState(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppBarLayoutBaseBehaviorOnSaveInstanceState == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout$BaseBehavior.onSaveInstanceState is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midAppBarLayoutBaseBehaviorOnSaveInstanceState, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// OnRestoreInstanceState calls com.google.android.material.appbar.AppBarLayout$BaseBehavior.onRestoreInstanceState.
-func (m *AppBarLayoutBaseBehavior) OnRestoreInstanceState(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppBarLayoutBaseBehaviorOnRestoreInstanceState == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout$BaseBehavior.onRestoreInstanceState is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAppBarLayoutBaseBehaviorOnRestoreInstanceState, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// OnNestedPreScroll calls com.google.android.material.appbar.AppBarLayout$BaseBehavior.onNestedPreScroll.
-func (m *AppBarLayoutBaseBehavior) OnNestedPreScroll(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-	arg3 int32,
-	arg4 int32,
-	arg5 *jni.Object,
-	arg6 int32,
-) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppBarLayoutBaseBehaviorOnNestedPreScroll == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout$BaseBehavior.onNestedPreScroll is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAppBarLayoutBaseBehaviorOnNestedPreScroll, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.IntValue(arg3), jni.IntValue(arg4), jni.ObjectValue(arg5), jni.IntValue(arg6),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// OnNestedScroll calls com.google.android.material.appbar.AppBarLayout$BaseBehavior.onNestedScroll.
-func (m *AppBarLayoutBaseBehavior) OnNestedScroll(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-	arg3 int32,
-	arg4 int32,
-	arg5 int32,
-	arg6 int32,
-	arg7 int32,
-	arg8 *jni.Object,
-) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppBarLayoutBaseBehaviorOnNestedScroll == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout$BaseBehavior.onNestedScroll is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAppBarLayoutBaseBehaviorOnNestedScroll, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.IntValue(arg3), jni.IntValue(arg4), jni.IntValue(arg5), jni.IntValue(arg6), jni.IntValue(arg7), jni.ObjectValue(arg8),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// OnStopNestedScroll calls com.google.android.material.appbar.AppBarLayout$BaseBehavior.onStopNestedScroll.
-func (m *AppBarLayoutBaseBehavior) OnStopNestedScroll(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-	arg3 int32,
-) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppBarLayoutBaseBehaviorOnStopNestedScroll == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout$BaseBehavior.onStopNestedScroll is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAppBarLayoutBaseBehaviorOnStopNestedScroll, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.IntValue(arg3),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// OnStartNestedScroll calls com.google.android.material.appbar.AppBarLayout$BaseBehavior.onStartNestedScroll.
-func (m *AppBarLayoutBaseBehavior) OnStartNestedScroll(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-	arg3 *jni.Object,
-	arg4 int32,
-	arg5 int32,
-) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppBarLayoutBaseBehaviorOnStartNestedScroll == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout$BaseBehavior.onStartNestedScroll is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midAppBarLayoutBaseBehaviorOnStartNestedScroll, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3), jni.IntValue(arg4), jni.IntValue(arg5),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// OnMeasureChild calls com.google.android.material.appbar.AppBarLayout$BaseBehavior.onMeasureChild.
-func (m *AppBarLayoutBaseBehavior) OnMeasureChild(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 int32,
-	arg3 int32,
-	arg4 int32,
-	arg5 int32,
-) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppBarLayoutBaseBehaviorOnMeasureChild == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout$BaseBehavior.onMeasureChild is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midAppBarLayoutBaseBehaviorOnMeasureChild, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3), jni.IntValue(arg4), jni.IntValue(arg5),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls com.google.android.material.appbar.AppBarLayout$BaseBehavior.toString.

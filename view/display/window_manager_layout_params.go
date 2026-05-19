@@ -23,6 +23,34 @@ type WindowManagerLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWindowManagerLayoutParams creates a new android.view.WindowManager$LayoutParams instance.
+func NewWindowManagerLayoutParams(vm *jni.VM) (*WindowManagerLayoutParams, error) {
+	var t WindowManagerLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWindowManagerLayoutParams == nil {
+			return fmt.Errorf("android.view.WindowManager$LayoutParams is not available on this device")
+		}
+		if midWindowManagerLayoutParamsCtor == nil {
+			return fmt.Errorf("android.view.WindowManager$LayoutParams constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWindowManagerLayoutParams)), midWindowManagerLayoutParamsCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AreWallpaperTouchEventsEnabled calls android.view.WindowManager$LayoutParams.areWallpaperTouchEventsEnabled.
 func (m *WindowManagerLayoutParams) AreWallpaperTouchEventsEnabled() (bool, error) {
 	var result bool
@@ -758,29 +786,6 @@ func (m *WindowManagerLayoutParams) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.WindowManager$LayoutParams.writeToParcel.
-func (m *WindowManagerLayoutParams) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midWindowManagerLayoutParamsWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.WindowManager$LayoutParams.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midWindowManagerLayoutParamsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // MayUseInputMethod calls android.view.WindowManager$LayoutParams.mayUseInputMethod.
 func (m *WindowManagerLayoutParams) MayUseInputMethod(arg0 int32) (bool, error) {
 	var result bool
@@ -807,4 +812,27 @@ func (m *WindowManagerLayoutParams) MayUseInputMethod(arg0 int32) (bool, error) 
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.WindowManager$LayoutParams.writeToParcel.
+func (m *WindowManagerLayoutParams) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midWindowManagerLayoutParamsWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.WindowManager$LayoutParams.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsWindowManagerLayoutParams)),
+			midWindowManagerLayoutParamsWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

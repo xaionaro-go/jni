@@ -23,6 +23,34 @@ type LoginFilterUsernameFilterGMail struct {
 	Obj *jni.GlobalRef
 }
 
+// NewLoginFilterUsernameFilterGMail creates a new android.text.LoginFilter$UsernameFilterGMail instance.
+func NewLoginFilterUsernameFilterGMail(vm *jni.VM) (*LoginFilterUsernameFilterGMail, error) {
+	var t LoginFilterUsernameFilterGMail
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsLoginFilterUsernameFilterGMail == nil {
+			return fmt.Errorf("android.text.LoginFilter$UsernameFilterGMail is not available on this device")
+		}
+		if midLoginFilterUsernameFilterGMailCtor == nil {
+			return fmt.Errorf("android.text.LoginFilter$UsernameFilterGMail constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLoginFilterUsernameFilterGMail)), midLoginFilterUsernameFilterGMailCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // IsAllowed calls android.text.LoginFilter$UsernameFilterGMail.isAllowed.
 func (m *LoginFilterUsernameFilterGMail) IsAllowed(arg0 uint16) (bool, error) {
 	var result bool

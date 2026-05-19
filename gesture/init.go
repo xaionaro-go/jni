@@ -23,18 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsStroke                           *jni.GlobalRef
-	midStrokeCtor                       jni.MethodID
-	midStrokeClearPath                  jni.MethodID
-	midStrokeClone                      jni.MethodID
-	midStrokeComputeOrientedBoundingBox jni.MethodID
-	midStrokeGetPath                    jni.MethodID
-	midStrokeToPath                     jni.MethodID
-	midStrokeToString                   jni.MethodID
-
-	clsPrediction         *jni.GlobalRef
-	midPredictionToString jni.MethodID
-
 	clsLibraries                   *jni.GlobalRef
 	midLibrariesToString           jni.MethodID
 	midLibrariesFromFile1          jni.MethodID
@@ -43,24 +31,24 @@ var (
 	midLibrariesFromPrivateFile    jni.MethodID
 	midLibrariesFromRawResource    jni.MethodID
 
-	clsLibrary                    *jni.GlobalRef
-	midLibraryAddGesture          jni.MethodID
-	midLibraryGetGestureEntries   jni.MethodID
-	midLibraryGetGestures         jni.MethodID
-	midLibraryGetOrientationStyle jni.MethodID
-	midLibraryGetSequenceType     jni.MethodID
-	midLibraryIsReadOnly          jni.MethodID
-	midLibraryLoad                jni.MethodID
-	midLibraryRecognize           jni.MethodID
-	midLibraryRemoveEntry         jni.MethodID
-	midLibraryRemoveGesture       jni.MethodID
-	midLibrarySave                jni.MethodID
-	midLibrarySetOrientationStyle jni.MethodID
-	midLibrarySetSequenceType     jni.MethodID
-	midLibraryToString            jni.MethodID
-
-	clsOrientedBoundingBox         *jni.GlobalRef
-	midOrientedBoundingBoxToString jni.MethodID
+	clsStore                    *jni.GlobalRef
+	midStoreCtor                jni.MethodID
+	midStoreAddGesture          jni.MethodID
+	midStoreGetGestureEntries   jni.MethodID
+	midStoreGetGestures         jni.MethodID
+	midStoreGetOrientationStyle jni.MethodID
+	midStoreGetSequenceType     jni.MethodID
+	midStoreHasChanged          jni.MethodID
+	midStoreLoad1               jni.MethodID
+	midStoreLoad2_1             jni.MethodID
+	midStoreRecognize           jni.MethodID
+	midStoreRemoveEntry         jni.MethodID
+	midStoreRemoveGesture       jni.MethodID
+	midStoreSave1               jni.MethodID
+	midStoreSave2_1             jni.MethodID
+	midStoreSetOrientationStyle jni.MethodID
+	midStoreSetSequenceType     jni.MethodID
+	midStoreToString            jni.MethodID
 
 	clsOverlayView                                     *jni.GlobalRef
 	midOverlayViewCtor                                 jni.MethodID
@@ -142,8 +130,16 @@ var (
 	midGestureToPath1_1        jni.MethodID
 	midGestureToPath5_2        jni.MethodID
 	midGestureToPath4_3        jni.MethodID
-	midGestureWriteToParcel    jni.MethodID
 	midGestureToString         jni.MethodID
+	midGestureWriteToParcel    jni.MethodID
+
+	clsPoint         *jni.GlobalRef
+	midPointCtor     jni.MethodID
+	midPointClone    jni.MethodID
+	midPointToString jni.MethodID
+
+	clsPrediction         *jni.GlobalRef
+	midPredictionToString jni.MethodID
 
 	clsUtils                           *jni.GlobalRef
 	midUtilsToString                   jni.MethodID
@@ -152,29 +148,33 @@ var (
 	midUtilsSpatialSampling3_1         jni.MethodID
 	midUtilsTemporalSampling           jni.MethodID
 
-	clsPoint         *jni.GlobalRef
-	midPointCtor     jni.MethodID
-	midPointClone    jni.MethodID
-	midPointToString jni.MethodID
+	clsLibrary                    *jni.GlobalRef
+	midLibraryAddGesture          jni.MethodID
+	midLibraryGetGestureEntries   jni.MethodID
+	midLibraryGetGestures         jni.MethodID
+	midLibraryGetOrientationStyle jni.MethodID
+	midLibraryGetSequenceType     jni.MethodID
+	midLibraryIsReadOnly          jni.MethodID
+	midLibraryLoad                jni.MethodID
+	midLibraryRecognize           jni.MethodID
+	midLibraryRemoveEntry         jni.MethodID
+	midLibraryRemoveGesture       jni.MethodID
+	midLibrarySave                jni.MethodID
+	midLibrarySetOrientationStyle jni.MethodID
+	midLibrarySetSequenceType     jni.MethodID
+	midLibraryToString            jni.MethodID
 
-	clsStore                    *jni.GlobalRef
-	midStoreCtor                jni.MethodID
-	midStoreAddGesture          jni.MethodID
-	midStoreGetGestureEntries   jni.MethodID
-	midStoreGetGestures         jni.MethodID
-	midStoreGetOrientationStyle jni.MethodID
-	midStoreGetSequenceType     jni.MethodID
-	midStoreHasChanged          jni.MethodID
-	midStoreLoad1               jni.MethodID
-	midStoreLoad2_1             jni.MethodID
-	midStoreRecognize           jni.MethodID
-	midStoreRemoveEntry         jni.MethodID
-	midStoreRemoveGesture       jni.MethodID
-	midStoreSave1               jni.MethodID
-	midStoreSave2_1             jni.MethodID
-	midStoreSetOrientationStyle jni.MethodID
-	midStoreSetSequenceType     jni.MethodID
-	midStoreToString            jni.MethodID
+	clsStroke                           *jni.GlobalRef
+	midStrokeCtor                       jni.MethodID
+	midStrokeClearPath                  jni.MethodID
+	midStrokeClone                      jni.MethodID
+	midStrokeComputeOrientedBoundingBox jni.MethodID
+	midStrokeGetPath                    jni.MethodID
+	midStrokeToPath                     jni.MethodID
+	midStrokeToString                   jni.MethodID
+
+	clsOrientedBoundingBox         *jni.GlobalRef
+	midOrientedBoundingBoxToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -194,79 +194,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("android/gesture/GestureStroke")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStroke = env.NewGlobalRef(&c.Object)
-		midStrokeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStroke)), "<init>", "(Ljava/util/ArrayList;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midStrokeClearPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStroke)), "clearPath", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStrokeClone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStroke)), "clone", "()Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStrokeComputeOrientedBoundingBox, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStroke)), "computeOrientedBoundingBox", "()Landroid/gesture/OrientedBoundingBox;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStrokeGetPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStroke)), "getPath", "()Landroid/graphics/Path;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStrokeToPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStroke)), "toPath", "(FFI)Landroid/graphics/Path;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStrokeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStroke)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/gesture/Prediction")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPrediction = env.NewGlobalRef(&c.Object)
-
-		midPredictionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPrediction)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("android/gesture/GestureLibraries")
 	if err != nil {
@@ -320,123 +247,124 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/gesture/GestureLibrary")
+	c, err = env.FindClass("android/gesture/GestureStore")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsLibrary = env.NewGlobalRef(&c.Object)
+		clsStore = env.NewGlobalRef(&c.Object)
+		midStoreCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midLibraryAddGesture, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "addGesture", "(Ljava/lang/String;Landroid/gesture/Gesture;)V")
+		midStoreAddGesture, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "addGesture", "(Ljava/lang/String;Landroid/gesture/Gesture;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLibraryGetGestureEntries, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "getGestureEntries", "()Ljava/util/Set;")
+		midStoreGetGestureEntries, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "getGestureEntries", "()Ljava/util/Set;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLibraryGetGestures, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "getGestures", "(Ljava/lang/String;)Ljava/util/ArrayList;")
+		midStoreGetGestures, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "getGestures", "(Ljava/lang/String;)Ljava/util/ArrayList;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLibraryGetOrientationStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "getOrientationStyle", "()I")
+		midStoreGetOrientationStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "getOrientationStyle", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLibraryGetSequenceType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "getSequenceType", "()I")
+		midStoreGetSequenceType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "getSequenceType", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLibraryIsReadOnly, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "isReadOnly", "()Z")
+		midStoreHasChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "hasChanged", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLibraryLoad, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "load", "()Z")
+		midStoreLoad1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "load", "(Ljava/io/InputStream;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLibraryRecognize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "recognize", "(Landroid/gesture/Gesture;)Ljava/util/ArrayList;")
+		midStoreLoad2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "load", "(Ljava/io/InputStream;Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLibraryRemoveEntry, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "removeEntry", "(Ljava/lang/String;)V")
+		midStoreRecognize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "recognize", "(Landroid/gesture/Gesture;)Ljava/util/ArrayList;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLibraryRemoveGesture, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "removeGesture", "(Ljava/lang/String;Landroid/gesture/Gesture;)V")
+		midStoreRemoveEntry, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "removeEntry", "(Ljava/lang/String;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLibrarySave, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "save", "()Z")
+		midStoreRemoveGesture, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "removeGesture", "(Ljava/lang/String;Landroid/gesture/Gesture;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLibrarySetOrientationStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "setOrientationStyle", "(I)V")
+		midStoreSave1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "save", "(Ljava/io/OutputStream;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLibrarySetSequenceType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "setSequenceType", "(I)V")
+		midStoreSave2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "save", "(Ljava/io/OutputStream;Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLibraryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "toString", "()Ljava/lang/String;")
+		midStoreSetOrientationStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "setOrientationStyle", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
+		midStoreSetSequenceType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "setSequenceType", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
 
-	c, err = env.FindClass("android/gesture/OrientedBoundingBox")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsOrientedBoundingBox = env.NewGlobalRef(&c.Object)
-
-		midOrientedBoundingBoxToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientedBoundingBox)), "toString", "()Ljava/lang/String;")
+		midStoreToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -984,14 +912,59 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midGestureWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGesture)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midGestureToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGesture)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGestureToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGesture)), "toString", "()Ljava/lang/String;")
+		midGestureWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsGesture)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/gesture/GesturePoint")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPoint = env.NewGlobalRef(&c.Object)
+		midPointCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPoint)), "<init>", "(FFJ)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midPointClone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPoint)), "clone", "()Ljava/lang/Object;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPointToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPoint)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/gesture/Prediction")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPrediction = env.NewGlobalRef(&c.Object)
+
+		midPredictionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPrediction)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1045,26 +1018,106 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/gesture/GesturePoint")
+	c, err = env.FindClass("android/gesture/GestureLibrary")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsPoint = env.NewGlobalRef(&c.Object)
-		midPointCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPoint)), "<init>", "(FFJ)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsLibrary = env.NewGlobalRef(&c.Object)
 
-		midPointClone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPoint)), "clone", "()Ljava/lang/Object;")
+		midLibraryAddGesture, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "addGesture", "(Ljava/lang/String;Landroid/gesture/Gesture;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPointToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPoint)), "toString", "()Ljava/lang/String;")
+		midLibraryGetGestureEntries, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "getGestureEntries", "()Ljava/util/Set;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLibraryGetGestures, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "getGestures", "(Ljava/lang/String;)Ljava/util/ArrayList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLibraryGetOrientationStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "getOrientationStyle", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLibraryGetSequenceType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "getSequenceType", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLibraryIsReadOnly, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "isReadOnly", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLibraryLoad, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "load", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLibraryRecognize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "recognize", "(Landroid/gesture/Gesture;)Ljava/util/ArrayList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLibraryRemoveEntry, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "removeEntry", "(Ljava/lang/String;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLibraryRemoveGesture, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "removeGesture", "(Ljava/lang/String;Landroid/gesture/Gesture;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLibrarySave, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "save", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLibrarySetOrientationStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "setOrientationStyle", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLibrarySetSequenceType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "setSequenceType", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLibraryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLibrary)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1073,124 +1126,71 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/gesture/GestureStore")
+	c, err = env.FindClass("android/gesture/GestureStroke")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsStore = env.NewGlobalRef(&c.Object)
-		midStoreCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "<init>", "()V")
+		clsStroke = env.NewGlobalRef(&c.Object)
+		midStrokeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStroke)), "<init>", "(Ljava/util/ArrayList;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midStoreAddGesture, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "addGesture", "(Ljava/lang/String;Landroid/gesture/Gesture;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStoreGetGestureEntries, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "getGestureEntries", "()Ljava/util/Set;")
+		midStrokeClearPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStroke)), "clearPath", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midStoreGetGestures, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "getGestures", "(Ljava/lang/String;)Ljava/util/ArrayList;")
+		midStrokeClone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStroke)), "clone", "()Ljava/lang/Object;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midStoreGetOrientationStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "getOrientationStyle", "()I")
+		midStrokeComputeOrientedBoundingBox, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStroke)), "computeOrientedBoundingBox", "()Landroid/gesture/OrientedBoundingBox;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midStoreGetSequenceType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "getSequenceType", "()I")
+		midStrokeGetPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStroke)), "getPath", "()Landroid/graphics/Path;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midStoreHasChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "hasChanged", "()Z")
+		midStrokeToPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStroke)), "toPath", "(FFI)Landroid/graphics/Path;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midStoreLoad1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "load", "(Ljava/io/InputStream;)V")
+		midStrokeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStroke)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midStoreLoad2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "load", "(Ljava/io/InputStream;Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
+	}
 
-		midStoreRecognize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "recognize", "(Landroid/gesture/Gesture;)Ljava/util/ArrayList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
+	c, err = env.FindClass("android/gesture/OrientedBoundingBox")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsOrientedBoundingBox = env.NewGlobalRef(&c.Object)
 
-		midStoreRemoveEntry, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "removeEntry", "(Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStoreRemoveGesture, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "removeGesture", "(Ljava/lang/String;Landroid/gesture/Gesture;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStoreSave1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "save", "(Ljava/io/OutputStream;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStoreSave2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "save", "(Ljava/io/OutputStream;Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStoreSetOrientationStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "setOrientationStyle", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStoreSetSequenceType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "setSequenceType", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStoreToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "toString", "()Ljava/lang/String;")
+		midOrientedBoundingBoxToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOrientedBoundingBox)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

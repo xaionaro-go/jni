@@ -23,6 +23,35 @@ type InputFilterLengthFilter struct {
 	Obj *jni.GlobalRef
 }
 
+// NewInputFilterLengthFilter creates a new android.text.InputFilter$LengthFilter instance.
+func NewInputFilterLengthFilter(vm *jni.VM, arg0 int32) (*InputFilterLengthFilter, error) {
+	var t InputFilterLengthFilter
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsInputFilterLengthFilter == nil {
+			return fmt.Errorf("android.text.InputFilter$LengthFilter is not available on this device")
+		}
+		if midInputFilterLengthFilterCtor == nil {
+			return fmt.Errorf("android.text.InputFilter$LengthFilter constructor (I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInputFilterLengthFilter)), midInputFilterLengthFilterCtor, jni.IntValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Filter calls android.text.InputFilter$LengthFilter.filter.
 func (m *InputFilterLengthFilter) Filter(
 	arg0 string,

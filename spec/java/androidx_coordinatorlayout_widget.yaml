@@ -5,18 +5,6 @@
 package: widget
 go_import: github.com/AndroidGoLab/jni/androidx/coordinatorlayout/widget
 classes:
-    - java_class: androidx.coordinatorlayout.widget.DirectedAcyclicGraph
-      go_type: DirectedAcyclicGraph
-      obtain: constructor
-      methods:
-        - java_method: clear
-          go_name: Clear
-          returns: void
-          error: true
-        - java_method: getSortedList
-          go_name: GetSortedList
-          returns: java.util.ArrayList<T>
-          error: true
     - java_class: androidx.coordinatorlayout.widget.ViewGroupUtils
       go_type: ViewGroupUtils
       static_methods:
@@ -30,6 +18,18 @@ classes:
             - java_type: android.graphics.Rect
               go_name: arg2
           returns: void
+          error: true
+    - java_class: androidx.coordinatorlayout.widget.DirectedAcyclicGraph
+      go_type: DirectedAcyclicGraph
+      obtain: constructor
+      methods:
+        - java_method: clear
+          go_name: Clear
+          returns: void
+          error: true
+        - java_method: getSortedList
+          go_name: GetSortedList
+          returns: java.util.ArrayList<T>
           error: true
     - java_class: androidx.coordinatorlayout.widget.CoordinatorLayout
       go_type: CoordinatorLayout
@@ -102,13 +102,6 @@ classes:
             - java_type: android.view.MotionEvent
               go_name: arg0
           returns: boolean
-          error: true
-        - java_method: requestDisallowInterceptTouchEvent
-          go_name: RequestDisallowInterceptTouchEvent
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
           error: true
         - java_method: onMeasureChild
           go_name: OnMeasureChild
@@ -190,7 +183,7 @@ classes:
           returns: boolean
           error: true
         - java_method: generateLayoutParams
-          go_name: GenerateLayoutParams1
+          go_name: GenerateLayoutParams
           params:
             - java_type: android.util.AttributeSet
               go_name: arg0
@@ -378,12 +371,13 @@ classes:
               go_name: arg2
           returns: boolean
           error: true
-        - java_method: generateLayoutParams
-          go_name: GenerateLayoutParams1_1
+      static_methods:
+        - java_method: requestDisallowInterceptTouchEvent
+          go_name: RequestDisallowInterceptTouchEvent
           params:
-            - java_type: android.util.AttributeSet
+            - java_type: boolean
               go_name: arg0
-          returns: android.view.ViewGroup$LayoutParams
+          returns: void
           error: true
     - java_class: androidx.coordinatorlayout.widget.CoordinatorLayout$AttachedBehavior
       go_type: CoordinatorLayoutAttachedBehavior
@@ -429,6 +423,12 @@ classes:
       go_type: CoordinatorLayoutDispatchChangeEvent
     - java_class: androidx.coordinatorlayout.widget.CoordinatorLayout$LayoutParams
       go_type: CoordinatorLayoutLayoutParams
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
       methods:
         - java_method: getAnchorId
           go_name: GetAnchorId
@@ -454,7 +454,13 @@ classes:
           error: true
     - java_class: androidx.coordinatorlayout.widget.CoordinatorLayout$SavedState
       go_type: CoordinatorLayoutSavedState
-      methods:
+      obtain: constructor
+      constructor_params:
+        - java_type: android.os.Parcel
+          go_name: arg0
+        - java_type: java.lang.ClassLoader
+          go_name: arg1
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -477,6 +483,246 @@ abstract_callbacks:
           params: []
           returns: void
           go_field: OnDetachedFromLayoutParams
+        - java_method: onInterceptTouchEvent
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - android.view.MotionEvent
+          returns: boolean
+          go_field: OnInterceptTouchEvent
+        - java_method: onTouchEvent
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - android.view.MotionEvent
+          returns: boolean
+          go_field: OnTouchEvent
+        - java_method: getScrimColor
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+          returns: int
+          go_field: GetScrimColor
+        - java_method: getScrimOpacity
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+          returns: float
+          go_field: GetScrimOpacity
+        - java_method: blocksInteractionBelow
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+          returns: boolean
+          go_field: BlocksInteractionBelow
+        - java_method: layoutDependsOn
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - android.view.View
+          returns: boolean
+          go_field: LayoutDependsOn
+        - java_method: onDependentViewChanged
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - android.view.View
+          returns: boolean
+          go_field: OnDependentViewChanged
+        - java_method: onDependentViewRemoved
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - android.view.View
+          returns: void
+          go_field: OnDependentViewRemoved
+        - java_method: onMeasureChild
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - int
+            - int
+            - int
+            - int
+          returns: boolean
+          go_field: OnMeasureChild
+        - java_method: onLayoutChild
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - int
+          returns: boolean
+          go_field: OnLayoutChild
+        - java_method: onStartNestedScroll
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - android.view.View
+            - android.view.View
+            - int
+          returns: boolean
+          go_field: OnStartNestedScroll
+        - java_method: onStartNestedScroll
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - android.view.View
+            - android.view.View
+            - int
+            - int
+          returns: boolean
+          go_field: OnStartNestedScroll
+        - java_method: onNestedScrollAccepted
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - android.view.View
+            - android.view.View
+            - int
+          returns: void
+          go_field: OnNestedScrollAccepted
+        - java_method: onNestedScrollAccepted
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - android.view.View
+            - android.view.View
+            - int
+            - int
+          returns: void
+          go_field: OnNestedScrollAccepted
+        - java_method: onStopNestedScroll
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - android.view.View
+          returns: void
+          go_field: OnStopNestedScroll
+        - java_method: onStopNestedScroll
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - android.view.View
+            - int
+          returns: void
+          go_field: OnStopNestedScroll
+        - java_method: onNestedScroll
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - android.view.View
+            - int
+            - int
+            - int
+            - int
+          returns: void
+          go_field: OnNestedScroll
+        - java_method: onNestedScroll
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - android.view.View
+            - int
+            - int
+            - int
+            - int
+            - int
+          returns: void
+          go_field: OnNestedScroll
+        - java_method: onNestedScroll
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - android.view.View
+            - int
+            - int
+            - int
+            - int
+            - int
+            - '[I'
+          returns: void
+          go_field: OnNestedScroll
+        - java_method: onNestedPreScroll
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - android.view.View
+            - int
+            - int
+            - '[I'
+          returns: void
+          go_field: OnNestedPreScroll
+        - java_method: onNestedPreScroll
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - android.view.View
+            - int
+            - int
+            - '[I'
+            - int
+          returns: void
+          go_field: OnNestedPreScroll
+        - java_method: onNestedFling
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - android.view.View
+            - float
+            - float
+            - boolean
+          returns: boolean
+          go_field: OnNestedFling
+        - java_method: onNestedPreFling
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - android.view.View
+            - float
+            - float
+          returns: boolean
+          go_field: OnNestedPreFling
+        - java_method: onApplyWindowInsets
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - androidx.core.view.WindowInsetsCompat
+          returns: androidx.core.view.WindowInsetsCompat
+          go_field: OnApplyWindowInsets
+        - java_method: onRequestChildRectangleOnScreen
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - android.graphics.Rect
+            - boolean
+          returns: boolean
+          go_field: OnRequestChildRectangleOnScreen
+        - java_method: onRestoreInstanceState
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - android.os.Parcelable
+          returns: void
+          go_field: OnRestoreInstanceState
+        - java_method: onSaveInstanceState
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+          returns: android.os.Parcelable
+          go_field: OnSaveInstanceState
+        - java_method: getInsetDodgeRect
+          params:
+            - androidx.coordinatorlayout.widget.CoordinatorLayout
+            - android.view.View
+            - android.graphics.Rect
+          returns: boolean
+          go_field: GetInsetDodgeRect
+      type_param_bounds:
+        - android.view.View
+abstract_callback_eligibility:
+    - java_class: androidx.coordinatorlayout.widget.CoordinatorLayout$Behavior
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
     - go_name: Creator
       value: "0"

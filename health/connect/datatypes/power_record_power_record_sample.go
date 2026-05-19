@@ -23,6 +23,35 @@ type PowerRecordPowerRecordSample struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPowerRecordPowerRecordSample creates a new android.health.connect.datatypes.PowerRecord$PowerRecordSample instance.
+func NewPowerRecordPowerRecordSample(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*PowerRecordPowerRecordSample, error) {
+	var t PowerRecordPowerRecordSample
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPowerRecordPowerRecordSample == nil {
+			return fmt.Errorf("android.health.connect.datatypes.PowerRecord$PowerRecordSample is not available on this device")
+		}
+		if midPowerRecordPowerRecordSampleCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.PowerRecord$PowerRecordSample constructor (Landroid/health/connect/datatypes/units/Power;Ljava/time/Instant;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPowerRecordPowerRecordSample)), midPowerRecordPowerRecordSampleCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.health.connect.datatypes.PowerRecord$PowerRecordSample.equals.
 func (m *PowerRecordPowerRecordSample) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

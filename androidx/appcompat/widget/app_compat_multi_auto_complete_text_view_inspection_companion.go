@@ -23,6 +23,34 @@ type AppCompatMultiAutoCompleteTextViewInspectionCompanion struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAppCompatMultiAutoCompleteTextViewInspectionCompanion creates a new androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView$InspectionCompanion instance.
+func NewAppCompatMultiAutoCompleteTextViewInspectionCompanion(vm *jni.VM) (*AppCompatMultiAutoCompleteTextViewInspectionCompanion, error) {
+	var t AppCompatMultiAutoCompleteTextViewInspectionCompanion
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAppCompatMultiAutoCompleteTextViewInspectionCompanion == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView$InspectionCompanion is not available on this device")
+		}
+		if midAppCompatMultiAutoCompleteTextViewInspectionCompanionCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView$InspectionCompanion constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppCompatMultiAutoCompleteTextViewInspectionCompanion)), midAppCompatMultiAutoCompleteTextViewInspectionCompanionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // MapProperties calls androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView$InspectionCompanion.mapProperties.
 func (m *AppCompatMultiAutoCompleteTextViewInspectionCompanion) MapProperties(arg0 *jni.Object) error {
 
@@ -46,8 +74,8 @@ func (m *AppCompatMultiAutoCompleteTextViewInspectionCompanion) MapProperties(ar
 	return callErr
 }
 
-// ReadProperties2 calls androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView$InspectionCompanion.readProperties.
-func (m *AppCompatMultiAutoCompleteTextViewInspectionCompanion) ReadProperties2(arg0 *jni.Object, arg1 *jni.Object) error {
+// ReadProperties calls androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView$InspectionCompanion.readProperties.
+func (m *AppCompatMultiAutoCompleteTextViewInspectionCompanion) ReadProperties(arg0 *jni.Object, arg1 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,37 +83,14 @@ func (m *AppCompatMultiAutoCompleteTextViewInspectionCompanion) ReadProperties2(
 			callErr = err
 			return err
 		}
-		if midAppCompatMultiAutoCompleteTextViewInspectionCompanionReadProperties2 == nil {
+		if midAppCompatMultiAutoCompleteTextViewInspectionCompanionReadProperties == nil {
 			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView$InspectionCompanion.readProperties is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midAppCompatMultiAutoCompleteTextViewInspectionCompanionReadProperties2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// ReadProperties2_1 calls androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView$InspectionCompanion.readProperties.
-func (m *AppCompatMultiAutoCompleteTextViewInspectionCompanion) ReadProperties2_1(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppCompatMultiAutoCompleteTextViewInspectionCompanionReadProperties2_1 == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView$InspectionCompanion.readProperties is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAppCompatMultiAutoCompleteTextViewInspectionCompanionReadProperties2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midAppCompatMultiAutoCompleteTextViewInspectionCompanionReadProperties, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		return callErr
 	})

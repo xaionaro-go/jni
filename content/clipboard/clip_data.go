@@ -32,6 +32,12 @@ func NewClipData(vm *jni.VM, arg0 *jni.Object) (*ClipData, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsClipData == nil {
+			return fmt.Errorf("android.content.ClipData is not available on this device")
+		}
+		if midClipDataCtor == nil {
+			return fmt.Errorf("android.content.ClipData constructor (Landroid/content/ClipData;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsClipData)), midClipDataCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -232,29 +238,6 @@ func (m *ClipData) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
-}
-
-// WriteToParcel calls android.content.ClipData.writeToParcel.
-func (m *ClipData) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midClipDataWriteToParcel == nil {
-			callErr = fmt.Errorf("android.content.ClipData.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midClipDataWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // NewHtmlText calls android.content.ClipData.newHtmlText.
@@ -472,4 +455,27 @@ func (m *ClipData) NewUri(
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.content.ClipData.writeToParcel.
+func (m *ClipData) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midClipDataWriteToParcel == nil {
+			callErr = fmt.Errorf("android.content.ClipData.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsClipData)),
+			midClipDataWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

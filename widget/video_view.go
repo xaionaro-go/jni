@@ -32,6 +32,12 @@ func NewVideoView(vm *jni.VM, arg0 *jni.Object) (*VideoView, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsVideoView == nil {
+			return fmt.Errorf("android.widget.VideoView is not available on this device")
+		}
+		if midVideoViewCtor == nil {
+			return fmt.Errorf("android.widget.VideoView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVideoView)), midVideoViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

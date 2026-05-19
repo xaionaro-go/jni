@@ -32,6 +32,12 @@ func NewAccessibilityDelegateCompat(vm *jni.VM) (*AccessibilityDelegateCompat, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAccessibilityDelegateCompat == nil {
+			return fmt.Errorf("androidx.core.view.AccessibilityDelegateCompat is not available on this device")
+		}
+		if midAccessibilityDelegateCompatCtor == nil {
+			return fmt.Errorf("androidx.core.view.AccessibilityDelegateCompat constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAccessibilityDelegateCompat)), midAccessibilityDelegateCompatCtor)
 		if err != nil {
 			return err
@@ -253,38 +259,6 @@ func (m *AccessibilityDelegateCompat) GetAccessibilityNodeProvider(arg0 *jni.Obj
 	return result, callErr
 }
 
-// PerformAccessibilityAction calls androidx.core.view.AccessibilityDelegateCompat.performAccessibilityAction.
-func (m *AccessibilityDelegateCompat) PerformAccessibilityAction(
-	arg0 *jni.Object,
-	arg1 int32,
-	arg2 *jni.Object,
-) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAccessibilityDelegateCompatPerformAccessibilityAction == nil {
-			callErr = fmt.Errorf("androidx.core.view.AccessibilityDelegateCompat.performAccessibilityAction is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midAccessibilityDelegateCompatPerformAccessibilityAction, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls androidx.core.view.AccessibilityDelegateCompat.toString.
 func (m *AccessibilityDelegateCompat) ToString() (string, error) {
 	var result string
@@ -307,6 +281,38 @@ func (m *AccessibilityDelegateCompat) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// PerformAccessibilityAction calls androidx.core.view.AccessibilityDelegateCompat.performAccessibilityAction.
+func (m *AccessibilityDelegateCompat) PerformAccessibilityAction(
+	arg0 *jni.Object,
+	arg1 int32,
+	arg2 *jni.Object,
+) (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midAccessibilityDelegateCompatPerformAccessibilityAction == nil {
+			callErr = fmt.Errorf("androidx.core.view.AccessibilityDelegateCompat.performAccessibilityAction is not available on this device")
+			return callErr
+		}
+
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsAccessibilityDelegateCompat)),
+			midAccessibilityDelegateCompatPerformAccessibilityAction, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

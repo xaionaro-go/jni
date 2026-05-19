@@ -5,13 +5,6 @@ package progressindicator
 import "github.com/AndroidGoLab/jni/com/google/android/material/progressindicator/consts"
 
 const (
-	ShowNone                             = consts.ShowNone
-	ShowOutward                          = consts.ShowOutward
-	ShowInward                           = consts.ShowInward
-	HideNone                             = consts.HideNone
-	HideOutward                          = consts.HideOutward
-	HideInward                           = consts.HideInward
-	HideEscape                           = consts.HideEscape
 	DefStyleRes                          = consts.DefStyleRes
 	IndeterminateAnimationTypeContiguous = consts.IndeterminateAnimationTypeContiguous
 	IndeterminateAnimationTypeDisjoint   = consts.IndeterminateAnimationTypeDisjoint
@@ -21,4 +14,11 @@ const (
 	IndicatorDirectionEndToStart         = consts.IndicatorDirectionEndToStart
 	IndicatorDirectionClockwise          = consts.IndicatorDirectionClockwise
 	IndicatorDirectionCounterclockwise   = consts.IndicatorDirectionCounterclockwise
+	ShowNone                             = consts.ShowNone
+	ShowOutward                          = consts.ShowOutward
+	ShowInward                           = consts.ShowInward
+	HideNone                             = consts.HideNone
+	HideOutward                          = consts.HideOutward
+	HideInward                           = consts.HideInward
+	HideEscape                           = consts.HideEscape
 )

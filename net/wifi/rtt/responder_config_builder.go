@@ -23,6 +23,34 @@ type ResponderConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewResponderConfigBuilder creates a new android.net.wifi.rtt.ResponderConfig$Builder instance.
+func NewResponderConfigBuilder(vm *jni.VM) (*ResponderConfigBuilder, error) {
+	var t ResponderConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsResponderConfigBuilder == nil {
+			return fmt.Errorf("android.net.wifi.rtt.ResponderConfig$Builder is not available on this device")
+		}
+		if midResponderConfigBuilderCtor == nil {
+			return fmt.Errorf("android.net.wifi.rtt.ResponderConfig$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsResponderConfigBuilder)), midResponderConfigBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.wifi.rtt.ResponderConfig$Builder.build.
 func (m *ResponderConfigBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

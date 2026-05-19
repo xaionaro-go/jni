@@ -23,6 +23,35 @@ type ExerciseCompletionGoalDistanceWithVariableRestGoal struct {
 	Obj *jni.GlobalRef
 }
 
+// NewExerciseCompletionGoalDistanceWithVariableRestGoal creates a new android.health.connect.datatypes.ExerciseCompletionGoal$DistanceWithVariableRestGoal instance.
+func NewExerciseCompletionGoalDistanceWithVariableRestGoal(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ExerciseCompletionGoalDistanceWithVariableRestGoal, error) {
+	var t ExerciseCompletionGoalDistanceWithVariableRestGoal
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsExerciseCompletionGoalDistanceWithVariableRestGoal == nil {
+			return fmt.Errorf("android.health.connect.datatypes.ExerciseCompletionGoal$DistanceWithVariableRestGoal is not available on this device")
+		}
+		if midExerciseCompletionGoalDistanceWithVariableRestGoalCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.ExerciseCompletionGoal$DistanceWithVariableRestGoal constructor (Landroid/health/connect/datatypes/units/Length;Ljava/time/Duration;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExerciseCompletionGoalDistanceWithVariableRestGoal)), midExerciseCompletionGoalDistanceWithVariableRestGoalCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.health.connect.datatypes.ExerciseCompletionGoal$DistanceWithVariableRestGoal.equals.
 func (m *ExerciseCompletionGoalDistanceWithVariableRestGoal) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

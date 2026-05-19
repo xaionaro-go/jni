@@ -24,7 +24,7 @@ var (
 	initErr  error
 
 	clsNumber                               *jni.GlobalRef
-	midNumberCompareTo1                     jni.MethodID
+	midNumberCompareTo                      jni.MethodID
 	midNumberDescribeContents               jni.MethodID
 	midNumberEquals                         jni.MethodID
 	midNumberGetCountryIso                  jni.MethodID
@@ -39,7 +39,6 @@ var (
 	midNumberIsInEmergencyServiceCategories jni.MethodID
 	midNumberToString                       jni.MethodID
 	midNumberWriteToParcel                  jni.MethodID
-	midNumberCompareTo1_1                   jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -68,7 +67,7 @@ func doInit(env *jni.Env) error {
 	} else {
 		clsNumber = env.NewGlobalRef(&c.Object)
 
-		midNumberCompareTo1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNumber)), "compareTo", "(Landroid/telephony/emergency/EmergencyNumber;)I")
+		midNumberCompareTo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNumber)), "compareTo", "(Landroid/telephony/emergency/EmergencyNumber;)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -167,13 +166,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midNumberWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNumber)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midNumberCompareTo1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNumber)), "compareTo", "(Ljava/lang/Object;)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

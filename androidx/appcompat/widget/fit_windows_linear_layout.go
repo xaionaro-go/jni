@@ -32,6 +32,12 @@ func NewFitWindowsLinearLayout(vm *jni.VM, arg0 *jni.Object) (*FitWindowsLinearL
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFitWindowsLinearLayout == nil {
+			return fmt.Errorf("androidx.appcompat.widget.FitWindowsLinearLayout is not available on this device")
+		}
+		if midFitWindowsLinearLayoutCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.FitWindowsLinearLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFitWindowsLinearLayout)), midFitWindowsLinearLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {

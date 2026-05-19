@@ -5,6 +5,15 @@ package gsm
 import "github.com/AndroidGoLab/jni/telephony/gsm/consts"
 
 const (
+	ResultErrorGenericFailure    = consts.ResultErrorGenericFailure
+	ResultErrorNoService         = consts.ResultErrorNoService
+	ResultErrorNullPdu           = consts.ResultErrorNullPdu
+	ResultErrorRadioOff          = consts.ResultErrorRadioOff
+	StatusOnSimFree              = consts.StatusOnSimFree
+	StatusOnSimRead              = consts.StatusOnSimRead
+	StatusOnSimSent              = consts.StatusOnSimSent
+	StatusOnSimUnread            = consts.StatusOnSimUnread
+	StatusOnSimUnsent            = consts.StatusOnSimUnsent
 	Encoding16bit                = consts.Encoding16bit
 	Encoding7bit                 = consts.Encoding7bit
 	Encoding8bit                 = consts.Encoding8bit
@@ -17,13 +26,4 @@ const (
 	Class2                       = consts.Class2
 	Class3                       = consts.Class3
 	Unknown                      = consts.Unknown
-	ResultErrorGenericFailure    = consts.ResultErrorGenericFailure
-	ResultErrorNoService         = consts.ResultErrorNoService
-	ResultErrorNullPdu           = consts.ResultErrorNullPdu
-	ResultErrorRadioOff          = consts.ResultErrorRadioOff
-	StatusOnSimFree              = consts.StatusOnSimFree
-	StatusOnSimRead              = consts.StatusOnSimRead
-	StatusOnSimSent              = consts.StatusOnSimSent
-	StatusOnSimUnread            = consts.StatusOnSimUnread
-	StatusOnSimUnsent            = consts.StatusOnSimUnsent
 )

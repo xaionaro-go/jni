@@ -23,6 +23,34 @@ type TtsSpanTextBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTtsSpanTextBuilder creates a new android.text.style.TtsSpan$TextBuilder instance.
+func NewTtsSpanTextBuilder(vm *jni.VM) (*TtsSpanTextBuilder, error) {
+	var t TtsSpanTextBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTtsSpanTextBuilder == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$TextBuilder is not available on this device")
+		}
+		if midTtsSpanTextBuilderCtor == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$TextBuilder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTtsSpanTextBuilder)), midTtsSpanTextBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetText calls android.text.style.TtsSpan$TextBuilder.setText.
 func (m *TtsSpanTextBuilder) SetText(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

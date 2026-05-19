@@ -32,6 +32,12 @@ func NewViewAnimator(vm *jni.VM, arg0 *jni.Object) (*ViewAnimator, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsViewAnimator == nil {
+			return fmt.Errorf("android.widget.ViewAnimator is not available on this device")
+		}
+		if midViewAnimatorCtor == nil {
+			return fmt.Errorf("android.widget.ViewAnimator constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewAnimator)), midViewAnimatorCtor, jni.ObjectValue(arg0))
 		if err != nil {

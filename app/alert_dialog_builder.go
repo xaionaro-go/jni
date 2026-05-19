@@ -21,6 +21,35 @@ type AlertDialogBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAlertDialogBuilder creates a new android.app.AlertDialog$Builder instance.
+func NewAlertDialogBuilder(vm *jni.VM, arg0 *jni.Object) (*AlertDialogBuilder, error) {
+	var t AlertDialogBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAlertDialogBuilder == nil {
+			return fmt.Errorf("android.app.AlertDialog$Builder is not available on this device")
+		}
+		if midAlertDialogBuilderCtor == nil {
+			return fmt.Errorf("android.app.AlertDialog$Builder constructor (Landroid/content/Context;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), midAlertDialogBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Create calls android.app.AlertDialog$Builder.create.
 func (m *AlertDialogBuilder) Create() (*jni.Object, error) {
 	var result *jni.Object

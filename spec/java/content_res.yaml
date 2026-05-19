@@ -5,26 +5,199 @@
 package: res
 go_import: github.com/AndroidGoLab/jni/content/res
 classes:
-    - java_class: android.content.res.XmlResourceParser
-      go_type: XmlResourceParser
+    - java_class: android.content.res.ObbScanner
+      go_type: ObbScanner
+      static_methods:
+        - java_method: getObbInfo
+          go_name: GetObbInfo
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.content.res.ObbInfo
+          error: true
+    - java_class: android.content.res.AssetFileDescriptor
+      go_type: AssetFileDescriptor
+      obtain: constructor
+      constructor_params:
+        - java_type: android.os.ParcelFileDescriptor
+          go_name: arg0
+        - java_type: long
+          go_name: arg1
+        - java_type: long
+          go_name: arg2
       methods:
         - java_method: close
           go_name: Close
           returns: void
           error: true
-        - java_method: getAttributeNamespace
-          go_name: GetAttributeNamespace
+        - java_method: createInputStream
+          go_name: CreateInputStream
+          returns: java.io.FileInputStream
+          error: true
+        - java_method: createOutputStream
+          go_name: CreateOutputStream
+          returns: java.io.FileOutputStream
+          error: true
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getDeclaredLength
+          go_name: GetDeclaredLength
+          returns: long
+          error: true
+        - java_method: getExtras
+          go_name: GetExtras
+          returns: android.os.Bundle
+          error: true
+        - java_method: getFileDescriptor
+          go_name: GetFileDescriptor
+          returns: java.io.FileDescriptor
+          error: true
+        - java_method: getLength
+          go_name: GetLength
+          returns: long
+          error: true
+        - java_method: getParcelFileDescriptor
+          go_name: GetParcelFileDescriptor
+          returns: android.os.ParcelFileDescriptor
+          error: true
+        - java_method: getStartOffset
+          go_name: GetStartOffset
+          returns: long
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.content.res.AssetFileDescriptor$AutoCloseInputStream
+      go_type: AssetFileDescriptorAutoCloseInputStream
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.res.AssetFileDescriptor
+          go_name: arg0
+      methods:
+        - java_method: available
+          go_name: Available
+          returns: int
+          error: true
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: getChannel
+          go_name: GetChannel
+          returns: java.nio.channels.FileChannel
+          error: true
+        - java_method: mark
+          go_name: Mark
           params:
             - java_type: int
               go_name: arg0
+          returns: void
+          error: true
+        - java_method: markSupported
+          go_name: MarkSupported
+          returns: boolean
+          error: true
+        - java_method: read
+          go_name: Read0
+          returns: int
+          error: true
+        - java_method: read
+          go_name: Read1_1
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: read
+          go_name: Read3_2
+          params:
+            - java_type: '[B'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: int
+          error: true
+        - java_method: skip
+          go_name: Skip
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: long
+          error: true
+    - java_class: android.content.res.AssetFileDescriptor$AutoCloseOutputStream
+      go_type: AssetFileDescriptorAutoCloseOutputStream
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.res.AssetFileDescriptor
+          go_name: arg0
+      methods:
+        - java_method: write
+          go_name: Write1
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: write
+          go_name: Write3_1
+          params:
+            - java_type: '[B'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: write
+          go_name: Write1_2
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.content.res.ObbInfo
+      go_type: ObbInfo
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
           returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
           error: true
     - java_class: android.content.res.Configuration
       go_type: Configuration
       obtain: constructor
       methods:
         - java_method: compareTo
-          go_name: CompareTo1
+          go_name: CompareTo
           params:
             - java_type: android.content.res.Configuration
               go_name: arg0
@@ -153,13 +326,6 @@ classes:
               go_name: arg1
           returns: void
           error: true
-        - java_method: compareTo
-          go_name: CompareTo1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
       static_methods:
         - java_method: generateDelta
           go_name: GenerateDelta
@@ -178,134 +344,6 @@ classes:
             - java_type: int
               go_name: arg1
           returns: boolean
-          error: true
-    - java_class: android.content.res.AssetManager
-      go_type: AssetManager
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: getLocales
-          go_name: GetLocales
-          returns: java.lang.String[]
-          error: true
-        - java_method: list
-          go_name: List
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: java.lang.String[]
-          error: true
-        - java_method: open
-          go_name: Open1
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: java.io.InputStream
-          error: true
-        - java_method: open
-          go_name: Open2_1
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: java.io.InputStream
-          error: true
-        - java_method: openFd
-          go_name: OpenFd
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.content.res.AssetFileDescriptor
-          error: true
-        - java_method: openNonAssetFd
-          go_name: OpenNonAssetFd2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: android.content.res.AssetFileDescriptor
-          error: true
-        - java_method: openNonAssetFd
-          go_name: OpenNonAssetFd1_1
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.content.res.AssetFileDescriptor
-          error: true
-        - java_method: openXmlResourceParser
-          go_name: OpenXmlResourceParser2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: android.content.res.XmlResourceParser
-          error: true
-        - java_method: openXmlResourceParser
-          go_name: OpenXmlResourceParser1_1
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.content.res.XmlResourceParser
-          error: true
-    - java_class: android.content.res.AssetManager$AssetInputStream
-      go_type: AssetManagerAssetInputStream
-      methods:
-        - java_method: available
-          go_name: Available
-          returns: int
-          error: true
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: mark
-          go_name: Mark
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: markSupported
-          go_name: MarkSupported
-          returns: boolean
-          error: true
-        - java_method: read
-          go_name: Read0
-          returns: int
-          error: true
-        - java_method: read
-          go_name: Read1_1
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: read
-          go_name: Read3_2
-          params:
-            - java_type: '[B'
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: int
-          error: true
-        - java_method: reset
-          go_name: Reset
-          returns: void
-          error: true
-        - java_method: skip
-          go_name: Skip
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: long
           error: true
     - java_class: android.content.res.Resources
       go_type: ources
@@ -759,6 +797,7 @@ classes:
           error: true
     - java_class: android.content.res.Resources$NotFoundException
       go_type: ourcesNotFoundException
+      obtain: constructor
     - java_class: android.content.res.Resources$Theme
       go_type: ourcesTheme
       methods:
@@ -881,6 +920,166 @@ classes:
           go_name: ToString
           returns: String
           error: true
+    - java_class: android.content.res.FontScaleConverter
+      go_type: FontScaleConverter
+      methods:
+        - java_method: convertDpToSp
+          go_name: ConvertDpToSp
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: convertSpToDp
+          go_name: ConvertSpToDp
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: float
+          error: true
+      static_methods:
+        - java_method: forScale
+          go_name: ForScale
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: android.content.res.FontScaleConverter
+          error: true
+        - java_method: isNonLinearFontScalingActive
+          go_name: IsNonLinearFontScalingActive
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: boolean
+          error: true
+    - java_class: android.content.res.AssetManager
+      go_type: AssetManager
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: getLocales
+          go_name: GetLocales
+          returns: java.lang.String[]
+          error: true
+        - java_method: list
+          go_name: List
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: java.lang.String[]
+          error: true
+        - java_method: open
+          go_name: Open1
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: java.io.InputStream
+          error: true
+        - java_method: open
+          go_name: Open2_1
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: java.io.InputStream
+          error: true
+        - java_method: openFd
+          go_name: OpenFd
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.content.res.AssetFileDescriptor
+          error: true
+        - java_method: openNonAssetFd
+          go_name: OpenNonAssetFd2
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: android.content.res.AssetFileDescriptor
+          error: true
+        - java_method: openNonAssetFd
+          go_name: OpenNonAssetFd1_1
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.content.res.AssetFileDescriptor
+          error: true
+        - java_method: openXmlResourceParser
+          go_name: OpenXmlResourceParser2
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: android.content.res.XmlResourceParser
+          error: true
+        - java_method: openXmlResourceParser
+          go_name: OpenXmlResourceParser1_1
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.content.res.XmlResourceParser
+          error: true
+    - java_class: android.content.res.AssetManager$AssetInputStream
+      go_type: AssetManagerAssetInputStream
+      methods:
+        - java_method: available
+          go_name: Available
+          returns: int
+          error: true
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: mark
+          go_name: Mark
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: markSupported
+          go_name: MarkSupported
+          returns: boolean
+          error: true
+        - java_method: read
+          go_name: Read0
+          returns: int
+          error: true
+        - java_method: read
+          go_name: Read1_1
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: read
+          go_name: Read3_2
+          params:
+            - java_type: '[B'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: int
+          error: true
+        - java_method: reset
+          go_name: Reset
+          returns: void
+          error: true
+        - java_method: skip
+          go_name: Skip
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: long
+          error: true
     - java_class: android.content.res.ColorStateList
       go_type: ColorStateList
       obtain: constructor
@@ -937,15 +1136,6 @@ classes:
               go_name: arg0
           returns: android.content.res.ColorStateList
           error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
       static_methods:
         - java_method: createFromXml
           go_name: CreateFromXml2
@@ -974,17 +1164,6 @@ classes:
               go_name: arg0
           returns: android.content.res.ColorStateList
           error: true
-    - java_class: android.content.res.ObbInfo
-      go_type: ObbInfo
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -993,195 +1172,6 @@ classes:
             - java_type: int
               go_name: arg1
           returns: void
-          error: true
-    - java_class: android.content.res.AssetFileDescriptor
-      go_type: AssetFileDescriptor
-      obtain: constructor
-      constructor_params:
-        - java_type: android.os.ParcelFileDescriptor
-          go_name: arg0
-        - java_type: long
-          go_name: arg1
-        - java_type: long
-          go_name: arg2
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: createInputStream
-          go_name: CreateInputStream
-          returns: java.io.FileInputStream
-          error: true
-        - java_method: createOutputStream
-          go_name: CreateOutputStream
-          returns: java.io.FileOutputStream
-          error: true
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getDeclaredLength
-          go_name: GetDeclaredLength
-          returns: long
-          error: true
-        - java_method: getExtras
-          go_name: GetExtras
-          returns: android.os.Bundle
-          error: true
-        - java_method: getFileDescriptor
-          go_name: GetFileDescriptor
-          returns: java.io.FileDescriptor
-          error: true
-        - java_method: getLength
-          go_name: GetLength
-          returns: long
-          error: true
-        - java_method: getParcelFileDescriptor
-          go_name: GetParcelFileDescriptor
-          returns: android.os.ParcelFileDescriptor
-          error: true
-        - java_method: getStartOffset
-          go_name: GetStartOffset
-          returns: long
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.content.res.AssetFileDescriptor$AutoCloseInputStream
-      go_type: AssetFileDescriptorAutoCloseInputStream
-      methods:
-        - java_method: available
-          go_name: Available
-          returns: int
-          error: true
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: getChannel
-          go_name: GetChannel
-          returns: java.nio.channels.FileChannel
-          error: true
-        - java_method: mark
-          go_name: Mark
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: markSupported
-          go_name: MarkSupported
-          returns: boolean
-          error: true
-        - java_method: read
-          go_name: Read0
-          returns: int
-          error: true
-        - java_method: read
-          go_name: Read1_1
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: read
-          go_name: Read3_2
-          params:
-            - java_type: '[B'
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: int
-          error: true
-        - java_method: skip
-          go_name: Skip
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: long
-          error: true
-    - java_class: android.content.res.AssetFileDescriptor$AutoCloseOutputStream
-      go_type: AssetFileDescriptorAutoCloseOutputStream
-      methods:
-        - java_method: write
-          go_name: Write1
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: write
-          go_name: Write3_1
-          params:
-            - java_type: '[B'
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: write
-          go_name: Write1_2
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.content.res.ObbScanner
-      go_type: ObbScanner
-      static_methods:
-        - java_method: getObbInfo
-          go_name: GetObbInfo
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.content.res.ObbInfo
-          error: true
-    - java_class: android.content.res.FontScaleConverter
-      go_type: FontScaleConverter
-      methods:
-        - java_method: convertDpToSp
-          go_name: ConvertDpToSp
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: convertSpToDp
-          go_name: ConvertSpToDp
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: float
-          error: true
-      static_methods:
-        - java_method: forScale
-          go_name: ForScale
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: android.content.res.FontScaleConverter
-          error: true
-        - java_method: isNonLinearFontScalingActive
-          go_name: IsNonLinearFontScalingActive
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: boolean
           error: true
     - java_class: android.content.res.TypedArray
       go_type: TypedArray
@@ -1432,7 +1422,30 @@ classes:
           go_name: ToString
           returns: String
           error: true
+    - java_class: android.content.res.XmlResourceParser
+      go_type: XmlResourceParser
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: getAttributeNamespace
+          go_name: GetAttributeNamespace
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
 constants:
+    - go_name: Creator
+      value: "0"
+      go_type: int
+    - go_name: UnknownLength
+      value: "-1"
+      go_type: int64
+    - go_name: ObbOverlay
+      value: "1"
+      go_type: int
     - go_name: ColorModeHdrMask
       value: "12"
       go_type: int
@@ -1462,9 +1475,6 @@ constants:
       go_type: int
     - go_name: ColorModeWideColorGamutYes
       value: "2"
-      go_type: int
-    - go_name: Creator
-      value: "0"
       go_type: int
     - go_name: DensityDpiUndefined
       value: "0"
@@ -1673,6 +1683,9 @@ constants:
     - go_name: UiModeTypeWatch
       value: "6"
       go_type: int
+    - go_name: IdNull
+      value: "0"
+      go_type: int
     - go_name: AccessBuffer
       value: "3"
       go_type: int
@@ -1685,12 +1698,3 @@ constants:
     - go_name: AccessUnknown
       value: "0"
       go_type: int
-    - go_name: IdNull
-      value: "0"
-      go_type: int
-    - go_name: ObbOverlay
-      value: "1"
-      go_type: int
-    - go_name: UnknownLength
-      value: "-1"
-      go_type: int64

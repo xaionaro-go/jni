@@ -102,8 +102,8 @@ func (m *DateTimePatternGenerator) Clone() (*jni.Object, error) {
 	return result, callErr
 }
 
-// CloneAsThawed0 calls android.icu.text.DateTimePatternGenerator.cloneAsThawed.
-func (m *DateTimePatternGenerator) CloneAsThawed0() (*jni.Object, error) {
+// CloneAsThawed calls android.icu.text.DateTimePatternGenerator.cloneAsThawed.
+func (m *DateTimePatternGenerator) CloneAsThawed() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -111,13 +111,13 @@ func (m *DateTimePatternGenerator) CloneAsThawed0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midDateTimePatternGeneratorCloneAsThawed0 == nil {
+		if midDateTimePatternGeneratorCloneAsThawed == nil {
 			callErr = fmt.Errorf("android.icu.text.DateTimePatternGenerator.cloneAsThawed is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midDateTimePatternGeneratorCloneAsThawed0,
+			midDateTimePatternGeneratorCloneAsThawed,
 		)
 		if callErr != nil {
 			return callErr
@@ -134,8 +134,8 @@ func (m *DateTimePatternGenerator) CloneAsThawed0() (*jni.Object, error) {
 	return result, callErr
 }
 
-// Freeze0 calls android.icu.text.DateTimePatternGenerator.freeze.
-func (m *DateTimePatternGenerator) Freeze0() (*jni.Object, error) {
+// Freeze calls android.icu.text.DateTimePatternGenerator.freeze.
+func (m *DateTimePatternGenerator) Freeze() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -143,13 +143,13 @@ func (m *DateTimePatternGenerator) Freeze0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midDateTimePatternGeneratorFreeze0 == nil {
+		if midDateTimePatternGeneratorFreeze == nil {
 			callErr = fmt.Errorf("android.icu.text.DateTimePatternGenerator.freeze is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midDateTimePatternGeneratorFreeze0,
+			midDateTimePatternGeneratorFreeze,
 		)
 		if callErr != nil {
 			return callErr
@@ -746,70 +746,6 @@ func (m *DateTimePatternGenerator) SetDecimal(arg0 string) error {
 		return callErr
 	})
 	return callErr
-}
-
-// Freeze0_1 calls android.icu.text.DateTimePatternGenerator.freeze.
-func (m *DateTimePatternGenerator) Freeze0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDateTimePatternGeneratorFreeze0_1 == nil {
-			callErr = fmt.Errorf("android.icu.text.DateTimePatternGenerator.freeze is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midDateTimePatternGeneratorFreeze0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// CloneAsThawed0_1 calls android.icu.text.DateTimePatternGenerator.cloneAsThawed.
-func (m *DateTimePatternGenerator) CloneAsThawed0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDateTimePatternGeneratorCloneAsThawed0_1 == nil {
-			callErr = fmt.Errorf("android.icu.text.DateTimePatternGenerator.cloneAsThawed is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midDateTimePatternGeneratorCloneAsThawed0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls android.icu.text.DateTimePatternGenerator.toString.

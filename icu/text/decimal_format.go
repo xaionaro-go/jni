@@ -32,6 +32,12 @@ func NewDecimalFormat(vm *jni.VM) (*DecimalFormat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDecimalFormat == nil {
+			return fmt.Errorf("android.icu.text.DecimalFormat is not available on this device")
+		}
+		if midDecimalFormatCtor == nil {
+			return fmt.Errorf("android.icu.text.DecimalFormat constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDecimalFormat)), midDecimalFormatCtor)
 		if err != nil {
 			return err

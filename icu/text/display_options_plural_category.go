@@ -23,33 +23,6 @@ type DisplayOptionsPluralCategory struct {
 	Obj *jni.GlobalRef
 }
 
-// GetIdentifier calls android.icu.text.DisplayOptions$PluralCategory.getIdentifier.
-func (m *DisplayOptionsPluralCategory) GetIdentifier() (string, error) {
-	var result string
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDisplayOptionsPluralCategoryGetIdentifier == nil {
-			callErr = fmt.Errorf("android.icu.text.DisplayOptions$PluralCategory.getIdentifier is not available on this device")
-			return callErr
-		}
-		var resultObj *jni.Object
-		resultObj, callErr = env.CallObjectMethod(
-			m.Obj,
-			midDisplayOptionsPluralCategoryGetIdentifier,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.icu.text.DisplayOptions$PluralCategory.toString.
 func (m *DisplayOptionsPluralCategory) ToString() (string, error) {
 	var result string
@@ -180,6 +153,33 @@ func (m *DisplayOptionsPluralCategory) FromIdentifier(arg0 string) (*jni.Object,
 			result = env.NewGlobalRef(localRef)
 			env.DeleteLocalRef(localRef)
 		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetIdentifier calls android.icu.text.DisplayOptions$PluralCategory.getIdentifier.
+func (m *DisplayOptionsPluralCategory) GetIdentifier() (string, error) {
+	var result string
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDisplayOptionsPluralCategoryGetIdentifier == nil {
+			callErr = fmt.Errorf("android.icu.text.DisplayOptions$PluralCategory.getIdentifier is not available on this device")
+			return callErr
+		}
+		var resultObj *jni.Object
+		resultObj, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsDisplayOptionsPluralCategory)),
+			midDisplayOptionsPluralCategoryGetIdentifier,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
 		return callErr
 	})
 	return result, callErr

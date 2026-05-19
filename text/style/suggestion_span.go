@@ -32,6 +32,12 @@ func NewSuggestionSpan(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 int3
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSuggestionSpan == nil {
+			return fmt.Errorf("android.text.style.SuggestionSpan is not available on this device")
+		}
+		if midSuggestionSpanCtor == nil {
+			return fmt.Errorf("android.text.style.SuggestionSpan constructor (Landroid/content/Context;[Ljava/lang/String;I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSuggestionSpan)), midSuggestionSpanCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2))
 		if err != nil {
@@ -336,29 +342,6 @@ func (m *SuggestionSpan) UpdateDrawState(arg0 *jni.Object) error {
 	return callErr
 }
 
-// WriteToParcel calls android.text.style.SuggestionSpan.writeToParcel.
-func (m *SuggestionSpan) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSuggestionSpanWriteToParcel == nil {
-			callErr = fmt.Errorf("android.text.style.SuggestionSpan.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSuggestionSpanWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.text.style.SuggestionSpan.toString.
 func (m *SuggestionSpan) ToString() (string, error) {
 	var result string
@@ -384,4 +367,27 @@ func (m *SuggestionSpan) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.text.style.SuggestionSpan.writeToParcel.
+func (m *SuggestionSpan) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSuggestionSpanWriteToParcel == nil {
+			callErr = fmt.Errorf("android.text.style.SuggestionSpan.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSuggestionSpan)),
+			midSuggestionSpanWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

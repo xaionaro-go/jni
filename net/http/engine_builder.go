@@ -23,6 +23,35 @@ type EngineBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewEngineBuilder creates a new android.net.http.HttpEngine$Builder instance.
+func NewEngineBuilder(vm *jni.VM, arg0 *jni.Object) (*EngineBuilder, error) {
+	var t EngineBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsEngineBuilder == nil {
+			return fmt.Errorf("android.net.http.HttpEngine$Builder is not available on this device")
+		}
+		if midEngineBuilderCtor == nil {
+			return fmt.Errorf("android.net.http.HttpEngine$Builder constructor (Landroid/content/Context;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEngineBuilder)), midEngineBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddQuicHint calls android.net.http.HttpEngine$Builder.addQuicHint.
 func (m *EngineBuilder) AddQuicHint(
 	arg0 string,

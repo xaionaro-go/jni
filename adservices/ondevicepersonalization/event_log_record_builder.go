@@ -23,6 +23,34 @@ type EventLogRecordBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewEventLogRecordBuilder creates a new android.adservices.ondevicepersonalization.EventLogRecord$Builder instance.
+func NewEventLogRecordBuilder(vm *jni.VM) (*EventLogRecordBuilder, error) {
+	var t EventLogRecordBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsEventLogRecordBuilder == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.EventLogRecord$Builder is not available on this device")
+		}
+		if midEventLogRecordBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.EventLogRecord$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEventLogRecordBuilder)), midEventLogRecordBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.ondevicepersonalization.EventLogRecord$Builder.build.
 func (m *EventLogRecordBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

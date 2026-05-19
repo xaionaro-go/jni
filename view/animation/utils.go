@@ -32,6 +32,12 @@ func NewUtils(vm *jni.VM) (*Utils, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsUtils == nil {
+			return fmt.Errorf("android.view.animation.AnimationUtils is not available on this device")
+		}
+		if midUtilsCtor == nil {
+			return fmt.Errorf("android.view.animation.AnimationUtils constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUtils)), midUtilsCtor)
 		if err != nil {
 			return err

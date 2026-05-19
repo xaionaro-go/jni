@@ -23,29 +23,16 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsExpandableBehavior                       *jni.GlobalRef
-	midExpandableBehaviorLayoutDependsOn        jni.MethodID
-	midExpandableBehaviorOnLayoutChild          jni.MethodID
-	midExpandableBehaviorOnDependentViewChanged jni.MethodID
-	midExpandableBehaviorToString               jni.MethodID
-
 	clsFabTransformationSheetBehavior         *jni.GlobalRef
 	midFabTransformationSheetBehaviorCtor     jni.MethodID
 	midFabTransformationSheetBehaviorToString jni.MethodID
-
-	clsFabTransformationScrimBehavior                *jni.GlobalRef
-	midFabTransformationScrimBehaviorCtor            jni.MethodID
-	midFabTransformationScrimBehaviorLayoutDependsOn jni.MethodID
-	midFabTransformationScrimBehaviorOnTouchEvent    jni.MethodID
-	midFabTransformationScrimBehaviorToString        jni.MethodID
 
 	clsChildLayout         *jni.GlobalRef
 	midChildLayoutCtor     jni.MethodID
 	midChildLayoutToString jni.MethodID
 
-	clsChildCard         *jni.GlobalRef
-	midChildCardCtor     jni.MethodID
-	midChildCardToString jni.MethodID
+	clsExpandableTransformationBehavior         *jni.GlobalRef
+	midExpandableTransformationBehaviorToString jni.MethodID
 
 	clsFabTransformationBehavior                         *jni.GlobalRef
 	midFabTransformationBehaviorLayoutDependsOn          jni.MethodID
@@ -55,8 +42,21 @@ var (
 	clsFabTransformationBehaviorFabTransformationSpec         *jni.GlobalRef
 	midFabTransformationBehaviorFabTransformationSpecToString jni.MethodID
 
-	clsExpandableTransformationBehavior         *jni.GlobalRef
-	midExpandableTransformationBehaviorToString jni.MethodID
+	clsExpandableBehavior                       *jni.GlobalRef
+	midExpandableBehaviorLayoutDependsOn        jni.MethodID
+	midExpandableBehaviorOnLayoutChild          jni.MethodID
+	midExpandableBehaviorOnDependentViewChanged jni.MethodID
+	midExpandableBehaviorToString               jni.MethodID
+
+	clsChildCard         *jni.GlobalRef
+	midChildCardCtor     jni.MethodID
+	midChildCardToString jni.MethodID
+
+	clsFabTransformationScrimBehavior                *jni.GlobalRef
+	midFabTransformationScrimBehaviorCtor            jni.MethodID
+	midFabTransformationScrimBehaviorLayoutDependsOn jni.MethodID
+	midFabTransformationScrimBehaviorOnTouchEvent    jni.MethodID
+	midFabTransformationScrimBehaviorToString        jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -77,44 +77,6 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("com/google/android/material/transformation/ExpandableBehavior")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsExpandableBehavior = env.NewGlobalRef(&c.Object)
-
-		midExpandableBehaviorLayoutDependsOn, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExpandableBehavior)), "layoutDependsOn", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/View;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExpandableBehaviorOnLayoutChild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExpandableBehavior)), "onLayoutChild", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExpandableBehaviorOnDependentViewChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExpandableBehavior)), "onDependentViewChanged", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/View;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExpandableBehaviorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExpandableBehavior)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("com/google/android/material/transformation/FabTransformationSheetBehavior")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -128,41 +90,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midFabTransformationSheetBehaviorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFabTransformationSheetBehavior)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/transformation/FabTransformationScrimBehavior")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFabTransformationScrimBehavior = env.NewGlobalRef(&c.Object)
-		midFabTransformationScrimBehaviorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFabTransformationScrimBehavior)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midFabTransformationScrimBehaviorLayoutDependsOn, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFabTransformationScrimBehavior)), "layoutDependsOn", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/View;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFabTransformationScrimBehaviorOnTouchEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFabTransformationScrimBehavior)), "onTouchEvent", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/MotionEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFabTransformationScrimBehaviorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFabTransformationScrimBehavior)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -192,19 +119,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/transformation/TransformationChildCard")
+	c, err = env.FindClass("com/google/android/material/transformation/ExpandableTransformationBehavior")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsChildCard = env.NewGlobalRef(&c.Object)
-		midChildCardCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChildCard)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsExpandableTransformationBehavior = env.NewGlobalRef(&c.Object)
 
-		midChildCardToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChildCard)), "toString", "()Ljava/lang/String;")
+		midExpandableTransformationBehaviorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExpandableTransformationBehavior)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -261,15 +184,92 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/transformation/ExpandableTransformationBehavior")
+	c, err = env.FindClass("com/google/android/material/transformation/ExpandableBehavior")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsExpandableTransformationBehavior = env.NewGlobalRef(&c.Object)
+		clsExpandableBehavior = env.NewGlobalRef(&c.Object)
 
-		midExpandableTransformationBehaviorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExpandableTransformationBehavior)), "toString", "()Ljava/lang/String;")
+		midExpandableBehaviorLayoutDependsOn, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExpandableBehavior)), "layoutDependsOn", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/View;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExpandableBehaviorOnLayoutChild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExpandableBehavior)), "onLayoutChild", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExpandableBehaviorOnDependentViewChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExpandableBehavior)), "onDependentViewChanged", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/View;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExpandableBehaviorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExpandableBehavior)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/transformation/TransformationChildCard")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsChildCard = env.NewGlobalRef(&c.Object)
+		midChildCardCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChildCard)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midChildCardToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChildCard)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/transformation/FabTransformationScrimBehavior")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFabTransformationScrimBehavior = env.NewGlobalRef(&c.Object)
+		midFabTransformationScrimBehaviorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFabTransformationScrimBehavior)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midFabTransformationScrimBehaviorLayoutDependsOn, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFabTransformationScrimBehavior)), "layoutDependsOn", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/View;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFabTransformationScrimBehaviorOnTouchEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFabTransformationScrimBehavior)), "onTouchEvent", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/MotionEvent;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFabTransformationScrimBehaviorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFabTransformationScrimBehavior)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

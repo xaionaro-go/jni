@@ -5,93 +5,6 @@
 package: backup
 go_import: github.com/AndroidGoLab/jni/app/backup
 classes:
-    - java_class: android.app.backup.BackupManager
-      go_type: Manager
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: dataChanged
-          go_name: DataChanged0
-          returns: void
-          error: true
-        - java_method: getUserForAncestralSerialNumber
-          go_name: GetUserForAncestralSerialNumber
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.os.UserHandle
-          error: true
-        - java_method: requestRestore
-          go_name: RequestRestore
-          params:
-            - java_type: android.app.backup.RestoreObserver
-              go_name: arg0
-          returns: int
-          error: true
-      static_methods:
-        - java_method: dataChanged
-          go_name: DataChanged1_1
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.app.backup.BackupHelper
-      go_type: Helper
-      methods:
-        - java_method: performBackup
-          go_name: PerformBackup
-          params:
-            - java_type: android.os.ParcelFileDescriptor
-              go_name: arg0
-            - java_type: android.app.backup.BackupDataOutput
-              go_name: arg1
-            - java_type: android.os.ParcelFileDescriptor
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: restoreEntity
-          go_name: RestoreEntity
-          params:
-            - java_type: android.app.backup.BackupDataInputStream
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: writeNewStateDescription
-          go_name: WriteNewStateDescription
-          params:
-            - java_type: android.os.ParcelFileDescriptor
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.app.backup.RestoreObserver
-      go_type: RestoreObserver
-      methods:
-        - java_method: onUpdate
-          go_name: OnUpdate
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: restoreFinished
-          go_name: RestoreFinished
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: restoreStarting
-          go_name: RestoreStarting
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
     - java_class: android.app.backup.BackupAgent
       go_type: Agent
       methods:
@@ -182,6 +95,142 @@ classes:
           go_name: OnRestoreFinished
           returns: void
           error: true
+    - java_class: android.app.backup.BackupDataInput
+      go_type: DataInput
+      methods:
+        - java_method: getDataSize
+          go_name: GetDataSize
+          returns: int
+          error: true
+        - java_method: getKey
+          go_name: GetKey
+          returns: String
+          error: true
+        - java_method: readEntityData
+          go_name: ReadEntityData
+          params:
+            - java_type: '[B'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: int
+          error: true
+        - java_method: readNextHeader
+          go_name: ReadNextHeader
+          returns: boolean
+          error: true
+        - java_method: skipEntityData
+          go_name: SkipEntityData
+          returns: void
+          error: true
+    - java_class: android.app.backup.BackupHelper
+      go_type: Helper
+      methods:
+        - java_method: performBackup
+          go_name: PerformBackup
+          params:
+            - java_type: android.os.ParcelFileDescriptor
+              go_name: arg0
+            - java_type: android.app.backup.BackupDataOutput
+              go_name: arg1
+            - java_type: android.os.ParcelFileDescriptor
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: restoreEntity
+          go_name: RestoreEntity
+          params:
+            - java_type: android.app.backup.BackupDataInputStream
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: writeNewStateDescription
+          go_name: WriteNewStateDescription
+          params:
+            - java_type: android.os.ParcelFileDescriptor
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.app.backup.FullBackupDataOutput
+      go_type: FullBackupDataOutput
+      methods:
+        - java_method: getQuota
+          go_name: GetQuota
+          returns: long
+          error: true
+        - java_method: getTransportFlags
+          go_name: GetTransportFlags
+          returns: int
+          error: true
+    - java_class: android.app.backup.SharedPreferencesBackupHelper
+      go_type: SharedPreferencesBackupHelper
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: java.lang.String...
+          go_name: arg1
+      methods:
+        - java_method: performBackup
+          go_name: PerformBackup
+          params:
+            - java_type: android.os.ParcelFileDescriptor
+              go_name: arg0
+            - java_type: android.app.backup.BackupDataOutput
+              go_name: arg1
+            - java_type: android.os.ParcelFileDescriptor
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: restoreEntity
+          go_name: RestoreEntity
+          params:
+            - java_type: android.app.backup.BackupDataInputStream
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: writeNewStateDescription
+          go_name: WriteNewStateDescription
+          params:
+            - java_type: android.os.ParcelFileDescriptor
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.app.backup.BackupManager
+      go_type: Manager
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: dataChanged
+          go_name: DataChanged0
+          returns: void
+          error: true
+        - java_method: getUserForAncestralSerialNumber
+          go_name: GetUserForAncestralSerialNumber
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.os.UserHandle
+          error: true
+        - java_method: requestRestore
+          go_name: RequestRestore
+          params:
+            - java_type: android.app.backup.RestoreObserver
+              go_name: arg0
+          returns: int
+          error: true
+      static_methods:
+        - java_method: dataChanged
+          go_name: DataChanged1_1
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
     - java_class: android.app.backup.BackupDataInputStream
       go_type: DataInputStream
       methods:
@@ -213,35 +262,6 @@ classes:
           error: true
         - java_method: size
           go_name: Size
-          returns: int
-          error: true
-    - java_class: android.app.backup.BackupDataOutput
-      go_type: DataOutput
-      methods:
-        - java_method: getQuota
-          go_name: GetQuota
-          returns: long
-          error: true
-        - java_method: getTransportFlags
-          go_name: GetTransportFlags
-          returns: int
-          error: true
-        - java_method: writeEntityData
-          go_name: WriteEntityData
-          params:
-            - java_type: '[B'
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: writeEntityHeader
-          go_name: WriteEntityHeader
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
           returns: int
           error: true
     - java_class: android.app.backup.BackupAgentHelper
@@ -313,38 +333,34 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.app.backup.BackupDataInput
-      go_type: DataInput
+    - java_class: android.app.backup.RestoreObserver
+      go_type: RestoreObserver
       methods:
-        - java_method: getDataSize
-          go_name: GetDataSize
-          returns: int
-          error: true
-        - java_method: getKey
-          go_name: GetKey
-          returns: String
-          error: true
-        - java_method: readEntityData
-          go_name: ReadEntityData
+        - java_method: onUpdate
+          go_name: OnUpdate
           params:
-            - java_type: '[B'
+            - java_type: int
               go_name: arg0
-            - java_type: int
+            - java_type: String
               go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: int
-          error: true
-        - java_method: readNextHeader
-          go_name: ReadNextHeader
-          returns: boolean
-          error: true
-        - java_method: skipEntityData
-          go_name: SkipEntityData
           returns: void
           error: true
-    - java_class: android.app.backup.FullBackupDataOutput
-      go_type: FullBackupDataOutput
+        - java_method: restoreFinished
+          go_name: RestoreFinished
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: restoreStarting
+          go_name: RestoreStarting
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.app.backup.BackupDataOutput
+      go_type: DataOutput
       methods:
         - java_method: getQuota
           go_name: GetQuota
@@ -354,39 +370,23 @@ classes:
           go_name: GetTransportFlags
           returns: int
           error: true
-    - java_class: android.app.backup.SharedPreferencesBackupHelper
-      go_type: SharedPreferencesBackupHelper
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: java.lang.String...
-          go_name: arg1
-      methods:
-        - java_method: performBackup
-          go_name: PerformBackup
+        - java_method: writeEntityData
+          go_name: WriteEntityData
           params:
-            - java_type: android.os.ParcelFileDescriptor
+            - java_type: '[B'
               go_name: arg0
-            - java_type: android.app.backup.BackupDataOutput
+            - java_type: int
               go_name: arg1
-            - java_type: android.os.ParcelFileDescriptor
-              go_name: arg2
-          returns: void
+          returns: int
           error: true
-        - java_method: restoreEntity
-          go_name: RestoreEntity
+        - java_method: writeEntityHeader
+          go_name: WriteEntityHeader
           params:
-            - java_type: android.app.backup.BackupDataInputStream
+            - java_type: String
               go_name: arg0
-          returns: void
-          error: true
-        - java_method: writeNewStateDescription
-          go_name: WriteNewStateDescription
-          params:
-            - java_type: android.os.ParcelFileDescriptor
-              go_name: arg0
-          returns: void
+            - java_type: int
+              go_name: arg1
+          returns: int
           error: true
 abstract_callbacks:
     - java_class: android.app.backup.RestoreObserver
@@ -408,69 +408,13 @@ abstract_callbacks:
             - int
           returns: void
           go_field: RestoreStarting
+abstract_callback_eligibility:
     - java_class: android.app.backup.BackupAgent
-      go_type: AgentCallback
-      methods:
-        - java_method: fullBackupFile
-          params:
-            - java.io.File
-            - android.app.backup.FullBackupDataOutput
-          returns: void
-          go_field: FullBackupFile
-        - java_method: onBackup
-          params:
-            - android.os.ParcelFileDescriptor
-            - android.app.backup.BackupDataOutput
-            - android.os.ParcelFileDescriptor
-          returns: void
-          go_field: OnBackup
-        - java_method: onCreate
-          params: []
-          returns: void
-          go_field: OnCreate
-        - java_method: onDestroy
-          params: []
-          returns: void
-          go_field: OnDestroy
-        - java_method: onFullBackup
-          params:
-            - android.app.backup.FullBackupDataOutput
-          returns: void
-          go_field: OnFullBackup
-        - java_method: onQuotaExceeded
-          params:
-            - long
-            - long
-          returns: void
-          go_field: OnQuotaExceeded
-        - java_method: onRestore
-          params:
-            - android.app.backup.BackupDataInput
-            - int
-            - android.os.ParcelFileDescriptor
-          returns: void
-          go_field: OnRestore
-        - java_method: onRestore
-          params:
-            - android.app.backup.BackupDataInput
-            - long
-            - android.os.ParcelFileDescriptor
-          returns: void
-          go_field: OnRestore
-        - java_method: onRestoreFile
-          params:
-            - android.os.ParcelFileDescriptor
-            - long
-            - java.io.File
-            - int
-            - long
-            - long
-          returns: void
-          go_field: OnRestoreFile
-        - java_method: onRestoreFinished
-          params: []
-          returns: void
-          go_field: OnRestoreFinished
+      generated: false
+      reason: non_object_superclass
+    - java_class: android.app.backup.RestoreObserver
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
     - go_name: FlagClientSideEncryptionEnabled
       value: "1"

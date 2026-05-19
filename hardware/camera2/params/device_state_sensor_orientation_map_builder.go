@@ -23,6 +23,34 @@ type DeviceStateSensorOrientationMapBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDeviceStateSensorOrientationMapBuilder creates a new android.hardware.camera2.params.DeviceStateSensorOrientationMap$Builder instance.
+func NewDeviceStateSensorOrientationMapBuilder(vm *jni.VM) (*DeviceStateSensorOrientationMapBuilder, error) {
+	var t DeviceStateSensorOrientationMapBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDeviceStateSensorOrientationMapBuilder == nil {
+			return fmt.Errorf("android.hardware.camera2.params.DeviceStateSensorOrientationMap$Builder is not available on this device")
+		}
+		if midDeviceStateSensorOrientationMapBuilderCtor == nil {
+			return fmt.Errorf("android.hardware.camera2.params.DeviceStateSensorOrientationMap$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDeviceStateSensorOrientationMapBuilder)), midDeviceStateSensorOrientationMapBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddOrientationForState calls android.hardware.camera2.params.DeviceStateSensorOrientationMap$Builder.addOrientationForState.
 func (m *DeviceStateSensorOrientationMapBuilder) AddOrientationForState(arg0 int64, arg1 int64) (*jni.Object, error) {
 	var result *jni.Object

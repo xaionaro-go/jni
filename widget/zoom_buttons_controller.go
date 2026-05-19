@@ -32,6 +32,12 @@ func NewZoomButtonsController(vm *jni.VM, arg0 *jni.Object) (*ZoomButtonsControl
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsZoomButtonsController == nil {
+			return fmt.Errorf("android.widget.ZoomButtonsController is not available on this device")
+		}
+		if midZoomButtonsControllerCtor == nil {
+			return fmt.Errorf("android.widget.ZoomButtonsController constructor (Landroid/view/View;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsZoomButtonsController)), midZoomButtonsControllerCtor, jni.ObjectValue(arg0))
 		if err != nil {

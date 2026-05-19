@@ -3,38 +3,31 @@
 package consts
 
 const (
-	TypeAuxLine                           int = 19
-	TypeBleBroadcast                      int = 30
-	TypeBleHeadset                        int = 26
-	TypeBleSpeaker                        int = 27
-	TypeBluetoothA2dp                     int = 8
-	TypeBluetoothSco                      int = 7
-	TypeBuiltinEarpiece                   int = 1
-	TypeBuiltinMic                        int = 15
-	TypeBuiltinSpeaker                    int = 2
-	TypeBuiltinSpeakerSafe                int = 24
-	TypeBus                               int = 21
-	TypeDock                              int = 13
-	TypeDockAnalog                        int = 31
-	TypeFm                                int = 14
-	TypeFmTuner                           int = 16
-	TypeHdmi                              int = 9
-	TypeHdmiArc                           int = 10
-	TypeHdmiEarc                          int = 29
-	TypeHearingAid                        int = 23
-	TypeIp                                int = 20
-	TypeLineAnalog                        int = 5
-	TypeLineDigital                       int = 6
-	TypeMultichannelGroup                 int = 32
-	TypeRemoteSubmix                      int = 25
-	TypeTelephony                         int = 18
-	TypeTvTuner                           int = 17
-	TypeUnknown                           int = 0
-	TypeUsbAccessory                      int = 12
-	TypeUsbDevice                         int = 11
-	TypeUsbHeadset                        int = 22
-	TypeWiredHeadphones                   int = 4
-	TypeWiredHeadset                      int = 3
+	ActionAudioBecomingNoisy              string = "android.media.AUDIO_BECOMING_NOISY"
+	ActionHdmiAudioPlug                   string = "android.media.action.HDMI_AUDIO_PLUG"
+	ActionHeadsetPlug                     string = "android.intent.action.HEADSET_PLUG"
+	ActionMicrophoneMuteChanged           string = "android.media.action.MICROPHONE_MUTE_CHANGED"
+	ActionScoAudioStateChanged            string = "android.media.SCO_AUDIO_STATE_CHANGED"
+	ActionScoAudioStateUpdated            string = "android.media.ACTION_SCO_AUDIO_STATE_UPDATED"
+	ActionSpeakerphoneStateChanged        string = "android.media.action.SPEAKERPHONE_STATE_CHANGED"
+	ExtraAudioPlugState                   string = "android.media.extra.AUDIO_PLUG_STATE"
+	ExtraEncodings                        string = "android.media.extra.ENCODINGS"
+	ExtraMaxChannelCount                  string = "android.media.extra.MAX_CHANNEL_COUNT"
+	ExtraRingerMode                       string = "android.media.EXTRA_RINGER_MODE"
+	ExtraScoAudioPreviousState            string = "android.media.extra.SCO_AUDIO_PREVIOUS_STATE"
+	ExtraScoAudioState                    string = "android.media.extra.SCO_AUDIO_STATE"
+	ExtraVibrateSetting                   string = "android.media.EXTRA_VIBRATE_SETTING"
+	ExtraVibrateType                      string = "android.media.EXTRA_VIBRATE_TYPE"
+	PropertyOutputFramesPerBuffer         string = "android.media.property.OUTPUT_FRAMES_PER_BUFFER"
+	PropertyOutputSampleRate              string = "android.media.property.OUTPUT_SAMPLE_RATE"
+	PropertySupportAudioSourceUnprocessed string = "android.media.property.SUPPORT_AUDIO_SOURCE_UNPROCESSED"
+	PropertySupportMicNearUltrasound      string = "android.media.property.SUPPORT_MIC_NEAR_ULTRASOUND"
+	PropertySupportSpeakerNearUltrasound  string = "android.media.property.SUPPORT_SPEAKER_NEAR_ULTRASOUND"
+	RingerModeChangedAction               string = "android.media.RINGER_MODE_CHANGED"
+	VibrateSettingChangedAction           string = "android.media.VIBRATE_SETTING_CHANGED"
+)
+
+const (
 	AdjustLower                           int = -1
 	AdjustMute                            int = -100
 	AdjustRaise                           int = 1
@@ -124,29 +117,36 @@ const (
 	VibrateSettingOnlySilent              int = 2
 	VibrateTypeNotification               int = 1
 	VibrateTypeRinger                     int = 0
-)
-
-const (
-	ActionAudioBecomingNoisy              string = "android.media.AUDIO_BECOMING_NOISY"
-	ActionHdmiAudioPlug                   string = "android.media.action.HDMI_AUDIO_PLUG"
-	ActionHeadsetPlug                     string = "android.intent.action.HEADSET_PLUG"
-	ActionMicrophoneMuteChanged           string = "android.media.action.MICROPHONE_MUTE_CHANGED"
-	ActionScoAudioStateChanged            string = "android.media.SCO_AUDIO_STATE_CHANGED"
-	ActionScoAudioStateUpdated            string = "android.media.ACTION_SCO_AUDIO_STATE_UPDATED"
-	ActionSpeakerphoneStateChanged        string = "android.media.action.SPEAKERPHONE_STATE_CHANGED"
-	ExtraAudioPlugState                   string = "android.media.extra.AUDIO_PLUG_STATE"
-	ExtraEncodings                        string = "android.media.extra.ENCODINGS"
-	ExtraMaxChannelCount                  string = "android.media.extra.MAX_CHANNEL_COUNT"
-	ExtraRingerMode                       string = "android.media.EXTRA_RINGER_MODE"
-	ExtraScoAudioPreviousState            string = "android.media.extra.SCO_AUDIO_PREVIOUS_STATE"
-	ExtraScoAudioState                    string = "android.media.extra.SCO_AUDIO_STATE"
-	ExtraVibrateSetting                   string = "android.media.EXTRA_VIBRATE_SETTING"
-	ExtraVibrateType                      string = "android.media.EXTRA_VIBRATE_TYPE"
-	PropertyOutputFramesPerBuffer         string = "android.media.property.OUTPUT_FRAMES_PER_BUFFER"
-	PropertyOutputSampleRate              string = "android.media.property.OUTPUT_SAMPLE_RATE"
-	PropertySupportAudioSourceUnprocessed string = "android.media.property.SUPPORT_AUDIO_SOURCE_UNPROCESSED"
-	PropertySupportMicNearUltrasound      string = "android.media.property.SUPPORT_MIC_NEAR_ULTRASOUND"
-	PropertySupportSpeakerNearUltrasound  string = "android.media.property.SUPPORT_SPEAKER_NEAR_ULTRASOUND"
-	RingerModeChangedAction               string = "android.media.RINGER_MODE_CHANGED"
-	VibrateSettingChangedAction           string = "android.media.VIBRATE_SETTING_CHANGED"
+	TypeAuxLine                           int = 19
+	TypeBleBroadcast                      int = 30
+	TypeBleHeadset                        int = 26
+	TypeBleSpeaker                        int = 27
+	TypeBluetoothA2dp                     int = 8
+	TypeBluetoothSco                      int = 7
+	TypeBuiltinEarpiece                   int = 1
+	TypeBuiltinMic                        int = 15
+	TypeBuiltinSpeaker                    int = 2
+	TypeBuiltinSpeakerSafe                int = 24
+	TypeBus                               int = 21
+	TypeDock                              int = 13
+	TypeDockAnalog                        int = 31
+	TypeFm                                int = 14
+	TypeFmTuner                           int = 16
+	TypeHdmi                              int = 9
+	TypeHdmiArc                           int = 10
+	TypeHdmiEarc                          int = 29
+	TypeHearingAid                        int = 23
+	TypeIp                                int = 20
+	TypeLineAnalog                        int = 5
+	TypeLineDigital                       int = 6
+	TypeMultichannelGroup                 int = 32
+	TypeRemoteSubmix                      int = 25
+	TypeTelephony                         int = 18
+	TypeTvTuner                           int = 17
+	TypeUnknown                           int = 0
+	TypeUsbAccessory                      int = 12
+	TypeUsbDevice                         int = 11
+	TypeUsbHeadset                        int = 22
+	TypeWiredHeadphones                   int = 4
+	TypeWiredHeadset                      int = 3
 )

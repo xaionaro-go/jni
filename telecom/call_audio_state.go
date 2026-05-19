@@ -32,6 +32,12 @@ func NewCallAudioState(vm *jni.VM, arg0 bool, arg1 int32, arg2 int32) (*CallAudi
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCallAudioState == nil {
+			return fmt.Errorf("android.telecom.CallAudioState is not available on this device")
+		}
+		if midCallAudioStateCtor == nil {
+			return fmt.Errorf("android.telecom.CallAudioState constructor (ZII)V is not available on this device")
+		}
 		var jArg0 uint8
 		if arg0 {
 			jArg0 = jniTrue
@@ -271,29 +277,6 @@ func (m *CallAudioState) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.telecom.CallAudioState.writeToParcel.
-func (m *CallAudioState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCallAudioStateWriteToParcel == nil {
-			callErr = fmt.Errorf("android.telecom.CallAudioState.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midCallAudioStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // AudioRouteToString calls android.telecom.CallAudioState.audioRouteToString.
 func (m *CallAudioState) AudioRouteToString(arg0 int32) (string, error) {
 	var result string
@@ -320,4 +303,27 @@ func (m *CallAudioState) AudioRouteToString(arg0 int32) (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.telecom.CallAudioState.writeToParcel.
+func (m *CallAudioState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midCallAudioStateWriteToParcel == nil {
+			callErr = fmt.Errorf("android.telecom.CallAudioState.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsCallAudioState)),
+			midCallAudioStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

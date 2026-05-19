@@ -5,6 +5,40 @@
 package: carousel
 go_import: github.com/AndroidGoLab/jni/com/google/android/material/carousel
 classes:
+    - java_class: com.google.android.material.carousel.HeroCarouselStrategy
+      go_type: HeroCarouselStrategy
+      obtain: constructor
+    - java_class: com.google.android.material.carousel.CarouselStrategy
+      go_type: Strategy
+      methods:
+        - java_method: setSmallItemSizeMin
+          go_name: SetSmallItemSizeMin
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSmallItemSizeMax
+          go_name: SetSmallItemSizeMax
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getSmallItemSizeMin
+          go_name: GetSmallItemSizeMin
+          returns: float
+          error: true
+        - java_method: getSmallItemSizeMax
+          go_name: GetSmallItemSizeMax
+          returns: float
+          error: true
+    - java_class: com.google.android.material.carousel.FullScreenCarouselStrategy
+      go_type: FullScreenCarouselStrategy
+      obtain: constructor
+    - java_class: com.google.android.material.carousel.MultiBrowseCarouselStrategy
+      go_type: MultiBrowseCarouselStrategy
+      obtain: constructor
     - java_class: com.google.android.material.carousel.CarouselSnapHelper
       go_type: SnapHelper
       obtain: constructor
@@ -311,61 +345,8 @@ classes:
               go_name: arg2
           returns: void
           error: true
-        - java_method: setDebuggingEnabled
-          go_name: SetDebuggingEnabled
-          params:
-            - java_type: androidx.recyclerview.widget.RecyclerView
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: com.google.android.material.carousel.FullScreenCarouselStrategy
-      go_type: FullScreenCarouselStrategy
-      obtain: constructor
-    - java_class: com.google.android.material.carousel.CarouselStrategy
-      go_type: Strategy
-      methods:
-        - java_method: setSmallItemSizeMin
-          go_name: SetSmallItemSizeMin
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSmallItemSizeMax
-          go_name: SetSmallItemSizeMax
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getSmallItemSizeMin
-          go_name: GetSmallItemSizeMin
-          returns: float
-          error: true
-        - java_method: getSmallItemSizeMax
-          go_name: GetSmallItemSizeMax
-          returns: float
-          error: true
     - java_class: com.google.android.material.carousel.UncontainedCarouselStrategy
       go_type: UncontainedCarouselStrategy
-      obtain: constructor
-    - java_class: com.google.android.material.carousel.MultiBrowseCarouselStrategy
-      go_type: MultiBrowseCarouselStrategy
-      obtain: constructor
-    - java_class: com.google.android.material.carousel.OnMaskChangedListener
-      go_type: OnMaskChangedListener
-      methods:
-        - java_method: onMaskChanged
-          go_name: OnMaskChanged
-          params:
-            - java_type: android.graphics.RectF
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: com.google.android.material.carousel.HeroCarouselStrategy
-      go_type: HeroCarouselStrategy
       obtain: constructor
     - java_class: com.google.android.material.carousel.MaskableFrameLayout
       go_type: MaskableFrameLayout
@@ -435,28 +416,20 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-abstract_callbacks:
-    - java_class: com.google.android.material.carousel.CarouselStrategy
-      go_type: StrategyCallback
+    - java_class: com.google.android.material.carousel.OnMaskChangedListener
+      go_type: OnMaskChangedListener
       methods:
-        - java_method: setSmallItemSizeMin
+        - java_method: onMaskChanged
+          go_name: OnMaskChanged
           params:
-            - float
+            - java_type: android.graphics.RectF
+              go_name: arg0
           returns: void
-          go_field: SetSmallItemSizeMin
-        - java_method: setSmallItemSizeMax
-          params:
-            - float
-          returns: void
-          go_field: SetSmallItemSizeMax
-        - java_method: getSmallItemSizeMin
-          params: []
-          returns: float
-          go_field: GetSmallItemSizeMin
-        - java_method: getSmallItemSizeMax
-          params: []
-          returns: float
-          go_field: GetSmallItemSizeMax
+          error: true
+abstract_callback_eligibility:
+    - java_class: com.google.android.material.carousel.CarouselStrategy
+      generated: false
+      reason: package_private_abstract_method
 constants:
     - go_name: Horizontal
       value: "0"

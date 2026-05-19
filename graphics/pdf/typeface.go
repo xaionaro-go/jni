@@ -180,33 +180,6 @@ func (m *Typeface) IsBold() (bool, error) {
 	return result, callErr
 }
 
-// IsItalic calls android.graphics.Typeface.isItalic.
-func (m *Typeface) IsItalic() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTypefaceIsItalic == nil {
-			callErr = fmt.Errorf("android.graphics.Typeface.isItalic is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midTypefaceIsItalic,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.graphics.Typeface.toString.
 func (m *Typeface) ToString() (string, error) {
 	var result string
@@ -485,6 +458,33 @@ func (m *Typeface) DefaultFromStyle(arg0 int32) (*jni.Object, error) {
 			result = env.NewGlobalRef(localRef)
 			env.DeleteLocalRef(localRef)
 		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// IsItalic calls android.graphics.Typeface.isItalic.
+func (m *Typeface) IsItalic() (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midTypefaceIsItalic == nil {
+			callErr = fmt.Errorf("android.graphics.Typeface.isItalic is not available on this device")
+			return callErr
+		}
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsTypeface)),
+			midTypefaceIsItalic,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

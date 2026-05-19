@@ -32,6 +32,12 @@ func NewWpsInfo(vm *jni.VM) (*WpsInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWpsInfo == nil {
+			return fmt.Errorf("android.net.wifi.WpsInfo is not available on this device")
+		}
+		if midWpsInfoCtor == nil {
+			return fmt.Errorf("android.net.wifi.WpsInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWpsInfo)), midWpsInfoCtor)
 		if err != nil {
 			return err
@@ -111,8 +117,8 @@ func (m *WpsInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsWpsInfo)),
 			midWpsInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

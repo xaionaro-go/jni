@@ -23,6 +23,35 @@ type ManagerAlarmClockInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewManagerAlarmClockInfo creates a new android.app.AlarmManager$AlarmClockInfo instance.
+func NewManagerAlarmClockInfo(vm *jni.VM, arg0 int64, arg1 *jni.Object) (*ManagerAlarmClockInfo, error) {
+	var t ManagerAlarmClockInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsManagerAlarmClockInfo == nil {
+			return fmt.Errorf("android.app.AlarmManager$AlarmClockInfo is not available on this device")
+		}
+		if midManagerAlarmClockInfoCtor == nil {
+			return fmt.Errorf("android.app.AlarmManager$AlarmClockInfo constructor (JLandroid/app/PendingIntent;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsManagerAlarmClockInfo)), midManagerAlarmClockInfoCtor, jni.LongValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.app.AlarmManager$AlarmClockInfo.describeContents.
 func (m *ManagerAlarmClockInfo) DescribeContents() (int32, error) {
 	var result int32
@@ -105,29 +134,6 @@ func (m *ManagerAlarmClockInfo) GetTriggerTime() (int64, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.AlarmManager$AlarmClockInfo.writeToParcel.
-func (m *ManagerAlarmClockInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midManagerAlarmClockInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.AlarmManager$AlarmClockInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midManagerAlarmClockInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.AlarmManager$AlarmClockInfo.toString.
 func (m *ManagerAlarmClockInfo) ToString() (string, error) {
 	var result string
@@ -153,4 +159,27 @@ func (m *ManagerAlarmClockInfo) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.AlarmManager$AlarmClockInfo.writeToParcel.
+func (m *ManagerAlarmClockInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midManagerAlarmClockInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.AlarmManager$AlarmClockInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsManagerAlarmClockInfo)),
+			midManagerAlarmClockInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

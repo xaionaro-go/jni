@@ -32,6 +32,12 @@ func NewNoWritingToolsSpan(vm *jni.VM) (*NoWritingToolsSpan, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNoWritingToolsSpan == nil {
+			return fmt.Errorf("android.text.style.NoWritingToolsSpan is not available on this device")
+		}
+		if midNoWritingToolsSpanCtor == nil {
+			return fmt.Errorf("android.text.style.NoWritingToolsSpan constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNoWritingToolsSpan)), midNoWritingToolsSpanCtor)
 		if err != nil {
 			return err
@@ -136,8 +142,8 @@ func (m *NoWritingToolsSpan) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsNoWritingToolsSpan)),
 			midNoWritingToolsSpanWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

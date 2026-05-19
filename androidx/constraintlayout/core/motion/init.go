@@ -23,37 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsPaths                    *jni.GlobalRef
-	midPathsCtor                jni.MethodID
-	midPathsSetupRelative       jni.MethodID
-	midPathsCompareTo1          jni.MethodID
-	midPathsApplyParameters     jni.MethodID
-	midPathsConfigureRelativeTo jni.MethodID
-	midPathsCompareTo1_1        jni.MethodID
-	midPathsToString            jni.MethodID
-
-	clsCustomAttribute                           *jni.GlobalRef
-	midCustomAttributeCtor                       jni.MethodID
-	midCustomAttributeGetType                    jni.MethodID
-	midCustomAttributeIsContinuous               jni.MethodID
-	midCustomAttributeSetFloatValue              jni.MethodID
-	midCustomAttributeSetColorValue              jni.MethodID
-	midCustomAttributeSetIntValue                jni.MethodID
-	midCustomAttributeSetStringValue             jni.MethodID
-	midCustomAttributeNumberOfInterpolatedValues jni.MethodID
-	midCustomAttributeGetValueToInterpolate      jni.MethodID
-	midCustomAttributeGetValuesToInterpolate     jni.MethodID
-	midCustomAttributeSetValue1                  jni.MethodID
-	midCustomAttributeDiff                       jni.MethodID
-	midCustomAttributeSetValue1_1                jni.MethodID
-	midCustomAttributeToString                   jni.MethodID
-	midCustomAttributeHsvToRgb                   jni.MethodID
-
-	clsCustomAttributeAttributeType         *jni.GlobalRef
-	midCustomAttributeAttributeTypeToString jni.MethodID
-	midCustomAttributeAttributeTypeValues   jni.MethodID
-	midCustomAttributeAttributeTypeValueOf  jni.MethodID
-
 	clsMotion                        *jni.GlobalRef
 	midMotionCtor                    jni.MethodID
 	midMotionGetTransformPivotTarget jni.MethodID
@@ -154,9 +123,11 @@ var (
 	midWidgetSetInterpolatedValue    jni.MethodID
 
 	clsWidgetMotion         *jni.GlobalRef
+	midWidgetMotionCtor     jni.MethodID
 	midWidgetMotionToString jni.MethodID
 
 	clsWidgetPropertySet         *jni.GlobalRef
+	midWidgetPropertySetCtor     jni.MethodID
 	midWidgetPropertySetToString jni.MethodID
 
 	clsCustomVariable                           *jni.GlobalRef
@@ -187,6 +158,36 @@ var (
 	midCustomVariableColorString                jni.MethodID
 	midCustomVariableHsvToRgb                   jni.MethodID
 	midCustomVariableRgbaTocColor               jni.MethodID
+
+	clsPaths                    *jni.GlobalRef
+	midPathsCtor                jni.MethodID
+	midPathsSetupRelative       jni.MethodID
+	midPathsCompareTo           jni.MethodID
+	midPathsApplyParameters     jni.MethodID
+	midPathsConfigureRelativeTo jni.MethodID
+	midPathsToString            jni.MethodID
+
+	clsCustomAttribute                           *jni.GlobalRef
+	midCustomAttributeCtor                       jni.MethodID
+	midCustomAttributeGetType                    jni.MethodID
+	midCustomAttributeIsContinuous               jni.MethodID
+	midCustomAttributeSetFloatValue              jni.MethodID
+	midCustomAttributeSetColorValue              jni.MethodID
+	midCustomAttributeSetIntValue                jni.MethodID
+	midCustomAttributeSetStringValue             jni.MethodID
+	midCustomAttributeNumberOfInterpolatedValues jni.MethodID
+	midCustomAttributeGetValueToInterpolate      jni.MethodID
+	midCustomAttributeGetValuesToInterpolate     jni.MethodID
+	midCustomAttributeSetValue1                  jni.MethodID
+	midCustomAttributeDiff                       jni.MethodID
+	midCustomAttributeSetValue1_1                jni.MethodID
+	midCustomAttributeToString                   jni.MethodID
+	midCustomAttributeHsvToRgb                   jni.MethodID
+
+	clsCustomAttributeAttributeType         *jni.GlobalRef
+	midCustomAttributeAttributeTypeToString jni.MethodID
+	midCustomAttributeAttributeTypeValues   jni.MethodID
+	midCustomAttributeAttributeTypeValueOf  jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -206,205 +207,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("androidx/constraintlayout/core/motion/MotionPaths")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPaths = env.NewGlobalRef(&c.Object)
-		midPathsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPaths)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midPathsSetupRelative, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPaths)), "setupRelative", "(Landroidx/constraintlayout/core/motion/Motion;Landroidx/constraintlayout/core/motion/MotionPaths;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathsCompareTo1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPaths)), "compareTo", "(Landroidx/constraintlayout/core/motion/MotionPaths;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathsApplyParameters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPaths)), "applyParameters", "(Landroidx/constraintlayout/core/motion/MotionWidget;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathsConfigureRelativeTo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPaths)), "configureRelativeTo", "(Landroidx/constraintlayout/core/motion/Motion;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathsCompareTo1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPaths)), "compareTo", "(Ljava/lang/Object;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPaths)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/core/motion/CustomAttribute")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCustomAttribute = env.NewGlobalRef(&c.Object)
-		midCustomAttributeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "<init>", "(Ljava/lang/String;Landroidx/constraintlayout/core/motion/CustomAttribute$AttributeType;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCustomAttributeGetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "getType", "()Landroidx/constraintlayout/core/motion/CustomAttribute$AttributeType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCustomAttributeIsContinuous, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "isContinuous", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCustomAttributeSetFloatValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "setFloatValue", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCustomAttributeSetColorValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "setColorValue", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCustomAttributeSetIntValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "setIntValue", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCustomAttributeSetStringValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "setStringValue", "(Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCustomAttributeNumberOfInterpolatedValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "numberOfInterpolatedValues", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCustomAttributeGetValueToInterpolate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "getValueToInterpolate", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCustomAttributeGetValuesToInterpolate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "getValuesToInterpolate", "([F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCustomAttributeSetValue1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "setValue", "([F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCustomAttributeDiff, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "diff", "(Landroidx/constraintlayout/core/motion/CustomAttribute;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCustomAttributeSetValue1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "setValue", "(Ljava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCustomAttributeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCustomAttributeHsvToRgb, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "hsvToRgb", "(FFF)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/constraintlayout/core/motion/CustomAttribute$AttributeType")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCustomAttributeAttributeType = env.NewGlobalRef(&c.Object)
-
-		midCustomAttributeAttributeTypeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttributeAttributeType)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCustomAttributeAttributeTypeValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttributeAttributeType)), "values", "()[Landroidx/constraintlayout/core/motion/CustomAttribute$AttributeType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCustomAttributeAttributeTypeValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttributeAttributeType)), "valueOf", "(Ljava/lang/String;)Landroidx/constraintlayout/core/motion/CustomAttribute$AttributeType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("androidx/constraintlayout/core/motion/Motion")
 	if err != nil {
@@ -1092,6 +894,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsWidgetMotion = env.NewGlobalRef(&c.Object)
+		midWidgetMotionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetMotion)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midWidgetMotionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetMotion)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -1109,6 +915,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsWidgetPropertySet = env.NewGlobalRef(&c.Object)
+		midWidgetPropertySetCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetPropertySet)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midWidgetPropertySetToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWidgetPropertySet)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -1307,6 +1117,198 @@ func doInit(env *jni.Env) error {
 		}
 
 		midCustomVariableRgbaTocColor, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCustomVariable)), "rgbaTocColor", "(FFFF)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/core/motion/MotionPaths")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPaths = env.NewGlobalRef(&c.Object)
+		midPathsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPaths)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midPathsSetupRelative, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPaths)), "setupRelative", "(Landroidx/constraintlayout/core/motion/Motion;Landroidx/constraintlayout/core/motion/MotionPaths;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathsCompareTo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPaths)), "compareTo", "(Landroidx/constraintlayout/core/motion/MotionPaths;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathsApplyParameters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPaths)), "applyParameters", "(Landroidx/constraintlayout/core/motion/MotionWidget;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathsConfigureRelativeTo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPaths)), "configureRelativeTo", "(Landroidx/constraintlayout/core/motion/Motion;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPaths)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/core/motion/CustomAttribute")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCustomAttribute = env.NewGlobalRef(&c.Object)
+		midCustomAttributeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "<init>", "(Ljava/lang/String;Landroidx/constraintlayout/core/motion/CustomAttribute$AttributeType;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCustomAttributeGetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "getType", "()Landroidx/constraintlayout/core/motion/CustomAttribute$AttributeType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCustomAttributeIsContinuous, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "isContinuous", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCustomAttributeSetFloatValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "setFloatValue", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCustomAttributeSetColorValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "setColorValue", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCustomAttributeSetIntValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "setIntValue", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCustomAttributeSetStringValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "setStringValue", "(Ljava/lang/String;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCustomAttributeNumberOfInterpolatedValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "numberOfInterpolatedValues", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCustomAttributeGetValueToInterpolate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "getValueToInterpolate", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCustomAttributeGetValuesToInterpolate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "getValuesToInterpolate", "([F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCustomAttributeSetValue1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "setValue", "([F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCustomAttributeDiff, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "diff", "(Landroidx/constraintlayout/core/motion/CustomAttribute;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCustomAttributeSetValue1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "setValue", "(Ljava/lang/Object;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCustomAttributeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCustomAttributeHsvToRgb, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttribute)), "hsvToRgb", "(FFF)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/constraintlayout/core/motion/CustomAttribute$AttributeType")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCustomAttributeAttributeType = env.NewGlobalRef(&c.Object)
+
+		midCustomAttributeAttributeTypeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttributeAttributeType)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCustomAttributeAttributeTypeValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttributeAttributeType)), "values", "()[Landroidx/constraintlayout/core/motion/CustomAttribute$AttributeType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCustomAttributeAttributeTypeValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCustomAttributeAttributeType)), "valueOf", "(Ljava/lang/String;)Landroidx/constraintlayout/core/motion/CustomAttribute$AttributeType;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

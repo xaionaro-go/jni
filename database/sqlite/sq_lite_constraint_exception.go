@@ -32,6 +32,12 @@ func NewSQLiteConstraintException(vm *jni.VM) (*SQLiteConstraintException, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSQLiteConstraintException == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteConstraintException is not available on this device")
+		}
+		if midSQLiteConstraintExceptionCtor == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteConstraintException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSQLiteConstraintException)), midSQLiteConstraintExceptionCtor)
 		if err != nil {
 			return err

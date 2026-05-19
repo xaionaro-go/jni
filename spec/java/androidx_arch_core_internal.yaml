@@ -35,12 +35,12 @@ classes:
           go_name: HasNext
           returns: boolean
           error: true
-        - java_method: next
-          go_name: Next
-          returns: java.lang.Object
-          error: true
     - java_class: androidx.arch.core.internal.SafeIterableMap$SupportRemove
       go_type: SafeIterableMapSupportRemove
     - java_class: androidx.arch.core.internal.FastSafeIterableMap
       go_type: FastSafeIterableMap
       obtain: constructor
+abstract_callback_eligibility:
+    - java_class: androidx.arch.core.internal.SafeIterableMap$SupportRemove
+      generated: false
+      reason: package_private_abstract_method

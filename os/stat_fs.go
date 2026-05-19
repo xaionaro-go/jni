@@ -32,6 +32,12 @@ func NewStatFs(vm *jni.VM, arg0 string) (*StatFs, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStatFs == nil {
+			return fmt.Errorf("android.os.StatFs is not available on this device")
+		}
+		if midStatFsCtor == nil {
+			return fmt.Errorf("android.os.StatFs constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

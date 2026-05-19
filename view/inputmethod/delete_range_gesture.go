@@ -190,29 +190,6 @@ func (m *DeleteRangeGesture) HashCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.inputmethod.DeleteRangeGesture.writeToParcel.
-func (m *DeleteRangeGesture) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDeleteRangeGestureWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.inputmethod.DeleteRangeGesture.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midDeleteRangeGestureWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.view.inputmethod.DeleteRangeGesture.toString.
 func (m *DeleteRangeGesture) ToString() (string, error) {
 	var result string
@@ -238,4 +215,27 @@ func (m *DeleteRangeGesture) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.inputmethod.DeleteRangeGesture.writeToParcel.
+func (m *DeleteRangeGesture) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDeleteRangeGestureWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.inputmethod.DeleteRangeGesture.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsDeleteRangeGesture)),
+			midDeleteRangeGestureWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

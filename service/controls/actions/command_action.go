@@ -32,6 +32,12 @@ func NewCommandAction(vm *jni.VM, arg0 string) (*CommandAction, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCommandAction == nil {
+			return fmt.Errorf("android.service.controls.actions.CommandAction is not available on this device")
+		}
+		if midCommandActionCtor == nil {
+			return fmt.Errorf("android.service.controls.actions.CommandAction constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewListenerAdapter(vm *jni.VM) (*ListenerAdapter, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsListenerAdapter == nil {
+			return fmt.Errorf("androidx.transition.TransitionListenerAdapter is not available on this device")
+		}
+		if midListenerAdapterCtor == nil {
+			return fmt.Errorf("androidx.transition.TransitionListenerAdapter constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsListenerAdapter)), midListenerAdapterCtor)
 		if err != nil {
 			return err

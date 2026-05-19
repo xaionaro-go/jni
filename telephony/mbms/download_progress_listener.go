@@ -32,6 +32,12 @@ func NewDownloadProgressListener(vm *jni.VM) (*DownloadProgressListener, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDownloadProgressListener == nil {
+			return fmt.Errorf("android.telephony.mbms.DownloadProgressListener is not available on this device")
+		}
+		if midDownloadProgressListenerCtor == nil {
+			return fmt.Errorf("android.telephony.mbms.DownloadProgressListener constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDownloadProgressListener)), midDownloadProgressListenerCtor)
 		if err != nil {
 			return err

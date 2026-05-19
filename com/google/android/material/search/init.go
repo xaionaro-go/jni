@@ -23,72 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsView                                 *jni.GlobalRef
-	midViewCtor                             jni.MethodID
-	midViewAddView                          jni.MethodID
-	midViewSetElevation                     jni.MethodID
-	midViewGetBehavior                      jni.MethodID
-	midViewStartBackProgress                jni.MethodID
-	midViewUpdateBackProgress               jni.MethodID
-	midViewHandleBackInvoked                jni.MethodID
-	midViewCancelBackProgress               jni.MethodID
-	midViewIsSetupWithSearchBar             jni.MethodID
-	midViewSetupWithSearchBar               jni.MethodID
-	midViewAddHeaderView                    jni.MethodID
-	midViewRemoveHeaderView                 jni.MethodID
-	midViewRemoveAllHeaderViews             jni.MethodID
-	midViewSetAnimatedNavigationIcon        jni.MethodID
-	midViewIsAnimatedNavigationIcon         jni.MethodID
-	midViewSetMenuItemsAnimated             jni.MethodID
-	midViewIsMenuItemsAnimated              jni.MethodID
-	midViewSetAutoShowKeyboard              jni.MethodID
-	midViewIsAutoShowKeyboard               jni.MethodID
-	midViewSetUseWindowInsetsController     jni.MethodID
-	midViewIsUseWindowInsetsController      jni.MethodID
-	midViewAddTransitionListener            jni.MethodID
-	midViewRemoveTransitionListener         jni.MethodID
-	midViewInflateMenu                      jni.MethodID
-	midViewSetOnMenuItemClickListener       jni.MethodID
-	midViewGetSearchPrefix                  jni.MethodID
-	midViewSetSearchPrefixText              jni.MethodID
-	midViewGetSearchPrefixText              jni.MethodID
-	midViewGetToolbar                       jni.MethodID
-	midViewGetEditText                      jni.MethodID
-	midViewGetText                          jni.MethodID
-	midViewSetText1                         jni.MethodID
-	midViewSetText1_1                       jni.MethodID
-	midViewClearText                        jni.MethodID
-	midViewGetHint                          jni.MethodID
-	midViewSetHint1                         jni.MethodID
-	midViewSetHint1_1                       jni.MethodID
-	midViewGetSoftInputMode                 jni.MethodID
-	midViewUpdateSoftInputMode              jni.MethodID
-	midViewSetStatusBarSpacerEnabled        jni.MethodID
-	midViewGetCurrentTransitionState        jni.MethodID
-	midViewIsShowing                        jni.MethodID
-	midViewShow                             jni.MethodID
-	midViewHide                             jni.MethodID
-	midViewSetVisible                       jni.MethodID
-	midViewRequestFocusAndShowKeyboard      jni.MethodID
-	midViewClearFocusAndHideKeyboard        jni.MethodID
-	midViewSetModalForAccessibility         jni.MethodID
-	midViewSetToolbarTouchscreenBlocksFocus jni.MethodID
-	midViewToString                         jni.MethodID
-
-	clsViewBehavior                          *jni.GlobalRef
-	midViewBehaviorOnDependentViewChanged3   jni.MethodID
-	midViewBehaviorOnDependentViewChanged3_1 jni.MethodID
-	midViewBehaviorToString                  jni.MethodID
-
-	clsViewTransitionListener               *jni.GlobalRef
-	midViewTransitionListenerOnStateChanged jni.MethodID
-	midViewTransitionListenerToString       jni.MethodID
-
-	clsViewTransitionState         *jni.GlobalRef
-	midViewTransitionStateToString jni.MethodID
-	midViewTransitionStateValues   jni.MethodID
-	midViewTransitionStateValueOf  jni.MethodID
-
 	clsBar                                  *jni.GlobalRef
 	midBarCtor                              jni.MethodID
 	midBarAddView                           jni.MethodID
@@ -142,8 +76,75 @@ var (
 	midBarOnLoadAnimationCallbackToString         jni.MethodID
 
 	clsBarScrollingViewBehavior                       *jni.GlobalRef
+	midBarScrollingViewBehaviorCtor                   jni.MethodID
 	midBarScrollingViewBehaviorOnDependentViewChanged jni.MethodID
 	midBarScrollingViewBehaviorToString               jni.MethodID
+
+	clsView                                 *jni.GlobalRef
+	midViewCtor                             jni.MethodID
+	midViewAddView                          jni.MethodID
+	midViewSetElevation                     jni.MethodID
+	midViewGetBehavior                      jni.MethodID
+	midViewStartBackProgress                jni.MethodID
+	midViewUpdateBackProgress               jni.MethodID
+	midViewHandleBackInvoked                jni.MethodID
+	midViewCancelBackProgress               jni.MethodID
+	midViewIsSetupWithSearchBar             jni.MethodID
+	midViewSetupWithSearchBar               jni.MethodID
+	midViewAddHeaderView                    jni.MethodID
+	midViewRemoveHeaderView                 jni.MethodID
+	midViewRemoveAllHeaderViews             jni.MethodID
+	midViewSetAnimatedNavigationIcon        jni.MethodID
+	midViewIsAnimatedNavigationIcon         jni.MethodID
+	midViewSetMenuItemsAnimated             jni.MethodID
+	midViewIsMenuItemsAnimated              jni.MethodID
+	midViewSetAutoShowKeyboard              jni.MethodID
+	midViewIsAutoShowKeyboard               jni.MethodID
+	midViewSetUseWindowInsetsController     jni.MethodID
+	midViewIsUseWindowInsetsController      jni.MethodID
+	midViewAddTransitionListener            jni.MethodID
+	midViewRemoveTransitionListener         jni.MethodID
+	midViewInflateMenu                      jni.MethodID
+	midViewSetOnMenuItemClickListener       jni.MethodID
+	midViewGetSearchPrefix                  jni.MethodID
+	midViewSetSearchPrefixText              jni.MethodID
+	midViewGetSearchPrefixText              jni.MethodID
+	midViewGetToolbar                       jni.MethodID
+	midViewGetEditText                      jni.MethodID
+	midViewGetText                          jni.MethodID
+	midViewSetText1                         jni.MethodID
+	midViewSetText1_1                       jni.MethodID
+	midViewClearText                        jni.MethodID
+	midViewGetHint                          jni.MethodID
+	midViewSetHint1                         jni.MethodID
+	midViewSetHint1_1                       jni.MethodID
+	midViewGetSoftInputMode                 jni.MethodID
+	midViewUpdateSoftInputMode              jni.MethodID
+	midViewSetStatusBarSpacerEnabled        jni.MethodID
+	midViewGetCurrentTransitionState        jni.MethodID
+	midViewIsShowing                        jni.MethodID
+	midViewShow                             jni.MethodID
+	midViewHide                             jni.MethodID
+	midViewSetVisible                       jni.MethodID
+	midViewRequestFocusAndShowKeyboard      jni.MethodID
+	midViewClearFocusAndHideKeyboard        jni.MethodID
+	midViewSetModalForAccessibility         jni.MethodID
+	midViewSetToolbarTouchscreenBlocksFocus jni.MethodID
+	midViewToString                         jni.MethodID
+
+	clsViewBehavior                       *jni.GlobalRef
+	midViewBehaviorCtor                   jni.MethodID
+	midViewBehaviorOnDependentViewChanged jni.MethodID
+	midViewBehaviorToString               jni.MethodID
+
+	clsViewTransitionListener               *jni.GlobalRef
+	midViewTransitionListenerOnStateChanged jni.MethodID
+	midViewTransitionListenerToString       jni.MethodID
+
+	clsViewTransitionState         *jni.GlobalRef
+	midViewTransitionStateToString jni.MethodID
+	midViewTransitionStateValues   jni.MethodID
+	midViewTransitionStateValueOf  jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -163,6 +164,387 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("com/google/android/material/search/SearchBar")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBar = env.NewGlobalRef(&c.Object)
+		midBarCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midBarAddView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "addView", "(Landroid/view/View;ILandroid/view/ViewGroup$LayoutParams;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarSetElevation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setElevation", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarOnInitializeAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "onInitializeAccessibilityNodeInfo", "(Landroid/view/accessibility/AccessibilityNodeInfo;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarSetNavigationOnClickListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setNavigationOnClickListener", "(Landroid/view/View$OnClickListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarSetNavigationIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setNavigationIcon", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarInflateMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "inflateMenu", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarSetTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setTitle", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarSetSubtitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setSubtitle", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarGetCenterView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "getCenterView", "()Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarSetCenterView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setCenterView", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarGetTextView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "getTextView", "()Landroid/widget/TextView;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarGetText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "getText", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarSetText1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setText", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarSetText1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setText", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarClearText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "clearText", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarGetHint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "getHint", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarSetHint1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setHint", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarSetHint1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setHint", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarGetStrokeColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "getStrokeColor", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarSetStrokeColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setStrokeColor", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarGetStrokeWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "getStrokeWidth", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarSetStrokeWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setStrokeWidth", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarGetCornerSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "getCornerSize", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarIsDefaultScrollFlagsEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "isDefaultScrollFlagsEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarSetDefaultScrollFlagsEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setDefaultScrollFlagsEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarStartOnLoadAnimation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "startOnLoadAnimation", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarStopOnLoadAnimation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "stopOnLoadAnimation", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarIsOnLoadAnimationFadeInEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "isOnLoadAnimationFadeInEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarSetOnLoadAnimationFadeInEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setOnLoadAnimationFadeInEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarAddOnLoadAnimationCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "addOnLoadAnimationCallback", "(Lcom/google/android/material/search/SearchBar$OnLoadAnimationCallback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarRemoveOnLoadAnimationCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "removeOnLoadAnimationCallback", "(Lcom/google/android/material/search/SearchBar$OnLoadAnimationCallback;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarIsExpanding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "isExpanding", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarExpand1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "expand", "(Landroid/view/View;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarExpand2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "expand", "(Landroid/view/View;Lcom/google/android/material/appbar/AppBarLayout;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarExpand3_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "expand", "(Landroid/view/View;Lcom/google/android/material/appbar/AppBarLayout;Z)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarAddExpandAnimationListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "addExpandAnimationListener", "(Landroid/animation/AnimatorListenerAdapter;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarRemoveExpandAnimationListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "removeExpandAnimationListener", "(Landroid/animation/AnimatorListenerAdapter;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarIsCollapsing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "isCollapsing", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarCollapse1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "collapse", "(Landroid/view/View;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarCollapse2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "collapse", "(Landroid/view/View;Lcom/google/android/material/appbar/AppBarLayout;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarCollapse3_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "collapse", "(Landroid/view/View;Lcom/google/android/material/appbar/AppBarLayout;Z)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarAddCollapseAnimationListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "addCollapseAnimationListener", "(Landroid/animation/AnimatorListenerAdapter;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarRemoveCollapseAnimationListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "removeCollapseAnimationListener", "(Landroid/animation/AnimatorListenerAdapter;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/search/SearchBar$OnLoadAnimationCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBarOnLoadAnimationCallback = env.NewGlobalRef(&c.Object)
+
+		midBarOnLoadAnimationCallbackOnAnimationStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBarOnLoadAnimationCallback)), "onAnimationStart", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarOnLoadAnimationCallbackOnAnimationEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBarOnLoadAnimationCallback)), "onAnimationEnd", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarOnLoadAnimationCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBarOnLoadAnimationCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/search/SearchBar$ScrollingViewBehavior")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBarScrollingViewBehavior = env.NewGlobalRef(&c.Object)
+		midBarScrollingViewBehaviorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBarScrollingViewBehavior)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midBarScrollingViewBehaviorOnDependentViewChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBarScrollingViewBehavior)), "onDependentViewChanged", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/View;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBarScrollingViewBehaviorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBarScrollingViewBehavior)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("com/google/android/material/search/SearchView")
 	if err != nil {
@@ -528,15 +910,12 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsViewBehavior = env.NewGlobalRef(&c.Object)
-
-		midViewBehaviorOnDependentViewChanged3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewBehavior)), "onDependentViewChanged", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/search/SearchView;Landroid/view/View;)Z")
+		midViewBehaviorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewBehavior)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
 		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midViewBehaviorOnDependentViewChanged3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewBehavior)), "onDependentViewChanged", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/View;)Z")
+		midViewBehaviorOnDependentViewChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewBehavior)), "onDependentViewChanged", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Lcom/google/android/material/search/SearchView;Landroid/view/View;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -599,383 +978,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midViewTransitionStateValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewTransitionState)), "valueOf", "(Ljava/lang/String;)Lcom/google/android/material/search/SearchView$TransitionState;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/search/SearchBar")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBar = env.NewGlobalRef(&c.Object)
-		midBarCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midBarAddView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "addView", "(Landroid/view/View;ILandroid/view/ViewGroup$LayoutParams;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarSetElevation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setElevation", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarOnInitializeAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "onInitializeAccessibilityNodeInfo", "(Landroid/view/accessibility/AccessibilityNodeInfo;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarSetNavigationOnClickListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setNavigationOnClickListener", "(Landroid/view/View$OnClickListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarSetNavigationIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setNavigationIcon", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarInflateMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "inflateMenu", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarSetTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setTitle", "(Ljava/lang/CharSequence;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarSetSubtitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setSubtitle", "(Ljava/lang/CharSequence;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarGetCenterView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "getCenterView", "()Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarSetCenterView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setCenterView", "(Landroid/view/View;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarGetTextView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "getTextView", "()Landroid/widget/TextView;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarGetText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "getText", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarSetText1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setText", "(Ljava/lang/CharSequence;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarSetText1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setText", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarClearText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "clearText", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarGetHint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "getHint", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarSetHint1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setHint", "(Ljava/lang/CharSequence;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarSetHint1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setHint", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarGetStrokeColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "getStrokeColor", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarSetStrokeColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setStrokeColor", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarGetStrokeWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "getStrokeWidth", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarSetStrokeWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setStrokeWidth", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarGetCornerSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "getCornerSize", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarIsDefaultScrollFlagsEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "isDefaultScrollFlagsEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarSetDefaultScrollFlagsEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setDefaultScrollFlagsEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarStartOnLoadAnimation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "startOnLoadAnimation", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarStopOnLoadAnimation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "stopOnLoadAnimation", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarIsOnLoadAnimationFadeInEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "isOnLoadAnimationFadeInEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarSetOnLoadAnimationFadeInEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "setOnLoadAnimationFadeInEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarAddOnLoadAnimationCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "addOnLoadAnimationCallback", "(Lcom/google/android/material/search/SearchBar$OnLoadAnimationCallback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarRemoveOnLoadAnimationCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "removeOnLoadAnimationCallback", "(Lcom/google/android/material/search/SearchBar$OnLoadAnimationCallback;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarIsExpanding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "isExpanding", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarExpand1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "expand", "(Landroid/view/View;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarExpand2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "expand", "(Landroid/view/View;Lcom/google/android/material/appbar/AppBarLayout;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarExpand3_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "expand", "(Landroid/view/View;Lcom/google/android/material/appbar/AppBarLayout;Z)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarAddExpandAnimationListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "addExpandAnimationListener", "(Landroid/animation/AnimatorListenerAdapter;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarRemoveExpandAnimationListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "removeExpandAnimationListener", "(Landroid/animation/AnimatorListenerAdapter;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarIsCollapsing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "isCollapsing", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarCollapse1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "collapse", "(Landroid/view/View;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarCollapse2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "collapse", "(Landroid/view/View;Lcom/google/android/material/appbar/AppBarLayout;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarCollapse3_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "collapse", "(Landroid/view/View;Lcom/google/android/material/appbar/AppBarLayout;Z)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarAddCollapseAnimationListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "addCollapseAnimationListener", "(Landroid/animation/AnimatorListenerAdapter;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarRemoveCollapseAnimationListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "removeCollapseAnimationListener", "(Landroid/animation/AnimatorListenerAdapter;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBar)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/search/SearchBar$OnLoadAnimationCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBarOnLoadAnimationCallback = env.NewGlobalRef(&c.Object)
-
-		midBarOnLoadAnimationCallbackOnAnimationStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBarOnLoadAnimationCallback)), "onAnimationStart", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarOnLoadAnimationCallbackOnAnimationEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBarOnLoadAnimationCallback)), "onAnimationEnd", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarOnLoadAnimationCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBarOnLoadAnimationCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/search/SearchBar$ScrollingViewBehavior")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBarScrollingViewBehavior = env.NewGlobalRef(&c.Object)
-
-		midBarScrollingViewBehaviorOnDependentViewChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBarScrollingViewBehavior)), "onDependentViewChanged", "(Landroidx/coordinatorlayout/widget/CoordinatorLayout;Landroid/view/View;Landroid/view/View;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBarScrollingViewBehaviorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBarScrollingViewBehavior)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

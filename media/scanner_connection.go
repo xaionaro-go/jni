@@ -32,6 +32,12 @@ func NewScannerConnection(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Scan
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsScannerConnection == nil {
+			return fmt.Errorf("android.media.MediaScannerConnection is not available on this device")
+		}
+		if midScannerConnectionCtor == nil {
+			return fmt.Errorf("android.media.MediaScannerConnection constructor (Landroid/content/Context;Landroid/media/MediaScannerConnection$MediaScannerConnectionClient;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScannerConnection)), midScannerConnectionCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

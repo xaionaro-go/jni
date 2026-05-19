@@ -23,6 +23,34 @@ type PlaybackStateBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPlaybackStateBuilder creates a new android.media.session.PlaybackState$Builder instance.
+func NewPlaybackStateBuilder(vm *jni.VM) (*PlaybackStateBuilder, error) {
+	var t PlaybackStateBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPlaybackStateBuilder == nil {
+			return fmt.Errorf("android.media.session.PlaybackState$Builder is not available on this device")
+		}
+		if midPlaybackStateBuilderCtor == nil {
+			return fmt.Errorf("android.media.session.PlaybackState$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), midPlaybackStateBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddCustomAction1 calls android.media.session.PlaybackState$Builder.addCustomAction.
 func (m *PlaybackStateBuilder) AddCustomAction1(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

@@ -90,7 +90,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midFieldClassificationWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFieldClassification)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midFieldClassificationWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsFieldClassification)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

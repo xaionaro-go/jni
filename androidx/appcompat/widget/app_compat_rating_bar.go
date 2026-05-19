@@ -32,6 +32,12 @@ func NewAppCompatRatingBar(vm *jni.VM, arg0 *jni.Object) (*AppCompatRatingBar, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppCompatRatingBar == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatRatingBar is not available on this device")
+		}
+		if midAppCompatRatingBarCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatRatingBar constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppCompatRatingBar)), midAppCompatRatingBarCtor, jni.ObjectValue(arg0))
 		if err != nil {

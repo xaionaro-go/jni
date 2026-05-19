@@ -32,6 +32,12 @@ func NewClearCredentialStateRequest(vm *jni.VM, arg0 *jni.Object) (*ClearCredent
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsClearCredentialStateRequest == nil {
+			return fmt.Errorf("android.credentials.ClearCredentialStateRequest is not available on this device")
+		}
+		if midClearCredentialStateRequestCtor == nil {
+			return fmt.Errorf("android.credentials.ClearCredentialStateRequest constructor (Landroid/os/Bundle;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsClearCredentialStateRequest)), midClearCredentialStateRequestCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -144,8 +150,8 @@ func (m *ClearCredentialStateRequest) WriteToParcel(arg0 *jni.Object, arg1 int32
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsClearCredentialStateRequest)),
 			midClearCredentialStateRequestWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

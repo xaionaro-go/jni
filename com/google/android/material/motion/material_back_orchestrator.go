@@ -32,6 +32,12 @@ func NewMaterialBackOrchestrator(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object)
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialBackOrchestrator == nil {
+			return fmt.Errorf("com.google.android.material.motion.MaterialBackOrchestrator is not available on this device")
+		}
+		if midMaterialBackOrchestratorCtor == nil {
+			return fmt.Errorf("com.google.android.material.motion.MaterialBackOrchestrator constructor (Lcom/google/android/material/motion/MaterialBackHandler;Landroid/view/View;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialBackOrchestrator)), midMaterialBackOrchestratorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

@@ -32,6 +32,12 @@ func NewLayoutManager(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 int32
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLayoutManager == nil {
+			return fmt.Errorf("com.google.android.material.carousel.CarouselLayoutManager is not available on this device")
+		}
+		if midLayoutManagerCtor == nil {
+			return fmt.Errorf("com.google.android.material.carousel.CarouselLayoutManager constructor (Landroid/content/Context;Landroid/util/AttributeSet;II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLayoutManager)), midLayoutManagerCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3))
 		if err != nil {
@@ -949,34 +955,6 @@ func (m *LayoutManager) OnItemsRemoved(
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midLayoutManagerOnItemsRemoved, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// SetDebuggingEnabled calls com.google.android.material.carousel.CarouselLayoutManager.setDebuggingEnabled.
-func (m *LayoutManager) SetDebuggingEnabled(arg0 *jni.Object, arg1 bool) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midLayoutManagerSetDebuggingEnabled == nil {
-			callErr = fmt.Errorf("com.google.android.material.carousel.CarouselLayoutManager.setDebuggingEnabled is not available on this device")
-			return callErr
-		}
-
-		var jArg1 uint8
-		if arg1 {
-			jArg1 = jniTrue
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midLayoutManagerSetDebuggingEnabled, jni.ObjectValue(arg0), jni.BooleanValue(jArg1),
 		)
 		return callErr
 	})

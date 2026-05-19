@@ -23,6 +23,34 @@ type TextToSpeechEngineInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTextToSpeechEngineInfo creates a new android.speech.tts.TextToSpeech$EngineInfo instance.
+func NewTextToSpeechEngineInfo(vm *jni.VM) (*TextToSpeechEngineInfo, error) {
+	var t TextToSpeechEngineInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTextToSpeechEngineInfo == nil {
+			return fmt.Errorf("android.speech.tts.TextToSpeech$EngineInfo is not available on this device")
+		}
+		if midTextToSpeechEngineInfoCtor == nil {
+			return fmt.Errorf("android.speech.tts.TextToSpeech$EngineInfo constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextToSpeechEngineInfo)), midTextToSpeechEngineInfoCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.speech.tts.TextToSpeech$EngineInfo.toString.
 func (m *TextToSpeechEngineInfo) ToString() (string, error) {
 	var result string

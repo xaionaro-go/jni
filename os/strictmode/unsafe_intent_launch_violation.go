@@ -32,6 +32,12 @@ func NewUnsafeIntentLaunchViolation(vm *jni.VM, arg0 *jni.Object) (*UnsafeIntent
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsUnsafeIntentLaunchViolation == nil {
+			return fmt.Errorf("android.os.strictmode.UnsafeIntentLaunchViolation is not available on this device")
+		}
+		if midUnsafeIntentLaunchViolationCtor == nil {
+			return fmt.Errorf("android.os.strictmode.UnsafeIntentLaunchViolation constructor (Landroid/content/Intent;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUnsafeIntentLaunchViolation)), midUnsafeIntentLaunchViolationCtor, jni.ObjectValue(arg0))
 		if err != nil {

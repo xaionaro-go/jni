@@ -32,6 +32,12 @@ func NewAppCompatTextView(vm *jni.VM, arg0 *jni.Object) (*AppCompatTextView, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppCompatTextView == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatTextView is not available on this device")
+		}
+		if midAppCompatTextViewCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatTextView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppCompatTextView)), midAppCompatTextViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

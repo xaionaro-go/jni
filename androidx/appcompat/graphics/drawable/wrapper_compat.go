@@ -32,6 +32,12 @@ func NewWrapperCompat(vm *jni.VM, arg0 *jni.Object) (*WrapperCompat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWrapperCompat == nil {
+			return fmt.Errorf("androidx.appcompat.graphics.drawable.DrawableWrapperCompat is not available on this device")
+		}
+		if midWrapperCompatCtor == nil {
+			return fmt.Errorf("androidx.appcompat.graphics.drawable.DrawableWrapperCompat constructor (Landroid/graphics/drawable/Drawable;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWrapperCompat)), midWrapperCompatCtor, jni.ObjectValue(arg0))
 		if err != nil {

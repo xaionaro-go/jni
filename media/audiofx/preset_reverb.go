@@ -32,6 +32,12 @@ func NewPresetReverb(vm *jni.VM, arg0 int32, arg1 int32) (*PresetReverb, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPresetReverb == nil {
+			return fmt.Errorf("android.media.audiofx.PresetReverb is not available on this device")
+		}
+		if midPresetReverbCtor == nil {
+			return fmt.Errorf("android.media.audiofx.PresetReverb constructor (II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPresetReverb)), midPresetReverbCtor, jni.IntValue(arg0), jni.IntValue(arg1))
 		if err != nil {

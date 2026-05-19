@@ -32,6 +32,12 @@ func NewDrawerLayout(vm *jni.VM, arg0 *jni.Object) (*DrawerLayout, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDrawerLayout == nil {
+			return fmt.Errorf("androidx.drawerlayout.widget.DrawerLayout is not available on this device")
+		}
+		if midDrawerLayoutCtor == nil {
+			return fmt.Errorf("androidx.drawerlayout.widget.DrawerLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDrawerLayout)), midDrawerLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -408,39 +414,6 @@ func (m *DrawerLayout) SetDrawerTitle(arg0 int32, arg1 string) error {
 		return callErr
 	})
 	return callErr
-}
-
-// GetDrawerTitle calls androidx.drawerlayout.widget.DrawerLayout.getDrawerTitle.
-func (m *DrawerLayout) GetDrawerTitle(arg0 int32) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDrawerLayoutGetDrawerTitle == nil {
-			callErr = fmt.Errorf("androidx.drawerlayout.widget.DrawerLayout.getDrawerTitle is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midDrawerLayoutGetDrawerTitle, jni.IntValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // RequestLayout calls androidx.drawerlayout.widget.DrawerLayout.requestLayout.
@@ -1243,33 +1216,6 @@ func (m *DrawerLayout) OnKeyUp(arg0 int32, arg1 *jni.Object) (bool, error) {
 	return result, callErr
 }
 
-// AddView calls androidx.drawerlayout.widget.DrawerLayout.addView.
-func (m *DrawerLayout) AddView(
-	arg0 *jni.Object,
-	arg1 int32,
-	arg2 *jni.Object,
-) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDrawerLayoutAddView == nil {
-			callErr = fmt.Errorf("androidx.drawerlayout.widget.DrawerLayout.addView is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midDrawerLayoutAddView, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.drawerlayout.widget.DrawerLayout.toString.
 func (m *DrawerLayout) ToString() (string, error) {
 	var result string
@@ -1295,4 +1241,64 @@ func (m *DrawerLayout) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// GetDrawerTitle calls androidx.drawerlayout.widget.DrawerLayout.getDrawerTitle.
+func (m *DrawerLayout) GetDrawerTitle(arg0 int32) (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDrawerLayoutGetDrawerTitle == nil {
+			callErr = fmt.Errorf("androidx.drawerlayout.widget.DrawerLayout.getDrawerTitle is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsDrawerLayout)),
+			midDrawerLayoutGetDrawerTitle, jni.IntValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// AddView calls androidx.drawerlayout.widget.DrawerLayout.addView.
+func (m *DrawerLayout) AddView(
+	arg0 *jni.Object,
+	arg1 int32,
+	arg2 *jni.Object,
+) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDrawerLayoutAddView == nil {
+			callErr = fmt.Errorf("androidx.drawerlayout.widget.DrawerLayout.addView is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsDrawerLayout)),
+			midDrawerLayoutAddView, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2),
+		)
+		return callErr
+	})
+	return callErr
 }

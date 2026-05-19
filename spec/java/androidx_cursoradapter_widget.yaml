@@ -5,6 +5,133 @@
 package: widget
 go_import: github.com/AndroidGoLab/jni/androidx/cursoradapter/widget
 classes:
+    - java_class: androidx.cursoradapter.widget.CursorAdapter
+      go_type: CursorAdapter
+      methods:
+        - java_method: getCursor
+          go_name: GetCursor
+          returns: android.database.Cursor
+          error: true
+        - java_method: getCount
+          go_name: GetCount
+          returns: int
+          error: true
+        - java_method: getItem
+          go_name: GetItem
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: java.lang.Object
+          error: true
+        - java_method: getItemId
+          go_name: GetItemId
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: long
+          error: true
+        - java_method: hasStableIds
+          go_name: HasStableIds
+          returns: boolean
+          error: true
+        - java_method: getView
+          go_name: GetView
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
+            - java_type: android.view.ViewGroup
+              go_name: arg2
+          returns: android.view.View
+          error: true
+        - java_method: getDropDownView
+          go_name: GetDropDownView
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
+            - java_type: android.view.ViewGroup
+              go_name: arg2
+          returns: android.view.View
+          error: true
+        - java_method: newView
+          go_name: NewView
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.database.Cursor
+              go_name: arg1
+            - java_type: android.view.ViewGroup
+              go_name: arg2
+          returns: android.view.View
+          error: true
+        - java_method: newDropDownView
+          go_name: NewDropDownView
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.database.Cursor
+              go_name: arg1
+            - java_type: android.view.ViewGroup
+              go_name: arg2
+          returns: android.view.View
+          error: true
+        - java_method: bindView
+          go_name: BindView
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.content.Context
+              go_name: arg1
+            - java_type: android.database.Cursor
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: changeCursor
+          go_name: ChangeCursor
+          params:
+            - java_type: android.database.Cursor
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: swapCursor
+          go_name: SwapCursor
+          params:
+            - java_type: android.database.Cursor
+              go_name: arg0
+          returns: android.database.Cursor
+          error: true
+        - java_method: convertToString
+          go_name: ConvertToString
+          params:
+            - java_type: android.database.Cursor
+              go_name: arg0
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: runQueryOnBackgroundThread
+          go_name: RunQueryOnBackgroundThread
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.database.Cursor
+          error: true
+        - java_method: getFilter
+          go_name: GetFilter
+          returns: android.widget.Filter
+          error: true
+        - java_method: getFilterQueryProvider
+          go_name: GetFilterQueryProvider
+          returns: android.widget.FilterQueryProvider
+          error: true
+        - java_method: setFilterQueryProvider
+          go_name: SetFilterQueryProvider
+          params:
+            - java_type: android.widget.FilterQueryProvider
+              go_name: arg0
+          returns: void
+          error: true
     - java_class: androidx.cursoradapter.widget.SimpleCursorAdapter
       go_type: SimpleCursorAdapter
       obtain: constructor
@@ -170,254 +297,13 @@ classes:
               go_name: arg0
           returns: void
           error: true
+abstract_callback_eligibility:
     - java_class: androidx.cursoradapter.widget.CursorAdapter
-      go_type: CursorAdapter
-      methods:
-        - java_method: getCursor
-          go_name: GetCursor
-          returns: android.database.Cursor
-          error: true
-        - java_method: getCount
-          go_name: GetCount
-          returns: int
-          error: true
-        - java_method: getItem
-          go_name: GetItem
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: java.lang.Object
-          error: true
-        - java_method: getItemId
-          go_name: GetItemId
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: long
-          error: true
-        - java_method: hasStableIds
-          go_name: HasStableIds
-          returns: boolean
-          error: true
-        - java_method: getView
-          go_name: GetView
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: android.view.ViewGroup
-              go_name: arg2
-          returns: android.view.View
-          error: true
-        - java_method: getDropDownView
-          go_name: GetDropDownView
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: android.view.ViewGroup
-              go_name: arg2
-          returns: android.view.View
-          error: true
-        - java_method: newView
-          go_name: NewView
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.database.Cursor
-              go_name: arg1
-            - java_type: android.view.ViewGroup
-              go_name: arg2
-          returns: android.view.View
-          error: true
-        - java_method: newDropDownView
-          go_name: NewDropDownView
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.database.Cursor
-              go_name: arg1
-            - java_type: android.view.ViewGroup
-              go_name: arg2
-          returns: android.view.View
-          error: true
-        - java_method: bindView
-          go_name: BindView
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.content.Context
-              go_name: arg1
-            - java_type: android.database.Cursor
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: changeCursor
-          go_name: ChangeCursor
-          params:
-            - java_type: android.database.Cursor
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: swapCursor
-          go_name: SwapCursor
-          params:
-            - java_type: android.database.Cursor
-              go_name: arg0
-          returns: android.database.Cursor
-          error: true
-        - java_method: convertToString
-          go_name: ConvertToString
-          params:
-            - java_type: android.database.Cursor
-              go_name: arg0
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: runQueryOnBackgroundThread
-          go_name: RunQueryOnBackgroundThread
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.database.Cursor
-          error: true
-        - java_method: getFilter
-          go_name: GetFilter
-          returns: android.widget.Filter
-          error: true
-        - java_method: getFilterQueryProvider
-          go_name: GetFilterQueryProvider
-          returns: android.widget.FilterQueryProvider
-          error: true
-        - java_method: setFilterQueryProvider
-          go_name: SetFilterQueryProvider
-          params:
-            - java_type: android.widget.FilterQueryProvider
-              go_name: arg0
-          returns: void
-          error: true
-abstract_callbacks:
+      generated: false
+      reason: implements_interface
     - java_class: androidx.cursoradapter.widget.ResourceCursorAdapter
-      go_type: ResourceCursorAdapterCallback
-      methods:
-        - java_method: newView
-          params:
-            - android.content.Context
-            - android.database.Cursor
-            - android.view.ViewGroup
-          returns: android.view.View
-          go_field: NewView
-        - java_method: newDropDownView
-          params:
-            - android.content.Context
-            - android.database.Cursor
-            - android.view.ViewGroup
-          returns: android.view.View
-          go_field: NewDropDownView
-        - java_method: setViewResource
-          params:
-            - int
-          returns: void
-          go_field: SetViewResource
-        - java_method: setDropDownViewResource
-          params:
-            - int
-          returns: void
-          go_field: SetDropDownViewResource
-    - java_class: androidx.cursoradapter.widget.CursorAdapter
-      go_type: CursorAdapterCallback
-      methods:
-        - java_method: getCursor
-          params: []
-          returns: android.database.Cursor
-          go_field: GetCursor
-        - java_method: getCount
-          params: []
-          returns: int
-          go_field: GetCount
-        - java_method: getItem
-          params:
-            - int
-          returns: java.lang.Object
-          go_field: GetItem
-        - java_method: getItemId
-          params:
-            - int
-          returns: long
-          go_field: GetItemId
-        - java_method: hasStableIds
-          params: []
-          returns: boolean
-          go_field: HasStableIds
-        - java_method: getView
-          params:
-            - int
-            - android.view.View
-            - android.view.ViewGroup
-          returns: android.view.View
-          go_field: GetView
-        - java_method: getDropDownView
-          params:
-            - int
-            - android.view.View
-            - android.view.ViewGroup
-          returns: android.view.View
-          go_field: GetDropDownView
-        - java_method: newView
-          params:
-            - android.content.Context
-            - android.database.Cursor
-            - android.view.ViewGroup
-          returns: android.view.View
-          go_field: NewView
-        - java_method: newDropDownView
-          params:
-            - android.content.Context
-            - android.database.Cursor
-            - android.view.ViewGroup
-          returns: android.view.View
-          go_field: NewDropDownView
-        - java_method: bindView
-          params:
-            - android.view.View
-            - android.content.Context
-            - android.database.Cursor
-          returns: void
-          go_field: BindView
-        - java_method: changeCursor
-          params:
-            - android.database.Cursor
-          returns: void
-          go_field: ChangeCursor
-        - java_method: swapCursor
-          params:
-            - android.database.Cursor
-          returns: android.database.Cursor
-          go_field: SwapCursor
-        - java_method: convertToString
-          params:
-            - android.database.Cursor
-          returns: java.lang.CharSequence
-          go_field: ConvertToString
-        - java_method: runQueryOnBackgroundThread
-          params:
-            - java.lang.CharSequence
-          returns: android.database.Cursor
-          go_field: RunQueryOnBackgroundThread
-        - java_method: getFilter
-          params: []
-          returns: android.widget.Filter
-          go_field: GetFilter
-        - java_method: getFilterQueryProvider
-          params: []
-          returns: android.widget.FilterQueryProvider
-          go_field: GetFilterQueryProvider
-        - java_method: setFilterQueryProvider
-          params:
-            - android.widget.FilterQueryProvider
-          returns: void
-          go_field: SetFilterQueryProvider
+      generated: false
+      reason: unsupported_constructor
 constants:
     - go_name: FlagAutoRequery
       value: "1"

@@ -32,6 +32,12 @@ func NewBottomNavigationView(vm *jni.VM, arg0 *jni.Object) (*BottomNavigationVie
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBottomNavigationView == nil {
+			return fmt.Errorf("com.google.android.material.bottomnavigation.BottomNavigationView is not available on this device")
+		}
+		if midBottomNavigationViewCtor == nil {
+			return fmt.Errorf("com.google.android.material.bottomnavigation.BottomNavigationView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBottomNavigationView)), midBottomNavigationViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

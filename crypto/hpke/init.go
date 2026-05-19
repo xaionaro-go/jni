@@ -23,6 +23,14 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsXdhKeySpec          *jni.GlobalRef
+	midXdhKeySpecCtor      jni.MethodID
+	midXdhKeySpecEquals    jni.MethodID
+	midXdhKeySpecGetFormat jni.MethodID
+	midXdhKeySpecGetKey    jni.MethodID
+	midXdhKeySpecHashCode  jni.MethodID
+	midXdhKeySpecToString  jni.MethodID
+
 	clsSpi                         *jni.GlobalRef
 	midSpiEngineExport             jni.MethodID
 	midSpiEngineInitRecipient      jni.MethodID
@@ -32,14 +40,6 @@ var (
 	midSpiEngineSeal               jni.MethodID
 	midSpiGetEncapsulated          jni.MethodID
 	midSpiToString                 jni.MethodID
-
-	clsXdhKeySpec          *jni.GlobalRef
-	midXdhKeySpecCtor      jni.MethodID
-	midXdhKeySpecEquals    jni.MethodID
-	midXdhKeySpecGetFormat jni.MethodID
-	midXdhKeySpecGetKey    jni.MethodID
-	midXdhKeySpecHashCode  jni.MethodID
-	midXdhKeySpecToString  jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -59,6 +59,55 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("android/crypto/hpke/XdhKeySpec")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsXdhKeySpec = env.NewGlobalRef(&c.Object)
+		midXdhKeySpecCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsXdhKeySpec)), "<init>", "([B)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midXdhKeySpecEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsXdhKeySpec)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midXdhKeySpecGetFormat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsXdhKeySpec)), "getFormat", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midXdhKeySpecGetKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsXdhKeySpec)), "getKey", "()[B")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midXdhKeySpecHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsXdhKeySpec)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midXdhKeySpecToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsXdhKeySpec)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("android/crypto/hpke/HpkeSpi")
 	if err != nil {
@@ -118,55 +167,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midSpiToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpi)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/crypto/hpke/XdhKeySpec")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsXdhKeySpec = env.NewGlobalRef(&c.Object)
-		midXdhKeySpecCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsXdhKeySpec)), "<init>", "([B)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midXdhKeySpecEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsXdhKeySpec)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midXdhKeySpecGetFormat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsXdhKeySpec)), "getFormat", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midXdhKeySpecGetKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsXdhKeySpec)), "getKey", "()[B")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midXdhKeySpecHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsXdhKeySpec)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midXdhKeySpecToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsXdhKeySpec)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

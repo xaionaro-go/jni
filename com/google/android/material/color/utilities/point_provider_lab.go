@@ -32,6 +32,12 @@ func NewPointProviderLab(vm *jni.VM) (*PointProviderLab, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPointProviderLab == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.PointProviderLab is not available on this device")
+		}
+		if midPointProviderLabCtor == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.PointProviderLab constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPointProviderLab)), midPointProviderLabCtor)
 		if err != nil {
 			return err

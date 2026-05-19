@@ -32,6 +32,12 @@ func NewToneGenerator(vm *jni.VM, arg0 int32, arg1 int32) (*ToneGenerator, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsToneGenerator == nil {
+			return fmt.Errorf("android.media.ToneGenerator is not available on this device")
+		}
+		if midToneGeneratorCtor == nil {
+			return fmt.Errorf("android.media.ToneGenerator constructor (II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsToneGenerator)), midToneGeneratorCtor, jni.IntValue(arg0), jni.IntValue(arg1))
 		if err != nil {

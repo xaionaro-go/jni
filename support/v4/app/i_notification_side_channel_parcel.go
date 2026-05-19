@@ -21,6 +21,34 @@ type INotificationSideChannel_Parcel struct {
 	Obj *jni.GlobalRef
 }
 
+// NewINotificationSideChannel_Parcel creates a new android.support.v4.app.INotificationSideChannel$_Parcel instance.
+func NewINotificationSideChannel_Parcel(vm *jni.VM) (*INotificationSideChannel_Parcel, error) {
+	var t INotificationSideChannel_Parcel
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsINotificationSideChannel_Parcel == nil {
+			return fmt.Errorf("android.support.v4.app.INotificationSideChannel$_Parcel is not available on this device")
+		}
+		if midINotificationSideChannel_ParcelCtor == nil {
+			return fmt.Errorf("android.support.v4.app.INotificationSideChannel$_Parcel constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsINotificationSideChannel_Parcel)), midINotificationSideChannel_ParcelCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.support.v4.app.INotificationSideChannel$_Parcel.toString.
 func (m *INotificationSideChannel_Parcel) ToString() (string, error) {
 	var result string

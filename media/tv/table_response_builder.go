@@ -23,6 +23,35 @@ type TableResponseBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTableResponseBuilder creates a new android.media.tv.TableResponse$Builder instance.
+func NewTableResponseBuilder(vm *jni.VM, arg0 int32, arg1 int32, arg2 int32, arg3 int32, arg4 int32) (*TableResponseBuilder, error) {
+	var t TableResponseBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTableResponseBuilder == nil {
+			return fmt.Errorf("android.media.tv.TableResponse$Builder is not available on this device")
+		}
+		if midTableResponseBuilderCtor == nil {
+			return fmt.Errorf("android.media.tv.TableResponse$Builder constructor (IIIII)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTableResponseBuilder)), midTableResponseBuilderCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3), jni.IntValue(arg4))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.media.tv.TableResponse$Builder.build.
 func (m *TableResponseBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

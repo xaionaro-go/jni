@@ -23,11 +23,9 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsBottomNavigationMenuView                                    *jni.GlobalRef
-	midBottomNavigationMenuViewCtor                                jni.MethodID
-	midBottomNavigationMenuViewSetItemHorizontalTranslationEnabled jni.MethodID
-	midBottomNavigationMenuViewIsItemHorizontalTranslationEnabled  jni.MethodID
-	midBottomNavigationMenuViewToString                            jni.MethodID
+	clsBottomNavigationItemView         *jni.GlobalRef
+	midBottomNavigationItemViewCtor     jni.MethodID
+	midBottomNavigationItemViewToString jni.MethodID
 
 	clsLabelVisibilityMode         *jni.GlobalRef
 	midLabelVisibilityModeToString jni.MethodID
@@ -47,9 +45,11 @@ var (
 	clsBottomNavigationViewOnNavigationItemSelectedListener         *jni.GlobalRef
 	midBottomNavigationViewOnNavigationItemSelectedListenerToString jni.MethodID
 
-	clsBottomNavigationItemView         *jni.GlobalRef
-	midBottomNavigationItemViewCtor     jni.MethodID
-	midBottomNavigationItemViewToString jni.MethodID
+	clsBottomNavigationMenuView                                    *jni.GlobalRef
+	midBottomNavigationMenuViewCtor                                jni.MethodID
+	midBottomNavigationMenuViewSetItemHorizontalTranslationEnabled jni.MethodID
+	midBottomNavigationMenuViewIsItemHorizontalTranslationEnabled  jni.MethodID
+	midBottomNavigationMenuViewToString                            jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -70,33 +70,19 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("com/google/android/material/bottomnavigation/BottomNavigationMenuView")
+	c, err = env.FindClass("com/google/android/material/bottomnavigation/BottomNavigationItemView")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsBottomNavigationMenuView = env.NewGlobalRef(&c.Object)
-		midBottomNavigationMenuViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomNavigationMenuView)), "<init>", "(Landroid/content/Context;)V")
+		clsBottomNavigationItemView = env.NewGlobalRef(&c.Object)
+		midBottomNavigationItemViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomNavigationItemView)), "<init>", "(Landroid/content/Context;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midBottomNavigationMenuViewSetItemHorizontalTranslationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomNavigationMenuView)), "setItemHorizontalTranslationEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBottomNavigationMenuViewIsItemHorizontalTranslationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomNavigationMenuView)), "isItemHorizontalTranslationEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBottomNavigationMenuViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomNavigationMenuView)), "toString", "()Ljava/lang/String;")
+		midBottomNavigationItemViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomNavigationItemView)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -212,19 +198,33 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("com/google/android/material/bottomnavigation/BottomNavigationItemView")
+	c, err = env.FindClass("com/google/android/material/bottomnavigation/BottomNavigationMenuView")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsBottomNavigationItemView = env.NewGlobalRef(&c.Object)
-		midBottomNavigationItemViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomNavigationItemView)), "<init>", "(Landroid/content/Context;)V")
+		clsBottomNavigationMenuView = env.NewGlobalRef(&c.Object)
+		midBottomNavigationMenuViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomNavigationMenuView)), "<init>", "(Landroid/content/Context;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midBottomNavigationItemViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomNavigationItemView)), "toString", "()Ljava/lang/String;")
+		midBottomNavigationMenuViewSetItemHorizontalTranslationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomNavigationMenuView)), "setItemHorizontalTranslationEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBottomNavigationMenuViewIsItemHorizontalTranslationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomNavigationMenuView)), "isItemHorizontalTranslationEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBottomNavigationMenuViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBottomNavigationMenuView)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

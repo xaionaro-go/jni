@@ -32,6 +32,12 @@ func NewCalendarView(vm *jni.VM, arg0 *jni.Object) (*CalendarView, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCalendarView == nil {
+			return fmt.Errorf("android.widget.CalendarView is not available on this device")
+		}
+		if midCalendarViewCtor == nil {
+			return fmt.Errorf("android.widget.CalendarView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCalendarView)), midCalendarViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

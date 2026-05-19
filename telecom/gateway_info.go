@@ -32,6 +32,12 @@ func NewGatewayInfo(vm *jni.VM, arg0 string, arg1 *jni.Object, arg2 *jni.Object)
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGatewayInfo == nil {
+			return fmt.Errorf("android.telecom.GatewayInfo is not available on this device")
+		}
+		if midGatewayInfoCtor == nil {
+			return fmt.Errorf("android.telecom.GatewayInfo constructor (Ljava/lang/String;Landroid/net/Uri;Landroid/net/Uri;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -194,29 +200,6 @@ func (m *GatewayInfo) IsEmpty() (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.telecom.GatewayInfo.writeToParcel.
-func (m *GatewayInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midGatewayInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.telecom.GatewayInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midGatewayInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.telecom.GatewayInfo.toString.
 func (m *GatewayInfo) ToString() (string, error) {
 	var result string
@@ -242,4 +225,27 @@ func (m *GatewayInfo) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.telecom.GatewayInfo.writeToParcel.
+func (m *GatewayInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midGatewayInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.telecom.GatewayInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsGatewayInfo)),
+			midGatewayInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

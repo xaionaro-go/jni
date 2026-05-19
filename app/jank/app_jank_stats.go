@@ -32,6 +32,12 @@ func NewAppJankStats(vm *jni.VM, arg0 int32, arg1 string, arg2 string, arg3 stri
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppJankStats == nil {
+			return fmt.Errorf("android.app.jank.AppJankStats is not available on this device")
+		}
+		if midAppJankStatsCtor == nil {
+			return fmt.Errorf("android.app.jank.AppJankStats constructor (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JJLandroid/app/jank/RelativeFrameTimeHistogram;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {

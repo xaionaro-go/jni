@@ -32,6 +32,12 @@ func NewMaterialRadioButton(vm *jni.VM, arg0 *jni.Object) (*MaterialRadioButton,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialRadioButton == nil {
+			return fmt.Errorf("com.google.android.material.radiobutton.MaterialRadioButton is not available on this device")
+		}
+		if midMaterialRadioButtonCtor == nil {
+			return fmt.Errorf("com.google.android.material.radiobutton.MaterialRadioButton constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialRadioButton)), midMaterialRadioButtonCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -73,33 +79,6 @@ func (m *MaterialRadioButton) SetUseMaterialThemeColors(arg0 bool) error {
 	return callErr
 }
 
-// IsUseMaterialThemeColors calls com.google.android.material.radiobutton.MaterialRadioButton.isUseMaterialThemeColors.
-func (m *MaterialRadioButton) IsUseMaterialThemeColors() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialRadioButtonIsUseMaterialThemeColors == nil {
-			callErr = fmt.Errorf("com.google.android.material.radiobutton.MaterialRadioButton.isUseMaterialThemeColors is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midMaterialRadioButtonIsUseMaterialThemeColors,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.radiobutton.MaterialRadioButton.toString.
 func (m *MaterialRadioButton) ToString() (string, error) {
 	var result string
@@ -122,6 +101,33 @@ func (m *MaterialRadioButton) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// IsUseMaterialThemeColors calls com.google.android.material.radiobutton.MaterialRadioButton.isUseMaterialThemeColors.
+func (m *MaterialRadioButton) IsUseMaterialThemeColors() (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midMaterialRadioButtonIsUseMaterialThemeColors == nil {
+			callErr = fmt.Errorf("com.google.android.material.radiobutton.MaterialRadioButton.isUseMaterialThemeColors is not available on this device")
+			return callErr
+		}
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsMaterialRadioButton)),
+			midMaterialRadioButtonIsUseMaterialThemeColors,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

@@ -32,6 +32,12 @@ func NewLevelListDrawable(vm *jni.VM) (*LevelListDrawable, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLevelListDrawable == nil {
+			return fmt.Errorf("android.graphics.drawable.LevelListDrawable is not available on this device")
+		}
+		if midLevelListDrawableCtor == nil {
+			return fmt.Errorf("android.graphics.drawable.LevelListDrawable constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLevelListDrawable)), midLevelListDrawableCtor)
 		if err != nil {
 			return err

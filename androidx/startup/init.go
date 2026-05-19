@@ -23,10 +23,9 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsLogger         *jni.GlobalRef
-	midLoggerToString jni.MethodID
-	midLoggerI        jni.MethodID
-	midLoggerE        jni.MethodID
+	clsAppInitializer            *jni.GlobalRef
+	midAppInitializerToString    jni.MethodID
+	midAppInitializerGetInstance jni.MethodID
 
 	clsInitializationProvider         *jni.GlobalRef
 	midInitializationProviderCtor     jni.MethodID
@@ -38,16 +37,17 @@ var (
 	midInitializationProviderUpdate   jni.MethodID
 	midInitializationProviderToString jni.MethodID
 
-	clsException         *jni.GlobalRef
-	midExceptionCtor     jni.MethodID
-	midExceptionToString jni.MethodID
-
-	clsAppInitializer            *jni.GlobalRef
-	midAppInitializerToString    jni.MethodID
-	midAppInitializerGetInstance jni.MethodID
+	clsLogger         *jni.GlobalRef
+	midLoggerToString jni.MethodID
+	midLoggerI        jni.MethodID
+	midLoggerE        jni.MethodID
 
 	clsInitializer         *jni.GlobalRef
 	midInitializerToString jni.MethodID
+
+	clsException         *jni.GlobalRef
+	midExceptionCtor     jni.MethodID
+	midExceptionToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -68,29 +68,22 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("androidx/startup/StartupLogger")
+	c, err = env.FindClass("androidx/startup/AppInitializer")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsLogger = env.NewGlobalRef(&c.Object)
+		clsAppInitializer = env.NewGlobalRef(&c.Object)
 
-		midLoggerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLogger)), "toString", "()Ljava/lang/String;")
+		midAppInitializerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppInitializer)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLoggerI, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLogger)), "i", "(Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLoggerE, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLogger)), "e", "(Ljava/lang/String;Ljava/lang/Throwable;)V")
+		midAppInitializerGetInstance, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAppInitializer)), "getInstance", "(Landroid/content/Context;)Landroidx/startup/AppInitializer;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -162,43 +155,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/startup/StartupException")
+	c, err = env.FindClass("androidx/startup/StartupLogger")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsException = env.NewGlobalRef(&c.Object)
-		midExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsException)), "<init>", "(Ljava/lang/String;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsLogger = env.NewGlobalRef(&c.Object)
 
-		midExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsException)), "toString", "()Ljava/lang/String;")
+		midLoggerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLogger)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("androidx/startup/AppInitializer")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAppInitializer = env.NewGlobalRef(&c.Object)
-
-		midAppInitializerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppInitializer)), "toString", "()Ljava/lang/String;")
+		midLoggerI, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLogger)), "i", "(Ljava/lang/String;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppInitializerGetInstance, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAppInitializer)), "getInstance", "(Landroid/content/Context;)Landroidx/startup/AppInitializer;")
+		midLoggerE, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLogger)), "e", "(Ljava/lang/String;Ljava/lang/Throwable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -216,6 +195,27 @@ func doInit(env *jni.Env) error {
 		clsInitializer = env.NewGlobalRef(&c.Object)
 
 		midInitializerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInitializer)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/startup/StartupException")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsException = env.NewGlobalRef(&c.Object)
+		midExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsException)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsException)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

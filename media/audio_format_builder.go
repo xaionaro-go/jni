@@ -23,6 +23,34 @@ type AudioFormatBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAudioFormatBuilder creates a new android.media.AudioFormat$Builder instance.
+func NewAudioFormatBuilder(vm *jni.VM) (*AudioFormatBuilder, error) {
+	var t AudioFormatBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAudioFormatBuilder == nil {
+			return fmt.Errorf("android.media.AudioFormat$Builder is not available on this device")
+		}
+		if midAudioFormatBuilderCtor == nil {
+			return fmt.Errorf("android.media.AudioFormat$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAudioFormatBuilder)), midAudioFormatBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.media.AudioFormat$Builder.build.
 func (m *AudioFormatBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

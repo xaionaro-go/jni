@@ -23,6 +23,34 @@ type TtsSpanElectronicBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTtsSpanElectronicBuilder creates a new android.text.style.TtsSpan$ElectronicBuilder instance.
+func NewTtsSpanElectronicBuilder(vm *jni.VM) (*TtsSpanElectronicBuilder, error) {
+	var t TtsSpanElectronicBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTtsSpanElectronicBuilder == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$ElectronicBuilder is not available on this device")
+		}
+		if midTtsSpanElectronicBuilderCtor == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$ElectronicBuilder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTtsSpanElectronicBuilder)), midTtsSpanElectronicBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetDomain calls android.text.style.TtsSpan$ElectronicBuilder.setDomain.
 func (m *TtsSpanElectronicBuilder) SetDomain(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

@@ -3,18 +3,20 @@
 package consts
 
 const (
-	ActionWifiRttStateChanged                                string = "android.net.wifi.rtt.action.WIFI_RTT_STATE_CHANGED"
-	CharacteristicsKeyBooleanLci                             string = "key_lci"
-	CharacteristicsKeyBooleanLcr                             string = "key_lcr"
-	CharacteristicsKeyBooleanNtbInitiator                    string = "key_ntb_initiator"
-	CharacteristicsKeyBooleanOneSidedRtt                     string = "key_one_sided_rtt"
-	CharacteristicsKeyBooleanRangingFrameProtectionSupported string = "key_rnm_mfp_supported"
-	CharacteristicsKeyBooleanSecureHeLtfSupported            string = "key_secure_he_ltf_supported"
-	CharacteristicsKeyBooleanStaResponder                    string = "key_sta_responder"
-	CharacteristicsKeyIntMaxSupportedSecureHeLtfProtoVersion string = "key_max_supported_secure_he_ltf_proto_ver"
-)
-
-const (
+	AkmFilsEapSha256                         int = 64
+	AkmFilsEapSha384                         int = 128
+	AkmFtEapSha256                           int = 4
+	AkmFtEapSha384                           int = 16
+	AkmFtPskSha256                           int = 8
+	AkmFtPskSha384                           int = 32
+	AkmNone                                  int = 0
+	AkmPasn                                  int = 1
+	AkmSae                                   int = 2
+	CipherCcmp128                            int = 1
+	CipherCcmp256                            int = 2
+	CipherGcmp128                            int = 4
+	CipherGcmp256                            int = 8
+	CipherNone                               int = 0
 	Creator                                  int = 0
 	StatusFail                               int = 1
 	StatusResponderDoesNotSupportIeee80211mc int = 2
@@ -32,23 +34,8 @@ const (
 	LocationMovementUnknown                  int = 2
 	LocationReserved                         int = 3
 	LocationVariable                         int = 1
-	AkmFilsEapSha256                         int = 64
-	AkmFilsEapSha384                         int = 128
-	AkmFtEapSha256                           int = 4
-	AkmFtEapSha384                           int = 16
-	AkmFtPskSha256                           int = 8
-	AkmFtPskSha384                           int = 32
-	AkmNone                                  int = 0
-	AkmPasn                                  int = 1
-	AkmSae                                   int = 2
-	CipherCcmp128                            int = 1
-	CipherCcmp256                            int = 2
-	CipherGcmp128                            int = 4
-	CipherGcmp256                            int = 8
-	CipherNone                               int = 0
-	SecurityModeOpen                         int = 0
-	SecurityModeOpportunistic                int = 1
-	SecurityModeSecureAuth                   int = 2
+	StatusCodeFail                           int = 1
+	StatusCodeFailRttNotAvailable            int = 2
 	AdditionalCode                           int = 32
 	Apt                                      int = 26
 	Borough                                  int = 4
@@ -81,8 +68,21 @@ const (
 	Sts                                      int = 18
 	SubbranchRoadName                        int = 37
 	TypeOfPlace                              int = 29
-	StatusCodeFail                           int = 1
-	StatusCodeFailRttNotAvailable            int = 2
 	ResponderAp                              int = 0
 	ResponderSta                             int = 1
+	SecurityModeOpen                         int = 0
+	SecurityModeOpportunistic                int = 1
+	SecurityModeSecureAuth                   int = 2
+)
+
+const (
+	ActionWifiRttStateChanged                                string = "android.net.wifi.rtt.action.WIFI_RTT_STATE_CHANGED"
+	CharacteristicsKeyBooleanLci                             string = "key_lci"
+	CharacteristicsKeyBooleanLcr                             string = "key_lcr"
+	CharacteristicsKeyBooleanNtbInitiator                    string = "key_ntb_initiator"
+	CharacteristicsKeyBooleanOneSidedRtt                     string = "key_one_sided_rtt"
+	CharacteristicsKeyBooleanRangingFrameProtectionSupported string = "key_rnm_mfp_supported"
+	CharacteristicsKeyBooleanSecureHeLtfSupported            string = "key_secure_he_ltf_supported"
+	CharacteristicsKeyBooleanStaResponder                    string = "key_sta_responder"
+	CharacteristicsKeyIntMaxSupportedSecureHeLtfProtoVersion string = "key_max_supported_secure_he_ltf_proto_ver"
 )

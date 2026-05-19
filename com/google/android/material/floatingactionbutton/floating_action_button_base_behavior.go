@@ -23,6 +23,35 @@ type FloatingActionButtonBaseBehavior struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFloatingActionButtonBaseBehavior creates a new com.google.android.material.floatingactionbutton.FloatingActionButton$BaseBehavior instance.
+func NewFloatingActionButtonBaseBehavior(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*FloatingActionButtonBaseBehavior, error) {
+	var t FloatingActionButtonBaseBehavior
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFloatingActionButtonBaseBehavior == nil {
+			return fmt.Errorf("com.google.android.material.floatingactionbutton.FloatingActionButton$BaseBehavior is not available on this device")
+		}
+		if midFloatingActionButtonBaseBehaviorCtor == nil {
+			return fmt.Errorf("com.google.android.material.floatingactionbutton.FloatingActionButton$BaseBehavior constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFloatingActionButtonBaseBehavior)), midFloatingActionButtonBaseBehaviorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetAutoHideEnabled calls com.google.android.material.floatingactionbutton.FloatingActionButton$BaseBehavior.setAutoHideEnabled.
 func (m *FloatingActionButtonBaseBehavior) SetAutoHideEnabled(arg0 bool) error {
 
@@ -100,8 +129,8 @@ func (m *FloatingActionButtonBaseBehavior) OnAttachedToLayoutParams(arg0 *jni.Ob
 	return callErr
 }
 
-// OnDependentViewChanged3 calls com.google.android.material.floatingactionbutton.FloatingActionButton$BaseBehavior.onDependentViewChanged.
-func (m *FloatingActionButtonBaseBehavior) OnDependentViewChanged3(
+// OnDependentViewChanged calls com.google.android.material.floatingactionbutton.FloatingActionButton$BaseBehavior.onDependentViewChanged.
+func (m *FloatingActionButtonBaseBehavior) OnDependentViewChanged(
 	arg0 *jni.Object,
 	arg1 *jni.Object,
 	arg2 *jni.Object,
@@ -113,7 +142,7 @@ func (m *FloatingActionButtonBaseBehavior) OnDependentViewChanged3(
 			callErr = err
 			return err
 		}
-		if midFloatingActionButtonBaseBehaviorOnDependentViewChanged3 == nil {
+		if midFloatingActionButtonBaseBehaviorOnDependentViewChanged == nil {
 			callErr = fmt.Errorf("com.google.android.material.floatingactionbutton.FloatingActionButton$BaseBehavior.onDependentViewChanged is not available on this device")
 			return callErr
 		}
@@ -121,7 +150,7 @@ func (m *FloatingActionButtonBaseBehavior) OnDependentViewChanged3(
 		var resultRaw uint8
 		resultRaw, callErr = env.CallBooleanMethod(
 			m.Obj,
-			midFloatingActionButtonBaseBehaviorOnDependentViewChanged3, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
+			midFloatingActionButtonBaseBehaviorOnDependentViewChanged, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
 		)
 		if callErr != nil {
 			return callErr
@@ -155,8 +184,8 @@ func (m *FloatingActionButtonBaseBehavior) SetInternalAutoHideListener(arg0 *jni
 	return callErr
 }
 
-// OnLayoutChild3 calls com.google.android.material.floatingactionbutton.FloatingActionButton$BaseBehavior.onLayoutChild.
-func (m *FloatingActionButtonBaseBehavior) OnLayoutChild3(
+// OnLayoutChild calls com.google.android.material.floatingactionbutton.FloatingActionButton$BaseBehavior.onLayoutChild.
+func (m *FloatingActionButtonBaseBehavior) OnLayoutChild(
 	arg0 *jni.Object,
 	arg1 *jni.Object,
 	arg2 int32,
@@ -168,7 +197,7 @@ func (m *FloatingActionButtonBaseBehavior) OnLayoutChild3(
 			callErr = err
 			return err
 		}
-		if midFloatingActionButtonBaseBehaviorOnLayoutChild3 == nil {
+		if midFloatingActionButtonBaseBehaviorOnLayoutChild == nil {
 			callErr = fmt.Errorf("com.google.android.material.floatingactionbutton.FloatingActionButton$BaseBehavior.onLayoutChild is not available on this device")
 			return callErr
 		}
@@ -176,7 +205,7 @@ func (m *FloatingActionButtonBaseBehavior) OnLayoutChild3(
 		var resultRaw uint8
 		resultRaw, callErr = env.CallBooleanMethod(
 			m.Obj,
-			midFloatingActionButtonBaseBehaviorOnLayoutChild3, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2),
+			midFloatingActionButtonBaseBehaviorOnLayoutChild, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2),
 		)
 		if callErr != nil {
 			return callErr
@@ -187,8 +216,8 @@ func (m *FloatingActionButtonBaseBehavior) OnLayoutChild3(
 	return result, callErr
 }
 
-// GetInsetDodgeRect3 calls com.google.android.material.floatingactionbutton.FloatingActionButton$BaseBehavior.getInsetDodgeRect.
-func (m *FloatingActionButtonBaseBehavior) GetInsetDodgeRect3(
+// GetInsetDodgeRect calls com.google.android.material.floatingactionbutton.FloatingActionButton$BaseBehavior.getInsetDodgeRect.
+func (m *FloatingActionButtonBaseBehavior) GetInsetDodgeRect(
 	arg0 *jni.Object,
 	arg1 *jni.Object,
 	arg2 *jni.Object,
@@ -200,7 +229,7 @@ func (m *FloatingActionButtonBaseBehavior) GetInsetDodgeRect3(
 			callErr = err
 			return err
 		}
-		if midFloatingActionButtonBaseBehaviorGetInsetDodgeRect3 == nil {
+		if midFloatingActionButtonBaseBehaviorGetInsetDodgeRect == nil {
 			callErr = fmt.Errorf("com.google.android.material.floatingactionbutton.FloatingActionButton$BaseBehavior.getInsetDodgeRect is not available on this device")
 			return callErr
 		}
@@ -208,103 +237,7 @@ func (m *FloatingActionButtonBaseBehavior) GetInsetDodgeRect3(
 		var resultRaw uint8
 		resultRaw, callErr = env.CallBooleanMethod(
 			m.Obj,
-			midFloatingActionButtonBaseBehaviorGetInsetDodgeRect3, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetInsetDodgeRect3_1 calls com.google.android.material.floatingactionbutton.FloatingActionButton$BaseBehavior.getInsetDodgeRect.
-func (m *FloatingActionButtonBaseBehavior) GetInsetDodgeRect3_1(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFloatingActionButtonBaseBehaviorGetInsetDodgeRect3_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.floatingactionbutton.FloatingActionButton$BaseBehavior.getInsetDodgeRect is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midFloatingActionButtonBaseBehaviorGetInsetDodgeRect3_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// OnLayoutChild3_1 calls com.google.android.material.floatingactionbutton.FloatingActionButton$BaseBehavior.onLayoutChild.
-func (m *FloatingActionButtonBaseBehavior) OnLayoutChild3_1(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 int32,
-) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFloatingActionButtonBaseBehaviorOnLayoutChild3_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.floatingactionbutton.FloatingActionButton$BaseBehavior.onLayoutChild is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midFloatingActionButtonBaseBehaviorOnLayoutChild3_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// OnDependentViewChanged3_1 calls com.google.android.material.floatingactionbutton.FloatingActionButton$BaseBehavior.onDependentViewChanged.
-func (m *FloatingActionButtonBaseBehavior) OnDependentViewChanged3_1(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFloatingActionButtonBaseBehaviorOnDependentViewChanged3_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.floatingactionbutton.FloatingActionButton$BaseBehavior.onDependentViewChanged is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midFloatingActionButtonBaseBehaviorOnDependentViewChanged3_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
+			midFloatingActionButtonBaseBehaviorGetInsetDodgeRect, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
 		)
 		if callErr != nil {
 			return callErr

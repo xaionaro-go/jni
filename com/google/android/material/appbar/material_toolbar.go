@@ -32,6 +32,12 @@ func NewMaterialToolbar(vm *jni.VM, arg0 *jni.Object) (*MaterialToolbar, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialToolbar == nil {
+			return fmt.Errorf("com.google.android.material.appbar.MaterialToolbar is not available on this device")
+		}
+		if midMaterialToolbarCtor == nil {
+			return fmt.Errorf("com.google.android.material.appbar.MaterialToolbar constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialToolbar)), midMaterialToolbarCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -382,33 +388,6 @@ func (m *MaterialToolbar) SetSubtitleCentered(arg0 bool) error {
 	return callErr
 }
 
-// IsSubtitleCentered calls com.google.android.material.appbar.MaterialToolbar.isSubtitleCentered.
-func (m *MaterialToolbar) IsSubtitleCentered() (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialToolbarIsSubtitleCentered == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.MaterialToolbar.isSubtitleCentered is not available on this device")
-			return callErr
-		}
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midMaterialToolbarIsSubtitleCentered,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.appbar.MaterialToolbar.toString.
 func (m *MaterialToolbar) ToString() (string, error) {
 	var result string
@@ -431,6 +410,33 @@ func (m *MaterialToolbar) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// IsSubtitleCentered calls com.google.android.material.appbar.MaterialToolbar.isSubtitleCentered.
+func (m *MaterialToolbar) IsSubtitleCentered() (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midMaterialToolbarIsSubtitleCentered == nil {
+			callErr = fmt.Errorf("com.google.android.material.appbar.MaterialToolbar.isSubtitleCentered is not available on this device")
+			return callErr
+		}
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsMaterialToolbar)),
+			midMaterialToolbarIsSubtitleCentered,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

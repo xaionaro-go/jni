@@ -32,6 +32,12 @@ func NewResourceBusyException(vm *jni.VM, arg0 string) (*ResourceBusyException, 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsResourceBusyException == nil {
+			return fmt.Errorf("android.media.ResourceBusyException is not available on this device")
+		}
+		if midResourceBusyExceptionCtor == nil {
+			return fmt.Errorf("android.media.ResourceBusyException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

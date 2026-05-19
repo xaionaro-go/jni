@@ -32,6 +32,12 @@ func NewLocalServerSocket(vm *jni.VM, arg0 *jni.Object) (*LocalServerSocket, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLocalServerSocket == nil {
+			return fmt.Errorf("android.net.LocalServerSocket is not available on this device")
+		}
+		if midLocalServerSocketCtor == nil {
+			return fmt.Errorf("android.net.LocalServerSocket constructor (Ljava/io/FileDescriptor;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLocalServerSocket)), midLocalServerSocketCtor, jni.ObjectValue(arg0))
 		if err != nil {

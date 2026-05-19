@@ -32,6 +32,12 @@ func NewNavigationMenuPresenter(vm *jni.VM) (*NavigationMenuPresenter, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNavigationMenuPresenter == nil {
+			return fmt.Errorf("com.google.android.material.internal.NavigationMenuPresenter is not available on this device")
+		}
+		if midNavigationMenuPresenterCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.NavigationMenuPresenter constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNavigationMenuPresenter)), midNavigationMenuPresenterCtor)
 		if err != nil {
 			return err
@@ -1374,29 +1380,6 @@ func (m *NavigationMenuPresenter) DispatchApplyWindowInsets(arg0 *jni.Object) er
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midNavigationMenuPresenterDispatchApplyWindowInsets, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// SetOverScrollMode calls com.google.android.material.internal.NavigationMenuPresenter.setOverScrollMode.
-func (m *NavigationMenuPresenter) SetOverScrollMode(arg0 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midNavigationMenuPresenterSetOverScrollMode == nil {
-			callErr = fmt.Errorf("com.google.android.material.internal.NavigationMenuPresenter.setOverScrollMode is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midNavigationMenuPresenterSetOverScrollMode, jni.IntValue(arg0),
 		)
 		return callErr
 	})

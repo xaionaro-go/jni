@@ -32,6 +32,12 @@ func NewDependencyNode(vm *jni.VM, arg0 *jni.Object) (*DependencyNode, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDependencyNode == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.widgets.analyzer.DependencyNode is not available on this device")
+		}
+		if midDependencyNodeCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.widgets.analyzer.DependencyNode constructor (Landroidx/constraintlayout/solver/widgets/analyzer/WidgetRun;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDependencyNode)), midDependencyNodeCtor, jni.ObjectValue(arg0))
 		if err != nil {

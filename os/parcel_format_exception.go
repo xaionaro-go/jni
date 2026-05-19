@@ -32,6 +32,12 @@ func NewParcelFormatException(vm *jni.VM) (*ParcelFormatException, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsParcelFormatException == nil {
+			return fmt.Errorf("android.os.ParcelFormatException is not available on this device")
+		}
+		if midParcelFormatExceptionCtor == nil {
+			return fmt.Errorf("android.os.ParcelFormatException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsParcelFormatException)), midParcelFormatExceptionCtor)
 		if err != nil {
 			return err

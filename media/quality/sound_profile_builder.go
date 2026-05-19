@@ -23,6 +23,35 @@ type SoundProfileBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSoundProfileBuilder creates a new android.media.quality.SoundProfile$Builder instance.
+func NewSoundProfileBuilder(vm *jni.VM, arg0 *jni.Object) (*SoundProfileBuilder, error) {
+	var t SoundProfileBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSoundProfileBuilder == nil {
+			return fmt.Errorf("android.media.quality.SoundProfile$Builder is not available on this device")
+		}
+		if midSoundProfileBuilderCtor == nil {
+			return fmt.Errorf("android.media.quality.SoundProfile$Builder constructor (Landroid/media/quality/SoundProfile;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSoundProfileBuilder)), midSoundProfileBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.media.quality.SoundProfile$Builder.build.
 func (m *SoundProfileBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

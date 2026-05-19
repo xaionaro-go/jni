@@ -32,7 +32,6 @@ var (
 
 	clsSafeIterableMapIteratorWithAdditions         *jni.GlobalRef
 	midSafeIterableMapIteratorWithAdditionsHasNext  jni.MethodID
-	midSafeIterableMapIteratorWithAdditionsNext     jni.MethodID
 	midSafeIterableMapIteratorWithAdditionsToString jni.MethodID
 
 	clsSafeIterableMapSupportRemove         *jni.GlobalRef
@@ -112,13 +111,6 @@ func doInit(env *jni.Env) error {
 		clsSafeIterableMapIteratorWithAdditions = env.NewGlobalRef(&c.Object)
 
 		midSafeIterableMapIteratorWithAdditionsHasNext, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSafeIterableMapIteratorWithAdditions)), "hasNext", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSafeIterableMapIteratorWithAdditionsNext, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSafeIterableMapIteratorWithAdditions)), "next", "()Ljava/lang/Object;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

@@ -23,6 +23,12 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsNavigationRailMenuView                     *jni.GlobalRef
+	midNavigationRailMenuViewCtor                 jni.MethodID
+	midNavigationRailMenuViewSetItemMinimumHeight jni.MethodID
+	midNavigationRailMenuViewGetItemMinimumHeight jni.MethodID
+	midNavigationRailMenuViewToString             jni.MethodID
+
 	clsNavigationRailView                     *jni.GlobalRef
 	midNavigationRailViewCtor                 jni.MethodID
 	midNavigationRailViewAddHeaderView1       jni.MethodID
@@ -35,12 +41,6 @@ var (
 	midNavigationRailViewSetItemMinimumHeight jni.MethodID
 	midNavigationRailViewGetMaxItemCount      jni.MethodID
 	midNavigationRailViewToString             jni.MethodID
-
-	clsNavigationRailMenuView                     *jni.GlobalRef
-	midNavigationRailMenuViewCtor                 jni.MethodID
-	midNavigationRailMenuViewSetItemMinimumHeight jni.MethodID
-	midNavigationRailMenuViewGetItemMinimumHeight jni.MethodID
-	midNavigationRailMenuViewToString             jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -60,6 +60,41 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("com/google/android/material/navigationrail/NavigationRailMenuView")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsNavigationRailMenuView = env.NewGlobalRef(&c.Object)
+		midNavigationRailMenuViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNavigationRailMenuView)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midNavigationRailMenuViewSetItemMinimumHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNavigationRailMenuView)), "setItemMinimumHeight", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midNavigationRailMenuViewGetItemMinimumHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNavigationRailMenuView)), "getItemMinimumHeight", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midNavigationRailMenuViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNavigationRailMenuView)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("com/google/android/material/navigationrail/NavigationRailView")
 	if err != nil {
@@ -137,41 +172,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midNavigationRailViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNavigationRailView)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/navigationrail/NavigationRailMenuView")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsNavigationRailMenuView = env.NewGlobalRef(&c.Object)
-		midNavigationRailMenuViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNavigationRailMenuView)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midNavigationRailMenuViewSetItemMinimumHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNavigationRailMenuView)), "setItemMinimumHeight", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midNavigationRailMenuViewGetItemMinimumHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNavigationRailMenuView)), "getItemMinimumHeight", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midNavigationRailMenuViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNavigationRailMenuView)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

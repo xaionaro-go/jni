@@ -32,6 +32,12 @@ func NewLuhnChecksumValidator(vm *jni.VM, arg0 *jni.Object) (*LuhnChecksumValida
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLuhnChecksumValidator == nil {
+			return fmt.Errorf("android.service.autofill.LuhnChecksumValidator is not available on this device")
+		}
+		if midLuhnChecksumValidatorCtor == nil {
+			return fmt.Errorf("android.service.autofill.LuhnChecksumValidator constructor ([Landroid/view/autofill/AutofillId;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLuhnChecksumValidator)), midLuhnChecksumValidatorCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -112,8 +118,8 @@ func (m *LuhnChecksumValidator) WriteToParcel(arg0 *jni.Object, arg1 int32) erro
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsLuhnChecksumValidator)),
 			midLuhnChecksumValidatorWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

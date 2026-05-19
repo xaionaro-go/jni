@@ -23,27 +23,32 @@ type ConstraintSetMotion struct {
 	Obj *jni.GlobalRef
 }
 
-// CopyFrom calls androidx.constraintlayout.widget.ConstraintSet$Motion.copyFrom.
-func (m *ConstraintSetMotion) CopyFrom(arg0 *jni.Object) error {
+// NewConstraintSetMotion creates a new androidx.constraintlayout.widget.ConstraintSet$Motion instance.
+func NewConstraintSetMotion(vm *jni.VM) (*ConstraintSetMotion, error) {
+	var t ConstraintSetMotion
+	t.VM = vm
 
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
+	err := vm.Do(func(env *jni.Env) error {
 		if err := ensureInit(env); err != nil {
-			callErr = err
 			return err
 		}
-		if midConstraintSetMotionCopyFrom == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet$Motion.copyFrom is not available on this device")
-			return callErr
+		if clsConstraintSetMotion == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet$Motion is not available on this device")
 		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midConstraintSetMotionCopyFrom, jni.ObjectValue(arg0),
-		)
-		return callErr
+		if midConstraintSetMotionCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet$Motion constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConstraintSetMotion)), midConstraintSetMotionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
 	})
-	return callErr
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
 }
 
 // ToString calls androidx.constraintlayout.widget.ConstraintSet$Motion.toString.
@@ -71,4 +76,27 @@ func (m *ConstraintSetMotion) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// CopyFrom calls androidx.constraintlayout.widget.ConstraintSet$Motion.copyFrom.
+func (m *ConstraintSetMotion) CopyFrom(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midConstraintSetMotionCopyFrom == nil {
+			callErr = fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet$Motion.copyFrom is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsConstraintSetMotion)),
+			midConstraintSetMotionCopyFrom, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -521,29 +521,6 @@ func (m *EmojiCompat) GetAssetSignature() (string, error) {
 	return result, callErr
 }
 
-// UpdateEditorInfo calls androidx.emoji2.text.EmojiCompat.updateEditorInfo.
-func (m *EmojiCompat) UpdateEditorInfo(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midEmojiCompatUpdateEditorInfo == nil {
-			callErr = fmt.Errorf("androidx.emoji2.text.EmojiCompat.updateEditorInfo is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midEmojiCompatUpdateEditorInfo, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.emoji2.text.EmojiCompat.toString.
 func (m *EmojiCompat) ToString() (string, error) {
 	var result string

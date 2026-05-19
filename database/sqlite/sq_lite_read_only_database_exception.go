@@ -32,6 +32,12 @@ func NewSQLiteReadOnlyDatabaseException(vm *jni.VM) (*SQLiteReadOnlyDatabaseExce
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSQLiteReadOnlyDatabaseException == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteReadOnlyDatabaseException is not available on this device")
+		}
+		if midSQLiteReadOnlyDatabaseExceptionCtor == nil {
+			return fmt.Errorf("android.database.sqlite.SQLiteReadOnlyDatabaseException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSQLiteReadOnlyDatabaseException)), midSQLiteReadOnlyDatabaseExceptionCtor)
 		if err != nil {
 			return err

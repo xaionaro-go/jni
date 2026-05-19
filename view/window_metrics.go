@@ -32,6 +32,12 @@ func NewWindowMetrics(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*WindowMe
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWindowMetrics == nil {
+			return fmt.Errorf("android.view.WindowMetrics is not available on this device")
+		}
+		if midWindowMetricsCtor == nil {
+			return fmt.Errorf("android.view.WindowMetrics constructor (Landroid/graphics/Rect;Landroid/view/WindowInsets;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWindowMetrics)), midWindowMetricsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

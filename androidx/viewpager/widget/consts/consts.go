@@ -3,10 +3,10 @@
 package consts
 
 const (
+	PositionUnchanged   int = -1
+	PositionNone        int = -2
 	ScrollStateIdle     int = 0
 	ScrollStateDragging int = 1
 	ScrollStateSettling int = 2
 	Creator             int = 0
-	PositionUnchanged   int = -1
-	PositionNone        int = -2
 )

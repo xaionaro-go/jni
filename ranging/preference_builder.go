@@ -23,6 +23,35 @@ type PreferenceBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPreferenceBuilder creates a new android.ranging.RangingPreference$Builder instance.
+func NewPreferenceBuilder(vm *jni.VM, arg0 int32, arg1 *jni.Object) (*PreferenceBuilder, error) {
+	var t PreferenceBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPreferenceBuilder == nil {
+			return fmt.Errorf("android.ranging.RangingPreference$Builder is not available on this device")
+		}
+		if midPreferenceBuilderCtor == nil {
+			return fmt.Errorf("android.ranging.RangingPreference$Builder constructor (ILandroid/ranging/RangingConfig;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPreferenceBuilder)), midPreferenceBuilderCtor, jni.IntValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.ranging.RangingPreference$Builder.build.
 func (m *PreferenceBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

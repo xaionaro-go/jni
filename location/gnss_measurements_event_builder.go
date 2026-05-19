@@ -23,6 +23,34 @@ type GnssMeasurementsEventBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGnssMeasurementsEventBuilder creates a new android.location.GnssMeasurementsEvent$Builder instance.
+func NewGnssMeasurementsEventBuilder(vm *jni.VM) (*GnssMeasurementsEventBuilder, error) {
+	var t GnssMeasurementsEventBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGnssMeasurementsEventBuilder == nil {
+			return fmt.Errorf("android.location.GnssMeasurementsEvent$Builder is not available on this device")
+		}
+		if midGnssMeasurementsEventBuilderCtor == nil {
+			return fmt.Errorf("android.location.GnssMeasurementsEvent$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGnssMeasurementsEventBuilder)), midGnssMeasurementsEventBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.location.GnssMeasurementsEvent$Builder.build.
 func (m *GnssMeasurementsEventBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

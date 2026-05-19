@@ -23,6 +23,35 @@ type CoordinatorLayoutLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCoordinatorLayoutLayoutParams creates a new androidx.coordinatorlayout.widget.CoordinatorLayout$LayoutParams instance.
+func NewCoordinatorLayoutLayoutParams(vm *jni.VM, arg0 int32, arg1 int32) (*CoordinatorLayoutLayoutParams, error) {
+	var t CoordinatorLayoutLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCoordinatorLayoutLayoutParams == nil {
+			return fmt.Errorf("androidx.coordinatorlayout.widget.CoordinatorLayout$LayoutParams is not available on this device")
+		}
+		if midCoordinatorLayoutLayoutParamsCtor == nil {
+			return fmt.Errorf("androidx.coordinatorlayout.widget.CoordinatorLayout$LayoutParams constructor (II)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCoordinatorLayoutLayoutParams)), midCoordinatorLayoutLayoutParamsCtor, jni.IntValue(arg0), jni.IntValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetAnchorId calls androidx.coordinatorlayout.widget.CoordinatorLayout$LayoutParams.getAnchorId.
 func (m *CoordinatorLayoutLayoutParams) GetAnchorId() (int32, error) {
 	var result int32

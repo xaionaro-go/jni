@@ -32,6 +32,12 @@ func NewEmbossMaskFilter(vm *jni.VM, arg0 *jni.Object, arg1 float32, arg2 float3
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEmbossMaskFilter == nil {
+			return fmt.Errorf("android.graphics.EmbossMaskFilter is not available on this device")
+		}
+		if midEmbossMaskFilterCtor == nil {
+			return fmt.Errorf("android.graphics.EmbossMaskFilter constructor ([FFFF)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEmbossMaskFilter)), midEmbossMaskFilterCtor, jni.ObjectValue(arg0), jni.FloatValue(arg1), jni.FloatValue(arg2), jni.FloatValue(arg3))
 		if err != nil {

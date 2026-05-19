@@ -82,6 +82,12 @@ func New{{.GoType}}(vm *jni.VM) (*{{.GoType}}, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if cls{{.GoType}} == nil {
+			return fmt.Errorf("{{.JavaClass}} is not available on this device")
+		}
+		if mid{{.GoType}}Ctor == nil {
+			return fmt.Errorf("{{.JavaClass}} constructor {{.ConstructorJNISig}} is not available on this device")
+		}
 {{range .ConstructorParams}}		{{paramConversionCode .}}
 {{end -}}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(cls{{.GoType}})), mid{{.GoType}}Ctor{{jniArgs .ConstructorParams}})

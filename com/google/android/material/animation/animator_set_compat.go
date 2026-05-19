@@ -32,6 +32,12 @@ func NewAnimatorSetCompat(vm *jni.VM) (*AnimatorSetCompat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAnimatorSetCompat == nil {
+			return fmt.Errorf("com.google.android.material.animation.AnimatorSetCompat is not available on this device")
+		}
+		if midAnimatorSetCompatCtor == nil {
+			return fmt.Errorf("com.google.android.material.animation.AnimatorSetCompat constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAnimatorSetCompat)), midAnimatorSetCompatCtor)
 		if err != nil {
 			return err

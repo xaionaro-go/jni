@@ -32,6 +32,12 @@ func NewWebViewClient(vm *jni.VM) (*WebViewClient, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWebViewClient == nil {
+			return fmt.Errorf("android.webkit.WebViewClient is not available on this device")
+		}
+		if midWebViewClientCtor == nil {
+			return fmt.Errorf("android.webkit.WebViewClient constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWebViewClient)), midWebViewClientCtor)
 		if err != nil {
 			return err

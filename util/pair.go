@@ -32,6 +32,12 @@ func NewPair(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Pair, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPair == nil {
+			return fmt.Errorf("android.util.Pair is not available on this device")
+		}
+		if midPairCtor == nil {
+			return fmt.Errorf("android.util.Pair constructor (Ljava/lang/F;Ljava/lang/S;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPair)), midPairCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

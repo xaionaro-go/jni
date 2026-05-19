@@ -23,6 +23,34 @@ type LoginFilterUsernameFilterGeneric struct {
 	Obj *jni.GlobalRef
 }
 
+// NewLoginFilterUsernameFilterGeneric creates a new android.text.LoginFilter$UsernameFilterGeneric instance.
+func NewLoginFilterUsernameFilterGeneric(vm *jni.VM) (*LoginFilterUsernameFilterGeneric, error) {
+	var t LoginFilterUsernameFilterGeneric
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsLoginFilterUsernameFilterGeneric == nil {
+			return fmt.Errorf("android.text.LoginFilter$UsernameFilterGeneric is not available on this device")
+		}
+		if midLoginFilterUsernameFilterGenericCtor == nil {
+			return fmt.Errorf("android.text.LoginFilter$UsernameFilterGeneric constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLoginFilterUsernameFilterGeneric)), midLoginFilterUsernameFilterGenericCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // IsAllowed calls android.text.LoginFilter$UsernameFilterGeneric.isAllowed.
 func (m *LoginFilterUsernameFilterGeneric) IsAllowed(arg0 uint16) (bool, error) {
 	var result bool

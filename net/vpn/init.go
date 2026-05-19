@@ -37,6 +37,7 @@ var (
 	midServicePrepare               jni.MethodID
 
 	clsServiceBuilder                         *jni.GlobalRef
+	midServiceBuilderCtor                     jni.MethodID
 	midServiceBuilderAddAddress2              jni.MethodID
 	midServiceBuilderAddAddress2_1            jni.MethodID
 	midServiceBuilderAddAllowedApplication    jni.MethodID
@@ -170,6 +171,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsServiceBuilder = env.NewGlobalRef(&c.Object)
+		midServiceBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServiceBuilder)), "<init>", "(Landroid/net/VpnService;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midServiceBuilderAddAddress2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServiceBuilder)), "addAddress", "(Ljava/lang/String;I)Landroid/net/VpnService$Builder;")
 		if err != nil {

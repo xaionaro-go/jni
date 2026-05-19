@@ -32,6 +32,12 @@ func NewImageFormat(vm *jni.VM) (*ImageFormat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsImageFormat == nil {
+			return fmt.Errorf("android.graphics.ImageFormat is not available on this device")
+		}
+		if midImageFormatCtor == nil {
+			return fmt.Errorf("android.graphics.ImageFormat constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsImageFormat)), midImageFormatCtor)
 		if err != nil {
 			return err

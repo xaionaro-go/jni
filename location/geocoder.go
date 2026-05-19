@@ -32,6 +32,12 @@ func NewGeocoder(vm *jni.VM, arg0 *jni.Object) (*Geocoder, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGeocoder == nil {
+			return fmt.Errorf("android.location.Geocoder is not available on this device")
+		}
+		if midGeocoderCtor == nil {
+			return fmt.Errorf("android.location.Geocoder constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGeocoder)), midGeocoderCtor, jni.ObjectValue(arg0))
 		if err != nil {

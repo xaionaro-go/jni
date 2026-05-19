@@ -32,6 +32,12 @@ func NewInt4(vm *jni.VM) (*Int4, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInt4 == nil {
+			return fmt.Errorf("android.renderscript.Int4 is not available on this device")
+		}
+		if midInt4Ctor == nil {
+			return fmt.Errorf("android.renderscript.Int4 constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInt4)), midInt4Ctor)
 		if err != nil {
 			return err

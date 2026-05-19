@@ -5,17 +5,23 @@
 package: params
 go_import: github.com/AndroidGoLab/jni/hardware/camera2/params
 classes:
-    - java_class: android.hardware.camera2.params.Capability
-      go_type: Capability
+    - java_class: android.hardware.camera2.params.SessionConfiguration
+      go_type: SessionConfiguration
       obtain: constructor
       constructor_params:
         - java_type: int
           go_name: arg0
-        - java_type: android.util.Size
+        - java_type: java.util.List<android.hardware.camera2.params.OutputConfiguration>
           go_name: arg1
-        - java_type: android.util.Range<java.lang.Float>
-          go_name: arg2
       methods:
+        - java_method: clearColorSpace
+          go_name: ClearColorSpace
+          returns: void
+          error: true
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
         - java_method: equals
           go_name: Equals
           params:
@@ -23,105 +29,77 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getMaxStreamingSize
-          go_name: GetMaxStreamingSize
-          returns: android.util.Size
+        - java_method: getColorSpace
+          go_name: GetColorSpace
+          returns: android.graphics.ColorSpace
           error: true
-        - java_method: getMode
-          go_name: GetMode
+        - java_method: getExecutor
+          go_name: GetExecutor
+          returns: java.util.concurrent.Executor
+          error: true
+        - java_method: getInputConfiguration
+          go_name: GetInputConfiguration
+          returns: android.hardware.camera2.params.InputConfiguration
+          error: true
+        - java_method: getOutputConfigurations
+          go_name: GetOutputConfigurations
+          returns: java.util.List<android.hardware.camera2.params.OutputConfiguration>
+          error: true
+        - java_method: getSessionParameters
+          go_name: GetSessionParameters
+          returns: android.hardware.camera2.CaptureRequest
+          error: true
+        - java_method: getSessionType
+          go_name: GetSessionType
           returns: int
           error: true
-        - java_method: getZoomRatioRange
-          go_name: GetZoomRatioRange
-          returns: android.util.Range<java.lang.Float>
+        - java_method: getStateCallback
+          go_name: GetStateCallback
+          returns: android.hardware.camera2.CameraCaptureSession$StateCallback
           error: true
         - java_method: hashCode
           go_name: HashCode
           returns: int
           error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.hardware.camera2.params.MultiResolutionStreamConfigurationMap
-      go_type: MultiResolutionStreamConfigurationMap
-      methods:
-        - java_method: equals
-          go_name: Equals
+        - java_method: setColorSpace
+          go_name: SetColorSpace
           params:
-            - java_type: java.lang.Object
+            - java_type: android.graphics.ColorSpace$Named
               go_name: arg0
-          returns: boolean
+          returns: void
           error: true
-        - java_method: getInputFormats
-          go_name: GetInputFormats
-          returns: '[I'
-          error: true
-        - java_method: getInputInfo
-          go_name: GetInputInfo
+        - java_method: setInputConfiguration
+          go_name: SetInputConfiguration
           params:
-            - java_type: int
+            - java_type: android.hardware.camera2.params.InputConfiguration
               go_name: arg0
-          returns: java.util.Collection<android.hardware.camera2.params.MultiResolutionStreamInfo>
+          returns: void
           error: true
-        - java_method: getOutputFormats
-          go_name: GetOutputFormats
-          returns: '[I'
-          error: true
-        - java_method: getOutputInfo
-          go_name: GetOutputInfo
+        - java_method: setSessionParameters
+          go_name: SetSessionParameters
           params:
-            - java_type: int
+            - java_type: android.hardware.camera2.CaptureRequest
               go_name: arg0
-          returns: java.util.Collection<android.hardware.camera2.params.MultiResolutionStreamInfo>
+          returns: void
           error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.hardware.camera2.params.BlackLevelPattern
-      go_type: BlackLevelPattern
-      obtain: constructor
-      constructor_params:
-        - java_type: '[I'
-          go_name: arg0
-      methods:
-        - java_method: copyTo
-          go_name: CopyTo
+        - java_method: setStateCallback
+          go_name: SetStateCallback
           params:
-            - java_type: '[I'
+            - java_type: java.util.concurrent.Executor
+              go_name: arg0
+            - java_type: android.hardware.camera2.CameraCaptureSession$StateCallback
+              go_name: arg1
+          returns: void
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
               go_name: arg0
             - java_type: int
               go_name: arg1
           returns: void
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getOffsetForIndex
-          go_name: GetOffsetForIndex
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
           error: true
     - java_class: android.hardware.camera2.params.RecommendedStreamConfigurationMap
       go_type: RecommendedStreamConfigurationMap
@@ -213,155 +191,6 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-    - java_class: android.hardware.camera2.params.LensIntrinsicsSample
-      go_type: LensIntrinsicsSample
-      obtain: constructor
-      constructor_params:
-        - java_type: long
-          go_name: arg0
-        - java_type: float[]
-          go_name: arg1
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getLensIntrinsics
-          go_name: GetLensIntrinsics
-          returns: float[]
-          error: true
-        - java_method: getTimestampNanos
-          go_name: GetTimestampNanos
-          returns: long
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.hardware.camera2.params.DeviceStateSensorOrientationMap
-      go_type: DeviceStateSensorOrientationMap
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getSensorOrientation
-          go_name: GetSensorOrientation
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-    - java_class: android.hardware.camera2.params.DeviceStateSensorOrientationMap$Builder
-      go_type: DeviceStateSensorOrientationMapBuilder
-      methods:
-        - java_method: addOrientationForState
-          go_name: AddOrientationForState
-          params:
-            - java_type: long
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-          returns: android.hardware.camera2.params.DeviceStateSensorOrientationMap$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.hardware.camera2.params.DeviceStateSensorOrientationMap
-          error: true
-    - java_class: android.hardware.camera2.params.Face
-      go_type: Face
-      methods:
-        - java_method: getBounds
-          go_name: GetBounds
-          returns: android.graphics.Rect
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: int
-          error: true
-        - java_method: getLeftEyePosition
-          go_name: GetLeftEyePosition
-          returns: android.graphics.Point
-          error: true
-        - java_method: getMouthPosition
-          go_name: GetMouthPosition
-          returns: android.graphics.Point
-          error: true
-        - java_method: getRightEyePosition
-          go_name: GetRightEyePosition
-          returns: android.graphics.Point
-          error: true
-        - java_method: getScore
-          go_name: GetScore
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.hardware.camera2.params.Face$Builder
-      go_type: FaceBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.hardware.camera2.params.Face
-          error: true
-        - java_method: setBounds
-          go_name: SetBounds
-          params:
-            - java_type: android.graphics.Rect
-              go_name: arg0
-          returns: android.hardware.camera2.params.Face$Builder
-          error: true
-        - java_method: setId
-          go_name: SetId
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.hardware.camera2.params.Face$Builder
-          error: true
-        - java_method: setLeftEyePosition
-          go_name: SetLeftEyePosition
-          params:
-            - java_type: android.graphics.Point
-              go_name: arg0
-          returns: android.hardware.camera2.params.Face$Builder
-          error: true
-        - java_method: setMouthPosition
-          go_name: SetMouthPosition
-          params:
-            - java_type: android.graphics.Point
-              go_name: arg0
-          returns: android.hardware.camera2.params.Face$Builder
-          error: true
-        - java_method: setRightEyePosition
-          go_name: SetRightEyePosition
-          params:
-            - java_type: android.graphics.Point
-              go_name: arg0
-          returns: android.hardware.camera2.params.Face$Builder
-          error: true
-        - java_method: setScore
-          go_name: SetScore
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.hardware.camera2.params.Face$Builder
-          error: true
     - java_class: android.hardware.camera2.params.ColorSpaceTransform
       go_type: ColorSpaceTransform
       obtain: constructor
@@ -411,315 +240,14 @@ classes:
           go_name: ToString
           returns: String
           error: true
-    - java_class: android.hardware.camera2.params.ColorSpaceProfiles
-      go_type: ColorSpaceProfiles
-      obtain: constructor
-      constructor_params:
-        - java_type: '[J'
-          go_name: arg0
-      methods:
-        - java_method: getSupportedColorSpaces
-          go_name: GetSupportedColorSpaces
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: java.util.Set<android.graphics.ColorSpace$Named>
-          error: true
-        - java_method: getSupportedColorSpacesForDynamicRange
-          go_name: GetSupportedColorSpacesForDynamicRange
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-          returns: java.util.Set<android.graphics.ColorSpace$Named>
-          error: true
-        - java_method: getSupportedDynamicRangeProfiles
-          go_name: GetSupportedDynamicRangeProfiles
-          params:
-            - java_type: android.graphics.ColorSpace$Named
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: java.util.Set<java.lang.Long>
-          error: true
-        - java_method: getSupportedImageFormatsForColorSpace
-          go_name: GetSupportedImageFormatsForColorSpace
-          params:
-            - java_type: android.graphics.ColorSpace$Named
-              go_name: arg0
-          returns: java.util.Set<java.lang.Integer>
-          error: true
-    - java_class: android.hardware.camera2.params.MultiResolutionStreamInfo
-      go_type: MultiResolutionStreamInfo
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-        - java_type: String
-          go_name: arg2
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getHeight
-          go_name: GetHeight
-          returns: int
-          error: true
-        - java_method: getPhysicalCameraId
-          go_name: GetPhysicalCameraId
-          returns: String
-          error: true
-        - java_method: getWidth
-          go_name: GetWidth
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-    - java_class: android.hardware.camera2.params.MeteringRectangle
-      go_type: MeteringRectangle
-      obtain: constructor
-      constructor_params:
-        - java_type: android.graphics.Point
-          go_name: arg0
-        - java_type: android.util.Size
-          go_name: arg1
-        - java_type: int
-          go_name: arg2
-      methods:
-        - java_method: equals
-          go_name: Equals1
-          params:
-            - java_type: android.hardware.camera2.params.MeteringRectangle
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: equals
-          go_name: Equals1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getHeight
-          go_name: GetHeight
-          returns: int
-          error: true
-        - java_method: getMeteringWeight
-          go_name: GetMeteringWeight
-          returns: int
-          error: true
-        - java_method: getRect
-          go_name: GetRect
-          returns: android.graphics.Rect
-          error: true
-        - java_method: getSize
-          go_name: GetSize
-          returns: android.util.Size
-          error: true
-        - java_method: getUpperLeftPoint
-          go_name: GetUpperLeftPoint
-          returns: android.graphics.Point
-          error: true
-        - java_method: getWidth
-          go_name: GetWidth
-          returns: int
-          error: true
-        - java_method: getX
-          go_name: GetX
-          returns: int
-          error: true
-        - java_method: getY
-          go_name: GetY
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.hardware.camera2.params.RggbChannelVector
-      go_type: RggbChannelVector
-      obtain: constructor
-      constructor_params:
-        - java_type: float
-          go_name: arg0
-        - java_type: float
-          go_name: arg1
-        - java_type: float
-          go_name: arg2
-        - java_type: float
-          go_name: arg3
-      methods:
-        - java_method: copyTo
-          go_name: CopyTo
-          params:
-            - java_type: float[]
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getBlue
-          go_name: GetBlue
-          returns: float
-          error: true
-        - java_method: getComponent
-          go_name: GetComponent
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getGreenEven
-          go_name: GetGreenEven
-          returns: float
-          error: true
-        - java_method: getGreenOdd
-          go_name: GetGreenOdd
-          returns: float
-          error: true
-        - java_method: getRed
-          go_name: GetRed
-          returns: float
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.hardware.camera2.params.StreamConfigurationMap
-      go_type: StreamConfigurationMap
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getHighResolutionOutputSizes
-          go_name: GetHighResolutionOutputSizes
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.util.Size[]
-          error: true
-        - java_method: getHighSpeedVideoFpsRanges
-          go_name: GetHighSpeedVideoFpsRanges
-          returns: android.util.Range<java.lang.Integer>[]
-          error: true
-        - java_method: getHighSpeedVideoFpsRangesFor
-          go_name: GetHighSpeedVideoFpsRangesFor
-          params:
-            - java_type: android.util.Size
-              go_name: arg0
-          returns: android.util.Range<java.lang.Integer>[]
-          error: true
-        - java_method: getHighSpeedVideoSizes
-          go_name: GetHighSpeedVideoSizes
-          returns: android.util.Size[]
-          error: true
-        - java_method: getInputFormats
-          go_name: GetInputFormats
-          returns: '[I'
-          error: true
-        - java_method: getInputSizes
-          go_name: GetInputSizes
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.util.Size[]
-          error: true
-        - java_method: getOutputFormats
-          go_name: GetOutputFormats
-          returns: '[I'
-          error: true
-        - java_method: getOutputMinFrameDuration
-          go_name: GetOutputMinFrameDuration
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.util.Size
-              go_name: arg1
-          returns: long
-          error: true
-        - java_method: getOutputSizes
-          go_name: GetOutputSizes
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.util.Size[]
-          error: true
-        - java_method: getOutputStallDuration
-          go_name: GetOutputStallDuration
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.util.Size
-              go_name: arg1
-          returns: long
-          error: true
-        - java_method: getValidOutputFormatsForInput
-          go_name: GetValidOutputFormatsForInput
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: '[I'
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: isOutputSupportedFor
-          go_name: IsOutputSupportedFor1
-          params:
-            - java_type: android.view.Surface
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: isOutputSupportedFor
-          go_name: IsOutputSupportedFor1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.hardware.camera2.params.OisSample
-      go_type: OisSample
+    - java_class: android.hardware.camera2.params.LensIntrinsicsSample
+      go_type: LensIntrinsicsSample
       obtain: constructor
       constructor_params:
         - java_type: long
           go_name: arg0
-        - java_type: float
+        - java_type: float[]
           go_name: arg1
-        - java_type: float
-          go_name: arg2
       methods:
         - java_method: equals
           go_name: Equals
@@ -728,184 +256,13 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getTimestamp
-          go_name: GetTimestamp
+        - java_method: getLensIntrinsics
+          go_name: GetLensIntrinsics
+          returns: float[]
+          error: true
+        - java_method: getTimestampNanos
+          go_name: GetTimestampNanos
           returns: long
-          error: true
-        - java_method: getXshift
-          go_name: GetXshift
-          returns: float
-          error: true
-        - java_method: getYshift
-          go_name: GetYshift
-          returns: float
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.hardware.camera2.params.ExtensionSessionConfiguration
-      go_type: ExtensionSessionConfiguration
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: java.util.List<android.hardware.camera2.params.OutputConfiguration>
-          go_name: arg1
-        - java_type: java.util.concurrent.Executor
-          go_name: arg2
-        - java_type: android.hardware.camera2.CameraExtensionSession$StateCallback
-          go_name: arg3
-      methods:
-        - java_method: clearColorSpace
-          go_name: ClearColorSpace
-          returns: void
-          error: true
-        - java_method: getColorSpace
-          go_name: GetColorSpace
-          returns: android.graphics.ColorSpace
-          error: true
-        - java_method: getExecutor
-          go_name: GetExecutor
-          returns: java.util.concurrent.Executor
-          error: true
-        - java_method: getExtension
-          go_name: GetExtension
-          returns: int
-          error: true
-        - java_method: getOutputConfigurations
-          go_name: GetOutputConfigurations
-          returns: java.util.List<android.hardware.camera2.params.OutputConfiguration>
-          error: true
-        - java_method: getPostviewOutputConfiguration
-          go_name: GetPostviewOutputConfiguration
-          returns: android.hardware.camera2.params.OutputConfiguration
-          error: true
-        - java_method: getStateCallback
-          go_name: GetStateCallback
-          returns: android.hardware.camera2.CameraExtensionSession$StateCallback
-          error: true
-        - java_method: setColorSpace
-          go_name: SetColorSpace
-          params:
-            - java_type: android.graphics.ColorSpace$Named
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setPostviewOutputConfiguration
-          go_name: SetPostviewOutputConfiguration
-          params:
-            - java_type: android.hardware.camera2.params.OutputConfiguration
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.hardware.camera2.params.LensShadingMap
-      go_type: LensShadingMap
-      methods:
-        - java_method: copyGainFactors
-          go_name: CopyGainFactors
-          params:
-            - java_type: float[]
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getColumnCount
-          go_name: GetColumnCount
-          returns: int
-          error: true
-        - java_method: getGainFactor
-          go_name: GetGainFactor
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: float
-          error: true
-        - java_method: getGainFactorCount
-          go_name: GetGainFactorCount
-          returns: int
-          error: true
-        - java_method: getGainFactorVector
-          go_name: GetGainFactorVector
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.hardware.camera2.params.RggbChannelVector
-          error: true
-        - java_method: getRowCount
-          go_name: GetRowCount
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.hardware.camera2.params.TonemapCurve
-      go_type: TonemapCurve
-      obtain: constructor
-      constructor_params:
-        - java_type: float[]
-          go_name: arg0
-        - java_type: float[]
-          go_name: arg1
-        - java_type: float[]
-          go_name: arg2
-      methods:
-        - java_method: copyColorCurve
-          go_name: CopyColorCurve
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: float[]
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getPoint
-          go_name: GetPoint
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.graphics.PointF
-          error: true
-        - java_method: getPointCount
-          go_name: GetPointCount
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
           error: true
         - java_method: hashCode
           go_name: HashCode
@@ -1063,6 +420,14 @@ classes:
               go_name: arg0
           returns: void
           error: true
+      static_methods:
+        - java_method: createInstancesForMultiResolutionOutput
+          go_name: CreateInstancesForMultiResolutionOutput
+          params:
+            - java_type: android.hardware.camera2.MultiResolutionImageReader
+              go_name: arg0
+          returns: java.util.Collection<android.hardware.camera2.params.OutputConfiguration>
+          error: true
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -1072,13 +437,145 @@ classes:
               go_name: arg1
           returns: void
           error: true
-      static_methods:
-        - java_method: createInstancesForMultiResolutionOutput
-          go_name: CreateInstancesForMultiResolutionOutput
+    - java_class: android.hardware.camera2.params.InputConfiguration
+      go_type: InputConfiguration
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+      methods:
+        - java_method: equals
+          go_name: Equals
           params:
-            - java_type: android.hardware.camera2.MultiResolutionImageReader
+            - java_type: java.lang.Object
               go_name: arg0
-          returns: java.util.Collection<android.hardware.camera2.params.OutputConfiguration>
+          returns: boolean
+          error: true
+        - java_method: getFormat
+          go_name: GetFormat
+          returns: int
+          error: true
+        - java_method: getHeight
+          go_name: GetHeight
+          returns: int
+          error: true
+        - java_method: getWidth
+          go_name: GetWidth
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: isMultiResolution
+          go_name: IsMultiResolution
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.hardware.camera2.params.Capability
+      go_type: Capability
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: android.util.Size
+          go_name: arg1
+        - java_type: android.util.Range<java.lang.Float>
+          go_name: arg2
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getMaxStreamingSize
+          go_name: GetMaxStreamingSize
+          returns: android.util.Size
+          error: true
+        - java_method: getMode
+          go_name: GetMode
+          returns: int
+          error: true
+        - java_method: getZoomRatioRange
+          go_name: GetZoomRatioRange
+          returns: android.util.Range<java.lang.Float>
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.hardware.camera2.params.ColorSpaceProfiles
+      go_type: ColorSpaceProfiles
+      obtain: constructor
+      constructor_params:
+        - java_type: '[J'
+          go_name: arg0
+      methods:
+        - java_method: getSupportedColorSpaces
+          go_name: GetSupportedColorSpaces
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: java.util.Set<android.graphics.ColorSpace$Named>
+          error: true
+        - java_method: getSupportedColorSpacesForDynamicRange
+          go_name: GetSupportedColorSpacesForDynamicRange
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+          returns: java.util.Set<android.graphics.ColorSpace$Named>
+          error: true
+        - java_method: getSupportedDynamicRangeProfiles
+          go_name: GetSupportedDynamicRangeProfiles
+          params:
+            - java_type: android.graphics.ColorSpace$Named
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: java.util.Set<java.lang.Long>
+          error: true
+        - java_method: getSupportedImageFormatsForColorSpace
+          go_name: GetSupportedImageFormatsForColorSpace
+          params:
+            - java_type: android.graphics.ColorSpace$Named
+              go_name: arg0
+          returns: java.util.Set<java.lang.Integer>
+          error: true
+    - java_class: android.hardware.camera2.params.DeviceStateSensorOrientationMap
+      go_type: DeviceStateSensorOrientationMap
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getSensorOrientation
+          go_name: GetSensorOrientation
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
           error: true
     - java_class: android.hardware.camera2.params.MandatoryStreamCombination
       go_type: MandatoryStreamCombination
@@ -1105,6 +602,23 @@ classes:
         - java_method: isReprocessable
           go_name: IsReprocessable
           returns: boolean
+          error: true
+    - java_class: android.hardware.camera2.params.DeviceStateSensorOrientationMap$Builder
+      go_type: DeviceStateSensorOrientationMapBuilder
+      obtain: constructor
+      methods:
+        - java_method: addOrientationForState
+          go_name: AddOrientationForState
+          params:
+            - java_type: long
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+          returns: android.hardware.camera2.params.DeviceStateSensorOrientationMap$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.hardware.camera2.params.DeviceStateSensorOrientationMap
           error: true
     - java_class: android.hardware.camera2.params.MandatoryStreamCombination$MandatoryStreamInformation
       go_type: MandatoryStreamCombinationMandatoryStreamInformation
@@ -1152,15 +666,272 @@ classes:
           go_name: IsUltraHighResolution
           returns: boolean
           error: true
-    - java_class: android.hardware.camera2.params.InputConfiguration
-      go_type: InputConfiguration
+    - java_class: android.hardware.camera2.params.LensShadingMap
+      go_type: LensShadingMap
+      methods:
+        - java_method: copyGainFactors
+          go_name: CopyGainFactors
+          params:
+            - java_type: float[]
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getColumnCount
+          go_name: GetColumnCount
+          returns: int
+          error: true
+        - java_method: getGainFactor
+          go_name: GetGainFactor
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: float
+          error: true
+        - java_method: getGainFactorCount
+          go_name: GetGainFactorCount
+          returns: int
+          error: true
+        - java_method: getGainFactorVector
+          go_name: GetGainFactorVector
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.hardware.camera2.params.RggbChannelVector
+          error: true
+        - java_method: getRowCount
+          go_name: GetRowCount
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.hardware.camera2.params.MeteringRectangle
+      go_type: MeteringRectangle
+      obtain: constructor
+      constructor_params:
+        - java_type: android.graphics.Point
+          go_name: arg0
+        - java_type: android.util.Size
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+      methods:
+        - java_method: equals
+          go_name: Equals1
+          params:
+            - java_type: android.hardware.camera2.params.MeteringRectangle
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: equals
+          go_name: Equals1_1
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getHeight
+          go_name: GetHeight
+          returns: int
+          error: true
+        - java_method: getMeteringWeight
+          go_name: GetMeteringWeight
+          returns: int
+          error: true
+        - java_method: getRect
+          go_name: GetRect
+          returns: android.graphics.Rect
+          error: true
+        - java_method: getSize
+          go_name: GetSize
+          returns: android.util.Size
+          error: true
+        - java_method: getUpperLeftPoint
+          go_name: GetUpperLeftPoint
+          returns: android.graphics.Point
+          error: true
+        - java_method: getWidth
+          go_name: GetWidth
+          returns: int
+          error: true
+        - java_method: getX
+          go_name: GetX
+          returns: int
+          error: true
+        - java_method: getY
+          go_name: GetY
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.hardware.camera2.params.StreamConfigurationMap
+      go_type: StreamConfigurationMap
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getHighResolutionOutputSizes
+          go_name: GetHighResolutionOutputSizes
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.util.Size[]
+          error: true
+        - java_method: getHighSpeedVideoFpsRanges
+          go_name: GetHighSpeedVideoFpsRanges
+          returns: android.util.Range<java.lang.Integer>[]
+          error: true
+        - java_method: getHighSpeedVideoFpsRangesFor
+          go_name: GetHighSpeedVideoFpsRangesFor
+          params:
+            - java_type: android.util.Size
+              go_name: arg0
+          returns: android.util.Range<java.lang.Integer>[]
+          error: true
+        - java_method: getHighSpeedVideoSizes
+          go_name: GetHighSpeedVideoSizes
+          returns: android.util.Size[]
+          error: true
+        - java_method: getInputFormats
+          go_name: GetInputFormats
+          returns: '[I'
+          error: true
+        - java_method: getInputSizes
+          go_name: GetInputSizes
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.util.Size[]
+          error: true
+        - java_method: getOutputFormats
+          go_name: GetOutputFormats
+          returns: '[I'
+          error: true
+        - java_method: getOutputMinFrameDuration
+          go_name: GetOutputMinFrameDuration
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.util.Size
+              go_name: arg1
+          returns: long
+          error: true
+        - java_method: getOutputSizes
+          go_name: GetOutputSizes
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.util.Size[]
+          error: true
+        - java_method: getOutputStallDuration
+          go_name: GetOutputStallDuration
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.util.Size
+              go_name: arg1
+          returns: long
+          error: true
+        - java_method: getValidOutputFormatsForInput
+          go_name: GetValidOutputFormatsForInput
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: '[I'
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: isOutputSupportedFor
+          go_name: IsOutputSupportedFor1
+          params:
+            - java_type: android.view.Surface
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: isOutputSupportedFor
+          go_name: IsOutputSupportedFor1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+    - java_class: android.hardware.camera2.params.Face
+      go_type: Face
+      methods:
+        - java_method: getBounds
+          go_name: GetBounds
+          returns: android.graphics.Rect
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: int
+          error: true
+        - java_method: getLeftEyePosition
+          go_name: GetLeftEyePosition
+          returns: android.graphics.Point
+          error: true
+        - java_method: getMouthPosition
+          go_name: GetMouthPosition
+          returns: android.graphics.Point
+          error: true
+        - java_method: getRightEyePosition
+          go_name: GetRightEyePosition
+          returns: android.graphics.Point
+          error: true
+        - java_method: getScore
+          go_name: GetScore
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.hardware.camera2.params.MultiResolutionStreamInfo
+      go_type: MultiResolutionStreamInfo
       obtain: constructor
       constructor_params:
         - java_type: int
           go_name: arg0
         - java_type: int
           go_name: arg1
-        - java_type: int
+        - java_type: String
           go_name: arg2
       methods:
         - java_method: equals
@@ -1170,13 +941,13 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getFormat
-          go_name: GetFormat
-          returns: int
-          error: true
         - java_method: getHeight
           go_name: GetHeight
           returns: int
+          error: true
+        - java_method: getPhysicalCameraId
+          go_name: GetPhysicalCameraId
+          returns: String
           error: true
         - java_method: getWidth
           go_name: GetWidth
@@ -1186,30 +957,77 @@ classes:
           go_name: HashCode
           returns: int
           error: true
-        - java_method: isMultiResolution
-          go_name: IsMultiResolution
-          returns: boolean
+    - java_class: android.hardware.camera2.params.Face$Builder
+      go_type: FaceBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.hardware.camera2.params.Face
           error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
+        - java_method: setBounds
+          go_name: SetBounds
+          params:
+            - java_type: android.graphics.Rect
+              go_name: arg0
+          returns: android.hardware.camera2.params.Face$Builder
           error: true
-    - java_class: android.hardware.camera2.params.SessionConfiguration
-      go_type: SessionConfiguration
+        - java_method: setId
+          go_name: SetId
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.hardware.camera2.params.Face$Builder
+          error: true
+        - java_method: setLeftEyePosition
+          go_name: SetLeftEyePosition
+          params:
+            - java_type: android.graphics.Point
+              go_name: arg0
+          returns: android.hardware.camera2.params.Face$Builder
+          error: true
+        - java_method: setMouthPosition
+          go_name: SetMouthPosition
+          params:
+            - java_type: android.graphics.Point
+              go_name: arg0
+          returns: android.hardware.camera2.params.Face$Builder
+          error: true
+        - java_method: setRightEyePosition
+          go_name: SetRightEyePosition
+          params:
+            - java_type: android.graphics.Point
+              go_name: arg0
+          returns: android.hardware.camera2.params.Face$Builder
+          error: true
+        - java_method: setScore
+          go_name: SetScore
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.hardware.camera2.params.Face$Builder
+          error: true
+    - java_class: android.hardware.camera2.params.TonemapCurve
+      go_type: TonemapCurve
       obtain: constructor
       constructor_params:
-        - java_type: int
+        - java_type: float[]
           go_name: arg0
-        - java_type: java.util.List<android.hardware.camera2.params.OutputConfiguration>
+        - java_type: float[]
           go_name: arg1
+        - java_type: float[]
+          go_name: arg2
       methods:
-        - java_method: clearColorSpace
-          go_name: ClearColorSpace
+        - java_method: copyColorCurve
+          go_name: CopyColorCurve
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: float[]
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
           returns: void
-          error: true
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
           error: true
         - java_method: equals
           go_name: Equals
@@ -1217,6 +1035,125 @@ classes:
             - java_type: java.lang.Object
               go_name: arg0
           returns: boolean
+          error: true
+        - java_method: getPoint
+          go_name: GetPoint
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.graphics.PointF
+          error: true
+        - java_method: getPointCount
+          go_name: GetPointCount
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.hardware.camera2.params.MultiResolutionStreamConfigurationMap
+      go_type: MultiResolutionStreamConfigurationMap
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getInputFormats
+          go_name: GetInputFormats
+          returns: '[I'
+          error: true
+        - java_method: getInputInfo
+          go_name: GetInputInfo
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: java.util.Collection<android.hardware.camera2.params.MultiResolutionStreamInfo>
+          error: true
+        - java_method: getOutputFormats
+          go_name: GetOutputFormats
+          returns: '[I'
+          error: true
+        - java_method: getOutputInfo
+          go_name: GetOutputInfo
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: java.util.Collection<android.hardware.camera2.params.MultiResolutionStreamInfo>
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.hardware.camera2.params.OisSample
+      go_type: OisSample
+      obtain: constructor
+      constructor_params:
+        - java_type: long
+          go_name: arg0
+        - java_type: float
+          go_name: arg1
+        - java_type: float
+          go_name: arg2
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getTimestamp
+          go_name: GetTimestamp
+          returns: long
+          error: true
+        - java_method: getXshift
+          go_name: GetXshift
+          returns: float
+          error: true
+        - java_method: getYshift
+          go_name: GetYshift
+          returns: float
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.hardware.camera2.params.ExtensionSessionConfiguration
+      go_type: ExtensionSessionConfiguration
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: java.util.List<android.hardware.camera2.params.OutputConfiguration>
+          go_name: arg1
+        - java_type: java.util.concurrent.Executor
+          go_name: arg2
+        - java_type: android.hardware.camera2.CameraExtensionSession$StateCallback
+          go_name: arg3
+      methods:
+        - java_method: clearColorSpace
+          go_name: ClearColorSpace
+          returns: void
           error: true
         - java_method: getColorSpace
           go_name: GetColorSpace
@@ -1226,29 +1163,21 @@ classes:
           go_name: GetExecutor
           returns: java.util.concurrent.Executor
           error: true
-        - java_method: getInputConfiguration
-          go_name: GetInputConfiguration
-          returns: android.hardware.camera2.params.InputConfiguration
+        - java_method: getExtension
+          go_name: GetExtension
+          returns: int
           error: true
         - java_method: getOutputConfigurations
           go_name: GetOutputConfigurations
           returns: java.util.List<android.hardware.camera2.params.OutputConfiguration>
           error: true
-        - java_method: getSessionParameters
-          go_name: GetSessionParameters
-          returns: android.hardware.camera2.CaptureRequest
-          error: true
-        - java_method: getSessionType
-          go_name: GetSessionType
-          returns: int
+        - java_method: getPostviewOutputConfiguration
+          go_name: GetPostviewOutputConfiguration
+          returns: android.hardware.camera2.params.OutputConfiguration
           error: true
         - java_method: getStateCallback
           go_name: GetStateCallback
-          returns: android.hardware.camera2.CameraCaptureSession$StateCallback
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
+          returns: android.hardware.camera2.CameraExtensionSession$StateCallback
           error: true
         - java_method: setColorSpace
           go_name: SetColorSpace
@@ -1257,36 +1186,11 @@ classes:
               go_name: arg0
           returns: void
           error: true
-        - java_method: setInputConfiguration
-          go_name: SetInputConfiguration
+        - java_method: setPostviewOutputConfiguration
+          go_name: SetPostviewOutputConfiguration
           params:
-            - java_type: android.hardware.camera2.params.InputConfiguration
+            - java_type: android.hardware.camera2.params.OutputConfiguration
               go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSessionParameters
-          go_name: SetSessionParameters
-          params:
-            - java_type: android.hardware.camera2.CaptureRequest
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setStateCallback
-          go_name: SetStateCallback
-          params:
-            - java_type: java.util.concurrent.Executor
-              go_name: arg0
-            - java_type: android.hardware.camera2.CameraCaptureSession$StateCallback
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
           returns: void
           error: true
     - java_class: android.hardware.camera2.params.DynamicRangeProfiles
@@ -1314,9 +1218,115 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
+    - java_class: android.hardware.camera2.params.BlackLevelPattern
+      go_type: BlackLevelPattern
+      obtain: constructor
+      constructor_params:
+        - java_type: '[I'
+          go_name: arg0
+      methods:
+        - java_method: copyTo
+          go_name: CopyTo
+          params:
+            - java_type: '[I'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getOffsetForIndex
+          go_name: GetOffsetForIndex
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.hardware.camera2.params.RggbChannelVector
+      go_type: RggbChannelVector
+      obtain: constructor
+      constructor_params:
+        - java_type: float
+          go_name: arg0
+        - java_type: float
+          go_name: arg1
+        - java_type: float
+          go_name: arg2
+        - java_type: float
+          go_name: arg3
+      methods:
+        - java_method: copyTo
+          go_name: CopyTo
+          params:
+            - java_type: float[]
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getBlue
+          go_name: GetBlue
+          returns: float
+          error: true
+        - java_method: getComponent
+          go_name: GetComponent
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getGreenEven
+          go_name: GetGreenEven
+          returns: float
+          error: true
+        - java_method: getGreenOdd
+          go_name: GetGreenOdd
+          returns: float
+          error: true
+        - java_method: getRed
+          go_name: GetRed
+          returns: float
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
 constants:
-    - go_name: Count
-      value: "4"
+    - go_name: Creator
+      value: "0"
+      go_type: int
+    - go_name: SessionHighSpeed
+      value: "1"
+      go_type: int
+    - go_name: SessionRegular
+      value: "0"
       go_type: int
     - go_name: Usecase10bitOutput
       value: "8"
@@ -1341,69 +1351,6 @@ constants:
       go_type: int
     - go_name: UsecaseZsl
       value: "4"
-      go_type: int
-    - go_name: Folded
-      value: "4"
-      go_type: int64
-    - go_name: Normal
-      value: "0"
-      go_type: int64
-    - go_name: IdUnsupported
-      value: "-1"
-      go_type: int
-    - go_name: ScoreMax
-      value: "100"
-      go_type: int
-    - go_name: ScoreMin
-      value: "1"
-      go_type: int
-    - go_name: Unspecified
-      value: "-1"
-      go_type: int
-    - go_name: MeteringWeightDontCare
-      value: "0"
-      go_type: int
-    - go_name: MeteringWeightMax
-      value: "1000"
-      go_type: int
-    - go_name: MeteringWeightMin
-      value: "0"
-      go_type: int
-    - go_name: Blue
-      value: "3"
-      go_type: int
-    - go_name: GreenEven
-      value: "1"
-      go_type: int
-    - go_name: GreenOdd
-      value: "2"
-      go_type: int
-    - go_name: Red
-      value: "0"
-      go_type: int
-    - go_name: MinimumGainFactor
-      value: "1.0"
-      go_type: float32
-    - go_name: ChannelBlue
-      value: "2"
-      go_type: int
-    - go_name: ChannelGreen
-      value: "1"
-      go_type: int
-    - go_name: ChannelRed
-      value: "0"
-      go_type: int
-    - go_name: LevelBlack
-      value: "0.0"
-      go_type: float32
-    - go_name: LevelWhite
-      value: "1.0"
-      go_type: float32
-    - go_name: PointSize
-      value: "2"
-      go_type: int
-    - go_name: Creator
-      value: "0"
       go_type: int
     - go_name: MirrorModeAuto
       value: "0"
@@ -1435,11 +1382,53 @@ constants:
     - go_name: TimestampBaseSensor
       value: "1"
       go_type: int
-    - go_name: SessionHighSpeed
+    - go_name: Unspecified
+      value: "-1"
+      go_type: int
+    - go_name: Folded
+      value: "4"
+      go_type: int64
+    - go_name: Normal
+      value: "0"
+      go_type: int64
+    - go_name: MinimumGainFactor
+      value: "1.0"
+      go_type: float32
+    - go_name: MeteringWeightDontCare
+      value: "0"
+      go_type: int
+    - go_name: MeteringWeightMax
+      value: "1000"
+      go_type: int
+    - go_name: MeteringWeightMin
+      value: "0"
+      go_type: int
+    - go_name: IdUnsupported
+      value: "-1"
+      go_type: int
+    - go_name: ScoreMax
+      value: "100"
+      go_type: int
+    - go_name: ScoreMin
       value: "1"
       go_type: int
-    - go_name: SessionRegular
+    - go_name: ChannelBlue
+      value: "2"
+      go_type: int
+    - go_name: ChannelGreen
+      value: "1"
+      go_type: int
+    - go_name: ChannelRed
       value: "0"
+      go_type: int
+    - go_name: LevelBlack
+      value: "0.0"
+      go_type: float32
+    - go_name: LevelWhite
+      value: "1.0"
+      go_type: float32
+    - go_name: PointSize
+      value: "2"
       go_type: int
     - go_name: DolbyVision10bHdrOem
       value: "64"
@@ -1480,3 +1469,18 @@ constants:
     - go_name: Standard
       value: "1"
       go_type: int64
+    - go_name: Count
+      value: "4"
+      go_type: int
+    - go_name: Blue
+      value: "3"
+      go_type: int
+    - go_name: GreenEven
+      value: "1"
+      go_type: int
+    - go_name: GreenOdd
+      value: "2"
+      go_type: int
+    - go_name: Red
+      value: "0"
+      go_type: int

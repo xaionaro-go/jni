@@ -28,9 +28,11 @@ var (
 	midManifestToString jni.MethodID
 
 	clsManifestpermission         *jni.GlobalRef
+	midManifestpermissionCtor     jni.MethodID
 	midManifestpermissionToString jni.MethodID
 
 	clsManifestpermission_group         *jni.GlobalRef
+	midManifestpermission_groupCtor     jni.MethodID
 	midManifestpermission_groupToString jni.MethodID
 )
 
@@ -80,6 +82,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsManifestpermission = env.NewGlobalRef(&c.Object)
+		midManifestpermissionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManifestpermission)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midManifestpermissionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManifestpermission)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -97,6 +103,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsManifestpermission_group = env.NewGlobalRef(&c.Object)
+		midManifestpermission_groupCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManifestpermission_group)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midManifestpermission_groupToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManifestpermission_group)), "toString", "()Ljava/lang/String;")
 		if err != nil {

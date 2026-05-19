@@ -32,6 +32,12 @@ func NewToggleTemplate(vm *jni.VM, arg0 string, arg1 *jni.Object) (*ToggleTempla
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsToggleTemplate == nil {
+			return fmt.Errorf("android.service.controls.templates.ToggleTemplate is not available on this device")
+		}
+		if midToggleTemplateCtor == nil {
+			return fmt.Errorf("android.service.controls.templates.ToggleTemplate constructor (Ljava/lang/String;Landroid/service/controls/templates/ControlButton;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

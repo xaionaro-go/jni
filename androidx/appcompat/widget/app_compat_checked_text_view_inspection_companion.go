@@ -23,6 +23,34 @@ type AppCompatCheckedTextViewInspectionCompanion struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAppCompatCheckedTextViewInspectionCompanion creates a new androidx.appcompat.widget.AppCompatCheckedTextView$InspectionCompanion instance.
+func NewAppCompatCheckedTextViewInspectionCompanion(vm *jni.VM) (*AppCompatCheckedTextViewInspectionCompanion, error) {
+	var t AppCompatCheckedTextViewInspectionCompanion
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAppCompatCheckedTextViewInspectionCompanion == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatCheckedTextView$InspectionCompanion is not available on this device")
+		}
+		if midAppCompatCheckedTextViewInspectionCompanionCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatCheckedTextView$InspectionCompanion constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppCompatCheckedTextViewInspectionCompanion)), midAppCompatCheckedTextViewInspectionCompanionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // MapProperties calls androidx.appcompat.widget.AppCompatCheckedTextView$InspectionCompanion.mapProperties.
 func (m *AppCompatCheckedTextViewInspectionCompanion) MapProperties(arg0 *jni.Object) error {
 
@@ -46,8 +74,8 @@ func (m *AppCompatCheckedTextViewInspectionCompanion) MapProperties(arg0 *jni.Ob
 	return callErr
 }
 
-// ReadProperties2 calls androidx.appcompat.widget.AppCompatCheckedTextView$InspectionCompanion.readProperties.
-func (m *AppCompatCheckedTextViewInspectionCompanion) ReadProperties2(arg0 *jni.Object, arg1 *jni.Object) error {
+// ReadProperties calls androidx.appcompat.widget.AppCompatCheckedTextView$InspectionCompanion.readProperties.
+func (m *AppCompatCheckedTextViewInspectionCompanion) ReadProperties(arg0 *jni.Object, arg1 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,37 +83,14 @@ func (m *AppCompatCheckedTextViewInspectionCompanion) ReadProperties2(arg0 *jni.
 			callErr = err
 			return err
 		}
-		if midAppCompatCheckedTextViewInspectionCompanionReadProperties2 == nil {
+		if midAppCompatCheckedTextViewInspectionCompanionReadProperties == nil {
 			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatCheckedTextView$InspectionCompanion.readProperties is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midAppCompatCheckedTextViewInspectionCompanionReadProperties2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// ReadProperties2_1 calls androidx.appcompat.widget.AppCompatCheckedTextView$InspectionCompanion.readProperties.
-func (m *AppCompatCheckedTextViewInspectionCompanion) ReadProperties2_1(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppCompatCheckedTextViewInspectionCompanionReadProperties2_1 == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatCheckedTextView$InspectionCompanion.readProperties is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAppCompatCheckedTextViewInspectionCompanionReadProperties2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midAppCompatCheckedTextViewInspectionCompanionReadProperties, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		return callErr
 	})

@@ -32,6 +32,12 @@ func NewLinearOutSlowInInterpolator(vm *jni.VM) (*LinearOutSlowInInterpolator, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLinearOutSlowInInterpolator == nil {
+			return fmt.Errorf("androidx.interpolator.view.animation.LinearOutSlowInInterpolator is not available on this device")
+		}
+		if midLinearOutSlowInInterpolatorCtor == nil {
+			return fmt.Errorf("androidx.interpolator.view.animation.LinearOutSlowInInterpolator constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLinearOutSlowInInterpolator)), midLinearOutSlowInInterpolatorCtor)
 		if err != nil {
 			return err
@@ -43,32 +49,6 @@ func NewLinearOutSlowInInterpolator(vm *jni.VM) (*LinearOutSlowInInterpolator, e
 		return nil, err
 	}
 	return &t, nil
-}
-
-// GetInterpolation calls androidx.interpolator.view.animation.LinearOutSlowInInterpolator.getInterpolation.
-func (m *LinearOutSlowInInterpolator) GetInterpolation(arg0 float32) (float32, error) {
-	var result float32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midLinearOutSlowInInterpolatorGetInterpolation == nil {
-			callErr = fmt.Errorf("androidx.interpolator.view.animation.LinearOutSlowInInterpolator.getInterpolation is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallFloatMethod(
-			m.Obj,
-			midLinearOutSlowInInterpolatorGetInterpolation, jni.FloatValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls androidx.interpolator.view.animation.LinearOutSlowInInterpolator.toString.

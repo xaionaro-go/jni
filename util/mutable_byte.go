@@ -32,6 +32,12 @@ func NewMutableByte(vm *jni.VM, arg0 int8) (*MutableByte, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMutableByte == nil {
+			return fmt.Errorf("android.util.MutableByte is not available on this device")
+		}
+		if midMutableByteCtor == nil {
+			return fmt.Errorf("android.util.MutableByte constructor (B)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMutableByte)), midMutableByteCtor, jni.ByteValue(arg0))
 		if err != nil {

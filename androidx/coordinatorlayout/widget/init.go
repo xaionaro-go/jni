@@ -23,15 +23,15 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsViewGroupUtils                  *jni.GlobalRef
+	midViewGroupUtilsToString          jni.MethodID
+	midViewGroupUtilsGetDescendantRect jni.MethodID
+
 	clsDirectedAcyclicGraph              *jni.GlobalRef
 	midDirectedAcyclicGraphCtor          jni.MethodID
 	midDirectedAcyclicGraphClear         jni.MethodID
 	midDirectedAcyclicGraphGetSortedList jni.MethodID
 	midDirectedAcyclicGraphToString      jni.MethodID
-
-	clsViewGroupUtils                  *jni.GlobalRef
-	midViewGroupUtilsToString          jni.MethodID
-	midViewGroupUtilsGetDescendantRect jni.MethodID
 
 	clsCoordinatorLayout                                   *jni.GlobalRef
 	midCoordinatorLayoutCtor                               jni.MethodID
@@ -46,7 +46,6 @@ var (
 	midCoordinatorLayoutGetLastWindowInsets                jni.MethodID
 	midCoordinatorLayoutOnInterceptTouchEvent              jni.MethodID
 	midCoordinatorLayoutOnTouchEvent                       jni.MethodID
-	midCoordinatorLayoutRequestDisallowInterceptTouchEvent jni.MethodID
 	midCoordinatorLayoutOnMeasureChild                     jni.MethodID
 	midCoordinatorLayoutOnLayoutChild                      jni.MethodID
 	midCoordinatorLayoutOnDraw                             jni.MethodID
@@ -56,7 +55,7 @@ var (
 	midCoordinatorLayoutGetDependents                      jni.MethodID
 	midCoordinatorLayoutIsPointInChildBounds               jni.MethodID
 	midCoordinatorLayoutDoViewsOverlap                     jni.MethodID
-	midCoordinatorLayoutGenerateLayoutParams1              jni.MethodID
+	midCoordinatorLayoutGenerateLayoutParams               jni.MethodID
 	midCoordinatorLayoutOnStartNestedScroll3               jni.MethodID
 	midCoordinatorLayoutOnStartNestedScroll4_1             jni.MethodID
 	midCoordinatorLayoutOnNestedScrollAccepted3            jni.MethodID
@@ -72,8 +71,8 @@ var (
 	midCoordinatorLayoutOnNestedPreFling                   jni.MethodID
 	midCoordinatorLayoutGetNestedScrollAxes                jni.MethodID
 	midCoordinatorLayoutRequestChildRectangleOnScreen      jni.MethodID
-	midCoordinatorLayoutGenerateLayoutParams1_1            jni.MethodID
 	midCoordinatorLayoutToString                           jni.MethodID
+	midCoordinatorLayoutRequestDisallowInterceptTouchEvent jni.MethodID
 
 	clsCoordinatorLayoutAttachedBehavior            *jni.GlobalRef
 	midCoordinatorLayoutAttachedBehaviorGetBehavior jni.MethodID
@@ -93,6 +92,7 @@ var (
 	midCoordinatorLayoutDispatchChangeEventToString jni.MethodID
 
 	clsCoordinatorLayoutLayoutParams            *jni.GlobalRef
+	midCoordinatorLayoutLayoutParamsCtor        jni.MethodID
 	midCoordinatorLayoutLayoutParamsGetAnchorId jni.MethodID
 	midCoordinatorLayoutLayoutParamsSetAnchorId jni.MethodID
 	midCoordinatorLayoutLayoutParamsGetBehavior jni.MethodID
@@ -100,8 +100,9 @@ var (
 	midCoordinatorLayoutLayoutParamsToString    jni.MethodID
 
 	clsCoordinatorLayoutSavedState              *jni.GlobalRef
-	midCoordinatorLayoutSavedStateWriteToParcel jni.MethodID
+	midCoordinatorLayoutSavedStateCtor          jni.MethodID
 	midCoordinatorLayoutSavedStateToString      jni.MethodID
+	midCoordinatorLayoutSavedStateWriteToParcel jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -121,6 +122,30 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("androidx/coordinatorlayout/widget/ViewGroupUtils")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewGroupUtils = env.NewGlobalRef(&c.Object)
+
+		midViewGroupUtilsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewGroupUtils)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewGroupUtilsGetDescendantRect, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewGroupUtils)), "getDescendantRect", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/graphics/Rect;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("androidx/coordinatorlayout/widget/DirectedAcyclicGraph")
 	if err != nil {
@@ -149,30 +174,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midDirectedAcyclicGraphToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDirectedAcyclicGraph)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/coordinatorlayout/widget/ViewGroupUtils")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewGroupUtils = env.NewGlobalRef(&c.Object)
-
-		midViewGroupUtilsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewGroupUtils)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewGroupUtilsGetDescendantRect, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewGroupUtils)), "getDescendantRect", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/graphics/Rect;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -270,13 +271,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midCoordinatorLayoutRequestDisallowInterceptTouchEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoordinatorLayout)), "requestDisallowInterceptTouchEvent", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midCoordinatorLayoutOnMeasureChild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoordinatorLayout)), "onMeasureChild", "(Landroid/view/View;IIII)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -340,7 +334,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midCoordinatorLayoutGenerateLayoutParams1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoordinatorLayout)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroidx/coordinatorlayout/widget/CoordinatorLayout$LayoutParams;")
+		midCoordinatorLayoutGenerateLayoutParams, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoordinatorLayout)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroidx/coordinatorlayout/widget/CoordinatorLayout$LayoutParams;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -452,14 +446,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midCoordinatorLayoutGenerateLayoutParams1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoordinatorLayout)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroid/view/ViewGroup$LayoutParams;")
+		midCoordinatorLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoordinatorLayout)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCoordinatorLayoutToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoordinatorLayout)), "toString", "()Ljava/lang/String;")
+		midCoordinatorLayoutRequestDisallowInterceptTouchEvent, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCoordinatorLayout)), "requestDisallowInterceptTouchEvent", "(Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -578,6 +572,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsCoordinatorLayoutLayoutParams = env.NewGlobalRef(&c.Object)
+		midCoordinatorLayoutLayoutParamsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoordinatorLayoutLayoutParams)), "<init>", "(II)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midCoordinatorLayoutLayoutParamsGetAnchorId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoordinatorLayoutLayoutParams)), "getAnchorId", "()I")
 		if err != nil {
@@ -623,15 +621,19 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsCoordinatorLayoutSavedState = env.NewGlobalRef(&c.Object)
+		midCoordinatorLayoutSavedStateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoordinatorLayoutSavedState)), "<init>", "(Landroid/os/Parcel;Ljava/lang/ClassLoader;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midCoordinatorLayoutSavedStateWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoordinatorLayoutSavedState)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midCoordinatorLayoutSavedStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoordinatorLayoutSavedState)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCoordinatorLayoutSavedStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCoordinatorLayoutSavedState)), "toString", "()Ljava/lang/String;")
+		midCoordinatorLayoutSavedStateWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCoordinatorLayoutSavedState)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

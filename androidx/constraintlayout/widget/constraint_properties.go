@@ -32,6 +32,12 @@ func NewConstraintProperties(vm *jni.VM, arg0 *jni.Object) (*ConstraintPropertie
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsConstraintProperties == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.ConstraintProperties is not available on this device")
+		}
+		if midConstraintPropertiesCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.ConstraintProperties constructor (Landroid/view/View;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConstraintProperties)), midConstraintPropertiesCtor, jni.ObjectValue(arg0))
 		if err != nil {

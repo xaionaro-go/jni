@@ -32,6 +32,12 @@ func NewGridLayout(vm *jni.VM, arg0 *jni.Object) (*GridLayout, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGridLayout == nil {
+			return fmt.Errorf("android.widget.GridLayout is not available on this device")
+		}
+		if midGridLayoutCtor == nil {
+			return fmt.Errorf("android.widget.GridLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGridLayout)), midGridLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -46,8 +52,8 @@ func NewGridLayout(vm *jni.VM, arg0 *jni.Object) (*GridLayout, error) {
 	return &t, nil
 }
 
-// GenerateLayoutParams1 calls android.widget.GridLayout.generateLayoutParams.
-func (m *GridLayout) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, error) {
+// GenerateLayoutParams calls android.widget.GridLayout.generateLayoutParams.
+func (m *GridLayout) GenerateLayoutParams(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,14 +61,14 @@ func (m *GridLayout) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, error
 			callErr = err
 			return err
 		}
-		if midGridLayoutGenerateLayoutParams1 == nil {
+		if midGridLayoutGenerateLayoutParams == nil {
 			callErr = fmt.Errorf("android.widget.GridLayout.generateLayoutParams is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midGridLayoutGenerateLayoutParams1, jni.ObjectValue(arg0),
+			midGridLayoutGenerateLayoutParams, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -531,39 +537,6 @@ func (m *GridLayout) SetUseDefaultMargins(arg0 bool) error {
 		return callErr
 	})
 	return callErr
-}
-
-// GenerateLayoutParams1_1 calls android.widget.GridLayout.generateLayoutParams.
-func (m *GridLayout) GenerateLayoutParams1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midGridLayoutGenerateLayoutParams1_1 == nil {
-			callErr = fmt.Errorf("android.widget.GridLayout.generateLayoutParams is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midGridLayoutGenerateLayoutParams1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls android.widget.GridLayout.toString.

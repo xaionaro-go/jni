@@ -23,6 +23,35 @@ type SavedStateHandleCompanion struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSavedStateHandleCompanion creates a new androidx.lifecycle.SavedStateHandle$Companion instance.
+func NewSavedStateHandleCompanion(vm *jni.VM, arg0 *jni.Object) (*SavedStateHandleCompanion, error) {
+	var t SavedStateHandleCompanion
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSavedStateHandleCompanion == nil {
+			return fmt.Errorf("androidx.lifecycle.SavedStateHandle$Companion is not available on this device")
+		}
+		if midSavedStateHandleCompanionCtor == nil {
+			return fmt.Errorf("androidx.lifecycle.SavedStateHandle$Companion constructor (Lkotlin/jvm/internal/DefaultConstructorMarker;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSavedStateHandleCompanion)), midSavedStateHandleCompanionCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // CreateHandle calls androidx.lifecycle.SavedStateHandle$Companion.createHandle.
 func (m *SavedStateHandleCompanion) CreateHandle(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewFileProvider(vm *jni.VM) (*FileProvider, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFileProvider == nil {
+			return fmt.Errorf("androidx.core.content.FileProvider is not available on this device")
+		}
+		if midFileProviderCtor == nil {
+			return fmt.Errorf("androidx.core.content.FileProvider constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFileProvider)), midFileProviderCtor)
 		if err != nil {
 			return err
@@ -302,45 +308,6 @@ func (m *FileProvider) Delete(
 		)
 		if callErr != nil {
 			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// OpenFile calls androidx.core.content.FileProvider.openFile.
-func (m *FileProvider) OpenFile(arg0 *jni.Object, arg1 string) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFileProviderOpenFile == nil {
-			callErr = fmt.Errorf("androidx.core.content.FileProvider.openFile is not available on this device")
-			return callErr
-		}
-
-		jArg1, err := env.NewStringUTF(arg1)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg1.Object)
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midFileProviderOpenFile, jni.ObjectValue(arg0), jni.ObjectValue(&jArg1.Object),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
 		}
 		return callErr
 	})

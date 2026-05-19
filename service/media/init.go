@@ -44,6 +44,7 @@ var (
 	midBrowserServiceToString                 jni.MethodID
 
 	clsBrowserServiceBrowserRoot          *jni.GlobalRef
+	midBrowserServiceBrowserRootCtor      jni.MethodID
 	midBrowserServiceBrowserRootGetExtras jni.MethodID
 	midBrowserServiceBrowserRootGetRootId jni.MethodID
 	midBrowserServiceBrowserRootToString  jni.MethodID
@@ -210,6 +211,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsBrowserServiceBrowserRoot = env.NewGlobalRef(&c.Object)
+		midBrowserServiceBrowserRootCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrowserServiceBrowserRoot)), "<init>", "(Ljava/lang/String;Landroid/os/Bundle;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midBrowserServiceBrowserRootGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrowserServiceBrowserRoot)), "getExtras", "()Landroid/os/Bundle;")
 		if err != nil {

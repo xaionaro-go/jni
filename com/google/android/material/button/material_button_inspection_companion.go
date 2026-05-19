@@ -23,6 +23,34 @@ type MaterialButtonInspectionCompanion struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMaterialButtonInspectionCompanion creates a new com.google.android.material.button.MaterialButton$InspectionCompanion instance.
+func NewMaterialButtonInspectionCompanion(vm *jni.VM) (*MaterialButtonInspectionCompanion, error) {
+	var t MaterialButtonInspectionCompanion
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMaterialButtonInspectionCompanion == nil {
+			return fmt.Errorf("com.google.android.material.button.MaterialButton$InspectionCompanion is not available on this device")
+		}
+		if midMaterialButtonInspectionCompanionCtor == nil {
+			return fmt.Errorf("com.google.android.material.button.MaterialButton$InspectionCompanion constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialButtonInspectionCompanion)), midMaterialButtonInspectionCompanionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // MapProperties calls com.google.android.material.button.MaterialButton$InspectionCompanion.mapProperties.
 func (m *MaterialButtonInspectionCompanion) MapProperties(arg0 *jni.Object) error {
 
@@ -46,8 +74,8 @@ func (m *MaterialButtonInspectionCompanion) MapProperties(arg0 *jni.Object) erro
 	return callErr
 }
 
-// ReadProperties2 calls com.google.android.material.button.MaterialButton$InspectionCompanion.readProperties.
-func (m *MaterialButtonInspectionCompanion) ReadProperties2(arg0 *jni.Object, arg1 *jni.Object) error {
+// ReadProperties calls com.google.android.material.button.MaterialButton$InspectionCompanion.readProperties.
+func (m *MaterialButtonInspectionCompanion) ReadProperties(arg0 *jni.Object, arg1 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,37 +83,14 @@ func (m *MaterialButtonInspectionCompanion) ReadProperties2(arg0 *jni.Object, ar
 			callErr = err
 			return err
 		}
-		if midMaterialButtonInspectionCompanionReadProperties2 == nil {
+		if midMaterialButtonInspectionCompanionReadProperties == nil {
 			callErr = fmt.Errorf("com.google.android.material.button.MaterialButton$InspectionCompanion.readProperties is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midMaterialButtonInspectionCompanionReadProperties2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// ReadProperties2_1 calls com.google.android.material.button.MaterialButton$InspectionCompanion.readProperties.
-func (m *MaterialButtonInspectionCompanion) ReadProperties2_1(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialButtonInspectionCompanionReadProperties2_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.button.MaterialButton$InspectionCompanion.readProperties is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMaterialButtonInspectionCompanionReadProperties2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midMaterialButtonInspectionCompanionReadProperties, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		return callErr
 	})

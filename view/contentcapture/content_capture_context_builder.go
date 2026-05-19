@@ -23,6 +23,35 @@ type ContentCaptureContextBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewContentCaptureContextBuilder creates a new android.view.contentcapture.ContentCaptureContext$Builder instance.
+func NewContentCaptureContextBuilder(vm *jni.VM, arg0 *jni.Object) (*ContentCaptureContextBuilder, error) {
+	var t ContentCaptureContextBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsContentCaptureContextBuilder == nil {
+			return fmt.Errorf("android.view.contentcapture.ContentCaptureContext$Builder is not available on this device")
+		}
+		if midContentCaptureContextBuilderCtor == nil {
+			return fmt.Errorf("android.view.contentcapture.ContentCaptureContext$Builder constructor (Landroid/content/LocusId;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContentCaptureContextBuilder)), midContentCaptureContextBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.view.contentcapture.ContentCaptureContext$Builder.build.
 func (m *ContentCaptureContextBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

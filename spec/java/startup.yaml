@@ -5,24 +5,15 @@
 package: startup
 go_import: github.com/AndroidGoLab/jni/androidx/startup
 classes:
-    - java_class: androidx.startup.StartupLogger
-      go_type: Logger
+    - java_class: androidx.startup.AppInitializer
+      go_type: AppInitializer
       static_methods:
-        - java_method: i
-          go_name: I
+        - java_method: getInstance
+          go_name: GetInstance
           params:
-            - java_type: String
+            - java_type: android.content.Context
               go_name: arg0
-          returns: void
-          error: true
-        - java_method: e
-          go_name: E
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: java.lang.Throwable
-              go_name: arg1
-          returns: void
+          returns: androidx.startup.AppInitializer
           error: true
     - java_class: androidx.startup.InitializationProvider
       go_type: InitializationProvider
@@ -87,21 +78,30 @@ classes:
               go_name: arg3
           returns: int
           error: true
+    - java_class: androidx.startup.StartupLogger
+      go_type: Logger
+      static_methods:
+        - java_method: i
+          go_name: I
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: e
+          go_name: E
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: java.lang.Throwable
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: androidx.startup.Initializer
+      go_type: Initializer
     - java_class: androidx.startup.StartupException
       go_type: Exception
       obtain: constructor
       constructor_params:
         - java_type: String
           go_name: arg0
-    - java_class: androidx.startup.AppInitializer
-      go_type: AppInitializer
-      static_methods:
-        - java_method: getInstance
-          go_name: GetInstance
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: androidx.startup.AppInitializer
-          error: true
-    - java_class: androidx.startup.Initializer
-      go_type: Initializer

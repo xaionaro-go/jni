@@ -32,6 +32,12 @@ func NewChildLayout(vm *jni.VM, arg0 *jni.Object) (*ChildLayout, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsChildLayout == nil {
+			return fmt.Errorf("com.google.android.material.transformation.TransformationChildLayout is not available on this device")
+		}
+		if midChildLayoutCtor == nil {
+			return fmt.Errorf("com.google.android.material.transformation.TransformationChildLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsChildLayout)), midChildLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {

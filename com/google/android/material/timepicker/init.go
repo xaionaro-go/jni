@@ -23,9 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsTimeFormat         *jni.GlobalRef
-	midTimeFormatToString jni.MethodID
-
 	clsMaterialTimePicker                                    *jni.GlobalRef
 	midMaterialTimePickerCtor                                jni.MethodID
 	midMaterialTimePickerGetMinute                           jni.MethodID
@@ -54,10 +51,10 @@ var (
 	midMaterialTimePickerClearOnCancelListeners              jni.MethodID
 	midMaterialTimePickerAddOnDismissListener                jni.MethodID
 	midMaterialTimePickerRemoveOnDismissListener             jni.MethodID
-	midMaterialTimePickerClearOnDismissListeners             jni.MethodID
 	midMaterialTimePickerToString                            jni.MethodID
 
 	clsMaterialTimePickerBuilder                         *jni.GlobalRef
+	midMaterialTimePickerBuilderCtor                     jni.MethodID
 	midMaterialTimePickerBuilderSetInputMode             jni.MethodID
 	midMaterialTimePickerBuilderSetHour                  jni.MethodID
 	midMaterialTimePickerBuilderSetMinute                jni.MethodID
@@ -69,8 +66,10 @@ var (
 	midMaterialTimePickerBuilderSetNegativeButtonText1   jni.MethodID
 	midMaterialTimePickerBuilderSetNegativeButtonText1_1 jni.MethodID
 	midMaterialTimePickerBuilderSetTheme                 jni.MethodID
-	midMaterialTimePickerBuilderBuild                    jni.MethodID
 	midMaterialTimePickerBuilderToString                 jni.MethodID
+
+	clsTimeFormat         *jni.GlobalRef
+	midTimeFormatToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -90,23 +89,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("com/google/android/material/timepicker/TimeFormat")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTimeFormat = env.NewGlobalRef(&c.Object)
-
-		midTimeFormatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTimeFormat)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("com/google/android/material/timepicker/MaterialTimePicker")
 	if err != nil {
@@ -302,13 +284,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMaterialTimePickerClearOnDismissListeners, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialTimePicker)), "clearOnDismissListeners", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midMaterialTimePickerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialTimePicker)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -325,6 +300,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsMaterialTimePickerBuilder = env.NewGlobalRef(&c.Object)
+		midMaterialTimePickerBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialTimePickerBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midMaterialTimePickerBuilderSetInputMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialTimePickerBuilder)), "setInputMode", "(I)Lcom/google/android/material/timepicker/MaterialTimePicker$Builder;")
 		if err != nil {
@@ -403,14 +382,24 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMaterialTimePickerBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialTimePickerBuilder)), "build", "()Lcom/google/android/material/timepicker/MaterialTimePicker;")
+		midMaterialTimePickerBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialTimePickerBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialTimePickerBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialTimePickerBuilder)), "toString", "()Ljava/lang/String;")
+	}
+
+	c, err = env.FindClass("com/google/android/material/timepicker/TimeFormat")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTimeFormat = env.NewGlobalRef(&c.Object)
+
+		midTimeFormatToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTimeFormat)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

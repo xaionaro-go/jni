@@ -32,6 +32,12 @@ func NewPatternMatcher(vm *jni.VM, arg0 *jni.Object) (*PatternMatcher, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPatternMatcher == nil {
+			return fmt.Errorf("android.os.PatternMatcher is not available on this device")
+		}
+		if midPatternMatcherCtor == nil {
+			return fmt.Errorf("android.os.PatternMatcher constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPatternMatcher)), midPatternMatcherCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -197,8 +203,8 @@ func (m *PatternMatcher) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsPatternMatcher)),
 			midPatternMatcherWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

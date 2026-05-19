@@ -5,48 +5,6 @@
 package: profileinstaller
 go_import: github.com/AndroidGoLab/jni/androidx/profileinstaller
 classes:
-    - java_class: androidx.profileinstaller.ProfileVerifier
-      go_type: ProfileVerifier
-      static_methods:
-        - java_method: writeProfileVerification
-          go_name: WriteProfileVerification
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: androidx.profileinstaller.ProfileVerifier$CompilationStatus
-          error: true
-        - java_method: getCompilationStatusAsync
-          go_name: GetCompilationStatusAsync
-          returns: com.google.common.util.concurrent.ListenableFuture<androidx.profileinstaller.ProfileVerifier$CompilationStatus>
-          error: true
-    - java_class: androidx.profileinstaller.ProfileVerifier$CompilationStatus
-      go_type: ProfileVerifierCompilationStatus
-      methods:
-        - java_method: getProfileInstallResultCode
-          go_name: GetProfileInstallResultCode
-          returns: int
-          error: true
-        - java_method: isCompiledWithProfile
-          go_name: IsCompiledWithProfile
-          returns: boolean
-          error: true
-        - java_method: hasProfileEnqueuedForCompilation
-          go_name: HasProfileEnqueuedForCompilation
-          returns: boolean
-          error: true
-    - java_class: androidx.profileinstaller.ProfileInstallReceiver
-      go_type: ProfileInstallReceiver
-      obtain: constructor
-      methods:
-        - java_method: onReceive
-          go_name: OnReceive
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: void
-          error: true
     - java_class: androidx.profileinstaller.ProfileVersion
       go_type: ProfileVersion
     - java_class: androidx.profileinstaller.ProfileInstallerInitializer
@@ -54,56 +12,15 @@ classes:
       obtain: constructor
       methods:
         - java_method: create
-          go_name: Create1
+          go_name: Create
           params:
             - java_type: android.content.Context
               go_name: arg0
           returns: androidx.profileinstaller.ProfileInstallerInitializer$Result
           error: true
-        - java_method: create
-          go_name: Create1_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: java.lang.Object
-          error: true
     - java_class: androidx.profileinstaller.ProfileInstallerInitializer$Result
       go_type: ProfileInstallerInitializerResult
-    - java_class: androidx.profileinstaller.DeviceProfileWriter
-      go_type: DeviceProfileWriter
       obtain: constructor
-      constructor_params:
-        - java_type: android.content.res.AssetManager
-          go_name: arg0
-        - java_type: java.util.concurrent.Executor
-          go_name: arg1
-        - java_type: androidx.profileinstaller.ProfileInstaller$DiagnosticsCallback
-          go_name: arg2
-        - java_type: String
-          go_name: arg3
-        - java_type: String
-          go_name: arg4
-        - java_type: String
-          go_name: arg5
-        - java_type: java.io.File
-          go_name: arg6
-      methods:
-        - java_method: deviceAllowsProfileInstallerAotWrites
-          go_name: DeviceAllowsProfileInstallerAotWrites
-          returns: boolean
-          error: true
-        - java_method: read
-          go_name: Read
-          returns: androidx.profileinstaller.DeviceProfileWriter
-          error: true
-        - java_method: transcodeIfNeeded
-          go_name: TranscodeIfNeeded
-          returns: androidx.profileinstaller.DeviceProfileWriter
-          error: true
-        - java_method: write
-          go_name: Write
-          returns: boolean
-          error: true
     - java_class: androidx.profileinstaller.ProfileInstaller
       go_type: ProfileInstaller
       static_methods:
@@ -150,43 +67,84 @@ classes:
           error: true
     - java_class: androidx.profileinstaller.ProfileInstaller$ResultCode
       go_type: ProfileInstallerResultCode
+    - java_class: androidx.profileinstaller.ProfileInstallReceiver
+      go_type: ProfileInstallReceiver
+      obtain: constructor
+      static_methods:
+        - java_method: onReceive
+          go_name: OnReceive
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: androidx.profileinstaller.DeviceProfileWriter
+      go_type: DeviceProfileWriter
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.res.AssetManager
+          go_name: arg0
+        - java_type: java.util.concurrent.Executor
+          go_name: arg1
+        - java_type: androidx.profileinstaller.ProfileInstaller$DiagnosticsCallback
+          go_name: arg2
+        - java_type: String
+          go_name: arg3
+        - java_type: String
+          go_name: arg4
+        - java_type: String
+          go_name: arg5
+        - java_type: java.io.File
+          go_name: arg6
+      methods:
+        - java_method: deviceAllowsProfileInstallerAotWrites
+          go_name: DeviceAllowsProfileInstallerAotWrites
+          returns: boolean
+          error: true
+        - java_method: read
+          go_name: Read
+          returns: androidx.profileinstaller.DeviceProfileWriter
+          error: true
+        - java_method: transcodeIfNeeded
+          go_name: TranscodeIfNeeded
+          returns: androidx.profileinstaller.DeviceProfileWriter
+          error: true
+        - java_method: write
+          go_name: Write
+          returns: boolean
+          error: true
+    - java_class: androidx.profileinstaller.ProfileVerifier
+      go_type: ProfileVerifier
+      static_methods:
+        - java_method: writeProfileVerification
+          go_name: WriteProfileVerification
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: androidx.profileinstaller.ProfileVerifier$CompilationStatus
+          error: true
+        - java_method: getCompilationStatusAsync
+          go_name: GetCompilationStatusAsync
+          returns: com.google.common.util.concurrent.ListenableFuture<androidx.profileinstaller.ProfileVerifier$CompilationStatus>
+          error: true
+    - java_class: androidx.profileinstaller.ProfileVerifier$CompilationStatus
+      go_type: ProfileVerifierCompilationStatus
+      methods:
+        - java_method: getProfileInstallResultCode
+          go_name: GetProfileInstallResultCode
+          returns: int
+          error: true
+        - java_method: isCompiledWithProfile
+          go_name: IsCompiledWithProfile
+          returns: boolean
+          error: true
+        - java_method: hasProfileEnqueuedForCompilation
+          go_name: HasProfileEnqueuedForCompilation
+          returns: boolean
+          error: true
 constants:
-    - go_name: ResultCodeNoProfile
-      value: "0"
-      go_type: int
-    - go_name: ResultCodeCompiledWithProfile
-      value: "1"
-      go_type: int
-    - go_name: ResultCodeProfileEnqueuedForCompilation
-      value: "2"
-      go_type: int
-    - go_name: ResultCodeCompiledWithProfileNonMatching
-      value: "3"
-      go_type: int
-    - go_name: ResultCodeErrorPackageNameDoesNotExist
-      value: "65536"
-      go_type: int
-    - go_name: ResultCodeErrorCacheFileExistsButCannotBeRead
-      value: "131072"
-      go_type: int
-    - go_name: ResultCodeErrorCantWriteProfileVerificationResultCacheFile
-      value: "196608"
-      go_type: int
-    - go_name: ResultCodeErrorUnsupportedApiVersion
-      value: "262144"
-      go_type: int
-    - go_name: ActionInstallProfile
-      value: '"androidx.profileinstaller.action.INSTALL_PROFILE"'
-      go_type: string
-    - go_name: ActionSaveProfile
-      value: '"androidx.profileinstaller.action.SAVE_PROFILE"'
-      go_type: string
-    - go_name: ActionSkipFile
-      value: '"androidx.profileinstaller.action.SKIP_FILE"'
-      go_type: string
-    - go_name: ActionBenchmarkOperation
-      value: '"androidx.profileinstaller.action.BENCHMARK_OPERATION"'
-      go_type: string
     - go_name: MinSupportedSdk
       value: "24"
       go_type: int
@@ -255,4 +213,40 @@ constants:
       go_type: int
     - go_name: ResultBenchmarkOperationUnknown
       value: "16"
+      go_type: int
+    - go_name: ActionInstallProfile
+      value: '"androidx.profileinstaller.action.INSTALL_PROFILE"'
+      go_type: string
+    - go_name: ActionSaveProfile
+      value: '"androidx.profileinstaller.action.SAVE_PROFILE"'
+      go_type: string
+    - go_name: ActionSkipFile
+      value: '"androidx.profileinstaller.action.SKIP_FILE"'
+      go_type: string
+    - go_name: ActionBenchmarkOperation
+      value: '"androidx.profileinstaller.action.BENCHMARK_OPERATION"'
+      go_type: string
+    - go_name: ResultCodeNoProfile
+      value: "0"
+      go_type: int
+    - go_name: ResultCodeCompiledWithProfile
+      value: "1"
+      go_type: int
+    - go_name: ResultCodeProfileEnqueuedForCompilation
+      value: "2"
+      go_type: int
+    - go_name: ResultCodeCompiledWithProfileNonMatching
+      value: "3"
+      go_type: int
+    - go_name: ResultCodeErrorPackageNameDoesNotExist
+      value: "65536"
+      go_type: int
+    - go_name: ResultCodeErrorCacheFileExistsButCannotBeRead
+      value: "131072"
+      go_type: int
+    - go_name: ResultCodeErrorCantWriteProfileVerificationResultCacheFile
+      value: "196608"
+      go_type: int
+    - go_name: ResultCodeErrorUnsupportedApiVersion
+      value: "262144"
       go_type: int

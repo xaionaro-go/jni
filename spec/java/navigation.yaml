@@ -5,34 +5,6 @@
 package: navigation
 go_import: github.com/AndroidGoLab/jni/com/google/android/material/navigation
 classes:
-    - java_class: com.google.android.material.navigation.NavigationBarMenu
-      go_type: BarMenu
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: java.lang.Class<?>
-          go_name: arg1
-        - java_type: int
-          go_name: arg2
-      methods:
-        - java_method: getMaxItemCount
-          go_name: GetMaxItemCount
-          returns: int
-          error: true
-        - java_method: addSubMenu
-          go_name: AddSubMenu
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: java.lang.CharSequence
-              go_name: arg3
-          returns: android.view.SubMenu
-          error: true
     - java_class: com.google.android.material.navigation.NavigationView
       go_type: View
       obtain: constructor
@@ -339,118 +311,6 @@ classes:
           go_name: HandleBackInvoked
           returns: void
           error: true
-        - java_method: cancelBackProgress
-          go_name: CancelBackProgress
-          returns: void
-          error: true
-    - java_class: com.google.android.material.navigation.NavigationBarPresenter
-      go_type: BarPresenter
-      obtain: constructor
-      methods:
-        - java_method: setMenuView
-          go_name: SetMenuView
-          params:
-            - java_type: com.google.android.material.navigation.NavigationBarMenuView
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: initForMenu
-          go_name: InitForMenu
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getMenuView
-          go_name: GetMenuView
-          params:
-            - java_type: android.view.ViewGroup
-              go_name: arg0
-          returns: androidx.appcompat.view.menu.MenuView
-          error: true
-        - java_method: updateMenuView
-          go_name: UpdateMenuView
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setCallback
-          go_name: SetCallback
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuPresenter$Callback
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onSubMenuSelected
-          go_name: OnSubMenuSelected
-          params:
-            - java_type: androidx.appcompat.view.menu.SubMenuBuilder
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onCloseMenu
-          go_name: OnCloseMenu
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: flagActionItems
-          go_name: FlagActionItems
-          returns: boolean
-          error: true
-        - java_method: expandItemActionView
-          go_name: ExpandItemActionView
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg0
-            - java_type: androidx.appcompat.view.menu.MenuItemImpl
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: collapseItemActionView
-          go_name: CollapseItemActionView
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg0
-            - java_type: androidx.appcompat.view.menu.MenuItemImpl
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: setId
-          go_name: SetId
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: int
-          error: true
-        - java_method: onSaveInstanceState
-          go_name: OnSaveInstanceState
-          returns: android.os.Parcelable
-          error: true
-        - java_method: onRestoreInstanceState
-          go_name: OnRestoreInstanceState
-          params:
-            - java_type: android.os.Parcelable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setUpdateSuspended
-          go_name: SetUpdateSuspended
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
     - java_class: com.google.android.material.navigation.NavigationView$OnNavigationItemSelectedListener
       go_type: ViewOnNavigationItemSelectedListener
       methods:
@@ -463,7 +323,13 @@ classes:
           error: true
     - java_class: com.google.android.material.navigation.NavigationView$SavedState
       go_type: ViewSavedState
-      methods:
+      obtain: constructor
+      constructor_params:
+        - java_type: android.os.Parcel
+          go_name: arg0
+        - java_type: java.lang.ClassLoader
+          go_name: arg1
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -472,6 +338,328 @@ classes:
             - java_type: int
               go_name: arg1
           returns: void
+          error: true
+    - java_class: com.google.android.material.navigation.DrawerLayoutUtils
+      go_type: DrawerLayoutUtils
+      static_methods:
+        - java_method: getScrimCloseAnimatorUpdateListener
+          go_name: GetScrimCloseAnimatorUpdateListener
+          params:
+            - java_type: androidx.drawerlayout.widget.DrawerLayout
+              go_name: arg0
+          returns: android.animation.ValueAnimator$AnimatorUpdateListener
+          error: true
+        - java_method: getScrimCloseAnimatorListener
+          go_name: GetScrimCloseAnimatorListener
+          params:
+            - java_type: androidx.drawerlayout.widget.DrawerLayout
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
+          returns: android.animation.Animator$AnimatorListener
+          error: true
+    - java_class: com.google.android.material.navigation.NavigationBarMenu
+      go_type: BarMenu
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: java.lang.Class<?>
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+      methods:
+        - java_method: getMaxItemCount
+          go_name: GetMaxItemCount
+          returns: int
+          error: true
+        - java_method: addSubMenu
+          go_name: AddSubMenu
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: java.lang.CharSequence
+              go_name: arg3
+          returns: android.view.SubMenu
+          error: true
+    - java_class: com.google.android.material.navigation.NavigationBarMenuView
+      go_type: BarMenuView
+      methods:
+        - java_method: initialize
+          go_name: Initialize
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getWindowAnimations
+          go_name: GetWindowAnimations
+          returns: int
+          error: true
+        - java_method: onInitializeAccessibilityNodeInfo
+          go_name: OnInitializeAccessibilityNodeInfo
+          params:
+            - java_type: android.view.accessibility.AccessibilityNodeInfo
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setIconTintList
+          go_name: SetIconTintList
+          params:
+            - java_type: android.content.res.ColorStateList
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getIconTintList
+          go_name: GetIconTintList
+          returns: android.content.res.ColorStateList
+          error: true
+        - java_method: setItemIconSize
+          go_name: SetItemIconSize
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getItemIconSize
+          go_name: GetItemIconSize
+          returns: int
+          error: true
+        - java_method: setItemTextColor
+          go_name: SetItemTextColor
+          params:
+            - java_type: android.content.res.ColorStateList
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getItemTextColor
+          go_name: GetItemTextColor
+          returns: android.content.res.ColorStateList
+          error: true
+        - java_method: setItemTextAppearanceInactive
+          go_name: SetItemTextAppearanceInactive
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getItemTextAppearanceInactive
+          go_name: GetItemTextAppearanceInactive
+          returns: int
+          error: true
+        - java_method: setItemTextAppearanceActive
+          go_name: SetItemTextAppearanceActive
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setItemTextAppearanceActiveBoldEnabled
+          go_name: SetItemTextAppearanceActiveBoldEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getItemTextAppearanceActive
+          go_name: GetItemTextAppearanceActive
+          returns: int
+          error: true
+        - java_method: setItemBackgroundRes
+          go_name: SetItemBackgroundRes
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getItemPaddingTop
+          go_name: GetItemPaddingTop
+          returns: int
+          error: true
+        - java_method: setItemPaddingTop
+          go_name: SetItemPaddingTop
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getItemPaddingBottom
+          go_name: GetItemPaddingBottom
+          returns: int
+          error: true
+        - java_method: setItemPaddingBottom
+          go_name: SetItemPaddingBottom
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getActiveIndicatorLabelPadding
+          go_name: GetActiveIndicatorLabelPadding
+          returns: int
+          error: true
+        - java_method: setActiveIndicatorLabelPadding
+          go_name: SetActiveIndicatorLabelPadding
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getItemActiveIndicatorEnabled
+          go_name: GetItemActiveIndicatorEnabled
+          returns: boolean
+          error: true
+        - java_method: setItemActiveIndicatorEnabled
+          go_name: SetItemActiveIndicatorEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getItemActiveIndicatorWidth
+          go_name: GetItemActiveIndicatorWidth
+          returns: int
+          error: true
+        - java_method: setItemActiveIndicatorWidth
+          go_name: SetItemActiveIndicatorWidth
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getItemActiveIndicatorHeight
+          go_name: GetItemActiveIndicatorHeight
+          returns: int
+          error: true
+        - java_method: setItemActiveIndicatorHeight
+          go_name: SetItemActiveIndicatorHeight
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getItemActiveIndicatorMarginHorizontal
+          go_name: GetItemActiveIndicatorMarginHorizontal
+          returns: int
+          error: true
+        - java_method: setItemActiveIndicatorMarginHorizontal
+          go_name: SetItemActiveIndicatorMarginHorizontal
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getItemActiveIndicatorShapeAppearance
+          go_name: GetItemActiveIndicatorShapeAppearance
+          returns: com.google.android.material.shape.ShapeAppearanceModel
+          error: true
+        - java_method: setItemActiveIndicatorShapeAppearance
+          go_name: SetItemActiveIndicatorShapeAppearance
+          params:
+            - java_type: com.google.android.material.shape.ShapeAppearanceModel
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getItemActiveIndicatorColor
+          go_name: GetItemActiveIndicatorColor
+          returns: android.content.res.ColorStateList
+          error: true
+        - java_method: setItemActiveIndicatorColor
+          go_name: SetItemActiveIndicatorColor
+          params:
+            - java_type: android.content.res.ColorStateList
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getItemBackgroundRes
+          go_name: GetItemBackgroundRes
+          returns: int
+          error: true
+        - java_method: setItemBackground
+          go_name: SetItemBackground
+          params:
+            - java_type: android.graphics.drawable.Drawable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setItemRippleColor
+          go_name: SetItemRippleColor
+          params:
+            - java_type: android.content.res.ColorStateList
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getItemRippleColor
+          go_name: GetItemRippleColor
+          returns: android.content.res.ColorStateList
+          error: true
+        - java_method: getItemBackground
+          go_name: GetItemBackground
+          returns: android.graphics.drawable.Drawable
+          error: true
+        - java_method: setLabelVisibilityMode
+          go_name: SetLabelVisibilityMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getLabelVisibilityMode
+          go_name: GetLabelVisibilityMode
+          returns: int
+          error: true
+        - java_method: setItemOnTouchListener
+          go_name: SetItemOnTouchListener
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.view.View$OnTouchListener
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: createDefaultColorStateList
+          go_name: CreateDefaultColorStateList
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.content.res.ColorStateList
+          error: true
+        - java_method: setPresenter
+          go_name: SetPresenter
+          params:
+            - java_type: com.google.android.material.navigation.NavigationBarPresenter
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: buildMenuView
+          go_name: BuildMenuView
+          returns: void
+          error: true
+        - java_method: updateMenuView
+          go_name: UpdateMenuView
+          returns: void
+          error: true
+        - java_method: getSelectedItemId
+          go_name: GetSelectedItemId
+          returns: int
+          error: true
+        - java_method: getBadge
+          go_name: GetBadge
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: com.google.android.material.badge.BadgeDrawable
+          error: true
+        - java_method: findItemView
+          go_name: FindItemView
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: com.google.android.material.navigation.NavigationBarItemView
           error: true
     - java_class: com.google.android.material.navigation.NavigationBarView
       go_type: BarView
@@ -795,6 +983,114 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
+    - java_class: com.google.android.material.navigation.NavigationBarPresenter
+      go_type: BarPresenter
+      obtain: constructor
+      methods:
+        - java_method: setMenuView
+          go_name: SetMenuView
+          params:
+            - java_type: com.google.android.material.navigation.NavigationBarMenuView
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: initForMenu
+          go_name: InitForMenu
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getMenuView
+          go_name: GetMenuView
+          params:
+            - java_type: android.view.ViewGroup
+              go_name: arg0
+          returns: androidx.appcompat.view.menu.MenuView
+          error: true
+        - java_method: updateMenuView
+          go_name: UpdateMenuView
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCallback
+          go_name: SetCallback
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuPresenter$Callback
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onSubMenuSelected
+          go_name: OnSubMenuSelected
+          params:
+            - java_type: androidx.appcompat.view.menu.SubMenuBuilder
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onCloseMenu
+          go_name: OnCloseMenu
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: flagActionItems
+          go_name: FlagActionItems
+          returns: boolean
+          error: true
+        - java_method: expandItemActionView
+          go_name: ExpandItemActionView
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg0
+            - java_type: androidx.appcompat.view.menu.MenuItemImpl
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: collapseItemActionView
+          go_name: CollapseItemActionView
+          params:
+            - java_type: androidx.appcompat.view.menu.MenuBuilder
+              go_name: arg0
+            - java_type: androidx.appcompat.view.menu.MenuItemImpl
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: setId
+          go_name: SetId
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: int
+          error: true
+        - java_method: onSaveInstanceState
+          go_name: OnSaveInstanceState
+          returns: android.os.Parcelable
+          error: true
+        - java_method: onRestoreInstanceState
+          go_name: OnRestoreInstanceState
+          params:
+            - java_type: android.os.Parcelable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setUpdateSuspended
+          go_name: SetUpdateSuspended
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
     - java_class: com.google.android.material.navigation.NavigationBarItemView
       go_type: BarItemView
       methods:
@@ -1043,948 +1339,16 @@ classes:
           go_name: GetBadge
           returns: com.google.android.material.badge.BadgeDrawable
           error: true
-    - java_class: com.google.android.material.navigation.DrawerLayoutUtils
-      go_type: DrawerLayoutUtils
-      static_methods:
-        - java_method: getScrimCloseAnimatorUpdateListener
-          go_name: GetScrimCloseAnimatorUpdateListener
-          params:
-            - java_type: androidx.drawerlayout.widget.DrawerLayout
-              go_name: arg0
-          returns: android.animation.ValueAnimator$AnimatorUpdateListener
-          error: true
-        - java_method: getScrimCloseAnimatorListener
-          go_name: GetScrimCloseAnimatorListener
-          params:
-            - java_type: androidx.drawerlayout.widget.DrawerLayout
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-          returns: android.animation.Animator$AnimatorListener
-          error: true
+abstract_callback_eligibility:
     - java_class: com.google.android.material.navigation.NavigationBarMenuView
-      go_type: BarMenuView
-      methods:
-        - java_method: initialize
-          go_name: Initialize
-          params:
-            - java_type: androidx.appcompat.view.menu.MenuBuilder
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getWindowAnimations
-          go_name: GetWindowAnimations
-          returns: int
-          error: true
-        - java_method: onInitializeAccessibilityNodeInfo
-          go_name: OnInitializeAccessibilityNodeInfo
-          params:
-            - java_type: android.view.accessibility.AccessibilityNodeInfo
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setIconTintList
-          go_name: SetIconTintList
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getIconTintList
-          go_name: GetIconTintList
-          returns: android.content.res.ColorStateList
-          error: true
-        - java_method: setItemIconSize
-          go_name: SetItemIconSize
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getItemIconSize
-          go_name: GetItemIconSize
-          returns: int
-          error: true
-        - java_method: setItemTextColor
-          go_name: SetItemTextColor
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getItemTextColor
-          go_name: GetItemTextColor
-          returns: android.content.res.ColorStateList
-          error: true
-        - java_method: setItemTextAppearanceInactive
-          go_name: SetItemTextAppearanceInactive
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getItemTextAppearanceInactive
-          go_name: GetItemTextAppearanceInactive
-          returns: int
-          error: true
-        - java_method: setItemTextAppearanceActive
-          go_name: SetItemTextAppearanceActive
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setItemTextAppearanceActiveBoldEnabled
-          go_name: SetItemTextAppearanceActiveBoldEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getItemTextAppearanceActive
-          go_name: GetItemTextAppearanceActive
-          returns: int
-          error: true
-        - java_method: setItemBackgroundRes
-          go_name: SetItemBackgroundRes
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getItemPaddingTop
-          go_name: GetItemPaddingTop
-          returns: int
-          error: true
-        - java_method: setItemPaddingTop
-          go_name: SetItemPaddingTop
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getItemPaddingBottom
-          go_name: GetItemPaddingBottom
-          returns: int
-          error: true
-        - java_method: setItemPaddingBottom
-          go_name: SetItemPaddingBottom
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getActiveIndicatorLabelPadding
-          go_name: GetActiveIndicatorLabelPadding
-          returns: int
-          error: true
-        - java_method: setActiveIndicatorLabelPadding
-          go_name: SetActiveIndicatorLabelPadding
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getItemActiveIndicatorEnabled
-          go_name: GetItemActiveIndicatorEnabled
-          returns: boolean
-          error: true
-        - java_method: setItemActiveIndicatorEnabled
-          go_name: SetItemActiveIndicatorEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getItemActiveIndicatorWidth
-          go_name: GetItemActiveIndicatorWidth
-          returns: int
-          error: true
-        - java_method: setItemActiveIndicatorWidth
-          go_name: SetItemActiveIndicatorWidth
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getItemActiveIndicatorHeight
-          go_name: GetItemActiveIndicatorHeight
-          returns: int
-          error: true
-        - java_method: setItemActiveIndicatorHeight
-          go_name: SetItemActiveIndicatorHeight
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getItemActiveIndicatorMarginHorizontal
-          go_name: GetItemActiveIndicatorMarginHorizontal
-          returns: int
-          error: true
-        - java_method: setItemActiveIndicatorMarginHorizontal
-          go_name: SetItemActiveIndicatorMarginHorizontal
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getItemActiveIndicatorShapeAppearance
-          go_name: GetItemActiveIndicatorShapeAppearance
-          returns: com.google.android.material.shape.ShapeAppearanceModel
-          error: true
-        - java_method: setItemActiveIndicatorShapeAppearance
-          go_name: SetItemActiveIndicatorShapeAppearance
-          params:
-            - java_type: com.google.android.material.shape.ShapeAppearanceModel
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getItemActiveIndicatorColor
-          go_name: GetItemActiveIndicatorColor
-          returns: android.content.res.ColorStateList
-          error: true
-        - java_method: setItemActiveIndicatorColor
-          go_name: SetItemActiveIndicatorColor
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getItemBackgroundRes
-          go_name: GetItemBackgroundRes
-          returns: int
-          error: true
-        - java_method: setItemBackground
-          go_name: SetItemBackground
-          params:
-            - java_type: android.graphics.drawable.Drawable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setItemRippleColor
-          go_name: SetItemRippleColor
-          params:
-            - java_type: android.content.res.ColorStateList
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getItemRippleColor
-          go_name: GetItemRippleColor
-          returns: android.content.res.ColorStateList
-          error: true
-        - java_method: getItemBackground
-          go_name: GetItemBackground
-          returns: android.graphics.drawable.Drawable
-          error: true
-        - java_method: setLabelVisibilityMode
-          go_name: SetLabelVisibilityMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getLabelVisibilityMode
-          go_name: GetLabelVisibilityMode
-          returns: int
-          error: true
-        - java_method: setItemOnTouchListener
-          go_name: SetItemOnTouchListener
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.view.View$OnTouchListener
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: createDefaultColorStateList
-          go_name: CreateDefaultColorStateList
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.content.res.ColorStateList
-          error: true
-        - java_method: setPresenter
-          go_name: SetPresenter
-          params:
-            - java_type: com.google.android.material.navigation.NavigationBarPresenter
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: buildMenuView
-          go_name: BuildMenuView
-          returns: void
-          error: true
-        - java_method: updateMenuView
-          go_name: UpdateMenuView
-          returns: void
-          error: true
-        - java_method: getSelectedItemId
-          go_name: GetSelectedItemId
-          returns: int
-          error: true
-        - java_method: getBadge
-          go_name: GetBadge
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: com.google.android.material.badge.BadgeDrawable
-          error: true
-        - java_method: findItemView
-          go_name: FindItemView
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: com.google.android.material.navigation.NavigationBarItemView
-          error: true
-abstract_callbacks:
+      generated: false
+      reason: implements_interface
     - java_class: com.google.android.material.navigation.NavigationBarView
-      go_type: BarViewCallback
-      methods:
-        - java_method: setElevation
-          params:
-            - float
-          returns: void
-          go_field: SetElevation
-        - java_method: setOnItemSelectedListener
-          params:
-            - com.google.android.material.navigation.NavigationBarView$OnItemSelectedListener
-          returns: void
-          go_field: SetOnItemSelectedListener
-        - java_method: setOnItemReselectedListener
-          params:
-            - com.google.android.material.navigation.NavigationBarView$OnItemReselectedListener
-          returns: void
-          go_field: SetOnItemReselectedListener
-        - java_method: getMenu
-          params: []
-          returns: android.view.Menu
-          go_field: GetMenu
-        - java_method: getMenuView
-          params: []
-          returns: androidx.appcompat.view.menu.MenuView
-          go_field: GetMenuView
-        - java_method: inflateMenu
-          params:
-            - int
-          returns: void
-          go_field: InflateMenu
-        - java_method: getItemIconTintList
-          params: []
-          returns: android.content.res.ColorStateList
-          go_field: GetItemIconTintList
-        - java_method: setItemIconTintList
-          params:
-            - android.content.res.ColorStateList
-          returns: void
-          go_field: SetItemIconTintList
-        - java_method: setItemIconSize
-          params:
-            - int
-          returns: void
-          go_field: SetItemIconSize
-        - java_method: setItemIconSizeRes
-          params:
-            - int
-          returns: void
-          go_field: SetItemIconSizeRes
-        - java_method: getItemIconSize
-          params: []
-          returns: int
-          go_field: GetItemIconSize
-        - java_method: getItemTextColor
-          params: []
-          returns: android.content.res.ColorStateList
-          go_field: GetItemTextColor
-        - java_method: setItemTextColor
-          params:
-            - android.content.res.ColorStateList
-          returns: void
-          go_field: SetItemTextColor
-        - java_method: getItemBackgroundResource
-          params: []
-          returns: int
-          go_field: GetItemBackgroundResource
-        - java_method: setItemBackgroundResource
-          params:
-            - int
-          returns: void
-          go_field: SetItemBackgroundResource
-        - java_method: getItemBackground
-          params: []
-          returns: android.graphics.drawable.Drawable
-          go_field: GetItemBackground
-        - java_method: setItemBackground
-          params:
-            - android.graphics.drawable.Drawable
-          returns: void
-          go_field: SetItemBackground
-        - java_method: getItemRippleColor
-          params: []
-          returns: android.content.res.ColorStateList
-          go_field: GetItemRippleColor
-        - java_method: setItemRippleColor
-          params:
-            - android.content.res.ColorStateList
-          returns: void
-          go_field: SetItemRippleColor
-        - java_method: getItemPaddingTop
-          params: []
-          returns: int
-          go_field: GetItemPaddingTop
-        - java_method: setItemPaddingTop
-          params:
-            - int
-          returns: void
-          go_field: SetItemPaddingTop
-        - java_method: getItemPaddingBottom
-          params: []
-          returns: int
-          go_field: GetItemPaddingBottom
-        - java_method: setItemPaddingBottom
-          params:
-            - int
-          returns: void
-          go_field: SetItemPaddingBottom
-        - java_method: setActiveIndicatorLabelPadding
-          params:
-            - int
-          returns: void
-          go_field: SetActiveIndicatorLabelPadding
-        - java_method: getActiveIndicatorLabelPadding
-          params: []
-          returns: int
-          go_field: GetActiveIndicatorLabelPadding
-        - java_method: isItemActiveIndicatorEnabled
-          params: []
-          returns: boolean
-          go_field: IsItemActiveIndicatorEnabled
-        - java_method: setItemActiveIndicatorEnabled
-          params:
-            - boolean
-          returns: void
-          go_field: SetItemActiveIndicatorEnabled
-        - java_method: getItemActiveIndicatorWidth
-          params: []
-          returns: int
-          go_field: GetItemActiveIndicatorWidth
-        - java_method: setItemActiveIndicatorWidth
-          params:
-            - int
-          returns: void
-          go_field: SetItemActiveIndicatorWidth
-        - java_method: getItemActiveIndicatorHeight
-          params: []
-          returns: int
-          go_field: GetItemActiveIndicatorHeight
-        - java_method: setItemActiveIndicatorHeight
-          params:
-            - int
-          returns: void
-          go_field: SetItemActiveIndicatorHeight
-        - java_method: getItemActiveIndicatorMarginHorizontal
-          params: []
-          returns: int
-          go_field: GetItemActiveIndicatorMarginHorizontal
-        - java_method: setItemActiveIndicatorMarginHorizontal
-          params:
-            - int
-          returns: void
-          go_field: SetItemActiveIndicatorMarginHorizontal
-        - java_method: getItemActiveIndicatorShapeAppearance
-          params: []
-          returns: com.google.android.material.shape.ShapeAppearanceModel
-          go_field: GetItemActiveIndicatorShapeAppearance
-        - java_method: setItemActiveIndicatorShapeAppearance
-          params:
-            - com.google.android.material.shape.ShapeAppearanceModel
-          returns: void
-          go_field: SetItemActiveIndicatorShapeAppearance
-        - java_method: getItemActiveIndicatorColor
-          params: []
-          returns: android.content.res.ColorStateList
-          go_field: GetItemActiveIndicatorColor
-        - java_method: setItemActiveIndicatorColor
-          params:
-            - android.content.res.ColorStateList
-          returns: void
-          go_field: SetItemActiveIndicatorColor
-        - java_method: getSelectedItemId
-          params: []
-          returns: int
-          go_field: GetSelectedItemId
-        - java_method: setSelectedItemId
-          params:
-            - int
-          returns: void
-          go_field: SetSelectedItemId
-        - java_method: setLabelVisibilityMode
-          params:
-            - int
-          returns: void
-          go_field: SetLabelVisibilityMode
-        - java_method: getLabelVisibilityMode
-          params: []
-          returns: int
-          go_field: GetLabelVisibilityMode
-        - java_method: setItemTextAppearanceInactive
-          params:
-            - int
-          returns: void
-          go_field: SetItemTextAppearanceInactive
-        - java_method: getItemTextAppearanceInactive
-          params: []
-          returns: int
-          go_field: GetItemTextAppearanceInactive
-        - java_method: setItemTextAppearanceActive
-          params:
-            - int
-          returns: void
-          go_field: SetItemTextAppearanceActive
-        - java_method: setItemTextAppearanceActiveBoldEnabled
-          params:
-            - boolean
-          returns: void
-          go_field: SetItemTextAppearanceActiveBoldEnabled
-        - java_method: getItemTextAppearanceActive
-          params: []
-          returns: int
-          go_field: GetItemTextAppearanceActive
-        - java_method: setItemOnTouchListener
-          params:
-            - int
-            - android.view.View$OnTouchListener
-          returns: void
-          go_field: SetItemOnTouchListener
-        - java_method: getBadge
-          params:
-            - int
-          returns: com.google.android.material.badge.BadgeDrawable
-          go_field: GetBadge
-        - java_method: getOrCreateBadge
-          params:
-            - int
-          returns: com.google.android.material.badge.BadgeDrawable
-          go_field: GetOrCreateBadge
-        - java_method: removeBadge
-          params:
-            - int
-          returns: void
-          go_field: RemoveBadge
-        - java_method: getMaxItemCount
-          params: []
-          returns: int
-          go_field: GetMaxItemCount
-        - java_method: getPresenter
-          params: []
-          returns: com.google.android.material.navigation.NavigationBarPresenter
-          go_field: GetPresenter
+      generated: false
+      reason: unsupported_constructor
     - java_class: com.google.android.material.navigation.NavigationBarItemView
-      go_type: BarItemViewCallback
-      methods:
-        - java_method: initialize
-          params:
-            - androidx.appcompat.view.menu.MenuItemImpl
-            - int
-          returns: void
-          go_field: Initialize
-        - java_method: setItemPosition
-          params:
-            - int
-          returns: void
-          go_field: SetItemPosition
-        - java_method: getItemPosition
-          params: []
-          returns: int
-          go_field: GetItemPosition
-        - java_method: setShifting
-          params:
-            - boolean
-          returns: void
-          go_field: SetShifting
-        - java_method: setLabelVisibilityMode
-          params:
-            - int
-          returns: void
-          go_field: SetLabelVisibilityMode
-        - java_method: getItemData
-          params: []
-          returns: androidx.appcompat.view.menu.MenuItemImpl
-          go_field: GetItemData
-        - java_method: setTitle
-          params:
-            - java.lang.CharSequence
-          returns: void
-          go_field: SetTitle
-        - java_method: setCheckable
-          params:
-            - boolean
-          returns: void
-          go_field: SetCheckable
-        - java_method: setChecked
-          params:
-            - boolean
-          returns: void
-          go_field: SetChecked
-        - java_method: onInitializeAccessibilityNodeInfo
-          params:
-            - android.view.accessibility.AccessibilityNodeInfo
-          returns: void
-          go_field: OnInitializeAccessibilityNodeInfo
-        - java_method: setEnabled
-          params:
-            - boolean
-          returns: void
-          go_field: SetEnabled
-        - java_method: onCreateDrawableState
-          params:
-            - int
-          returns: '[I'
-          go_field: OnCreateDrawableState
-        - java_method: setShortcut
-          params:
-            - boolean
-            - char
-          returns: void
-          go_field: SetShortcut
-        - java_method: setIcon
-          params:
-            - android.graphics.drawable.Drawable
-          returns: void
-          go_field: SetIcon
-        - java_method: prefersCondensedTitle
-          params: []
-          returns: boolean
-          go_field: PrefersCondensedTitle
-        - java_method: showsIcon
-          params: []
-          returns: boolean
-          go_field: ShowsIcon
-        - java_method: setIconTintList
-          params:
-            - android.content.res.ColorStateList
-          returns: void
-          go_field: SetIconTintList
-        - java_method: setIconSize
-          params:
-            - int
-          returns: void
-          go_field: SetIconSize
-        - java_method: setTextAppearanceInactive
-          params:
-            - int
-          returns: void
-          go_field: SetTextAppearanceInactive
-        - java_method: setTextAppearanceActive
-          params:
-            - int
-          returns: void
-          go_field: SetTextAppearanceActive
-        - java_method: setTextAppearanceActiveBoldEnabled
-          params:
-            - boolean
-          returns: void
-          go_field: SetTextAppearanceActiveBoldEnabled
-        - java_method: setTextColor
-          params:
-            - android.content.res.ColorStateList
-          returns: void
-          go_field: SetTextColor
-        - java_method: setItemBackground
-          params:
-            - int
-          returns: void
-          go_field: SetItemBackground
-        - java_method: setItemBackground
-          params:
-            - android.graphics.drawable.Drawable
-          returns: void
-          go_field: SetItemBackground
-        - java_method: setItemRippleColor
-          params:
-            - android.content.res.ColorStateList
-          returns: void
-          go_field: SetItemRippleColor
-        - java_method: setItemPaddingTop
-          params:
-            - int
-          returns: void
-          go_field: SetItemPaddingTop
-        - java_method: setItemPaddingBottom
-          params:
-            - int
-          returns: void
-          go_field: SetItemPaddingBottom
-        - java_method: setActiveIndicatorLabelPadding
-          params:
-            - int
-          returns: void
-          go_field: SetActiveIndicatorLabelPadding
-        - java_method: setActiveIndicatorEnabled
-          params:
-            - boolean
-          returns: void
-          go_field: SetActiveIndicatorEnabled
-        - java_method: setActiveIndicatorWidth
-          params:
-            - int
-          returns: void
-          go_field: SetActiveIndicatorWidth
-        - java_method: setActiveIndicatorHeight
-          params:
-            - int
-          returns: void
-          go_field: SetActiveIndicatorHeight
-        - java_method: setActiveIndicatorMarginHorizontal
-          params:
-            - int
-          returns: void
-          go_field: SetActiveIndicatorMarginHorizontal
-        - java_method: getActiveIndicatorDrawable
-          params: []
-          returns: android.graphics.drawable.Drawable
-          go_field: GetActiveIndicatorDrawable
-        - java_method: setActiveIndicatorDrawable
-          params:
-            - android.graphics.drawable.Drawable
-          returns: void
-          go_field: SetActiveIndicatorDrawable
-        - java_method: dispatchTouchEvent
-          params:
-            - android.view.MotionEvent
-          returns: boolean
-          go_field: DispatchTouchEvent
-        - java_method: setActiveIndicatorResizeable
-          params:
-            - boolean
-          returns: void
-          go_field: SetActiveIndicatorResizeable
-        - java_method: getBadge
-          params: []
-          returns: com.google.android.material.badge.BadgeDrawable
-          go_field: GetBadge
-    - java_class: com.google.android.material.navigation.NavigationBarMenuView
-      go_type: BarMenuViewCallback
-      methods:
-        - java_method: initialize
-          params:
-            - androidx.appcompat.view.menu.MenuBuilder
-          returns: void
-          go_field: Initialize
-        - java_method: getWindowAnimations
-          params: []
-          returns: int
-          go_field: GetWindowAnimations
-        - java_method: onInitializeAccessibilityNodeInfo
-          params:
-            - android.view.accessibility.AccessibilityNodeInfo
-          returns: void
-          go_field: OnInitializeAccessibilityNodeInfo
-        - java_method: setIconTintList
-          params:
-            - android.content.res.ColorStateList
-          returns: void
-          go_field: SetIconTintList
-        - java_method: getIconTintList
-          params: []
-          returns: android.content.res.ColorStateList
-          go_field: GetIconTintList
-        - java_method: setItemIconSize
-          params:
-            - int
-          returns: void
-          go_field: SetItemIconSize
-        - java_method: getItemIconSize
-          params: []
-          returns: int
-          go_field: GetItemIconSize
-        - java_method: setItemTextColor
-          params:
-            - android.content.res.ColorStateList
-          returns: void
-          go_field: SetItemTextColor
-        - java_method: getItemTextColor
-          params: []
-          returns: android.content.res.ColorStateList
-          go_field: GetItemTextColor
-        - java_method: setItemTextAppearanceInactive
-          params:
-            - int
-          returns: void
-          go_field: SetItemTextAppearanceInactive
-        - java_method: getItemTextAppearanceInactive
-          params: []
-          returns: int
-          go_field: GetItemTextAppearanceInactive
-        - java_method: setItemTextAppearanceActive
-          params:
-            - int
-          returns: void
-          go_field: SetItemTextAppearanceActive
-        - java_method: setItemTextAppearanceActiveBoldEnabled
-          params:
-            - boolean
-          returns: void
-          go_field: SetItemTextAppearanceActiveBoldEnabled
-        - java_method: getItemTextAppearanceActive
-          params: []
-          returns: int
-          go_field: GetItemTextAppearanceActive
-        - java_method: setItemBackgroundRes
-          params:
-            - int
-          returns: void
-          go_field: SetItemBackgroundRes
-        - java_method: getItemPaddingTop
-          params: []
-          returns: int
-          go_field: GetItemPaddingTop
-        - java_method: setItemPaddingTop
-          params:
-            - int
-          returns: void
-          go_field: SetItemPaddingTop
-        - java_method: getItemPaddingBottom
-          params: []
-          returns: int
-          go_field: GetItemPaddingBottom
-        - java_method: setItemPaddingBottom
-          params:
-            - int
-          returns: void
-          go_field: SetItemPaddingBottom
-        - java_method: getActiveIndicatorLabelPadding
-          params: []
-          returns: int
-          go_field: GetActiveIndicatorLabelPadding
-        - java_method: setActiveIndicatorLabelPadding
-          params:
-            - int
-          returns: void
-          go_field: SetActiveIndicatorLabelPadding
-        - java_method: getItemActiveIndicatorEnabled
-          params: []
-          returns: boolean
-          go_field: GetItemActiveIndicatorEnabled
-        - java_method: setItemActiveIndicatorEnabled
-          params:
-            - boolean
-          returns: void
-          go_field: SetItemActiveIndicatorEnabled
-        - java_method: getItemActiveIndicatorWidth
-          params: []
-          returns: int
-          go_field: GetItemActiveIndicatorWidth
-        - java_method: setItemActiveIndicatorWidth
-          params:
-            - int
-          returns: void
-          go_field: SetItemActiveIndicatorWidth
-        - java_method: getItemActiveIndicatorHeight
-          params: []
-          returns: int
-          go_field: GetItemActiveIndicatorHeight
-        - java_method: setItemActiveIndicatorHeight
-          params:
-            - int
-          returns: void
-          go_field: SetItemActiveIndicatorHeight
-        - java_method: getItemActiveIndicatorMarginHorizontal
-          params: []
-          returns: int
-          go_field: GetItemActiveIndicatorMarginHorizontal
-        - java_method: setItemActiveIndicatorMarginHorizontal
-          params:
-            - int
-          returns: void
-          go_field: SetItemActiveIndicatorMarginHorizontal
-        - java_method: getItemActiveIndicatorShapeAppearance
-          params: []
-          returns: com.google.android.material.shape.ShapeAppearanceModel
-          go_field: GetItemActiveIndicatorShapeAppearance
-        - java_method: setItemActiveIndicatorShapeAppearance
-          params:
-            - com.google.android.material.shape.ShapeAppearanceModel
-          returns: void
-          go_field: SetItemActiveIndicatorShapeAppearance
-        - java_method: getItemActiveIndicatorColor
-          params: []
-          returns: android.content.res.ColorStateList
-          go_field: GetItemActiveIndicatorColor
-        - java_method: setItemActiveIndicatorColor
-          params:
-            - android.content.res.ColorStateList
-          returns: void
-          go_field: SetItemActiveIndicatorColor
-        - java_method: getItemBackgroundRes
-          params: []
-          returns: int
-          go_field: GetItemBackgroundRes
-        - java_method: setItemBackground
-          params:
-            - android.graphics.drawable.Drawable
-          returns: void
-          go_field: SetItemBackground
-        - java_method: setItemRippleColor
-          params:
-            - android.content.res.ColorStateList
-          returns: void
-          go_field: SetItemRippleColor
-        - java_method: getItemRippleColor
-          params: []
-          returns: android.content.res.ColorStateList
-          go_field: GetItemRippleColor
-        - java_method: getItemBackground
-          params: []
-          returns: android.graphics.drawable.Drawable
-          go_field: GetItemBackground
-        - java_method: setLabelVisibilityMode
-          params:
-            - int
-          returns: void
-          go_field: SetLabelVisibilityMode
-        - java_method: getLabelVisibilityMode
-          params: []
-          returns: int
-          go_field: GetLabelVisibilityMode
-        - java_method: setItemOnTouchListener
-          params:
-            - int
-            - android.view.View$OnTouchListener
-          returns: void
-          go_field: SetItemOnTouchListener
-        - java_method: createDefaultColorStateList
-          params:
-            - int
-          returns: android.content.res.ColorStateList
-          go_field: CreateDefaultColorStateList
-        - java_method: setPresenter
-          params:
-            - com.google.android.material.navigation.NavigationBarPresenter
-          returns: void
-          go_field: SetPresenter
-        - java_method: buildMenuView
-          params: []
-          returns: void
-          go_field: BuildMenuView
-        - java_method: updateMenuView
-          params: []
-          returns: void
-          go_field: UpdateMenuView
-        - java_method: getSelectedItemId
-          params: []
-          returns: int
-          go_field: GetSelectedItemId
-        - java_method: getBadge
-          params:
-            - int
-          returns: com.google.android.material.badge.BadgeDrawable
-          go_field: GetBadge
-        - java_method: findItemView
-          params:
-            - int
-          returns: com.google.android.material.navigation.NavigationBarItemView
-          go_field: FindItemView
+      generated: false
+      reason: implements_interface
 constants:
     - go_name: Creator
       value: "0"

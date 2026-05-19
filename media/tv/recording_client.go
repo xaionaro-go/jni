@@ -32,6 +32,12 @@ func NewRecordingClient(vm *jni.VM, arg0 *jni.Object, arg1 string, arg2 *jni.Obj
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRecordingClient == nil {
+			return fmt.Errorf("android.media.tv.TvRecordingClient is not available on this device")
+		}
+		if midRecordingClientCtor == nil {
+			return fmt.Errorf("android.media.tv.TvRecordingClient constructor (Landroid/content/Context;Ljava/lang/String;Landroid/media/tv/TvRecordingClient$RecordingCallback;Landroid/os/Handler;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {

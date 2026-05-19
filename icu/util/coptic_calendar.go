@@ -32,6 +32,12 @@ func NewCopticCalendar(vm *jni.VM) (*CopticCalendar, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCopticCalendar == nil {
+			return fmt.Errorf("android.icu.util.CopticCalendar is not available on this device")
+		}
+		if midCopticCalendarCtor == nil {
+			return fmt.Errorf("android.icu.util.CopticCalendar constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCopticCalendar)), midCopticCalendarCtor)
 		if err != nil {
 			return err

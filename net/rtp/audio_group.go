@@ -32,6 +32,12 @@ func NewAudioGroup(vm *jni.VM, arg0 *jni.Object) (*AudioGroup, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAudioGroup == nil {
+			return fmt.Errorf("android.net.rtp.AudioGroup is not available on this device")
+		}
+		if midAudioGroupCtor == nil {
+			return fmt.Errorf("android.net.rtp.AudioGroup constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAudioGroup)), midAudioGroupCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -32,6 +32,12 @@ func NewBuild(vm *jni.VM) (*Build, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBuild == nil {
+			return fmt.Errorf("android.os.Build is not available on this device")
+		}
+		if midBuildCtor == nil {
+			return fmt.Errorf("android.os.Build constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBuild)), midBuildCtor)
 		if err != nil {
 			return err

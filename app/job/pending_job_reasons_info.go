@@ -32,6 +32,12 @@ func NewPendingJobReasonsInfo(vm *jni.VM, arg0 int64, arg1 *jni.Object) (*Pendin
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPendingJobReasonsInfo == nil {
+			return fmt.Errorf("android.app.job.PendingJobReasonsInfo is not available on this device")
+		}
+		if midPendingJobReasonsInfoCtor == nil {
+			return fmt.Errorf("android.app.job.PendingJobReasonsInfo constructor (J[I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPendingJobReasonsInfo)), midPendingJobReasonsInfoCtor, jni.LongValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -128,29 +134,6 @@ func (m *PendingJobReasonsInfo) GetTimestampMillis() (int64, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.job.PendingJobReasonsInfo.writeToParcel.
-func (m *PendingJobReasonsInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midPendingJobReasonsInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.job.PendingJobReasonsInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midPendingJobReasonsInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.job.PendingJobReasonsInfo.toString.
 func (m *PendingJobReasonsInfo) ToString() (string, error) {
 	var result string
@@ -176,4 +159,27 @@ func (m *PendingJobReasonsInfo) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.job.PendingJobReasonsInfo.writeToParcel.
+func (m *PendingJobReasonsInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midPendingJobReasonsInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.job.PendingJobReasonsInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsPendingJobReasonsInfo)),
+			midPendingJobReasonsInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -5,6 +5,8 @@ package widget
 import "github.com/AndroidGoLab/jni/androidx/customview/widget/consts"
 
 const (
+	InvalidId           = consts.InvalidId
+	HostId              = consts.HostId
 	InvalidPointer      = consts.InvalidPointer
 	StateIdle           = consts.StateIdle
 	StateDragging       = consts.StateDragging
@@ -17,6 +19,4 @@ const (
 	DirectionHorizontal = consts.DirectionHorizontal
 	DirectionVertical   = consts.DirectionVertical
 	DirectionAll        = consts.DirectionAll
-	InvalidId           = consts.InvalidId
-	HostId              = consts.HostId
 )

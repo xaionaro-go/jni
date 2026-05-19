@@ -5,8 +5,8 @@
 package: customaudience
 go_import: github.com/AndroidGoLab/jni/adservices/customaudience
 classes:
-    - java_class: android.adservices.customaudience.JoinCustomAudienceRequest
-      go_type: JoinCustomAudienceRequest
+    - java_class: android.adservices.customaudience.ScheduleCustomAudienceUpdateRequest
+      go_type: ScheduleCustomAudienceUpdateRequest
       methods:
         - java_method: equals
           go_name: Equals
@@ -15,140 +15,63 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getCustomAudience
-          go_name: GetCustomAudience
-          returns: android.adservices.customaudience.CustomAudience
+        - java_method: getMinDelay
+          go_name: GetMinDelay
+          returns: java.time.Duration
+          error: true
+        - java_method: getPartialCustomAudienceList
+          go_name: GetPartialCustomAudienceList
+          returns: java.util.List<android.adservices.customaudience.PartialCustomAudience>
+          error: true
+        - java_method: getUpdateUri
+          go_name: GetUpdateUri
+          returns: android.net.Uri
           error: true
         - java_method: hashCode
           go_name: HashCode
           returns: int
           error: true
-    - java_class: android.adservices.customaudience.JoinCustomAudienceRequest$Builder
-      go_type: JoinCustomAudienceRequestBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.adservices.customaudience.JoinCustomAudienceRequest
+        - java_method: shouldReplacePendingUpdates
+          go_name: ShouldReplacePendingUpdates
+          returns: boolean
           error: true
-        - java_method: setCustomAudience
-          go_name: SetCustomAudience
-          params:
-            - java_type: android.adservices.customaudience.CustomAudience
-              go_name: arg0
-          returns: android.adservices.customaudience.JoinCustomAudienceRequest$Builder
+        - java_method: toString
+          go_name: ToString
+          returns: String
           error: true
-    - java_class: android.adservices.customaudience.RemoveCustomAudienceOverrideRequest
-      go_type: RemoveCustomAudienceOverrideRequest
+    - java_class: android.adservices.customaudience.ScheduleCustomAudienceUpdateRequest$Builder
+      go_type: ScheduleCustomAudienceUpdateRequestBuilder
       obtain: constructor
       constructor_params:
-        - java_type: android.adservices.common.AdTechIdentifier
+        - java_type: android.net.Uri
           go_name: arg0
-        - java_type: String
+        - java_type: java.time.Duration
           go_name: arg1
-      methods:
-        - java_method: getBuyer
-          go_name: GetBuyer
-          returns: android.adservices.common.AdTechIdentifier
-          error: true
-        - java_method: getName
-          go_name: GetName
-          returns: String
-          error: true
-    - java_class: android.adservices.customaudience.RemoveCustomAudienceOverrideRequest$Builder
-      go_type: RemoveCustomAudienceOverrideRequestBuilder
       methods:
         - java_method: build
           go_name: Build
-          returns: android.adservices.customaudience.RemoveCustomAudienceOverrideRequest
+          returns: android.adservices.customaudience.ScheduleCustomAudienceUpdateRequest
           error: true
-        - java_method: setBuyer
-          go_name: SetBuyer
+        - java_method: setMinDelay
+          go_name: SetMinDelay
           params:
-            - java_type: android.adservices.common.AdTechIdentifier
+            - java_type: java.time.Duration
               go_name: arg0
-          returns: android.adservices.customaudience.RemoveCustomAudienceOverrideRequest$Builder
+          returns: android.adservices.customaudience.ScheduleCustomAudienceUpdateRequest$Builder
           error: true
-        - java_method: setName
-          go_name: SetName
+        - java_method: setShouldReplacePendingUpdates
+          go_name: SetShouldReplacePendingUpdates
           params:
-            - java_type: String
+            - java_type: boolean
               go_name: arg0
-          returns: android.adservices.customaudience.RemoveCustomAudienceOverrideRequest$Builder
+          returns: android.adservices.customaudience.ScheduleCustomAudienceUpdateRequest$Builder
           error: true
-    - java_class: android.adservices.customaudience.AddCustomAudienceOverrideRequest
-      go_type: AddCustomAudienceOverrideRequest
-      obtain: constructor
-      constructor_params:
-        - java_type: android.adservices.common.AdTechIdentifier
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-        - java_type: String
-          go_name: arg2
-        - java_type: android.adservices.common.AdSelectionSignals
-          go_name: arg3
-      methods:
-        - java_method: getBiddingLogicJs
-          go_name: GetBiddingLogicJs
-          returns: String
-          error: true
-        - java_method: getBiddingLogicJsVersion
-          go_name: GetBiddingLogicJsVersion
-          returns: long
-          error: true
-        - java_method: getBuyer
-          go_name: GetBuyer
-          returns: android.adservices.common.AdTechIdentifier
-          error: true
-        - java_method: getName
-          go_name: GetName
-          returns: String
-          error: true
-        - java_method: getTrustedBiddingSignals
-          go_name: GetTrustedBiddingSignals
-          returns: android.adservices.common.AdSelectionSignals
-          error: true
-    - java_class: android.adservices.customaudience.AddCustomAudienceOverrideRequest$Builder
-      go_type: AddCustomAudienceOverrideRequestBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.adservices.customaudience.AddCustomAudienceOverrideRequest
-          error: true
-        - java_method: setBiddingLogicJs
-          go_name: SetBiddingLogicJs
+        - java_method: setUpdateUri
+          go_name: SetUpdateUri
           params:
-            - java_type: String
+            - java_type: android.net.Uri
               go_name: arg0
-          returns: android.adservices.customaudience.AddCustomAudienceOverrideRequest$Builder
-          error: true
-        - java_method: setBiddingLogicJsVersion
-          go_name: SetBiddingLogicJsVersion
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.adservices.customaudience.AddCustomAudienceOverrideRequest$Builder
-          error: true
-        - java_method: setBuyer
-          go_name: SetBuyer
-          params:
-            - java_type: android.adservices.common.AdTechIdentifier
-              go_name: arg0
-          returns: android.adservices.customaudience.AddCustomAudienceOverrideRequest$Builder
-          error: true
-        - java_method: setName
-          go_name: SetName
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.adservices.customaudience.AddCustomAudienceOverrideRequest$Builder
-          error: true
-        - java_method: setTrustedBiddingSignals
-          go_name: SetTrustedBiddingSignals
-          params:
-            - java_type: android.adservices.common.AdSelectionSignals
-              go_name: arg0
-          returns: android.adservices.customaudience.AddCustomAudienceOverrideRequest$Builder
+          returns: android.adservices.customaudience.ScheduleCustomAudienceUpdateRequest$Builder
           error: true
     - java_class: android.adservices.customaudience.FetchAndJoinCustomAudienceRequest
       go_type: FetchAndJoinCustomAudienceRequest
@@ -190,6 +113,10 @@ classes:
           error: true
     - java_class: android.adservices.customaudience.FetchAndJoinCustomAudienceRequest$Builder
       go_type: FetchAndJoinCustomAudienceRequestBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.net.Uri
+          go_name: arg0
       methods:
         - java_method: build
           go_name: Build
@@ -230,9 +157,13 @@ classes:
               go_name: arg0
           returns: android.adservices.customaudience.FetchAndJoinCustomAudienceRequest$Builder
           error: true
-    - java_class: android.adservices.customaudience.LeaveCustomAudienceRequest
-      go_type: LeaveCustomAudienceRequest
+    - java_class: android.adservices.customaudience.PartialCustomAudience
+      go_type: PartialCustomAudience
       methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
         - java_method: equals
           go_name: Equals
           params:
@@ -240,100 +171,71 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getBuyer
-          go_name: GetBuyer
-          returns: android.adservices.common.AdTechIdentifier
+        - java_method: getActivationTime
+          go_name: GetActivationTime
+          returns: java.time.Instant
+          error: true
+        - java_method: getExpirationTime
+          go_name: GetExpirationTime
+          returns: java.time.Instant
           error: true
         - java_method: getName
           go_name: GetName
           returns: String
           error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-    - java_class: android.adservices.customaudience.LeaveCustomAudienceRequest$Builder
-      go_type: LeaveCustomAudienceRequestBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.adservices.customaudience.LeaveCustomAudienceRequest
-          error: true
-        - java_method: setBuyer
-          go_name: SetBuyer
-          params:
-            - java_type: android.adservices.common.AdTechIdentifier
-              go_name: arg0
-          returns: android.adservices.customaudience.LeaveCustomAudienceRequest$Builder
-          error: true
-        - java_method: setName
-          go_name: SetName
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.adservices.customaudience.LeaveCustomAudienceRequest$Builder
-          error: true
-    - java_class: android.adservices.customaudience.ScheduleCustomAudienceUpdateRequest
-      go_type: ScheduleCustomAudienceUpdateRequest
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getMinDelay
-          go_name: GetMinDelay
-          returns: java.time.Duration
-          error: true
-        - java_method: getPartialCustomAudienceList
-          go_name: GetPartialCustomAudienceList
-          returns: java.util.List<android.adservices.customaudience.PartialCustomAudience>
-          error: true
-        - java_method: getUpdateUri
-          go_name: GetUpdateUri
-          returns: android.net.Uri
+        - java_method: getUserBiddingSignals
+          go_name: GetUserBiddingSignals
+          returns: android.adservices.common.AdSelectionSignals
           error: true
         - java_method: hashCode
           go_name: HashCode
           returns: int
-          error: true
-        - java_method: shouldReplacePendingUpdates
-          go_name: ShouldReplacePendingUpdates
-          returns: boolean
           error: true
         - java_method: toString
           go_name: ToString
           returns: String
           error: true
-    - java_class: android.adservices.customaudience.ScheduleCustomAudienceUpdateRequest$Builder
-      go_type: ScheduleCustomAudienceUpdateRequestBuilder
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.adservices.customaudience.PartialCustomAudience$Builder
+      go_type: PartialCustomAudienceBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
       methods:
         - java_method: build
           go_name: Build
-          returns: android.adservices.customaudience.ScheduleCustomAudienceUpdateRequest
+          returns: android.adservices.customaudience.PartialCustomAudience
           error: true
-        - java_method: setMinDelay
-          go_name: SetMinDelay
+        - java_method: setActivationTime
+          go_name: SetActivationTime
           params:
-            - java_type: java.time.Duration
+            - java_type: java.time.Instant
               go_name: arg0
-          returns: android.adservices.customaudience.ScheduleCustomAudienceUpdateRequest$Builder
+          returns: android.adservices.customaudience.PartialCustomAudience$Builder
           error: true
-        - java_method: setShouldReplacePendingUpdates
-          go_name: SetShouldReplacePendingUpdates
+        - java_method: setExpirationTime
+          go_name: SetExpirationTime
           params:
-            - java_type: boolean
+            - java_type: java.time.Instant
               go_name: arg0
-          returns: android.adservices.customaudience.ScheduleCustomAudienceUpdateRequest$Builder
+          returns: android.adservices.customaudience.PartialCustomAudience$Builder
           error: true
-        - java_method: setUpdateUri
-          go_name: SetUpdateUri
+        - java_method: setUserBiddingSignals
+          go_name: SetUserBiddingSignals
           params:
-            - java_type: android.net.Uri
+            - java_type: android.adservices.common.AdSelectionSignals
               go_name: arg0
-          returns: android.adservices.customaudience.ScheduleCustomAudienceUpdateRequest$Builder
+          returns: android.adservices.customaudience.PartialCustomAudience$Builder
           error: true
     - java_class: android.adservices.customaudience.CustomAudienceManager
       go_type: CustomAudienceManager
@@ -420,6 +322,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -431,6 +334,7 @@ classes:
           error: true
     - java_class: android.adservices.customaudience.CustomAudience$Builder
       go_type: CustomAudienceBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
@@ -506,6 +410,200 @@ classes:
               go_name: arg0
           returns: android.adservices.customaudience.CustomAudience$Builder
           error: true
+    - java_class: android.adservices.customaudience.AddCustomAudienceOverrideRequest
+      go_type: AddCustomAudienceOverrideRequest
+      obtain: constructor
+      constructor_params:
+        - java_type: android.adservices.common.AdTechIdentifier
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+        - java_type: String
+          go_name: arg2
+        - java_type: android.adservices.common.AdSelectionSignals
+          go_name: arg3
+      methods:
+        - java_method: getBiddingLogicJs
+          go_name: GetBiddingLogicJs
+          returns: String
+          error: true
+        - java_method: getBiddingLogicJsVersion
+          go_name: GetBiddingLogicJsVersion
+          returns: long
+          error: true
+        - java_method: getBuyer
+          go_name: GetBuyer
+          returns: android.adservices.common.AdTechIdentifier
+          error: true
+        - java_method: getName
+          go_name: GetName
+          returns: String
+          error: true
+        - java_method: getTrustedBiddingSignals
+          go_name: GetTrustedBiddingSignals
+          returns: android.adservices.common.AdSelectionSignals
+          error: true
+    - java_class: android.adservices.customaudience.AddCustomAudienceOverrideRequest$Builder
+      go_type: AddCustomAudienceOverrideRequestBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.adservices.customaudience.AddCustomAudienceOverrideRequest
+          error: true
+        - java_method: setBiddingLogicJs
+          go_name: SetBiddingLogicJs
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.adservices.customaudience.AddCustomAudienceOverrideRequest$Builder
+          error: true
+        - java_method: setBiddingLogicJsVersion
+          go_name: SetBiddingLogicJsVersion
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.adservices.customaudience.AddCustomAudienceOverrideRequest$Builder
+          error: true
+        - java_method: setBuyer
+          go_name: SetBuyer
+          params:
+            - java_type: android.adservices.common.AdTechIdentifier
+              go_name: arg0
+          returns: android.adservices.customaudience.AddCustomAudienceOverrideRequest$Builder
+          error: true
+        - java_method: setName
+          go_name: SetName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.adservices.customaudience.AddCustomAudienceOverrideRequest$Builder
+          error: true
+        - java_method: setTrustedBiddingSignals
+          go_name: SetTrustedBiddingSignals
+          params:
+            - java_type: android.adservices.common.AdSelectionSignals
+              go_name: arg0
+          returns: android.adservices.customaudience.AddCustomAudienceOverrideRequest$Builder
+          error: true
+    - java_class: android.adservices.customaudience.TestCustomAudienceManager
+      go_type: TestCustomAudienceManager
+    - java_class: android.adservices.customaudience.RemoveCustomAudienceOverrideRequest
+      go_type: RemoveCustomAudienceOverrideRequest
+      obtain: constructor
+      constructor_params:
+        - java_type: android.adservices.common.AdTechIdentifier
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+      methods:
+        - java_method: getBuyer
+          go_name: GetBuyer
+          returns: android.adservices.common.AdTechIdentifier
+          error: true
+        - java_method: getName
+          go_name: GetName
+          returns: String
+          error: true
+    - java_class: android.adservices.customaudience.RemoveCustomAudienceOverrideRequest$Builder
+      go_type: RemoveCustomAudienceOverrideRequestBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.adservices.customaudience.RemoveCustomAudienceOverrideRequest
+          error: true
+        - java_method: setBuyer
+          go_name: SetBuyer
+          params:
+            - java_type: android.adservices.common.AdTechIdentifier
+              go_name: arg0
+          returns: android.adservices.customaudience.RemoveCustomAudienceOverrideRequest$Builder
+          error: true
+        - java_method: setName
+          go_name: SetName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.adservices.customaudience.RemoveCustomAudienceOverrideRequest$Builder
+          error: true
+    - java_class: android.adservices.customaudience.LeaveCustomAudienceRequest
+      go_type: LeaveCustomAudienceRequest
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getBuyer
+          go_name: GetBuyer
+          returns: android.adservices.common.AdTechIdentifier
+          error: true
+        - java_method: getName
+          go_name: GetName
+          returns: String
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+    - java_class: android.adservices.customaudience.LeaveCustomAudienceRequest$Builder
+      go_type: LeaveCustomAudienceRequestBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.adservices.customaudience.LeaveCustomAudienceRequest
+          error: true
+        - java_method: setBuyer
+          go_name: SetBuyer
+          params:
+            - java_type: android.adservices.common.AdTechIdentifier
+              go_name: arg0
+          returns: android.adservices.customaudience.LeaveCustomAudienceRequest$Builder
+          error: true
+        - java_method: setName
+          go_name: SetName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.adservices.customaudience.LeaveCustomAudienceRequest$Builder
+          error: true
+    - java_class: android.adservices.customaudience.JoinCustomAudienceRequest
+      go_type: JoinCustomAudienceRequest
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getCustomAudience
+          go_name: GetCustomAudience
+          returns: android.adservices.customaudience.CustomAudience
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+    - java_class: android.adservices.customaudience.JoinCustomAudienceRequest$Builder
+      go_type: JoinCustomAudienceRequestBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.adservices.customaudience.JoinCustomAudienceRequest
+          error: true
+        - java_method: setCustomAudience
+          go_name: SetCustomAudience
+          params:
+            - java_type: android.adservices.customaudience.CustomAudience
+              go_name: arg0
+          returns: android.adservices.customaudience.JoinCustomAudienceRequest$Builder
+          error: true
     - java_class: android.adservices.customaudience.TrustedBiddingData
       go_type: TrustedBiddingData
       methods:
@@ -532,6 +630,7 @@ classes:
           go_name: HashCode
           returns: int
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -543,6 +642,7 @@ classes:
           error: true
     - java_class: android.adservices.customaudience.TrustedBiddingData$Builder
       go_type: TrustedBiddingDataBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
@@ -554,83 +654,6 @@ classes:
             - java_type: android.net.Uri
               go_name: arg0
           returns: android.adservices.customaudience.TrustedBiddingData$Builder
-          error: true
-    - java_class: android.adservices.customaudience.TestCustomAudienceManager
-      go_type: TestCustomAudienceManager
-    - java_class: android.adservices.customaudience.PartialCustomAudience
-      go_type: PartialCustomAudience
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getActivationTime
-          go_name: GetActivationTime
-          returns: java.time.Instant
-          error: true
-        - java_method: getExpirationTime
-          go_name: GetExpirationTime
-          returns: java.time.Instant
-          error: true
-        - java_method: getName
-          go_name: GetName
-          returns: String
-          error: true
-        - java_method: getUserBiddingSignals
-          go_name: GetUserBiddingSignals
-          returns: android.adservices.common.AdSelectionSignals
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.adservices.customaudience.PartialCustomAudience$Builder
-      go_type: PartialCustomAudienceBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.adservices.customaudience.PartialCustomAudience
-          error: true
-        - java_method: setActivationTime
-          go_name: SetActivationTime
-          params:
-            - java_type: java.time.Instant
-              go_name: arg0
-          returns: android.adservices.customaudience.PartialCustomAudience$Builder
-          error: true
-        - java_method: setExpirationTime
-          go_name: SetExpirationTime
-          params:
-            - java_type: java.time.Instant
-              go_name: arg0
-          returns: android.adservices.customaudience.PartialCustomAudience$Builder
-          error: true
-        - java_method: setUserBiddingSignals
-          go_name: SetUserBiddingSignals
-          params:
-            - java_type: android.adservices.common.AdSelectionSignals
-              go_name: arg0
-          returns: android.adservices.customaudience.PartialCustomAudience$Builder
           error: true
 constants:
     - go_name: Creator

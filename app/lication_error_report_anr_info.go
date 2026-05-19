@@ -21,6 +21,34 @@ type licationErrorReportAnrInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewlicationErrorReportAnrInfo creates a new android.app.ApplicationErrorReport$AnrInfo instance.
+func NewlicationErrorReportAnrInfo(vm *jni.VM) (*licationErrorReportAnrInfo, error) {
+	var t licationErrorReportAnrInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clslicationErrorReportAnrInfo == nil {
+			return fmt.Errorf("android.app.ApplicationErrorReport$AnrInfo is not available on this device")
+		}
+		if midlicationErrorReportAnrInfoCtor == nil {
+			return fmt.Errorf("android.app.ApplicationErrorReport$AnrInfo constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clslicationErrorReportAnrInfo)), midlicationErrorReportAnrInfoCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Dump calls android.app.ApplicationErrorReport$AnrInfo.dump.
 func (m *licationErrorReportAnrInfo) Dump(arg0 *jni.Object, arg1 string) error {
 

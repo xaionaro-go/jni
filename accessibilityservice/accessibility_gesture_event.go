@@ -32,6 +32,12 @@ func NewAccessibilityGestureEvent(vm *jni.VM, arg0 int32, arg1 int32, arg2 *jni.
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAccessibilityGestureEvent == nil {
+			return fmt.Errorf("android.accessibilityservice.AccessibilityGestureEvent is not available on this device")
+		}
+		if midAccessibilityGestureEventCtor == nil {
+			return fmt.Errorf("android.accessibilityservice.AccessibilityGestureEvent constructor (IILjava/util/List;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAccessibilityGestureEvent)), midAccessibilityGestureEventCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2))
 		if err != nil {
@@ -180,29 +186,6 @@ func (m *AccessibilityGestureEvent) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.accessibilityservice.AccessibilityGestureEvent.writeToParcel.
-func (m *AccessibilityGestureEvent) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAccessibilityGestureEventWriteToParcel == nil {
-			callErr = fmt.Errorf("android.accessibilityservice.AccessibilityGestureEvent.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAccessibilityGestureEventWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // GestureIdToString calls android.accessibilityservice.AccessibilityGestureEvent.gestureIdToString.
 func (m *AccessibilityGestureEvent) GestureIdToString(arg0 int32) (string, error) {
 	var result string
@@ -229,4 +212,27 @@ func (m *AccessibilityGestureEvent) GestureIdToString(arg0 int32) (string, error
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.accessibilityservice.AccessibilityGestureEvent.writeToParcel.
+func (m *AccessibilityGestureEvent) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midAccessibilityGestureEventWriteToParcel == nil {
+			callErr = fmt.Errorf("android.accessibilityservice.AccessibilityGestureEvent.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAccessibilityGestureEvent)),
+			midAccessibilityGestureEventWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

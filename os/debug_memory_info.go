@@ -23,6 +23,34 @@ type DebugMemoryInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDebugMemoryInfo creates a new android.os.Debug$MemoryInfo instance.
+func NewDebugMemoryInfo(vm *jni.VM) (*DebugMemoryInfo, error) {
+	var t DebugMemoryInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDebugMemoryInfo == nil {
+			return fmt.Errorf("android.os.Debug$MemoryInfo is not available on this device")
+		}
+		if midDebugMemoryInfoCtor == nil {
+			return fmt.Errorf("android.os.Debug$MemoryInfo constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDebugMemoryInfo)), midDebugMemoryInfoCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.os.Debug$MemoryInfo.describeContents.
 func (m *DebugMemoryInfo) DescribeContents() (int32, error) {
 	var result int32
@@ -254,29 +282,6 @@ func (m *DebugMemoryInfo) ReadFromParcel(arg0 *jni.Object) error {
 	return callErr
 }
 
-// WriteToParcel calls android.os.Debug$MemoryInfo.writeToParcel.
-func (m *DebugMemoryInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDebugMemoryInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.os.Debug$MemoryInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midDebugMemoryInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.os.Debug$MemoryInfo.toString.
 func (m *DebugMemoryInfo) ToString() (string, error) {
 	var result string
@@ -302,4 +307,27 @@ func (m *DebugMemoryInfo) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.os.Debug$MemoryInfo.writeToParcel.
+func (m *DebugMemoryInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDebugMemoryInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.os.Debug$MemoryInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsDebugMemoryInfo)),
+			midDebugMemoryInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

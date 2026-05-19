@@ -23,6 +23,35 @@ type GetTopicsResponseBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGetTopicsResponseBuilder creates a new android.adservices.topics.GetTopicsResponse$Builder instance.
+func NewGetTopicsResponseBuilder(vm *jni.VM, arg0 *jni.Object) (*GetTopicsResponseBuilder, error) {
+	var t GetTopicsResponseBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGetTopicsResponseBuilder == nil {
+			return fmt.Errorf("android.adservices.topics.GetTopicsResponse$Builder is not available on this device")
+		}
+		if midGetTopicsResponseBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.topics.GetTopicsResponse$Builder constructor (Ljava/util/List;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGetTopicsResponseBuilder)), midGetTopicsResponseBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.topics.GetTopicsResponse$Builder.build.
 func (m *GetTopicsResponseBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

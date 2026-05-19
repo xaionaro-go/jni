@@ -32,6 +32,12 @@ func NewPluralFormat(vm *jni.VM) (*PluralFormat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPluralFormat == nil {
+			return fmt.Errorf("android.icu.text.PluralFormat is not available on this device")
+		}
+		if midPluralFormatCtor == nil {
+			return fmt.Errorf("android.icu.text.PluralFormat constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPluralFormat)), midPluralFormatCtor)
 		if err != nil {
 			return err

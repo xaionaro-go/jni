@@ -23,6 +23,35 @@ type ScriptGroupBuilder2 struct {
 	Obj *jni.GlobalRef
 }
 
+// NewScriptGroupBuilder2 creates a new android.renderscript.ScriptGroup$Builder2 instance.
+func NewScriptGroupBuilder2(vm *jni.VM, arg0 *jni.Object) (*ScriptGroupBuilder2, error) {
+	var t ScriptGroupBuilder2
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsScriptGroupBuilder2 == nil {
+			return fmt.Errorf("android.renderscript.ScriptGroup$Builder2 is not available on this device")
+		}
+		if midScriptGroupBuilder2Ctor == nil {
+			return fmt.Errorf("android.renderscript.ScriptGroup$Builder2 constructor (Landroid/renderscript/RenderScript;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScriptGroupBuilder2)), midScriptGroupBuilder2Ctor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddInput calls android.renderscript.ScriptGroup$Builder2.addInput.
 func (m *ScriptGroupBuilder2) AddInput() (*jni.Object, error) {
 	var result *jni.Object

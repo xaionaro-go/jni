@@ -32,6 +32,12 @@ func NewBounceInterpolator(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Bou
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBounceInterpolator == nil {
+			return fmt.Errorf("android.view.animation.BounceInterpolator is not available on this device")
+		}
+		if midBounceInterpolatorCtor == nil {
+			return fmt.Errorf("android.view.animation.BounceInterpolator constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBounceInterpolator)), midBounceInterpolatorCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

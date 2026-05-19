@@ -32,6 +32,12 @@ func NewGuidelineReference(vm *jni.VM, arg0 *jni.Object) (*GuidelineReference, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGuidelineReference == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.state.helpers.GuidelineReference is not available on this device")
+		}
+		if midGuidelineReferenceCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.state.helpers.GuidelineReference constructor (Landroidx/constraintlayout/solver/state/State;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGuidelineReference)), midGuidelineReferenceCtor, jni.ObjectValue(arg0))
 		if err != nil {

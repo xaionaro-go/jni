@@ -32,6 +32,12 @@ func NewEventLogTags(vm *jni.VM) (*EventLogTags, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEventLogTags == nil {
+			return fmt.Errorf("android.util.EventLogTags is not available on this device")
+		}
+		if midEventLogTagsCtor == nil {
+			return fmt.Errorf("android.util.EventLogTags constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEventLogTags)), midEventLogTagsCtor)
 		if err != nil {
 			return err

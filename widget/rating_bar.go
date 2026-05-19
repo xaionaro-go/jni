@@ -32,6 +32,12 @@ func NewRatingBar(vm *jni.VM, arg0 *jni.Object) (*RatingBar, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRatingBar == nil {
+			return fmt.Errorf("android.widget.RatingBar is not available on this device")
+		}
+		if midRatingBarCtor == nil {
+			return fmt.Errorf("android.widget.RatingBar constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRatingBar)), midRatingBarCtor, jni.ObjectValue(arg0))
 		if err != nil {

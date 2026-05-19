@@ -23,6 +23,51 @@ type FontResourcesParserCompatFontFileResourceEntry struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFontResourcesParserCompatFontFileResourceEntry creates a new androidx.core.content.res.FontResourcesParserCompat$FontFileResourceEntry instance.
+func NewFontResourcesParserCompatFontFileResourceEntry(vm *jni.VM, arg0 string, arg1 int32, arg2 bool, arg3 string, arg4 int32, arg5 int32) (*FontResourcesParserCompatFontFileResourceEntry, error) {
+	var t FontResourcesParserCompatFontFileResourceEntry
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFontResourcesParserCompatFontFileResourceEntry == nil {
+			return fmt.Errorf("androidx.core.content.res.FontResourcesParserCompat$FontFileResourceEntry is not available on this device")
+		}
+		if midFontResourcesParserCompatFontFileResourceEntryCtor == nil {
+			return fmt.Errorf("androidx.core.content.res.FontResourcesParserCompat$FontFileResourceEntry constructor (Ljava/lang/String;IZLjava/lang/String;II)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		var jArg2 uint8
+		if arg2 {
+			jArg2 = jniTrue
+		}
+
+		jArg3, err := env.NewStringUTF(arg3)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg3.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFontResourcesParserCompatFontFileResourceEntry)), midFontResourcesParserCompatFontFileResourceEntryCtor, jni.ObjectValue(&jArg0.Object), jni.IntValue(arg1), jni.BooleanValue(jArg2), jni.ObjectValue(&jArg3.Object), jni.IntValue(arg4), jni.IntValue(arg5))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetFileName calls androidx.core.content.res.FontResourcesParserCompat$FontFileResourceEntry.getFileName.
 func (m *FontResourcesParserCompatFontFileResourceEntry) GetFileName() (string, error) {
 	var result string

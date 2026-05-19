@@ -23,6 +23,35 @@ type CameraArea struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCameraArea creates a new android.hardware.Camera$Area instance.
+func NewCameraArea(vm *jni.VM, arg0 *jni.Object, arg1 int32) (*CameraArea, error) {
+	var t CameraArea
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCameraArea == nil {
+			return fmt.Errorf("android.hardware.Camera$Area is not available on this device")
+		}
+		if midCameraAreaCtor == nil {
+			return fmt.Errorf("android.hardware.Camera$Area constructor (Landroid/graphics/Rect;I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCameraArea)), midCameraAreaCtor, jni.ObjectValue(arg0), jni.IntValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.hardware.Camera$Area.equals.
 func (m *CameraArea) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

@@ -32,6 +32,12 @@ func NewRequest(vm *jni.VM) (*Request, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRequest == nil {
+			return fmt.Errorf("android.hardware.usb.UsbRequest is not available on this device")
+		}
+		if midRequestCtor == nil {
+			return fmt.Errorf("android.hardware.usb.UsbRequest constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRequest)), midRequestCtor)
 		if err != nil {
 			return err

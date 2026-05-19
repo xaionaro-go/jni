@@ -23,6 +23,34 @@ type PresentationsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPresentationsBuilder creates a new android.service.autofill.Presentations$Builder instance.
+func NewPresentationsBuilder(vm *jni.VM) (*PresentationsBuilder, error) {
+	var t PresentationsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPresentationsBuilder == nil {
+			return fmt.Errorf("android.service.autofill.Presentations$Builder is not available on this device")
+		}
+		if midPresentationsBuilderCtor == nil {
+			return fmt.Errorf("android.service.autofill.Presentations$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPresentationsBuilder)), midPresentationsBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.service.autofill.Presentations$Builder.build.
 func (m *PresentationsBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

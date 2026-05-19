@@ -32,6 +32,12 @@ func NewFloat2(vm *jni.VM) (*Float2, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFloat2 == nil {
+			return fmt.Errorf("android.renderscript.Float2 is not available on this device")
+		}
+		if midFloat2Ctor == nil {
+			return fmt.Errorf("android.renderscript.Float2 constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFloat2)), midFloat2Ctor)
 		if err != nil {
 			return err

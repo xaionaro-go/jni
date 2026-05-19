@@ -3,16 +3,16 @@
 package consts
 
 const (
+	Creator               int = 0
+	EventInputHidden      int = 2
+	EventInputShown       int = 1
+	EventInputUnavailable int = 3
+)
+
+const (
 	ExtraAssistStructure                      string = "android.view.autofill.extra.ASSIST_STRUCTURE"
 	ExtraAuthenticationResult                 string = "android.view.autofill.extra.AUTHENTICATION_RESULT"
 	ExtraAuthenticationResultEphemeralDataset string = "android.view.autofill.extra.AUTHENTICATION_RESULT_EPHEMERAL_DATASET"
 	ExtraClientState                          string = "android.view.autofill.extra.CLIENT_STATE"
 	ExtraInlineSuggestionsRequest             string = "android.view.autofill.extra.INLINE_SUGGESTIONS_REQUEST"
-)
-
-const (
-	EventInputHidden      int = 2
-	EventInputShown       int = 1
-	EventInputUnavailable int = 3
-	Creator               int = 0
 )

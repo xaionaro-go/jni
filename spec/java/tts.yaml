@@ -5,6 +5,102 @@
 package: tts
 go_import: github.com/AndroidGoLab/jni/speech/tts
 classes:
+    - java_class: android.speech.tts.SynthesisRequest
+      go_type: SynthesisRequest
+      obtain: constructor
+      constructor_params:
+        - java_type: java.lang.CharSequence
+          go_name: arg0
+        - java_type: android.os.Bundle
+          go_name: arg1
+      methods:
+        - java_method: getCallerUid
+          go_name: GetCallerUid
+          returns: int
+          error: true
+        - java_method: getCharSequenceText
+          go_name: GetCharSequenceText
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getCountry
+          go_name: GetCountry
+          returns: String
+          error: true
+        - java_method: getLanguage
+          go_name: GetLanguage
+          returns: String
+          error: true
+        - java_method: getParams
+          go_name: GetParams
+          returns: android.os.Bundle
+          error: true
+        - java_method: getPitch
+          go_name: GetPitch
+          returns: int
+          error: true
+        - java_method: getSpeechRate
+          go_name: GetSpeechRate
+          returns: int
+          error: true
+        - java_method: getText
+          go_name: GetText
+          returns: String
+          error: true
+        - java_method: getVariant
+          go_name: GetVariant
+          returns: String
+          error: true
+        - java_method: getVoiceName
+          go_name: GetVoiceName
+          returns: String
+          error: true
+    - java_class: android.speech.tts.TextToSpeechService
+      go_type: TextToSpeechService
+      methods:
+        - java_method: onBind
+          go_name: OnBind
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: android.os.IBinder
+          error: true
+        - java_method: onCreate
+          go_name: OnCreate
+          returns: void
+          error: true
+        - java_method: onDestroy
+          go_name: OnDestroy
+          returns: void
+          error: true
+        - java_method: onGetDefaultVoiceNameFor
+          go_name: OnGetDefaultVoiceNameFor
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+          returns: String
+          error: true
+        - java_method: onGetVoices
+          go_name: OnGetVoices
+          returns: java.util.List<android.speech.tts.Voice>
+          error: true
+        - java_method: onIsValidVoiceName
+          go_name: OnIsValidVoiceName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: onLoadVoice
+          go_name: OnLoadVoice
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: int
+          error: true
     - java_class: android.speech.tts.UtteranceProgressListener
       go_type: UtteranceProgressListener
       methods:
@@ -134,55 +230,6 @@ classes:
               go_name: arg2
           returns: int
           error: true
-    - java_class: android.speech.tts.SynthesisRequest
-      go_type: SynthesisRequest
-      obtain: constructor
-      constructor_params:
-        - java_type: java.lang.CharSequence
-          go_name: arg0
-        - java_type: android.os.Bundle
-          go_name: arg1
-      methods:
-        - java_method: getCallerUid
-          go_name: GetCallerUid
-          returns: int
-          error: true
-        - java_method: getCharSequenceText
-          go_name: GetCharSequenceText
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getCountry
-          go_name: GetCountry
-          returns: String
-          error: true
-        - java_method: getLanguage
-          go_name: GetLanguage
-          returns: String
-          error: true
-        - java_method: getParams
-          go_name: GetParams
-          returns: android.os.Bundle
-          error: true
-        - java_method: getPitch
-          go_name: GetPitch
-          returns: int
-          error: true
-        - java_method: getSpeechRate
-          go_name: GetSpeechRate
-          returns: int
-          error: true
-        - java_method: getText
-          go_name: GetText
-          returns: String
-          error: true
-        - java_method: getVariant
-          go_name: GetVariant
-          returns: String
-          error: true
-        - java_method: getVoiceName
-          go_name: GetVoiceName
-          returns: String
-          error: true
     - java_class: android.speech.tts.Voice
       go_type: Voice
       obtain: constructor
@@ -243,6 +290,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -251,53 +299,6 @@ classes:
             - java_type: int
               go_name: arg1
           returns: void
-          error: true
-    - java_class: android.speech.tts.TextToSpeechService
-      go_type: TextToSpeechService
-      methods:
-        - java_method: onBind
-          go_name: OnBind
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
-          returns: android.os.IBinder
-          error: true
-        - java_method: onCreate
-          go_name: OnCreate
-          returns: void
-          error: true
-        - java_method: onDestroy
-          go_name: OnDestroy
-          returns: void
-          error: true
-        - java_method: onGetDefaultVoiceNameFor
-          go_name: OnGetDefaultVoiceNameFor
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: String
-          error: true
-        - java_method: onGetVoices
-          go_name: OnGetVoices
-          returns: java.util.List<android.speech.tts.Voice>
-          error: true
-        - java_method: onIsValidVoiceName
-          go_name: OnIsValidVoiceName
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: onLoadVoice
-          go_name: OnLoadVoice
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: int
           error: true
 abstract_callbacks:
     - java_class: android.speech.tts.UtteranceProgressListener
@@ -352,43 +353,13 @@ abstract_callbacks:
             - boolean
           returns: void
           go_field: OnStop
+abstract_callback_eligibility:
     - java_class: android.speech.tts.TextToSpeechService
-      go_type: TextToSpeechServiceCallback
-      methods:
-        - java_method: onBind
-          params:
-            - android.content.Intent
-          returns: android.os.IBinder
-          go_field: OnBind
-        - java_method: onCreate
-          params: []
-          returns: void
-          go_field: OnCreate
-        - java_method: onDestroy
-          params: []
-          returns: void
-          go_field: OnDestroy
-        - java_method: onGetDefaultVoiceNameFor
-          params:
-            - String
-            - String
-            - String
-          returns: String
-          go_field: OnGetDefaultVoiceNameFor
-        - java_method: onGetVoices
-          params: []
-          returns: java.util.List<android.speech.tts.Voice>
-          go_field: OnGetVoices
-        - java_method: onIsValidVoiceName
-          params:
-            - String
-          returns: int
-          go_field: OnIsValidVoiceName
-        - java_method: onLoadVoice
-          params:
-            - String
-          returns: int
-          go_field: OnLoadVoice
+      generated: false
+      reason: non_object_superclass
+    - java_class: android.speech.tts.UtteranceProgressListener
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
     - go_name: Creator
       value: "0"

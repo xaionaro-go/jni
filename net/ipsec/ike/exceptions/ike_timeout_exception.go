@@ -32,6 +32,12 @@ func NewIkeTimeoutException(vm *jni.VM, arg0 string) (*IkeTimeoutException, erro
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsIkeTimeoutException == nil {
+			return fmt.Errorf("android.net.ipsec.ike.exceptions.IkeTimeoutException is not available on this device")
+		}
+		if midIkeTimeoutExceptionCtor == nil {
+			return fmt.Errorf("android.net.ipsec.ike.exceptions.IkeTimeoutException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

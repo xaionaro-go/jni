@@ -23,6 +23,34 @@ type MediaItemInfoBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMediaItemInfoBuilder creates a new android.media.metrics.MediaItemInfo$Builder instance.
+func NewMediaItemInfoBuilder(vm *jni.VM) (*MediaItemInfoBuilder, error) {
+	var t MediaItemInfoBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMediaItemInfoBuilder == nil {
+			return fmt.Errorf("android.media.metrics.MediaItemInfo$Builder is not available on this device")
+		}
+		if midMediaItemInfoBuilderCtor == nil {
+			return fmt.Errorf("android.media.metrics.MediaItemInfo$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMediaItemInfoBuilder)), midMediaItemInfoBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddCodecName calls android.media.metrics.MediaItemInfo$Builder.addCodecName.
 func (m *MediaItemInfoBuilder) AddCodecName(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

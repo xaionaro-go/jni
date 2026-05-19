@@ -32,6 +32,12 @@ func NewInstance(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Instance, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInstance == nil {
+			return fmt.Errorf("android.app.wallpaper.WallpaperInstance is not available on this device")
+		}
+		if midInstanceCtor == nil {
+			return fmt.Errorf("android.app.wallpaper.WallpaperInstance constructor (Landroid/app/WallpaperInfo;Landroid/app/wallpaper/WallpaperDescription;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInstance)), midInstanceCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -215,29 +221,6 @@ func (m *Instance) HashCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.wallpaper.WallpaperInstance.writeToParcel.
-func (m *Instance) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midInstanceWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.wallpaper.WallpaperInstance.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midInstanceWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.wallpaper.WallpaperInstance.toString.
 func (m *Instance) ToString() (string, error) {
 	var result string
@@ -263,4 +246,27 @@ func (m *Instance) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.wallpaper.WallpaperInstance.writeToParcel.
+func (m *Instance) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midInstanceWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.wallpaper.WallpaperInstance.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsInstance)),
+			midInstanceWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

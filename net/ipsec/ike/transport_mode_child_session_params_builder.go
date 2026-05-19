@@ -23,6 +23,34 @@ type TransportModeChildSessionParamsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTransportModeChildSessionParamsBuilder creates a new android.net.ipsec.ike.TransportModeChildSessionParams$Builder instance.
+func NewTransportModeChildSessionParamsBuilder(vm *jni.VM) (*TransportModeChildSessionParamsBuilder, error) {
+	var t TransportModeChildSessionParamsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTransportModeChildSessionParamsBuilder == nil {
+			return fmt.Errorf("android.net.ipsec.ike.TransportModeChildSessionParams$Builder is not available on this device")
+		}
+		if midTransportModeChildSessionParamsBuilderCtor == nil {
+			return fmt.Errorf("android.net.ipsec.ike.TransportModeChildSessionParams$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTransportModeChildSessionParamsBuilder)), midTransportModeChildSessionParamsBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddChildSaProposal calls android.net.ipsec.ike.TransportModeChildSessionParams$Builder.addChildSaProposal.
 func (m *TransportModeChildSessionParamsBuilder) AddChildSaProposal(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

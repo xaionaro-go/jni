@@ -21,6 +21,34 @@ type licationErrorReportCrashInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewlicationErrorReportCrashInfo creates a new android.app.ApplicationErrorReport$CrashInfo instance.
+func NewlicationErrorReportCrashInfo(vm *jni.VM) (*licationErrorReportCrashInfo, error) {
+	var t licationErrorReportCrashInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clslicationErrorReportCrashInfo == nil {
+			return fmt.Errorf("android.app.ApplicationErrorReport$CrashInfo is not available on this device")
+		}
+		if midlicationErrorReportCrashInfoCtor == nil {
+			return fmt.Errorf("android.app.ApplicationErrorReport$CrashInfo constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clslicationErrorReportCrashInfo)), midlicationErrorReportCrashInfoCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Dump calls android.app.ApplicationErrorReport$CrashInfo.dump.
 func (m *licationErrorReportCrashInfo) Dump(arg0 *jni.Object, arg1 string) error {
 

@@ -5,293 +5,221 @@
 package: graphics
 go_import: github.com/AndroidGoLab/jni/androidx/core/graphics
 classes:
-    - java_class: androidx.core.graphics.TypefaceCompat
-      go_type: TypefaceCompat
+    - java_class: androidx.core.graphics.TypefaceCompatApi28Impl
+      go_type: TypefaceCompatApi28Impl
+      obtain: constructor
+    - java_class: androidx.core.graphics.ShaderKt
+      go_type: ShaderKt
+    - java_class: androidx.core.graphics.PointKt
+      go_type: PointKt
       static_methods:
-        - java_method: findFromCache
-          go_name: FindFromCache5
+        - java_method: component1
+          go_name: Component11
           params:
-            - java_type: android.content.res.Resources
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-          returns: android.graphics.Typeface
-          error: true
-        - java_method: findFromCache
-          go_name: FindFromCache3_1
-          params:
-            - java_type: android.content.res.Resources
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: android.graphics.Typeface
-          error: true
-        - java_method: createFromResourcesFontFile
-          go_name: CreateFromResourcesFontFile6
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.res.Resources
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: String
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: int
-              go_name: arg5
-          returns: android.graphics.Typeface
-          error: true
-        - java_method: createFromResourcesFontFile
-          go_name: CreateFromResourcesFontFile5_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.res.Resources
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: String
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-          returns: android.graphics.Typeface
-          error: true
-        - java_method: createFromFontInfo
-          go_name: CreateFromFontInfo
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.os.CancellationSignal
-              go_name: arg1
-            - java_type: androidx.core.provider.FontsContractCompat$FontInfo[]
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: android.graphics.Typeface
-          error: true
-        - java_method: create
-          go_name: Create3
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.graphics.Typeface
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: android.graphics.Typeface
-          error: true
-        - java_method: create
-          go_name: Create4_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.graphics.Typeface
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: boolean
-              go_name: arg3
-          returns: android.graphics.Typeface
-          error: true
-        - java_method: clearCache
-          go_name: ClearCache
-          returns: void
-          error: true
-    - java_class: androidx.core.graphics.TypefaceCompat$ResourcesCallbackAdapter
-      go_type: TypefaceCompatResourcesCallbackAdapter
-      methods:
-        - java_method: onTypefaceRetrieved
-          go_name: OnTypefaceRetrieved
-          params:
-            - java_type: android.graphics.Typeface
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onTypefaceRequestFailed
-          go_name: OnTypefaceRequestFailed
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.core.graphics.BitmapCompat
-      go_type: BitmapCompat
-      static_methods:
-        - java_method: hasMipMap
-          go_name: HasMipMap
-          params:
-            - java_type: android.graphics.Bitmap
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: setHasMipMap
-          go_name: SetHasMipMap
-          params:
-            - java_type: android.graphics.Bitmap
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getAllocationByteCount
-          go_name: GetAllocationByteCount
-          params:
-            - java_type: android.graphics.Bitmap
+            - java_type: android.graphics.Point
               go_name: arg0
           returns: int
           error: true
-        - java_method: createScaledBitmap
-          go_name: CreateScaledBitmap
+        - java_method: component2
+          go_name: Component21
           params:
-            - java_type: android.graphics.Bitmap
+            - java_type: android.graphics.Point
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: component1
+          go_name: Component11_1
+          params:
+            - java_type: android.graphics.PointF
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: component2
+          go_name: Component21_1
+          params:
+            - java_type: android.graphics.PointF
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: plus
+          go_name: Plus2
+          params:
+            - java_type: android.graphics.Point
+              go_name: arg0
+            - java_type: android.graphics.Point
+              go_name: arg1
+          returns: android.graphics.Point
+          error: true
+        - java_method: plus
+          go_name: Plus2_1
+          params:
+            - java_type: android.graphics.PointF
+              go_name: arg0
+            - java_type: android.graphics.PointF
+              go_name: arg1
+          returns: android.graphics.PointF
+          error: true
+        - java_method: plus
+          go_name: Plus2_2
+          params:
+            - java_type: android.graphics.Point
               go_name: arg0
             - java_type: int
               go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.graphics.Rect
-              go_name: arg3
-            - java_type: boolean
-              go_name: arg4
-          returns: android.graphics.Bitmap
+          returns: android.graphics.Point
           error: true
-    - java_class: androidx.core.graphics.PorterDuffKt
-      go_type: PorterDuffKt
-      static_methods:
-        - java_method: toXfermode
-          go_name: ToXfermode
+        - java_method: plus
+          go_name: Plus2_3
           params:
-            - java_type: android.graphics.PorterDuff$Mode
-              go_name: arg0
-          returns: android.graphics.PorterDuffXfermode
-          error: true
-        - java_method: toColorFilter
-          go_name: ToColorFilter
-          params:
-            - java_type: android.graphics.PorterDuff$Mode
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.graphics.PorterDuffColorFilter
-          error: true
-    - java_class: androidx.core.graphics.PathParser
-      go_type: PathParser
-      static_methods:
-        - java_method: createPathFromPathData
-          go_name: CreatePathFromPathData
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.graphics.Path
-          error: true
-        - java_method: createNodesFromPathData
-          go_name: CreateNodesFromPathData
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: androidx.core.graphics.PathParser$PathDataNode[]
-          error: true
-        - java_method: deepCopyNodes
-          go_name: DeepCopyNodes
-          params:
-            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
-              go_name: arg0
-          returns: androidx.core.graphics.PathParser$PathDataNode[]
-          error: true
-        - java_method: canMorph
-          go_name: CanMorph
-          params:
-            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
-              go_name: arg0
-            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: updateNodes
-          go_name: UpdateNodes
-          params:
-            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
-              go_name: arg0
-            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: interpolatePathDataNodes
-          go_name: InterpolatePathDataNodes4
-          params:
-            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
+            - java_type: android.graphics.PointF
               go_name: arg0
             - java_type: float
               go_name: arg1
-            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
-              go_name: arg2
-            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
-              go_name: arg3
-          returns: void
+          returns: android.graphics.PointF
           error: true
-        - java_method: interpolatePathDataNodes
-          go_name: InterpolatePathDataNodes4_1
+        - java_method: minus
+          go_name: Minus2
           params:
-            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
+            - java_type: android.graphics.Point
               go_name: arg0
-            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
+            - java_type: android.graphics.Point
               go_name: arg1
-            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
-              go_name: arg2
+          returns: android.graphics.Point
+          error: true
+        - java_method: minus
+          go_name: Minus2_1
+          params:
+            - java_type: android.graphics.PointF
+              go_name: arg0
+            - java_type: android.graphics.PointF
+              go_name: arg1
+          returns: android.graphics.PointF
+          error: true
+        - java_method: minus
+          go_name: Minus2_2
+          params:
+            - java_type: android.graphics.Point
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.graphics.Point
+          error: true
+        - java_method: minus
+          go_name: Minus2_3
+          params:
+            - java_type: android.graphics.PointF
+              go_name: arg0
             - java_type: float
-              go_name: arg3
-          returns: boolean
-          error: true
-        - java_method: nodesToPath
-          go_name: NodesToPath
-          params:
-            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
-              go_name: arg0
-            - java_type: android.graphics.Path
               go_name: arg1
-          returns: void
+          returns: android.graphics.PointF
           error: true
-    - java_class: androidx.core.graphics.PathParser$PathDataNode
-      go_type: PathParserPathDataNode
+        - java_method: unaryMinus
+          go_name: UnaryMinus1
+          params:
+            - java_type: android.graphics.Point
+              go_name: arg0
+          returns: android.graphics.Point
+          error: true
+        - java_method: unaryMinus
+          go_name: UnaryMinus1_1
+          params:
+            - java_type: android.graphics.PointF
+              go_name: arg0
+          returns: android.graphics.PointF
+          error: true
+        - java_method: times
+          go_name: Times2
+          params:
+            - java_type: android.graphics.Point
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: android.graphics.Point
+          error: true
+        - java_method: times
+          go_name: Times2_1
+          params:
+            - java_type: android.graphics.PointF
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: android.graphics.PointF
+          error: true
+        - java_method: div
+          go_name: Div2
+          params:
+            - java_type: android.graphics.Point
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: android.graphics.Point
+          error: true
+        - java_method: div
+          go_name: Div2_1
+          params:
+            - java_type: android.graphics.PointF
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: android.graphics.PointF
+          error: true
+        - java_method: toPointF
+          go_name: ToPointF
+          params:
+            - java_type: android.graphics.Point
+              go_name: arg0
+          returns: android.graphics.PointF
+          error: true
+        - java_method: toPoint
+          go_name: ToPoint
+          params:
+            - java_type: android.graphics.PointF
+              go_name: arg0
+          returns: android.graphics.Point
+          error: true
+    - java_class: androidx.core.graphics.PathSegment
+      go_type: PathSegment
+      obtain: constructor
+      constructor_params:
+        - java_type: android.graphics.PointF
+          go_name: arg0
+        - java_type: float
+          go_name: arg1
+        - java_type: android.graphics.PointF
+          go_name: arg2
+        - java_type: float
+          go_name: arg3
       methods:
-        - java_method: getType
-          go_name: GetType
-          returns: char
+        - java_method: getStart
+          go_name: GetStart
+          returns: android.graphics.PointF
           error: true
-        - java_method: getParams
-          go_name: GetParams
-          returns: float[]
+        - java_method: getStartFraction
+          go_name: GetStartFraction
+          returns: float
           error: true
-        - java_method: interpolatePathDataNode
-          go_name: InterpolatePathDataNode
+        - java_method: getEnd
+          go_name: GetEnd
+          returns: android.graphics.PointF
+          error: true
+        - java_method: getEndFraction
+          go_name: GetEndFraction
+          returns: float
+          error: true
+        - java_method: equals
+          go_name: Equals
           params:
-            - java_type: androidx.core.graphics.PathParser$PathDataNode
+            - java_type: java.lang.Object
               go_name: arg0
-            - java_type: androidx.core.graphics.PathParser$PathDataNode
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-          returns: void
+          returns: boolean
           error: true
-      static_methods:
-        - java_method: nodesToPath
-          go_name: NodesToPath
-          params:
-            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
-              go_name: arg0
-            - java_type: android.graphics.Path
-              go_name: arg1
-          returns: void
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
           error: true
     - java_class: androidx.core.graphics.PathUtils
       go_type: PathUtils
@@ -311,79 +239,6 @@ classes:
             - java_type: float
               go_name: arg1
           returns: java.util.Collection<androidx.core.graphics.PathSegment>
-          error: true
-    - java_class: androidx.core.graphics.CanvasKt
-      go_type: CanvasKt
-    - java_class: androidx.core.graphics.TypefaceCompatUtil
-      go_type: TypefaceCompatUtil
-      static_methods:
-        - java_method: getTempFile
-          go_name: GetTempFile
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: java.io.File
-          error: true
-        - java_method: mmap
-          go_name: Mmap
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.os.CancellationSignal
-              go_name: arg1
-            - java_type: android.net.Uri
-              go_name: arg2
-          returns: java.nio.ByteBuffer
-          error: true
-        - java_method: copyToDirectBuffer
-          go_name: CopyToDirectBuffer
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.res.Resources
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: java.nio.ByteBuffer
-          error: true
-        - java_method: copyToFile
-          go_name: CopyToFile2
-          params:
-            - java_type: java.io.File
-              go_name: arg0
-            - java_type: java.io.InputStream
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: copyToFile
-          go_name: CopyToFile3_1
-          params:
-            - java_type: java.io.File
-              go_name: arg0
-            - java_type: android.content.res.Resources
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: boolean
-          error: true
-        - java_method: closeQuietly
-          go_name: CloseQuietly
-          params:
-            - java_type: java.io.Closeable
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.core.graphics.BlendModeColorFilterCompat
-      go_type: BlendModeColorFilterCompat
-      static_methods:
-        - java_method: createBlendModeColorFilterCompat
-          go_name: CreateBlendModeColorFilterCompat
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: androidx.core.graphics.BlendModeCompat
-              go_name: arg1
-          returns: android.graphics.ColorFilter
           error: true
     - java_class: androidx.core.graphics.ColorUtils
       go_type: ColorUtils
@@ -628,18 +483,6 @@ classes:
             - java_type: float[]
               go_name: arg1
           returns: void
-          error: true
-    - java_class: androidx.core.graphics.PaintKt
-      go_type: PaintKt
-      static_methods:
-        - java_method: setBlendMode
-          go_name: SetBlendMode
-          params:
-            - java_type: android.graphics.Paint
-              go_name: arg0
-            - java_type: androidx.core.graphics.BlendModeCompat
-              go_name: arg1
-          returns: boolean
           error: true
     - java_class: androidx.core.graphics.PictureKt
       go_type: PictureKt
@@ -919,308 +762,68 @@ classes:
               go_name: arg0
           returns: int
           error: true
-    - java_class: androidx.core.graphics.PointKt
-      go_type: PointKt
+    - java_class: androidx.core.graphics.TypefaceCompatUtil
+      go_type: TypefaceCompatUtil
       static_methods:
-        - java_method: component1
-          go_name: Component11
+        - java_method: getTempFile
+          go_name: GetTempFile
           params:
-            - java_type: android.graphics.Point
+            - java_type: android.content.Context
               go_name: arg0
-          returns: int
+          returns: java.io.File
           error: true
-        - java_method: component2
-          go_name: Component21
+        - java_method: mmap
+          go_name: Mmap
           params:
-            - java_type: android.graphics.Point
+            - java_type: android.content.Context
               go_name: arg0
-          returns: int
-          error: true
-        - java_method: component1
-          go_name: Component11_1
-          params:
-            - java_type: android.graphics.PointF
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: component2
-          go_name: Component21_1
-          params:
-            - java_type: android.graphics.PointF
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: plus
-          go_name: Plus2
-          params:
-            - java_type: android.graphics.Point
-              go_name: arg0
-            - java_type: android.graphics.Point
+            - java_type: android.os.CancellationSignal
               go_name: arg1
-          returns: android.graphics.Point
+            - java_type: android.net.Uri
+              go_name: arg2
+          returns: java.nio.ByteBuffer
           error: true
-        - java_method: plus
-          go_name: Plus2_1
+        - java_method: copyToDirectBuffer
+          go_name: CopyToDirectBuffer
           params:
-            - java_type: android.graphics.PointF
+            - java_type: android.content.Context
               go_name: arg0
-            - java_type: android.graphics.PointF
+            - java_type: android.content.res.Resources
               go_name: arg1
-          returns: android.graphics.PointF
-          error: true
-        - java_method: plus
-          go_name: Plus2_2
-          params:
-            - java_type: android.graphics.Point
-              go_name: arg0
             - java_type: int
-              go_name: arg1
-          returns: android.graphics.Point
+              go_name: arg2
+          returns: java.nio.ByteBuffer
           error: true
-        - java_method: plus
-          go_name: Plus2_3
+        - java_method: copyToFile
+          go_name: CopyToFile2
           params:
-            - java_type: android.graphics.PointF
+            - java_type: java.io.File
               go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: android.graphics.PointF
-          error: true
-        - java_method: minus
-          go_name: Minus2
-          params:
-            - java_type: android.graphics.Point
-              go_name: arg0
-            - java_type: android.graphics.Point
-              go_name: arg1
-          returns: android.graphics.Point
-          error: true
-        - java_method: minus
-          go_name: Minus2_1
-          params:
-            - java_type: android.graphics.PointF
-              go_name: arg0
-            - java_type: android.graphics.PointF
-              go_name: arg1
-          returns: android.graphics.PointF
-          error: true
-        - java_method: minus
-          go_name: Minus2_2
-          params:
-            - java_type: android.graphics.Point
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.graphics.Point
-          error: true
-        - java_method: minus
-          go_name: Minus2_3
-          params:
-            - java_type: android.graphics.PointF
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: android.graphics.PointF
-          error: true
-        - java_method: unaryMinus
-          go_name: UnaryMinus1
-          params:
-            - java_type: android.graphics.Point
-              go_name: arg0
-          returns: android.graphics.Point
-          error: true
-        - java_method: unaryMinus
-          go_name: UnaryMinus1_1
-          params:
-            - java_type: android.graphics.PointF
-              go_name: arg0
-          returns: android.graphics.PointF
-          error: true
-        - java_method: times
-          go_name: Times2
-          params:
-            - java_type: android.graphics.Point
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: android.graphics.Point
-          error: true
-        - java_method: times
-          go_name: Times2_1
-          params:
-            - java_type: android.graphics.PointF
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: android.graphics.PointF
-          error: true
-        - java_method: div
-          go_name: Div2
-          params:
-            - java_type: android.graphics.Point
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: android.graphics.Point
-          error: true
-        - java_method: div
-          go_name: Div2_1
-          params:
-            - java_type: android.graphics.PointF
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: android.graphics.PointF
-          error: true
-        - java_method: toPointF
-          go_name: ToPointF
-          params:
-            - java_type: android.graphics.Point
-              go_name: arg0
-          returns: android.graphics.PointF
-          error: true
-        - java_method: toPoint
-          go_name: ToPoint
-          params:
-            - java_type: android.graphics.PointF
-              go_name: arg0
-          returns: android.graphics.Point
-          error: true
-    - java_class: androidx.core.graphics.RegionKt
-      go_type: RegionKt
-      static_methods:
-        - java_method: contains
-          go_name: Contains
-          params:
-            - java_type: android.graphics.Region
-              go_name: arg0
-            - java_type: android.graphics.Point
+            - java_type: java.io.InputStream
               go_name: arg1
           returns: boolean
           error: true
-        - java_method: plus
-          go_name: Plus2
+        - java_method: copyToFile
+          go_name: CopyToFile3_1
           params:
-            - java_type: android.graphics.Region
+            - java_type: java.io.File
               go_name: arg0
-            - java_type: android.graphics.Rect
+            - java_type: android.content.res.Resources
               go_name: arg1
-          returns: android.graphics.Region
-          error: true
-        - java_method: plus
-          go_name: Plus2_1
-          params:
-            - java_type: android.graphics.Region
-              go_name: arg0
-            - java_type: android.graphics.Region
-              go_name: arg1
-          returns: android.graphics.Region
-          error: true
-        - java_method: minus
-          go_name: Minus2
-          params:
-            - java_type: android.graphics.Region
-              go_name: arg0
-            - java_type: android.graphics.Rect
-              go_name: arg1
-          returns: android.graphics.Region
-          error: true
-        - java_method: minus
-          go_name: Minus2_1
-          params:
-            - java_type: android.graphics.Region
-              go_name: arg0
-            - java_type: android.graphics.Region
-              go_name: arg1
-          returns: android.graphics.Region
-          error: true
-        - java_method: unaryMinus
-          go_name: UnaryMinus
-          params:
-            - java_type: android.graphics.Region
-              go_name: arg0
-          returns: android.graphics.Region
-          error: true
-        - java_method: not
-          go_name: Not
-          params:
-            - java_type: android.graphics.Region
-              go_name: arg0
-          returns: android.graphics.Region
-          error: true
-        - java_method: or
-          go_name: Or2
-          params:
-            - java_type: android.graphics.Region
-              go_name: arg0
-            - java_type: android.graphics.Rect
-              go_name: arg1
-          returns: android.graphics.Region
-          error: true
-        - java_method: or
-          go_name: Or2_1
-          params:
-            - java_type: android.graphics.Region
-              go_name: arg0
-            - java_type: android.graphics.Region
-              go_name: arg1
-          returns: android.graphics.Region
-          error: true
-        - java_method: and
-          go_name: And2
-          params:
-            - java_type: android.graphics.Region
-              go_name: arg0
-            - java_type: android.graphics.Rect
-              go_name: arg1
-          returns: android.graphics.Region
-          error: true
-        - java_method: and
-          go_name: And2_1
-          params:
-            - java_type: android.graphics.Region
-              go_name: arg0
-            - java_type: android.graphics.Region
-              go_name: arg1
-          returns: android.graphics.Region
-          error: true
-        - java_method: xor
-          go_name: Xor2
-          params:
-            - java_type: android.graphics.Region
-              go_name: arg0
-            - java_type: android.graphics.Rect
-              go_name: arg1
-          returns: android.graphics.Region
-          error: true
-        - java_method: xor
-          go_name: Xor2_1
-          params:
-            - java_type: android.graphics.Region
-              go_name: arg0
-            - java_type: android.graphics.Region
-              go_name: arg1
-          returns: android.graphics.Region
-          error: true
-        - java_method: iterator
-          go_name: Iterator
-          params:
-            - java_type: android.graphics.Region
-              go_name: arg0
-          returns: java.util.Iterator<android.graphics.Rect>
-          error: true
-    - java_class: androidx.core.graphics.PaintCompat
-      go_type: PaintCompat
-      static_methods:
-        - java_method: hasGlyph
-          go_name: HasGlyph
-          params:
-            - java_type: android.graphics.Paint
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
+            - java_type: int
+              go_name: arg2
           returns: boolean
           error: true
+        - java_method: closeQuietly
+          go_name: CloseQuietly
+          params:
+            - java_type: java.io.Closeable
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: androidx.core.graphics.PaintKt
+      go_type: PaintKt
+      static_methods:
         - java_method: setBlendMode
           go_name: SetBlendMode
           params:
@@ -1230,8 +833,6 @@ classes:
               go_name: arg1
           returns: boolean
           error: true
-    - java_class: androidx.core.graphics.ImageDecoderKt
-      go_type: ImageDecoderKt
     - java_class: androidx.core.graphics.RectKt
       go_type: RectKt
       static_methods:
@@ -1535,82 +1136,77 @@ classes:
               go_name: arg1
           returns: android.graphics.RectF
           error: true
-    - java_class: androidx.core.graphics.PathSegment
-      go_type: PathSegment
-      obtain: constructor
-      constructor_params:
-        - java_type: android.graphics.PointF
-          go_name: arg0
-        - java_type: float
-          go_name: arg1
-        - java_type: android.graphics.PointF
-          go_name: arg2
-        - java_type: float
-          go_name: arg3
-      methods:
-        - java_method: getStart
-          go_name: GetStart
-          returns: android.graphics.PointF
-          error: true
-        - java_method: getStartFraction
-          go_name: GetStartFraction
-          returns: float
-          error: true
-        - java_method: getEnd
-          go_name: GetEnd
-          returns: android.graphics.PointF
-          error: true
-        - java_method: getEndFraction
-          go_name: GetEndFraction
-          returns: float
-          error: true
-        - java_method: equals
-          go_name: Equals
+    - java_class: androidx.core.graphics.CanvasKt
+      go_type: CanvasKt
+    - java_class: androidx.core.graphics.PaintCompat
+      go_type: PaintCompat
+      static_methods:
+        - java_method: hasGlyph
+          go_name: HasGlyph
           params:
-            - java_type: java.lang.Object
+            - java_type: android.graphics.Paint
               go_name: arg0
+            - java_type: String
+              go_name: arg1
           returns: boolean
           error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: androidx.core.graphics.TypefaceCompatApi29Impl
-      go_type: TypefaceCompatApi29Impl
-      obtain: constructor
-      methods:
-        - java_method: createFromFontInfo
-          go_name: CreateFromFontInfo
+        - java_method: setBlendMode
+          go_name: SetBlendMode
           params:
-            - java_type: android.content.Context
+            - java_type: android.graphics.Paint
               go_name: arg0
-            - java_type: android.os.CancellationSignal
+            - java_type: androidx.core.graphics.BlendModeCompat
               go_name: arg1
-            - java_type: androidx.core.provider.FontsContractCompat$FontInfo[]
+          returns: boolean
+          error: true
+    - java_class: androidx.core.graphics.TypefaceCompat
+      go_type: TypefaceCompat
+      static_methods:
+        - java_method: findFromCache
+          go_name: FindFromCache5
+          params:
+            - java_type: android.content.res.Resources
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: String
               go_name: arg2
             - java_type: int
               go_name: arg3
+            - java_type: int
+              go_name: arg4
           returns: android.graphics.Typeface
           error: true
-        - java_method: createFromFontFamilyFilesResourceEntry
-          go_name: CreateFromFontFamilyFilesResourceEntry
+        - java_method: findFromCache
+          go_name: FindFromCache3_1
           params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: androidx.core.content.res.FontResourcesParserCompat$FontFamilyFilesResourceEntry
-              go_name: arg1
             - java_type: android.content.res.Resources
-              go_name: arg2
+              go_name: arg0
             - java_type: int
-              go_name: arg3
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
           returns: android.graphics.Typeface
           error: true
         - java_method: createFromResourcesFontFile
-          go_name: CreateFromResourcesFontFile
+          go_name: CreateFromResourcesFontFile6
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.res.Resources
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: String
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: int
+              go_name: arg5
+          returns: android.graphics.Typeface
+          error: true
+        - java_method: createFromResourcesFontFile
+          go_name: CreateFromResourcesFontFile5_1
           params:
             - java_type: android.content.Context
               go_name: arg0
@@ -1624,9 +1220,101 @@ classes:
               go_name: arg4
           returns: android.graphics.Typeface
           error: true
-    - java_class: androidx.core.graphics.TypefaceCompatApi28Impl
-      go_type: TypefaceCompatApi28Impl
+        - java_method: createFromFontInfo
+          go_name: CreateFromFontInfo
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.os.CancellationSignal
+              go_name: arg1
+            - java_type: androidx.core.provider.FontsContractCompat$FontInfo[]
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: android.graphics.Typeface
+          error: true
+        - java_method: create
+          go_name: Create3
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.graphics.Typeface
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: android.graphics.Typeface
+          error: true
+        - java_method: create
+          go_name: Create4_1
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.graphics.Typeface
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: boolean
+              go_name: arg3
+          returns: android.graphics.Typeface
+          error: true
+        - java_method: clearCache
+          go_name: ClearCache
+          returns: void
+          error: true
+    - java_class: androidx.core.graphics.BlendModeColorFilterCompat
+      go_type: BlendModeColorFilterCompat
+      static_methods:
+        - java_method: createBlendModeColorFilterCompat
+          go_name: CreateBlendModeColorFilterCompat
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: androidx.core.graphics.BlendModeCompat
+              go_name: arg1
+          returns: android.graphics.ColorFilter
+          error: true
+    - java_class: androidx.core.graphics.TypefaceCompat$ResourcesCallbackAdapter
+      go_type: TypefaceCompatResourcesCallbackAdapter
       obtain: constructor
+      constructor_params:
+        - java_type: androidx.core.content.res.ResourcesCompat$FontCallback
+          go_name: arg0
+      methods:
+        - java_method: onTypefaceRetrieved
+          go_name: OnTypefaceRetrieved
+          params:
+            - java_type: android.graphics.Typeface
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onTypefaceRequestFailed
+          go_name: OnTypefaceRequestFailed
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: androidx.core.graphics.ImageDecoderKt
+      go_type: ImageDecoderKt
+    - java_class: androidx.core.graphics.PorterDuffKt
+      go_type: PorterDuffKt
+      static_methods:
+        - java_method: toXfermode
+          go_name: ToXfermode
+          params:
+            - java_type: android.graphics.PorterDuff$Mode
+              go_name: arg0
+          returns: android.graphics.PorterDuffXfermode
+          error: true
+        - java_method: toColorFilter
+          go_name: ToColorFilter
+          params:
+            - java_type: android.graphics.PorterDuff$Mode
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.graphics.PorterDuffColorFilter
+          error: true
     - java_class: androidx.core.graphics.BlendModeCompat
       go_type: BlendModeCompat
       static_methods:
@@ -1640,63 +1328,6 @@ classes:
             - java_type: String
               go_name: arg0
           returns: androidx.core.graphics.BlendModeCompat
-          error: true
-    - java_class: androidx.core.graphics.PathKt
-      go_type: PathKt
-      static_methods:
-        - java_method: flatten
-          go_name: Flatten
-          params:
-            - java_type: android.graphics.Path
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: java.lang.Iterable<androidx.core.graphics.PathSegment>
-          error: true
-        - java_method: plus
-          go_name: Plus
-          params:
-            - java_type: android.graphics.Path
-              go_name: arg0
-            - java_type: android.graphics.Path
-              go_name: arg1
-          returns: android.graphics.Path
-          error: true
-        - java_method: minus
-          go_name: Minus
-          params:
-            - java_type: android.graphics.Path
-              go_name: arg0
-            - java_type: android.graphics.Path
-              go_name: arg1
-          returns: android.graphics.Path
-          error: true
-        - java_method: or
-          go_name: Or
-          params:
-            - java_type: android.graphics.Path
-              go_name: arg0
-            - java_type: android.graphics.Path
-              go_name: arg1
-          returns: android.graphics.Path
-          error: true
-        - java_method: and
-          go_name: And
-          params:
-            - java_type: android.graphics.Path
-              go_name: arg0
-            - java_type: android.graphics.Path
-              go_name: arg1
-          returns: android.graphics.Path
-          error: true
-        - java_method: xor
-          go_name: Xor
-          params:
-            - java_type: android.graphics.Path
-              go_name: arg0
-            - java_type: android.graphics.Path
-              go_name: arg1
-          returns: android.graphics.Path
           error: true
     - java_class: androidx.core.graphics.MatrixKt
       go_type: MatrixKt
@@ -1746,6 +1377,51 @@ classes:
               go_name: arg2
           returns: android.graphics.Matrix
           error: true
+    - java_class: androidx.core.graphics.TypefaceCompatApi29Impl
+      go_type: TypefaceCompatApi29Impl
+      obtain: constructor
+      methods:
+        - java_method: createFromFontInfo
+          go_name: CreateFromFontInfo
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.os.CancellationSignal
+              go_name: arg1
+            - java_type: androidx.core.provider.FontsContractCompat$FontInfo[]
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: android.graphics.Typeface
+          error: true
+        - java_method: createFromFontFamilyFilesResourceEntry
+          go_name: CreateFromFontFamilyFilesResourceEntry
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: androidx.core.content.res.FontResourcesParserCompat$FontFamilyFilesResourceEntry
+              go_name: arg1
+            - java_type: android.content.res.Resources
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: android.graphics.Typeface
+          error: true
+        - java_method: createFromResourcesFontFile
+          go_name: CreateFromResourcesFontFile
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.res.Resources
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: String
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+          returns: android.graphics.Typeface
+          error: true
     - java_class: androidx.core.graphics.Insets
       go_type: Insets
       methods:
@@ -1763,10 +1439,6 @@ classes:
         - java_method: toString
           go_name: ToString
           returns: String
-          error: true
-        - java_method: toPlatformInsets
-          go_name: ToPlatformInsets
-          returns: android.graphics.Insets
           error: true
       static_methods:
         - java_method: of
@@ -1839,8 +1511,10 @@ classes:
               go_name: arg0
           returns: androidx.core.graphics.Insets
           error: true
-    - java_class: androidx.core.graphics.ShaderKt
-      go_type: ShaderKt
+        - java_method: toPlatformInsets
+          go_name: ToPlatformInsets
+          returns: android.graphics.Insets
+          error: true
     - java_class: androidx.core.graphics.BitmapKt
       go_type: BitmapKt
       static_methods:
@@ -1925,6 +1599,83 @@ classes:
               go_name: arg1
           returns: boolean
           error: true
+    - java_class: androidx.core.graphics.PathParser
+      go_type: PathParser
+      static_methods:
+        - java_method: createPathFromPathData
+          go_name: CreatePathFromPathData
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.graphics.Path
+          error: true
+        - java_method: createNodesFromPathData
+          go_name: CreateNodesFromPathData
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: androidx.core.graphics.PathParser$PathDataNode[]
+          error: true
+        - java_method: deepCopyNodes
+          go_name: DeepCopyNodes
+          params:
+            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
+              go_name: arg0
+          returns: androidx.core.graphics.PathParser$PathDataNode[]
+          error: true
+        - java_method: canMorph
+          go_name: CanMorph
+          params:
+            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
+              go_name: arg0
+            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: updateNodes
+          go_name: UpdateNodes
+          params:
+            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
+              go_name: arg0
+            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: interpolatePathDataNodes
+          go_name: InterpolatePathDataNodes4
+          params:
+            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
+              go_name: arg2
+            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: interpolatePathDataNodes
+          go_name: InterpolatePathDataNodes4_1
+          params:
+            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
+              go_name: arg0
+            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
+              go_name: arg1
+            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+          returns: boolean
+          error: true
+        - java_method: nodesToPath
+          go_name: NodesToPath
+          params:
+            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
+              go_name: arg0
+            - java_type: android.graphics.Path
+              go_name: arg1
+          returns: void
+          error: true
     - java_class: androidx.core.graphics.TypefaceCompatApi26Impl
       go_type: TypefaceCompatApi26Impl
       obtain: constructor
@@ -1969,6 +1720,248 @@ classes:
             - java_type: int
               go_name: arg4
           returns: android.graphics.Typeface
+          error: true
+    - java_class: androidx.core.graphics.PathKt
+      go_type: PathKt
+      static_methods:
+        - java_method: flatten
+          go_name: Flatten
+          params:
+            - java_type: android.graphics.Path
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: java.lang.Iterable<androidx.core.graphics.PathSegment>
+          error: true
+        - java_method: plus
+          go_name: Plus
+          params:
+            - java_type: android.graphics.Path
+              go_name: arg0
+            - java_type: android.graphics.Path
+              go_name: arg1
+          returns: android.graphics.Path
+          error: true
+        - java_method: minus
+          go_name: Minus
+          params:
+            - java_type: android.graphics.Path
+              go_name: arg0
+            - java_type: android.graphics.Path
+              go_name: arg1
+          returns: android.graphics.Path
+          error: true
+        - java_method: or
+          go_name: Or
+          params:
+            - java_type: android.graphics.Path
+              go_name: arg0
+            - java_type: android.graphics.Path
+              go_name: arg1
+          returns: android.graphics.Path
+          error: true
+        - java_method: and
+          go_name: And
+          params:
+            - java_type: android.graphics.Path
+              go_name: arg0
+            - java_type: android.graphics.Path
+              go_name: arg1
+          returns: android.graphics.Path
+          error: true
+        - java_method: xor
+          go_name: Xor
+          params:
+            - java_type: android.graphics.Path
+              go_name: arg0
+            - java_type: android.graphics.Path
+              go_name: arg1
+          returns: android.graphics.Path
+          error: true
+    - java_class: androidx.core.graphics.PathParser$PathDataNode
+      go_type: PathParserPathDataNode
+      methods:
+        - java_method: getType
+          go_name: GetType
+          returns: char
+          error: true
+        - java_method: getParams
+          go_name: GetParams
+          returns: float[]
+          error: true
+      static_methods:
+        - java_method: nodesToPath
+          go_name: NodesToPath
+          params:
+            - java_type: androidx.core.graphics.PathParser$PathDataNode[]
+              go_name: arg0
+            - java_type: android.graphics.Path
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: androidx.core.graphics.BitmapCompat
+      go_type: BitmapCompat
+      static_methods:
+        - java_method: hasMipMap
+          go_name: HasMipMap
+          params:
+            - java_type: android.graphics.Bitmap
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: setHasMipMap
+          go_name: SetHasMipMap
+          params:
+            - java_type: android.graphics.Bitmap
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getAllocationByteCount
+          go_name: GetAllocationByteCount
+          params:
+            - java_type: android.graphics.Bitmap
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: createScaledBitmap
+          go_name: CreateScaledBitmap
+          params:
+            - java_type: android.graphics.Bitmap
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.graphics.Rect
+              go_name: arg3
+            - java_type: boolean
+              go_name: arg4
+          returns: android.graphics.Bitmap
+          error: true
+    - java_class: androidx.core.graphics.RegionKt
+      go_type: RegionKt
+      static_methods:
+        - java_method: contains
+          go_name: Contains
+          params:
+            - java_type: android.graphics.Region
+              go_name: arg0
+            - java_type: android.graphics.Point
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: plus
+          go_name: Plus2
+          params:
+            - java_type: android.graphics.Region
+              go_name: arg0
+            - java_type: android.graphics.Rect
+              go_name: arg1
+          returns: android.graphics.Region
+          error: true
+        - java_method: plus
+          go_name: Plus2_1
+          params:
+            - java_type: android.graphics.Region
+              go_name: arg0
+            - java_type: android.graphics.Region
+              go_name: arg1
+          returns: android.graphics.Region
+          error: true
+        - java_method: minus
+          go_name: Minus2
+          params:
+            - java_type: android.graphics.Region
+              go_name: arg0
+            - java_type: android.graphics.Rect
+              go_name: arg1
+          returns: android.graphics.Region
+          error: true
+        - java_method: minus
+          go_name: Minus2_1
+          params:
+            - java_type: android.graphics.Region
+              go_name: arg0
+            - java_type: android.graphics.Region
+              go_name: arg1
+          returns: android.graphics.Region
+          error: true
+        - java_method: unaryMinus
+          go_name: UnaryMinus
+          params:
+            - java_type: android.graphics.Region
+              go_name: arg0
+          returns: android.graphics.Region
+          error: true
+        - java_method: not
+          go_name: Not
+          params:
+            - java_type: android.graphics.Region
+              go_name: arg0
+          returns: android.graphics.Region
+          error: true
+        - java_method: or
+          go_name: Or2
+          params:
+            - java_type: android.graphics.Region
+              go_name: arg0
+            - java_type: android.graphics.Rect
+              go_name: arg1
+          returns: android.graphics.Region
+          error: true
+        - java_method: or
+          go_name: Or2_1
+          params:
+            - java_type: android.graphics.Region
+              go_name: arg0
+            - java_type: android.graphics.Region
+              go_name: arg1
+          returns: android.graphics.Region
+          error: true
+        - java_method: and
+          go_name: And2
+          params:
+            - java_type: android.graphics.Region
+              go_name: arg0
+            - java_type: android.graphics.Rect
+              go_name: arg1
+          returns: android.graphics.Region
+          error: true
+        - java_method: and
+          go_name: And2_1
+          params:
+            - java_type: android.graphics.Region
+              go_name: arg0
+            - java_type: android.graphics.Region
+              go_name: arg1
+          returns: android.graphics.Region
+          error: true
+        - java_method: xor
+          go_name: Xor2
+          params:
+            - java_type: android.graphics.Region
+              go_name: arg0
+            - java_type: android.graphics.Rect
+              go_name: arg1
+          returns: android.graphics.Region
+          error: true
+        - java_method: xor
+          go_name: Xor2_1
+          params:
+            - java_type: android.graphics.Region
+              go_name: arg0
+            - java_type: android.graphics.Region
+              go_name: arg1
+          returns: android.graphics.Region
+          error: true
+        - java_method: iterator
+          go_name: Iterator
+          params:
+            - java_type: android.graphics.Region
+              go_name: arg0
+          returns: java.util.Iterator<android.graphics.Rect>
           error: true
 constants:
     - go_name: Clear

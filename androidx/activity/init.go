@@ -23,28 +23,18 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsOnBackPressedDispatcher                           *jni.GlobalRef
-	midOnBackPressedDispatcherCtor                       jni.MethodID
-	midOnBackPressedDispatcherSetOnBackInvokedDispatcher jni.MethodID
-	midOnBackPressedDispatcherAddCallback1               jni.MethodID
-	midOnBackPressedDispatcherAddCallback2_1             jni.MethodID
-	midOnBackPressedDispatcherHasEnabledCallbacks        jni.MethodID
-	midOnBackPressedDispatcherOnBackPressed              jni.MethodID
-	midOnBackPressedDispatcherToString                   jni.MethodID
+	clsOnBackPressedCallback                                         *jni.GlobalRef
+	midOnBackPressedCallbackIsEnabled                                jni.MethodID
+	midOnBackPressedCallbackSetEnabled                               jni.MethodID
+	midOnBackPressedCallbackGetEnabledChangedCallbackActivityRelease jni.MethodID
+	midOnBackPressedCallbackRemove                                   jni.MethodID
+	midOnBackPressedCallbackHandleOnBackPressed                      jni.MethodID
+	midOnBackPressedCallbackAddCancellable                           jni.MethodID
+	midOnBackPressedCallbackRemoveCancellable                        jni.MethodID
+	midOnBackPressedCallbackToString                                 jni.MethodID
 
-	clsOnBackPressedDispatcherApi33Impl                                *jni.GlobalRef
-	midOnBackPressedDispatcherApi33ImplRegisterOnBackInvokedCallback   jni.MethodID
-	midOnBackPressedDispatcherApi33ImplUnregisterOnBackInvokedCallback jni.MethodID
-	midOnBackPressedDispatcherApi33ImplToString                        jni.MethodID
-
-	clsViewTreeOnBackPressedDispatcherOwner         *jni.GlobalRef
-	midViewTreeOnBackPressedDispatcherOwnerToString jni.MethodID
-	midViewTreeOnBackPressedDispatcherOwnerSet      jni.MethodID
-	midViewTreeOnBackPressedDispatcherOwnerGet      jni.MethodID
-
-	clsFullyDrawnReporterOwner                      *jni.GlobalRef
-	midFullyDrawnReporterOwnerGetFullyDrawnReporter jni.MethodID
-	midFullyDrawnReporterOwnerToString              jni.MethodID
+	clsOnBackPressedDispatcherKt         *jni.GlobalRef
+	midOnBackPressedDispatcherKtToString jni.MethodID
 
 	clsViewTreeFullyDrawnReporterOwner         *jni.GlobalRef
 	midViewTreeFullyDrawnReporterOwnerToString jni.MethodID
@@ -53,6 +43,23 @@ var (
 
 	clsFullyDrawnReporterKt         *jni.GlobalRef
 	midFullyDrawnReporterKtToString jni.MethodID
+
+	clsCancellable         *jni.GlobalRef
+	midCancellableCancel   jni.MethodID
+	midCancellableToString jni.MethodID
+
+	clsViewTreeOnBackPressedDispatcherOwner         *jni.GlobalRef
+	midViewTreeOnBackPressedDispatcherOwnerToString jni.MethodID
+	midViewTreeOnBackPressedDispatcherOwnerSet      jni.MethodID
+	midViewTreeOnBackPressedDispatcherOwnerGet      jni.MethodID
+
+	clsFullyDrawnReporter                     *jni.GlobalRef
+	midFullyDrawnReporterCtor                 jni.MethodID
+	midFullyDrawnReporterIsFullyDrawnReported jni.MethodID
+	midFullyDrawnReporterAddReporter          jni.MethodID
+	midFullyDrawnReporterRemoveReporter       jni.MethodID
+	midFullyDrawnReporterFullyDrawnReported   jni.MethodID
+	midFullyDrawnReporterToString             jni.MethodID
 
 	clsComponentDialog                           *jni.GlobalRef
 	midComponentDialogCtor                       jni.MethodID
@@ -66,34 +73,6 @@ var (
 	midComponentDialogSetContentView2_2          jni.MethodID
 	midComponentDialogAddContentView             jni.MethodID
 	midComponentDialogToString                   jni.MethodID
-
-	clsFullyDrawnReporter                     *jni.GlobalRef
-	midFullyDrawnReporterCtor                 jni.MethodID
-	midFullyDrawnReporterIsFullyDrawnReported jni.MethodID
-	midFullyDrawnReporterAddReporter          jni.MethodID
-	midFullyDrawnReporterRemoveReporter       jni.MethodID
-	midFullyDrawnReporterFullyDrawnReported   jni.MethodID
-	midFullyDrawnReporterToString             jni.MethodID
-
-	clsCancellable         *jni.GlobalRef
-	midCancellableCancel   jni.MethodID
-	midCancellableToString jni.MethodID
-
-	clsOnBackPressedDispatcherOwner                           *jni.GlobalRef
-	midOnBackPressedDispatcherOwnerGetOnBackPressedDispatcher jni.MethodID
-	midOnBackPressedDispatcherOwnerToString                   jni.MethodID
-
-	clsOnBackPressedDispatcherKt         *jni.GlobalRef
-	midOnBackPressedDispatcherKtToString jni.MethodID
-
-	clsOnBackPressedCallback                    *jni.GlobalRef
-	midOnBackPressedCallbackIsEnabled           jni.MethodID
-	midOnBackPressedCallbackSetEnabled          jni.MethodID
-	midOnBackPressedCallbackRemove              jni.MethodID
-	midOnBackPressedCallbackHandleOnBackPressed jni.MethodID
-	midOnBackPressedCallbackAddCancellable      jni.MethodID
-	midOnBackPressedCallbackRemoveCancellable   jni.MethodID
-	midOnBackPressedCallbackToString            jni.MethodID
 
 	clsComponentActivity                                       *jni.GlobalRef
 	midComponentActivityCtor                                   jni.MethodID
@@ -136,8 +115,31 @@ var (
 	midComponentActivityOnMultiWindowModeChanged2_1            jni.MethodID
 	midComponentActivityOnPictureInPictureModeChanged1         jni.MethodID
 	midComponentActivityOnPictureInPictureModeChanged2_1       jni.MethodID
-	midComponentActivityReportFullyDrawn                       jni.MethodID
 	midComponentActivityToString                               jni.MethodID
+
+	clsFullyDrawnReporterOwner                      *jni.GlobalRef
+	midFullyDrawnReporterOwnerGetFullyDrawnReporter jni.MethodID
+	midFullyDrawnReporterOwnerToString              jni.MethodID
+
+	clsOnBackPressedDispatcher                                              *jni.GlobalRef
+	midOnBackPressedDispatcherCtor                                          jni.MethodID
+	midOnBackPressedDispatcherSetOnBackInvokedDispatcher                    jni.MethodID
+	midOnBackPressedDispatcherUpdateBackInvokedCallbackStateActivityRelease jni.MethodID
+	midOnBackPressedDispatcherAddCallback1                                  jni.MethodID
+	midOnBackPressedDispatcherAddCancellableCallbackActivityRelease         jni.MethodID
+	midOnBackPressedDispatcherAddCallback2_1                                jni.MethodID
+	midOnBackPressedDispatcherHasEnabledCallbacks                           jni.MethodID
+	midOnBackPressedDispatcherOnBackPressed                                 jni.MethodID
+	midOnBackPressedDispatcherToString                                      jni.MethodID
+
+	clsOnBackPressedDispatcherApi33Impl                                *jni.GlobalRef
+	midOnBackPressedDispatcherApi33ImplRegisterOnBackInvokedCallback   jni.MethodID
+	midOnBackPressedDispatcherApi33ImplUnregisterOnBackInvokedCallback jni.MethodID
+	midOnBackPressedDispatcherApi33ImplToString                        jni.MethodID
+
+	clsOnBackPressedDispatcherOwner                           *jni.GlobalRef
+	midOnBackPressedDispatcherOwnerGetOnBackPressedDispatcher jni.MethodID
+	midOnBackPressedDispatcherOwnerToString                   jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -158,54 +160,64 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("androidx/activity/OnBackPressedDispatcher")
+	c, err = env.FindClass("androidx/activity/OnBackPressedCallback")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsOnBackPressedDispatcher = env.NewGlobalRef(&c.Object)
-		midOnBackPressedDispatcherCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcher)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsOnBackPressedCallback = env.NewGlobalRef(&c.Object)
 
-		midOnBackPressedDispatcherSetOnBackInvokedDispatcher, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcher)), "setOnBackInvokedDispatcher", "(Landroid/window/OnBackInvokedDispatcher;)V")
+		midOnBackPressedCallbackIsEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedCallback)), "isEnabled", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midOnBackPressedDispatcherAddCallback1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcher)), "addCallback", "(Landroidx/activity/OnBackPressedCallback;)V")
+		midOnBackPressedCallbackSetEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedCallback)), "setEnabled", "(Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midOnBackPressedDispatcherAddCallback2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcher)), "addCallback", "(Landroidx/lifecycle/LifecycleOwner;Landroidx/activity/OnBackPressedCallback;)V")
+		midOnBackPressedCallbackGetEnabledChangedCallbackActivityRelease, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedCallback)), "getEnabledChangedCallback$activity_release", "()Lkotlin/jvm/functions/Function0;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midOnBackPressedDispatcherHasEnabledCallbacks, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcher)), "hasEnabledCallbacks", "()Z")
+		midOnBackPressedCallbackRemove, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedCallback)), "remove", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midOnBackPressedDispatcherOnBackPressed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcher)), "onBackPressed", "()V")
+		midOnBackPressedCallbackHandleOnBackPressed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedCallback)), "handleOnBackPressed", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midOnBackPressedDispatcherToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcher)), "toString", "()Ljava/lang/String;")
+		midOnBackPressedCallbackAddCancellable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedCallback)), "addCancellable", "(Landroidx/activity/Cancellable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOnBackPressedCallbackRemoveCancellable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedCallback)), "removeCancellable", "(Landroidx/activity/Cancellable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOnBackPressedCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedCallback)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -214,84 +226,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/activity/OnBackPressedDispatcher$Api33Impl")
+	c, err = env.FindClass("androidx/activity/OnBackPressedDispatcherKt")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsOnBackPressedDispatcherApi33Impl = env.NewGlobalRef(&c.Object)
+		clsOnBackPressedDispatcherKt = env.NewGlobalRef(&c.Object)
 
-		midOnBackPressedDispatcherApi33ImplRegisterOnBackInvokedCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcherApi33Impl)), "registerOnBackInvokedCallback", "(Ljava/lang/Object;ILjava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOnBackPressedDispatcherApi33ImplUnregisterOnBackInvokedCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcherApi33Impl)), "unregisterOnBackInvokedCallback", "(Ljava/lang/Object;Ljava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOnBackPressedDispatcherApi33ImplToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcherApi33Impl)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/activity/ViewTreeOnBackPressedDispatcherOwner")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewTreeOnBackPressedDispatcherOwner = env.NewGlobalRef(&c.Object)
-
-		midViewTreeOnBackPressedDispatcherOwnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTreeOnBackPressedDispatcherOwner)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewTreeOnBackPressedDispatcherOwnerSet, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewTreeOnBackPressedDispatcherOwner)), "set", "(Landroid/view/View;Landroidx/activity/OnBackPressedDispatcherOwner;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midViewTreeOnBackPressedDispatcherOwnerGet, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewTreeOnBackPressedDispatcherOwner)), "get", "(Landroid/view/View;)Landroidx/activity/OnBackPressedDispatcherOwner;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/activity/FullyDrawnReporterOwner")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFullyDrawnReporterOwner = env.NewGlobalRef(&c.Object)
-
-		midFullyDrawnReporterOwnerGetFullyDrawnReporter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFullyDrawnReporterOwner)), "getFullyDrawnReporter", "()Landroidx/activity/FullyDrawnReporter;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFullyDrawnReporterOwnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFullyDrawnReporterOwner)), "toString", "()Ljava/lang/String;")
+		midOnBackPressedDispatcherKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcherKt)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -340,6 +283,110 @@ func doInit(env *jni.Env) error {
 		clsFullyDrawnReporterKt = env.NewGlobalRef(&c.Object)
 
 		midFullyDrawnReporterKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFullyDrawnReporterKt)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/activity/Cancellable")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCancellable = env.NewGlobalRef(&c.Object)
+
+		midCancellableCancel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellable)), "cancel", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCancellableToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellable)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/activity/ViewTreeOnBackPressedDispatcherOwner")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewTreeOnBackPressedDispatcherOwner = env.NewGlobalRef(&c.Object)
+
+		midViewTreeOnBackPressedDispatcherOwnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewTreeOnBackPressedDispatcherOwner)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewTreeOnBackPressedDispatcherOwnerSet, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewTreeOnBackPressedDispatcherOwner)), "set", "(Landroid/view/View;Landroidx/activity/OnBackPressedDispatcherOwner;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewTreeOnBackPressedDispatcherOwnerGet, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsViewTreeOnBackPressedDispatcherOwner)), "get", "(Landroid/view/View;)Landroidx/activity/OnBackPressedDispatcherOwner;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/activity/FullyDrawnReporter")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFullyDrawnReporter = env.NewGlobalRef(&c.Object)
+		midFullyDrawnReporterCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFullyDrawnReporter)), "<init>", "(Ljava/util/concurrent/Executor;Lkotlin/jvm/functions/Function0;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midFullyDrawnReporterIsFullyDrawnReported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFullyDrawnReporter)), "isFullyDrawnReported", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFullyDrawnReporterAddReporter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFullyDrawnReporter)), "addReporter", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFullyDrawnReporterRemoveReporter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFullyDrawnReporter)), "removeReporter", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFullyDrawnReporterFullyDrawnReported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFullyDrawnReporter)), "fullyDrawnReported", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFullyDrawnReporterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFullyDrawnReporter)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -424,179 +471,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midComponentDialogToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComponentDialog)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/activity/FullyDrawnReporter")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFullyDrawnReporter = env.NewGlobalRef(&c.Object)
-		midFullyDrawnReporterCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFullyDrawnReporter)), "<init>", "(Ljava/util/concurrent/Executor;Lkotlin/jvm/functions/Function0;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midFullyDrawnReporterIsFullyDrawnReported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFullyDrawnReporter)), "isFullyDrawnReported", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFullyDrawnReporterAddReporter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFullyDrawnReporter)), "addReporter", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFullyDrawnReporterRemoveReporter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFullyDrawnReporter)), "removeReporter", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFullyDrawnReporterFullyDrawnReported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFullyDrawnReporter)), "fullyDrawnReported", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFullyDrawnReporterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFullyDrawnReporter)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/activity/Cancellable")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCancellable = env.NewGlobalRef(&c.Object)
-
-		midCancellableCancel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellable)), "cancel", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCancellableToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCancellable)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/activity/OnBackPressedDispatcherOwner")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsOnBackPressedDispatcherOwner = env.NewGlobalRef(&c.Object)
-
-		midOnBackPressedDispatcherOwnerGetOnBackPressedDispatcher, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcherOwner)), "getOnBackPressedDispatcher", "()Landroidx/activity/OnBackPressedDispatcher;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOnBackPressedDispatcherOwnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcherOwner)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/activity/OnBackPressedDispatcherKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsOnBackPressedDispatcherKt = env.NewGlobalRef(&c.Object)
-
-		midOnBackPressedDispatcherKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcherKt)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/activity/OnBackPressedCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsOnBackPressedCallback = env.NewGlobalRef(&c.Object)
-
-		midOnBackPressedCallbackIsEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedCallback)), "isEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOnBackPressedCallbackSetEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedCallback)), "setEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOnBackPressedCallbackRemove, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedCallback)), "remove", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOnBackPressedCallbackHandleOnBackPressed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedCallback)), "handleOnBackPressed", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOnBackPressedCallbackAddCancellable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedCallback)), "addCancellable", "(Landroidx/activity/Cancellable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOnBackPressedCallbackRemoveCancellable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedCallback)), "removeCancellable", "(Landroidx/activity/Cancellable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOnBackPressedCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedCallback)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -890,14 +764,156 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midComponentActivityReportFullyDrawn, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComponentActivity)), "reportFullyDrawn", "()V")
+		midComponentActivityToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComponentActivity)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midComponentActivityToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComponentActivity)), "toString", "()Ljava/lang/String;")
+	}
+
+	c, err = env.FindClass("androidx/activity/FullyDrawnReporterOwner")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFullyDrawnReporterOwner = env.NewGlobalRef(&c.Object)
+
+		midFullyDrawnReporterOwnerGetFullyDrawnReporter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFullyDrawnReporterOwner)), "getFullyDrawnReporter", "()Landroidx/activity/FullyDrawnReporter;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFullyDrawnReporterOwnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFullyDrawnReporterOwner)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/activity/OnBackPressedDispatcher")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsOnBackPressedDispatcher = env.NewGlobalRef(&c.Object)
+		midOnBackPressedDispatcherCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcher)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midOnBackPressedDispatcherSetOnBackInvokedDispatcher, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcher)), "setOnBackInvokedDispatcher", "(Landroid/window/OnBackInvokedDispatcher;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOnBackPressedDispatcherUpdateBackInvokedCallbackStateActivityRelease, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcher)), "updateBackInvokedCallbackState$activity_release", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOnBackPressedDispatcherAddCallback1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcher)), "addCallback", "(Landroidx/activity/OnBackPressedCallback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOnBackPressedDispatcherAddCancellableCallbackActivityRelease, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcher)), "addCancellableCallback$activity_release", "(Landroidx/activity/OnBackPressedCallback;)Landroidx/activity/Cancellable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOnBackPressedDispatcherAddCallback2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcher)), "addCallback", "(Landroidx/lifecycle/LifecycleOwner;Landroidx/activity/OnBackPressedCallback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOnBackPressedDispatcherHasEnabledCallbacks, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcher)), "hasEnabledCallbacks", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOnBackPressedDispatcherOnBackPressed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcher)), "onBackPressed", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOnBackPressedDispatcherToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcher)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/activity/OnBackPressedDispatcher$Api33Impl")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsOnBackPressedDispatcherApi33Impl = env.NewGlobalRef(&c.Object)
+
+		midOnBackPressedDispatcherApi33ImplRegisterOnBackInvokedCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcherApi33Impl)), "registerOnBackInvokedCallback", "(Ljava/lang/Object;ILjava/lang/Object;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOnBackPressedDispatcherApi33ImplUnregisterOnBackInvokedCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcherApi33Impl)), "unregisterOnBackInvokedCallback", "(Ljava/lang/Object;Ljava/lang/Object;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOnBackPressedDispatcherApi33ImplToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcherApi33Impl)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/activity/OnBackPressedDispatcherOwner")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsOnBackPressedDispatcherOwner = env.NewGlobalRef(&c.Object)
+
+		midOnBackPressedDispatcherOwnerGetOnBackPressedDispatcher, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcherOwner)), "getOnBackPressedDispatcher", "()Landroidx/activity/OnBackPressedDispatcher;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOnBackPressedDispatcherOwnerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnBackPressedDispatcherOwner)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

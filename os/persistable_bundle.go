@@ -32,6 +32,12 @@ func NewPersistableBundle(vm *jni.VM) (*PersistableBundle, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPersistableBundle == nil {
+			return fmt.Errorf("android.os.PersistableBundle is not available on this device")
+		}
+		if midPersistableBundleCtor == nil {
+			return fmt.Errorf("android.os.PersistableBundle constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPersistableBundle)), midPersistableBundleCtor)
 		if err != nil {
 			return err
@@ -223,29 +229,6 @@ func (m *PersistableBundle) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 	return callErr
 }
 
-// WriteToStream calls android.os.PersistableBundle.writeToStream.
-func (m *PersistableBundle) WriteToStream(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midPersistableBundleWriteToStream == nil {
-			callErr = fmt.Errorf("android.os.PersistableBundle.writeToStream is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midPersistableBundleWriteToStream, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.os.PersistableBundle.toString.
 func (m *PersistableBundle) ToString() (string, error) {
 	var result string
@@ -304,4 +287,27 @@ func (m *PersistableBundle) ReadFromStream(arg0 *jni.Object) (*jni.Object, error
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToStream calls android.os.PersistableBundle.writeToStream.
+func (m *PersistableBundle) WriteToStream(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midPersistableBundleWriteToStream == nil {
+			callErr = fmt.Errorf("android.os.PersistableBundle.writeToStream is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsPersistableBundle)),
+			midPersistableBundleWriteToStream, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

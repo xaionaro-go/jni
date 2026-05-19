@@ -32,6 +32,12 @@ func NewInlinePresentation(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInlinePresentation == nil {
+			return fmt.Errorf("android.service.autofill.InlinePresentation is not available on this device")
+		}
+		if midInlinePresentationCtor == nil {
+			return fmt.Errorf("android.service.autofill.InlinePresentation constructor (Landroid/app/slice/Slice;Landroid/widget/inline/InlinePresentationSpec;Z)V is not available on this device")
+		}
 
 		var jArg2 uint8
 		if arg2 {
@@ -247,29 +253,6 @@ func (m *InlinePresentation) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.service.autofill.InlinePresentation.writeToParcel.
-func (m *InlinePresentation) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midInlinePresentationWriteToParcel == nil {
-			callErr = fmt.Errorf("android.service.autofill.InlinePresentation.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midInlinePresentationWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // CreateTooltipPresentation calls android.service.autofill.InlinePresentation.createTooltipPresentation.
 func (m *InlinePresentation) CreateTooltipPresentation(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
@@ -301,4 +284,27 @@ func (m *InlinePresentation) CreateTooltipPresentation(arg0 *jni.Object, arg1 *j
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.service.autofill.InlinePresentation.writeToParcel.
+func (m *InlinePresentation) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midInlinePresentationWriteToParcel == nil {
+			callErr = fmt.Errorf("android.service.autofill.InlinePresentation.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsInlinePresentation)),
+			midInlinePresentationWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -32,6 +32,12 @@ func NewSizeFCompat(vm *jni.VM, arg0 float32, arg1 float32) (*SizeFCompat, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSizeFCompat == nil {
+			return fmt.Errorf("androidx.core.util.SizeFCompat is not available on this device")
+		}
+		if midSizeFCompatCtor == nil {
+			return fmt.Errorf("androidx.core.util.SizeFCompat constructor (FF)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSizeFCompat)), midSizeFCompatCtor, jni.FloatValue(arg0), jni.FloatValue(arg1))
 		if err != nil {

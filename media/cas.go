@@ -32,6 +32,12 @@ func NewCas(vm *jni.VM, arg0 *jni.Object, arg1 int32, arg2 string, arg3 int32) (
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCas == nil {
+			return fmt.Errorf("android.media.MediaCas is not available on this device")
+		}
+		if midCasCtor == nil {
+			return fmt.Errorf("android.media.MediaCas constructor (Landroid/content/Context;ILjava/lang/String;I)V is not available on this device")
+		}
 
 		jArg2, err := env.NewStringUTF(arg2)
 		if err != nil {

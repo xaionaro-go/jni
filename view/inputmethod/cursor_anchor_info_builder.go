@@ -23,6 +23,34 @@ type CursorAnchorInfoBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewCursorAnchorInfoBuilder creates a new android.view.inputmethod.CursorAnchorInfo$Builder instance.
+func NewCursorAnchorInfoBuilder(vm *jni.VM) (*CursorAnchorInfoBuilder, error) {
+	var t CursorAnchorInfoBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsCursorAnchorInfoBuilder == nil {
+			return fmt.Errorf("android.view.inputmethod.CursorAnchorInfo$Builder is not available on this device")
+		}
+		if midCursorAnchorInfoBuilderCtor == nil {
+			return fmt.Errorf("android.view.inputmethod.CursorAnchorInfo$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCursorAnchorInfoBuilder)), midCursorAnchorInfoBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddCharacterBounds calls android.view.inputmethod.CursorAnchorInfo$Builder.addCharacterBounds.
 func (m *CursorAnchorInfoBuilder) AddCharacterBounds(
 	arg0 int32,

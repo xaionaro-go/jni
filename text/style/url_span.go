@@ -32,6 +32,12 @@ func NewURLSpan(vm *jni.VM, arg0 *jni.Object) (*URLSpan, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsURLSpan == nil {
+			return fmt.Errorf("android.text.style.URLSpan is not available on this device")
+		}
+		if midURLSpanCtor == nil {
+			return fmt.Errorf("android.text.style.URLSpan constructor (Landroid/os/Parcel;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsURLSpan)), midURLSpanCtor, jni.ObjectValue(arg0))
 		if err != nil {

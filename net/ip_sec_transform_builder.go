@@ -23,6 +23,35 @@ type IpSecTransformBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewIpSecTransformBuilder creates a new android.net.IpSecTransform$Builder instance.
+func NewIpSecTransformBuilder(vm *jni.VM, arg0 *jni.Object) (*IpSecTransformBuilder, error) {
+	var t IpSecTransformBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsIpSecTransformBuilder == nil {
+			return fmt.Errorf("android.net.IpSecTransform$Builder is not available on this device")
+		}
+		if midIpSecTransformBuilderCtor == nil {
+			return fmt.Errorf("android.net.IpSecTransform$Builder constructor (Landroid/content/Context;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIpSecTransformBuilder)), midIpSecTransformBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // BuildTransportModeTransform calls android.net.IpSecTransform$Builder.buildTransportModeTransform.
 func (m *IpSecTransformBuilder) BuildTransportModeTransform(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

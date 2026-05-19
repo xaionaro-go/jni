@@ -32,6 +32,12 @@ func NewTimeAnimator(vm *jni.VM) (*TimeAnimator, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTimeAnimator == nil {
+			return fmt.Errorf("android.animation.TimeAnimator is not available on this device")
+		}
+		if midTimeAnimatorCtor == nil {
+			return fmt.Errorf("android.animation.TimeAnimator constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTimeAnimator)), midTimeAnimatorCtor)
 		if err != nil {
 			return err

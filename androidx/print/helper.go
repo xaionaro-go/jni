@@ -32,6 +32,12 @@ func NewHelper(vm *jni.VM, arg0 *jni.Object) (*Helper, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsHelper == nil {
+			return fmt.Errorf("androidx.print.PrintHelper is not available on this device")
+		}
+		if midHelperCtor == nil {
+			return fmt.Errorf("androidx.print.PrintHelper constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHelper)), midHelperCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -278,38 +284,6 @@ func (m *Helper) PrintBitmap2_2(arg0 string, arg1 *jni.Object) error {
 	return callErr
 }
 
-// PrintBitmap3_3 calls androidx.print.PrintHelper.printBitmap.
-func (m *Helper) PrintBitmap3_3(
-	arg0 string,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midHelperPrintBitmap3_3 == nil {
-			callErr = fmt.Errorf("androidx.print.PrintHelper.printBitmap is not available on this device")
-			return callErr
-		}
-		jArg0, err := env.NewStringUTF(arg0)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg0.Object)
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midHelperPrintBitmap3_3, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.print.PrintHelper.toString.
 func (m *Helper) ToString() (string, error) {
 	var result string
@@ -362,4 +336,36 @@ func (m *Helper) SystemSupportsPrint() (bool, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// PrintBitmap3_3 calls androidx.print.PrintHelper.printBitmap.
+func (m *Helper) PrintBitmap3_3(
+	arg0 string,
+	arg1 *jni.Object,
+	arg2 *jni.Object,
+) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midHelperPrintBitmap3_3 == nil {
+			callErr = fmt.Errorf("androidx.print.PrintHelper.printBitmap is not available on this device")
+			return callErr
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsHelper)),
+			midHelperPrintBitmap3_3, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
+		)
+		return callErr
+	})
+	return callErr
 }

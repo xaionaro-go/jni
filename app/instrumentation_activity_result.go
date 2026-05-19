@@ -21,6 +21,35 @@ type InstrumentationActivityResult struct {
 	Obj *jni.GlobalRef
 }
 
+// NewInstrumentationActivityResult creates a new android.app.Instrumentation$ActivityResult instance.
+func NewInstrumentationActivityResult(vm *jni.VM, arg0 int32, arg1 *jni.Object) (*InstrumentationActivityResult, error) {
+	var t InstrumentationActivityResult
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsInstrumentationActivityResult == nil {
+			return fmt.Errorf("android.app.Instrumentation$ActivityResult is not available on this device")
+		}
+		if midInstrumentationActivityResultCtor == nil {
+			return fmt.Errorf("android.app.Instrumentation$ActivityResult constructor (ILandroid/content/Intent;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInstrumentationActivityResult)), midInstrumentationActivityResultCtor, jni.IntValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetResultCode calls android.app.Instrumentation$ActivityResult.getResultCode.
 func (m *InstrumentationActivityResult) GetResultCode() (int32, error) {
 	var result int32

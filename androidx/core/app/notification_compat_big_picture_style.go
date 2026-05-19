@@ -21,6 +21,34 @@ type NotificationCompatBigPictureStyle struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNotificationCompatBigPictureStyle creates a new androidx.core.app.NotificationCompat$BigPictureStyle instance.
+func NewNotificationCompatBigPictureStyle(vm *jni.VM) (*NotificationCompatBigPictureStyle, error) {
+	var t NotificationCompatBigPictureStyle
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNotificationCompatBigPictureStyle == nil {
+			return fmt.Errorf("androidx.core.app.NotificationCompat$BigPictureStyle is not available on this device")
+		}
+		if midNotificationCompatBigPictureStyleCtor == nil {
+			return fmt.Errorf("androidx.core.app.NotificationCompat$BigPictureStyle constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNotificationCompatBigPictureStyle)), midNotificationCompatBigPictureStyleCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetBigContentTitle calls androidx.core.app.NotificationCompat$BigPictureStyle.setBigContentTitle.
 func (m *NotificationCompatBigPictureStyle) SetBigContentTitle(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

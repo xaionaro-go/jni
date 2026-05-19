@@ -32,6 +32,12 @@ func NewConstraintSet(vm *jni.VM) (*ConstraintSet, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsConstraintSet == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet is not available on this device")
+		}
+		if midConstraintSetCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConstraintSet)), midConstraintSetCtor)
 		if err != nil {
 			return err
@@ -118,29 +124,6 @@ func (m *ConstraintSet) ReadFallback1_1(arg0 *jni.Object) error {
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midConstraintSetReadFallback1_1, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// ApplyDeltaFrom calls androidx.constraintlayout.widget.ConstraintSet.applyDeltaFrom.
-func (m *ConstraintSet) ApplyDeltaFrom(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midConstraintSetApplyDeltaFrom == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet.applyDeltaFrom is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midConstraintSetApplyDeltaFrom, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})
@@ -2756,56 +2739,6 @@ func (m *ConstraintSet) SetValidateOnParse(arg0 bool) error {
 	return callErr
 }
 
-// Dump calls androidx.constraintlayout.widget.ConstraintSet.dump.
-func (m *ConstraintSet) Dump(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midConstraintSetDump == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet.dump is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midConstraintSetDump, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// WriteState calls androidx.constraintlayout.widget.ConstraintSet.writeState.
-func (m *ConstraintSet) WriteState(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 int32,
-) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midConstraintSetWriteState == nil {
-			callErr = fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet.writeState is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midConstraintSetWriteState, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.IntValue(arg2),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls androidx.constraintlayout.widget.ConstraintSet.toString.
 func (m *ConstraintSet) ToString() (string, error) {
 	var result string
@@ -2831,6 +2764,29 @@ func (m *ConstraintSet) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// ApplyDeltaFrom calls androidx.constraintlayout.widget.ConstraintSet.applyDeltaFrom.
+func (m *ConstraintSet) ApplyDeltaFrom(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midConstraintSetApplyDeltaFrom == nil {
+			callErr = fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet.applyDeltaFrom is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsConstraintSet)),
+			midConstraintSetApplyDeltaFrom, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }
 
 // BuildDelta calls androidx.constraintlayout.widget.ConstraintSet.buildDelta.
@@ -2864,4 +2820,27 @@ func (m *ConstraintSet) BuildDelta(arg0 *jni.Object, arg1 *jni.Object) (*jni.Obj
 		return callErr
 	})
 	return result, callErr
+}
+
+// Dump calls androidx.constraintlayout.widget.ConstraintSet.dump.
+func (m *ConstraintSet) Dump(arg0 *jni.Object, arg1 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midConstraintSetDump == nil {
+			callErr = fmt.Errorf("androidx.constraintlayout.widget.ConstraintSet.dump is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsConstraintSet)),
+			midConstraintSetDump, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

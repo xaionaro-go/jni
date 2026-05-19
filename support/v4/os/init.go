@@ -23,29 +23,12 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsIResultReceiver         *jni.GlobalRef
-	midIResultReceiverSend     jni.MethodID
-	midIResultReceiverToString jni.MethodID
-
-	clsIResultReceiverDefault         *jni.GlobalRef
-	midIResultReceiverDefaultSend     jni.MethodID
-	midIResultReceiverDefaultAsBinder jni.MethodID
-	midIResultReceiverDefaultToString jni.MethodID
-
-	clsIResultReceiverStub            *jni.GlobalRef
-	midIResultReceiverStubAsBinder    jni.MethodID
-	midIResultReceiverStubOnTransact  jni.MethodID
-	midIResultReceiverStubToString    jni.MethodID
-	midIResultReceiverStubAsInterface jni.MethodID
-
-	clsIResultReceiver_Parcel         *jni.GlobalRef
-	midIResultReceiver_ParcelToString jni.MethodID
-
 	clsIResultReceiver2         *jni.GlobalRef
-	midIResultReceiver2Send     jni.MethodID
 	midIResultReceiver2ToString jni.MethodID
+	midIResultReceiver2Send     jni.MethodID
 
 	clsIResultReceiver2Default         *jni.GlobalRef
+	midIResultReceiver2DefaultCtor     jni.MethodID
 	midIResultReceiver2DefaultSend     jni.MethodID
 	midIResultReceiver2DefaultAsBinder jni.MethodID
 	midIResultReceiver2DefaultToString jni.MethodID
@@ -57,14 +40,35 @@ var (
 	midIResultReceiver2StubAsInterface jni.MethodID
 
 	clsIResultReceiver2_Parcel         *jni.GlobalRef
+	midIResultReceiver2_ParcelCtor     jni.MethodID
 	midIResultReceiver2_ParcelToString jni.MethodID
 
 	clsResultReceiver                 *jni.GlobalRef
 	midResultReceiverCtor             jni.MethodID
 	midResultReceiverSend             jni.MethodID
 	midResultReceiverDescribeContents jni.MethodID
-	midResultReceiverWriteToParcel    jni.MethodID
 	midResultReceiverToString         jni.MethodID
+	midResultReceiverWriteToParcel    jni.MethodID
+
+	clsIResultReceiver         *jni.GlobalRef
+	midIResultReceiverToString jni.MethodID
+	midIResultReceiverSend     jni.MethodID
+
+	clsIResultReceiverDefault         *jni.GlobalRef
+	midIResultReceiverDefaultCtor     jni.MethodID
+	midIResultReceiverDefaultSend     jni.MethodID
+	midIResultReceiverDefaultAsBinder jni.MethodID
+	midIResultReceiverDefaultToString jni.MethodID
+
+	clsIResultReceiverStub            *jni.GlobalRef
+	midIResultReceiverStubAsBinder    jni.MethodID
+	midIResultReceiverStubOnTransact  jni.MethodID
+	midIResultReceiverStubToString    jni.MethodID
+	midIResultReceiverStubAsInterface jni.MethodID
+
+	clsIResultReceiver_Parcel         *jni.GlobalRef
+	midIResultReceiver_ParcelCtor     jni.MethodID
+	midIResultReceiver_ParcelToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -85,116 +89,6 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("android/support/v4/os/IResultReceiver")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsIResultReceiver = env.NewGlobalRef(&c.Object)
-
-		midIResultReceiverSend, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiver)), "send", "(ILandroid/os/Bundle;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIResultReceiverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiver)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/support/v4/os/IResultReceiver$Default")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsIResultReceiverDefault = env.NewGlobalRef(&c.Object)
-
-		midIResultReceiverDefaultSend, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiverDefault)), "send", "(ILandroid/os/Bundle;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIResultReceiverDefaultAsBinder, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiverDefault)), "asBinder", "()Landroid/os/IBinder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIResultReceiverDefaultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiverDefault)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/support/v4/os/IResultReceiver$Stub")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsIResultReceiverStub = env.NewGlobalRef(&c.Object)
-
-		midIResultReceiverStubAsBinder, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiverStub)), "asBinder", "()Landroid/os/IBinder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIResultReceiverStubOnTransact, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiverStub)), "onTransact", "(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIResultReceiverStubToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiverStub)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midIResultReceiverStubAsInterface, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiverStub)), "asInterface", "(Landroid/os/IBinder;)Landroid/support/v4/os/IResultReceiver;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/support/v4/os/IResultReceiver$_Parcel")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsIResultReceiver_Parcel = env.NewGlobalRef(&c.Object)
-
-		midIResultReceiver_ParcelToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiver_Parcel)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("android/support/v4/os/IResultReceiver2")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -203,14 +97,14 @@ func doInit(env *jni.Env) error {
 	} else {
 		clsIResultReceiver2 = env.NewGlobalRef(&c.Object)
 
-		midIResultReceiver2Send, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiver2)), "send", "(ILandroid/os/Bundle;)V")
+		midIResultReceiver2ToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiver2)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midIResultReceiver2ToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiver2)), "toString", "()Ljava/lang/String;")
+		midIResultReceiver2Send, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiver2)), "send", "(ILandroid/os/Bundle;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -226,6 +120,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsIResultReceiver2Default = env.NewGlobalRef(&c.Object)
+		midIResultReceiver2DefaultCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiver2Default)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midIResultReceiver2DefaultSend, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiver2Default)), "send", "(ILandroid/os/Bundle;)V")
 		if err != nil {
@@ -295,6 +193,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsIResultReceiver2_Parcel = env.NewGlobalRef(&c.Object)
+		midIResultReceiver2_ParcelCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiver2_Parcel)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midIResultReceiver2_ParcelToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiver2_Parcel)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -331,14 +233,132 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midResultReceiverWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResultReceiver)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midResultReceiverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResultReceiver)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midResultReceiverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResultReceiver)), "toString", "()Ljava/lang/String;")
+		midResultReceiverWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsResultReceiver)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/support/v4/os/IResultReceiver")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsIResultReceiver = env.NewGlobalRef(&c.Object)
+
+		midIResultReceiverToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiver)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midIResultReceiverSend, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiver)), "send", "(ILandroid/os/Bundle;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/support/v4/os/IResultReceiver$Default")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsIResultReceiverDefault = env.NewGlobalRef(&c.Object)
+		midIResultReceiverDefaultCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiverDefault)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midIResultReceiverDefaultSend, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiverDefault)), "send", "(ILandroid/os/Bundle;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midIResultReceiverDefaultAsBinder, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiverDefault)), "asBinder", "()Landroid/os/IBinder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midIResultReceiverDefaultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiverDefault)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/support/v4/os/IResultReceiver$Stub")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsIResultReceiverStub = env.NewGlobalRef(&c.Object)
+
+		midIResultReceiverStubAsBinder, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiverStub)), "asBinder", "()Landroid/os/IBinder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midIResultReceiverStubOnTransact, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiverStub)), "onTransact", "(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midIResultReceiverStubToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiverStub)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midIResultReceiverStubAsInterface, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiverStub)), "asInterface", "(Landroid/os/IBinder;)Landroid/support/v4/os/IResultReceiver;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/support/v4/os/IResultReceiver$_Parcel")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsIResultReceiver_Parcel = env.NewGlobalRef(&c.Object)
+		midIResultReceiver_ParcelCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiver_Parcel)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midIResultReceiver_ParcelToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIResultReceiver_Parcel)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

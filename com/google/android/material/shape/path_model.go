@@ -32,6 +32,12 @@ func NewPathModel(vm *jni.VM) (*PathModel, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPathModel == nil {
+			return fmt.Errorf("com.google.android.material.shape.ShapePathModel is not available on this device")
+		}
+		if midPathModelCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.ShapePathModel constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPathModel)), midPathModelCtor)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewMutableChar(vm *jni.VM, arg0 uint16) (*MutableChar, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMutableChar == nil {
+			return fmt.Errorf("android.util.MutableChar is not available on this device")
+		}
+		if midMutableCharCtor == nil {
+			return fmt.Errorf("android.util.MutableChar constructor (C)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMutableChar)), midMutableCharCtor, jni.CharValue(arg0))
 		if err != nil {

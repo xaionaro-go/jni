@@ -76,31 +76,6 @@ func (m *RestingHeartRateRecord) GetBeatsPerMinute() (int64, error) {
 	return result, callErr
 }
 
-// HashCode calls android.health.connect.datatypes.RestingHeartRateRecord.hashCode.
-func (m *RestingHeartRateRecord) HashCode() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midRestingHeartRateRecordHashCode == nil {
-			callErr = fmt.Errorf("android.health.connect.datatypes.RestingHeartRateRecord.hashCode is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midRestingHeartRateRecordHashCode,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.health.connect.datatypes.RestingHeartRateRecord.toString.
 func (m *RestingHeartRateRecord) ToString() (string, error) {
 	var result string
@@ -123,6 +98,31 @@ func (m *RestingHeartRateRecord) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// HashCode calls android.health.connect.datatypes.RestingHeartRateRecord.hashCode.
+func (m *RestingHeartRateRecord) HashCode() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midRestingHeartRateRecordHashCode == nil {
+			callErr = fmt.Errorf("android.health.connect.datatypes.RestingHeartRateRecord.hashCode is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsRestingHeartRateRecord)),
+			midRestingHeartRateRecordHashCode,
+		)
+		if callErr != nil {
+			return callErr
+		}
 		return callErr
 	})
 	return result, callErr

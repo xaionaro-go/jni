@@ -2663,29 +2663,6 @@ func (m *Parcel) WriteStrongInterface(arg0 *jni.Object) error {
 	return callErr
 }
 
-// WriteValue calls android.os.Parcel.writeValue.
-func (m *Parcel) WriteValue(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midParcelWriteValue == nil {
-			callErr = fmt.Errorf("android.os.Parcel.writeValue is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midParcelWriteValue, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.os.Parcel.toString.
 func (m *Parcel) ToString() (string, error) {
 	var result string
@@ -2776,4 +2753,27 @@ func (m *Parcel) Obtain1_1(arg0 *jni.Object) (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteValue calls android.os.Parcel.writeValue.
+func (m *Parcel) WriteValue(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midParcelWriteValue == nil {
+			callErr = fmt.Errorf("android.os.Parcel.writeValue is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsParcel)),
+			midParcelWriteValue, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

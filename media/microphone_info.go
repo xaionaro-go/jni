@@ -341,31 +341,6 @@ func (m *MicrophoneInfo) GetSensitivity() (float32, error) {
 	return result, callErr
 }
 
-// GetType calls android.media.MicrophoneInfo.getType.
-func (m *MicrophoneInfo) GetType() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMicrophoneInfoGetType == nil {
-			callErr = fmt.Errorf("android.media.MicrophoneInfo.getType is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midMicrophoneInfoGetType,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.media.MicrophoneInfo.toString.
 func (m *MicrophoneInfo) ToString() (string, error) {
 	var result string
@@ -388,6 +363,31 @@ func (m *MicrophoneInfo) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetType calls android.media.MicrophoneInfo.getType.
+func (m *MicrophoneInfo) GetType() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midMicrophoneInfoGetType == nil {
+			callErr = fmt.Errorf("android.media.MicrophoneInfo.getType is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsMicrophoneInfo)),
+			midMicrophoneInfoGetType,
+		)
+		if callErr != nil {
+			return callErr
+		}
 		return callErr
 	})
 	return result, callErr

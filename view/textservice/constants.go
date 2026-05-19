@@ -5,14 +5,14 @@ package textservice
 import "github.com/AndroidGoLab/jni/view/textservice/consts"
 
 const (
-	ServiceMetaData = consts.ServiceMetaData
-)
-
-const (
 	Creator                             = consts.Creator
 	ResultAttrDontShowUiForSuggestions  = consts.ResultAttrDontShowUiForSuggestions
 	ResultAttrHasRecommendedSuggestions = consts.ResultAttrHasRecommendedSuggestions
 	ResultAttrInTheDictionary           = consts.ResultAttrInTheDictionary
 	ResultAttrLooksLikeGrammarError     = consts.ResultAttrLooksLikeGrammarError
 	ResultAttrLooksLikeTypo             = consts.ResultAttrLooksLikeTypo
+)
+
+const (
+	ServiceMetaData = consts.ServiceMetaData
 )

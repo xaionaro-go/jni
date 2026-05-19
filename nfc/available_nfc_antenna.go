@@ -32,6 +32,12 @@ func NewAvailableNfcAntenna(vm *jni.VM, arg0 int32, arg1 int32) (*AvailableNfcAn
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAvailableNfcAntenna == nil {
+			return fmt.Errorf("android.nfc.AvailableNfcAntenna is not available on this device")
+		}
+		if midAvailableNfcAntennaCtor == nil {
+			return fmt.Errorf("android.nfc.AvailableNfcAntenna constructor (II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAvailableNfcAntenna)), midAvailableNfcAntennaCtor, jni.IntValue(arg0), jni.IntValue(arg1))
 		if err != nil {
@@ -215,8 +221,8 @@ func (m *AvailableNfcAntenna) WriteToParcel(arg0 *jni.Object, arg1 int32) error 
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAvailableNfcAntenna)),
 			midAvailableNfcAntennaWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

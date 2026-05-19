@@ -32,6 +32,12 @@ func NewStructPollfd(vm *jni.VM) (*StructPollfd, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStructPollfd == nil {
+			return fmt.Errorf("android.system.StructPollfd is not available on this device")
+		}
+		if midStructPollfdCtor == nil {
+			return fmt.Errorf("android.system.StructPollfd constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStructPollfd)), midStructPollfdCtor)
 		if err != nil {
 			return err

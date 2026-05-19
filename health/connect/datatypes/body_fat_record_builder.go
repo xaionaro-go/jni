@@ -23,6 +23,35 @@ type BodyFatRecordBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewBodyFatRecordBuilder creates a new android.health.connect.datatypes.BodyFatRecord$Builder instance.
+func NewBodyFatRecordBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.Object) (*BodyFatRecordBuilder, error) {
+	var t BodyFatRecordBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsBodyFatRecordBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.BodyFatRecord$Builder is not available on this device")
+		}
+		if midBodyFatRecordBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.BodyFatRecord$Builder constructor (Landroid/health/connect/datatypes/Metadata;Ljava/time/Instant;Landroid/health/connect/datatypes/units/Percentage;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBodyFatRecordBuilder)), midBodyFatRecordBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.datatypes.BodyFatRecord$Builder.build.
 func (m *BodyFatRecordBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

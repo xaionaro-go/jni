@@ -1426,29 +1426,6 @@ func (m *Bitmap) SetWidth(arg0 int32) error {
 	return callErr
 }
 
-// WriteToParcel calls android.graphics.Bitmap.writeToParcel.
-func (m *Bitmap) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBitmapWriteToParcel == nil {
-			callErr = fmt.Errorf("android.graphics.Bitmap.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midBitmapWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.graphics.Bitmap.toString.
 func (m *Bitmap) ToString() (string, error) {
 	var result string
@@ -2148,4 +2125,27 @@ func (m *Bitmap) WrapHardwareBuffer(arg0 *jni.Object, arg1 *jni.Object) (*jni.Ob
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.graphics.Bitmap.writeToParcel.
+func (m *Bitmap) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midBitmapWriteToParcel == nil {
+			callErr = fmt.Errorf("android.graphics.Bitmap.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsBitmap)),
+			midBitmapWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

@@ -23,6 +23,35 @@ type SpeedRecordSpeedRecordSample struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSpeedRecordSpeedRecordSample creates a new android.health.connect.datatypes.SpeedRecord$SpeedRecordSample instance.
+func NewSpeedRecordSpeedRecordSample(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*SpeedRecordSpeedRecordSample, error) {
+	var t SpeedRecordSpeedRecordSample
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSpeedRecordSpeedRecordSample == nil {
+			return fmt.Errorf("android.health.connect.datatypes.SpeedRecord$SpeedRecordSample is not available on this device")
+		}
+		if midSpeedRecordSpeedRecordSampleCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.SpeedRecord$SpeedRecordSample constructor (Landroid/health/connect/datatypes/units/Velocity;Ljava/time/Instant;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSpeedRecordSpeedRecordSample)), midSpeedRecordSpeedRecordSampleCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.health.connect.datatypes.SpeedRecord$SpeedRecordSample.equals.
 func (m *SpeedRecordSpeedRecordSample) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

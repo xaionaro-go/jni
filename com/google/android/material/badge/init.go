@@ -23,28 +23,27 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsState         *jni.GlobalRef
-	midStateToString jni.MethodID
-
-	clsStateState                 *jni.GlobalRef
-	midStateStateDescribeContents jni.MethodID
-	midStateStateWriteToParcel    jni.MethodID
-	midStateStateToString         jni.MethodID
+	clsUtils                       *jni.GlobalRef
+	midUtilsToString               jni.MethodID
+	midUtilsUpdateBadgeBounds      jni.MethodID
+	midUtilsAttachBadgeDrawable2   jni.MethodID
+	midUtilsAttachBadgeDrawable3_1 jni.MethodID
+	midUtilsAttachBadgeDrawable3_2 jni.MethodID
+	midUtilsAttachBadgeDrawable4_3 jni.MethodID
+	midUtilsDetachBadgeDrawable2   jni.MethodID
+	midUtilsDetachBadgeDrawable3_1 jni.MethodID
+	midUtilsSetBadgeDrawableBounds jni.MethodID
 
 	clsExperimentalBadgeUtils         *jni.GlobalRef
 	midExperimentalBadgeUtilsToString jni.MethodID
 
-	clsUtils                                    *jni.GlobalRef
-	midUtilsToString                            jni.MethodID
-	midUtilsUpdateBadgeBounds                   jni.MethodID
-	midUtilsAttachBadgeDrawable2                jni.MethodID
-	midUtilsAttachBadgeDrawable3_1              jni.MethodID
-	midUtilsAttachBadgeDrawable3_2              jni.MethodID
-	midUtilsAttachBadgeDrawable4_3              jni.MethodID
-	midUtilsDetachBadgeDrawable2                jni.MethodID
-	midUtilsDetachBadgeDrawable3_1              jni.MethodID
-	midUtilsSetBadgeDrawableBounds              jni.MethodID
-	midUtilsCreateBadgeDrawablesFromSavedStates jni.MethodID
+	clsState         *jni.GlobalRef
+	midStateToString jni.MethodID
+
+	clsStateState                 *jni.GlobalRef
+	midStateStateCtor             jni.MethodID
+	midStateStateDescribeContents jni.MethodID
+	midStateStateToString         jni.MethodID
 
 	clsDrawable                                                         *jni.GlobalRef
 	midDrawableSetVisible                                               jni.MethodID
@@ -110,10 +109,10 @@ var (
 	midDrawableSetBadgeWithoutTextShapeAppearance                       jni.MethodID
 	midDrawableSetBadgeWithoutTextShapeAppearanceOverlay                jni.MethodID
 	midDrawableSetBadgeWithTextShapeAppearance                          jni.MethodID
-	midDrawableSetBadgeWithTextShapeAppearanceOverlay                   jni.MethodID
 	midDrawableToString                                                 jni.MethodID
 	midDrawableCreate                                                   jni.MethodID
 	midDrawableCreateFromResource                                       jni.MethodID
+	midDrawableSetBadgeWithTextShapeAppearanceOverlay                   jni.MethodID
 
 	clsDrawableBadgeGravity         *jni.GlobalRef
 	midDrawableBadgeGravityToString jni.MethodID
@@ -136,71 +135,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("com/google/android/material/badge/BadgeState")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsState = env.NewGlobalRef(&c.Object)
-
-		midStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/badge/BadgeState$State")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStateState = env.NewGlobalRef(&c.Object)
-
-		midStateStateDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStateState)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateStateWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStateState)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStateStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStateState)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/badge/ExperimentalBadgeUtils")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsExperimentalBadgeUtils = env.NewGlobalRef(&c.Object)
-
-		midExperimentalBadgeUtilsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExperimentalBadgeUtils)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("com/google/android/material/badge/BadgeUtils")
 	if err != nil {
@@ -273,7 +207,62 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midUtilsCreateBadgeDrawablesFromSavedStates, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsUtils)), "createBadgeDrawablesFromSavedStates", "(Landroid/content/Context;Lcom/google/android/material/internal/ParcelableSparseArray;)Landroid/util/SparseArray;")
+	}
+
+	c, err = env.FindClass("com/google/android/material/badge/ExperimentalBadgeUtils")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsExperimentalBadgeUtils = env.NewGlobalRef(&c.Object)
+
+		midExperimentalBadgeUtilsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExperimentalBadgeUtils)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/badge/BadgeState")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsState = env.NewGlobalRef(&c.Object)
+
+		midStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsState)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("com/google/android/material/badge/BadgeState$State")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStateState = env.NewGlobalRef(&c.Object)
+		midStateStateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStateState)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midStateStateDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStateState)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStateStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStateState)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -731,13 +720,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midDrawableSetBadgeWithTextShapeAppearanceOverlay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawable)), "setBadgeWithTextShapeAppearanceOverlay", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 		midDrawableToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDrawable)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
@@ -753,6 +735,13 @@ func doInit(env *jni.Env) error {
 		}
 
 		midDrawableCreateFromResource, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDrawable)), "createFromResource", "(Landroid/content/Context;I)Lcom/google/android/material/badge/BadgeDrawable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDrawableSetBadgeWithTextShapeAppearanceOverlay, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDrawable)), "setBadgeWithTextShapeAppearanceOverlay", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

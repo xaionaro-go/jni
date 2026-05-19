@@ -5,54 +5,6 @@
 package: biometric
 go_import: github.com/AndroidGoLab/jni/hardware/biometric
 classes:
-    - java_class: android.hardware.biometrics.BiometricManager
-      go_type: Manager
-      obtain: system_service
-      service_name: biometric
-      close: true
-      methods:
-        - java_method: canAuthenticate
-          go_name: CanAuthenticate0
-          returns: int
-          error: true
-        - java_method: canAuthenticate
-          go_name: CanAuthenticate1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getLastAuthenticationTime
-          go_name: GetLastAuthenticationTime
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: long
-          error: true
-        - java_method: getStrings
-          go_name: GetStrings
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.hardware.biometrics.BiometricManager$Strings
-          error: true
-    - java_class: android.hardware.biometrics.BiometricManager$Authenticators
-      go_type: ManagerAuthenticators
-    - java_class: android.hardware.biometrics.BiometricManager$Strings
-      go_type: ManagerStrings
-      methods:
-        - java_method: getButtonLabel
-          go_name: GetButtonLabel
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getPromptMessage
-          go_name: GetPromptMessage
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getSettingName
-          go_name: GetSettingName
-          returns: java.lang.CharSequence
-          error: true
     - java_class: android.hardware.biometrics.BiometricPrompt
       go_type: Prompt
       methods:
@@ -165,6 +117,10 @@ classes:
           error: true
     - java_class: android.hardware.biometrics.BiometricPrompt$Builder
       go_type: PromptBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
       methods:
         - java_method: build
           go_name: Build
@@ -253,6 +209,10 @@ classes:
           error: true
     - java_class: android.hardware.biometrics.BiometricPrompt$CryptoObject
       go_type: PromptCryptoObject
+      obtain: constructor
+      constructor_params:
+        - java_type: android.security.identity.IdentityCredential
+          go_name: arg0
       methods:
         - java_method: getCipher
           go_name: GetCipher
@@ -277,6 +237,54 @@ classes:
         - java_method: getSignature
           go_name: GetSignature
           returns: java.security.Signature
+          error: true
+    - java_class: android.hardware.biometrics.BiometricManager
+      go_type: Manager
+      obtain: system_service
+      service_name: biometric
+      close: true
+      methods:
+        - java_method: canAuthenticate
+          go_name: CanAuthenticate0
+          returns: int
+          error: true
+        - java_method: canAuthenticate
+          go_name: CanAuthenticate1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getLastAuthenticationTime
+          go_name: GetLastAuthenticationTime
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: long
+          error: true
+        - java_method: getStrings
+          go_name: GetStrings
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.hardware.biometrics.BiometricManager$Strings
+          error: true
+    - java_class: android.hardware.biometrics.BiometricManager$Authenticators
+      go_type: ManagerAuthenticators
+    - java_class: android.hardware.biometrics.BiometricManager$Strings
+      go_type: ManagerStrings
+      methods:
+        - java_method: getButtonLabel
+          go_name: GetButtonLabel
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getPromptMessage
+          go_name: GetPromptMessage
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getSettingName
+          go_name: GetSettingName
+          returns: java.lang.CharSequence
           error: true
 abstract_callbacks:
     - java_class: android.hardware.biometrics.BiometricPrompt$AuthenticationCallback
@@ -303,43 +311,11 @@ abstract_callbacks:
             - android.hardware.biometrics.BiometricPrompt$AuthenticationResult
           returns: void
           go_field: OnAuthenticationSucceeded
+abstract_callback_eligibility:
+    - java_class: android.hardware.biometrics.BiometricPrompt$AuthenticationCallback
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
-    - go_name: BiometricErrorHwUnavailable
-      value: "1"
-      go_type: int
-    - go_name: BiometricErrorIdentityCheckNotActive
-      value: "20"
-      go_type: int
-    - go_name: BiometricErrorNoneEnrolled
-      value: "11"
-      go_type: int
-    - go_name: BiometricErrorNotEnabledForApps
-      value: "21"
-      go_type: int
-    - go_name: BiometricErrorNoHardware
-      value: "12"
-      go_type: int
-    - go_name: BiometricErrorSecurityUpdateRequired
-      value: "15"
-      go_type: int
-    - go_name: BiometricNoAuthentication
-      value: "-1"
-      go_type: int64
-    - go_name: BiometricSuccess
-      value: "0"
-      go_type: int
-    - go_name: BiometricStrong
-      value: "15"
-      go_type: int
-    - go_name: BiometricWeak
-      value: "255"
-      go_type: int
-    - go_name: DeviceCredential
-      value: "32768"
-      go_type: int
-    - go_name: IdentityCheck
-      value: "65536"
-      go_type: int
     - go_name: AuthenticationResultTypeBiometric
       value: "2"
       go_type: int
@@ -370,11 +346,20 @@ constants:
     - go_name: BiometricErrorHwNotPresent
       value: "12"
       go_type: int
+    - go_name: BiometricErrorHwUnavailable
+      value: "1"
+      go_type: int
+    - go_name: BiometricErrorIdentityCheckNotActive
+      value: "20"
+      go_type: int
     - go_name: BiometricErrorLockout
       value: "7"
       go_type: int
     - go_name: BiometricErrorLockoutPermanent
       value: "9"
+      go_type: int
+    - go_name: BiometricErrorNotEnabledForApps
+      value: "21"
       go_type: int
     - go_name: BiometricErrorNoBiometrics
       value: "11"
@@ -384,6 +369,9 @@ constants:
       go_type: int
     - go_name: BiometricErrorNoSpace
       value: "4"
+      go_type: int
+    - go_name: BiometricErrorSecurityUpdateRequired
+      value: "15"
       go_type: int
     - go_name: BiometricErrorTimeout
       value: "3"
@@ -396,4 +384,28 @@ constants:
       go_type: int
     - go_name: BiometricErrorVendor
       value: "8"
+      go_type: int
+    - go_name: BiometricNoAuthentication
+      value: "-1"
+      go_type: int64
+    - go_name: BiometricErrorNoneEnrolled
+      value: "11"
+      go_type: int
+    - go_name: BiometricErrorNoHardware
+      value: "12"
+      go_type: int
+    - go_name: BiometricSuccess
+      value: "0"
+      go_type: int
+    - go_name: BiometricStrong
+      value: "15"
+      go_type: int
+    - go_name: BiometricWeak
+      value: "255"
+      go_type: int
+    - go_name: DeviceCredential
+      value: "32768"
+      go_type: int
+    - go_name: IdentityCheck
+      value: "65536"
       go_type: int

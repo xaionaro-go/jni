@@ -3,6 +3,23 @@
 package consts
 
 const (
+	Creator                         int = 0
+	ErrorCodeBadArguments           int = 7
+	ErrorCodeBadAuthentication      int = 9
+	ErrorCodeBadRequest             int = 8
+	ErrorCodeCanceled               int = 4
+	ErrorCodeInvalidResponse        int = 5
+	ErrorCodeNetworkError           int = 3
+	ErrorCodeRemoteException        int = 1
+	ErrorCodeUnsupportedOperation   int = 6
+	VisibilityNotVisible            int = 3
+	VisibilityUndefined             int = 0
+	VisibilityUserManagedNotVisible int = 4
+	VisibilityUserManagedVisible    int = 2
+	VisibilityVisible               int = 1
+)
+
+const (
 	KeyCustomTokenExpiry            string = "android.accounts.expiry"
 	ActionAccountRemoved            string = "android.accounts.action.ACCOUNT_REMOVED"
 	ActionAuthenticatorIntent       string = "android.accounts.AccountAuthenticator"
@@ -32,21 +49,4 @@ const (
 	LoginAccountsChangedAction      string = "android.accounts.LOGIN_ACCOUNTS_CHANGED"
 	PackageNameKeyLegacyNotVisible  string = "android:accounts:key_legacy_not_visible"
 	PackageNameKeyLegacyVisible     string = "android:accounts:key_legacy_visible"
-)
-
-const (
-	ErrorCodeBadArguments           int = 7
-	ErrorCodeBadAuthentication      int = 9
-	ErrorCodeBadRequest             int = 8
-	ErrorCodeCanceled               int = 4
-	ErrorCodeInvalidResponse        int = 5
-	ErrorCodeNetworkError           int = 3
-	ErrorCodeRemoteException        int = 1
-	ErrorCodeUnsupportedOperation   int = 6
-	VisibilityNotVisible            int = 3
-	VisibilityUndefined             int = 0
-	VisibilityUserManagedNotVisible int = 4
-	VisibilityUserManagedVisible    int = 2
-	VisibilityVisible               int = 1
-	Creator                         int = 0
 )

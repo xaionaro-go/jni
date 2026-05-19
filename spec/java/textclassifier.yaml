@@ -5,6 +5,82 @@
 package: textclassifier
 go_import: github.com/AndroidGoLab/jni/view/textclassifier
 classes:
+    - java_class: android.view.textclassifier.ConversationAction
+      go_type: ConversationAction
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getAction
+          go_name: GetAction
+          returns: android.app.RemoteAction
+          error: true
+        - java_method: getConfidenceScore
+          go_name: GetConfidenceScore
+          returns: float
+          error: true
+        - java_method: getExtras
+          go_name: GetExtras
+          returns: android.os.Bundle
+          error: true
+        - java_method: getTextReply
+          go_name: GetTextReply
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.view.textclassifier.ConversationAction$Builder
+      go_type: ConversationActionBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.view.textclassifier.ConversationAction
+          error: true
+        - java_method: setAction
+          go_name: SetAction
+          params:
+            - java_type: android.app.RemoteAction
+              go_name: arg0
+          returns: android.view.textclassifier.ConversationAction$Builder
+          error: true
+        - java_method: setConfidenceScore
+          go_name: SetConfidenceScore
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: android.view.textclassifier.ConversationAction$Builder
+          error: true
+        - java_method: setExtras
+          go_name: SetExtras
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: android.view.textclassifier.ConversationAction$Builder
+          error: true
+        - java_method: setTextReply
+          go_name: SetTextReply
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.view.textclassifier.ConversationAction$Builder
+          error: true
     - java_class: android.view.textclassifier.TextClassifierEvent
       go_type: TextClassifierEvent
       methods:
@@ -60,6 +136,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -96,6 +173,313 @@ classes:
           go_name: GetRelativeWordStartIndex
           returns: int
           error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.view.textclassifier.TextClassificationSessionId
+      go_type: TextClassificationSessionId
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getValue
+          go_name: GetValue
+          returns: String
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.view.textclassifier.TextLinks
+      go_type: TextLinks
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getExtras
+          go_name: GetExtras
+          returns: android.os.Bundle
+          error: true
+        - java_method: getLinks
+          go_name: GetLinks
+          returns: java.util.Collection<android.view.textclassifier.TextLinks$TextLink>
+          error: true
+        - java_method: getText
+          go_name: GetText
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.view.textclassifier.TextLinks$Builder
+      go_type: TextLinksBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.view.textclassifier.TextLinks
+          error: true
+        - java_method: clearTextLinks
+          go_name: ClearTextLinks
+          returns: android.view.textclassifier.TextLinks$Builder
+          error: true
+        - java_method: setExtras
+          go_name: SetExtras
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: android.view.textclassifier.TextLinks$Builder
+          error: true
+    - java_class: android.view.textclassifier.TextLinks$Request
+      go_type: TextLinksRequest
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getCallingPackageName
+          go_name: GetCallingPackageName
+          returns: String
+          error: true
+        - java_method: getDefaultLocales
+          go_name: GetDefaultLocales
+          returns: android.os.LocaleList
+          error: true
+        - java_method: getEntityConfig
+          go_name: GetEntityConfig
+          returns: android.view.textclassifier.TextClassifier$EntityConfig
+          error: true
+        - java_method: getExtras
+          go_name: GetExtras
+          returns: android.os.Bundle
+          error: true
+        - java_method: getReferenceTime
+          go_name: GetReferenceTime
+          returns: java.time.ZonedDateTime
+          error: true
+        - java_method: getText
+          go_name: GetText
+          returns: java.lang.CharSequence
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.view.textclassifier.TextLinks$TextLink
+      go_type: TextLinksTextLink
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getConfidenceScore
+          go_name: GetConfidenceScore
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getEnd
+          go_name: GetEnd
+          returns: int
+          error: true
+        - java_method: getEntity
+          go_name: GetEntity
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getEntityCount
+          go_name: GetEntityCount
+          returns: int
+          error: true
+        - java_method: getExtras
+          go_name: GetExtras
+          returns: android.os.Bundle
+          error: true
+        - java_method: getStart
+          go_name: GetStart
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.view.textclassifier.TextLinks$TextLinkSpan
+      go_type: TextLinksTextLinkSpan
+      obtain: constructor
+      constructor_params:
+        - java_type: android.view.textclassifier.TextLinks$TextLink
+          go_name: arg0
+      methods:
+        - java_method: getTextLink
+          go_name: GetTextLink
+          returns: android.view.textclassifier.TextLinks$TextLink
+          error: true
+        - java_method: onClick
+          go_name: OnClick
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.view.textclassifier.ConversationActions
+      go_type: ConversationActions
+      obtain: constructor
+      constructor_params:
+        - java_type: java.util.List<android.view.textclassifier.ConversationAction>
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getConversationActions
+          go_name: GetConversationActions
+          returns: java.util.List<android.view.textclassifier.ConversationAction>
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.view.textclassifier.ConversationActions$Message
+      go_type: ConversationActionsMessage
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getAuthor
+          go_name: GetAuthor
+          returns: android.app.Person
+          error: true
+        - java_method: getExtras
+          go_name: GetExtras
+          returns: android.os.Bundle
+          error: true
+        - java_method: getReferenceTime
+          go_name: GetReferenceTime
+          returns: java.time.ZonedDateTime
+          error: true
+        - java_method: getText
+          go_name: GetText
+          returns: java.lang.CharSequence
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.view.textclassifier.ConversationActions$Request
+      go_type: ConversationActionsRequest
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getCallingPackageName
+          go_name: GetCallingPackageName
+          returns: String
+          error: true
+        - java_method: getConversation
+          go_name: GetConversation
+          returns: java.util.List<android.view.textclassifier.ConversationActions$Message>
+          error: true
+        - java_method: getExtras
+          go_name: GetExtras
+          returns: android.os.Bundle
+          error: true
+        - java_method: getHints
+          go_name: GetHints
+          returns: java.util.List<java.lang.String>
+          error: true
+        - java_method: getMaxSuggestions
+          go_name: GetMaxSuggestions
+          returns: int
+          error: true
+        - java_method: getTypeConfig
+          go_name: GetTypeConfig
+          returns: android.view.textclassifier.TextClassifier$EntityConfig
+          error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -142,6 +526,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -153,6 +538,7 @@ classes:
           error: true
     - java_class: android.view.textclassifier.TextLanguage$Builder
       go_type: TextLanguageBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
@@ -200,6 +586,7 @@ classes:
           go_name: GetText
           returns: java.lang.CharSequence
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -209,55 +596,30 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.view.textclassifier.TextSelection
-      go_type: TextSelection
+    - java_class: android.view.textclassifier.TextClassificationContext
+      go_type: TextClassificationContext
       methods:
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
-        - java_method: getConfidenceScore
-          go_name: GetConfidenceScore
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getEntity
-          go_name: GetEntity
-          params:
-            - java_type: int
-              go_name: arg0
+        - java_method: getPackageName
+          go_name: GetPackageName
           returns: String
           error: true
-        - java_method: getEntityCount
-          go_name: GetEntityCount
-          returns: int
-          error: true
-        - java_method: getExtras
-          go_name: GetExtras
-          returns: android.os.Bundle
-          error: true
-        - java_method: getId
-          go_name: GetId
+        - java_method: getWidgetType
+          go_name: GetWidgetType
           returns: String
           error: true
-        - java_method: getSelectionEndIndex
-          go_name: GetSelectionEndIndex
-          returns: int
-          error: true
-        - java_method: getSelectionStartIndex
-          go_name: GetSelectionStartIndex
-          returns: int
-          error: true
-        - java_method: getTextClassification
-          go_name: GetTextClassification
-          returns: android.view.textclassifier.TextClassification
+        - java_method: getWidgetVersion
+          go_name: GetWidgetVersion
+          returns: String
           error: true
         - java_method: toString
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -267,148 +629,25 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.view.textclassifier.TextSelection$Builder
-      go_type: TextSelectionBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.view.textclassifier.TextSelection
-          error: true
-        - java_method: setEntityType
-          go_name: SetEntityType
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: android.view.textclassifier.TextSelection$Builder
-          error: true
-        - java_method: setExtras
-          go_name: SetExtras
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: android.view.textclassifier.TextSelection$Builder
-          error: true
-        - java_method: setId
-          go_name: SetId
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.view.textclassifier.TextSelection$Builder
-          error: true
-        - java_method: setTextClassification
-          go_name: SetTextClassification
-          params:
-            - java_type: android.view.textclassifier.TextClassification
-              go_name: arg0
-          returns: android.view.textclassifier.TextSelection$Builder
-          error: true
-    - java_class: android.view.textclassifier.TextSelection$Request
-      go_type: TextSelectionRequest
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getCallingPackageName
-          go_name: GetCallingPackageName
-          returns: String
-          error: true
-        - java_method: getDefaultLocales
-          go_name: GetDefaultLocales
-          returns: android.os.LocaleList
-          error: true
-        - java_method: getEndIndex
-          go_name: GetEndIndex
-          returns: int
-          error: true
-        - java_method: getExtras
-          go_name: GetExtras
-          returns: android.os.Bundle
-          error: true
-        - java_method: getStartIndex
-          go_name: GetStartIndex
-          returns: int
-          error: true
-        - java_method: getText
-          go_name: GetText
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: shouldIncludeTextClassification
-          go_name: ShouldIncludeTextClassification
-          returns: boolean
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.view.textclassifier.ConversationActions
-      go_type: ConversationActions
+    - java_class: android.view.textclassifier.TextClassificationContext$Builder
+      go_type: TextClassificationContextBuilder
       obtain: constructor
       constructor_params:
-        - java_type: java.util.List<android.view.textclassifier.ConversationAction>
+        - java_type: String
           go_name: arg0
         - java_type: String
           go_name: arg1
       methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
+        - java_method: build
+          go_name: Build
+          returns: android.view.textclassifier.TextClassificationContext
           error: true
-        - java_method: getConversationActions
-          go_name: GetConversationActions
-          returns: java.util.List<android.view.textclassifier.ConversationAction>
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
+        - java_method: setWidgetVersion
+          go_name: SetWidgetVersion
           params:
-            - java_type: android.os.Parcel
+            - java_type: String
               go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.view.textclassifier.ConversationActions$Message
-      go_type: ConversationActionsMessage
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getAuthor
-          go_name: GetAuthor
-          returns: android.app.Person
-          error: true
-        - java_method: getExtras
-          go_name: GetExtras
-          returns: android.os.Bundle
-          error: true
-        - java_method: getReferenceTime
-          go_name: GetReferenceTime
-          returns: java.time.ZonedDateTime
-          error: true
-        - java_method: getText
-          go_name: GetText
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
+          returns: android.view.textclassifier.TextClassificationContext$Builder
           error: true
     - java_class: android.view.textclassifier.SelectionEvent
       go_type: SelectionEvent
@@ -496,15 +735,6 @@ classes:
           go_name: ToString
           returns: String
           error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
       static_methods:
         - java_method: createSelectionActionEvent
           go_name: CreateSelectionActionEvent3
@@ -577,410 +807,6 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-    - java_class: android.view.textclassifier.ConversationActions$Request
-      go_type: ConversationActionsRequest
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getCallingPackageName
-          go_name: GetCallingPackageName
-          returns: String
-          error: true
-        - java_method: getConversation
-          go_name: GetConversation
-          returns: java.util.List<android.view.textclassifier.ConversationActions$Message>
-          error: true
-        - java_method: getExtras
-          go_name: GetExtras
-          returns: android.os.Bundle
-          error: true
-        - java_method: getHints
-          go_name: GetHints
-          returns: java.util.List<java.lang.String>
-          error: true
-        - java_method: getMaxSuggestions
-          go_name: GetMaxSuggestions
-          returns: int
-          error: true
-        - java_method: getTypeConfig
-          go_name: GetTypeConfig
-          returns: android.view.textclassifier.TextClassifier$EntityConfig
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.view.textclassifier.TextClassificationSessionFactory
-      go_type: TextClassificationSessionFactory
-      methods:
-        - java_method: createTextClassificationSession
-          go_name: CreateTextClassificationSession
-          params:
-            - java_type: android.view.textclassifier.TextClassificationContext
-              go_name: arg0
-          returns: android.view.textclassifier.TextClassifier
-          error: true
-    - java_class: android.view.textclassifier.TextClassificationManager
-      go_type: TextClassificationManager
-      obtain: system_service
-      service_name: textclassification
-      close: true
-      methods:
-        - java_method: createTextClassificationSession
-          go_name: CreateTextClassificationSession
-          params:
-            - java_type: android.view.textclassifier.TextClassificationContext
-              go_name: arg0
-          returns: android.view.textclassifier.TextClassifier
-          error: true
-        - java_method: getTextClassifier
-          go_name: GetTextClassifier
-          returns: android.view.textclassifier.TextClassifier
-          error: true
-        - java_method: setTextClassificationSessionFactory
-          go_name: SetTextClassificationSessionFactory
-          params:
-            - java_type: android.view.textclassifier.TextClassificationSessionFactory
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTextClassifier
-          go_name: SetTextClassifier
-          params:
-            - java_type: android.view.textclassifier.TextClassifier
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.view.textclassifier.TextClassifier
-      go_type: TextClassifier
-    - java_class: android.view.textclassifier.TextClassifier$EntityConfig
-      go_type: TextClassifierEntityConfig
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getHints
-          go_name: GetHints
-          returns: java.util.Collection<java.lang.String>
-          error: true
-        - java_method: shouldIncludeTypesFromTextClassifier
-          go_name: ShouldIncludeTypesFromTextClassifier
-          returns: boolean
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.view.textclassifier.ConversationAction
-      go_type: ConversationAction
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getAction
-          go_name: GetAction
-          returns: android.app.RemoteAction
-          error: true
-        - java_method: getConfidenceScore
-          go_name: GetConfidenceScore
-          returns: float
-          error: true
-        - java_method: getExtras
-          go_name: GetExtras
-          returns: android.os.Bundle
-          error: true
-        - java_method: getTextReply
-          go_name: GetTextReply
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.view.textclassifier.ConversationAction$Builder
-      go_type: ConversationActionBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.view.textclassifier.ConversationAction
-          error: true
-        - java_method: setAction
-          go_name: SetAction
-          params:
-            - java_type: android.app.RemoteAction
-              go_name: arg0
-          returns: android.view.textclassifier.ConversationAction$Builder
-          error: true
-        - java_method: setConfidenceScore
-          go_name: SetConfidenceScore
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: android.view.textclassifier.ConversationAction$Builder
-          error: true
-        - java_method: setExtras
-          go_name: SetExtras
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: android.view.textclassifier.ConversationAction$Builder
-          error: true
-        - java_method: setTextReply
-          go_name: SetTextReply
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.view.textclassifier.ConversationAction$Builder
-          error: true
-    - java_class: android.view.textclassifier.TextLinks
-      go_type: TextLinks
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getExtras
-          go_name: GetExtras
-          returns: android.os.Bundle
-          error: true
-        - java_method: getLinks
-          go_name: GetLinks
-          returns: java.util.Collection<android.view.textclassifier.TextLinks$TextLink>
-          error: true
-        - java_method: getText
-          go_name: GetText
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.view.textclassifier.TextLinks$Builder
-      go_type: TextLinksBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.view.textclassifier.TextLinks
-          error: true
-        - java_method: clearTextLinks
-          go_name: ClearTextLinks
-          returns: android.view.textclassifier.TextLinks$Builder
-          error: true
-        - java_method: setExtras
-          go_name: SetExtras
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: android.view.textclassifier.TextLinks$Builder
-          error: true
-    - java_class: android.view.textclassifier.TextLinks$Request
-      go_type: TextLinksRequest
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getCallingPackageName
-          go_name: GetCallingPackageName
-          returns: String
-          error: true
-        - java_method: getDefaultLocales
-          go_name: GetDefaultLocales
-          returns: android.os.LocaleList
-          error: true
-        - java_method: getEntityConfig
-          go_name: GetEntityConfig
-          returns: android.view.textclassifier.TextClassifier$EntityConfig
-          error: true
-        - java_method: getExtras
-          go_name: GetExtras
-          returns: android.os.Bundle
-          error: true
-        - java_method: getReferenceTime
-          go_name: GetReferenceTime
-          returns: java.time.ZonedDateTime
-          error: true
-        - java_method: getText
-          go_name: GetText
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.view.textclassifier.TextLinks$TextLink
-      go_type: TextLinksTextLink
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getConfidenceScore
-          go_name: GetConfidenceScore
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getEnd
-          go_name: GetEnd
-          returns: int
-          error: true
-        - java_method: getEntity
-          go_name: GetEntity
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getEntityCount
-          go_name: GetEntityCount
-          returns: int
-          error: true
-        - java_method: getExtras
-          go_name: GetExtras
-          returns: android.os.Bundle
-          error: true
-        - java_method: getStart
-          go_name: GetStart
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.view.textclassifier.TextLinks$TextLinkSpan
-      go_type: TextLinksTextLinkSpan
-      methods:
-        - java_method: getTextLink
-          go_name: GetTextLink
-          returns: android.view.textclassifier.TextLinks$TextLink
-          error: true
-        - java_method: onClick
-          go_name: OnClick
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.view.textclassifier.TextClassificationContext
-      go_type: TextClassificationContext
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getPackageName
-          go_name: GetPackageName
-          returns: String
-          error: true
-        - java_method: getWidgetType
-          go_name: GetWidgetType
-          returns: String
-          error: true
-        - java_method: getWidgetVersion
-          go_name: GetWidgetVersion
-          returns: String
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.view.textclassifier.TextClassificationContext$Builder
-      go_type: TextClassificationContextBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.view.textclassifier.TextClassificationContext
-          error: true
-        - java_method: setWidgetVersion
-          go_name: SetWidgetVersion
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.view.textclassifier.TextClassificationContext$Builder
-          error: true
-    - java_class: android.view.textclassifier.TextClassificationSessionId
-      go_type: TextClassificationSessionId
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getValue
-          go_name: GetValue
-          returns: String
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -1051,6 +877,7 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -1062,6 +889,7 @@ classes:
           error: true
     - java_class: android.view.textclassifier.TextClassification$Builder
       go_type: TextClassificationBuilder
+      obtain: constructor
       methods:
         - java_method: addAction
           go_name: AddAction
@@ -1167,6 +995,7 @@ classes:
           go_name: GetText
           returns: java.lang.CharSequence
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -1176,69 +1005,262 @@ classes:
               go_name: arg1
           returns: void
           error: true
-abstract_callbacks:
-    - java_class: android.view.textclassifier.TextClassifierEvent
-      go_type: TextClassifierEventCallback
+    - java_class: android.view.textclassifier.TextClassificationManager
+      go_type: TextClassificationManager
+      obtain: system_service
+      service_name: textclassification
+      close: true
+      methods:
+        - java_method: createTextClassificationSession
+          go_name: CreateTextClassificationSession
+          params:
+            - java_type: android.view.textclassifier.TextClassificationContext
+              go_name: arg0
+          returns: android.view.textclassifier.TextClassifier
+          error: true
+        - java_method: getTextClassifier
+          go_name: GetTextClassifier
+          returns: android.view.textclassifier.TextClassifier
+          error: true
+        - java_method: setTextClassificationSessionFactory
+          go_name: SetTextClassificationSessionFactory
+          params:
+            - java_type: android.view.textclassifier.TextClassificationSessionFactory
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTextClassifier
+          go_name: SetTextClassifier
+          params:
+            - java_type: android.view.textclassifier.TextClassifier
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.view.textclassifier.TextClassifier
+      go_type: TextClassifier
+    - java_class: android.view.textclassifier.TextClassifier$EntityConfig
+      go_type: TextClassifierEntityConfig
       methods:
         - java_method: describeContents
-          params: []
+          go_name: DescribeContents
           returns: int
-          go_field: DescribeContents
-        - java_method: getActionIndices
-          params: []
-          returns: '[I'
-          go_field: GetActionIndices
-        - java_method: getEntityTypes
-          params: []
-          returns: java.lang.String[]
-          go_field: GetEntityTypes
-        - java_method: getEventCategory
-          params: []
-          returns: int
-          go_field: GetEventCategory
-        - java_method: getEventContext
-          params: []
-          returns: android.view.textclassifier.TextClassificationContext
-          go_field: GetEventContext
-        - java_method: getEventIndex
-          params: []
-          returns: int
-          go_field: GetEventIndex
-        - java_method: getEventType
-          params: []
-          returns: int
-          go_field: GetEventType
-        - java_method: getExtras
-          params: []
-          returns: android.os.Bundle
-          go_field: GetExtras
-        - java_method: getLocale
-          params: []
-          returns: android.icu.util.ULocale
-          go_field: GetLocale
-        - java_method: getModelName
-          params: []
-          returns: String
-          go_field: GetModelName
-        - java_method: getResultId
-          params: []
-          returns: String
-          go_field: GetResultId
-        - java_method: getScores
-          params: []
-          returns: float[]
-          go_field: GetScores
-        - java_method: toString
-          params: []
-          returns: String
-          go_field: ToString
+          error: true
+        - java_method: getHints
+          go_name: GetHints
+          returns: java.util.Collection<java.lang.String>
+          error: true
+        - java_method: shouldIncludeTypesFromTextClassifier
+          go_name: ShouldIncludeTypesFromTextClassifier
+          returns: boolean
+          error: true
+      static_methods:
         - java_method: writeToParcel
+          go_name: WriteToParcel
           params:
-            - android.os.Parcel
-            - int
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
           returns: void
-          go_field: WriteToParcel
+          error: true
+    - java_class: android.view.textclassifier.TextSelection
+      go_type: TextSelection
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getConfidenceScore
+          go_name: GetConfidenceScore
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getEntity
+          go_name: GetEntity
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getEntityCount
+          go_name: GetEntityCount
+          returns: int
+          error: true
+        - java_method: getExtras
+          go_name: GetExtras
+          returns: android.os.Bundle
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: String
+          error: true
+        - java_method: getSelectionEndIndex
+          go_name: GetSelectionEndIndex
+          returns: int
+          error: true
+        - java_method: getSelectionStartIndex
+          go_name: GetSelectionStartIndex
+          returns: int
+          error: true
+        - java_method: getTextClassification
+          go_name: GetTextClassification
+          returns: android.view.textclassifier.TextClassification
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.view.textclassifier.TextSelection$Builder
+      go_type: TextSelectionBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.view.textclassifier.TextSelection
+          error: true
+        - java_method: setEntityType
+          go_name: SetEntityType
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: android.view.textclassifier.TextSelection$Builder
+          error: true
+        - java_method: setExtras
+          go_name: SetExtras
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: android.view.textclassifier.TextSelection$Builder
+          error: true
+        - java_method: setId
+          go_name: SetId
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.view.textclassifier.TextSelection$Builder
+          error: true
+        - java_method: setTextClassification
+          go_name: SetTextClassification
+          params:
+            - java_type: android.view.textclassifier.TextClassification
+              go_name: arg0
+          returns: android.view.textclassifier.TextSelection$Builder
+          error: true
+    - java_class: android.view.textclassifier.TextSelection$Request
+      go_type: TextSelectionRequest
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getCallingPackageName
+          go_name: GetCallingPackageName
+          returns: String
+          error: true
+        - java_method: getDefaultLocales
+          go_name: GetDefaultLocales
+          returns: android.os.LocaleList
+          error: true
+        - java_method: getEndIndex
+          go_name: GetEndIndex
+          returns: int
+          error: true
+        - java_method: getExtras
+          go_name: GetExtras
+          returns: android.os.Bundle
+          error: true
+        - java_method: getStartIndex
+          go_name: GetStartIndex
+          returns: int
+          error: true
+        - java_method: getText
+          go_name: GetText
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: shouldIncludeTextClassification
+          go_name: ShouldIncludeTextClassification
+          returns: boolean
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.view.textclassifier.TextClassificationSessionFactory
+      go_type: TextClassificationSessionFactory
+      methods:
+        - java_method: createTextClassificationSession
+          go_name: CreateTextClassificationSession
+          params:
+            - java_type: android.view.textclassifier.TextClassificationContext
+              go_name: arg0
+          returns: android.view.textclassifier.TextClassifier
+          error: true
+abstract_callback_eligibility:
+    - java_class: android.view.textclassifier.TextClassifierEvent
+      generated: false
+      reason: implements_interface
+    - java_class: android.view.textclassifier.TextClassifierEvent$Builder
+      generated: false
+      reason: unsupported_constructor
 constants:
+    - go_name: Creator
+      value: "0"
+      go_type: int
+    - go_name: TypeCallPhone
+      value: '"call_phone"'
+      go_type: string
+    - go_name: TypeCreateReminder
+      value: '"create_reminder"'
+      go_type: string
+    - go_name: TypeOpenUrl
+      value: '"open_url"'
+      go_type: string
+    - go_name: TypeSendEmail
+      value: '"send_email"'
+      go_type: string
+    - go_name: TypeSendSms
+      value: '"send_sms"'
+      go_type: string
+    - go_name: TypeShareLocation
+      value: '"share_location"'
+      go_type: string
+    - go_name: TypeTextReply
+      value: '"text_reply"'
+      go_type: string
+    - go_name: TypeTrackFlight
+      value: '"track_flight"'
+      go_type: string
+    - go_name: TypeViewCalendar
+      value: '"view_calendar"'
+      go_type: string
+    - go_name: TypeViewMap
+      value: '"view_map"'
+      go_type: string
     - go_name: CategoryConversationActions
       value: "3"
       go_type: int
@@ -1250,9 +1272,6 @@ constants:
       go_type: int
     - go_name: CategorySelection
       value: "1"
-      go_type: int
-    - go_name: Creator
-      value: "0"
       go_type: int
     - go_name: TypeActionsGenerated
       value: "20"
@@ -1317,12 +1336,39 @@ constants:
     - go_name: TypeSmartSelectionSingle
       value: "3"
       go_type: int
+    - go_name: ApplyStrategyIgnore
+      value: "0"
+      go_type: int
+    - go_name: ApplyStrategyReplace
+      value: "1"
+      go_type: int
+    - go_name: StatusDifferentText
+      value: "3"
+      go_type: int
+    - go_name: StatusLinksApplied
+      value: "0"
+      go_type: int
+    - go_name: StatusNoLinksApplied
+      value: "2"
+      go_type: int
+    - go_name: StatusNoLinksFound
+      value: "1"
+      go_type: int
+    - go_name: StatusUnsupportedCharacter
+      value: "4"
+      go_type: int
     - go_name: PersonUserOthers
       value: "0"
       go_type: int
     - go_name: PersonUserSelf
       value: "0"
       go_type: int
+    - go_name: HintForInApp
+      value: '"in_app"'
+      go_type: string
+    - go_name: HintForNotification
+      value: '"notification"'
+      go_type: string
     - go_name: ActionAbandon
       value: "107"
       go_type: int
@@ -1380,12 +1426,6 @@ constants:
     - go_name: InvocationUnknown
       value: "0"
       go_type: int
-    - go_name: HintForInApp
-      value: '"in_app"'
-      go_type: string
-    - go_name: HintForNotification
-      value: '"notification"'
-      go_type: string
     - go_name: ExtraFromTextClassifier
       value: '"android.view.textclassifier.extra.FROM_TEXT_CLASSIFIER"'
       go_type: string
@@ -1464,54 +1504,3 @@ constants:
     - go_name: WidgetTypeWebview
       value: '"webview"'
       go_type: string
-    - go_name: TypeCallPhone
-      value: '"call_phone"'
-      go_type: string
-    - go_name: TypeCreateReminder
-      value: '"create_reminder"'
-      go_type: string
-    - go_name: TypeOpenUrl
-      value: '"open_url"'
-      go_type: string
-    - go_name: TypeSendEmail
-      value: '"send_email"'
-      go_type: string
-    - go_name: TypeSendSms
-      value: '"send_sms"'
-      go_type: string
-    - go_name: TypeShareLocation
-      value: '"share_location"'
-      go_type: string
-    - go_name: TypeTextReply
-      value: '"text_reply"'
-      go_type: string
-    - go_name: TypeTrackFlight
-      value: '"track_flight"'
-      go_type: string
-    - go_name: TypeViewCalendar
-      value: '"view_calendar"'
-      go_type: string
-    - go_name: TypeViewMap
-      value: '"view_map"'
-      go_type: string
-    - go_name: ApplyStrategyIgnore
-      value: "0"
-      go_type: int
-    - go_name: ApplyStrategyReplace
-      value: "1"
-      go_type: int
-    - go_name: StatusDifferentText
-      value: "3"
-      go_type: int
-    - go_name: StatusLinksApplied
-      value: "0"
-      go_type: int
-    - go_name: StatusNoLinksApplied
-      value: "2"
-      go_type: int
-    - go_name: StatusNoLinksFound
-      value: "1"
-      go_type: int
-    - go_name: StatusUnsupportedCharacter
-      value: "4"
-      go_type: int

@@ -218,38 +218,6 @@ func (m *Adapter) GetBluetoothLeScanner() (*jni.Object, error) {
 	return result, callErr
 }
 
-// GetBondedDevices calls android.bluetooth.BluetoothAdapter.getBondedDevices.
-func (m *Adapter) GetBondedDevices() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAdapterGetBondedDevices == nil {
-			callErr = fmt.Errorf("android.bluetooth.BluetoothAdapter.getBondedDevices is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midAdapterGetBondedDevices,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // GetDiscoverableTimeout calls android.bluetooth.BluetoothAdapter.getDiscoverableTimeout.
 func (m *Adapter) GetDiscoverableTimeout() (*jni.Object, error) {
 	var result *jni.Object
@@ -1261,6 +1229,38 @@ func (m *Adapter) CheckBluetoothAddress(arg0 string) (bool, error) {
 			return callErr
 		}
 		result = resultRaw != 0
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetBondedDevices calls android.bluetooth.BluetoothAdapter.getBondedDevices.
+func (m *Adapter) GetBondedDevices() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midAdapterGetBondedDevices == nil {
+			callErr = fmt.Errorf("android.bluetooth.BluetoothAdapter.getBondedDevices is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsAdapter)),
+			midAdapterGetBondedDevices,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
 		return callErr
 	})
 	return result, callErr

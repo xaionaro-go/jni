@@ -23,6 +23,34 @@ type GridLayoutAnimationControllerAnimationParameters struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGridLayoutAnimationControllerAnimationParameters creates a new android.view.animation.GridLayoutAnimationController$AnimationParameters instance.
+func NewGridLayoutAnimationControllerAnimationParameters(vm *jni.VM) (*GridLayoutAnimationControllerAnimationParameters, error) {
+	var t GridLayoutAnimationControllerAnimationParameters
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGridLayoutAnimationControllerAnimationParameters == nil {
+			return fmt.Errorf("android.view.animation.GridLayoutAnimationController$AnimationParameters is not available on this device")
+		}
+		if midGridLayoutAnimationControllerAnimationParametersCtor == nil {
+			return fmt.Errorf("android.view.animation.GridLayoutAnimationController$AnimationParameters constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGridLayoutAnimationControllerAnimationParameters)), midGridLayoutAnimationControllerAnimationParametersCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.view.animation.GridLayoutAnimationController$AnimationParameters.toString.
 func (m *GridLayoutAnimationControllerAnimationParameters) ToString() (string, error) {
 	var result string

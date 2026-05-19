@@ -81,22 +81,11 @@ classes:
           go_name: ToString
           returns: String
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
             - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.os.storage.OnObbStateChangeListener
-      go_type: OnObbStateChangeListener
-      methods:
-        - java_method: onObbStateChange
-          go_name: OnObbStateChange
-          params:
-            - java_type: String
               go_name: arg0
             - java_type: int
               go_name: arg1
@@ -288,6 +277,7 @@ classes:
               go_name: arg2
           returns: boolean
           error: true
+      static_methods:
         - java_method: unregisterStorageVolumeCallback
           go_name: UnregisterStorageVolumeCallback
           params:
@@ -297,12 +287,25 @@ classes:
           error: true
     - java_class: android.os.storage.StorageManager$StorageVolumeCallback
       go_type: ManagerStorageVolumeCallback
+      obtain: constructor
       methods:
         - java_method: onStateChanged
           go_name: OnStateChanged
           params:
             - java_type: android.os.storage.StorageVolume
               go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.os.storage.OnObbStateChangeListener
+      go_type: OnObbStateChangeListener
+      methods:
+        - java_method: onObbStateChange
+          go_name: OnObbStateChange
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
           returns: void
           error: true
 abstract_callbacks:
@@ -315,6 +318,10 @@ abstract_callbacks:
             - int
           returns: void
           go_field: OnObbStateChange
+abstract_callback_eligibility:
+    - java_class: android.os.storage.OnObbStateChangeListener
+      generated: true
+      reason: supported_no_arg_constructor
 constants:
     - go_name: Creator
       value: "0"
@@ -322,6 +329,21 @@ constants:
     - go_name: ExtraStorageVolume
       value: '"android.os.storage.extra.STORAGE_VOLUME"'
       go_type: string
+    - go_name: ActionClearAppCache
+      value: '"android.os.storage.action.CLEAR_APP_CACHE"'
+      go_type: string
+    - go_name: ActionManageStorage
+      value: '"android.os.storage.action.MANAGE_STORAGE"'
+      go_type: string
+    - go_name: ExtraRequestedBytes
+      value: '"android.os.storage.extra.REQUESTED_BYTES"'
+      go_type: string
+    - go_name: ExtraUuid
+      value: '"android.os.storage.extra.UUID"'
+      go_type: string
+    - go_name: UuidDefault
+      value: "0"
+      go_type: int
     - go_name: ErrorAlreadyMounted
       value: "24"
       go_type: int
@@ -345,19 +367,4 @@ constants:
       go_type: int
     - go_name: Unmounted
       value: "2"
-      go_type: int
-    - go_name: ActionClearAppCache
-      value: '"android.os.storage.action.CLEAR_APP_CACHE"'
-      go_type: string
-    - go_name: ActionManageStorage
-      value: '"android.os.storage.action.MANAGE_STORAGE"'
-      go_type: string
-    - go_name: ExtraRequestedBytes
-      value: '"android.os.storage.extra.REQUESTED_BYTES"'
-      go_type: string
-    - go_name: ExtraUuid
-      value: '"android.os.storage.extra.UUID"'
-      go_type: string
-    - go_name: UuidDefault
-      value: "0"
       go_type: int

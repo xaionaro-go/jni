@@ -32,6 +32,12 @@ func NewWrongFragmentContainerViolation(vm *jni.VM, arg0 *jni.Object, arg1 *jni.
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWrongFragmentContainerViolation == nil {
+			return fmt.Errorf("androidx.fragment.app.strictmode.WrongFragmentContainerViolation is not available on this device")
+		}
+		if midWrongFragmentContainerViolationCtor == nil {
+			return fmt.Errorf("androidx.fragment.app.strictmode.WrongFragmentContainerViolation constructor (Landroidx/fragment/app/Fragment;Landroid/view/ViewGroup;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWrongFragmentContainerViolation)), midWrongFragmentContainerViolationCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

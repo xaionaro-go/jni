@@ -32,6 +32,12 @@ func NewLayer(vm *jni.VM, arg0 *jni.Object) (*Layer, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLayer == nil {
+			return fmt.Errorf("androidx.constraintlayout.helper.widget.Layer is not available on this device")
+		}
+		if midLayerCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.helper.widget.Layer constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLayer)), midLayerCtor, jni.ObjectValue(arg0))
 		if err != nil {

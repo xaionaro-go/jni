@@ -21,6 +21,35 @@ type VoiceInteractorCompleteVoiceRequest struct {
 	Obj *jni.GlobalRef
 }
 
+// NewVoiceInteractorCompleteVoiceRequest creates a new android.app.VoiceInteractor$CompleteVoiceRequest instance.
+func NewVoiceInteractorCompleteVoiceRequest(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*VoiceInteractorCompleteVoiceRequest, error) {
+	var t VoiceInteractorCompleteVoiceRequest
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsVoiceInteractorCompleteVoiceRequest == nil {
+			return fmt.Errorf("android.app.VoiceInteractor$CompleteVoiceRequest is not available on this device")
+		}
+		if midVoiceInteractorCompleteVoiceRequestCtor == nil {
+			return fmt.Errorf("android.app.VoiceInteractor$CompleteVoiceRequest constructor (Landroid/app/VoiceInteractor$Prompt;Landroid/os/Bundle;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsVoiceInteractorCompleteVoiceRequest)), midVoiceInteractorCompleteVoiceRequestCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnCompleteResult calls android.app.VoiceInteractor$CompleteVoiceRequest.onCompleteResult.
 func (m *VoiceInteractorCompleteVoiceRequest) OnCompleteResult(arg0 *jni.Object) error {
 

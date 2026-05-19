@@ -32,6 +32,12 @@ func NewChangeClipBounds(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Chang
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsChangeClipBounds == nil {
+			return fmt.Errorf("android.transition.ChangeClipBounds is not available on this device")
+		}
+		if midChangeClipBoundsCtor == nil {
+			return fmt.Errorf("android.transition.ChangeClipBounds constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsChangeClipBounds)), midChangeClipBoundsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

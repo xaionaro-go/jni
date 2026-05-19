@@ -32,6 +32,12 @@ func NewContext(vm *jni.VM, arg0 int32) (*Context, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsContext == nil {
+			return fmt.Errorf("android.icu.math.MathContext is not available on this device")
+		}
+		if midContextCtor == nil {
+			return fmt.Errorf("android.icu.math.MathContext constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContext)), midContextCtor, jni.IntValue(arg0))
 		if err != nil {

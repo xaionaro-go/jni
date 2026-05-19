@@ -32,6 +32,12 @@ func NewTaiwanCalendar(vm *jni.VM) (*TaiwanCalendar, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTaiwanCalendar == nil {
+			return fmt.Errorf("android.icu.util.TaiwanCalendar is not available on this device")
+		}
+		if midTaiwanCalendarCtor == nil {
+			return fmt.Errorf("android.icu.util.TaiwanCalendar constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTaiwanCalendar)), midTaiwanCalendarCtor)
 		if err != nil {
 			return err

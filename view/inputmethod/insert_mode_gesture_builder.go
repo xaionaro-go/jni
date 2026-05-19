@@ -23,6 +23,34 @@ type InsertModeGestureBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewInsertModeGestureBuilder creates a new android.view.inputmethod.InsertModeGesture$Builder instance.
+func NewInsertModeGestureBuilder(vm *jni.VM) (*InsertModeGestureBuilder, error) {
+	var t InsertModeGestureBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsInsertModeGestureBuilder == nil {
+			return fmt.Errorf("android.view.inputmethod.InsertModeGesture$Builder is not available on this device")
+		}
+		if midInsertModeGestureBuilderCtor == nil {
+			return fmt.Errorf("android.view.inputmethod.InsertModeGesture$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInsertModeGestureBuilder)), midInsertModeGestureBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.view.inputmethod.InsertModeGesture$Builder.build.
 func (m *InsertModeGestureBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewConfirmationAlreadyPresentingException(vm *jni.VM) (*ConfirmationAlready
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsConfirmationAlreadyPresentingException == nil {
+			return fmt.Errorf("android.security.ConfirmationAlreadyPresentingException is not available on this device")
+		}
+		if midConfirmationAlreadyPresentingExceptionCtor == nil {
+			return fmt.Errorf("android.security.ConfirmationAlreadyPresentingException constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConfirmationAlreadyPresentingException)), midConfirmationAlreadyPresentingExceptionCtor)
 		if err != nil {
 			return err

@@ -23,6 +23,34 @@ type TtsSpanDateBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTtsSpanDateBuilder creates a new android.text.style.TtsSpan$DateBuilder instance.
+func NewTtsSpanDateBuilder(vm *jni.VM) (*TtsSpanDateBuilder, error) {
+	var t TtsSpanDateBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTtsSpanDateBuilder == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$DateBuilder is not available on this device")
+		}
+		if midTtsSpanDateBuilderCtor == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$DateBuilder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTtsSpanDateBuilder)), midTtsSpanDateBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetDay calls android.text.style.TtsSpan$DateBuilder.setDay.
 func (m *TtsSpanDateBuilder) SetDay(arg0 int32) (*jni.Object, error) {
 	var result *jni.Object

@@ -5,147 +5,6 @@
 package: appsearch
 go_import: github.com/AndroidGoLab/jni/app/appsearch
 classes:
-    - java_class: android.app.appsearch.JoinSpec
-      go_type: JoinSpec
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getAggregationScoringStrategy
-          go_name: GetAggregationScoringStrategy
-          returns: int
-          error: true
-        - java_method: getChildPropertyExpression
-          go_name: GetChildPropertyExpression
-          returns: String
-          error: true
-        - java_method: getMaxJoinedResultCount
-          go_name: GetMaxJoinedResultCount
-          returns: int
-          error: true
-        - java_method: getNestedQuery
-          go_name: GetNestedQuery
-          returns: String
-          error: true
-        - java_method: getNestedSearchSpec
-          go_name: GetNestedSearchSpec
-          returns: android.app.appsearch.SearchSpec
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.appsearch.SchemaVisibilityConfig
-      go_type: SchemaVisibilityConfig
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getAllowedPackages
-          go_name: GetAllowedPackages
-          returns: java.util.List<android.app.appsearch.PackageIdentifier>
-          error: true
-        - java_method: getPubliclyVisibleTargetPackage
-          go_name: GetPubliclyVisibleTargetPackage
-          returns: android.app.appsearch.PackageIdentifier
-          error: true
-        - java_method: getRequiredPermissions
-          go_name: GetRequiredPermissions
-          returns: java.util.Set<java.util.Set<java.lang.Integer>>
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.appsearch.JoinSpec$Builder
-      go_type: JoinSpecBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.app.appsearch.JoinSpec
-          error: true
-        - java_method: setAggregationScoringStrategy
-          go_name: SetAggregationScoringStrategy
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.app.appsearch.JoinSpec$Builder
-          error: true
-        - java_method: setChildPropertyExpression
-          go_name: SetChildPropertyExpression
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.app.appsearch.JoinSpec$Builder
-          error: true
-        - java_method: setMaxJoinedResultCount
-          go_name: SetMaxJoinedResultCount
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.app.appsearch.JoinSpec$Builder
-          error: true
-        - java_method: setNestedSearch
-          go_name: SetNestedSearch
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.app.appsearch.SearchSpec
-              go_name: arg1
-          returns: android.app.appsearch.JoinSpec$Builder
-          error: true
-    - java_class: android.app.appsearch.SchemaVisibilityConfig$Builder
-      go_type: SchemaVisibilityConfigBuilder
-      methods:
-        - java_method: addAllowedPackage
-          go_name: AddAllowedPackage
-          params:
-            - java_type: android.app.appsearch.PackageIdentifier
-              go_name: arg0
-          returns: android.app.appsearch.SchemaVisibilityConfig$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.app.appsearch.SchemaVisibilityConfig
-          error: true
-        - java_method: clearAllowedPackages
-          go_name: ClearAllowedPackages
-          returns: android.app.appsearch.SchemaVisibilityConfig$Builder
-          error: true
-        - java_method: clearRequiredPermissions
-          go_name: ClearRequiredPermissions
-          returns: android.app.appsearch.SchemaVisibilityConfig$Builder
-          error: true
-        - java_method: setPubliclyVisibleTargetPackage
-          go_name: SetPubliclyVisibleTargetPackage
-          params:
-            - java_type: android.app.appsearch.PackageIdentifier
-              go_name: arg0
-          returns: android.app.appsearch.SchemaVisibilityConfig$Builder
-          error: true
     - java_class: android.app.appsearch.SetSchemaRequest
       go_type: SetSchemaRequest
       methods:
@@ -176,36 +35,9 @@ classes:
           go_name: IsForceOverride
           returns: boolean
           error: true
-    - java_class: android.app.appsearch.PackageIdentifier
-      go_type: PackageIdentifier
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: '[B'
-          go_name: arg1
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getPackageName
-          go_name: GetPackageName
-          returns: String
-          error: true
-        - java_method: getSha256Certificate
-          go_name: GetSha256Certificate
-          returns: '[B'
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
     - java_class: android.app.appsearch.SetSchemaRequest$Builder
       go_type: SetSchemaRequestBuilder
+      obtain: constructor
       methods:
         - java_method: addSchemaTypeVisibleToConfig
           go_name: AddSchemaTypeVisibleToConfig
@@ -301,21 +133,37 @@ classes:
               go_name: arg0
           returns: android.app.appsearch.SetSchemaRequest$Builder
           error: true
-    - java_class: android.app.appsearch.RemoveByDocumentIdRequest
-      go_type: RemoveByDocumentIdRequest
+    - java_class: android.app.appsearch.SchemaVisibilityConfig
+      go_type: SchemaVisibilityConfig
       methods:
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
-        - java_method: getIds
-          go_name: GetIds
-          returns: java.util.Set<java.lang.String>
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
           error: true
-        - java_method: getNamespace
-          go_name: GetNamespace
-          returns: String
+        - java_method: getAllowedPackages
+          go_name: GetAllowedPackages
+          returns: java.util.List<android.app.appsearch.PackageIdentifier>
           error: true
+        - java_method: getPubliclyVisibleTargetPackage
+          go_name: GetPubliclyVisibleTargetPackage
+          returns: android.app.appsearch.PackageIdentifier
+          error: true
+        - java_method: getRequiredPermissions
+          go_name: GetRequiredPermissions
+          returns: java.util.Set<java.util.Set<java.lang.Integer>>
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -325,19 +173,82 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.app.appsearch.RemoveByDocumentIdRequest$Builder
-      go_type: RemoveByDocumentIdRequestBuilder
+    - java_class: android.app.appsearch.SchemaVisibilityConfig$Builder
+      go_type: SchemaVisibilityConfigBuilder
+      obtain: constructor
       methods:
-        - java_method: addIds
-          go_name: AddIds
+        - java_method: addAllowedPackage
+          go_name: AddAllowedPackage
           params:
-            - java_type: java.lang.String...
+            - java_type: android.app.appsearch.PackageIdentifier
               go_name: arg0
-          returns: android.app.appsearch.RemoveByDocumentIdRequest$Builder
+          returns: android.app.appsearch.SchemaVisibilityConfig$Builder
           error: true
         - java_method: build
           go_name: Build
-          returns: android.app.appsearch.RemoveByDocumentIdRequest
+          returns: android.app.appsearch.SchemaVisibilityConfig
+          error: true
+        - java_method: clearAllowedPackages
+          go_name: ClearAllowedPackages
+          returns: android.app.appsearch.SchemaVisibilityConfig$Builder
+          error: true
+        - java_method: clearRequiredPermissions
+          go_name: ClearRequiredPermissions
+          returns: android.app.appsearch.SchemaVisibilityConfig$Builder
+          error: true
+        - java_method: setPubliclyVisibleTargetPackage
+          go_name: SetPubliclyVisibleTargetPackage
+          params:
+            - java_type: android.app.appsearch.PackageIdentifier
+              go_name: arg0
+          returns: android.app.appsearch.SchemaVisibilityConfig$Builder
+          error: true
+    - java_class: android.app.appsearch.SearchSuggestionResult
+      go_type: SearchSuggestionResult
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getSuggestedResult
+          go_name: GetSuggestedResult
+          returns: String
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.appsearch.SearchSuggestionResult$Builder
+      go_type: SearchSuggestionResultBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.app.appsearch.SearchSuggestionResult
+          error: true
+        - java_method: setSuggestedResult
+          go_name: SetSuggestedResult
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.app.appsearch.SearchSuggestionResult$Builder
           error: true
     - java_class: android.app.appsearch.OpenBlobForReadResponse
       go_type: OpenBlobForReadResponse
@@ -354,6 +265,7 @@ classes:
           go_name: DescribeContents
           returns: int
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -363,78 +275,8 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.app.appsearch.PutDocumentsRequest
-      go_type: PutDocumentsRequest
-      methods:
-        - java_method: getGenericDocuments
-          go_name: GetGenericDocuments
-          returns: java.util.List<android.app.appsearch.GenericDocument>
-          error: true
-        - java_method: getTakenActionGenericDocuments
-          go_name: GetTakenActionGenericDocuments
-          returns: java.util.List<android.app.appsearch.GenericDocument>
-          error: true
-    - java_class: android.app.appsearch.PutDocumentsRequest$Builder
-      go_type: PutDocumentsRequestBuilder
-      methods:
-        - java_method: addGenericDocuments
-          go_name: AddGenericDocuments
-          params:
-            - java_type: android.app.appsearch.GenericDocument...
-              go_name: arg0
-          returns: android.app.appsearch.PutDocumentsRequest$Builder
-          error: true
-        - java_method: addTakenActionGenericDocuments
-          go_name: AddTakenActionGenericDocuments
-          params:
-            - java_type: android.app.appsearch.GenericDocument...
-              go_name: arg0
-          returns: android.app.appsearch.PutDocumentsRequest$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.app.appsearch.PutDocumentsRequest
-          error: true
-    - java_class: android.app.appsearch.GlobalSearchSession
-      go_type: GlobalSearchSession
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: registerObserverCallback
-          go_name: RegisterObserverCallback
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.app.appsearch.observer.ObserverSpec
-              go_name: arg1
-            - java_type: java.util.concurrent.Executor
-              go_name: arg2
-            - java_type: android.app.appsearch.observer.ObserverCallback
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: search
-          go_name: Search
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.app.appsearch.SearchSpec
-              go_name: arg1
-          returns: android.app.appsearch.SearchResults
-          error: true
-        - java_method: unregisterObserverCallback
-          go_name: UnregisterObserverCallback
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.app.appsearch.observer.ObserverCallback
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.appsearch.AppSearchSchema
-      go_type: AppSearchSchema
+    - java_class: android.app.appsearch.AppSearchBlobHandle
+      go_type: AppSearchBlobHandle
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -446,536 +288,22 @@ classes:
             - java_type: java.lang.Object
               go_name: arg0
           returns: boolean
-          error: true
-        - java_method: getParentTypes
-          go_name: GetParentTypes
-          returns: java.util.List<java.lang.String>
-          error: true
-        - java_method: getProperties
-          go_name: GetProperties
-          returns: java.util.List<android.app.appsearch.AppSearchSchema$PropertyConfig>
-          error: true
-        - java_method: getSchemaType
-          go_name: GetSchemaType
-          returns: String
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.appsearch.AppSearchSchema$BlobHandlePropertyConfig
-      go_type: AppSearchSchemaBlobHandlePropertyConfig
-    - java_class: android.app.appsearch.AppSearchSchema$BooleanPropertyConfig
-      go_type: AppSearchSchemaBooleanPropertyConfig
-      methods:
-        - java_method: isScoringEnabled
-          go_name: IsScoringEnabled
-          returns: boolean
-          error: true
-    - java_class: android.app.appsearch.AppSearchSchema$Builder
-      go_type: AppSearchSchemaBuilder
-      methods:
-        - java_method: addParentType
-          go_name: AddParentType
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.app.appsearch.AppSearchSchema$Builder
-          error: true
-        - java_method: addProperty
-          go_name: AddProperty
-          params:
-            - java_type: android.app.appsearch.AppSearchSchema$PropertyConfig
-              go_name: arg0
-          returns: android.app.appsearch.AppSearchSchema$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.app.appsearch.AppSearchSchema
-          error: true
-        - java_method: clearParentTypes
-          go_name: ClearParentTypes
-          returns: android.app.appsearch.AppSearchSchema$Builder
-          error: true
-        - java_method: clearProperties
-          go_name: ClearProperties
-          returns: android.app.appsearch.AppSearchSchema$Builder
-          error: true
-        - java_method: setSchemaType
-          go_name: SetSchemaType
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.app.appsearch.AppSearchSchema$Builder
-          error: true
-    - java_class: android.app.appsearch.AppSearchSchema$BytesPropertyConfig
-      go_type: AppSearchSchemaBytesPropertyConfig
-    - java_class: android.app.appsearch.AppSearchSchema$DocumentPropertyConfig
-      go_type: AppSearchSchemaDocumentPropertyConfig
-      methods:
-        - java_method: getIndexableNestedProperties
-          go_name: GetIndexableNestedProperties
-          returns: java.util.List<java.lang.String>
-          error: true
-        - java_method: getSchemaType
-          go_name: GetSchemaType
-          returns: String
-          error: true
-        - java_method: shouldIndexNestedProperties
-          go_name: ShouldIndexNestedProperties
-          returns: boolean
-          error: true
-    - java_class: android.app.appsearch.AppSearchSchema$DoublePropertyConfig
-      go_type: AppSearchSchemaDoublePropertyConfig
-      methods:
-        - java_method: isScoringEnabled
-          go_name: IsScoringEnabled
-          returns: boolean
-          error: true
-    - java_class: android.app.appsearch.AppSearchSchema$EmbeddingPropertyConfig
-      go_type: AppSearchSchemaEmbeddingPropertyConfig
-      methods:
-        - java_method: getIndexingType
-          go_name: GetIndexingType
-          returns: int
-          error: true
-        - java_method: getQuantizationType
-          go_name: GetQuantizationType
-          returns: int
-          error: true
-    - java_class: android.app.appsearch.AppSearchSchema$LongPropertyConfig
-      go_type: AppSearchSchemaLongPropertyConfig
-      methods:
-        - java_method: getIndexingType
-          go_name: GetIndexingType
-          returns: int
-          error: true
-        - java_method: isScoringEnabled
-          go_name: IsScoringEnabled
-          returns: boolean
-          error: true
-    - java_class: android.app.appsearch.AppSearchSchema$PropertyConfig
-      go_type: AppSearchSchemaPropertyConfig
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getCardinality
-          go_name: GetCardinality
-          returns: int
-          error: true
-        - java_method: getName
-          go_name: GetName
-          returns: String
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.app.appsearch.AppSearchSchema$StringPropertyConfig
-      go_type: AppSearchSchemaStringPropertyConfig
-      methods:
-        - java_method: getIndexingType
-          go_name: GetIndexingType
-          returns: int
-          error: true
-        - java_method: getJoinableValueType
-          go_name: GetJoinableValueType
-          returns: int
-          error: true
-        - java_method: getTokenizerType
-          go_name: GetTokenizerType
-          returns: int
-          error: true
-    - java_class: android.app.appsearch.AppSearchSession
-      go_type: AppSearchSession
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: search
-          go_name: Search
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.app.appsearch.SearchSpec
-              go_name: arg1
-          returns: android.app.appsearch.SearchResults
-          error: true
-    - java_class: android.app.appsearch.SearchResult
-      go_type: SearchResult
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
           error: true
         - java_method: getDatabaseName
           go_name: GetDatabaseName
-          returns: String
-          error: true
-        - java_method: getGenericDocument
-          go_name: GetGenericDocument
-          returns: android.app.appsearch.GenericDocument
-          error: true
-        - java_method: getInformationalRankingSignals
-          go_name: GetInformationalRankingSignals
-          returns: java.util.List<java.lang.Double>
-          error: true
-        - java_method: getJoinedResults
-          go_name: GetJoinedResults
-          returns: java.util.List<android.app.appsearch.SearchResult>
-          error: true
-        - java_method: getMatchInfos
-          go_name: GetMatchInfos
-          returns: java.util.List<android.app.appsearch.SearchResult$MatchInfo>
-          error: true
-        - java_method: getPackageName
-          go_name: GetPackageName
-          returns: String
-          error: true
-        - java_method: getRankingSignal
-          go_name: GetRankingSignal
-          returns: double
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.appsearch.SearchResult$Builder
-      go_type: SearchResultBuilder
-      methods:
-        - java_method: addInformationalRankingSignal
-          go_name: AddInformationalRankingSignal
-          params:
-            - java_type: double
-              go_name: arg0
-          returns: android.app.appsearch.SearchResult$Builder
-          error: true
-        - java_method: addJoinedResult
-          go_name: AddJoinedResult
-          params:
-            - java_type: android.app.appsearch.SearchResult
-              go_name: arg0
-          returns: android.app.appsearch.SearchResult$Builder
-          error: true
-        - java_method: addMatchInfo
-          go_name: AddMatchInfo
-          params:
-            - java_type: android.app.appsearch.SearchResult$MatchInfo
-              go_name: arg0
-          returns: android.app.appsearch.SearchResult$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.app.appsearch.SearchResult
-          error: true
-        - java_method: setGenericDocument
-          go_name: SetGenericDocument
-          params:
-            - java_type: android.app.appsearch.GenericDocument
-              go_name: arg0
-          returns: android.app.appsearch.SearchResult$Builder
-          error: true
-        - java_method: setRankingSignal
-          go_name: SetRankingSignal
-          params:
-            - java_type: double
-              go_name: arg0
-          returns: android.app.appsearch.SearchResult$Builder
-          error: true
-    - java_class: android.app.appsearch.SearchResult$MatchInfo
-      go_type: SearchResultMatchInfo
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getExactMatch
-          go_name: GetExactMatch
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getExactMatchRange
-          go_name: GetExactMatchRange
-          returns: android.app.appsearch.SearchResult$MatchRange
-          error: true
-        - java_method: getFullText
-          go_name: GetFullText
-          returns: String
-          error: true
-        - java_method: getPropertyPath
-          go_name: GetPropertyPath
-          returns: String
-          error: true
-        - java_method: getPropertyPathObject
-          go_name: GetPropertyPathObject
-          returns: android.app.appsearch.PropertyPath
-          error: true
-        - java_method: getSnippet
-          go_name: GetSnippet
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getSnippetRange
-          go_name: GetSnippetRange
-          returns: android.app.appsearch.SearchResult$MatchRange
-          error: true
-        - java_method: getSubmatch
-          go_name: GetSubmatch
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getSubmatchRange
-          go_name: GetSubmatchRange
-          returns: android.app.appsearch.SearchResult$MatchRange
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.appsearch.SearchResult$MatchRange
-      go_type: SearchResultMatchRange
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getEnd
-          go_name: GetEnd
-          returns: int
-          error: true
-        - java_method: getStart
-          go_name: GetStart
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.app.appsearch.SearchResults
-      go_type: SearchResults
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-    - java_class: android.app.appsearch.AppSearchManager
-      go_type: AppSearchManager
-      obtain: system_service
-      service_name: app_search
-      close: true
-    - java_class: android.app.appsearch.AppSearchManager$SearchContext
-      go_type: AppSearchManagerSearchContext
-      methods:
-        - java_method: getDatabaseName
-          go_name: GetDatabaseName
-          returns: String
-          error: true
-    - java_class: android.app.appsearch.AppSearchBatchResult
-      go_type: AppSearchBatchResult
-      methods:
-        - java_method: isSuccess
-          go_name: IsSuccess
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.app.appsearch.AppSearchBatchResult$Builder
-      go_type: AppSearchBatchResultBuilder
-    - java_class: android.app.appsearch.GenericDocument
-      go_type: GenericDocument
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getCreationTimestampMillis
-          go_name: GetCreationTimestampMillis
-          returns: long
-          error: true
-        - java_method: getId
-          go_name: GetId
           returns: String
           error: true
         - java_method: getNamespace
           go_name: GetNamespace
           returns: String
           error: true
-        - java_method: getProperty
-          go_name: GetProperty
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: java.lang.Object
+        - java_method: getPackageName
+          go_name: GetPackageName
+          returns: String
           error: true
-        - java_method: getPropertyBlobHandle
-          go_name: GetPropertyBlobHandle
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.app.appsearch.AppSearchBlobHandle
-          error: true
-        - java_method: getPropertyBlobHandleArray
-          go_name: GetPropertyBlobHandleArray
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.app.appsearch.AppSearchBlobHandle[]
-          error: true
-        - java_method: getPropertyBoolean
-          go_name: GetPropertyBoolean
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getPropertyBooleanArray
-          go_name: GetPropertyBooleanArray
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: boolean[]
-          error: true
-        - java_method: getPropertyBytes
-          go_name: GetPropertyBytes
-          params:
-            - java_type: String
-              go_name: arg0
+        - java_method: getSha256Digest
+          go_name: GetSha256Digest
           returns: '[B'
-          error: true
-        - java_method: getPropertyBytesArray
-          go_name: GetPropertyBytesArray
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: byte[][]
-          error: true
-        - java_method: getPropertyDocument
-          go_name: GetPropertyDocument
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.app.appsearch.GenericDocument
-          error: true
-        - java_method: getPropertyDocumentArray
-          go_name: GetPropertyDocumentArray
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.app.appsearch.GenericDocument[]
-          error: true
-        - java_method: getPropertyDouble
-          go_name: GetPropertyDouble
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: double
-          error: true
-        - java_method: getPropertyDoubleArray
-          go_name: GetPropertyDoubleArray
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: double[]
-          error: true
-        - java_method: getPropertyEmbedding
-          go_name: GetPropertyEmbedding
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.app.appsearch.EmbeddingVector
-          error: true
-        - java_method: getPropertyEmbeddingArray
-          go_name: GetPropertyEmbeddingArray
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.app.appsearch.EmbeddingVector[]
-          error: true
-        - java_method: getPropertyLong
-          go_name: GetPropertyLong
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: long
-          error: true
-        - java_method: getPropertyLongArray
-          go_name: GetPropertyLongArray
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: '[J'
-          error: true
-        - java_method: getPropertyNames
-          go_name: GetPropertyNames
-          returns: java.util.Set<java.lang.String>
-          error: true
-        - java_method: getPropertyString
-          go_name: GetPropertyString
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getPropertyStringArray
-          go_name: GetPropertyStringArray
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: java.lang.String[]
-          error: true
-        - java_method: getSchemaType
-          go_name: GetSchemaType
-          returns: String
-          error: true
-        - java_method: getScore
-          go_name: GetScore
-          returns: int
-          error: true
-        - java_method: getTtlMillis
-          go_name: GetTtlMillis
-          returns: long
           error: true
         - java_method: hashCode
           go_name: HashCode
@@ -986,160 +314,18 @@ classes:
           returns: String
           error: true
       static_methods:
-        - java_method: getMaxIndexedProperties
-          go_name: GetMaxIndexedProperties
-          returns: int
-          error: true
-    - java_class: android.app.appsearch.GenericDocument$Builder
-      go_type: GenericDocumentBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.app.appsearch.GenericDocument
-          error: true
-        - java_method: clearProperty
-          go_name: ClearProperty
+        - java_method: createWithSha256
+          go_name: CreateWithSha256
           params:
+            - java_type: '[B'
+              go_name: arg0
             - java_type: String
-              go_name: arg0
-          returns: BuilderType
-          error: true
-        - java_method: setCreationTimestampMillis
-          go_name: SetCreationTimestampMillis
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: BuilderType
-          error: true
-        - java_method: setId
-          go_name: SetId
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: BuilderType
-          error: true
-        - java_method: setNamespace
-          go_name: SetNamespace
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: BuilderType
-          error: true
-        - java_method: setPropertyBlobHandle
-          go_name: SetPropertyBlobHandle
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.app.appsearch.AppSearchBlobHandle...
               go_name: arg1
-          returns: BuilderType
-          error: true
-        - java_method: setPropertyBoolean
-          go_name: SetPropertyBoolean
-          params:
             - java_type: String
-              go_name: arg0
-            - java_type: boolean...
-              go_name: arg1
-          returns: BuilderType
-          error: true
-        - java_method: setPropertyBytes
-          go_name: SetPropertyBytes
-          params:
+              go_name: arg2
             - java_type: String
-              go_name: arg0
-            - java_type: byte[]...
-              go_name: arg1
-          returns: BuilderType
-          error: true
-        - java_method: setPropertyDocument
-          go_name: SetPropertyDocument
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.app.appsearch.GenericDocument...
-              go_name: arg1
-          returns: BuilderType
-          error: true
-        - java_method: setPropertyDouble
-          go_name: SetPropertyDouble
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: double...
-              go_name: arg1
-          returns: BuilderType
-          error: true
-        - java_method: setPropertyEmbedding
-          go_name: SetPropertyEmbedding
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.app.appsearch.EmbeddingVector...
-              go_name: arg1
-          returns: BuilderType
-          error: true
-        - java_method: setPropertyLong
-          go_name: SetPropertyLong
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: long...
-              go_name: arg1
-          returns: BuilderType
-          error: true
-        - java_method: setPropertyString
-          go_name: SetPropertyString
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: java.lang.String...
-              go_name: arg1
-          returns: BuilderType
-          error: true
-        - java_method: setSchemaType
-          go_name: SetSchemaType
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: BuilderType
-          error: true
-        - java_method: setScore
-          go_name: SetScore
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: BuilderType
-          error: true
-        - java_method: setTtlMillis
-          go_name: SetTtlMillis
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: BuilderType
-          error: true
-    - java_class: android.app.appsearch.SetSchemaResponse
-      go_type: SetSchemaResponse
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getDeletedTypes
-          go_name: GetDeletedTypes
-          returns: java.util.Set<java.lang.String>
-          error: true
-        - java_method: getIncompatibleTypes
-          go_name: GetIncompatibleTypes
-          returns: java.util.Set<java.lang.String>
-          error: true
-        - java_method: getMigratedTypes
-          go_name: GetMigratedTypes
-          returns: java.util.Set<java.lang.String>
-          error: true
-        - java_method: getMigrationFailures
-          go_name: GetMigrationFailures
-          returns: java.util.List<android.app.appsearch.SetSchemaResponse$MigrationFailure>
+              go_name: arg3
+          returns: android.app.appsearch.AppSearchBlobHandle
           error: true
         - java_method: writeToParcel
           go_name: WriteToParcel
@@ -1150,92 +336,12 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.app.appsearch.SetSchemaResponse$Builder
-      go_type: SetSchemaResponseBuilder
+    - java_class: android.app.appsearch.ReportSystemUsageRequest
+      go_type: ReportSystemUsageRequest
       methods:
-        - java_method: addDeletedType
-          go_name: AddDeletedType
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.app.appsearch.SetSchemaResponse$Builder
-          error: true
-        - java_method: addIncompatibleType
-          go_name: AddIncompatibleType
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.app.appsearch.SetSchemaResponse$Builder
-          error: true
-        - java_method: addMigratedType
-          go_name: AddMigratedType
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.app.appsearch.SetSchemaResponse$Builder
-          error: true
-        - java_method: addMigrationFailure
-          go_name: AddMigrationFailure
-          params:
-            - java_type: android.app.appsearch.SetSchemaResponse$MigrationFailure
-              go_name: arg0
-          returns: android.app.appsearch.SetSchemaResponse$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.app.appsearch.SetSchemaResponse
-          error: true
-    - java_class: android.app.appsearch.EmbeddingVector
-      go_type: EmbeddingVector
-      obtain: constructor
-      constructor_params:
-        - java_type: float[]
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getModelSignature
-          go_name: GetModelSignature
+        - java_method: getDatabaseName
+          go_name: GetDatabaseName
           returns: String
-          error: true
-        - java_method: getValues
-          go_name: GetValues
-          returns: float[]
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.appsearch.SetSchemaResponse$MigrationFailure
-      go_type: SetSchemaResponseMigrationFailure
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getAppSearchResult
-          go_name: GetAppSearchResult
-          returns: android.app.appsearch.AppSearchResult<java.lang.Void>
           error: true
         - java_method: getDocumentId
           go_name: GetDocumentId
@@ -1245,22 +351,37 @@ classes:
           go_name: GetNamespace
           returns: String
           error: true
-        - java_method: getSchemaType
-          go_name: GetSchemaType
+        - java_method: getPackageName
+          go_name: GetPackageName
           returns: String
           error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
+        - java_method: getUsageTimestampMillis
+          go_name: GetUsageTimestampMillis
+          returns: long
           error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
+    - java_class: android.app.appsearch.ReportSystemUsageRequest$Builder
+      go_type: ReportSystemUsageRequestBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+        - java_type: String
+          go_name: arg2
+        - java_type: String
+          go_name: arg3
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.app.appsearch.ReportSystemUsageRequest
+          error: true
+        - java_method: setUsageTimestampMillis
+          go_name: SetUsageTimestampMillis
           params:
-            - java_type: android.os.Parcel
+            - java_type: long
               go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
+          returns: android.app.appsearch.ReportSystemUsageRequest$Builder
           error: true
     - java_class: android.app.appsearch.StorageInfo
       go_type: StorageInfo
@@ -1289,6 +410,7 @@ classes:
           go_name: GetSizeBytes
           returns: long
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -1300,6 +422,7 @@ classes:
           error: true
     - java_class: android.app.appsearch.StorageInfo$Builder
       go_type: StorageInfoBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build
@@ -1340,42 +463,47 @@ classes:
               go_name: arg0
           returns: android.app.appsearch.StorageInfo$Builder
           error: true
-    - java_class: android.app.appsearch.ReportSystemUsageRequest
-      go_type: ReportSystemUsageRequest
+    - java_class: android.app.appsearch.EmbeddingVector
+      go_type: EmbeddingVector
+      obtain: constructor
+      constructor_params:
+        - java_type: float[]
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
       methods:
-        - java_method: getDatabaseName
-          go_name: GetDatabaseName
-          returns: String
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
           error: true
-        - java_method: getDocumentId
-          go_name: GetDocumentId
-          returns: String
-          error: true
-        - java_method: getNamespace
-          go_name: GetNamespace
-          returns: String
-          error: true
-        - java_method: getPackageName
-          go_name: GetPackageName
-          returns: String
-          error: true
-        - java_method: getUsageTimestampMillis
-          go_name: GetUsageTimestampMillis
-          returns: long
-          error: true
-    - java_class: android.app.appsearch.ReportSystemUsageRequest$Builder
-      go_type: ReportSystemUsageRequestBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.app.appsearch.ReportSystemUsageRequest
-          error: true
-        - java_method: setUsageTimestampMillis
-          go_name: SetUsageTimestampMillis
+        - java_method: equals
+          go_name: Equals
           params:
-            - java_type: long
+            - java_type: java.lang.Object
               go_name: arg0
-          returns: android.app.appsearch.ReportSystemUsageRequest$Builder
+          returns: boolean
+          error: true
+        - java_method: getModelSignature
+          go_name: GetModelSignature
+          returns: String
+          error: true
+        - java_method: getValues
+          go_name: GetValues
+          returns: float[]
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
           error: true
     - java_class: android.app.appsearch.EnterpriseGlobalSearchSession
       go_type: EnterpriseGlobalSearchSession
@@ -1389,525 +517,95 @@ classes:
               go_name: arg1
           returns: android.app.appsearch.SearchResults
           error: true
-    - java_class: android.app.appsearch.SearchSuggestionSpec
-      go_type: SearchSuggestionSpec
+    - java_class: android.app.appsearch.AppSearchManager
+      go_type: AppSearchManager
+      obtain: system_service
+      service_name: app_search
+      close: true
+    - java_class: android.app.appsearch.AppSearchManager$SearchContext
+      go_type: AppSearchManagerSearchContext
       methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getFilterNamespaces
-          go_name: GetFilterNamespaces
-          returns: java.util.List<java.lang.String>
-          error: true
-        - java_method: getFilterSchemas
-          go_name: GetFilterSchemas
-          returns: java.util.List<java.lang.String>
-          error: true
-        - java_method: getMaximumResultCount
-          go_name: GetMaximumResultCount
-          returns: int
-          error: true
-        - java_method: getRankingStrategy
-          go_name: GetRankingStrategy
-          returns: int
-          error: true
-        - java_method: getSearchStringParameters
-          go_name: GetSearchStringParameters
-          returns: java.util.List<java.lang.String>
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.appsearch.SearchSuggestionSpec$Builder
-      go_type: SearchSuggestionSpecBuilder
-      methods:
-        - java_method: addFilterDocumentIds
-          go_name: AddFilterDocumentIds
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: java.lang.String...
-              go_name: arg1
-          returns: android.app.appsearch.SearchSuggestionSpec$Builder
-          error: true
-        - java_method: addFilterNamespaces
-          go_name: AddFilterNamespaces
-          params:
-            - java_type: java.lang.String...
-              go_name: arg0
-          returns: android.app.appsearch.SearchSuggestionSpec$Builder
-          error: true
-        - java_method: addFilterSchemas
-          go_name: AddFilterSchemas
-          params:
-            - java_type: java.lang.String...
-              go_name: arg0
-          returns: android.app.appsearch.SearchSuggestionSpec$Builder
-          error: true
-        - java_method: addSearchStringParameters
-          go_name: AddSearchStringParameters
-          params:
-            - java_type: java.lang.String...
-              go_name: arg0
-          returns: android.app.appsearch.SearchSuggestionSpec$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.app.appsearch.SearchSuggestionSpec
-          error: true
-        - java_method: setRankingStrategy
-          go_name: SetRankingStrategy
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.app.appsearch.SearchSuggestionSpec$Builder
-          error: true
-    - java_class: android.app.appsearch.Migrator
-      go_type: Migrator
-      methods:
-        - java_method: onDowngrade
-          go_name: OnDowngrade
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.app.appsearch.GenericDocument
-              go_name: arg2
-          returns: android.app.appsearch.GenericDocument
-          error: true
-        - java_method: onUpgrade
-          go_name: OnUpgrade
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.app.appsearch.GenericDocument
-              go_name: arg2
-          returns: android.app.appsearch.GenericDocument
-          error: true
-        - java_method: shouldMigrate
-          go_name: ShouldMigrate
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: boolean
-          error: true
-    - java_class: android.app.appsearch.AppSearchBlobHandle
-      go_type: AppSearchBlobHandle
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
         - java_method: getDatabaseName
           go_name: GetDatabaseName
           returns: String
           error: true
-        - java_method: getNamespace
-          go_name: GetNamespace
-          returns: String
-          error: true
-        - java_method: getPackageName
-          go_name: GetPackageName
-          returns: String
-          error: true
-        - java_method: getSha256Digest
-          go_name: GetSha256Digest
-          returns: '[B'
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
+    - java_class: android.app.appsearch.JoinSpec
+      go_type: JoinSpec
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
           returns: int
           error: true
-        - java_method: toString
-          go_name: ToString
+        - java_method: getAggregationScoringStrategy
+          go_name: GetAggregationScoringStrategy
+          returns: int
+          error: true
+        - java_method: getChildPropertyExpression
+          go_name: GetChildPropertyExpression
           returns: String
           error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
+        - java_method: getMaxJoinedResultCount
+          go_name: GetMaxJoinedResultCount
+          returns: int
+          error: true
+        - java_method: getNestedQuery
+          go_name: GetNestedQuery
+          returns: String
+          error: true
+        - java_method: getNestedSearchSpec
+          go_name: GetNestedSearchSpec
+          returns: android.app.appsearch.SearchSpec
           error: true
       static_methods:
-        - java_method: createWithSha256
-          go_name: CreateWithSha256
+        - java_method: writeToParcel
+          go_name: WriteToParcel
           params:
-            - java_type: '[B'
+            - java_type: android.os.Parcel
               go_name: arg0
-            - java_type: String
+            - java_type: int
               go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: String
-              go_name: arg3
-          returns: android.app.appsearch.AppSearchBlobHandle
+          returns: void
           error: true
-    - java_class: android.app.appsearch.PropertyPath
-      go_type: PropertyPath
+    - java_class: android.app.appsearch.JoinSpec$Builder
+      go_type: JoinSpecBuilder
       obtain: constructor
       constructor_params:
-        - java_type: String
+        - java_type: android.app.appsearch.JoinSpec
           go_name: arg0
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: get
-          go_name: Get
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.app.appsearch.PropertyPath$PathSegment
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: iterator
-          go_name: Iterator
-          returns: java.util.Iterator<android.app.appsearch.PropertyPath$PathSegment>
-          error: true
-        - java_method: size
-          go_name: Size
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.app.appsearch.AppSearchResult
-      go_type: AppSearchResult
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getErrorMessage
-          go_name: GetErrorMessage
-          returns: String
-          error: true
-        - java_method: getResultCode
-          go_name: GetResultCode
-          returns: int
-          error: true
-        - java_method: getResultValue
-          go_name: GetResultValue
-          returns: ValueType
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: isSuccess
-          go_name: IsSuccess
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.app.appsearch.PropertyPath$PathSegment
-      go_type: PropertyPathPathSegment
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getPropertyIndex
-          go_name: GetPropertyIndex
-          returns: int
-          error: true
-        - java_method: getPropertyName
-          go_name: GetPropertyName
-          returns: String
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-      static_methods:
-        - java_method: create
-          go_name: Create1
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.app.appsearch.PropertyPath$PathSegment
-          error: true
-        - java_method: create
-          go_name: Create2_1
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.app.appsearch.PropertyPath$PathSegment
-          error: true
-    - java_class: android.app.appsearch.GetSchemaResponse
-      go_type: GetSchemaResponse
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getSchemaTypesNotDisplayedBySystem
-          go_name: GetSchemaTypesNotDisplayedBySystem
-          returns: java.util.Set<java.lang.String>
-          error: true
-        - java_method: getSchemas
-          go_name: GetSchemas
-          returns: java.util.Set<android.app.appsearch.AppSearchSchema>
-          error: true
-        - java_method: getVersion
-          go_name: GetVersion
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.appsearch.SearchSuggestionResult
-      go_type: SearchSuggestionResult
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getSuggestedResult
-          go_name: GetSuggestedResult
-          returns: String
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.appsearch.GetSchemaResponse$Builder
-      go_type: GetSchemaResponseBuilder
-      methods:
-        - java_method: addSchema
-          go_name: AddSchema
-          params:
-            - java_type: android.app.appsearch.AppSearchSchema
-              go_name: arg0
-          returns: android.app.appsearch.GetSchemaResponse$Builder
-          error: true
-        - java_method: addSchemaTypeNotDisplayedBySystem
-          go_name: AddSchemaTypeNotDisplayedBySystem
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.app.appsearch.GetSchemaResponse$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.app.appsearch.GetSchemaResponse
-          error: true
-        - java_method: clearPubliclyVisibleSchema
-          go_name: ClearPubliclyVisibleSchema
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.app.appsearch.GetSchemaResponse$Builder
-          error: true
-        - java_method: clearRequiredPermissionsForSchemaTypeVisibility
-          go_name: ClearRequiredPermissionsForSchemaTypeVisibility
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.app.appsearch.GetSchemaResponse$Builder
-          error: true
-        - java_method: clearSchemaTypeNotDisplayedBySystem
-          go_name: ClearSchemaTypeNotDisplayedBySystem
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.app.appsearch.GetSchemaResponse$Builder
-          error: true
-        - java_method: clearSchemaTypeVisibleToConfigs
-          go_name: ClearSchemaTypeVisibleToConfigs
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.app.appsearch.GetSchemaResponse$Builder
-          error: true
-        - java_method: clearSchemaTypeVisibleToPackages
-          go_name: ClearSchemaTypeVisibleToPackages
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.app.appsearch.GetSchemaResponse$Builder
-          error: true
-        - java_method: clearSchemas
-          go_name: ClearSchemas
-          returns: android.app.appsearch.GetSchemaResponse$Builder
-          error: true
-        - java_method: setPubliclyVisibleSchema
-          go_name: SetPubliclyVisibleSchema
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.app.appsearch.PackageIdentifier
-              go_name: arg1
-          returns: android.app.appsearch.GetSchemaResponse$Builder
-          error: true
-        - java_method: setVersion
-          go_name: SetVersion
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.app.appsearch.GetSchemaResponse$Builder
-          error: true
-    - java_class: android.app.appsearch.SearchSuggestionResult$Builder
-      go_type: SearchSuggestionResultBuilder
       methods:
         - java_method: build
           go_name: Build
-          returns: android.app.appsearch.SearchSuggestionResult
+          returns: android.app.appsearch.JoinSpec
           error: true
-        - java_method: setSuggestedResult
-          go_name: SetSuggestedResult
+        - java_method: setAggregationScoringStrategy
+          go_name: SetAggregationScoringStrategy
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.app.appsearch.JoinSpec$Builder
+          error: true
+        - java_method: setChildPropertyExpression
+          go_name: SetChildPropertyExpression
           params:
             - java_type: String
               go_name: arg0
-          returns: android.app.appsearch.SearchSuggestionResult$Builder
+          returns: android.app.appsearch.JoinSpec$Builder
           error: true
-    - java_class: android.app.appsearch.GetByDocumentIdRequest
-      go_type: GetByDocumentIdRequest
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getIds
-          go_name: GetIds
-          returns: java.util.Set<java.lang.String>
-          error: true
-        - java_method: getNamespace
-          go_name: GetNamespace
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
+        - java_method: setMaxJoinedResultCount
+          go_name: SetMaxJoinedResultCount
           params:
-            - java_type: android.os.Parcel
-              go_name: arg0
             - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.appsearch.GetByDocumentIdRequest$Builder
-      go_type: GetByDocumentIdRequestBuilder
-      methods:
-        - java_method: addIds
-          go_name: AddIds
-          params:
-            - java_type: java.lang.String...
               go_name: arg0
-          returns: android.app.appsearch.GetByDocumentIdRequest$Builder
+          returns: android.app.appsearch.JoinSpec$Builder
           error: true
-        - java_method: build
-          go_name: Build
-          returns: android.app.appsearch.GetByDocumentIdRequest
-          error: true
-    - java_class: android.app.appsearch.RemoveBlobResponse
-      go_type: RemoveBlobResponse
-      obtain: constructor
-      constructor_params:
-        - java_type: android.app.appsearch.AppSearchBatchResult<android.app.appsearch.AppSearchBlobHandle, java.lang.Void>
-          go_name: arg0
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
+        - java_method: setNestedSearch
+          go_name: SetNestedSearch
           params:
-            - java_type: android.os.Parcel
+            - java_type: String
               go_name: arg0
-            - java_type: int
+            - java_type: android.app.appsearch.SearchSpec
               go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.appsearch.OpenBlobForWriteResponse
-      go_type: OpenBlobForWriteResponse
-      obtain: constructor
-      constructor_params:
-        - java_type: android.app.appsearch.AppSearchBatchResult<android.app.appsearch.AppSearchBlobHandle, android.os.ParcelFileDescriptor>
-          go_name: arg0
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
+          returns: android.app.appsearch.JoinSpec$Builder
           error: true
     - java_class: android.app.appsearch.SearchSpec
       go_type: SearchSpec
@@ -2020,6 +718,7 @@ classes:
           go_name: IsVerbatimSearchEnabled
           returns: boolean
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -2031,6 +730,7 @@ classes:
           error: true
     - java_class: android.app.appsearch.SearchSpec$Builder
       go_type: SearchSpecBuilder
+      obtain: constructor
       methods:
         - java_method: addEmbeddingParameters
           go_name: AddEmbeddingParameters
@@ -2265,50 +965,6 @@ classes:
               go_name: arg0
           returns: android.app.appsearch.SearchSpec$Builder
           error: true
-    - java_class: android.app.appsearch.BatchResultCallback
-      go_type: BatchResultCallback
-    - java_class: android.app.appsearch.ReportUsageRequest
-      go_type: ReportUsageRequest
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getDocumentId
-          go_name: GetDocumentId
-          returns: String
-          error: true
-        - java_method: getNamespace
-          go_name: GetNamespace
-          returns: String
-          error: true
-        - java_method: getUsageTimestampMillis
-          go_name: GetUsageTimestampMillis
-          returns: long
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.appsearch.ReportUsageRequest$Builder
-      go_type: ReportUsageRequestBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.app.appsearch.ReportUsageRequest
-          error: true
-        - java_method: setUsageTimestampMillis
-          go_name: SetUsageTimestampMillis
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.app.appsearch.ReportUsageRequest$Builder
-          error: true
     - java_class: android.app.appsearch.CommitBlobResponse
       go_type: CommitBlobResponse
       obtain: constructor
@@ -2320,6 +976,7 @@ classes:
           go_name: DescribeContents
           returns: int
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -2328,6 +985,1029 @@ classes:
             - java_type: int
               go_name: arg1
           returns: void
+          error: true
+    - java_class: android.app.appsearch.PropertyPath
+      go_type: PropertyPath
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: get
+          go_name: Get
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.app.appsearch.PropertyPath$PathSegment
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: iterator
+          go_name: Iterator
+          returns: java.util.Iterator<android.app.appsearch.PropertyPath$PathSegment>
+          error: true
+        - java_method: size
+          go_name: Size
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.app.appsearch.PropertyPath$PathSegment
+      go_type: PropertyPathPathSegment
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getPropertyIndex
+          go_name: GetPropertyIndex
+          returns: int
+          error: true
+        - java_method: getPropertyName
+          go_name: GetPropertyName
+          returns: String
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: create
+          go_name: Create1
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.app.appsearch.PropertyPath$PathSegment
+          error: true
+        - java_method: create
+          go_name: Create2_1
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.app.appsearch.PropertyPath$PathSegment
+          error: true
+    - java_class: android.app.appsearch.AppSearchSession
+      go_type: AppSearchSession
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: search
+          go_name: Search
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.app.appsearch.SearchSpec
+              go_name: arg1
+          returns: android.app.appsearch.SearchResults
+          error: true
+    - java_class: android.app.appsearch.RemoveBlobResponse
+      go_type: RemoveBlobResponse
+      obtain: constructor
+      constructor_params:
+        - java_type: android.app.appsearch.AppSearchBatchResult<android.app.appsearch.AppSearchBlobHandle, java.lang.Void>
+          go_name: arg0
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.appsearch.AppSearchResult
+      go_type: AppSearchResult
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getErrorMessage
+          go_name: GetErrorMessage
+          returns: String
+          error: true
+        - java_method: getResultCode
+          go_name: GetResultCode
+          returns: int
+          error: true
+        - java_method: getResultValue
+          go_name: GetResultValue
+          returns: ValueType
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: isSuccess
+          go_name: IsSuccess
+          returns: boolean
+          error: true
+    - java_class: android.app.appsearch.OpenBlobForWriteResponse
+      go_type: OpenBlobForWriteResponse
+      obtain: constructor
+      constructor_params:
+        - java_type: android.app.appsearch.AppSearchBatchResult<android.app.appsearch.AppSearchBlobHandle, android.os.ParcelFileDescriptor>
+          go_name: arg0
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.appsearch.SearchSuggestionSpec
+      go_type: SearchSuggestionSpec
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getFilterNamespaces
+          go_name: GetFilterNamespaces
+          returns: java.util.List<java.lang.String>
+          error: true
+        - java_method: getFilterSchemas
+          go_name: GetFilterSchemas
+          returns: java.util.List<java.lang.String>
+          error: true
+        - java_method: getMaximumResultCount
+          go_name: GetMaximumResultCount
+          returns: int
+          error: true
+        - java_method: getRankingStrategy
+          go_name: GetRankingStrategy
+          returns: int
+          error: true
+        - java_method: getSearchStringParameters
+          go_name: GetSearchStringParameters
+          returns: java.util.List<java.lang.String>
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.appsearch.SearchSuggestionSpec$Builder
+      go_type: SearchSuggestionSpecBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+      methods:
+        - java_method: addFilterDocumentIds
+          go_name: AddFilterDocumentIds
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: java.lang.String...
+              go_name: arg1
+          returns: android.app.appsearch.SearchSuggestionSpec$Builder
+          error: true
+        - java_method: addFilterNamespaces
+          go_name: AddFilterNamespaces
+          params:
+            - java_type: java.lang.String...
+              go_name: arg0
+          returns: android.app.appsearch.SearchSuggestionSpec$Builder
+          error: true
+        - java_method: addFilterSchemas
+          go_name: AddFilterSchemas
+          params:
+            - java_type: java.lang.String...
+              go_name: arg0
+          returns: android.app.appsearch.SearchSuggestionSpec$Builder
+          error: true
+        - java_method: addSearchStringParameters
+          go_name: AddSearchStringParameters
+          params:
+            - java_type: java.lang.String...
+              go_name: arg0
+          returns: android.app.appsearch.SearchSuggestionSpec$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.app.appsearch.SearchSuggestionSpec
+          error: true
+        - java_method: setRankingStrategy
+          go_name: SetRankingStrategy
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.app.appsearch.SearchSuggestionSpec$Builder
+          error: true
+    - java_class: android.app.appsearch.Migrator
+      go_type: Migrator
+      methods:
+        - java_method: onDowngrade
+          go_name: OnDowngrade
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.app.appsearch.GenericDocument
+              go_name: arg2
+          returns: android.app.appsearch.GenericDocument
+          error: true
+        - java_method: onUpgrade
+          go_name: OnUpgrade
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.app.appsearch.GenericDocument
+              go_name: arg2
+          returns: android.app.appsearch.GenericDocument
+          error: true
+        - java_method: shouldMigrate
+          go_name: ShouldMigrate
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: boolean
+          error: true
+    - java_class: android.app.appsearch.AppSearchBatchResult
+      go_type: AppSearchBatchResult
+      methods:
+        - java_method: isSuccess
+          go_name: IsSuccess
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.app.appsearch.AppSearchBatchResult$Builder
+      go_type: AppSearchBatchResultBuilder
+      obtain: constructor
+    - java_class: android.app.appsearch.SetSchemaResponse
+      go_type: SetSchemaResponse
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getDeletedTypes
+          go_name: GetDeletedTypes
+          returns: java.util.Set<java.lang.String>
+          error: true
+        - java_method: getIncompatibleTypes
+          go_name: GetIncompatibleTypes
+          returns: java.util.Set<java.lang.String>
+          error: true
+        - java_method: getMigratedTypes
+          go_name: GetMigratedTypes
+          returns: java.util.Set<java.lang.String>
+          error: true
+        - java_method: getMigrationFailures
+          go_name: GetMigrationFailures
+          returns: java.util.List<android.app.appsearch.SetSchemaResponse$MigrationFailure>
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.appsearch.SetSchemaResponse$Builder
+      go_type: SetSchemaResponseBuilder
+      obtain: constructor
+      methods:
+        - java_method: addDeletedType
+          go_name: AddDeletedType
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.app.appsearch.SetSchemaResponse$Builder
+          error: true
+        - java_method: addIncompatibleType
+          go_name: AddIncompatibleType
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.app.appsearch.SetSchemaResponse$Builder
+          error: true
+        - java_method: addMigratedType
+          go_name: AddMigratedType
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.app.appsearch.SetSchemaResponse$Builder
+          error: true
+        - java_method: addMigrationFailure
+          go_name: AddMigrationFailure
+          params:
+            - java_type: android.app.appsearch.SetSchemaResponse$MigrationFailure
+              go_name: arg0
+          returns: android.app.appsearch.SetSchemaResponse$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.app.appsearch.SetSchemaResponse
+          error: true
+    - java_class: android.app.appsearch.SetSchemaResponse$MigrationFailure
+      go_type: SetSchemaResponseMigrationFailure
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+        - java_type: String
+          go_name: arg2
+        - java_type: android.app.appsearch.AppSearchResult<?>
+          go_name: arg3
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getAppSearchResult
+          go_name: GetAppSearchResult
+          returns: android.app.appsearch.AppSearchResult<java.lang.Void>
+          error: true
+        - java_method: getDocumentId
+          go_name: GetDocumentId
+          returns: String
+          error: true
+        - java_method: getNamespace
+          go_name: GetNamespace
+          returns: String
+          error: true
+        - java_method: getSchemaType
+          go_name: GetSchemaType
+          returns: String
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.appsearch.SearchResults
+      go_type: SearchResults
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+    - java_class: android.app.appsearch.AppSearchSchema
+      go_type: AppSearchSchema
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getParentTypes
+          go_name: GetParentTypes
+          returns: java.util.List<java.lang.String>
+          error: true
+        - java_method: getProperties
+          go_name: GetProperties
+          returns: java.util.List<android.app.appsearch.AppSearchSchema$PropertyConfig>
+          error: true
+        - java_method: getSchemaType
+          go_name: GetSchemaType
+          returns: String
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.appsearch.AppSearchSchema$BlobHandlePropertyConfig
+      go_type: AppSearchSchemaBlobHandlePropertyConfig
+    - java_class: android.app.appsearch.AppSearchSchema$BooleanPropertyConfig
+      go_type: AppSearchSchemaBooleanPropertyConfig
+      methods:
+        - java_method: isScoringEnabled
+          go_name: IsScoringEnabled
+          returns: boolean
+          error: true
+    - java_class: android.app.appsearch.AppSearchSchema$Builder
+      go_type: AppSearchSchemaBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.app.appsearch.AppSearchSchema
+          go_name: arg0
+      methods:
+        - java_method: addParentType
+          go_name: AddParentType
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.app.appsearch.AppSearchSchema$Builder
+          error: true
+        - java_method: addProperty
+          go_name: AddProperty
+          params:
+            - java_type: android.app.appsearch.AppSearchSchema$PropertyConfig
+              go_name: arg0
+          returns: android.app.appsearch.AppSearchSchema$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.app.appsearch.AppSearchSchema
+          error: true
+        - java_method: clearParentTypes
+          go_name: ClearParentTypes
+          returns: android.app.appsearch.AppSearchSchema$Builder
+          error: true
+        - java_method: clearProperties
+          go_name: ClearProperties
+          returns: android.app.appsearch.AppSearchSchema$Builder
+          error: true
+        - java_method: setSchemaType
+          go_name: SetSchemaType
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.app.appsearch.AppSearchSchema$Builder
+          error: true
+    - java_class: android.app.appsearch.AppSearchSchema$BytesPropertyConfig
+      go_type: AppSearchSchemaBytesPropertyConfig
+    - java_class: android.app.appsearch.AppSearchSchema$DocumentPropertyConfig
+      go_type: AppSearchSchemaDocumentPropertyConfig
+      methods:
+        - java_method: getIndexableNestedProperties
+          go_name: GetIndexableNestedProperties
+          returns: java.util.List<java.lang.String>
+          error: true
+        - java_method: getSchemaType
+          go_name: GetSchemaType
+          returns: String
+          error: true
+        - java_method: shouldIndexNestedProperties
+          go_name: ShouldIndexNestedProperties
+          returns: boolean
+          error: true
+    - java_class: android.app.appsearch.AppSearchSchema$DoublePropertyConfig
+      go_type: AppSearchSchemaDoublePropertyConfig
+      methods:
+        - java_method: isScoringEnabled
+          go_name: IsScoringEnabled
+          returns: boolean
+          error: true
+    - java_class: android.app.appsearch.AppSearchSchema$EmbeddingPropertyConfig
+      go_type: AppSearchSchemaEmbeddingPropertyConfig
+      methods:
+        - java_method: getIndexingType
+          go_name: GetIndexingType
+          returns: int
+          error: true
+        - java_method: getQuantizationType
+          go_name: GetQuantizationType
+          returns: int
+          error: true
+    - java_class: android.app.appsearch.AppSearchSchema$LongPropertyConfig
+      go_type: AppSearchSchemaLongPropertyConfig
+      methods:
+        - java_method: getIndexingType
+          go_name: GetIndexingType
+          returns: int
+          error: true
+        - java_method: isScoringEnabled
+          go_name: IsScoringEnabled
+          returns: boolean
+          error: true
+    - java_class: android.app.appsearch.AppSearchSchema$PropertyConfig
+      go_type: AppSearchSchemaPropertyConfig
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getCardinality
+          go_name: GetCardinality
+          returns: int
+          error: true
+        - java_method: getName
+          go_name: GetName
+          returns: String
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.app.appsearch.AppSearchSchema$StringPropertyConfig
+      go_type: AppSearchSchemaStringPropertyConfig
+      methods:
+        - java_method: getIndexingType
+          go_name: GetIndexingType
+          returns: int
+          error: true
+        - java_method: getJoinableValueType
+          go_name: GetJoinableValueType
+          returns: int
+          error: true
+        - java_method: getTokenizerType
+          go_name: GetTokenizerType
+          returns: int
+          error: true
+    - java_class: android.app.appsearch.RemoveByDocumentIdRequest
+      go_type: RemoveByDocumentIdRequest
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getIds
+          go_name: GetIds
+          returns: java.util.Set<java.lang.String>
+          error: true
+        - java_method: getNamespace
+          go_name: GetNamespace
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.appsearch.SearchResult
+      go_type: SearchResult
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getDatabaseName
+          go_name: GetDatabaseName
+          returns: String
+          error: true
+        - java_method: getGenericDocument
+          go_name: GetGenericDocument
+          returns: android.app.appsearch.GenericDocument
+          error: true
+        - java_method: getInformationalRankingSignals
+          go_name: GetInformationalRankingSignals
+          returns: java.util.List<java.lang.Double>
+          error: true
+        - java_method: getJoinedResults
+          go_name: GetJoinedResults
+          returns: java.util.List<android.app.appsearch.SearchResult>
+          error: true
+        - java_method: getMatchInfos
+          go_name: GetMatchInfos
+          returns: java.util.List<android.app.appsearch.SearchResult$MatchInfo>
+          error: true
+        - java_method: getPackageName
+          go_name: GetPackageName
+          returns: String
+          error: true
+        - java_method: getRankingSignal
+          go_name: GetRankingSignal
+          returns: double
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.appsearch.RemoveByDocumentIdRequest$Builder
+      go_type: RemoveByDocumentIdRequestBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+      methods:
+        - java_method: addIds
+          go_name: AddIds
+          params:
+            - java_type: java.lang.String...
+              go_name: arg0
+          returns: android.app.appsearch.RemoveByDocumentIdRequest$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.app.appsearch.RemoveByDocumentIdRequest
+          error: true
+    - java_class: android.app.appsearch.SearchResult$Builder
+      go_type: SearchResultBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+      methods:
+        - java_method: addInformationalRankingSignal
+          go_name: AddInformationalRankingSignal
+          params:
+            - java_type: double
+              go_name: arg0
+          returns: android.app.appsearch.SearchResult$Builder
+          error: true
+        - java_method: addJoinedResult
+          go_name: AddJoinedResult
+          params:
+            - java_type: android.app.appsearch.SearchResult
+              go_name: arg0
+          returns: android.app.appsearch.SearchResult$Builder
+          error: true
+        - java_method: addMatchInfo
+          go_name: AddMatchInfo
+          params:
+            - java_type: android.app.appsearch.SearchResult$MatchInfo
+              go_name: arg0
+          returns: android.app.appsearch.SearchResult$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.app.appsearch.SearchResult
+          error: true
+        - java_method: setGenericDocument
+          go_name: SetGenericDocument
+          params:
+            - java_type: android.app.appsearch.GenericDocument
+              go_name: arg0
+          returns: android.app.appsearch.SearchResult$Builder
+          error: true
+        - java_method: setRankingSignal
+          go_name: SetRankingSignal
+          params:
+            - java_type: double
+              go_name: arg0
+          returns: android.app.appsearch.SearchResult$Builder
+          error: true
+    - java_class: android.app.appsearch.SearchResult$MatchInfo
+      go_type: SearchResultMatchInfo
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getExactMatch
+          go_name: GetExactMatch
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getExactMatchRange
+          go_name: GetExactMatchRange
+          returns: android.app.appsearch.SearchResult$MatchRange
+          error: true
+        - java_method: getFullText
+          go_name: GetFullText
+          returns: String
+          error: true
+        - java_method: getPropertyPath
+          go_name: GetPropertyPath
+          returns: String
+          error: true
+        - java_method: getPropertyPathObject
+          go_name: GetPropertyPathObject
+          returns: android.app.appsearch.PropertyPath
+          error: true
+        - java_method: getSnippet
+          go_name: GetSnippet
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getSnippetRange
+          go_name: GetSnippetRange
+          returns: android.app.appsearch.SearchResult$MatchRange
+          error: true
+        - java_method: getSubmatch
+          go_name: GetSubmatch
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getSubmatchRange
+          go_name: GetSubmatchRange
+          returns: android.app.appsearch.SearchResult$MatchRange
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.appsearch.SearchResult$MatchRange
+      go_type: SearchResultMatchRange
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getEnd
+          go_name: GetEnd
+          returns: int
+          error: true
+        - java_method: getStart
+          go_name: GetStart
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.app.appsearch.BatchResultCallback
+      go_type: BatchResultCallback
+    - java_class: android.app.appsearch.GlobalSearchSession
+      go_type: GlobalSearchSession
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: registerObserverCallback
+          go_name: RegisterObserverCallback
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.app.appsearch.observer.ObserverSpec
+              go_name: arg1
+            - java_type: java.util.concurrent.Executor
+              go_name: arg2
+            - java_type: android.app.appsearch.observer.ObserverCallback
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: search
+          go_name: Search
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.app.appsearch.SearchSpec
+              go_name: arg1
+          returns: android.app.appsearch.SearchResults
+          error: true
+        - java_method: unregisterObserverCallback
+          go_name: UnregisterObserverCallback
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.app.appsearch.observer.ObserverCallback
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.appsearch.GetSchemaResponse
+      go_type: GetSchemaResponse
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getSchemaTypesNotDisplayedBySystem
+          go_name: GetSchemaTypesNotDisplayedBySystem
+          returns: java.util.Set<java.lang.String>
+          error: true
+        - java_method: getSchemas
+          go_name: GetSchemas
+          returns: java.util.Set<android.app.appsearch.AppSearchSchema>
+          error: true
+        - java_method: getVersion
+          go_name: GetVersion
+          returns: int
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.appsearch.GetSchemaResponse$Builder
+      go_type: GetSchemaResponseBuilder
+      obtain: constructor
+      methods:
+        - java_method: addSchema
+          go_name: AddSchema
+          params:
+            - java_type: android.app.appsearch.AppSearchSchema
+              go_name: arg0
+          returns: android.app.appsearch.GetSchemaResponse$Builder
+          error: true
+        - java_method: addSchemaTypeNotDisplayedBySystem
+          go_name: AddSchemaTypeNotDisplayedBySystem
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.app.appsearch.GetSchemaResponse$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.app.appsearch.GetSchemaResponse
+          error: true
+        - java_method: clearPubliclyVisibleSchema
+          go_name: ClearPubliclyVisibleSchema
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.app.appsearch.GetSchemaResponse$Builder
+          error: true
+        - java_method: clearRequiredPermissionsForSchemaTypeVisibility
+          go_name: ClearRequiredPermissionsForSchemaTypeVisibility
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.app.appsearch.GetSchemaResponse$Builder
+          error: true
+        - java_method: clearSchemaTypeNotDisplayedBySystem
+          go_name: ClearSchemaTypeNotDisplayedBySystem
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.app.appsearch.GetSchemaResponse$Builder
+          error: true
+        - java_method: clearSchemaTypeVisibleToConfigs
+          go_name: ClearSchemaTypeVisibleToConfigs
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.app.appsearch.GetSchemaResponse$Builder
+          error: true
+        - java_method: clearSchemaTypeVisibleToPackages
+          go_name: ClearSchemaTypeVisibleToPackages
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.app.appsearch.GetSchemaResponse$Builder
+          error: true
+        - java_method: clearSchemas
+          go_name: ClearSchemas
+          returns: android.app.appsearch.GetSchemaResponse$Builder
+          error: true
+        - java_method: setPubliclyVisibleSchema
+          go_name: SetPubliclyVisibleSchema
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.app.appsearch.PackageIdentifier
+              go_name: arg1
+          returns: android.app.appsearch.GetSchemaResponse$Builder
+          error: true
+        - java_method: setVersion
+          go_name: SetVersion
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.app.appsearch.GetSchemaResponse$Builder
+          error: true
+    - java_class: android.app.appsearch.GetByDocumentIdRequest
+      go_type: GetByDocumentIdRequest
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getIds
+          go_name: GetIds
+          returns: java.util.Set<java.lang.String>
+          error: true
+        - java_method: getNamespace
+          go_name: GetNamespace
+          returns: String
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.appsearch.GetByDocumentIdRequest$Builder
+      go_type: GetByDocumentIdRequestBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+      methods:
+        - java_method: addIds
+          go_name: AddIds
+          params:
+            - java_type: java.lang.String...
+              go_name: arg0
+          returns: android.app.appsearch.GetByDocumentIdRequest$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.app.appsearch.GetByDocumentIdRequest
           error: true
     - java_class: android.app.appsearch.SetBlobVisibilityRequest
       go_type: SetBlobVisibilityRequest
@@ -2338,6 +2018,7 @@ classes:
           error: true
     - java_class: android.app.appsearch.SetBlobVisibilityRequest$Builder
       go_type: SetBlobVisibilityRequestBuilder
+      obtain: constructor
       methods:
         - java_method: addNamespaceVisibleToConfig
           go_name: AddNamespaceVisibleToConfig
@@ -2368,31 +2049,419 @@ classes:
               go_name: arg1
           returns: android.app.appsearch.SetBlobVisibilityRequest$Builder
           error: true
-abstract_callbacks:
-    - java_class: android.app.appsearch.AppSearchSchema$PropertyConfig
-      go_type: AppSearchSchemaPropertyConfigCallback
+    - java_class: android.app.appsearch.GenericDocument
+      go_type: GenericDocument
       methods:
         - java_method: equals
+          go_name: Equals
           params:
-            - java.lang.Object
+            - java_type: java.lang.Object
+              go_name: arg0
           returns: boolean
-          go_field: Equals
-        - java_method: getCardinality
-          params: []
-          returns: int
-          go_field: GetCardinality
-        - java_method: getName
-          params: []
+          error: true
+        - java_method: getCreationTimestampMillis
+          go_name: GetCreationTimestampMillis
+          returns: long
+          error: true
+        - java_method: getId
+          go_name: GetId
           returns: String
-          go_field: GetName
+          error: true
+        - java_method: getNamespace
+          go_name: GetNamespace
+          returns: String
+          error: true
+        - java_method: getProperty
+          go_name: GetProperty
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: java.lang.Object
+          error: true
+        - java_method: getPropertyBlobHandle
+          go_name: GetPropertyBlobHandle
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.app.appsearch.AppSearchBlobHandle
+          error: true
+        - java_method: getPropertyBlobHandleArray
+          go_name: GetPropertyBlobHandleArray
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.app.appsearch.AppSearchBlobHandle[]
+          error: true
+        - java_method: getPropertyBoolean
+          go_name: GetPropertyBoolean
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getPropertyBooleanArray
+          go_name: GetPropertyBooleanArray
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean[]
+          error: true
+        - java_method: getPropertyBytes
+          go_name: GetPropertyBytes
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: '[B'
+          error: true
+        - java_method: getPropertyBytesArray
+          go_name: GetPropertyBytesArray
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: byte[][]
+          error: true
+        - java_method: getPropertyDocument
+          go_name: GetPropertyDocument
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.app.appsearch.GenericDocument
+          error: true
+        - java_method: getPropertyDocumentArray
+          go_name: GetPropertyDocumentArray
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.app.appsearch.GenericDocument[]
+          error: true
+        - java_method: getPropertyDouble
+          go_name: GetPropertyDouble
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: double
+          error: true
+        - java_method: getPropertyDoubleArray
+          go_name: GetPropertyDoubleArray
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: double[]
+          error: true
+        - java_method: getPropertyEmbedding
+          go_name: GetPropertyEmbedding
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.app.appsearch.EmbeddingVector
+          error: true
+        - java_method: getPropertyEmbeddingArray
+          go_name: GetPropertyEmbeddingArray
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.app.appsearch.EmbeddingVector[]
+          error: true
+        - java_method: getPropertyLong
+          go_name: GetPropertyLong
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: long
+          error: true
+        - java_method: getPropertyLongArray
+          go_name: GetPropertyLongArray
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: '[J'
+          error: true
+        - java_method: getPropertyNames
+          go_name: GetPropertyNames
+          returns: java.util.Set<java.lang.String>
+          error: true
+        - java_method: getPropertyString
+          go_name: GetPropertyString
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getPropertyStringArray
+          go_name: GetPropertyStringArray
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: java.lang.String[]
+          error: true
+        - java_method: getSchemaType
+          go_name: GetSchemaType
+          returns: String
+          error: true
+        - java_method: getScore
+          go_name: GetScore
+          returns: int
+          error: true
+        - java_method: getTtlMillis
+          go_name: GetTtlMillis
+          returns: long
+          error: true
         - java_method: hashCode
-          params: []
+          go_name: HashCode
           returns: int
-          go_field: HashCode
+          error: true
         - java_method: toString
-          params: []
+          go_name: ToString
           returns: String
-          go_field: ToString
+          error: true
+      static_methods:
+        - java_method: getMaxIndexedProperties
+          go_name: GetMaxIndexedProperties
+          returns: int
+          error: true
+    - java_class: android.app.appsearch.PackageIdentifier
+      go_type: PackageIdentifier
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: '[B'
+          go_name: arg1
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getPackageName
+          go_name: GetPackageName
+          returns: String
+          error: true
+        - java_method: getSha256Certificate
+          go_name: GetSha256Certificate
+          returns: '[B'
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+    - java_class: android.app.appsearch.GenericDocument$Builder
+      go_type: GenericDocumentBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.app.appsearch.GenericDocument
+          go_name: arg0
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.app.appsearch.GenericDocument
+          error: true
+        - java_method: clearProperty
+          go_name: ClearProperty
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: BuilderType
+          error: true
+        - java_method: setCreationTimestampMillis
+          go_name: SetCreationTimestampMillis
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: BuilderType
+          error: true
+        - java_method: setId
+          go_name: SetId
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: BuilderType
+          error: true
+        - java_method: setNamespace
+          go_name: SetNamespace
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: BuilderType
+          error: true
+        - java_method: setPropertyBlobHandle
+          go_name: SetPropertyBlobHandle
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.app.appsearch.AppSearchBlobHandle...
+              go_name: arg1
+          returns: BuilderType
+          error: true
+        - java_method: setPropertyBoolean
+          go_name: SetPropertyBoolean
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: boolean...
+              go_name: arg1
+          returns: BuilderType
+          error: true
+        - java_method: setPropertyBytes
+          go_name: SetPropertyBytes
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: byte[]...
+              go_name: arg1
+          returns: BuilderType
+          error: true
+        - java_method: setPropertyDocument
+          go_name: SetPropertyDocument
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.app.appsearch.GenericDocument...
+              go_name: arg1
+          returns: BuilderType
+          error: true
+        - java_method: setPropertyDouble
+          go_name: SetPropertyDouble
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: double...
+              go_name: arg1
+          returns: BuilderType
+          error: true
+        - java_method: setPropertyEmbedding
+          go_name: SetPropertyEmbedding
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.app.appsearch.EmbeddingVector...
+              go_name: arg1
+          returns: BuilderType
+          error: true
+        - java_method: setPropertyLong
+          go_name: SetPropertyLong
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: long...
+              go_name: arg1
+          returns: BuilderType
+          error: true
+        - java_method: setPropertyString
+          go_name: SetPropertyString
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: java.lang.String...
+              go_name: arg1
+          returns: BuilderType
+          error: true
+        - java_method: setSchemaType
+          go_name: SetSchemaType
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: BuilderType
+          error: true
+        - java_method: setScore
+          go_name: SetScore
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: BuilderType
+          error: true
+        - java_method: setTtlMillis
+          go_name: SetTtlMillis
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: BuilderType
+          error: true
+    - java_class: android.app.appsearch.ReportUsageRequest
+      go_type: ReportUsageRequest
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getDocumentId
+          go_name: GetDocumentId
+          returns: String
+          error: true
+        - java_method: getNamespace
+          go_name: GetNamespace
+          returns: String
+          error: true
+        - java_method: getUsageTimestampMillis
+          go_name: GetUsageTimestampMillis
+          returns: long
+          error: true
+      static_methods:
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.appsearch.ReportUsageRequest$Builder
+      go_type: ReportUsageRequestBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.app.appsearch.ReportUsageRequest
+          error: true
+        - java_method: setUsageTimestampMillis
+          go_name: SetUsageTimestampMillis
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.app.appsearch.ReportUsageRequest$Builder
+          error: true
+    - java_class: android.app.appsearch.PutDocumentsRequest
+      go_type: PutDocumentsRequest
+      methods:
+        - java_method: getGenericDocuments
+          go_name: GetGenericDocuments
+          returns: java.util.List<android.app.appsearch.GenericDocument>
+          error: true
+        - java_method: getTakenActionGenericDocuments
+          go_name: GetTakenActionGenericDocuments
+          returns: java.util.List<android.app.appsearch.GenericDocument>
+          error: true
+    - java_class: android.app.appsearch.PutDocumentsRequest$Builder
+      go_type: PutDocumentsRequestBuilder
+      obtain: constructor
+      methods:
+        - java_method: addGenericDocuments
+          go_name: AddGenericDocuments
+          params:
+            - java_type: android.app.appsearch.GenericDocument...
+              go_name: arg0
+          returns: android.app.appsearch.PutDocumentsRequest$Builder
+          error: true
+        - java_method: addTakenActionGenericDocuments
+          go_name: AddTakenActionGenericDocuments
+          params:
+            - java_type: android.app.appsearch.GenericDocument...
+              go_name: arg0
+          returns: android.app.appsearch.PutDocumentsRequest$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.app.appsearch.PutDocumentsRequest
+          error: true
+abstract_callbacks:
     - java_class: android.app.appsearch.Migrator
       go_type: MigratorCallback
       methods:
@@ -2416,7 +2485,35 @@ abstract_callbacks:
             - int
           returns: boolean
           go_field: ShouldMigrate
+abstract_callback_eligibility:
+    - java_class: android.app.appsearch.Migrator
+      generated: true
+      reason: supported_no_arg_constructor
+    - java_class: android.app.appsearch.AppSearchSchema$PropertyConfig
+      generated: false
+      reason: unsupported_constructor
 constants:
+    - go_name: ReadAssistantAppSearchData
+      value: "6"
+      go_type: int
+    - go_name: ReadCalendar
+      value: "2"
+      go_type: int
+    - go_name: ReadContacts
+      value: "3"
+      go_type: int
+    - go_name: ReadExternalStorage
+      value: "4"
+      go_type: int
+    - go_name: ReadHomeAppSearchData
+      value: "5"
+      go_type: int
+    - go_name: ReadSms
+      value: "1"
+      go_type: int
+    - go_name: Creator
+      value: "0"
+      go_type: int
     - go_name: AggregationScoringAvgRankingSignal
       value: "3"
       go_type: int
@@ -2435,25 +2532,121 @@ constants:
     - go_name: AggregationScoringSumRankingSignal
       value: "5"
       go_type: int
-    - go_name: Creator
+    - go_name: EmbeddingSearchMetricTypeCosine
+      value: "1"
+      go_type: int
+    - go_name: EmbeddingSearchMetricTypeDefault
       value: "0"
       go_type: int
-    - go_name: ReadAssistantAppSearchData
-      value: "6"
-      go_type: int
-    - go_name: ReadCalendar
+    - go_name: EmbeddingSearchMetricTypeDotProduct
       value: "2"
       go_type: int
-    - go_name: ReadContacts
+    - go_name: EmbeddingSearchMetricTypeEuclidean
       value: "3"
       go_type: int
-    - go_name: ReadExternalStorage
+    - go_name: GroupingTypePerNamespace
+      value: "2"
+      go_type: int
+    - go_name: GroupingTypePerPackage
+      value: "1"
+      go_type: int
+    - go_name: GroupingTypePerSchema
       value: "4"
       go_type: int
-    - go_name: ReadHomeAppSearchData
+    - go_name: OrderAscending
+      value: "1"
+      go_type: int
+    - go_name: OrderDescending
+      value: "0"
+      go_type: int
+    - go_name: ProjectionSchemaTypeWildcard
+      value: '"*"'
+      go_type: string
+    - go_name: RankingStrategyAdvancedRankingExpression
+      value: "9"
+      go_type: int
+    - go_name: RankingStrategyCreationTimestamp
+      value: "2"
+      go_type: int
+    - go_name: RankingStrategyDocumentScore
+      value: "1"
+      go_type: int
+    - go_name: RankingStrategyJoinAggregateScore
+      value: "8"
+      go_type: int
+    - go_name: RankingStrategyNone
+      value: "0"
+      go_type: int
+    - go_name: RankingStrategyRelevanceScore
+      value: "3"
+      go_type: int
+    - go_name: RankingStrategySystemUsageCount
+      value: "6"
+      go_type: int
+    - go_name: RankingStrategySystemUsageLastUsedTimestamp
+      value: "7"
+      go_type: int
+    - go_name: RankingStrategyUsageCount
+      value: "4"
+      go_type: int
+    - go_name: RankingStrategyUsageLastUsedTimestamp
       value: "5"
       go_type: int
-    - go_name: ReadSms
+    - go_name: SchemaTypeWildcard
+      value: '"*"'
+      go_type: string
+    - go_name: TermMatchExactOnly
+      value: "1"
+      go_type: int
+    - go_name: TermMatchPrefix
+      value: "2"
+      go_type: int
+    - go_name: NonRepeatedCardinality
+      value: "-1"
+      go_type: int
+    - go_name: ResultAlreadyExists
+      value: "12"
+      go_type: int
+    - go_name: ResultDenied
+      value: "9"
+      go_type: int
+    - go_name: ResultInternalError
+      value: "2"
+      go_type: int
+    - go_name: ResultInvalidArgument
+      value: "3"
+      go_type: int
+    - go_name: ResultInvalidSchema
+      value: "7"
+      go_type: int
+    - go_name: ResultIoError
+      value: "4"
+      go_type: int
+    - go_name: ResultNotFound
+      value: "6"
+      go_type: int
+    - go_name: ResultOk
+      value: "0"
+      go_type: int
+    - go_name: ResultOutOfSpace
+      value: "5"
+      go_type: int
+    - go_name: ResultRateLimited
+      value: "10"
+      go_type: int
+    - go_name: ResultSecurityError
+      value: "8"
+      go_type: int
+    - go_name: ResultUnknownError
+      value: "1"
+      go_type: int
+    - go_name: SuggestionRankingStrategyDocumentCount
+      value: "0"
+      go_type: int
+    - go_name: SuggestionRankingStrategyNone
+      value: "2"
+      go_type: int
+    - go_name: SuggestionRankingStrategyTermFrequency
       value: "1"
       go_type: int
     - go_name: IndexingTypeNone
@@ -2502,122 +2695,5 @@ constants:
       value: "3"
       go_type: int
     - go_name: TokenizerTypeVerbatim
-      value: "2"
-      go_type: int
-    - go_name: SuggestionRankingStrategyDocumentCount
-      value: "0"
-      go_type: int
-    - go_name: SuggestionRankingStrategyNone
-      value: "2"
-      go_type: int
-    - go_name: SuggestionRankingStrategyTermFrequency
-      value: "1"
-      go_type: int
-    - go_name: ResultAlreadyExists
-      value: "12"
-      go_type: int
-    - go_name: ResultDenied
-      value: "9"
-      go_type: int
-    - go_name: ResultInternalError
-      value: "2"
-      go_type: int
-    - go_name: ResultInvalidArgument
-      value: "3"
-      go_type: int
-    - go_name: ResultInvalidSchema
-      value: "7"
-      go_type: int
-    - go_name: ResultIoError
-      value: "4"
-      go_type: int
-    - go_name: ResultNotFound
-      value: "6"
-      go_type: int
-    - go_name: ResultOk
-      value: "0"
-      go_type: int
-    - go_name: ResultOutOfSpace
-      value: "5"
-      go_type: int
-    - go_name: ResultRateLimited
-      value: "10"
-      go_type: int
-    - go_name: ResultSecurityError
-      value: "8"
-      go_type: int
-    - go_name: ResultUnknownError
-      value: "1"
-      go_type: int
-    - go_name: NonRepeatedCardinality
-      value: "-1"
-      go_type: int
-    - go_name: ProjectionSchemaTypeWildcard
-      value: '"*"'
-      go_type: string
-    - go_name: EmbeddingSearchMetricTypeCosine
-      value: "1"
-      go_type: int
-    - go_name: EmbeddingSearchMetricTypeDefault
-      value: "0"
-      go_type: int
-    - go_name: EmbeddingSearchMetricTypeDotProduct
-      value: "2"
-      go_type: int
-    - go_name: EmbeddingSearchMetricTypeEuclidean
-      value: "3"
-      go_type: int
-    - go_name: GroupingTypePerNamespace
-      value: "2"
-      go_type: int
-    - go_name: GroupingTypePerPackage
-      value: "1"
-      go_type: int
-    - go_name: GroupingTypePerSchema
-      value: "4"
-      go_type: int
-    - go_name: OrderAscending
-      value: "1"
-      go_type: int
-    - go_name: OrderDescending
-      value: "0"
-      go_type: int
-    - go_name: RankingStrategyAdvancedRankingExpression
-      value: "9"
-      go_type: int
-    - go_name: RankingStrategyCreationTimestamp
-      value: "2"
-      go_type: int
-    - go_name: RankingStrategyDocumentScore
-      value: "1"
-      go_type: int
-    - go_name: RankingStrategyJoinAggregateScore
-      value: "8"
-      go_type: int
-    - go_name: RankingStrategyNone
-      value: "0"
-      go_type: int
-    - go_name: RankingStrategyRelevanceScore
-      value: "3"
-      go_type: int
-    - go_name: RankingStrategySystemUsageCount
-      value: "6"
-      go_type: int
-    - go_name: RankingStrategySystemUsageLastUsedTimestamp
-      value: "7"
-      go_type: int
-    - go_name: RankingStrategyUsageCount
-      value: "4"
-      go_type: int
-    - go_name: RankingStrategyUsageLastUsedTimestamp
-      value: "5"
-      go_type: int
-    - go_name: SchemaTypeWildcard
-      value: '"*"'
-      go_type: string
-    - go_name: TermMatchExactOnly
-      value: "1"
-      go_type: int
-    - go_name: TermMatchPrefix
       value: "2"
       go_type: int

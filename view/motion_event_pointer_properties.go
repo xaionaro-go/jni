@@ -23,6 +23,34 @@ type MotionEventPointerProperties struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMotionEventPointerProperties creates a new android.view.MotionEvent$PointerProperties instance.
+func NewMotionEventPointerProperties(vm *jni.VM) (*MotionEventPointerProperties, error) {
+	var t MotionEventPointerProperties
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMotionEventPointerProperties == nil {
+			return fmt.Errorf("android.view.MotionEvent$PointerProperties is not available on this device")
+		}
+		if midMotionEventPointerPropertiesCtor == nil {
+			return fmt.Errorf("android.view.MotionEvent$PointerProperties constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMotionEventPointerProperties)), midMotionEventPointerPropertiesCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Clear calls android.view.MotionEvent$PointerProperties.clear.
 func (m *MotionEventPointerProperties) Clear() error {
 

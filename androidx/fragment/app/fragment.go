@@ -30,6 +30,12 @@ func NewFragment(vm *jni.VM) (*Fragment, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFragment == nil {
+			return fmt.Errorf("androidx.fragment.app.Fragment is not available on this device")
+		}
+		if midFragmentCtor == nil {
+			return fmt.Errorf("androidx.fragment.app.Fragment constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFragment)), midFragmentCtor)
 		if err != nil {
 			return err
@@ -3394,39 +3400,6 @@ func (m *Fragment) StartPostponedEnterTransition() error {
 	return callErr
 }
 
-// Dump calls androidx.fragment.app.Fragment.dump.
-func (m *Fragment) Dump(
-	arg0 string,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-	arg3 *jni.Object,
-) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFragmentDump == nil {
-			callErr = fmt.Errorf("androidx.fragment.app.Fragment.dump is not available on this device")
-			return callErr
-		}
-		jArg0, err := env.NewStringUTF(arg0)
-		if err != nil {
-			return err
-		}
-		defer env.DeleteLocalRef(&jArg0.Object)
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midFragmentDump, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // Instantiate2 calls androidx.fragment.app.Fragment.instantiate.
 func (m *Fragment) Instantiate2(arg0 *jni.Object, arg1 string) (*jni.Object, error) {
 	var result *jni.Object
@@ -3507,4 +3480,37 @@ func (m *Fragment) Instantiate3_1(
 		return callErr
 	})
 	return result, callErr
+}
+
+// Dump calls androidx.fragment.app.Fragment.dump.
+func (m *Fragment) Dump(
+	arg0 string,
+	arg1 *jni.Object,
+	arg2 *jni.Object,
+	arg3 *jni.Object,
+) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midFragmentDump == nil {
+			callErr = fmt.Errorf("androidx.fragment.app.Fragment.dump is not available on this device")
+			return callErr
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsFragment)),
+			midFragmentDump, jni.ObjectValue(&jArg0.Object), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.ObjectValue(arg3),
+		)
+		return callErr
+	})
+	return callErr
 }

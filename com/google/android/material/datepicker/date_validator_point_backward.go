@@ -127,31 +127,6 @@ func (m *DateValidatorPointBackward) Equals(arg0 *jni.Object) (bool, error) {
 	return result, callErr
 }
 
-// HashCode calls com.google.android.material.datepicker.DateValidatorPointBackward.hashCode.
-func (m *DateValidatorPointBackward) HashCode() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDateValidatorPointBackwardHashCode == nil {
-			callErr = fmt.Errorf("com.google.android.material.datepicker.DateValidatorPointBackward.hashCode is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midDateValidatorPointBackwardHashCode,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.datepicker.DateValidatorPointBackward.toString.
 func (m *DateValidatorPointBackward) ToString() (string, error) {
 	var result string

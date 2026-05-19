@@ -32,6 +32,12 @@ func NewRemoveAdSelectionFromOutcomesOverrideRequest(vm *jni.VM, arg0 *jni.Objec
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRemoveAdSelectionFromOutcomesOverrideRequest == nil {
+			return fmt.Errorf("android.adservices.adselection.RemoveAdSelectionFromOutcomesOverrideRequest is not available on this device")
+		}
+		if midRemoveAdSelectionFromOutcomesOverrideRequestCtor == nil {
+			return fmt.Errorf("android.adservices.adselection.RemoveAdSelectionFromOutcomesOverrideRequest constructor (Landroid/adservices/adselection/AdSelectionFromOutcomesConfig;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRemoveAdSelectionFromOutcomesOverrideRequest)), midRemoveAdSelectionFromOutcomesOverrideRequestCtor, jni.ObjectValue(arg0))
 		if err != nil {

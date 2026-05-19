@@ -32,6 +32,12 @@ func NewColorMatrix(vm *jni.VM) (*ColorMatrix, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsColorMatrix == nil {
+			return fmt.Errorf("android.graphics.ColorMatrix is not available on this device")
+		}
+		if midColorMatrixCtor == nil {
+			return fmt.Errorf("android.graphics.ColorMatrix constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsColorMatrix)), midColorMatrixCtor)
 		if err != nil {
 			return err

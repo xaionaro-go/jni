@@ -23,6 +23,34 @@ type DateTimePatternGeneratorPatternInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDateTimePatternGeneratorPatternInfo creates a new android.icu.text.DateTimePatternGenerator$PatternInfo instance.
+func NewDateTimePatternGeneratorPatternInfo(vm *jni.VM) (*DateTimePatternGeneratorPatternInfo, error) {
+	var t DateTimePatternGeneratorPatternInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDateTimePatternGeneratorPatternInfo == nil {
+			return fmt.Errorf("android.icu.text.DateTimePatternGenerator$PatternInfo is not available on this device")
+		}
+		if midDateTimePatternGeneratorPatternInfoCtor == nil {
+			return fmt.Errorf("android.icu.text.DateTimePatternGenerator$PatternInfo constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDateTimePatternGeneratorPatternInfo)), midDateTimePatternGeneratorPatternInfoCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.icu.text.DateTimePatternGenerator$PatternInfo.toString.
 func (m *DateTimePatternGeneratorPatternInfo) ToString() (string, error) {
 	var result string

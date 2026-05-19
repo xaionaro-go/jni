@@ -32,6 +32,12 @@ func NewSlidingDrawer(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*SlidingD
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSlidingDrawer == nil {
+			return fmt.Errorf("android.widget.SlidingDrawer is not available on this device")
+		}
+		if midSlidingDrawerCtor == nil {
+			return fmt.Errorf("android.widget.SlidingDrawer constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSlidingDrawer)), midSlidingDrawerCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

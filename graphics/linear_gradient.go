@@ -32,6 +32,12 @@ func NewLinearGradient(vm *jni.VM, arg0 float32, arg1 float32, arg2 float32, arg
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLinearGradient == nil {
+			return fmt.Errorf("android.graphics.LinearGradient is not available on this device")
+		}
+		if midLinearGradientCtor == nil {
+			return fmt.Errorf("android.graphics.LinearGradient constructor (FFFFIILandroid/graphics/Shader$TileMode;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLinearGradient)), midLinearGradientCtor, jni.FloatValue(arg0), jni.FloatValue(arg1), jni.FloatValue(arg2), jni.FloatValue(arg3), jni.IntValue(arg4), jni.IntValue(arg5), jni.ObjectValue(arg6))
 		if err != nil {

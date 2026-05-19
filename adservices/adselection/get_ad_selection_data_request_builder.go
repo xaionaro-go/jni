@@ -23,6 +23,34 @@ type GetAdSelectionDataRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGetAdSelectionDataRequestBuilder creates a new android.adservices.adselection.GetAdSelectionDataRequest$Builder instance.
+func NewGetAdSelectionDataRequestBuilder(vm *jni.VM) (*GetAdSelectionDataRequestBuilder, error) {
+	var t GetAdSelectionDataRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGetAdSelectionDataRequestBuilder == nil {
+			return fmt.Errorf("android.adservices.adselection.GetAdSelectionDataRequest$Builder is not available on this device")
+		}
+		if midGetAdSelectionDataRequestBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.adselection.GetAdSelectionDataRequest$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGetAdSelectionDataRequestBuilder)), midGetAdSelectionDataRequestBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.adselection.GetAdSelectionDataRequest$Builder.build.
 func (m *GetAdSelectionDataRequestBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

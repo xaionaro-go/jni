@@ -23,17 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsInstance                 *jni.GlobalRef
-	midInstanceCtor             jni.MethodID
-	midInstanceDescribeContents jni.MethodID
-	midInstanceEquals           jni.MethodID
-	midInstanceGetDescription   jni.MethodID
-	midInstanceGetId            jni.MethodID
-	midInstanceGetInfo          jni.MethodID
-	midInstanceHashCode         jni.MethodID
-	midInstanceWriteToParcel    jni.MethodID
-	midInstanceToString         jni.MethodID
-
 	clsDescription                      *jni.GlobalRef
 	midDescriptionDescribeContents      jni.MethodID
 	midDescriptionEquals                jni.MethodID
@@ -51,6 +40,7 @@ var (
 	midDescriptionWriteToParcel         jni.MethodID
 
 	clsDescriptionBuilder                      *jni.GlobalRef
+	midDescriptionBuilderCtor                  jni.MethodID
 	midDescriptionBuilderBuild                 jni.MethodID
 	midDescriptionBuilderSetContent            jni.MethodID
 	midDescriptionBuilderSetContextDescription jni.MethodID
@@ -59,6 +49,17 @@ var (
 	midDescriptionBuilderSetThumbnail          jni.MethodID
 	midDescriptionBuilderSetTitle              jni.MethodID
 	midDescriptionBuilderToString              jni.MethodID
+
+	clsInstance                 *jni.GlobalRef
+	midInstanceCtor             jni.MethodID
+	midInstanceDescribeContents jni.MethodID
+	midInstanceEquals           jni.MethodID
+	midInstanceGetDescription   jni.MethodID
+	midInstanceGetId            jni.MethodID
+	midInstanceGetInfo          jni.MethodID
+	midInstanceHashCode         jni.MethodID
+	midInstanceToString         jni.MethodID
+	midInstanceWriteToParcel    jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -78,76 +79,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("android/app/wallpaper/WallpaperInstance")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsInstance = env.NewGlobalRef(&c.Object)
-		midInstanceCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInstance)), "<init>", "(Landroid/app/WallpaperInfo;Landroid/app/wallpaper/WallpaperDescription;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midInstanceDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInstance)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInstanceEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInstance)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInstanceGetDescription, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInstance)), "getDescription", "()Landroid/app/wallpaper/WallpaperDescription;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInstanceGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInstance)), "getId", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInstanceGetInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInstance)), "getInfo", "()Landroid/app/WallpaperInfo;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInstanceHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInstance)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInstanceWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInstance)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInstanceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInstance)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("android/app/wallpaper/WallpaperDescription")
 	if err != nil {
@@ -248,7 +179,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midDescriptionWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDescription)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midDescriptionWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDescription)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -264,6 +195,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsDescriptionBuilder = env.NewGlobalRef(&c.Object)
+		midDescriptionBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDescriptionBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midDescriptionBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDescriptionBuilder)), "build", "()Landroid/app/wallpaper/WallpaperDescription;")
 		if err != nil {
@@ -315,6 +250,76 @@ func doInit(env *jni.Env) error {
 		}
 
 		midDescriptionBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDescriptionBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/wallpaper/WallpaperInstance")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInstance = env.NewGlobalRef(&c.Object)
+		midInstanceCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInstance)), "<init>", "(Landroid/app/WallpaperInfo;Landroid/app/wallpaper/WallpaperDescription;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midInstanceDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInstance)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInstanceEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInstance)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInstanceGetDescription, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInstance)), "getDescription", "()Landroid/app/wallpaper/WallpaperDescription;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInstanceGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInstance)), "getId", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInstanceGetInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInstance)), "getInfo", "()Landroid/app/WallpaperInfo;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInstanceHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInstance)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInstanceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInstance)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInstanceWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsInstance)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

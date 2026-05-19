@@ -32,6 +32,12 @@ func NewStopLogic(vm *jni.VM) (*StopLogic, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStopLogic == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.utils.StopLogic is not available on this device")
+		}
+		if midStopLogicCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.motion.utils.StopLogic constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsStopLogic)), midStopLogicCtor)
 		if err != nil {
 			return err

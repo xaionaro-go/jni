@@ -23,6 +23,34 @@ type AudioRecordBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAudioRecordBuilder creates a new android.media.AudioRecord$Builder instance.
+func NewAudioRecordBuilder(vm *jni.VM) (*AudioRecordBuilder, error) {
+	var t AudioRecordBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAudioRecordBuilder == nil {
+			return fmt.Errorf("android.media.AudioRecord$Builder is not available on this device")
+		}
+		if midAudioRecordBuilderCtor == nil {
+			return fmt.Errorf("android.media.AudioRecord$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAudioRecordBuilder)), midAudioRecordBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.media.AudioRecord$Builder.build.
 func (m *AudioRecordBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

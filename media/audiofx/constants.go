@@ -5,6 +5,8 @@ package audiofx
 import "github.com/AndroidGoLab/jni/media/audiofx/consts"
 
 const (
+	ParamStrength                   = consts.ParamStrength
+	ParamStrengthSupported          = consts.ParamStrengthSupported
 	ParamPreset                     = consts.ParamPreset
 	PresetLargehall                 = consts.PresetLargehall
 	PresetLargeroom                 = consts.PresetLargeroom
@@ -13,12 +15,6 @@ const (
 	PresetNone                      = consts.PresetNone
 	PresetPlate                     = consts.PresetPlate
 	PresetSmallroom                 = consts.PresetSmallroom
-	ParamStrength                   = consts.ParamStrength
-	ParamStrengthSupported          = consts.ParamStrengthSupported
-	VirtualizationModeAuto          = consts.VirtualizationModeAuto
-	VirtualizationModeBinaural      = consts.VirtualizationModeBinaural
-	VirtualizationModeOff           = consts.VirtualizationModeOff
-	VirtualizationModeTransaural    = consts.VirtualizationModeTransaural
 	AlreadyExists                   = consts.AlreadyExists
 	Error                           = consts.Error
 	ErrorBadValue                   = consts.ErrorBadValue
@@ -34,6 +30,31 @@ const (
 	StateInitialized                = consts.StateInitialized
 	StateUninitialized              = consts.StateUninitialized
 	Success                         = consts.Success
+	ParamDecayHfRatio               = consts.ParamDecayHfRatio
+	ParamDecayTime                  = consts.ParamDecayTime
+	ParamDensity                    = consts.ParamDensity
+	ParamDiffusion                  = consts.ParamDiffusion
+	ParamReflectionsDelay           = consts.ParamReflectionsDelay
+	ParamReflectionsLevel           = consts.ParamReflectionsLevel
+	ParamReverbDelay                = consts.ParamReverbDelay
+	ParamReverbLevel                = consts.ParamReverbLevel
+	ParamRoomHfLevel                = consts.ParamRoomHfLevel
+	ParamRoomLevel                  = consts.ParamRoomLevel
+	VirtualizationModeAuto          = consts.VirtualizationModeAuto
+	VirtualizationModeBinaural      = consts.VirtualizationModeBinaural
+	VirtualizationModeOff           = consts.VirtualizationModeOff
+	VirtualizationModeTransaural    = consts.VirtualizationModeTransaural
+	ParamTargetGainMb               = consts.ParamTargetGainMb
+	ParamBandFreqRange              = consts.ParamBandFreqRange
+	ParamBandLevel                  = consts.ParamBandLevel
+	ParamCenterFreq                 = consts.ParamCenterFreq
+	ParamCurrentPreset              = consts.ParamCurrentPreset
+	ParamGetBand                    = consts.ParamGetBand
+	ParamGetNumOfPresets            = consts.ParamGetNumOfPresets
+	ParamGetPresetName              = consts.ParamGetPresetName
+	ParamLevelRange                 = consts.ParamLevelRange
+	ParamNumBands                   = consts.ParamNumBands
+	ParamStringSizeMax              = consts.ParamStringSizeMax
 	ContentTypeGame                 = consts.ContentTypeGame
 	ContentTypeMovie                = consts.ContentTypeMovie
 	ContentTypeMusic                = consts.ContentTypeMusic
@@ -49,29 +70,8 @@ const (
 	EffectTypeNs                    = consts.EffectTypeNs
 	EffectTypePresetReverb          = consts.EffectTypePresetReverb
 	EffectTypeVirtualizer           = consts.EffectTypeVirtualizer
-	ParamTargetGainMb               = consts.ParamTargetGainMb
-	ParamDecayHfRatio               = consts.ParamDecayHfRatio
-	ParamDecayTime                  = consts.ParamDecayTime
-	ParamDensity                    = consts.ParamDensity
-	ParamDiffusion                  = consts.ParamDiffusion
-	ParamReflectionsDelay           = consts.ParamReflectionsDelay
-	ParamReflectionsLevel           = consts.ParamReflectionsLevel
-	ParamReverbDelay                = consts.ParamReverbDelay
-	ParamReverbLevel                = consts.ParamReverbLevel
-	ParamRoomHfLevel                = consts.ParamRoomHfLevel
-	ParamRoomLevel                  = consts.ParamRoomLevel
 	VariantFavorFrequencyResolution = consts.VariantFavorFrequencyResolution
 	VariantFavorTimeResolution      = consts.VariantFavorTimeResolution
-	ParamBandFreqRange              = consts.ParamBandFreqRange
-	ParamBandLevel                  = consts.ParamBandLevel
-	ParamCenterFreq                 = consts.ParamCenterFreq
-	ParamCurrentPreset              = consts.ParamCurrentPreset
-	ParamGetBand                    = consts.ParamGetBand
-	ParamGetNumOfPresets            = consts.ParamGetNumOfPresets
-	ParamGetPresetName              = consts.ParamGetPresetName
-	ParamLevelRange                 = consts.ParamLevelRange
-	ParamNumBands                   = consts.ParamNumBands
-	ParamStringSizeMax              = consts.ParamStringSizeMax
 )
 
 const (

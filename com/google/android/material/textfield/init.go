@@ -23,18 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsTextInputEditText                                     *jni.GlobalRef
-	midTextInputEditTextCtor                                 jni.MethodID
-	midTextInputEditTextGetHint                              jni.MethodID
-	midTextInputEditTextOnCreateInputConnection              jni.MethodID
-	midTextInputEditTextSetTextInputLayoutFocusedRectEnabled jni.MethodID
-	midTextInputEditTextIsTextInputLayoutFocusedRectEnabled  jni.MethodID
-	midTextInputEditTextGetFocusedRect                       jni.MethodID
-	midTextInputEditTextGetGlobalVisibleRect                 jni.MethodID
-	midTextInputEditTextRequestRectangleOnScreen             jni.MethodID
-	midTextInputEditTextOnInitializeAccessibilityNodeInfo    jni.MethodID
-	midTextInputEditTextToString                             jni.MethodID
-
 	clsTextInputLayout                                                 *jni.GlobalRef
 	midTextInputLayoutCtor                                             jni.MethodID
 	midTextInputLayoutOnGlobalLayout                                   jni.MethodID
@@ -222,7 +210,20 @@ var (
 	midTextInputLayoutDraw                                             jni.MethodID
 	midTextInputLayoutToString                                         jni.MethodID
 
+	clsTextInputEditText                                     *jni.GlobalRef
+	midTextInputEditTextCtor                                 jni.MethodID
+	midTextInputEditTextGetHint                              jni.MethodID
+	midTextInputEditTextOnCreateInputConnection              jni.MethodID
+	midTextInputEditTextSetTextInputLayoutFocusedRectEnabled jni.MethodID
+	midTextInputEditTextIsTextInputLayoutFocusedRectEnabled  jni.MethodID
+	midTextInputEditTextGetFocusedRect                       jni.MethodID
+	midTextInputEditTextGetGlobalVisibleRect                 jni.MethodID
+	midTextInputEditTextRequestRectangleOnScreen             jni.MethodID
+	midTextInputEditTextOnInitializeAccessibilityNodeInfo    jni.MethodID
+	midTextInputEditTextToString                             jni.MethodID
+
 	clsTextInputLayoutAccessibilityDelegate                                  *jni.GlobalRef
+	midTextInputLayoutAccessibilityDelegateCtor                              jni.MethodID
 	midTextInputLayoutAccessibilityDelegateOnInitializeAccessibilityNodeInfo jni.MethodID
 	midTextInputLayoutAccessibilityDelegateOnPopulateAccessibilityEvent      jni.MethodID
 	midTextInputLayoutAccessibilityDelegateToString                          jni.MethodID
@@ -284,83 +285,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("com/google/android/material/textfield/TextInputEditText")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTextInputEditText = env.NewGlobalRef(&c.Object)
-		midTextInputEditTextCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputEditText)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midTextInputEditTextGetHint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputEditText)), "getHint", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextInputEditTextOnCreateInputConnection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputEditText)), "onCreateInputConnection", "(Landroid/view/inputmethod/EditorInfo;)Landroid/view/inputmethod/InputConnection;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextInputEditTextSetTextInputLayoutFocusedRectEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputEditText)), "setTextInputLayoutFocusedRectEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextInputEditTextIsTextInputLayoutFocusedRectEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputEditText)), "isTextInputLayoutFocusedRectEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextInputEditTextGetFocusedRect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputEditText)), "getFocusedRect", "(Landroid/graphics/Rect;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextInputEditTextGetGlobalVisibleRect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputEditText)), "getGlobalVisibleRect", "(Landroid/graphics/Rect;Landroid/graphics/Point;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextInputEditTextRequestRectangleOnScreen, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputEditText)), "requestRectangleOnScreen", "(Landroid/graphics/Rect;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextInputEditTextOnInitializeAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputEditText)), "onInitializeAccessibilityNodeInfo", "(Landroid/view/accessibility/AccessibilityNodeInfo;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextInputEditTextToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputEditText)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("com/google/android/material/textfield/TextInputLayout")
 	if err != nil {
@@ -1664,6 +1588,83 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("com/google/android/material/textfield/TextInputEditText")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTextInputEditText = env.NewGlobalRef(&c.Object)
+		midTextInputEditTextCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputEditText)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midTextInputEditTextGetHint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputEditText)), "getHint", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextInputEditTextOnCreateInputConnection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputEditText)), "onCreateInputConnection", "(Landroid/view/inputmethod/EditorInfo;)Landroid/view/inputmethod/InputConnection;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextInputEditTextSetTextInputLayoutFocusedRectEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputEditText)), "setTextInputLayoutFocusedRectEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextInputEditTextIsTextInputLayoutFocusedRectEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputEditText)), "isTextInputLayoutFocusedRectEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextInputEditTextGetFocusedRect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputEditText)), "getFocusedRect", "(Landroid/graphics/Rect;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextInputEditTextGetGlobalVisibleRect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputEditText)), "getGlobalVisibleRect", "(Landroid/graphics/Rect;Landroid/graphics/Point;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextInputEditTextRequestRectangleOnScreen, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputEditText)), "requestRectangleOnScreen", "(Landroid/graphics/Rect;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextInputEditTextOnInitializeAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputEditText)), "onInitializeAccessibilityNodeInfo", "(Landroid/view/accessibility/AccessibilityNodeInfo;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextInputEditTextToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputEditText)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("com/google/android/material/textfield/TextInputLayout$AccessibilityDelegate")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -1671,6 +1672,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsTextInputLayoutAccessibilityDelegate = env.NewGlobalRef(&c.Object)
+		midTextInputLayoutAccessibilityDelegateCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputLayoutAccessibilityDelegate)), "<init>", "(Lcom/google/android/material/textfield/TextInputLayout;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midTextInputLayoutAccessibilityDelegateOnInitializeAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextInputLayoutAccessibilityDelegate)), "onInitializeAccessibilityNodeInfo", "(Landroid/view/View;Landroidx/core/view/accessibility/AccessibilityNodeInfoCompat;)V")
 		if err != nil {

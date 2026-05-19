@@ -23,96 +23,61 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsMaterialAlertDialogBuilder                             *jni.GlobalRef
-	midMaterialAlertDialogBuilderCtor                         jni.MethodID
-	midMaterialAlertDialogBuilderCreate                       jni.MethodID
-	midMaterialAlertDialogBuilderGetBackground                jni.MethodID
-	midMaterialAlertDialogBuilderSetBackground                jni.MethodID
-	midMaterialAlertDialogBuilderSetBackgroundInsetStart      jni.MethodID
-	midMaterialAlertDialogBuilderSetBackgroundInsetTop        jni.MethodID
-	midMaterialAlertDialogBuilderSetBackgroundInsetEnd        jni.MethodID
-	midMaterialAlertDialogBuilderSetBackgroundInsetBottom     jni.MethodID
-	midMaterialAlertDialogBuilderSetTitle1                    jni.MethodID
-	midMaterialAlertDialogBuilderSetTitle1_1                  jni.MethodID
-	midMaterialAlertDialogBuilderSetCustomTitle1              jni.MethodID
-	midMaterialAlertDialogBuilderSetMessage1                  jni.MethodID
-	midMaterialAlertDialogBuilderSetMessage1_1                jni.MethodID
-	midMaterialAlertDialogBuilderSetIcon1                     jni.MethodID
-	midMaterialAlertDialogBuilderSetIcon1_1                   jni.MethodID
-	midMaterialAlertDialogBuilderSetIconAttribute1            jni.MethodID
-	midMaterialAlertDialogBuilderSetPositiveButton2           jni.MethodID
-	midMaterialAlertDialogBuilderSetPositiveButton2_1         jni.MethodID
-	midMaterialAlertDialogBuilderSetPositiveButtonIcon1       jni.MethodID
-	midMaterialAlertDialogBuilderSetNegativeButton2           jni.MethodID
-	midMaterialAlertDialogBuilderSetNegativeButton2_1         jni.MethodID
-	midMaterialAlertDialogBuilderSetNegativeButtonIcon1       jni.MethodID
-	midMaterialAlertDialogBuilderSetNeutralButton2            jni.MethodID
-	midMaterialAlertDialogBuilderSetNeutralButton2_1          jni.MethodID
-	midMaterialAlertDialogBuilderSetNeutralButtonIcon1        jni.MethodID
-	midMaterialAlertDialogBuilderSetCancelable1               jni.MethodID
-	midMaterialAlertDialogBuilderSetOnCancelListener1         jni.MethodID
-	midMaterialAlertDialogBuilderSetOnDismissListener1        jni.MethodID
-	midMaterialAlertDialogBuilderSetOnKeyListener1            jni.MethodID
-	midMaterialAlertDialogBuilderSetItems2                    jni.MethodID
-	midMaterialAlertDialogBuilderSetItems2_1                  jni.MethodID
-	midMaterialAlertDialogBuilderSetAdapter2                  jni.MethodID
-	midMaterialAlertDialogBuilderSetCursor3                   jni.MethodID
-	midMaterialAlertDialogBuilderSetMultiChoiceItems3         jni.MethodID
-	midMaterialAlertDialogBuilderSetMultiChoiceItems3_1       jni.MethodID
-	midMaterialAlertDialogBuilderSetMultiChoiceItems4_2       jni.MethodID
-	midMaterialAlertDialogBuilderSetSingleChoiceItems3        jni.MethodID
-	midMaterialAlertDialogBuilderSetSingleChoiceItems4_1      jni.MethodID
-	midMaterialAlertDialogBuilderSetSingleChoiceItems3_2      jni.MethodID
-	midMaterialAlertDialogBuilderSetSingleChoiceItems3_3      jni.MethodID
-	midMaterialAlertDialogBuilderSetOnItemSelectedListener1   jni.MethodID
-	midMaterialAlertDialogBuilderSetView1                     jni.MethodID
-	midMaterialAlertDialogBuilderSetView1_1                   jni.MethodID
-	midMaterialAlertDialogBuilderSetView1_2                   jni.MethodID
-	midMaterialAlertDialogBuilderSetView1_3                   jni.MethodID
-	midMaterialAlertDialogBuilderSetOnItemSelectedListener1_1 jni.MethodID
-	midMaterialAlertDialogBuilderSetSingleChoiceItems3_4      jni.MethodID
-	midMaterialAlertDialogBuilderSetSingleChoiceItems3_5      jni.MethodID
-	midMaterialAlertDialogBuilderSetSingleChoiceItems4_6      jni.MethodID
-	midMaterialAlertDialogBuilderSetSingleChoiceItems3_7      jni.MethodID
-	midMaterialAlertDialogBuilderSetMultiChoiceItems4_3       jni.MethodID
-	midMaterialAlertDialogBuilderSetMultiChoiceItems3_4       jni.MethodID
-	midMaterialAlertDialogBuilderSetMultiChoiceItems3_5       jni.MethodID
-	midMaterialAlertDialogBuilderSetCursor3_1                 jni.MethodID
-	midMaterialAlertDialogBuilderSetAdapter2_1                jni.MethodID
-	midMaterialAlertDialogBuilderSetItems2_2                  jni.MethodID
-	midMaterialAlertDialogBuilderSetItems2_3                  jni.MethodID
-	midMaterialAlertDialogBuilderSetOnKeyListener1_1          jni.MethodID
-	midMaterialAlertDialogBuilderSetOnDismissListener1_1      jni.MethodID
-	midMaterialAlertDialogBuilderSetOnCancelListener1_1       jni.MethodID
-	midMaterialAlertDialogBuilderSetCancelable1_1             jni.MethodID
-	midMaterialAlertDialogBuilderSetNeutralButtonIcon1_1      jni.MethodID
-	midMaterialAlertDialogBuilderSetNeutralButton2_2          jni.MethodID
-	midMaterialAlertDialogBuilderSetNeutralButton2_3          jni.MethodID
-	midMaterialAlertDialogBuilderSetNegativeButtonIcon1_1     jni.MethodID
-	midMaterialAlertDialogBuilderSetNegativeButton2_2         jni.MethodID
-	midMaterialAlertDialogBuilderSetNegativeButton2_3         jni.MethodID
-	midMaterialAlertDialogBuilderSetPositiveButtonIcon1_1     jni.MethodID
-	midMaterialAlertDialogBuilderSetPositiveButton2_2         jni.MethodID
-	midMaterialAlertDialogBuilderSetPositiveButton2_3         jni.MethodID
-	midMaterialAlertDialogBuilderSetIconAttribute1_1          jni.MethodID
-	midMaterialAlertDialogBuilderSetIcon1_2                   jni.MethodID
-	midMaterialAlertDialogBuilderSetIcon1_3                   jni.MethodID
-	midMaterialAlertDialogBuilderSetMessage1_2                jni.MethodID
-	midMaterialAlertDialogBuilderSetMessage1_3                jni.MethodID
-	midMaterialAlertDialogBuilderSetCustomTitle1_1            jni.MethodID
-	midMaterialAlertDialogBuilderSetTitle1_2                  jni.MethodID
-	midMaterialAlertDialogBuilderSetTitle1_3                  jni.MethodID
-	midMaterialAlertDialogBuilderToString                     jni.MethodID
+	clsInsetDialogOnTouchListener         *jni.GlobalRef
+	midInsetDialogOnTouchListenerCtor     jni.MethodID
+	midInsetDialogOnTouchListenerOnTouch  jni.MethodID
+	midInsetDialogOnTouchListenerToString jni.MethodID
+
+	clsMaterialAlertDialogBuilder                          *jni.GlobalRef
+	midMaterialAlertDialogBuilderCtor                      jni.MethodID
+	midMaterialAlertDialogBuilderCreate                    jni.MethodID
+	midMaterialAlertDialogBuilderGetBackground             jni.MethodID
+	midMaterialAlertDialogBuilderSetBackground             jni.MethodID
+	midMaterialAlertDialogBuilderSetBackgroundInsetStart   jni.MethodID
+	midMaterialAlertDialogBuilderSetBackgroundInsetTop     jni.MethodID
+	midMaterialAlertDialogBuilderSetBackgroundInsetEnd     jni.MethodID
+	midMaterialAlertDialogBuilderSetBackgroundInsetBottom  jni.MethodID
+	midMaterialAlertDialogBuilderSetTitle1                 jni.MethodID
+	midMaterialAlertDialogBuilderSetTitle1_1               jni.MethodID
+	midMaterialAlertDialogBuilderSetCustomTitle            jni.MethodID
+	midMaterialAlertDialogBuilderSetMessage1               jni.MethodID
+	midMaterialAlertDialogBuilderSetMessage1_1             jni.MethodID
+	midMaterialAlertDialogBuilderSetIcon1                  jni.MethodID
+	midMaterialAlertDialogBuilderSetIcon1_1                jni.MethodID
+	midMaterialAlertDialogBuilderSetIconAttribute          jni.MethodID
+	midMaterialAlertDialogBuilderSetPositiveButton2        jni.MethodID
+	midMaterialAlertDialogBuilderSetPositiveButton2_1      jni.MethodID
+	midMaterialAlertDialogBuilderSetPositiveButtonIcon     jni.MethodID
+	midMaterialAlertDialogBuilderSetNegativeButton2        jni.MethodID
+	midMaterialAlertDialogBuilderSetNegativeButton2_1      jni.MethodID
+	midMaterialAlertDialogBuilderSetNegativeButtonIcon     jni.MethodID
+	midMaterialAlertDialogBuilderSetNeutralButton2         jni.MethodID
+	midMaterialAlertDialogBuilderSetNeutralButton2_1       jni.MethodID
+	midMaterialAlertDialogBuilderSetNeutralButtonIcon      jni.MethodID
+	midMaterialAlertDialogBuilderSetCancelable             jni.MethodID
+	midMaterialAlertDialogBuilderSetOnCancelListener       jni.MethodID
+	midMaterialAlertDialogBuilderSetOnDismissListener      jni.MethodID
+	midMaterialAlertDialogBuilderSetOnKeyListener          jni.MethodID
+	midMaterialAlertDialogBuilderSetItems2                 jni.MethodID
+	midMaterialAlertDialogBuilderSetItems2_1               jni.MethodID
+	midMaterialAlertDialogBuilderSetAdapter                jni.MethodID
+	midMaterialAlertDialogBuilderSetCursor                 jni.MethodID
+	midMaterialAlertDialogBuilderSetMultiChoiceItems3      jni.MethodID
+	midMaterialAlertDialogBuilderSetMultiChoiceItems3_1    jni.MethodID
+	midMaterialAlertDialogBuilderSetMultiChoiceItems4_2    jni.MethodID
+	midMaterialAlertDialogBuilderSetSingleChoiceItems3     jni.MethodID
+	midMaterialAlertDialogBuilderSetSingleChoiceItems4_1   jni.MethodID
+	midMaterialAlertDialogBuilderSetSingleChoiceItems3_2   jni.MethodID
+	midMaterialAlertDialogBuilderSetSingleChoiceItems3_3   jni.MethodID
+	midMaterialAlertDialogBuilderSetOnItemSelectedListener jni.MethodID
+	midMaterialAlertDialogBuilderSetView1                  jni.MethodID
+	midMaterialAlertDialogBuilderSetView1_1                jni.MethodID
+	midMaterialAlertDialogBuilderToString                  jni.MethodID
 
 	clsMaterialDialogs                          *jni.GlobalRef
 	midMaterialDialogsToString                  jni.MethodID
 	midMaterialDialogsInsetDrawable             jni.MethodID
 	midMaterialDialogsGetDialogBackgroundInsets jni.MethodID
-
-	clsInsetDialogOnTouchListener         *jni.GlobalRef
-	midInsetDialogOnTouchListenerCtor     jni.MethodID
-	midInsetDialogOnTouchListenerOnTouch  jni.MethodID
-	midInsetDialogOnTouchListenerToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -132,6 +97,34 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("com/google/android/material/dialog/InsetDialogOnTouchListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInsetDialogOnTouchListener = env.NewGlobalRef(&c.Object)
+		midInsetDialogOnTouchListenerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInsetDialogOnTouchListener)), "<init>", "(Landroid/app/Dialog;Landroid/graphics/Rect;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midInsetDialogOnTouchListenerOnTouch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInsetDialogOnTouchListener)), "onTouch", "(Landroid/view/View;Landroid/view/MotionEvent;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInsetDialogOnTouchListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInsetDialogOnTouchListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("com/google/android/material/dialog/MaterialAlertDialogBuilder")
 	if err != nil {
@@ -208,7 +201,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMaterialAlertDialogBuilderSetCustomTitle1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setCustomTitle", "(Landroid/view/View;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
+		midMaterialAlertDialogBuilderSetCustomTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setCustomTitle", "(Landroid/view/View;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -243,7 +236,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMaterialAlertDialogBuilderSetIconAttribute1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setIconAttribute", "(I)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
+		midMaterialAlertDialogBuilderSetIconAttribute, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setIconAttribute", "(I)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -264,7 +257,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMaterialAlertDialogBuilderSetPositiveButtonIcon1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setPositiveButtonIcon", "(Landroid/graphics/drawable/Drawable;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
+		midMaterialAlertDialogBuilderSetPositiveButtonIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setPositiveButtonIcon", "(Landroid/graphics/drawable/Drawable;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -285,7 +278,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMaterialAlertDialogBuilderSetNegativeButtonIcon1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setNegativeButtonIcon", "(Landroid/graphics/drawable/Drawable;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
+		midMaterialAlertDialogBuilderSetNegativeButtonIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setNegativeButtonIcon", "(Landroid/graphics/drawable/Drawable;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -306,35 +299,35 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMaterialAlertDialogBuilderSetNeutralButtonIcon1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setNeutralButtonIcon", "(Landroid/graphics/drawable/Drawable;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
+		midMaterialAlertDialogBuilderSetNeutralButtonIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setNeutralButtonIcon", "(Landroid/graphics/drawable/Drawable;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialAlertDialogBuilderSetCancelable1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setCancelable", "(Z)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
+		midMaterialAlertDialogBuilderSetCancelable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setCancelable", "(Z)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialAlertDialogBuilderSetOnCancelListener1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setOnCancelListener", "(Landroid/content/DialogInterface$OnCancelListener;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
+		midMaterialAlertDialogBuilderSetOnCancelListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setOnCancelListener", "(Landroid/content/DialogInterface$OnCancelListener;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialAlertDialogBuilderSetOnDismissListener1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setOnDismissListener", "(Landroid/content/DialogInterface$OnDismissListener;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
+		midMaterialAlertDialogBuilderSetOnDismissListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setOnDismissListener", "(Landroid/content/DialogInterface$OnDismissListener;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialAlertDialogBuilderSetOnKeyListener1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setOnKeyListener", "(Landroid/content/DialogInterface$OnKeyListener;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
+		midMaterialAlertDialogBuilderSetOnKeyListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setOnKeyListener", "(Landroid/content/DialogInterface$OnKeyListener;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -355,14 +348,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMaterialAlertDialogBuilderSetAdapter2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setAdapter", "(Landroid/widget/ListAdapter;Landroid/content/DialogInterface$OnClickListener;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
+		midMaterialAlertDialogBuilderSetAdapter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setAdapter", "(Landroid/widget/ListAdapter;Landroid/content/DialogInterface$OnClickListener;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialAlertDialogBuilderSetCursor3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setCursor", "(Landroid/database/Cursor;Landroid/content/DialogInterface$OnClickListener;Ljava/lang/String;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
+		midMaterialAlertDialogBuilderSetCursor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setCursor", "(Landroid/database/Cursor;Landroid/content/DialogInterface$OnClickListener;Ljava/lang/String;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -418,7 +411,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMaterialAlertDialogBuilderSetOnItemSelectedListener1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setOnItemSelectedListener", "(Landroid/widget/AdapterView$OnItemSelectedListener;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
+		midMaterialAlertDialogBuilderSetOnItemSelectedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setOnItemSelectedListener", "(Landroid/widget/AdapterView$OnItemSelectedListener;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -433,251 +426,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midMaterialAlertDialogBuilderSetView1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setView", "(Landroid/view/View;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetView1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setView", "(Landroid/view/View;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetView1_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setView", "(I)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetOnItemSelectedListener1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setOnItemSelectedListener", "(Landroid/widget/AdapterView$OnItemSelectedListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetSingleChoiceItems3_4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setSingleChoiceItems", "(Landroid/widget/ListAdapter;ILandroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetSingleChoiceItems3_5, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setSingleChoiceItems", "([Ljava/lang/CharSequence;ILandroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetSingleChoiceItems4_6, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setSingleChoiceItems", "(Landroid/database/Cursor;ILjava/lang/String;Landroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetSingleChoiceItems3_7, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setSingleChoiceItems", "(IILandroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetMultiChoiceItems4_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setMultiChoiceItems", "(Landroid/database/Cursor;Ljava/lang/String;Ljava/lang/String;Landroid/content/DialogInterface$OnMultiChoiceClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetMultiChoiceItems3_4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setMultiChoiceItems", "([Ljava/lang/CharSequence;[ZLandroid/content/DialogInterface$OnMultiChoiceClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetMultiChoiceItems3_5, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setMultiChoiceItems", "(I[ZLandroid/content/DialogInterface$OnMultiChoiceClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetCursor3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setCursor", "(Landroid/database/Cursor;Landroid/content/DialogInterface$OnClickListener;Ljava/lang/String;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetAdapter2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setAdapter", "(Landroid/widget/ListAdapter;Landroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetItems2_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setItems", "([Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetItems2_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setItems", "(ILandroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetOnKeyListener1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setOnKeyListener", "(Landroid/content/DialogInterface$OnKeyListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetOnDismissListener1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setOnDismissListener", "(Landroid/content/DialogInterface$OnDismissListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetOnCancelListener1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setOnCancelListener", "(Landroid/content/DialogInterface$OnCancelListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetCancelable1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setCancelable", "(Z)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetNeutralButtonIcon1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setNeutralButtonIcon", "(Landroid/graphics/drawable/Drawable;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetNeutralButton2_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setNeutralButton", "(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetNeutralButton2_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setNeutralButton", "(ILandroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetNegativeButtonIcon1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setNegativeButtonIcon", "(Landroid/graphics/drawable/Drawable;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetNegativeButton2_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setNegativeButton", "(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetNegativeButton2_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setNegativeButton", "(ILandroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetPositiveButtonIcon1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setPositiveButtonIcon", "(Landroid/graphics/drawable/Drawable;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetPositiveButton2_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setPositiveButton", "(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetPositiveButton2_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setPositiveButton", "(ILandroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetIconAttribute1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setIconAttribute", "(I)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetIcon1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setIcon", "(Landroid/graphics/drawable/Drawable;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetIcon1_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setIcon", "(I)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetMessage1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setMessage", "(Ljava/lang/CharSequence;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetMessage1_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setMessage", "(I)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetCustomTitle1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setCustomTitle", "(Landroid/view/View;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetTitle1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setTitle", "(Ljava/lang/CharSequence;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMaterialAlertDialogBuilderSetTitle1_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialAlertDialogBuilder)), "setTitle", "(I)Landroidx/appcompat/app/AlertDialog$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -716,34 +464,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midMaterialDialogsGetDialogBackgroundInsets, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialDialogs)), "getDialogBackgroundInsets", "(Landroid/content/Context;II)Landroid/graphics/Rect;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("com/google/android/material/dialog/InsetDialogOnTouchListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsInsetDialogOnTouchListener = env.NewGlobalRef(&c.Object)
-		midInsetDialogOnTouchListenerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInsetDialogOnTouchListener)), "<init>", "(Landroid/app/Dialog;Landroid/graphics/Rect;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midInsetDialogOnTouchListenerOnTouch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInsetDialogOnTouchListener)), "onTouch", "(Landroid/view/View;Landroid/view/MotionEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInsetDialogOnTouchListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInsetDialogOnTouchListener)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

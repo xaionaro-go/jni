@@ -32,6 +32,12 @@ func NewAppCompatToggleButton(vm *jni.VM, arg0 *jni.Object) (*AppCompatToggleBut
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppCompatToggleButton == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatToggleButton is not available on this device")
+		}
+		if midAppCompatToggleButtonCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatToggleButton constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppCompatToggleButton)), midAppCompatToggleButtonCtor, jni.ObjectValue(arg0))
 		if err != nil {

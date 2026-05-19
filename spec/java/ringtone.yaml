@@ -5,6 +5,83 @@
 package: ringtone
 go_import: github.com/AndroidGoLab/jni/media/ringtone
 classes:
+    - java_class: android.media.Ringtone
+      go_type: Ringtone
+      methods:
+        - java_method: getAudioAttributes
+          go_name: GetAudioAttributes
+          returns: android.media.AudioAttributes
+          error: true
+        - java_method: getStreamType
+          go_name: GetStreamType
+          returns: int
+          error: true
+        - java_method: getTitle
+          go_name: GetTitle
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getVolume
+          go_name: GetVolume
+          returns: float
+          error: true
+        - java_method: isHapticGeneratorEnabled
+          go_name: IsHapticGeneratorEnabled
+          returns: boolean
+          error: true
+        - java_method: isLooping
+          go_name: IsLooping
+          returns: boolean
+          error: true
+        - java_method: isPlaying
+          go_name: IsPlaying
+          returns: boolean
+          error: true
+        - java_method: play
+          go_name: Play
+          returns: void
+          error: true
+        - java_method: setAudioAttributes
+          go_name: SetAudioAttributes
+          params:
+            - java_type: android.media.AudioAttributes
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setHapticGeneratorEnabled
+          go_name: SetHapticGeneratorEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: setLooping
+          go_name: SetLooping
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setStreamType
+          go_name: SetStreamType
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setVolume
+          go_name: SetVolume
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: stop
+          go_name: Stop
+          returns: void
+          error: true
     - java_class: android.media.RingtoneManager
       go_type: Manager
       obtain: constructor
@@ -162,83 +239,6 @@ classes:
               go_name: arg1
             - java_type: android.net.Uri
               go_name: arg2
-          returns: void
-          error: true
-    - java_class: android.media.Ringtone
-      go_type: Ringtone
-      methods:
-        - java_method: getAudioAttributes
-          go_name: GetAudioAttributes
-          returns: android.media.AudioAttributes
-          error: true
-        - java_method: getStreamType
-          go_name: GetStreamType
-          returns: int
-          error: true
-        - java_method: getTitle
-          go_name: GetTitle
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getVolume
-          go_name: GetVolume
-          returns: float
-          error: true
-        - java_method: isHapticGeneratorEnabled
-          go_name: IsHapticGeneratorEnabled
-          returns: boolean
-          error: true
-        - java_method: isLooping
-          go_name: IsLooping
-          returns: boolean
-          error: true
-        - java_method: isPlaying
-          go_name: IsPlaying
-          returns: boolean
-          error: true
-        - java_method: play
-          go_name: Play
-          returns: void
-          error: true
-        - java_method: setAudioAttributes
-          go_name: SetAudioAttributes
-          params:
-            - java_type: android.media.AudioAttributes
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setHapticGeneratorEnabled
-          go_name: SetHapticGeneratorEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: setLooping
-          go_name: SetLooping
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setStreamType
-          go_name: SetStreamType
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setVolume
-          go_name: SetVolume
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: stop
-          go_name: Stop
           returns: void
           error: true
 constants:

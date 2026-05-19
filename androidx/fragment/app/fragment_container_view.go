@@ -30,6 +30,12 @@ func NewFragmentContainerView(vm *jni.VM, arg0 *jni.Object) (*FragmentContainerV
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFragmentContainerView == nil {
+			return fmt.Errorf("androidx.fragment.app.FragmentContainerView is not available on this device")
+		}
+		if midFragmentContainerViewCtor == nil {
+			return fmt.Errorf("androidx.fragment.app.FragmentContainerView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFragmentContainerView)), midFragmentContainerViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

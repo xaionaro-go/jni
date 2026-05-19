@@ -23,6 +23,35 @@ type ControlStatelessBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewControlStatelessBuilder creates a new android.service.controls.Control$StatelessBuilder instance.
+func NewControlStatelessBuilder(vm *jni.VM, arg0 *jni.Object) (*ControlStatelessBuilder, error) {
+	var t ControlStatelessBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsControlStatelessBuilder == nil {
+			return fmt.Errorf("android.service.controls.Control$StatelessBuilder is not available on this device")
+		}
+		if midControlStatelessBuilderCtor == nil {
+			return fmt.Errorf("android.service.controls.Control$StatelessBuilder constructor (Landroid/service/controls/Control;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsControlStatelessBuilder)), midControlStatelessBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.service.controls.Control$StatelessBuilder.build.
 func (m *ControlStatelessBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

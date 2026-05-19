@@ -23,6 +23,34 @@ type DataOriginBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDataOriginBuilder creates a new android.health.connect.datatypes.DataOrigin$Builder instance.
+func NewDataOriginBuilder(vm *jni.VM) (*DataOriginBuilder, error) {
+	var t DataOriginBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDataOriginBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.DataOrigin$Builder is not available on this device")
+		}
+		if midDataOriginBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.DataOrigin$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDataOriginBuilder)), midDataOriginBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.datatypes.DataOrigin$Builder.build.
 func (m *DataOriginBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewGrouping(vm *jni.VM) (*Grouping, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGrouping == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.analyzer.Grouping is not available on this device")
+		}
+		if midGroupingCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.analyzer.Grouping constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGrouping)), midGroupingCtor)
 		if err != nil {
 			return err

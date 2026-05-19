@@ -23,6 +23,35 @@ type GalleryLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGalleryLayoutParams creates a new android.widget.Gallery$LayoutParams instance.
+func NewGalleryLayoutParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*GalleryLayoutParams, error) {
+	var t GalleryLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGalleryLayoutParams == nil {
+			return fmt.Errorf("android.widget.Gallery$LayoutParams is not available on this device")
+		}
+		if midGalleryLayoutParamsCtor == nil {
+			return fmt.Errorf("android.widget.Gallery$LayoutParams constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGalleryLayoutParams)), midGalleryLayoutParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.widget.Gallery$LayoutParams.toString.
 func (m *GalleryLayoutParams) ToString() (string, error) {
 	var result string

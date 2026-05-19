@@ -32,6 +32,12 @@ func NewCheckBoxPreference(vm *jni.VM, arg0 *jni.Object) (*CheckBoxPreference, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCheckBoxPreference == nil {
+			return fmt.Errorf("android.preference.CheckBoxPreference is not available on this device")
+		}
+		if midCheckBoxPreferenceCtor == nil {
+			return fmt.Errorf("android.preference.CheckBoxPreference constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCheckBoxPreference)), midCheckBoxPreferenceCtor, jni.ObjectValue(arg0))
 		if err != nil {

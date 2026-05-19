@@ -23,6 +23,40 @@ type KeyCharacterMapUnavailableException struct {
 	Obj *jni.GlobalRef
 }
 
+// NewKeyCharacterMapUnavailableException creates a new android.view.KeyCharacterMap$UnavailableException instance.
+func NewKeyCharacterMapUnavailableException(vm *jni.VM, arg0 string) (*KeyCharacterMapUnavailableException, error) {
+	var t KeyCharacterMapUnavailableException
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsKeyCharacterMapUnavailableException == nil {
+			return fmt.Errorf("android.view.KeyCharacterMap$UnavailableException is not available on this device")
+		}
+		if midKeyCharacterMapUnavailableExceptionCtor == nil {
+			return fmt.Errorf("android.view.KeyCharacterMap$UnavailableException constructor (Ljava/lang/String;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyCharacterMapUnavailableException)), midKeyCharacterMapUnavailableExceptionCtor, jni.ObjectValue(&jArg0.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.view.KeyCharacterMap$UnavailableException.toString.
 func (m *KeyCharacterMapUnavailableException) ToString() (string, error) {
 	var result string

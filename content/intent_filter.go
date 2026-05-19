@@ -32,6 +32,12 @@ func NewIntentFilter(vm *jni.VM) (*IntentFilter, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsIntentFilter == nil {
+			return fmt.Errorf("android.content.IntentFilter is not available on this device")
+		}
+		if midIntentFilterCtor == nil {
+			return fmt.Errorf("android.content.IntentFilter constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIntentFilter)), midIntentFilterCtor)
 		if err != nil {
 			return err
@@ -1541,29 +1547,6 @@ func (m *IntentFilter) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
 	return callErr
 }
 
-// WriteToXml calls android.content.IntentFilter.writeToXml.
-func (m *IntentFilter) WriteToXml(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midIntentFilterWriteToXml == nil {
-			callErr = fmt.Errorf("android.content.IntentFilter.writeToXml is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midIntentFilterWriteToXml, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.content.IntentFilter.toString.
 func (m *IntentFilter) ToString() (string, error) {
 	var result string
@@ -1633,4 +1616,27 @@ func (m *IntentFilter) Create(arg0 string, arg1 string) (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToXml calls android.content.IntentFilter.writeToXml.
+func (m *IntentFilter) WriteToXml(arg0 *jni.Object) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midIntentFilterWriteToXml == nil {
+			callErr = fmt.Errorf("android.content.IntentFilter.writeToXml is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsIntentFilter)),
+			midIntentFilterWriteToXml, jni.ObjectValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

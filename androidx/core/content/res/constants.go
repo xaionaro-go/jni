@@ -5,8 +5,8 @@ package res
 import "github.com/AndroidGoLab/jni/androidx/core/content/res/consts"
 
 const (
+	IdNull                = consts.IdNull
 	FetchStrategyBlocking = consts.FetchStrategyBlocking
 	FetchStrategyAsync    = consts.FetchStrategyAsync
 	InfiniteTimeoutValue  = consts.InfiniteTimeoutValue
-	IdNull                = consts.IdNull
 )

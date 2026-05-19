@@ -21,6 +21,40 @@ type NotificationCompatMessagingStyle struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNotificationCompatMessagingStyle creates a new androidx.core.app.NotificationCompat$MessagingStyle instance.
+func NewNotificationCompatMessagingStyle(vm *jni.VM, arg0 string) (*NotificationCompatMessagingStyle, error) {
+	var t NotificationCompatMessagingStyle
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNotificationCompatMessagingStyle == nil {
+			return fmt.Errorf("androidx.core.app.NotificationCompat$MessagingStyle is not available on this device")
+		}
+		if midNotificationCompatMessagingStyleCtor == nil {
+			return fmt.Errorf("androidx.core.app.NotificationCompat$MessagingStyle constructor (Ljava/lang/CharSequence;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNotificationCompatMessagingStyle)), midNotificationCompatMessagingStyleCtor, jni.ObjectValue(&jArg0.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetUserDisplayName calls androidx.core.app.NotificationCompat$MessagingStyle.getUserDisplayName.
 func (m *NotificationCompatMessagingStyle) GetUserDisplayName() (*jni.Object, error) {
 	var result *jni.Object

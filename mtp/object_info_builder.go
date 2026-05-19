@@ -23,6 +23,34 @@ type ObjectInfoBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewObjectInfoBuilder creates a new android.mtp.MtpObjectInfo$Builder instance.
+func NewObjectInfoBuilder(vm *jni.VM) (*ObjectInfoBuilder, error) {
+	var t ObjectInfoBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsObjectInfoBuilder == nil {
+			return fmt.Errorf("android.mtp.MtpObjectInfo$Builder is not available on this device")
+		}
+		if midObjectInfoBuilderCtor == nil {
+			return fmt.Errorf("android.mtp.MtpObjectInfo$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsObjectInfoBuilder)), midObjectInfoBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.mtp.MtpObjectInfo$Builder.build.
 func (m *ObjectInfoBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

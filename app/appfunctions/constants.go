@@ -5,15 +5,10 @@ package appfunctions
 import "github.com/AndroidGoLab/jni/app/appfunctions/consts"
 
 const (
-	ServiceInterface    = consts.ServiceInterface
-	PropertyReturnValue = consts.PropertyReturnValue
-)
-
-const (
+	Creator                         = consts.Creator
 	AppFunctionStateDefault         = consts.AppFunctionStateDefault
 	AppFunctionStateDisabled        = consts.AppFunctionStateDisabled
 	AppFunctionStateEnabled         = consts.AppFunctionStateEnabled
-	Creator                         = consts.Creator
 	ErrorAppUnknownError            = consts.ErrorAppUnknownError
 	ErrorCancelled                  = consts.ErrorCancelled
 	ErrorCategoryApp                = consts.ErrorCategoryApp
@@ -26,4 +21,9 @@ const (
 	ErrorFunctionNotFound           = consts.ErrorFunctionNotFound
 	ErrorInvalidArgument            = consts.ErrorInvalidArgument
 	ErrorSystemError                = consts.ErrorSystemError
+)
+
+const (
+	PropertyReturnValue = consts.PropertyReturnValue
+	ServiceInterface    = consts.ServiceInterface
 )

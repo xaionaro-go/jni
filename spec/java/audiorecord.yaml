@@ -282,6 +282,7 @@ classes:
           error: true
     - java_class: android.media.AudioRecord$Builder
       go_type: AudioRecordBuilder
+      obtain: constructor
       methods:
         - java_method: build
           go_name: Build

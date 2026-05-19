@@ -3,6 +3,17 @@
 package consts
 
 const (
+	HorizontalAlignStart           int = 0
+	HorizontalAlignEnd             int = 1
+	HorizontalAlignCenter          int = 2
+	VerticalAlignTop               int = 0
+	VerticalAlignBottom            int = 1
+	VerticalAlignCenter            int = 2
+	VerticalAlignBaseline          int = 3
+	WrapNone                       int = 0
+	WrapChain                      int = 1
+	WrapAligned                    int = 2
+	WrapChainNew                   int = 3
 	OptimizationNone               int = 0
 	OptimizationDirect             int = 1
 	OptimizationBarrier            int = 2
@@ -57,17 +68,6 @@ const (
 	Center                         int = 0
 	CenterX                        int = 0
 	CenterY                        int = 0
-	HorizontalAlignStart           int = 0
-	HorizontalAlignEnd             int = 1
-	HorizontalAlignCenter          int = 2
-	VerticalAlignTop               int = 0
-	VerticalAlignBottom            int = 1
-	VerticalAlignCenter            int = 2
-	VerticalAlignBaseline          int = 3
-	WrapNone                       int = 0
-	WrapChain                      int = 1
-	WrapAligned                    int = 2
-	WrapChainNew                   int = 3
 )
 
 const (

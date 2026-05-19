@@ -23,6 +23,34 @@ type WorkItemBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWorkItemBuilder creates a new android.app.job.JobWorkItem$Builder instance.
+func NewWorkItemBuilder(vm *jni.VM) (*WorkItemBuilder, error) {
+	var t WorkItemBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWorkItemBuilder == nil {
+			return fmt.Errorf("android.app.job.JobWorkItem$Builder is not available on this device")
+		}
+		if midWorkItemBuilderCtor == nil {
+			return fmt.Errorf("android.app.job.JobWorkItem$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWorkItemBuilder)), midWorkItemBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.app.job.JobWorkItem$Builder.build.
 func (m *WorkItemBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

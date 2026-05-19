@@ -23,6 +23,34 @@ type MediaStoreVideo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMediaStoreVideo creates a new android.provider.MediaStore$Video instance.
+func NewMediaStoreVideo(vm *jni.VM) (*MediaStoreVideo, error) {
+	var t MediaStoreVideo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMediaStoreVideo == nil {
+			return fmt.Errorf("android.provider.MediaStore$Video is not available on this device")
+		}
+		if midMediaStoreVideoCtor == nil {
+			return fmt.Errorf("android.provider.MediaStore$Video constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMediaStoreVideo)), midMediaStoreVideoCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.provider.MediaStore$Video.toString.
 func (m *MediaStoreVideo) ToString() (string, error) {
 	var result string

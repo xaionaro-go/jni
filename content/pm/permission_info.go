@@ -32,6 +32,12 @@ func NewPermissionInfo(vm *jni.VM) (*PermissionInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPermissionInfo == nil {
+			return fmt.Errorf("android.content.pm.PermissionInfo is not available on this device")
+		}
+		if midPermissionInfoCtor == nil {
+			return fmt.Errorf("android.content.pm.PermissionInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPermissionInfo)), midPermissionInfoCtor)
 		if err != nil {
 			return err

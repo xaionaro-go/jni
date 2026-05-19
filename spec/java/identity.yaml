@@ -5,199 +5,12 @@
 package: identity
 go_import: github.com/AndroidGoLab/jni/security/identity
 classes:
-    - java_class: android.security.identity.IdentityCredentialException
-      go_type: CredentialException
+    - java_class: android.security.identity.EphemeralPublicKeyNotFoundException
+      go_type: EphemeralPublicKeyNotFoundException
       obtain: constructor
       constructor_params:
         - java_type: String
           go_name: arg0
-    - java_class: android.security.identity.NoAuthenticationKeyAvailableException
-      go_type: NoAuthenticationKeyAvailableException
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-    - java_class: android.security.identity.WritableIdentityCredential
-      go_type: WritableIdentityCredential
-      methods:
-        - java_method: getCredentialKeyCertificateChain
-          go_name: GetCredentialKeyCertificateChain
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: java.util.Collection<java.security.cert.X509Certificate>
-          error: true
-        - java_method: personalize
-          go_name: Personalize
-          params:
-            - java_type: android.security.identity.PersonalizationData
-              go_name: arg0
-          returns: '[B'
-          error: true
-    - java_class: android.security.identity.InvalidReaderSignatureException
-      go_type: InvalidReaderSignatureException
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-    - java_class: android.security.identity.AccessControlProfileId
-      go_type: AccessControlProfileId
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-      methods:
-        - java_method: getId
-          go_name: GetId
-          returns: int
-          error: true
-    - java_class: android.security.identity.MessageDecryptionException
-      go_type: MessageDecryptionException
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-    - java_class: android.security.identity.PresentationSession
-      go_type: PresentationSession
-      methods:
-        - java_method: getCredentialData
-          go_name: GetCredentialData
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.security.identity.CredentialDataRequest
-              go_name: arg1
-          returns: android.security.identity.CredentialDataResult
-          error: true
-        - java_method: getEphemeralKeyPair
-          go_name: GetEphemeralKeyPair
-          returns: java.security.KeyPair
-          error: true
-        - java_method: setReaderEphemeralPublicKey
-          go_name: SetReaderEphemeralPublicKey
-          params:
-            - java_type: java.security.PublicKey
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSessionTranscript
-          go_name: SetSessionTranscript
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.security.identity.DocTypeNotSupportedException
-      go_type: DocTypeNotSupportedException
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-    - java_class: android.security.identity.SessionTranscriptMismatchException
-      go_type: SessionTranscriptMismatchException
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-    - java_class: android.security.identity.AlreadyPersonalizedException
-      go_type: AlreadyPersonalizedException
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-    - java_class: android.security.identity.PersonalizationData
-      go_type: PersonalizationData
-    - java_class: android.security.identity.PersonalizationData$Builder
-      go_type: PersonalizationDataBuilder
-      methods:
-        - java_method: addAccessControlProfile
-          go_name: AddAccessControlProfile
-          params:
-            - java_type: android.security.identity.AccessControlProfile
-              go_name: arg0
-          returns: android.security.identity.PersonalizationData$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.security.identity.PersonalizationData
-          error: true
-    - java_class: android.security.identity.InvalidRequestMessageException
-      go_type: InvalidRequestMessageException
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-    - java_class: android.security.identity.UnknownAuthenticationKeyException
-      go_type: UnknownAuthenticationKeyException
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-    - java_class: android.security.identity.CredentialDataRequest
-      go_type: CredentialDataRequest
-      methods:
-        - java_method: getReaderSignature
-          go_name: GetReaderSignature
-          returns: '[B'
-          error: true
-        - java_method: getRequestMessage
-          go_name: GetRequestMessage
-          returns: '[B'
-          error: true
-        - java_method: isAllowUsingExhaustedKeys
-          go_name: IsAllowUsingExhaustedKeys
-          returns: boolean
-          error: true
-        - java_method: isAllowUsingExpiredKeys
-          go_name: IsAllowUsingExpiredKeys
-          returns: boolean
-          error: true
-        - java_method: isIncrementUseCount
-          go_name: IsIncrementUseCount
-          returns: boolean
-          error: true
-    - java_class: android.security.identity.CredentialDataRequest$Builder
-      go_type: CredentialDataRequestBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.security.identity.CredentialDataRequest
-          error: true
-        - java_method: setAllowUsingExhaustedKeys
-          go_name: SetAllowUsingExhaustedKeys
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.security.identity.CredentialDataRequest$Builder
-          error: true
-        - java_method: setAllowUsingExpiredKeys
-          go_name: SetAllowUsingExpiredKeys
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.security.identity.CredentialDataRequest$Builder
-          error: true
-        - java_method: setIncrementUseCount
-          go_name: SetIncrementUseCount
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.security.identity.CredentialDataRequest$Builder
-          error: true
-        - java_method: setReaderSignature
-          go_name: SetReaderSignature
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: android.security.identity.CredentialDataRequest$Builder
-          error: true
-        - java_method: setRequestMessage
-          go_name: SetRequestMessage
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: android.security.identity.CredentialDataRequest$Builder
-          error: true
     - java_class: android.security.identity.CredentialDataResult
       go_type: CredentialDataResult
       methods:
@@ -224,57 +37,6 @@ classes:
         - java_method: getStaticAuthenticationData
           go_name: GetStaticAuthenticationData
           returns: '[B'
-          error: true
-    - java_class: android.security.identity.ResultData
-      go_type: ResultData
-      methods:
-        - java_method: getAuthenticatedData
-          go_name: GetAuthenticatedData
-          returns: '[B'
-          error: true
-        - java_method: getEntry
-          go_name: GetEntry
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: '[B'
-          error: true
-        - java_method: getEntryNames
-          go_name: GetEntryNames
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: java.util.Collection<java.lang.String>
-          error: true
-        - java_method: getMessageAuthenticationCode
-          go_name: GetMessageAuthenticationCode
-          returns: '[B'
-          error: true
-        - java_method: getNamespaces
-          go_name: GetNamespaces
-          returns: java.util.Collection<java.lang.String>
-          error: true
-        - java_method: getRetrievedEntryNames
-          go_name: GetRetrievedEntryNames
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: java.util.Collection<java.lang.String>
-          error: true
-        - java_method: getStaticAuthenticationData
-          go_name: GetStaticAuthenticationData
-          returns: '[B'
-          error: true
-        - java_method: getStatus
-          go_name: GetStatus
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: int
           error: true
     - java_class: android.security.identity.CredentialDataResult$Entries
       go_type: CredentialDataResultEntries
@@ -315,42 +77,23 @@ classes:
               go_name: arg1
           returns: int
           error: true
-    - java_class: android.security.identity.AccessControlProfile
-      go_type: AccessControlProfile
-    - java_class: android.security.identity.AccessControlProfile$Builder
-      go_type: AccessControlProfileBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.security.identity.AccessControlProfile
-          error: true
-        - java_method: setReaderCertificate
-          go_name: SetReaderCertificate
-          params:
-            - java_type: java.security.cert.X509Certificate
-              go_name: arg0
-          returns: android.security.identity.AccessControlProfile$Builder
-          error: true
-        - java_method: setUserAuthenticationRequired
-          go_name: SetUserAuthenticationRequired
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.security.identity.AccessControlProfile$Builder
-          error: true
-        - java_method: setUserAuthenticationTimeout
-          go_name: SetUserAuthenticationTimeout
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.security.identity.AccessControlProfile$Builder
-          error: true
-    - java_class: android.security.identity.EphemeralPublicKeyNotFoundException
-      go_type: EphemeralPublicKeyNotFoundException
+    - java_class: android.security.identity.MessageDecryptionException
+      go_type: MessageDecryptionException
       obtain: constructor
       constructor_params:
         - java_type: String
           go_name: arg0
+    - java_class: android.security.identity.AccessControlProfileId
+      go_type: AccessControlProfileId
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+      methods:
+        - java_method: getId
+          go_name: GetId
+          returns: int
+          error: true
     - java_class: android.security.identity.IdentityCredentialStore
       go_type: CredentialStore
       methods:
@@ -405,6 +148,76 @@ classes:
               go_name: arg0
           returns: android.security.identity.IdentityCredentialStore
           error: true
+    - java_class: android.security.identity.IdentityCredentialException
+      go_type: CredentialException
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+    - java_class: android.security.identity.AlreadyPersonalizedException
+      go_type: AlreadyPersonalizedException
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+    - java_class: android.security.identity.InvalidRequestMessageException
+      go_type: InvalidRequestMessageException
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+    - java_class: android.security.identity.PersonalizationData
+      go_type: PersonalizationData
+    - java_class: android.security.identity.PersonalizationData$Builder
+      go_type: PersonalizationDataBuilder
+      obtain: constructor
+      methods:
+        - java_method: addAccessControlProfile
+          go_name: AddAccessControlProfile
+          params:
+            - java_type: android.security.identity.AccessControlProfile
+              go_name: arg0
+          returns: android.security.identity.PersonalizationData$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.security.identity.PersonalizationData
+          error: true
+    - java_class: android.security.identity.AuthenticationKeyMetadata
+      go_type: AuthenticationKeyMetadata
+      methods:
+        - java_method: getExpirationDate
+          go_name: GetExpirationDate
+          returns: java.time.Instant
+          error: true
+        - java_method: getUsageCount
+          go_name: GetUsageCount
+          returns: int
+          error: true
+    - java_class: android.security.identity.CipherSuiteNotSupportedException
+      go_type: CipherSuiteNotSupportedException
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+    - java_class: android.security.identity.SessionTranscriptMismatchException
+      go_type: SessionTranscriptMismatchException
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+    - java_class: android.security.identity.DocTypeNotSupportedException
+      go_type: DocTypeNotSupportedException
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+    - java_class: android.security.identity.UnknownAuthenticationKeyException
+      go_type: UnknownAuthenticationKeyException
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
     - java_class: android.security.identity.IdentityCredential
       go_type: Credential
       methods:
@@ -524,246 +337,235 @@ classes:
               go_name: arg0
           returns: '[B'
           error: true
-    - java_class: android.security.identity.CipherSuiteNotSupportedException
-      go_type: CipherSuiteNotSupportedException
+    - java_class: android.security.identity.CredentialDataRequest
+      go_type: CredentialDataRequest
+      methods:
+        - java_method: getReaderSignature
+          go_name: GetReaderSignature
+          returns: '[B'
+          error: true
+        - java_method: getRequestMessage
+          go_name: GetRequestMessage
+          returns: '[B'
+          error: true
+        - java_method: isAllowUsingExhaustedKeys
+          go_name: IsAllowUsingExhaustedKeys
+          returns: boolean
+          error: true
+        - java_method: isAllowUsingExpiredKeys
+          go_name: IsAllowUsingExpiredKeys
+          returns: boolean
+          error: true
+        - java_method: isIncrementUseCount
+          go_name: IsIncrementUseCount
+          returns: boolean
+          error: true
+    - java_class: android.security.identity.CredentialDataRequest$Builder
+      go_type: CredentialDataRequestBuilder
+      obtain: constructor
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.security.identity.CredentialDataRequest
+          error: true
+        - java_method: setAllowUsingExhaustedKeys
+          go_name: SetAllowUsingExhaustedKeys
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.security.identity.CredentialDataRequest$Builder
+          error: true
+        - java_method: setAllowUsingExpiredKeys
+          go_name: SetAllowUsingExpiredKeys
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.security.identity.CredentialDataRequest$Builder
+          error: true
+        - java_method: setIncrementUseCount
+          go_name: SetIncrementUseCount
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.security.identity.CredentialDataRequest$Builder
+          error: true
+        - java_method: setReaderSignature
+          go_name: SetReaderSignature
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: android.security.identity.CredentialDataRequest$Builder
+          error: true
+        - java_method: setRequestMessage
+          go_name: SetRequestMessage
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: android.security.identity.CredentialDataRequest$Builder
+          error: true
+    - java_class: android.security.identity.WritableIdentityCredential
+      go_type: WritableIdentityCredential
+      methods:
+        - java_method: getCredentialKeyCertificateChain
+          go_name: GetCredentialKeyCertificateChain
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: java.util.Collection<java.security.cert.X509Certificate>
+          error: true
+        - java_method: personalize
+          go_name: Personalize
+          params:
+            - java_type: android.security.identity.PersonalizationData
+              go_name: arg0
+          returns: '[B'
+          error: true
+    - java_class: android.security.identity.AccessControlProfile
+      go_type: AccessControlProfile
+    - java_class: android.security.identity.AccessControlProfile$Builder
+      go_type: AccessControlProfileBuilder
+      obtain: constructor
+      constructor_params:
+        - java_type: android.security.identity.AccessControlProfileId
+          go_name: arg0
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.security.identity.AccessControlProfile
+          error: true
+        - java_method: setReaderCertificate
+          go_name: SetReaderCertificate
+          params:
+            - java_type: java.security.cert.X509Certificate
+              go_name: arg0
+          returns: android.security.identity.AccessControlProfile$Builder
+          error: true
+        - java_method: setUserAuthenticationRequired
+          go_name: SetUserAuthenticationRequired
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.security.identity.AccessControlProfile$Builder
+          error: true
+        - java_method: setUserAuthenticationTimeout
+          go_name: SetUserAuthenticationTimeout
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.security.identity.AccessControlProfile$Builder
+          error: true
+    - java_class: android.security.identity.ResultData
+      go_type: ResultData
+      methods:
+        - java_method: getAuthenticatedData
+          go_name: GetAuthenticatedData
+          returns: '[B'
+          error: true
+        - java_method: getEntry
+          go_name: GetEntry
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: '[B'
+          error: true
+        - java_method: getEntryNames
+          go_name: GetEntryNames
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: java.util.Collection<java.lang.String>
+          error: true
+        - java_method: getMessageAuthenticationCode
+          go_name: GetMessageAuthenticationCode
+          returns: '[B'
+          error: true
+        - java_method: getNamespaces
+          go_name: GetNamespaces
+          returns: java.util.Collection<java.lang.String>
+          error: true
+        - java_method: getRetrievedEntryNames
+          go_name: GetRetrievedEntryNames
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: java.util.Collection<java.lang.String>
+          error: true
+        - java_method: getStaticAuthenticationData
+          go_name: GetStaticAuthenticationData
+          returns: '[B'
+          error: true
+        - java_method: getStatus
+          go_name: GetStatus
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: int
+          error: true
+    - java_class: android.security.identity.NoAuthenticationKeyAvailableException
+      go_type: NoAuthenticationKeyAvailableException
       obtain: constructor
       constructor_params:
         - java_type: String
           go_name: arg0
-    - java_class: android.security.identity.AuthenticationKeyMetadata
-      go_type: AuthenticationKeyMetadata
-      methods:
-        - java_method: getExpirationDate
-          go_name: GetExpirationDate
-          returns: java.time.Instant
-          error: true
-        - java_method: getUsageCount
-          go_name: GetUsageCount
-          returns: int
-          error: true
-abstract_callbacks:
-    - java_class: android.security.identity.WritableIdentityCredential
-      go_type: WritableIdentityCredentialCallback
-      methods:
-        - java_method: getCredentialKeyCertificateChain
-          params:
-            - '[B'
-          returns: java.util.Collection<java.security.cert.X509Certificate>
-          go_field: GetCredentialKeyCertificateChain
-        - java_method: personalize
-          params:
-            - android.security.identity.PersonalizationData
-          returns: '[B'
-          go_field: Personalize
     - java_class: android.security.identity.PresentationSession
-      go_type: PresentationSessionCallback
+      go_type: PresentationSession
       methods:
         - java_method: getCredentialData
+          go_name: GetCredentialData
           params:
-            - String
-            - android.security.identity.CredentialDataRequest
+            - java_type: String
+              go_name: arg0
+            - java_type: android.security.identity.CredentialDataRequest
+              go_name: arg1
           returns: android.security.identity.CredentialDataResult
-          go_field: GetCredentialData
+          error: true
         - java_method: getEphemeralKeyPair
-          params: []
+          go_name: GetEphemeralKeyPair
           returns: java.security.KeyPair
-          go_field: GetEphemeralKeyPair
+          error: true
         - java_method: setReaderEphemeralPublicKey
+          go_name: SetReaderEphemeralPublicKey
           params:
-            - java.security.PublicKey
+            - java_type: java.security.PublicKey
+              go_name: arg0
           returns: void
-          go_field: SetReaderEphemeralPublicKey
+          error: true
         - java_method: setSessionTranscript
+          go_name: SetSessionTranscript
           params:
-            - '[B'
+            - java_type: '[B'
+              go_name: arg0
           returns: void
-          go_field: SetSessionTranscript
+          error: true
+    - java_class: android.security.identity.InvalidReaderSignatureException
+      go_type: InvalidReaderSignatureException
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+abstract_callback_eligibility:
     - java_class: android.security.identity.CredentialDataResult
-      go_type: CredentialDataResultCallback
-      methods:
-        - java_method: getDeviceMac
-          params: []
-          returns: '[B'
-          go_field: GetDeviceMac
-        - java_method: getDeviceNameSpaces
-          params: []
-          returns: '[B'
-          go_field: GetDeviceNameSpaces
-        - java_method: getDeviceSignature
-          params: []
-          returns: '[B'
-          go_field: GetDeviceSignature
-        - java_method: getDeviceSignedEntries
-          params: []
-          returns: android.security.identity.CredentialDataResult$Entries
-          go_field: GetDeviceSignedEntries
-        - java_method: getIssuerSignedEntries
-          params: []
-          returns: android.security.identity.CredentialDataResult$Entries
-          go_field: GetIssuerSignedEntries
-        - java_method: getStaticAuthenticationData
-          params: []
-          returns: '[B'
-          go_field: GetStaticAuthenticationData
-    - java_class: android.security.identity.ResultData
-      go_type: ResultDataCallback
-      methods:
-        - java_method: getAuthenticatedData
-          params: []
-          returns: '[B'
-          go_field: GetAuthenticatedData
-        - java_method: getEntry
-          params:
-            - String
-            - String
-          returns: '[B'
-          go_field: GetEntry
-        - java_method: getEntryNames
-          params:
-            - String
-          returns: java.util.Collection<java.lang.String>
-          go_field: GetEntryNames
-        - java_method: getMessageAuthenticationCode
-          params: []
-          returns: '[B'
-          go_field: GetMessageAuthenticationCode
-        - java_method: getNamespaces
-          params: []
-          returns: java.util.Collection<java.lang.String>
-          go_field: GetNamespaces
-        - java_method: getRetrievedEntryNames
-          params:
-            - String
-          returns: java.util.Collection<java.lang.String>
-          go_field: GetRetrievedEntryNames
-        - java_method: getStaticAuthenticationData
-          params: []
-          returns: '[B'
-          go_field: GetStaticAuthenticationData
-        - java_method: getStatus
-          params:
-            - String
-            - String
-          returns: int
-          go_field: GetStatus
+      generated: false
+      reason: unsupported_constructor
     - java_class: android.security.identity.IdentityCredentialStore
-      go_type: CredentialStoreCallback
-      methods:
-        - java_method: createCredential
-          params:
-            - String
-            - String
-          returns: android.security.identity.WritableIdentityCredential
-          go_field: CreateCredential
-        - java_method: createPresentationSession
-          params:
-            - int
-          returns: android.security.identity.PresentationSession
-          go_field: CreatePresentationSession
-        - java_method: deleteCredentialByName
-          params:
-            - String
-          returns: '[B'
-          go_field: DeleteCredentialByName
-        - java_method: getCredentialByName
-          params:
-            - String
-            - int
-          returns: android.security.identity.IdentityCredential
-          go_field: GetCredentialByName
-        - java_method: getSupportedDocTypes
-          params: []
-          returns: java.lang.String[]
-          go_field: GetSupportedDocTypes
+      generated: false
+      reason: unsupported_constructor
     - java_class: android.security.identity.IdentityCredential
-      go_type: CredentialCallback
-      methods:
-        - java_method: createEphemeralKeyPair
-          params: []
-          returns: java.security.KeyPair
-          go_field: CreateEphemeralKeyPair
-        - java_method: decryptMessageFromReader
-          params:
-            - '[B'
-          returns: '[B'
-          go_field: DecryptMessageFromReader
-        - java_method: delete
-          params:
-            - '[B'
-          returns: '[B'
-          go_field: Delete
-        - java_method: encryptMessageToReader
-          params:
-            - '[B'
-          returns: '[B'
-          go_field: EncryptMessageToReader
-        - java_method: getAuthKeysNeedingCertification
-          params: []
-          returns: java.util.Collection<java.security.cert.X509Certificate>
-          go_field: GetAuthKeysNeedingCertification
-        - java_method: getAuthenticationDataUsageCount
-          params: []
-          returns: '[I'
-          go_field: GetAuthenticationDataUsageCount
-        - java_method: getAuthenticationKeyMetadata
-          params: []
-          returns: java.util.List<android.security.identity.AuthenticationKeyMetadata>
-          go_field: GetAuthenticationKeyMetadata
-        - java_method: getCredentialKeyCertificateChain
-          params: []
-          returns: java.util.Collection<java.security.cert.X509Certificate>
-          go_field: GetCredentialKeyCertificateChain
-        - java_method: proveOwnership
-          params:
-            - '[B'
-          returns: '[B'
-          go_field: ProveOwnership
-        - java_method: setAllowUsingExhaustedKeys
-          params:
-            - boolean
-          returns: void
-          go_field: SetAllowUsingExhaustedKeys
-        - java_method: setAllowUsingExpiredKeys
-          params:
-            - boolean
-          returns: void
-          go_field: SetAllowUsingExpiredKeys
-        - java_method: setAvailableAuthenticationKeys
-          params:
-            - int
-            - int
-          returns: void
-          go_field: SetAvailableAuthenticationKeys
-        - java_method: setAvailableAuthenticationKeys
-          params:
-            - int
-            - int
-            - long
-          returns: void
-          go_field: SetAvailableAuthenticationKeys
-        - java_method: setReaderEphemeralPublicKey
-          params:
-            - java.security.PublicKey
-          returns: void
-          go_field: SetReaderEphemeralPublicKey
-        - java_method: storeStaticAuthenticationData
-          params:
-            - java.security.cert.X509Certificate
-            - '[B'
-          returns: void
-          go_field: StoreStaticAuthenticationData
-        - java_method: storeStaticAuthenticationData
-          params:
-            - java.security.cert.X509Certificate
-            - java.time.Instant
-            - '[B'
-          returns: void
-          go_field: StoreStaticAuthenticationData
-        - java_method: update
-          params:
-            - android.security.identity.PersonalizationData
-          returns: '[B'
-          go_field: Update
+      generated: false
+      reason: unsupported_constructor
+    - java_class: android.security.identity.WritableIdentityCredential
+      generated: false
+      reason: unsupported_constructor
+    - java_class: android.security.identity.ResultData
+      generated: false
+      reason: unsupported_constructor
+    - java_class: android.security.identity.PresentationSession
+      generated: false
+      reason: unsupported_constructor
 constants:
     - go_name: StatusNotInRequestMessage
       value: "3"

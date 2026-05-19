@@ -32,6 +32,12 @@ func NewCipherSuiteNotSupportedException(vm *jni.VM, arg0 string) (*CipherSuiteN
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCipherSuiteNotSupportedException == nil {
+			return fmt.Errorf("android.security.identity.CipherSuiteNotSupportedException is not available on this device")
+		}
+		if midCipherSuiteNotSupportedExceptionCtor == nil {
+			return fmt.Errorf("android.security.identity.CipherSuiteNotSupportedException constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

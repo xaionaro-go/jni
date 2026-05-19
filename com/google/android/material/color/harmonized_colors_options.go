@@ -87,31 +87,6 @@ func (m *HarmonizedColorsOptions) GetColorAttributes() (*jni.Object, error) {
 	return result, callErr
 }
 
-// GetColorAttributeToHarmonizeWith calls com.google.android.material.color.HarmonizedColorsOptions.getColorAttributeToHarmonizeWith.
-func (m *HarmonizedColorsOptions) GetColorAttributeToHarmonizeWith() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midHarmonizedColorsOptionsGetColorAttributeToHarmonizeWith == nil {
-			callErr = fmt.Errorf("com.google.android.material.color.HarmonizedColorsOptions.getColorAttributeToHarmonizeWith is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midHarmonizedColorsOptionsGetColorAttributeToHarmonizeWith,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.color.HarmonizedColorsOptions.toString.
 func (m *HarmonizedColorsOptions) ToString() (string, error) {
 	var result string

@@ -32,6 +32,12 @@ func NewComponentName(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Componen
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsComponentName == nil {
+			return fmt.Errorf("android.content.ComponentName is not available on this device")
+		}
+		if midComponentNameCtor == nil {
+			return fmt.Errorf("android.content.ComponentName constructor (Landroid/content/Context;Ljava/lang/Class;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsComponentName)), midComponentNameCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {
@@ -46,8 +52,8 @@ func NewComponentName(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Componen
 	return &t, nil
 }
 
-// Clone0 calls android.content.ComponentName.clone.
-func (m *ComponentName) Clone0() (*jni.Object, error) {
+// Clone calls android.content.ComponentName.clone.
+func (m *ComponentName) Clone() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,13 +61,13 @@ func (m *ComponentName) Clone0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midComponentNameClone0 == nil {
+		if midComponentNameClone == nil {
 			callErr = fmt.Errorf("android.content.ComponentName.clone is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midComponentNameClone0,
+			midComponentNameClone,
 		)
 		if callErr != nil {
 			return callErr
@@ -78,8 +84,8 @@ func (m *ComponentName) Clone0() (*jni.Object, error) {
 	return result, callErr
 }
 
-// CompareTo1 calls android.content.ComponentName.compareTo.
-func (m *ComponentName) CompareTo1(arg0 *jni.Object) (int32, error) {
+// CompareTo calls android.content.ComponentName.compareTo.
+func (m *ComponentName) CompareTo(arg0 *jni.Object) (int32, error) {
 	var result int32
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -87,14 +93,14 @@ func (m *ComponentName) CompareTo1(arg0 *jni.Object) (int32, error) {
 			callErr = err
 			return err
 		}
-		if midComponentNameCompareTo1 == nil {
+		if midComponentNameCompareTo == nil {
 			callErr = fmt.Errorf("android.content.ComponentName.compareTo is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallIntMethod(
 			m.Obj,
-			midComponentNameCompareTo1, jni.ObjectValue(arg0),
+			midComponentNameCompareTo, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -392,64 +398,6 @@ func (m *ComponentName) WriteToParcel2_1(arg0 *jni.Object, arg1 int32) error {
 		return callErr
 	})
 	return callErr
-}
-
-// Clone0_1 calls android.content.ComponentName.clone.
-func (m *ComponentName) Clone0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midComponentNameClone0_1 == nil {
-			callErr = fmt.Errorf("android.content.ComponentName.clone is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midComponentNameClone0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// CompareTo1_1 calls android.content.ComponentName.compareTo.
-func (m *ComponentName) CompareTo1_1(arg0 *jni.Object) (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midComponentNameCompareTo1_1 == nil {
-			callErr = fmt.Errorf("android.content.ComponentName.compareTo is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midComponentNameCompareTo1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // CreateRelative2 calls android.content.ComponentName.createRelative.

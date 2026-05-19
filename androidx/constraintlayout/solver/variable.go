@@ -32,6 +32,12 @@ func NewVariable(vm *jni.VM, arg0 string, arg1 *jni.Object) (*Variable, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsVariable == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.SolverVariable is not available on this device")
+		}
+		if midVariableCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.solver.SolverVariable constructor (Ljava/lang/String;Landroidx/constraintlayout/solver/SolverVariable$Type;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err
@@ -263,8 +269,8 @@ func (m *Variable) ToString() (string, error) {
 			return callErr
 		}
 		var resultObj *jni.Object
-		resultObj, callErr = env.CallObjectMethod(
-			m.Obj,
+		resultObj, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsVariable)),
 			midVariableToString,
 		)
 		if callErr != nil {

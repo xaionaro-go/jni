@@ -32,6 +32,12 @@ func NewLensIntrinsicsSample(vm *jni.VM, arg0 int64, arg1 *jni.Object) (*LensInt
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsLensIntrinsicsSample == nil {
+			return fmt.Errorf("android.hardware.camera2.params.LensIntrinsicsSample is not available on this device")
+		}
+		if midLensIntrinsicsSampleCtor == nil {
+			return fmt.Errorf("android.hardware.camera2.params.LensIntrinsicsSample constructor (J[F)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLensIntrinsicsSample)), midLensIntrinsicsSampleCtor, jni.LongValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

@@ -32,6 +32,12 @@ func NewCircularProgressIndicator(vm *jni.VM, arg0 *jni.Object) (*CircularProgre
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCircularProgressIndicator == nil {
+			return fmt.Errorf("com.google.android.material.progressindicator.CircularProgressIndicator is not available on this device")
+		}
+		if midCircularProgressIndicatorCtor == nil {
+			return fmt.Errorf("com.google.android.material.progressindicator.CircularProgressIndicator constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCircularProgressIndicator)), midCircularProgressIndicatorCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -188,29 +194,6 @@ func (m *CircularProgressIndicator) GetIndicatorDirection() (int32, error) {
 		return callErr
 	})
 	return result, callErr
-}
-
-// SetIndicatorDirection calls com.google.android.material.progressindicator.CircularProgressIndicator.setIndicatorDirection.
-func (m *CircularProgressIndicator) SetIndicatorDirection(arg0 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCircularProgressIndicatorSetIndicatorDirection == nil {
-			callErr = fmt.Errorf("com.google.android.material.progressindicator.CircularProgressIndicator.setIndicatorDirection is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midCircularProgressIndicatorSetIndicatorDirection, jni.IntValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // ToString calls com.google.android.material.progressindicator.CircularProgressIndicator.toString.

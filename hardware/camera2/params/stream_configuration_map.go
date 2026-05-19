@@ -449,34 +449,6 @@ func (m *StreamConfigurationMap) IsOutputSupportedFor1(arg0 *jni.Object) (bool, 
 	return result, callErr
 }
 
-// IsOutputSupportedFor1_1 calls android.hardware.camera2.params.StreamConfigurationMap.isOutputSupportedFor.
-func (m *StreamConfigurationMap) IsOutputSupportedFor1_1(arg0 int32) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midStreamConfigurationMapIsOutputSupportedFor1_1 == nil {
-			callErr = fmt.Errorf("android.hardware.camera2.params.StreamConfigurationMap.isOutputSupportedFor is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midStreamConfigurationMapIsOutputSupportedFor1_1, jni.IntValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.hardware.camera2.params.StreamConfigurationMap.toString.
 func (m *StreamConfigurationMap) ToString() (string, error) {
 	var result string
@@ -499,6 +471,34 @@ func (m *StreamConfigurationMap) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// IsOutputSupportedFor1_1 calls android.hardware.camera2.params.StreamConfigurationMap.isOutputSupportedFor.
+func (m *StreamConfigurationMap) IsOutputSupportedFor1_1(arg0 int32) (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midStreamConfigurationMapIsOutputSupportedFor1_1 == nil {
+			callErr = fmt.Errorf("android.hardware.camera2.params.StreamConfigurationMap.isOutputSupportedFor is not available on this device")
+			return callErr
+		}
+
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsStreamConfigurationMap)),
+			midStreamConfigurationMapIsOutputSupportedFor1_1, jni.IntValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

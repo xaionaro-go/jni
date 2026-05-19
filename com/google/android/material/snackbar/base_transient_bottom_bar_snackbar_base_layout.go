@@ -138,29 +138,6 @@ func (m *BaseTransientBottomBarSnackbarBaseLayout) SetOnClickListener(arg0 *jni.
 	return callErr
 }
 
-// SetLayoutParams calls com.google.android.material.snackbar.BaseTransientBottomBar$SnackbarBaseLayout.setLayoutParams.
-func (m *BaseTransientBottomBarSnackbarBaseLayout) SetLayoutParams(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBaseTransientBottomBarSnackbarBaseLayoutSetLayoutParams == nil {
-			callErr = fmt.Errorf("com.google.android.material.snackbar.BaseTransientBottomBar$SnackbarBaseLayout.setLayoutParams is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midBaseTransientBottomBarSnackbarBaseLayoutSetLayoutParams, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls com.google.android.material.snackbar.BaseTransientBottomBar$SnackbarBaseLayout.toString.
 func (m *BaseTransientBottomBarSnackbarBaseLayout) ToString() (string, error) {
 	var result string

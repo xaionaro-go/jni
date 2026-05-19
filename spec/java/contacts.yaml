@@ -114,6 +114,7 @@ classes:
       go_type: ContractDataColumnsWithJoins
     - java_class: android.provider.ContactsContract$DataUsageFeedback
       go_type: ContractDataUsageFeedback
+      obtain: constructor
     - java_class: android.provider.ContactsContract$DataUsageStatColumns
       go_type: ContractDataUsageStatColumns
     - java_class: android.provider.ContactsContract$DeletedContacts
@@ -164,6 +165,7 @@ classes:
       go_type: ContractGroupsColumns
     - java_class: android.provider.ContactsContract$Intents
       go_type: ContractIntents
+      obtain: constructor
     - java_class: android.provider.ContactsContract$PhoneLookup
       go_type: ContractPhoneLookup
     - java_class: android.provider.ContactsContract$PhoneLookupColumns
@@ -172,6 +174,7 @@ classes:
       go_type: ContractPhoneticNameStyle
     - java_class: android.provider.ContactsContract$PinnedPositions
       go_type: ContractPinnedPositions
+      obtain: constructor
       static_methods:
         - java_method: pin
           go_name: Pin
@@ -195,6 +198,7 @@ classes:
           error: true
     - java_class: android.provider.ContactsContract$Presence
       go_type: ContractPresence
+      obtain: constructor
     - java_class: android.provider.ContactsContract$PresenceColumns
       go_type: ContractPresenceColumns
     - java_class: android.provider.ContactsContract$Profile
@@ -235,6 +239,7 @@ classes:
       go_type: ContractProviderStatus
     - java_class: android.provider.ContactsContract$QuickContact
       go_type: ContractQuickContact
+      obtain: constructor
       static_methods:
         - java_method: showQuickContact
           go_name: ShowQuickContact5
@@ -335,6 +340,7 @@ classes:
       go_type: ContractRawContactsEntity
     - java_class: android.provider.ContactsContract$SearchSnippets
       go_type: ContractSearchSnippets
+      obtain: constructor
     - java_class: android.provider.ContactsContract$Settings
       go_type: ContractSettings
       static_methods:
@@ -381,6 +387,7 @@ classes:
           go_name: HashCode
           returns: int
           error: true
+      static_methods:
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:

@@ -32,6 +32,12 @@ func NewMaterialDatePicker(vm *jni.VM) (*MaterialDatePicker, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialDatePicker == nil {
+			return fmt.Errorf("com.google.android.material.datepicker.MaterialDatePicker is not available on this device")
+		}
+		if midMaterialDatePickerCtor == nil {
+			return fmt.Errorf("com.google.android.material.datepicker.MaterialDatePicker constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)), midMaterialDatePickerCtor)
 		if err != nil {
 			return err
@@ -43,33 +49,6 @@ func NewMaterialDatePicker(vm *jni.VM) (*MaterialDatePicker, error) {
 		return nil, err
 	}
 	return &t, nil
-}
-
-// GetHeaderText calls com.google.android.material.datepicker.MaterialDatePicker.getHeaderText.
-func (m *MaterialDatePicker) GetHeaderText() (string, error) {
-	var result string
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialDatePickerGetHeaderText == nil {
-			callErr = fmt.Errorf("com.google.android.material.datepicker.MaterialDatePicker.getHeaderText is not available on this device")
-			return callErr
-		}
-		var resultObj *jni.Object
-		resultObj, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialDatePickerGetHeaderText,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
-		return callErr
-	})
-	return result, callErr
 }
 
 // OnSaveInstanceState calls com.google.android.material.datepicker.MaterialDatePicker.onSaveInstanceState.
@@ -276,31 +255,6 @@ func (m *MaterialDatePicker) OnDismiss(arg0 *jni.Object) error {
 		return callErr
 	})
 	return callErr
-}
-
-// GetInputMode calls com.google.android.material.datepicker.MaterialDatePicker.getInputMode.
-func (m *MaterialDatePicker) GetInputMode() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialDatePickerGetInputMode == nil {
-			callErr = fmt.Errorf("com.google.android.material.datepicker.MaterialDatePicker.getInputMode is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midMaterialDatePickerGetInputMode,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ClearOnPositiveButtonClickListeners calls com.google.android.material.datepicker.MaterialDatePicker.clearOnPositiveButtonClickListeners.
@@ -537,28 +491,6 @@ func (m *MaterialDatePicker) RemoveOnDismissListener(arg0 *jni.Object) (bool, er
 	return result, callErr
 }
 
-// ClearOnDismissListeners calls com.google.android.material.datepicker.MaterialDatePicker.clearOnDismissListeners.
-func (m *MaterialDatePicker) ClearOnDismissListeners() error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialDatePickerClearOnDismissListeners == nil {
-			callErr = fmt.Errorf("com.google.android.material.datepicker.MaterialDatePicker.clearOnDismissListeners is not available on this device")
-			return callErr
-		}
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMaterialDatePickerClearOnDismissListeners,
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls com.google.android.material.datepicker.MaterialDatePicker.toString.
 func (m *MaterialDatePicker) ToString() (string, error) {
 	var result string
@@ -627,6 +559,58 @@ func (m *MaterialDatePicker) ThisMonthInUtcMilliseconds() (int64, error) {
 		result, callErr = env.CallStaticLongMethod(
 			(*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)),
 			midMaterialDatePickerThisMonthInUtcMilliseconds,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetHeaderText calls com.google.android.material.datepicker.MaterialDatePicker.getHeaderText.
+func (m *MaterialDatePicker) GetHeaderText() (string, error) {
+	var result string
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midMaterialDatePickerGetHeaderText == nil {
+			callErr = fmt.Errorf("com.google.android.material.datepicker.MaterialDatePicker.getHeaderText is not available on this device")
+			return callErr
+		}
+		var resultObj *jni.Object
+		resultObj, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)),
+			midMaterialDatePickerGetHeaderText,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetInputMode calls com.google.android.material.datepicker.MaterialDatePicker.getInputMode.
+func (m *MaterialDatePicker) GetInputMode() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midMaterialDatePickerGetInputMode == nil {
+			callErr = fmt.Errorf("com.google.android.material.datepicker.MaterialDatePicker.getInputMode is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsMaterialDatePicker)),
+			midMaterialDatePickerGetInputMode,
 		)
 		if callErr != nil {
 			return callErr

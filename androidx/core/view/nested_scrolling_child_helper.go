@@ -32,6 +32,12 @@ func NewNestedScrollingChildHelper(vm *jni.VM, arg0 *jni.Object) (*NestedScrolli
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNestedScrollingChildHelper == nil {
+			return fmt.Errorf("androidx.core.view.NestedScrollingChildHelper is not available on this device")
+		}
+		if midNestedScrollingChildHelperCtor == nil {
+			return fmt.Errorf("androidx.core.view.NestedScrollingChildHelper constructor (Landroid/view/View;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNestedScrollingChildHelper)), midNestedScrollingChildHelperCtor, jni.ObjectValue(arg0))
 		if err != nil {

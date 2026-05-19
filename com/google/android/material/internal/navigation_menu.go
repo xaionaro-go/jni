@@ -32,6 +32,12 @@ func NewNavigationMenu(vm *jni.VM, arg0 *jni.Object) (*NavigationMenu, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsNavigationMenu == nil {
+			return fmt.Errorf("com.google.android.material.internal.NavigationMenu is not available on this device")
+		}
+		if midNavigationMenuCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.NavigationMenu constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNavigationMenu)), midNavigationMenuCtor, jni.ObjectValue(arg0))
 		if err != nil {

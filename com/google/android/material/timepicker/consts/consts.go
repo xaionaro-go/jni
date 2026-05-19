@@ -3,8 +3,8 @@
 package consts
 
 const (
-	Clock12h          int = 0
-	Clock24h          int = 1
 	InputModeClock    int = 0
 	InputModeKeyboard int = 1
+	Clock12h          int = 0
+	Clock24h          int = 1
 )

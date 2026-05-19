@@ -6,12 +6,12 @@ import "github.com/AndroidGoLab/jni/ranging/ble/cs/consts"
 
 const (
 	Creator                 = consts.Creator
+	CsSecurityLevelFour     = consts.CsSecurityLevelFour
+	CsSecurityLevelOne      = consts.CsSecurityLevelOne
 	LocationTypeIndoor      = consts.LocationTypeIndoor
 	LocationTypeOutdoor     = consts.LocationTypeOutdoor
 	LocationTypeUnknown     = consts.LocationTypeUnknown
 	SightTypeLineOfSight    = consts.SightTypeLineOfSight
 	SightTypeNonLineOfSight = consts.SightTypeNonLineOfSight
 	SightTypeUnknown        = consts.SightTypeUnknown
-	CsSecurityLevelFour     = consts.CsSecurityLevelFour
-	CsSecurityLevelOne      = consts.CsSecurityLevelOne
 )

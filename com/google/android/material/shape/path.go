@@ -32,6 +32,12 @@ func NewPath(vm *jni.VM) (*Path, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPath == nil {
+			return fmt.Errorf("com.google.android.material.shape.ShapePath is not available on this device")
+		}
+		if midPathCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.ShapePath constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPath)), midPathCtor)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewAppInfo(vm *jni.VM, arg0 bool) (*AppInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppInfo == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.AppInfo is not available on this device")
+		}
+		if midAppInfoCtor == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.AppInfo constructor (Z)V is not available on this device")
+		}
 		var jArg0 uint8
 		if arg0 {
 			jArg0 = jniTrue
@@ -155,29 +161,6 @@ func (m *AppInfo) IsInstalled() (bool, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.adservices.ondevicepersonalization.AppInfo.writeToParcel.
-func (m *AppInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.adservices.ondevicepersonalization.AppInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAppInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.adservices.ondevicepersonalization.AppInfo.toString.
 func (m *AppInfo) ToString() (string, error) {
 	var result string
@@ -203,4 +186,27 @@ func (m *AppInfo) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.adservices.ondevicepersonalization.AppInfo.writeToParcel.
+func (m *AppInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midAppInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.adservices.ondevicepersonalization.AppInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsAppInfo)),
+			midAppInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

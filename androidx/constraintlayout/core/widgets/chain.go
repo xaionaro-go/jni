@@ -32,6 +32,12 @@ func NewChain(vm *jni.VM) (*Chain, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsChain == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.Chain is not available on this device")
+		}
+		if midChainCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.Chain constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsChain)), midChainCtor)
 		if err != nil {
 			return err

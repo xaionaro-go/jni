@@ -32,6 +32,12 @@ func NewFragmentReuseViolation(vm *jni.VM, arg0 *jni.Object, arg1 string) (*Frag
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFragmentReuseViolation == nil {
+			return fmt.Errorf("androidx.fragment.app.strictmode.FragmentReuseViolation is not available on this device")
+		}
+		if midFragmentReuseViolationCtor == nil {
+			return fmt.Errorf("androidx.fragment.app.strictmode.FragmentReuseViolation constructor (Landroidx/fragment/app/Fragment;Ljava/lang/String;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {

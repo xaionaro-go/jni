@@ -23,6 +23,35 @@ type DrawerLayoutLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDrawerLayoutLayoutParams creates a new androidx.drawerlayout.widget.DrawerLayout$LayoutParams instance.
+func NewDrawerLayoutLayoutParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*DrawerLayoutLayoutParams, error) {
+	var t DrawerLayoutLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDrawerLayoutLayoutParams == nil {
+			return fmt.Errorf("androidx.drawerlayout.widget.DrawerLayout$LayoutParams is not available on this device")
+		}
+		if midDrawerLayoutLayoutParamsCtor == nil {
+			return fmt.Errorf("androidx.drawerlayout.widget.DrawerLayout$LayoutParams constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDrawerLayoutLayoutParams)), midDrawerLayoutLayoutParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls androidx.drawerlayout.widget.DrawerLayout$LayoutParams.toString.
 func (m *DrawerLayoutLayoutParams) ToString() (string, error) {
 	var result string

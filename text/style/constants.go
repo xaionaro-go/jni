@@ -5,48 +5,6 @@ package style
 import "github.com/AndroidGoLab/jni/text/style/consts"
 
 const (
-	Creator               = consts.Creator
-	AlignBaseline         = consts.AlignBaseline
-	AlignBottom           = consts.AlignBottom
-	AlignCenter           = consts.AlignCenter
-	FlagAutoCorrection    = consts.FlagAutoCorrection
-	FlagEasyCorrect       = consts.FlagEasyCorrect
-	FlagGrammarError      = consts.FlagGrammarError
-	FlagMisspelled        = consts.FlagMisspelled
-	SuggestionsMaxSize    = consts.SuggestionsMaxSize
-	StandardGapWidth      = consts.StandardGapWidth
-	StandardColor         = consts.StandardColor
-	StandardGapWidthPx    = consts.StandardGapWidthPx
-	StandardStripeWidthPx = consts.StandardStripeWidthPx
-	TextDeleted           = consts.TextDeleted
-	TextModified          = consts.TextModified
-	MonthApril            = consts.MonthApril
-	MonthAugust           = consts.MonthAugust
-	MonthDecember         = consts.MonthDecember
-	MonthFebruary         = consts.MonthFebruary
-	MonthJanuary          = consts.MonthJanuary
-	MonthJuly             = consts.MonthJuly
-	MonthJune             = consts.MonthJune
-	MonthMarch            = consts.MonthMarch
-	MonthMay              = consts.MonthMay
-	MonthNovember         = consts.MonthNovember
-	MonthOctober          = consts.MonthOctober
-	MonthSeptember        = consts.MonthSeptember
-	WeekdayFriday         = consts.WeekdayFriday
-	WeekdayMonday         = consts.WeekdayMonday
-	WeekdaySaturday       = consts.WeekdaySaturday
-	WeekdaySunday         = consts.WeekdaySunday
-	WeekdayThursday       = consts.WeekdayThursday
-	WeekdayTuesday        = consts.WeekdayTuesday
-	WeekdayWednesday      = consts.WeekdayWednesday
-)
-
-const (
-	ActionSuggestionPicked       = consts.ActionSuggestionPicked
-	SuggestionSpanPickedAfter    = consts.SuggestionSpanPickedAfter
-	SuggestionSpanPickedBefore   = consts.SuggestionSpanPickedBefore
-	SuggestionSpanPickedHashcode = consts.SuggestionSpanPickedHashcode
-	ExtraTextChangedType         = consts.ExtraTextChangedType
 	AnimacyAnimate               = consts.AnimacyAnimate
 	AnimacyInanimate             = consts.AnimacyInanimate
 	ArgAnimacy                   = consts.ArgAnimacy
@@ -110,4 +68,46 @@ const (
 	TypeText                     = consts.TypeText
 	TypeTime                     = consts.TypeTime
 	TypeVerbatim                 = consts.TypeVerbatim
+	ActionSuggestionPicked       = consts.ActionSuggestionPicked
+	SuggestionSpanPickedAfter    = consts.SuggestionSpanPickedAfter
+	SuggestionSpanPickedBefore   = consts.SuggestionSpanPickedBefore
+	SuggestionSpanPickedHashcode = consts.SuggestionSpanPickedHashcode
+	ExtraTextChangedType         = consts.ExtraTextChangedType
+)
+
+const (
+	MonthApril            = consts.MonthApril
+	MonthAugust           = consts.MonthAugust
+	MonthDecember         = consts.MonthDecember
+	MonthFebruary         = consts.MonthFebruary
+	MonthJanuary          = consts.MonthJanuary
+	MonthJuly             = consts.MonthJuly
+	MonthJune             = consts.MonthJune
+	MonthMarch            = consts.MonthMarch
+	MonthMay              = consts.MonthMay
+	MonthNovember         = consts.MonthNovember
+	MonthOctober          = consts.MonthOctober
+	MonthSeptember        = consts.MonthSeptember
+	WeekdayFriday         = consts.WeekdayFriday
+	WeekdayMonday         = consts.WeekdayMonday
+	WeekdaySaturday       = consts.WeekdaySaturday
+	WeekdaySunday         = consts.WeekdaySunday
+	WeekdayThursday       = consts.WeekdayThursday
+	WeekdayTuesday        = consts.WeekdayTuesday
+	WeekdayWednesday      = consts.WeekdayWednesday
+	AlignBaseline         = consts.AlignBaseline
+	AlignBottom           = consts.AlignBottom
+	AlignCenter           = consts.AlignCenter
+	Creator               = consts.Creator
+	FlagAutoCorrection    = consts.FlagAutoCorrection
+	FlagEasyCorrect       = consts.FlagEasyCorrect
+	FlagGrammarError      = consts.FlagGrammarError
+	FlagMisspelled        = consts.FlagMisspelled
+	SuggestionsMaxSize    = consts.SuggestionsMaxSize
+	StandardGapWidth      = consts.StandardGapWidth
+	StandardColor         = consts.StandardColor
+	StandardGapWidthPx    = consts.StandardGapWidthPx
+	StandardStripeWidthPx = consts.StandardStripeWidthPx
+	TextDeleted           = consts.TextDeleted
+	TextModified          = consts.TextModified
 )

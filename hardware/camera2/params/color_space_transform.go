@@ -32,6 +32,12 @@ func NewColorSpaceTransform(vm *jni.VM, arg0 *jni.Object) (*ColorSpaceTransform,
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsColorSpaceTransform == nil {
+			return fmt.Errorf("android.hardware.camera2.params.ColorSpaceTransform is not available on this device")
+		}
+		if midColorSpaceTransformCtor == nil {
+			return fmt.Errorf("android.hardware.camera2.params.ColorSpaceTransform constructor ([Landroid/util/Rational;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsColorSpaceTransform)), midColorSpaceTransformCtor, jni.ObjectValue(arg0))
 		if err != nil {

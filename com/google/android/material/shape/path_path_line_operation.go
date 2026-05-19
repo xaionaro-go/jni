@@ -23,27 +23,32 @@ type PathPathLineOperation struct {
 	Obj *jni.GlobalRef
 }
 
-// ApplyToPath calls com.google.android.material.shape.ShapePath$PathLineOperation.applyToPath.
-func (m *PathPathLineOperation) ApplyToPath(arg0 *jni.Object, arg1 *jni.Object) error {
+// NewPathPathLineOperation creates a new com.google.android.material.shape.ShapePath$PathLineOperation instance.
+func NewPathPathLineOperation(vm *jni.VM) (*PathPathLineOperation, error) {
+	var t PathPathLineOperation
+	t.VM = vm
 
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
+	err := vm.Do(func(env *jni.Env) error {
 		if err := ensureInit(env); err != nil {
-			callErr = err
 			return err
 		}
-		if midPathPathLineOperationApplyToPath == nil {
-			callErr = fmt.Errorf("com.google.android.material.shape.ShapePath$PathLineOperation.applyToPath is not available on this device")
-			return callErr
+		if clsPathPathLineOperation == nil {
+			return fmt.Errorf("com.google.android.material.shape.ShapePath$PathLineOperation is not available on this device")
 		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midPathPathLineOperationApplyToPath, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
+		if midPathPathLineOperationCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.ShapePath$PathLineOperation constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPathPathLineOperation)), midPathPathLineOperationCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
 	})
-	return callErr
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
 }
 
 // ToString calls com.google.android.material.shape.ShapePath$PathLineOperation.toString.

@@ -23,29 +23,6 @@ type FloatProperty struct {
 	Obj *jni.GlobalRef
 }
 
-// Set calls android.util.FloatProperty.set.
-func (m *FloatProperty) Set(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midFloatPropertySet == nil {
-			callErr = fmt.Errorf("android.util.FloatProperty.set is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midFloatPropertySet, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.util.FloatProperty.toString.
 func (m *FloatProperty) ToString() (string, error) {
 	var result string

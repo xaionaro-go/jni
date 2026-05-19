@@ -32,6 +32,12 @@ func NewAppWidgetProvider(vm *jni.VM) (*AppWidgetProvider, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppWidgetProvider == nil {
+			return fmt.Errorf("android.appwidget.AppWidgetProvider is not available on this device")
+		}
+		if midAppWidgetProviderCtor == nil {
+			return fmt.Errorf("android.appwidget.AppWidgetProvider constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppWidgetProvider)), midAppWidgetProviderCtor)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewCircularRevealCardView(vm *jni.VM, arg0 *jni.Object) (*CircularRevealCar
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCircularRevealCardView == nil {
+			return fmt.Errorf("com.google.android.material.circularreveal.cardview.CircularRevealCardView is not available on this device")
+		}
+		if midCircularRevealCardViewCtor == nil {
+			return fmt.Errorf("com.google.android.material.circularreveal.cardview.CircularRevealCardView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCircularRevealCardView)), midCircularRevealCardViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

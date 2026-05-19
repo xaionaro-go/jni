@@ -23,6 +23,35 @@ type IntentSenderRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewIntentSenderRequestBuilder creates a new androidx.activity.result.IntentSenderRequest$Builder instance.
+func NewIntentSenderRequestBuilder(vm *jni.VM, arg0 *jni.Object) (*IntentSenderRequestBuilder, error) {
+	var t IntentSenderRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsIntentSenderRequestBuilder == nil {
+			return fmt.Errorf("androidx.activity.result.IntentSenderRequest$Builder is not available on this device")
+		}
+		if midIntentSenderRequestBuilderCtor == nil {
+			return fmt.Errorf("androidx.activity.result.IntentSenderRequest$Builder constructor (Landroid/content/IntentSender;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsIntentSenderRequestBuilder)), midIntentSenderRequestBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetFillInIntent calls androidx.activity.result.IntentSenderRequest$Builder.setFillInIntent.
 func (m *IntentSenderRequestBuilder) SetFillInIntent(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

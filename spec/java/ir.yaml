@@ -30,6 +30,14 @@ classes:
           error: true
     - java_class: android.hardware.ConsumerIrManager$CarrierFrequencyRange
       go_type: ConsumerIrManagerCarrierFrequencyRange
+      obtain: constructor
+      constructor_params:
+        - java_type: android.hardware.ConsumerIrManager
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
       methods:
         - java_method: getMaxFrequency
           go_name: GetMaxFrequency

@@ -23,57 +23,30 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsStore         *jni.GlobalRef
-	midStoreCtor     jni.MethodID
-	midStoreToString jni.MethodID
-
-	clsStoreAction         *jni.GlobalRef
-	midStoreActionToString jni.MethodID
-
-	clsStoreConstraintsColumns         *jni.GlobalRef
-	midStoreConstraintsColumnsToString jni.MethodID
-
-	clsStoreDrmObjectType         *jni.GlobalRef
-	midStoreDrmObjectTypeToString jni.MethodID
-
-	clsStorePlayback         *jni.GlobalRef
-	midStorePlaybackToString jni.MethodID
-
-	clsStoreRightsStatus         *jni.GlobalRef
-	midStoreRightsStatusToString jni.MethodID
-
-	clsInfoStatus         *jni.GlobalRef
-	midInfoStatusCtor     jni.MethodID
-	midInfoStatusToString jni.MethodID
-
-	clsUtils                          *jni.GlobalRef
-	midUtilsCtor                      jni.MethodID
-	midUtilsToString                  jni.MethodID
-	midUtilsGetExtendedMetadataParser jni.MethodID
-
-	clsUtilsExtendedMetadataParser            *jni.GlobalRef
-	midUtilsExtendedMetadataParserGet         jni.MethodID
-	midUtilsExtendedMetadataParserIterator    jni.MethodID
-	midUtilsExtendedMetadataParserKeyIterator jni.MethodID
-	midUtilsExtendedMetadataParserToString    jni.MethodID
-
-	clsInfo            *jni.GlobalRef
-	midInfoCtor        jni.MethodID
-	midInfoGet         jni.MethodID
-	midInfoGetData     jni.MethodID
-	midInfoGetInfoType jni.MethodID
-	midInfoGetMimeType jni.MethodID
-	midInfoIterator    jni.MethodID
-	midInfoKeyIterator jni.MethodID
-	midInfoPut         jni.MethodID
-	midInfoToString    jni.MethodID
-
 	clsEvent             *jni.GlobalRef
 	midEventGetAttribute jni.MethodID
 	midEventGetMessage   jni.MethodID
 	midEventGetType      jni.MethodID
 	midEventGetUniqueId  jni.MethodID
 	midEventToString     jni.MethodID
+
+	clsInfoRequest            *jni.GlobalRef
+	midInfoRequestCtor        jni.MethodID
+	midInfoRequestGet         jni.MethodID
+	midInfoRequestGetInfoType jni.MethodID
+	midInfoRequestGetMimeType jni.MethodID
+	midInfoRequestIterator    jni.MethodID
+	midInfoRequestKeyIterator jni.MethodID
+	midInfoRequestPut         jni.MethodID
+	midInfoRequestToString    jni.MethodID
+
+	clsErrorEvent         *jni.GlobalRef
+	midErrorEventCtor     jni.MethodID
+	midErrorEventToString jni.MethodID
+
+	clsInfoEvent         *jni.GlobalRef
+	midInfoEventCtor     jni.MethodID
+	midInfoEventToString jni.MethodID
 
 	clsManagerClient                           *jni.GlobalRef
 	midManagerClientCtor                       jni.MethodID
@@ -119,23 +92,30 @@ var (
 	midManagerClientOnInfoListenerOnInfo   jni.MethodID
 	midManagerClientOnInfoListenerToString jni.MethodID
 
-	clsInfoEvent         *jni.GlobalRef
-	midInfoEventCtor     jni.MethodID
-	midInfoEventToString jni.MethodID
+	clsProcessedData                  *jni.GlobalRef
+	midProcessedDataGetAccountId      jni.MethodID
+	midProcessedDataGetData           jni.MethodID
+	midProcessedDataGetSubscriptionId jni.MethodID
+	midProcessedDataToString          jni.MethodID
 
-	clsInfoRequest            *jni.GlobalRef
-	midInfoRequestCtor        jni.MethodID
-	midInfoRequestGet         jni.MethodID
-	midInfoRequestGetInfoType jni.MethodID
-	midInfoRequestGetMimeType jni.MethodID
-	midInfoRequestIterator    jni.MethodID
-	midInfoRequestKeyIterator jni.MethodID
-	midInfoRequestPut         jni.MethodID
-	midInfoRequestToString    jni.MethodID
+	clsInfo            *jni.GlobalRef
+	midInfoCtor        jni.MethodID
+	midInfoGet         jni.MethodID
+	midInfoGetData     jni.MethodID
+	midInfoGetInfoType jni.MethodID
+	midInfoGetMimeType jni.MethodID
+	midInfoIterator    jni.MethodID
+	midInfoKeyIterator jni.MethodID
+	midInfoPut         jni.MethodID
+	midInfoToString    jni.MethodID
 
-	clsErrorEvent         *jni.GlobalRef
-	midErrorEventCtor     jni.MethodID
-	midErrorEventToString jni.MethodID
+	clsStore         *jni.GlobalRef
+	midStoreCtor     jni.MethodID
+	midStoreToString jni.MethodID
+
+	clsStoreAction         *jni.GlobalRef
+	midStoreActionCtor     jni.MethodID
+	midStoreActionToString jni.MethodID
 
 	clsRights                  *jni.GlobalRef
 	midRightsCtor              jni.MethodID
@@ -144,6 +124,40 @@ var (
 	midRightsGetMimeType       jni.MethodID
 	midRightsGetSubscriptionId jni.MethodID
 	midRightsToString          jni.MethodID
+
+	clsStoreConstraintsColumns         *jni.GlobalRef
+	midStoreConstraintsColumnsToString jni.MethodID
+
+	clsStoreDrmObjectType         *jni.GlobalRef
+	midStoreDrmObjectTypeCtor     jni.MethodID
+	midStoreDrmObjectTypeToString jni.MethodID
+
+	clsStorePlayback         *jni.GlobalRef
+	midStorePlaybackCtor     jni.MethodID
+	midStorePlaybackToString jni.MethodID
+
+	clsStoreRightsStatus         *jni.GlobalRef
+	midStoreRightsStatusCtor     jni.MethodID
+	midStoreRightsStatusToString jni.MethodID
+
+	clsConvertedStatus         *jni.GlobalRef
+	midConvertedStatusCtor     jni.MethodID
+	midConvertedStatusToString jni.MethodID
+
+	clsUtils                          *jni.GlobalRef
+	midUtilsCtor                      jni.MethodID
+	midUtilsToString                  jni.MethodID
+	midUtilsGetExtendedMetadataParser jni.MethodID
+
+	clsUtilsExtendedMetadataParser            *jni.GlobalRef
+	midUtilsExtendedMetadataParserGet         jni.MethodID
+	midUtilsExtendedMetadataParserIterator    jni.MethodID
+	midUtilsExtendedMetadataParserKeyIterator jni.MethodID
+	midUtilsExtendedMetadataParserToString    jni.MethodID
+
+	clsInfoStatus         *jni.GlobalRef
+	midInfoStatusCtor     jni.MethodID
+	midInfoStatusToString jni.MethodID
 
 	clsSupportInfo                      *jni.GlobalRef
 	midSupportInfoCtor                  jni.MethodID
@@ -157,16 +171,6 @@ var (
 	midSupportInfoHashCode              jni.MethodID
 	midSupportInfoSetDescription        jni.MethodID
 	midSupportInfoToString              jni.MethodID
-
-	clsProcessedData                  *jni.GlobalRef
-	midProcessedDataGetAccountId      jni.MethodID
-	midProcessedDataGetData           jni.MethodID
-	midProcessedDataGetSubscriptionId jni.MethodID
-	midProcessedDataToString          jni.MethodID
-
-	clsConvertedStatus         *jni.GlobalRef
-	midConvertedStatusCtor     jni.MethodID
-	midConvertedStatusToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -186,269 +190,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("android/drm/DrmStore")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStore = env.NewGlobalRef(&c.Object)
-		midStoreCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midStoreToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/drm/DrmStore$Action")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStoreAction = env.NewGlobalRef(&c.Object)
-
-		midStoreActionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStoreAction)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/drm/DrmStore$ConstraintsColumns")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStoreConstraintsColumns = env.NewGlobalRef(&c.Object)
-
-		midStoreConstraintsColumnsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStoreConstraintsColumns)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/drm/DrmStore$DrmObjectType")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStoreDrmObjectType = env.NewGlobalRef(&c.Object)
-
-		midStoreDrmObjectTypeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStoreDrmObjectType)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/drm/DrmStore$Playback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStorePlayback = env.NewGlobalRef(&c.Object)
-
-		midStorePlaybackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorePlayback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/drm/DrmStore$RightsStatus")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStoreRightsStatus = env.NewGlobalRef(&c.Object)
-
-		midStoreRightsStatusToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStoreRightsStatus)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/drm/DrmInfoStatus")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsInfoStatus = env.NewGlobalRef(&c.Object)
-		midInfoStatusCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoStatus)), "<init>", "(IILandroid/drm/ProcessedData;Ljava/lang/String;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midInfoStatusToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoStatus)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/drm/DrmUtils")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsUtils = env.NewGlobalRef(&c.Object)
-		midUtilsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUtils)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midUtilsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUtils)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midUtilsGetExtendedMetadataParser, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsUtils)), "getExtendedMetadataParser", "([B)Landroid/drm/DrmUtils$ExtendedMetadataParser;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/drm/DrmUtils$ExtendedMetadataParser")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsUtilsExtendedMetadataParser = env.NewGlobalRef(&c.Object)
-
-		midUtilsExtendedMetadataParserGet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUtilsExtendedMetadataParser)), "get", "(Ljava/lang/String;)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midUtilsExtendedMetadataParserIterator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUtilsExtendedMetadataParser)), "iterator", "()Ljava/util/Iterator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midUtilsExtendedMetadataParserKeyIterator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUtilsExtendedMetadataParser)), "keyIterator", "()Ljava/util/Iterator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midUtilsExtendedMetadataParserToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUtilsExtendedMetadataParser)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/drm/DrmInfo")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsInfo = env.NewGlobalRef(&c.Object)
-		midInfoCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "<init>", "(I[BLjava/lang/String;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midInfoGet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "get", "(Ljava/lang/String;)Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInfoGetData, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "getData", "()[B")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInfoGetInfoType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "getInfoType", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInfoGetMimeType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "getMimeType", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInfoIterator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "iterator", "()Ljava/util/Iterator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInfoKeyIterator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "keyIterator", "()Ljava/util/Iterator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInfoPut, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "put", "(Ljava/lang/String;Ljava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("android/drm/DrmEvent")
 	if err != nil {
@@ -487,6 +228,111 @@ func doInit(env *jni.Env) error {
 		}
 
 		midEventToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/drm/DrmInfoRequest")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInfoRequest = env.NewGlobalRef(&c.Object)
+		midInfoRequestCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoRequest)), "<init>", "(ILjava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midInfoRequestGet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoRequest)), "get", "(Ljava/lang/String;)Ljava/lang/Object;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInfoRequestGetInfoType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoRequest)), "getInfoType", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInfoRequestGetMimeType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoRequest)), "getMimeType", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInfoRequestIterator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoRequest)), "iterator", "()Ljava/util/Iterator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInfoRequestKeyIterator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoRequest)), "keyIterator", "()Ljava/util/Iterator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInfoRequestPut, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoRequest)), "put", "(Ljava/lang/String;Ljava/lang/Object;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInfoRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoRequest)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/drm/DrmErrorEvent")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsErrorEvent = env.NewGlobalRef(&c.Object)
+		midErrorEventCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsErrorEvent)), "<init>", "(IILjava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midErrorEventToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsErrorEvent)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/drm/DrmInfoEvent")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInfoEvent = env.NewGlobalRef(&c.Object)
+		midInfoEventCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoEvent)), "<init>", "(IILjava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midInfoEventToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoEvent)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -784,19 +630,36 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/drm/DrmInfoEvent")
+	c, err = env.FindClass("android/drm/ProcessedData")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsInfoEvent = env.NewGlobalRef(&c.Object)
-		midInfoEventCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoEvent)), "<init>", "(IILjava/lang/String;)V")
+		clsProcessedData = env.NewGlobalRef(&c.Object)
+
+		midProcessedDataGetAccountId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProcessedData)), "getAccountId", "()Ljava/lang/String;")
 		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midInfoEventToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoEvent)), "toString", "()Ljava/lang/String;")
+		midProcessedDataGetData, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProcessedData)), "getData", "()[B")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProcessedDataGetSubscriptionId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProcessedData)), "getSubscriptionId", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProcessedDataToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProcessedData)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -805,61 +668,68 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/drm/DrmInfoRequest")
+	c, err = env.FindClass("android/drm/DrmInfo")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsInfoRequest = env.NewGlobalRef(&c.Object)
-		midInfoRequestCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoRequest)), "<init>", "(ILjava/lang/String;)V")
+		clsInfo = env.NewGlobalRef(&c.Object)
+		midInfoCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "<init>", "(I[BLjava/lang/String;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midInfoRequestGet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoRequest)), "get", "(Ljava/lang/String;)Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInfoRequestGetInfoType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoRequest)), "getInfoType", "()I")
+		midInfoGet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "get", "(Ljava/lang/String;)Ljava/lang/Object;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midInfoRequestGetMimeType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoRequest)), "getMimeType", "()Ljava/lang/String;")
+		midInfoGetData, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "getData", "()[B")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midInfoRequestIterator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoRequest)), "iterator", "()Ljava/util/Iterator;")
+		midInfoGetInfoType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "getInfoType", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midInfoRequestKeyIterator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoRequest)), "keyIterator", "()Ljava/util/Iterator;")
+		midInfoGetMimeType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "getMimeType", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midInfoRequestPut, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoRequest)), "put", "(Ljava/lang/String;Ljava/lang/Object;)V")
+		midInfoIterator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "iterator", "()Ljava/util/Iterator;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midInfoRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoRequest)), "toString", "()Ljava/lang/String;")
+		midInfoKeyIterator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "keyIterator", "()Ljava/util/Iterator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInfoPut, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "put", "(Ljava/lang/String;Ljava/lang/Object;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfo)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -868,19 +738,40 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/drm/DrmErrorEvent")
+	c, err = env.FindClass("android/drm/DrmStore")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsErrorEvent = env.NewGlobalRef(&c.Object)
-		midErrorEventCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsErrorEvent)), "<init>", "(IILjava/lang/String;)V")
+		clsStore = env.NewGlobalRef(&c.Object)
+		midStoreCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "<init>", "()V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midErrorEventToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsErrorEvent)), "toString", "()Ljava/lang/String;")
+		midStoreToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStore)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/drm/DrmStore$Action")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStoreAction = env.NewGlobalRef(&c.Object)
+		midStoreActionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStoreAction)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midStoreActionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStoreAction)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -930,6 +821,194 @@ func doInit(env *jni.Env) error {
 		}
 
 		midRightsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRights)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/drm/DrmStore$ConstraintsColumns")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStoreConstraintsColumns = env.NewGlobalRef(&c.Object)
+
+		midStoreConstraintsColumnsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStoreConstraintsColumns)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/drm/DrmStore$DrmObjectType")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStoreDrmObjectType = env.NewGlobalRef(&c.Object)
+		midStoreDrmObjectTypeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStoreDrmObjectType)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midStoreDrmObjectTypeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStoreDrmObjectType)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/drm/DrmStore$Playback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStorePlayback = env.NewGlobalRef(&c.Object)
+		midStorePlaybackCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorePlayback)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midStorePlaybackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorePlayback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/drm/DrmStore$RightsStatus")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStoreRightsStatus = env.NewGlobalRef(&c.Object)
+		midStoreRightsStatusCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStoreRightsStatus)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midStoreRightsStatusToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStoreRightsStatus)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/drm/DrmConvertedStatus")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsConvertedStatus = env.NewGlobalRef(&c.Object)
+		midConvertedStatusCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConvertedStatus)), "<init>", "(I[BI)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midConvertedStatusToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConvertedStatus)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/drm/DrmUtils")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsUtils = env.NewGlobalRef(&c.Object)
+		midUtilsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUtils)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midUtilsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUtils)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midUtilsGetExtendedMetadataParser, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsUtils)), "getExtendedMetadataParser", "([B)Landroid/drm/DrmUtils$ExtendedMetadataParser;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/drm/DrmUtils$ExtendedMetadataParser")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsUtilsExtendedMetadataParser = env.NewGlobalRef(&c.Object)
+
+		midUtilsExtendedMetadataParserGet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUtilsExtendedMetadataParser)), "get", "(Ljava/lang/String;)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midUtilsExtendedMetadataParserIterator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUtilsExtendedMetadataParser)), "iterator", "()Ljava/util/Iterator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midUtilsExtendedMetadataParserKeyIterator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUtilsExtendedMetadataParser)), "keyIterator", "()Ljava/util/Iterator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midUtilsExtendedMetadataParserToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUtilsExtendedMetadataParser)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/drm/DrmInfoStatus")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInfoStatus = env.NewGlobalRef(&c.Object)
+		midInfoStatusCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoStatus)), "<init>", "(IILandroid/drm/ProcessedData;Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midInfoStatusToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInfoStatus)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1014,65 +1093,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midSupportInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSupportInfo)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/drm/ProcessedData")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsProcessedData = env.NewGlobalRef(&c.Object)
-
-		midProcessedDataGetAccountId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProcessedData)), "getAccountId", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProcessedDataGetData, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProcessedData)), "getData", "()[B")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProcessedDataGetSubscriptionId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProcessedData)), "getSubscriptionId", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProcessedDataToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProcessedData)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/drm/DrmConvertedStatus")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsConvertedStatus = env.NewGlobalRef(&c.Object)
-		midConvertedStatusCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConvertedStatus)), "<init>", "(I[BI)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midConvertedStatusToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConvertedStatus)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

@@ -23,6 +23,26 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsCursorAdapter                           *jni.GlobalRef
+	midCursorAdapterGetCursor                  jni.MethodID
+	midCursorAdapterGetCount                   jni.MethodID
+	midCursorAdapterGetItem                    jni.MethodID
+	midCursorAdapterGetItemId                  jni.MethodID
+	midCursorAdapterHasStableIds               jni.MethodID
+	midCursorAdapterGetView                    jni.MethodID
+	midCursorAdapterGetDropDownView            jni.MethodID
+	midCursorAdapterNewView                    jni.MethodID
+	midCursorAdapterNewDropDownView            jni.MethodID
+	midCursorAdapterBindView                   jni.MethodID
+	midCursorAdapterChangeCursor               jni.MethodID
+	midCursorAdapterSwapCursor                 jni.MethodID
+	midCursorAdapterConvertToString            jni.MethodID
+	midCursorAdapterRunQueryOnBackgroundThread jni.MethodID
+	midCursorAdapterGetFilter                  jni.MethodID
+	midCursorAdapterGetFilterQueryProvider     jni.MethodID
+	midCursorAdapterSetFilterQueryProvider     jni.MethodID
+	midCursorAdapterToString                   jni.MethodID
+
 	clsSimpleCursorAdapter                           *jni.GlobalRef
 	midSimpleCursorAdapterCtor                       jni.MethodID
 	midSimpleCursorAdapterBindView                   jni.MethodID
@@ -53,26 +73,6 @@ var (
 	midResourceCursorAdapterSetViewResource         jni.MethodID
 	midResourceCursorAdapterSetDropDownViewResource jni.MethodID
 	midResourceCursorAdapterToString                jni.MethodID
-
-	clsCursorAdapter                           *jni.GlobalRef
-	midCursorAdapterGetCursor                  jni.MethodID
-	midCursorAdapterGetCount                   jni.MethodID
-	midCursorAdapterGetItem                    jni.MethodID
-	midCursorAdapterGetItemId                  jni.MethodID
-	midCursorAdapterHasStableIds               jni.MethodID
-	midCursorAdapterGetView                    jni.MethodID
-	midCursorAdapterGetDropDownView            jni.MethodID
-	midCursorAdapterNewView                    jni.MethodID
-	midCursorAdapterNewDropDownView            jni.MethodID
-	midCursorAdapterBindView                   jni.MethodID
-	midCursorAdapterChangeCursor               jni.MethodID
-	midCursorAdapterSwapCursor                 jni.MethodID
-	midCursorAdapterConvertToString            jni.MethodID
-	midCursorAdapterRunQueryOnBackgroundThread jni.MethodID
-	midCursorAdapterGetFilter                  jni.MethodID
-	midCursorAdapterGetFilterQueryProvider     jni.MethodID
-	midCursorAdapterSetFilterQueryProvider     jni.MethodID
-	midCursorAdapterToString                   jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -92,6 +92,142 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("androidx/cursoradapter/widget/CursorAdapter")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCursorAdapter = env.NewGlobalRef(&c.Object)
+
+		midCursorAdapterGetCursor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "getCursor", "()Landroid/database/Cursor;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorAdapterGetCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "getCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorAdapterGetItem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "getItem", "(I)Ljava/lang/Object;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorAdapterGetItemId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "getItemId", "(I)J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorAdapterHasStableIds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "hasStableIds", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorAdapterGetView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "getView", "(ILandroid/view/View;Landroid/view/ViewGroup;)Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorAdapterGetDropDownView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "getDropDownView", "(ILandroid/view/View;Landroid/view/ViewGroup;)Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorAdapterNewView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "newView", "(Landroid/content/Context;Landroid/database/Cursor;Landroid/view/ViewGroup;)Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorAdapterNewDropDownView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "newDropDownView", "(Landroid/content/Context;Landroid/database/Cursor;Landroid/view/ViewGroup;)Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorAdapterBindView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "bindView", "(Landroid/view/View;Landroid/content/Context;Landroid/database/Cursor;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorAdapterChangeCursor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "changeCursor", "(Landroid/database/Cursor;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorAdapterSwapCursor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "swapCursor", "(Landroid/database/Cursor;)Landroid/database/Cursor;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorAdapterConvertToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "convertToString", "(Landroid/database/Cursor;)Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorAdapterRunQueryOnBackgroundThread, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "runQueryOnBackgroundThread", "(Ljava/lang/CharSequence;)Landroid/database/Cursor;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorAdapterGetFilter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "getFilter", "()Landroid/widget/Filter;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorAdapterGetFilterQueryProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "getFilterQueryProvider", "()Landroid/widget/FilterQueryProvider;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorAdapterSetFilterQueryProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "setFilterQueryProvider", "(Landroid/widget/FilterQueryProvider;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorAdapterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("androidx/cursoradapter/widget/SimpleCursorAdapter")
 	if err != nil {
@@ -283,142 +419,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midResourceCursorAdapterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourceCursorAdapter)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/cursoradapter/widget/CursorAdapter")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCursorAdapter = env.NewGlobalRef(&c.Object)
-
-		midCursorAdapterGetCursor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "getCursor", "()Landroid/database/Cursor;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorAdapterGetCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "getCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorAdapterGetItem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "getItem", "(I)Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorAdapterGetItemId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "getItemId", "(I)J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorAdapterHasStableIds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "hasStableIds", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorAdapterGetView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "getView", "(ILandroid/view/View;Landroid/view/ViewGroup;)Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorAdapterGetDropDownView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "getDropDownView", "(ILandroid/view/View;Landroid/view/ViewGroup;)Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorAdapterNewView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "newView", "(Landroid/content/Context;Landroid/database/Cursor;Landroid/view/ViewGroup;)Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorAdapterNewDropDownView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "newDropDownView", "(Landroid/content/Context;Landroid/database/Cursor;Landroid/view/ViewGroup;)Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorAdapterBindView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "bindView", "(Landroid/view/View;Landroid/content/Context;Landroid/database/Cursor;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorAdapterChangeCursor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "changeCursor", "(Landroid/database/Cursor;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorAdapterSwapCursor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "swapCursor", "(Landroid/database/Cursor;)Landroid/database/Cursor;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorAdapterConvertToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "convertToString", "(Landroid/database/Cursor;)Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorAdapterRunQueryOnBackgroundThread, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "runQueryOnBackgroundThread", "(Ljava/lang/CharSequence;)Landroid/database/Cursor;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorAdapterGetFilter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "getFilter", "()Landroid/widget/Filter;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorAdapterGetFilterQueryProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "getFilterQueryProvider", "()Landroid/widget/FilterQueryProvider;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorAdapterSetFilterQueryProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "setFilterQueryProvider", "(Landroid/widget/FilterQueryProvider;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorAdapterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorAdapter)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

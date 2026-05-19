@@ -23,6 +23,34 @@ type PerBuyerConfigurationBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewPerBuyerConfigurationBuilder creates a new android.adservices.adselection.PerBuyerConfiguration$Builder instance.
+func NewPerBuyerConfigurationBuilder(vm *jni.VM) (*PerBuyerConfigurationBuilder, error) {
+	var t PerBuyerConfigurationBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsPerBuyerConfigurationBuilder == nil {
+			return fmt.Errorf("android.adservices.adselection.PerBuyerConfiguration$Builder is not available on this device")
+		}
+		if midPerBuyerConfigurationBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.adselection.PerBuyerConfiguration$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPerBuyerConfigurationBuilder)), midPerBuyerConfigurationBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.adselection.PerBuyerConfiguration$Builder.build.
 func (m *PerBuyerConfigurationBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

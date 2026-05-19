@@ -32,6 +32,12 @@ func NewBitmapShader(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.O
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBitmapShader == nil {
+			return fmt.Errorf("android.graphics.BitmapShader is not available on this device")
+		}
+		if midBitmapShaderCtor == nil {
+			return fmt.Errorf("android.graphics.BitmapShader constructor (Landroid/graphics/Bitmap;Landroid/graphics/Shader$TileMode;Landroid/graphics/Shader$TileMode;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBitmapShader)), midBitmapShaderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
 		if err != nil {

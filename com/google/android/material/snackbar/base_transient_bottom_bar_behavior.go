@@ -23,6 +23,34 @@ type BaseTransientBottomBarBehavior struct {
 	Obj *jni.GlobalRef
 }
 
+// NewBaseTransientBottomBarBehavior creates a new com.google.android.material.snackbar.BaseTransientBottomBar$Behavior instance.
+func NewBaseTransientBottomBarBehavior(vm *jni.VM) (*BaseTransientBottomBarBehavior, error) {
+	var t BaseTransientBottomBarBehavior
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsBaseTransientBottomBarBehavior == nil {
+			return fmt.Errorf("com.google.android.material.snackbar.BaseTransientBottomBar$Behavior is not available on this device")
+		}
+		if midBaseTransientBottomBarBehaviorCtor == nil {
+			return fmt.Errorf("com.google.android.material.snackbar.BaseTransientBottomBar$Behavior constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBaseTransientBottomBarBehavior)), midBaseTransientBottomBarBehaviorCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // CanSwipeDismissView calls com.google.android.material.snackbar.BaseTransientBottomBar$Behavior.canSwipeDismissView.
 func (m *BaseTransientBottomBarBehavior) CanSwipeDismissView(arg0 *jni.Object) (bool, error) {
 	var result bool
@@ -41,38 +69,6 @@ func (m *BaseTransientBottomBarBehavior) CanSwipeDismissView(arg0 *jni.Object) (
 		resultRaw, callErr = env.CallBooleanMethod(
 			m.Obj,
 			midBaseTransientBottomBarBehaviorCanSwipeDismissView, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
-// OnInterceptTouchEvent calls com.google.android.material.snackbar.BaseTransientBottomBar$Behavior.onInterceptTouchEvent.
-func (m *BaseTransientBottomBarBehavior) OnInterceptTouchEvent(
-	arg0 *jni.Object,
-	arg1 *jni.Object,
-	arg2 *jni.Object,
-) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midBaseTransientBottomBarBehaviorOnInterceptTouchEvent == nil {
-			callErr = fmt.Errorf("com.google.android.material.snackbar.BaseTransientBottomBar$Behavior.onInterceptTouchEvent is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midBaseTransientBottomBarBehaviorOnInterceptTouchEvent, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2),
 		)
 		if callErr != nil {
 			return callErr

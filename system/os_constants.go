@@ -50,8 +50,8 @@ func (m *OsConstants) ToString() (string, error) {
 	return result, callErr
 }
 
-// S_ISBLK calls android.system.OsConstants.S_ISBLK.
-func (m *OsConstants) S_ISBLK(arg0 int32) (bool, error) {
+// SISBLK calls android.system.OsConstants.S_ISBLK.
+func (m *OsConstants) SISBLK(arg0 int32) (bool, error) {
 	var result bool
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -59,7 +59,7 @@ func (m *OsConstants) S_ISBLK(arg0 int32) (bool, error) {
 			callErr = err
 			return err
 		}
-		if midOsConstantsS_ISBLK == nil {
+		if midOsConstantsSISBLK == nil {
 			callErr = fmt.Errorf("android.system.OsConstants.S_ISBLK is not available on this device")
 			return callErr
 		}
@@ -67,7 +67,7 @@ func (m *OsConstants) S_ISBLK(arg0 int32) (bool, error) {
 		var resultRaw uint8
 		resultRaw, callErr = env.CallStaticBooleanMethod(
 			(*jni.Class)(unsafe.Pointer(clsOsConstants)),
-			midOsConstantsS_ISBLK, jni.IntValue(arg0),
+			midOsConstantsSISBLK, jni.IntValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -78,8 +78,8 @@ func (m *OsConstants) S_ISBLK(arg0 int32) (bool, error) {
 	return result, callErr
 }
 
-// S_ISCHR calls android.system.OsConstants.S_ISCHR.
-func (m *OsConstants) S_ISCHR(arg0 int32) (bool, error) {
+// SISCHR calls android.system.OsConstants.S_ISCHR.
+func (m *OsConstants) SISCHR(arg0 int32) (bool, error) {
 	var result bool
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -87,7 +87,7 @@ func (m *OsConstants) S_ISCHR(arg0 int32) (bool, error) {
 			callErr = err
 			return err
 		}
-		if midOsConstantsS_ISCHR == nil {
+		if midOsConstantsSISCHR == nil {
 			callErr = fmt.Errorf("android.system.OsConstants.S_ISCHR is not available on this device")
 			return callErr
 		}
@@ -95,7 +95,7 @@ func (m *OsConstants) S_ISCHR(arg0 int32) (bool, error) {
 		var resultRaw uint8
 		resultRaw, callErr = env.CallStaticBooleanMethod(
 			(*jni.Class)(unsafe.Pointer(clsOsConstants)),
-			midOsConstantsS_ISCHR, jni.IntValue(arg0),
+			midOsConstantsSISCHR, jni.IntValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -106,8 +106,8 @@ func (m *OsConstants) S_ISCHR(arg0 int32) (bool, error) {
 	return result, callErr
 }
 
-// S_ISDIR calls android.system.OsConstants.S_ISDIR.
-func (m *OsConstants) S_ISDIR(arg0 int32) (bool, error) {
+// SISDIR calls android.system.OsConstants.S_ISDIR.
+func (m *OsConstants) SISDIR(arg0 int32) (bool, error) {
 	var result bool
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -115,7 +115,7 @@ func (m *OsConstants) S_ISDIR(arg0 int32) (bool, error) {
 			callErr = err
 			return err
 		}
-		if midOsConstantsS_ISDIR == nil {
+		if midOsConstantsSISDIR == nil {
 			callErr = fmt.Errorf("android.system.OsConstants.S_ISDIR is not available on this device")
 			return callErr
 		}
@@ -123,7 +123,7 @@ func (m *OsConstants) S_ISDIR(arg0 int32) (bool, error) {
 		var resultRaw uint8
 		resultRaw, callErr = env.CallStaticBooleanMethod(
 			(*jni.Class)(unsafe.Pointer(clsOsConstants)),
-			midOsConstantsS_ISDIR, jni.IntValue(arg0),
+			midOsConstantsSISDIR, jni.IntValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -134,8 +134,8 @@ func (m *OsConstants) S_ISDIR(arg0 int32) (bool, error) {
 	return result, callErr
 }
 
-// S_ISFIFO calls android.system.OsConstants.S_ISFIFO.
-func (m *OsConstants) S_ISFIFO(arg0 int32) (bool, error) {
+// SISFIFO calls android.system.OsConstants.S_ISFIFO.
+func (m *OsConstants) SISFIFO(arg0 int32) (bool, error) {
 	var result bool
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -143,7 +143,7 @@ func (m *OsConstants) S_ISFIFO(arg0 int32) (bool, error) {
 			callErr = err
 			return err
 		}
-		if midOsConstantsS_ISFIFO == nil {
+		if midOsConstantsSISFIFO == nil {
 			callErr = fmt.Errorf("android.system.OsConstants.S_ISFIFO is not available on this device")
 			return callErr
 		}
@@ -151,7 +151,7 @@ func (m *OsConstants) S_ISFIFO(arg0 int32) (bool, error) {
 		var resultRaw uint8
 		resultRaw, callErr = env.CallStaticBooleanMethod(
 			(*jni.Class)(unsafe.Pointer(clsOsConstants)),
-			midOsConstantsS_ISFIFO, jni.IntValue(arg0),
+			midOsConstantsSISFIFO, jni.IntValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -162,8 +162,8 @@ func (m *OsConstants) S_ISFIFO(arg0 int32) (bool, error) {
 	return result, callErr
 }
 
-// S_ISLNK calls android.system.OsConstants.S_ISLNK.
-func (m *OsConstants) S_ISLNK(arg0 int32) (bool, error) {
+// SISLNK calls android.system.OsConstants.S_ISLNK.
+func (m *OsConstants) SISLNK(arg0 int32) (bool, error) {
 	var result bool
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -171,7 +171,7 @@ func (m *OsConstants) S_ISLNK(arg0 int32) (bool, error) {
 			callErr = err
 			return err
 		}
-		if midOsConstantsS_ISLNK == nil {
+		if midOsConstantsSISLNK == nil {
 			callErr = fmt.Errorf("android.system.OsConstants.S_ISLNK is not available on this device")
 			return callErr
 		}
@@ -179,7 +179,7 @@ func (m *OsConstants) S_ISLNK(arg0 int32) (bool, error) {
 		var resultRaw uint8
 		resultRaw, callErr = env.CallStaticBooleanMethod(
 			(*jni.Class)(unsafe.Pointer(clsOsConstants)),
-			midOsConstantsS_ISLNK, jni.IntValue(arg0),
+			midOsConstantsSISLNK, jni.IntValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -190,8 +190,8 @@ func (m *OsConstants) S_ISLNK(arg0 int32) (bool, error) {
 	return result, callErr
 }
 
-// S_ISREG calls android.system.OsConstants.S_ISREG.
-func (m *OsConstants) S_ISREG(arg0 int32) (bool, error) {
+// SISREG calls android.system.OsConstants.S_ISREG.
+func (m *OsConstants) SISREG(arg0 int32) (bool, error) {
 	var result bool
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -199,7 +199,7 @@ func (m *OsConstants) S_ISREG(arg0 int32) (bool, error) {
 			callErr = err
 			return err
 		}
-		if midOsConstantsS_ISREG == nil {
+		if midOsConstantsSISREG == nil {
 			callErr = fmt.Errorf("android.system.OsConstants.S_ISREG is not available on this device")
 			return callErr
 		}
@@ -207,7 +207,7 @@ func (m *OsConstants) S_ISREG(arg0 int32) (bool, error) {
 		var resultRaw uint8
 		resultRaw, callErr = env.CallStaticBooleanMethod(
 			(*jni.Class)(unsafe.Pointer(clsOsConstants)),
-			midOsConstantsS_ISREG, jni.IntValue(arg0),
+			midOsConstantsSISREG, jni.IntValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -218,8 +218,8 @@ func (m *OsConstants) S_ISREG(arg0 int32) (bool, error) {
 	return result, callErr
 }
 
-// S_ISSOCK calls android.system.OsConstants.S_ISSOCK.
-func (m *OsConstants) S_ISSOCK(arg0 int32) (bool, error) {
+// SISSOCK calls android.system.OsConstants.S_ISSOCK.
+func (m *OsConstants) SISSOCK(arg0 int32) (bool, error) {
 	var result bool
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -227,7 +227,7 @@ func (m *OsConstants) S_ISSOCK(arg0 int32) (bool, error) {
 			callErr = err
 			return err
 		}
-		if midOsConstantsS_ISSOCK == nil {
+		if midOsConstantsSISSOCK == nil {
 			callErr = fmt.Errorf("android.system.OsConstants.S_ISSOCK is not available on this device")
 			return callErr
 		}
@@ -235,7 +235,7 @@ func (m *OsConstants) S_ISSOCK(arg0 int32) (bool, error) {
 		var resultRaw uint8
 		resultRaw, callErr = env.CallStaticBooleanMethod(
 			(*jni.Class)(unsafe.Pointer(clsOsConstants)),
-			midOsConstantsS_ISSOCK, jni.IntValue(arg0),
+			midOsConstantsSISSOCK, jni.IntValue(arg0),
 		)
 		if callErr != nil {
 			return callErr

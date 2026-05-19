@@ -32,6 +32,12 @@ func NewGallery(vm *jni.VM, arg0 *jni.Object) (*Gallery, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGallery == nil {
+			return fmt.Errorf("android.widget.Gallery is not available on this device")
+		}
+		if midGalleryCtor == nil {
+			return fmt.Errorf("android.widget.Gallery constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGallery)), midGalleryCtor, jni.ObjectValue(arg0))
 		if err != nil {

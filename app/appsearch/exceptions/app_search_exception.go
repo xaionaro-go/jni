@@ -32,6 +32,12 @@ func NewAppSearchException(vm *jni.VM, arg0 int32) (*AppSearchException, error) 
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppSearchException == nil {
+			return fmt.Errorf("android.app.appsearch.exceptions.AppSearchException is not available on this device")
+		}
+		if midAppSearchExceptionCtor == nil {
+			return fmt.Errorf("android.app.appsearch.exceptions.AppSearchException constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppSearchException)), midAppSearchExceptionCtor, jni.IntValue(arg0))
 		if err != nil {

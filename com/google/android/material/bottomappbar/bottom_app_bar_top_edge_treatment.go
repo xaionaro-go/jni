@@ -32,6 +32,12 @@ func NewBottomAppBarTopEdgeTreatment(vm *jni.VM, arg0 float32, arg1 float32, arg
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBottomAppBarTopEdgeTreatment == nil {
+			return fmt.Errorf("com.google.android.material.bottomappbar.BottomAppBarTopEdgeTreatment is not available on this device")
+		}
+		if midBottomAppBarTopEdgeTreatmentCtor == nil {
+			return fmt.Errorf("com.google.android.material.bottomappbar.BottomAppBarTopEdgeTreatment constructor (FFF)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBottomAppBarTopEdgeTreatment)), midBottomAppBarTopEdgeTreatmentCtor, jni.FloatValue(arg0), jni.FloatValue(arg1), jni.FloatValue(arg2))
 		if err != nil {

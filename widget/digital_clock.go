@@ -32,6 +32,12 @@ func NewDigitalClock(vm *jni.VM, arg0 *jni.Object) (*DigitalClock, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsDigitalClock == nil {
+			return fmt.Errorf("android.widget.DigitalClock is not available on this device")
+		}
+		if midDigitalClockCtor == nil {
+			return fmt.Errorf("android.widget.DigitalClock constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDigitalClock)), midDigitalClockCtor, jni.ObjectValue(arg0))
 		if err != nil {

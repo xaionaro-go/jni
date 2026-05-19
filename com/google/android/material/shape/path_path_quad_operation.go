@@ -23,27 +23,32 @@ type PathPathQuadOperation struct {
 	Obj *jni.GlobalRef
 }
 
-// ApplyToPath calls com.google.android.material.shape.ShapePath$PathQuadOperation.applyToPath.
-func (m *PathPathQuadOperation) ApplyToPath(arg0 *jni.Object, arg1 *jni.Object) error {
+// NewPathPathQuadOperation creates a new com.google.android.material.shape.ShapePath$PathQuadOperation instance.
+func NewPathPathQuadOperation(vm *jni.VM) (*PathPathQuadOperation, error) {
+	var t PathPathQuadOperation
+	t.VM = vm
 
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
+	err := vm.Do(func(env *jni.Env) error {
 		if err := ensureInit(env); err != nil {
-			callErr = err
 			return err
 		}
-		if midPathPathQuadOperationApplyToPath == nil {
-			callErr = fmt.Errorf("com.google.android.material.shape.ShapePath$PathQuadOperation.applyToPath is not available on this device")
-			return callErr
+		if clsPathPathQuadOperation == nil {
+			return fmt.Errorf("com.google.android.material.shape.ShapePath$PathQuadOperation is not available on this device")
 		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midPathPathQuadOperationApplyToPath, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
+		if midPathPathQuadOperationCtor == nil {
+			return fmt.Errorf("com.google.android.material.shape.ShapePath$PathQuadOperation constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPathPathQuadOperation)), midPathPathQuadOperationCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
 	})
-	return callErr
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
 }
 
 // ToString calls com.google.android.material.shape.ShapePath$PathQuadOperation.toString.

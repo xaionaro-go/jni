@@ -23,6 +23,34 @@ type SessionConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSessionConfigBuilder creates a new android.net.eap.EapSessionConfig$Builder instance.
+func NewSessionConfigBuilder(vm *jni.VM) (*SessionConfigBuilder, error) {
+	var t SessionConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSessionConfigBuilder == nil {
+			return fmt.Errorf("android.net.eap.EapSessionConfig$Builder is not available on this device")
+		}
+		if midSessionConfigBuilderCtor == nil {
+			return fmt.Errorf("android.net.eap.EapSessionConfig$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSessionConfigBuilder)), midSessionConfigBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.eap.EapSessionConfig$Builder.build.
 func (m *SessionConfigBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

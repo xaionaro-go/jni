@@ -7,12 +7,12 @@ const (
 )
 
 const (
+	Infinite           int = -1
+	Restart            int = 1
+	Reverse            int = 2
 	Appearing          int = 2
 	ChangeAppearing    int = 0
 	ChangeDisappearing int = 1
 	Changing           int = 4
 	Disappearing       int = 3
-	Infinite           int = -1
-	Restart            int = 1
-	Reverse            int = 2
 )

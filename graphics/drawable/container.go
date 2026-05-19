@@ -32,6 +32,12 @@ func NewContainer(vm *jni.VM) (*Container, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsContainer == nil {
+			return fmt.Errorf("android.graphics.drawable.DrawableContainer is not available on this device")
+		}
+		if midContainerCtor == nil {
+			return fmt.Errorf("android.graphics.drawable.DrawableContainer constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContainer)), midContainerCtor)
 		if err != nil {
 			return err

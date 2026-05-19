@@ -32,6 +32,12 @@ func NewStructUtsname(vm *jni.VM, arg0 string, arg1 string, arg2 string, arg3 st
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStructUtsname == nil {
+			return fmt.Errorf("android.system.StructUtsname is not available on this device")
+		}
+		if midStructUtsnameCtor == nil {
+			return fmt.Errorf("android.system.StructUtsname constructor (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

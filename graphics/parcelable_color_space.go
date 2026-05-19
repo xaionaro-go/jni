@@ -32,6 +32,12 @@ func NewParcelableColorSpace(vm *jni.VM, arg0 *jni.Object) (*ParcelableColorSpac
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsParcelableColorSpace == nil {
+			return fmt.Errorf("android.graphics.ParcelableColorSpace is not available on this device")
+		}
+		if midParcelableColorSpaceCtor == nil {
+			return fmt.Errorf("android.graphics.ParcelableColorSpace constructor (Landroid/graphics/ColorSpace;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsParcelableColorSpace)), midParcelableColorSpaceCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -156,29 +162,6 @@ func (m *ParcelableColorSpace) HashCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.graphics.ParcelableColorSpace.writeToParcel.
-func (m *ParcelableColorSpace) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midParcelableColorSpaceWriteToParcel == nil {
-			callErr = fmt.Errorf("android.graphics.ParcelableColorSpace.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midParcelableColorSpaceWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.graphics.ParcelableColorSpace.toString.
 func (m *ParcelableColorSpace) ToString() (string, error) {
 	var result string
@@ -232,4 +215,27 @@ func (m *ParcelableColorSpace) IsParcelable(arg0 *jni.Object) (bool, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.graphics.ParcelableColorSpace.writeToParcel.
+func (m *ParcelableColorSpace) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midParcelableColorSpaceWriteToParcel == nil {
+			callErr = fmt.Errorf("android.graphics.ParcelableColorSpace.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsParcelableColorSpace)),
+			midParcelableColorSpaceWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

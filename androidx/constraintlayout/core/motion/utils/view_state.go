@@ -32,6 +32,12 @@ func NewViewState(vm *jni.VM) (*ViewState, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsViewState == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.ViewState is not available on this device")
+		}
+		if midViewStateCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.ViewState constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewState)), midViewStateCtor)
 		if err != nil {
 			return err

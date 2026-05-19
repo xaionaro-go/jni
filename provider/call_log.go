@@ -32,6 +32,12 @@ func NewCallLog(vm *jni.VM) (*CallLog, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCallLog == nil {
+			return fmt.Errorf("android.provider.CallLog is not available on this device")
+		}
+		if midCallLogCtor == nil {
+			return fmt.Errorf("android.provider.CallLog constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCallLog)), midCallLogCtor)
 		if err != nil {
 			return err

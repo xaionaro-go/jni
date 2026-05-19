@@ -32,6 +32,12 @@ func NewColorStateList(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*ColorSt
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsColorStateList == nil {
+			return fmt.Errorf("android.content.res.ColorStateList is not available on this device")
+		}
+		if midColorStateListCtor == nil {
+			return fmt.Errorf("android.content.res.ColorStateList constructor ([[I[I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsColorStateList)), midColorStateListCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

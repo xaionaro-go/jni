@@ -32,6 +32,12 @@ func NewMultiResolutionStreamInfo(vm *jni.VM, arg0 int32, arg1 int32, arg2 strin
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMultiResolutionStreamInfo == nil {
+			return fmt.Errorf("android.hardware.camera2.params.MultiResolutionStreamInfo is not available on this device")
+		}
+		if midMultiResolutionStreamInfoCtor == nil {
+			return fmt.Errorf("android.hardware.camera2.params.MultiResolutionStreamInfo constructor (IILjava/lang/String;)V is not available on this device")
+		}
 
 		jArg2, err := env.NewStringUTF(arg2)
 		if err != nil {

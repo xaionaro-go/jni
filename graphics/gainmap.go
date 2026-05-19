@@ -32,6 +32,12 @@ func NewGainmap(vm *jni.VM, arg0 *jni.Object) (*Gainmap, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGainmap == nil {
+			return fmt.Errorf("android.graphics.Gainmap is not available on this device")
+		}
+		if midGainmapCtor == nil {
+			return fmt.Errorf("android.graphics.Gainmap constructor (Landroid/graphics/Bitmap;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGainmap)), midGainmapCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -620,29 +626,6 @@ func (m *Gainmap) SetRatioMin(
 	return callErr
 }
 
-// WriteToParcel calls android.graphics.Gainmap.writeToParcel.
-func (m *Gainmap) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midGainmapWriteToParcel == nil {
-			callErr = fmt.Errorf("android.graphics.Gainmap.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midGainmapWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.graphics.Gainmap.toString.
 func (m *Gainmap) ToString() (string, error) {
 	var result string
@@ -668,4 +651,27 @@ func (m *Gainmap) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.graphics.Gainmap.writeToParcel.
+func (m *Gainmap) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midGainmapWriteToParcel == nil {
+			callErr = fmt.Errorf("android.graphics.Gainmap.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsGainmap)),
+			midGainmapWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

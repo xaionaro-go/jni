@@ -23,6 +23,34 @@ type DataNotificationConfigBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDataNotificationConfigBuilder creates a new android.ranging.DataNotificationConfig$Builder instance.
+func NewDataNotificationConfigBuilder(vm *jni.VM) (*DataNotificationConfigBuilder, error) {
+	var t DataNotificationConfigBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDataNotificationConfigBuilder == nil {
+			return fmt.Errorf("android.ranging.DataNotificationConfig$Builder is not available on this device")
+		}
+		if midDataNotificationConfigBuilderCtor == nil {
+			return fmt.Errorf("android.ranging.DataNotificationConfig$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDataNotificationConfigBuilder)), midDataNotificationConfigBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.ranging.DataNotificationConfig$Builder.build.
 func (m *DataNotificationConfigBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

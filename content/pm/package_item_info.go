@@ -32,6 +32,12 @@ func NewPackageItemInfo(vm *jni.VM) (*PackageItemInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPackageItemInfo == nil {
+			return fmt.Errorf("android.content.pm.PackageItemInfo is not available on this device")
+		}
+		if midPackageItemInfoCtor == nil {
+			return fmt.Errorf("android.content.pm.PackageItemInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPackageItemInfo)), midPackageItemInfoCtor)
 		if err != nil {
 			return err

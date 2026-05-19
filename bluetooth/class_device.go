@@ -23,6 +23,34 @@ type ClassDevice struct {
 	Obj *jni.GlobalRef
 }
 
+// NewClassDevice creates a new android.bluetooth.BluetoothClass$Device instance.
+func NewClassDevice(vm *jni.VM) (*ClassDevice, error) {
+	var t ClassDevice
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsClassDevice == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothClass$Device is not available on this device")
+		}
+		if midClassDeviceCtor == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothClass$Device constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsClassDevice)), midClassDeviceCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.bluetooth.BluetoothClass$Device.toString.
 func (m *ClassDevice) ToString() (string, error) {
 	var result string

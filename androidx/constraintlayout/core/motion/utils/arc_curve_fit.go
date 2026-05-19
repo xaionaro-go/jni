@@ -32,6 +32,12 @@ func NewArcCurveFit(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.Ob
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsArcCurveFit == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.ArcCurveFit is not available on this device")
+		}
+		if midArcCurveFitCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.motion.utils.ArcCurveFit constructor ([I[D[[D)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsArcCurveFit)), midArcCurveFitCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
 		if err != nil {

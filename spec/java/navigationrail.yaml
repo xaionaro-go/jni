@@ -5,6 +5,24 @@
 package: navigationrail
 go_import: github.com/AndroidGoLab/jni/com/google/android/material/navigationrail
 classes:
+    - java_class: com.google.android.material.navigationrail.NavigationRailMenuView
+      go_type: NavigationRailMenuView
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: setItemMinimumHeight
+          go_name: SetItemMinimumHeight
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getItemMinimumHeight
+          go_name: GetItemMinimumHeight
+          returns: int
+          error: true
     - java_class: com.google.android.material.navigationrail.NavigationRailView
       go_type: NavigationRailView
       obtain: constructor
@@ -58,23 +76,5 @@ classes:
           error: true
         - java_method: getMaxItemCount
           go_name: GetMaxItemCount
-          returns: int
-          error: true
-    - java_class: com.google.android.material.navigationrail.NavigationRailMenuView
-      go_type: NavigationRailMenuView
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: setItemMinimumHeight
-          go_name: SetItemMinimumHeight
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getItemMinimumHeight
-          go_name: GetItemMinimumHeight
           returns: int
           error: true

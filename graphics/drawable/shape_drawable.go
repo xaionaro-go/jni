@@ -32,6 +32,12 @@ func NewShapeDrawable(vm *jni.VM) (*ShapeDrawable, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsShapeDrawable == nil {
+			return fmt.Errorf("android.graphics.drawable.ShapeDrawable is not available on this device")
+		}
+		if midShapeDrawableCtor == nil {
+			return fmt.Errorf("android.graphics.drawable.ShapeDrawable constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsShapeDrawable)), midShapeDrawableCtor)
 		if err != nil {
 			return err

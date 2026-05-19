@@ -32,6 +32,12 @@ func NewRecordCompat(vm *jni.VM, arg0 *jni.Object) (*RecordCompat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRecordCompat == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityRecordCompat is not available on this device")
+		}
+		if midRecordCompatCtor == nil {
+			return fmt.Errorf("androidx.core.view.accessibility.AccessibilityRecordCompat constructor (Ljava/lang/Object;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRecordCompat)), midRecordCompatCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -23,6 +23,35 @@ type SleepSessionRecordBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSleepSessionRecordBuilder creates a new android.health.connect.datatypes.SleepSessionRecord$Builder instance.
+func NewSleepSessionRecordBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.Object) (*SleepSessionRecordBuilder, error) {
+	var t SleepSessionRecordBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSleepSessionRecordBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.SleepSessionRecord$Builder is not available on this device")
+		}
+		if midSleepSessionRecordBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.SleepSessionRecord$Builder constructor (Landroid/health/connect/datatypes/Metadata;Ljava/time/Instant;Ljava/time/Instant;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSleepSessionRecordBuilder)), midSleepSessionRecordBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.datatypes.SleepSessionRecord$Builder.build.
 func (m *SleepSessionRecordBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

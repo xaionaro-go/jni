@@ -32,6 +32,12 @@ func NewMultiResolutionImageReader(vm *jni.VM, arg0 *jni.Object, arg1 int32, arg
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMultiResolutionImageReader == nil {
+			return fmt.Errorf("android.hardware.camera2.MultiResolutionImageReader is not available on this device")
+		}
+		if midMultiResolutionImageReaderCtor == nil {
+			return fmt.Errorf("android.hardware.camera2.MultiResolutionImageReader constructor (Ljava/util/Collection;II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMultiResolutionImageReader)), midMultiResolutionImageReaderCtor, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2))
 		if err != nil {

@@ -4,8 +4,8 @@ import (
 	"archive/zip"
 	"bytes"
 	"os"
+	"os/exec"
 	"path/filepath"
-	"runtime"
 	"strings"
 	"testing"
 
@@ -54,10 +54,10 @@ func fakeLock(t *testing.T, cacheDir string) *aarresolve.LockFile {
 	}
 
 	writeAAR(t, filepath.Join(cacheDir, lock.Artifacts[0].Path), map[string][]byte{
-		"classes.jar":           dummyJAR(t, "Foo.class"),
-		"AndroidManifest.xml":   []byte("<manifest/>"),
+		"classes.jar":            dummyJAR(t, "Foo.class"),
+		"AndroidManifest.xml":    []byte("<manifest/>"),
 		"res/values/strings.xml": []byte(`<?xml version="1.0"?><resources><string name="hi">Hello</string></resources>`),
-		"res/layout/main.xml":   []byte(`<?xml version="1.0"?><LinearLayout/>`),
+		"res/layout/main.xml":    []byte(`<?xml version="1.0"?><LinearLayout/>`),
 	})
 	writeAAR(t, filepath.Join(cacheDir, lock.Artifacts[1].Path), map[string][]byte{
 		"classes.jar":         dummyJAR(t, "Bar.class"),
@@ -170,39 +170,74 @@ func TestResDirIfPopulated(t *testing.T) {
 	}
 }
 
-// fakeAapt2 writes a tiny shell script that pretends to be aapt2: when called
-// as `compile --dir <res> -o <out>`, it touches one .flat file per source res
+// fakeAapt2 builds a tiny executable that pretends to be aapt2: when called
+// as `compile --dir <res> -o <out>`, it writes one .flat file per source res
 // file in the input directory so CompileAll has something to enumerate.
 func fakeAapt2(t *testing.T) string {
 	t.Helper()
-	if runtime.GOOS == "windows" {
-		t.Skip("fake aapt2 is a POSIX shell script")
-	}
 	dir := t.TempDir()
-	path := filepath.Join(dir, "aapt2")
-	script := `#!/bin/sh
-set -e
-mode=$1; shift
-[ "$mode" = "compile" ] || exit 2
-res=""
-out=""
-while [ $# -gt 0 ]; do
-  case "$1" in
-    --dir) res=$2; shift 2 ;;
-    -o)    out=$2; shift 2 ;;
-    *)     shift ;;
-  esac
-done
-mkdir -p "$out"
-i=0
-find "$res" -type f | while read f; do
-  i=$((i+1))
-  base=$(basename "$f")
-  printf 'flat-stub-%d-%s' "$i" "$base" > "$out/$(echo "$base" | tr / _).flat"
-done
+
+	src := filepath.Join(dir, "fake-aapt2.go")
+	source := `package main
+
+import (
+	"fmt"
+	"os"
+	"path/filepath"
+)
+
+func main() {
+	if len(os.Args) < 2 || os.Args[1] != "compile" {
+		os.Exit(2)
+	}
+	var res string
+	var out string
+	for i := 2; i < len(os.Args); i++ {
+		switch os.Args[i] {
+		case "--dir":
+			i++
+			if i < len(os.Args) {
+				res = os.Args[i]
+			}
+		case "-o":
+			i++
+			if i < len(os.Args) {
+				out = os.Args[i]
+			}
+		}
+	}
+	if res == "" || out == "" {
+		os.Exit(2)
+	}
+	if err := os.MkdirAll(out, 0o755); err != nil {
+		panic(err)
+	}
+	i := 0
+	err := filepath.WalkDir(res, func(path string, d os.DirEntry, err error) error {
+		if err != nil || d.IsDir() {
+			return err
+		}
+		i++
+		base := filepath.Base(path)
+		return os.WriteFile(filepath.Join(out, fmt.Sprintf("%s.flat", base)), []byte(fmt.Sprintf("flat-stub-%d-%s", i, base)), 0o644)
+	})
+	if err != nil {
+		panic(err)
+	}
+}
 `
-	if err := os.WriteFile(path, []byte(script), 0o755); err != nil {
-		t.Fatalf("write fake aapt2: %v", err)
+	if err := os.WriteFile(src, []byte(source), 0o644); err != nil {
+		t.Fatalf("write fake aapt2 source: %v", err)
+	}
+
+	goexeOut, err := exec.Command("go", "env", "GOEXE").Output()
+	if err != nil {
+		t.Fatalf("go env GOEXE: %v", err)
+	}
+	path := filepath.Join(dir, "aapt2"+strings.TrimSpace(string(goexeOut)))
+	cmd := exec.Command("go", "build", "-o", path, src)
+	if out, err := cmd.CombinedOutput(); err != nil {
+		t.Fatalf("build fake aapt2: %v\n%s", err, out)
 	}
 	return path
 }

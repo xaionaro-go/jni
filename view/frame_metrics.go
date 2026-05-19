@@ -32,6 +32,12 @@ func NewFrameMetrics(vm *jni.VM, arg0 *jni.Object) (*FrameMetrics, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFrameMetrics == nil {
+			return fmt.Errorf("android.view.FrameMetrics is not available on this device")
+		}
+		if midFrameMetricsCtor == nil {
+			return fmt.Errorf("android.view.FrameMetrics constructor (Landroid/view/FrameMetrics;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFrameMetrics)), midFrameMetricsCtor, jni.ObjectValue(arg0))
 		if err != nil {

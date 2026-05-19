@@ -32,6 +32,12 @@ func NewHardwareBufferRenderer(vm *jni.VM, arg0 *jni.Object) (*HardwareBufferRen
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsHardwareBufferRenderer == nil {
+			return fmt.Errorf("android.graphics.HardwareBufferRenderer is not available on this device")
+		}
+		if midHardwareBufferRendererCtor == nil {
+			return fmt.Errorf("android.graphics.HardwareBufferRenderer constructor (Landroid/hardware/HardwareBuffer;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsHardwareBufferRenderer)), midHardwareBufferRendererCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -5,14 +5,6 @@ package profileinstaller
 import "github.com/AndroidGoLab/jni/androidx/profileinstaller/consts"
 
 const (
-	ResultCodeNoProfile                                        = consts.ResultCodeNoProfile
-	ResultCodeCompiledWithProfile                              = consts.ResultCodeCompiledWithProfile
-	ResultCodeProfileEnqueuedForCompilation                    = consts.ResultCodeProfileEnqueuedForCompilation
-	ResultCodeCompiledWithProfileNonMatching                   = consts.ResultCodeCompiledWithProfileNonMatching
-	ResultCodeErrorPackageNameDoesNotExist                     = consts.ResultCodeErrorPackageNameDoesNotExist
-	ResultCodeErrorCacheFileExistsButCannotBeRead              = consts.ResultCodeErrorCacheFileExistsButCannotBeRead
-	ResultCodeErrorCantWriteProfileVerificationResultCacheFile = consts.ResultCodeErrorCantWriteProfileVerificationResultCacheFile
-	ResultCodeErrorUnsupportedApiVersion                       = consts.ResultCodeErrorUnsupportedApiVersion
 	MinSupportedSdk                                            = consts.MinSupportedSdk
 	MaxSupportedSdk                                            = consts.MaxSupportedSdk
 	DiagnosticCurrentProfileExists                             = consts.DiagnosticCurrentProfileExists
@@ -36,6 +28,14 @@ const (
 	ResultBenchmarkOperationSuccess                            = consts.ResultBenchmarkOperationSuccess
 	ResultBenchmarkOperationFailure                            = consts.ResultBenchmarkOperationFailure
 	ResultBenchmarkOperationUnknown                            = consts.ResultBenchmarkOperationUnknown
+	ResultCodeNoProfile                                        = consts.ResultCodeNoProfile
+	ResultCodeCompiledWithProfile                              = consts.ResultCodeCompiledWithProfile
+	ResultCodeProfileEnqueuedForCompilation                    = consts.ResultCodeProfileEnqueuedForCompilation
+	ResultCodeCompiledWithProfileNonMatching                   = consts.ResultCodeCompiledWithProfileNonMatching
+	ResultCodeErrorPackageNameDoesNotExist                     = consts.ResultCodeErrorPackageNameDoesNotExist
+	ResultCodeErrorCacheFileExistsButCannotBeRead              = consts.ResultCodeErrorCacheFileExistsButCannotBeRead
+	ResultCodeErrorCantWriteProfileVerificationResultCacheFile = consts.ResultCodeErrorCantWriteProfileVerificationResultCacheFile
+	ResultCodeErrorUnsupportedApiVersion                       = consts.ResultCodeErrorUnsupportedApiVersion
 )
 
 const (

@@ -32,6 +32,12 @@ func NewStaticLayout(vm *jni.VM, arg0 string, arg1 *jni.Object, arg2 int32, arg3
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStaticLayout == nil {
+			return fmt.Errorf("android.text.StaticLayout is not available on this device")
+		}
+		if midStaticLayoutCtor == nil {
+			return fmt.Errorf("android.text.StaticLayout constructor (Ljava/lang/CharSequence;Landroid/text/TextPaint;ILandroid/text/Layout$Alignment;FFZ)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

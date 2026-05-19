@@ -32,6 +32,12 @@ func NewCache(vm *jni.VM) (*Cache, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCache == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.Cache is not available on this device")
+		}
+		if midCacheCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.Cache constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCache)), midCacheCtor)
 		if err != nil {
 			return err

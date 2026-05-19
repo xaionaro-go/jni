@@ -133,38 +133,6 @@ func (m *PathIterator) Peek() (int32, error) {
 	return result, callErr
 }
 
-// Next0_2 calls android.graphics.PathIterator.next.
-func (m *PathIterator) Next0_2() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midPathIteratorNext0_2 == nil {
-			callErr = fmt.Errorf("android.graphics.PathIterator.next is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midPathIteratorNext0_2,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.graphics.PathIterator.toString.
 func (m *PathIterator) ToString() (string, error) {
 	var result string

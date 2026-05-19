@@ -5,6 +5,15 @@ package widget
 import "github.com/AndroidGoLab/jni/androidx/constraintlayout/helper/widget/consts"
 
 const (
+	Tag = consts.Tag
+)
+
+const (
+	Auto                  = consts.Auto
+	North                 = consts.North
+	South                 = consts.South
+	East                  = consts.East
+	West                  = consts.West
 	Horizontal            = consts.Horizontal
 	Vertical              = consts.Vertical
 	WrapNone              = consts.WrapNone
@@ -22,13 +31,4 @@ const (
 	VerticalAlignBaseline = consts.VerticalAlignBaseline
 	TouchUpImmediateStop  = consts.TouchUpImmediateStop
 	TouchUpCarryOn        = consts.TouchUpCarryOn
-	Auto                  = consts.Auto
-	North                 = consts.North
-	South                 = consts.South
-	East                  = consts.East
-	West                  = consts.West
-)
-
-const (
-	Tag = consts.Tag
 )

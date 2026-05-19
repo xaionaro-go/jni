@@ -23,29 +23,13 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsInflater                         *jni.GlobalRef
-	midInflaterInflateTransition        jni.MethodID
-	midInflaterInflateTransitionManager jni.MethodID
-	midInflaterToString                 jni.MethodID
-	midInflaterFrom                     jni.MethodID
-
-	clsAutoTransition         *jni.GlobalRef
-	midAutoTransitionCtor     jni.MethodID
-	midAutoTransitionToString jni.MethodID
-
-	clsCircularPropagation                    *jni.GlobalRef
-	midCircularPropagationCtor                jni.MethodID
-	midCircularPropagationGetStartDelay       jni.MethodID
-	midCircularPropagationSetPropagationSpeed jni.MethodID
-	midCircularPropagationToString            jni.MethodID
-
-	clsVisibilityPropagation                         *jni.GlobalRef
-	midVisibilityPropagationCaptureValues            jni.MethodID
-	midVisibilityPropagationGetPropagationProperties jni.MethodID
-	midVisibilityPropagationGetViewVisibility        jni.MethodID
-	midVisibilityPropagationGetViewX                 jni.MethodID
-	midVisibilityPropagationGetViewY                 jni.MethodID
-	midVisibilityPropagationToString                 jni.MethodID
+	clsChangeScroll                        *jni.GlobalRef
+	midChangeScrollCtor                    jni.MethodID
+	midChangeScrollCaptureEndValues        jni.MethodID
+	midChangeScrollCaptureStartValues      jni.MethodID
+	midChangeScrollCreateAnimator          jni.MethodID
+	midChangeScrollGetTransitionProperties jni.MethodID
+	midChangeScrollToString                jni.MethodID
 
 	clsScene                  *jni.GlobalRef
 	midSceneCtor              jni.MethodID
@@ -58,82 +42,34 @@ var (
 	midSceneGetCurrentScene   jni.MethodID
 	midSceneGetSceneForLayout jni.MethodID
 
-	clsSidePropagation                    *jni.GlobalRef
-	midSidePropagationCtor                jni.MethodID
-	midSidePropagationGetStartDelay       jni.MethodID
-	midSidePropagationSetPropagationSpeed jni.MethodID
-	midSidePropagationSetSide             jni.MethodID
-	midSidePropagationToString            jni.MethodID
+	clsValues         *jni.GlobalRef
+	midValuesCtor     jni.MethodID
+	midValuesEquals   jni.MethodID
+	midValuesHashCode jni.MethodID
+	midValuesToString jni.MethodID
 
-	clsSet                     *jni.GlobalRef
-	midSetCtor                 jni.MethodID
-	midSetAddListener1         jni.MethodID
-	midSetAddTarget1           jni.MethodID
-	midSetAddTarget1_1         jni.MethodID
-	midSetAddTarget1_2         jni.MethodID
-	midSetAddTarget1_3         jni.MethodID
-	midSetAddTransition        jni.MethodID
-	midSetCaptureEndValues     jni.MethodID
-	midSetCaptureStartValues   jni.MethodID
-	midSetClone0               jni.MethodID
-	midSetExcludeTarget2       jni.MethodID
-	midSetExcludeTarget2_1     jni.MethodID
-	midSetExcludeTarget2_2     jni.MethodID
-	midSetExcludeTarget2_3     jni.MethodID
-	midSetGetOrdering          jni.MethodID
-	midSetGetTransitionAt      jni.MethodID
-	midSetGetTransitionCount   jni.MethodID
-	midSetRemoveListener1      jni.MethodID
-	midSetRemoveTarget1        jni.MethodID
-	midSetRemoveTarget1_1      jni.MethodID
-	midSetRemoveTarget1_2      jni.MethodID
-	midSetRemoveTarget1_3      jni.MethodID
-	midSetRemoveTransition     jni.MethodID
-	midSetSetDuration1         jni.MethodID
-	midSetSetEpicenterCallback jni.MethodID
-	midSetSetInterpolator1     jni.MethodID
-	midSetSetOrdering          jni.MethodID
-	midSetSetPathMotion        jni.MethodID
-	midSetSetPropagation       jni.MethodID
-	midSetSetStartDelay1       jni.MethodID
-	midSetSetStartDelay1_1     jni.MethodID
-	midSetSetInterpolator1_1   jni.MethodID
-	midSetSetDuration1_1       jni.MethodID
-	midSetRemoveTarget1_4      jni.MethodID
-	midSetRemoveTarget1_5      jni.MethodID
-	midSetRemoveTarget1_6      jni.MethodID
-	midSetRemoveTarget1_7      jni.MethodID
-	midSetRemoveListener1_1    jni.MethodID
-	midSetClone0_1             jni.MethodID
-	midSetAddTarget1_4         jni.MethodID
-	midSetAddTarget1_5         jni.MethodID
-	midSetAddTarget1_6         jni.MethodID
-	midSetAddTarget1_7         jni.MethodID
-	midSetAddListener1_1       jni.MethodID
-	midSetClone0_2             jni.MethodID
-	midSetToString             jni.MethodID
+	clsChangeImageTransform                        *jni.GlobalRef
+	midChangeImageTransformCtor                    jni.MethodID
+	midChangeImageTransformCaptureEndValues        jni.MethodID
+	midChangeImageTransformCaptureStartValues      jni.MethodID
+	midChangeImageTransformCreateAnimator          jni.MethodID
+	midChangeImageTransformGetTransitionProperties jni.MethodID
+	midChangeImageTransformToString                jni.MethodID
 
-	clsPropagation                         *jni.GlobalRef
-	midPropagationCaptureValues            jni.MethodID
-	midPropagationGetPropagationProperties jni.MethodID
-	midPropagationGetStartDelay            jni.MethodID
-	midPropagationToString                 jni.MethodID
+	clsPatternPathMotion               *jni.GlobalRef
+	midPatternPathMotionCtor           jni.MethodID
+	midPatternPathMotionGetPath        jni.MethodID
+	midPatternPathMotionGetPatternPath jni.MethodID
+	midPatternPathMotionSetPatternPath jni.MethodID
+	midPatternPathMotionToString       jni.MethodID
 
-	clsChangeScroll                        *jni.GlobalRef
-	midChangeScrollCtor                    jni.MethodID
-	midChangeScrollCaptureEndValues        jni.MethodID
-	midChangeScrollCaptureStartValues      jni.MethodID
-	midChangeScrollCreateAnimator          jni.MethodID
-	midChangeScrollGetTransitionProperties jni.MethodID
-	midChangeScrollToString                jni.MethodID
-
-	clsExplode                   *jni.GlobalRef
-	midExplodeCtor               jni.MethodID
-	midExplodeCaptureEndValues   jni.MethodID
-	midExplodeCaptureStartValues jni.MethodID
-	midExplodeOnAppear           jni.MethodID
-	midExplodeOnDisappear        jni.MethodID
-	midExplodeToString           jni.MethodID
+	clsListenerAdapter                   *jni.GlobalRef
+	midListenerAdapterOnTransitionCancel jni.MethodID
+	midListenerAdapterOnTransitionEnd    jni.MethodID
+	midListenerAdapterOnTransitionPause  jni.MethodID
+	midListenerAdapterOnTransitionResume jni.MethodID
+	midListenerAdapterOnTransitionStart  jni.MethodID
+	midListenerAdapterToString           jni.MethodID
 
 	clsArcMotion                          *jni.GlobalRef
 	midArcMotionCtor                      jni.MethodID
@@ -146,6 +82,163 @@ var (
 	midArcMotionSetMinimumVerticalAngle   jni.MethodID
 	midArcMotionToString                  jni.MethodID
 
+	clsManager                          *jni.GlobalRef
+	midManagerCtor                      jni.MethodID
+	midManagerSetTransition3            jni.MethodID
+	midManagerSetTransition2_1          jni.MethodID
+	midManagerTransitionTo              jni.MethodID
+	midManagerToString                  jni.MethodID
+	midManagerBeginDelayedTransition1   jni.MethodID
+	midManagerBeginDelayedTransition2_1 jni.MethodID
+	midManagerEndTransitions            jni.MethodID
+	midManagerGo1                       jni.MethodID
+	midManagerGo2_1                     jni.MethodID
+
+	clsVisibility                        *jni.GlobalRef
+	midVisibilityCaptureEndValues        jni.MethodID
+	midVisibilityCaptureStartValues      jni.MethodID
+	midVisibilityCreateAnimator          jni.MethodID
+	midVisibilityGetMode                 jni.MethodID
+	midVisibilityGetTransitionProperties jni.MethodID
+	midVisibilityIsTransitionRequired    jni.MethodID
+	midVisibilityIsVisible               jni.MethodID
+	midVisibilityOnAppear5               jni.MethodID
+	midVisibilityOnAppear4_1             jni.MethodID
+	midVisibilityOnDisappear5            jni.MethodID
+	midVisibilityOnDisappear4_1          jni.MethodID
+	midVisibilitySetMode                 jni.MethodID
+	midVisibilityToString                jni.MethodID
+
+	clsChangeClipBounds                        *jni.GlobalRef
+	midChangeClipBoundsCtor                    jni.MethodID
+	midChangeClipBoundsCaptureEndValues        jni.MethodID
+	midChangeClipBoundsCaptureStartValues      jni.MethodID
+	midChangeClipBoundsCreateAnimator          jni.MethodID
+	midChangeClipBoundsGetTransitionProperties jni.MethodID
+	midChangeClipBoundsToString                jni.MethodID
+
+	clsCircularPropagation                    *jni.GlobalRef
+	midCircularPropagationCtor                jni.MethodID
+	midCircularPropagationGetStartDelay       jni.MethodID
+	midCircularPropagationSetPropagationSpeed jni.MethodID
+	midCircularPropagationToString            jni.MethodID
+
+	clsSidePropagation                    *jni.GlobalRef
+	midSidePropagationCtor                jni.MethodID
+	midSidePropagationGetStartDelay       jni.MethodID
+	midSidePropagationSetPropagationSpeed jni.MethodID
+	midSidePropagationSetSide             jni.MethodID
+	midSidePropagationToString            jni.MethodID
+
+	clsInflater                         *jni.GlobalRef
+	midInflaterInflateTransition        jni.MethodID
+	midInflaterInflateTransitionManager jni.MethodID
+	midInflaterToString                 jni.MethodID
+	midInflaterFrom                     jni.MethodID
+
+	clsFade                   *jni.GlobalRef
+	midFadeCtor               jni.MethodID
+	midFadeCaptureStartValues jni.MethodID
+	midFadeOnAppear           jni.MethodID
+	midFadeOnDisappear        jni.MethodID
+	midFadeToString           jni.MethodID
+
+	clsAutoTransition         *jni.GlobalRef
+	midAutoTransitionCtor     jni.MethodID
+	midAutoTransitionToString jni.MethodID
+
+	clsPropagation                         *jni.GlobalRef
+	midPropagationCaptureValues            jni.MethodID
+	midPropagationGetPropagationProperties jni.MethodID
+	midPropagationGetStartDelay            jni.MethodID
+	midPropagationToString                 jni.MethodID
+
+	clsPathMotion         *jni.GlobalRef
+	midPathMotionGetPath  jni.MethodID
+	midPathMotionToString jni.MethodID
+
+	clsExplode                   *jni.GlobalRef
+	midExplodeCtor               jni.MethodID
+	midExplodeCaptureEndValues   jni.MethodID
+	midExplodeCaptureStartValues jni.MethodID
+	midExplodeOnAppear           jni.MethodID
+	midExplodeOnDisappear        jni.MethodID
+	midExplodeToString           jni.MethodID
+
+	clsSet                     *jni.GlobalRef
+	midSetCtor                 jni.MethodID
+	midSetAddListener          jni.MethodID
+	midSetAddTarget1           jni.MethodID
+	midSetAddTarget1_1         jni.MethodID
+	midSetAddTarget1_2         jni.MethodID
+	midSetAddTarget1_3         jni.MethodID
+	midSetAddTransition        jni.MethodID
+	midSetCaptureEndValues     jni.MethodID
+	midSetCaptureStartValues   jni.MethodID
+	midSetClone                jni.MethodID
+	midSetExcludeTarget2       jni.MethodID
+	midSetExcludeTarget2_1     jni.MethodID
+	midSetExcludeTarget2_2     jni.MethodID
+	midSetExcludeTarget2_3     jni.MethodID
+	midSetGetOrdering          jni.MethodID
+	midSetGetTransitionAt      jni.MethodID
+	midSetGetTransitionCount   jni.MethodID
+	midSetRemoveListener       jni.MethodID
+	midSetRemoveTarget1        jni.MethodID
+	midSetRemoveTarget1_1      jni.MethodID
+	midSetRemoveTarget1_2      jni.MethodID
+	midSetRemoveTarget1_3      jni.MethodID
+	midSetRemoveTransition     jni.MethodID
+	midSetSetDuration          jni.MethodID
+	midSetSetEpicenterCallback jni.MethodID
+	midSetSetInterpolator      jni.MethodID
+	midSetSetOrdering          jni.MethodID
+	midSetSetPathMotion        jni.MethodID
+	midSetSetPropagation       jni.MethodID
+	midSetSetStartDelay        jni.MethodID
+	midSetToString             jni.MethodID
+
+	clsChangeTransform                        *jni.GlobalRef
+	midChangeTransformCtor                    jni.MethodID
+	midChangeTransformCaptureEndValues        jni.MethodID
+	midChangeTransformCaptureStartValues      jni.MethodID
+	midChangeTransformCreateAnimator          jni.MethodID
+	midChangeTransformGetReparent             jni.MethodID
+	midChangeTransformGetReparentWithOverlay  jni.MethodID
+	midChangeTransformGetTransitionProperties jni.MethodID
+	midChangeTransformSetReparent             jni.MethodID
+	midChangeTransformSetReparentWithOverlay  jni.MethodID
+	midChangeTransformToString                jni.MethodID
+
+	clsChangeBounds                        *jni.GlobalRef
+	midChangeBoundsCtor                    jni.MethodID
+	midChangeBoundsCaptureEndValues        jni.MethodID
+	midChangeBoundsCaptureStartValues      jni.MethodID
+	midChangeBoundsCreateAnimator          jni.MethodID
+	midChangeBoundsGetResizeClip           jni.MethodID
+	midChangeBoundsGetTransitionProperties jni.MethodID
+	midChangeBoundsSetReparent             jni.MethodID
+	midChangeBoundsSetResizeClip           jni.MethodID
+	midChangeBoundsToString                jni.MethodID
+
+	clsSlide                   *jni.GlobalRef
+	midSlideCtor               jni.MethodID
+	midSlideCaptureEndValues   jni.MethodID
+	midSlideCaptureStartValues jni.MethodID
+	midSlideGetSlideEdge       jni.MethodID
+	midSlideOnAppear           jni.MethodID
+	midSlideOnDisappear        jni.MethodID
+	midSlideSetSlideEdge       jni.MethodID
+	midSlideToString           jni.MethodID
+
+	clsVisibilityPropagation                         *jni.GlobalRef
+	midVisibilityPropagationCaptureValues            jni.MethodID
+	midVisibilityPropagationGetPropagationProperties jni.MethodID
+	midVisibilityPropagationGetViewVisibility        jni.MethodID
+	midVisibilityPropagationGetViewX                 jni.MethodID
+	midVisibilityPropagationGetViewY                 jni.MethodID
+	midVisibilityPropagationToString                 jni.MethodID
+
 	clsTransition                        *jni.GlobalRef
 	midTransitionAddListener             jni.MethodID
 	midTransitionAddTarget1              jni.MethodID
@@ -155,7 +248,7 @@ var (
 	midTransitionCanRemoveViews          jni.MethodID
 	midTransitionCaptureEndValues        jni.MethodID
 	midTransitionCaptureStartValues      jni.MethodID
-	midTransitionClone0                  jni.MethodID
+	midTransitionClone                   jni.MethodID
 	midTransitionCreateAnimator          jni.MethodID
 	midTransitionExcludeChildren2        jni.MethodID
 	midTransitionExcludeChildren2_1      jni.MethodID
@@ -192,7 +285,6 @@ var (
 	midTransitionSetPropagation          jni.MethodID
 	midTransitionSetStartDelay           jni.MethodID
 	midTransitionToString                jni.MethodID
-	midTransitionClone0_1                jni.MethodID
 
 	clsEpicenterCallback               *jni.GlobalRef
 	midEpicenterCallbackOnGetEpicenter jni.MethodID
@@ -205,114 +297,6 @@ var (
 	midTransitionListenerOnTransitionResume jni.MethodID
 	midTransitionListenerOnTransitionStart  jni.MethodID
 	midTransitionListenerToString           jni.MethodID
-
-	clsManager                          *jni.GlobalRef
-	midManagerCtor                      jni.MethodID
-	midManagerSetTransition3            jni.MethodID
-	midManagerSetTransition2_1          jni.MethodID
-	midManagerTransitionTo              jni.MethodID
-	midManagerToString                  jni.MethodID
-	midManagerBeginDelayedTransition1   jni.MethodID
-	midManagerBeginDelayedTransition2_1 jni.MethodID
-	midManagerEndTransitions            jni.MethodID
-	midManagerGo1                       jni.MethodID
-	midManagerGo2_1                     jni.MethodID
-
-	clsChangeClipBounds                        *jni.GlobalRef
-	midChangeClipBoundsCtor                    jni.MethodID
-	midChangeClipBoundsCaptureEndValues        jni.MethodID
-	midChangeClipBoundsCaptureStartValues      jni.MethodID
-	midChangeClipBoundsCreateAnimator          jni.MethodID
-	midChangeClipBoundsGetTransitionProperties jni.MethodID
-	midChangeClipBoundsToString                jni.MethodID
-
-	clsChangeBounds                        *jni.GlobalRef
-	midChangeBoundsCtor                    jni.MethodID
-	midChangeBoundsCaptureEndValues        jni.MethodID
-	midChangeBoundsCaptureStartValues      jni.MethodID
-	midChangeBoundsCreateAnimator          jni.MethodID
-	midChangeBoundsGetResizeClip           jni.MethodID
-	midChangeBoundsGetTransitionProperties jni.MethodID
-	midChangeBoundsSetReparent             jni.MethodID
-	midChangeBoundsSetResizeClip           jni.MethodID
-	midChangeBoundsToString                jni.MethodID
-
-	clsFade                   *jni.GlobalRef
-	midFadeCtor               jni.MethodID
-	midFadeCaptureStartValues jni.MethodID
-	midFadeOnAppear           jni.MethodID
-	midFadeOnDisappear        jni.MethodID
-	midFadeToString           jni.MethodID
-
-	clsChangeTransform                        *jni.GlobalRef
-	midChangeTransformCtor                    jni.MethodID
-	midChangeTransformCaptureEndValues        jni.MethodID
-	midChangeTransformCaptureStartValues      jni.MethodID
-	midChangeTransformCreateAnimator          jni.MethodID
-	midChangeTransformGetReparent             jni.MethodID
-	midChangeTransformGetReparentWithOverlay  jni.MethodID
-	midChangeTransformGetTransitionProperties jni.MethodID
-	midChangeTransformSetReparent             jni.MethodID
-	midChangeTransformSetReparentWithOverlay  jni.MethodID
-	midChangeTransformToString                jni.MethodID
-
-	clsChangeImageTransform                        *jni.GlobalRef
-	midChangeImageTransformCtor                    jni.MethodID
-	midChangeImageTransformCaptureEndValues        jni.MethodID
-	midChangeImageTransformCaptureStartValues      jni.MethodID
-	midChangeImageTransformCreateAnimator          jni.MethodID
-	midChangeImageTransformGetTransitionProperties jni.MethodID
-	midChangeImageTransformToString                jni.MethodID
-
-	clsPatternPathMotion               *jni.GlobalRef
-	midPatternPathMotionCtor           jni.MethodID
-	midPatternPathMotionGetPath        jni.MethodID
-	midPatternPathMotionGetPatternPath jni.MethodID
-	midPatternPathMotionSetPatternPath jni.MethodID
-	midPatternPathMotionToString       jni.MethodID
-
-	clsListenerAdapter                   *jni.GlobalRef
-	midListenerAdapterOnTransitionCancel jni.MethodID
-	midListenerAdapterOnTransitionEnd    jni.MethodID
-	midListenerAdapterOnTransitionPause  jni.MethodID
-	midListenerAdapterOnTransitionResume jni.MethodID
-	midListenerAdapterOnTransitionStart  jni.MethodID
-	midListenerAdapterToString           jni.MethodID
-
-	clsVisibility                        *jni.GlobalRef
-	midVisibilityCaptureEndValues        jni.MethodID
-	midVisibilityCaptureStartValues      jni.MethodID
-	midVisibilityCreateAnimator          jni.MethodID
-	midVisibilityGetMode                 jni.MethodID
-	midVisibilityGetTransitionProperties jni.MethodID
-	midVisibilityIsTransitionRequired    jni.MethodID
-	midVisibilityIsVisible               jni.MethodID
-	midVisibilityOnAppear5               jni.MethodID
-	midVisibilityOnAppear4_1             jni.MethodID
-	midVisibilityOnDisappear5            jni.MethodID
-	midVisibilityOnDisappear4_1          jni.MethodID
-	midVisibilitySetMode                 jni.MethodID
-	midVisibilityToString                jni.MethodID
-
-	clsSlide                   *jni.GlobalRef
-	midSlideCtor               jni.MethodID
-	midSlideCaptureEndValues   jni.MethodID
-	midSlideCaptureStartValues jni.MethodID
-	midSlideGetSlideEdge       jni.MethodID
-	midSlideOnAppear           jni.MethodID
-	midSlideOnDisappear        jni.MethodID
-	midSlideSetSlideEdge       jni.MethodID
-	midSlideToString           jni.MethodID
-
-	clsValues         *jni.GlobalRef
-	midValuesCtor     jni.MethodID
-	midValuesEquals   jni.MethodID
-	midValuesHashCode jni.MethodID
-	midValuesToString jni.MethodID
-
-	clsPathMotion         *jni.GlobalRef
-	midPathMotionGetPath  jni.MethodID
-	midPathMotionToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -333,144 +317,47 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("android/transition/TransitionInflater")
+	c, err = env.FindClass("android/transition/ChangeScroll")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsInflater = env.NewGlobalRef(&c.Object)
+		clsChangeScroll = env.NewGlobalRef(&c.Object)
+		midChangeScrollCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeScroll)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midInflaterInflateTransition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInflater)), "inflateTransition", "(I)Landroid/transition/Transition;")
+		midChangeScrollCaptureEndValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeScroll)), "captureEndValues", "(Landroid/transition/TransitionValues;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midInflaterInflateTransitionManager, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInflater)), "inflateTransitionManager", "(ILandroid/view/ViewGroup;)Landroid/transition/TransitionManager;")
+		midChangeScrollCaptureStartValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeScroll)), "captureStartValues", "(Landroid/transition/TransitionValues;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midInflaterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInflater)), "toString", "()Ljava/lang/String;")
+		midChangeScrollCreateAnimator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeScroll)), "createAnimator", "(Landroid/view/ViewGroup;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midInflaterFrom, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsInflater)), "from", "(Landroid/content/Context;)Landroid/transition/TransitionInflater;")
+		midChangeScrollGetTransitionProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeScroll)), "getTransitionProperties", "()[Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("android/transition/AutoTransition")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAutoTransition = env.NewGlobalRef(&c.Object)
-		midAutoTransitionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAutoTransition)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAutoTransitionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAutoTransition)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/transition/CircularPropagation")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCircularPropagation = env.NewGlobalRef(&c.Object)
-		midCircularPropagationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularPropagation)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCircularPropagationGetStartDelay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularPropagation)), "getStartDelay", "(Landroid/view/ViewGroup;Landroid/transition/Transition;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularPropagationSetPropagationSpeed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularPropagation)), "setPropagationSpeed", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCircularPropagationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularPropagation)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/transition/VisibilityPropagation")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsVisibilityPropagation = env.NewGlobalRef(&c.Object)
-
-		midVisibilityPropagationCaptureValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibilityPropagation)), "captureValues", "(Landroid/transition/TransitionValues;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVisibilityPropagationGetPropagationProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibilityPropagation)), "getPropagationProperties", "()[Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVisibilityPropagationGetViewVisibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibilityPropagation)), "getViewVisibility", "(Landroid/transition/TransitionValues;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVisibilityPropagationGetViewX, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibilityPropagation)), "getViewX", "(Landroid/transition/TransitionValues;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVisibilityPropagationGetViewY, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibilityPropagation)), "getViewY", "(Landroid/transition/TransitionValues;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVisibilityPropagationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibilityPropagation)), "toString", "()Ljava/lang/String;")
+		midChangeScrollToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeScroll)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -549,40 +436,33 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/transition/SidePropagation")
+	c, err = env.FindClass("android/transition/TransitionValues")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSidePropagation = env.NewGlobalRef(&c.Object)
-		midSidePropagationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSidePropagation)), "<init>", "()V")
+		clsValues = env.NewGlobalRef(&c.Object)
+		midValuesCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsValues)), "<init>", "()V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midSidePropagationGetStartDelay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSidePropagation)), "getStartDelay", "(Landroid/view/ViewGroup;Landroid/transition/Transition;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSidePropagationSetPropagationSpeed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSidePropagation)), "setPropagationSpeed", "(F)V")
+		midValuesEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsValues)), "equals", "(Ljava/lang/Object;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSidePropagationSetSide, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSidePropagation)), "setSide", "(I)V")
+		midValuesHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsValues)), "hashCode", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSidePropagationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSidePropagation)), "toString", "()Ljava/lang/String;")
+		midValuesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsValues)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -591,327 +471,47 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/transition/TransitionSet")
+	c, err = env.FindClass("android/transition/ChangeImageTransform")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSet = env.NewGlobalRef(&c.Object)
-		midSetCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		clsChangeImageTransform = env.NewGlobalRef(&c.Object)
+		midChangeImageTransformCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeImageTransform)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midSetAddListener1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "addListener", "(Landroid/transition/Transition$TransitionListener;)Landroid/transition/TransitionSet;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetAddTarget1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "addTarget", "(Landroid/view/View;)Landroid/transition/TransitionSet;")
+		midChangeImageTransformCaptureEndValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeImageTransform)), "captureEndValues", "(Landroid/transition/TransitionValues;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSetAddTarget1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "addTarget", "(I)Landroid/transition/TransitionSet;")
+		midChangeImageTransformCaptureStartValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeImageTransform)), "captureStartValues", "(Landroid/transition/TransitionValues;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSetAddTarget1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "addTarget", "(Ljava/lang/Class;)Landroid/transition/TransitionSet;")
+		midChangeImageTransformCreateAnimator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeImageTransform)), "createAnimator", "(Landroid/view/ViewGroup;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSetAddTarget1_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "addTarget", "(Ljava/lang/String;)Landroid/transition/TransitionSet;")
+		midChangeImageTransformGetTransitionProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeImageTransform)), "getTransitionProperties", "()[Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSetAddTransition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "addTransition", "(Landroid/transition/Transition;)Landroid/transition/TransitionSet;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetCaptureEndValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "captureEndValues", "(Landroid/transition/TransitionValues;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetCaptureStartValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "captureStartValues", "(Landroid/transition/TransitionValues;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetClone0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "clone", "()Landroid/transition/TransitionSet;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetExcludeTarget2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "excludeTarget", "(Landroid/view/View;Z)Landroid/transition/Transition;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetExcludeTarget2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "excludeTarget", "(IZ)Landroid/transition/Transition;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetExcludeTarget2_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "excludeTarget", "(Ljava/lang/Class;Z)Landroid/transition/Transition;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetExcludeTarget2_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "excludeTarget", "(Ljava/lang/String;Z)Landroid/transition/Transition;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetGetOrdering, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "getOrdering", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetGetTransitionAt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "getTransitionAt", "(I)Landroid/transition/Transition;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetGetTransitionCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "getTransitionCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetRemoveListener1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "removeListener", "(Landroid/transition/Transition$TransitionListener;)Landroid/transition/TransitionSet;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetRemoveTarget1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "removeTarget", "(Landroid/view/View;)Landroid/transition/TransitionSet;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetRemoveTarget1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "removeTarget", "(I)Landroid/transition/TransitionSet;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetRemoveTarget1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "removeTarget", "(Ljava/lang/Class;)Landroid/transition/TransitionSet;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetRemoveTarget1_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "removeTarget", "(Ljava/lang/String;)Landroid/transition/TransitionSet;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetRemoveTransition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "removeTransition", "(Landroid/transition/Transition;)Landroid/transition/TransitionSet;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetSetDuration1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "setDuration", "(J)Landroid/transition/TransitionSet;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetSetEpicenterCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "setEpicenterCallback", "(Landroid/transition/Transition$EpicenterCallback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetSetInterpolator1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "setInterpolator", "(Landroid/animation/TimeInterpolator;)Landroid/transition/TransitionSet;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetSetOrdering, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "setOrdering", "(I)Landroid/transition/TransitionSet;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetSetPathMotion, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "setPathMotion", "(Landroid/transition/PathMotion;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetSetPropagation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "setPropagation", "(Landroid/transition/TransitionPropagation;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetSetStartDelay1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "setStartDelay", "(J)Landroid/transition/TransitionSet;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetSetStartDelay1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "setStartDelay", "(J)Landroid/transition/Transition;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetSetInterpolator1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "setInterpolator", "(Landroid/animation/TimeInterpolator;)Landroid/transition/Transition;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetSetDuration1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "setDuration", "(J)Landroid/transition/Transition;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetRemoveTarget1_4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "removeTarget", "(Ljava/lang/String;)Landroid/transition/Transition;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetRemoveTarget1_5, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "removeTarget", "(Ljava/lang/Class;)Landroid/transition/Transition;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetRemoveTarget1_6, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "removeTarget", "(I)Landroid/transition/Transition;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetRemoveTarget1_7, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "removeTarget", "(Landroid/view/View;)Landroid/transition/Transition;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetRemoveListener1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "removeListener", "(Landroid/transition/Transition$TransitionListener;)Landroid/transition/Transition;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetClone0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "clone", "()Landroid/transition/Transition;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetAddTarget1_4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "addTarget", "(Ljava/lang/String;)Landroid/transition/Transition;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetAddTarget1_5, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "addTarget", "(Ljava/lang/Class;)Landroid/transition/Transition;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetAddTarget1_6, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "addTarget", "(I)Landroid/transition/Transition;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetAddTarget1_7, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "addTarget", "(Landroid/view/View;)Landroid/transition/Transition;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetAddListener1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "addListener", "(Landroid/transition/Transition$TransitionListener;)Landroid/transition/Transition;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetClone0_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "clone", "()Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "toString", "()Ljava/lang/String;")
+		midChangeImageTransformToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeImageTransform)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -920,36 +520,40 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/transition/TransitionPropagation")
+	c, err = env.FindClass("android/transition/PatternPathMotion")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsPropagation = env.NewGlobalRef(&c.Object)
+		clsPatternPathMotion = env.NewGlobalRef(&c.Object)
+		midPatternPathMotionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPatternPathMotion)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midPropagationCaptureValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropagation)), "captureValues", "(Landroid/transition/TransitionValues;)V")
+		midPatternPathMotionGetPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPatternPathMotion)), "getPath", "(FFFF)Landroid/graphics/Path;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPropagationGetPropagationProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropagation)), "getPropagationProperties", "()[Ljava/lang/String;")
+		midPatternPathMotionGetPatternPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPatternPathMotion)), "getPatternPath", "()Landroid/graphics/Path;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPropagationGetStartDelay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropagation)), "getStartDelay", "(Landroid/view/ViewGroup;Landroid/transition/Transition;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)J")
+		midPatternPathMotionSetPatternPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPatternPathMotion)), "setPatternPath", "(Landroid/graphics/Path;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPropagationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropagation)), "toString", "()Ljava/lang/String;")
+		midPatternPathMotionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPatternPathMotion)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -958,96 +562,50 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/transition/ChangeScroll")
+	c, err = env.FindClass("android/transition/TransitionListenerAdapter")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsChangeScroll = env.NewGlobalRef(&c.Object)
-		midChangeScrollCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeScroll)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsListenerAdapter = env.NewGlobalRef(&c.Object)
 
-		midChangeScrollCaptureEndValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeScroll)), "captureEndValues", "(Landroid/transition/TransitionValues;)V")
+		midListenerAdapterOnTransitionCancel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListenerAdapter)), "onTransitionCancel", "(Landroid/transition/Transition;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midChangeScrollCaptureStartValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeScroll)), "captureStartValues", "(Landroid/transition/TransitionValues;)V")
+		midListenerAdapterOnTransitionEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListenerAdapter)), "onTransitionEnd", "(Landroid/transition/Transition;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midChangeScrollCreateAnimator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeScroll)), "createAnimator", "(Landroid/view/ViewGroup;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
+		midListenerAdapterOnTransitionPause, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListenerAdapter)), "onTransitionPause", "(Landroid/transition/Transition;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midChangeScrollGetTransitionProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeScroll)), "getTransitionProperties", "()[Ljava/lang/String;")
+		midListenerAdapterOnTransitionResume, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListenerAdapter)), "onTransitionResume", "(Landroid/transition/Transition;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midChangeScrollToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeScroll)), "toString", "()Ljava/lang/String;")
+		midListenerAdapterOnTransitionStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListenerAdapter)), "onTransitionStart", "(Landroid/transition/Transition;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("android/transition/Explode")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsExplode = env.NewGlobalRef(&c.Object)
-		midExplodeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExplode)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midExplodeCaptureEndValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExplode)), "captureEndValues", "(Landroid/transition/TransitionValues;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExplodeCaptureStartValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExplode)), "captureStartValues", "(Landroid/transition/TransitionValues;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExplodeOnAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExplode)), "onAppear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExplodeOnDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExplode)), "onDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midExplodeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExplode)), "toString", "()Ljava/lang/String;")
+		midListenerAdapterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListenerAdapter)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1126,6 +684,1008 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("android/transition/TransitionManager")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsManager = env.NewGlobalRef(&c.Object)
+		midManagerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midManagerSetTransition3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "setTransition", "(Landroid/transition/Scene;Landroid/transition/Scene;Landroid/transition/Transition;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerSetTransition2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "setTransition", "(Landroid/transition/Scene;Landroid/transition/Transition;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerTransitionTo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "transitionTo", "(Landroid/transition/Scene;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerBeginDelayedTransition1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "beginDelayedTransition", "(Landroid/view/ViewGroup;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerBeginDelayedTransition2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "beginDelayedTransition", "(Landroid/view/ViewGroup;Landroid/transition/Transition;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerEndTransitions, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "endTransitions", "(Landroid/view/ViewGroup;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerGo1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "go", "(Landroid/transition/Scene;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerGo2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "go", "(Landroid/transition/Scene;Landroid/transition/Transition;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/transition/Visibility")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsVisibility = env.NewGlobalRef(&c.Object)
+
+		midVisibilityCaptureEndValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "captureEndValues", "(Landroid/transition/TransitionValues;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVisibilityCaptureStartValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "captureStartValues", "(Landroid/transition/TransitionValues;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVisibilityCreateAnimator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "createAnimator", "(Landroid/view/ViewGroup;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVisibilityGetMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "getMode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVisibilityGetTransitionProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "getTransitionProperties", "()[Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVisibilityIsTransitionRequired, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "isTransitionRequired", "(Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVisibilityIsVisible, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "isVisible", "(Landroid/transition/TransitionValues;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVisibilityOnAppear5, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "onAppear", "(Landroid/view/ViewGroup;Landroid/transition/TransitionValues;ILandroid/transition/TransitionValues;I)Landroid/animation/Animator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVisibilityOnAppear4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "onAppear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVisibilityOnDisappear5, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "onDisappear", "(Landroid/view/ViewGroup;Landroid/transition/TransitionValues;ILandroid/transition/TransitionValues;I)Landroid/animation/Animator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVisibilityOnDisappear4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "onDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVisibilitySetMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "setMode", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVisibilityToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/transition/ChangeClipBounds")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsChangeClipBounds = env.NewGlobalRef(&c.Object)
+		midChangeClipBoundsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeClipBounds)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midChangeClipBoundsCaptureEndValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeClipBounds)), "captureEndValues", "(Landroid/transition/TransitionValues;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeClipBoundsCaptureStartValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeClipBounds)), "captureStartValues", "(Landroid/transition/TransitionValues;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeClipBoundsCreateAnimator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeClipBounds)), "createAnimator", "(Landroid/view/ViewGroup;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeClipBoundsGetTransitionProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeClipBounds)), "getTransitionProperties", "()[Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeClipBoundsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeClipBounds)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/transition/CircularPropagation")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCircularPropagation = env.NewGlobalRef(&c.Object)
+		midCircularPropagationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularPropagation)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCircularPropagationGetStartDelay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularPropagation)), "getStartDelay", "(Landroid/view/ViewGroup;Landroid/transition/Transition;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularPropagationSetPropagationSpeed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularPropagation)), "setPropagationSpeed", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCircularPropagationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCircularPropagation)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/transition/SidePropagation")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSidePropagation = env.NewGlobalRef(&c.Object)
+		midSidePropagationCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSidePropagation)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSidePropagationGetStartDelay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSidePropagation)), "getStartDelay", "(Landroid/view/ViewGroup;Landroid/transition/Transition;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSidePropagationSetPropagationSpeed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSidePropagation)), "setPropagationSpeed", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSidePropagationSetSide, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSidePropagation)), "setSide", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSidePropagationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSidePropagation)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/transition/TransitionInflater")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInflater = env.NewGlobalRef(&c.Object)
+
+		midInflaterInflateTransition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInflater)), "inflateTransition", "(I)Landroid/transition/Transition;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInflaterInflateTransitionManager, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInflater)), "inflateTransitionManager", "(ILandroid/view/ViewGroup;)Landroid/transition/TransitionManager;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInflaterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInflater)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInflaterFrom, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsInflater)), "from", "(Landroid/content/Context;)Landroid/transition/TransitionInflater;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/transition/Fade")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFade = env.NewGlobalRef(&c.Object)
+		midFadeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFade)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midFadeCaptureStartValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFade)), "captureStartValues", "(Landroid/transition/TransitionValues;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFadeOnAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFade)), "onAppear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFadeOnDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFade)), "onDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFadeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFade)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/transition/AutoTransition")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAutoTransition = env.NewGlobalRef(&c.Object)
+		midAutoTransitionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAutoTransition)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAutoTransitionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAutoTransition)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/transition/TransitionPropagation")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPropagation = env.NewGlobalRef(&c.Object)
+
+		midPropagationCaptureValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropagation)), "captureValues", "(Landroid/transition/TransitionValues;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropagationGetPropagationProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropagation)), "getPropagationProperties", "()[Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropagationGetStartDelay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropagation)), "getStartDelay", "(Landroid/view/ViewGroup;Landroid/transition/Transition;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropagationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropagation)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/transition/PathMotion")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPathMotion = env.NewGlobalRef(&c.Object)
+
+		midPathMotionGetPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathMotion)), "getPath", "(FFFF)Landroid/graphics/Path;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPathMotionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathMotion)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/transition/Explode")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsExplode = env.NewGlobalRef(&c.Object)
+		midExplodeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExplode)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midExplodeCaptureEndValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExplode)), "captureEndValues", "(Landroid/transition/TransitionValues;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExplodeCaptureStartValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExplode)), "captureStartValues", "(Landroid/transition/TransitionValues;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExplodeOnAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExplode)), "onAppear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExplodeOnDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExplode)), "onDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midExplodeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExplode)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/transition/TransitionSet")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSet = env.NewGlobalRef(&c.Object)
+		midSetCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSetAddListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "addListener", "(Landroid/transition/Transition$TransitionListener;)Landroid/transition/TransitionSet;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetAddTarget1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "addTarget", "(Landroid/view/View;)Landroid/transition/TransitionSet;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetAddTarget1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "addTarget", "(I)Landroid/transition/TransitionSet;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetAddTarget1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "addTarget", "(Ljava/lang/Class;)Landroid/transition/TransitionSet;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetAddTarget1_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "addTarget", "(Ljava/lang/String;)Landroid/transition/TransitionSet;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetAddTransition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "addTransition", "(Landroid/transition/Transition;)Landroid/transition/TransitionSet;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetCaptureEndValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "captureEndValues", "(Landroid/transition/TransitionValues;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetCaptureStartValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "captureStartValues", "(Landroid/transition/TransitionValues;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetClone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "clone", "()Landroid/transition/TransitionSet;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetExcludeTarget2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "excludeTarget", "(Landroid/view/View;Z)Landroid/transition/Transition;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetExcludeTarget2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "excludeTarget", "(IZ)Landroid/transition/Transition;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetExcludeTarget2_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "excludeTarget", "(Ljava/lang/Class;Z)Landroid/transition/Transition;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetExcludeTarget2_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "excludeTarget", "(Ljava/lang/String;Z)Landroid/transition/Transition;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetGetOrdering, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "getOrdering", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetGetTransitionAt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "getTransitionAt", "(I)Landroid/transition/Transition;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetGetTransitionCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "getTransitionCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetRemoveListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "removeListener", "(Landroid/transition/Transition$TransitionListener;)Landroid/transition/TransitionSet;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetRemoveTarget1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "removeTarget", "(Landroid/view/View;)Landroid/transition/TransitionSet;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetRemoveTarget1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "removeTarget", "(I)Landroid/transition/TransitionSet;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetRemoveTarget1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "removeTarget", "(Ljava/lang/Class;)Landroid/transition/TransitionSet;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetRemoveTarget1_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "removeTarget", "(Ljava/lang/String;)Landroid/transition/TransitionSet;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetRemoveTransition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "removeTransition", "(Landroid/transition/Transition;)Landroid/transition/TransitionSet;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSetDuration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "setDuration", "(J)Landroid/transition/TransitionSet;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSetEpicenterCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "setEpicenterCallback", "(Landroid/transition/Transition$EpicenterCallback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSetInterpolator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "setInterpolator", "(Landroid/animation/TimeInterpolator;)Landroid/transition/TransitionSet;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSetOrdering, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "setOrdering", "(I)Landroid/transition/TransitionSet;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSetPathMotion, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "setPathMotion", "(Landroid/transition/PathMotion;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSetPropagation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "setPropagation", "(Landroid/transition/TransitionPropagation;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSetStartDelay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "setStartDelay", "(J)Landroid/transition/TransitionSet;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSet)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/transition/ChangeTransform")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsChangeTransform = env.NewGlobalRef(&c.Object)
+		midChangeTransformCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeTransform)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midChangeTransformCaptureEndValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeTransform)), "captureEndValues", "(Landroid/transition/TransitionValues;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeTransformCaptureStartValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeTransform)), "captureStartValues", "(Landroid/transition/TransitionValues;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeTransformCreateAnimator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeTransform)), "createAnimator", "(Landroid/view/ViewGroup;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeTransformGetReparent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeTransform)), "getReparent", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeTransformGetReparentWithOverlay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeTransform)), "getReparentWithOverlay", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeTransformGetTransitionProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeTransform)), "getTransitionProperties", "()[Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeTransformSetReparent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeTransform)), "setReparent", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeTransformSetReparentWithOverlay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeTransform)), "setReparentWithOverlay", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeTransformToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeTransform)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/transition/ChangeBounds")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsChangeBounds = env.NewGlobalRef(&c.Object)
+		midChangeBoundsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeBounds)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midChangeBoundsCaptureEndValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeBounds)), "captureEndValues", "(Landroid/transition/TransitionValues;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeBoundsCaptureStartValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeBounds)), "captureStartValues", "(Landroid/transition/TransitionValues;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeBoundsCreateAnimator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeBounds)), "createAnimator", "(Landroid/view/ViewGroup;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeBoundsGetResizeClip, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeBounds)), "getResizeClip", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeBoundsGetTransitionProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeBounds)), "getTransitionProperties", "()[Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeBoundsSetReparent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeBounds)), "setReparent", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeBoundsSetResizeClip, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeBounds)), "setResizeClip", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midChangeBoundsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeBounds)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/transition/Slide")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSlide = env.NewGlobalRef(&c.Object)
+		midSlideCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlide)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSlideCaptureEndValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlide)), "captureEndValues", "(Landroid/transition/TransitionValues;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSlideCaptureStartValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlide)), "captureStartValues", "(Landroid/transition/TransitionValues;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSlideGetSlideEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlide)), "getSlideEdge", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSlideOnAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlide)), "onAppear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSlideOnDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlide)), "onDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSlideSetSlideEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlide)), "setSlideEdge", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSlideToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlide)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/transition/VisibilityPropagation")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsVisibilityPropagation = env.NewGlobalRef(&c.Object)
+
+		midVisibilityPropagationCaptureValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibilityPropagation)), "captureValues", "(Landroid/transition/TransitionValues;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVisibilityPropagationGetPropagationProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibilityPropagation)), "getPropagationProperties", "()[Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVisibilityPropagationGetViewVisibility, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibilityPropagation)), "getViewVisibility", "(Landroid/transition/TransitionValues;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVisibilityPropagationGetViewX, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibilityPropagation)), "getViewX", "(Landroid/transition/TransitionValues;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVisibilityPropagationGetViewY, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibilityPropagation)), "getViewY", "(Landroid/transition/TransitionValues;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVisibilityPropagationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibilityPropagation)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("android/transition/Transition")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -1190,7 +1750,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midTransitionClone0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTransition)), "clone", "()Landroid/transition/Transition;")
+		midTransitionClone, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTransition)), "clone", "()Landroid/transition/Transition;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1449,13 +2009,6 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midTransitionClone0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTransition)), "clone", "()Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
 	}
 
 	c, err = env.FindClass("android/transition/Transition$EpicenterCallback")
@@ -1526,687 +2079,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midTransitionListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTransitionListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/transition/TransitionManager")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsManager = env.NewGlobalRef(&c.Object)
-		midManagerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midManagerSetTransition3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "setTransition", "(Landroid/transition/Scene;Landroid/transition/Scene;Landroid/transition/Transition;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerSetTransition2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "setTransition", "(Landroid/transition/Scene;Landroid/transition/Transition;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerTransitionTo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "transitionTo", "(Landroid/transition/Scene;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerBeginDelayedTransition1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "beginDelayedTransition", "(Landroid/view/ViewGroup;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerBeginDelayedTransition2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "beginDelayedTransition", "(Landroid/view/ViewGroup;Landroid/transition/Transition;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerEndTransitions, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "endTransitions", "(Landroid/view/ViewGroup;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerGo1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "go", "(Landroid/transition/Scene;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerGo2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "go", "(Landroid/transition/Scene;Landroid/transition/Transition;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/transition/ChangeClipBounds")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsChangeClipBounds = env.NewGlobalRef(&c.Object)
-		midChangeClipBoundsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeClipBounds)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midChangeClipBoundsCaptureEndValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeClipBounds)), "captureEndValues", "(Landroid/transition/TransitionValues;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeClipBoundsCaptureStartValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeClipBounds)), "captureStartValues", "(Landroid/transition/TransitionValues;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeClipBoundsCreateAnimator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeClipBounds)), "createAnimator", "(Landroid/view/ViewGroup;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeClipBoundsGetTransitionProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeClipBounds)), "getTransitionProperties", "()[Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeClipBoundsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeClipBounds)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/transition/ChangeBounds")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsChangeBounds = env.NewGlobalRef(&c.Object)
-		midChangeBoundsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeBounds)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midChangeBoundsCaptureEndValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeBounds)), "captureEndValues", "(Landroid/transition/TransitionValues;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeBoundsCaptureStartValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeBounds)), "captureStartValues", "(Landroid/transition/TransitionValues;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeBoundsCreateAnimator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeBounds)), "createAnimator", "(Landroid/view/ViewGroup;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeBoundsGetResizeClip, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeBounds)), "getResizeClip", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeBoundsGetTransitionProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeBounds)), "getTransitionProperties", "()[Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeBoundsSetReparent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeBounds)), "setReparent", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeBoundsSetResizeClip, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeBounds)), "setResizeClip", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeBoundsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeBounds)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/transition/Fade")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFade = env.NewGlobalRef(&c.Object)
-		midFadeCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFade)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midFadeCaptureStartValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFade)), "captureStartValues", "(Landroid/transition/TransitionValues;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFadeOnAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFade)), "onAppear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFadeOnDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFade)), "onDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFadeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFade)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/transition/ChangeTransform")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsChangeTransform = env.NewGlobalRef(&c.Object)
-		midChangeTransformCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeTransform)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midChangeTransformCaptureEndValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeTransform)), "captureEndValues", "(Landroid/transition/TransitionValues;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeTransformCaptureStartValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeTransform)), "captureStartValues", "(Landroid/transition/TransitionValues;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeTransformCreateAnimator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeTransform)), "createAnimator", "(Landroid/view/ViewGroup;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeTransformGetReparent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeTransform)), "getReparent", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeTransformGetReparentWithOverlay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeTransform)), "getReparentWithOverlay", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeTransformGetTransitionProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeTransform)), "getTransitionProperties", "()[Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeTransformSetReparent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeTransform)), "setReparent", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeTransformSetReparentWithOverlay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeTransform)), "setReparentWithOverlay", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeTransformToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeTransform)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/transition/ChangeImageTransform")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsChangeImageTransform = env.NewGlobalRef(&c.Object)
-		midChangeImageTransformCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeImageTransform)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midChangeImageTransformCaptureEndValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeImageTransform)), "captureEndValues", "(Landroid/transition/TransitionValues;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeImageTransformCaptureStartValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeImageTransform)), "captureStartValues", "(Landroid/transition/TransitionValues;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeImageTransformCreateAnimator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeImageTransform)), "createAnimator", "(Landroid/view/ViewGroup;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeImageTransformGetTransitionProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeImageTransform)), "getTransitionProperties", "()[Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midChangeImageTransformToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsChangeImageTransform)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/transition/PatternPathMotion")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPatternPathMotion = env.NewGlobalRef(&c.Object)
-		midPatternPathMotionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPatternPathMotion)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midPatternPathMotionGetPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPatternPathMotion)), "getPath", "(FFFF)Landroid/graphics/Path;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPatternPathMotionGetPatternPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPatternPathMotion)), "getPatternPath", "()Landroid/graphics/Path;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPatternPathMotionSetPatternPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPatternPathMotion)), "setPatternPath", "(Landroid/graphics/Path;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPatternPathMotionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPatternPathMotion)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/transition/TransitionListenerAdapter")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsListenerAdapter = env.NewGlobalRef(&c.Object)
-
-		midListenerAdapterOnTransitionCancel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListenerAdapter)), "onTransitionCancel", "(Landroid/transition/Transition;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListenerAdapterOnTransitionEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListenerAdapter)), "onTransitionEnd", "(Landroid/transition/Transition;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListenerAdapterOnTransitionPause, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListenerAdapter)), "onTransitionPause", "(Landroid/transition/Transition;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListenerAdapterOnTransitionResume, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListenerAdapter)), "onTransitionResume", "(Landroid/transition/Transition;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListenerAdapterOnTransitionStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListenerAdapter)), "onTransitionStart", "(Landroid/transition/Transition;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midListenerAdapterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsListenerAdapter)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/transition/Visibility")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsVisibility = env.NewGlobalRef(&c.Object)
-
-		midVisibilityCaptureEndValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "captureEndValues", "(Landroid/transition/TransitionValues;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVisibilityCaptureStartValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "captureStartValues", "(Landroid/transition/TransitionValues;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVisibilityCreateAnimator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "createAnimator", "(Landroid/view/ViewGroup;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVisibilityGetMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "getMode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVisibilityGetTransitionProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "getTransitionProperties", "()[Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVisibilityIsTransitionRequired, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "isTransitionRequired", "(Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVisibilityIsVisible, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "isVisible", "(Landroid/transition/TransitionValues;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVisibilityOnAppear5, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "onAppear", "(Landroid/view/ViewGroup;Landroid/transition/TransitionValues;ILandroid/transition/TransitionValues;I)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVisibilityOnAppear4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "onAppear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVisibilityOnDisappear5, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "onDisappear", "(Landroid/view/ViewGroup;Landroid/transition/TransitionValues;ILandroid/transition/TransitionValues;I)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVisibilityOnDisappear4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "onDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVisibilitySetMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "setMode", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVisibilityToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVisibility)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/transition/Slide")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSlide = env.NewGlobalRef(&c.Object)
-		midSlideCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlide)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midSlideCaptureEndValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlide)), "captureEndValues", "(Landroid/transition/TransitionValues;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSlideCaptureStartValues, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlide)), "captureStartValues", "(Landroid/transition/TransitionValues;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSlideGetSlideEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlide)), "getSlideEdge", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSlideOnAppear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlide)), "onAppear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSlideOnDisappear, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlide)), "onDisappear", "(Landroid/view/ViewGroup;Landroid/view/View;Landroid/transition/TransitionValues;Landroid/transition/TransitionValues;)Landroid/animation/Animator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSlideSetSlideEdge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlide)), "setSlideEdge", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSlideToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSlide)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/transition/TransitionValues")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsValues = env.NewGlobalRef(&c.Object)
-		midValuesCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsValues)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midValuesEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsValues)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midValuesHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsValues)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midValuesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsValues)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/transition/PathMotion")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPathMotion = env.NewGlobalRef(&c.Object)
-
-		midPathMotionGetPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathMotion)), "getPath", "(FFFF)Landroid/graphics/Path;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPathMotionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPathMotion)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

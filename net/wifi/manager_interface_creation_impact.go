@@ -23,6 +23,35 @@ type ManagerInterfaceCreationImpact struct {
 	Obj *jni.GlobalRef
 }
 
+// NewManagerInterfaceCreationImpact creates a new android.net.wifi.WifiManager$InterfaceCreationImpact instance.
+func NewManagerInterfaceCreationImpact(vm *jni.VM, arg0 int32, arg1 *jni.Object) (*ManagerInterfaceCreationImpact, error) {
+	var t ManagerInterfaceCreationImpact
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsManagerInterfaceCreationImpact == nil {
+			return fmt.Errorf("android.net.wifi.WifiManager$InterfaceCreationImpact is not available on this device")
+		}
+		if midManagerInterfaceCreationImpactCtor == nil {
+			return fmt.Errorf("android.net.wifi.WifiManager$InterfaceCreationImpact constructor (ILjava/util/Set;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsManagerInterfaceCreationImpact)), midManagerInterfaceCreationImpactCtor, jni.IntValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Equals calls android.net.wifi.WifiManager$InterfaceCreationImpact.equals.
 func (m *ManagerInterfaceCreationImpact) Equals(arg0 *jni.Object) (bool, error) {
 	var result bool

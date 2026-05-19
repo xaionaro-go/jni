@@ -30,6 +30,12 @@ func NewRemoteActionCompat(vm *jni.VM) (*RemoteActionCompat, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRemoteActionCompat == nil {
+			return fmt.Errorf("androidx.core.app.RemoteActionCompat is not available on this device")
+		}
+		if midRemoteActionCompatCtor == nil {
+			return fmt.Errorf("androidx.core.app.RemoteActionCompat constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsRemoteActionCompat)), midRemoteActionCompatCtor)
 		if err != nil {
 			return err

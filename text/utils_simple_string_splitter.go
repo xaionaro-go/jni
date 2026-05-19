@@ -23,6 +23,35 @@ type UtilsSimpleStringSplitter struct {
 	Obj *jni.GlobalRef
 }
 
+// NewUtilsSimpleStringSplitter creates a new android.text.TextUtils$SimpleStringSplitter instance.
+func NewUtilsSimpleStringSplitter(vm *jni.VM, arg0 uint16) (*UtilsSimpleStringSplitter, error) {
+	var t UtilsSimpleStringSplitter
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsUtilsSimpleStringSplitter == nil {
+			return fmt.Errorf("android.text.TextUtils$SimpleStringSplitter is not available on this device")
+		}
+		if midUtilsSimpleStringSplitterCtor == nil {
+			return fmt.Errorf("android.text.TextUtils$SimpleStringSplitter constructor (C)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUtilsSimpleStringSplitter)), midUtilsSimpleStringSplitterCtor, jni.CharValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // HasNext calls android.text.TextUtils$SimpleStringSplitter.hasNext.
 func (m *UtilsSimpleStringSplitter) HasNext() (bool, error) {
 	var result bool
@@ -82,8 +111,8 @@ func (m *UtilsSimpleStringSplitter) Iterator() (*jni.Object, error) {
 	return result, callErr
 }
 
-// Next0 calls android.text.TextUtils$SimpleStringSplitter.next.
-func (m *UtilsSimpleStringSplitter) Next0() (string, error) {
+// Next calls android.text.TextUtils$SimpleStringSplitter.next.
+func (m *UtilsSimpleStringSplitter) Next() (string, error) {
 	var result string
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -91,14 +120,14 @@ func (m *UtilsSimpleStringSplitter) Next0() (string, error) {
 			callErr = err
 			return err
 		}
-		if midUtilsSimpleStringSplitterNext0 == nil {
+		if midUtilsSimpleStringSplitterNext == nil {
 			callErr = fmt.Errorf("android.text.TextUtils$SimpleStringSplitter.next is not available on this device")
 			return callErr
 		}
 		var resultObj *jni.Object
 		resultObj, callErr = env.CallObjectMethod(
 			m.Obj,
-			midUtilsSimpleStringSplitterNext0,
+			midUtilsSimpleStringSplitterNext,
 		)
 		if callErr != nil {
 			return callErr
@@ -157,38 +186,6 @@ func (m *UtilsSimpleStringSplitter) SetString(arg0 string) error {
 		return callErr
 	})
 	return callErr
-}
-
-// Next0_1 calls android.text.TextUtils$SimpleStringSplitter.next.
-func (m *UtilsSimpleStringSplitter) Next0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midUtilsSimpleStringSplitterNext0_1 == nil {
-			callErr = fmt.Errorf("android.text.TextUtils$SimpleStringSplitter.next is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midUtilsSimpleStringSplitterNext0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls android.text.TextUtils$SimpleStringSplitter.toString.

@@ -23,13 +23,14 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsViewModelInitializer         *jni.GlobalRef
-	midViewModelInitializerCtor     jni.MethodID
-	midViewModelInitializerToString jni.MethodID
-
 	clsMutableCreationExtras         *jni.GlobalRef
 	midMutableCreationExtrasCtor     jni.MethodID
 	midMutableCreationExtrasToString jni.MethodID
+
+	clsViewModelInitializer                                  *jni.GlobalRef
+	midViewModelInitializerCtor                              jni.MethodID
+	midViewModelInitializerGetClazzLifecycleViewmodelRelease jni.MethodID
+	midViewModelInitializerToString                          jni.MethodID
 
 	clsCreationExtras         *jni.GlobalRef
 	midCreationExtrasToString jni.MethodID
@@ -43,6 +44,9 @@ var (
 	clsViewModelFactoryDsl         *jni.GlobalRef
 	midViewModelFactoryDslToString jni.MethodID
 
+	clsInitializerViewModelFactoryKt         *jni.GlobalRef
+	midInitializerViewModelFactoryKtToString jni.MethodID
+
 	clsInitializerViewModelFactoryBuilder         *jni.GlobalRef
 	midInitializerViewModelFactoryBuilderCtor     jni.MethodID
 	midInitializerViewModelFactoryBuilderBuild    jni.MethodID
@@ -51,9 +55,6 @@ var (
 	clsInitializerViewModelFactory         *jni.GlobalRef
 	midInitializerViewModelFactoryCtor     jni.MethodID
 	midInitializerViewModelFactoryToString jni.MethodID
-
-	clsInitializerViewModelFactoryKt         *jni.GlobalRef
-	midInitializerViewModelFactoryKtToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -74,27 +75,6 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("androidx/lifecycle/viewmodel/ViewModelInitializer")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsViewModelInitializer = env.NewGlobalRef(&c.Object)
-		midViewModelInitializerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelInitializer)), "<init>", "(Ljava/lang/Class;Lkotlin/jvm/functions/Function1;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midViewModelInitializerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelInitializer)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("androidx/lifecycle/viewmodel/MutableCreationExtras")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -108,6 +88,34 @@ func doInit(env *jni.Env) error {
 		}
 
 		midMutableCreationExtrasToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMutableCreationExtras)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/lifecycle/viewmodel/ViewModelInitializer")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsViewModelInitializer = env.NewGlobalRef(&c.Object)
+		midViewModelInitializerCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelInitializer)), "<init>", "(Ljava/lang/Class;Lkotlin/jvm/functions/Function1;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midViewModelInitializerGetClazzLifecycleViewmodelRelease, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelInitializer)), "getClazz$lifecycle_viewmodel_release", "()Ljava/lang/Class;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midViewModelInitializerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsViewModelInitializer)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -184,6 +192,23 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("androidx/lifecycle/viewmodel/InitializerViewModelFactoryKt")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInitializerViewModelFactoryKt = env.NewGlobalRef(&c.Object)
+
+		midInitializerViewModelFactoryKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInitializerViewModelFactoryKt)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("androidx/lifecycle/viewmodel/InitializerViewModelFactoryBuilder")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -225,23 +250,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midInitializerViewModelFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInitializerViewModelFactory)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/lifecycle/viewmodel/InitializerViewModelFactoryKt")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsInitializerViewModelFactoryKt = env.NewGlobalRef(&c.Object)
-
-		midInitializerViewModelFactoryKtToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInitializerViewModelFactoryKt)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

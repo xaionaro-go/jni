@@ -32,6 +32,12 @@ func NewSwitchPreference(vm *jni.VM, arg0 *jni.Object) (*SwitchPreference, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsSwitchPreference == nil {
+			return fmt.Errorf("android.preference.SwitchPreference is not available on this device")
+		}
+		if midSwitchPreferenceCtor == nil {
+			return fmt.Errorf("android.preference.SwitchPreference constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSwitchPreference)), midSwitchPreferenceCtor, jni.ObjectValue(arg0))
 		if err != nil {

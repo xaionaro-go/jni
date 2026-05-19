@@ -32,6 +32,12 @@ func NewInteractionService(vm *jni.VM) (*InteractionService, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsInteractionService == nil {
+			return fmt.Errorf("android.service.voice.VoiceInteractionService is not available on this device")
+		}
+		if midInteractionServiceCtor == nil {
+			return fmt.Errorf("android.service.voice.VoiceInteractionService constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsInteractionService)), midInteractionServiceCtor)
 		if err != nil {
 			return err

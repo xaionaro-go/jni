@@ -32,6 +32,12 @@ func NewTextBoundsInfoResult(vm *jni.VM, arg0 int32) (*TextBoundsInfoResult, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsTextBoundsInfoResult == nil {
+			return fmt.Errorf("android.view.inputmethod.TextBoundsInfoResult is not available on this device")
+		}
+		if midTextBoundsInfoResultCtor == nil {
+			return fmt.Errorf("android.view.inputmethod.TextBoundsInfoResult constructor (I)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTextBoundsInfoResult)), midTextBoundsInfoResultCtor, jni.IntValue(arg0))
 		if err != nil {

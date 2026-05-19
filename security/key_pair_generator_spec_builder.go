@@ -23,6 +23,35 @@ type KeyPairGeneratorSpecBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewKeyPairGeneratorSpecBuilder creates a new android.security.KeyPairGeneratorSpec$Builder instance.
+func NewKeyPairGeneratorSpecBuilder(vm *jni.VM, arg0 *jni.Object) (*KeyPairGeneratorSpecBuilder, error) {
+	var t KeyPairGeneratorSpecBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsKeyPairGeneratorSpecBuilder == nil {
+			return fmt.Errorf("android.security.KeyPairGeneratorSpec$Builder is not available on this device")
+		}
+		if midKeyPairGeneratorSpecBuilderCtor == nil {
+			return fmt.Errorf("android.security.KeyPairGeneratorSpec$Builder constructor (Landroid/content/Context;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsKeyPairGeneratorSpecBuilder)), midKeyPairGeneratorSpecBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.security.KeyPairGeneratorSpec$Builder.build.
 func (m *KeyPairGeneratorSpecBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

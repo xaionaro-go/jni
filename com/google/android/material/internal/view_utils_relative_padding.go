@@ -23,6 +23,35 @@ type ViewUtilsRelativePadding struct {
 	Obj *jni.GlobalRef
 }
 
+// NewViewUtilsRelativePadding creates a new com.google.android.material.internal.ViewUtils$RelativePadding instance.
+func NewViewUtilsRelativePadding(vm *jni.VM, arg0 int32, arg1 int32, arg2 int32, arg3 int32) (*ViewUtilsRelativePadding, error) {
+	var t ViewUtilsRelativePadding
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsViewUtilsRelativePadding == nil {
+			return fmt.Errorf("com.google.android.material.internal.ViewUtils$RelativePadding is not available on this device")
+		}
+		if midViewUtilsRelativePaddingCtor == nil {
+			return fmt.Errorf("com.google.android.material.internal.ViewUtils$RelativePadding constructor (IIII)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewUtilsRelativePadding)), midViewUtilsRelativePaddingCtor, jni.IntValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2), jni.IntValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ApplyToView calls com.google.android.material.internal.ViewUtils$RelativePadding.applyToView.
 func (m *ViewUtilsRelativePadding) ApplyToView(arg0 *jni.Object) error {
 

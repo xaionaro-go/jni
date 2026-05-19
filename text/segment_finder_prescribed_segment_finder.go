@@ -23,6 +23,35 @@ type SegmentFinderPrescribedSegmentFinder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSegmentFinderPrescribedSegmentFinder creates a new android.text.SegmentFinder$PrescribedSegmentFinder instance.
+func NewSegmentFinderPrescribedSegmentFinder(vm *jni.VM, arg0 *jni.Object) (*SegmentFinderPrescribedSegmentFinder, error) {
+	var t SegmentFinderPrescribedSegmentFinder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSegmentFinderPrescribedSegmentFinder == nil {
+			return fmt.Errorf("android.text.SegmentFinder$PrescribedSegmentFinder is not available on this device")
+		}
+		if midSegmentFinderPrescribedSegmentFinderCtor == nil {
+			return fmt.Errorf("android.text.SegmentFinder$PrescribedSegmentFinder constructor ([I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSegmentFinderPrescribedSegmentFinder)), midSegmentFinderPrescribedSegmentFinderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // NextEndBoundary calls android.text.SegmentFinder$PrescribedSegmentFinder.nextEndBoundary.
 func (m *SegmentFinderPrescribedSegmentFinder) NextEndBoundary(arg0 int32) (int32, error) {
 	var result int32

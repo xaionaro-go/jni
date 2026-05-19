@@ -23,6 +23,41 @@ type UtilsInsertHelper struct {
 	Obj *jni.GlobalRef
 }
 
+// NewUtilsInsertHelper creates a new android.database.DatabaseUtils$InsertHelper instance.
+func NewUtilsInsertHelper(vm *jni.VM, arg0 *jni.Object, arg1 string) (*UtilsInsertHelper, error) {
+	var t UtilsInsertHelper
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsUtilsInsertHelper == nil {
+			return fmt.Errorf("android.database.DatabaseUtils$InsertHelper is not available on this device")
+		}
+		if midUtilsInsertHelperCtor == nil {
+			return fmt.Errorf("android.database.DatabaseUtils$InsertHelper constructor (Landroid/database/sqlite/SQLiteDatabase;Ljava/lang/String;)V is not available on this device")
+		}
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUtilsInsertHelper)), midUtilsInsertHelperCtor, jni.ObjectValue(arg0), jni.ObjectValue(&jArg1.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Bind2 calls android.database.DatabaseUtils$InsertHelper.bind.
 func (m *UtilsInsertHelper) Bind2(arg0 int32, arg1 bool) error {
 

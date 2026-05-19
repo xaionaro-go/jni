@@ -23,6 +23,35 @@ type DeviceHandleBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDeviceHandleBuilder creates a new android.ranging.oob.DeviceHandle$Builder instance.
+func NewDeviceHandleBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*DeviceHandleBuilder, error) {
+	var t DeviceHandleBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDeviceHandleBuilder == nil {
+			return fmt.Errorf("android.ranging.oob.DeviceHandle$Builder is not available on this device")
+		}
+		if midDeviceHandleBuilderCtor == nil {
+			return fmt.Errorf("android.ranging.oob.DeviceHandle$Builder constructor (Landroid/ranging/RangingDevice;Landroid/ranging/oob/TransportHandle;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDeviceHandleBuilder)), midDeviceHandleBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.ranging.oob.DeviceHandle$Builder.build.
 func (m *DeviceHandleBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

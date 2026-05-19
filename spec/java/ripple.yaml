@@ -60,7 +60,7 @@ classes:
           returns: android.graphics.drawable.Drawable$ConstantState
           error: true
         - java_method: mutate
-          go_name: Mutate0
+          go_name: Mutate
           returns: com.google.android.material.ripple.RippleDrawableCompat
           error: true
         - java_method: setAlpha
@@ -80,10 +80,6 @@ classes:
         - java_method: getOpacity
           go_name: GetOpacity
           returns: int
-          error: true
-        - java_method: mutate
-          go_name: Mutate0_1
-          returns: android.graphics.drawable.Drawable
           error: true
     - java_class: com.google.android.material.ripple.RippleUtils
       go_type: Utils

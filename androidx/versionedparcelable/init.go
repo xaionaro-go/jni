@@ -23,18 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsParcelUtils                       *jni.GlobalRef
-	midParcelUtilsToString               jni.MethodID
-	midParcelUtilsToParcelable           jni.MethodID
-	midParcelUtilsToOutputStream         jni.MethodID
-	midParcelUtilsPutVersionedParcelable jni.MethodID
-
-	clsParcelImpl                 *jni.GlobalRef
-	midParcelImplCtor             jni.MethodID
-	midParcelImplDescribeContents jni.MethodID
-	midParcelImplWriteToParcel    jni.MethodID
-	midParcelImplToString         jni.MethodID
-
 	clsVersionedParcel                         *jni.GlobalRef
 	midVersionedParcelIsStream                 jni.MethodID
 	midVersionedParcelSetSerializationFlags    jni.MethodID
@@ -76,7 +64,8 @@ var (
 	midVersionedParcelWriteFloatArray          jni.MethodID
 	midVersionedParcelReadFloatArray           jni.MethodID
 	midVersionedParcelWriteDoubleArray         jni.MethodID
-	midVersionedParcelReadDoubleArray          jni.MethodID
+	midVersionedParcelReadDoubleArray2         jni.MethodID
+	midVersionedParcelReadDoubleArray0_1       jni.MethodID
 	midVersionedParcelWriteVersionedParcelable jni.MethodID
 	midVersionedParcelWriteSerializable        jni.MethodID
 	midVersionedParcelWriteException           jni.MethodID
@@ -88,10 +77,22 @@ var (
 	midVersionedParcelToString                 jni.MethodID
 
 	clsVersionedParcelParcelException         *jni.GlobalRef
+	midVersionedParcelParcelExceptionCtor     jni.MethodID
 	midVersionedParcelParcelExceptionToString jni.MethodID
 
 	clsNonParcelField         *jni.GlobalRef
 	midNonParcelFieldToString jni.MethodID
+
+	clsParcelImpl                 *jni.GlobalRef
+	midParcelImplCtor             jni.MethodID
+	midParcelImplDescribeContents jni.MethodID
+	midParcelImplToString         jni.MethodID
+	midParcelImplWriteToParcel    jni.MethodID
+
+	clsCustomVersionedParcelable                *jni.GlobalRef
+	midCustomVersionedParcelableOnPreParceling  jni.MethodID
+	midCustomVersionedParcelableOnPostParceling jni.MethodID
+	midCustomVersionedParcelableToString        jni.MethodID
 
 	clsVersionedParcelize                   *jni.GlobalRef
 	midVersionedParcelizeAllowSerialization jni.MethodID
@@ -102,18 +103,19 @@ var (
 	midVersionedParcelizeFactory            jni.MethodID
 	midVersionedParcelizeToString           jni.MethodID
 
-	clsVersionedParcelable         *jni.GlobalRef
-	midVersionedParcelableToString jni.MethodID
-
 	clsParcelField             *jni.GlobalRef
 	midParcelFieldValue        jni.MethodID
 	midParcelFieldDefaultValue jni.MethodID
 	midParcelFieldToString     jni.MethodID
 
-	clsCustomVersionedParcelable                *jni.GlobalRef
-	midCustomVersionedParcelableOnPreParceling  jni.MethodID
-	midCustomVersionedParcelableOnPostParceling jni.MethodID
-	midCustomVersionedParcelableToString        jni.MethodID
+	clsVersionedParcelable         *jni.GlobalRef
+	midVersionedParcelableToString jni.MethodID
+
+	clsParcelUtils                       *jni.GlobalRef
+	midParcelUtilsToString               jni.MethodID
+	midParcelUtilsToParcelable           jni.MethodID
+	midParcelUtilsToOutputStream         jni.MethodID
+	midParcelUtilsPutVersionedParcelable jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -133,79 +135,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("androidx/versionedparcelable/ParcelUtils")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsParcelUtils = env.NewGlobalRef(&c.Object)
-
-		midParcelUtilsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsParcelUtils)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midParcelUtilsToParcelable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsParcelUtils)), "toParcelable", "(Landroidx/versionedparcelable/VersionedParcelable;)Landroid/os/Parcelable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midParcelUtilsToOutputStream, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsParcelUtils)), "toOutputStream", "(Landroidx/versionedparcelable/VersionedParcelable;Ljava/io/OutputStream;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midParcelUtilsPutVersionedParcelable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsParcelUtils)), "putVersionedParcelable", "(Landroid/os/Bundle;Ljava/lang/String;Landroidx/versionedparcelable/VersionedParcelable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/versionedparcelable/ParcelImpl")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsParcelImpl = env.NewGlobalRef(&c.Object)
-		midParcelImplCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsParcelImpl)), "<init>", "(Landroidx/versionedparcelable/VersionedParcelable;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midParcelImplDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsParcelImpl)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midParcelImplWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsParcelImpl)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midParcelImplToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsParcelImpl)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("androidx/versionedparcelable/VersionedParcel")
 	if err != nil {
@@ -495,7 +424,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midVersionedParcelReadDoubleArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVersionedParcel)), "readDoubleArray", "([DI)[D")
+		midVersionedParcelReadDoubleArray2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVersionedParcel)), "readDoubleArray", "([DI)[D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVersionedParcelReadDoubleArray0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVersionedParcel)), "readDoubleArray", "()[D")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -574,6 +510,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsVersionedParcelParcelException = env.NewGlobalRef(&c.Object)
+		midVersionedParcelParcelExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVersionedParcelParcelException)), "<init>", "(Ljava/lang/Throwable;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midVersionedParcelParcelExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVersionedParcelParcelException)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -593,6 +533,72 @@ func doInit(env *jni.Env) error {
 		clsNonParcelField = env.NewGlobalRef(&c.Object)
 
 		midNonParcelFieldToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNonParcelField)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/versionedparcelable/ParcelImpl")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsParcelImpl = env.NewGlobalRef(&c.Object)
+		midParcelImplCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsParcelImpl)), "<init>", "(Landroidx/versionedparcelable/VersionedParcelable;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midParcelImplDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsParcelImpl)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midParcelImplToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsParcelImpl)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midParcelImplWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsParcelImpl)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/versionedparcelable/CustomVersionedParcelable")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCustomVersionedParcelable = env.NewGlobalRef(&c.Object)
+
+		midCustomVersionedParcelableOnPreParceling, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomVersionedParcelable)), "onPreParceling", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCustomVersionedParcelableOnPostParceling, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomVersionedParcelable)), "onPostParceling", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCustomVersionedParcelableToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomVersionedParcelable)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -660,23 +666,6 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/versionedparcelable/VersionedParcelable")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsVersionedParcelable = env.NewGlobalRef(&c.Object)
-
-		midVersionedParcelableToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVersionedParcelable)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("androidx/versionedparcelable/ParcelField")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -708,29 +697,53 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("androidx/versionedparcelable/CustomVersionedParcelable")
+	c, err = env.FindClass("androidx/versionedparcelable/VersionedParcelable")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCustomVersionedParcelable = env.NewGlobalRef(&c.Object)
+		clsVersionedParcelable = env.NewGlobalRef(&c.Object)
 
-		midCustomVersionedParcelableOnPreParceling, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomVersionedParcelable)), "onPreParceling", "(Z)V")
+		midVersionedParcelableToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVersionedParcelable)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCustomVersionedParcelableOnPostParceling, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomVersionedParcelable)), "onPostParceling", "()V")
+	}
+
+	c, err = env.FindClass("androidx/versionedparcelable/ParcelUtils")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsParcelUtils = env.NewGlobalRef(&c.Object)
+
+		midParcelUtilsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsParcelUtils)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCustomVersionedParcelableToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCustomVersionedParcelable)), "toString", "()Ljava/lang/String;")
+		midParcelUtilsToParcelable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsParcelUtils)), "toParcelable", "(Landroidx/versionedparcelable/VersionedParcelable;)Landroid/os/Parcelable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midParcelUtilsToOutputStream, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsParcelUtils)), "toOutputStream", "(Landroidx/versionedparcelable/VersionedParcelable;Ljava/io/OutputStream;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midParcelUtilsPutVersionedParcelable, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsParcelUtils)), "putVersionedParcelable", "(Landroid/os/Bundle;Ljava/lang/String;Landroidx/versionedparcelable/VersionedParcelable;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

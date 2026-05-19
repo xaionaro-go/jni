@@ -32,6 +32,12 @@ func NewShort4(vm *jni.VM) (*Short4, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsShort4 == nil {
+			return fmt.Errorf("android.renderscript.Short4 is not available on this device")
+		}
+		if midShort4Ctor == nil {
+			return fmt.Errorf("android.renderscript.Short4 constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsShort4)), midShort4Ctor)
 		if err != nil {
 			return err

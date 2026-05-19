@@ -23,6 +23,34 @@ type AppCompatCheckBoxInspectionCompanion struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAppCompatCheckBoxInspectionCompanion creates a new androidx.appcompat.widget.AppCompatCheckBox$InspectionCompanion instance.
+func NewAppCompatCheckBoxInspectionCompanion(vm *jni.VM) (*AppCompatCheckBoxInspectionCompanion, error) {
+	var t AppCompatCheckBoxInspectionCompanion
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAppCompatCheckBoxInspectionCompanion == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatCheckBox$InspectionCompanion is not available on this device")
+		}
+		if midAppCompatCheckBoxInspectionCompanionCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.AppCompatCheckBox$InspectionCompanion constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppCompatCheckBoxInspectionCompanion)), midAppCompatCheckBoxInspectionCompanionCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // MapProperties calls androidx.appcompat.widget.AppCompatCheckBox$InspectionCompanion.mapProperties.
 func (m *AppCompatCheckBoxInspectionCompanion) MapProperties(arg0 *jni.Object) error {
 
@@ -46,8 +74,8 @@ func (m *AppCompatCheckBoxInspectionCompanion) MapProperties(arg0 *jni.Object) e
 	return callErr
 }
 
-// ReadProperties2 calls androidx.appcompat.widget.AppCompatCheckBox$InspectionCompanion.readProperties.
-func (m *AppCompatCheckBoxInspectionCompanion) ReadProperties2(arg0 *jni.Object, arg1 *jni.Object) error {
+// ReadProperties calls androidx.appcompat.widget.AppCompatCheckBox$InspectionCompanion.readProperties.
+func (m *AppCompatCheckBoxInspectionCompanion) ReadProperties(arg0 *jni.Object, arg1 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -55,37 +83,14 @@ func (m *AppCompatCheckBoxInspectionCompanion) ReadProperties2(arg0 *jni.Object,
 			callErr = err
 			return err
 		}
-		if midAppCompatCheckBoxInspectionCompanionReadProperties2 == nil {
+		if midAppCompatCheckBoxInspectionCompanionReadProperties == nil {
 			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatCheckBox$InspectionCompanion.readProperties is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midAppCompatCheckBoxInspectionCompanionReadProperties2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// ReadProperties2_1 calls androidx.appcompat.widget.AppCompatCheckBox$InspectionCompanion.readProperties.
-func (m *AppCompatCheckBoxInspectionCompanion) ReadProperties2_1(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppCompatCheckBoxInspectionCompanionReadProperties2_1 == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.AppCompatCheckBox$InspectionCompanion.readProperties is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midAppCompatCheckBoxInspectionCompanionReadProperties2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midAppCompatCheckBoxInspectionCompanionReadProperties, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		return callErr
 	})

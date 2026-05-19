@@ -23,8 +23,8 @@ type CircularRevealWidgetCircularRevealProperty struct {
 	Obj *jni.GlobalRef
 }
 
-// Get1 calls com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealProperty.get.
-func (m *CircularRevealWidgetCircularRevealProperty) Get1(arg0 *jni.Object) (*jni.Object, error) {
+// Get calls com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealProperty.get.
+func (m *CircularRevealWidgetCircularRevealProperty) Get(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -32,14 +32,14 @@ func (m *CircularRevealWidgetCircularRevealProperty) Get1(arg0 *jni.Object) (*jn
 			callErr = err
 			return err
 		}
-		if midCircularRevealWidgetCircularRevealPropertyGet1 == nil {
+		if midCircularRevealWidgetCircularRevealPropertyGet == nil {
 			callErr = fmt.Errorf("com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealProperty.get is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midCircularRevealWidgetCircularRevealPropertyGet1, jni.ObjectValue(arg0),
+			midCircularRevealWidgetCircularRevealPropertyGet, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -56,8 +56,8 @@ func (m *CircularRevealWidgetCircularRevealProperty) Get1(arg0 *jni.Object) (*jn
 	return result, callErr
 }
 
-// Set2 calls com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealProperty.set.
-func (m *CircularRevealWidgetCircularRevealProperty) Set2(arg0 *jni.Object, arg1 *jni.Object) error {
+// Set calls com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealProperty.set.
+func (m *CircularRevealWidgetCircularRevealProperty) Set(arg0 *jni.Object, arg1 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -65,70 +65,14 @@ func (m *CircularRevealWidgetCircularRevealProperty) Set2(arg0 *jni.Object, arg1
 			callErr = err
 			return err
 		}
-		if midCircularRevealWidgetCircularRevealPropertySet2 == nil {
+		if midCircularRevealWidgetCircularRevealPropertySet == nil {
 			callErr = fmt.Errorf("com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealProperty.set is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midCircularRevealWidgetCircularRevealPropertySet2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// Get1_1 calls com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealProperty.get.
-func (m *CircularRevealWidgetCircularRevealProperty) Get1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCircularRevealWidgetCircularRevealPropertyGet1_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealProperty.get is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCircularRevealWidgetCircularRevealPropertyGet1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// Set2_1 calls com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealProperty.set.
-func (m *CircularRevealWidgetCircularRevealProperty) Set2_1(arg0 *jni.Object, arg1 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCircularRevealWidgetCircularRevealPropertySet2_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealProperty.set is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midCircularRevealWidgetCircularRevealPropertySet2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midCircularRevealWidgetCircularRevealPropertySet, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		return callErr
 	})

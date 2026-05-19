@@ -51,6 +51,7 @@ var (
 	midMediaStoreSetRequireOriginal                     jni.MethodID
 
 	clsMediaStoreAudio         *jni.GlobalRef
+	midMediaStoreAudioCtor     jni.MethodID
 	midMediaStoreAudioToString jni.MethodID
 	midMediaStoreAudioKeyFor   jni.MethodID
 
@@ -63,11 +64,13 @@ var (
 	midMediaStoreDownloadsGetContentUri2_1 jni.MethodID
 
 	clsMediaStoreFiles                 *jni.GlobalRef
+	midMediaStoreFilesCtor             jni.MethodID
 	midMediaStoreFilesToString         jni.MethodID
 	midMediaStoreFilesGetContentUri1   jni.MethodID
 	midMediaStoreFilesGetContentUri2_1 jni.MethodID
 
 	clsMediaStoreImages         *jni.GlobalRef
+	midMediaStoreImagesCtor     jni.MethodID
 	midMediaStoreImagesToString jni.MethodID
 
 	clsMediaStoreMediaColumns         *jni.GlobalRef
@@ -77,6 +80,7 @@ var (
 	midMediaStorePickerMediaColumnsToString jni.MethodID
 
 	clsMediaStoreVideo         *jni.GlobalRef
+	midMediaStoreVideoCtor     jni.MethodID
 	midMediaStoreVideoToString jni.MethodID
 	midMediaStoreVideoQuery    jni.MethodID
 )
@@ -288,6 +292,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsMediaStoreAudio = env.NewGlobalRef(&c.Object)
+		midMediaStoreAudioCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaStoreAudio)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midMediaStoreAudioToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaStoreAudio)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -360,6 +368,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsMediaStoreFiles = env.NewGlobalRef(&c.Object)
+		midMediaStoreFilesCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaStoreFiles)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midMediaStoreFilesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaStoreFiles)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -391,6 +403,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsMediaStoreImages = env.NewGlobalRef(&c.Object)
+		midMediaStoreImagesCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaStoreImages)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midMediaStoreImagesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaStoreImages)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -442,6 +458,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsMediaStoreVideo = env.NewGlobalRef(&c.Object)
+		midMediaStoreVideoCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaStoreVideo)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midMediaStoreVideoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaStoreVideo)), "toString", "()Ljava/lang/String;")
 		if err != nil {

@@ -23,6 +23,34 @@ type GridLayoutManagerDefaultSpanSizeLookup struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGridLayoutManagerDefaultSpanSizeLookup creates a new androidx.recyclerview.widget.GridLayoutManager$DefaultSpanSizeLookup instance.
+func NewGridLayoutManagerDefaultSpanSizeLookup(vm *jni.VM) (*GridLayoutManagerDefaultSpanSizeLookup, error) {
+	var t GridLayoutManagerDefaultSpanSizeLookup
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGridLayoutManagerDefaultSpanSizeLookup == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.GridLayoutManager$DefaultSpanSizeLookup is not available on this device")
+		}
+		if midGridLayoutManagerDefaultSpanSizeLookupCtor == nil {
+			return fmt.Errorf("androidx.recyclerview.widget.GridLayoutManager$DefaultSpanSizeLookup constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGridLayoutManagerDefaultSpanSizeLookup)), midGridLayoutManagerDefaultSpanSizeLookupCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetSpanSize calls androidx.recyclerview.widget.GridLayoutManager$DefaultSpanSizeLookup.getSpanSize.
 func (m *GridLayoutManagerDefaultSpanSizeLookup) GetSpanSize(arg0 int32) (int32, error) {
 	var result int32

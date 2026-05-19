@@ -23,33 +23,6 @@ type DisplayOptionsNounClass struct {
 	Obj *jni.GlobalRef
 }
 
-// GetIdentifier calls android.icu.text.DisplayOptions$NounClass.getIdentifier.
-func (m *DisplayOptionsNounClass) GetIdentifier() (string, error) {
-	var result string
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDisplayOptionsNounClassGetIdentifier == nil {
-			callErr = fmt.Errorf("android.icu.text.DisplayOptions$NounClass.getIdentifier is not available on this device")
-			return callErr
-		}
-		var resultObj *jni.Object
-		resultObj, callErr = env.CallObjectMethod(
-			m.Obj,
-			midDisplayOptionsNounClassGetIdentifier,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.icu.text.DisplayOptions$NounClass.toString.
 func (m *DisplayOptionsNounClass) ToString() (string, error) {
 	var result string
@@ -180,6 +153,33 @@ func (m *DisplayOptionsNounClass) FromIdentifier(arg0 string) (*jni.Object, erro
 			result = env.NewGlobalRef(localRef)
 			env.DeleteLocalRef(localRef)
 		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetIdentifier calls android.icu.text.DisplayOptions$NounClass.getIdentifier.
+func (m *DisplayOptionsNounClass) GetIdentifier() (string, error) {
+	var result string
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midDisplayOptionsNounClassGetIdentifier == nil {
+			callErr = fmt.Errorf("android.icu.text.DisplayOptions$NounClass.getIdentifier is not available on this device")
+			return callErr
+		}
+		var resultObj *jni.Object
+		resultObj, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsDisplayOptionsNounClass)),
+			midDisplayOptionsNounClassGetIdentifier,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
 		return callErr
 	})
 	return result, callErr

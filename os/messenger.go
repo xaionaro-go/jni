@@ -32,6 +32,12 @@ func NewMessenger(vm *jni.VM, arg0 *jni.Object) (*Messenger, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMessenger == nil {
+			return fmt.Errorf("android.os.Messenger is not available on this device")
+		}
+		if midMessengerCtor == nil {
+			return fmt.Errorf("android.os.Messenger constructor (Landroid/os/Handler;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMessenger)), midMessengerCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -179,29 +185,6 @@ func (m *Messenger) Send(arg0 *jni.Object) error {
 	return callErr
 }
 
-// WriteToParcel calls android.os.Messenger.writeToParcel.
-func (m *Messenger) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMessengerWriteToParcel == nil {
-			callErr = fmt.Errorf("android.os.Messenger.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMessengerWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.os.Messenger.toString.
 func (m *Messenger) ToString() (string, error) {
 	var result string
@@ -279,6 +262,29 @@ func (m *Messenger) WriteMessengerOrNullToParcel(arg0 *jni.Object, arg1 *jni.Obj
 		callErr = env.CallStaticVoidMethod(
 			(*jni.Class)(unsafe.Pointer(clsMessenger)),
 			midMessengerWriteMessengerOrNullToParcel, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
+}
+
+// WriteToParcel calls android.os.Messenger.writeToParcel.
+func (m *Messenger) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midMessengerWriteToParcel == nil {
+			callErr = fmt.Errorf("android.os.Messenger.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsMessenger)),
+			midMessengerWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr
 	})

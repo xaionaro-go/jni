@@ -32,6 +32,12 @@ func NewConditionVariable(vm *jni.VM) (*ConditionVariable, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsConditionVariable == nil {
+			return fmt.Errorf("android.os.ConditionVariable is not available on this device")
+		}
+		if midConditionVariableCtor == nil {
+			return fmt.Errorf("android.os.ConditionVariable constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConditionVariable)), midConditionVariableCtor)
 		if err != nil {
 			return err

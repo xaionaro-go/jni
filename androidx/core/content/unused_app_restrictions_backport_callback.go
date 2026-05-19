@@ -32,6 +32,12 @@ func NewUnusedAppRestrictionsBackportCallback(vm *jni.VM, arg0 *jni.Object) (*Un
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsUnusedAppRestrictionsBackportCallback == nil {
+			return fmt.Errorf("androidx.core.content.UnusedAppRestrictionsBackportCallback is not available on this device")
+		}
+		if midUnusedAppRestrictionsBackportCallbackCtor == nil {
+			return fmt.Errorf("androidx.core.content.UnusedAppRestrictionsBackportCallback constructor (Landroidx/core/app/unusedapprestrictions/IUnusedAppRestrictionsBackportCallback;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsUnusedAppRestrictionsBackportCallback)), midUnusedAppRestrictionsBackportCallbackCtor, jni.ObjectValue(arg0))
 		if err != nil {

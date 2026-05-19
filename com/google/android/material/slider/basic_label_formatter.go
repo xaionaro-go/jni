@@ -32,6 +32,12 @@ func NewBasicLabelFormatter(vm *jni.VM) (*BasicLabelFormatter, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsBasicLabelFormatter == nil {
+			return fmt.Errorf("com.google.android.material.slider.BasicLabelFormatter is not available on this device")
+		}
+		if midBasicLabelFormatterCtor == nil {
+			return fmt.Errorf("com.google.android.material.slider.BasicLabelFormatter constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsBasicLabelFormatter)), midBasicLabelFormatterCtor)
 		if err != nil {
 			return err

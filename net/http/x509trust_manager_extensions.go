@@ -32,6 +32,12 @@ func NewX509TrustManagerExtensions(vm *jni.VM, arg0 *jni.Object) (*X509TrustMana
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsX509TrustManagerExtensions == nil {
+			return fmt.Errorf("android.net.http.X509TrustManagerExtensions is not available on this device")
+		}
+		if midX509TrustManagerExtensionsCtor == nil {
+			return fmt.Errorf("android.net.http.X509TrustManagerExtensions constructor (Ljavax/net/ssl/X509TrustManager;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsX509TrustManagerExtensions)), midX509TrustManagerExtensionsCtor, jni.ObjectValue(arg0))
 		if err != nil {

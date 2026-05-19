@@ -55,8 +55,8 @@ func (m *Collator) Clone() (*jni.Object, error) {
 	return result, callErr
 }
 
-// CloneAsThawed0 calls android.icu.text.Collator.cloneAsThawed.
-func (m *Collator) CloneAsThawed0() (*jni.Object, error) {
+// CloneAsThawed calls android.icu.text.Collator.cloneAsThawed.
+func (m *Collator) CloneAsThawed() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -64,13 +64,13 @@ func (m *Collator) CloneAsThawed0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midCollatorCloneAsThawed0 == nil {
+		if midCollatorCloneAsThawed == nil {
 			callErr = fmt.Errorf("android.icu.text.Collator.cloneAsThawed is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midCollatorCloneAsThawed0,
+			midCollatorCloneAsThawed,
 		)
 		if callErr != nil {
 			return callErr
@@ -217,8 +217,8 @@ func (m *Collator) Equals2_1(arg0 string, arg1 string) (bool, error) {
 	return result, callErr
 }
 
-// Freeze0 calls android.icu.text.Collator.freeze.
-func (m *Collator) Freeze0() (*jni.Object, error) {
+// Freeze calls android.icu.text.Collator.freeze.
+func (m *Collator) Freeze() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -226,13 +226,13 @@ func (m *Collator) Freeze0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midCollatorFreeze0 == nil {
+		if midCollatorFreeze == nil {
 			callErr = fmt.Errorf("android.icu.text.Collator.freeze is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midCollatorFreeze0,
+			midCollatorFreeze,
 		)
 		if callErr != nil {
 			return callErr
@@ -667,70 +667,6 @@ func (m *Collator) SetStrength(arg0 int32) error {
 		return callErr
 	})
 	return callErr
-}
-
-// Freeze0_1 calls android.icu.text.Collator.freeze.
-func (m *Collator) Freeze0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCollatorFreeze0_1 == nil {
-			callErr = fmt.Errorf("android.icu.text.Collator.freeze is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCollatorFreeze0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// CloneAsThawed0_1 calls android.icu.text.Collator.cloneAsThawed.
-func (m *Collator) CloneAsThawed0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCollatorCloneAsThawed0_1 == nil {
-			callErr = fmt.Errorf("android.icu.text.Collator.cloneAsThawed is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCollatorCloneAsThawed0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls android.icu.text.Collator.toString.

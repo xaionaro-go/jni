@@ -32,6 +32,12 @@ func NewArrayRow(vm *jni.VM) (*ArrayRow, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsArrayRow == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.ArrayRow is not available on this device")
+		}
+		if midArrayRowCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.ArrayRow constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsArrayRow)), midArrayRowCtor)
 		if err != nil {
 			return err

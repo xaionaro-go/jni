@@ -32,6 +32,12 @@ func NewMaterialCheckBox(vm *jni.VM, arg0 *jni.Object) (*MaterialCheckBox, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialCheckBox == nil {
+			return fmt.Errorf("com.google.android.material.checkbox.MaterialCheckBox is not available on this device")
+		}
+		if midMaterialCheckBoxCtor == nil {
+			return fmt.Errorf("com.google.android.material.checkbox.MaterialCheckBox constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialCheckBox)), midMaterialCheckBoxCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -1026,29 +1032,6 @@ func (m *MaterialCheckBox) OnSaveInstanceState() (*jni.Object, error) {
 		return callErr
 	})
 	return result, callErr
-}
-
-// OnRestoreInstanceState calls com.google.android.material.checkbox.MaterialCheckBox.onRestoreInstanceState.
-func (m *MaterialCheckBox) OnRestoreInstanceState(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialCheckBoxOnRestoreInstanceState == nil {
-			callErr = fmt.Errorf("com.google.android.material.checkbox.MaterialCheckBox.onRestoreInstanceState is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midMaterialCheckBoxOnRestoreInstanceState, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
 }
 
 // ToString calls com.google.android.material.checkbox.MaterialCheckBox.toString.

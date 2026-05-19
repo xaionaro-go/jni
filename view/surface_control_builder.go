@@ -23,6 +23,34 @@ type SurfaceControlBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSurfaceControlBuilder creates a new android.view.SurfaceControl$Builder instance.
+func NewSurfaceControlBuilder(vm *jni.VM) (*SurfaceControlBuilder, error) {
+	var t SurfaceControlBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSurfaceControlBuilder == nil {
+			return fmt.Errorf("android.view.SurfaceControl$Builder is not available on this device")
+		}
+		if midSurfaceControlBuilderCtor == nil {
+			return fmt.Errorf("android.view.SurfaceControl$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSurfaceControlBuilder)), midSurfaceControlBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.view.SurfaceControl$Builder.build.
 func (m *SurfaceControlBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

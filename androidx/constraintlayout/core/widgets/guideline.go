@@ -32,6 +32,12 @@ func NewGuideline(vm *jni.VM) (*Guideline, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGuideline == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.Guideline is not available on this device")
+		}
+		if midGuidelineCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.Guideline constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGuideline)), midGuidelineCtor)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewRenderNode(vm *jni.VM, arg0 string) (*RenderNode, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsRenderNode == nil {
+			return fmt.Errorf("android.graphics.RenderNode is not available on this device")
+		}
+		if midRenderNodeCtor == nil {
+			return fmt.Errorf("android.graphics.RenderNode constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

@@ -32,6 +32,12 @@ func NewModeAction(vm *jni.VM, arg0 string, arg1 int32) (*ModeAction, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsModeAction == nil {
+			return fmt.Errorf("android.service.controls.actions.ModeAction is not available on this device")
+		}
+		if midModeActionCtor == nil {
+			return fmt.Errorf("android.service.controls.actions.ModeAction constructor (Ljava/lang/String;I)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

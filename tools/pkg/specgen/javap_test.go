@@ -336,6 +336,34 @@ func TestParseJavap_Constructors(t *testing.T) {
 	}
 }
 
+func TestParseJavap_InnerClassConstructors(t *testing.T) {
+	output := strings.Join([]string{
+		`Compiled from "RecyclerView.java"`,
+		`public abstract class androidx.recyclerview.widget.RecyclerView$Adapter<VH extends androidx.recyclerview.widget.RecyclerView$ViewHolder> extends java.lang.Object`,
+		`{`,
+		`  public androidx.recyclerview.widget.RecyclerView$Adapter();`,
+		`  public abstract VH onCreateViewHolder(android.view.ViewGroup, int);`,
+		`}`,
+	}, "\n")
+
+	jc, err := parseJavap(output)
+	if err != nil {
+		t.Fatalf("parseJavap: %v", err)
+	}
+	if len(jc.Constructors) != 1 {
+		t.Fatalf("len(Constructors) = %d, want 1; got: %+v", len(jc.Constructors), jc.Constructors)
+	}
+	if len(jc.Constructors[0].Params) != 0 {
+		t.Errorf("Constructors[0].Params = %v, want empty", jc.Constructors[0].Params)
+	}
+	if jc.SuperClass != "java.lang.Object" {
+		t.Errorf("SuperClass = %q, want java.lang.Object", jc.SuperClass)
+	}
+	if got := jc.TypeParams["VH"]; got != "androidx.recyclerview.widget.RecyclerView$ViewHolder" {
+		t.Errorf("TypeParams[VH] = %q, want bound FQN", got)
+	}
+}
+
 func TestParseJavap_ConstructorNotConfusedWithMethod(t *testing.T) {
 	// A class where the "constructor-like" line does NOT match the class name
 	// should not be parsed as a constructor.
@@ -395,5 +423,173 @@ func TestParseJavap_NonVerboseStillWorks(t *testing.T) {
 	}
 	if jc.Constants[1].Value != "" {
 		t.Errorf("Constants[1].Value = %q, want empty", jc.Constants[1].Value)
+	}
+}
+
+// TestParseJavap_FinalMethodFlag verifies that per-method `final` modifiers
+// are captured into JavapMethod.IsFinal. Final methods cannot be overridden,
+// so the abstract-callback generator must skip them — and that decision
+// requires the flag to survive parsing.
+func TestParseJavap_FinalMethodFlag(t *testing.T) {
+	output := strings.Join([]string{
+		`Compiled from "RecyclerView.java"`,
+		`public abstract class androidx.recyclerview.widget.RecyclerView$Adapter`,
+		`{`,
+		`  public final androidx.recyclerview.widget.RecyclerView$ViewHolder createViewHolder(android.view.ViewGroup, int);`,
+		`  public final void bindViewHolder(androidx.recyclerview.widget.RecyclerView$ViewHolder, int);`,
+		`  public abstract androidx.recyclerview.widget.RecyclerView$ViewHolder onCreateViewHolder(android.view.ViewGroup, int);`,
+		`  public abstract void onBindViewHolder(androidx.recyclerview.widget.RecyclerView$ViewHolder, int);`,
+		`}`,
+	}, "\n")
+
+	jc, err := parseJavap(output)
+	if err != nil {
+		t.Fatalf("parseJavap: %v", err)
+	}
+	want := map[string]bool{
+		"createViewHolder":   true,
+		"bindViewHolder":     true,
+		"onCreateViewHolder": false,
+		"onBindViewHolder":   false,
+	}
+	got := make(map[string]bool, len(jc.Methods))
+	for _, m := range jc.Methods {
+		got[m.Name] = m.IsFinal
+	}
+	for name, wantFinal := range want {
+		gotFinal, ok := got[name]
+		if !ok {
+			t.Errorf("method %q not parsed; got methods: %v", name, got)
+			continue
+		}
+		if gotFinal != wantFinal {
+			t.Errorf("method %q IsFinal = %v, want %v", name, gotFinal, wantFinal)
+		}
+	}
+}
+
+func TestParseJavap_MethodVerboseFlags(t *testing.T) {
+	for _, tc := range []struct {
+		name          string
+		output        string
+		method        string
+		wantBridge    bool
+		wantSynthetic bool
+	}{
+		{
+			name: "bridge synthetic object clone",
+			output: strings.Join([]string{
+				`Compiled from "Animator.java"`,
+				`public abstract class android.animation.Animator`,
+				`{`,
+				`  public java.lang.Object clone();`,
+				`    descriptor: ()Ljava/lang/Object;`,
+				`    flags: (0x1041) ACC_PUBLIC, ACC_BRIDGE, ACC_SYNTHETIC`,
+				`}`,
+			}, "\n"),
+			method:        "clone",
+			wantBridge:    true,
+			wantSynthetic: true,
+		},
+		{
+			name: "synthetic callback helper",
+			output: strings.Join([]string{
+				`Compiled from "Callback.java"`,
+				`public abstract class com.example.Callback`,
+				`{`,
+				`  public void access$000();`,
+				`    descriptor: ()V`,
+				`    flags: (0x1001) ACC_PUBLIC, ACC_SYNTHETIC`,
+				`}`,
+			}, "\n"),
+			method:        "access$000",
+			wantSynthetic: true,
+		},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			jc, err := parseJavap(tc.output)
+			if err != nil {
+				t.Fatalf("parseJavap: %v", err)
+			}
+			if len(jc.Methods) != 1 {
+				t.Fatalf("len(Methods) = %d, want 1", len(jc.Methods))
+			}
+			m := jc.Methods[0]
+			if m.Name != tc.method {
+				t.Fatalf("method = %q, want %q", m.Name, tc.method)
+			}
+			if m.IsBridge != tc.wantBridge {
+				t.Errorf("IsBridge = %v, want %v", m.IsBridge, tc.wantBridge)
+			}
+			if m.IsSynthetic != tc.wantSynthetic {
+				t.Errorf("IsSynthetic = %v, want %v", m.IsSynthetic, tc.wantSynthetic)
+			}
+		})
+	}
+}
+
+func TestParseJavap_ProtectedAbstractMethod(t *testing.T) {
+	output := strings.Join([]string{
+		`Compiled from "JobIntentService.java"`,
+		`public abstract class androidx.core.app.JobIntentService extends android.app.Service`,
+		`{`,
+		`  protected abstract void onHandleWork(android.content.Intent);`,
+		`    descriptor: (Landroid/content/Intent;)V`,
+		`    flags: (0x0404) ACC_PROTECTED, ACC_ABSTRACT`,
+		`}`,
+	}, "\n")
+
+	jc, err := parseJavap(output)
+	if err != nil {
+		t.Fatalf("parseJavap: %v", err)
+	}
+	if len(jc.Methods) != 1 {
+		t.Fatalf("len(Methods) = %d, want 1", len(jc.Methods))
+	}
+	m := jc.Methods[0]
+	if m.Name != "onHandleWork" {
+		t.Fatalf("Name = %q, want onHandleWork", m.Name)
+	}
+	if !m.IsProtected {
+		t.Error("IsProtected = false, want true")
+	}
+	if !m.IsAbstract {
+		t.Error("IsAbstract = false, want true")
+	}
+}
+
+func TestParseJavap_UnparsedAbstractMethodFlag(t *testing.T) {
+	output := strings.Join([]string{
+		`Compiled from "FragmentContainer.java"`,
+		`public abstract class android.app.FragmentContainer`,
+		`{`,
+		`  public abstract <T extends android.view.View> T onFindViewById(int);`,
+		`}`,
+	}, "\n")
+
+	jc, err := parseJavap(output)
+	if err != nil {
+		t.Fatalf("parseJavap: %v", err)
+	}
+	if !jc.HasUnparsedAbstractMethods {
+		t.Fatal("HasUnparsedAbstractMethods = false, want true")
+	}
+}
+
+func TestParseJavap_PackagePrivateAbstractMethodFlag(t *testing.T) {
+	output := strings.Join([]string{
+		`Compiled from "ShapeableDelegate.java"`,
+		`public abstract class com.google.android.material.shape.ShapeableDelegate`,
+		`{`,
+		`  abstract boolean shouldUseCompatClipping();`,
+		`}`,
+	}, "\n")
+
+	jc, err := parseJavap(output)
+	if err != nil {
+		t.Fatalf("parseJavap: %v", err)
+	}
+	if !jc.HasPackagePrivateAbstractMethods {
+		t.Fatal("HasPackagePrivateAbstractMethods = false, want true")
 	}
 }

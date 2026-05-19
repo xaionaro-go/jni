@@ -23,6 +23,35 @@ type FrameLayoutLayoutParams struct {
 	Obj *jni.GlobalRef
 }
 
+// NewFrameLayoutLayoutParams creates a new android.widget.FrameLayout$LayoutParams instance.
+func NewFrameLayoutLayoutParams(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*FrameLayoutLayoutParams, error) {
+	var t FrameLayoutLayoutParams
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsFrameLayoutLayoutParams == nil {
+			return fmt.Errorf("android.widget.FrameLayout$LayoutParams is not available on this device")
+		}
+		if midFrameLayoutLayoutParamsCtor == nil {
+			return fmt.Errorf("android.widget.FrameLayout$LayoutParams constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFrameLayoutLayoutParams)), midFrameLayoutLayoutParamsCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.widget.FrameLayout$LayoutParams.toString.
 func (m *FrameLayoutLayoutParams) ToString() (string, error) {
 	var result string

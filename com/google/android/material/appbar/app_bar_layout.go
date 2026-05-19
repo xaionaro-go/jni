@@ -32,6 +32,12 @@ func NewAppBarLayout(vm *jni.VM, arg0 *jni.Object) (*AppBarLayout, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAppBarLayout == nil {
+			return fmt.Errorf("com.google.android.material.appbar.AppBarLayout is not available on this device")
+		}
+		if midAppBarLayoutCtor == nil {
+			return fmt.Errorf("com.google.android.material.appbar.AppBarLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAppBarLayout)), midAppBarLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -527,8 +533,8 @@ func (m *AppBarLayout) SetExpanded2_1(arg0 bool, arg1 bool) error {
 	return callErr
 }
 
-// GenerateLayoutParams1 calls com.google.android.material.appbar.AppBarLayout.generateLayoutParams.
-func (m *AppBarLayout) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, error) {
+// GenerateLayoutParams calls com.google.android.material.appbar.AppBarLayout.generateLayoutParams.
+func (m *AppBarLayout) GenerateLayoutParams(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -536,14 +542,14 @@ func (m *AppBarLayout) GenerateLayoutParams1(arg0 *jni.Object) (*jni.Object, err
 			callErr = err
 			return err
 		}
-		if midAppBarLayoutGenerateLayoutParams1 == nil {
+		if midAppBarLayoutGenerateLayoutParams == nil {
 			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout.generateLayoutParams is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midAppBarLayoutGenerateLayoutParams1, jni.ObjectValue(arg0),
+			midAppBarLayoutGenerateLayoutParams, jni.ObjectValue(arg0),
 		)
 		if callErr != nil {
 			return callErr
@@ -895,72 +901,6 @@ func (m *AppBarLayout) GetTargetElevation() (float32, error) {
 		)
 		if callErr != nil {
 			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GenerateLayoutParams1_1 calls com.google.android.material.appbar.AppBarLayout.generateLayoutParams.
-func (m *AppBarLayout) GenerateLayoutParams1_1(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppBarLayoutGenerateLayoutParams1_1 == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout.generateLayoutParams is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midAppBarLayoutGenerateLayoutParams1_1, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GenerateLayoutParams1_2 calls com.google.android.material.appbar.AppBarLayout.generateLayoutParams.
-func (m *AppBarLayout) GenerateLayoutParams1_2(arg0 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midAppBarLayoutGenerateLayoutParams1_2 == nil {
-			callErr = fmt.Errorf("com.google.android.material.appbar.AppBarLayout.generateLayoutParams is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midAppBarLayoutGenerateLayoutParams1_2, jni.ObjectValue(arg0),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
 		}
 		return callErr
 	})

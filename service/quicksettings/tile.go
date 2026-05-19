@@ -468,29 +468,6 @@ func (m *Tile) UpdateTile() error {
 	return callErr
 }
 
-// WriteToParcel calls android.service.quicksettings.Tile.writeToParcel.
-func (m *Tile) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midTileWriteToParcel == nil {
-			callErr = fmt.Errorf("android.service.quicksettings.Tile.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midTileWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.service.quicksettings.Tile.toString.
 func (m *Tile) ToString() (string, error) {
 	var result string
@@ -516,4 +493,27 @@ func (m *Tile) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.service.quicksettings.Tile.writeToParcel.
+func (m *Tile) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midTileWriteToParcel == nil {
+			callErr = fmt.Errorf("android.service.quicksettings.Tile.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsTile)),
+			midTileWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

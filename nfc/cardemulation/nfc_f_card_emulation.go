@@ -51,34 +51,6 @@ func (m *NfcFCardEmulation) DisableService(arg0 *jni.Object) (bool, error) {
 	return result, callErr
 }
 
-// EnableService calls android.nfc.cardemulation.NfcFCardEmulation.enableService.
-func (m *NfcFCardEmulation) EnableService(arg0 *jni.Object, arg1 *jni.Object) (bool, error) {
-	var result bool
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midNfcFCardEmulationEnableService == nil {
-			callErr = fmt.Errorf("android.nfc.cardemulation.NfcFCardEmulation.enableService is not available on this device")
-			return callErr
-		}
-
-		var resultRaw uint8
-		resultRaw, callErr = env.CallBooleanMethod(
-			m.Obj,
-			midNfcFCardEmulationEnableService, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		result = resultRaw != 0
-		return callErr
-	})
-	return result, callErr
-}
-
 // GetNfcid2ForService calls android.nfc.cardemulation.NfcFCardEmulation.getNfcid2ForService.
 func (m *NfcFCardEmulation) GetNfcid2ForService(arg0 *jni.Object) (string, error) {
 	var result string
@@ -253,6 +225,34 @@ func (m *NfcFCardEmulation) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// EnableService calls android.nfc.cardemulation.NfcFCardEmulation.enableService.
+func (m *NfcFCardEmulation) EnableService(arg0 *jni.Object, arg1 *jni.Object) (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midNfcFCardEmulationEnableService == nil {
+			callErr = fmt.Errorf("android.nfc.cardemulation.NfcFCardEmulation.enableService is not available on this device")
+			return callErr
+		}
+
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsNfcFCardEmulation)),
+			midNfcFCardEmulationEnableService, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
 		return callErr
 	})
 	return result, callErr

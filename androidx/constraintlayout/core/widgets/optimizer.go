@@ -32,6 +32,12 @@ func NewOptimizer(vm *jni.VM) (*Optimizer, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsOptimizer == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.Optimizer is not available on this device")
+		}
+		if midOptimizerCtor == nil {
+			return fmt.Errorf("androidx.constraintlayout.core.widgets.Optimizer constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsOptimizer)), midOptimizerCtor)
 		if err != nil {
 			return err

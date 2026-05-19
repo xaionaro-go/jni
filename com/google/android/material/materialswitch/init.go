@@ -51,8 +51,8 @@ var (
 	midMaterialSwitchSetTrackDecorationTintList jni.MethodID
 	midMaterialSwitchGetTrackDecorationTintList jni.MethodID
 	midMaterialSwitchSetTrackDecorationTintMode jni.MethodID
-	midMaterialSwitchGetTrackDecorationTintMode jni.MethodID
 	midMaterialSwitchToString                   jni.MethodID
+	midMaterialSwitchGetTrackDecorationTintMode jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -267,14 +267,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midMaterialSwitchGetTrackDecorationTintMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSwitch)), "getTrackDecorationTintMode", "()Landroid/graphics/PorterDuff$Mode;")
+		midMaterialSwitchToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSwitch)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMaterialSwitchToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSwitch)), "toString", "()Ljava/lang/String;")
+		midMaterialSwitchGetTrackDecorationTintMode, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsMaterialSwitch)), "getTrackDecorationTintMode", "()Landroid/graphics/PorterDuff$Mode;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

@@ -21,6 +21,34 @@ type ActivityManagerRunningTaskInfo struct {
 	Obj *jni.GlobalRef
 }
 
+// NewActivityManagerRunningTaskInfo creates a new android.app.ActivityManager$RunningTaskInfo instance.
+func NewActivityManagerRunningTaskInfo(vm *jni.VM) (*ActivityManagerRunningTaskInfo, error) {
+	var t ActivityManagerRunningTaskInfo
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsActivityManagerRunningTaskInfo == nil {
+			return fmt.Errorf("android.app.ActivityManager$RunningTaskInfo is not available on this device")
+		}
+		if midActivityManagerRunningTaskInfoCtor == nil {
+			return fmt.Errorf("android.app.ActivityManager$RunningTaskInfo constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivityManagerRunningTaskInfo)), midActivityManagerRunningTaskInfoCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.app.ActivityManager$RunningTaskInfo.describeContents.
 func (m *ActivityManagerRunningTaskInfo) DescribeContents() (int32, error) {
 	var result int32
@@ -69,29 +97,6 @@ func (m *ActivityManagerRunningTaskInfo) ReadFromParcel(arg0 *jni.Object) error 
 	return callErr
 }
 
-// WriteToParcel calls android.app.ActivityManager$RunningTaskInfo.writeToParcel.
-func (m *ActivityManagerRunningTaskInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityManagerRunningTaskInfoWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.ActivityManager$RunningTaskInfo.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midActivityManagerRunningTaskInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.ActivityManager$RunningTaskInfo.toString.
 func (m *ActivityManagerRunningTaskInfo) ToString() (string, error) {
 	var result string
@@ -117,4 +122,27 @@ func (m *ActivityManagerRunningTaskInfo) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.ActivityManager$RunningTaskInfo.writeToParcel.
+func (m *ActivityManagerRunningTaskInfo) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midActivityManagerRunningTaskInfoWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.ActivityManager$RunningTaskInfo.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsActivityManagerRunningTaskInfo)),
+			midActivityManagerRunningTaskInfoWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

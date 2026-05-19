@@ -32,6 +32,12 @@ func NewGridView(vm *jni.VM, arg0 *jni.Object) (*GridView, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGridView == nil {
+			return fmt.Errorf("android.widget.GridView is not available on this device")
+		}
+		if midGridViewCtor == nil {
+			return fmt.Errorf("android.widget.GridView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGridView)), midGridViewCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -78,8 +84,8 @@ func (m *GridView) GetAccessibilityClassName() (*jni.Object, error) {
 	return result, callErr
 }
 
-// GetAdapter0 calls android.widget.GridView.getAdapter.
-func (m *GridView) GetAdapter0() (*jni.Object, error) {
+// GetAdapter calls android.widget.GridView.getAdapter.
+func (m *GridView) GetAdapter() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -87,13 +93,13 @@ func (m *GridView) GetAdapter0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midGridViewGetAdapter0 == nil {
+		if midGridViewGetAdapter == nil {
 			callErr = fmt.Errorf("android.widget.GridView.getAdapter is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midGridViewGetAdapter0,
+			midGridViewGetAdapter,
 		)
 		if callErr != nil {
 			return callErr
@@ -425,8 +431,8 @@ func (m *GridView) OnKeyUp(arg0 int32, arg1 *jni.Object) (bool, error) {
 	return result, callErr
 }
 
-// SetAdapter1 calls android.widget.GridView.setAdapter.
-func (m *GridView) SetAdapter1(arg0 *jni.Object) error {
+// SetAdapter calls android.widget.GridView.setAdapter.
+func (m *GridView) SetAdapter(arg0 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -434,14 +440,14 @@ func (m *GridView) SetAdapter1(arg0 *jni.Object) error {
 			callErr = err
 			return err
 		}
-		if midGridViewSetAdapter1 == nil {
+		if midGridViewSetAdapter == nil {
 			callErr = fmt.Errorf("android.widget.GridView.setAdapter is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midGridViewSetAdapter1, jni.ObjectValue(arg0),
+			midGridViewSetAdapter, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})
@@ -676,61 +682,6 @@ func (m *GridView) SmoothScrollToPosition(arg0 int32) error {
 		return callErr
 	})
 	return callErr
-}
-
-// SetAdapter1_1 calls android.widget.GridView.setAdapter.
-func (m *GridView) SetAdapter1_1(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midGridViewSetAdapter1_1 == nil {
-			callErr = fmt.Errorf("android.widget.GridView.setAdapter is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midGridViewSetAdapter1_1, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// GetAdapter0_1 calls android.widget.GridView.getAdapter.
-func (m *GridView) GetAdapter0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midGridViewGetAdapter0_1 == nil {
-			callErr = fmt.Errorf("android.widget.GridView.getAdapter is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midGridViewGetAdapter0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
 }
 
 // ToString calls android.widget.GridView.toString.

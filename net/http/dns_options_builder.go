@@ -23,6 +23,34 @@ type DnsOptionsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewDnsOptionsBuilder creates a new android.net.http.DnsOptions$Builder instance.
+func NewDnsOptionsBuilder(vm *jni.VM) (*DnsOptionsBuilder, error) {
+	var t DnsOptionsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsDnsOptionsBuilder == nil {
+			return fmt.Errorf("android.net.http.DnsOptions$Builder is not available on this device")
+		}
+		if midDnsOptionsBuilderCtor == nil {
+			return fmt.Errorf("android.net.http.DnsOptions$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsDnsOptionsBuilder)), midDnsOptionsBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.net.http.DnsOptions$Builder.build.
 func (m *DnsOptionsBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

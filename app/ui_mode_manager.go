@@ -367,29 +367,6 @@ func (m *UiModeManager) SetCustomNightModeStart(arg0 *jni.Object) error {
 	return callErr
 }
 
-// SetNightMode calls android.app.UiModeManager.setNightMode.
-func (m *UiModeManager) SetNightMode(arg0 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midUiModeManagerSetNightMode == nil {
-			callErr = fmt.Errorf("android.app.UiModeManager.setNightMode is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midUiModeManagerSetNightMode, jni.IntValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.UiModeManager.toString.
 func (m *UiModeManager) ToString() (string, error) {
 	var result string
@@ -415,4 +392,27 @@ func (m *UiModeManager) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// SetNightMode calls android.app.UiModeManager.setNightMode.
+func (m *UiModeManager) SetNightMode(arg0 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midUiModeManagerSetNightMode == nil {
+			callErr = fmt.Errorf("android.app.UiModeManager.setNightMode is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsUiModeManager)),
+			midUiModeManagerSetNightMode, jni.IntValue(arg0),
+		)
+		return callErr
+	})
+	return callErr
 }

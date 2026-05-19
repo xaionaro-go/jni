@@ -32,6 +32,12 @@ func NewScene(vm *jni.VM, arg0 *jni.Object) (*Scene, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsScene == nil {
+			return fmt.Errorf("android.transition.Scene is not available on this device")
+		}
+		if midSceneCtor == nil {
+			return fmt.Errorf("android.transition.Scene constructor (Landroid/view/ViewGroup;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsScene)), midSceneCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -23,6 +23,214 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsAlertDialog                 *jni.GlobalRef
+	midAlertDialogGetButton        jni.MethodID
+	midAlertDialogGetListView      jni.MethodID
+	midAlertDialogSetTitle         jni.MethodID
+	midAlertDialogSetCustomTitle   jni.MethodID
+	midAlertDialogSetMessage       jni.MethodID
+	midAlertDialogSetView1         jni.MethodID
+	midAlertDialogSetView5_1       jni.MethodID
+	midAlertDialogSetButton3       jni.MethodID
+	midAlertDialogSetButton3_1     jni.MethodID
+	midAlertDialogSetButton4_2     jni.MethodID
+	midAlertDialogSetIcon1         jni.MethodID
+	midAlertDialogSetIcon1_1       jni.MethodID
+	midAlertDialogSetIconAttribute jni.MethodID
+	midAlertDialogOnKeyDown        jni.MethodID
+	midAlertDialogOnKeyUp          jni.MethodID
+	midAlertDialogToString         jni.MethodID
+
+	clsAlertDialogBuilder                           *jni.GlobalRef
+	midAlertDialogBuilderCtor                       jni.MethodID
+	midAlertDialogBuilderGetContext                 jni.MethodID
+	midAlertDialogBuilderSetTitle1                  jni.MethodID
+	midAlertDialogBuilderSetTitle1_1                jni.MethodID
+	midAlertDialogBuilderSetCustomTitle             jni.MethodID
+	midAlertDialogBuilderSetMessage1                jni.MethodID
+	midAlertDialogBuilderSetMessage1_1              jni.MethodID
+	midAlertDialogBuilderSetIcon1                   jni.MethodID
+	midAlertDialogBuilderSetIcon1_1                 jni.MethodID
+	midAlertDialogBuilderSetIconAttribute           jni.MethodID
+	midAlertDialogBuilderSetPositiveButton2         jni.MethodID
+	midAlertDialogBuilderSetPositiveButton2_1       jni.MethodID
+	midAlertDialogBuilderSetPositiveButtonIcon      jni.MethodID
+	midAlertDialogBuilderSetNegativeButton2         jni.MethodID
+	midAlertDialogBuilderSetNegativeButton2_1       jni.MethodID
+	midAlertDialogBuilderSetNegativeButtonIcon      jni.MethodID
+	midAlertDialogBuilderSetNeutralButton2          jni.MethodID
+	midAlertDialogBuilderSetNeutralButton2_1        jni.MethodID
+	midAlertDialogBuilderSetNeutralButtonIcon       jni.MethodID
+	midAlertDialogBuilderSetCancelable              jni.MethodID
+	midAlertDialogBuilderSetOnCancelListener        jni.MethodID
+	midAlertDialogBuilderSetOnDismissListener       jni.MethodID
+	midAlertDialogBuilderSetOnKeyListener           jni.MethodID
+	midAlertDialogBuilderSetItems2                  jni.MethodID
+	midAlertDialogBuilderSetItems2_1                jni.MethodID
+	midAlertDialogBuilderSetAdapter                 jni.MethodID
+	midAlertDialogBuilderSetCursor                  jni.MethodID
+	midAlertDialogBuilderSetMultiChoiceItems3       jni.MethodID
+	midAlertDialogBuilderSetMultiChoiceItems3_1     jni.MethodID
+	midAlertDialogBuilderSetMultiChoiceItems4_2     jni.MethodID
+	midAlertDialogBuilderSetSingleChoiceItems3      jni.MethodID
+	midAlertDialogBuilderSetSingleChoiceItems4_1    jni.MethodID
+	midAlertDialogBuilderSetSingleChoiceItems3_2    jni.MethodID
+	midAlertDialogBuilderSetSingleChoiceItems3_3    jni.MethodID
+	midAlertDialogBuilderSetOnItemSelectedListener  jni.MethodID
+	midAlertDialogBuilderSetView1                   jni.MethodID
+	midAlertDialogBuilderSetView1_1                 jni.MethodID
+	midAlertDialogBuilderSetView5_2                 jni.MethodID
+	midAlertDialogBuilderSetInverseBackgroundForced jni.MethodID
+	midAlertDialogBuilderSetRecycleOnMeasureEnabled jni.MethodID
+	midAlertDialogBuilderCreate                     jni.MethodID
+	midAlertDialogBuilderShow                       jni.MethodID
+	midAlertDialogBuilderToString                   jni.MethodID
+
+	clsWindowDecorActionBar                                   *jni.GlobalRef
+	midWindowDecorActionBarCtor                               jni.MethodID
+	midWindowDecorActionBarSetElevation                       jni.MethodID
+	midWindowDecorActionBarGetElevation                       jni.MethodID
+	midWindowDecorActionBarOnConfigurationChanged             jni.MethodID
+	midWindowDecorActionBarOnWindowVisibilityChanged          jni.MethodID
+	midWindowDecorActionBarSetShowHideAnimationEnabled        jni.MethodID
+	midWindowDecorActionBarAddOnMenuVisibilityListener        jni.MethodID
+	midWindowDecorActionBarRemoveOnMenuVisibilityListener     jni.MethodID
+	midWindowDecorActionBarDispatchMenuVisibilityChanged      jni.MethodID
+	midWindowDecorActionBarSetCustomView1                     jni.MethodID
+	midWindowDecorActionBarSetDisplayUseLogoEnabled           jni.MethodID
+	midWindowDecorActionBarSetDisplayShowHomeEnabled          jni.MethodID
+	midWindowDecorActionBarSetDisplayHomeAsUpEnabled          jni.MethodID
+	midWindowDecorActionBarSetDisplayShowTitleEnabled         jni.MethodID
+	midWindowDecorActionBarSetDisplayShowCustomEnabled        jni.MethodID
+	midWindowDecorActionBarSetHomeButtonEnabled               jni.MethodID
+	midWindowDecorActionBarSetTitle1                          jni.MethodID
+	midWindowDecorActionBarSetSubtitle1                       jni.MethodID
+	midWindowDecorActionBarSetSelectedNavigationItem          jni.MethodID
+	midWindowDecorActionBarRemoveAllTabs                      jni.MethodID
+	midWindowDecorActionBarSetTitle1_1                        jni.MethodID
+	midWindowDecorActionBarSetWindowTitle                     jni.MethodID
+	midWindowDecorActionBarRequestFocus                       jni.MethodID
+	midWindowDecorActionBarSetSubtitle1_1                     jni.MethodID
+	midWindowDecorActionBarSetDisplayOptions1                 jni.MethodID
+	midWindowDecorActionBarSetDisplayOptions2_1               jni.MethodID
+	midWindowDecorActionBarSetBackgroundDrawable              jni.MethodID
+	midWindowDecorActionBarSetStackedBackgroundDrawable       jni.MethodID
+	midWindowDecorActionBarSetSplitBackgroundDrawable         jni.MethodID
+	midWindowDecorActionBarGetCustomView                      jni.MethodID
+	midWindowDecorActionBarGetTitle                           jni.MethodID
+	midWindowDecorActionBarGetSubtitle                        jni.MethodID
+	midWindowDecorActionBarGetNavigationMode                  jni.MethodID
+	midWindowDecorActionBarGetDisplayOptions                  jni.MethodID
+	midWindowDecorActionBarStartActionMode                    jni.MethodID
+	midWindowDecorActionBarAddTab1                            jni.MethodID
+	midWindowDecorActionBarAddTab2_1                          jni.MethodID
+	midWindowDecorActionBarAddTab2_2                          jni.MethodID
+	midWindowDecorActionBarAddTab3_3                          jni.MethodID
+	midWindowDecorActionBarNewTab                             jni.MethodID
+	midWindowDecorActionBarRemoveTab                          jni.MethodID
+	midWindowDecorActionBarRemoveTabAt                        jni.MethodID
+	midWindowDecorActionBarSelectTab                          jni.MethodID
+	midWindowDecorActionBarGetSelectedTab                     jni.MethodID
+	midWindowDecorActionBarGetHeight                          jni.MethodID
+	midWindowDecorActionBarEnableContentAnimations            jni.MethodID
+	midWindowDecorActionBarShow                               jni.MethodID
+	midWindowDecorActionBarShowForSystem                      jni.MethodID
+	midWindowDecorActionBarHide                               jni.MethodID
+	midWindowDecorActionBarHideForSystem                      jni.MethodID
+	midWindowDecorActionBarSetHideOnContentScrollEnabled      jni.MethodID
+	midWindowDecorActionBarIsHideOnContentScrollEnabled       jni.MethodID
+	midWindowDecorActionBarGetHideOffset                      jni.MethodID
+	midWindowDecorActionBarDoShow                             jni.MethodID
+	midWindowDecorActionBarDoHide                             jni.MethodID
+	midWindowDecorActionBarIsShowing                          jni.MethodID
+	midWindowDecorActionBarAnimateToMode                      jni.MethodID
+	midWindowDecorActionBarGetThemedContext                   jni.MethodID
+	midWindowDecorActionBarIsTitleTruncated                   jni.MethodID
+	midWindowDecorActionBarSetHomeAsUpIndicator1              jni.MethodID
+	midWindowDecorActionBarSetHomeAsUpIndicator1_1            jni.MethodID
+	midWindowDecorActionBarSetHomeActionContentDescription1   jni.MethodID
+	midWindowDecorActionBarSetHomeActionContentDescription1_1 jni.MethodID
+	midWindowDecorActionBarOnContentScrollStarted             jni.MethodID
+	midWindowDecorActionBarOnContentScrollStopped             jni.MethodID
+	midWindowDecorActionBarCollapseActionView                 jni.MethodID
+	midWindowDecorActionBarSetCustomView1_1                   jni.MethodID
+	midWindowDecorActionBarSetCustomView2_2                   jni.MethodID
+	midWindowDecorActionBarSetListNavigationCallbacks         jni.MethodID
+	midWindowDecorActionBarGetSelectedNavigationIndex         jni.MethodID
+	midWindowDecorActionBarGetNavigationItemCount             jni.MethodID
+	midWindowDecorActionBarGetTabCount                        jni.MethodID
+	midWindowDecorActionBarSetNavigationMode                  jni.MethodID
+	midWindowDecorActionBarGetTabAt                           jni.MethodID
+	midWindowDecorActionBarSetIcon1                           jni.MethodID
+	midWindowDecorActionBarSetIcon1_1                         jni.MethodID
+	midWindowDecorActionBarHasIcon                            jni.MethodID
+	midWindowDecorActionBarSetLogo1                           jni.MethodID
+	midWindowDecorActionBarSetLogo1_1                         jni.MethodID
+	midWindowDecorActionBarHasLogo                            jni.MethodID
+	midWindowDecorActionBarSetDefaultDisplayHomeAsUpEnabled   jni.MethodID
+	midWindowDecorActionBarToString                           jni.MethodID
+	midWindowDecorActionBarSetHideOffset                      jni.MethodID
+	midWindowDecorActionBarOnKeyShortcut                      jni.MethodID
+
+	clsWindowDecorActionBarActionModeImpl                     *jni.GlobalRef
+	midWindowDecorActionBarActionModeImplCtor                 jni.MethodID
+	midWindowDecorActionBarActionModeImplGetMenuInflater      jni.MethodID
+	midWindowDecorActionBarActionModeImplGetMenu              jni.MethodID
+	midWindowDecorActionBarActionModeImplFinish               jni.MethodID
+	midWindowDecorActionBarActionModeImplInvalidate           jni.MethodID
+	midWindowDecorActionBarActionModeImplDispatchOnCreate     jni.MethodID
+	midWindowDecorActionBarActionModeImplSetCustomView        jni.MethodID
+	midWindowDecorActionBarActionModeImplSetSubtitle1         jni.MethodID
+	midWindowDecorActionBarActionModeImplSetTitle1            jni.MethodID
+	midWindowDecorActionBarActionModeImplSetTitle1_1          jni.MethodID
+	midWindowDecorActionBarActionModeImplSetSubtitle1_1       jni.MethodID
+	midWindowDecorActionBarActionModeImplGetTitle             jni.MethodID
+	midWindowDecorActionBarActionModeImplGetSubtitle          jni.MethodID
+	midWindowDecorActionBarActionModeImplSetTitleOptionalHint jni.MethodID
+	midWindowDecorActionBarActionModeImplIsTitleOptional      jni.MethodID
+	midWindowDecorActionBarActionModeImplGetCustomView        jni.MethodID
+	midWindowDecorActionBarActionModeImplOnMenuItemSelected   jni.MethodID
+	midWindowDecorActionBarActionModeImplOnCloseMenu          jni.MethodID
+	midWindowDecorActionBarActionModeImplOnSubMenuSelected    jni.MethodID
+	midWindowDecorActionBarActionModeImplOnCloseSubMenu       jni.MethodID
+	midWindowDecorActionBarActionModeImplOnMenuModeChange     jni.MethodID
+	midWindowDecorActionBarActionModeImplToString             jni.MethodID
+
+	clsWindowDecorActionBarTabImpl                         *jni.GlobalRef
+	midWindowDecorActionBarTabImplCtor                     jni.MethodID
+	midWindowDecorActionBarTabImplGetTag                   jni.MethodID
+	midWindowDecorActionBarTabImplSetTag                   jni.MethodID
+	midWindowDecorActionBarTabImplGetCallback              jni.MethodID
+	midWindowDecorActionBarTabImplSetTabListener           jni.MethodID
+	midWindowDecorActionBarTabImplGetCustomView            jni.MethodID
+	midWindowDecorActionBarTabImplSetCustomView1           jni.MethodID
+	midWindowDecorActionBarTabImplSetCustomView1_1         jni.MethodID
+	midWindowDecorActionBarTabImplGetIcon                  jni.MethodID
+	midWindowDecorActionBarTabImplGetPosition              jni.MethodID
+	midWindowDecorActionBarTabImplSetPosition              jni.MethodID
+	midWindowDecorActionBarTabImplGetText                  jni.MethodID
+	midWindowDecorActionBarTabImplSetIcon1                 jni.MethodID
+	midWindowDecorActionBarTabImplSetIcon1_1               jni.MethodID
+	midWindowDecorActionBarTabImplSetText1                 jni.MethodID
+	midWindowDecorActionBarTabImplSetText1_1               jni.MethodID
+	midWindowDecorActionBarTabImplSelect                   jni.MethodID
+	midWindowDecorActionBarTabImplSetContentDescription1   jni.MethodID
+	midWindowDecorActionBarTabImplSetContentDescription1_1 jni.MethodID
+	midWindowDecorActionBarTabImplGetContentDescription    jni.MethodID
+	midWindowDecorActionBarTabImplToString                 jni.MethodID
+
+	clsLocalesMetadataHolderService               *jni.GlobalRef
+	midLocalesMetadataHolderServiceCtor           jni.MethodID
+	midLocalesMetadataHolderServiceOnBind         jni.MethodID
+	midLocalesMetadataHolderServiceToString       jni.MethodID
+	midLocalesMetadataHolderServiceGetServiceInfo jni.MethodID
+
+	clsCompatDialogFragment               *jni.GlobalRef
+	midCompatDialogFragmentCtor           jni.MethodID
+	midCompatDialogFragmentOnCreateDialog jni.MethodID
+	midCompatDialogFragmentSetupDialog    jni.MethodID
+	midCompatDialogFragmentToString       jni.MethodID
+
 	clsCompatActivity                                             *jni.GlobalRef
 	midCompatActivityCtor                                         jni.MethodID
 	midCompatActivitySetTheme                                     jni.MethodID
@@ -34,6 +242,7 @@ var (
 	midCompatActivitySetContentView2_2                            jni.MethodID
 	midCompatActivityAddContentView                               jni.MethodID
 	midCompatActivityOnConfigurationChanged                       jni.MethodID
+	midCompatActivityOnStop                                       jni.MethodID
 	midCompatActivityOnMenuItemSelected                           jni.MethodID
 	midCompatActivitySupportRequestWindowFeature                  jni.MethodID
 	midCompatActivitySupportInvalidateOptionsMenu                 jni.MethodID
@@ -64,12 +273,6 @@ var (
 	midCompatActivityOpenOptionsMenu                              jni.MethodID
 	midCompatActivityCloseOptionsMenu                             jni.MethodID
 	midCompatActivityToString                                     jni.MethodID
-
-	clsCompatDialogFragment               *jni.GlobalRef
-	midCompatDialogFragmentCtor           jni.MethodID
-	midCompatDialogFragmentOnCreateDialog jni.MethodID
-	midCompatDialogFragmentSetupDialog    jni.MethodID
-	midCompatDialogFragmentToString       jni.MethodID
 
 	clsActionBar                                   *jni.GlobalRef
 	midActionBarSetCustomView1                     jni.MethodID
@@ -152,6 +355,7 @@ var (
 	midActionBarDisplayOptionsToString jni.MethodID
 
 	clsActionBarLayoutParams         *jni.GlobalRef
+	midActionBarLayoutParamsCtor     jni.MethodID
 	midActionBarLayoutParamsToString jni.MethodID
 
 	clsActionBarNavigationMode         *jni.GlobalRef
@@ -191,6 +395,36 @@ var (
 	midActionBarTabListenerOnTabReselected jni.MethodID
 	midActionBarTabListenerToString        jni.MethodID
 
+	clsCompatViewInflater           *jni.GlobalRef
+	midCompatViewInflaterCtor       jni.MethodID
+	midCompatViewInflaterCreateView jni.MethodID
+	midCompatViewInflaterToString   jni.MethodID
+
+	clsCompatCallback                                  *jni.GlobalRef
+	midCompatCallbackOnSupportActionModeStarted        jni.MethodID
+	midCompatCallbackOnSupportActionModeFinished       jni.MethodID
+	midCompatCallbackOnWindowStartingSupportActionMode jni.MethodID
+	midCompatCallbackToString                          jni.MethodID
+
+	clsCompatDialog                                  *jni.GlobalRef
+	midCompatDialogCtor                              jni.MethodID
+	midCompatDialogGetSupportActionBar               jni.MethodID
+	midCompatDialogSetContentView1                   jni.MethodID
+	midCompatDialogSetContentView1_1                 jni.MethodID
+	midCompatDialogSetContentView2_2                 jni.MethodID
+	midCompatDialogSetTitle1                         jni.MethodID
+	midCompatDialogSetTitle1_1                       jni.MethodID
+	midCompatDialogAddContentView                    jni.MethodID
+	midCompatDialogDismiss                           jni.MethodID
+	midCompatDialogSupportRequestWindowFeature       jni.MethodID
+	midCompatDialogInvalidateOptionsMenu             jni.MethodID
+	midCompatDialogGetDelegate                       jni.MethodID
+	midCompatDialogOnSupportActionModeStarted        jni.MethodID
+	midCompatDialogOnSupportActionModeFinished       jni.MethodID
+	midCompatDialogOnWindowStartingSupportActionMode jni.MethodID
+	midCompatDialogDispatchKeyEvent                  jni.MethodID
+	midCompatDialogToString                          jni.MethodID
+
 	clsActionBarDrawerToggle                                  *jni.GlobalRef
 	midActionBarDrawerToggleCtor                              jni.MethodID
 	midActionBarDrawerToggleSyncState                         jni.MethodID
@@ -223,74 +457,6 @@ var (
 	clsActionBarDrawerToggleDelegateProvider                        *jni.GlobalRef
 	midActionBarDrawerToggleDelegateProviderGetDrawerToggleDelegate jni.MethodID
 	midActionBarDrawerToggleDelegateProviderToString                jni.MethodID
-
-	clsAlertDialog                 *jni.GlobalRef
-	midAlertDialogGetButton        jni.MethodID
-	midAlertDialogGetListView      jni.MethodID
-	midAlertDialogSetTitle         jni.MethodID
-	midAlertDialogSetCustomTitle   jni.MethodID
-	midAlertDialogSetMessage       jni.MethodID
-	midAlertDialogSetView1         jni.MethodID
-	midAlertDialogSetView5_1       jni.MethodID
-	midAlertDialogSetButton3       jni.MethodID
-	midAlertDialogSetButton3_1     jni.MethodID
-	midAlertDialogSetButton4_2     jni.MethodID
-	midAlertDialogSetIcon1         jni.MethodID
-	midAlertDialogSetIcon1_1       jni.MethodID
-	midAlertDialogSetIconAttribute jni.MethodID
-	midAlertDialogOnKeyDown        jni.MethodID
-	midAlertDialogOnKeyUp          jni.MethodID
-	midAlertDialogToString         jni.MethodID
-
-	clsAlertDialogBuilder                           *jni.GlobalRef
-	midAlertDialogBuilderGetContext                 jni.MethodID
-	midAlertDialogBuilderSetTitle1                  jni.MethodID
-	midAlertDialogBuilderSetTitle1_1                jni.MethodID
-	midAlertDialogBuilderSetCustomTitle             jni.MethodID
-	midAlertDialogBuilderSetMessage1                jni.MethodID
-	midAlertDialogBuilderSetMessage1_1              jni.MethodID
-	midAlertDialogBuilderSetIcon1                   jni.MethodID
-	midAlertDialogBuilderSetIcon1_1                 jni.MethodID
-	midAlertDialogBuilderSetIconAttribute           jni.MethodID
-	midAlertDialogBuilderSetPositiveButton2         jni.MethodID
-	midAlertDialogBuilderSetPositiveButton2_1       jni.MethodID
-	midAlertDialogBuilderSetPositiveButtonIcon      jni.MethodID
-	midAlertDialogBuilderSetNegativeButton2         jni.MethodID
-	midAlertDialogBuilderSetNegativeButton2_1       jni.MethodID
-	midAlertDialogBuilderSetNegativeButtonIcon      jni.MethodID
-	midAlertDialogBuilderSetNeutralButton2          jni.MethodID
-	midAlertDialogBuilderSetNeutralButton2_1        jni.MethodID
-	midAlertDialogBuilderSetNeutralButtonIcon       jni.MethodID
-	midAlertDialogBuilderSetCancelable              jni.MethodID
-	midAlertDialogBuilderSetOnCancelListener        jni.MethodID
-	midAlertDialogBuilderSetOnDismissListener       jni.MethodID
-	midAlertDialogBuilderSetOnKeyListener           jni.MethodID
-	midAlertDialogBuilderSetItems2                  jni.MethodID
-	midAlertDialogBuilderSetItems2_1                jni.MethodID
-	midAlertDialogBuilderSetAdapter                 jni.MethodID
-	midAlertDialogBuilderSetCursor                  jni.MethodID
-	midAlertDialogBuilderSetMultiChoiceItems3       jni.MethodID
-	midAlertDialogBuilderSetMultiChoiceItems3_1     jni.MethodID
-	midAlertDialogBuilderSetMultiChoiceItems4_2     jni.MethodID
-	midAlertDialogBuilderSetSingleChoiceItems3      jni.MethodID
-	midAlertDialogBuilderSetSingleChoiceItems4_1    jni.MethodID
-	midAlertDialogBuilderSetSingleChoiceItems3_2    jni.MethodID
-	midAlertDialogBuilderSetSingleChoiceItems3_3    jni.MethodID
-	midAlertDialogBuilderSetOnItemSelectedListener  jni.MethodID
-	midAlertDialogBuilderSetView1                   jni.MethodID
-	midAlertDialogBuilderSetView1_1                 jni.MethodID
-	midAlertDialogBuilderSetView5_2                 jni.MethodID
-	midAlertDialogBuilderSetInverseBackgroundForced jni.MethodID
-	midAlertDialogBuilderSetRecycleOnMeasureEnabled jni.MethodID
-	midAlertDialogBuilderCreate                     jni.MethodID
-	midAlertDialogBuilderShow                       jni.MethodID
-	midAlertDialogBuilderToString                   jni.MethodID
-
-	clsCompatCallback                                  *jni.GlobalRef
-	midCompatCallbackOnSupportActionModeStarted        jni.MethodID
-	midCompatCallbackOnSupportActionModeFinished       jni.MethodID
-	midCompatCallbackOnWindowStartingSupportActionMode jni.MethodID
-	midCompatCallbackToString                          jni.MethodID
 
 	clsCompatDelegate                                    *jni.GlobalRef
 	midCompatDelegateGetSupportActionBar                 jni.MethodID
@@ -340,167 +506,6 @@ var (
 
 	clsCompatDelegateNightMode         *jni.GlobalRef
 	midCompatDelegateNightModeToString jni.MethodID
-
-	clsCompatDialog                                  *jni.GlobalRef
-	midCompatDialogCtor                              jni.MethodID
-	midCompatDialogGetSupportActionBar               jni.MethodID
-	midCompatDialogSetContentView1                   jni.MethodID
-	midCompatDialogSetContentView1_1                 jni.MethodID
-	midCompatDialogSetContentView2_2                 jni.MethodID
-	midCompatDialogSetTitle1                         jni.MethodID
-	midCompatDialogSetTitle1_1                       jni.MethodID
-	midCompatDialogAddContentView                    jni.MethodID
-	midCompatDialogDismiss                           jni.MethodID
-	midCompatDialogSupportRequestWindowFeature       jni.MethodID
-	midCompatDialogInvalidateOptionsMenu             jni.MethodID
-	midCompatDialogGetDelegate                       jni.MethodID
-	midCompatDialogOnSupportActionModeStarted        jni.MethodID
-	midCompatDialogOnSupportActionModeFinished       jni.MethodID
-	midCompatDialogOnWindowStartingSupportActionMode jni.MethodID
-	midCompatDialogDispatchKeyEvent                  jni.MethodID
-	midCompatDialogToString                          jni.MethodID
-
-	clsLocalesMetadataHolderService               *jni.GlobalRef
-	midLocalesMetadataHolderServiceCtor           jni.MethodID
-	midLocalesMetadataHolderServiceOnBind         jni.MethodID
-	midLocalesMetadataHolderServiceToString       jni.MethodID
-	midLocalesMetadataHolderServiceGetServiceInfo jni.MethodID
-
-	clsWindowDecorActionBar                                   *jni.GlobalRef
-	midWindowDecorActionBarCtor                               jni.MethodID
-	midWindowDecorActionBarSetElevation                       jni.MethodID
-	midWindowDecorActionBarGetElevation                       jni.MethodID
-	midWindowDecorActionBarOnConfigurationChanged             jni.MethodID
-	midWindowDecorActionBarOnWindowVisibilityChanged          jni.MethodID
-	midWindowDecorActionBarSetShowHideAnimationEnabled        jni.MethodID
-	midWindowDecorActionBarAddOnMenuVisibilityListener        jni.MethodID
-	midWindowDecorActionBarRemoveOnMenuVisibilityListener     jni.MethodID
-	midWindowDecorActionBarDispatchMenuVisibilityChanged      jni.MethodID
-	midWindowDecorActionBarSetCustomView1                     jni.MethodID
-	midWindowDecorActionBarSetDisplayUseLogoEnabled           jni.MethodID
-	midWindowDecorActionBarSetDisplayShowHomeEnabled          jni.MethodID
-	midWindowDecorActionBarSetDisplayHomeAsUpEnabled          jni.MethodID
-	midWindowDecorActionBarSetDisplayShowTitleEnabled         jni.MethodID
-	midWindowDecorActionBarSetDisplayShowCustomEnabled        jni.MethodID
-	midWindowDecorActionBarSetHomeButtonEnabled               jni.MethodID
-	midWindowDecorActionBarSetTitle1                          jni.MethodID
-	midWindowDecorActionBarSetSubtitle1                       jni.MethodID
-	midWindowDecorActionBarSetSelectedNavigationItem          jni.MethodID
-	midWindowDecorActionBarRemoveAllTabs                      jni.MethodID
-	midWindowDecorActionBarSetTitle1_1                        jni.MethodID
-	midWindowDecorActionBarSetWindowTitle                     jni.MethodID
-	midWindowDecorActionBarRequestFocus                       jni.MethodID
-	midWindowDecorActionBarSetSubtitle1_1                     jni.MethodID
-	midWindowDecorActionBarSetDisplayOptions1                 jni.MethodID
-	midWindowDecorActionBarSetDisplayOptions2_1               jni.MethodID
-	midWindowDecorActionBarSetBackgroundDrawable              jni.MethodID
-	midWindowDecorActionBarSetStackedBackgroundDrawable       jni.MethodID
-	midWindowDecorActionBarSetSplitBackgroundDrawable         jni.MethodID
-	midWindowDecorActionBarGetCustomView                      jni.MethodID
-	midWindowDecorActionBarGetTitle                           jni.MethodID
-	midWindowDecorActionBarGetSubtitle                        jni.MethodID
-	midWindowDecorActionBarGetNavigationMode                  jni.MethodID
-	midWindowDecorActionBarGetDisplayOptions                  jni.MethodID
-	midWindowDecorActionBarStartActionMode                    jni.MethodID
-	midWindowDecorActionBarAddTab1                            jni.MethodID
-	midWindowDecorActionBarAddTab2_1                          jni.MethodID
-	midWindowDecorActionBarAddTab2_2                          jni.MethodID
-	midWindowDecorActionBarAddTab3_3                          jni.MethodID
-	midWindowDecorActionBarNewTab                             jni.MethodID
-	midWindowDecorActionBarRemoveTab                          jni.MethodID
-	midWindowDecorActionBarRemoveTabAt                        jni.MethodID
-	midWindowDecorActionBarSelectTab                          jni.MethodID
-	midWindowDecorActionBarGetSelectedTab                     jni.MethodID
-	midWindowDecorActionBarGetHeight                          jni.MethodID
-	midWindowDecorActionBarEnableContentAnimations            jni.MethodID
-	midWindowDecorActionBarShow                               jni.MethodID
-	midWindowDecorActionBarShowForSystem                      jni.MethodID
-	midWindowDecorActionBarHide                               jni.MethodID
-	midWindowDecorActionBarHideForSystem                      jni.MethodID
-	midWindowDecorActionBarSetHideOnContentScrollEnabled      jni.MethodID
-	midWindowDecorActionBarIsHideOnContentScrollEnabled       jni.MethodID
-	midWindowDecorActionBarGetHideOffset                      jni.MethodID
-	midWindowDecorActionBarSetHideOffset                      jni.MethodID
-	midWindowDecorActionBarDoShow                             jni.MethodID
-	midWindowDecorActionBarDoHide                             jni.MethodID
-	midWindowDecorActionBarIsShowing                          jni.MethodID
-	midWindowDecorActionBarAnimateToMode                      jni.MethodID
-	midWindowDecorActionBarGetThemedContext                   jni.MethodID
-	midWindowDecorActionBarIsTitleTruncated                   jni.MethodID
-	midWindowDecorActionBarSetHomeAsUpIndicator1              jni.MethodID
-	midWindowDecorActionBarSetHomeAsUpIndicator1_1            jni.MethodID
-	midWindowDecorActionBarSetHomeActionContentDescription1   jni.MethodID
-	midWindowDecorActionBarSetHomeActionContentDescription1_1 jni.MethodID
-	midWindowDecorActionBarOnContentScrollStarted             jni.MethodID
-	midWindowDecorActionBarOnContentScrollStopped             jni.MethodID
-	midWindowDecorActionBarCollapseActionView                 jni.MethodID
-	midWindowDecorActionBarSetCustomView1_1                   jni.MethodID
-	midWindowDecorActionBarSetCustomView2_2                   jni.MethodID
-	midWindowDecorActionBarSetListNavigationCallbacks         jni.MethodID
-	midWindowDecorActionBarGetSelectedNavigationIndex         jni.MethodID
-	midWindowDecorActionBarGetNavigationItemCount             jni.MethodID
-	midWindowDecorActionBarGetTabCount                        jni.MethodID
-	midWindowDecorActionBarSetNavigationMode                  jni.MethodID
-	midWindowDecorActionBarGetTabAt                           jni.MethodID
-	midWindowDecorActionBarSetIcon1                           jni.MethodID
-	midWindowDecorActionBarSetIcon1_1                         jni.MethodID
-	midWindowDecorActionBarHasIcon                            jni.MethodID
-	midWindowDecorActionBarSetLogo1                           jni.MethodID
-	midWindowDecorActionBarSetLogo1_1                         jni.MethodID
-	midWindowDecorActionBarHasLogo                            jni.MethodID
-	midWindowDecorActionBarSetDefaultDisplayHomeAsUpEnabled   jni.MethodID
-	midWindowDecorActionBarOnKeyShortcut                      jni.MethodID
-	midWindowDecorActionBarToString                           jni.MethodID
-
-	clsWindowDecorActionBarActionModeImpl                     *jni.GlobalRef
-	midWindowDecorActionBarActionModeImplGetMenuInflater      jni.MethodID
-	midWindowDecorActionBarActionModeImplGetMenu              jni.MethodID
-	midWindowDecorActionBarActionModeImplFinish               jni.MethodID
-	midWindowDecorActionBarActionModeImplInvalidate           jni.MethodID
-	midWindowDecorActionBarActionModeImplDispatchOnCreate     jni.MethodID
-	midWindowDecorActionBarActionModeImplSetCustomView        jni.MethodID
-	midWindowDecorActionBarActionModeImplSetSubtitle1         jni.MethodID
-	midWindowDecorActionBarActionModeImplSetTitle1            jni.MethodID
-	midWindowDecorActionBarActionModeImplSetTitle1_1          jni.MethodID
-	midWindowDecorActionBarActionModeImplSetSubtitle1_1       jni.MethodID
-	midWindowDecorActionBarActionModeImplGetTitle             jni.MethodID
-	midWindowDecorActionBarActionModeImplGetSubtitle          jni.MethodID
-	midWindowDecorActionBarActionModeImplSetTitleOptionalHint jni.MethodID
-	midWindowDecorActionBarActionModeImplIsTitleOptional      jni.MethodID
-	midWindowDecorActionBarActionModeImplGetCustomView        jni.MethodID
-	midWindowDecorActionBarActionModeImplOnMenuItemSelected   jni.MethodID
-	midWindowDecorActionBarActionModeImplOnCloseMenu          jni.MethodID
-	midWindowDecorActionBarActionModeImplOnSubMenuSelected    jni.MethodID
-	midWindowDecorActionBarActionModeImplOnCloseSubMenu       jni.MethodID
-	midWindowDecorActionBarActionModeImplOnMenuModeChange     jni.MethodID
-	midWindowDecorActionBarActionModeImplToString             jni.MethodID
-
-	clsWindowDecorActionBarTabImpl                         *jni.GlobalRef
-	midWindowDecorActionBarTabImplGetTag                   jni.MethodID
-	midWindowDecorActionBarTabImplSetTag                   jni.MethodID
-	midWindowDecorActionBarTabImplGetCallback              jni.MethodID
-	midWindowDecorActionBarTabImplSetTabListener           jni.MethodID
-	midWindowDecorActionBarTabImplGetCustomView            jni.MethodID
-	midWindowDecorActionBarTabImplSetCustomView1           jni.MethodID
-	midWindowDecorActionBarTabImplSetCustomView1_1         jni.MethodID
-	midWindowDecorActionBarTabImplGetIcon                  jni.MethodID
-	midWindowDecorActionBarTabImplGetPosition              jni.MethodID
-	midWindowDecorActionBarTabImplSetPosition              jni.MethodID
-	midWindowDecorActionBarTabImplGetText                  jni.MethodID
-	midWindowDecorActionBarTabImplSetIcon1                 jni.MethodID
-	midWindowDecorActionBarTabImplSetIcon1_1               jni.MethodID
-	midWindowDecorActionBarTabImplSetText1                 jni.MethodID
-	midWindowDecorActionBarTabImplSetText1_1               jni.MethodID
-	midWindowDecorActionBarTabImplSelect                   jni.MethodID
-	midWindowDecorActionBarTabImplSetContentDescription1   jni.MethodID
-	midWindowDecorActionBarTabImplSetContentDescription1_1 jni.MethodID
-	midWindowDecorActionBarTabImplGetContentDescription    jni.MethodID
-	midWindowDecorActionBarTabImplToString                 jni.MethodID
-
-	clsCompatViewInflater           *jni.GlobalRef
-	midCompatViewInflaterCtor       jni.MethodID
-	midCompatViewInflaterCreateView jni.MethodID
-	midCompatViewInflaterToString   jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -520,6 +525,1416 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("androidx/appcompat/app/AlertDialog")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAlertDialog = env.NewGlobalRef(&c.Object)
+
+		midAlertDialogGetButton, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "getButton", "(I)Landroid/widget/Button;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogGetListView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "getListView", "()Landroid/widget/ListView;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogSetTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setTitle", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogSetCustomTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setCustomTitle", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogSetMessage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setMessage", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogSetView1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setView", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogSetView5_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setView", "(Landroid/view/View;IIII)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogSetButton3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setButton", "(ILjava/lang/CharSequence;Landroid/os/Message;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogSetButton3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setButton", "(ILjava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogSetButton4_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setButton", "(ILjava/lang/CharSequence;Landroid/graphics/drawable/Drawable;Landroid/content/DialogInterface$OnClickListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogSetIcon1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setIcon", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogSetIcon1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setIcon", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogSetIconAttribute, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setIconAttribute", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogOnKeyDown, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "onKeyDown", "(ILandroid/view/KeyEvent;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogOnKeyUp, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "onKeyUp", "(ILandroid/view/KeyEvent;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/app/AlertDialog$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAlertDialogBuilder = env.NewGlobalRef(&c.Object)
+		midAlertDialogBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderGetContext, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "getContext", "()Landroid/content/Context;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetTitle1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setTitle", "(I)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetTitle1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setTitle", "(Ljava/lang/CharSequence;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetCustomTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setCustomTitle", "(Landroid/view/View;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetMessage1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setMessage", "(I)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetMessage1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setMessage", "(Ljava/lang/CharSequence;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetIcon1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setIcon", "(I)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetIcon1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setIcon", "(Landroid/graphics/drawable/Drawable;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetIconAttribute, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setIconAttribute", "(I)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetPositiveButton2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setPositiveButton", "(ILandroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetPositiveButton2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setPositiveButton", "(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetPositiveButtonIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setPositiveButtonIcon", "(Landroid/graphics/drawable/Drawable;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetNegativeButton2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setNegativeButton", "(ILandroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetNegativeButton2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setNegativeButton", "(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetNegativeButtonIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setNegativeButtonIcon", "(Landroid/graphics/drawable/Drawable;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetNeutralButton2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setNeutralButton", "(ILandroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetNeutralButton2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setNeutralButton", "(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetNeutralButtonIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setNeutralButtonIcon", "(Landroid/graphics/drawable/Drawable;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetCancelable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setCancelable", "(Z)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetOnCancelListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setOnCancelListener", "(Landroid/content/DialogInterface$OnCancelListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetOnDismissListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setOnDismissListener", "(Landroid/content/DialogInterface$OnDismissListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetOnKeyListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setOnKeyListener", "(Landroid/content/DialogInterface$OnKeyListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetItems2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setItems", "(ILandroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetItems2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setItems", "([Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetAdapter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setAdapter", "(Landroid/widget/ListAdapter;Landroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetCursor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setCursor", "(Landroid/database/Cursor;Landroid/content/DialogInterface$OnClickListener;Ljava/lang/String;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetMultiChoiceItems3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setMultiChoiceItems", "(I[ZLandroid/content/DialogInterface$OnMultiChoiceClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetMultiChoiceItems3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setMultiChoiceItems", "([Ljava/lang/CharSequence;[ZLandroid/content/DialogInterface$OnMultiChoiceClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetMultiChoiceItems4_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setMultiChoiceItems", "(Landroid/database/Cursor;Ljava/lang/String;Ljava/lang/String;Landroid/content/DialogInterface$OnMultiChoiceClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetSingleChoiceItems3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setSingleChoiceItems", "(IILandroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetSingleChoiceItems4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setSingleChoiceItems", "(Landroid/database/Cursor;ILjava/lang/String;Landroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetSingleChoiceItems3_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setSingleChoiceItems", "([Ljava/lang/CharSequence;ILandroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetSingleChoiceItems3_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setSingleChoiceItems", "(Landroid/widget/ListAdapter;ILandroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetOnItemSelectedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setOnItemSelectedListener", "(Landroid/widget/AdapterView$OnItemSelectedListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetView1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setView", "(I)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetView1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setView", "(Landroid/view/View;)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetView5_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setView", "(Landroid/view/View;IIII)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetInverseBackgroundForced, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setInverseBackgroundForced", "(Z)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderSetRecycleOnMeasureEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setRecycleOnMeasureEnabled", "(Z)Landroidx/appcompat/app/AlertDialog$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderCreate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "create", "()Landroidx/appcompat/app/AlertDialog;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderShow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "show", "()Landroidx/appcompat/app/AlertDialog;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAlertDialogBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/app/WindowDecorActionBar")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsWindowDecorActionBar = env.NewGlobalRef(&c.Object)
+		midWindowDecorActionBarCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "<init>", "(Landroid/app/Activity;Z)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetElevation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setElevation", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarGetElevation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getElevation", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarOnConfigurationChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "onConfigurationChanged", "(Landroid/content/res/Configuration;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarOnWindowVisibilityChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "onWindowVisibilityChanged", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetShowHideAnimationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setShowHideAnimationEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarAddOnMenuVisibilityListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "addOnMenuVisibilityListener", "(Landroidx/appcompat/app/ActionBar$OnMenuVisibilityListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarRemoveOnMenuVisibilityListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "removeOnMenuVisibilityListener", "(Landroidx/appcompat/app/ActionBar$OnMenuVisibilityListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarDispatchMenuVisibilityChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "dispatchMenuVisibilityChanged", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetCustomView1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setCustomView", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetDisplayUseLogoEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setDisplayUseLogoEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetDisplayShowHomeEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setDisplayShowHomeEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetDisplayHomeAsUpEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setDisplayHomeAsUpEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetDisplayShowTitleEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setDisplayShowTitleEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetDisplayShowCustomEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setDisplayShowCustomEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetHomeButtonEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setHomeButtonEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetTitle1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setTitle", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetSubtitle1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setSubtitle", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetSelectedNavigationItem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setSelectedNavigationItem", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarRemoveAllTabs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "removeAllTabs", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetTitle1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setTitle", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetWindowTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setWindowTitle", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarRequestFocus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "requestFocus", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetSubtitle1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setSubtitle", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetDisplayOptions1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setDisplayOptions", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetDisplayOptions2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setDisplayOptions", "(II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetStackedBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setStackedBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetSplitBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setSplitBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarGetCustomView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getCustomView", "()Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarGetTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getTitle", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarGetSubtitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getSubtitle", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarGetNavigationMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getNavigationMode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarGetDisplayOptions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getDisplayOptions", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarStartActionMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "startActionMode", "(Landroidx/appcompat/view/ActionMode$Callback;)Landroidx/appcompat/view/ActionMode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarAddTab1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "addTab", "(Landroidx/appcompat/app/ActionBar$Tab;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarAddTab2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "addTab", "(Landroidx/appcompat/app/ActionBar$Tab;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarAddTab2_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "addTab", "(Landroidx/appcompat/app/ActionBar$Tab;Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarAddTab3_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "addTab", "(Landroidx/appcompat/app/ActionBar$Tab;IZ)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarNewTab, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "newTab", "()Landroidx/appcompat/app/ActionBar$Tab;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarRemoveTab, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "removeTab", "(Landroidx/appcompat/app/ActionBar$Tab;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarRemoveTabAt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "removeTabAt", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSelectTab, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "selectTab", "(Landroidx/appcompat/app/ActionBar$Tab;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarGetSelectedTab, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getSelectedTab", "()Landroidx/appcompat/app/ActionBar$Tab;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarGetHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getHeight", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarEnableContentAnimations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "enableContentAnimations", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarShow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "show", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarShowForSystem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "showForSystem", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarHide, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "hide", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarHideForSystem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "hideForSystem", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetHideOnContentScrollEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setHideOnContentScrollEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarIsHideOnContentScrollEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "isHideOnContentScrollEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarGetHideOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getHideOffset", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarDoShow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "doShow", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarDoHide, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "doHide", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarIsShowing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "isShowing", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarAnimateToMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "animateToMode", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarGetThemedContext, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getThemedContext", "()Landroid/content/Context;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarIsTitleTruncated, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "isTitleTruncated", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetHomeAsUpIndicator1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setHomeAsUpIndicator", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetHomeAsUpIndicator1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setHomeAsUpIndicator", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetHomeActionContentDescription1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setHomeActionContentDescription", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetHomeActionContentDescription1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setHomeActionContentDescription", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarOnContentScrollStarted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "onContentScrollStarted", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarOnContentScrollStopped, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "onContentScrollStopped", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarCollapseActionView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "collapseActionView", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetCustomView1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setCustomView", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetCustomView2_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setCustomView", "(Landroid/view/View;Landroidx/appcompat/app/ActionBar$LayoutParams;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetListNavigationCallbacks, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setListNavigationCallbacks", "(Landroid/widget/SpinnerAdapter;Landroidx/appcompat/app/ActionBar$OnNavigationListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarGetSelectedNavigationIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getSelectedNavigationIndex", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarGetNavigationItemCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getNavigationItemCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarGetTabCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getTabCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetNavigationMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setNavigationMode", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarGetTabAt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getTabAt", "(I)Landroidx/appcompat/app/ActionBar$Tab;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetIcon1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setIcon", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetIcon1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setIcon", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarHasIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "hasIcon", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetLogo1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setLogo", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetLogo1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setLogo", "(Landroid/graphics/drawable/Drawable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarHasLogo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "hasLogo", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetDefaultDisplayHomeAsUpEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setDefaultDisplayHomeAsUpEnabled", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarSetHideOffset, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setHideOffset", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarOnKeyShortcut, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "onKeyShortcut", "(ILandroid/view/KeyEvent;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/app/WindowDecorActionBar$ActionModeImpl")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsWindowDecorActionBarActionModeImpl = env.NewGlobalRef(&c.Object)
+		midWindowDecorActionBarActionModeImplCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "<init>", "(Landroidx/appcompat/app/WindowDecorActionBar;Landroid/content/Context;Landroidx/appcompat/view/ActionMode$Callback;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarActionModeImplGetMenuInflater, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "getMenuInflater", "()Landroid/view/MenuInflater;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarActionModeImplGetMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "getMenu", "()Landroid/view/Menu;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarActionModeImplFinish, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "finish", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarActionModeImplInvalidate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "invalidate", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarActionModeImplDispatchOnCreate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "dispatchOnCreate", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarActionModeImplSetCustomView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "setCustomView", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarActionModeImplSetSubtitle1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "setSubtitle", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarActionModeImplSetTitle1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "setTitle", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarActionModeImplSetTitle1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "setTitle", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarActionModeImplSetSubtitle1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "setSubtitle", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarActionModeImplGetTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "getTitle", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarActionModeImplGetSubtitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "getSubtitle", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarActionModeImplSetTitleOptionalHint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "setTitleOptionalHint", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarActionModeImplIsTitleOptional, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "isTitleOptional", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarActionModeImplGetCustomView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "getCustomView", "()Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarActionModeImplOnMenuItemSelected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "onMenuItemSelected", "(Landroidx/appcompat/view/menu/MenuBuilder;Landroid/view/MenuItem;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarActionModeImplOnCloseMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "onCloseMenu", "(Landroidx/appcompat/view/menu/MenuBuilder;Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarActionModeImplOnSubMenuSelected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "onSubMenuSelected", "(Landroidx/appcompat/view/menu/SubMenuBuilder;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarActionModeImplOnCloseSubMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "onCloseSubMenu", "(Landroidx/appcompat/view/menu/SubMenuBuilder;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarActionModeImplOnMenuModeChange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "onMenuModeChange", "(Landroidx/appcompat/view/menu/MenuBuilder;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarActionModeImplToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/app/WindowDecorActionBar$TabImpl")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsWindowDecorActionBarTabImpl = env.NewGlobalRef(&c.Object)
+		midWindowDecorActionBarTabImplCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "<init>", "(Landroidx/appcompat/app/WindowDecorActionBar;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarTabImplGetTag, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "getTag", "()Ljava/lang/Object;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarTabImplSetTag, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setTag", "(Ljava/lang/Object;)Landroidx/appcompat/app/ActionBar$Tab;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarTabImplGetCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "getCallback", "()Landroidx/appcompat/app/ActionBar$TabListener;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarTabImplSetTabListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setTabListener", "(Landroidx/appcompat/app/ActionBar$TabListener;)Landroidx/appcompat/app/ActionBar$Tab;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarTabImplGetCustomView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "getCustomView", "()Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarTabImplSetCustomView1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setCustomView", "(Landroid/view/View;)Landroidx/appcompat/app/ActionBar$Tab;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarTabImplSetCustomView1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setCustomView", "(I)Landroidx/appcompat/app/ActionBar$Tab;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarTabImplGetIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "getIcon", "()Landroid/graphics/drawable/Drawable;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarTabImplGetPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "getPosition", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarTabImplSetPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setPosition", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarTabImplGetText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "getText", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarTabImplSetIcon1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setIcon", "(Landroid/graphics/drawable/Drawable;)Landroidx/appcompat/app/ActionBar$Tab;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarTabImplSetIcon1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setIcon", "(I)Landroidx/appcompat/app/ActionBar$Tab;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarTabImplSetText1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setText", "(Ljava/lang/CharSequence;)Landroidx/appcompat/app/ActionBar$Tab;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarTabImplSetText1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setText", "(I)Landroidx/appcompat/app/ActionBar$Tab;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarTabImplSelect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "select", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarTabImplSetContentDescription1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setContentDescription", "(I)Landroidx/appcompat/app/ActionBar$Tab;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarTabImplSetContentDescription1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setContentDescription", "(Ljava/lang/CharSequence;)Landroidx/appcompat/app/ActionBar$Tab;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarTabImplGetContentDescription, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "getContentDescription", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowDecorActionBarTabImplToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/app/AppLocalesMetadataHolderService")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLocalesMetadataHolderService = env.NewGlobalRef(&c.Object)
+		midLocalesMetadataHolderServiceCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalesMetadataHolderService)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midLocalesMetadataHolderServiceOnBind, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalesMetadataHolderService)), "onBind", "(Landroid/content/Intent;)Landroid/os/IBinder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocalesMetadataHolderServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalesMetadataHolderService)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocalesMetadataHolderServiceGetServiceInfo, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocalesMetadataHolderService)), "getServiceInfo", "(Landroid/content/Context;)Landroid/content/pm/ServiceInfo;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/app/AppCompatDialogFragment")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCompatDialogFragment = env.NewGlobalRef(&c.Object)
+		midCompatDialogFragmentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialogFragment)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCompatDialogFragmentOnCreateDialog, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialogFragment)), "onCreateDialog", "(Landroid/os/Bundle;)Landroid/app/Dialog;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatDialogFragmentSetupDialog, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialogFragment)), "setupDialog", "(Landroid/app/Dialog;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatDialogFragmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialogFragment)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("androidx/appcompat/app/AppCompatActivity")
 	if err != nil {
@@ -590,6 +2005,13 @@ func doInit(env *jni.Env) error {
 		}
 
 		midCompatActivityOnConfigurationChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatActivity)), "onConfigurationChanged", "(Landroid/content/res/Configuration;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatActivityOnStop, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatActivity)), "onStop", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -800,41 +2222,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midCompatActivityToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatActivity)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/app/AppCompatDialogFragment")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCompatDialogFragment = env.NewGlobalRef(&c.Object)
-		midCompatDialogFragmentCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialogFragment)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCompatDialogFragmentOnCreateDialog, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialogFragment)), "onCreateDialog", "(Landroid/os/Bundle;)Landroid/app/Dialog;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompatDialogFragmentSetupDialog, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialogFragment)), "setupDialog", "(Landroid/app/Dialog;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompatDialogFragmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialogFragment)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1402,6 +2789,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsActionBarLayoutParams = env.NewGlobalRef(&c.Object)
+		midActionBarLayoutParamsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarLayoutParams)), "<init>", "(Landroid/content/Context;Landroid/util/AttributeSet;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midActionBarLayoutParamsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarLayoutParams)), "toString", "()Ljava/lang/String;")
 		if err != nil {
@@ -1651,6 +3042,198 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("androidx/appcompat/app/AppCompatViewInflater")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCompatViewInflater = env.NewGlobalRef(&c.Object)
+		midCompatViewInflaterCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatViewInflater)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCompatViewInflaterCreateView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatViewInflater)), "createView", "(Landroid/view/View;Ljava/lang/String;Landroid/content/Context;Landroid/util/AttributeSet;ZZZZ)Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatViewInflaterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatViewInflater)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/app/AppCompatCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCompatCallback = env.NewGlobalRef(&c.Object)
+
+		midCompatCallbackOnSupportActionModeStarted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatCallback)), "onSupportActionModeStarted", "(Landroidx/appcompat/view/ActionMode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatCallbackOnSupportActionModeFinished, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatCallback)), "onSupportActionModeFinished", "(Landroidx/appcompat/view/ActionMode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatCallbackOnWindowStartingSupportActionMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatCallback)), "onWindowStartingSupportActionMode", "(Landroidx/appcompat/view/ActionMode$Callback;)Landroidx/appcompat/view/ActionMode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/appcompat/app/AppCompatDialog")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCompatDialog = env.NewGlobalRef(&c.Object)
+		midCompatDialogCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCompatDialogGetSupportActionBar, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "getSupportActionBar", "()Landroidx/appcompat/app/ActionBar;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatDialogSetContentView1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "setContentView", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatDialogSetContentView1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "setContentView", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatDialogSetContentView2_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "setContentView", "(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatDialogSetTitle1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "setTitle", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatDialogSetTitle1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "setTitle", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatDialogAddContentView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "addContentView", "(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatDialogDismiss, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "dismiss", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatDialogSupportRequestWindowFeature, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "supportRequestWindowFeature", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatDialogInvalidateOptionsMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "invalidateOptionsMenu", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatDialogGetDelegate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "getDelegate", "()Landroidx/appcompat/app/AppCompatDelegate;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatDialogOnSupportActionModeStarted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "onSupportActionModeStarted", "(Landroidx/appcompat/view/ActionMode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatDialogOnSupportActionModeFinished, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "onSupportActionModeFinished", "(Landroidx/appcompat/view/ActionMode;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatDialogOnWindowStartingSupportActionMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "onWindowStartingSupportActionMode", "(Landroidx/appcompat/view/ActionMode$Callback;)Landroidx/appcompat/view/ActionMode;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatDialogDispatchKeyEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "dispatchKeyEvent", "(Landroid/view/KeyEvent;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCompatDialogToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("androidx/appcompat/app/ActionBarDrawerToggle")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -1859,470 +3442,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midActionBarDrawerToggleDelegateProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsActionBarDrawerToggleDelegateProvider)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/app/AlertDialog")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAlertDialog = env.NewGlobalRef(&c.Object)
-
-		midAlertDialogGetButton, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "getButton", "(I)Landroid/widget/Button;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogGetListView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "getListView", "()Landroid/widget/ListView;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogSetTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setTitle", "(Ljava/lang/CharSequence;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogSetCustomTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setCustomTitle", "(Landroid/view/View;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogSetMessage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setMessage", "(Ljava/lang/CharSequence;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogSetView1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setView", "(Landroid/view/View;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogSetView5_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setView", "(Landroid/view/View;IIII)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogSetButton3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setButton", "(ILjava/lang/CharSequence;Landroid/os/Message;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogSetButton3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setButton", "(ILjava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogSetButton4_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setButton", "(ILjava/lang/CharSequence;Landroid/graphics/drawable/Drawable;Landroid/content/DialogInterface$OnClickListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogSetIcon1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setIcon", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogSetIcon1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setIcon", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogSetIconAttribute, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "setIconAttribute", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogOnKeyDown, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "onKeyDown", "(ILandroid/view/KeyEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogOnKeyUp, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "onKeyUp", "(ILandroid/view/KeyEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialog)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/app/AlertDialog$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAlertDialogBuilder = env.NewGlobalRef(&c.Object)
-
-		midAlertDialogBuilderGetContext, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "getContext", "()Landroid/content/Context;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetTitle1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setTitle", "(I)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetTitle1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setTitle", "(Ljava/lang/CharSequence;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetCustomTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setCustomTitle", "(Landroid/view/View;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetMessage1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setMessage", "(I)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetMessage1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setMessage", "(Ljava/lang/CharSequence;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetIcon1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setIcon", "(I)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetIcon1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setIcon", "(Landroid/graphics/drawable/Drawable;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetIconAttribute, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setIconAttribute", "(I)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetPositiveButton2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setPositiveButton", "(ILandroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetPositiveButton2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setPositiveButton", "(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetPositiveButtonIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setPositiveButtonIcon", "(Landroid/graphics/drawable/Drawable;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetNegativeButton2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setNegativeButton", "(ILandroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetNegativeButton2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setNegativeButton", "(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetNegativeButtonIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setNegativeButtonIcon", "(Landroid/graphics/drawable/Drawable;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetNeutralButton2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setNeutralButton", "(ILandroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetNeutralButton2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setNeutralButton", "(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetNeutralButtonIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setNeutralButtonIcon", "(Landroid/graphics/drawable/Drawable;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetCancelable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setCancelable", "(Z)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetOnCancelListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setOnCancelListener", "(Landroid/content/DialogInterface$OnCancelListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetOnDismissListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setOnDismissListener", "(Landroid/content/DialogInterface$OnDismissListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetOnKeyListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setOnKeyListener", "(Landroid/content/DialogInterface$OnKeyListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetItems2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setItems", "(ILandroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetItems2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setItems", "([Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetAdapter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setAdapter", "(Landroid/widget/ListAdapter;Landroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetCursor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setCursor", "(Landroid/database/Cursor;Landroid/content/DialogInterface$OnClickListener;Ljava/lang/String;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetMultiChoiceItems3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setMultiChoiceItems", "(I[ZLandroid/content/DialogInterface$OnMultiChoiceClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetMultiChoiceItems3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setMultiChoiceItems", "([Ljava/lang/CharSequence;[ZLandroid/content/DialogInterface$OnMultiChoiceClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetMultiChoiceItems4_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setMultiChoiceItems", "(Landroid/database/Cursor;Ljava/lang/String;Ljava/lang/String;Landroid/content/DialogInterface$OnMultiChoiceClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetSingleChoiceItems3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setSingleChoiceItems", "(IILandroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetSingleChoiceItems4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setSingleChoiceItems", "(Landroid/database/Cursor;ILjava/lang/String;Landroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetSingleChoiceItems3_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setSingleChoiceItems", "([Ljava/lang/CharSequence;ILandroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetSingleChoiceItems3_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setSingleChoiceItems", "(Landroid/widget/ListAdapter;ILandroid/content/DialogInterface$OnClickListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetOnItemSelectedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setOnItemSelectedListener", "(Landroid/widget/AdapterView$OnItemSelectedListener;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetView1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setView", "(I)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetView1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setView", "(Landroid/view/View;)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetView5_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setView", "(Landroid/view/View;IIII)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetInverseBackgroundForced, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setInverseBackgroundForced", "(Z)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderSetRecycleOnMeasureEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "setRecycleOnMeasureEnabled", "(Z)Landroidx/appcompat/app/AlertDialog$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderCreate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "create", "()Landroidx/appcompat/app/AlertDialog;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderShow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "show", "()Landroidx/appcompat/app/AlertDialog;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAlertDialogBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAlertDialogBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/app/AppCompatCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCompatCallback = env.NewGlobalRef(&c.Object)
-
-		midCompatCallbackOnSupportActionModeStarted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatCallback)), "onSupportActionModeStarted", "(Landroidx/appcompat/view/ActionMode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompatCallbackOnSupportActionModeFinished, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatCallback)), "onSupportActionModeFinished", "(Landroidx/appcompat/view/ActionMode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompatCallbackOnWindowStartingSupportActionMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatCallback)), "onWindowStartingSupportActionMode", "(Landroidx/appcompat/view/ActionMode$Callback;)Landroidx/appcompat/view/ActionMode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompatCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatCallback)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2658,1097 +3777,6 @@ func doInit(env *jni.Env) error {
 		clsCompatDelegateNightMode = env.NewGlobalRef(&c.Object)
 
 		midCompatDelegateNightModeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDelegateNightMode)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/app/AppCompatDialog")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCompatDialog = env.NewGlobalRef(&c.Object)
-		midCompatDialogCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCompatDialogGetSupportActionBar, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "getSupportActionBar", "()Landroidx/appcompat/app/ActionBar;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompatDialogSetContentView1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "setContentView", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompatDialogSetContentView1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "setContentView", "(Landroid/view/View;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompatDialogSetContentView2_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "setContentView", "(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompatDialogSetTitle1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "setTitle", "(Ljava/lang/CharSequence;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompatDialogSetTitle1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "setTitle", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompatDialogAddContentView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "addContentView", "(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompatDialogDismiss, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "dismiss", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompatDialogSupportRequestWindowFeature, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "supportRequestWindowFeature", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompatDialogInvalidateOptionsMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "invalidateOptionsMenu", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompatDialogGetDelegate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "getDelegate", "()Landroidx/appcompat/app/AppCompatDelegate;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompatDialogOnSupportActionModeStarted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "onSupportActionModeStarted", "(Landroidx/appcompat/view/ActionMode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompatDialogOnSupportActionModeFinished, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "onSupportActionModeFinished", "(Landroidx/appcompat/view/ActionMode;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompatDialogOnWindowStartingSupportActionMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "onWindowStartingSupportActionMode", "(Landroidx/appcompat/view/ActionMode$Callback;)Landroidx/appcompat/view/ActionMode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompatDialogDispatchKeyEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "dispatchKeyEvent", "(Landroid/view/KeyEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompatDialogToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatDialog)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/app/AppLocalesMetadataHolderService")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLocalesMetadataHolderService = env.NewGlobalRef(&c.Object)
-		midLocalesMetadataHolderServiceCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalesMetadataHolderService)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midLocalesMetadataHolderServiceOnBind, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalesMetadataHolderService)), "onBind", "(Landroid/content/Intent;)Landroid/os/IBinder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocalesMetadataHolderServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalesMetadataHolderService)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocalesMetadataHolderServiceGetServiceInfo, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsLocalesMetadataHolderService)), "getServiceInfo", "(Landroid/content/Context;)Landroid/content/pm/ServiceInfo;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/app/WindowDecorActionBar")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsWindowDecorActionBar = env.NewGlobalRef(&c.Object)
-		midWindowDecorActionBarCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "<init>", "(Landroid/app/Activity;Z)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetElevation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setElevation", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarGetElevation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getElevation", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarOnConfigurationChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "onConfigurationChanged", "(Landroid/content/res/Configuration;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarOnWindowVisibilityChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "onWindowVisibilityChanged", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetShowHideAnimationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setShowHideAnimationEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarAddOnMenuVisibilityListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "addOnMenuVisibilityListener", "(Landroidx/appcompat/app/ActionBar$OnMenuVisibilityListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarRemoveOnMenuVisibilityListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "removeOnMenuVisibilityListener", "(Landroidx/appcompat/app/ActionBar$OnMenuVisibilityListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarDispatchMenuVisibilityChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "dispatchMenuVisibilityChanged", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetCustomView1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setCustomView", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetDisplayUseLogoEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setDisplayUseLogoEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetDisplayShowHomeEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setDisplayShowHomeEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetDisplayHomeAsUpEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setDisplayHomeAsUpEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetDisplayShowTitleEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setDisplayShowTitleEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetDisplayShowCustomEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setDisplayShowCustomEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetHomeButtonEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setHomeButtonEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetTitle1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setTitle", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetSubtitle1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setSubtitle", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetSelectedNavigationItem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setSelectedNavigationItem", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarRemoveAllTabs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "removeAllTabs", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetTitle1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setTitle", "(Ljava/lang/CharSequence;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetWindowTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setWindowTitle", "(Ljava/lang/CharSequence;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarRequestFocus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "requestFocus", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetSubtitle1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setSubtitle", "(Ljava/lang/CharSequence;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetDisplayOptions1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setDisplayOptions", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetDisplayOptions2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setDisplayOptions", "(II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetStackedBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setStackedBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetSplitBackgroundDrawable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setSplitBackgroundDrawable", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarGetCustomView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getCustomView", "()Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarGetTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getTitle", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarGetSubtitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getSubtitle", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarGetNavigationMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getNavigationMode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarGetDisplayOptions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getDisplayOptions", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarStartActionMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "startActionMode", "(Landroidx/appcompat/view/ActionMode$Callback;)Landroidx/appcompat/view/ActionMode;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarAddTab1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "addTab", "(Landroidx/appcompat/app/ActionBar$Tab;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarAddTab2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "addTab", "(Landroidx/appcompat/app/ActionBar$Tab;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarAddTab2_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "addTab", "(Landroidx/appcompat/app/ActionBar$Tab;Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarAddTab3_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "addTab", "(Landroidx/appcompat/app/ActionBar$Tab;IZ)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarNewTab, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "newTab", "()Landroidx/appcompat/app/ActionBar$Tab;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarRemoveTab, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "removeTab", "(Landroidx/appcompat/app/ActionBar$Tab;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarRemoveTabAt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "removeTabAt", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSelectTab, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "selectTab", "(Landroidx/appcompat/app/ActionBar$Tab;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarGetSelectedTab, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getSelectedTab", "()Landroidx/appcompat/app/ActionBar$Tab;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarGetHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getHeight", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarEnableContentAnimations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "enableContentAnimations", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarShow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "show", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarShowForSystem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "showForSystem", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarHide, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "hide", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarHideForSystem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "hideForSystem", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetHideOnContentScrollEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setHideOnContentScrollEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarIsHideOnContentScrollEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "isHideOnContentScrollEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarGetHideOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getHideOffset", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetHideOffset, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setHideOffset", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarDoShow, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "doShow", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarDoHide, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "doHide", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarIsShowing, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "isShowing", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarAnimateToMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "animateToMode", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarGetThemedContext, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getThemedContext", "()Landroid/content/Context;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarIsTitleTruncated, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "isTitleTruncated", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetHomeAsUpIndicator1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setHomeAsUpIndicator", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetHomeAsUpIndicator1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setHomeAsUpIndicator", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetHomeActionContentDescription1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setHomeActionContentDescription", "(Ljava/lang/CharSequence;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetHomeActionContentDescription1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setHomeActionContentDescription", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarOnContentScrollStarted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "onContentScrollStarted", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarOnContentScrollStopped, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "onContentScrollStopped", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarCollapseActionView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "collapseActionView", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetCustomView1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setCustomView", "(Landroid/view/View;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetCustomView2_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setCustomView", "(Landroid/view/View;Landroidx/appcompat/app/ActionBar$LayoutParams;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetListNavigationCallbacks, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setListNavigationCallbacks", "(Landroid/widget/SpinnerAdapter;Landroidx/appcompat/app/ActionBar$OnNavigationListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarGetSelectedNavigationIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getSelectedNavigationIndex", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarGetNavigationItemCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getNavigationItemCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarGetTabCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getTabCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetNavigationMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setNavigationMode", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarGetTabAt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "getTabAt", "(I)Landroidx/appcompat/app/ActionBar$Tab;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetIcon1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setIcon", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetIcon1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setIcon", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarHasIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "hasIcon", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetLogo1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setLogo", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetLogo1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setLogo", "(Landroid/graphics/drawable/Drawable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarHasLogo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "hasLogo", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarSetDefaultDisplayHomeAsUpEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "setDefaultDisplayHomeAsUpEnabled", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarOnKeyShortcut, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "onKeyShortcut", "(ILandroid/view/KeyEvent;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBar)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/app/WindowDecorActionBar$ActionModeImpl")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsWindowDecorActionBarActionModeImpl = env.NewGlobalRef(&c.Object)
-
-		midWindowDecorActionBarActionModeImplGetMenuInflater, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "getMenuInflater", "()Landroid/view/MenuInflater;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarActionModeImplGetMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "getMenu", "()Landroid/view/Menu;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarActionModeImplFinish, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "finish", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarActionModeImplInvalidate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "invalidate", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarActionModeImplDispatchOnCreate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "dispatchOnCreate", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarActionModeImplSetCustomView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "setCustomView", "(Landroid/view/View;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarActionModeImplSetSubtitle1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "setSubtitle", "(Ljava/lang/CharSequence;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarActionModeImplSetTitle1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "setTitle", "(Ljava/lang/CharSequence;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarActionModeImplSetTitle1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "setTitle", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarActionModeImplSetSubtitle1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "setSubtitle", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarActionModeImplGetTitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "getTitle", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarActionModeImplGetSubtitle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "getSubtitle", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarActionModeImplSetTitleOptionalHint, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "setTitleOptionalHint", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarActionModeImplIsTitleOptional, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "isTitleOptional", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarActionModeImplGetCustomView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "getCustomView", "()Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarActionModeImplOnMenuItemSelected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "onMenuItemSelected", "(Landroidx/appcompat/view/menu/MenuBuilder;Landroid/view/MenuItem;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarActionModeImplOnCloseMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "onCloseMenu", "(Landroidx/appcompat/view/menu/MenuBuilder;Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarActionModeImplOnSubMenuSelected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "onSubMenuSelected", "(Landroidx/appcompat/view/menu/SubMenuBuilder;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarActionModeImplOnCloseSubMenu, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "onCloseSubMenu", "(Landroidx/appcompat/view/menu/SubMenuBuilder;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarActionModeImplOnMenuModeChange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "onMenuModeChange", "(Landroidx/appcompat/view/menu/MenuBuilder;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarActionModeImplToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarActionModeImpl)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/app/WindowDecorActionBar$TabImpl")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsWindowDecorActionBarTabImpl = env.NewGlobalRef(&c.Object)
-
-		midWindowDecorActionBarTabImplGetTag, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "getTag", "()Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarTabImplSetTag, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setTag", "(Ljava/lang/Object;)Landroidx/appcompat/app/ActionBar$Tab;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarTabImplGetCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "getCallback", "()Landroidx/appcompat/app/ActionBar$TabListener;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarTabImplSetTabListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setTabListener", "(Landroidx/appcompat/app/ActionBar$TabListener;)Landroidx/appcompat/app/ActionBar$Tab;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarTabImplGetCustomView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "getCustomView", "()Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarTabImplSetCustomView1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setCustomView", "(Landroid/view/View;)Landroidx/appcompat/app/ActionBar$Tab;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarTabImplSetCustomView1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setCustomView", "(I)Landroidx/appcompat/app/ActionBar$Tab;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarTabImplGetIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "getIcon", "()Landroid/graphics/drawable/Drawable;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarTabImplGetPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "getPosition", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarTabImplSetPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setPosition", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarTabImplGetText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "getText", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarTabImplSetIcon1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setIcon", "(Landroid/graphics/drawable/Drawable;)Landroidx/appcompat/app/ActionBar$Tab;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarTabImplSetIcon1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setIcon", "(I)Landroidx/appcompat/app/ActionBar$Tab;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarTabImplSetText1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setText", "(Ljava/lang/CharSequence;)Landroidx/appcompat/app/ActionBar$Tab;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarTabImplSetText1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setText", "(I)Landroidx/appcompat/app/ActionBar$Tab;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarTabImplSelect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "select", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarTabImplSetContentDescription1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setContentDescription", "(I)Landroidx/appcompat/app/ActionBar$Tab;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarTabImplSetContentDescription1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "setContentDescription", "(Ljava/lang/CharSequence;)Landroidx/appcompat/app/ActionBar$Tab;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarTabImplGetContentDescription, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "getContentDescription", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowDecorActionBarTabImplToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowDecorActionBarTabImpl)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("androidx/appcompat/app/AppCompatViewInflater")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCompatViewInflater = env.NewGlobalRef(&c.Object)
-		midCompatViewInflaterCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatViewInflater)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCompatViewInflaterCreateView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatViewInflater)), "createView", "(Landroid/view/View;Ljava/lang/String;Landroid/content/Context;Landroid/util/AttributeSet;ZZZZ)Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCompatViewInflaterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompatViewInflater)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

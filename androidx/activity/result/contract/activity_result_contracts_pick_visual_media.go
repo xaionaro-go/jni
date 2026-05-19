@@ -23,8 +23,36 @@ type ActivityResultContractsPickVisualMedia struct {
 	Obj *jni.GlobalRef
 }
 
-// CreateIntent2 calls androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.createIntent.
-func (m *ActivityResultContractsPickVisualMedia) CreateIntent2(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
+// NewActivityResultContractsPickVisualMedia creates a new androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia instance.
+func NewActivityResultContractsPickVisualMedia(vm *jni.VM) (*ActivityResultContractsPickVisualMedia, error) {
+	var t ActivityResultContractsPickVisualMedia
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsActivityResultContractsPickVisualMedia == nil {
+			return fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia is not available on this device")
+		}
+		if midActivityResultContractsPickVisualMediaCtor == nil {
+			return fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickVisualMedia)), midActivityResultContractsPickVisualMediaCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
+// CreateIntent calls androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.createIntent.
+func (m *ActivityResultContractsPickVisualMedia) CreateIntent(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -32,14 +60,14 @@ func (m *ActivityResultContractsPickVisualMedia) CreateIntent2(arg0 *jni.Object,
 			callErr = err
 			return err
 		}
-		if midActivityResultContractsPickVisualMediaCreateIntent2 == nil {
+		if midActivityResultContractsPickVisualMediaCreateIntent == nil {
 			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.createIntent is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActivityResultContractsPickVisualMediaCreateIntent2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midActivityResultContractsPickVisualMediaCreateIntent, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr
@@ -56,8 +84,8 @@ func (m *ActivityResultContractsPickVisualMedia) CreateIntent2(arg0 *jni.Object,
 	return result, callErr
 }
 
-// GetSynchronousResult2 calls androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.getSynchronousResult.
-func (m *ActivityResultContractsPickVisualMedia) GetSynchronousResult2(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
+// GetSynchronousResult calls androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.getSynchronousResult.
+func (m *ActivityResultContractsPickVisualMedia) GetSynchronousResult(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -65,14 +93,14 @@ func (m *ActivityResultContractsPickVisualMedia) GetSynchronousResult2(arg0 *jni
 			callErr = err
 			return err
 		}
-		if midActivityResultContractsPickVisualMediaGetSynchronousResult2 == nil {
+		if midActivityResultContractsPickVisualMediaGetSynchronousResult == nil {
 			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.getSynchronousResult is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActivityResultContractsPickVisualMediaGetSynchronousResult2, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
+			midActivityResultContractsPickVisualMediaGetSynchronousResult, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr
@@ -89,8 +117,8 @@ func (m *ActivityResultContractsPickVisualMedia) GetSynchronousResult2(arg0 *jni
 	return result, callErr
 }
 
-// ParseResult2 calls androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.parseResult.
-func (m *ActivityResultContractsPickVisualMedia) ParseResult2(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
+// ParseResult calls androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.parseResult.
+func (m *ActivityResultContractsPickVisualMedia) ParseResult(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -98,113 +126,14 @@ func (m *ActivityResultContractsPickVisualMedia) ParseResult2(arg0 int32, arg1 *
 			callErr = err
 			return err
 		}
-		if midActivityResultContractsPickVisualMediaParseResult2 == nil {
+		if midActivityResultContractsPickVisualMediaParseResult == nil {
 			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.parseResult is not available on this device")
 			return callErr
 		}
 
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midActivityResultContractsPickVisualMediaParseResult2, jni.IntValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// CreateIntent2_1 calls androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.createIntent.
-func (m *ActivityResultContractsPickVisualMedia) CreateIntent2_1(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsPickVisualMediaCreateIntent2_1 == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.createIntent is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsPickVisualMediaCreateIntent2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// GetSynchronousResult2_1 calls androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.getSynchronousResult.
-func (m *ActivityResultContractsPickVisualMedia) GetSynchronousResult2_1(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsPickVisualMediaGetSynchronousResult2_1 == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.getSynchronousResult is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsPickVisualMediaGetSynchronousResult2_1, jni.ObjectValue(arg0), jni.ObjectValue(arg1),
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// ParseResult2_1 calls androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.parseResult.
-func (m *ActivityResultContractsPickVisualMedia) ParseResult2_1(arg0 int32, arg1 *jni.Object) (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midActivityResultContractsPickVisualMediaParseResult2_1 == nil {
-			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.parseResult is not available on this device")
-			return callErr
-		}
-
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midActivityResultContractsPickVisualMediaParseResult2_1, jni.IntValue(arg0), jni.ObjectValue(arg1),
+			midActivityResultContractsPickVisualMediaParseResult, jni.IntValue(arg0), jni.ObjectValue(arg1),
 		)
 		if callErr != nil {
 			return callErr
@@ -298,6 +227,155 @@ func (m *ActivityResultContractsPickVisualMedia) IsPhotoPickerAvailable1_1(arg0 
 			return callErr
 		}
 		result = resultRaw != 0
+		return callErr
+	})
+	return result, callErr
+}
+
+// IsSystemPickerAvailableActivityRelease calls androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.isSystemPickerAvailable$activity_release.
+func (m *ActivityResultContractsPickVisualMedia) IsSystemPickerAvailableActivityRelease() (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midActivityResultContractsPickVisualMediaIsSystemPickerAvailableActivityRelease == nil {
+			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.isSystemPickerAvailable$activity_release is not available on this device")
+			return callErr
+		}
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickVisualMedia)),
+			midActivityResultContractsPickVisualMediaIsSystemPickerAvailableActivityRelease,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
+		return callErr
+	})
+	return result, callErr
+}
+
+// IsSystemFallbackPickerAvailableActivityRelease calls androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.isSystemFallbackPickerAvailable$activity_release.
+func (m *ActivityResultContractsPickVisualMedia) IsSystemFallbackPickerAvailableActivityRelease(arg0 *jni.Object) (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midActivityResultContractsPickVisualMediaIsSystemFallbackPickerAvailableActivityRelease == nil {
+			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.isSystemFallbackPickerAvailable$activity_release is not available on this device")
+			return callErr
+		}
+
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickVisualMedia)),
+			midActivityResultContractsPickVisualMediaIsSystemFallbackPickerAvailableActivityRelease, jni.ObjectValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetSystemFallbackPickerActivityRelease calls androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.getSystemFallbackPicker$activity_release.
+func (m *ActivityResultContractsPickVisualMedia) GetSystemFallbackPickerActivityRelease(arg0 *jni.Object) (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midActivityResultContractsPickVisualMediaGetSystemFallbackPickerActivityRelease == nil {
+			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.getSystemFallbackPicker$activity_release is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickVisualMedia)),
+			midActivityResultContractsPickVisualMediaGetSystemFallbackPickerActivityRelease, jni.ObjectValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// IsGmsPickerAvailableActivityRelease calls androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.isGmsPickerAvailable$activity_release.
+func (m *ActivityResultContractsPickVisualMedia) IsGmsPickerAvailableActivityRelease(arg0 *jni.Object) (bool, error) {
+	var result bool
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midActivityResultContractsPickVisualMediaIsGmsPickerAvailableActivityRelease == nil {
+			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.isGmsPickerAvailable$activity_release is not available on this device")
+			return callErr
+		}
+
+		var resultRaw uint8
+		resultRaw, callErr = env.CallStaticBooleanMethod(
+			(*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickVisualMedia)),
+			midActivityResultContractsPickVisualMediaIsGmsPickerAvailableActivityRelease, jni.ObjectValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		result = resultRaw != 0
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetGmsPickerActivityRelease calls androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.getGmsPicker$activity_release.
+func (m *ActivityResultContractsPickVisualMedia) GetGmsPickerActivityRelease(arg0 *jni.Object) (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midActivityResultContractsPickVisualMediaGetGmsPickerActivityRelease == nil {
+			callErr = fmt.Errorf("androidx.activity.result.contract.ActivityResultContracts$PickVisualMedia.getGmsPicker$activity_release is not available on this device")
+			return callErr
+		}
+
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsActivityResultContractsPickVisualMedia)),
+			midActivityResultContractsPickVisualMediaGetGmsPickerActivityRelease, jni.ObjectValue(arg0),
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
 		return callErr
 	})
 	return result, callErr

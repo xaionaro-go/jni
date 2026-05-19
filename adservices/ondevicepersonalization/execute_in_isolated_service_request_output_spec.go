@@ -48,31 +48,6 @@ func (m *ExecuteInIsolatedServiceRequestOutputSpec) GetMaxIntValue() (int32, err
 	return result, callErr
 }
 
-// GetOutputType calls android.adservices.ondevicepersonalization.ExecuteInIsolatedServiceRequest$OutputSpec.getOutputType.
-func (m *ExecuteInIsolatedServiceRequestOutputSpec) GetOutputType() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midExecuteInIsolatedServiceRequestOutputSpecGetOutputType == nil {
-			callErr = fmt.Errorf("android.adservices.ondevicepersonalization.ExecuteInIsolatedServiceRequest$OutputSpec.getOutputType is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midExecuteInIsolatedServiceRequestOutputSpecGetOutputType,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls android.adservices.ondevicepersonalization.ExecuteInIsolatedServiceRequest$OutputSpec.toString.
 func (m *ExecuteInIsolatedServiceRequestOutputSpec) ToString() (string, error) {
 	var result string
@@ -127,6 +102,31 @@ func (m *ExecuteInIsolatedServiceRequestOutputSpec) BuildBestValueSpec(arg0 int3
 			localRef := result
 			result = env.NewGlobalRef(localRef)
 			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetOutputType calls android.adservices.ondevicepersonalization.ExecuteInIsolatedServiceRequest$OutputSpec.getOutputType.
+func (m *ExecuteInIsolatedServiceRequestOutputSpec) GetOutputType() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midExecuteInIsolatedServiceRequestOutputSpecGetOutputType == nil {
+			callErr = fmt.Errorf("android.adservices.ondevicepersonalization.ExecuteInIsolatedServiceRequest$OutputSpec.getOutputType is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsExecuteInIsolatedServiceRequestOutputSpec)),
+			midExecuteInIsolatedServiceRequestOutputSpecGetOutputType,
+		)
+		if callErr != nil {
+			return callErr
 		}
 		return callErr
 	})

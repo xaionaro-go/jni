@@ -23,6 +23,34 @@ type EventsEvent struct {
 	Obj *jni.GlobalRef
 }
 
+// NewEventsEvent creates a new android.app.usage.UsageEvents$Event instance.
+func NewEventsEvent(vm *jni.VM) (*EventsEvent, error) {
+	var t EventsEvent
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsEventsEvent == nil {
+			return fmt.Errorf("android.app.usage.UsageEvents$Event is not available on this device")
+		}
+		if midEventsEventCtor == nil {
+			return fmt.Errorf("android.app.usage.UsageEvents$Event constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsEventsEvent)), midEventsEventCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // GetAppStandbyBucket calls android.app.usage.UsageEvents$Event.getAppStandbyBucket.
 func (m *EventsEvent) GetAppStandbyBucket() (int32, error) {
 	var result int32

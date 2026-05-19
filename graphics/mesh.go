@@ -32,6 +32,12 @@ func NewMesh(vm *jni.VM, arg0 *jni.Object, arg1 int32, arg2 *jni.Object, arg3 in
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMesh == nil {
+			return fmt.Errorf("android.graphics.Mesh is not available on this device")
+		}
+		if midMeshCtor == nil {
+			return fmt.Errorf("android.graphics.Mesh constructor (Landroid/graphics/MeshSpecification;ILjava/nio/Buffer;ILandroid/graphics/RectF;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMesh)), midMeshCtor, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.ObjectValue(arg2), jni.IntValue(arg3), jni.ObjectValue(arg4))
 		if err != nil {

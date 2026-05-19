@@ -32,6 +32,12 @@ func NewMaterialSwitch(vm *jni.VM, arg0 *jni.Object) (*MaterialSwitch, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsMaterialSwitch == nil {
+			return fmt.Errorf("com.google.android.material.materialswitch.MaterialSwitch is not available on this device")
+		}
+		if midMaterialSwitchCtor == nil {
+			return fmt.Errorf("com.google.android.material.materialswitch.MaterialSwitch constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMaterialSwitch)), midMaterialSwitchCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -726,38 +732,6 @@ func (m *MaterialSwitch) SetTrackDecorationTintMode(arg0 *jni.Object) error {
 	return callErr
 }
 
-// GetTrackDecorationTintMode calls com.google.android.material.materialswitch.MaterialSwitch.getTrackDecorationTintMode.
-func (m *MaterialSwitch) GetTrackDecorationTintMode() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midMaterialSwitchGetTrackDecorationTintMode == nil {
-			callErr = fmt.Errorf("com.google.android.material.materialswitch.MaterialSwitch.getTrackDecorationTintMode is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midMaterialSwitchGetTrackDecorationTintMode,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.materialswitch.MaterialSwitch.toString.
 func (m *MaterialSwitch) ToString() (string, error) {
 	var result string
@@ -780,6 +754,38 @@ func (m *MaterialSwitch) ToString() (string, error) {
 			return callErr
 		}
 		result = env.GoString((*jni.String)(unsafe.Pointer(resultObj)))
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetTrackDecorationTintMode calls com.google.android.material.materialswitch.MaterialSwitch.getTrackDecorationTintMode.
+func (m *MaterialSwitch) GetTrackDecorationTintMode() (*jni.Object, error) {
+	var result *jni.Object
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midMaterialSwitchGetTrackDecorationTintMode == nil {
+			callErr = fmt.Errorf("com.google.android.material.materialswitch.MaterialSwitch.getTrackDecorationTintMode is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticObjectMethod(
+			(*jni.Class)(unsafe.Pointer(clsMaterialSwitch)),
+			midMaterialSwitchGetTrackDecorationTintMode,
+		)
+		if callErr != nil {
+			return callErr
+		}
+		// Convert the JNI local reference to a global reference so the
+		// returned object remains valid outside this vm.Do scope.
+		if result != nil {
+			localRef := result
+			result = env.NewGlobalRef(localRef)
+			env.DeleteLocalRef(localRef)
+		}
 		return callErr
 	})
 	return result, callErr

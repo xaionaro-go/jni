@@ -545,29 +545,6 @@ func (m *SelectionEvent) ToString() (string, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.view.textclassifier.SelectionEvent.writeToParcel.
-func (m *SelectionEvent) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midSelectionEventWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.textclassifier.SelectionEvent.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midSelectionEventWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // CreateSelectionActionEvent3 calls android.view.textclassifier.SelectionEvent.createSelectionActionEvent.
 func (m *SelectionEvent) CreateSelectionActionEvent3(
 	arg0 int32,
@@ -809,4 +786,27 @@ func (m *SelectionEvent) IsTerminal(arg0 int32) (bool, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.textclassifier.SelectionEvent.writeToParcel.
+func (m *SelectionEvent) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midSelectionEventWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.textclassifier.SelectionEvent.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsSelectionEvent)),
+			midSelectionEventWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

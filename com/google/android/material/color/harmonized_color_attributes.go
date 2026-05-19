@@ -55,31 +55,6 @@ func (m *HarmonizedColorAttributes) GetAttributes() (*jni.Object, error) {
 	return result, callErr
 }
 
-// GetThemeOverlay calls com.google.android.material.color.HarmonizedColorAttributes.getThemeOverlay.
-func (m *HarmonizedColorAttributes) GetThemeOverlay() (int32, error) {
-	var result int32
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midHarmonizedColorAttributesGetThemeOverlay == nil {
-			callErr = fmt.Errorf("com.google.android.material.color.HarmonizedColorAttributes.getThemeOverlay is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallIntMethod(
-			m.Obj,
-			midHarmonizedColorAttributesGetThemeOverlay,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
 // ToString calls com.google.android.material.color.HarmonizedColorAttributes.toString.
 func (m *HarmonizedColorAttributes) ToString() (string, error) {
 	var result string
@@ -199,6 +174,31 @@ func (m *HarmonizedColorAttributes) CreateMaterialDefaults() (*jni.Object, error
 			localRef := result
 			result = env.NewGlobalRef(localRef)
 			env.DeleteLocalRef(localRef)
+		}
+		return callErr
+	})
+	return result, callErr
+}
+
+// GetThemeOverlay calls com.google.android.material.color.HarmonizedColorAttributes.getThemeOverlay.
+func (m *HarmonizedColorAttributes) GetThemeOverlay() (int32, error) {
+	var result int32
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midHarmonizedColorAttributesGetThemeOverlay == nil {
+			callErr = fmt.Errorf("com.google.android.material.color.HarmonizedColorAttributes.getThemeOverlay is not available on this device")
+			return callErr
+		}
+		result, callErr = env.CallStaticIntMethod(
+			(*jni.Class)(unsafe.Pointer(clsHarmonizedColorAttributes)),
+			midHarmonizedColorAttributesGetThemeOverlay,
+		)
+		if callErr != nil {
+			return callErr
 		}
 		return callErr
 	})

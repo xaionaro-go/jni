@@ -23,27 +23,33 @@ type ToolbarSavedState struct {
 	Obj *jni.GlobalRef
 }
 
-// WriteToParcel calls androidx.appcompat.widget.Toolbar$SavedState.writeToParcel.
-func (m *ToolbarSavedState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+// NewToolbarSavedState creates a new androidx.appcompat.widget.Toolbar$SavedState instance.
+func NewToolbarSavedState(vm *jni.VM, arg0 *jni.Object) (*ToolbarSavedState, error) {
+	var t ToolbarSavedState
+	t.VM = vm
 
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
+	err := vm.Do(func(env *jni.Env) error {
 		if err := ensureInit(env); err != nil {
-			callErr = err
 			return err
 		}
-		if midToolbarSavedStateWriteToParcel == nil {
-			callErr = fmt.Errorf("androidx.appcompat.widget.Toolbar$SavedState.writeToParcel is not available on this device")
-			return callErr
+		if clsToolbarSavedState == nil {
+			return fmt.Errorf("androidx.appcompat.widget.Toolbar$SavedState is not available on this device")
+		}
+		if midToolbarSavedStateCtor == nil {
+			return fmt.Errorf("androidx.appcompat.widget.Toolbar$SavedState constructor (Landroid/os/Parcel;)V is not available on this device")
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midToolbarSavedStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsToolbarSavedState)), midToolbarSavedStateCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
 	})
-	return callErr
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
 }
 
 // ToString calls androidx.appcompat.widget.Toolbar$SavedState.toString.
@@ -71,4 +77,27 @@ func (m *ToolbarSavedState) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls androidx.appcompat.widget.Toolbar$SavedState.writeToParcel.
+func (m *ToolbarSavedState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midToolbarSavedStateWriteToParcel == nil {
+			callErr = fmt.Errorf("androidx.appcompat.widget.Toolbar$SavedState.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsToolbarSavedState)),
+			midToolbarSavedStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

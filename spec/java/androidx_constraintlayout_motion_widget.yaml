@@ -5,91 +5,68 @@
 package: widget
 go_import: github.com/AndroidGoLab/jni/androidx/constraintlayout/motion/widget
 classes:
-    - java_class: androidx.constraintlayout.motion.widget.Key
-      go_type: Key
+    - java_class: androidx.constraintlayout.motion.widget.TransitionAdapter
+      go_type: TransitionAdapter
       methods:
-        - java_method: setValue
-          go_name: SetValue
+        - java_method: onTransitionStarted
+          go_name: OnTransitionStarted
           params:
-            - java_type: String
+            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
               go_name: arg0
-            - java_type: java.lang.Object
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onTransitionChange
+          go_name: OnTransitionChange
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: onTransitionCompleted
+          go_name: OnTransitionCompleted
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
+              go_name: arg0
+            - java_type: int
               go_name: arg1
           returns: void
           error: true
-        - java_method: copy
-          go_name: Copy
+        - java_method: onTransitionTrigger
+          go_name: OnTransitionTrigger
           params:
-            - java_type: androidx.constraintlayout.motion.widget.Key
+            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
               go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.Key
-          error: true
-        - java_method: clone
-          go_name: Clone0
-          returns: androidx.constraintlayout.motion.widget.Key
-          error: true
-        - java_method: setViewId
-          go_name: SetViewId
-          params:
             - java_type: int
-              go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.Key
-          error: true
-        - java_method: setFramePosition
-          go_name: SetFramePosition
-          params:
-            - java_type: int
-              go_name: arg0
+              go_name: arg1
+            - java_type: boolean
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
           returns: void
           error: true
-        - java_method: getFramePosition
-          go_name: GetFramePosition
-          returns: int
-          error: true
-        - java_method: clone
-          go_name: Clone0_1
-          returns: java.lang.Object
-          error: true
-    - java_class: androidx.constraintlayout.motion.widget.KeyFrames
-      go_type: KeyFrames
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: org.xmlpull.v1.XmlPullParser
-          go_name: arg1
+    - java_class: androidx.constraintlayout.motion.widget.MotionInterpolator
+      go_type: MotionInterpolator
       methods:
-        - java_method: addKey
-          go_name: AddKey
+        - java_method: getInterpolation
+          go_name: GetInterpolation
           params:
-            - java_type: androidx.constraintlayout.motion.widget.Key
+            - java_type: float
               go_name: arg0
-          returns: void
+          returns: float
           error: true
-        - java_method: addAllFrames
-          go_name: AddAllFrames
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.MotionController
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: addFrames
-          go_name: AddFrames
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.MotionController
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getKeys
-          go_name: GetKeys
-          returns: java.util.Set<java.lang.Integer>
-          error: true
-        - java_method: getKeyFramesForView
-          go_name: GetKeyFramesForView
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: java.util.ArrayList<androidx.constraintlayout.motion.widget.Key>
+        - java_method: getVelocity
+          go_name: GetVelocity
+          returns: float
           error: true
     - java_class: androidx.constraintlayout.motion.widget.MotionLayout
       go_type: MotionLayout
@@ -669,410 +646,6 @@ classes:
           go_name: IsDelayedApplicationOfInitialState
           returns: boolean
           error: true
-        - java_method: setDelayedApplicationOfInitialState
-          go_name: SetDelayedApplicationOfInitialState
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.motion.widget.MotionScene
-      go_type: MotionScene
-      obtain: constructor
-      constructor_params:
-        - java_type: androidx.constraintlayout.motion.widget.MotionLayout
-          go_name: arg0
-      methods:
-        - java_method: addTransition
-          go_name: AddTransition
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.MotionScene$Transition
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeTransition
-          go_name: RemoveTransition
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.MotionScene$Transition
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: validateLayout
-          go_name: ValidateLayout
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: setTransition
-          go_name: SetTransition
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.MotionScene$Transition
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getTransitionsWithState
-          go_name: GetTransitionsWithState
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: java.util.List<androidx.constraintlayout.motion.widget.MotionScene$Transition>
-          error: true
-        - java_method: addOnClickListeners
-          go_name: AddOnClickListeners
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: bestTransitionFor
-          go_name: BestTransitionFor
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: android.view.MotionEvent
-              go_name: arg3
-          returns: androidx.constraintlayout.motion.widget.MotionScene$Transition
-          error: true
-        - java_method: getDefinedTransitions
-          go_name: GetDefinedTransitions
-          returns: java.util.ArrayList<androidx.constraintlayout.motion.widget.MotionScene$Transition>
-          error: true
-        - java_method: getTransitionById
-          go_name: GetTransitionById
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.MotionScene$Transition
-          error: true
-        - java_method: getConstraintSetIds
-          go_name: GetConstraintSetIds
-          returns: '[I'
-          error: true
-        - java_method: setRtl
-          go_name: SetRtl
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: viewTransition
-          go_name: ViewTransition
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.view.View...
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: enableViewTransition
-          go_name: EnableViewTransition
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: isViewTransitionEnabled
-          go_name: IsViewTransitionEnabled
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: applyViewTransition
-          go_name: ApplyViewTransition
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: androidx.constraintlayout.motion.widget.MotionController
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: getConstraintSet
-          go_name: GetConstraintSet
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: androidx.constraintlayout.widget.ConstraintSet
-          error: true
-        - java_method: setConstraintSet
-          go_name: SetConstraintSet
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: androidx.constraintlayout.widget.ConstraintSet
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getKeyFrames
-          go_name: GetKeyFrames
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.MotionController
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setKeyframe
-          go_name: SetKeyframe
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: java.lang.Object
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: getPathPercent
-          go_name: GetPathPercent
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: float
-          error: true
-        - java_method: getInterpolator
-          go_name: GetInterpolator
-          returns: android.view.animation.Interpolator
-          error: true
-        - java_method: getDuration
-          go_name: GetDuration
-          returns: int
-          error: true
-        - java_method: setDuration
-          go_name: SetDuration
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: gatPathMotionArc
-          go_name: GatPathMotionArc
-          returns: int
-          error: true
-        - java_method: getStaggered
-          go_name: GetStaggered
-          returns: float
-          error: true
-        - java_method: lookUpConstraintId
-          go_name: LookUpConstraintId
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: lookUpConstraintName
-          go_name: LookUpConstraintName
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: disableAutoTransition
-          go_name: DisableAutoTransition
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-      static_methods:
-        - java_method: stripID
-          go_name: StripID
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: String
-          error: true
-    - java_class: androidx.constraintlayout.motion.widget.MotionScene$Transition
-      go_type: MotionSceneTransition
-      methods:
-        - java_method: setOnSwipe
-          go_name: SetOnSwipe
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.OnSwipe
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: addOnClick
-          go_name: AddOnClick2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: removeOnClick
-          go_name: RemoveOnClick
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getLayoutDuringTransition
-          go_name: GetLayoutDuringTransition
-          returns: int
-          error: true
-        - java_method: setLayoutDuringTransition
-          go_name: SetLayoutDuringTransition
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: addOnClick
-          go_name: AddOnClick2_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: org.xmlpull.v1.XmlPullParser
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setAutoTransition
-          go_name: SetAutoTransition
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getAutoTransition
-          go_name: GetAutoTransition
-          returns: int
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: int
-          error: true
-        - java_method: getEndConstraintSetId
-          go_name: GetEndConstraintSetId
-          returns: int
-          error: true
-        - java_method: getStartConstraintSetId
-          go_name: GetStartConstraintSetId
-          returns: int
-          error: true
-        - java_method: setDuration
-          go_name: SetDuration
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getDuration
-          go_name: GetDuration
-          returns: int
-          error: true
-        - java_method: getStagger
-          go_name: GetStagger
-          returns: float
-          error: true
-        - java_method: getKeyFrameList
-          go_name: GetKeyFrameList
-          returns: java.util.List<androidx.constraintlayout.motion.widget.KeyFrames>
-          error: true
-        - java_method: addKeyFrame
-          go_name: AddKeyFrame
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.KeyFrames
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getOnClickList
-          go_name: GetOnClickList
-          returns: java.util.List<androidx.constraintlayout.motion.widget.MotionScene$Transition$TransitionOnClick>
-          error: true
-        - java_method: getTouchResponse
-          go_name: GetTouchResponse
-          returns: androidx.constraintlayout.motion.widget.TouchResponse
-          error: true
-        - java_method: setStagger
-          go_name: SetStagger
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setPathMotionArc
-          go_name: SetPathMotionArc
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getPathMotionArc
-          go_name: GetPathMotionArc
-          returns: int
-          error: true
-        - java_method: isEnabled
-          go_name: IsEnabled
-          returns: boolean
-          error: true
-        - java_method: setEnable
-          go_name: SetEnable
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setEnabled
-          go_name: SetEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: debugString
-          go_name: DebugString
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: isTransitionFlag
-          go_name: IsTransitionFlag
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: setTransitionFlag
-          go_name: SetTransitionFlag
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setOnTouchUp
-          go_name: SetOnTouchUp
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setInterpolatorInfo
-          go_name: SetInterpolatorInfo
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
     - java_class: androidx.constraintlayout.motion.widget.MotionLayout$MotionTracker
       go_type: MotionLayoutMotionTracker
       methods:
@@ -1178,6 +751,374 @@ classes:
               go_name: arg3
           returns: void
           error: true
+    - java_class: androidx.constraintlayout.motion.widget.CustomFloatAttributes
+      go_type: CustomFloatAttributes
+      methods:
+        - java_method: getListOfAttributes
+          go_name: GetListOfAttributes
+          returns: java.lang.String[]
+          error: true
+        - java_method: set
+          go_name: Set
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: get
+          go_name: Get
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: float
+          error: true
+    - java_class: androidx.constraintlayout.motion.widget.MotionController
+      go_type: MotionController
+      methods:
+        - java_method: getTransformPivotTarget
+          go_name: GetTransformPivotTarget
+          returns: int
+          error: true
+        - java_method: setTransformPivotTarget
+          go_name: SetTransformPivotTarget
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getStartX
+          go_name: GetStartX
+          returns: float
+          error: true
+        - java_method: getStartY
+          go_name: GetStartY
+          returns: float
+          error: true
+        - java_method: getFinalX
+          go_name: GetFinalX
+          returns: float
+          error: true
+        - java_method: getFinalY
+          go_name: GetFinalY
+          returns: float
+          error: true
+        - java_method: getStartWidth
+          go_name: GetStartWidth
+          returns: float
+          error: true
+        - java_method: getStartHeight
+          go_name: GetStartHeight
+          returns: float
+          error: true
+        - java_method: getFinalWidth
+          go_name: GetFinalWidth
+          returns: float
+          error: true
+        - java_method: getFinalHeight
+          go_name: GetFinalHeight
+          returns: float
+          error: true
+        - java_method: getAnimateRelativeTo
+          go_name: GetAnimateRelativeTo
+          returns: int
+          error: true
+        - java_method: setupRelative
+          go_name: SetupRelative
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.MotionController
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getCenterX
+          go_name: GetCenterX
+          returns: float
+          error: true
+        - java_method: getCenterY
+          go_name: GetCenterY
+          returns: float
+          error: true
+        - java_method: getCenter
+          go_name: GetCenter
+          params:
+            - java_type: double
+              go_name: arg0
+            - java_type: float[]
+              go_name: arg1
+            - java_type: float[]
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: remeasure
+          go_name: Remeasure
+          returns: void
+          error: true
+        - java_method: addKey
+          go_name: AddKey
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.Key
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setPathMotionArc
+          go_name: SetPathMotionArc
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setup
+          go_name: Setup
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: long
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: setView
+          go_name: SetView
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getView
+          go_name: GetView
+          returns: android.view.View
+          error: true
+        - java_method: setStartState
+          go_name: SetStartState
+          params:
+            - java_type: androidx.constraintlayout.motion.utils.ViewState
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+          returns: void
+          error: true
+        - java_method: getDrawPath
+          go_name: GetDrawPath
+          returns: int
+          error: true
+        - java_method: setDrawPath
+          go_name: SetDrawPath
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getKeyFramePositions
+          go_name: GetKeyFramePositions
+          params:
+            - java_type: '[I'
+              go_name: arg0
+            - java_type: float[]
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: getKeyFrameInfo
+          go_name: GetKeyFrameInfo
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: '[I'
+              go_name: arg1
+          returns: int
+          error: true
+    - java_class: androidx.constraintlayout.motion.widget.KeyCycle
+      go_type: KeyCycle
+      obtain: constructor
+      methods:
+        - java_method: load
+          go_name: Load
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.util.AttributeSet
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getValue
+          go_name: GetValue
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: setValue
+          go_name: SetValue
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: java.lang.Object
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: copy
+          go_name: Copy
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.Key
+              go_name: arg0
+          returns: androidx.constraintlayout.motion.widget.Key
+          error: true
+        - java_method: clone
+          go_name: Clone
+          returns: androidx.constraintlayout.motion.widget.Key
+          error: true
+    - java_class: androidx.constraintlayout.motion.widget.KeyTimeCycle
+      go_type: KeyTimeCycle
+      obtain: constructor
+      methods:
+        - java_method: load
+          go_name: Load
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.util.AttributeSet
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setValue
+          go_name: SetValue
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: java.lang.Object
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: copy
+          go_name: Copy
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.Key
+              go_name: arg0
+          returns: androidx.constraintlayout.motion.widget.Key
+          error: true
+        - java_method: clone
+          go_name: Clone
+          returns: androidx.constraintlayout.motion.widget.Key
+          error: true
+    - java_class: androidx.constraintlayout.motion.widget.MotionHelper
+      go_type: MotionHelper
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: isUsedOnShow
+          go_name: IsUsedOnShow
+          returns: boolean
+          error: true
+        - java_method: isUseOnHide
+          go_name: IsUseOnHide
+          returns: boolean
+          error: true
+        - java_method: getProgress
+          go_name: GetProgress
+          returns: float
+          error: true
+        - java_method: setProgress
+          go_name: SetProgress1
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setProgress
+          go_name: SetProgress2_1
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onTransitionStarted
+          go_name: OnTransitionStarted
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onTransitionChange
+          go_name: OnTransitionChange
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: onTransitionCompleted
+          go_name: OnTransitionCompleted
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onTransitionTrigger
+          go_name: OnTransitionTrigger
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: boolean
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: isDecorator
+          go_name: IsDecorator
+          returns: boolean
+          error: true
+        - java_method: onPreDraw
+          go_name: OnPreDraw
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onFinishedMotionScene
+          go_name: OnFinishedMotionScene
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onPostDraw
+          go_name: OnPostDraw
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+          returns: void
+          error: true
     - java_class: androidx.constraintlayout.motion.widget.KeyAttributes
       go_type: KeyAttributes
       obtain: constructor
@@ -1208,28 +1149,130 @@ classes:
           returns: androidx.constraintlayout.motion.widget.Key
           error: true
         - java_method: clone
-          go_name: Clone0
+          go_name: Clone
           returns: androidx.constraintlayout.motion.widget.Key
           error: true
-        - java_method: clone
-          go_name: Clone0_1
-          returns: java.lang.Object
-          error: true
-    - java_class: androidx.constraintlayout.motion.widget.FloatLayout
-      go_type: FloatLayout
+    - java_class: androidx.constraintlayout.motion.widget.KeyFrames
+      go_type: KeyFrames
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: org.xmlpull.v1.XmlPullParser
+          go_name: arg1
       methods:
-        - java_method: layout
-          go_name: Layout
+        - java_method: addKey
+          go_name: AddKey
           params:
-            - java_type: float
+            - java_type: androidx.constraintlayout.motion.widget.Key
               go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
           returns: void
+          error: true
+        - java_method: addAllFrames
+          go_name: AddAllFrames
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.MotionController
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getKeys
+          go_name: GetKeys
+          returns: java.util.Set<java.lang.Integer>
+          error: true
+      static_methods:
+        - java_method: addFrames
+          go_name: AddFrames
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.MotionController
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getKeyFramesForView
+          go_name: GetKeyFramesForView
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: java.util.ArrayList<androidx.constraintlayout.motion.widget.Key>
+          error: true
+    - java_class: androidx.constraintlayout.motion.widget.TransitionBuilder
+      go_type: TransitionBuilder
+      obtain: constructor
+      static_methods:
+        - java_method: validate
+          go_name: Validate
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: buildTransition
+          go_name: BuildTransition
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.MotionScene
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: androidx.constraintlayout.widget.ConstraintSet
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: androidx.constraintlayout.widget.ConstraintSet
+              go_name: arg5
+          returns: androidx.constraintlayout.motion.widget.MotionScene$Transition
+          error: true
+    - java_class: androidx.constraintlayout.motion.widget.ViewTransition
+      go_type: ViewTransition
+      methods:
+        - java_method: getSharedValueCurrent
+          go_name: GetSharedValueCurrent
+          returns: int
+          error: true
+        - java_method: setSharedValueCurrent
+          go_name: SetSharedValueCurrent
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getStateTransition
+          go_name: GetStateTransition
+          returns: int
+          error: true
+        - java_method: setStateTransition
+          go_name: SetStateTransition
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getSharedValue
+          go_name: GetSharedValue
+          returns: int
+          error: true
+        - java_method: setSharedValue
+          go_name: SetSharedValue
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getSharedValueID
+          go_name: GetSharedValueID
+          returns: int
+          error: true
+        - java_method: setSharedValueID
+          go_name: SetSharedValueID
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
+        - java_method: toString
+          go_name: ToString
+          returns: String
           error: true
     - java_class: androidx.constraintlayout.motion.widget.Debug
       go_type: Debug
@@ -1351,129 +1394,254 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: androidx.constraintlayout.motion.widget.KeyPosition
-      go_type: KeyPosition
+    - java_class: androidx.constraintlayout.motion.widget.OnSwipe
+      go_type: OnSwipe
       obtain: constructor
       methods:
-        - java_method: load
-          go_name: Load
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.util.AttributeSet
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setType
-          go_name: SetType
+        - java_method: setTouchAnchorId
+          go_name: SetTouchAnchorId
           params:
             - java_type: int
               go_name: arg0
-          returns: void
+          returns: androidx.constraintlayout.motion.widget.OnSwipe
           error: true
-        - java_method: positionAttributes
-          go_name: PositionAttributes
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.graphics.RectF
-              go_name: arg1
-            - java_type: android.graphics.RectF
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-            - java_type: float
-              go_name: arg4
-            - java_type: java.lang.String[]
-              go_name: arg5
-            - java_type: float[]
-              go_name: arg6
-          returns: void
+        - java_method: getTouchAnchorId
+          go_name: GetTouchAnchorId
+          returns: int
           error: true
-        - java_method: intersects
-          go_name: Intersects
+        - java_method: setTouchAnchorSide
+          go_name: SetTouchAnchorSide
           params:
             - java_type: int
               go_name: arg0
+          returns: androidx.constraintlayout.motion.widget.OnSwipe
+          error: true
+        - java_method: getTouchAnchorSide
+          go_name: GetTouchAnchorSide
+          returns: int
+          error: true
+        - java_method: setDragDirection
+          go_name: SetDragDirection
+          params:
             - java_type: int
-              go_name: arg1
-            - java_type: android.graphics.RectF
-              go_name: arg2
-            - java_type: android.graphics.RectF
-              go_name: arg3
-            - java_type: float
-              go_name: arg4
-            - java_type: float
-              go_name: arg5
-          returns: boolean
-          error: true
-        - java_method: setValue
-          go_name: SetValue
-          params:
-            - java_type: String
               go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: void
+          returns: androidx.constraintlayout.motion.widget.OnSwipe
           error: true
-        - java_method: copy
-          go_name: Copy
+        - java_method: getDragDirection
+          go_name: GetDragDirection
+          returns: int
+          error: true
+        - java_method: setMaxVelocity
+          go_name: SetMaxVelocity
           params:
-            - java_type: androidx.constraintlayout.motion.widget.Key
+            - java_type: int
               go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.Key
+          returns: androidx.constraintlayout.motion.widget.OnSwipe
           error: true
-        - java_method: clone
-          go_name: Clone0
-          returns: androidx.constraintlayout.motion.widget.Key
-          error: true
-        - java_method: clone
-          go_name: Clone0_1
-          returns: java.lang.Object
-          error: true
-    - java_class: androidx.constraintlayout.motion.widget.KeyCycle
-      go_type: KeyCycle
-      obtain: constructor
-      methods:
-        - java_method: load
-          go_name: Load
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.util.AttributeSet
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getValue
-          go_name: GetValue
-          params:
-            - java_type: String
-              go_name: arg0
+        - java_method: getMaxVelocity
+          go_name: GetMaxVelocity
           returns: float
           error: true
-        - java_method: setValue
-          go_name: SetValue
+        - java_method: setMaxAcceleration
+          go_name: SetMaxAcceleration
           params:
-            - java_type: String
+            - java_type: int
               go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
+          returns: androidx.constraintlayout.motion.widget.OnSwipe
+          error: true
+        - java_method: getMaxAcceleration
+          go_name: GetMaxAcceleration
+          returns: float
+          error: true
+        - java_method: setMoveWhenScrollAtTop
+          go_name: SetMoveWhenScrollAtTop
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: androidx.constraintlayout.motion.widget.OnSwipe
+          error: true
+        - java_method: getMoveWhenScrollAtTop
+          go_name: GetMoveWhenScrollAtTop
+          returns: boolean
+          error: true
+        - java_method: setDragScale
+          go_name: SetDragScale
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.constraintlayout.motion.widget.OnSwipe
+          error: true
+        - java_method: getDragScale
+          go_name: GetDragScale
+          returns: float
+          error: true
+        - java_method: setDragThreshold
+          go_name: SetDragThreshold
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.constraintlayout.motion.widget.OnSwipe
+          error: true
+        - java_method: getDragThreshold
+          go_name: GetDragThreshold
+          returns: float
+          error: true
+        - java_method: setTouchRegionId
+          go_name: SetTouchRegionId
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.constraintlayout.motion.widget.OnSwipe
+          error: true
+        - java_method: getTouchRegionId
+          go_name: GetTouchRegionId
+          returns: int
+          error: true
+        - java_method: setOnTouchUp
+          go_name: SetOnTouchUp
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.constraintlayout.motion.widget.OnSwipe
+          error: true
+        - java_method: getOnTouchUp
+          go_name: GetOnTouchUp
+          returns: int
+          error: true
+        - java_method: setNestedScrollFlags
+          go_name: SetNestedScrollFlags
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.constraintlayout.motion.widget.OnSwipe
+          error: true
+        - java_method: getNestedScrollFlags
+          go_name: GetNestedScrollFlags
+          returns: int
+          error: true
+        - java_method: setLimitBoundsTo
+          go_name: SetLimitBoundsTo
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.constraintlayout.motion.widget.OnSwipe
+          error: true
+        - java_method: getLimitBoundsTo
+          go_name: GetLimitBoundsTo
+          returns: int
+          error: true
+        - java_method: setRotateCenter
+          go_name: SetRotateCenter
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.constraintlayout.motion.widget.OnSwipe
+          error: true
+        - java_method: getRotationCenterId
+          go_name: GetRotationCenterId
+          returns: int
+          error: true
+        - java_method: getSpringDamping
+          go_name: GetSpringDamping
+          returns: float
+          error: true
+        - java_method: setSpringDamping
+          go_name: SetSpringDamping
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: androidx.constraintlayout.motion.widget.OnSwipe
+          error: true
+        - java_method: getSpringMass
+          go_name: GetSpringMass
+          returns: float
+          error: true
+        - java_method: setSpringMass
+          go_name: SetSpringMass
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: androidx.constraintlayout.motion.widget.OnSwipe
+          error: true
+        - java_method: getSpringStiffness
+          go_name: GetSpringStiffness
+          returns: float
+          error: true
+        - java_method: setSpringStiffness
+          go_name: SetSpringStiffness
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: androidx.constraintlayout.motion.widget.OnSwipe
+          error: true
+        - java_method: getSpringStopThreshold
+          go_name: GetSpringStopThreshold
+          returns: float
+          error: true
+        - java_method: setSpringStopThreshold
+          go_name: SetSpringStopThreshold
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: androidx.constraintlayout.motion.widget.OnSwipe
+          error: true
+        - java_method: getSpringBoundary
+          go_name: GetSpringBoundary
+          returns: int
+          error: true
+        - java_method: setSpringBoundary
+          go_name: SetSpringBoundary
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.constraintlayout.motion.widget.OnSwipe
+          error: true
+        - java_method: getAutoCompleteMode
+          go_name: GetAutoCompleteMode
+          returns: int
+          error: true
+        - java_method: setAutoCompleteMode
+          go_name: SetAutoCompleteMode
+          params:
+            - java_type: int
+              go_name: arg0
           returns: void
           error: true
-        - java_method: copy
-          go_name: Copy
+    - java_class: androidx.constraintlayout.motion.widget.MotionHelperInterface
+      go_type: MotionHelperInterface
+      methods:
+        - java_method: isUsedOnShow
+          go_name: IsUsedOnShow
+          returns: boolean
+          error: true
+        - java_method: isUseOnHide
+          go_name: IsUseOnHide
+          returns: boolean
+          error: true
+        - java_method: isDecorator
+          go_name: IsDecorator
+          returns: boolean
+          error: true
+        - java_method: onPreDraw
+          go_name: OnPreDraw
           params:
-            - java_type: androidx.constraintlayout.motion.widget.Key
+            - java_type: android.graphics.Canvas
               go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.Key
+          returns: void
           error: true
-        - java_method: clone
-          go_name: Clone0
-          returns: androidx.constraintlayout.motion.widget.Key
+        - java_method: onPostDraw
+          go_name: OnPostDraw
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+          returns: void
           error: true
-        - java_method: clone
-          go_name: Clone0_1
-          returns: java.lang.Object
+        - java_method: onFinishedMotionScene
+          go_name: OnFinishedMotionScene
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
+              go_name: arg0
+          returns: void
           error: true
     - java_class: androidx.constraintlayout.motion.widget.KeyTrigger
       go_type: KeyTrigger
@@ -1514,185 +1682,65 @@ classes:
           returns: androidx.constraintlayout.motion.widget.Key
           error: true
         - java_method: clone
-          go_name: Clone0
+          go_name: Clone
+          returns: androidx.constraintlayout.motion.widget.Key
+          error: true
+    - java_class: androidx.constraintlayout.motion.widget.FloatLayout
+      go_type: FloatLayout
+      methods:
+        - java_method: layout
+          go_name: Layout
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+          returns: void
+          error: true
+    - java_class: androidx.constraintlayout.motion.widget.Key
+      go_type: Key
+      methods:
+        - java_method: setValue
+          go_name: SetValue
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: java.lang.Object
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: copy
+          go_name: Copy
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.Key
+              go_name: arg0
           returns: androidx.constraintlayout.motion.widget.Key
           error: true
         - java_method: clone
-          go_name: Clone0_1
-          returns: java.lang.Object
+          go_name: Clone
+          returns: androidx.constraintlayout.motion.widget.Key
           error: true
-    - java_class: androidx.constraintlayout.motion.widget.MotionHelperInterface
-      go_type: MotionHelperInterface
-      methods:
-        - java_method: isUsedOnShow
-          go_name: IsUsedOnShow
-          returns: boolean
-          error: true
-        - java_method: isUseOnHide
-          go_name: IsUseOnHide
-          returns: boolean
-          error: true
-        - java_method: isDecorator
-          go_name: IsDecorator
-          returns: boolean
-          error: true
-        - java_method: onPreDraw
-          go_name: OnPreDraw
+        - java_method: setViewId
+          go_name: SetViewId
           params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onPostDraw
-          go_name: OnPostDraw
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onFinishedMotionScene
-          go_name: OnFinishedMotionScene
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.motion.widget.CustomFloatAttributes
-      go_type: CustomFloatAttributes
-      methods:
-        - java_method: getListOfAttributes
-          go_name: GetListOfAttributes
-          returns: java.lang.String[]
-          error: true
-        - java_method: set
-          go_name: Set
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: get
-          go_name: Get
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: float
-          error: true
-    - java_class: androidx.constraintlayout.motion.widget.TransitionAdapter
-      go_type: TransitionAdapter
-      methods:
-        - java_method: onTransitionStarted
-          go_name: OnTransitionStarted
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
-              go_name: arg0
             - java_type: int
-              go_name: arg1
+              go_name: arg0
+          returns: androidx.constraintlayout.motion.widget.Key
+          error: true
+        - java_method: setFramePosition
+          go_name: SetFramePosition
+          params:
             - java_type: int
-              go_name: arg2
+              go_name: arg0
           returns: void
           error: true
-        - java_method: onTransitionChange
-          go_name: OnTransitionChange
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: onTransitionCompleted
-          go_name: OnTransitionCompleted
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onTransitionTrigger
-          go_name: OnTransitionTrigger
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: boolean
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.motion.widget.MotionInterpolator
-      go_type: MotionInterpolator
-      methods:
-        - java_method: getInterpolation
-          go_name: GetInterpolation
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getVelocity
-          go_name: GetVelocity
-          returns: float
-          error: true
-    - java_class: androidx.constraintlayout.motion.widget.ViewTransition
-      go_type: ViewTransition
-      methods:
-        - java_method: getSharedValueCurrent
-          go_name: GetSharedValueCurrent
+        - java_method: getFramePosition
+          go_name: GetFramePosition
           returns: int
-          error: true
-        - java_method: setSharedValueCurrent
-          go_name: SetSharedValueCurrent
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getStateTransition
-          go_name: GetStateTransition
-          returns: int
-          error: true
-        - java_method: setStateTransition
-          go_name: SetStateTransition
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getSharedValue
-          go_name: GetSharedValue
-          returns: int
-          error: true
-        - java_method: setSharedValue
-          go_name: SetSharedValue
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getSharedValueID
-          go_name: GetSharedValueID
-          returns: int
-          error: true
-        - java_method: setSharedValueID
-          go_name: SetSharedValueID
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
           error: true
     - java_class: androidx.constraintlayout.motion.widget.DesignTool
       go_type: DesignTool
@@ -1949,6 +1997,7 @@ classes:
               go_name: arg3
           returns: void
           error: true
+      static_methods:
         - java_method: dumpConstraintSet
           go_name: DumpConstraintSet
           params:
@@ -1956,221 +2005,411 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: androidx.constraintlayout.motion.widget.OnSwipe
-      go_type: OnSwipe
-      obtain: constructor
+    - java_class: androidx.constraintlayout.motion.widget.Animatable
+      go_type: Animatable
       methods:
-        - java_method: setTouchAnchorId
-          go_name: SetTouchAnchorId
+        - java_method: setProgress
+          go_name: SetProgress
           params:
-            - java_type: int
+            - java_type: float
               go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.OnSwipe
+          returns: void
           error: true
-        - java_method: getTouchAnchorId
-          go_name: GetTouchAnchorId
-          returns: int
-          error: true
-        - java_method: setTouchAnchorSide
-          go_name: SetTouchAnchorSide
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.OnSwipe
-          error: true
-        - java_method: getTouchAnchorSide
-          go_name: GetTouchAnchorSide
-          returns: int
-          error: true
-        - java_method: setDragDirection
-          go_name: SetDragDirection
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.OnSwipe
-          error: true
-        - java_method: getDragDirection
-          go_name: GetDragDirection
-          returns: int
-          error: true
-        - java_method: setMaxVelocity
-          go_name: SetMaxVelocity
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.OnSwipe
-          error: true
-        - java_method: getMaxVelocity
-          go_name: GetMaxVelocity
+        - java_method: getProgress
+          go_name: GetProgress
           returns: float
           error: true
-        - java_method: setMaxAcceleration
-          go_name: SetMaxAcceleration
+    - java_class: androidx.constraintlayout.motion.widget.MotionScene
+      go_type: MotionScene
+      obtain: constructor
+      constructor_params:
+        - java_type: androidx.constraintlayout.motion.widget.MotionLayout
+          go_name: arg0
+      methods:
+        - java_method: addTransition
+          go_name: AddTransition
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.MotionScene$Transition
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: removeTransition
+          go_name: RemoveTransition
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.MotionScene$Transition
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: validateLayout
+          go_name: ValidateLayout
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: setTransition
+          go_name: SetTransition
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.MotionScene$Transition
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getTransitionsWithState
+          go_name: GetTransitionsWithState
           params:
             - java_type: int
               go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.OnSwipe
+          returns: java.util.List<androidx.constraintlayout.motion.widget.MotionScene$Transition>
           error: true
-        - java_method: getMaxAcceleration
-          go_name: GetMaxAcceleration
-          returns: float
+        - java_method: addOnClickListeners
+          go_name: AddOnClickListeners
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
           error: true
-        - java_method: setMoveWhenScrollAtTop
-          go_name: SetMoveWhenScrollAtTop
+        - java_method: bestTransitionFor
+          go_name: BestTransitionFor
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: android.view.MotionEvent
+              go_name: arg3
+          returns: androidx.constraintlayout.motion.widget.MotionScene$Transition
+          error: true
+        - java_method: getDefinedTransitions
+          go_name: GetDefinedTransitions
+          returns: java.util.ArrayList<androidx.constraintlayout.motion.widget.MotionScene$Transition>
+          error: true
+        - java_method: getTransitionById
+          go_name: GetTransitionById
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: androidx.constraintlayout.motion.widget.MotionScene$Transition
+          error: true
+        - java_method: getConstraintSetIds
+          go_name: GetConstraintSetIds
+          returns: '[I'
+          error: true
+        - java_method: setRtl
+          go_name: SetRtl
           params:
             - java_type: boolean
               go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.OnSwipe
+          returns: void
           error: true
-        - java_method: getMoveWhenScrollAtTop
-          go_name: GetMoveWhenScrollAtTop
+        - java_method: viewTransition
+          go_name: ViewTransition
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.view.View...
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: enableViewTransition
+          go_name: EnableViewTransition
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: isViewTransitionEnabled
+          go_name: IsViewTransitionEnabled
+          params:
+            - java_type: int
+              go_name: arg0
           returns: boolean
           error: true
-        - java_method: setDragScale
-          go_name: SetDragScale
+        - java_method: applyViewTransition
+          go_name: ApplyViewTransition
           params:
             - java_type: int
               go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.OnSwipe
+            - java_type: androidx.constraintlayout.motion.widget.MotionController
+              go_name: arg1
+          returns: boolean
           error: true
-        - java_method: getDragScale
-          go_name: GetDragScale
+        - java_method: getConstraintSet
+          go_name: GetConstraintSet
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: androidx.constraintlayout.widget.ConstraintSet
+          error: true
+        - java_method: setConstraintSet
+          go_name: SetConstraintSet
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: androidx.constraintlayout.widget.ConstraintSet
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getKeyFrames
+          go_name: GetKeyFrames
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.MotionController
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setKeyframe
+          go_name: SetKeyframe
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+            - java_type: java.lang.Object
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: getPathPercent
+          go_name: GetPathPercent
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
           returns: float
           error: true
-        - java_method: setDragThreshold
-          go_name: SetDragThreshold
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.OnSwipe
+        - java_method: getInterpolator
+          go_name: GetInterpolator
+          returns: android.view.animation.Interpolator
           error: true
-        - java_method: getDragThreshold
-          go_name: GetDragThreshold
-          returns: float
-          error: true
-        - java_method: setTouchRegionId
-          go_name: SetTouchRegionId
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.OnSwipe
-          error: true
-        - java_method: getTouchRegionId
-          go_name: GetTouchRegionId
+        - java_method: getDuration
+          go_name: GetDuration
           returns: int
+          error: true
+        - java_method: setDuration
+          go_name: SetDuration
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: gatPathMotionArc
+          go_name: GatPathMotionArc
+          returns: int
+          error: true
+        - java_method: getStaggered
+          go_name: GetStaggered
+          returns: float
+          error: true
+        - java_method: lookUpConstraintId
+          go_name: LookUpConstraintId
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: lookUpConstraintName
+          go_name: LookUpConstraintName
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+      static_methods:
+        - java_method: stripID
+          go_name: StripID
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: String
+          error: true
+    - java_class: androidx.constraintlayout.motion.widget.MotionScene$Transition
+      go_type: MotionSceneTransition
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: androidx.constraintlayout.motion.widget.MotionScene
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+        - java_type: int
+          go_name: arg3
+      methods:
+        - java_method: setOnSwipe
+          go_name: SetOnSwipe
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.OnSwipe
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: addOnClick
+          go_name: AddOnClick2
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: removeOnClick
+          go_name: RemoveOnClick
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getLayoutDuringTransition
+          go_name: GetLayoutDuringTransition
+          returns: int
+          error: true
+        - java_method: setLayoutDuringTransition
+          go_name: SetLayoutDuringTransition
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: addOnClick
+          go_name: AddOnClick2_1
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: org.xmlpull.v1.XmlPullParser
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setAutoTransition
+          go_name: SetAutoTransition
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getAutoTransition
+          go_name: GetAutoTransition
+          returns: int
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: int
+          error: true
+        - java_method: getEndConstraintSetId
+          go_name: GetEndConstraintSetId
+          returns: int
+          error: true
+        - java_method: getStartConstraintSetId
+          go_name: GetStartConstraintSetId
+          returns: int
+          error: true
+        - java_method: setDuration
+          go_name: SetDuration
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getDuration
+          go_name: GetDuration
+          returns: int
+          error: true
+        - java_method: getStagger
+          go_name: GetStagger
+          returns: float
+          error: true
+        - java_method: getKeyFrameList
+          go_name: GetKeyFrameList
+          returns: java.util.List<androidx.constraintlayout.motion.widget.KeyFrames>
+          error: true
+        - java_method: addKeyFrame
+          go_name: AddKeyFrame
+          params:
+            - java_type: androidx.constraintlayout.motion.widget.KeyFrames
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getOnClickList
+          go_name: GetOnClickList
+          returns: java.util.List<androidx.constraintlayout.motion.widget.MotionScene$Transition$TransitionOnClick>
+          error: true
+        - java_method: getTouchResponse
+          go_name: GetTouchResponse
+          returns: androidx.constraintlayout.motion.widget.TouchResponse
+          error: true
+        - java_method: setStagger
+          go_name: SetStagger
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setPathMotionArc
+          go_name: SetPathMotionArc
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getPathMotionArc
+          go_name: GetPathMotionArc
+          returns: int
+          error: true
+        - java_method: isEnabled
+          go_name: IsEnabled
+          returns: boolean
+          error: true
+        - java_method: setEnable
+          go_name: SetEnable
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setEnabled
+          go_name: SetEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: debugString
+          go_name: DebugString
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: isTransitionFlag
+          go_name: IsTransitionFlag
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: setTransitionFlag
+          go_name: SetTransitionFlag
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
           error: true
         - java_method: setOnTouchUp
           go_name: SetOnTouchUp
           params:
             - java_type: int
               go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.OnSwipe
-          error: true
-        - java_method: getOnTouchUp
-          go_name: GetOnTouchUp
-          returns: int
-          error: true
-        - java_method: setNestedScrollFlags
-          go_name: SetNestedScrollFlags
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.OnSwipe
-          error: true
-        - java_method: getNestedScrollFlags
-          go_name: GetNestedScrollFlags
-          returns: int
-          error: true
-        - java_method: setLimitBoundsTo
-          go_name: SetLimitBoundsTo
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.OnSwipe
-          error: true
-        - java_method: getLimitBoundsTo
-          go_name: GetLimitBoundsTo
-          returns: int
-          error: true
-        - java_method: setRotateCenter
-          go_name: SetRotateCenter
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.OnSwipe
-          error: true
-        - java_method: getRotationCenterId
-          go_name: GetRotationCenterId
-          returns: int
-          error: true
-        - java_method: getSpringDamping
-          go_name: GetSpringDamping
-          returns: float
-          error: true
-        - java_method: setSpringDamping
-          go_name: SetSpringDamping
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.OnSwipe
-          error: true
-        - java_method: getSpringMass
-          go_name: GetSpringMass
-          returns: float
-          error: true
-        - java_method: setSpringMass
-          go_name: SetSpringMass
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.OnSwipe
-          error: true
-        - java_method: getSpringStiffness
-          go_name: GetSpringStiffness
-          returns: float
-          error: true
-        - java_method: setSpringStiffness
-          go_name: SetSpringStiffness
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.OnSwipe
-          error: true
-        - java_method: getSpringStopThreshold
-          go_name: GetSpringStopThreshold
-          returns: float
-          error: true
-        - java_method: setSpringStopThreshold
-          go_name: SetSpringStopThreshold
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.OnSwipe
-          error: true
-        - java_method: getSpringBoundary
-          go_name: GetSpringBoundary
-          returns: int
-          error: true
-        - java_method: setSpringBoundary
-          go_name: SetSpringBoundary
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: androidx.constraintlayout.motion.widget.OnSwipe
-          error: true
-        - java_method: getAutoCompleteMode
-          go_name: GetAutoCompleteMode
-          returns: int
-          error: true
-        - java_method: setAutoCompleteMode
-          go_name: SetAutoCompleteMode
-          params:
-            - java_type: int
-              go_name: arg0
           returns: void
           error: true
-    - java_class: androidx.constraintlayout.motion.widget.KeyTimeCycle
-      go_type: KeyTimeCycle
+    - java_class: androidx.constraintlayout.motion.widget.KeyPosition
+      go_type: KeyPosition
       obtain: constructor
       methods:
         - java_method: load
@@ -2181,6 +2420,49 @@ classes:
             - java_type: android.util.AttributeSet
               go_name: arg1
           returns: void
+          error: true
+        - java_method: setType
+          go_name: SetType
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: positionAttributes
+          go_name: PositionAttributes
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.graphics.RectF
+              go_name: arg1
+            - java_type: android.graphics.RectF
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+            - java_type: float
+              go_name: arg4
+            - java_type: java.lang.String[]
+              go_name: arg5
+            - java_type: float[]
+              go_name: arg6
+          returns: void
+          error: true
+        - java_method: intersects
+          go_name: Intersects
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.graphics.RectF
+              go_name: arg2
+            - java_type: android.graphics.RectF
+              go_name: arg3
+            - java_type: float
+              go_name: arg4
+            - java_type: float
+              go_name: arg5
+          returns: boolean
           error: true
         - java_method: setValue
           go_name: SetValue
@@ -2199,160 +2481,8 @@ classes:
           returns: androidx.constraintlayout.motion.widget.Key
           error: true
         - java_method: clone
-          go_name: Clone0
+          go_name: Clone
           returns: androidx.constraintlayout.motion.widget.Key
-          error: true
-        - java_method: clone
-          go_name: Clone0_1
-          returns: java.lang.Object
-          error: true
-    - java_class: androidx.constraintlayout.motion.widget.TransitionBuilder
-      go_type: TransitionBuilder
-      obtain: constructor
-      static_methods:
-        - java_method: validate
-          go_name: Validate
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: buildTransition
-          go_name: BuildTransition
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.MotionScene
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: androidx.constraintlayout.widget.ConstraintSet
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: androidx.constraintlayout.widget.ConstraintSet
-              go_name: arg5
-          returns: androidx.constraintlayout.motion.widget.MotionScene$Transition
-          error: true
-    - java_class: androidx.constraintlayout.motion.widget.Animatable
-      go_type: Animatable
-      methods:
-        - java_method: setProgress
-          go_name: SetProgress
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getProgress
-          go_name: GetProgress
-          returns: float
-          error: true
-    - java_class: androidx.constraintlayout.motion.widget.MotionHelper
-      go_type: MotionHelper
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: isUsedOnShow
-          go_name: IsUsedOnShow
-          returns: boolean
-          error: true
-        - java_method: isUseOnHide
-          go_name: IsUseOnHide
-          returns: boolean
-          error: true
-        - java_method: getProgress
-          go_name: GetProgress
-          returns: float
-          error: true
-        - java_method: setProgress
-          go_name: SetProgress1
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setProgress
-          go_name: SetProgress2_1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onTransitionStarted
-          go_name: OnTransitionStarted
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onTransitionChange
-          go_name: OnTransitionChange
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: onTransitionCompleted
-          go_name: OnTransitionCompleted
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onTransitionTrigger
-          go_name: OnTransitionTrigger
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: boolean
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: isDecorator
-          go_name: IsDecorator
-          returns: boolean
-          error: true
-        - java_method: onPreDraw
-          go_name: OnPreDraw
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onFinishedMotionScene
-          go_name: OnFinishedMotionScene
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.MotionLayout
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onPostDraw
-          go_name: OnPostDraw
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: void
           error: true
     - java_class: androidx.constraintlayout.motion.widget.ViewTransitionController
       go_type: ViewTransitionController
@@ -2360,334 +2490,17 @@ classes:
       constructor_params:
         - java_type: androidx.constraintlayout.motion.widget.MotionLayout
           go_name: arg0
-      methods:
-        - java_method: add
-          go_name: Add
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.ViewTransition
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: androidx.constraintlayout.motion.widget.MotionController
-      go_type: MotionController
-      methods:
-        - java_method: getTransformPivotTarget
-          go_name: GetTransformPivotTarget
-          returns: int
-          error: true
-        - java_method: setTransformPivotTarget
-          go_name: SetTransformPivotTarget
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getStartX
-          go_name: GetStartX
-          returns: float
-          error: true
-        - java_method: getStartY
-          go_name: GetStartY
-          returns: float
-          error: true
-        - java_method: getFinalX
-          go_name: GetFinalX
-          returns: float
-          error: true
-        - java_method: getFinalY
-          go_name: GetFinalY
-          returns: float
-          error: true
-        - java_method: getStartWidth
-          go_name: GetStartWidth
-          returns: float
-          error: true
-        - java_method: getStartHeight
-          go_name: GetStartHeight
-          returns: float
-          error: true
-        - java_method: getFinalWidth
-          go_name: GetFinalWidth
-          returns: float
-          error: true
-        - java_method: getFinalHeight
-          go_name: GetFinalHeight
-          returns: float
-          error: true
-        - java_method: getAnimateRelativeTo
-          go_name: GetAnimateRelativeTo
-          returns: int
-          error: true
-        - java_method: setupRelative
-          go_name: SetupRelative
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.MotionController
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getCenterX
-          go_name: GetCenterX
-          returns: float
-          error: true
-        - java_method: getCenterY
-          go_name: GetCenterY
-          returns: float
-          error: true
-        - java_method: getCenter
-          go_name: GetCenter
-          params:
-            - java_type: double
-              go_name: arg0
-            - java_type: float[]
-              go_name: arg1
-            - java_type: float[]
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: remeasure
-          go_name: Remeasure
-          returns: void
-          error: true
-        - java_method: addKey
-          go_name: AddKey
-          params:
-            - java_type: androidx.constraintlayout.motion.widget.Key
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setPathMotionArc
-          go_name: SetPathMotionArc
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setup
-          go_name: Setup
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: long
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: setView
-          go_name: SetView
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getView
-          go_name: GetView
-          returns: android.view.View
-          error: true
-        - java_method: setStartState
-          go_name: SetStartState
-          params:
-            - java_type: androidx.constraintlayout.motion.utils.ViewState
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-          returns: void
-          error: true
-        - java_method: getDrawPath
-          go_name: GetDrawPath
-          returns: int
-          error: true
-        - java_method: setDrawPath
-          go_name: SetDrawPath
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getKeyFramePositions
-          go_name: GetKeyFramePositions
-          params:
-            - java_type: '[I'
-              go_name: arg0
-            - java_type: float[]
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: getKeyFrameInfo
-          go_name: GetKeyFrameInfo
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: '[I'
-              go_name: arg1
-          returns: int
-          error: true
-abstract_callbacks:
-    - java_class: androidx.constraintlayout.motion.widget.Key
-      go_type: KeyCallback
-      methods:
-        - java_method: setValue
-          params:
-            - String
-            - java.lang.Object
-          returns: void
-          go_field: SetValue
-        - java_method: copy
-          params:
-            - androidx.constraintlayout.motion.widget.Key
-          returns: androidx.constraintlayout.motion.widget.Key
-          go_field: Copy
-        - java_method: clone
-          params: []
-          returns: androidx.constraintlayout.motion.widget.Key
-          go_field: Clone
-        - java_method: setViewId
-          params:
-            - int
-          returns: androidx.constraintlayout.motion.widget.Key
-          go_field: SetViewId
-        - java_method: setFramePosition
-          params:
-            - int
-          returns: void
-          go_field: SetFramePosition
-        - java_method: getFramePosition
-          params: []
-          returns: int
-          go_field: GetFramePosition
-        - java_method: clone
-          params: []
-          returns: java.lang.Object
-          go_field: Clone
+abstract_callback_eligibility:
     - java_class: androidx.constraintlayout.motion.widget.TransitionAdapter
-      go_type: TransitionAdapterCallback
-      methods:
-        - java_method: onTransitionStarted
-          params:
-            - androidx.constraintlayout.motion.widget.MotionLayout
-            - int
-            - int
-          returns: void
-          go_field: OnTransitionStarted
-        - java_method: onTransitionChange
-          params:
-            - androidx.constraintlayout.motion.widget.MotionLayout
-            - int
-            - int
-            - float
-          returns: void
-          go_field: OnTransitionChange
-        - java_method: onTransitionCompleted
-          params:
-            - androidx.constraintlayout.motion.widget.MotionLayout
-            - int
-          returns: void
-          go_field: OnTransitionCompleted
-        - java_method: onTransitionTrigger
-          params:
-            - androidx.constraintlayout.motion.widget.MotionLayout
-            - int
-            - boolean
-            - float
-          returns: void
-          go_field: OnTransitionTrigger
+      generated: false
+      reason: implements_interface
     - java_class: androidx.constraintlayout.motion.widget.MotionInterpolator
-      go_type: MotionInterpolatorCallback
-      methods:
-        - java_method: getInterpolation
-          params:
-            - float
-          returns: float
-          go_field: GetInterpolation
-        - java_method: getVelocity
-          params: []
-          returns: float
-          go_field: GetVelocity
+      generated: false
+      reason: implements_interface
+    - java_class: androidx.constraintlayout.motion.widget.Key
+      generated: false
+      reason: package_private_abstract_method
 constants:
-    - go_name: Alpha
-      value: '"alpha"'
-      go_type: string
-    - go_name: Elevation
-      value: '"elevation"'
-      go_type: string
-    - go_name: Rotation
-      value: '"rotation"'
-      go_type: string
-    - go_name: RotationX
-      value: '"rotationX"'
-      go_type: string
-    - go_name: RotationY
-      value: '"rotationY"'
-      go_type: string
-    - go_name: PivotX
-      value: '"transformPivotX"'
-      go_type: string
-    - go_name: PivotY
-      value: '"transformPivotY"'
-      go_type: string
-    - go_name: TransitionPathRotate
-      value: '"transitionPathRotate"'
-      go_type: string
-    - go_name: ScaleX
-      value: '"scaleX"'
-      go_type: string
-    - go_name: ScaleY
-      value: '"scaleY"'
-      go_type: string
-    - go_name: WavePeriod
-      value: '"wavePeriod"'
-      go_type: string
-    - go_name: WaveOffset
-      value: '"waveOffset"'
-      go_type: string
-    - go_name: WavePhase
-      value: '"wavePhase"'
-      go_type: string
-    - go_name: WaveVariesBy
-      value: '"waveVariesBy"'
-      go_type: string
-    - go_name: TranslationX
-      value: '"translationX"'
-      go_type: string
-    - go_name: TranslationY
-      value: '"translationY"'
-      go_type: string
-    - go_name: TranslationZ
-      value: '"translationZ"'
-      go_type: string
-    - go_name: Progress
-      value: '"progress"'
-      go_type: string
-    - go_name: Custom
-      value: '"CUSTOM"'
-      go_type: string
-    - go_name: Curvefit
-      value: '"curveFit"'
-      go_type: string
-    - go_name: Motionprogress
-      value: '"motionProgress"'
-      go_type: string
-    - go_name: Transitioneasing
-      value: '"transitionEasing"'
-      go_type: string
-    - go_name: Visibility
-      value: '"visibility"'
-      go_type: string
-    - go_name: Unset
-      value: "-1"
-      go_type: int
     - go_name: TouchUpComplete
       value: "0"
       go_type: int
@@ -2733,89 +2546,59 @@ constants:
     - go_name: VelocityStaticLayout
       value: "3"
       go_type: int
-    - go_name: LayoutIgnoreRequest
+    - go_name: PathPercent
       value: "0"
       go_type: int
-    - go_name: LayoutHonorRequest
+    - go_name: PathPerpendicular
       value: "1"
       go_type: int
-    - go_name: LayoutCallMeasure
+    - go_name: HorizontalPathX
       value: "2"
       go_type: int
-    - go_name: AutoNone
-      value: "0"
-      go_type: int
-    - go_name: AutoJumpToStart
-      value: "1"
-      go_type: int
-    - go_name: AutoJumpToEnd
-      value: "2"
-      go_type: int
-    - go_name: AutoAnimateToStart
+    - go_name: HorizontalPathY
       value: "3"
       go_type: int
-    - go_name: AutoAnimateToEnd
+    - go_name: VerticalPathX
       value: "4"
       go_type: int
-    - go_name: InterpolateReferenceId
-      value: "-2"
-      go_type: int
-    - go_name: InterpolateSplineString
-      value: "-1"
-      go_type: int
-    - go_name: InterpolateEaseInOut
-      value: "0"
-      go_type: int
-    - go_name: InterpolateEaseIn
-      value: "1"
-      go_type: int
-    - go_name: InterpolateEaseOut
-      value: "2"
-      go_type: int
-    - go_name: InterpolateLinear
-      value: "3"
-      go_type: int
-    - go_name: InterpolateBounce
-      value: "4"
-      go_type: int
-    - go_name: InterpolateOvershoot
+    - go_name: VerticalPathY
       value: "5"
       go_type: int
-    - go_name: InterpolateAnticipate
-      value: "6"
-      go_type: int
-    - go_name: KeyType
-      value: "1"
-      go_type: int
-    - go_name: TypeScreen
-      value: "2"
-      go_type: int
-    - go_name: TypePath
-      value: "1"
-      go_type: int
-    - go_name: TypeCartesian
+    - go_name: DrawPathNone
       value: "0"
       go_type: int
-    - go_name: TransitionEasing
-      value: '"transitionEasing"'
+    - go_name: DrawPathBasic
+      value: "1"
+      go_type: int
+    - go_name: DrawPathRelative
+      value: "2"
+      go_type: int
+    - go_name: DrawPathCartesian
+      value: "3"
+      go_type: int
+    - go_name: DrawPathAsConfigured
+      value: "4"
+      go_type: int
+    - go_name: DrawPathRectangle
+      value: "5"
+      go_type: int
+    - go_name: DrawPathScreen
+      value: "6"
+      go_type: int
+    - go_name: RotationRight
+      value: "1"
+      go_type: int
+    - go_name: RotationLeft
+      value: "2"
+      go_type: int
+    - go_name: WavePeriod
+      value: '"wavePeriod"'
       go_type: string
-    - go_name: Drawpath
-      value: '"drawPath"'
+    - go_name: WaveOffset
+      value: '"waveOffset"'
       go_type: string
-    - go_name: PercentWidth
-      value: '"percentWidth"'
-      go_type: string
-    - go_name: PercentHeight
-      value: '"percentHeight"'
-      go_type: string
-    - go_name: SizePercent
-      value: '"sizePercent"'
-      go_type: string
-    - go_name: PercentX
-      value: '"percentX"'
-      go_type: string
-    - go_name: PercentY
-      value: '"percentY"'
+    - go_name: WavePhase
+      value: '"wavePhase"'
       go_type: string
     - go_name: WaveShape
       value: '"waveShape"'
@@ -2841,42 +2624,12 @@ constants:
     - go_name: ShapeBounce
       value: "6"
       go_type: int
-    - go_name: ViewTransitionOnCross
-      value: '"viewTransitionOnCross"'
-      go_type: string
-    - go_name: ViewTransitionOnPositiveCross
-      value: '"viewTransitionOnPositiveCross"'
-      go_type: string
-    - go_name: ViewTransitionOnNegativeCross
-      value: '"viewTransitionOnNegativeCross"'
-      go_type: string
-    - go_name: PostLayout
-      value: '"postLayout"'
-      go_type: string
-    - go_name: TriggerSlack
-      value: '"triggerSlack"'
-      go_type: string
-    - go_name: TriggerCollisionView
-      value: '"triggerCollisionView"'
-      go_type: string
-    - go_name: TriggerCollisionId
-      value: '"triggerCollisionId"'
-      go_type: string
-    - go_name: TriggerId
-      value: '"triggerID"'
-      go_type: string
-    - go_name: PositiveCross
-      value: '"positiveCross"'
-      go_type: string
-    - go_name: NegativeCross
-      value: '"negativeCross"'
-      go_type: string
-    - go_name: TriggerReceiver
-      value: '"triggerReceiver"'
-      go_type: string
-    - go_name: Cross
-      value: '"CROSS"'
-      go_type: string
+    - go_name: KeyType
+      value: "4"
+      go_type: int
+    - go_name: Unset
+      value: "-1"
+      go_type: int
     - go_name: ViewTransitionTag
       value: '"ViewTransition"'
       go_type: string
@@ -3000,48 +2753,180 @@ constants:
     - go_name: OnUpNeverToEnd
       value: "7"
       go_type: int
-    - go_name: PathPercent
+    - go_name: ViewTransitionOnCross
+      value: '"viewTransitionOnCross"'
+      go_type: string
+    - go_name: ViewTransitionOnPositiveCross
+      value: '"viewTransitionOnPositiveCross"'
+      go_type: string
+    - go_name: ViewTransitionOnNegativeCross
+      value: '"viewTransitionOnNegativeCross"'
+      go_type: string
+    - go_name: PostLayout
+      value: '"postLayout"'
+      go_type: string
+    - go_name: TriggerSlack
+      value: '"triggerSlack"'
+      go_type: string
+    - go_name: TriggerCollisionView
+      value: '"triggerCollisionView"'
+      go_type: string
+    - go_name: TriggerCollisionId
+      value: '"triggerCollisionId"'
+      go_type: string
+    - go_name: TriggerId
+      value: '"triggerID"'
+      go_type: string
+    - go_name: PositiveCross
+      value: '"positiveCross"'
+      go_type: string
+    - go_name: NegativeCross
+      value: '"negativeCross"'
+      go_type: string
+    - go_name: TriggerReceiver
+      value: '"triggerReceiver"'
+      go_type: string
+    - go_name: Cross
+      value: '"CROSS"'
+      go_type: string
+    - go_name: Alpha
+      value: '"alpha"'
+      go_type: string
+    - go_name: Elevation
+      value: '"elevation"'
+      go_type: string
+    - go_name: Rotation
+      value: '"rotation"'
+      go_type: string
+    - go_name: RotationX
+      value: '"rotationX"'
+      go_type: string
+    - go_name: RotationY
+      value: '"rotationY"'
+      go_type: string
+    - go_name: PivotX
+      value: '"transformPivotX"'
+      go_type: string
+    - go_name: PivotY
+      value: '"transformPivotY"'
+      go_type: string
+    - go_name: TransitionPathRotate
+      value: '"transitionPathRotate"'
+      go_type: string
+    - go_name: ScaleX
+      value: '"scaleX"'
+      go_type: string
+    - go_name: ScaleY
+      value: '"scaleY"'
+      go_type: string
+    - go_name: WaveVariesBy
+      value: '"waveVariesBy"'
+      go_type: string
+    - go_name: TranslationX
+      value: '"translationX"'
+      go_type: string
+    - go_name: TranslationY
+      value: '"translationY"'
+      go_type: string
+    - go_name: TranslationZ
+      value: '"translationZ"'
+      go_type: string
+    - go_name: Progress
+      value: '"progress"'
+      go_type: string
+    - go_name: Custom
+      value: '"CUSTOM"'
+      go_type: string
+    - go_name: Curvefit
+      value: '"curveFit"'
+      go_type: string
+    - go_name: Motionprogress
+      value: '"motionProgress"'
+      go_type: string
+    - go_name: Transitioneasing
+      value: '"transitionEasing"'
+      go_type: string
+    - go_name: Visibility
+      value: '"visibility"'
+      go_type: string
+    - go_name: LayoutIgnoreRequest
       value: "0"
       go_type: int
-    - go_name: PathPerpendicular
+    - go_name: LayoutHonorRequest
       value: "1"
       go_type: int
-    - go_name: HorizontalPathX
+    - go_name: LayoutCallMeasure
       value: "2"
       go_type: int
-    - go_name: HorizontalPathY
-      value: "3"
-      go_type: int
-    - go_name: VerticalPathX
-      value: "4"
-      go_type: int
-    - go_name: VerticalPathY
-      value: "5"
-      go_type: int
-    - go_name: DrawPathNone
+    - go_name: AutoNone
       value: "0"
       go_type: int
-    - go_name: DrawPathBasic
+    - go_name: AutoJumpToStart
       value: "1"
       go_type: int
-    - go_name: DrawPathRelative
+    - go_name: AutoJumpToEnd
       value: "2"
       go_type: int
-    - go_name: DrawPathCartesian
+    - go_name: AutoAnimateToStart
       value: "3"
       go_type: int
-    - go_name: DrawPathAsConfigured
+    - go_name: AutoAnimateToEnd
       value: "4"
       go_type: int
-    - go_name: DrawPathRectangle
+    - go_name: InterpolateReferenceId
+      value: "-2"
+      go_type: int
+    - go_name: InterpolateSplineString
+      value: "-1"
+      go_type: int
+    - go_name: InterpolateEaseInOut
+      value: "0"
+      go_type: int
+    - go_name: InterpolateEaseIn
+      value: "1"
+      go_type: int
+    - go_name: InterpolateEaseOut
+      value: "2"
+      go_type: int
+    - go_name: InterpolateLinear
+      value: "3"
+      go_type: int
+    - go_name: InterpolateBounce
+      value: "4"
+      go_type: int
+    - go_name: InterpolateOvershoot
       value: "5"
       go_type: int
-    - go_name: DrawPathScreen
+    - go_name: InterpolateAnticipate
       value: "6"
       go_type: int
-    - go_name: RotationRight
-      value: "1"
-      go_type: int
-    - go_name: RotationLeft
+    - go_name: TypeScreen
       value: "2"
       go_type: int
+    - go_name: TypePath
+      value: "1"
+      go_type: int
+    - go_name: TypeCartesian
+      value: "0"
+      go_type: int
+    - go_name: TransitionEasing
+      value: '"transitionEasing"'
+      go_type: string
+    - go_name: Drawpath
+      value: '"drawPath"'
+      go_type: string
+    - go_name: PercentWidth
+      value: '"percentWidth"'
+      go_type: string
+    - go_name: PercentHeight
+      value: '"percentHeight"'
+      go_type: string
+    - go_name: SizePercent
+      value: '"sizePercent"'
+      go_type: string
+    - go_name: PercentX
+      value: '"percentX"'
+      go_type: string
+    - go_name: PercentY
+      value: '"percentY"'
+      go_type: string

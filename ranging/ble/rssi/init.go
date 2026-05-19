@@ -29,10 +29,11 @@ var (
 	midBleRssiRangingParamsGetPeerBluetoothAddress jni.MethodID
 	midBleRssiRangingParamsGetRangingUpdateRate    jni.MethodID
 	midBleRssiRangingParamsHashCode                jni.MethodID
-	midBleRssiRangingParamsWriteToParcel           jni.MethodID
 	midBleRssiRangingParamsToString                jni.MethodID
+	midBleRssiRangingParamsWriteToParcel           jni.MethodID
 
 	clsBleRssiRangingParamsBuilder                     *jni.GlobalRef
+	midBleRssiRangingParamsBuilderCtor                 jni.MethodID
 	midBleRssiRangingParamsBuilderBuild                jni.MethodID
 	midBleRssiRangingParamsBuilderSetRangingUpdateRate jni.MethodID
 	midBleRssiRangingParamsBuilderToString             jni.MethodID
@@ -99,14 +100,14 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midBleRssiRangingParamsWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBleRssiRangingParams)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midBleRssiRangingParamsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBleRssiRangingParams)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midBleRssiRangingParamsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBleRssiRangingParams)), "toString", "()Ljava/lang/String;")
+		midBleRssiRangingParamsWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBleRssiRangingParams)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -122,6 +123,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsBleRssiRangingParamsBuilder = env.NewGlobalRef(&c.Object)
+		midBleRssiRangingParamsBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBleRssiRangingParamsBuilder)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midBleRssiRangingParamsBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBleRssiRangingParamsBuilder)), "build", "()Landroid/ranging/ble/rssi/BleRssiRangingParams;")
 		if err != nil {

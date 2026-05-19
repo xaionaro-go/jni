@@ -32,6 +32,12 @@ func NewButton(vm *jni.VM, arg0 *jni.Object) (*Button, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsButton == nil {
+			return fmt.Errorf("android.widget.Button is not available on this device")
+		}
+		if midButtonCtor == nil {
+			return fmt.Errorf("android.widget.Button constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsButton)), midButtonCtor, jni.ObjectValue(arg0))
 		if err != nil {

@@ -32,6 +32,12 @@ func NewGattCharacteristic(vm *jni.VM, arg0 *jni.Object, arg1 int32, arg2 int32)
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsGattCharacteristic == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothGattCharacteristic is not available on this device")
+		}
+		if midGattCharacteristicCtor == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothGattCharacteristic constructor (Ljava/util/UUID;II)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGattCharacteristic)), midGattCharacteristicCtor, jni.ObjectValue(arg0), jni.IntValue(arg1), jni.IntValue(arg2))
 		if err != nil {
@@ -603,29 +609,6 @@ func (m *GattCharacteristic) SetWriteType(arg0 int32) error {
 	return callErr
 }
 
-// WriteToParcel calls android.bluetooth.BluetoothGattCharacteristic.writeToParcel.
-func (m *GattCharacteristic) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midGattCharacteristicWriteToParcel == nil {
-			callErr = fmt.Errorf("android.bluetooth.BluetoothGattCharacteristic.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midGattCharacteristicWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.bluetooth.BluetoothGattCharacteristic.toString.
 func (m *GattCharacteristic) ToString() (string, error) {
 	var result string
@@ -651,4 +634,27 @@ func (m *GattCharacteristic) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.bluetooth.BluetoothGattCharacteristic.writeToParcel.
+func (m *GattCharacteristic) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midGattCharacteristicWriteToParcel == nil {
+			callErr = fmt.Errorf("android.bluetooth.BluetoothGattCharacteristic.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsGattCharacteristic)),
+			midGattCharacteristicWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

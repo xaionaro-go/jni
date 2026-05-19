@@ -23,6 +23,34 @@ type LayoutAnimationControllerAnimationParameters struct {
 	Obj *jni.GlobalRef
 }
 
+// NewLayoutAnimationControllerAnimationParameters creates a new android.view.animation.LayoutAnimationController$AnimationParameters instance.
+func NewLayoutAnimationControllerAnimationParameters(vm *jni.VM) (*LayoutAnimationControllerAnimationParameters, error) {
+	var t LayoutAnimationControllerAnimationParameters
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsLayoutAnimationControllerAnimationParameters == nil {
+			return fmt.Errorf("android.view.animation.LayoutAnimationController$AnimationParameters is not available on this device")
+		}
+		if midLayoutAnimationControllerAnimationParametersCtor == nil {
+			return fmt.Errorf("android.view.animation.LayoutAnimationController$AnimationParameters constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsLayoutAnimationControllerAnimationParameters)), midLayoutAnimationControllerAnimationParametersCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // ToString calls android.view.animation.LayoutAnimationController$AnimationParameters.toString.
 func (m *LayoutAnimationControllerAnimationParameters) ToString() (string, error) {
 	var result string

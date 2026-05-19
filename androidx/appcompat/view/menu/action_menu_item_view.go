@@ -32,6 +32,12 @@ func NewActionMenuItemView(vm *jni.VM, arg0 *jni.Object) (*ActionMenuItemView, e
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsActionMenuItemView == nil {
+			return fmt.Errorf("androidx.appcompat.view.menu.ActionMenuItemView is not available on this device")
+		}
+		if midActionMenuItemViewCtor == nil {
+			return fmt.Errorf("androidx.appcompat.view.menu.ActionMenuItemView constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsActionMenuItemView)), midActionMenuItemViewCtor, jni.ObjectValue(arg0))
 		if err != nil {

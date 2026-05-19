@@ -546,28 +546,6 @@ func (m *Drawable) OnStateChange(arg0 *jni.Object) (bool, error) {
 	return result, callErr
 }
 
-// OnTextSizeChange calls com.google.android.material.tooltip.TooltipDrawable.onTextSizeChange.
-func (m *Drawable) OnTextSizeChange() error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midDrawableOnTextSizeChange == nil {
-			callErr = fmt.Errorf("com.google.android.material.tooltip.TooltipDrawable.onTextSizeChange is not available on this device")
-			return callErr
-		}
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midDrawableOnTextSizeChange,
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls com.google.android.material.tooltip.TooltipDrawable.toString.
 func (m *Drawable) ToString() (string, error) {
 	var result string

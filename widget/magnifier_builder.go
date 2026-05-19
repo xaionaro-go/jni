@@ -23,6 +23,35 @@ type MagnifierBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewMagnifierBuilder creates a new android.widget.Magnifier$Builder instance.
+func NewMagnifierBuilder(vm *jni.VM, arg0 *jni.Object) (*MagnifierBuilder, error) {
+	var t MagnifierBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsMagnifierBuilder == nil {
+			return fmt.Errorf("android.widget.Magnifier$Builder is not available on this device")
+		}
+		if midMagnifierBuilderCtor == nil {
+			return fmt.Errorf("android.widget.Magnifier$Builder constructor (Landroid/view/View;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsMagnifierBuilder)), midMagnifierBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.widget.Magnifier$Builder.build.
 func (m *MagnifierBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

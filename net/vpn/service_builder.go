@@ -23,6 +23,35 @@ type ServiceBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewServiceBuilder creates a new android.net.VpnService$Builder instance.
+func NewServiceBuilder(vm *jni.VM, arg0 *jni.Object) (*ServiceBuilder, error) {
+	var t ServiceBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsServiceBuilder == nil {
+			return fmt.Errorf("android.net.VpnService$Builder is not available on this device")
+		}
+		if midServiceBuilderCtor == nil {
+			return fmt.Errorf("android.net.VpnService$Builder constructor (Landroid/net/VpnService;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsServiceBuilder)), midServiceBuilderCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddAddress2 calls android.net.VpnService$Builder.addAddress.
 func (m *ServiceBuilder) AddAddress2(arg0 string, arg1 int32) (*jni.Object, error) {
 	var result *jni.Object

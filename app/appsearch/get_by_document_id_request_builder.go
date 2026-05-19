@@ -23,6 +23,40 @@ type GetByDocumentIdRequestBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGetByDocumentIdRequestBuilder creates a new android.app.appsearch.GetByDocumentIdRequest$Builder instance.
+func NewGetByDocumentIdRequestBuilder(vm *jni.VM, arg0 string) (*GetByDocumentIdRequestBuilder, error) {
+	var t GetByDocumentIdRequestBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGetByDocumentIdRequestBuilder == nil {
+			return fmt.Errorf("android.app.appsearch.GetByDocumentIdRequest$Builder is not available on this device")
+		}
+		if midGetByDocumentIdRequestBuilderCtor == nil {
+			return fmt.Errorf("android.app.appsearch.GetByDocumentIdRequest$Builder constructor (Ljava/lang/String;)V is not available on this device")
+		}
+		jArg0, err := env.NewStringUTF(arg0)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg0.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGetByDocumentIdRequestBuilder)), midGetByDocumentIdRequestBuilderCtor, jni.ObjectValue(&jArg0.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddIds calls android.app.appsearch.GetByDocumentIdRequest$Builder.addIds.
 func (m *GetByDocumentIdRequestBuilder) AddIds(arg0 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

@@ -32,6 +32,12 @@ func NewExplode(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*Explode, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsExplode == nil {
+			return fmt.Errorf("android.transition.Explode is not available on this device")
+		}
+		if midExplodeCtor == nil {
+			return fmt.Errorf("android.transition.Explode constructor (Landroid/content/Context;Landroid/util/AttributeSet;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsExplode)), midExplodeCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
 		if err != nil {

@@ -32,6 +32,12 @@ func NewWebTriggerInput(vm *jni.VM, arg0 *jni.Object, arg1 string, arg2 *jni.Obj
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsWebTriggerInput == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.WebTriggerInput is not available on this device")
+		}
+		if midWebTriggerInputCtor == nil {
+			return fmt.Errorf("android.adservices.ondevicepersonalization.WebTriggerInput constructor (Landroid/net/Uri;Ljava/lang/String;[B)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {

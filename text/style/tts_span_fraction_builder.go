@@ -23,6 +23,34 @@ type TtsSpanFractionBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTtsSpanFractionBuilder creates a new android.text.style.TtsSpan$FractionBuilder instance.
+func NewTtsSpanFractionBuilder(vm *jni.VM) (*TtsSpanFractionBuilder, error) {
+	var t TtsSpanFractionBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTtsSpanFractionBuilder == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$FractionBuilder is not available on this device")
+		}
+		if midTtsSpanFractionBuilderCtor == nil {
+			return fmt.Errorf("android.text.style.TtsSpan$FractionBuilder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTtsSpanFractionBuilder)), midTtsSpanFractionBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // SetDenominator1 calls android.text.style.TtsSpan$FractionBuilder.setDenominator.
 func (m *TtsSpanFractionBuilder) SetDenominator1(arg0 string) (*jni.Object, error) {
 	var result *jni.Object

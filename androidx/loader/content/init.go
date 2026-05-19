@@ -23,28 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsCursorLoader                       *jni.GlobalRef
-	midCursorLoaderCtor                   jni.MethodID
-	midCursorLoaderLoadInBackground0      jni.MethodID
-	midCursorLoaderCancelLoadInBackground jni.MethodID
-	midCursorLoaderDeliverResult1         jni.MethodID
-	midCursorLoaderOnCanceled1            jni.MethodID
-	midCursorLoaderGetUri                 jni.MethodID
-	midCursorLoaderSetUri                 jni.MethodID
-	midCursorLoaderGetProjection          jni.MethodID
-	midCursorLoaderSetProjection          jni.MethodID
-	midCursorLoaderGetSelection           jni.MethodID
-	midCursorLoaderSetSelection           jni.MethodID
-	midCursorLoaderGetSelectionArgs       jni.MethodID
-	midCursorLoaderSetSelectionArgs       jni.MethodID
-	midCursorLoaderGetSortOrder           jni.MethodID
-	midCursorLoaderSetSortOrder           jni.MethodID
-	midCursorLoaderDump                   jni.MethodID
-	midCursorLoaderLoadInBackground0_1    jni.MethodID
-	midCursorLoaderOnCanceled1_1          jni.MethodID
-	midCursorLoaderDeliverResult1_1       jni.MethodID
-	midCursorLoaderToString               jni.MethodID
-
 	clsAsyncTaskLoader                           *jni.GlobalRef
 	midAsyncTaskLoaderSetUpdateThrottle          jni.MethodID
 	midAsyncTaskLoaderCancelLoadInBackground     jni.MethodID
@@ -75,6 +53,7 @@ var (
 	midLoaderDump                   jni.MethodID
 
 	clsLoaderForceLoadContentObserver                         *jni.GlobalRef
+	midLoaderForceLoadContentObserverCtor                     jni.MethodID
 	midLoaderForceLoadContentObserverDeliverSelfNotifications jni.MethodID
 	midLoaderForceLoadContentObserverOnChange                 jni.MethodID
 	midLoaderForceLoadContentObserverToString                 jni.MethodID
@@ -84,6 +63,25 @@ var (
 
 	clsLoaderOnLoadCompleteListener         *jni.GlobalRef
 	midLoaderOnLoadCompleteListenerToString jni.MethodID
+
+	clsCursorLoader                       *jni.GlobalRef
+	midCursorLoaderCtor                   jni.MethodID
+	midCursorLoaderLoadInBackground       jni.MethodID
+	midCursorLoaderCancelLoadInBackground jni.MethodID
+	midCursorLoaderDeliverResult          jni.MethodID
+	midCursorLoaderOnCanceled             jni.MethodID
+	midCursorLoaderGetUri                 jni.MethodID
+	midCursorLoaderSetUri                 jni.MethodID
+	midCursorLoaderGetProjection          jni.MethodID
+	midCursorLoaderSetProjection          jni.MethodID
+	midCursorLoaderGetSelection           jni.MethodID
+	midCursorLoaderSetSelection           jni.MethodID
+	midCursorLoaderGetSelectionArgs       jni.MethodID
+	midCursorLoaderSetSelectionArgs       jni.MethodID
+	midCursorLoaderGetSortOrder           jni.MethodID
+	midCursorLoaderSetSortOrder           jni.MethodID
+	midCursorLoaderDump                   jni.MethodID
+	midCursorLoaderToString               jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -103,153 +101,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("androidx/loader/content/CursorLoader")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCursorLoader = env.NewGlobalRef(&c.Object)
-		midCursorLoaderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCursorLoaderLoadInBackground0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "loadInBackground", "()Landroid/database/Cursor;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorLoaderCancelLoadInBackground, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "cancelLoadInBackground", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorLoaderDeliverResult1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "deliverResult", "(Landroid/database/Cursor;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorLoaderOnCanceled1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "onCanceled", "(Landroid/database/Cursor;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorLoaderGetUri, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "getUri", "()Landroid/net/Uri;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorLoaderSetUri, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "setUri", "(Landroid/net/Uri;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorLoaderGetProjection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "getProjection", "()[Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorLoaderSetProjection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "setProjection", "([Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorLoaderGetSelection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "getSelection", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorLoaderSetSelection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "setSelection", "(Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorLoaderGetSelectionArgs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "getSelectionArgs", "()[Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorLoaderSetSelectionArgs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "setSelectionArgs", "([Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorLoaderGetSortOrder, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "getSortOrder", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorLoaderSetSortOrder, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "setSortOrder", "(Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorLoaderDump, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "dump", "(Ljava/lang/String;Ljava/io/FileDescriptor;Ljava/io/PrintWriter;[Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorLoaderLoadInBackground0_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "loadInBackground", "()Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorLoaderOnCanceled1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "onCanceled", "(Ljava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorLoaderDeliverResult1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "deliverResult", "(Ljava/lang/Object;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCursorLoaderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("androidx/loader/content/AsyncTaskLoader")
 	if err != nil {
@@ -450,6 +301,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsLoaderForceLoadContentObserver = env.NewGlobalRef(&c.Object)
+		midLoaderForceLoadContentObserverCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLoaderForceLoadContentObserver)), "<init>", "(Landroidx/loader/content/Loader;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midLoaderForceLoadContentObserverDeliverSelfNotifications, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLoaderForceLoadContentObserver)), "deliverSelfNotifications", "()Z")
 		if err != nil {
@@ -500,6 +355,132 @@ func doInit(env *jni.Env) error {
 		clsLoaderOnLoadCompleteListener = env.NewGlobalRef(&c.Object)
 
 		midLoaderOnLoadCompleteListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLoaderOnLoadCompleteListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("androidx/loader/content/CursorLoader")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCursorLoader = env.NewGlobalRef(&c.Object)
+		midCursorLoaderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midCursorLoaderLoadInBackground, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "loadInBackground", "()Landroid/database/Cursor;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorLoaderCancelLoadInBackground, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "cancelLoadInBackground", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorLoaderDeliverResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "deliverResult", "(Landroid/database/Cursor;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorLoaderOnCanceled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "onCanceled", "(Landroid/database/Cursor;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorLoaderGetUri, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "getUri", "()Landroid/net/Uri;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorLoaderSetUri, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "setUri", "(Landroid/net/Uri;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorLoaderGetProjection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "getProjection", "()[Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorLoaderSetProjection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "setProjection", "([Ljava/lang/String;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorLoaderGetSelection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "getSelection", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorLoaderSetSelection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "setSelection", "(Ljava/lang/String;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorLoaderGetSelectionArgs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "getSelectionArgs", "()[Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorLoaderSetSelectionArgs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "setSelectionArgs", "([Ljava/lang/String;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorLoaderGetSortOrder, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "getSortOrder", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorLoaderSetSortOrder, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "setSortOrder", "(Ljava/lang/String;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorLoaderDump, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "dump", "(Ljava/lang/String;Ljava/io/FileDescriptor;Ljava/io/PrintWriter;[Ljava/lang/String;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCursorLoaderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCursorLoader)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

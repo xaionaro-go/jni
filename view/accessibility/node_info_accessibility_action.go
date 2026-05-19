@@ -23,6 +23,41 @@ type NodeInfoAccessibilityAction struct {
 	Obj *jni.GlobalRef
 }
 
+// NewNodeInfoAccessibilityAction creates a new android.view.accessibility.AccessibilityNodeInfo$AccessibilityAction instance.
+func NewNodeInfoAccessibilityAction(vm *jni.VM, arg0 int32, arg1 string) (*NodeInfoAccessibilityAction, error) {
+	var t NodeInfoAccessibilityAction
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsNodeInfoAccessibilityAction == nil {
+			return fmt.Errorf("android.view.accessibility.AccessibilityNodeInfo$AccessibilityAction is not available on this device")
+		}
+		if midNodeInfoAccessibilityActionCtor == nil {
+			return fmt.Errorf("android.view.accessibility.AccessibilityNodeInfo$AccessibilityAction constructor (ILjava/lang/CharSequence;)V is not available on this device")
+		}
+
+		jArg1, err := env.NewStringUTF(arg1)
+		if err != nil {
+			return err
+		}
+		defer env.DeleteLocalRef(&jArg1.Object)
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsNodeInfoAccessibilityAction)), midNodeInfoAccessibilityActionCtor, jni.IntValue(arg0), jni.ObjectValue(&jArg1.Object))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // DescribeContents calls android.view.accessibility.AccessibilityNodeInfo$AccessibilityAction.describeContents.
 func (m *NodeInfoAccessibilityAction) DescribeContents() (int32, error) {
 	var result int32
@@ -199,8 +234,8 @@ func (m *NodeInfoAccessibilityAction) WriteToParcel(arg0 *jni.Object, arg1 int32
 			return callErr
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsNodeInfoAccessibilityAction)),
 			midNodeInfoAccessibilityActionWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
 		)
 		return callErr

@@ -32,6 +32,12 @@ func NewContrastCurve(vm *jni.VM, arg0 float64, arg1 float64, arg2 float64, arg3
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsContrastCurve == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.ContrastCurve is not available on this device")
+		}
+		if midContrastCurveCtor == nil {
+			return fmt.Errorf("com.google.android.material.color.utilities.ContrastCurve constructor (DDDD)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsContrastCurve)), midContrastCurveCtor, jni.DoubleValue(arg0), jni.DoubleValue(arg1), jni.DoubleValue(arg2), jni.DoubleValue(arg3))
 		if err != nil {

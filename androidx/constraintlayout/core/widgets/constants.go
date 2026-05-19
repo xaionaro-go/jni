@@ -5,6 +5,17 @@ package widgets
 import "github.com/AndroidGoLab/jni/androidx/constraintlayout/core/widgets/consts"
 
 const (
+	HorizontalAlignStart           = consts.HorizontalAlignStart
+	HorizontalAlignEnd             = consts.HorizontalAlignEnd
+	HorizontalAlignCenter          = consts.HorizontalAlignCenter
+	VerticalAlignTop               = consts.VerticalAlignTop
+	VerticalAlignBottom            = consts.VerticalAlignBottom
+	VerticalAlignCenter            = consts.VerticalAlignCenter
+	VerticalAlignBaseline          = consts.VerticalAlignBaseline
+	WrapNone                       = consts.WrapNone
+	WrapChain                      = consts.WrapChain
+	WrapAligned                    = consts.WrapAligned
+	WrapChainNew                   = consts.WrapChainNew
 	OptimizationNone               = consts.OptimizationNone
 	OptimizationDirect             = consts.OptimizationDirect
 	OptimizationBarrier            = consts.OptimizationBarrier
@@ -59,17 +70,6 @@ const (
 	Center                         = consts.Center
 	CenterX                        = consts.CenterX
 	CenterY                        = consts.CenterY
-	HorizontalAlignStart           = consts.HorizontalAlignStart
-	HorizontalAlignEnd             = consts.HorizontalAlignEnd
-	HorizontalAlignCenter          = consts.HorizontalAlignCenter
-	VerticalAlignTop               = consts.VerticalAlignTop
-	VerticalAlignBottom            = consts.VerticalAlignBottom
-	VerticalAlignCenter            = consts.VerticalAlignCenter
-	VerticalAlignBaseline          = consts.VerticalAlignBaseline
-	WrapNone                       = consts.WrapNone
-	WrapChain                      = consts.WrapChain
-	WrapAligned                    = consts.WrapAligned
-	WrapChainNew                   = consts.WrapChainNew
 )
 
 const (

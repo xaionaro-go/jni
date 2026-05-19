@@ -23,6 +23,34 @@ type SocketSettingsBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSocketSettingsBuilder creates a new android.bluetooth.BluetoothSocketSettings$Builder instance.
+func NewSocketSettingsBuilder(vm *jni.VM) (*SocketSettingsBuilder, error) {
+	var t SocketSettingsBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSocketSettingsBuilder == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothSocketSettings$Builder is not available on this device")
+		}
+		if midSocketSettingsBuilderCtor == nil {
+			return fmt.Errorf("android.bluetooth.BluetoothSocketSettings$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSocketSettingsBuilder)), midSocketSettingsBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.bluetooth.BluetoothSocketSettings$Builder.build.
 func (m *SocketSettingsBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

@@ -86,6 +86,7 @@ classes:
               go_name: arg0
           returns: void
           error: true
+      static_methods:
         - java_method: onDrawerStateChanged
           go_name: OnDrawerStateChanged
           params:

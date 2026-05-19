@@ -32,6 +32,12 @@ func NewEmbeddingVector(vm *jni.VM, arg0 *jni.Object, arg1 string) (*EmbeddingVe
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsEmbeddingVector == nil {
+			return fmt.Errorf("android.app.appsearch.EmbeddingVector is not available on this device")
+		}
+		if midEmbeddingVectorCtor == nil {
+			return fmt.Errorf("android.app.appsearch.EmbeddingVector constructor ([FLjava/lang/String;)V is not available on this device")
+		}
 
 		jArg1, err := env.NewStringUTF(arg1)
 		if err != nil {
@@ -189,29 +195,6 @@ func (m *EmbeddingVector) HashCode() (int32, error) {
 	return result, callErr
 }
 
-// WriteToParcel calls android.app.appsearch.EmbeddingVector.writeToParcel.
-func (m *EmbeddingVector) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midEmbeddingVectorWriteToParcel == nil {
-			callErr = fmt.Errorf("android.app.appsearch.EmbeddingVector.writeToParcel is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midEmbeddingVectorWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
-	})
-	return callErr
-}
-
 // ToString calls android.app.appsearch.EmbeddingVector.toString.
 func (m *EmbeddingVector) ToString() (string, error) {
 	var result string
@@ -237,4 +220,27 @@ func (m *EmbeddingVector) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.app.appsearch.EmbeddingVector.writeToParcel.
+func (m *EmbeddingVector) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midEmbeddingVectorWriteToParcel == nil {
+			callErr = fmt.Errorf("android.app.appsearch.EmbeddingVector.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsEmbeddingVector)),
+			midEmbeddingVectorWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

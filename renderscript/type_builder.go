@@ -23,6 +23,35 @@ type TypeBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewTypeBuilder creates a new android.renderscript.Type$Builder instance.
+func NewTypeBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object) (*TypeBuilder, error) {
+	var t TypeBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsTypeBuilder == nil {
+			return fmt.Errorf("android.renderscript.Type$Builder is not available on this device")
+		}
+		if midTypeBuilderCtor == nil {
+			return fmt.Errorf("android.renderscript.Type$Builder constructor (Landroid/renderscript/RenderScript;Landroid/renderscript/Element;)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsTypeBuilder)), midTypeBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Create calls android.renderscript.Type$Builder.create.
 func (m *TypeBuilder) Create() (*jni.Object, error) {
 	var result *jni.Object

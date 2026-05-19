@@ -32,6 +32,12 @@ func NewConfiguration(vm *jni.VM) (*Configuration, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsConfiguration == nil {
+			return fmt.Errorf("android.content.res.Configuration is not available on this device")
+		}
+		if midConfigurationCtor == nil {
+			return fmt.Errorf("android.content.res.Configuration constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsConfiguration)), midConfigurationCtor)
 		if err != nil {
 			return err

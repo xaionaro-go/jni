@@ -32,6 +32,12 @@ func NewStatelessTemplate(vm *jni.VM, arg0 string) (*StatelessTemplate, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsStatelessTemplate == nil {
+			return fmt.Errorf("android.service.controls.templates.StatelessTemplate is not available on this device")
+		}
+		if midStatelessTemplateCtor == nil {
+			return fmt.Errorf("android.service.controls.templates.StatelessTemplate constructor (Ljava/lang/String;)V is not available on this device")
+		}
 		jArg0, err := env.NewStringUTF(arg0)
 		if err != nil {
 			return err

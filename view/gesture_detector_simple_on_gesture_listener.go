@@ -23,6 +23,34 @@ type GestureDetectorSimpleOnGestureListener struct {
 	Obj *jni.GlobalRef
 }
 
+// NewGestureDetectorSimpleOnGestureListener creates a new android.view.GestureDetector$SimpleOnGestureListener instance.
+func NewGestureDetectorSimpleOnGestureListener(vm *jni.VM) (*GestureDetectorSimpleOnGestureListener, error) {
+	var t GestureDetectorSimpleOnGestureListener
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsGestureDetectorSimpleOnGestureListener == nil {
+			return fmt.Errorf("android.view.GestureDetector$SimpleOnGestureListener is not available on this device")
+		}
+		if midGestureDetectorSimpleOnGestureListenerCtor == nil {
+			return fmt.Errorf("android.view.GestureDetector$SimpleOnGestureListener constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsGestureDetectorSimpleOnGestureListener)), midGestureDetectorSimpleOnGestureListenerCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // OnContextClick calls android.view.GestureDetector$SimpleOnGestureListener.onContextClick.
 func (m *GestureDetectorSimpleOnGestureListener) OnContextClick(arg0 *jni.Object) (bool, error) {
 	var result bool

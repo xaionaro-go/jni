@@ -23,6 +23,35 @@ type WheelchairPushesRecordBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewWheelchairPushesRecordBuilder creates a new android.health.connect.datatypes.WheelchairPushesRecord$Builder instance.
+func NewWheelchairPushesRecordBuilder(vm *jni.VM, arg0 *jni.Object, arg1 *jni.Object, arg2 *jni.Object, arg3 int64) (*WheelchairPushesRecordBuilder, error) {
+	var t WheelchairPushesRecordBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsWheelchairPushesRecordBuilder == nil {
+			return fmt.Errorf("android.health.connect.datatypes.WheelchairPushesRecord$Builder is not available on this device")
+		}
+		if midWheelchairPushesRecordBuilderCtor == nil {
+			return fmt.Errorf("android.health.connect.datatypes.WheelchairPushesRecord$Builder constructor (Landroid/health/connect/datatypes/Metadata;Ljava/time/Instant;Ljava/time/Instant;J)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsWheelchairPushesRecordBuilder)), midWheelchairPushesRecordBuilderCtor, jni.ObjectValue(arg0), jni.ObjectValue(arg1), jni.ObjectValue(arg2), jni.LongValue(arg3))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.health.connect.datatypes.WheelchairPushesRecord$Builder.build.
 func (m *WheelchairPushesRecordBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

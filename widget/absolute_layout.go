@@ -32,6 +32,12 @@ func NewAbsoluteLayout(vm *jni.VM, arg0 *jni.Object) (*AbsoluteLayout, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsAbsoluteLayout == nil {
+			return fmt.Errorf("android.widget.AbsoluteLayout is not available on this device")
+		}
+		if midAbsoluteLayoutCtor == nil {
+			return fmt.Errorf("android.widget.AbsoluteLayout constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAbsoluteLayout)), midAbsoluteLayoutCtor, jni.ObjectValue(arg0))
 		if err != nil {

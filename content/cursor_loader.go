@@ -32,6 +32,12 @@ func NewCursorLoader(vm *jni.VM, arg0 *jni.Object) (*CursorLoader, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsCursorLoader == nil {
+			return fmt.Errorf("android.content.CursorLoader is not available on this device")
+		}
+		if midCursorLoaderCtor == nil {
+			return fmt.Errorf("android.content.CursorLoader constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsCursorLoader)), midCursorLoaderCtor, jni.ObjectValue(arg0))
 		if err != nil {
@@ -68,8 +74,8 @@ func (m *CursorLoader) CancelLoadInBackground() error {
 	return callErr
 }
 
-// DeliverResult1 calls android.content.CursorLoader.deliverResult.
-func (m *CursorLoader) DeliverResult1(arg0 *jni.Object) error {
+// DeliverResult calls android.content.CursorLoader.deliverResult.
+func (m *CursorLoader) DeliverResult(arg0 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -77,14 +83,14 @@ func (m *CursorLoader) DeliverResult1(arg0 *jni.Object) error {
 			callErr = err
 			return err
 		}
-		if midCursorLoaderDeliverResult1 == nil {
+		if midCursorLoaderDeliverResult == nil {
 			callErr = fmt.Errorf("android.content.CursorLoader.deliverResult is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midCursorLoaderDeliverResult1, jni.ObjectValue(arg0),
+			midCursorLoaderDeliverResult, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})
@@ -274,8 +280,8 @@ func (m *CursorLoader) GetUri() (*jni.Object, error) {
 	return result, callErr
 }
 
-// LoadInBackground0 calls android.content.CursorLoader.loadInBackground.
-func (m *CursorLoader) LoadInBackground0() (*jni.Object, error) {
+// LoadInBackground calls android.content.CursorLoader.loadInBackground.
+func (m *CursorLoader) LoadInBackground() (*jni.Object, error) {
 	var result *jni.Object
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -283,13 +289,13 @@ func (m *CursorLoader) LoadInBackground0() (*jni.Object, error) {
 			callErr = err
 			return err
 		}
-		if midCursorLoaderLoadInBackground0 == nil {
+		if midCursorLoaderLoadInBackground == nil {
 			callErr = fmt.Errorf("android.content.CursorLoader.loadInBackground is not available on this device")
 			return callErr
 		}
 		result, callErr = env.CallObjectMethod(
 			m.Obj,
-			midCursorLoaderLoadInBackground0,
+			midCursorLoaderLoadInBackground,
 		)
 		if callErr != nil {
 			return callErr
@@ -306,8 +312,8 @@ func (m *CursorLoader) LoadInBackground0() (*jni.Object, error) {
 	return result, callErr
 }
 
-// OnCanceled1 calls android.content.CursorLoader.onCanceled.
-func (m *CursorLoader) OnCanceled1(arg0 *jni.Object) error {
+// OnCanceled calls android.content.CursorLoader.onCanceled.
+func (m *CursorLoader) OnCanceled(arg0 *jni.Object) error {
 
 	var callErr error
 	callErr = m.VM.Do(func(env *jni.Env) error {
@@ -315,14 +321,14 @@ func (m *CursorLoader) OnCanceled1(arg0 *jni.Object) error {
 			callErr = err
 			return err
 		}
-		if midCursorLoaderOnCanceled1 == nil {
+		if midCursorLoaderOnCanceled == nil {
 			callErr = fmt.Errorf("android.content.CursorLoader.onCanceled is not available on this device")
 			return callErr
 		}
 
 		callErr = env.CallVoidMethod(
 			m.Obj,
-			midCursorLoaderOnCanceled1, jni.ObjectValue(arg0),
+			midCursorLoaderOnCanceled, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})
@@ -448,84 +454,6 @@ func (m *CursorLoader) SetUri(arg0 *jni.Object) error {
 		callErr = env.CallVoidMethod(
 			m.Obj,
 			midCursorLoaderSetUri, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// OnCanceled1_1 calls android.content.CursorLoader.onCanceled.
-func (m *CursorLoader) OnCanceled1_1(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCursorLoaderOnCanceled1_1 == nil {
-			callErr = fmt.Errorf("android.content.CursorLoader.onCanceled is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midCursorLoaderOnCanceled1_1, jni.ObjectValue(arg0),
-		)
-		return callErr
-	})
-	return callErr
-}
-
-// LoadInBackground0_1 calls android.content.CursorLoader.loadInBackground.
-func (m *CursorLoader) LoadInBackground0_1() (*jni.Object, error) {
-	var result *jni.Object
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCursorLoaderLoadInBackground0_1 == nil {
-			callErr = fmt.Errorf("android.content.CursorLoader.loadInBackground is not available on this device")
-			return callErr
-		}
-		result, callErr = env.CallObjectMethod(
-			m.Obj,
-			midCursorLoaderLoadInBackground0_1,
-		)
-		if callErr != nil {
-			return callErr
-		}
-		// Convert the JNI local reference to a global reference so the
-		// returned object remains valid outside this vm.Do scope.
-		if result != nil {
-			localRef := result
-			result = env.NewGlobalRef(localRef)
-			env.DeleteLocalRef(localRef)
-		}
-		return callErr
-	})
-	return result, callErr
-}
-
-// DeliverResult1_1 calls android.content.CursorLoader.deliverResult.
-func (m *CursorLoader) DeliverResult1_1(arg0 *jni.Object) error {
-
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
-		if err := ensureInit(env); err != nil {
-			callErr = err
-			return err
-		}
-		if midCursorLoaderDeliverResult1_1 == nil {
-			callErr = fmt.Errorf("android.content.CursorLoader.deliverResult is not available on this device")
-			return callErr
-		}
-
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midCursorLoaderDeliverResult1_1, jni.ObjectValue(arg0),
 		)
 		return callErr
 	})

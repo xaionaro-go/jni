@@ -23,6 +23,34 @@ type AdDataBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewAdDataBuilder creates a new android.adservices.common.AdData$Builder instance.
+func NewAdDataBuilder(vm *jni.VM) (*AdDataBuilder, error) {
+	var t AdDataBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsAdDataBuilder == nil {
+			return fmt.Errorf("android.adservices.common.AdData$Builder is not available on this device")
+		}
+		if midAdDataBuilderCtor == nil {
+			return fmt.Errorf("android.adservices.common.AdData$Builder constructor ()V is not available on this device")
+		}
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsAdDataBuilder)), midAdDataBuilderCtor)
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // Build calls android.adservices.common.AdData$Builder.build.
 func (m *AdDataBuilder) Build() (*jni.Object, error) {
 	var result *jni.Object

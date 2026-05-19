@@ -23,27 +23,33 @@ type ViewBaseSavedState struct {
 	Obj *jni.GlobalRef
 }
 
-// WriteToParcel calls android.view.View$BaseSavedState.writeToParcel.
-func (m *ViewBaseSavedState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+// NewViewBaseSavedState creates a new android.view.View$BaseSavedState instance.
+func NewViewBaseSavedState(vm *jni.VM, arg0 *jni.Object) (*ViewBaseSavedState, error) {
+	var t ViewBaseSavedState
+	t.VM = vm
 
-	var callErr error
-	callErr = m.VM.Do(func(env *jni.Env) error {
+	err := vm.Do(func(env *jni.Env) error {
 		if err := ensureInit(env); err != nil {
-			callErr = err
 			return err
 		}
-		if midViewBaseSavedStateWriteToParcel == nil {
-			callErr = fmt.Errorf("android.view.View$BaseSavedState.writeToParcel is not available on this device")
-			return callErr
+		if clsViewBaseSavedState == nil {
+			return fmt.Errorf("android.view.View$BaseSavedState is not available on this device")
+		}
+		if midViewBaseSavedStateCtor == nil {
+			return fmt.Errorf("android.view.View$BaseSavedState constructor (Landroid/os/Parcel;)V is not available on this device")
 		}
 
-		callErr = env.CallVoidMethod(
-			m.Obj,
-			midViewBaseSavedStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
-		)
-		return callErr
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsViewBaseSavedState)), midViewBaseSavedStateCtor, jni.ObjectValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
 	})
-	return callErr
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
 }
 
 // ToString calls android.view.View$BaseSavedState.toString.
@@ -71,4 +77,27 @@ func (m *ViewBaseSavedState) ToString() (string, error) {
 		return callErr
 	})
 	return result, callErr
+}
+
+// WriteToParcel calls android.view.View$BaseSavedState.writeToParcel.
+func (m *ViewBaseSavedState) WriteToParcel(arg0 *jni.Object, arg1 int32) error {
+
+	var callErr error
+	callErr = m.VM.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			callErr = err
+			return err
+		}
+		if midViewBaseSavedStateWriteToParcel == nil {
+			callErr = fmt.Errorf("android.view.View$BaseSavedState.writeToParcel is not available on this device")
+			return callErr
+		}
+
+		callErr = env.CallStaticVoidMethod(
+			(*jni.Class)(unsafe.Pointer(clsViewBaseSavedState)),
+			midViewBaseSavedStateWriteToParcel, jni.ObjectValue(arg0), jni.IntValue(arg1),
+		)
+		return callErr
+	})
+	return callErr
 }

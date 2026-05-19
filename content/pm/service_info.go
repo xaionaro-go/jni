@@ -32,6 +32,12 @@ func NewServiceInfo(vm *jni.VM) (*ServiceInfo, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsServiceInfo == nil {
+			return fmt.Errorf("android.content.pm.ServiceInfo is not available on this device")
+		}
+		if midServiceInfoCtor == nil {
+			return fmt.Errorf("android.content.pm.ServiceInfo constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsServiceInfo)), midServiceInfoCtor)
 		if err != nil {
 			return err

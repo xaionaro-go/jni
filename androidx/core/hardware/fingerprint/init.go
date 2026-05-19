@@ -37,10 +37,12 @@ var (
 	midManagerCompatAuthenticationCallbackToString                  jni.MethodID
 
 	clsManagerCompatAuthenticationResult                *jni.GlobalRef
+	midManagerCompatAuthenticationResultCtor            jni.MethodID
 	midManagerCompatAuthenticationResultGetCryptoObject jni.MethodID
 	midManagerCompatAuthenticationResultToString        jni.MethodID
 
 	clsManagerCompatCryptoObject             *jni.GlobalRef
+	midManagerCompatCryptoObjectCtor         jni.MethodID
 	midManagerCompatCryptoObjectGetSignature jni.MethodID
 	midManagerCompatCryptoObjectGetCipher    jni.MethodID
 	midManagerCompatCryptoObjectGetMac       jni.MethodID
@@ -155,6 +157,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsManagerCompatAuthenticationResult = env.NewGlobalRef(&c.Object)
+		midManagerCompatAuthenticationResultCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerCompatAuthenticationResult)), "<init>", "(Landroidx/core/hardware/fingerprint/FingerprintManagerCompat$CryptoObject;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midManagerCompatAuthenticationResultGetCryptoObject, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerCompatAuthenticationResult)), "getCryptoObject", "()Landroidx/core/hardware/fingerprint/FingerprintManagerCompat$CryptoObject;")
 		if err != nil {
@@ -179,6 +185,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsManagerCompatCryptoObject = env.NewGlobalRef(&c.Object)
+		midManagerCompatCryptoObjectCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerCompatCryptoObject)), "<init>", "(Ljava/security/Signature;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midManagerCompatCryptoObjectGetSignature, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerCompatCryptoObject)), "getSignature", "()Ljava/security/Signature;")
 		if err != nil {

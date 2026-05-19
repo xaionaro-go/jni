@@ -32,6 +32,12 @@ func NewFontStyle(vm *jni.VM) (*FontStyle, error) {
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsFontStyle == nil {
+			return fmt.Errorf("android.graphics.fonts.FontStyle is not available on this device")
+		}
+		if midFontStyleCtor == nil {
+			return fmt.Errorf("android.graphics.fonts.FontStyle constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsFontStyle)), midFontStyleCtor)
 		if err != nil {
 			return err

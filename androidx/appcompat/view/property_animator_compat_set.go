@@ -32,6 +32,12 @@ func NewPropertyAnimatorCompatSet(vm *jni.VM) (*PropertyAnimatorCompatSet, error
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsPropertyAnimatorCompatSet == nil {
+			return fmt.Errorf("androidx.appcompat.view.ViewPropertyAnimatorCompatSet is not available on this device")
+		}
+		if midPropertyAnimatorCompatSetCtor == nil {
+			return fmt.Errorf("androidx.appcompat.view.ViewPropertyAnimatorCompatSet constructor ()V is not available on this device")
+		}
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsPropertyAnimatorCompatSet)), midPropertyAnimatorCompatSetCtor)
 		if err != nil {
 			return err

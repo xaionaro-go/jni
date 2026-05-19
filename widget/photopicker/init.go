@@ -23,28 +23,9 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsEmbeddedPhotoPickerClient                    *jni.GlobalRef
-	midEmbeddedPhotoPickerClientOnSelectionComplete jni.MethodID
-	midEmbeddedPhotoPickerClientOnSessionError      jni.MethodID
-	midEmbeddedPhotoPickerClientOnSessionOpened     jni.MethodID
-	midEmbeddedPhotoPickerClientToString            jni.MethodID
-
 	clsEmbeddedPhotoPickerProviderFactory         *jni.GlobalRef
 	midEmbeddedPhotoPickerProviderFactoryToString jni.MethodID
 	midEmbeddedPhotoPickerProviderFactoryCreate   jni.MethodID
-
-	clsEmbeddedPhotoPickerSession                           *jni.GlobalRef
-	midEmbeddedPhotoPickerSessionClose                      jni.MethodID
-	midEmbeddedPhotoPickerSessionGetSurfacePackage          jni.MethodID
-	midEmbeddedPhotoPickerSessionNotifyConfigurationChanged jni.MethodID
-	midEmbeddedPhotoPickerSessionNotifyPhotoPickerExpanded  jni.MethodID
-	midEmbeddedPhotoPickerSessionNotifyResized              jni.MethodID
-	midEmbeddedPhotoPickerSessionNotifyVisibilityChanged    jni.MethodID
-	midEmbeddedPhotoPickerSessionToString                   jni.MethodID
-
-	clsEmbeddedPhotoPickerProvider            *jni.GlobalRef
-	midEmbeddedPhotoPickerProviderOpenSession jni.MethodID
-	midEmbeddedPhotoPickerProviderToString    jni.MethodID
 
 	clsEmbeddedPhotoPickerFeatureInfo                     *jni.GlobalRef
 	midEmbeddedPhotoPickerFeatureInfoDescribeContents     jni.MethodID
@@ -58,12 +39,32 @@ var (
 	midEmbeddedPhotoPickerFeatureInfoWriteToParcel        jni.MethodID
 
 	clsEmbeddedPhotoPickerFeatureInfoBuilder                     *jni.GlobalRef
+	midEmbeddedPhotoPickerFeatureInfoBuilderCtor                 jni.MethodID
 	midEmbeddedPhotoPickerFeatureInfoBuilderBuild                jni.MethodID
 	midEmbeddedPhotoPickerFeatureInfoBuilderSetAccentColor       jni.MethodID
 	midEmbeddedPhotoPickerFeatureInfoBuilderSetMaxSelectionLimit jni.MethodID
 	midEmbeddedPhotoPickerFeatureInfoBuilderSetOrderedSelection  jni.MethodID
 	midEmbeddedPhotoPickerFeatureInfoBuilderSetThemeNightMode    jni.MethodID
 	midEmbeddedPhotoPickerFeatureInfoBuilderToString             jni.MethodID
+
+	clsEmbeddedPhotoPickerProvider            *jni.GlobalRef
+	midEmbeddedPhotoPickerProviderOpenSession jni.MethodID
+	midEmbeddedPhotoPickerProviderToString    jni.MethodID
+
+	clsEmbeddedPhotoPickerClient                    *jni.GlobalRef
+	midEmbeddedPhotoPickerClientOnSelectionComplete jni.MethodID
+	midEmbeddedPhotoPickerClientOnSessionError      jni.MethodID
+	midEmbeddedPhotoPickerClientOnSessionOpened     jni.MethodID
+	midEmbeddedPhotoPickerClientToString            jni.MethodID
+
+	clsEmbeddedPhotoPickerSession                           *jni.GlobalRef
+	midEmbeddedPhotoPickerSessionClose                      jni.MethodID
+	midEmbeddedPhotoPickerSessionGetSurfacePackage          jni.MethodID
+	midEmbeddedPhotoPickerSessionNotifyConfigurationChanged jni.MethodID
+	midEmbeddedPhotoPickerSessionNotifyPhotoPickerExpanded  jni.MethodID
+	midEmbeddedPhotoPickerSessionNotifyResized              jni.MethodID
+	midEmbeddedPhotoPickerSessionNotifyVisibilityChanged    jni.MethodID
+	midEmbeddedPhotoPickerSessionToString                   jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -84,44 +85,6 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("android/widget/photopicker/EmbeddedPhotoPickerClient")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsEmbeddedPhotoPickerClient = env.NewGlobalRef(&c.Object)
-
-		midEmbeddedPhotoPickerClientOnSelectionComplete, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerClient)), "onSelectionComplete", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmbeddedPhotoPickerClientOnSessionError, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerClient)), "onSessionError", "(Ljava/lang/Throwable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmbeddedPhotoPickerClientOnSessionOpened, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerClient)), "onSessionOpened", "(Landroid/widget/photopicker/EmbeddedPhotoPickerSession;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmbeddedPhotoPickerClientToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerClient)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("android/widget/photopicker/EmbeddedPhotoPickerProviderFactory")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -138,89 +101,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midEmbeddedPhotoPickerProviderFactoryCreate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerProviderFactory)), "create", "(Landroid/content/Context;)Landroid/widget/photopicker/EmbeddedPhotoPickerProvider;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/widget/photopicker/EmbeddedPhotoPickerSession")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsEmbeddedPhotoPickerSession = env.NewGlobalRef(&c.Object)
-
-		midEmbeddedPhotoPickerSessionClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerSession)), "close", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmbeddedPhotoPickerSessionGetSurfacePackage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerSession)), "getSurfacePackage", "()Landroid/view/SurfaceControlViewHost$SurfacePackage;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmbeddedPhotoPickerSessionNotifyConfigurationChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerSession)), "notifyConfigurationChanged", "(Landroid/content/res/Configuration;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmbeddedPhotoPickerSessionNotifyPhotoPickerExpanded, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerSession)), "notifyPhotoPickerExpanded", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmbeddedPhotoPickerSessionNotifyResized, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerSession)), "notifyResized", "(II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmbeddedPhotoPickerSessionNotifyVisibilityChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerSession)), "notifyVisibilityChanged", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmbeddedPhotoPickerSessionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerSession)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/widget/photopicker/EmbeddedPhotoPickerProvider")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsEmbeddedPhotoPickerProvider = env.NewGlobalRef(&c.Object)
-
-		midEmbeddedPhotoPickerProviderOpenSession, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerProvider)), "openSession", "(Landroid/os/IBinder;IIILandroid/widget/photopicker/EmbeddedPhotoPickerFeatureInfo;Ljava/util/concurrent/Executor;Landroid/widget/photopicker/EmbeddedPhotoPickerClient;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEmbeddedPhotoPickerProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerProvider)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -293,7 +173,7 @@ func doInit(env *jni.Env) error {
 			env.ExceptionClear()
 		}
 
-		midEmbeddedPhotoPickerFeatureInfoWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerFeatureInfo)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midEmbeddedPhotoPickerFeatureInfoWriteToParcel, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerFeatureInfo)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -309,6 +189,10 @@ func doInit(env *jni.Env) error {
 		env.ExceptionClear()
 	} else {
 		clsEmbeddedPhotoPickerFeatureInfoBuilder = env.NewGlobalRef(&c.Object)
+		midEmbeddedPhotoPickerFeatureInfoBuilderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerFeatureInfoBuilder)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
 		midEmbeddedPhotoPickerFeatureInfoBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerFeatureInfoBuilder)), "build", "()Landroid/widget/photopicker/EmbeddedPhotoPickerFeatureInfo;")
 		if err != nil {
@@ -346,6 +230,127 @@ func doInit(env *jni.Env) error {
 		}
 
 		midEmbeddedPhotoPickerFeatureInfoBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerFeatureInfoBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/widget/photopicker/EmbeddedPhotoPickerProvider")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsEmbeddedPhotoPickerProvider = env.NewGlobalRef(&c.Object)
+
+		midEmbeddedPhotoPickerProviderOpenSession, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerProvider)), "openSession", "(Landroid/os/IBinder;IIILandroid/widget/photopicker/EmbeddedPhotoPickerFeatureInfo;Ljava/util/concurrent/Executor;Landroid/widget/photopicker/EmbeddedPhotoPickerClient;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEmbeddedPhotoPickerProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerProvider)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/widget/photopicker/EmbeddedPhotoPickerClient")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsEmbeddedPhotoPickerClient = env.NewGlobalRef(&c.Object)
+
+		midEmbeddedPhotoPickerClientOnSelectionComplete, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerClient)), "onSelectionComplete", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEmbeddedPhotoPickerClientOnSessionError, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerClient)), "onSessionError", "(Ljava/lang/Throwable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEmbeddedPhotoPickerClientOnSessionOpened, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerClient)), "onSessionOpened", "(Landroid/widget/photopicker/EmbeddedPhotoPickerSession;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEmbeddedPhotoPickerClientToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerClient)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/widget/photopicker/EmbeddedPhotoPickerSession")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsEmbeddedPhotoPickerSession = env.NewGlobalRef(&c.Object)
+
+		midEmbeddedPhotoPickerSessionClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerSession)), "close", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEmbeddedPhotoPickerSessionGetSurfacePackage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerSession)), "getSurfacePackage", "()Landroid/view/SurfaceControlViewHost$SurfacePackage;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEmbeddedPhotoPickerSessionNotifyConfigurationChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerSession)), "notifyConfigurationChanged", "(Landroid/content/res/Configuration;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEmbeddedPhotoPickerSessionNotifyPhotoPickerExpanded, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerSession)), "notifyPhotoPickerExpanded", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEmbeddedPhotoPickerSessionNotifyResized, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerSession)), "notifyResized", "(II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEmbeddedPhotoPickerSessionNotifyVisibilityChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerSession)), "notifyVisibilityChanged", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEmbeddedPhotoPickerSessionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEmbeddedPhotoPickerSession)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

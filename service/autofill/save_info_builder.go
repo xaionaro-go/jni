@@ -23,6 +23,35 @@ type SaveInfoBuilder struct {
 	Obj *jni.GlobalRef
 }
 
+// NewSaveInfoBuilder creates a new android.service.autofill.SaveInfo$Builder instance.
+func NewSaveInfoBuilder(vm *jni.VM, arg0 int32) (*SaveInfoBuilder, error) {
+	var t SaveInfoBuilder
+	t.VM = vm
+
+	err := vm.Do(func(env *jni.Env) error {
+		if err := ensureInit(env); err != nil {
+			return err
+		}
+		if clsSaveInfoBuilder == nil {
+			return fmt.Errorf("android.service.autofill.SaveInfo$Builder is not available on this device")
+		}
+		if midSaveInfoBuilderCtor == nil {
+			return fmt.Errorf("android.service.autofill.SaveInfo$Builder constructor (I)V is not available on this device")
+		}
+
+		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsSaveInfoBuilder)), midSaveInfoBuilderCtor, jni.IntValue(arg0))
+		if err != nil {
+			return err
+		}
+		t.Obj = env.NewGlobalRef(obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
+}
+
 // AddSanitizer calls android.service.autofill.SaveInfo$Builder.addSanitizer.
 func (m *SaveInfoBuilder) AddSanitizer(arg0 *jni.Object, arg1 *jni.Object) (*jni.Object, error) {
 	var result *jni.Object

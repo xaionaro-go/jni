@@ -32,6 +32,12 @@ func NewQuickContactBadge(vm *jni.VM, arg0 *jni.Object) (*QuickContactBadge, err
 		if err := ensureInit(env); err != nil {
 			return err
 		}
+		if clsQuickContactBadge == nil {
+			return fmt.Errorf("android.widget.QuickContactBadge is not available on this device")
+		}
+		if midQuickContactBadgeCtor == nil {
+			return fmt.Errorf("android.widget.QuickContactBadge constructor (Landroid/content/Context;)V is not available on this device")
+		}
 
 		obj, err := env.NewObject((*jni.Class)(unsafe.Pointer(clsQuickContactBadge)), midQuickContactBadgeCtor, jni.ObjectValue(arg0))
 		if err != nil {
